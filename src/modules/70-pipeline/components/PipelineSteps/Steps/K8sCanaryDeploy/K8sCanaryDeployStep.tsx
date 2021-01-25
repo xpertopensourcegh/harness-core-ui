@@ -88,9 +88,15 @@ function K8CanaryDeployWidget(
                           name={'spec.instanceSelection'}
                           label={getString('pipelineSteps.instanceLabel')}
                         />
-                        {getMultiTypeFromValue(values.instances) === MultiTypeInputType.RUNTIME && (
+                        {(getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.count) ===
+                          MultiTypeInputType.RUNTIME ||
+                          getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
+                            MultiTypeInputType.RUNTIME) && (
                           <ConfigureOptions
-                            value={values.instances as string}
+                            value={
+                              (values?.spec?.instanceSelection?.spec?.count as string) ||
+                              (values?.spec?.instanceSelection?.spec?.percentage as string)
+                            }
                             type="String"
                             variableName={getString('instanceFieldOptions.instances')}
                             showRequiredField={false}
