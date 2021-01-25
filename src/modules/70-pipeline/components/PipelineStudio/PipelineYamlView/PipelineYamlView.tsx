@@ -63,6 +63,7 @@ const PipelineYamlView: React.FC = () => {
           existingJSON={{ pipeline }}
           bind={setYamlHandler}
           showIconMenu={true}
+          yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
           height={'calc(100vh - 200px)'}
           invocationMap={stepsFactory.getInvocationMap()}
           showSnippetSection={true}
