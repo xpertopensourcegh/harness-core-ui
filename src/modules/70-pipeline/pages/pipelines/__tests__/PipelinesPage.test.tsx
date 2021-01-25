@@ -93,7 +93,7 @@ describe('CD Pipeline Page List', () => {
     await waitFor(() => getByTestId(params.pipelineIdentifier))
     fireEvent.click(getByTestId('pipeline1')!)
     await waitFor(() => getByTestId('location'))
-    expect(getByTestId('location').innerHTML.endsWith(routes.toPipelineDetail(params as any))).toBeTruthy()
+    expect(getByTestId('location').innerHTML.endsWith(routes.toPipelineStudio(params as any))).toBeTruthy()
   })
 
   test('test Add Pipeline on card view', async () => {
@@ -127,6 +127,9 @@ describe('CD Pipeline Page List', () => {
 
     expect(mockGetCallFunction).toBeCalledWith({
       mock: undefined,
+      queryParamStringifyOptions: {
+        arrayFormat: 'comma'
+      },
       queryParams: {
         accountIdentifier: 'testAcc',
         module: 'cd',
@@ -134,7 +137,8 @@ describe('CD Pipeline Page List', () => {
         orgIdentifier: 'testOrg',
         projectIdentifier: 'test',
         searchTerm: 'asd',
-        size: 10
+        size: 10,
+        sort: ['lastUpdatedAt', 'DESC']
       }
     })
   })
@@ -162,7 +166,7 @@ describe('Pipeline List View Test cases', () => {
     const row = listView.querySelectorAll("[role='row']")[1]
     fireEvent.click(row)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineDetail(params as any))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineStudio(params as any))).toBeTruthy()
   })
 
   test('should be able to open menu and run pipeline', async () => {
@@ -182,8 +186,8 @@ describe('Pipeline List View Test cases', () => {
     const menu = listView.querySelectorAll("[icon='more']")[0]
     fireEvent.click(menu)
     const menuContent = findPopoverContainer()
-    await waitFor(() => getByText(menuContent as HTMLElement, 'Pipeline Studio'))
-    const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Pipeline Studio')
+    await waitFor(() => getByText(menuContent as HTMLElement, 'Launch Studio'))
+    const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Launch Studio')
     fireEvent.click(gotoStudioBtn)
     await waitFor(() => getByTestIdTop?.('location'))
     expect(
@@ -224,12 +228,20 @@ describe('Pipeline Card View Test Cases', () => {
     await waitFor(() => getByTestId(params.pipelineIdentifier))
   })
 
-  test('should be able to click on Card', async () => {
+  test('should be able to click on Execution Link', async () => {
     // click on first row
-    const cardName = getAllByTextLib(cardView, 'Stages')[0]
+    const cardName = getAllByTextLib(cardView, 'Executions in last 7 days')[0]
     fireEvent.click(cardName)
     await waitFor(() => getByTestIdTop?.('location'))
     expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineDetail(params as any))).toBeTruthy()
+  })
+
+  test('should be able to click on card', async () => {
+    // click on first row
+    const cardName = getAllByTextLib(cardView, 'pipeline1')[0]
+    fireEvent.click(cardName)
+    await waitFor(() => getByTestIdTop?.('location'))
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineStudio(params as any))).toBeTruthy()
   })
 
   test('should be able to open menu and run pipeline', async () => {
@@ -249,8 +261,8 @@ describe('Pipeline Card View Test Cases', () => {
     const menu = cardView.querySelectorAll("[icon='more']")[0]
     fireEvent.click(menu)
     const menuContent = findPopoverContainer()
-    await waitFor(() => getByText(menuContent as HTMLElement, 'Pipeline Studio'))
-    const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Pipeline Studio')
+    await waitFor(() => getByText(menuContent as HTMLElement, 'Launch Studio'))
+    const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Launch Studio')
     fireEvent.click(gotoStudioBtn)
     await waitFor(() => getByTestIdTop?.('location'))
     expect(

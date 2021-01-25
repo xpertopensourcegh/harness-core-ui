@@ -9,7 +9,8 @@ import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
 interface PipelineListViewProps {
@@ -29,6 +30,7 @@ interface PipelineDTO extends PMSPipelineSummaryResponse {
 
 type CustomColumn<T extends object> = Column<T> & {
   goToPipelineStudio?: (pipelineIdentifier?: string) => void
+  goToPipelineDetail?: (pipelineIdentifier?: string) => void
   refetchPipeline?: () => void
 }
 
@@ -95,8 +97,17 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             <Menu.Item icon="play" text={getString('runPipelineText')} />
           </RunPipelineModal>
           <Menu.Item
+            icon="list-detail-view"
+            text={getString('viewExecutions')}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              ;(column as any).goToPipelineDetail(data.identifier)
+              setMenuOpen(false)
+            }}
+          />
+          <Menu.Item
             icon="cog"
-            text={getString('pipelineStudio')}
+            text={getString('launchStudio')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               ;(column as any).goToPipelineStudio(data.identifier)
@@ -104,6 +115,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             }}
           />
           <Menu.Divider />
+          <Menu.Item icon="duplicate" text={getString('projectCard.clone')} disabled />
           <Menu.Item
             icon="trash"
             text={getString('delete')}
@@ -121,79 +133,97 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
 
 const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const data = row.original
+  const { getString } = useStrings()
   return (
-    <>
-      <Layout.Vertical spacing="small" data-testid={data.identifier}>
-        <Text color={Color.GREY_800} iconProps={{ size: 16 }}>
-          {data.name}
-        </Text>
-        <Text color={Color.GREY_400}>{data.description}</Text>
-      </Layout.Vertical>
-    </>
+    <Layout.Horizontal spacing="large">
+      <span>
+        {getIconsForPipeline(data).map(iconObj => (
+          <Icon key={iconObj.icon} name={iconObj.icon} size={iconObj.size} padding={{ left: 'xsmall' }} />
+        ))}
+      </span>
+      <div>
+        <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
+          <Layout.Horizontal spacing="medium">
+            <Text
+              color={Color.GREY_800}
+              tooltipProps={{ position: Position.BOTTOM }}
+              tooltip={
+                <Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}>
+                  <Text>{getString('nameLabel', { name: data.name })}</Text>
+                  <Text>{getString('idLabel', { id: data.identifier })}</Text>
+                  <Text>{getString('descriptionLabel', { description: data.description })}</Text>
+                </Layout.Vertical>
+              }
+            >
+              {data.name}
+            </Text>
+            {data.tags && Object.keys(data.tags || {}).length && <TagsPopover tags={data.tags} />}
+          </Layout.Horizontal>
+          <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400}>
+            {getString('idLabel', { id: data.identifier })}
+          </Text>
+        </Layout.Vertical>
+      </div>
+    </Layout.Horizontal>
   )
 }
 
-const RenderColumnTag: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
-  const data = row.original
-  if (data.tags && Object.keys(data.tags || {}).length) {
-    return <TagsPopover tags={data.tags} />
-  }
-  return <div></div>
-}
-
-const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
   const data = row.original
 
-  const deployments = data.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0)
+  const deployments = data.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0) || 0
   const { getString } = useStrings()
 
-  const getStatusColor = (): string => {
-    switch (data.executionSummaryInfo?.lastExecutionStatus) {
-      case 'Success':
-        return Color.GREEN_800
-      case 'Failed':
-        return Color.RED_800
-      case 'Running':
-        return Color.BLUE_800
-      default:
-        return Color.GREEN_800
-    }
-  }
-
   return (
-    <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
-      {data.executionSummaryInfo?.deployments?.length ? (
-        <span className={css.activityChartList}>
-          <SparkChart data={data.executionSummaryInfo?.deployments || []} />
+    <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+      {deployments ? (
+        <span className={css.activityChart}>
+          <SparkChart
+            data={data.executionSummaryInfo?.deployments || []}
+            data2={data.executionSummaryInfo?.numOfErrors || []}
+          />
         </span>
-      ) : null}
+      ) : (
+        <Text font={{ size: 'xsmall' }}>{getString('emptyDeployments')}</Text>
+      )}
 
       <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
         {deployments}
       </Text>
 
       {deployments ? (
-        <Text color={Color.GREY_400} font="small" lineClamp={2} style={{ maxWidth: 100 }}>
+        <Text
+          color={deployments ? Color.BLUE_500 : Color.GREY_400}
+          className={`${deployments ? css.clickable : ''}`}
+          onClick={event => {
+            event.stopPropagation()
+            ;(column as any).goToPipelineDetail(data.identifier)
+          }}
+          font="small"
+          lineClamp={2}
+          style={{ maxWidth: 100 }}
+        >
           {getString('pipelineActivityLabel')}
         </Text>
       ) : null}
-
+    </Layout.Horizontal>
+  )
+}
+const RenderLastRun: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+  const data = row.original
+  const { getString } = useStrings()
+  return (
+    <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
       <Layout.Horizontal spacing="medium">
-        <Text color={Color.GREY_400}>
-          <span>Last run:</span>
-        </Text>
-        <Text>
-          <span>
-            {data.executionSummaryInfo?.lastExecutionTs
-              ? formatDatetoLocale(data.executionSummaryInfo?.lastExecutionTs)
-              : getString('pipelineSteps.pullNeverLabel')}
-          </span>
+        <Text
+          rightIcon={data.executionSummaryInfo?.lastExecutionTs ? 'full-circle' : undefined}
+          rightIconProps={{ color: getStatusColor(data), size: 8, padding: { left: 'medium' } }}
+        >
+          {data.executionSummaryInfo?.lastExecutionTs
+            ? formatDatetoLocale(data.executionSummaryInfo?.lastExecutionTs)
+            : getString('pipelineSteps.pullNeverLabel')}
         </Text>
       </Layout.Horizontal>
-
-      {data.executionSummaryInfo?.lastExecutionStatus ? (
-        <Icon name="full-circle" size={8} color={getStatusColor()} />
-      ) : null}
     </Layout.Horizontal>
   )
 }
@@ -202,12 +232,7 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
   const rowdata = row.original
   return (
     <RunPipelineModal pipelineIdentifier={rowdata.identifier || ''}>
-      <Button
-        style={{ textAlign: 'end' }}
-        intent="primary"
-        icon="run-pipeline"
-        text={<String stringID="runPipelineText" />}
-      />
+      <Button style={{ textAlign: 'end' }} intent="primary" icon="run-pipeline" className={css.runPipelineBtn} />
     </RunPipelineModal>
   )
 }
@@ -225,27 +250,28 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       {
         Header: getString('pipeline').toUpperCase(),
         accessor: 'name',
-        width: '25%',
+        width: '40%',
         Cell: RenderColumnPipeline
-      },
-      {
-        Header: '',
-        accessor: 'description',
-        width: '10%',
-        Cell: RenderColumnTag,
-        disableSortBy: true
       },
       {
         Header: getString('activity').toUpperCase(),
         accessor: 'executionSummaryInfo',
-        width: '50%',
+        width: '25%',
         Cell: RenderActivity,
+        disableSortBy: true,
+        goToPipelineDetail
+      },
+      {
+        Header: getString('lastExecutionTs').toUpperCase(),
+        accessor: 'description',
+        width: '25%',
+        Cell: RenderLastRun,
         disableSortBy: true
       },
       {
-        Header: '',
+        Header: getString('runPipelineText').toUpperCase(),
         accessor: 'tags',
-        width: '10%',
+        width: '5%',
         Cell: RenderRunPipeline,
         disableSortBy: true,
         refetchPipeline,
@@ -258,32 +284,25 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
         Cell: RenderColumnMenu,
         disableSortBy: true,
         refetchPipeline,
-        goToPipelineStudio
+        goToPipelineStudio,
+        goToPipelineDetail
       }
     ],
     [refetchPipeline, goToPipelineStudio]
   )
   return (
-    <Layout.Vertical>
-      <Layout.Horizontal spacing="large" margin={{ left: 'xxlarge', top: 'large', bottom: 'large' }}>
-        <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
-          {getString('total')}: {data?.totalElements}
-        </Text>
-      </Layout.Horizontal>
-
-      <Table<PipelineDTO>
-        className={css.table}
-        columns={columns}
-        data={data?.content || []}
-        onRowClick={item => goToPipelineDetail(item.identifier)}
-        pagination={{
-          itemCount: data?.totalElements || 0,
-          pageSize: data?.size || 10,
-          pageCount: data?.totalPages || -1,
-          pageIndex: data?.number || 0,
-          gotoPage
-        }}
-      />
-    </Layout.Vertical>
+    <Table<PipelineDTO>
+      className={css.table}
+      columns={columns}
+      data={data?.content || []}
+      onRowClick={item => goToPipelineStudio(item.identifier)}
+      pagination={{
+        itemCount: data?.totalElements || 0,
+        pageSize: data?.size || 10,
+        pageCount: data?.totalPages || -1,
+        pageIndex: data?.number || 0,
+        gotoPage
+      }}
+    />
   )
 }

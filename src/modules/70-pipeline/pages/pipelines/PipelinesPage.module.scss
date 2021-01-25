@@ -10,15 +10,42 @@
   width: 250px;
   box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);
   padding: 0px;
-  padding-top: var(--spacing-xlarge);
+  padding-top: var(--spacing-large);
+
+  .pipeline-title {
+    display: grid;
+    grid-template-columns: 30px 1fr 20px;
+
+    .menu {
+      position: relative;
+      > div {
+        top: 7px;
+        right: 0;
+      }
+      :global(.bp3-popover-target) {
+        position: absolute;
+        top: -10px;
+        right: 5px;
+      }
+    }
+  }
+}
+
+.runPipelineBtn {
+  background-color: var(--green-500) !important;
+  border-color: var(--green-500) !important;
+}
+
+.topHeaderFields {
+  justify-content: space-between;
+
+  .sortSelector {
+    width: 180px;
+  }
 }
 .cardTags {
   background-color: var(--grey-200) !important;
   color: var(--grey-400) !important;
-}
-
-.runPipeline {
-  background: var(--grey-100) !important;
 }
 
 .header {
@@ -46,33 +73,8 @@
     height: var(--spacing-xxlarge) !important;
   }
 }
-.activityChartList {
-  margin-right: var(--spacing-xxxlarge);
-  display: block;
-  :global(.progress-bar) {
-    height: var(--spacing-xxlarge) !important;
-  }
-}
 .lastExecutionTs {
   margin-left: var(--spacing-xxxlarge) !important;
-}
-.tags {
-  margin-bottom: 16px;
-
-  :global(.bp3-tag) {
-    border-radius: 10px;
-    padding: 0 15px;
-    font-size: var(--font-size-xsmall);
-  }
-}
-
-.menu {
-  position: relative;
-  :global(.bp3-popover-target) {
-    position: absolute;
-    top: -10px;
-    right: 5px;
-  }
 }
 
 .clickable {
@@ -88,8 +90,11 @@
   background-color: var(--grey-100);
   padding: 0 var(--spacing-xxlarge) !important;
   .gridLayout {
-    height: calc(100% - 62px);
+    height: calc(100% - 135px);
     overflow: auto;
+    > div {
+      padding-top: var(--spacing-medium) !important;
+    }
   }
 }
 

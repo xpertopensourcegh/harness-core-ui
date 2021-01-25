@@ -95,6 +95,13 @@ variablesText: Variables
 fileFolderPathText: File/Folder Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
+lastRunAtDate: '{{$.lastExecutionTs}}: '
+lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
+emptyDeployments: _ _ _ _ _ _
+recentActivity: Recent Activity
+lastUpdatedSort: '{{$.secret.lastUpdated}}'
+AZ09: A - Z, 0 - 9
+ZA90: Z - A, 9 - 0
 addOverrideSet: + Add Predefined Set
 newArtifactServer: New Artifact Server
 clickToCopy: Click to copy
@@ -183,6 +190,11 @@ environmentVariablesInfo: Environment variables injected into the container to b
 dependencyEnvironmentVariablesInfo: Environment variables injected into the container
 service: 'Service'
 plusAdd: '+ Add'
+idLabel: 'ID: {{id}}'
+nameLabel: 'Name: {{name}}'
+descriptionLabel: 'Description: {{description}}'
+launchStudio: Launch Studio
+viewExecutions: View Executions
 entryPointLabel: 'Entry Point'
 entryPointInfo: Overrides the image ENTRYPOINT
 argsLabel: 'Arguments'

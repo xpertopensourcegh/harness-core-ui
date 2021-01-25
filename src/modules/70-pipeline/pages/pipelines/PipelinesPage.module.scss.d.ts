@@ -4,15 +4,16 @@ declare const styles: {
   readonly separator: string
   readonly table: string
   readonly pipelineCard: string
+  readonly pipelineTitle: string
+  readonly menu: string
+  readonly runPipelineBtn: string
+  readonly topHeaderFields: string
+  readonly sortSelector: string
   readonly cardTags: string
-  readonly runPipeline: string
   readonly header: string
   readonly expandSearch: string
   readonly activityChart: string
-  readonly activityChartList: string
   readonly lastExecutionTs: string
-  readonly tags: string
-  readonly menu: string
   readonly clickable: string
   readonly actionButton: string
   readonly gridView: string

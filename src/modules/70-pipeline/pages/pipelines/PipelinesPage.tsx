@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Color, ExpandingSearchInput, Icon, Layout, Text } from '@wings-software/uicore'
+import { Button, Color, ExpandingSearchInput, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -19,6 +19,19 @@ import css from './PipelinesPage.module.scss'
 export enum Views {
   LIST,
   GRID
+}
+
+export enum Sort {
+  DESC = 'DESC',
+  ASC = 'ASC'
+}
+
+export enum SortFields {
+  LastUpdatedAt = 'lastUpdatedAt',
+  RecentActivity = 'executionSummaryInfo.lastExecutionTs',
+  AZ09 = 'AZ09',
+  ZA90 = 'ZA90',
+  Name = 'name'
 }
 
 export interface CDPipelinesPageProps {
@@ -70,6 +83,28 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const [page, setPage] = React.useState(0)
   const [view, setView] = React.useState<Views>(Views.GRID)
   const { getString } = useStrings()
+  const [sort, setStort] = React.useState<string[]>([SortFields.LastUpdatedAt, Sort.DESC])
+
+  const sortOptions: SelectOption[] = [
+    {
+      label: getString('recentActivity'),
+      value: SortFields.RecentActivity
+    },
+    {
+      label: getString('lastUpdatedSort'),
+      value: SortFields.LastUpdatedAt
+    },
+    {
+      label: getString('AZ09'),
+      value: SortFields.AZ09
+    },
+    {
+      label: getString('ZA90'),
+      value: SortFields.ZA90
+    }
+  ]
+  // Set Default to LastUpdated
+  const [selectedSort, setSelectedSort] = React.useState<SelectOption>(sortOptions[1])
 
   const [searchParam, setSearchParam] = React.useState('')
   const [data, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
@@ -82,8 +117,10 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       orgIdentifier,
       searchTerm: searchParam,
       page,
+      sort,
       size: 10
     },
+    queryParamStringifyOptions: { arrayFormat: 'comma' },
     mock: mockData
   })
 
@@ -96,7 +133,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     cancel()
     fetchPipelines()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam])
+  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, sort])
   return (
     <>
       <Page.Header
@@ -175,6 +212,33 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           onClick: () => goToPipeline()
         }}
       >
+        <Layout.Horizontal
+          spacing="large"
+          margin={{ left: 'xxlarge', top: 'large', bottom: 'large', right: 'xxlarge' }}
+          className={css.topHeaderFields}
+        >
+          <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
+            {getString('total')}: {data?.totalElements}
+          </Text>
+          <Select
+            items={sortOptions}
+            value={selectedSort}
+            className={css.sortSelector}
+            onChange={item => {
+              if (item.value === SortFields.AZ09) {
+                setStort([SortFields.Name, Sort.ASC])
+              } else if (item.value === SortFields.ZA90) {
+                setStort([SortFields.Name, Sort.DESC])
+              } else if (item.value === SortFields.LastUpdatedAt) {
+                setStort([SortFields.LastUpdatedAt, Sort.DESC])
+              } else if (item.value === SortFields.RecentActivity) {
+                setStort([SortFields.RecentActivity, Sort.DESC])
+              }
+              setPage(0)
+              setSelectedSort(item)
+            }}
+          />
+        </Layout.Horizontal>
         {view === Views.GRID ? (
           <PipelineGridView
             gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
