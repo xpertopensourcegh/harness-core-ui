@@ -62,7 +62,8 @@ describe('Unit tests for SelectActivitySource', () => {
       expect(onSubmitMockFunc).toHaveBeenCalledWith({
         connectorRef: {
           label: 'connector',
-          value: '1234_ident'
+          scope: 'account',
+          value: 'account.1234_ident'
         },
         connectorType: 'Kubernetes',
         identifier: '',

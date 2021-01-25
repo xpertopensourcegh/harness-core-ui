@@ -149,10 +149,10 @@ function transformGetApi(
   const activityTypeToTrackIndex = {
     DEPLOYMENT: 0,
     CONFIG: 1,
-    INFRASTRUCTURE: 2,
-    CUSTOM: 3,
-    OTHER: 3,
-    KUBERNETES: 2
+    INFRASTRUCTURE: 1,
+    CUSTOM: 2,
+    OTHER: 2,
+    KUBERNETES: 1
   }
   for (const activity of activities) {
     const {

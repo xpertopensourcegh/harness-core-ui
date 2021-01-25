@@ -79,6 +79,9 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     if (res && res.status === 'SUCCESS') {
       showSuccess(i18n.showSuccessCreated(data?.name || ''))
       setConnectorResponse(res.data)
+      if (res.data) {
+        props.onConnectorCreated?.(res.data)
+      }
     } else {
       throw new Error(i18n.errorCreate)
     }
@@ -104,6 +107,9 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     if (res && res.status === 'SUCCESS') {
       showSuccess(i18n.showSuccessUpdated(data?.name || ''))
       setConnectorResponse(res.data)
+      if (res.data) {
+        props.onConnectorCreated?.(res.data)
+      }
     } else {
       throw new Error(i18n.errorCreate)
     }

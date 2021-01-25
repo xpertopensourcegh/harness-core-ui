@@ -15,6 +15,7 @@ import {
 } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
+import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import css from './SelectProduct.module.scss'
 
 interface SelectProductFieldProps {
@@ -22,6 +23,7 @@ interface SelectProductFieldProps {
   productSelectValidationText?: string
   isEditMode?: boolean
   connectorValue?: SelectOption
+  onConnectorCreate?: (val: any) => void
 }
 
 interface SelectProductProps<T> extends SelectProductFieldProps {
@@ -113,7 +115,8 @@ const getInfoSchemaByType = (type: string, getString: UseStringsReturn['getStrin
 
 export function SelectProductFields(props: SelectProductFieldProps): JSX.Element {
   const { getString } = useStrings()
-  const monitoringSource = getInfoSchemaByType(props.type, getString)
+  const { type, onConnectorCreate } = props
+  const monitoringSource = getInfoSchemaByType(type, getString)
 
   return (
     <Container width="50%" style={{ margin: 'auto' }}>
@@ -126,6 +129,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
         connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
         identifierDisabled={props.isEditMode}
         value={props.connectorValue}
+        onSuccess={data => onConnectorCreate?.(data)}
       />
       <FormInput.CustomRender
         label={monitoringSource?.selectProduct}
@@ -179,6 +183,7 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
             type={props.type}
             isEditMode={!!identifier}
             connectorValue={formikProps.values.connectorRef}
+            onConnectorCreate={val => formikProps.setFieldValue('connectorRef', buildConnectorRef(val))}
           />
           <SubmitAndPreviousButtons
             onPreviousClick={() =>

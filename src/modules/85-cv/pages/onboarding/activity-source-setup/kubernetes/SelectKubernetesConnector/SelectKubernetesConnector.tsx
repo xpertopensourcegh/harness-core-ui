@@ -7,6 +7,7 @@ import {
 } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
+import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import i18n from './SelectKubernetesConnector.i18n'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
@@ -53,10 +54,10 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
               firstTimeSetupText={i18n.firstTimeSetupText}
               connectToMonitoringSourceText={i18n.kubernetesConnectionText}
               onSuccess={connectorInfo => {
-                formikProps.setFieldValue(SelectOrCreateConnectorFieldNames.CONNECTOR_REF, {
-                  label: connectorInfo?.connector?.name,
-                  value: connectorInfo?.connector?.identifier
-                })
+                formikProps.setFieldValue(
+                  SelectOrCreateConnectorFieldNames.CONNECTOR_REF,
+                  buildConnectorRef(connectorInfo)
+                )
               }}
             />
           </Container>

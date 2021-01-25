@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateConnectorModal, {
   UseCreateConnectorModalProps
 } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -43,15 +44,15 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
     onSuccess,
     value
   } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { openConnectorModal } = useCreateConnectorModal({ onSuccess })
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { data, loading, error, refetch: fetchConnector } = useGetConnector({
     identifier: (value?.value as string) || '',
     queryParams: {
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
+      projectIdentifier,
+      orgIdentifier,
       accountIdentifier: accountId
     },
     lazy: true
@@ -84,8 +85,8 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
             label=""
             placeholder={i18n.selectConnector}
             accountIdentifier={accountId}
-            projectIdentifier={projectIdentifier as string}
-            orgIdentifier={orgIdentifier as string}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
             width={300}
             isNewConnectorLabelVisible={false}
             type={connectorType}
