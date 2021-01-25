@@ -25,6 +25,7 @@ describe('Activity History', () => {
       <MemoryRouter>
         <TestWrapper>
           <ActivityHistory
+            referredEntityType="Connectors"
             entityIdentifier="entityId"
             mockActivitykData={activityData as any}
             mockConnectivitySummary={connectivitySummary as any}

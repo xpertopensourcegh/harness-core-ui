@@ -18,6 +18,7 @@ import { useStrings } from 'framework/exports'
 import type { ActivityGraphDataType } from '../ActivityHistory/ActivityHistory'
 
 interface ActivityGraphProps {
+  referredEntityType: GetActivitiesSummaryQueryParams['referredEntityType']
   entityIdentifier: string
   dataFormat: GetActivitiesSummaryQueryParams['timeGroupType']
   dateRange: DateRange
@@ -33,6 +34,7 @@ const ActivityGraph: React.FC<ActivityGraphProps> = props => {
   const { getString } = useStrings()
   const { data: activitySummary, refetch: refetchActivitySummary, loading } = useGetActivitiesSummary({
     queryParams: {
+      referredEntityType: props.referredEntityType,
       identifier: props.entityIdentifier,
       accountIdentifier: accountId,
       projectIdentifier: projectIdentifier,
@@ -119,6 +121,7 @@ const ActivityGraph: React.FC<ActivityGraphProps> = props => {
                   props.setShowOtherActivity(true)
                   props.refetchActivities({
                     queryParams: {
+                      referredEntityType: props.referredEntityType,
                       accountIdentifier: accountId,
                       projectIdentifier: projectIdentifier,
                       orgIdentifier: orgIdentifier,

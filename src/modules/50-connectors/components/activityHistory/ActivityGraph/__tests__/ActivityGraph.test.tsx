@@ -20,6 +20,7 @@ describe('Activity Graph', () => {
       <MemoryRouter>
         <TestWrapper>
           <ActivityGraph
+            referredEntityType="Connectors"
             entityIdentifier="entityId"
             dataFormat="DAY"
             dateRange={[('From' as unknown) as Date, ('To' as unknown) as Date]}
@@ -49,6 +50,7 @@ describe('Activity Graph', () => {
         <MemoryRouter>
           <TestWrapper>
             <ActivityGraph
+              referredEntityType="Connectors"
               entityIdentifier="entityId"
               dataFormat="HOUR"
               dateRange={[('From' as unknown) as Date, ('To' as unknown) as Date]}

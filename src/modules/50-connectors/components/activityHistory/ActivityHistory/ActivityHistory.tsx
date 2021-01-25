@@ -22,6 +22,7 @@ import i18n from './ActivityHistory.i18n'
 import css from './ActivityHistory.module.scss'
 
 interface ActivityHistoryprops {
+  referredEntityType: GetActivitiesSummaryQueryParams['referredEntityType']
   entityIdentifier: string
   mockActivitykData?: UseGetMockData<ResponsePageActivity>
   mockConnectivitySummary?: UseGetMockData<ResponseConnectivityCheckSummary>
@@ -87,6 +88,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: activityList, loading, refetch: refetchActivities } = useListActivities({
     queryParams: {
+      referredEntityType: props.referredEntityType,
       accountIdentifier: accountId,
       projectIdentifier: projectIdentifier,
       orgIdentifier: orgIdentifier,
@@ -163,6 +165,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
           />
         </Popover>
         <ActivityGraph
+          referredEntityType={props.referredEntityType}
           entityIdentifier={props.entityIdentifier}
           dataFormat={dataFormat}
           dateRange={dateRange}
