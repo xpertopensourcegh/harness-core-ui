@@ -80,3 +80,9 @@
 .addFileButton {
   margin-bottom: var(--spacing-large) !important;
 }
+
+.overrideBtn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-small);
+}

@@ -13,5 +13,6 @@ declare const styles: {
   readonly dragOver: string
   readonly fileHelpText: string
   readonly addFileButton: string
+  readonly overrideBtn: string
 }
 export default styles

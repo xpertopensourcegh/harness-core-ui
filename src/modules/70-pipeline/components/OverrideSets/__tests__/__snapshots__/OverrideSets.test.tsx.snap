@@ -6,31 +6,64 @@ exports[`OverrideSet tests renders without crashing 1`] = `
     class="Layout--vertical StyledProps--main StyledProps--padding-large"
     style="padding-top: 0px;"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="line-height: 24px;"
-    >
-      Configure pre-defined override sets (Advanced)
-    </p>
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="line-height: 24px;"
-    >
-      Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
-    </p>
-    <section
-      class="collapseContainer"
+    <div
+      class="Accordion--panel"
+      data-open="true"
+      data-testid="{overridesets}-panel"
+      id="{overridesets}-panel"
     >
       <div
-        class="StyledProps--font StyledProps--main"
-      />
-    </section>
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-      style="cursor: pointer;"
-    >
-      + Create new override set
-    </p>
+        class="Accordion--summary"
+        data-testid="{overridesets}-summary"
+      >
+        <div
+          class=""
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="line-height: 24px;"
+          >
+            Configure pre-defined override sets (Advanced)
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="line-height: 24px;"
+          >
+            Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
+          </p>
+        </div>
+        <div
+          class="Accordion--chevron"
+        />
+      </div>
+      <div
+        class="bp3-collapse"
+        style="height: 0px;"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(0);"
+        >
+          <div
+            class="Accordion--details"
+            data-testid="{overridesets}-details"
+          >
+            <div>
+              <p
+                class="StyledProps--font StyledProps--main overrideBtn StyledProps--intent-primary"
+                style="cursor: pointer;"
+              >
+                + Create new override set
+              </p>
+              <section
+                class="collapseContainer"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

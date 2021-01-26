@@ -329,7 +329,6 @@ export default function DeployServiceSpecifications(): JSX.Element {
     setSelectedPropagatedState({ label: '', value: '' })
     setSetupMode(setupMode.DIFFERENT)
   }
-
   return (
     <Layout.Vertical className={css.serviceOverrides}>
       {stageIndex > 0 && (

@@ -2,14 +2,14 @@ import React from 'react'
 import {
   Layout,
   Text,
-  CollapseList,
-  CollapseListPanel,
   Button,
   TextInput,
   Label,
   SelectOption,
   Formik,
   FormInput,
+  NestedAccordionProvider,
+  NestedAccordionPanel,
   Icon
 } from '@wings-software/uicore'
 import { Form, FieldArray, FieldArrayRenderProps } from 'formik'
@@ -137,7 +137,7 @@ export default function OverrideSets({
     }
     createOverrideSet(overrideName)
     setModalState(false)
-    setOverrideName(initialName)
+    setOverrideName(overrideName)
   }
 
   const getOverrideStages = React.useCallback((): SelectOption[] => {
@@ -229,238 +229,272 @@ export default function OverrideSets({
 
     return { selectedOverrideSets }
   }
+
   return (
-    <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)', paddingTop: 0 }}>
-      <Text style={{ color: 'var(--grey-400)', lineHeight: '24px' }}>{i18n.configure}</Text>
-      <Text style={{ color: 'var(--grey-500)', lineHeight: '24px', paddingBottom: 'var(--spacing-medium)' }}>
-        {i18n.info}
-      </Text>
-
-      {isPropagating && (
-        <Formik
-          initialValues={getInitialValues()}
-          validationSchema={Yup.object().shape({
-            selectedOverrideSet: Yup.array()
-          })}
-          onSubmit={(): void => {
-            // do nothing.
-          }}
-          validate={({ selectedOverrideSets }: { selectedOverrideSets: string[] }) => {
-            if (selectedTab === artifactTab && stage) {
-              stage.stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets = selectedOverrideSets
-              return updatePipeline(pipeline)
-            }
-            if (selectedTab === manifestTab && stage) {
-              stage.stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets = selectedOverrideSets
-              return updatePipeline(pipeline)
-            }
-            if (selectedTab === variableTab && stage) {
-              stage.stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets = selectedOverrideSets
-              return updatePipeline(pipeline)
-            }
-          }}
-          enableReinitialize={true}
-        >
-          {formik => {
-            return (
-              <Form>
-                <FieldArray
-                  name="selectedOverrideSets"
-                  render={arrayHelpers => (
-                    <Layout.Vertical>
-                      {formik.values?.selectedOverrideSets?.map((set: string, index: number) => (
-                        <Layout.Horizontal
-                          key={`${set}_${index}`}
-                          flex={{ distribution: 'space-between' }}
-                          style={{ alignItems: 'end' }}
-                        >
-                          <Layout.Horizontal
-                            spacing="medium"
-                            // style={{ alignItems: 'baseline' }}
-                            draggable={true}
-                            onDragStart={event => {
-                              onDragStart(event, index)
-                            }}
-                            data-testid={set}
-                            onDragEnd={onDragEnd}
-                            onDragOver={onDragOver}
-                            onDragLeave={onDragLeave}
-                            onDrop={event => onDrop(event, arrayHelpers, index)}
-                          >
-                            <div className={css.overrideList}>
-                              <div className={css.artifactSelection}>
-                                <div>
-                                  {formik.values?.selectedOverrideSets?.length > 1 && (
-                                    <Icon name="drag-handle-vertical" className={css.drag} />
-                                  )}
-                                </div>
-                                <FormInput.Select
-                                  className={cx(css.selectInput, 'selectOverrideSets')}
-                                  name={`selectedOverrideSets[${index}]`}
-                                  items={getOverrideStages()}
-                                />
-                              </div>
-                              <div className={css.artifactsTabs}>
-                                {set && selectedTab === artifactTab && (
-                                  <ArtifactsSelection
-                                    isForOverrideSets={!isPropagating}
-                                    isForPredefinedSets={false}
-                                    isPropagating={true}
-                                    overrideSetIdentifier={get(formik.values, `selectedOverrideSets[${index}]`, '')}
-                                  />
-                                )}
-                                {set && selectedTab === manifestTab && (
-                                  <ManifestSelection
-                                    isForOverrideSets={!isPropagating}
-                                    isForPredefinedSets={false}
-                                    isPropagating={true}
-                                    overrideSetIdentifier={get(formik.values, `selectedOverrideSets[${index}]`, '')}
-                                  />
-                                )}
-                                {set && selectedTab === variableTab && (
-                                  <WorkflowVariables
-                                    factory={factory}
-                                    isForOverrideSets={!isPropagating}
-                                    isForPredefinedSets={false}
-                                    isPropagating={isPropagating}
-                                    overrideSetIdentifier={get(formik.values, `selectedOverrideSets[${index}]`, '')}
-                                  />
-                                )}
-                              </div>
-                            </div>
-                          </Layout.Horizontal>
-                          <Button
-                            minimal
-                            icon="minus"
-                            id="removeOverrideSet"
-                            onClick={() => arrayHelpers.remove(index)}
-                          />
-                        </Layout.Horizontal>
-                      ))}
-                      <span>
-                        {formik.values?.selectedOverrideSets?.length < getOverrideStages().length && (
-                          <Button
-                            minimal
-                            text={getString('addOverrideSet')}
-                            intent="primary"
-                            className={cx(css.addFileButton, 'addOverrideSetButton')}
-                            onClick={() => arrayHelpers.push('')}
-                          />
-                        )}
-                      </span>
-                    </Layout.Vertical>
-                  )}
-                />
-              </Form>
-            )
-          }}
-        </Formik>
-      )}
-
-      {!isPropagating && (
-        <section className={css.collapseContainer}>
-          <CollapseList>
-            {currentVisibleOverridesList.map((data: { overrideSet: { identifier: string } }, index: number) => {
-              return (
-                <CollapseListPanel
-                  key={data.overrideSet.identifier + index}
-                  collapseHeaderProps={{
-                    heading: `${i18n.overrideSetNamePrefix} ${data.overrideSet.identifier}`,
-                    isRemovable: true,
-                    onRemove: () => {
-                      currentVisibleOverridesList.splice(index, 1)
-                      updatePipeline(pipeline)
+    <NestedAccordionProvider>
+      <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)', paddingTop: 0 }}>
+        <NestedAccordionPanel
+          isDefaultOpen
+          id={`{overridesets}`}
+          addDomId
+          summary={
+            <>
+              <Text style={{ color: 'var(--grey-400)', lineHeight: '24px' }}>{i18n.configure}</Text>
+              <Text style={{ color: 'var(--grey-500)', lineHeight: '24px', paddingBottom: 'var(--spacing-medium)' }}>
+                {i18n.info}
+              </Text>
+            </>
+          }
+          details={
+            <div>
+              {!isPropagating && (
+                <Text
+                  intent="primary"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setModalState(true)}
+                  className={css.overrideBtn}
+                >
+                  {i18n.createOverrideSet}
+                </Text>
+              )}
+              {isPropagating && (
+                <Formik
+                  initialValues={getInitialValues()}
+                  validationSchema={Yup.object().shape({
+                    selectedOverrideSet: Yup.array()
+                  })}
+                  onSubmit={(): void => {
+                    // do nothing.
+                  }}
+                  validate={({ selectedOverrideSets }: { selectedOverrideSets: string[] }) => {
+                    if (selectedTab === artifactTab && stage) {
+                      stage.stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets = selectedOverrideSets
+                      return updatePipeline(pipeline)
+                    }
+                    if (selectedTab === manifestTab && stage) {
+                      stage.stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets = selectedOverrideSets
+                      return updatePipeline(pipeline)
+                    }
+                    if (selectedTab === variableTab && stage) {
+                      stage.stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets = selectedOverrideSets
+                      return updatePipeline(pipeline)
                     }
                   }}
+                  enableReinitialize={true}
                 >
+                  {formik => {
+                    return (
+                      <Form>
+                        <FieldArray
+                          name="selectedOverrideSets"
+                          render={arrayHelpers => (
+                            <Layout.Vertical>
+                              <span>
+                                {formik.values?.selectedOverrideSets?.length < getOverrideStages().length && (
+                                  <Button
+                                    minimal
+                                    text={getString('addOverrideSet')}
+                                    intent="primary"
+                                    className={cx(css.addFileButton, 'addOverrideSetButton')}
+                                    onClick={() => {
+                                      arrayHelpers.push('')
+                                    }}
+                                  />
+                                )}
+                              </span>
+                              {formik.values?.selectedOverrideSets?.map((set: string, index: number) => (
+                                <Layout.Horizontal
+                                  key={`${set}_${index}`}
+                                  flex={{ distribution: 'space-between' }}
+                                  style={{ alignItems: 'end' }}
+                                >
+                                  <Layout.Horizontal
+                                    spacing="medium"
+                                    // style={{ alignItems: 'baseline' }}
+                                    draggable={true}
+                                    onDragStart={event => {
+                                      onDragStart(event, index)
+                                    }}
+                                    data-testid={set}
+                                    onDragEnd={onDragEnd}
+                                    onDragOver={onDragOver}
+                                    onDragLeave={onDragLeave}
+                                    onDrop={event => onDrop(event, arrayHelpers, index)}
+                                  >
+                                    <div className={css.overrideList}>
+                                      <div className={css.artifactSelection}>
+                                        <div>
+                                          {formik.values?.selectedOverrideSets?.length > 1 && (
+                                            <Icon name="drag-handle-vertical" className={css.drag} />
+                                          )}
+                                        </div>
+                                        <FormInput.Select
+                                          className={cx(css.selectInput, 'selectOverrideSets')}
+                                          name={`selectedOverrideSets[${index}]`}
+                                          items={getOverrideStages()}
+                                        />
+                                      </div>
+                                      <div className={css.artifactsTabs}>
+                                        {set && selectedTab === artifactTab && (
+                                          <ArtifactsSelection
+                                            isForOverrideSets={!isPropagating}
+                                            isForPredefinedSets={false}
+                                            isPropagating={true}
+                                            overrideSetIdentifier={get(
+                                              formik.values,
+                                              `selectedOverrideSets[${index}]`,
+                                              ''
+                                            )}
+                                          />
+                                        )}
+                                        {set && selectedTab === manifestTab && (
+                                          <ManifestSelection
+                                            isForOverrideSets={!isPropagating}
+                                            isForPredefinedSets={false}
+                                            isPropagating={true}
+                                            overrideSetIdentifier={get(
+                                              formik.values,
+                                              `selectedOverrideSets[${index}]`,
+                                              ''
+                                            )}
+                                          />
+                                        )}
+                                        {set && selectedTab === variableTab && (
+                                          <WorkflowVariables
+                                            factory={factory}
+                                            isForOverrideSets={!isPropagating}
+                                            isForPredefinedSets={false}
+                                            isPropagating={isPropagating}
+                                            overrideSetIdentifier={get(
+                                              formik.values,
+                                              `selectedOverrideSets[${index}]`,
+                                              ''
+                                            )}
+                                          />
+                                        )}
+                                      </div>
+                                    </div>
+                                  </Layout.Horizontal>
+                                  <Button
+                                    minimal
+                                    icon="minus"
+                                    id="removeOverrideSet"
+                                    onClick={() => arrayHelpers.remove(index)}
+                                  />
+                                </Layout.Horizontal>
+                              ))}
+                            </Layout.Vertical>
+                          )}
+                        />
+                      </Form>
+                    )
+                  }}
+                </Formik>
+              )}
+              {isPropagating && (
+                <>
                   {selectedTab === artifactTab && (
                     <ArtifactsSelection
-                      isForOverrideSets={true}
-                      identifierName={data.overrideSet.identifier}
+                      isForOverrideSets={!isPropagating}
                       isForPredefinedSets={false}
+                      isPropagating={isPropagating}
                     />
                   )}
                   {selectedTab === manifestTab && (
                     <ManifestSelection
-                      isForOverrideSets={true}
-                      identifierName={data.overrideSet.identifier}
+                      isForOverrideSets={!isPropagating}
                       isForPredefinedSets={false}
+                      isPropagating={isPropagating}
                     />
                   )}
                   {selectedTab === variableTab && (
                     <WorkflowVariables
-                      identifierName={data.overrideSet.identifier}
                       factory={factory}
-                      isForOverrideSets={true}
+                      isPropagating={isPropagating}
+                      isForOverrideSets={!isPropagating}
                       isForPredefinedSets={false}
                     />
                   )}
-                </CollapseListPanel>
-              )
-            })}
-          </CollapseList>
-        </section>
-      )}
-      {isPropagating && (
-        <>
-          {selectedTab === artifactTab && (
-            <ArtifactsSelection
-              isForOverrideSets={!isPropagating}
-              isForPredefinedSets={false}
-              isPropagating={isPropagating}
-            />
-          )}
-          {selectedTab === manifestTab && (
-            <ManifestSelection
-              isForOverrideSets={!isPropagating}
-              isForPredefinedSets={false}
-              isPropagating={isPropagating}
-            />
-          )}
-          {selectedTab === variableTab && (
-            <WorkflowVariables
-              factory={factory}
-              isPropagating={isPropagating}
-              isForOverrideSets={!isPropagating}
-              isForPredefinedSets={false}
-            />
-          )}
-        </>
-      )}
-      {!isPropagating && (
-        <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => setModalState(true)}>
-          {i18n.createOverrideSet}
-        </Text>
-      )}
-      {isModalOpen && (
-        <Dialog {...modalPropsLight}>
-          <Layout.Vertical spacing="small" padding="large">
-            <Label>Override Set Name</Label>
-            <TextInput
-              placeholder={i18n.overrideSetPlaceholder}
-              value={overrideName}
-              onChange={e => {
-                e.preventDefault()
-                const element = e.currentTarget as HTMLInputElement
-                const elementValue = element.value
-                setErrorVisibility(false)
-                setOverrideName(elementValue)
-              }}
-            />
-            <Layout.Horizontal spacing="medium">
-              <Button intent="primary" onClick={onSubmitOverride} text="Submit" />
-              <Button
-                text="Close"
-                onClick={() => {
-                  setModalState(false)
-                  setOverrideName(initialName)
-                }}
-              />
-            </Layout.Horizontal>
-            {isErrorVisible && <section className={css.error}>{i18n.overrideSetError}</section>}
-          </Layout.Vertical>
-        </Dialog>
-      )}
-    </Layout.Vertical>
+                </>
+              )}
+              {!isPropagating && (
+                <section className={css.collapseContainer}>
+                  <NestedAccordionProvider>
+                    {currentVisibleOverridesList.map((data: { overrideSet: { identifier: string } }, index: number) => {
+                      const isOpen = data.overrideSet.identifier === overrideName ? { isDefaultOpen: true } : {}
+                      return (
+                        <NestedAccordionPanel
+                          addDomId
+                          {...isOpen}
+                          key={data.overrideSet.identifier + index}
+                          id={data.overrideSet.identifier + index}
+                          summary={data.overrideSet.identifier}
+                          details={
+                            <>
+                              {selectedTab === artifactTab && (
+                                <ArtifactsSelection
+                                  isForOverrideSets={true}
+                                  identifierName={data.overrideSet.identifier}
+                                  isForPredefinedSets={false}
+                                />
+                              )}
+                              {selectedTab === manifestTab && (
+                                <ManifestSelection
+                                  isForOverrideSets={true}
+                                  identifierName={data.overrideSet.identifier}
+                                  isForPredefinedSets={false}
+                                />
+                              )}
+                              {selectedTab === variableTab && (
+                                <WorkflowVariables
+                                  identifierName={data.overrideSet.identifier}
+                                  factory={factory}
+                                  isForOverrideSets={true}
+                                  isForPredefinedSets={false}
+                                />
+                              )}
+                            </>
+                          }
+                        ></NestedAccordionPanel>
+                      )
+                    })}
+                  </NestedAccordionProvider>
+                </section>
+              )}
+
+              {isModalOpen && (
+                <Dialog {...modalPropsLight}>
+                  <Layout.Vertical spacing="small" padding="large">
+                    <Label>Override Set Name</Label>
+                    <TextInput
+                      placeholder={i18n.overrideSetPlaceholder}
+                      value={overrideName}
+                      onChange={e => {
+                        e.preventDefault()
+                        const element = e.currentTarget as HTMLInputElement
+                        const elementValue = element.value
+                        setErrorVisibility(false)
+                        setOverrideName(elementValue)
+                      }}
+                    />
+                    <Layout.Horizontal spacing="medium">
+                      <Button intent="primary" onClick={onSubmitOverride} text="Submit" />
+                      <Button
+                        text="Close"
+                        onClick={() => {
+                          setModalState(false)
+                          setOverrideName(initialName)
+                        }}
+                      />
+                    </Layout.Horizontal>
+                    {isErrorVisible && <section className={css.error}>{i18n.overrideSetError}</section>}
+                  </Layout.Vertical>
+                </Dialog>
+              )}
+            </div>
+          }
+        />
+      </Layout.Vertical>
+    </NestedAccordionProvider>
   )
 }

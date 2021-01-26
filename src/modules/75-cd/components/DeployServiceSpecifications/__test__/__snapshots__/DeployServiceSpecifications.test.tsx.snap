@@ -138,7 +138,6 @@ exports[`OverrideSet tests change mode : change mode 1`] = `
         style="align-items: center;"
       >
         <input
-          checked=""
           class="overideCheckbox"
           id="overrideSetCheckbox"
           type="checkbox"
@@ -157,146 +156,6 @@ exports[`OverrideSet tests change mode : change mode 1`] = `
       >
         You can override manifests files, variables etc for each stage. You can also use pre-defined override sets from the service specification. 
       </p>
-    </div>
-    <div
-      class="artifactType overrideAlignCenter"
-    >
-      <div
-        class="bp3-tabs Tabs--main"
-      >
-        <div
-          class="bp3-tab-list"
-          role="tablist"
-        >
-          <div
-            class="bp3-tab-indicator-wrapper"
-            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
-          >
-            <div
-              class="bp3-tab-indicator"
-            />
-          </div>
-          <div
-            aria-controls="bp3-tab-panel_serviceSpecifications_Artifacts"
-            aria-disabled="false"
-            aria-expanded="true"
-            aria-selected="true"
-            class="bp3-tab"
-            data-tab-id="Artifacts"
-            id="bp3-tab-title_serviceSpecifications_Artifacts"
-            role="tab"
-            tabindex="0"
-          >
-            Artifacts
-          </div>
-          <div
-            aria-controls="bp3-tab-panel_serviceSpecifications_Manifests"
-            aria-disabled="false"
-            aria-expanded="false"
-            aria-selected="false"
-            class="bp3-tab"
-            data-tab-id="Manifests"
-            id="bp3-tab-title_serviceSpecifications_Manifests"
-            role="tab"
-            tabindex="0"
-          >
-            Manifests
-          </div>
-          <div
-            aria-controls="bp3-tab-panel_serviceSpecifications_Variables"
-            aria-disabled="false"
-            aria-expanded="false"
-            aria-selected="false"
-            class="bp3-tab"
-            data-tab-id="Variables"
-            id="bp3-tab-title_serviceSpecifications_Variables"
-            role="tab"
-            tabindex="0"
-          >
-            Variables
-          </div>
-        </div>
-      </div>
-      <div
-        class="Layout--vertical StyledProps--main StyledProps--padding-large"
-        style="padding-top: 0px;"
-      >
-        <p
-          class="StyledProps--font StyledProps--main"
-          style="line-height: 24px;"
-        >
-          Configure pre-defined override sets (Advanced)
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main"
-          style="line-height: 24px;"
-        >
-          Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
-        </p>
-        <div
-          class="OverlaySpinner--overlaySpinner"
-        >
-          <form>
-            <div
-              class="Layout--vertical StyledProps--main"
-            >
-              <span>
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addFileButton addOverrideSetButton StyledProps--intent-primary"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    + Add Predefined Set
-                  </span>
-                </button>
-              </span>
-            </div>
-          </form>
-        </div>
-        <div
-          class="Layout--vertical StyledProps--main StyledProps--padding-large"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="line-height: 24px;"
-          >
-            Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
-          </p>
-          <div
-            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-          >
-            <div
-              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-            >
-              <section />
-            </div>
-          </div>
-          <div
-            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-          >
-            <div
-              class="StyledProps--font StyledProps--main rowItem"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                + Add Primary Artifact
-              </p>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main rowItem"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                + Add Sidecar
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -567,7 +426,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             class="StyledProps--font StyledProps--main"
             style="font-size: 16px;"
           >
-            Deployment Types
+            Deployment Type
           </p>
           <div
             class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
@@ -1202,31 +1061,64 @@ exports[`OverrideSet tests renders without crashing 1`] = `
           class="Layout--vertical StyledProps--main StyledProps--padding-large"
           style="padding-top: 0px;"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="line-height: 24px;"
-          >
-            Configure pre-defined override sets (Advanced)
-          </p>
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="line-height: 24px;"
-          >
-            Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
-          </p>
-          <section
-            class="collapseContainer"
+          <div
+            class="Accordion--panel"
+            data-open="true"
+            data-testid="{overridesets}-panel"
+            id="{overridesets}-panel"
           >
             <div
-              class="StyledProps--font StyledProps--main"
-            />
-          </section>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-            style="cursor: pointer;"
-          >
-            + Create new override set
-          </p>
+              class="Accordion--summary"
+              data-testid="{overridesets}-summary"
+            >
+              <div
+                class=""
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="line-height: 24px;"
+                >
+                  Configure pre-defined override sets (Advanced)
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="line-height: 24px;"
+                >
+                  Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
+                </p>
+              </div>
+              <div
+                class="Accordion--chevron"
+              />
+            </div>
+            <div
+              class="bp3-collapse"
+              style="height: 0px;"
+            >
+              <div
+                aria-hidden="false"
+                class="bp3-collapse-body"
+                style="transform: translateY(0);"
+              >
+                <div
+                  class="Accordion--details"
+                  data-testid="{overridesets}-details"
+                >
+                  <div>
+                    <p
+                      class="StyledProps--font StyledProps--main overrideBtn StyledProps--intent-primary"
+                      style="cursor: pointer;"
+                    >
+                      + Create new override set
+                    </p>
+                    <section
+                      class="collapseContainer"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

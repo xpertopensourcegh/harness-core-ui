@@ -10,7 +10,7 @@ export default {
   removeLabel: 'remove',
   serviceSpecificationLabel: 'Service Specification',
   stageOverrideLabel: 'Stage Overrides',
-  deploymentTypeLabel: 'Deployment Types',
+  deploymentTypeLabel: 'Deployment Type',
   deploymentTypes: {
     kubernetes: 'Kubernetes',
     amazonEcs: 'Amazon ECS',
