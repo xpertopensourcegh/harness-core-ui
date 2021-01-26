@@ -639,6 +639,80 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                       </div>
                     </form>
                   </div>
+                  <div
+                    class="section"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main specTabs StyledProps--flex"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+                      >
+                        Skip Conditions
+                      </p>
+                    </div>
+                    <form
+                      class="FormikForm--main"
+                      style="width: 300px;"
+                    >
+                      <div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="skipCondition-0"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="skipCondition"
+                          >
+                            If the JEXL condition evaluates to true, skip this step
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="skipCondition"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-small"
+                          style="white-space: break-spaces;"
+                        >
+                          In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+
+Examples:
+&lt;+steps.step1.output.result&gt; == “success”
+&lt;+environment.name&gt; != “QA”
+
+                          <br />
+                          <a
+                            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--font-small"
+                            href="javascript:void()"
+                            role="button"
+                            tabindex="0"
+                          >
+                            <span
+                              class="bp3-button-text"
+                            >
+                              Learn more
+                            </span>
+                          </a>
+                        </p>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

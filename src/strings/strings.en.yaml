@@ -677,6 +677,7 @@ pipelineSteps:
   accountInfo: AWS Account ID
   reportPathsLabel: Report Paths
   reportPathsInfo: Each path should lead to file(s) that stores results in the JUnit XML format.  Regex is supported.
+  reportPathsPlaceholder: /target/*.xml
   buildArgsLabel: 'Build Arguments'
   buildArgsInfo: Build-time variables
   bucketLabel: 'Bucket'

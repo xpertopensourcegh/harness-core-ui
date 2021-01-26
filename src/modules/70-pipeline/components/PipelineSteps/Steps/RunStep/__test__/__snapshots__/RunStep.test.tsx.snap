@@ -642,6 +642,7 @@ npm test
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[0].value"
+                              placeholder="/target/*.xml"
                               type="text"
                               value="path1.xml"
                             />
@@ -720,6 +721,7 @@ npm test
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[1].value"
+                              placeholder="/target/*.xml"
                               type="text"
                               value="path2.xml"
                             />
@@ -798,6 +800,7 @@ npm test
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[2].value"
+                              placeholder="/target/*.xml"
                               type="text"
                               value="path3.xml"
                             />
@@ -876,6 +879,7 @@ npm test
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[3].value"
+                              placeholder="/target/*.xml"
                               type="text"
                               value="path4.xml"
                             />
@@ -954,6 +958,7 @@ npm test
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[4].value"
+                              placeholder="/target/*.xml"
                               type="text"
                               value="path5.xml"
                             />
@@ -4207,6 +4212,7 @@ npm test
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[0].value"
+                              placeholder="/target/*.xml"
                               type="text"
                               value=""
                             />
@@ -5388,6 +5394,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                     <input
                       class="bp3-input"
                       data-testid="value-spec.reports.spec.paths-[0]"
+                      placeholder="/target/*.xml"
                       type="text"
                       value=""
                     />

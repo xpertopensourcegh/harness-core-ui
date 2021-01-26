@@ -21,6 +21,7 @@ interface MultiTypeListConfigureOptionsProps
 
 export interface MultiTypeListProps {
   name: string
+  placeholder?: string
   multiTypeFieldSelectorProps: Omit<MultiTypeFieldSelectorProps, 'name' | 'defaultValueToReset' | 'children'>
   enableConfigureOptions?: boolean
   configureOptionsProps?: MultiTypeListConfigureOptionsProps
@@ -31,6 +32,7 @@ export interface MultiTypeListProps {
 export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => {
   const {
     name,
+    placeholder,
     multiTypeFieldSelectorProps,
     enableConfigureOptions = true,
     configureOptionsProps,
@@ -59,6 +61,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                     <FormInput.MultiTextInput
                       label=""
                       name={`${name}[${index}].value`}
+                      placeholder={placeholder}
                       multiTextInputProps={{
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}

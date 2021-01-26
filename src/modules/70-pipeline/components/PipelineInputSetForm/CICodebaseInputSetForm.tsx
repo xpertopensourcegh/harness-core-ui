@@ -1,6 +1,6 @@
 import React from 'react'
 import { get, isEmpty } from 'lodash-es'
-import { FormInput } from '@wings-software/uicore'
+import { Card, FormInput } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import i18n from './PipelineInputSetForm.i18n'
 
@@ -34,7 +34,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   }
 
   return (
-    <>
+    <Card>
       <FormInput.RadioGroup
         name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
@@ -42,15 +42,17 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         onChange={() => {
           formik?.setFieldValue(`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec`, undefined)
         }}
+        style={{ marginBottom: 0 }}
       />
       {type && (
         <FormInput.Text
           label={inputLabels[type]}
           name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${type}`}
           disabled={readonly}
+          style={{ marginBottom: 0 }}
         />
       )}
-    </>
+    </Card>
   )
 }
 

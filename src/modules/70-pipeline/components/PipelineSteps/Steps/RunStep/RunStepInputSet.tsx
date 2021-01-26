@@ -95,6 +95,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
               />
             </Text>
           }
+          placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

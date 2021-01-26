@@ -7,6 +7,7 @@ import {
   FormikForm,
   FormInput,
   MultiTextInput,
+  Link,
   // TextInput,
   Switch,
   Icon,
@@ -137,6 +138,7 @@ export default function BuildStageSpecifications(): JSX.Element {
     cloneCodebase: boolean
     sharedPaths: string[]
     variables: { name: string; type: string; value?: string }[]
+    skipCondition: string
     // connectorRef?: ConnectorReferenceFieldProps['selected']
     // repoName?: string
   } => {
@@ -155,6 +157,7 @@ export default function BuildStageSpecifications(): JSX.Element {
             value: _value
           })) || []
     const variables = pipelineData?.variables || []
+    const skipCondition = pipelineData?.skipCondition || ''
     // let connectorRef
     // const repoName = codebase?.repoName || ''
 
@@ -180,7 +183,8 @@ export default function BuildStageSpecifications(): JSX.Element {
       description,
       cloneCodebase,
       sharedPaths,
-      variables
+      variables,
+      skipCondition
       // connectorRef,
       // repoName
     }
@@ -215,6 +219,12 @@ export default function BuildStageSpecifications(): JSX.Element {
         pipelineData.variables = values.variables
       } else {
         delete pipelineData.variables
+      }
+
+      if (values.skipCondition) {
+        pipelineData.skipCondition = values.skipCondition
+      } else {
+        delete pipelineData.skipCondition
       }
 
       // if (values.connectorRef) {
@@ -441,6 +451,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                     />
                   </FormikForm>
                 </div>
+
                 <div className={css.section}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('variablesText')}</Text>
@@ -628,6 +639,23 @@ export default function BuildStageSpecifications(): JSX.Element {
                         </>
                       )}
                     />
+                  </FormikForm>
+                </div>
+
+                <div className={css.section}>
+                  <Layout.Vertical flex={true} className={css.specTabs}>
+                    <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('skipConditionsTitle')}</Text>
+                  </Layout.Vertical>
+
+                  <FormikForm style={{ width: 300 }}>
+                    <FormInput.Text name="skipCondition" label={getString('skipConditionLabel')} />
+                    <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
+                      {getString('skipConditionHelpText')}
+                      <br />
+                      <Link font="small" withoutHref>
+                        {getString('learnMore')}
+                      </Link>
+                    </Text>
                   </FormikForm>
                 </div>
               </>

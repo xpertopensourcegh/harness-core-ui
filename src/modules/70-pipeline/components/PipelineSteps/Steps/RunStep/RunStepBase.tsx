@@ -288,6 +288,7 @@ export const RunStepBase = (
                   </Text>
                   <MultiTypeList
                     name="spec.reportPaths"
+                    placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
                     multiTypeFieldSelectorProps={{
                       label: (
                         <Text style={{ display: 'flex', alignItems: 'center' }}>

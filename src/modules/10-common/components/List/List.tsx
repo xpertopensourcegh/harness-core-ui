@@ -12,9 +12,10 @@ export type ListUIType = { id: string; value: string }[]
 export interface ListProps {
   name: string
   label?: string | React.ReactElement
-  formik?: FormikContext<any>
+  placeholder?: string
   disabled?: boolean
   style?: React.CSSProperties
+  formik?: FormikContext<any>
 }
 
 const generateNewValue: () => { id: string; value: string } = () => ({
@@ -23,7 +24,7 @@ const generateNewValue: () => { id: string; value: string } = () => ({
 })
 
 export const List = (props: ListProps): React.ReactElement => {
-  const { name, label, formik, disabled, style } = props
+  const { name, label, placeholder, disabled, style, formik } = props
   const { getString } = useStrings()
 
   const [value, setValue] = React.useState<ListUIType>(() => {
@@ -112,6 +113,7 @@ export const List = (props: ListProps): React.ReactElement => {
               <div style={{ flexGrow: 1 }}>
                 <TextInput
                   value={valueValue}
+                  placeholder={placeholder}
                   onChange={e => changeValue(id, (e.currentTarget as HTMLInputElement).value.trim())}
                   data-testid={`value-${name}-[${index}]`}
                   intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
