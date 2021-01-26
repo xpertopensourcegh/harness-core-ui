@@ -262,7 +262,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
             const liteTaskEngineId = nodeAdjacencyListMap[nodeId]?.children?.[0]!
             processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)
-          } else {
+          } else if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {
             const icon = factory.getStepIcon(nodeData?.stepType || '')
             items.push({
               group: {

@@ -70,7 +70,7 @@ export function createLogSection(
     if (step?.stepType === LITE_ENGINE_TASK) {
       // TODO: DTO
       const taskObj = (step?.executableResponses?.find(item => item['task']) as any)?.task
-      key = taskObj?.units?.[0]
+      key = taskObj?.logKeys?.[0]
 
       enableLogLoading = !!key && enableLogLoading
     } else {

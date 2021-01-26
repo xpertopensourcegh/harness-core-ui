@@ -1,4 +1,5 @@
 import React from 'react'
+import { set } from 'lodash-es'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Select } from '@blueprintjs/select'
@@ -132,15 +133,13 @@ export default function BuildStageSetupShell(): JSX.Element {
     const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
     if (data) {
       let shouldUpdate = false
-      if (data?.stage?.spec?.execution) {
-        if (!data.stage.spec.execution.steps) {
-          shouldUpdate = true
-          data.stage.spec.execution.steps = []
-        }
-        if (!data.stage.spec.serviceDependencies) {
-          shouldUpdate = true
-          data.stage.spec.serviceDependencies = []
-        }
+      if (!data?.stage?.spec?.execution?.steps) {
+        set(data, 'stage.spec.execution.steps', [])
+        shouldUpdate = true
+      }
+      if (!data?.stage?.spec?.serviceDependencies) {
+        set(data, 'stage.spec.serviceDependencies', [])
+        shouldUpdate = true
       }
 
       if (shouldUpdate) {

@@ -186,7 +186,7 @@ describe('LogsContentUtils', () => {
         sectionIdx: 0,
         sectionTitle: 'Logs',
         sourceType: 'stream',
-        queryVars: { 'X-Harness-Token': 'logsToken', accountID: 'accountId', key: 'Initialize' }
+        queryVars: { 'X-Harness-Token': 'logsToken', accountID: 'accountId', key: 'key1' }
       }
     ]
 
