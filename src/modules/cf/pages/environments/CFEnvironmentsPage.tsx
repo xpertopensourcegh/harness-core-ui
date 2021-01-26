@@ -26,12 +26,11 @@ const withActions = withTableData<
   actions: (column as any).actions as { [P in 'onEdit' | 'onDelete']?: (id: string) => void }
 }))
 
-const AttributeCell = (attr: keyof Environment) =>
-  withEnvironment(({ environment }) => <Text>{environment[attr]}</Text>)
-
-const TypeCell = AttributeCell('type')
-// TODO: change this for a cell that shows creator data when BE is ready
-// const CreatedByCell = AttributeCell('accountId')
+const PRODUCTION = 'Production'
+const TypeCell = withEnvironment(({ environment }) => {
+  const { getString } = useEnvStrings()
+  return <Text>{getString(environment.type === PRODUCTION ? 'production' : 'nonProduction')}</Text>
+})
 
 const NameCell = withEnvironment(({ environment }) => {
   const { getString } = useEnvStrings()

@@ -306,7 +306,15 @@ const RulesTab: React.FC<RulesTabProps> = ({
                 <ClauseViewMode key={idx} clause={clause} operators={operators} />
               )}
             </Card>
-            {editing && <Icon name="trash" size={24} color={Color.GREY_300} onClick={handleDelete(idx)} />}
+            {editing && (
+              <Icon
+                name="trash"
+                size={24}
+                color={Color.GREY_300}
+                onClick={handleDelete(idx)}
+                style={{ cursor: 'pointer', height: 'fit-content' }}
+              />
+            )}
           </Layout.Horizontal>
         )
       })}

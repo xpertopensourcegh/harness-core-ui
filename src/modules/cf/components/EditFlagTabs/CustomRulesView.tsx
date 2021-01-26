@@ -296,7 +296,14 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, errors, o
           )}
         </Layout.Vertical>
       </Card>
-      <Icon name="trash" margin={{ top: 'xlarge' }} size={24} color={Color.GREY_300} onClick={onDelete} />
+      <Icon
+        name="trash"
+        margin={{ top: 'xlarge' }}
+        size={24}
+        color={Color.GREY_300}
+        onClick={onDelete}
+        style={{ cursor: 'pointer', height: 'fit-content' }}
+      />
     </Layout.Horizontal>
   )
 }
@@ -635,6 +642,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
                 margin={{ top: 'xlarge' }}
                 size={24}
                 color={Color.GREY_300}
+                style={{ cursor: 'pointer', height: 'fit-content' }}
                 onClick={handleClearServings}
               />
             )}
@@ -661,11 +669,16 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
       {editing && (
         <>
           {servings.length === 0 && (
-            <Text margin={{ bottom: 'medium' }} color={Color.AQUA_500} onClick={handleAddServing}>
+            <Text
+              margin={{ bottom: 'medium' }}
+              color={Color.AQUA_500}
+              onClick={handleAddServing}
+              style={{ cursor: 'pointer' }}
+            >
               + {i18n.customRules.serveVartiation}
             </Text>
           )}
-          <Text color={Color.AQUA_500} onClick={handleOnRequest}>
+          <Text color={Color.AQUA_500} onClick={handleOnRequest} style={{ cursor: 'pointer' }}>
             + {i18n.customRules.onRequest}
           </Text>
         </>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Color, Layout, Text, Container, TextInput } from '@wings-software/uicore'
-import { sumBy } from 'lodash-es'
+import { sumBy, clamp } from 'lodash-es'
 import type { Distribution, WeightedVariation, Variation } from 'services/cf'
 import css from './TabTargeting.module.scss'
 
@@ -50,31 +50,25 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
     return {
       id: elem.identifier,
       displayName: elem.name || elem.value,
-      value: weightedVariation?.weight || 100 / variations?.length,
+      value: weightedVariation?.weight || Math.floor(100 / (variations?.length ?? 1)),
       color: Colors[i % Colors.length]
     }
   })
 
   const changeColorWidthSlider = (e: React.ChangeEvent<HTMLInputElement>, id: string): void => {
-    const percentageThreshold = 100
-
     if (percentageValues) {
-      const onUpdateValue = percentageValues.map(elem => {
-        if (elem.id === id) {
-          return { ...elem, value: +e.target.value }
-        }
-        return elem
-      })
-
-      const valueOfInputs = sumBy(onUpdateValue, 'value')
-
-      if (valueOfInputs > percentageThreshold) {
-        return setPercentageError(true)
+      let updatedPercentages: PercentageValues[]
+      const newValue = Math.floor(clamp(Number(e.target.value), 0, 100))
+      if (percentageValues.length === 2) {
+        updatedPercentages = percentageValues.map(elem => ({
+          ...elem,
+          value: elem.id === id ? newValue : 100 - newValue
+        }))
       } else {
-        setPercentageError(false)
+        updatedPercentages = percentageValues.map(elem => (elem.id === id ? { ...elem, value: newValue } : elem))
       }
-
-      setPercentageValues(onUpdateValue)
+      setPercentageError(sumBy(updatedPercentages, 'value') > 100)
+      setPercentageValues(updatedPercentages)
     }
   }
 
