@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Color, NestedAccordionProvider, useNestedAccordion } from '@wings-software/uicore'
+import { Text, Color, NestedAccordionProvider, useNestedAccordion, Button } from '@wings-software/uicore'
 import type { ITreeNode } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { stringify, parse } from 'yaml'
@@ -20,13 +20,15 @@ import PipelineCard from './Cards/PipelineCard'
 import StageCard from './Cards/StageCard'
 import type { PipelineVariablesData } from './types'
 
+import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './PipelineVariables.module.scss'
 
 export const PipelineVariables: React.FC = (): JSX.Element => {
   const {
     updatePipeline,
     stepsFactory,
-    state: { pipeline: originalPipeline }
+    state: { pipeline: originalPipeline, pipelineView },
+    updatePipelineView
   } = usePipelineContext()
 
   const { openNestedPath } = useNestedAccordion()
@@ -126,6 +128,13 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
       <div className={css.variablesContainer}>
         <div className={css.header}>
           <Text font={{ size: 'medium' }}>{i18n.variables}</Text>
+          <Button
+            minimal
+            icon="cross"
+            onClick={() => {
+              updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+            }}
+          />
         </div>
         <div className={css.content}>
           <StagesTree

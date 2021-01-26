@@ -124,7 +124,7 @@ describe('Test Pipeline Studio', () => {
     const input = dialog?.querySelector('[placeholder="Name"]') as HTMLElement
     fireEvent.change(input, { target: { value: 'test' } })
     fireEvent.click(getByText(dialog as HTMLElement, 'Start'))
-    const saveBtn = getByText(document.body, 'Save and Publish')
+    const saveBtn = getByText(document.body, 'Save')
     fireEvent.click(saveBtn)
     expect(saveBtn).toBeDefined()
   })

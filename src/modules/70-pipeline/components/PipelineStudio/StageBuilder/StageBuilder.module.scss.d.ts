@@ -5,6 +5,8 @@ declare const styles: {
   readonly canvasContainer: string
   readonly canvasStageView: string
   readonly canvas: string
+  readonly pipelineStudioTitle: string
+  readonly rectangle: string
   readonly renderPopover: string
   readonly splitButtons: string
   readonly stageDecrease: string

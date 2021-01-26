@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Layout, Icon, Color } from '@wings-software/uicore'
+import { Container, Layout } from '@wings-software/uicore'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -47,6 +47,19 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
+                to={routes.toPipelineStudio({
+                  orgIdentifier,
+                  projectIdentifier,
+                  pipelineIdentifier,
+                  accountId,
+                  module
+                })}
+              >
+                {getString('studioText')}
+              </NavLink>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
                 to={routes.toPipelineDeploymentList({
                   orgIdentifier,
                   projectIdentifier,
@@ -83,20 +96,6 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
                 })}
               >
                 {getString('pipeline-triggers.triggersLabel')}
-              </NavLink>
-
-              <NavLink
-                className={css.tags}
-                to={routes.toPipelineStudio({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module
-                })}
-              >
-                <Icon name="pipeline-ng" size={20} style={{ marginRight: '8px' }} color={Color.BLUE_600} />
-                {getString('studioText')}
               </NavLink>
             </Layout.Horizontal>
           </Container>

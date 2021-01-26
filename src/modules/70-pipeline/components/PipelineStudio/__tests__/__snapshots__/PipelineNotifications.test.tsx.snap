@@ -9,11 +9,11 @@ exports[`Test PipelineNotifications should test render 1`] = `
       class="header"
     >
       <span
-        class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-white StyledProps--font-size-medium"
+        class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
         style="display: inline-flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-white"
+          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
           data-icon="yaml-builder-notifications"
         >
           <svg

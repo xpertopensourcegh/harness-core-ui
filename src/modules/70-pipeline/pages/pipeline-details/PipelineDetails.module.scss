@@ -11,20 +11,15 @@
   background: none;
   color: var(--blue-500);
   cursor: pointer;
-  border-radius: 16px;
+  border-radius: 8px;
   letter-spacing: 0.5px;
   &:hover {
-    background: var(--blue-200);
+    background: var(--grey-200);
     text-decoration: none;
-    color: var(--blue-500);
   }
 }
 .activeTag {
-  background: var(--blue-500);
+  background: var(--grey-800);
   color: var(--white);
-  &:hover {
-    border: 1px solid var(--blue-600);
-    background-color: var(--blue-600);
-    color: var(--white);
-  }
+  border-radius: 8px;
 }

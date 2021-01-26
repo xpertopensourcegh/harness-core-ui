@@ -20,7 +20,7 @@ export class StageBuilderModel extends DiagramModel {
     super({
       gridSize: 100,
       startX: 50,
-      startY: 30,
+      startY: 60,
       gap: 200
     })
   }

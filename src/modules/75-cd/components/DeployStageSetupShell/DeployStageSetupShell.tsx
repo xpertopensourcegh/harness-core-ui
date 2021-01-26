@@ -121,7 +121,8 @@ export default function DeployStageSetupShell(): JSX.Element {
               ...pipelineView,
               isDrawerOpened: true,
               drawerData: {
-                type: DrawerTypes.ExecutionStrategy
+                type: DrawerTypes.ExecutionStrategy,
+                hasBackdrop: true
               }
             })
           }

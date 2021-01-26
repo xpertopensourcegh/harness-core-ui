@@ -16,14 +16,9 @@ declare const styles: {
   readonly optionBtns: string
   readonly item: string
   readonly savePublishContainer: string
+  readonly runPipelineBtn: string
   readonly rightSideBottom: string
   readonly pipelineNameContainer: string
   readonly pipelineName: string
-  readonly codebaseConfiguration: string
-  readonly notConfigured: string
-  readonly valid: string
-  readonly invalid: string
-  readonly validating: string
-  readonly predefinedValue: string
 }
 export default styles

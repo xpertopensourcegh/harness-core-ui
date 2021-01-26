@@ -54,7 +54,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const goToPipelineDetail = React.useCallback(
     (/* istanbul ignore next */ pipelineIdentifier = '-1') => {
       history.push(
-        routes.toPipelineDetail({
+        routes.toPipelineDeploymentList({
           projectIdentifier,
           orgIdentifier,
           pipelineIdentifier,

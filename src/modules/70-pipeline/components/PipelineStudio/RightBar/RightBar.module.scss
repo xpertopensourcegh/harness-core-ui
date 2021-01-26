@@ -6,26 +6,71 @@
   grid-template-rows: 1fr 60px 60px 60px 1fr;
 
   .icon-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
+    padding: 0px !important;
+    position: relative !important;
+    border: 0 !important;
+    background-color: transparent !important;
 
-    &[disabled] {
-      path {
-        fill: var(--grey-400) !important;
+    &.selected {
+      color: var(--blue-500) !important;
+    }
+    &.notificationsIcon {
+      :global(.bp3-icon) {
+        color: var(--blue-500) !important;
       }
     }
 
-    &.selected,
-    &:hover {
-      background-color: var(--grey-200);
+    &.variablesIcon {
+      &.selected {
+        color: #9d7cff !important;
+      }
+      &:hover {
+        color: #9d7cff !important;
+      }
+      :global(.bp3-icon) {
+        color: #9d7cff !important;
+      }
+    }
+
+    :global(.bp3-icon) {
+      position: absolute;
+      top: -15px;
     }
   }
 
   :global(.bp3-popover-wrapper) {
     text-align: center;
   }
+
+  .codebaseConfiguration {
+    &.notConfigured {
+      > span svg path:last-child {
+        // TODO: Replace color once it is available in UIKit
+        fill: #ff8800 !important;
+      }
+    }
+
+    &.valid {
+      > span svg path {
+        // TODO: Replace color once it is available in UIKit
+        fill: #06c270 !important;
+      }
+    }
+
+    &.invalid {
+      // TODO: Replace color once it is available in UIKit
+      color: #9293ab !important;
+    }
+
+    &.validating {
+      // DO NOT REMOVE
+      color: inherit;
+    }
+  }
+}
+.predefinedValue {
+  font-size: 13px;
+  color: var(--grey-500);
+  margin-top: calc(var(--spacing-small) / -1);
+  margin-bottom: var(--spacing-medium);
 }

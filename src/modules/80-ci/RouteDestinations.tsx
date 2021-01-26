@@ -49,7 +49,6 @@ import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
 import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
-import { MinimalLayout } from '@common/layouts'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
 const RedirectToCIHome = (): React.ReactElement => {
@@ -81,7 +80,7 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
   const params = useParams<PipelineType<PipelinePathProps>>()
 
-  return <Redirect to={routes.toPipelineDeploymentList(params)} />
+  return <Redirect to={routes.toPipelineStudio(params)} />
 }
 
 const CISideNavProps: SidebarContext = {
@@ -214,11 +213,12 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CISideNavProps}
-      layout={MinimalLayout}
       exact
       path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
-      <CIPipelineStudio />
+      <PipelineDetails>
+        <CIPipelineStudio />
+      </PipelineDetails>
     </RouteWithLayout>
 
     <RouteWithLayout

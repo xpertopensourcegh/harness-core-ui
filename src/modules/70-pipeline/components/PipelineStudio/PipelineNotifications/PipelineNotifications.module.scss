@@ -4,10 +4,11 @@
   height: 100%;
 
   .header {
-    background-color: var(--black);
-    height: 52px;
-    padding: var(--spacing-small);
+    height: 45px;
+    padding: var(--spacing-small) var(--spacing-large);
     border-bottom: 2px solid var(--grey-200);
+    background: var(--white);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
   }
 
   .content {

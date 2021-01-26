@@ -44,6 +44,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       onClose={() => {
         updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
       }}
+      usePortal={false}
       autoFocus={true}
       canEscapeKeyClose={type === DrawerTypes.ExecutionStrategy ? false : true}
       canOutsideClickClose={type === DrawerTypes.ExecutionStrategy ? false : true}

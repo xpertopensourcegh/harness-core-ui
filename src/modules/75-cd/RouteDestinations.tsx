@@ -83,7 +83,7 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
   const params = useParams<PipelineType<PipelinePathProps>>()
 
-  return <Redirect to={routes.toPipelineDeploymentList(params)} />
+  return <Redirect to={routes.toPipelineStudio(params)} />
 }
 
 const RedirectToExecutionPipeline = (): React.ReactElement => {
@@ -147,11 +147,12 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
-      layout={MinimalLayout}
       exact
       path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
-      <CDPipelineStudio />
+      <PipelineDetails>
+        <CDPipelineStudio />
+      </PipelineDetails>
     </RouteWithLayout>
 
     <RouteWithLayout

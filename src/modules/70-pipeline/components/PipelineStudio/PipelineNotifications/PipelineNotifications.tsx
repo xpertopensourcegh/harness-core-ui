@@ -7,13 +7,7 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
   return (
     <div className={css.pipelineNotifications}>
       <div className={css.header}>
-        <Text
-          inline
-          color="white"
-          font={{ size: 'medium' }}
-          icon="yaml-builder-notifications"
-          iconProps={{ color: 'white' }}
-        >
+        <Text inline font={{ size: 'medium' }} icon="yaml-builder-notifications">
           {i18n.notifications}
         </Text>
       </div>

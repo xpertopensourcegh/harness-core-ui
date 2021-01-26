@@ -1,6 +1,6 @@
 .content {
   display: grid;
-  grid-template-rows: 78px 1fr;
+  grid-template-rows: 48px 1fr;
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -53,18 +53,18 @@
 }
 .titleBar {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 0 1fr;
   border-bottom: 1px solid var(--pipeline-light-grey);
-  padding: 0px var(--spacing-xlarge);
+  padding: 0px var(--spacing-large);
   background-color: var(--white);
 }
 
 .breadcrumbsMenu {
-  padding: 8px 12px 0px 12px;
+  padding: 8px 12px 0px 0px;
 }
 .pipelineStudioTitleContainer {
   text-align: center;
-  height: 80px;
+  height: 40px;
   .pipelineStudioTitle {
     display: grid;
     justify-content: center;
@@ -136,9 +136,10 @@
 .savePublishContainer {
   text-align: right;
   padding: 8px 0px;
-  & > div {
-    display: inline-grid;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
   .tagRender {
     margin: 0 20px;
     background-color: #fafbfc !important;
@@ -148,8 +149,14 @@
     }
   }
 
+  .runPipelineBtn {
+    background-color: var(--green-500) !important;
+    border-color: var(--green-500) !important;
+    margin-left: var(--spacing-medium) !important;
+  }
+
   .savePublishBtn {
-    width: 153px;
+    width: 100px;
     height: 26px;
     border: 1px solid var(--blue-300) !important;
     color: var(--pipeline-blue-color) !important;
@@ -171,7 +178,6 @@
 
 .pipelineNameContainer {
   display: flex;
-  margin-top: 10px;
 
   .pipelineName {
     display: inline-flex;
@@ -181,37 +187,4 @@
   button {
     display: inline-flex;
   }
-}
-
-.codebaseConfiguration {
-  &.notConfigured {
-    > span svg path:last-child {
-      // TODO: Replace color once it is available in UIKit
-      fill: #ff8800 !important;
-    }
-  }
-
-  &.valid {
-    > span svg path {
-      // TODO: Replace color once it is available in UIKit
-      fill: #06c270 !important;
-    }
-  }
-
-  &.invalid {
-    // TODO: Replace color once it is available in UIKit
-    color: #9293ab !important;
-  }
-
-  &.validating {
-    // DO NOT REMOVE
-    color: inherit;
-  }
-}
-
-.predefinedValue {
-  font-size: 13px;
-  color: var(--grey-500);
-  margin-top: calc(var(--spacing-small) / -1);
-  margin-bottom: var(--spacing-medium);
 }

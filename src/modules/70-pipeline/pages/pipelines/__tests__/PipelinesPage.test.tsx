@@ -233,7 +233,7 @@ describe('Pipeline Card View Test Cases', () => {
     const cardName = getAllByTextLib(cardView, 'Executions in last 7 days')[0]
     fireEvent.click(cardName)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineDetail(params as any))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineDeploymentList(params as any))).toBeTruthy()
   })
 
   test('should be able to click on card', async () => {
