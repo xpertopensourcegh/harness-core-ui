@@ -14,7 +14,7 @@ import {
 import { isEmpty } from 'lodash-es'
 import copy from 'clipboard-copy'
 import { useGetActionsList, useGetSourceRepoToEvent, useGenerateWebhookToken } from 'services/pipeline-ng'
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
@@ -102,11 +102,10 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
         !isEdit ? `: ${getString('pipeline-triggers.onNewWebhookTitle')}` : ''
       }`}</h2>
       <div style={{ backgroundColor: 'var(--white)' }}>
-        <AddDescriptionAndKVTagsWithIdentifier
-          className={css.triggerName}
+        <NameIdDescriptionTags
+          className={css.nameIdDescriptionTags}
           formikProps={formikProps}
           identifierProps={{
-            inputLabel: getString('pipeline-triggers.triggerConfigurationPanel.triggerName'),
             isIdentifierEditable: !isEdit
           }}
         />

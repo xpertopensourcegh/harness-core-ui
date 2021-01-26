@@ -7,6 +7,7 @@ import EditableText from './EditableText/EditableText'
 import EntityReference from './EntityReference/EntityReference'
 import HeatMap from './HeatMap/HeatMap'
 import { NavigationCheck } from './NavigationCheck/NavigationCheck'
+import { NameIdDescriptionTags } from './NameIdDescriptionTags/NameIdDescriptionTags'
 import { PageSpinner } from './Page/PageSpinner'
 import { Page } from './Page/Page'
 import { ProjectSelector } from '../navigation/ProjectSelector/ProjectSelector'
@@ -54,6 +55,7 @@ export {
   InstanceDropdownField,
   FormInstanceDropdown,
   MultiTypeCheckbox,
+  NameIdDescriptionTags,
   UserLabel,
   Wizard,
   DelegateSelectors,

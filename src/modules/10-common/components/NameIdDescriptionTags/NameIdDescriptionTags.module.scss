@@ -1,0 +1,31 @@
+.main {
+  max-width: 785px;
+  margin-bottom: var(--spacing-medium) !important;
+
+  div[class*='collapse'] {
+    margin-left: 0;
+  }
+
+  & div[class*='Collapse'] {
+    border-top: none;
+    padding: 0;
+
+    // spacing for adjacent collapsible
+    + div[class*='Collapse'][class*='main'] {
+      margin-top: var(--spacing-medium);
+    }
+
+    div[class*='CollapseHeader'] {
+      padding-top: 0 !important;
+    }
+
+    span[data-icon='main-chevron-down'] {
+      color: var(--blue-500);
+    }
+  }
+
+  textarea {
+    min-height: 50px;
+    resize: vertical;
+  }
+}
