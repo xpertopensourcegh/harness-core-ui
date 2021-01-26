@@ -31,7 +31,7 @@ interface TestEmailConfigProps {
   handleTest: (formData: EmailTestConfigData) => void
 }
 
-const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
+export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
   const handleSubmit = (_formData: EmailTestConfigData): void => {
     props.handleTest(_formData)
     // call test api

@@ -8,7 +8,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateConnectorModal, {
   UseCreateConnectorModalProps
 } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import i18n from './SelectOrCreateConnector.i18n'
@@ -124,7 +124,7 @@ export function SelectOrCreateConnector(props: SelectOrCreateConnectorProps): JS
         cardLabel={iconLabel}
         renderLabelOutsideCard={true}
       />
-      <AddDescriptionAndTagsWithIdentifier
+      <AddDescriptionAndKVTagsWithIdentifier
         identifierProps={{
           inputLabel: i18n.name,
           inputName: SelectOrCreateConnectorFieldNames.NAME,

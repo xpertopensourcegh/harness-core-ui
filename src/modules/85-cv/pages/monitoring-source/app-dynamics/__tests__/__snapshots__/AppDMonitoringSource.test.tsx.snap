@@ -312,6 +312,9 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                           </p>
                         </div>
                       </div>
+                      <div
+                        class="StyledProps--font StyledProps--main connectorFormElm"
+                      />
                     </div>
                     <div
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"

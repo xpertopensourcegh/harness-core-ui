@@ -3,10 +3,11 @@ import { render, waitFor, fireEvent } from '@testing-library/react'
 import { noop } from 'lodash-es'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-
 import { fillAtForm, InputTypes, clickSubmit } from '@common/utils/JestFormHelper'
 import { NotificationType } from '@notifications/interfaces/Notifications'
-import ConfigureEmailNotifications from '../views/ConfigureEmailNotifications/ConfigureEmailNotifications'
+import ConfigureEmailNotifications, {
+  TestEmailConfig
+} from '../views/ConfigureEmailNotifications/ConfigureEmailNotifications'
 import ConfigureSlackNotifications from '../views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from '../views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
 
@@ -18,36 +19,6 @@ jest.mock('services/notifications', () => ({
 describe('ConfigureNotifications', () => {
   afterEach(() => {
     jest.clearAllMocks()
-  })
-
-  test('Email', async () => {
-    const handleSuccess = jest.fn()
-
-    const { container } = render(
-      <TestWrapper path="/account/:accountId/test" pathParams={{ accountId: 'dummy' }}>
-        <ConfigureEmailNotifications hideModal={noop} onSuccess={handleSuccess} />
-      </TestWrapper>
-    )
-
-    fillAtForm([
-      {
-        container,
-        fieldId: 'emailIds',
-        type: InputTypes.TEXTAREA,
-        value: 'test@harness.io'
-      }
-    ])
-
-    expect(container).toMatchSnapshot()
-
-    clickSubmit(container)
-    await waitFor(() =>
-      expect(handleSuccess).toHaveBeenCalledWith({
-        type: NotificationType.Email,
-        emailIds: ['test@harness.io'],
-        userGroups: []
-      })
-    )
   })
 
   test('Slack', async () => {
@@ -92,9 +63,77 @@ describe('ConfigureNotifications', () => {
     )
   })
 
-  test('PagerDuty', async () => {
+  test('Email', async () => {
     const handleSuccess = jest.fn()
 
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/test" pathParams={{ accountId: 'dummy' }}>
+        <ConfigureEmailNotifications hideModal={noop} onSuccess={handleSuccess} />
+      </TestWrapper>
+    )
+
+    fillAtForm([
+      {
+        container,
+        fieldId: 'emailIds',
+        type: InputTypes.TEXTAREA,
+        value: 'test@harness.io'
+      }
+    ])
+
+    expect(container).toMatchSnapshot()
+
+    clickSubmit(container)
+    await waitFor(() =>
+      expect(handleSuccess).toHaveBeenCalledWith({
+        type: NotificationType.Email,
+        emailIds: ['test@harness.io'],
+        userGroups: []
+      })
+    )
+  })
+
+  test('test email works correctly', async () => {
+    const handleTest = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper path="/account/:accountId/test" pathParams={{ accountId: 'dummy' }}>
+        <TestEmailConfig handleTest={handleTest} />
+      </TestWrapper>
+    )
+
+    fillAtForm([
+      {
+        container,
+        fieldId: 'to',
+        type: InputTypes.TEXTAREA,
+        value: 'testrecepient'
+      },
+      {
+        container,
+        fieldId: 'subject',
+        type: InputTypes.TEXTAREA,
+        value: 'test subject'
+      },
+      {
+        container,
+        fieldId: 'body',
+        type: InputTypes.TEXTAREA,
+        value: 'test body'
+      }
+    ])
+
+    fireEvent.click(getByText('Send'))
+    await waitFor(() =>
+      expect(handleTest).toHaveBeenCalledWith({
+        body: 'test body',
+        subject: 'test subject',
+        to: 'testrecepient'
+      })
+    )
+  })
+
+  test('PagerDuty', async () => {
+    const handleSuccess = jest.fn()
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/test" pathParams={{ accountId: 'dummy' }}>
         <ConfigurePagerDutyNotifications hideModal={noop} onSuccess={handleSuccess} />
