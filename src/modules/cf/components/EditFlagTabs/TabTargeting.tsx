@@ -69,7 +69,10 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
     setEditing(true)
   }
 
-  const showCustomRules = editing || (targetData?.envProperties?.rules?.length || 0) > 0
+  const showCustomRules =
+    editing ||
+    (targetData?.envProperties?.rules?.length || 0) > 0 ||
+    (targetData?.envProperties?.variationMap?.length || 0) > 0
 
   return (
     <Layout.Vertical>

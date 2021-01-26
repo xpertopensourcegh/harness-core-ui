@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   AvatarGroup,
@@ -560,21 +560,10 @@ interface CustomRulesViewProps {
 }
 
 const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, editing, enviroment, project }) => {
-  const initialRules =
-    target?.envProperties?.rules
-      ?.map(sr => {
-        return {
-          ruleId: sr.ruleId,
-          serve: sr.serve,
-          clauses: sr.clauses,
-          priority: sr.priority
-        } as RuleData
-      })
-      .sort((a, b) => a.priority - b.priority) || []
-  const [tempRules, setTempRules] = useState<RuleData[]>(initialRules)
-  const [servings, setServings] = useState<Serving[]>(() => {
-    return target?.envProperties?.variationMap ?? []
-  })
+  const tempRules = formikProps.values.customRules
+  const setTempRules = (data: RuleData[]) => formikProps.setFieldValue('customRules', data)
+  const servings = formikProps.values.variationMap
+  const setServings = (data: Serving[]) => formikProps.setFieldValue('variationMap', data)
 
   const handleAddServing = () => setServings([...servings, emptyServing()])
 
@@ -591,7 +580,8 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
     setServings([])
   }
 
-  const getPriority = () => tempRules.reduce((max, next) => (max < next.priority ? next.priority : max), 0) + 100
+  const getPriority = () =>
+    tempRules.reduce((max: number, next: { priority: number }) => (max < next.priority ? next.priority : max), 0) + 100
 
   const handleOnRequest = () => {
     setTempRules([...tempRules, emptyRule(getPriority())])
@@ -604,14 +594,6 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
   const handleDeleteRule = (index: number) => () => {
     setTempRules([...tempRules.slice(0, index), ...tempRules.slice(index + 1)])
   }
-
-  useEffect(() => {
-    formikProps.setFieldValue('customRules', tempRules)
-  }, [tempRules])
-
-  useEffect(() => {
-    formikProps.setFieldValue('variationMap', servings)
-  }, [servings])
 
   return (
     <>
@@ -649,7 +631,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
           </Layout.Horizontal>
         )}
         {tempRules.length > 0 &&
-          tempRules.map((rule, idx) => (
+          tempRules.map((rule: RuleData, idx: number) => (
             <Layout.Vertical key={idx} spacing="medium">
               {editing ? (
                 <RuleEditCard

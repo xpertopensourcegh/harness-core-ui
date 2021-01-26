@@ -1,20 +1,46 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Menu } from '@blueprintjs/core'
 import { Container, Button, Layout, Text } from '@wings-software/uicore'
 import type { Column } from 'react-table'
 import { useHistory } from 'react-router-dom'
+import { get } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
+import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
-import type { Feature, Segment } from 'services/cf'
+import { withTableData } from '@cf/utils/table-utils'
+import { Feature, Segment, useDeleteSegment } from 'services/cf'
 import CreateTargetSegmentModal from './CreateTargetSegmentModal'
 import css from './CFTargetsPage.module.scss'
 
-const UsedByCell: React.FC<any> = ({ value }: any) => {
+type TableData = {
+  segment: Segment
+  actions: {
+    onDelete: (identifier: string) => void
+    onEdit: (identifier: string) => void
+    getFlags: (identifier: string) => Feature[]
+  }
+}
+const withSegment = withTableData<Segment, TableData>(({ row, column }) => ({
+  segment: row.original,
+  actions: (column as any).actions
+}))
+
+const UsedByCell: React.FC<any> = withSegment(({ segment, actions }: TableData) => {
   const { getString } = useStrings()
+  const { getFlags, onDelete, onEdit } = actions
+
+  const { openDialog } = useConfirmationDialog({
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    contentText: getString('cf.segments.delete.message', { segmentName: segment.identifier }),
+    titleText: getString('cf.segments.delete.title'),
+    onCloseDialog: (isConfirmed: boolean) => isConfirmed && onDelete(segment.identifier)
+  })
+
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }}>
-      <Text>{value.length} flags</Text>
+      <Text>{getFlags(segment.identifier).length} flags</Text>
       <Container
         style={{ textAlign: 'right' }}
         onClick={(e: React.MouseEvent) => {
@@ -27,8 +53,8 @@ const UsedByCell: React.FC<any> = ({ value }: any) => {
           iconProps={{ size: 24 }}
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>
-              <Menu.Item icon="edit" text={getString('edit')} />
-              <Menu.Item icon="cross" text={getString('delete')} />
+              <Menu.Item icon="edit" text={getString('edit')} onClick={() => onEdit(segment.identifier)} />
+              <Menu.Item icon="cross" text={getString('delete')} onClick={openDialog} />
             </Menu>
           }
           tooltipProps={{ isDark: true, interactionKind: 'click' }}
@@ -36,7 +62,7 @@ const UsedByCell: React.FC<any> = ({ value }: any) => {
       </Container>
     </Layout.Horizontal>
   )
-}
+})
 
 interface TargetSegmentsProps {
   segments: Segment[]
@@ -53,6 +79,7 @@ interface TargetSegmentsProps {
   accountId: string
   orgIdentifier: string
   onCreateSegment: () => void
+  onDeleteSegment: () => void
 }
 
 const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
@@ -63,33 +90,21 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
   environment,
   orgIdentifier,
   accountId,
-  onCreateSegment
+  onCreateSegment,
+  onDeleteSegment
 }) => {
+  const { showError, showSuccess } = useToaster()
   const { getString } = useStrings()
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
-  const history = useHistory()
-  type CustomColumn<T extends Record<string, any>> = Column<T>
-  const columnDefs: CustomColumn<Segment>[] = [
-    {
-      Header: getString('cf.segments.create').toLocaleUpperCase(),
-      accessor: 'name',
-      width: '30%'
-    },
-    {
-      Header: getString('cf.segments.targetDefinition').toLocaleUpperCase(),
-      accessor: () => 'Not yet implemented',
-      width: '30%'
-    },
-    {
-      Header: getString('cf.segments.usingSegment').toLocaleUpperCase(),
-      accessor: (row: Segment) =>
-        flags?.filter(f =>
-          f.envProperties?.variationMap?.find(vm => vm.targetSegments?.find(ts => ts === row.identifier))
-        ) || [],
-      Cell: UsedByCell,
-      width: '40%'
+  const { mutate: deleteSegment } = useDeleteSegment({
+    queryParams: {
+      account: accountId,
+      org: orgIdentifier,
+      environment: environment,
+      project
     }
-  ]
+  })
+  const history = useHistory()
 
   const handleRowClick = ({ identifier }: { identifier: string }) => {
     history.push(
@@ -102,6 +117,49 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
       })
     )
   }
+
+  const handleEdit = (identifier: string) => handleRowClick({ identifier })
+
+  const handleDelete = (id: string) => {
+    deleteSegment(id)
+      .then(() => {
+        showSuccess(`Successfuly deleted segment with id ${id}`)
+        onDeleteSegment()
+      })
+      .catch(err => {
+        showError(get(err, 'data.message', err?.message))
+      })
+  }
+
+  type CustomColumn<T extends Record<string, any>> = Column<T>
+  const columnDefs: CustomColumn<Segment>[] = useMemo(
+    () => [
+      {
+        Header: getString('cf.segments.create').toLocaleUpperCase(),
+        accessor: 'name',
+        width: '30%'
+      },
+      {
+        Header: getString('cf.segments.targetDefinition').toLocaleUpperCase(),
+        accessor: () => 'Not yet implemented',
+        width: '30%'
+      },
+      {
+        Header: getString('cf.segments.usingSegment').toLocaleUpperCase(),
+        id: 'usedBy',
+        Cell: UsedByCell,
+        width: '40%',
+        actions: {
+          onEdit: handleEdit,
+          onDelete: handleDelete,
+          getFlags: (id: string) =>
+            flags?.filter(f => f.envProperties?.variationMap?.find(vm => vm.targetSegments?.find(ts => ts === id))) ||
+            []
+        }
+      }
+    ],
+    [flags, handleEdit, handleDelete]
+  )
 
   return (
     <>

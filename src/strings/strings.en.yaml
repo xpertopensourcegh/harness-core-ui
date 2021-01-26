@@ -1113,6 +1113,9 @@ cf:
     modalTitle: 'Create a Segment'
     displayIcon: 'Display Icon'
     uploadImage: 'Upload an image'
+    delete:
+      message: 'Are you sure you want to delete Segment: {{segmentName}}'
+      title: 'Delete Segment'
   environments:
     title: 'Environments'
     empty: 'There are currently no environments'

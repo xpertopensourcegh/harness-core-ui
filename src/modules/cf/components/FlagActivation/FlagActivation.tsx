@@ -63,10 +63,8 @@ export enum envActivation {
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
   const { flagData, project, environments, environment, isBooleanFlag, refetchFlag } = props
-  const [editEnvActivation, seteditEnvActivation] = useState<FeatureState | undefined>(flagData.envProperties?.state)
   const [editing, setEditing] = useState(false)
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const dirty = editEnvActivation !== flagData.envProperties?.state
   const { mutate: patchFeature } = usePatchFeature({
     identifier: flagData.identifier as string,
     queryParams: {
@@ -77,21 +75,10 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
   })
 
-  useEffect(() => {
-    seteditEnvActivation(flagData.envProperties?.state)
-  }, [flagData.envProperties?.state])
-
-  const toggleFlag = () => {
-    seteditEnvActivation(
-      editEnvActivation === envActivation.activeOff ? envActivation.activeOn : envActivation.activeOff
-    )
-  }
-
   const onChangeSwitchEnv = (_: string, formikProps: any): void => {
-    toggleFlag()
     formikProps.setFieldValue(
       'state',
-      editEnvActivation === envActivation.activeOff ? envActivation.activeOn : envActivation.activeOff
+      formikProps.values.state === envActivation.activeOff ? envActivation.activeOn : envActivation.activeOff
     )
   }
 
@@ -211,11 +198,10 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       .onPatchAvailable(data => {
         patchFeature(data)
           .then(() => {
-            patch.feature.reset()
             refetchFlag()
             setEditing(false)
           })
-          .catch(() => {
+          .finally(() => {
             patch.feature.reset()
           })
       })
@@ -295,14 +281,14 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
             />
             <FlexExpander />
             <Layout.Horizontal>
-              <Text>{(editEnvActivation || 'off') === 'off' ? i18n.flagOff : i18n.flagOn}</Text>
+              <Text>{(formikProps.values.state || 'off') === 'off' ? i18n.flagOff : i18n.flagOn}</Text>
               <Switch
                 onChange={event => {
                   onChangeSwitchEnv(event.currentTarget.value, formikProps)
                 }}
                 alignIndicator="right"
                 className={Classes.LARGE}
-                checked={editEnvActivation === envActivation.activeOn}
+                checked={formikProps.values.state === envActivation.activeOn}
               />
             </Layout.Horizontal>
           </Layout.Horizontal>
@@ -338,7 +324,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               </>
             )}
           </Container>
-          {(editing || dirty) && (
+          {(editing || formikProps.values.state !== flagData.envProperties?.state) && (
             <Layout.Horizontal className={css.editBtnsGroup} padding="medium">
               <Button
                 intent="primary"
@@ -346,7 +332,14 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 margin={{ right: 'small' }}
                 onClick={formikProps.submitForm}
               />
-              <Button minimal text={i18n.cancel} onClick={onCancelEditHandler} />
+              <Button
+                minimal
+                text={i18n.cancel}
+                onClick={() => {
+                  onCancelEditHandler()
+                  formikProps.handleReset()
+                }}
+              />
             </Layout.Horizontal>
           )}
         </Form>
