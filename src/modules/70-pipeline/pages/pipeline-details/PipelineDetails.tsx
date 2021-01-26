@@ -7,16 +7,24 @@ import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import css from './PipelineDetails.module.scss'
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()
-  const { data: pipeline } = useGetPipelineSummary({
+  const { data: pipeline, refetch } = useGetPipelineSummary({
     pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    lazy: true
   })
+
+  React.useEffect(() => {
+    if (pipelineIdentifier !== DefaultNewPipelineId) {
+      refetch()
+    }
+  }, [pipelineIdentifier])
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const { getString } = useStrings()
@@ -36,7 +44,11 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
                   url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: getString('pipelines')
                 },
-                { url: '#', label: pipeline?.data?.name || '' }
+                {
+                  url: '#',
+                  label:
+                    pipelineIdentifier !== DefaultNewPipelineId ? pipeline?.data?.name || '' : getString('studioText')
+                }
               ]}
             />
           </Layout.Vertical>

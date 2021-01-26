@@ -270,12 +270,8 @@ export default function ExecutionLogView(): React.ReactElement {
   const getByStage = (id: string) => stageIds.find((stg: Node) => stg.data === id)
 
   const TreeNode = (props: TreeProps) => {
-    const {
-      node,
-      node: { children, next, data, nestedChild },
-      isRootNode,
-      level
-    } = props
+    const { node, isRootNode, level } = props
+    const { children, next, data, nestedChild } = node || {}
     const rootCls = isRootNode ? css.rootNode : ''
     const childCls = level > 0 ? css.childNode : css.rootElement
     const subChildCls = nestedChild ? css.subChild : ''
