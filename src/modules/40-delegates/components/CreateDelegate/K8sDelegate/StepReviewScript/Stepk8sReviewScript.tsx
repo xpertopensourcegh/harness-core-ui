@@ -1,15 +1,48 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Button, Layout, StepProps, Accordion, Heading, Text, Link, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import { useGenerateKubernetesYaml } from 'services/portal'
 import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
 import css from '../CreateK8sDelegate.module.scss'
 
 const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
   const { getString } = useStrings()
-  /* test script */
-  const schema = {
-    a: 'b'
+  const { accountId } = useParams()
+  const { mutate: downloadYaml } = useGenerateKubernetesYaml({ queryParams: { accountId } })
+  const linkRef = React.useRef<HTMLAnchorElement>(null)
+  const onDownload = (data: any) => {
+    // const downloadLink = document.createElement('a')
+    downloadYaml(data)
+      .then(response => {
+        return new Response(response.body as Blob)
+      })
+      .then(response => response.blob())
+      .then(blob => {
+        if (linkRef?.current) {
+          linkRef.current.href = window.URL.createObjectURL(blob)
+          linkRef.current.download = `harness-delegate-kubernetes.tar.gz`
+        }
+        // let href = linkRef?.current?.href
+        // let download = linkRef?.current?.download
+        // href = window.URL.createObjectURL(blob)
+        // download = `harness-delegate-kubernetes.tar.gz`
+
+        // document.body.appendChild(downloadLink)
+
+        // downloadLink.dispatchEvent(
+        //   new MouseEvent('click', {
+        //     bubbles: true,
+        //     cancelable: true,
+        //     view: window
+        //   })
+        // )
+        linkRef?.current?.click()
+      })
+      .then(() => {
+        // document.body.removeChild(downloadLink)
+      })
   }
   return (
     <>
@@ -23,9 +56,9 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
                 details={
                   <YamlBuilder
                     entityType="Delegates"
-                    fileName={``}
+                    fileName={`harness-delegate.yaml`}
                     isReadOnlyMode={true}
-                    existingJSON={schema}
+                    existingJSON={props?.prevStepData}
                     showSnippetSection={false}
                     width="568px"
                     height="462px"
@@ -40,6 +73,9 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
               icon="arrow-down"
               text={getString('delegate.downloadScript')}
               className={css.downloadButton}
+              onClick={() => {
+                onDownload(props?.prevStepData)
+              }}
               outlined
             />
           </Layout.Horizontal>
@@ -77,6 +113,12 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
           </Layout.Horizontal>
         </Layout.Vertical>
       </Layout.Horizontal>
+      <a
+        className="hide"
+        ref={linkRef}
+        // ref={hiddenRedirectLink => (this.hiddenRedirectLink = hiddenRedirectLink)}
+        target={'_blank'}
+      />
     </>
   )
 }

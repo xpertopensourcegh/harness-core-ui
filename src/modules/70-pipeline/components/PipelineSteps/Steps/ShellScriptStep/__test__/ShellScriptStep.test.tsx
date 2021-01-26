@@ -528,7 +528,8 @@ describe('Test Shell Script Step', () => {
             type: 'String',
             value: 'Test_D'
           }
-        ]
+        ],
+        timeout: '10m'
       }
     }
 
@@ -594,7 +595,8 @@ describe('Test Shell Script Step', () => {
             type: 'String',
             value: 'Test_D'
           }
-        ]
+        ],
+        timeout: '10m'
       }
     }
 

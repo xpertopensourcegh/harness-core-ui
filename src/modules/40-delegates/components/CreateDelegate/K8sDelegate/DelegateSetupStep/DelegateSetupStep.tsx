@@ -13,13 +13,13 @@ import {
   StepProps
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useGetDelegateProfilesV2, useGetDelegateSizes } from 'services/portal'
+import { useGetDelegateProfilesV2, useGetDelegateSizes, useValidateKubernetesYaml } from 'services/portal'
 
 import { useStrings } from 'framework/exports'
 import type { DelegateProfile } from '@delegates/DelegateInterface'
 
 import { AddDescriptionWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
+import type { DelegateYaml } from '@delegates/DelegateInterface'
 
 import css from './DelegateSetupStep.module.scss'
 
@@ -50,17 +50,21 @@ const formatDelegateSizeArr = (delegateSizes: any) => {
     value: item.size
   }))
 }
-const DelegateSetup: React.FC<StepProps<DelegateInfoDTO> & DelegateSetupStepProps> = props => {
+
+const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> = props => {
   const initialValues = {
     name: '',
     identifier: '',
     description: '',
-    delegateConfiguration: 'Primary',
-    tags: {}
+    delegateConfigurationId: 'Primary',
+    size: '',
+    sesssionIdentifier: ''
   }
   const { accountId } = useParams()
   const { getString } = useStrings()
   const [selectedCard, setSelectedCard] = React.useState<any | undefined>()
+
+  const { mutate: createKubernetesYaml } = useValidateKubernetesYaml({ queryParams: { accountId } })
 
   const { data } = useGetDelegateProfilesV2({ queryParams: { accountId } })
   const { data: delegateSizes } = useGetDelegateSizes({
@@ -70,17 +74,25 @@ const DelegateSetup: React.FC<StepProps<DelegateInfoDTO> & DelegateSetupStepProp
   const selectCardData = formatDelegateSizeArr(delegateSizeMappings)
   const profileOptions: SelectOption[] = formatProfileList(data)
 
+  const onSubmit = async (values: DelegateYaml) => {
+    const response = await createKubernetesYaml(values)
+    const delegateYaml = response.resource
+    props?.nextStep?.(delegateYaml)
+  }
+
   return (
     <Layout.Vertical padding="xxlarge">
       <Container padding="small">
         <Formik
           initialValues={initialValues}
-          onSubmit={() => {
+          onSubmit={values => {
+            onSubmit(values)
             /** to do here */
           }}
           validationSchema={Yup.object().shape({
             name: Yup.string().trim().required(getString('delegate.delegateNameRequired')),
-            delegateConfiguration: Yup.string().trim().required(getString('delegate.delegateConfigRequired'))
+            size: Yup.string().trim().required(getString('delegate.delegateSizeRequired')),
+            delegateConfigurationId: Yup.string().trim().required(getString('delegate.delegateConfigRequired'))
           })}
         >
           {formikProps => {
@@ -90,7 +102,7 @@ const DelegateSetup: React.FC<StepProps<DelegateInfoDTO> & DelegateSetupStepProp
               <FormikForm>
                 <Container style={{ minHeight: 460 }} className={css.container}>
                   <div className={css.formGroup}>
-                    <AddDescriptionWithIdentifier identifierProps={{ inputName: 'name' }} formikProps={formikProps} />
+                    <AddDescriptionWithIdentifier identifierProps={{ inputName: 'name' }} />
                   </div>
                   {delegateSizeMappings && (
                     <div className={css.formGroup}>
@@ -130,9 +142,10 @@ const DelegateSetup: React.FC<StepProps<DelegateInfoDTO> & DelegateSetupStepProp
                             </Container>
                           )
                         }}
-                        onChange={value => {
+                        onChange={size => {
                           /* istanbul ignore next */
-                          setSelectedCard(value)
+                          setSelectedCard(size)
+                          formikProps.setFieldValue('size', size.value)
                         }}
                         className={`grid ${css.delegateSizeWrapper}`}
                       ></CardSelect>
@@ -142,7 +155,7 @@ const DelegateSetup: React.FC<StepProps<DelegateInfoDTO> & DelegateSetupStepProp
                     <FormInput.Select
                       items={profileOptions}
                       label={getString('delegate.delegateConfigurations')}
-                      name={'delegateConfigurationName'}
+                      name={'delegateConfigurationId'}
                     />
                   </div>
                   {/* 
@@ -169,14 +182,14 @@ const DelegateSetup: React.FC<StepProps<DelegateInfoDTO> & DelegateSetupStepProp
                       text={getString('continue')}
                       intent="primary"
                       rightIcon="chevron-right"
-                      onClick={() => {
-                        if (props?.nextStep) {
-                          props?.nextStep?.()
-                        }
-                        // const selectedIdx = selectedTabIndex
-                        // setSelectedTabId(panels[selectedIdx + 1].id)
-                        // setSelectedTabIndex(selectedIdx + 1)
-                      }}
+                      // onClick={() => {
+                      //   if (props?.nextStep) {
+                      //     props?.nextStep?.()
+                      //   }
+                      //   // const selectedIdx = selectedTabIndex
+                      //   // setSelectedTabId(panels[selectedIdx + 1].id)
+                      //   // setSelectedTabIndex(selectedIdx + 1)
+                      // }}
                     />
                   </Layout.Horizontal>
                 </Container>

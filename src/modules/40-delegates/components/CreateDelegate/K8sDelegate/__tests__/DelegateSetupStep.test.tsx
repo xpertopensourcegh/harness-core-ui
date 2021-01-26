@@ -13,6 +13,10 @@ jest.mock('services/portal', () => ({
   useGetDelegateSizes: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: DelegateSizesmock, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useValidateKubernetesYaml: jest.fn().mockImplementation(args => {
+    mockGetCallFunction(args)
+    return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 describe('Create DelegateSetup Step', () => {

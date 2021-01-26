@@ -23,7 +23,7 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = () => {
     {
       tabTitle: 'Delegate Setup',
       id: 'delegateSetup',
-      status: Status.TODO
+      status: Status.INPROGRESS
     },
     { tabTitle: 'Review Script', id: 'reviewScript', status: Status.TODO },
     {

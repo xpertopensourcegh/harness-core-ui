@@ -10,6 +10,15 @@ export interface DelegateInfoDTO {
   type: 'K8sCluster'
 }
 
+export interface DelegateYaml {
+  name?: string
+  identifier?: string
+  description?: string
+  delegateConfigurationId?: string
+  size?: string
+  sessionIdentifier?: string
+}
+
 export interface DelegateConfigDTO {
   [key: string]: any
 }

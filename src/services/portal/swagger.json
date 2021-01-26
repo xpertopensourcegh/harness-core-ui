@@ -12173,6 +12173,62 @@
         }
       }
     },
+    "/setup/delegates/validate-kubernetes-yaml": {
+      "post": {
+        "tags": ["setupdelegates"],
+        "operationId": "validate-kubernetes-yaml",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/KubDelegateYaml"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseKubDelegateYaml"
+            }
+          }
+        }
+      }
+    },
+    "/setup/delegates/generate-kubernetes-yaml": {
+      "post": {
+        "tags": ["setupdelegates"],
+        "operationId": "generate-kubernetes-yaml",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseKubDownload"
+            }
+          }
+        }
+      }
+    },
     "/setup/delegates/{delegateId}/description": {
       "put": {
         "tags": ["setupdelegates"],
@@ -47814,6 +47870,34 @@
         }
       }
     },
+
+    "KubDelegateYaml": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "delegateConfigurationId": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "sesssionIdentifier": {
+          "type": "string"
+        }
+      }
+    },
+    "DownloadYaml": {
+      "type": "object",
+      "properties": {}
+    },
     "StackTraceElement": {
       "type": "object",
       "properties": {
@@ -48177,6 +48261,7 @@
         }
       }
     },
+
     "RestResponsePageResponseAccount": {
       "type": "object",
       "properties": {
@@ -66749,6 +66834,35 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
+        }
+      }
+    },
+
+    "RestResponseKubDelegateYaml": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/KubDelegateYaml"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseKubDownload": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object"
         }
       }
     },

@@ -263,6 +263,18 @@ export interface RestResponseImportStatusReport {
   responseMessages?: ResponseMessage[]
 }
 
+export interface KubDelegateYaml {
+  name?: string
+  identifier?: string
+  description?: string
+  delegateConfigurationId?: string
+  size?: string
+  sesssionIdentifier?: string
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface DownloadYaml {}
+
 export interface StackTraceElement {
   methodName?: string
   fileName?: string
@@ -9096,6 +9108,18 @@ export interface RestResponseTaskSelectorMap {
   }
   resource?: TaskSelectorMap
   responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseKubDelegateYaml {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: KubDelegateYaml
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseKubDownload {
+  body?: { [key: string]: any }
 }
 
 export interface TaskSelectorMap {
@@ -19080,3 +19104,63 @@ export const useGetDelegateSizes = (props: UseGetDelegateSizesProps) =>
     base: getConfig('api'),
     ...props
   })
+
+export interface ValidateKubernetesYamlQueryParams {
+  accountId?: string
+}
+
+export type ValidateKubernetesYamlProps = Omit<
+  MutateProps<RestResponseKubDelegateYaml, unknown, ValidateKubernetesYamlQueryParams, KubDelegateYaml, void>,
+  'path' | 'verb'
+>
+
+export const ValidateKubernetesYaml = (props: ValidateKubernetesYamlProps) => (
+  <Mutate<RestResponseKubDelegateYaml, unknown, ValidateKubernetesYamlQueryParams, KubDelegateYaml, void>
+    verb="POST"
+    path="/setup/delegates/validate-kubernetes-yaml"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseValidateKubernetesYamlProps = Omit<
+  UseMutateProps<RestResponseKubDelegateYaml, unknown, ValidateKubernetesYamlQueryParams, KubDelegateYaml, void>,
+  'path' | 'verb'
+>
+
+export const useValidateKubernetesYaml = (props: UseValidateKubernetesYamlProps) =>
+  useMutate<RestResponseKubDelegateYaml, unknown, ValidateKubernetesYamlQueryParams, KubDelegateYaml, void>(
+    'POST',
+    `/setup/delegates/validate-kubernetes-yaml`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GenerateKubernetesYamlQueryParams {
+  accountId?: string
+}
+
+export type GenerateKubernetesYamlProps = Omit<
+  MutateProps<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+export const GenerateKubernetesYaml = (props: GenerateKubernetesYamlProps) => (
+  <Mutate<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, void, void>
+    verb="POST"
+    path="/setup/delegates/generate-kubernetes-yaml"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGenerateKubernetesYamlProps = Omit<
+  UseMutateProps<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+export const useGenerateKubernetesYaml = (props: UseGenerateKubernetesYamlProps) =>
+  useMutate<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, void, void>(
+    'POST',
+    `/setup/delegates/generate-kubernetes-yaml`,
+    { base: getConfig('api'), ...props }
+  )

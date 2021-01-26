@@ -412,6 +412,7 @@ instanceFieldOptions:
 delegate:
   hostName: 'Hostname'
   delegateNameRequired: 'Delegate Name is Required.'
+  delegateSizeRequired: 'Delegate Size is Required.'
   delegateConfigRequired: 'Delegate Configuration is Required.'
   replicaText: 'Runs upto concurrent tasks Replicas='
   totalMem: 'Total Mem'
