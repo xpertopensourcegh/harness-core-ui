@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEqual, isNil } from 'lodash-es'
+import type { FormikActions } from 'formik'
+import { get, isEqual, isNil } from 'lodash-es'
 import {
   Layout,
   Color,
@@ -17,8 +18,18 @@ import {
   FormikForm as Form
 } from '@wings-software/uicore'
 import { Switch, Classes, Dialog } from '@blueprintjs/core'
-import { Feature, FeatureState, usePatchFeature, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
+import {
+  Feature,
+  FeatureState,
+  usePatchFeature,
+  ServingRule,
+  Clause,
+  Serve,
+  VariationMap,
+  WeightedVariation
+} from 'services/cf'
 import { extraOperators } from '@cf/constants'
+import { useToaster } from '@common/exports'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -33,7 +44,7 @@ interface FlagActivationProps {
   flagData: Feature
   isBooleanFlag: boolean
   onEnvChange: any
-  refetchFlag: any
+  refetchFlag: () => Promise<any>
 }
 
 interface Values {
@@ -63,6 +74,7 @@ export enum envActivation {
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
   const { flagData, project, environments, environment, isBooleanFlag, refetchFlag } = props
+  const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { mutate: patchFeature } = usePatchFeature({
@@ -100,7 +112,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     variationMap: flagData.envProperties?.variationMap ?? []
   }
 
-  const onSaveChanges = (values: Values): void => {
+  const onSaveChanges = (values: Values, formikActions: FormikActions<Values>): void => {
     if (values.state !== initialValues.state) {
       patch.feature.addInstruction(patch.creators.setFeatureFlagState(values?.state as FeatureState))
     }
@@ -140,6 +152,20 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         initialValues.customRules
           .filter(rule => !values.customRules.find(r => r.ruleId === rule.ruleId))
           .map(r => patch.creators.removeRule(r.ruleId))
+      )
+
+      patch.feature.addAllInstructions(
+        values.customRules
+          .filter(rule =>
+            initialValues.customRules.find(
+              oldRule => oldRule.ruleId === rule.ruleId && oldRule.serve.variation !== rule.serve.variation
+            )
+          )
+          .map(rule => {
+            const variation =
+              (rule.serve.distribution as { bucketBy: string; variations: WeightedVariation[] }) ?? rule.serve.variation
+            return patch.creators.updateRuleVariation(rule.ruleId, variation)
+          })
       )
 
       patch.feature.addAllInstructions(
@@ -198,8 +224,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       .onPatchAvailable(data => {
         patchFeature(data)
           .then(() => {
-            refetchFlag()
+            refetchFlag().then(() => {
+              formikActions.resetForm()
+            })
             setEditing(false)
+          })
+          .catch(err => {
+            showError(get(err, 'data.message', err?.message))
           })
           .finally(() => {
             patch.feature.reset()

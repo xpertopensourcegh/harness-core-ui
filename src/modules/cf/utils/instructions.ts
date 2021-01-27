@@ -33,6 +33,7 @@ type PatchKind =
   | 'removeFromIncludeList'
   | 'addToExcludeList'
   | 'removeFromExcludeList'
+  | 'updateRule'
 
 export type FeatureList = Pick<Prerequisite, 'feature'>[]
 export type VariationIdentifier = Pick<Variation, 'identifier'>[]
@@ -93,6 +94,17 @@ export interface ReorderRulesParams {
 type UpdateDefaultServeParams = VariationParam | { bucketID: string; variations: WeightedVariation[] }
 type TargetList = { targets: string[] }
 
+export type UpdateRuleVariation =
+  | {
+      ruleID: string
+      variation: string
+    }
+  | {
+      ruleID: string
+      bucketBy: string
+      variations: WeightedVariation[]
+    }
+
 export type AddClauseToSegmentParams = ClauseData
 export type UpdateClauseOnSegmentParams = ClauseData & {
   clauseID: string
@@ -123,6 +135,7 @@ type ParameterType =
   | AddClauseToSegmentParams
   | UpdateClauseOnSegmentParams
   | RemoveClauseOnSegmentParams
+  | UpdateRuleVariation
 
 export interface Instruction<Params extends ParameterType = ParameterType> {
   kind: PatchKind
@@ -317,6 +330,30 @@ const removeClauseOnSegment: (clauseID: string) => Instruction<RemoveClauseOnSeg
   'removeClause',
   shape<RemoveClauseOnSegmentParams>('clauseID')
 )
+function updateRuleVariation(ruleID: string, variation: string): Instruction<UpdateRuleVariation>
+function updateRuleVariation(
+  ruleID: string,
+  variation: { bucketBy: string; variations: WeightedVariation[] }
+): Instruction<UpdateRuleVariation>
+function updateRuleVariation(ruleID: string, variation: any): Instruction<UpdateRuleVariation> {
+  if (typeof variation === 'string') {
+    return {
+      kind: 'updateRule',
+      parameters: {
+        ruleID,
+        variation
+      }
+    }
+  } else {
+    return {
+      kind: 'updateRule',
+      parameters: {
+        ruleID,
+        ...variation
+      }
+    }
+  }
+}
 
 class SemanticPatch {
   instructions: any[] = []
@@ -435,6 +472,7 @@ export default {
     removeFromExcludeList,
     addClauseToSegment,
     updateClauseOnSegment,
-    removeClauseOnSegment
+    removeClauseOnSegment,
+    updateRuleVariation
   }
 }
