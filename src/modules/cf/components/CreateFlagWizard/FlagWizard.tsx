@@ -14,6 +14,7 @@ import css from './FlagWizard.module.scss'
 
 interface FlagWizardProps {
   flagTypeView: string
+  environmentIdentifier: string
   toggleFlagType: (newFlag: string) => void
   hideModal: () => void
   goBackToTypeSelections: () => void
@@ -25,10 +26,10 @@ const flagTypeOptions: SelectOption[] = [
 ]
 
 const FlagWizard: React.FC<FlagWizardProps> = props => {
-  const { flagTypeView, toggleFlagType, hideModal, goBackToTypeSelections } = props
+  const { flagTypeView, environmentIdentifier, toggleFlagType, hideModal, goBackToTypeSelections } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { showError, clear } = useToaster()
-  const { projectIdentifier, orgIdentifier, environmentIdentifier, accountId } = useParams<Record<string, string>>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
   const {
     mutate: createFeatureFlag,
@@ -58,7 +59,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
             orgIdentifier: orgIdentifier as string,
             projectIdentifier: projectIdentifier as string,
             featureFlagIdentifier: formData.identifier,
-            environmentIdentifier: (environmentIdentifier ?? 'production') as string,
+            environmentIdentifier,
             accountId
           })
         )

@@ -332,7 +332,7 @@ const CFFeatureFlagsPage: React.FC = () => {
 
       <Container className={css.ffListContainer}>
         <Layout.Horizontal className={css.ffPageBtnsHeader}>
-          <FlagDialog disabled={loading} />
+          <FlagDialog disabled={loading} environment={environment?.value as string} />
 
           <FlexExpander />
 
@@ -406,7 +406,7 @@ const CFFeatureFlagsPage: React.FC = () => {
             <Text color="grey400" style={{ fontSize: '20px', padding: '40px 0' }}>
               {i18n.noFeatureFlags}
             </Text>
-            <FlagDialog />
+            <FlagDialog environment={environment?.value as string} />
           </Layout.Vertical>
         )}
 

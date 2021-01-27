@@ -9,9 +9,10 @@ import css from './FlagDialog.module.scss'
 
 export interface FlagModalProps {
   disabled?: boolean
+  environment: string
 }
 
-const FlagModal: React.FC<FlagModalProps> = ({ disabled }) => {
+const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
   const [flagTypeClicked, setFlagTypeClicked] = useState(false)
   const [flagTypeView, setFlagTypeView] = useState('')
 
@@ -42,6 +43,7 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled }) => {
         {flagTypeClicked ? (
           <FlagWizard
             flagTypeView={flagTypeView}
+            environmentIdentifier={environment}
             toggleFlagType={toggleFlagType}
             hideModal={hideModal}
             goBackToTypeSelections={() => {
