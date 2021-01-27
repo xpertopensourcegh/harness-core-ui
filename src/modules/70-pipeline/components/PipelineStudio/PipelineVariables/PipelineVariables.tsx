@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Color, NestedAccordionProvider, useNestedAccordion, Button } from '@wings-software/uicore'
+import { NestedAccordionProvider, useNestedAccordion, Button } from '@wings-software/uicore'
 import type { ITreeNode } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { stringify, parse } from 'yaml'
@@ -10,9 +10,9 @@ import { useCreateVariables } from 'services/pipeline-ng'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
 import { shouldShowError } from '@common/utils/errorUtils'
+import { String } from 'framework/exports'
 
 import { PageError } from '@common/components/Page/PageError'
-import i18n from './PipelineVariables.i18n'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { getPipelineTree } from '../PipelineUtils'
 import StagesTree, { stagesTreeNodeClasses } from '../../StagesThree/StagesTree'
@@ -84,7 +84,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   const stagesCards: JSX.Element[] = []
   /* istanbul ignore else */
   if (variablesPipeline.stages && variablesPipeline.stages?.length > 0) {
-    variablesPipeline.stages.forEach((data, i) => {
+    variablesPipeline.stages?.forEach((data, i) => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach((nodeP: StageElementWrapper, j: number) => {
           nodeP.stage &&
@@ -127,7 +127,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
     <div className={css.pipelineVariables}>
       <div className={css.variablesContainer}>
         <div className={css.header}>
-          <Text font={{ size: 'medium' }}>{i18n.variables}</Text>
+          <String stringID="variablesText" />
           <Button
             minimal
             icon="cross"
@@ -144,13 +144,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
             selectionChange={handleSelectionChange}
           />
           <div className={css.variableList}>
-            <Text className={css.title} color={Color.BLACK}>
-              {i18n.pipeline}
-            </Text>
+            <String stringID="pipeline" className={css.title} />
             <div className={css.variableListHeader}>
-              <Text font={{ size: 'small' }}>{i18n.variables}</Text>
-              <Text font={{ size: 'small' }}>{i18n.type}</Text>
-              <Text font={{ size: 'small' }}>{i18n.values}</Text>
+              <String stringID="variableLabel" />
+              <String stringID="valueLabel" />
             </div>
             <PipelineCard
               pipeline={variablesPipeline}
@@ -159,6 +156,11 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               updatePipeline={updatePipeline}
               metadataMap={metadataMap}
             />
+            <String stringID="stages" className={css.title} />
+            <div className={css.variableListHeader}>
+              <String stringID="variableLabel" />
+              <String stringID="valueLabel" />
+            </div>
             {stagesCards}
           </div>
         </div>

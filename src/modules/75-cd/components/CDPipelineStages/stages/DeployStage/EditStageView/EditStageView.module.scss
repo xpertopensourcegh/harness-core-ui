@@ -54,8 +54,6 @@
   }
 
   .stageDetails {
-    display: grid;
-    width: 1024px;
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     .stageOverridesTab {

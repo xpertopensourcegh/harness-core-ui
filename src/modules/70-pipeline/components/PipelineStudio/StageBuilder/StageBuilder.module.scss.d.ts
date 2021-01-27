@@ -7,12 +7,9 @@ declare const styles: {
   readonly canvas: string
   readonly pipelineStudioTitle: string
   readonly rectangle: string
+  readonly canvasWrapper: string
   readonly renderPopover: string
-  readonly splitButtons: string
-  readonly stageDecrease: string
-  readonly stageIncrease: string
   readonly resizers: string
-  readonly separator: string
   readonly stageList: string
 }
 export default styles

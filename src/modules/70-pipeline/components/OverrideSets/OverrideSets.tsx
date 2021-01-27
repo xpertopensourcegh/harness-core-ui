@@ -237,6 +237,7 @@ export default function OverrideSets({
           isDefaultOpen
           id={`{overridesets}`}
           addDomId
+          noAutoScroll
           summary={
             <>
               <Text style={{ color: 'var(--grey-400)', lineHeight: '24px' }}>{i18n.configure}</Text>
@@ -419,46 +420,45 @@ export default function OverrideSets({
               )}
               {!isPropagating && (
                 <section className={css.collapseContainer}>
-                  <NestedAccordionProvider>
-                    {currentVisibleOverridesList.map((data: { overrideSet: { identifier: string } }, index: number) => {
-                      const isOpen = data.overrideSet.identifier === overrideName ? { isDefaultOpen: true } : {}
-                      return (
-                        <NestedAccordionPanel
-                          addDomId
-                          {...isOpen}
-                          key={data.overrideSet.identifier + index}
-                          id={data.overrideSet.identifier + index}
-                          summary={data.overrideSet.identifier}
-                          details={
-                            <>
-                              {selectedTab === artifactTab && (
-                                <ArtifactsSelection
-                                  isForOverrideSets={true}
-                                  identifierName={data.overrideSet.identifier}
-                                  isForPredefinedSets={false}
-                                />
-                              )}
-                              {selectedTab === manifestTab && (
-                                <ManifestSelection
-                                  isForOverrideSets={true}
-                                  identifierName={data.overrideSet.identifier}
-                                  isForPredefinedSets={false}
-                                />
-                              )}
-                              {selectedTab === variableTab && (
-                                <WorkflowVariables
-                                  identifierName={data.overrideSet.identifier}
-                                  factory={factory}
-                                  isForOverrideSets={true}
-                                  isForPredefinedSets={false}
-                                />
-                              )}
-                            </>
-                          }
-                        ></NestedAccordionPanel>
-                      )
-                    })}
-                  </NestedAccordionProvider>
+                  {currentVisibleOverridesList.map((data: { overrideSet: { identifier: string } }, index: number) => {
+                    const isOpen = data.overrideSet.identifier === overrideName ? { isDefaultOpen: true } : {}
+                    return (
+                      <NestedAccordionPanel
+                        addDomId
+                        {...isOpen}
+                        key={data.overrideSet.identifier + index}
+                        id={data.overrideSet.identifier + index}
+                        summary={data.overrideSet.identifier}
+                        noAutoScroll
+                        details={
+                          <>
+                            {selectedTab === artifactTab && (
+                              <ArtifactsSelection
+                                isForOverrideSets={true}
+                                identifierName={data.overrideSet.identifier}
+                                isForPredefinedSets={false}
+                              />
+                            )}
+                            {selectedTab === manifestTab && (
+                              <ManifestSelection
+                                isForOverrideSets={true}
+                                identifierName={data.overrideSet.identifier}
+                                isForPredefinedSets={false}
+                              />
+                            )}
+                            {selectedTab === variableTab && (
+                              <WorkflowVariables
+                                identifierName={data.overrideSet.identifier}
+                                factory={factory}
+                                isForOverrideSets={true}
+                                isForPredefinedSets={false}
+                              />
+                            )}
+                          </>
+                        }
+                      />
+                    )
+                  })}
                 </section>
               )}
 

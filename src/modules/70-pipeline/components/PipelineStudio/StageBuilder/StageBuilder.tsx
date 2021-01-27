@@ -7,7 +7,7 @@ import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings, String } from 'framework/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
 import {
   CanvasWidget,
@@ -37,6 +37,8 @@ import { SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTriggers } from '../PipelineTriggers/PipelineTriggers'
 import css from './StageBuilder.module.scss'
+
+const PANEL_RESIZE_DELTA = 4
 
 export type StageStateMap = Map<string, StageState>
 interface TempStageData {
@@ -509,11 +511,24 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
   const [splitPaneSize, setSplitPaneSize] = React.useState(DefaultSplitPaneSize)
+  const resizerRef = React.useRef<HTMLDivElement | null>(null)
 
   model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId, splitPaneSize)
   const setSplitPaneSizeDeb = debounce(setSplitPaneSize, 200)
   // load model into engine
   engine.setModel(model)
+
+  /* Ignoring this function as it is used by "react-split-pane" */
+  /* istanbul ignore next */
+  function handleStageResize(size: number): void {
+    window.requestAnimationFrame(() => {
+      if (resizerRef.current) {
+        resizerRef.current.style.transform = `translateY(${size + PANEL_RESIZE_DELTA}px)`
+      }
+    })
+
+    setSplitPaneSizeDeb(size)
+  }
 
   const StageCanvas = (
     <div
@@ -545,52 +560,56 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     <Layout.Horizontal className={cx(css.canvasContainer, { [css.canvasStageView]: isSplitViewOpen })} padding="medium">
       <div className={css.pipelineStudioTitle}>
         <div className={css.rectangle}>
-          <span>Pipeline Studio</span>
+          <String stringID="pipelineStudio" />
         </div>
       </div>
-      <div className={css.canvas}>
+      <div className={css.canvasWrapper}>
+        {isSplitViewOpen ? (
+          <div
+            className={css.resizers}
+            ref={resizerRef}
+            style={{ transform: `translateY(${splitPaneSize + PANEL_RESIZE_DELTA}px)` }}
+          >
+            <Button
+              icon="up"
+              minimal
+              small
+              iconProps={{ size: 12 }}
+              onClick={() => {
+                setSplitPaneSize(MinimumSplitPaneSize)
+              }}
+              id="stageIncrease"
+            />
+            <Button
+              icon="down"
+              minimal
+              small
+              id="stageDecrease"
+              iconProps={{ size: 12 }}
+              onClick={() => {
+                setSplitPaneSize(prev => (prev < MaximumSplitPaneSize ? prev + 100 : prev))
+              }}
+            />
+          </div>
+        ) : null}
         {isSplitViewOpen ? (
           <SplitPane
             size={splitPaneSize}
             split="horizontal"
             minSize={MinimumSplitPaneSize}
             maxSize={MaximumSplitPaneSize}
-            onChange={size => setSplitPaneSizeDeb(size)}
+            pane2Style={{ overflow: 'hidden' }}
+            onChange={handleStageResize}
           >
             {StageCanvas}
             <div
               style={{
                 width: '100%',
-                /*TODO: temporaty solution*/
-                height: stageType === 'CI' ? '100%' : `calc(100% - 62px)`,
+                height: '100%',
                 overflow: 'auto',
                 background: 'white'
               }}
             >
-              <div className={css.splitButtons}>
-                <div className={css.resizers}>
-                  <Button
-                    icon="up"
-                    minimal
-                    small
-                    iconProps={{ size: 12 }}
-                    onClick={() => {
-                      setSplitPaneSize(MinimumSplitPaneSize)
-                    }}
-                    id="stageIncrease"
-                  />
-                  <Button
-                    icon="down"
-                    minimal
-                    small
-                    id="stageDecrease"
-                    iconProps={{ size: 12 }}
-                    onClick={() => {
-                      setSplitPaneSize(prev => (prev < MaximumSplitPaneSize ? prev + 100 : prev))
-                    }}
-                  />
-                </div>
-              </div>
               {type === SplitViewTypes.StageView && renderPipelineStage({ stageType, minimal: false })}
               {type === SplitViewTypes.Notifications && <PipelineNotifications />}
               {type === SplitViewTypes.Triggers && <PipelineTriggers />}

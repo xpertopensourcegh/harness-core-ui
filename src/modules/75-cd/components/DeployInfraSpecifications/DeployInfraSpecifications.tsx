@@ -33,7 +33,7 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
   }
 ]
 
-export default function DeployInfraSpecifications(): JSX.Element {
+export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const [initialValues, setInitialValues] = React.useState<{}>()
   const [updateKey, setUpdateKey] = React.useState(0)
   const {
@@ -154,6 +154,7 @@ export default function DeployInfraSpecifications(): JSX.Element {
           </div>
         </div>
       </div>
+      {props.children}
     </Layout.Vertical>
   )
 }

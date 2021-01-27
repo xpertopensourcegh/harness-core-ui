@@ -27,7 +27,7 @@ $dot-space: 10px;
     z-index: 1;
     left: 0;
     right: 0;
-    top: 3px;
+    top: 2px;
 
     .rectangle {
       width: 210px;
@@ -68,12 +68,21 @@ $dot-space: 10px;
     }
   }
 
+  .canvas-wrapper {
+    width: 100%;
+
+    :global(.Resizer.horizontal) {
+      height: 4px;
+      background-color: var(--blue-350);
+      cursor: row-resize;
+    }
+  }
+
   .canvas {
     height: 100%;
     width: 100%;
     position: relative;
     border-top: 2px solid var(--blue-350);
-    border-bottom: 4px solid var(--blue-350);
 
     background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
       linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
@@ -99,70 +108,45 @@ $dot-space: 10px;
   }
 }
 
-.split-buttons {
-  span {
-    z-index: 2;
-  }
+.resizers {
+  z-index: 2;
+  position: absolute;
+  right: var(--spacing-medium);
+  top: -16px;
+  z-index: 3;
+  transform: translateY(-18px);
+  height: 30px;
+  width: 22px;
+  display: flex;
+  flex-direction: column;
+  background: var(--blue-200);
+  border: 1px solid var(--blue-400);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 2px var(--grey-300);
+  border-radius: 4px;
 
-  .stageDecrease,
-  .stageIncrease {
-    position: absolute;
-    right: var(--spacing-large);
-    cursor: pointer;
-    top: var(--spacing-xsmall);
-  }
+  & > :global(.bp3-button) {
+    padding: var(--spacing-none);
+    height: 50% !important;
+    width: 100%;
+    min-width: auto;
+    min-height: auto;
+    background-color: var(--blue-200) !important;
+    padding: 0 !important;
 
-  .stageIncrease {
-    top: var(--spacing-xxlarge);
-  }
-
-  .resizers {
-    position: absolute;
-    right: var(--spacing-medium);
-    top: -16px;
-    z-index: 3;
-    transform: translateY(-18px);
-    height: 46px;
-    width: 22px;
-    display: flex;
-    flex-direction: column;
-    background: var(--blue-200);
-    border: 1px solid var(--blue-400);
-    box-sizing: border-box;
-    box-shadow: 0px 0px 2px var(--grey-300);
-    border-radius: 4px;
-
-    & > :global(.bp3-button) {
-      padding: var(--spacing-none);
-      height: 50%;
-      width: 100%;
-      min-width: auto;
-      min-height: auto;
-      background-color: var(--blue-200) !important;
-
-      &:first-child {
-        border-radius: 4px 4px 0 0;
-      }
-
-      &:last-child {
-        border-radius: 0 0 4px 4px;
-      }
-
-      & svg > path {
-        fill: none !important;
-        stroke: var(--grey-700) !important;
-        stroke-width: 1px !important;
-      }
+    &:first-child {
+      border-radius: 4px 4px 0 0;
     }
-  }
 
-  .separator {
-    position: absolute;
-    right: var(--spacing-medium);
-    top: 24px;
-    width: 24px;
-    background-color: var(--grey-400);
-    height: 1px;
+    &:last-child {
+      border-radius: 0 0 4px 4px;
+    }
+
+    & svg > path {
+      fill: none !important;
+      stroke: var(--grey-700) !important;
+      stroke-width: 1px !important;
+    }
   }
 }
 

@@ -48,7 +48,7 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
         </section>
       )}
       {initialValues.variables.map?.((variable, index) => {
-        if (getMultiTypeFromValue(template?.variables[index].value) !== MultiTypeInputType.RUNTIME) {
+        if (getMultiTypeFromValue(template?.variables?.[index]?.value) !== MultiTypeInputType.RUNTIME) {
           return
         }
         return (

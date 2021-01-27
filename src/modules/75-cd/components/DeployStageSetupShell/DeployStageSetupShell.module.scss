@@ -6,6 +6,17 @@
   background: var(--white);
   .tabsContainer {
     background: white;
+    height: 100%;
+
+    & > :global(.bp3-tabs > .bp3-tab-list) {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    & > :global(.bp3-tabs > .bp3-tab-panel) {
+      overflow-x: auto;
+    }
 
     .stageDropdownButton {
       margin-left: calc(var(--spacing-large) / -1) !important;
@@ -62,21 +73,13 @@
       }
       .bp3-tab-list {
         background: white;
-        position: fixed;
         width: 100%;
         border-bottom: 0;
-        z-index: 1;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
         align-items: center;
       }
       .bp3-tab-panel {
-        position: absolute;
-        padding-top: 50px;
-        height: calc(100vh);
         width: 100%;
-        z-index: 0;
-        // overflow: scroll;
-        // margin: 20px 0;
       }
       .bp3-tab[aria-selected='true'] {
         color: var(--grey-400);
@@ -98,14 +101,14 @@
     }
   }
 
+  .failureStrategy {
+    right: 160px;
+  }
+
   .footer {
-    position: fixed;
     display: block !important;
-    bottom: 0px;
     width: 100% !important;
     background-color: var(--white) !important;
-    z-index: 1;
-    box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
   }
 }
 .stageDropDownTab {
@@ -124,19 +127,5 @@
     span:first-child {
       margin-right: var(--spacing-small);
     }
-  }
-}
-
-[data-layout='default'] {
-  .failureStrategy {
-    position: absolute;
-    right: 340px;
-  }
-}
-
-[data-layout='minimal'] {
-  .failureStrategy {
-    position: absolute;
-    right: 160px;
   }
 }

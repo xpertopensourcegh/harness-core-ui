@@ -88,7 +88,7 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
   }
 ]
 
-export default function DeployServiceSpecifications(): JSX.Element {
+export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
   const [selectedTab, setSelectedTab] = React.useState(
     getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
@@ -527,6 +527,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
           />
         </div>
       )}
+      <React.Fragment>{props.children}</React.Fragment>
     </Layout.Vertical>
   )
 }

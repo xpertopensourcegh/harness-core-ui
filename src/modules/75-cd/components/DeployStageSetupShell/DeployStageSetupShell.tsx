@@ -145,6 +145,45 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
   const selectedStage = getStageFromPipeline(pipeline, selectedStageId).stage
+  const navBtns = (
+    <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
+      <Button
+        text={i18n.previous}
+        icon="chevron-left"
+        disabled={selectedTabId === i18n.defaultId}
+        onClick={() => {
+          updatePipeline(pipeline)
+          setSelectedTabId(
+            selectedTabId === i18n.executionLabel
+              ? i18n.infraLabel
+              : selectedTabId === i18n.infraLabel
+              ? i18n.serviceLabel
+              : i18n.defaultId
+          )
+        }}
+      />
+
+      <Button
+        text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
+        intent="primary"
+        rightIcon="chevron-right"
+        onClick={() => {
+          updatePipeline(pipeline)
+          if (selectedTabId === i18n.executionLabel) {
+            updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
+          } else {
+            setSelectedTabId(
+              selectedTabId === i18n.defaultId
+                ? i18n.serviceLabel
+                : selectedTabId === i18n.serviceLabel
+                ? i18n.infraLabel
+                : i18n.executionLabel
+            )
+          }
+        }}
+      />
+    </Layout.Horizontal>
+  )
 
   return (
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
@@ -155,7 +194,7 @@ export default function DeployStageSetupShell(): JSX.Element {
         <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
           <Tab
             id={i18n.defaultId}
-            panel={<DeployStageSpecifications />}
+            panel={<DeployStageSpecifications>{navBtns}</DeployStageSpecifications>}
             title={
               <span className={cx(css.tab, css.stageDropDownTab)} onClick={e => e.stopPropagation()}>
                 <Button
@@ -213,7 +252,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                 {i18n.serviceLabel}
               </span>
             }
-            panel={<DeployServiceSpecifications />}
+            panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
           />
           <Tab
             id={i18n.infraLabel}
@@ -223,7 +262,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                 {i18n.infraLabel}
               </span>
             }
-            panel={<DeployInfraSpecifications />}
+            panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
           />
           <Tab
             id={i18n.executionLabel}
@@ -295,43 +334,6 @@ export default function DeployStageSetupShell(): JSX.Element {
             </Button>
           ) : null}
         </Tabs>
-      </Layout.Horizontal>
-      <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
-        <Button
-          text={i18n.previous}
-          icon="chevron-left"
-          disabled={selectedTabId === i18n.defaultId}
-          onClick={() => {
-            updatePipeline(pipeline)
-            setSelectedTabId(
-              selectedTabId === i18n.executionLabel
-                ? i18n.infraLabel
-                : selectedTabId === i18n.infraLabel
-                ? i18n.serviceLabel
-                : i18n.defaultId
-            )
-          }}
-        />
-
-        <Button
-          text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
-          intent="primary"
-          rightIcon="chevron-right"
-          onClick={() => {
-            updatePipeline(pipeline)
-            if (selectedTabId === i18n.executionLabel) {
-              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-            } else {
-              setSelectedTabId(
-                selectedTabId === i18n.defaultId
-                  ? i18n.serviceLabel
-                  : selectedTabId === i18n.serviceLabel
-                  ? i18n.infraLabel
-                  : i18n.executionLabel
-              )
-            }
-          }}
-        />
       </Layout.Horizontal>
     </section>
   )

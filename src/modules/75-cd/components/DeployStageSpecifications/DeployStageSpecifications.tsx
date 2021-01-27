@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { EditStageView } from '../CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
 
-export default function DeployStageSpecifications(): JSX.Element {
+export default function DeployStageSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const {
     state: {
       pipeline,
@@ -43,22 +43,21 @@ export default function DeployStageSpecifications(): JSX.Element {
   }, [])
 
   return (
-    <Layout.Vertical>
-      <Layout.Vertical spacing="large">
-        <EditStageView
-          data={cloneOriginalData}
-          context={'setup'}
-          onChange={values => {
-            updateStage({
-              name: values?.name,
-              identifier: values?.identifier,
-              description: values?.description,
-              variables: values?.variables,
-              skipCondition: values?.skipCondition
-            })
-          }}
-        />
-      </Layout.Vertical>
+    <Layout.Vertical spacing="large">
+      <EditStageView
+        data={cloneOriginalData}
+        context={'setup'}
+        onChange={values => {
+          updateStage({
+            name: values?.name,
+            identifier: values?.identifier,
+            description: values?.description,
+            variables: values?.variables,
+            skipCondition: values?.skipCondition
+          })
+        }}
+      />
+      {props.children}
     </Layout.Vertical>
   )
 }

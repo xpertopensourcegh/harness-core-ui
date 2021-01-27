@@ -34,11 +34,6 @@
         overflow-y: auto;
         height: 100%;
 
-        .title {
-          font-size: var(--font-size-medium);
-          margin-bottom: var(--spacing-small);
-        }
-
         .stage-title {
           display: flex;
           align-items: center;
@@ -55,17 +50,7 @@
           }
         }
 
-        .variable-list-header {
-          display: grid;
-          grid-template-columns: var(--variable-column1) var(--variable-column2) var(--variable-column3);
-          padding: 0 var(--spacing-large);
-          > p {
-            padding-left: var(--spacing-large);
-          }
-        }
-
         .variable-card {
-          margin: var(--spacing-small) 0 var(--spacing-medium);
           width: 100%;
           box-shadow: none;
         }
@@ -83,6 +68,22 @@
         }
       }
     }
+  }
+
+  .title {
+    display: block;
+    font-size: var(--font-size-medium);
+    margin: var(--spacing-medium) 0;
+    color: var(--grey-900);
+  }
+
+  .variable-list-header {
+    display: grid;
+    grid-template-columns: var(--variable-column1) minmax(10px, 1fr);
+    padding: 0 calc(2 * var(--spacing-large));
+    font-size: var(--font-size-small);
+    margin: var(--spacing-small) 0;
+    text-transform: uppercase;
   }
 
   .custom-variables {
