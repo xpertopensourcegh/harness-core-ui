@@ -3,7 +3,7 @@
   border-left: 1px solid var(--grey-300);
   display: grid;
   grid-template-rows: 1fr 60px 60px 60px 1fr;
-
+  z-index: 2;
   .icon-button {
     padding: 0px !important;
     position: relative !important;

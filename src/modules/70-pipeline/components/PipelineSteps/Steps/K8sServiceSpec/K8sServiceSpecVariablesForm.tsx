@@ -66,7 +66,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           }
         />
       ) : null}
-      {manifests && !isEmpty(omit(manifestsVariables, 'uuid')) ? (
+      {manifests && typeof manifestsVariables !== 'string' && !isEmpty(omit(manifestsVariables, 'uuid')) ? (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId

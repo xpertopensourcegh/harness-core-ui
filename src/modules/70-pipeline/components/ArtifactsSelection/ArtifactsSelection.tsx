@@ -220,6 +220,14 @@ export default function ArtifactsSelection({
     tagType?: string
     registryHostname?: string
   }): void => {
+    const tagData =
+      data.tagType === TagTypes.Value
+        ? { tag: data.tag }
+        : data.tagType === TagTypes.Regex
+        ? { tagRegex: data.tagRegex }
+        : { tag: '' }
+    const registryHostData =
+      selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type ? { registryHostname: data.registryHostname } : {}
     if (context === ModalViewFor.PRIMARY) {
       if (isPropagating) {
         artifacts['primary'] = {
@@ -227,11 +235,8 @@ export default function ArtifactsSelection({
           spec: {
             connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
             imagePath: data.imagePath,
-            tag: data.tagType === TagTypes.Value ? data.tag : '',
-            tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : '',
-            ...(selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type
-              ? { registryHostname: data.registryHostname }
-              : {})
+            ...tagData,
+            ...registryHostData
           }
         }
       }
@@ -247,8 +252,7 @@ export default function ArtifactsSelection({
                   spec: {
                     connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
                     imagePath: data.imagePath,
-                    tag: data.tagType === TagTypes.Value ? data.tag : '',
-                    tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : '',
+                    ...tagData,
                     ...(selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type
                       ? { registryHostname: data.registryHostname }
                       : {})
@@ -267,11 +271,8 @@ export default function ArtifactsSelection({
           spec: {
             connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
             imagePath: data.imagePath,
-            tag: data.tagType === TagTypes.Value ? data.tag : '',
-            tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : '',
-            ...(selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type
-              ? { registryHostname: data.registryHostname }
-              : {})
+            ...tagData,
+            ...registryHostData
           }
         }
       }
@@ -292,11 +293,8 @@ export default function ArtifactsSelection({
         spec: {
           connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
           imagePath: data.imagePath,
-          tag: data.tagType === TagTypes.Value ? data.tag : '',
-          tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : '',
-          ...(selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type
-            ? { registryHostname: data.registryHostname }
-            : {})
+          ...tagData,
+          ...registryHostData
         }
       }
 
