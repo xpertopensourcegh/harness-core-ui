@@ -19,6 +19,8 @@ import css from './ReferencedBy.module.scss'
 
 interface ReferencedByProps {
   accountId: string
+  projectIdentifier?: string
+  orgIdentifier?: string
   entityIdentifier: string | undefined
   entityType: ListReferredByEntitiesQueryParams['referredEntityType']
   mockData?: UseGetMockData<ResponsePageEntitySetupUsageDTO>
@@ -59,6 +61,8 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
   const { data, loading, refetch } = useListReferredByEntities({
     queryParams: {
       accountIdentifier: props.accountId,
+      projectIdentifier: props.projectIdentifier,
+      orgIdentifier: props.orgIdentifier,
       identifier: props.entityIdentifier,
       referredEntityType: props.entityType,
       pageIndex: page,

@@ -147,6 +147,8 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
           !loading && data ? (
             <ReferencedBy
               accountId={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
               entityType={'Connectors'}
               entityIdentifier={data.data?.connector?.identifier}
             />
