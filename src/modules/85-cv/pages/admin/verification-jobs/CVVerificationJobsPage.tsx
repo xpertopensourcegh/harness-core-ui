@@ -7,7 +7,12 @@ import { useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useStrings, String } from 'framework/exports'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetVerificationJobs, useDeleteVerificationJob, VerificationJobDTO } from 'services/cv'
+import {
+  useGetVerificationJobs,
+  useDeleteVerificationJob,
+  VerificationJobDTO,
+  DeleteVerificationJobQueryParams
+} from 'services/cv'
 import Table from '@common/components/Table/Table'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -58,7 +63,9 @@ export default function CVVerificationJobsPage() {
     )
 
   const onDelete = async (identifier?: string) => {
-    await deleteVerificationJob('' as any, { queryParams: { accountId, identifier } })
+    await deleteVerificationJob('' as any, {
+      queryParams: { accountId, identifier, projectIdentifier, orgIdentifier } as DeleteVerificationJobQueryParams
+    })
     const { pageItemCount, pageIndex } = (data?.resource ?? {}) as any // TODO - swagger issue, remove when fixed
     if (pageIndex! > 0 && pageItemCount === 1) {
       setPage(page - 1)

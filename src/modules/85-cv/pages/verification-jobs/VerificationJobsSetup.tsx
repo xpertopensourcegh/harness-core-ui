@@ -9,7 +9,7 @@ import type { AccountPathProps, ProjectPathProps, VerificationPathProps } from '
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
 import { VerificationJobType } from '@cv/constants'
-import { useGetVerificationJob } from 'services/cv'
+import { GetVerificationJobQueryParams, useGetVerificationJob } from 'services/cv'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import { VerificationSensitivityOptions } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields.tsx'
@@ -96,8 +96,10 @@ const VerificationJobsSetup = (): JSX.Element => {
       getVerificationJob({
         queryParams: {
           accountId,
-          identifier: verificationId
-        }
+          identifier: verificationId,
+          orgIdentifier,
+          projectIdentifier
+        } as GetVerificationJobQueryParams
       })
     }
   }, [verificationId])
