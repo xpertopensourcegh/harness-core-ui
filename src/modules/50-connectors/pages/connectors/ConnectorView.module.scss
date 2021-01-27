@@ -22,6 +22,18 @@
   }
 }
 
+.activityContainer {
+  border-left: thin solid var(--grey-300);
+  height: auto;
+  padding: var(--spacing-small) var(--spacing-xlarge) !important;
+  min-width: 400px;
+
+  .activitySummary {
+    border-bottom: thin solid var(--grey-300);
+    padding-bottom: var(--spacing-xlarge) !important;
+  }
+}
+
 .fullWidth {
   width: 100% !important;
 }
@@ -37,6 +49,7 @@
 .buttonContainer {
   display: flex;
   justify-content: space-between;
+  width: 93%;
   margin-bottom: var(--spacing-large) !important;
 
   .optionBtns {
@@ -64,17 +77,12 @@
 }
 
 .yamlView {
-  width: 70%;
-  padding-right: var(--spacing-medium) !important;
+  width: 93%;
 }
 
 .editButton {
   color: var(--blue-500) !important;
   border-color: var(--blue-500) !important;
-}
-
-.connectorDetailsWrapper {
-  width: 45%;
 }
 
 .disabled {

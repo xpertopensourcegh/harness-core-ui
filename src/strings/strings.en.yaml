@@ -16,7 +16,12 @@ more: '+{{number}} more'
 noData: No Data
 members: Members
 wip: Work in progress
+changeHistory: Change History
+lastUpdated: Last Updated
 lastActivity: last activity
+lastStatusCheckAt: 'Last status check at '
+lastSuccessfulStatusCheckAt: 'Last successful status check at '
+connectorCreated: Connector Created
 fieldRequired: '{{field}} is a required field'
 deploymentText: Deployment
 cloudCostsText: Cloud Costs
@@ -100,7 +105,7 @@ lastRunAtDate: '{{$.lastExecutionTs}}: '
 lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
 emptyDeployments: _ _ _ _ _ _
 recentActivity: Recent Activity
-lastUpdatedSort: '{{$.secret.lastUpdated}}'
+lastUpdatedSort: '{{$.lastUpdated}}'
 AZ09: A - Z, 0 - 9
 ZA90: Z - A, 9 - 0
 addOverrideSet: + Add Predefined Set
@@ -119,6 +124,7 @@ all: All
 plus: +
 passed: Passed
 failed: Failed
+success: Success
 inProgress: In Progress
 todo: TODO - implement this
 identifier: 'Identifier'
@@ -400,7 +406,6 @@ secret:
   inlineSecret: 'Inline Secret Value'
   referenceSecret: 'Reference Secret'
   secretCreated: Secret Created
-  lastUpdated: Last Updated
   secretActivity: Secret Activity
 instanceFieldOptions:
   percentage: 'percentage'

@@ -542,10 +542,10 @@ const SavedConnectorDetails: React.FC<SavedConnectorDetailsProps> = props => {
   const credenatislsDetailsSchema = getSchemaByType(props.connector, props.connector?.type)
 
   return (
-    <Container className={css.detailsSectionContainer}>
+    <Layout.Horizontal className={css.detailsSectionContainer}>
       <RenderDetailsSection title={i18n.overview} data={connectorDetailsSchema} />
       <RenderDetailsSection title={i18n.credentials} data={credenatislsDetailsSchema} />
-    </Container>
+    </Layout.Horizontal>
   )
 }
 export default SavedConnectorDetails

@@ -6,6 +6,8 @@ declare const styles: {
   readonly header: string
   readonly name: string
   readonly submitBtn: string
+  readonly activityContainer: string
+  readonly activitySummary: string
   readonly fullWidth: string
   readonly readOnly: string
   readonly connectorWrp: string
@@ -15,7 +17,6 @@ declare const styles: {
   readonly selected: string
   readonly yamlView: string
   readonly editButton: string
-  readonly connectorDetailsWrapper: string
   readonly disabled: string
 }
 export default styles

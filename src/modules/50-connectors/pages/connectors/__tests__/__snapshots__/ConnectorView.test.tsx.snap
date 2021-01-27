@@ -3,43 +3,50 @@
 exports[`Connector Details Page Edit and save connector YAML 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    style="height: inherit;"
   >
     <div
-      class="StyledProps--font StyledProps--main buttonContainer"
-    />
-    <div
-      class="Layout--horizontal StyledProps--main"
+      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      style="width: 100%;"
     >
       <div
-        class="fullWidth"
+        class="StyledProps--font StyledProps--main buttonContainer"
+      />
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="height: 100%;"
       >
-        <div />
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="fullWidth"
         >
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-large"
-            id="saveYAMLChanges"
-            title=""
-            type="button"
+          <div />
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            <span
-              class="bp3-button-text"
+            <button
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-large"
+              id="saveYAMLChanges"
+              title=""
+              type="button"
             >
-              Save Changes
-            </span>
-          </button>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-top-large"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
+              <span
+                class="bp3-button-text"
+              >
+                Save Changes
+              </span>
+            </button>
+            <button
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-top-large"
+              type="button"
             >
-              Cancel
-            </span>
-          </button>
+              <span
+                class="bp3-button-text"
+              >
+                Cancel
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -50,14 +57,119 @@ exports[`Connector Details Page Edit and save connector YAML 1`] = `
 exports[`Connector Details Page Edit details test 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    style="height: inherit;"
   >
     <div
-      class="StyledProps--font StyledProps--main buttonContainer"
-    />
+      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      style="width: 67%;"
+    >
+      <div
+        class="StyledProps--font StyledProps--main buttonContainer"
+      />
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="height: 100%;"
+      />
+    </div>
     <div
-      class="Layout--horizontal StyledProps--main"
-    />
+      class="Layout--vertical StyledProps--main activityContainer"
+    >
+      <div
+        class="StyledProps--font StyledProps--main activitySummary"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        >
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
+          >
+            Connectivity Status
+          </span>
+          <span
+            class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--padding-left-medium StyledProps--color StyledProps--color-red500"
+            icon="warning-sign"
+          >
+            <svg
+              data-icon="warning-sign"
+              height="18"
+              viewBox="0 0 16 16"
+              width="18"
+            >
+              <desc>
+                warning-sign
+              </desc>
+              <path
+                d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-red500"
+          >
+            Success
+          </span>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+        >
+          Last status check at 
+           
+          N/A
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+          Last successful status check at 
+           
+          N/A
+        </p>
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Test Connection
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
+        >
+          Change History
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Last Updated
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+        >
+           
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Connector Created
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+           
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -65,111 +177,190 @@ exports[`Connector Details Page Edit details test 1`] = `
 exports[`Connector Details Page Rendering connector details with DockerRegistry: DockerRegistry 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    style="height: inherit;"
   >
     <div
-      class="StyledProps--font StyledProps--main buttonContainer"
+      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      style="width: 67%;"
     >
       <div
-        class="optionBtns"
+        class="StyledProps--font StyledProps--main buttonContainer"
       >
         <div
-          class="item selected"
+          class="optionBtns"
         >
-          VISUAL
+          <div
+            class="item selected"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
         </div>
-        <div
-          class="item"
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+          id="editDetailsBtn"
+          type="button"
         >
-          YAML
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Edit Details
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="height: 100%;"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          style="width: 100%; height: 100%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main detailsSectionContainer"
+          >
+            <div
+              class="StyledProps--font StyledProps--main detailsSection"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+              >
+                Overview
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main detailsSection"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+              >
+                Credentials
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
-        id="editDetailsBtn"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
-          icon="edit"
-        >
-          <svg
-            data-icon="edit"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              edit
-            </desc>
-            <path
-              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          Edit Details
-        </span>
-      </button>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main"
+      class="Layout--vertical StyledProps--main activityContainer"
     >
       <div
-        class="StyledProps--font StyledProps--main detailsSectionContainer"
+        class="StyledProps--font StyledProps--main activitySummary"
       >
         <div
-          class="StyledProps--font StyledProps--main detailsSection"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Overview
-          </p>
+            Connectivity Status
+          </span>
+          <span
+            class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--padding-left-medium StyledProps--color StyledProps--color-red500"
+            icon="warning-sign"
+          >
+            <svg
+              data-icon="warning-sign"
+              height="18"
+              viewBox="0 0 16 16"
+              width="18"
+            >
+              <desc>
+                warning-sign
+              </desc>
+              <path
+                d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-red500"
+          >
+            Success
+          </span>
         </div>
-        <div
-          class="StyledProps--font StyledProps--main detailsSection"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
-          >
-            Credentials
-          </p>
-        </div>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
-      >
+          Last status check at 
+           
+          N/A
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+          Last successful status check at 
+           
+          N/A
+        </p>
         <div
           class="Layout--vertical StyledProps--main"
         >
-          <div
-            class="StyledProps--font StyledProps--main detailsSection"
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            type="button"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+            <span
+              class="bp3-button-text"
             >
-              Connector Activity
-            </p>
-          </div>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                Test Connection
-              </span>
-            </button>
-          </div>
+              Test Connection
+            </span>
+          </button>
         </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
+        >
+          Change History
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Last Updated
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+        >
+           
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Connector Created
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+           
+        </p>
       </div>
     </div>
   </div>
@@ -179,111 +370,190 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
 exports[`Connector Details Page Rendering connector details with K8sCluster: K8sCluster 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    style="height: inherit;"
   >
     <div
-      class="StyledProps--font StyledProps--main buttonContainer"
+      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      style="width: 67%;"
     >
       <div
-        class="optionBtns"
+        class="StyledProps--font StyledProps--main buttonContainer"
       >
         <div
-          class="item selected"
+          class="optionBtns"
         >
-          VISUAL
+          <div
+            class="item selected"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
         </div>
-        <div
-          class="item"
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+          id="editDetailsBtn"
+          type="button"
         >
-          YAML
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Edit Details
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="height: 100%;"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          style="width: 100%; height: 100%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main detailsSectionContainer"
+          >
+            <div
+              class="StyledProps--font StyledProps--main detailsSection"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+              >
+                Overview
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main detailsSection"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+              >
+                Credentials
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
-        id="editDetailsBtn"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
-          icon="edit"
-        >
-          <svg
-            data-icon="edit"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              edit
-            </desc>
-            <path
-              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          Edit Details
-        </span>
-      </button>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main"
+      class="Layout--vertical StyledProps--main activityContainer"
     >
       <div
-        class="StyledProps--font StyledProps--main detailsSectionContainer"
+        class="StyledProps--font StyledProps--main activitySummary"
       >
         <div
-          class="StyledProps--font StyledProps--main detailsSection"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Overview
-          </p>
+            Connectivity Status
+          </span>
+          <span
+            class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--padding-left-medium StyledProps--color StyledProps--color-red500"
+            icon="warning-sign"
+          >
+            <svg
+              data-icon="warning-sign"
+              height="18"
+              viewBox="0 0 16 16"
+              width="18"
+            >
+              <desc>
+                warning-sign
+              </desc>
+              <path
+                d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-red500"
+          >
+            Success
+          </span>
         </div>
-        <div
-          class="StyledProps--font StyledProps--main detailsSection"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
-          >
-            Credentials
-          </p>
-        </div>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
-      >
+          Last status check at 
+           
+          N/A
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+          Last successful status check at 
+           
+          N/A
+        </p>
         <div
           class="Layout--vertical StyledProps--main"
         >
-          <div
-            class="StyledProps--font StyledProps--main detailsSection"
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            type="button"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+            <span
+              class="bp3-button-text"
             >
-              Connector Activity
-            </p>
-          </div>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                Test Connection
-              </span>
-            </button>
-          </div>
+              Test Connection
+            </span>
+          </button>
         </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
+        >
+          Change History
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Last Updated
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+        >
+           
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Connector Created
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+           
+        </p>
       </div>
     </div>
   </div>
@@ -293,111 +563,190 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
 exports[`Connector Details Page Rendering connector details: view text 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    style="height: inherit;"
   >
     <div
-      class="StyledProps--font StyledProps--main buttonContainer"
+      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      style="width: 67%;"
     >
       <div
-        class="optionBtns"
+        class="StyledProps--font StyledProps--main buttonContainer"
       >
         <div
-          class="item selected"
+          class="optionBtns"
         >
-          VISUAL
+          <div
+            class="item selected"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
         </div>
-        <div
-          class="item"
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+          id="editDetailsBtn"
+          type="button"
         >
-          YAML
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Edit Details
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="height: 100%;"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          style="width: 100%; height: 100%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main detailsSectionContainer"
+          >
+            <div
+              class="StyledProps--font StyledProps--main detailsSection"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+              >
+                Overview
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main detailsSection"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+              >
+                Credentials
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
-        id="editDetailsBtn"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
-          icon="edit"
-        >
-          <svg
-            data-icon="edit"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              edit
-            </desc>
-            <path
-              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          Edit Details
-        </span>
-      </button>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main"
+      class="Layout--vertical StyledProps--main activityContainer"
     >
       <div
-        class="StyledProps--font StyledProps--main detailsSectionContainer"
+        class="StyledProps--font StyledProps--main activitySummary"
       >
         <div
-          class="StyledProps--font StyledProps--main detailsSection"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Overview
-          </p>
+            Connectivity Status
+          </span>
+          <span
+            class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--padding-left-medium StyledProps--color StyledProps--color-red500"
+            icon="warning-sign"
+          >
+            <svg
+              data-icon="warning-sign"
+              height="18"
+              viewBox="0 0 16 16"
+              width="18"
+            >
+              <desc>
+                warning-sign
+              </desc>
+              <path
+                d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-red500"
+          >
+            Success
+          </span>
         </div>
-        <div
-          class="StyledProps--font StyledProps--main detailsSection"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
-          >
-            Credentials
-          </p>
-        </div>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
-      >
+          Last status check at 
+           
+          N/A
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+          Last successful status check at 
+           
+          N/A
+        </p>
         <div
           class="Layout--vertical StyledProps--main"
         >
-          <div
-            class="StyledProps--font StyledProps--main detailsSection"
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            type="button"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+            <span
+              class="bp3-button-text"
             >
-              Connector Activity
-            </p>
-          </div>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                Test Connection
-              </span>
-            </button>
-          </div>
+              Test Connection
+            </span>
+          </button>
         </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
+        >
+          Change History
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Last Updated
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+        >
+           
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Connector Created
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+           
+        </p>
       </div>
     </div>
   </div>
@@ -407,111 +756,173 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
 exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    style="height: inherit;"
   >
     <div
-      class="StyledProps--font StyledProps--main buttonContainer"
+      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      style="width: 67%;"
     >
       <div
-        class="optionBtns"
+        class="StyledProps--font StyledProps--main buttonContainer"
       >
         <div
-          class="item selected"
+          class="optionBtns"
         >
-          VISUAL
+          <div
+            class="item"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item selected"
+          >
+            YAML
+          </div>
         </div>
-        <div
-          class="item"
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+          id="editDetailsBtn"
+          type="button"
         >
-          YAML
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Edit Details
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="height: 100%;"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main fullWidth"
+          style=""
+        >
+          <div
+            class="yamlView"
+          >
+            <div />
+          </div>
         </div>
       </div>
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
-        id="editDetailsBtn"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
-          icon="edit"
-        >
-          <svg
-            data-icon="edit"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              edit
-            </desc>
-            <path
-              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          Edit Details
-        </span>
-      </button>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main"
+      class="Layout--vertical StyledProps--main activityContainer"
     >
       <div
-        class="StyledProps--font StyledProps--main detailsSectionContainer"
+        class="StyledProps--font StyledProps--main activitySummary"
       >
         <div
-          class="StyledProps--font StyledProps--main detailsSection"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Overview
-          </p>
+            Connectivity Status
+          </span>
+          <span
+            class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--padding-left-medium StyledProps--color StyledProps--color-red500"
+            icon="warning-sign"
+          >
+            <svg
+              data-icon="warning-sign"
+              height="18"
+              viewBox="0 0 16 16"
+              width="18"
+            >
+              <desc>
+                warning-sign
+              </desc>
+              <path
+                d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-red500"
+          >
+            Success
+          </span>
         </div>
-        <div
-          class="StyledProps--font StyledProps--main detailsSection"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
-          >
-            Credentials
-          </p>
-        </div>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
-      >
+          Last status check at 
+           
+          N/A
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+          Last successful status check at 
+           
+          N/A
+        </p>
         <div
           class="Layout--vertical StyledProps--main"
         >
-          <div
-            class="StyledProps--font StyledProps--main detailsSection"
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            type="button"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+            <span
+              class="bp3-button-text"
             >
-              Connector Activity
-            </p>
-          </div>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                Test Connection
-              </span>
-            </button>
-          </div>
+              Test Connection
+            </span>
+          </button>
         </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
+        >
+          Change History
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Last Updated
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+        >
+           
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Connector Created
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+        >
+           
+        </p>
       </div>
     </div>
   </div>

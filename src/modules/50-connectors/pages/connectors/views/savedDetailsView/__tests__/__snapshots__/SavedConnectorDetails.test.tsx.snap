@@ -3,7 +3,7 @@
 exports[`Saved Connector Details render for AWS schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -213,7 +213,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
 exports[`Saved Connector Details render for Artifactory schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -348,7 +348,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
 exports[`Saved Connector Details render for Docker schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -455,7 +455,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
 exports[`Saved Connector Details render for GCP schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -611,7 +611,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
 exports[`Saved Connector Details render for GitHttp schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -808,7 +808,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
 exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -951,7 +951,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -1122,7 +1122,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 exports[`Saved Connector Details render for Nexus schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
@@ -1293,7 +1293,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
 exports[`Saved Connector Details render for Vault schema 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal StyledProps--main detailsSectionContainer"
   >
     <div
       class="StyledProps--font StyledProps--main detailsSection"
