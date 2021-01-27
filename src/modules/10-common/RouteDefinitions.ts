@@ -18,7 +18,6 @@ import type {
   PipelineType,
   InputSetPathProps,
   TargetPathProps,
-  PipelineStudioQueryParams,
   ModulePathParams
 } from '@common/interfaces/RouteInterfaces'
 
@@ -136,16 +135,8 @@ const routes = {
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toPipelineStudio: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      module,
-      view
-    }: PipelineType<PipelinePathProps & PipelineStudioQueryParams>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/${
-        view ? `?view=${view}` : ''
-      }`
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/`
   ),
   toCDAdmin: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

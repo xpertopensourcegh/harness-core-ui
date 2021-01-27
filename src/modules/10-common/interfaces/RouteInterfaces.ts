@@ -13,9 +13,6 @@ export interface ProjectPathProps extends OrgPathProps {
 export interface PipelinePathProps extends ProjectPathProps {
   pipelineIdentifier: string
 }
-export interface PipelineStudioQueryParams {
-  view?: 'ui' | 'yaml'
-}
 export interface InputSetPathProps extends PipelinePathProps {
   inputSetIdentifier: string
 }

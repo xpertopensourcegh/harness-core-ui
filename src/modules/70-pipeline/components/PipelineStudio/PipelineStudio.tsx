@@ -1,13 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { Button, Container, Layout, Text } from '@wings-software/uicore'
-import type {
-  PipelinePathProps,
-  ProjectPathProps,
-  PathFn,
-  PipelineType,
-  PipelineStudioQueryParams
-} from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import { String } from 'framework/exports'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
@@ -19,7 +13,7 @@ export interface PipelineStudioProps {
   className?: string
   title?: string
   onClose?: () => void
-  routePipelineStudio: PathFn<PipelineType<PipelinePathProps & PipelineStudioQueryParams>>
+  routePipelineStudio: PathFn<PipelineType<PipelinePathProps>>
   routePipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   routePipelineList: PathFn<PipelineType<ProjectPathProps>>
   routePipelineProject: PathFn<PipelineType<ProjectPathProps>>

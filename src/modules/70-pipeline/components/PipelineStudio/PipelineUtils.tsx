@@ -5,6 +5,10 @@ import get from 'lodash-es/get'
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
 import i18n from './PipelineStudio.i18n'
 
+export enum PipelineStudioView {
+  ui = 'ui',
+  yaml = 'yaml'
+}
 export interface NodeClasses {
   primary?: string
   secondary?: string

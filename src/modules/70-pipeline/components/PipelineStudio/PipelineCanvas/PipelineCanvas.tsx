@@ -12,14 +12,8 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
-import type {
-  PipelinePathProps,
-  ProjectPathProps,
-  PathFn,
-  PipelineType,
-  PipelineStudioQueryParams
-} from '@common/interfaces/RouteInterfaces'
-import { useQueryParams } from '@common/hooks'
+import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useLocalStorage } from '@common/hooks'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -27,10 +21,11 @@ import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
+import { PipelineStudioView } from '../PipelineUtils'
 import css from './PipelineCanvas.module.scss'
 
 export interface PipelineCanvasProps {
-  toPipelineStudio: PathFn<PipelineType<PipelinePathProps & PipelineStudioQueryParams>>
+  toPipelineStudio: PathFn<PipelineType<PipelinePathProps>>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
   toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
@@ -71,7 +66,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
   })
 
   const history = useHistory()
-  const { view = 'ui' } = useQueryParams<PipelineStudioQueryParams>()
+  const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   const isYaml = view === 'yaml'
   const [isYamlError, setYamlError] = React.useState(false)
 
@@ -108,8 +103,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
               orgIdentifier,
               pipelineIdentifier: newPipelineId,
               accountId,
-              module,
-              view: 'yaml'
+              module
             })
           )
         } else {
@@ -260,30 +254,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
 
           <div className={css.pipelineStudioTitleContainer}>
             <div className={css.optionBtns}>
-              <div
-                className={cx(css.item, { [css.selected]: !isYaml })}
-                onClick={() =>
-                  history.replace(
-                    toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })
-                  )
-                }
-              >
+              <div className={cx(css.item, { [css.selected]: !isYaml })} onClick={() => setView(PipelineStudioView.ui)}>
                 {getString('visual')}
               </div>
               <div
                 className={cx(css.item, { [css.selected]: isYaml })}
-                onClick={() =>
-                  history.replace(
-                    toPipelineStudio({
-                      orgIdentifier,
-                      projectIdentifier,
-                      pipelineIdentifier,
-                      accountId,
-                      module,
-                      view: 'yaml'
-                    })
-                  )
-                }
+                onClick={() => setView(PipelineStudioView.yaml)}
               >
                 {getString('yaml')}
               </div>
