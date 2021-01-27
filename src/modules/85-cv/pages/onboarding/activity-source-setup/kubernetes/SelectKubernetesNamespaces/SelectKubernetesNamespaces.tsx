@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Color, Container, Heading, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
@@ -53,7 +54,7 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
   const { onSubmit, onPrevious, data: propsData } = props
   const [selectedNamespaces, setSelectedNamespaces] = useState(new Set<string>(propsData?.selectedNamespaces || []))
   const [isValid, setIsValid] = useState(true)
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [{ pageOffset, filteredNamespace }, setFilterAndPageOffset] = useState<{
     pageOffset: number
     filteredNamespace?: string
@@ -63,8 +64,8 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
   })
   const { loading, error, data, refetch: refetchNamespaces } = useGetNamespaces({
     queryParams: {
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
+      projectIdentifier,
+      orgIdentifier,
       accountId,
       connectorIdentifier: (propsData?.connectorRef?.value as string) || '',
       pageSize: 8,
@@ -75,36 +76,14 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
 
   if (loading) {
     return (
-      <Container className={css.loadingErrorNoData}>
+      <Container className={css.loading}>
         <PageSpinner />
       </Container>
     )
   }
 
-  if (error?.message) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <PageError message={error.message} onClick={() => refetchNamespaces()} />
-      </Container>
-    )
-  }
-
   const { content, pageIndex = 0, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.resource || {}
-
-  if (!content?.length) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <NoDataCard
-          icon="warning-sign"
-          message={i18n.noDataMessage}
-          buttonText={i18n.retry}
-          onClick={() => refetchNamespaces()}
-        />
-      </Container>
-    )
-  }
-
-  const nameSpaces = generateTableData(content, selectedNamespaces)
+  const nameSpaces = generateTableData(content || [], selectedNamespaces)
 
   return (
     <Container>
@@ -172,6 +151,21 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
             gotoPage: newPageIndex => setFilterAndPageOffset({ pageOffset: newPageIndex, filteredNamespace })
           }}
         />
+        {error?.message && (
+          <Container className={css.noDataError}>
+            <PageError message={error.message} onClick={() => refetchNamespaces()} />
+          </Container>
+        )}
+        {!error?.message && !content?.length && (
+          <Container className={css.noDataError}>
+            <NoDataCard
+              icon="warning-sign"
+              message={i18n.noDataMessage}
+              buttonText={i18n.retry}
+              onClick={() => refetchNamespaces()}
+            />
+          </Container>
+        )}
         {!isValid ? (
           <Text data-name="validation" intent="danger">
             {i18n.validationText.namespace}

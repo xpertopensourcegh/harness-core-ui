@@ -8,9 +8,14 @@
   .table [role='row'] {
     cursor: pointer;
   }
+
+  .noDataError {
+    position: relative;
+    top: 150px;
+  }
 }
 
-.loadingErrorNoData {
+.loading {
   position: absolute;
   top: 50%;
   left: 52%;

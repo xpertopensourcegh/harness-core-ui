@@ -1,6 +1,7 @@
 import React from 'react'
 import type { UseGetReturn } from 'restful-react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import { Container } from '@wings-software/uicore'
 import * as cvService from 'services/cv'
 import { TestWrapperProps, TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
@@ -17,6 +18,13 @@ const testWrapperProps: TestWrapperProps = {
   }
 }
 
+jest.mock('@cv/components/TableColumnWithFilter/TableColumnWithFilter', () => ({
+  ...(jest.requireActual('@cv/components/TableColumnWithFilter/TableColumnWithFilter') as object),
+  TableColumnWithFilter: function MockTableColumnWithFilter(props: any) {
+    return <Container className="filter" onClick={() => props.onFilter('solo-dolo')} />
+  }
+}))
+
 describe('Unit tests for SelectKubernetesNamespaces', () => {
   test('Ensure loading state is rendered, when api is loading', async () => {
     const useGetNamespaces = jest.spyOn(cvService, 'useGetNamespaces')
@@ -30,7 +38,7 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
         <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
       </TestWrapper>
     )
-    await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
+    await waitFor(() => expect(container.querySelector('[class*="loading"]')).not.toBeNull())
     expect(container.querySelector('[class*="spinner"]')).not.toBeNull()
   })
 
@@ -48,7 +56,7 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
         <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
       </TestWrapper>
     )
-    await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
+    await waitFor(() => expect(container.querySelector('[class*="noDataError"]')).not.toBeNull())
     expect(getByText('some execption')).not.toBeNull()
 
     fireEvent.click(getByText('Retry'))
@@ -69,7 +77,7 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
         <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
       </TestWrapper>
     )
-    await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
+    await waitFor(() => expect(container.querySelector('[class*="noDataError"]')).not.toBeNull())
     expect(getByText(i18n.noDataMessage)).not.toBeNull()
 
     fireEvent.click(getByText(i18n.retry))
@@ -116,5 +124,50 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     await waitFor(() => {
       expect(container.querySelectorAll('input[type="checkbox"]')[0].getAttribute('checked')).toBe('')
     })
+  })
+
+  test('Ensure that filtering works', async () => {
+    const useGetNamespaces = jest.spyOn(cvService, 'useGetNamespaces')
+    const refetchMock = jest.fn()
+    const mockData = ['kubenamespace1', 'kubenamespace2', 'kubenamespace3', 'kubenamespace4', 'kubenamespace5']
+    useGetNamespaces.mockReturnValue({
+      data: { resource: { content: mockData, pageIndex: 0, totalItems: mockData.length, totalPages: 1, pageSize: 8 } },
+      refetch: refetchMock as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    const onSubmitMockFunc = jest.fn()
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    const filter = container.querySelector('.filter')
+    if (!filter) {
+      throw Error('Filter not rendered.')
+    }
+
+    useGetNamespaces.mockReturnValue({
+      data: { resource: {} },
+      refetch: refetchMock as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    fireEvent.click(filter)
+    await waitFor(() =>
+      expect(useGetNamespaces).toHaveBeenLastCalledWith({
+        queryParams: {
+          accountId: 'loading',
+          connectorIdentifier: '',
+          filter: 'solo-dolo',
+          offset: 0,
+          orgIdentifier: '1234_ORG',
+          pageSize: 8,
+          projectIdentifier: '1234_project'
+        }
+      })
+    )
+
+    expect(container.querySelector('[class*="noDataError"]')).not.toBeNull()
   })
 })
