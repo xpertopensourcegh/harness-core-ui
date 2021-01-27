@@ -129,6 +129,20 @@ export const RightBar = (): JSX.Element => {
       refetch()
     }
   }, [codebase?.connectorRef])
+
+  React.useEffect(() => {
+    if (connector?.data?.connector) {
+      setConnectionType(connector?.data?.connector.spec.type)
+      setConnectorUrl(connector?.data?.connector.spec.url)
+    }
+  }, [
+    connector?.data?.connector,
+    connector?.data?.connector?.spec.type,
+    connector?.data?.connector?.spec.url,
+    setConnectionType,
+    setConnectorUrl
+  ])
+
   React.useEffect(() => {
     if (!codebase?.connectorRef) {
       setCodebaseStatus(CodebaseStatuses.NotConfigured)
