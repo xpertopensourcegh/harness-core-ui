@@ -3,7 +3,7 @@
 exports[`Delegates Listing render data 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
+    class="StyledProps--font StyledProps--main delegateContainer"
   >
     <div
       class="Layout--horizontal StyledProps--main header"

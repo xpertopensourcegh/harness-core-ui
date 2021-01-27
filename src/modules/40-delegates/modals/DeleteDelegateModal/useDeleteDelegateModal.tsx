@@ -13,7 +13,7 @@ export interface UseDeleteDelegateModalReturn {
   openDialog: () => void
 }
 
-const useDeleteDelegateModal = (props: UseDeleteDelegateModalProps): UseDeleteDelegateModalReturn => {
+export const useDeleteDelegateModal = (props: UseDeleteDelegateModalProps): UseDeleteDelegateModalReturn => {
   const { getString } = useStrings()
   const { onCloseDialog, delegateName } = props
   const [modalProps, setModalProps] = useState<IDialogProps>({
@@ -63,4 +63,3 @@ const useDeleteDelegateModal = (props: UseDeleteDelegateModalProps): UseDeleteDe
     }
   }
 }
-export default useDeleteDelegateModal

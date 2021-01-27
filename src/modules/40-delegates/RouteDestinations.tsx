@@ -38,9 +38,7 @@ export default (
         routes.toResourcesDelegatesDetails({ ...accountPathProps, ...delegatePathProps })
       ]}
     >
-      <ResourcesPage>
-        <DelegateDetails />
-      </ResourcesPage>
+      <DelegateDetails />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}

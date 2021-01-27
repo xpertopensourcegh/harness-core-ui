@@ -1,24 +1,23 @@
 import React, { useState } from 'react'
+import { get } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Button, Container, Intent, Tag, Text, Layout, Popover, Color } from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
+import { PageSpinner } from '@common/components'
+import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
-import { useDeleteDelegate } from 'services/portal/index'
+import { GetDelegatesStatusV2QueryParams, useDeleteDelegate, useGetDelegatesStatusV2 } from 'services/portal'
+import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import routes from '@common/RouteDefinitions'
 import { Page } from 'modules/10-common/exports'
 import Table from '@common/components/Table/Table'
-import useDeleteDelegateModal from '../../modals/DeleteDelegateModal/useDeleteDelegateModal'
+import { useDeleteDelegateModal } from '../../modals/DeleteDelegateModal/useDeleteDelegateModal'
 import success from './success.svg'
 
 import css from './DelegatesPage.module.scss'
-
-interface DelegateListingProps {
-  delegateResponse: any
-  onClick: any
-}
 
 interface Delegate {
   uuid: string
@@ -138,22 +137,25 @@ const RenderColumnMenu: Renderer<CellProps<Delegate>> = ({ row, column }) => {
   )
 }
 
-export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateListingProps) => {
+export const DelegateListing: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId, module } = useParams<Record<string, string>>()
   const history = useHistory()
-  if (!props.delegateResponse) {
-    return <div>Delegate Listing</div>
-  }
-  // if (!props.delegateResponse) {
-  //   return <div>Delegate Listing</div>
-  // }
+  // TODO: useGetDelegatesStatusV2 current does not support module, but it must in order to filter delegates per module
+  const queryParams: GetDelegatesStatusV2QueryParams = { accountId, module } as GetDelegatesStatusV2QueryParams
+  const { data, loading, error, refetch } = useGetDelegatesStatusV2({ queryParams })
+  const { openDelegateModal } = useCreateDelegateModal()
 
-  const {
-    delegateResponse: {
-      resource: { delegates }
-    }
-  } = props
+  if (loading) {
+    return <PageSpinner />
+  }
+
+  if (error) {
+    return <PageError message={error.message} onClick={() => refetch()} />
+  }
+
+  const delegates = get(data, 'resource.delegates', [])
+
   const columns: Column<Delegate>[] = [
     {
       Header: getString('delegate.DelegateName'),
@@ -193,7 +195,7 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
     }
   ]
   return (
-    <Container>
+    <Container className={css.delegateContainer}>
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal inline width="50%">
           <Button
@@ -201,7 +203,7 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
             intent="primary"
             text={getString('delegate.NEW_DELEGATE')}
             icon="plus"
-            onClick={props.onClick}
+            onClick={() => openDelegateModal()}
           />
         </Layout.Horizontal>
         <Container flex className={css.view}>
@@ -213,7 +215,6 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
           </Layout.Horizontal>
         </Container>
       </Layout.Horizontal>
-
       <Page.Body>
         <Table
           columns={columns}
