@@ -9,6 +9,7 @@ declare const styles: {
   readonly runPipelineBtn: string
   readonly topHeaderFields: string
   readonly sortSelector: string
+  readonly tagRow: string
   readonly cardTags: string
   readonly header: string
   readonly expandSearch: string

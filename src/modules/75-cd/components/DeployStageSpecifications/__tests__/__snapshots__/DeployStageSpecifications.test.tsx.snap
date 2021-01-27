@@ -579,7 +579,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                 style="white-space: break-spaces;"
               >
                 <span>
-                  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+                  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous stages.
 
 Examples:
 &lt;+steps.step1.output.result&gt; == “success”
@@ -1190,7 +1190,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                 style="white-space: break-spaces;"
               >
                 <span>
-                  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+                  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous stages.
 
 Examples:
 &lt;+steps.step1.output.result&gt; == “success”

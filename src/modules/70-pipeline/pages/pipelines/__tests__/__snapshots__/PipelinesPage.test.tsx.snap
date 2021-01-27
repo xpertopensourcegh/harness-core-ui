@@ -313,7 +313,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </p>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-bottom-medium"
+                class="tagRow"
               >
                 <span
                   class="Tag--main"
@@ -359,17 +359,21 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   >
                     _ _ _ _ _ _
                   </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                  <div
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    0
-                  </p>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                    style="max-width: 90px; --text-line-clamp: 2;"
-                  >
-                    Executions in last 7 days
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                    >
+                      0
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="max-width: 90px; --text-line-clamp: 2;"
+                    >
+                      Executions in last 7 days
+                    </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -509,17 +513,21 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   >
                     _ _ _ _ _ _
                   </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                  <div
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    0
-                  </p>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                    style="max-width: 90px; --text-line-clamp: 2;"
-                  >
-                    Executions in last 7 days
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                    >
+                      0
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="max-width: 90px; --text-line-clamp: 2;"
+                    >
+                      Executions in last 7 days
+                    </p>
+                  </div>
                 </div>
               </div>
               <div

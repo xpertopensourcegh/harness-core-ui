@@ -248,7 +248,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                   }}
                 />
                 <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
-                  <String stringID="skipConditionHelpText" />
+                  <String stringID="skipConditionText" />
                   <br />
                   <Link font="small" withoutHref>
                     <String stringID="learnMore" />

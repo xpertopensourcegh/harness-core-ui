@@ -20,7 +20,7 @@ export default function DeploymentsList(): React.ReactElement {
 
   const [openModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} style={{ minWidth: 800 }}>
+      <Dialog isOpen={true} style={{ minWidth: 800, minHeight: 280 }}>
         <PipelineModalListView onClose={hideModal} />
       </Dialog>
     ),

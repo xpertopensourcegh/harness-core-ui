@@ -286,6 +286,12 @@ skipConditionHelpText: |
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
+skipConditionText: |
+  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous stages.
+
+  Examples:
+  <+steps.step1.output.result> == “success”
+  <+environment.name> != “QA”
 selectStrategy: Select a Strategy
 failureStrategy:
   title: Failure Strategy

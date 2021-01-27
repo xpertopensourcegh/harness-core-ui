@@ -142,7 +142,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         </Layout.Horizontal>
       ) : null}
       {!isEmpty(pipeline.tags) && pipeline.tags ? (
-        <Layout.Horizontal padding={{ left: 'large', right: 'large', bottom: 'medium' }} spacing="small">
+        <div className={css.tagRow}>
           {Object.keys(pipeline.tags).map(key => {
             const value = pipeline.tags?.[key]
             return (
@@ -151,7 +151,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               </Tag>
             )
           })}
-        </Layout.Horizontal>
+        </div>
       ) : null}
       <Container
         padding={{ left: 'large', right: 'large', top: 'medium', bottom: 'small' }}
@@ -184,24 +184,25 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               {getString('emptyDeployments')}
             </Text>
           )}
+          <Layout.Horizontal>
+            <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
+              {deployments}
+            </Text>
 
-          <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
-            {deployments}
-          </Text>
-
-          <Text
-            color={deployments ? Color.BLUE_500 : Color.GREY_400}
-            className={`${deployments ? css.clickable : ''}`}
-            font="small"
-            lineClamp={2}
-            style={{ maxWidth: 90 }}
-            onClick={event => {
-              event.stopPropagation()
-              goToPipelineDetail(pipeline.identifier)
-            }}
-          >
-            {getString('pipelineActivityLabel')}
-          </Text>
+            <Text
+              color={deployments ? Color.BLUE_500 : Color.GREY_400}
+              className={`${deployments ? css.clickable : ''}`}
+              font="small"
+              lineClamp={2}
+              style={{ maxWidth: 90, paddingLeft: 'var(--spacing-small)' }}
+              onClick={event => {
+                event.stopPropagation()
+                goToPipelineDetail(pipeline.identifier)
+              }}
+            >
+              {getString('pipelineActivityLabel')}
+            </Text>
+          </Layout.Horizontal>
         </Layout.Horizontal>
       </Container>
       <Container padding={{ left: 'large', right: 'large', bottom: 'small' }}>

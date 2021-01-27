@@ -43,9 +43,17 @@
     width: 180px;
   }
 }
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: var(--spacing-medium);
+  padding-bottom: var(--spacing-medium);
+}
 .cardTags {
   background-color: var(--grey-200) !important;
   color: var(--grey-400) !important;
+  margin-top: var(--spacing-small);
+  margin-right: var(--spacing-small);
 }
 
 .header {
