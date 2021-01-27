@@ -35,7 +35,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
         >
           Commits on
            
-          Nov 28, 2020
+          Jan 8, 2021
         </p>
       </div>
       <div
@@ -45,7 +45,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main commitTitle StyledProps--font-small"
           >
-            message...
+            Update README.md
           </p>
         </div>
         <div
@@ -54,12 +54,21 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           <div
             class="avatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+            <span
+              class="bp3-popover-wrapper"
             >
-              U
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                  tabindex="0"
+                >
+                  U
+                </div>
+              </span>
+            </span>
           </div>
           <p
             class="StyledProps--font StyledProps--main committed StyledProps--font-xsmall StyledProps--margin-right-xlarge"

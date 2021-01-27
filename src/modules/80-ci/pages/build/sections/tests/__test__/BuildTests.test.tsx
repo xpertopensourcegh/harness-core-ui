@@ -2,7 +2,6 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { TestWrapper } from '@common/utils/testUtils'
-import { BuildPageContext, BuildPageContextInterface } from '@ci/pages/build/context/BuildPageContext'
 import ReportsSummaryMock from './mock/reports-summary.json'
 import TestSuiteMock from './mock/reports-test-suites.json'
 import TestCaseMock from './mock/reports-test-cases.json'
@@ -49,11 +48,7 @@ describe('BuildTests snapshot test', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <BuildPageContext.Provider
-          value={({ buildData: { response: BuildsMock } } as unknown) as BuildPageContextInterface}
-        >
-          <BuildTests />
-        </BuildPageContext.Provider>
+        <BuildTests />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

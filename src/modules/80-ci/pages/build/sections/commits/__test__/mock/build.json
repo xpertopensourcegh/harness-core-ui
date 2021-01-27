@@ -1,0 +1,58 @@
+{
+  "pipelineIdentifier": "pipid",
+  "planExecutionId": "abc",
+  "name": "name1",
+  "status": "Success",
+  "executionTriggerInfo": {
+    "triggerType": "WEBHOOK",
+    "triggeredBy": {
+      "uuid": "systemUser",
+      "identifier": "trigger"
+    }
+  },
+  "moduleInfo": {
+    "ci": {
+      "ciExecutionInfoDTO": {
+        "event": "branch",
+        "author": { "id": "userid", "avatar": "https://..." },
+        "branch": {
+          "name": "main",
+          "link": "https://git..",
+          "commits": [
+            {
+              "id": "1234",
+              "link": "https://git../commit/1234",
+              "message": "Update README.md",
+              "ownerName": "userid",
+              "ownerId": "userid",
+              "ownerEmail": "userid@a.a",
+              "timeStamp": 1610121306000
+            }
+          ]
+        }
+      },
+      "branch": "main"
+    }
+  },
+  "layoutNodeMap": {
+    "8-fhvSjoQVG5a7ixyfeR2g": {
+      "nodeType": "CI",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "nodeid1",
+      "nodeUuid": "8-fhvSjoQVG5a7ixyfeR2g",
+      "status": "Success",
+      "module": "ci",
+      "moduleInfo": { "ci": {} },
+      "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+    }
+  },
+  "startingNodeId": "8-fhvSjoQVG5a7ixyfeR2g",
+  "startTs": 1610121317815,
+  "endTs": 1610121378444,
+  "createdAt": 1610121317827,
+  "runSequence": 4,
+  "successfulStagesCount": 1,
+  "runningStagesCount": 0,
+  "failedStagesCount": 0,
+  "totalStagesCount": 0
+}

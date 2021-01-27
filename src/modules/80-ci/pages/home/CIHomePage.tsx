@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
-import homeIllustration from '../builds/images/homeIllustration.svg'
+import homeIllustration from './images/homeIllustration.svg'
 
 const CIHomePage: React.FC = () => {
   const { accountId } = useParams<{

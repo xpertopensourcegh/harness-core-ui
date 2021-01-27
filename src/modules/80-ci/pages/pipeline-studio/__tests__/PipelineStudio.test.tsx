@@ -80,7 +80,7 @@ describe('Test Pipeline Studio', () => {
         <CIPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText(document.body, 'Welcome to the Pipeline Studio')))
+    await waitFor(() => expect(getByText(document.body, 'Welcome to the Pipeline Studio')).toBeTruthy())
   })
   test('should render edit pipeline studio', async () => {
     const { container } = render(
