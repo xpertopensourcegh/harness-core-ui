@@ -1,6 +1,6 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
-import { isEqual, cloneDeep } from 'lodash-es'
+import { isEqual, cloneDeep, pick } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import type {
@@ -77,7 +77,9 @@ export const savePipeline = (
           projectIdentifier: params.projectIdentifier,
           orgIdentifier: params.orgIdentifier
         },
-        body: stringify({ pipeline }) as any,
+        body: stringify({
+          pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }
+        }) as any,
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(response => {
         if (typeof response === 'string') {
@@ -87,7 +89,9 @@ export const savePipeline = (
         }
       })
     : createPipelinePromise({
-        body: stringify({ pipeline }) as any,
+        body: stringify({
+          pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }
+        }) as any,
         queryParams: {
           accountIdentifier: params.accountIdentifier,
           projectIdentifier: params.projectIdentifier,
