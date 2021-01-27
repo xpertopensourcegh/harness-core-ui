@@ -11,25 +11,16 @@
   background: none;
   color: var(--blue-500);
   cursor: pointer;
-  border-radius: 16px;
+  border-radius: 8px;
   letter-spacing: 0.5px;
   &:hover {
-    background: var(--blue-200);
+    background: var(--grey-200);
     text-decoration: none;
-    color: var(--blue-500);
-  }
-}
-.activeTag {
-  background: var(--grey-800);
-  color: var(--white);
-  &:hover {
-    background: var(--grey-800);
-    color: var(--white);
   }
 }
 
-.extendedHeader {
-  box-shadow: none;
-  height: 32px !important;
-  margin-top: var(--spacing-medium) !important;
+.activeTag {
+  background: var(--grey-800);
+  color: var(--white);
+  border-radius: 8px;
 }

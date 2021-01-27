@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Layout, Icon, Color } from '@wings-software/uicore'
+import { Container, Layout } from '@wings-software/uicore'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -70,7 +70,7 @@ export const TriggerBreadcrumbs = ({
     />
   )
 }
-export const GetTriggerRightNav = (): JSX.Element => {
+const GetTriggerRightNav = (): JSX.Element => {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<{
       projectIdentifier: string
@@ -85,6 +85,19 @@ export const GetTriggerRightNav = (): JSX.Element => {
   return (
     <Container>
       <Layout.Horizontal spacing="medium">
+        <NavLink
+          className={css.tags}
+          activeClassName={css.activeTag}
+          to={routes.toPipelineStudio({
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier,
+            accountId,
+            module
+          })}
+        >
+          {getString('studioText')}
+        </NavLink>
         <NavLink
           className={css.tags}
           activeClassName={css.activeTag}
@@ -112,20 +125,6 @@ export const GetTriggerRightNav = (): JSX.Element => {
           to={routes.toTriggersPage({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
         >
           {getString('pipeline-triggers.triggersLabel')}
-        </NavLink>
-
-        <NavLink
-          className={css.tags}
-          to={routes.toPipelineStudio({
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            accountId,
-            module
-          })}
-        >
-          <Icon name="pipeline-ng" size={20} style={{ marginRight: '8px' }} color={Color.BLUE_600} />
-          {getString('studioText')}
         </NavLink>
       </Layout.Horizontal>
     </Container>
@@ -155,12 +154,12 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
   return (
     <>
       <Page.Header
+        toolbar={GetTriggerRightNav()}
         title={
           <Layout.Vertical spacing="xsmall">
             <TriggerBreadcrumbs triggerResponse={triggerResponse} />
           </Layout.Vertical>
         }
-        className={css.extendedHeader}
       />
       <Page.Body>{children}</Page.Body>
     </>

@@ -24,7 +24,6 @@ import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import type { PayloadConditionInterface } from './views/PayloadConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import { eventTypes } from './utils/TriggersWizardPageUtils'
-import { GetTriggerRightNav } from '../trigger-details/TriggerDetails'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
 import {
   clearNullUndefined,
@@ -368,7 +367,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         errorToasterMessage={errorToasterMessage}
         showVisualYaml={false}
         leftNav={titleWithSwitch}
-        rightNav={GetTriggerRightNav()}
       >
         <WebhookTriggerConfigPanel />
         <WebhookConditionsPanel />

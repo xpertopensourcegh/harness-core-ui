@@ -3,7 +3,7 @@
 exports[`Trigger Details tests render snapshot view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard extendedHeader StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
@@ -57,6 +57,39 @@ exports[`Trigger Details tests render snapshot view 1`] = `
             ab
           </span>
         </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+      >
+        <a
+          class="tags"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/"
+        >
+          Studio
+        </a>
+        <a
+          class="tags"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
+        >
+          Executions
+        </a>
+        <a
+          class="tags"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+        >
+          Input Sets
+        </a>
+        <a
+          aria-current="page"
+          class="tags activeTag"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
+        >
+          Triggers
+        </a>
       </div>
     </div>
   </div>
