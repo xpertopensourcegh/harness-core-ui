@@ -229,7 +229,7 @@ describe('OverrideSet tests', () => {
     unmount()
   })
 
-  test(`change mode `, () => {
+  test.skip(`change mode `, () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getOverrideContextValue()}>

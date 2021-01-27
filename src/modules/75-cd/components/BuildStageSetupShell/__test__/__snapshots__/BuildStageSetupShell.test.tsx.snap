@@ -302,7 +302,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                             class="InputWithIdentifier--txtNameContainer"
                           >
                             <div
-                              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
@@ -311,11 +311,22 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                 :
                               </p>
                               <span
-                                class="InputWithIdentifier--idInput"
-                                contenteditable="false"
-                                disabled=""
+                                class="bp3-popover-wrapper"
                               >
-                                Deploy
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                                  >
+                                    <span
+                                      class="bp3-editable-text-content"
+                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    >
+                                      Deploy
+                                    </span>
+                                  </div>
+                                </span>
                               </span>
                             </div>
                             <div

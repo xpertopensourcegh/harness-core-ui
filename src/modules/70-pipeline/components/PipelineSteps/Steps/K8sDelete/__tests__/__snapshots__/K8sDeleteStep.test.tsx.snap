@@ -46,7 +46,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                   class="InputWithIdentifier--txtNameContainer"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -55,10 +55,23 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                       :
                     </p>
                     <span
-                      class="InputWithIdentifier--idInput"
-                      contenteditable="true"
+                      class="bp3-popover-wrapper"
                     >
-                      Test_A
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-editable-text InputWithIdentifier--idValue"
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-editable-text-content"
+                            style="height: 1px; line-height: 1px; min-width: 0;"
+                          >
+                            Test_A
+                          </span>
+                        </div>
+                      </span>
                     </span>
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -497,7 +510,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                   class="InputWithIdentifier--txtNameContainer"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -506,10 +519,23 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                       :
                     </p>
                     <span
-                      class="InputWithIdentifier--idInput"
-                      contenteditable="true"
+                      class="bp3-popover-wrapper"
                     >
-                      Test_A
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-editable-text InputWithIdentifier--idValue"
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-editable-text-content"
+                            style="height: 1px; line-height: 1px; min-width: 0;"
+                          >
+                            Test_A
+                          </span>
+                        </div>
+                      </span>
                     </span>
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -796,7 +822,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                   class="InputWithIdentifier--txtNameContainer"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -805,10 +831,23 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                       :
                     </p>
                     <span
-                      class="InputWithIdentifier--idInput"
-                      contenteditable="true"
+                      class="bp3-popover-wrapper"
                     >
-                      Test_A
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-editable-text InputWithIdentifier--idValue"
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-editable-text-content"
+                            style="height: 1px; line-height: 1px; min-width: 0;"
+                          >
+                            Test_A
+                          </span>
+                        </div>
+                      </span>
                     </span>
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -1247,7 +1286,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                   class="InputWithIdentifier--txtNameContainer"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -1256,9 +1295,22 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       :
                     </p>
                     <span
-                      class="InputWithIdentifier--idInput"
-                      contenteditable="true"
-                    />
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-editable-text-content"
+                            style="height: 1px; line-height: 1px; min-width: 0;"
+                          />
+                        </div>
+                      </span>
+                    </span>
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main"
                       icon="edit"

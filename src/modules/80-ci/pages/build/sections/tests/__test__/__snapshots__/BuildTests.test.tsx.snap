@@ -36457,12 +36457,12 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               <strong>
                 1
               </strong>
-               - 
+               -
+               
               <strong>
                 20
               </strong>
-               of
-               
+               of 
               <strong>
                 340
               </strong>
@@ -38094,12 +38094,12 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <strong>
             1
           </strong>
-           - 
+           -
+           
           <strong>
             15
           </strong>
-           of
-           
+           of 
           <strong>
             621
           </strong>

@@ -117,7 +117,7 @@ exports[`Create Git connector Wizard Git step one 1`] = `
                           class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
                               class="StyledProps--font StyledProps--main"
@@ -126,11 +126,23 @@ exports[`Create Git connector Wizard Git step one 1`] = `
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier--idInput"
-                              contenteditable="true"
+                              class="bp3-popover-wrapper"
                             >
-                              dummyname
-                              
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text InputWithIdentifier--idValue"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  >
+                                    dummyname
+                                  </span>
+                                </div>
+                              </span>
                             </span>
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -518,7 +530,7 @@ exports[`Create Git connector Wizard Git step one 2`] = `
                           class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
                               class="StyledProps--font StyledProps--main"
@@ -527,11 +539,23 @@ exports[`Create Git connector Wizard Git step one 2`] = `
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier--idInput"
-                              contenteditable="true"
+                              class="bp3-popover-wrapper"
                             >
-                              dummyname
-                              
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text InputWithIdentifier--idValue"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  >
+                                    dummyname
+                                  </span>
+                                </div>
+                              </span>
                             </span>
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -1614,7 +1638,7 @@ exports[`Create Git connector Wizard should form for edit http and authtype user
                           class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
                               class="StyledProps--font StyledProps--main"
@@ -1623,11 +1647,22 @@ exports[`Create Git connector Wizard should form for edit http and authtype user
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier--idInput"
-                              contenteditable="false"
-                              disabled=""
+                              class="bp3-popover-wrapper"
                             >
-                              dumyGit
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  >
+                                    dumyGit
+                                  </span>
+                                </div>
+                              </span>
                             </span>
                           </div>
                           <div

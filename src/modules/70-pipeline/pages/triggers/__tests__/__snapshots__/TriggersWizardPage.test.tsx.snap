@@ -217,7 +217,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                             class="InputWithIdentifier--txtNameContainer"
                           >
                             <div
-                              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
@@ -226,11 +226,22 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                 :
                               </p>
                               <span
-                                class="InputWithIdentifier--idInput"
-                                contenteditable="false"
-                                disabled=""
+                                class="bp3-popover-wrapper"
                               >
-                                AllValues
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                                  >
+                                    <span
+                                      class="bp3-editable-text-content"
+                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    >
+                                      AllValues
+                                    </span>
+                                  </div>
+                                </span>
                               </span>
                             </div>
                             <div

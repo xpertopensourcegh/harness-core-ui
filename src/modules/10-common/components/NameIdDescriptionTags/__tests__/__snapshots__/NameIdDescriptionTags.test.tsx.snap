@@ -16,7 +16,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
             class="InputWithIdentifier--txtNameContainer"
           >
             <div
-              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -25,9 +25,22 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
                 :
               </p>
               <span
-                class="InputWithIdentifier--idInput"
-                contenteditable="true"
-              />
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    />
+                  </div>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
@@ -199,7 +212,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
             class="InputWithIdentifier--txtNameContainer"
           >
             <div
-              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -208,10 +221,23 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
                 :
               </p>
               <span
-                class="InputWithIdentifier--idInput"
-                contenteditable="true"
+                class="bp3-popover-wrapper"
               >
-                name123
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    >
+                      name123
+                    </span>
+                  </div>
+                </span>
               </span>
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"

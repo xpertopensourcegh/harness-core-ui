@@ -122,7 +122,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                           class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
                               class="StyledProps--font StyledProps--main"
@@ -131,11 +131,23 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier--idInput"
-                              contenteditable="true"
+                              class="bp3-popover-wrapper"
                             >
-                              dummy_name
-                              
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text InputWithIdentifier--idValue"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  >
+                                    dummy_name
+                                  </span>
+                                </div>
+                              </span>
                             </span>
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -857,7 +869,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                           class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
                               class="StyledProps--font StyledProps--main"
@@ -866,11 +878,22 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier--idInput"
-                              contenteditable="false"
-                              disabled=""
+                              class="bp3-popover-wrapper"
                             >
-                              devConnector
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  >
+                                    devConnector
+                                  </span>
+                                </div>
+                              </span>
                             </span>
                           </div>
                           <div

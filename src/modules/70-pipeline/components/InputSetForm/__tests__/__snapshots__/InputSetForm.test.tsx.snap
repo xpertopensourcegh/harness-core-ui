@@ -429,7 +429,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                             class="InputWithIdentifier--txtNameContainer"
                           >
                             <div
-                              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
@@ -438,11 +438,20 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                 :
                               </p>
                               <span
-                                class="InputWithIdentifier--idInput"
-                                contenteditable="false"
-                                disabled=""
+                                class="bp3-popover-wrapper"
                               >
-                                
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                  >
+                                    <span
+                                      class="bp3-editable-text-content"
+                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    />
+                                  </div>
+                                </span>
                               </span>
                             </div>
                             <div
@@ -1053,7 +1062,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                       class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -1062,11 +1071,22 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier--idInput"
-                          contenteditable="false"
-                          disabled=""
+                          class="bp3-popover-wrapper"
                         >
-                          OverLayInput
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                            >
+                              <span
+                                class="bp3-editable-text-content"
+                                style="height: 1px; line-height: 1px; min-width: 0;"
+                              >
+                                OverLayInput
+                              </span>
+                            </div>
+                          </span>
                         </span>
                       </div>
                       <div
@@ -1700,7 +1720,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                             class="InputWithIdentifier--txtNameContainer"
                           >
                             <div
-                              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
@@ -1709,10 +1729,23 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                 :
                               </p>
                               <span
-                                class="InputWithIdentifier--idInput"
-                                contenteditable="true"
+                                class="bp3-popover-wrapper"
                               >
-                                asd
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-editable-text InputWithIdentifier--idValue"
+                                    tabindex="0"
+                                  >
+                                    <span
+                                      class="bp3-editable-text-content"
+                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    >
+                                      asd
+                                    </span>
+                                  </div>
+                                </span>
                               </span>
                               <span
                                 class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -2198,7 +2231,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                       class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -2207,10 +2240,23 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier--idInput"
-                          contenteditable="true"
+                          class="bp3-popover-wrapper"
                         >
-                          OverLayInput
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-editable-text InputWithIdentifier--idValue"
+                              tabindex="0"
+                            >
+                              <span
+                                class="bp3-editable-text-content"
+                                style="height: 1px; line-height: 1px; min-width: 0;"
+                              >
+                                OverLayInput
+                              </span>
+                            </div>
+                          </span>
                         </span>
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"

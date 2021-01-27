@@ -49,7 +49,7 @@ exports[`Http Step edit mode works 1`] = `
                     class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
                         class="StyledProps--font StyledProps--main"
@@ -58,10 +58,23 @@ exports[`Http Step edit mode works 1`] = `
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier--idInput"
-                        contenteditable="true"
+                        class="bp3-popover-wrapper"
                       >
-                        My_Http_Step
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-editable-text InputWithIdentifier--idValue"
+                            tabindex="0"
+                          >
+                            <span
+                              class="bp3-editable-text-content"
+                              style="height: 1px; line-height: 1px; min-width: 0;"
+                            >
+                              My_Http_Step
+                            </span>
+                          </div>
+                        </span>
                       </span>
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -1060,7 +1073,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                     class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
                         class="StyledProps--font StyledProps--main"
@@ -1069,10 +1082,23 @@ exports[`Http Step renders runtime inputs 1`] = `
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier--idInput"
-                        contenteditable="true"
+                        class="bp3-popover-wrapper"
                       >
-                        My_Http_Step
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-editable-text InputWithIdentifier--idValue"
+                            tabindex="0"
+                          >
+                            <span
+                              class="bp3-editable-text-content"
+                              style="height: 1px; line-height: 1px; min-width: 0;"
+                            >
+                              My_Http_Step
+                            </span>
+                          </div>
+                        </span>
                       </span>
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -1871,7 +1897,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                     class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
                         class="StyledProps--font StyledProps--main"
@@ -1880,9 +1906,22 @@ exports[`Http Step should render edit view as new step 1`] = `
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier--idInput"
-                        contenteditable="true"
-                      />
+                        class="bp3-popover-wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                            tabindex="0"
+                          >
+                            <span
+                              class="bp3-editable-text-content"
+                              style="height: 1px; line-height: 1px; min-width: 0;"
+                            />
+                          </div>
+                        </span>
+                      </span>
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
