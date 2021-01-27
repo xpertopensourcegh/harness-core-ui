@@ -9,6 +9,7 @@ import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { GCSStepBaseWithRef } from './GCSStepBase'
 import { GCSStepInputSet } from './GCSStepInputSet'
+import { GCSStepVariables, GCSStepVariablesProps } from './GCSStepVariables'
 
 export interface GCSStepSpec {
   connectorRef: string
@@ -51,6 +52,11 @@ export interface GCSStepProps {
 }
 
 export class GCSStep extends PipelineStep<GCSStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.GCS
   protected stepName = 'Upload Artifacts to GCS'
   protected stepIcon: IconName = 'gcs-step'
@@ -96,7 +102,7 @@ export class GCSStep extends PipelineStep<GCSStepData> {
     return errors
   }
   renderStep(props: StepProps<GCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -109,7 +115,16 @@ export class GCSStep extends PipelineStep<GCSStepData> {
           onUpdate={onUpdate}
         />
       )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <GCSStepVariables
+          {...(customStepProps as GCSStepVariablesProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
+        />
+      )
     }
+
     return (
       <GCSStepBaseWithRef
         initialValues={initialValues}

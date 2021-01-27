@@ -1,5 +1,5 @@
 import React from 'react'
-import { capitalize } from 'lodash-es'
+import { isPlainObject, get } from 'lodash-es'
 
 import { Text } from '@wings-software/uicore'
 import { CopyText } from '@common/components/CopyText/CopyText'
@@ -25,17 +25,26 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
         if (typeof value !== 'string' || key === 'uuid' || !value) return null
 
         const metadata = metadataMap[value]
-        const finalvalue = originalData[key as keyof T]
+        const finalvalue = get(originalData, key)
 
-        if (!metadata) return null
+        let formattedValue
+
+        if (Array.isArray(finalvalue)) {
+          formattedValue = finalvalue.join(', ')
+        } else if (isPlainObject(finalvalue)) {
+          formattedValue = JSON.stringify(finalvalue, null, 2)
+        } else {
+          formattedValue = finalvalue
+        }
+
+        if (!metadata || !formattedValue) return null
 
         return (
           <React.Fragment key={key}>
             <CopyText textToCopy={toVariableStr(metadata.yamlProperties?.fqn || '')}>
               &lt;+{metadata.yamlProperties?.localName}&gt;
             </CopyText>
-            <Text>{capitalize(typeof finalvalue)}</Text>
-            <Text>{finalvalue}</Text>
+            <Text>{formattedValue}</Text>
           </React.Fragment>
         )
       })}

@@ -388,4 +388,153 @@ describe('Run Step', () => {
       expect(container).toMatchSnapshot()
     })
   })
+
+  describe('InputVariable View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'My_Run_Step',
+            name: 'My Run Step',
+            description: 'Description',
+            timeout: '10s',
+            spec: {
+              connectorRef: 'account.connectorRef',
+              image: 'image',
+              command: 'command',
+              reports: {
+                type: 'JUnit',
+                spec: {
+                  paths: ['path1.xml', 'path2.xml', 'path3.xml', 'path4.xml', 'path5.xml']
+                }
+              },
+              envVariables: {
+                key1: 'value1',
+                key2: 'value2',
+                key3: 'value3'
+              },
+              outputVariables: ['variable1', 'variable2', 'variable3', 'variable4'],
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // pull: 'always',
+              resources: {
+                limits: {
+                  memory: '128Mi',
+                  cpu: '0.2'
+                }
+              }
+            }
+          }}
+          customStepProps={{
+            stageIdentifier: 'qaStage',
+            metadataMap: {
+              'step-name': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.name',
+                  localName: 'step.run.name'
+                }
+              },
+              'step-description': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.description',
+                  localName: 'step.run.description'
+                }
+              },
+              'step-timeout': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.timeout',
+                  localName: 'step.run.timeout'
+                }
+              },
+              'step-connectorRef': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.connectorRef',
+                  localName: 'step.run.spec.connectorRef'
+                }
+              },
+              'step-image': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.image',
+                  localName: 'step.run.spec.image'
+                }
+              },
+              'step-command': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.command',
+                  localName: 'step.run.spec.command'
+                }
+              },
+              'step-reportPaths': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.reports.spec.paths',
+                  localName: 'step.run.spec.reports.spec.paths'
+                }
+              },
+              'step-envVariables': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.spec.run.envVariables',
+                  localName: 'step.run.spec.envVariables'
+                }
+              },
+              'step-outputVariables': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.outputVariables',
+                  localName: 'step.run.spec.outputVariables'
+                }
+              },
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // 'step-pull': {
+              //   yamlProperties: {
+              //     fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.pull',
+              //     localName: 'step.run.spec.pull'
+              //   }
+              // },
+              'step-limitMemory': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.resources.limits.memory',
+                  localName: 'step.run.spec.resources.limits.memory'
+                }
+              },
+              'step-limitCPU': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.resources.limits.cpu',
+                  localName: 'step.run.resources.spec.limits.cpu'
+                }
+              }
+            },
+            variablesData: {
+              type: StepType.Run,
+              identifier: 'run',
+              name: 'step-name',
+              description: 'step-description',
+              timeout: 'step-timeout',
+              spec: {
+                connectorRef: 'step-connectorRef',
+                image: 'step-image',
+                command: 'step-command',
+                reports: {
+                  spec: {
+                    paths: 'step-reportPaths'
+                  }
+                },
+                envVariables: 'step-envVariables',
+                outputVariables: 'step-outputVariables',
+                // TODO: Right now we do not support Image Pull Policy but will do in the future
+                // pull: 'step-pull',
+                resources: {
+                  limits: {
+                    memory: 'step-limitMemory',
+                    cpu: 'step-limitCPU'
+                  }
+                }
+              }
+            }
+          }}
+          type={StepType.Run}
+          stepViewType={StepViewType.InputVariable}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
 })

@@ -58,5 +58,37 @@ K8sRolloutDeployStep.args = {
     name: 'Test A',
     identifier: 'Test_A',
     spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-skip': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.rolloutDeployment.skipDryRun',
+          localName: 'step.rolloutDeployment.skipDryRun'
+        }
+      },
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.rolloutDeployment.timeout',
+          localName: 'step.rolloutDeployment.timeout'
+        }
+      },
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.rolloutDeployment.name',
+          localName: 'step.rolloutDeployment.name'
+        }
+      }
+    },
+    variablesData: {
+      name: 'step-name',
+      identifier: 'rolloutDeployment',
+      type: 'K8sRollingDeploy',
+      spec: {
+        timeout: 'step-timeout',
+        skipDryRun: 'step-skip'
+      }
+    }
   }
 }

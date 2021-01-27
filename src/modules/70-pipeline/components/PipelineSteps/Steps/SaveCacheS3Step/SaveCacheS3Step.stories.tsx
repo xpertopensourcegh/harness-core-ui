@@ -45,7 +45,27 @@ export const SaveCacheS3Step: Story<Omit<TestStepWidgetProps, 'factory'>> = args
 }
 
 SaveCacheS3Step.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.SaveCacheS3 },
+  initialValues: {
+    identifier: 'Test_A',
+    name: 'Test A',
+    type: StepType.SaveCacheS3,
+    timeout: '10s',
+    spec: {
+      connectorRef: 'account.connectorRef',
+      bucket: 'Bucket',
+      region: 'us-east-1',
+      key: 'Key',
+      sourcePaths: ['some/path'],
+      endpoint: 'Endpoint',
+      target: 'Target',
+      resources: {
+        limits: {
+          memory: '128Mi',
+          cpu: '0.2'
+        }
+      }
+    }
+  },
   type: StepType.SaveCacheS3,
   stepViewType: StepViewType.Edit,
   path: '',
@@ -90,6 +110,107 @@ SaveCacheS3Step.args = {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
           memory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.name',
+          localName: 'step.saveCacheS3.name'
+        }
+      },
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.timeout',
+          localName: 'step.saveCacheS3.timeout'
+        }
+      },
+      'step-connectorRef': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.connectorRef',
+          localName: 'step.saveCacheS3.spec.connectorRef'
+        }
+      },
+      'step-region': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.region',
+          localName: 'step.saveCacheS3.spec.region'
+        }
+      },
+      'step-bucket': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.bucket',
+          localName: 'step.saveCacheS3.spec.bucket'
+        }
+      },
+      'step-endpoint': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.endpoint',
+          localName: 'step.saveCacheS3.spec.endpoint'
+        }
+      },
+      'step-key': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.key',
+          localName: 'step.saveCacheS3.spec.key'
+        }
+      },
+      'step-sourcePaths': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.sourcePaths',
+          localName: 'step.saveCacheS3.spec.sourcePaths'
+        }
+      },
+      'step-target': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.target',
+          localName: 'step.saveCacheS3.spec.target'
+        }
+      },
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // 'step-pull': {
+      //   yamlProperties: {
+      //     fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.pull',
+      //     localName: 'step.saveCacheS3.spec.pull'
+      //   }
+      // },
+      'step-limitMemory': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.resources.limits.memory',
+          localName: 'step.saveCacheS3.spec.resources.limits.memory'
+        }
+      },
+      'step-limitCPU': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.resources.limits.cpu',
+          localName: 'step.saveCacheS3.resources.spec.limits.cpu'
+        }
+      }
+    },
+    variablesData: {
+      type: StepType.SaveCacheS3,
+      identifier: 'saveCacheS3',
+      name: 'step-name',
+      timeout: 'step-timeout',
+      spec: {
+        connectorRef: 'step-connectorRef',
+        region: 'step-region',
+        bucket: 'step-bucket',
+        endpoint: 'step-endpoint',
+        key: 'step-key',
+        sourcePaths: 'step-sourcePaths',
+        target: 'step-target',
+        // TODO: Right now we do not support Image Pull Policy but will do in the future
+        // pull: 'step-pull',
+        resources: {
+          limits: {
+            memory: 'step-limitMemory',
+            cpu: 'step-limitCPU'
+          }
         }
       }
     }

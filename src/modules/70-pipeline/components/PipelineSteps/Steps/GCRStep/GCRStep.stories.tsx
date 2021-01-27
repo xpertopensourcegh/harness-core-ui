@@ -45,7 +45,40 @@ export const GCRStep: Story<Omit<TestStepWidgetProps, 'factory'>> = args => {
 }
 
 GCRStep.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.GCR },
+  initialValues: {
+    identifier: 'Test_A',
+    name: 'Test A',
+    type: StepType.GCR,
+    timeout: '10s',
+    spec: {
+      connectorRef: 'account.connectorRef',
+      host: 'Host',
+      projectID: 'Project ID',
+      imageName: 'Image Name',
+      tags: ['tag1', 'tag2', 'tag3'],
+      dockerfile: 'Dockerfile',
+      context: 'Context',
+      labels: {
+        label1: 'value1',
+        label2: 'value2',
+        label3: 'value3'
+      },
+      buildArgs: {
+        buildArg1: 'value1',
+        buildArg2: 'value2',
+        buildArg3: 'value3'
+      },
+      target: 'Target',
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // pull: 'always',
+      resources: {
+        limits: {
+          memory: '128Mi',
+          cpu: '0.2'
+        }
+      }
+    }
+  },
   type: StepType.GCR,
   stepViewType: StepViewType.Edit,
   path: '',
@@ -100,6 +133,128 @@ GCRStep.args = {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
           memory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.name',
+          localName: 'step.gcr.name'
+        }
+      },
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.timeout',
+          localName: 'step.gcr.timeout'
+        }
+      },
+      'step-connectorRef': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.connectorRef',
+          localName: 'step.gcr.spec.connectorRef'
+        }
+      },
+      'step-host': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.host',
+          localName: 'step.gcr.spec.host'
+        }
+      },
+      'step-projectID': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.projectID',
+          localName: 'step.gcr.spec.projectID'
+        }
+      },
+      'step-imageName': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.imageName',
+          localName: 'step.gcr.spec.imageName'
+        }
+      },
+      'step-tags': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.tags',
+          localName: 'step.gcr.spec.tags'
+        }
+      },
+      'step-dockerfile': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.dockerfile',
+          localName: 'step.gcr.spec.dockerfile'
+        }
+      },
+      'step-context': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.context',
+          localName: 'step.gcr.spec.context'
+        }
+      },
+      'step-labels': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.labels',
+          localName: 'step.gcr.spec.labels'
+        }
+      },
+      'step-buildArgs': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.buildArgs',
+          localName: 'step.gcr.spec.buildArgs'
+        }
+      },
+      'step-target': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.target',
+          localName: 'step.gcr.spec.target'
+        }
+      },
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // 'step-pull': {
+      //   yamlProperties: {
+      //     fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.pull',
+      //     localName: 'step.gcr.spec.pull'
+      //   }
+      // },
+      'step-limitMemory': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.resources.limits.memory',
+          localName: 'step.gcr.spec.resources.limits.memory'
+        }
+      },
+      'step-limitCPU': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcr.spec.resources.limits.cpu',
+          localName: 'step.gcr.resources.spec.limits.cpu'
+        }
+      }
+    },
+    variablesData: {
+      type: StepType.GCR,
+      identifier: 'gcr',
+      name: 'step-name',
+      timeout: 'step-timeout',
+      spec: {
+        connectorRef: 'step-connectorRef',
+        host: 'step-host',
+        projectID: 'step-projectID',
+        imageName: 'step-imageName',
+        tags: 'step-tags',
+        dockerfile: 'step-dockerfile',
+        context: 'step-context',
+        labels: 'step-labels',
+        buildArgs: 'step-buildArgs',
+        target: 'step-target',
+        // TODO: Right now we do not support Image Pull Policy but will do in the future
+        // pull: 'step-pull',
+        resources: {
+          limits: {
+            memory: 'step-limitMemory',
+            cpu: 'step-limitCPU'
+          }
         }
       }
     }

@@ -6,9 +6,10 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import type { MultiTypeListType, MultiTypeListUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { SaveCacheS3StepBaseWithRef } from './SaveCacheS3StepBase'
 import { SaveCacheS3StepInputSet } from './SaveCacheS3StepInputSet'
-import type { MultiTypeListType, MultiTypeListUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
+import { SaveCacheS3StepVariables, SaveCacheS3StepVariablesProps } from './SaveCacheS3StepVariables'
 
 export interface SaveCacheS3StepSpec {
   connectorRef: string
@@ -51,6 +52,11 @@ export interface SaveCacheS3StepProps {
   onUpdate?: (data: SaveCacheS3StepData) => void
 }
 export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.SaveCacheS3
   protected stepName = 'Save Cache to S3'
   protected stepIcon: IconName = 'save-cache-s3'
@@ -116,7 +122,8 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
     return errors
   }
   renderStep(props: StepProps<SaveCacheS3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <SaveCacheS3StepInputSet
@@ -128,7 +135,16 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
           onUpdate={onUpdate}
         />
       )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <SaveCacheS3StepVariables
+          {...(customStepProps as SaveCacheS3StepVariablesProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
+        />
+      )
     }
+
     return (
       <SaveCacheS3StepBaseWithRef
         initialValues={initialValues}

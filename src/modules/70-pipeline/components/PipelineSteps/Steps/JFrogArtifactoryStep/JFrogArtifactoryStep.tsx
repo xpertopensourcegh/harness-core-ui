@@ -9,6 +9,7 @@ import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { JFrogArtifactoryStepBaseWithRef } from './JFrogArtifactoryStepBase'
 import { JFrogArtifactoryStepInputSet } from './JFrogArtifactoryStepInputSet'
+import { JFrogArtifactoryStepVariables, JFrogArtifactoryStepVariablesProps } from './JFrogArtifactoryStepVariables'
 
 export interface JFrogArtifactoryStepSpec {
   connectorRef: string
@@ -52,6 +53,11 @@ export interface JFrogArtifactoryStepProps {
 }
 
 export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.JFrogArtifactory
   protected stepName = 'Upload Artifacts to JFrog Artifactory'
   protected stepIcon: IconName = 'service-artifactory'
@@ -107,7 +113,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
   }
 
   renderStep(props: StepProps<JFrogArtifactoryStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -117,6 +123,14 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
           path={inputSetData?.path || ''}
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
+          onUpdate={onUpdate}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <JFrogArtifactoryStepVariables
+          {...(customStepProps as JFrogArtifactoryStepVariablesProps)}
+          initialValues={initialValues}
           onUpdate={onUpdate}
         />
       )

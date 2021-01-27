@@ -9,6 +9,7 @@ import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { S3StepBaseWithRef } from './S3StepBase'
 import { S3StepInputSet } from './S3StepInputSet'
+import { S3StepVariables, S3StepVariablesProps } from './S3StepVariables'
 
 export interface S3StepSpec {
   connectorRef: string
@@ -53,6 +54,11 @@ export interface S3StepProps {
 }
 
 export class S3Step extends PipelineStep<S3StepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.S3
   protected stepName = 'Upload Artifacts to S3'
   protected stepIcon: IconName = 'service-service-s3'
@@ -108,7 +114,7 @@ export class S3Step extends PipelineStep<S3StepData> {
     return errors
   }
   renderStep(props: StepProps<S3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -121,7 +127,16 @@ export class S3Step extends PipelineStep<S3StepData> {
           onUpdate={onUpdate}
         />
       )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <S3StepVariables
+          {...(customStepProps as S3StepVariablesProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
+        />
+      )
     }
+
     return (
       <S3StepBaseWithRef
         initialValues={initialValues}

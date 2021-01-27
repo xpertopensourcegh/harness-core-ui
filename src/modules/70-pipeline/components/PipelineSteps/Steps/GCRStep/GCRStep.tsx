@@ -16,6 +16,7 @@ import type {
 } from '../StepsTypes'
 import { GCRStepBaseWithRef } from './GCRStepBase'
 import { GCRStepInputSet } from './GCRStepInputSet'
+import { GCRStepVariables, GCRStepVariablesProps } from './GCRStepVariables'
 
 export interface GCRStepSpec {
   connectorRef: string
@@ -68,6 +69,11 @@ export interface GCRStepProps {
 }
 
 export class GCRStep extends PipelineStep<GCRStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.GCR
   protected stepName = 'Build and Push to GCR'
   protected stepIcon: IconName = 'gcr-step'
@@ -137,7 +143,7 @@ export class GCRStep extends PipelineStep<GCRStepData> {
   }
 
   renderStep(props: StepProps<GCRStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -147,6 +153,14 @@ export class GCRStep extends PipelineStep<GCRStepData> {
           path={inputSetData?.path || ''}
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
+          onUpdate={onUpdate}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <GCRStepVariables
+          {...(customStepProps as GCRStepVariablesProps)}
+          initialValues={initialValues}
           onUpdate={onUpdate}
         />
       )

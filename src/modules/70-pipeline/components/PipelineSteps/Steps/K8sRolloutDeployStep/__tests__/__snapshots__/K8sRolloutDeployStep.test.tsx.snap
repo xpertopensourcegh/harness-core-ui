@@ -625,11 +625,6 @@ exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
     <p
       class="StyledProps--font StyledProps--main"
     >
-      String
-    </p>
-    <p
-      class="StyledProps--font StyledProps--main"
-    >
       10m
     </p>
     <div
@@ -680,11 +675,6 @@ exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
         </span>
       </div>
     </div>
-    <p
-      class="StyledProps--font StyledProps--main"
-    >
-      Boolean
-    </p>
     <p
       class="StyledProps--font StyledProps--main"
     />

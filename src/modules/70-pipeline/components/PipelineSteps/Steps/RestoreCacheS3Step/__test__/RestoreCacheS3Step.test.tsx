@@ -192,4 +192,131 @@ describe('Restore Cache S3 Step', () => {
       expect(container).toMatchSnapshot()
     })
   })
+
+  describe('InputVariable View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'Test_A',
+            name: 'Test A',
+            type: StepType.RestoreCacheS3,
+            timeout: '10s',
+            spec: {
+              connectorRef: 'account.connectorRef',
+              bucket: 'Bucket',
+              region: 'us-east-1',
+              key: 'Key',
+              endpoint: 'Endpoint',
+              target: 'Target',
+              resources: {
+                limits: {
+                  memory: '128Mi',
+                  cpu: '0.2'
+                }
+              }
+            }
+          }}
+          customStepProps={{
+            stageIdentifier: 'qaStage',
+            metadataMap: {
+              'step-name': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.name',
+                  localName: 'step.restoreCacheS3.name'
+                }
+              },
+              'step-timeout': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.timeout',
+                  localName: 'step.restoreCacheS3.timeout'
+                }
+              },
+              'step-connectorRef': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.connectorRef',
+                  localName: 'step.restoreCacheS3.spec.connectorRef'
+                }
+              },
+              'step-bucket': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.bucket',
+                  localName: 'step.restoreCacheS3.spec.bucket'
+                }
+              },
+              'step-region': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.region',
+                  localName: 'step.restoreCacheS3.spec.region'
+                }
+              },
+              'step-key': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.key',
+                  localName: 'step.restoreCacheS3.spec.key'
+                }
+              },
+              'step-endpoint': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.endpoint',
+                  localName: 'step.restoreCacheS3.spec.endpoint'
+                }
+              },
+              'step-target': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.target',
+                  localName: 'step.restoreCacheS3.spec.target'
+                }
+              },
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // 'step-pull': {
+              //   yamlProperties: {
+              //     fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.pull',
+              //     localName: 'step.restoreCacheS3.spec.pull'
+              //   }
+              // },
+              'step-limitMemory': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.resources.limits.memory',
+                  localName: 'step.restoreCacheS3.spec.resources.limits.memory'
+                }
+              },
+              'step-limitCPU': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.resources.limits.cpu',
+                  localName: 'step.restoreCacheS3.resources.spec.limits.cpu'
+                }
+              }
+            },
+            variablesData: {
+              type: StepType.RestoreCacheS3,
+              identifier: 'restoreCacheS3',
+              name: 'step-name',
+              timeout: 'step-timeout',
+              spec: {
+                connectorRef: 'step-connectorRef',
+                bucket: 'step-bucket',
+                region: 'step-region',
+                key: 'step-key',
+                endpoint: 'step-endpoint',
+                target: 'step-target',
+                // TODO: Right now we do not support Image Pull Policy but will do in the future
+                // pull: 'step-pull',
+                resources: {
+                  limits: {
+                    memory: 'step-limitMemory',
+                    cpu: 'step-limitCPU'
+                  }
+                }
+              }
+            }
+          }}
+          type={StepType.RestoreCacheS3}
+          stepViewType={StepViewType.InputVariable}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
 })

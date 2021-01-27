@@ -45,7 +45,28 @@ export const S3Step: Story<Omit<TestStepWidgetProps, 'factory'>> = args => {
 }
 
 S3Step.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.S3 },
+  initialValues: {
+    identifier: 'Test_A',
+    name: 'Test A',
+    type: StepType.S3,
+    timeout: '10s',
+    spec: {
+      connectorRef: 'account.connectorRef',
+      region: 'Region',
+      bucket: 'Bucket',
+      sourcePath: 'Source Path',
+      endpoint: 'Endpoint',
+      target: 'Target',
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // pull: 'always',
+      resources: {
+        limits: {
+          memory: '128Mi',
+          cpu: '0.2'
+        }
+      }
+    }
+  },
   type: StepType.S3,
   stepViewType: StepViewType.Edit,
   path: '',
@@ -88,6 +109,100 @@ S3Step.args = {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
           memory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.name',
+          localName: 'step.s3.name'
+        }
+      },
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.timeout',
+          localName: 'step.s3.timeout'
+        }
+      },
+      'step-connectorRef': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.connectorRef',
+          localName: 'step.s3.spec.connectorRef'
+        }
+      },
+      'step-region': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.region',
+          localName: 'step.s3.spec.region'
+        }
+      },
+      'step-bucket': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.bucket',
+          localName: 'step.s3.spec.bucket'
+        }
+      },
+      'step-sourcePath': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.sourcePath',
+          localName: 'step.s3.spec.sourcePath'
+        }
+      },
+      'step-endpoint': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.endpoint',
+          localName: 'step.s3.spec.endpoint'
+        }
+      },
+      'step-target': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.target',
+          localName: 'step.s3.spec.target'
+        }
+      },
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // 'step-pull': {
+      //   yamlProperties: {
+      //     fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.pull',
+      //     localName: 'step.s3.spec.pull'
+      //   }
+      // },
+      'step-limitMemory': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.resources.limits.memory',
+          localName: 'step.s3.spec.resources.limits.memory'
+        }
+      },
+      'step-limitCPU': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.s3.spec.resources.limits.cpu',
+          localName: 'step.s3.resources.spec.limits.cpu'
+        }
+      }
+    },
+    variablesData: {
+      type: StepType.S3,
+      identifier: 's3',
+      name: 'step-name',
+      timeout: 'step-timeout',
+      spec: {
+        connectorRef: 'step-connectorRef',
+        region: 'step-region',
+        bucket: 'step-bucket',
+        sourcePath: 'step-sourcePath',
+        endpoint: 'step-endpoint',
+        target: 'step-target',
+        // TODO: Right now we do not support Image Pull Policy but will do in the future
+        // pull: 'step-pull',
+        resources: {
+          limits: {
+            memory: 'step-limitMemory',
+            cpu: 'step-limitCPU'
+          }
         }
       }
     }

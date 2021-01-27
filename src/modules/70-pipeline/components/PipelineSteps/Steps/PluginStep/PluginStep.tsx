@@ -9,6 +9,7 @@ import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeMapType, MultiTypeMapUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { PluginStepBaseWithRef } from './PluginStepBase'
 import { PluginStepInputSet } from './PluginStepInputSet'
+import { PluginStepVariables, PluginStepVariablesProps } from './PluginStepVariables'
 
 export interface PluginStepSpec {
   connectorRef: string
@@ -52,6 +53,11 @@ export interface PluginStepProps {
 }
 
 export class PluginStep extends PipelineStep<PluginStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.Plugin
   protected stepName = 'Configure Plugin Step'
   protected stepIcon: IconName = 'plugin-step'
@@ -90,7 +96,7 @@ export class PluginStep extends PipelineStep<PluginStepData> {
   }
 
   renderStep(props: StepProps<PluginStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -100,6 +106,14 @@ export class PluginStep extends PipelineStep<PluginStepData> {
           path={inputSetData?.path || ''}
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
+          onUpdate={onUpdate}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <PluginStepVariables
+          {...(customStepProps as PluginStepVariablesProps)}
+          initialValues={initialValues}
           onUpdate={onUpdate}
         />
       )

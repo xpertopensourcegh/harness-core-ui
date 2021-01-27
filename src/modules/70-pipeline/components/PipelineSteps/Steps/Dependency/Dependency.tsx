@@ -16,6 +16,7 @@ import type {
 } from '../StepsTypes'
 import { DependencyBase } from './DependencyBase'
 import { DependencyInputSet } from './DependencyInputSet'
+import { DependencyVariables, DependencyVariablesProps } from './DependencyVariables'
 
 export interface DependencySpec {
   connectorRef: string
@@ -63,6 +64,11 @@ export interface DependencyProps {
 }
 
 export class Dependency extends PipelineStep<DependencyData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.Dependency
   protected stepName = 'Configure Service Dependency'
   protected stepIcon: IconName = 'dependency-step'
@@ -101,7 +107,7 @@ export class Dependency extends PipelineStep<DependencyData> {
   }
 
   renderStep(props: StepProps<DependencyData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -111,6 +117,14 @@ export class Dependency extends PipelineStep<DependencyData> {
           path={inputSetData?.path || ''}
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
+          onUpdate={onUpdate}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <DependencyVariables
+          {...(customStepProps as DependencyVariablesProps)}
+          initialValues={initialValues}
           onUpdate={onUpdate}
         />
       )

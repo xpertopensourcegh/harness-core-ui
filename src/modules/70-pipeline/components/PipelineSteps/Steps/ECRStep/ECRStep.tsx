@@ -16,6 +16,7 @@ import type {
 } from '../StepsTypes'
 import { ECRStepBaseWithRef } from './ECRStepBase'
 import { ECRStepInputSet } from './ECRStepInputSet'
+import { ECRStepVariables, ECRStepVariablesProps } from './ECRStepVariables'
 
 export interface ECRStepSpec {
   connectorRef: string
@@ -68,6 +69,11 @@ export interface ECRStepProps {
 }
 
 export class ECRStep extends PipelineStep<ECRStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.ECR
   protected stepName = 'Build and Push to ECR'
   protected stepIcon: IconName = 'ecr-step'
@@ -130,7 +136,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
   }
 
   renderStep(props: StepProps<ECRStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -140,6 +146,14 @@ export class ECRStep extends PipelineStep<ECRStepData> {
           path={inputSetData?.path || ''}
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
+          onUpdate={onUpdate}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <ECRStepVariables
+          {...(customStepProps as ECRStepVariablesProps)}
+          initialValues={initialValues}
           onUpdate={onUpdate}
         />
       )

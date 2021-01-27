@@ -45,7 +45,26 @@ export const GCSStep: Story<Omit<TestStepWidgetProps, 'factory'>> = args => {
 }
 
 GCSStep.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.GCS },
+  initialValues: {
+    identifier: 'Test_A',
+    name: 'Test A',
+    type: StepType.GCS,
+    timeout: '10s',
+    spec: {
+      connectorRef: 'account.connectorRef',
+      bucket: 'Bucket',
+      sourcePath: 'Source Path',
+      target: 'Target',
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // pull: 'always',
+      resources: {
+        limits: {
+          memory: '128Mi',
+          cpu: '0.2'
+        }
+      }
+    }
+  },
   type: StepType.GCS,
   stepViewType: StepViewType.Edit,
   path: '',
@@ -84,6 +103,86 @@ GCSStep.args = {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
           memory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.name',
+          localName: 'step.gcs.name'
+        }
+      },
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.timeout',
+          localName: 'step.gcs.timeout'
+        }
+      },
+      'step-connectorRef': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.spec.connectorRef',
+          localName: 'step.gcs.spec.connectorRef'
+        }
+      },
+      'step-bucket': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.spec.bucket',
+          localName: 'step.gcs.spec.bucket'
+        }
+      },
+      'step-sourcePath': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.spec.sourcePath',
+          localName: 'step.gcs.spec.sourcePath'
+        }
+      },
+      'step-target': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.spec.target',
+          localName: 'step.gcs.spec.target'
+        }
+      },
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // 'step-pull': {
+      //   yamlProperties: {
+      //     fqn: 'pipeline.stages.qaStage.execution.steps.gcs.spec.pull',
+      //     localName: 'step.gcs.spec.pull'
+      //   }
+      // },
+      'step-limitMemory': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.spec.resources.limits.memory',
+          localName: 'step.gcs.spec.resources.limits.memory'
+        }
+      },
+      'step-limitCPU': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.gcs.spec.resources.limits.cpu',
+          localName: 'step.gcs.resources.spec.limits.cpu'
+        }
+      }
+    },
+    variablesData: {
+      type: StepType.GCS,
+      identifier: 'gcs',
+      name: 'step-name',
+      timeout: 'step-timeout',
+      spec: {
+        connectorRef: 'step-connectorRef',
+        bucket: 'step-bucket',
+        sourcePath: 'step-sourcePath',
+        target: 'step-target',
+        // TODO: Right now we do not support Image Pull Policy but will do in the future
+        // pull: 'step-pull',
+        resources: {
+          limits: {
+            memory: 'step-limitMemory',
+            cpu: 'step-limitCPU'
+          }
         }
       }
     }

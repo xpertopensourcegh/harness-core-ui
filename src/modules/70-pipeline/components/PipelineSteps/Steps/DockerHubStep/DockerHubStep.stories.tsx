@@ -45,7 +45,38 @@ export const DockerHubStep: Story<Omit<TestStepWidgetProps, 'factory'>> = args =
 }
 
 DockerHubStep.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.DockerHub },
+  initialValues: {
+    identifier: 'Test_A',
+    name: 'Test A',
+    type: StepType.DockerHub,
+    timeout: '10s',
+    spec: {
+      connectorRef: 'account.connectorRef',
+      registry: 'Repository',
+      tags: ['tag1', 'tag2', 'tag3'],
+      dockerfile: 'Dockerfile',
+      context: 'Context',
+      labels: {
+        label1: 'value1',
+        label2: 'value2',
+        label3: 'value3'
+      },
+      buildArgs: {
+        buildArg1: 'value1',
+        buildArg2: 'value2',
+        buildArg3: 'value3'
+      },
+      target: 'Target',
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // pull: 'always',
+      resources: {
+        limits: {
+          memory: '128Mi',
+          cpu: '0.2'
+        }
+      }
+    }
+  },
   type: StepType.DockerHub,
   stepViewType: StepViewType.Edit,
   path: '',
@@ -96,6 +127,114 @@ DockerHubStep.args = {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
           memory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.name',
+          localName: 'step.dockerHub.name'
+        }
+      },
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.timeout',
+          localName: 'step.dockerHub.timeout'
+        }
+      },
+      'step-connectorRef': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.connectorRef',
+          localName: 'step.dockerHub.spec.connectorRef'
+        }
+      },
+      'step-registry': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.registry',
+          localName: 'step.dockerHub.spec.registry'
+        }
+      },
+      'step-tags': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.tags',
+          localName: 'step.dockerHub.spec.tags'
+        }
+      },
+      'step-dockerfile': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.dockerfile',
+          localName: 'step.dockerHub.spec.dockerfile'
+        }
+      },
+      'step-context': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.context',
+          localName: 'step.dockerHub.spec.context'
+        }
+      },
+      'step-labels': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.labels',
+          localName: 'step.dockerHub.spec.labels'
+        }
+      },
+      'step-buildArgs': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.buildArgs',
+          localName: 'step.dockerHub.spec.buildArgs'
+        }
+      },
+      'step-target': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.target',
+          localName: 'step.dockerHub.spec.target'
+        }
+      },
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // 'step-pull': {
+      //   yamlProperties: {
+      //     fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.pull',
+      //     localName: 'step.dockerHub.spec.pull'
+      //   }
+      // },
+      'step-limitMemory': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.resources.limits.memory',
+          localName: 'step.dockerHub.spec.resources.limits.memory'
+        }
+      },
+      'step-limitCPU': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.resources.limits.cpu',
+          localName: 'step.dockerHub.resources.spec.limits.cpu'
+        }
+      }
+    },
+    variablesData: {
+      type: StepType.DockerHub,
+      identifier: 'dockerHub',
+      name: 'step-name',
+      timeout: 'step-timeout',
+      spec: {
+        connectorRef: 'step-connectorRef',
+        registry: 'step-registry',
+        tags: 'step-tags',
+        dockerfile: 'step-dockerfile',
+        context: 'step-context',
+        labels: 'step-labels',
+        buildArgs: 'step-buildArgs',
+        target: 'step-target',
+        // TODO: Right now we do not support Image Pull Policy but will do in the future
+        // pull: 'step-pull',
+        resources: {
+          limits: {
+            memory: 'step-limitMemory',
+            cpu: 'step-limitCPU'
+          }
         }
       }
     }

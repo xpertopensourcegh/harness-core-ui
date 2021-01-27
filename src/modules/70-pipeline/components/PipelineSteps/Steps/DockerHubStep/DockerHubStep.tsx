@@ -16,6 +16,7 @@ import type {
 } from '../StepsTypes'
 import { DockerHubStepBaseWithRef } from './DockerHubStepBase'
 import { DockerHubStepInputSet } from './DockerHubStepInputSet'
+import { DockerHubStepVariables, DockerHubStepVariablesProps } from './DockerHubStepVariables'
 
 export interface DockerHubStepSpec {
   connectorRef: string
@@ -66,6 +67,11 @@ export interface DockerHubStepProps {
 }
 
 export class DockerHubStep extends PipelineStep<DockerHubStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.DockerHub
   protected stepName = 'Build and Push an image to Docker Registry'
   protected stepIcon: IconName = 'docker-hub-step'
@@ -120,7 +126,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   }
 
   renderStep(props: StepProps<DockerHubStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -130,6 +136,14 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
           path={inputSetData?.path || ''}
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
+          onUpdate={onUpdate}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <DockerHubStepVariables
+          {...(customStepProps as DockerHubStepVariablesProps)}
+          initialValues={initialValues}
           onUpdate={onUpdate}
         />
       )

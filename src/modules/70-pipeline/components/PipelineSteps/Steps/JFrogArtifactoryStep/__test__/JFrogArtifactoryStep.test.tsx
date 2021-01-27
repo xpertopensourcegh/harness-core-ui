@@ -102,12 +102,12 @@ describe('JFrogArtifactory Step', () => {
       const initialValues = {
         identifier: 'My_JFrogArtifactory_Step',
         name: 'My JFrogArtifactory Step',
-        description: 'some description',
+        description: 'Description',
         timeout: '10s',
         spec: {
           connectorRef: 'account.connectorRef',
-          target: 'target',
-          sourcePath: 'source path 1',
+          target: 'Target',
+          sourcePath: 'Source path',
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: 'always',
           resources: {
@@ -214,12 +214,12 @@ describe('JFrogArtifactory Step', () => {
         type: StepType.JFrogArtifactory,
         identifier: 'My_JFrogArtifactory_Step',
         name: 'My JFrogArtifactory Step',
-        description: 'some description',
+        description: 'Description',
         timeout: '10s',
         spec: {
           connectorRef: 'account.connectorRef',
           target: 'target',
-          sourcePaths: ['source path 1', 'source path 2', 'source path 3'],
+          sourcePath: 'Source path',
           pomFile: 'pom File',
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: 'always',
@@ -242,6 +242,119 @@ describe('JFrogArtifactory Step', () => {
           allValues={allValues}
           stepViewType={StepViewType.InputSet}
           onUpdate={onUpdate}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
+
+  describe('InputVariable View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'Test_A',
+            name: 'Test A',
+            type: StepType.JFrogArtifactory,
+            description: 'Description',
+            timeout: '10s',
+            spec: {
+              connectorRef: 'account.connectorRef',
+              target: 'Target',
+              sourcePath: 'Source path',
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // pull: 'always',
+              resources: {
+                limits: {
+                  memory: '128Mi',
+                  cpu: '0.2'
+                }
+              }
+            }
+          }}
+          customStepProps={{
+            stageIdentifier: 'qaStage',
+            metadataMap: {
+              'step-name': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.name',
+                  localName: 'step.run.name'
+                }
+              },
+              'step-description': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.description',
+                  localName: 'step.run.description'
+                }
+              },
+              'step-timeout': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.timeout',
+                  localName: 'step.run.timeout'
+                }
+              },
+              'step-connectorRef': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.connectorRef',
+                  localName: 'step.run.spec.connectorRef'
+                }
+              },
+              'step-target': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.target',
+                  localName: 'step.run.spec.target'
+                }
+              },
+              'step-sourcePath': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.sourcePath',
+                  localName: 'step.run.spec.sourcePath'
+                }
+              },
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // 'step-pull': {
+              //   yamlProperties: {
+              //     fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.pull',
+              //     localName: 'step.run.spec.pull'
+              //   }
+              // },
+              'step-limitMemory': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.resources.limits.memory',
+                  localName: 'step.run.spec.resources.limits.memory'
+                }
+              },
+              'step-limitCPU': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.resources.limits.cpu',
+                  localName: 'step.run.resources.spec.limits.cpu'
+                }
+              }
+            },
+            variablesData: {
+              type: StepType.JFrogArtifactory,
+              identifier: 'run',
+              name: 'step-name',
+              description: 'step-description',
+              timeout: 'step-timeout',
+              spec: {
+                connectorRef: 'step-connectorRef',
+                target: 'step-target',
+                sourcePath: 'step-sourcePath',
+                // TODO: Right now we do not support Image Pull Policy but will do in the future
+                // pull: 'step-pull',
+                resources: {
+                  limits: {
+                    memory: 'step-limitMemory',
+                    cpu: 'step-limitCPU'
+                  }
+                }
+              }
+            }
+          }}
+          type={StepType.JFrogArtifactory}
+          stepViewType={StepViewType.InputVariable}
         />
       )
 

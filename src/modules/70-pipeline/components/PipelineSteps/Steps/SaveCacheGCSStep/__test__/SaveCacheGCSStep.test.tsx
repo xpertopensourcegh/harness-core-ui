@@ -190,4 +190,123 @@ describe('Save Cache GCS Step', () => {
       expect(container).toMatchSnapshot()
     })
   })
+
+  describe('InputVariable View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'Test_A',
+            name: 'Test A',
+            type: StepType.SaveCacheGCS,
+            timeout: '10s',
+            spec: {
+              connectorRef: 'account.connectorRef',
+              bucket: 'Bucket',
+              key: 'Key',
+              sourcePaths: ['some/path'],
+              target: 'Target',
+              resources: {
+                limits: {
+                  memory: '128Mi',
+                  cpu: '0.2'
+                }
+              }
+            }
+          }}
+          customStepProps={{
+            stageIdentifier: 'qaStage',
+            metadataMap: {
+              'step-name': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.name',
+                  localName: 'step.saveCacheGCS.name'
+                }
+              },
+              'step-timeout': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.timeout',
+                  localName: 'step.saveCacheGCS.timeout'
+                }
+              },
+              'step-connectorRef': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.connectorRef',
+                  localName: 'step.saveCacheGCS.spec.connectorRef'
+                }
+              },
+              'step-bucket': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.bucket',
+                  localName: 'step.saveCacheGCS.spec.bucket'
+                }
+              },
+              'step-key': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.key',
+                  localName: 'step.saveCacheGCS.spec.key'
+                }
+              },
+              'step-sourcePaths': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.sourcePaths',
+                  localName: 'step.saveCacheGCS.spec.sourcePaths'
+                }
+              },
+              'step-target': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.target',
+                  localName: 'step.saveCacheGCS.spec.target'
+                }
+              },
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // 'step-pull': {
+              //   yamlProperties: {
+              //     fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.pull',
+              //     localName: 'step.saveCacheGCS.spec.pull'
+              //   }
+              // },
+              'step-limitMemory': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.resources.limits.memory',
+                  localName: 'step.saveCacheGCS.spec.resources.limits.memory'
+                }
+              },
+              'step-limitCPU': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.resources.limits.cpu',
+                  localName: 'step.saveCacheGCS.resources.spec.limits.cpu'
+                }
+              }
+            },
+            variablesData: {
+              type: StepType.SaveCacheGCS,
+              identifier: 'saveCacheGCS',
+              name: 'step-name',
+              timeout: 'step-timeout',
+              spec: {
+                connectorRef: 'step-connectorRef',
+                bucket: 'step-bucket',
+                key: 'step-key',
+                sourcePaths: 'step-sourcePaths',
+                target: 'step-target',
+                // TODO: Right now we do not support Image Pull Policy but will do in the future
+                // pull: 'step-pull',
+                resources: {
+                  limits: {
+                    memory: 'step-limitMemory',
+                    cpu: 'step-limitCPU'
+                  }
+                }
+              }
+            }
+          }}
+          type={StepType.SaveCacheGCS}
+          stepViewType={StepViewType.InputVariable}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
 })

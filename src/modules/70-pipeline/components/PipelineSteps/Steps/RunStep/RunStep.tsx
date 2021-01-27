@@ -16,6 +16,7 @@ import type {
 } from '../StepsTypes'
 import { RunStepBaseWithRef } from './RunStepBase'
 import { RunStepInputSet } from './RunStepInputSet'
+import { RunStepVariables, RunStepVariablesProps } from './RunStepVariables'
 
 export interface RunStepSpec {
   connectorRef: string
@@ -70,6 +71,11 @@ export interface RunStepProps {
 }
 
 export class RunStep extends PipelineStep<RunStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.Run
   protected stepName = 'Configure Run Step'
   protected stepIcon: IconName = 'run-step'
@@ -114,7 +120,7 @@ export class RunStep extends PipelineStep<RunStepData> {
   }
 
   renderStep(props: StepProps<RunStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -124,6 +130,14 @@ export class RunStep extends PipelineStep<RunStepData> {
           path={inputSetData?.path || ''}
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
+          onUpdate={onUpdate}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <RunStepVariables
+          {...(customStepProps as RunStepVariablesProps)}
+          initialValues={initialValues}
           onUpdate={onUpdate}
         />
       )

@@ -45,7 +45,40 @@ export const ECRStep: Story<Omit<TestStepWidgetProps, 'factory'>> = args => {
 }
 
 ECRStep.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.ECR },
+  initialValues: {
+    identifier: 'Test_A',
+    name: 'Test A',
+    type: StepType.ECR,
+    timeout: '10s',
+    spec: {
+      connectorRef: 'account.connectorRef',
+      region: 'Region',
+      account: 'Account',
+      imageName: 'Image Name',
+      tags: ['tag1', 'tag2', 'tag3'],
+      dockerfile: 'Dockerfile',
+      context: 'Context',
+      labels: {
+        label1: 'value1',
+        label2: 'value2',
+        label3: 'value3'
+      },
+      buildArgs: {
+        buildArg1: 'value1',
+        buildArg2: 'value2',
+        buildArg3: 'value3'
+      },
+      target: 'Target',
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // pull: 'always',
+      resources: {
+        limits: {
+          memory: '128Mi',
+          cpu: '0.2'
+        }
+      }
+    }
+  },
   type: StepType.ECR,
   stepViewType: StepViewType.Edit,
   path: '',
@@ -100,6 +133,128 @@ ECRStep.args = {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
           memory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.name',
+          localName: 'step.ecr.name'
+        }
+      },
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.timeout',
+          localName: 'step.ecr.timeout'
+        }
+      },
+      'step-connectorRef': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.connectorRef',
+          localName: 'step.ecr.spec.connectorRef'
+        }
+      },
+      'step-region': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.region',
+          localName: 'step.ecr.spec.region'
+        }
+      },
+      'step-account': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.account',
+          localName: 'step.ecr.spec.account'
+        }
+      },
+      'step-imageName': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.imageName',
+          localName: 'step.ecr.spec.imageName'
+        }
+      },
+      'step-tags': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.tags',
+          localName: 'step.ecr.spec.tags'
+        }
+      },
+      'step-dockerfile': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.dockerfile',
+          localName: 'step.ecr.spec.dockerfile'
+        }
+      },
+      'step-context': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.context',
+          localName: 'step.ecr.spec.context'
+        }
+      },
+      'step-labels': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.labels',
+          localName: 'step.ecr.spec.labels'
+        }
+      },
+      'step-buildArgs': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.buildArgs',
+          localName: 'step.ecr.spec.buildArgs'
+        }
+      },
+      'step-target': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.target',
+          localName: 'step.ecr.spec.target'
+        }
+      },
+      // TODO: Right now we do not support Image Pull Policy but will do in the future
+      // 'step-pull': {
+      //   yamlProperties: {
+      //     fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.pull',
+      //     localName: 'step.ecr.spec.pull'
+      //   }
+      // },
+      'step-limitMemory': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.resources.limits.memory',
+          localName: 'step.ecr.spec.resources.limits.memory'
+        }
+      },
+      'step-limitCPU': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.resources.limits.cpu',
+          localName: 'step.ecr.resources.spec.limits.cpu'
+        }
+      }
+    },
+    variablesData: {
+      type: StepType.ECR,
+      identifier: 'ecr',
+      name: 'step-name',
+      timeout: 'step-timeout',
+      spec: {
+        connectorRef: 'step-connectorRef',
+        region: 'step-region',
+        account: 'step-account',
+        imageName: 'step-imageName',
+        tags: 'step-tags',
+        dockerfile: 'step-dockerfile',
+        context: 'step-context',
+        labels: 'step-labels',
+        buildArgs: 'step-buildArgs',
+        target: 'step-target',
+        // TODO: Right now we do not support Image Pull Policy but will do in the future
+        // pull: 'step-pull',
+        resources: {
+          limits: {
+            memory: 'step-limitMemory',
+            cpu: 'step-limitCPU'
+          }
         }
       }
     }

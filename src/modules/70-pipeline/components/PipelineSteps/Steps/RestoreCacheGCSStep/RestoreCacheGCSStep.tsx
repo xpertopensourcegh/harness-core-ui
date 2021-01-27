@@ -9,6 +9,7 @@ import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { RestoreCacheGCSStepBaseWithRef } from './RestoreCacheGCSStepBase'
 import { RestoreCacheGCSStepInputSet } from './RestoreCacheGCSStepInputSet'
+import { RestoreCacheGCSStepVariables, RestoreCacheGCSStepVariablesProps } from './RestoreCacheGCSStepVariables'
 
 export interface RestoreCacheGCSStepSpec {
   connectorRef: string
@@ -48,6 +49,11 @@ export interface RestoreCacheGCSStepProps {
 }
 
 export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   protected type = StepType.RestoreCacheGCS
   protected stepName = 'Restore Cache from GCS'
   protected stepIcon: IconName = 'restore-cache-gcs'
@@ -89,7 +95,7 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
     return errors
   }
   renderStep(props: StepProps<RestoreCacheGCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -102,7 +108,16 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
           onUpdate={onUpdate}
         />
       )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <RestoreCacheGCSStepVariables
+          {...(customStepProps as RestoreCacheGCSStepVariablesProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
+        />
+      )
     }
+
     return (
       <RestoreCacheGCSStepBaseWithRef
         initialValues={initialValues}

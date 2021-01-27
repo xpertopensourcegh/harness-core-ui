@@ -262,4 +262,129 @@ describe('Dependency Step', () => {
       expect(container).toMatchSnapshot()
     })
   })
+
+  describe('InputVariable View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'Test_A',
+            name: 'Test A',
+            type: StepType.Dependency,
+            description: 'Description',
+            spec: {
+              connectorRef: 'account.connectorRef',
+              image: 'image',
+              envVariables: {
+                key1: 'value1',
+                key2: 'value2',
+                key3: 'value3'
+              },
+              entrypoint: ['entrypoint1', 'entrypoint2', 'entrypoint3'],
+              args: ['arg1', 'arg2', 'arg3'],
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // pull: 'always',
+              resources: {
+                limits: {
+                  memory: '128Mi',
+                  cpu: '0.2'
+                }
+              }
+            }
+          }}
+          customStepProps={{
+            stageIdentifier: 'qaStage',
+            metadataMap: {
+              'step-name': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.name',
+                  localName: 'step.dependency.name'
+                }
+              },
+              'step-description': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.description',
+                  localName: 'step.dependency.description'
+                }
+              },
+              'step-connectorRef': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.connectorRef',
+                  localName: 'step.dependency.spec.connectorRef'
+                }
+              },
+              'step-image': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.image',
+                  localName: 'step.dependency.spec.image'
+                }
+              },
+              'step-envVariables': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.envVariables',
+                  localName: 'step.dependency.spec.envVariables'
+                }
+              },
+              'step-entrypoint': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.entrypoint',
+                  localName: 'step.dependency.spec.entrypoint'
+                }
+              },
+              'step-args': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.args',
+                  localName: 'step.dependency.spec.args'
+                }
+              },
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // 'step-pull': {
+              //   yamlProperties: {
+              //     fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.pull',
+              //     localName: 'step.dependency.spec.pull'
+              //   }
+              // },
+              'step-limitMemory': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.resources.limits.memory',
+                  localName: 'step.dependency.spec.resources.limits.memory'
+                }
+              },
+              'step-limitCPU': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.resources.limits.cpu',
+                  localName: 'step.dependency.resources.spec.limits.cpu'
+                }
+              }
+            },
+            variablesData: {
+              type: StepType.Dependency,
+              identifier: 'dependency',
+              name: 'step-name',
+              description: 'step-description',
+              spec: {
+                connectorRef: 'step-connectorRef',
+                image: 'step-image',
+                envVariables: 'step-envVariables',
+                entrypoint: 'step-entrypoint',
+                args: 'step-args',
+                // TODO: Right now we do not support Image Pull Policy but will do in the future
+                // pull: 'step-pull',
+                resources: {
+                  limits: {
+                    memory: 'step-limitMemory',
+                    cpu: 'step-limitCPU'
+                  }
+                }
+              }
+            }
+          }}
+          type={StepType.Dependency}
+          stepViewType={StepViewType.InputVariable}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
 })

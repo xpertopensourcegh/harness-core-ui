@@ -256,4 +256,121 @@ describe('Plugin Step', () => {
       expect(container).toMatchSnapshot()
     })
   })
+
+  describe('InputVariable View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'Test_A',
+            name: 'Test A',
+            type: StepType.Plugin,
+            description: 'Description',
+            timeout: '10s',
+            spec: {
+              connectorRef: 'account.connectorRef',
+              image: 'image',
+              settings: {
+                key1: 'value1',
+                key2: 'value2',
+                key3: 'value3'
+              },
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // pull: 'always',
+              resources: {
+                limits: {
+                  memory: '128Mi',
+                  cpu: '0.2'
+                }
+              }
+            }
+          }}
+          customStepProps={{
+            stageIdentifier: 'qaStage',
+            metadataMap: {
+              'step-name': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.name',
+                  localName: 'step.plugin.name'
+                }
+              },
+              'step-description': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.description',
+                  localName: 'step.plugin.description'
+                }
+              },
+              'step-timeout': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.timeout',
+                  localName: 'step.plugin.timeout'
+                }
+              },
+              'step-connectorRef': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.spec.connectorRef',
+                  localName: 'step.plugin.spec.connectorRef'
+                }
+              },
+              'step-image': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.spec.image',
+                  localName: 'step.plugin.spec.image'
+                }
+              },
+              'step-settings': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.spec.settings',
+                  localName: 'step.plugin.spec.settings'
+                }
+              },
+              // TODO: Right now we do not support Image Pull Policy but will do in the future
+              // 'step-pull': {
+              //   yamlProperties: {
+              //     fqn: 'pipeline.stages.qaStage.execution.steps.plugin.spec.pull',
+              //     localName: 'step.plugin.spec.pull'
+              //   }
+              // },
+              'step-limitMemory': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.spec.resources.limits.memory',
+                  localName: 'step.plugin.spec.resources.limits.memory'
+                }
+              },
+              'step-limitCPU': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.plugin.spec.resources.limits.cpu',
+                  localName: 'step.plugin.resources.spec.limits.cpu'
+                }
+              }
+            },
+            variablesData: {
+              type: StepType.Plugin,
+              identifier: 'plugin',
+              name: 'step-name',
+              description: 'step-description',
+              timeout: 'step-timeout',
+              spec: {
+                connectorRef: 'step-connectorRef',
+                image: 'step-image',
+                settings: 'step-settings',
+                // TODO: Right now we do not support Image Pull Policy but will do in the future
+                // pull: 'step-pull',
+                resources: {
+                  limits: {
+                    memory: 'step-limitMemory',
+                    cpu: 'step-limitCPU'
+                  }
+                }
+              }
+            }
+          }}
+          type={StepType.Plugin}
+          stepViewType={StepViewType.InputVariable}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
 })
