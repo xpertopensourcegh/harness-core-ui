@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { isEqual, zip } from 'lodash-es'
+import { isEqual, zip, cloneDeep, orderBy } from 'lodash-es'
 import {
   Color,
   Layout,
@@ -123,6 +123,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     }
     setEditDefaultValuesModal(localVars)
   }
+  const initialVariations = cloneDeep(featureFlag?.variations)
 
   const [openModalEditVariations, hideModalEditVariations] = useModalHook(() => {
     const initialValues = {
@@ -131,11 +132,40 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       defaultOffVariation: featureFlag?.defaultOffVariation
     }
 
-    const handleSubmit = (values: typeof initialValues) => {
-      const { variations, defaultOffVariation, defaultOnVariation } = values
-      if (!isEqual(variations, initialValues.variations)) {
+    const [initValues, setInitialValues] = useState(initialValues) // eslint-disable-line
+
+    const handleSubmit = (values: typeof initialValues): void => {
+      const { defaultOffVariation, defaultOnVariation } = values
+      let { variations } = values
+
+      variations = variations.map((variation: Variation) => {
+        variation['identifier'] = variation?.value
+        return variation
+      })
+
+      if (!isEqual(variations, initialVariations) && initialVariations.length > variations.length) {
+        const _variations = orderBy(variations, 'name', 'asc')
+        const _initialVariations = orderBy(initialVariations, 'name', 'asc')
+        const _missing = _initialVariations.map(initial => {
+          const isVariantAvailable = _variations.filter(el => el.identifier === initial.identifier)
+          if (isVariantAvailable && isVariantAvailable.length === 0) {
+            return initial?.identifier
+          }
+        })
+
+        patch.feature.addAllInstructions(_missing.filter(x => x !== undefined).map(patch.creators.deleteVariant))
+      }
+      if (!isEqual(variations, initialVariations) && initialVariations.length < variations.length) {
         patch.feature.addAllInstructions(
-          zip(variations, initialValues.variations)
+          zip(variations, initialVariations)
+            .filter(([cur, prev]) => !isEqual(cur, prev))
+            .map(tuple => tuple[0] as NonNullable<Variation>)
+            .map(patch.creators.addVariation)
+        )
+      }
+      if (!isEqual(variations, initialVariations) && initialVariations.length === variations.length) {
+        patch.feature.addAllInstructions(
+          zip(variations, initialVariations)
             .filter(([cur, prev]) => !isEqual(cur, prev))
             .map(tuple => tuple[0] as NonNullable<Variation>)
             .map(patch.creators.updateVariation)
@@ -154,6 +184,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             .then(() => {
               patch.feature.reset()
               refetchFlag()
+              hideModalEditVariations()
             })
             .catch(() => {
               patch.feature.reset()
@@ -169,7 +200,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             {i18n.editVariations.editVariationHeading}
           </Heading>
           <Container>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            <Formik initialValues={initValues} onSubmit={handleSubmit} enableReinitialize={true}>
               {formikProps => (
                 <Form>
                   <Layout.Vertical>
@@ -197,9 +228,13 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                         </>
                       ) : (
                         formikProps?.values?.variations?.map((elem, index) => (
-                          <Layout.Horizontal key={`${elem.identifier}-${index}`}>
+                          <Layout.Horizontal
+                            key={`${elem.identifier}-${index}`}
+                            style={{ alignItems: 'center' }}
+                            spacing="large"
+                          >
                             <FormInput.Text
-                              name={`variations.${index}.identifier`}
+                              name={`variations.${index}.value`}
                               label={`${i18n.variation} ${index + 1}`}
                               style={{ marginRight: 'var(--spacing-small)' }}
                             />
@@ -211,12 +246,50 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                             />
                             <InputDescOptional
                               text={i18n.descOptional}
-                              inputName={`variations.${index}.description`}
+                              inputName={`variations?.${index}?.description`}
                               inputPlaceholder={i18n.editVariations.variationAbout}
-                              isOpen={featureFlag?.variations[index].description ? true : false}
+                              isOpen={featureFlag?.variations[index]?.description ? true : false}
+                            />
+                            <Icon
+                              name="trash"
+                              color={Color.GREY_400}
+                              onClick={() => {
+                                const _variations = initValues.variations
+                                _variations.splice(index, 1)
+                                setInitialValues(oldVal => {
+                                  const obj = {
+                                    ...oldVal,
+                                    variations: _variations
+                                  }
+                                  return obj
+                                })
+                              }}
+                              size={14}
+                              style={{ cursor: 'pointer' }}
                             />
                           </Layout.Horizontal>
                         ))
+                      )}
+                      {!isBooleanFlag && (
+                        <Layout.Horizontal>
+                          <Text
+                            color={Color.BLUE_500}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                              const newVariation = { description: '', identifier: '', name: '', value: '' } as Variation
+                              // initialValues.variations.push(newVariation)
+                              setInitialValues(oldVal => {
+                                const obj = {
+                                  ...oldVal,
+                                  variations: [...oldVal.variations, newVariation]
+                                }
+                                return obj
+                              })
+                            }}
+                          >
+                            {i18n.editVariations.addVariation}
+                          </Text>
+                        </Layout.Horizontal>
                       )}
                     </Container>
 
@@ -273,7 +346,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Layout.Vertical>
       </Dialog>
     )
-  }, [editDefaultValuesModal])
+  }, [editDefaultValuesModal, featureFlag?.variations])
 
   const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => (
     <Dialog title={i18n.addPrerequisites.addPrerequisitesHeading} onClose={hideModalPrerequisites} isOpen={true}>
@@ -344,7 +417,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     // TODO: Uncomment when tags are ready on Backend
     // const getTag = (tagName: string) => singleFlag?.tags?.find(tag => tag.name === tagName)
 
-    const handleSubmit = (values: typeof initialValues) => {
+    const handleSubmit = (values: typeof initialValues): void => {
       const { name, description, tags, permanent } = values
       if (name !== initialValues.name) {
         patch.feature.addInstruction(patch.creators.updateName(name as string))

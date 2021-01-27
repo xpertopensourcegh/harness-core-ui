@@ -10,6 +10,7 @@ export default {
   nameLabel: 'Name',
   nameLabelOptional: 'Name (optional)',
   editVariations: {
+    addVariation: '+ Variation',
     editVariationHeading: 'Edit Variations',
     true: 'True',
     false: 'False',

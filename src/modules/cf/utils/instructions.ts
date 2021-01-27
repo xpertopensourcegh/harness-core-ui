@@ -199,7 +199,7 @@ const updateVariation: (variation: Variation) => Instruction<Variation> = unaryI
   'updateVariation',
   identity
 )
-const deleteVariant: (identifier: string) => Instruction<VariationIdentifier> = unaryInstructionCreator(
+const deleteVariant: (identifier: string | undefined) => Instruction<VariationIdentifier> = unaryInstructionCreator(
   'deleteVariation',
   shape<VariationIdentifier>('identifier')
 )
