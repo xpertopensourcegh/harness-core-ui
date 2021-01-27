@@ -56,9 +56,11 @@ const WizardHeader: React.FC<WizardHeaderInterface> = (props: WizardHeaderInterf
   return (
     <Container className={css.headerContainer}>
       {panels.map((panel: PanelInterface, index: number) => {
-        const titleClass = getClassName(panel?.status)
+        const titleClass = index === panelLength - 1 ? css.lastElementHeader : getClassName(panel?.status)
         const separatorClass = getSeparator(panel?.status)
         const icon = getIconClass(panel?.status)
+        const lastElementCls = index === panelLength - 1 ? css.lastElement : ''
+
         return (
           <>
             <Container
@@ -67,19 +69,18 @@ const WizardHeader: React.FC<WizardHeaderInterface> = (props: WizardHeaderInterf
                 props.onClick(panel.id, index)
               }}
             >
-              {panel?.status !== Status.COMPLETED && <img src={icon} alt="" aria-hidden />}
-              {panel?.status === Status.COMPLETED && (
-                <Icon name="deployment-success-legacy" className={css.completedIcon} />
-              )}
+              <div className={`${css.headerSeparator} ${lastElementCls}`}>
+                {panel?.status !== Status.COMPLETED && <img src={icon} alt="" aria-hidden width="15" />}
+                {panel?.status === Status.COMPLETED && <Icon name="deployment-success-legacy" />}
+                {index !== panelLength - 1 && <hr className={`${css.headerSeparator} ${separatorClass}`} />}
+              </div>
               <Text
                 font={{ size: 'normal', align: 'center' }}
-                className={`${css.headerTitle} ${titleClass}`}
+                className={`${css.headerTitle} ${titleClass} `}
                 onClick={props.onClick}
               >
                 {panel.tabTitle}
               </Text>
-
-              {index !== panelLength - 1 && <hr className={`${css.headerSeparator} ${separatorClass}`} />}
             </Container>
           </>
         )

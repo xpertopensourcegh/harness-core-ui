@@ -43,17 +43,23 @@
 
 .headerContent {
   display: flex;
-  width: 20%;
+  // width: 20%;
   flex-direction: column;
   margin-left: 16px;
   position: relative;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.icon {
+  width: 5%;
 }
 
 .headerSeparator {
   width: 90%;
-  /* width: 80%; */
-  left: 54%;
-  position: absolute;
+  // /* width: 80%; */
+  // left: 54%;
+  // position: absolute;
 }
 
 .headerTitle {
@@ -61,6 +67,7 @@
   font-size: 14px;
   margin-top: var(--spacing-medium) !important;
   cursor: pointer;
+  align-self: flex-start;
 }
 
 .inprogress {

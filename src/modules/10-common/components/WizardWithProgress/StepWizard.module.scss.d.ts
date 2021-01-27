@@ -15,12 +15,14 @@ declare const styles: {
   readonly headerContent: string
   readonly headerSeparator: string
   readonly headerTitle: string
+  readonly lastElement: string
+  readonly lastElementHeader: string
   readonly inprogress: string
   readonly progressSeparator: string
   readonly completedSeparator: string
   readonly progressIcon: string
-  readonly completedIcon: string
   readonly btn: string
   readonly headerContainer: string
+  readonly headerWrapper: string
 }
 export default styles
