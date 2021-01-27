@@ -98,11 +98,6 @@
     }
   }
 
-  .failureStrategy {
-    position: absolute;
-    right: 160px;
-  }
-
   .footer {
     position: fixed;
     display: block !important;
@@ -129,5 +124,19 @@
     span:first-child {
       margin-right: var(--spacing-small);
     }
+  }
+}
+
+[data-layout='default'] {
+  .failureStrategy {
+    position: absolute;
+    right: 340px;
+  }
+}
+
+[data-layout='minimal'] {
+  .failureStrategy {
+    position: absolute;
+    right: 160px;
   }
 }

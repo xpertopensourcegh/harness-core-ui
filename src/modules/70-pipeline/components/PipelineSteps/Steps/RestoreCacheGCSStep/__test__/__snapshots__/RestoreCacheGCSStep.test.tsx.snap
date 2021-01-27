@@ -3136,9 +3136,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.name
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3179,7 +3177,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Test A
     </p>
@@ -3189,9 +3188,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.timeout
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3232,7 +3229,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       10s
     </p>
@@ -3242,9 +3240,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.spec.connectorRef
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3285,7 +3281,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       account.connectorRef
     </p>
@@ -3295,9 +3292,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.spec.bucket
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3338,7 +3333,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Bucket
     </p>
@@ -3348,9 +3344,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.spec.key
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3391,7 +3385,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Key
     </p>
@@ -3401,9 +3396,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.spec.target
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3444,7 +3437,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Target
     </p>
@@ -3454,9 +3448,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.spec.resources.limits.memory
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3497,7 +3489,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       128Mi
     </p>
@@ -3507,9 +3500,7 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheGCS.resources.spec.limits.cpu
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3550,7 +3541,8 @@ exports[`Restore Cache GCS Step InputVariable View should render properly 1`] = 
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       0.2
     </p>

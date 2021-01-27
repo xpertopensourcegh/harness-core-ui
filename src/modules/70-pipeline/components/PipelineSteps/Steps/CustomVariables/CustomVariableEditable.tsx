@@ -113,11 +113,11 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                     <div key={key} className={css.variableListTable}>
                       {yamlData && yamlData.fqn && yamlData.localName ? (
                         <CopyText textToCopy={toVariableStr(yamlData.fqn)}>
-                          &lt;+<span>{yamlData.localName}</span>&gt;
+                          <span>{yamlData.localName}</span>
                         </CopyText>
                       ) : (
                         <Text>
-                          &lt;+<span>{`${variableNamePrefix}${variable.name}`}</span>&gt;
+                          <span>{`${variableNamePrefix}${variable.name}`}</span>
                         </Text>
                       )}
 

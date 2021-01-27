@@ -4874,9 +4874,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.name
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4917,7 +4915,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Test A
     </p>
@@ -4927,9 +4926,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.description
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4970,7 +4967,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Description
     </p>
@@ -4980,9 +4978,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.spec.connectorRef
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5023,7 +5019,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       account.connectorRef
     </p>
@@ -5033,9 +5030,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.spec.image
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5076,7 +5071,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       image
     </p>
@@ -5086,9 +5082,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.spec.envVariables
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5129,7 +5123,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       {
   "key1": "value1",
@@ -5143,9 +5138,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.spec.entrypoint
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5186,7 +5179,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       entrypoint1, entrypoint2, entrypoint3
     </p>
@@ -5196,9 +5190,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.spec.args
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5239,7 +5231,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       arg1, arg2, arg3
     </p>
@@ -5249,9 +5242,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.spec.resources.limits.memory
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5292,7 +5283,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       128Mi
     </p>
@@ -5302,9 +5294,7 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.dependency.resources.spec.limits.cpu
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5345,7 +5335,8 @@ exports[`Dependency Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       0.2
     </p>

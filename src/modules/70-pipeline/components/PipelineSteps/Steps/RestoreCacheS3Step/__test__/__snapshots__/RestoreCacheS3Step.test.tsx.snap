@@ -3960,9 +3960,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.name
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4003,7 +4001,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Test A
     </p>
@@ -4013,9 +4012,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.timeout
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4056,7 +4053,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       10s
     </p>
@@ -4066,9 +4064,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.spec.connectorRef
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4109,7 +4105,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       account.connectorRef
     </p>
@@ -4119,9 +4116,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.spec.bucket
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4162,7 +4157,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Bucket
     </p>
@@ -4172,9 +4168,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.spec.region
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4215,7 +4209,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       us-east-1
     </p>
@@ -4225,9 +4220,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.spec.key
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4268,7 +4261,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Key
     </p>
@@ -4278,9 +4272,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.spec.endpoint
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4321,7 +4313,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Endpoint
     </p>
@@ -4331,9 +4324,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.spec.target
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4374,7 +4365,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Target
     </p>
@@ -4384,9 +4376,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.spec.resources.limits.memory
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4427,7 +4417,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       128Mi
     </p>
@@ -4437,9 +4428,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.restoreCacheS3.resources.spec.limits.cpu
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4480,7 +4469,8 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       0.2
     </p>

@@ -4025,9 +4025,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.name
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4068,7 +4066,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Test A
     </p>
@@ -4078,9 +4077,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.timeout
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4121,7 +4118,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       10s
     </p>
@@ -4131,9 +4129,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.spec.connectorRef
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4174,7 +4170,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       account.connectorRef
     </p>
@@ -4184,9 +4181,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.spec.region
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4227,7 +4222,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Region
     </p>
@@ -4237,9 +4233,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.spec.bucket
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4280,7 +4274,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Bucket
     </p>
@@ -4290,9 +4285,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.spec.sourcePath
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4333,7 +4326,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Source Path
     </p>
@@ -4343,9 +4337,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.spec.endpoint
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4386,7 +4378,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Endpoint
     </p>
@@ -4396,9 +4389,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.spec.target
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4439,7 +4430,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Target
     </p>
@@ -4449,9 +4441,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.spec.resources.limits.memory
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4492,7 +4482,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       128Mi
     </p>
@@ -4502,9 +4493,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.s3.resources.spec.limits.cpu
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -4545,7 +4534,8 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       0.2
     </p>

@@ -1,7 +1,6 @@
 .right-bar {
-  background-color: #fafafa;
-  z-index: 21;
-  box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.25);
+  background-color: var(--grey-100);
+  border-left: 1px solid var(--grey-300);
   display: grid;
   grid-template-rows: 1fr 60px 60px 60px 1fr;
 
@@ -10,6 +9,9 @@
     position: relative !important;
     border: 0 !important;
     background-color: transparent !important;
+    height: 60px !important;
+    flex-direction: column;
+    row-gap: var(--spacing-small);
 
     &.selected {
       color: var(--blue-500) !important;
@@ -33,8 +35,7 @@
     }
 
     :global(.bp3-icon) {
-      position: absolute;
-      top: -15px;
+      padding: 0 !important;
     }
   }
 

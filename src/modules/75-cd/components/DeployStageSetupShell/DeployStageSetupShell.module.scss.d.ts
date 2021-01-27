@@ -8,10 +8,10 @@ declare const styles: {
   readonly stageDropdownButtonCaret: string
   readonly tabExecution: string
   readonly tab: string
-  readonly failureStrategy: string
   readonly footer: string
   readonly stageDropDownTab: string
   readonly stageDropDown: string
   readonly bp3Button: string
+  readonly failureStrategy: string
 }
 export default styles

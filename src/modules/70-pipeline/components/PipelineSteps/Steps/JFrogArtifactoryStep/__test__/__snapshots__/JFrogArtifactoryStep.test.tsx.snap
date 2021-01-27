@@ -3041,9 +3041,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.name
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3084,7 +3082,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Test A
     </p>
@@ -3094,9 +3093,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.description
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3137,7 +3134,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Description
     </p>
@@ -3147,9 +3145,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.timeout
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3190,7 +3186,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       10s
     </p>
@@ -3200,9 +3197,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.connectorRef
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3243,7 +3238,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       account.connectorRef
     </p>
@@ -3253,9 +3249,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.target
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3296,7 +3290,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Target
     </p>
@@ -3306,9 +3301,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.sourcePath
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3349,7 +3342,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Source path
     </p>
@@ -3359,9 +3353,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.resources.limits.memory
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3402,7 +3394,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       128Mi
     </p>
@@ -3412,9 +3405,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.resources.spec.limits.cpu
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -3455,7 +3446,8 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       0.2
     </p>

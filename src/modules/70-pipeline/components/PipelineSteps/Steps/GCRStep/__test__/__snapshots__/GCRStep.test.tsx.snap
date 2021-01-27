@@ -7067,9 +7067,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.name
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7110,7 +7108,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Test A
     </p>
@@ -7120,9 +7119,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.timeout
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7163,7 +7160,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       10s
     </p>
@@ -7173,9 +7171,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.connectorRef
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7216,7 +7212,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       account.connectorRef
     </p>
@@ -7226,9 +7223,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.host
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7269,7 +7264,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Host
     </p>
@@ -7279,9 +7275,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.projectID
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7322,7 +7316,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Project ID
     </p>
@@ -7332,9 +7327,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.imageName
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7375,7 +7368,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Image Name
     </p>
@@ -7385,9 +7379,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.tags
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7428,7 +7420,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       tag1, tag2, tag3
     </p>
@@ -7438,9 +7431,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.dockerfile
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7481,7 +7472,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Dockerfile
     </p>
@@ -7491,9 +7483,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.context
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7534,7 +7524,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Context
     </p>
@@ -7544,9 +7535,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.labels
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7587,7 +7576,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       {
   "label1": "value1",
@@ -7601,9 +7591,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.buildArgs
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7644,7 +7632,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       {
   "buildArg1": "value1",
@@ -7658,9 +7647,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.target
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7701,7 +7688,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Target
     </p>
@@ -7711,9 +7699,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.spec.resources.limits.memory
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7754,7 +7740,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       128Mi
     </p>
@@ -7764,9 +7751,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.gcr.resources.spec.limits.cpu
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -7807,7 +7792,8 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       0.2
     </p>

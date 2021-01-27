@@ -92,13 +92,13 @@
   .panel {
     :global(.Accordion--summary) {
       position: relative;
-      padding-left: calc(var(--spacing-medium) + var(--spacing-small) + 13px) !important;
+      padding-left: calc(var(--spacing-small) + 13px) !important;
     }
 
     & :global(.Accordion--summary::before) {
       content: '';
       position: absolute;
-      left: var(--spacing-medium);
+      left: 0;
       top: 50%;
       transform: translateY(-50%);
       display: block;
@@ -106,6 +106,15 @@
       height: 13px;
       background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
       border-radius: 50%;
+      opacity: 0.6;
     }
+
+    :global(.Accordion--details) {
+      padding: var(--spacing-small) var(--spacing-small) var(--spacing-medium) 0;
+    }
+  }
+
+  :global(.Accordion--panel[data-open='true']) {
+    box-shadow: none;
   }
 }

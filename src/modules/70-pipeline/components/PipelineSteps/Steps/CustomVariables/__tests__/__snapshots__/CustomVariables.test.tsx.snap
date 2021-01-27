@@ -58,11 +58,9 @@ exports[`Custom Variables can add a string variable 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -262,11 +260,9 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -410,11 +406,9 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -614,11 +608,9 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -762,11 +754,9 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -910,11 +900,9 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -1189,11 +1177,9 @@ exports[`Custom Variables should render variables 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -1337,11 +1323,9 @@ exports[`Custom Variables should render variables 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -1485,11 +1469,9 @@ exports[`Custom Variables should render variables 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        &lt;+
         <span>
           myVar1
         </span>
-        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"

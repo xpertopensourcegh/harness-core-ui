@@ -105,6 +105,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             onUpdate={onUpdate}
             customStepProps={{
               variableNamePrefix: 'serviceConfig.variables.',
+              className: css.customVariables,
               yamlProperties: variablesData?.variables?.map(
                 variable => metadataMap?.[variable.value || '']?.yamlProperties || {}
               )

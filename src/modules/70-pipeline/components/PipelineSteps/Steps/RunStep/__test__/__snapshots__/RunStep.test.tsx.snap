@@ -5906,9 +5906,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.name
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -5949,7 +5947,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       My Run Step
     </p>
@@ -5959,9 +5958,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.description
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6002,7 +5999,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       Description
     </p>
@@ -6012,9 +6010,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.timeout
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6055,7 +6051,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       10s
     </p>
@@ -6065,9 +6062,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.connectorRef
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6108,7 +6103,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       account.connectorRef
     </p>
@@ -6118,9 +6114,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.image
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6161,7 +6155,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       image
     </p>
@@ -6171,9 +6166,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.command
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6214,7 +6207,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       command
     </p>
@@ -6224,9 +6218,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.reports.spec.paths
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6267,7 +6259,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       path1.xml, path2.xml, path3.xml, path4.xml, path5.xml
     </p>
@@ -6277,9 +6270,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.envVariables
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6320,7 +6311,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       {
   "key1": "value1",
@@ -6334,9 +6326,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.outputVariables
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6377,7 +6367,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       variable1, variable2, variable3, variable4
     </p>
@@ -6387,9 +6378,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.spec.resources.limits.memory
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6430,7 +6419,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       128Mi
     </p>
@@ -6440,9 +6430,7 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.run.resources.spec.limits.cpu
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -6483,7 +6471,8 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       0.2
     </p>

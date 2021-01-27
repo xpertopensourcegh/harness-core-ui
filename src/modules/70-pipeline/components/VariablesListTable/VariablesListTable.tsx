@@ -42,9 +42,9 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
         return (
           <React.Fragment key={key}>
             <CopyText textToCopy={toVariableStr(metadata.yamlProperties?.fqn || '')}>
-              &lt;+{metadata.yamlProperties?.localName}&gt;
+              {metadata.yamlProperties?.localName}
             </CopyText>
-            <Text>{formattedValue}</Text>
+            <Text lineClamp={1}>{formattedValue}</Text>
           </React.Fragment>
         )
       })}

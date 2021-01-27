@@ -7,5 +7,6 @@ declare const styles: {
   readonly stagesTreeBulletCircle: string
   readonly artifactHeader: string
   readonly mtop: string
+  readonly customVariables: string
 }
 export default styles
