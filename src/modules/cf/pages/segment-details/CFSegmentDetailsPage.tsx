@@ -18,7 +18,7 @@ import {
   TextInput,
   useModalHook
 } from '@wings-software/uicore'
-import { isEqual, omit } from 'lodash-es'
+import { get, isEqual, omit } from 'lodash-es'
 import { Dialog, Divider, Spinner, Tab } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { useOperatorsFromYaml } from '@cf/constants'
@@ -64,16 +64,28 @@ type ClauseEditProps = {
   }[]
   attribute: string
   values: string[]
+  error?: { attribute?: boolean; values?: boolean }
   onChange: (data: ClauseMutation) => void
 }
 
-const ClauseEditMode: React.FC<ClauseEditProps> = ({ index, operator, operators, attribute, values, onChange }) => {
-  const valueOpts = values.map(toOption)
+const ClauseEditMode: React.FC<ClauseEditProps> = ({
+  index,
+  operator,
+  operators,
+  attribute,
+  values,
+  error,
+  onChange
+}) => {
+  const valueOpts = (values ?? []).map(toOption)
   const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     onChange({ kind: 'attribute', payload: e.target.value })
   const handleOperatorChange = (data: SelectOption) => onChange({ kind: 'op', payload: data.value as string })
   const handleValuesChange = (data: MultiSelectOption[]) =>
-    onChange({ kind: 'values', payload: data.map(x => x.value as string) })
+    onChange({
+      kind: 'values',
+      payload: data.map(x => (x.value as string).trim()).filter(x => x.length)
+    })
 
   const height = '36px'
 
@@ -87,7 +99,13 @@ const ClauseEditMode: React.FC<ClauseEditProps> = ({ index, operator, operators,
         {'If '}
       </Text>
       <div style={{ flex: '1' }}>
-        <TextInput style={{ height }} id={`attribute-${index}`} value={attribute} onChange={handleAttrChange} />
+        <TextInput
+          style={{ height }}
+          id={`attribute-${index}`}
+          value={attribute}
+          onChange={handleAttrChange}
+          intent={error?.attribute ? 'danger' : 'none'}
+        />
       </div>
       <div style={{ flex: '1' }}>
         <Select
@@ -101,7 +119,10 @@ const ClauseEditMode: React.FC<ClauseEditProps> = ({ index, operator, operators,
         <MultiSelect
           fill
           className={css.valueMultiselect}
-          tagInputProps={{ className: css.valueMultiselect, inputProps: { className: css.valueMultiselect } }}
+          tagInputProps={{
+            className: css.valueMultiselect,
+            inputProps: { className: css.valueMultiselect, intent: error?.values ? 'danger' : 'none' }
+          }}
           items={valueOpts}
           value={valueOpts}
           onChange={handleValuesChange}
@@ -128,6 +149,8 @@ interface RulesTabProps {
   rules: Clause[]
   editing: boolean
   loadingSave: boolean
+  errors?: RuleErrors
+  setErrors: (errors: RuleErrors) => void
   onChangeIncluded: (data: string[]) => void
   onChangeExcluded: (data: string[]) => void
   onChangeRules: (data: Clause[]) => void
@@ -143,6 +166,8 @@ const RulesTab: React.FC<RulesTabProps> = ({
   availableTargets,
   editing,
   loadingSave,
+  errors,
+  setErrors,
   onChangeIncluded,
   onChangeExcluded,
   onChangeRules,
@@ -231,6 +256,10 @@ const RulesTab: React.FC<RulesTabProps> = ({
   const [includedAvatars, excludedAvatars] = [included, excluded].map(x => x.map(toAvatar))
 
   const handleClauseChange = (idx: number) => ({ kind, payload }: ClauseMutation) => {
+    if (errors?.[idx]) {
+      errors[idx] = {}
+      setErrors(errors)
+    }
     rules[idx] = {
       ...rules[idx],
       [kind]: payload
@@ -287,8 +316,15 @@ const RulesTab: React.FC<RulesTabProps> = ({
             )}
           </Layout.Horizontal>
         </Layout.Vertical>
+        {}
       </Card>
       {rules.map((clause, idx) => {
+        const hasError = Boolean(errors?.[idx]?.attribute || errors?.[idx]?.values)
+        const errorMsg = [errors?.[idx]?.attribute && 'Attribute', errors?.[idx]?.values && 'Values']
+          .filter(Boolean)
+          .join(' and ')
+          .concat(' required')
+
         return (
           <Layout.Horizontal spacing="medium" flex={{ align: 'center-center' }} width="100%" key={idx}>
             <Card style={{ flexGrow: 1 }}>
@@ -300,11 +336,13 @@ const RulesTab: React.FC<RulesTabProps> = ({
                   operator={clause.op}
                   operators={operators}
                   values={clause.values}
+                  error={errors?.[idx]}
                   onChange={handleClauseChange(idx)}
                 />
               ) : (
                 <ClauseViewMode key={idx} clause={clause} operators={operators} />
               )}
+              {hasError && <Text intent="danger">{errorMsg}</Text>}
             </Card>
             {editing && (
               <Icon
@@ -319,7 +357,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
         )
       })}
       {editing && (
-        <Text color={Color.AQUA_500} onClick={handleNewClause}>
+        <Text color={Color.AQUA_500} onClick={handleNewClause} style={{ cursor: 'pointer' }}>
           + Check for condition and include target to segment
         </Text>
       )}
@@ -379,10 +417,39 @@ const setExcluded = (payload: string[]): SegmentMutation => ({ type: 'excluded',
 const setRules = (payload: Clause[]): SegmentMutation => ({ type: 'rules', payload })
 const setTempSegment = (payload: TempSegment): SegmentMutation => ({ type: 'set', payload })
 
+type RuleErrors = {
+  [K: number]: {
+    attribute?: boolean
+    values?: boolean
+  }
+}
+
+const validateRules = (rules: Clause[]): [boolean, RuleErrors] => {
+  let valid = true
+  const ruleErr = rules.reduce((errors: RuleErrors, rule: Clause, idx: number) => {
+    if (!rule.attribute.length) {
+      valid = false
+      errors[idx] = {
+        attribute: true
+      }
+    }
+    if (!rule.values.length) {
+      valid = false
+      errors[idx] = {
+        ...(errors[idx] || {}),
+        values: true
+      }
+    }
+    return errors
+  }, {} as RuleErrors)
+  return [valid, ruleErr]
+}
+
 const CFSegmentDetailsPage = () => {
   const history = useHistory()
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
+  const [errors, setErrors] = useState<RuleErrors>({})
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { environmentIdentifier: environment, projectIdentifier: project, segmentIdentifier: identifier } = useParams<
     any
@@ -444,7 +511,7 @@ const CFSegmentDetailsPage = () => {
     }
   }
 
-  const handleSave = () => {
+  const handleValid = () => {
     const instructions = []
     const [addedToInc, removedFromInc] = getDiff(data?.included || [], tempSegment.included)
     const [addedToExc, removedFromExc] = getDiff(data?.excluded || [], tempSegment.excluded)
@@ -455,13 +522,10 @@ const CFSegmentDetailsPage = () => {
     addedToInc.length > 0 && instructions.push(patch.creators.addToIncludeList(addedToInc))
 
     const removedClauses = (data?.rules || []).filter(c => !tempSegment.rules.find(x => x.id === c.id))
-    const updatedClauses = (data?.rules || []).filter(
-      c =>
-        !isEqual(
-          c,
-          tempSegment.rules.find(x => x.id === c.id)
-        )
-    )
+    const updatedClauses = (data?.rules || []).filter(c => {
+      const updatedClause = tempSegment.rules.find(x => x.id === c.id)
+      return updatedClause && !isEqual(c, updatedClause)
+    })
     const newClauses = tempSegment.rules.filter(c => c.id === '')
 
     removedClauses.length > 0 &&
@@ -479,20 +543,23 @@ const CFSegmentDetailsPage = () => {
       instructions.push(...newClauses.map(cl => patch.creators.addClauseToSegment(omit(cl, ['id']))))
 
     patch.segment.addAllInstructions(instructions)
-    patch.segment.onPatchAvailable(patchData => {
-      sendPatch(patchData)
-        .then(() => {
-          fetchSegment()
-          setEditing(false)
-        })
-        .catch(() => {
-          showError('Error saving')
-        })
-        .finally(() => patch.segment.reset())
-    })
+    patch.segment
+      .onPatchAvailable(patchData => {
+        sendPatch(patchData)
+          .then(() => {
+            fetchSegment()
+            setEditing(false)
+          })
+          .catch(err => {
+            showError(get(err, 'data.message', err?.message))
+          })
+          .finally(() => patch.segment.reset())
+      })
+      .onEmptyPatch(() => setEditing(false))
   }
 
   const handleCancel = () => {
+    patch.segment.reset()
     dispatch(
       setTempSegment({
         included: [...(data?.included || [])],
@@ -500,7 +567,17 @@ const CFSegmentDetailsPage = () => {
         rules: [...(data?.rules || [])]
       })
     )
+    setErrors({})
     setEditing(false)
+  }
+
+  const handleSave = () => {
+    const [valid, newError] = validateRules(tempSegment.rules)
+    if (valid) {
+      handleValid()
+    } else {
+      setErrors(newError)
+    }
   }
 
   if (loading || loadingTargets) {
@@ -536,9 +613,7 @@ const CFSegmentDetailsPage = () => {
         <Text color={Color.WHITE}>{`Environment: ${environment}`}</Text>
       </Layout.Horizontal>
       <Layout.Horizontal style={{ flexGrow: 1 }}>
-        <Container width="30%" height="100%">
-          To be implemented
-        </Container>
+        <Container width="30%" height="100%"></Container>
         <Container width="70%" height="100%">
           <Tabs id="editSegmentTabs">
             <Tab
@@ -552,6 +627,8 @@ const CFSegmentDetailsPage = () => {
                   excluded={tempSegment.excluded}
                   editing={editing}
                   loadingSave={loadingPatch}
+                  errors={errors}
+                  setErrors={setErrors}
                   onChangeIncluded={handleSegmentChange('included')}
                   onChangeExcluded={handleSegmentChange('excluded')}
                   onChangeRules={handleSegmentChange('rules')}
@@ -561,7 +638,7 @@ const CFSegmentDetailsPage = () => {
                 />
               }
             />
-            <Tab id="activity" title="Activity Log" panel={<div>To be implemented</div>} />
+            <Tab id="activity" title="Activity Log" panel={<div></div>} />
           </Tabs>
         </Container>
       </Layout.Horizontal>

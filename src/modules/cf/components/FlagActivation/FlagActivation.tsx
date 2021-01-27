@@ -225,15 +225,44 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     })
     return [errors, valid]
   }
+
+  type VariationMapErrors = { [K: number]: { variation?: 'required'; targets?: 'required' } }
+  const validateVariationMap = (variationMap: VariationMap[]): [VariationMapErrors, boolean] => {
+    let valid = true
+    const errors = variationMap.reduce((acc: VariationMapErrors, next: VariationMap, idx: number) => {
+      if (!next.variation.length) {
+        valid = false
+        acc[idx] = {
+          variation: 'required'
+        }
+      }
+      if (!next.targets?.length) {
+        valid = false
+        acc[idx] = {
+          ...(acc[idx] || {}),
+          targets: 'required'
+        }
+      }
+      return acc
+    }, {})
+    return [errors, valid]
+  }
+
   type FormErrors = {
     rules?: RuleErrors
+    variationMap?: VariationMapErrors
   }
   const validateForm = (values: Values) => {
     const errors: FormErrors = {}
 
-    const [rules, valid] = validateRules(values.customRules)
-    if (!valid) {
+    const [rules, validRules] = validateRules(values.customRules)
+    if (!validRules) {
       errors.rules = rules
+    }
+
+    const [variationMap, validVariationMap] = validateVariationMap(values.variationMap)
+    if (!validVariationMap) {
+      errors.variationMap = variationMap
     }
 
     return errors

@@ -393,6 +393,7 @@ interface ServingCardRowProps {
   environment: string
   project: string
   targetAvatars: { name: string }[]
+  error?: { variation?: string; targets?: string }
   onChangeTargets: (data: any[]) => void
   onChangeVariation: (data: any) => void
   onDelete: () => void
@@ -405,6 +406,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   targetAvatars,
   environment,
   project,
+  error,
   onChangeTargets,
   onChangeVariation,
   onDelete
@@ -468,7 +470,12 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
       <Text>{i18n.serveVariation.serve}</Text>
       <div style={{ maxWidth: '210px', margin: '0px 10px' }}>
         {editing ? (
-          <Select value={selectValue} items={variationOps} onChange={compose(onChangeVariation, prop('value'))} />
+          <Select
+            value={selectValue}
+            items={variationOps}
+            onChange={compose(onChangeVariation, prop('value'))}
+            inputProps={{ intent: error?.variation ? 'danger' : 'none' }}
+          />
         ) : (
           <Text>{variation}</Text>
         )}
@@ -490,7 +497,20 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
     </div>
   )
 
-  return editing ? <Card>{component}</Card> : component
+  const hasError = Boolean(error?.targets || error?.variation)
+  const errorMsg = [error?.targets && 'Targets', error?.variation && 'Variation']
+    .filter(x => Boolean(x))
+    .join(' and ')
+    .concat(' required')
+
+  return editing ? (
+    <>
+      <Card>{component}</Card>
+      {hasError && <Text intent="danger">{errorMsg}</Text>}
+    </>
+  ) : (
+    component
+  )
 }
 
 interface ServingCardProps {
@@ -499,6 +519,7 @@ interface ServingCardProps {
   editing: boolean
   environment: string
   project: string
+  errors: any
   onAdd: () => void
   onUpdate: (idx: number, attr: 'targets' | 'variation', data: any) => void
   onRemove: (idx: number) => void
@@ -510,22 +531,26 @@ const ServingCard: React.FC<ServingCardProps> = ({
   editing,
   environment,
   project,
+  errors,
   onAdd,
   onUpdate,
   onRemove
 }) => {
-  const variationOps = variations.map(variation => ({
+  const toVariationOp = (variation: Variation) => ({
     label: variation.name || variation.identifier,
     value: variation.identifier
-  }))
-
+  })
   const handleUpdate = (idx: number, attr: 'targets' | 'variation') => (data: any) => onUpdate(idx, attr, data)
+  const moreAvaiable = servings.length < variations.length
 
   return (
     <Card style={{ width: '100%' }}>
       <Layout.Vertical spacing="medium">
         {servings.map(({ variation, targets }, idx) => {
           const targetAvatars = targets?.map(shape<{ name: string }>('name'))
+          const variationOps = variations
+            .filter(v => !servings.find(serving => serving.variation === v.identifier) || v.identifier === variation)
+            .map(toVariationOp)
           return (
             <ServingCardRow
               key={idx}
@@ -538,11 +563,12 @@ const ServingCard: React.FC<ServingCardProps> = ({
               onChangeTargets={handleUpdate(idx, 'targets')}
               onChangeVariation={handleUpdate(idx, 'variation')}
               onDelete={() => onRemove(idx)}
+              error={errors[idx]}
             />
           )
         })}
-        {editing && (
-          <Text color={Color.AQUA_500} onClick={onAdd}>
+        {editing && moreAvaiable && (
+          <Text color={Color.AQUA_500} onClick={onAdd} style={{ cursor: 'pointer', width: 'fit-content' }}>
             + {i18n.serveVariation.add}
           </Text>
         )}
@@ -617,6 +643,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
               onAdd={handleAddServing}
               onUpdate={handleUpdateServing}
               onRemove={handleDeleteServing}
+              errors={formikProps.errors?.variationMap || []}
             />
             {editing && (
               <Icon
