@@ -3,10 +3,14 @@
 declare const styles: {
   readonly listBody: string
   readonly delegateTabs: string
+  readonly listPage: string
+  readonly view: string
   readonly delegateContainer: string
   readonly delegateTable: string
   readonly connectivity: string
+  readonly successIcon: string
   readonly profileContainer: string
+  readonly header: string
   readonly profileCard: string
   readonly content: string
   readonly overviewCard: string

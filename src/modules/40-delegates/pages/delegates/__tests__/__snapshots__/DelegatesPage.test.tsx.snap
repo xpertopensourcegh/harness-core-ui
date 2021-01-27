@@ -3,59 +3,63 @@
 exports[`Delegates Page render data 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main delegateTabs"
+    class="Layout--vertical StyledProps--main listPage"
   >
     <div
-      class="bp3-tabs Tabs--main"
+      class="StyledProps--font StyledProps--main delegateTabs"
     >
       <div
-        class="bp3-tab-list"
-        role="tablist"
+        class="bp3-tabs Tabs--main"
       >
         <div
-          class="bp3-tab-indicator-wrapper"
-          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          class="bp3-tab-list"
+          role="tablist"
         >
           <div
-            class="bp3-tab-indicator"
-          />
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_delegateTabs_delegate"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="delegate"
+            id="bp3-tab-title_delegateTabs_delegate"
+            role="tab"
+            tabindex="0"
+          >
+            Delegates
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_delegateTabs_delegateConfiguration"
+            aria-disabled="false"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="delegateConfiguration"
+            id="bp3-tab-title_delegateTabs_delegateConfiguration"
+            role="tab"
+            tabindex="0"
+          >
+            Delegate Configurations
+          </div>
         </div>
         <div
-          aria-controls="bp3-tab-panel_delegateTabs_delegate"
-          aria-disabled="false"
-          aria-expanded="true"
-          aria-selected="true"
-          class="bp3-tab"
-          data-tab-id="delegate"
-          id="bp3-tab-title_delegateTabs_delegate"
-          role="tab"
-          tabindex="0"
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_delegateTabs_delegate"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_delegateTabs_delegate"
+          role="tabpanel"
         >
-          Delegates
-        </div>
-        <div
-          aria-controls="bp3-tab-panel_delegateTabs_delegateConfiguration"
-          aria-disabled="false"
-          aria-expanded="false"
-          aria-selected="false"
-          class="bp3-tab"
-          data-tab-id="delegateConfiguration"
-          id="bp3-tab-title_delegateTabs_delegateConfiguration"
-          role="tab"
-          tabindex="0"
-        >
-          Delegate Configurations
-        </div>
-      </div>
-      <div
-        aria-hidden="false"
-        aria-labelledby="bp3-tab-title_delegateTabs_delegate"
-        class="bp3-tab-panel"
-        id="bp3-tab-panel_delegateTabs_delegate"
-        role="tabpanel"
-      >
-        <div>
-          Delegate Listing
+          <div>
+            Delegate Listing
+          </div>
         </div>
       </div>
     </div>

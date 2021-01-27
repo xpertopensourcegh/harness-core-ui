@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Button, Container, Intent, Tag, Layout, Popover } from '@wings-software/uicore'
+import { Button, Container, Intent, Tag, Text, Layout, Popover, Color } from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
 import { useDeleteDelegate } from 'services/portal/index'
 import routes from '@common/RouteDefinitions'
+import { Page } from 'modules/10-common/exports'
 import Table from '@common/components/Table/Table'
 import useDeleteDelegateModal from '../../modals/DeleteDelegateModal/useDeleteDelegateModal'
 import success from './success.svg'
@@ -37,10 +38,26 @@ const delegateStatus = (delegate: Delegate) => {
 
 const RenderConnectivityColumn: Renderer<CellProps<Delegate>> = ({ row }) => {
   return (
-    <Container className={css.connectivity}>
-      <img src={success} alt="" aria-hidden />
-      {row.values.connectivity}
-    </Container>
+    <Layout.Horizontal className={css.connectivity}>
+      <img src={success} alt="" aria-hidden className={css.successIcon} />
+      <Text>{row.values.connectivity}</Text>
+    </Layout.Horizontal>
+  )
+}
+
+const RenderNameColumn: Renderer<CellProps<Delegate>> = ({ row }) => {
+  const data = row.values
+  return (
+    <>
+      <Layout.Horizontal spacing="small" data-testid={data.hostName}>
+        <Layout.Vertical padding={{ left: 'small' }}>
+          <Layout.Horizontal spacing="small" data-testid={data.hostName}>
+            <Text color={Color.BLACK}>{data.delegateName || data.name}</Text>
+          </Layout.Horizontal>
+          <Text color={Color.GREY_400}>{data.name}</Text>
+        </Layout.Vertical>
+      </Layout.Horizontal>
+    </>
   )
 }
 
@@ -95,7 +112,7 @@ const RenderColumnMenu: Renderer<CellProps<Delegate>> = ({ row, column }) => {
   }
 
   return (
-    <Layout.Horizontal>
+    <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
       <Popover
         isOpen={menuOpen}
         onInteraction={nextOpenState => {
@@ -141,56 +158,77 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
     {
       Header: getString('delegate.DelegateName'),
       accessor: (row: Delegate) => row.delegateName || row.hostName,
+      width: '25%',
       id: 'name',
-      width: '30%'
+      Cell: RenderNameColumn
     },
     {
       Header: getString('tagsLabel'),
       accessor: (row: Delegate) => row.tags,
       id: 'tags',
+      width: '25%',
       Cell: RenderTagsColumn
     },
     {
       Header: getString('delegate.LastHeartBeat'),
       accessor: (row: Delegate) => moment(row.lastHeartBeat).fromNow(),
-      id: 'lastHeartBeat'
+      id: 'lastHeartBeat',
+      width: '20%'
     },
     {
       Header: getString('filters.connectivityStatus'),
       accessor: (row: Delegate) => delegateStatus(row),
       id: 'connectivity',
+      width: '25%',
+      disableSortBy: true,
       Cell: RenderConnectivityColumn
     },
     {
       Header: '',
+      width: '5%',
       accessor: (row: Delegate) => row?.uuid,
-
+      disableSortBy: true,
       id: 'action',
       Cell: RenderColumnMenu
     }
   ]
   return (
-    <Container className={css.delegateContainer}>
-      <Button
-        id="delegateButton"
-        intent="primary"
-        text={getString('delegate.NEW_DELEGATE')}
-        icon="plus"
-        onClick={props.onClick}
-      />
-      <Table
-        columns={columns}
-        data={delegates}
-        className={css.delegateTable}
-        onRowClick={item => {
-          history.push(
-            routes.toResourcesDelegatesDetails({
-              accountId,
-              delegateId: item.uuid
-            })
-          )
-        }}
-      />
+    <Container>
+      <Layout.Horizontal className={css.header}>
+        <Layout.Horizontal inline width="50%">
+          <Button
+            id="delegateButton"
+            intent="primary"
+            text={getString('delegate.NEW_DELEGATE')}
+            icon="plus"
+            onClick={props.onClick}
+          />
+        </Layout.Horizontal>
+        <Container flex className={css.view}>
+          <Layout.Horizontal spacing="small" width="30%" className={css.view}>
+            <Button icon="main-search" placeholder={getString('search')} />
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="small" width="20%" className={css.view}>
+            <Button id="ngfilterbtn" icon="ng-filter" width="32px" height="32px" />
+          </Layout.Horizontal>
+        </Container>
+      </Layout.Horizontal>
+
+      <Page.Body>
+        <Table
+          columns={columns}
+          data={delegates}
+          className={css.delegateTable}
+          onRowClick={item => {
+            history.push(
+              routes.toResourcesDelegatesDetails({
+                accountId,
+                delegateId: item.uuid
+              })
+            )
+          }}
+        />
+      </Page.Body>
     </Container>
   )
 }

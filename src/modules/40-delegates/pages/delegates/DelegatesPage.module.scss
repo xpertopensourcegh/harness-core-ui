@@ -5,13 +5,25 @@
 .delegateTabs {
   display: flex;
   justify-content: center;
+
   :global {
     .bp3-tab-list {
       display: flex !important;
       justify-content: center !important;
       align-items: center;
     }
+    .bp3-tab-panel {
+      margin: 0 !important;
+    }
   }
+}
+
+.listPage {
+  min-width: 900px;
+}
+
+.view {
+  justify-content: flex-end;
 }
 
 .delegateContainer {
@@ -29,10 +41,23 @@
   margin-right: var(--spacing-xsmall) !important;
 }
 
+.successIcon {
+  width: 2%;
+}
+
 .profileContainer {
   display: flex;
   padding: var(--spacing-large) !important;
   margin: var(--spacing-large) !important;
+}
+
+.header {
+  padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
+  border-bottom: 1px solid var(--grey-300);
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 !important;
 }
 
 .profileCard {
