@@ -2,13 +2,13 @@
 // this is an auto-generated file
 declare const styles: {
   readonly card: string
+  readonly cardLink: string
   readonly icons: string
   readonly content: string
   readonly footer: string
   readonly triggerInfo: string
   readonly triggerType: string
   readonly timers: string
-  readonly title: string
   readonly pipelineName: string
   readonly executionId: string
   readonly ciData: string

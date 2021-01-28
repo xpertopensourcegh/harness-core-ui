@@ -39,8 +39,13 @@ export const CommitsList: React.FC<CommitsListProps> = props => {
   // NOTE: absolute positioning requires explicit height to be set on parent
   const commitsHeight = commitsToShow.length * 38 + 20
 
+  function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   return (
-    <div className={css.commitsOuter} style={{ height: `${commitsHeight}px` }}>
+    <div className={css.commitsOuter} style={{ height: `${commitsHeight}px` }} onClick={killEvent}>
       <div className={css.commitsInner}>
         <String
           className={css.commitsHeader}

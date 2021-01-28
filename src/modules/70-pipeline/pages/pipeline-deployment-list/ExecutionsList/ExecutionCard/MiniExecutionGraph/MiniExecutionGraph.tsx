@@ -237,9 +237,14 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
     }
   }
 
+  function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
   return (
     <ResizeSensor onResize={hideShowButtons}>
-      <div className={css.main}>
+      <div className={css.main} onClick={killEvent}>
         <div ref={wrapperRef} className={css.graphWrapper}>
           <div ref={graphRef} className={css.graph}>
             {(elements || []).map(({ stage, parallel }, i) => {

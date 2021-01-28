@@ -41,8 +41,13 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
     setShowMore(status => !status)
   }
 
+  function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   return (
-    <div className={css.servicesDeployed}>
+    <div className={css.servicesDeployed} onClick={killEvent}>
       <String
         tagName="div"
         className={css.serviceLabel}

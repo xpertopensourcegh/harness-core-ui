@@ -92,7 +92,16 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
     }
   }
 
-  return <div className={className}>{sourceInfo}</div>
+  function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  return (
+    <div className={className} onClick={killEvent}>
+      {sourceInfo}
+    </div>
+  )
 }
 
 export default BuildInfo

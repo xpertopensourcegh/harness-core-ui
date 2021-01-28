@@ -105,11 +105,16 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     }
   }
 
+  function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   // TODO: disable not implemented features in ci module
   const disableInCIModule = module === 'ci'
 
   return (
-    <div className={css.main}>
+    <div className={css.main} onClick={killEvent}>
       {!disableInCIModule && canResume ? <Button icon="play" onClick={resumePipleine} {...commonButtonProps} /> : null}
       {canRerun ? <Button icon="repeat" {...commonButtonProps} onClick={reRunPipeline} /> : null}
       {!disableInCIModule && canPause ? <Button icon="pause" onClick={pausePipleine} {...commonButtonProps} /> : null}
