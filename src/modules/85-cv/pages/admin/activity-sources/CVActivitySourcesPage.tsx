@@ -11,6 +11,7 @@ import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { KubernetesActivitySourceDTO } from '@cv/pages/onboarding/activity-source-setup/kubernetes/KubernetesActivitySourceUtils'
+import type { CDActivitySourceDTO } from '@cv/pages/onboarding/activity-source-setup/harness-cd/SelectServices/SelectServices'
 import ContextMenuActions from '../../../components/ContextMenuActions/ContextMenuActions'
 import css from './CVActivitySourcesPage.module.scss'
 
@@ -25,6 +26,17 @@ type TableData = {
 }
 
 const DATE_FORMAT_STRING = 'MMM D, YYYY h:mm a'
+
+function typeToPathParam(type: ActivitySourceDTO['type']): string {
+  switch (type) {
+    case 'KUBERNETES':
+      return 'kubernetes'
+    case 'HARNESS_CD10':
+      return 'harness-cd'
+    default:
+      return ''
+  }
+}
 
 function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
   if (!activitySources?.length) {
@@ -43,8 +55,10 @@ function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
         services.add(config.serviceIdentifier)
         environments.add(config.envIdentifier)
       })
-    } else if (activitySource.type === 'CD') {
-      // PLEASE ADD CD CASE HERE
+    } else if (activitySource.type === 'HARNESS_CD10') {
+      const cdActivitySource = activitySource as CDActivitySourceDTO
+      cdActivitySource.envMappings?.forEach?.(config => environments.add(config.envId))
+      cdActivitySource.serviceMappings?.forEach?.(config => services.add(config.serviceId))
     }
 
     tableData.push({
@@ -69,7 +83,12 @@ function TableCell(tableProps: CellProps<TableData>): JSX.Element {
 }
 
 function TypeTableCell(tableProps: CellProps<TableData>): JSX.Element {
-  return <Container>{tableProps.value === 'KUBERNETES' && <Icon name="service-kubernetes" size={18} />}</Container>
+  return (
+    <Container>
+      {tableProps.value === 'KUBERNETES' && <Icon name="service-kubernetes" size={18} />}
+      {tableProps.value === 'HARNESS_CD10' && <Icon name="cd-main" size={18} />}
+    </Container>
+  )
 }
 
 function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
@@ -107,7 +126,7 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
             routes.toCVActivitySourceEditSetup({
               projectIdentifier: params.projectIdentifier,
               orgIdentifier: params.orgIdentifier,
-              activitySource: 'kubernetes',
+              activitySource: typeToPathParam(tableProps.row.original.type),
               activitySourceId: tableProps.row.original.identifier,
               accountId: params.accountId
             })
@@ -203,7 +222,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
                 routes.toCVActivitySourceEditSetup({
                   projectIdentifier: params.projectIdentifier,
                   orgIdentifier: params.orgIdentifier,
-                  activitySource: 'kubernetes',
+                  activitySource: typeToPathParam(rowData.type),
                   activitySourceId: rowData.identifier,
                   accountId: params.accountId
                 })

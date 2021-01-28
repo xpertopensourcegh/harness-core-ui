@@ -75,7 +75,7 @@ export default function CVMonitoringSourcesPage() {
         monitoringSourceIdentifier: identifier
       }
     })
-    const { pageItemCount, pageIndex } = data?.resource!
+    const { pageItemCount, pageIndex } = data?.data!
     if (pageIndex! > 0 && pageItemCount === 1) {
       setPage(page - 1)
     } else {
@@ -83,7 +83,7 @@ export default function CVMonitoringSourcesPage() {
     }
   }
 
-  const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
+  const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
 
   return (
     <>

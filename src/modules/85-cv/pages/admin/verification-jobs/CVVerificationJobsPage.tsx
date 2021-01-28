@@ -17,6 +17,7 @@ import Table from '@common/components/Table/Table'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import ContextMenuActions from '../../../components/ContextMenuActions/ContextMenuActions'
 import styles from './CVVerificationJobsPage.module.scss'
 
@@ -37,7 +38,7 @@ export default function CVVerificationJobsPage() {
       offset: page,
       pageSize: 10,
       filter: textFilter
-    } as any, // TODO - swagger issue, remove when fixed
+    },
     debounce: 400
   })
 
@@ -171,15 +172,15 @@ export default function CVVerificationJobsPage() {
               accessor: 'duration',
               Cell: TableCell
             },
-            {
-              Header: getString('sensitivity'),
-              width: '10%',
-              disableSortBy: false,
-              Cell: SensitivityCell
-            },
+            // {
+            //   Header: getString('sensitivity'),
+            //   width: '10%',
+            //   disableSortBy: false,
+            //   Cell: SensitivityCell
+            // },
             {
               Header: getString('execution.triggerType.WEBHOOK'),
-              width: '12%',
+              width: '22%',
               Cell: function WebHookCellWrapper(props: CellProps<VerificationJobDTO>) {
                 return props.row.original?.defaultJob ? (
                   <Text color={Color.BLACK}>{getString('na')}</Text>
@@ -307,20 +308,24 @@ function DataSourceCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element 
   )
 }
 
-function SensitivityCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
-  // TODO - swagger issue, VerificationJobDTO's missing sensitivity
-  const { getString } = useStrings()
-  const data = tableProps.row.original as any
-  return (
-    <Text color={Color.BLACK}>{tableProps.row.original.type === 'HEALTH' ? getString('na') : data.sensitivity}</Text>
-  )
-}
+// function SensitivityCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
+//   // TODO - swagger issue, VerificationJobDTO's missing sensitivity
+//   const { getString } = useStrings()
+//   const data = tableProps.row.original as any
+//   return (
+//     <Text color={Color.BLACK}>{tableProps.row.original.type === 'HEALTH' ? getString('na') : data.sensitivity}</Text>
+//   )
+// }
 
 function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): void; onEdit(): void }): JSX.Element {
   const { getString } = useStrings()
   return (
     <Container flex>
-      <Button minimal icon="link" disabled />
+      <Container width={180} onClick={e => e.stopPropagation()}>
+        <CopyText textToCopy={tableProps.row.original.verificationJobUrl!}>
+          {tableProps.row.original.verificationJobUrl}
+        </CopyText>
+      </Container>
       {!tableProps.row.original?.defaultJob ? (
         <ContextMenuActions
           titleText={getString('cv.admin.verificationJobs.confirmDeleteTitle')}

@@ -29,7 +29,7 @@ interface BaseFieldProps {
 
 function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconProps {
   switch (activityType) {
-    case 'CD':
+    case 'HARNESS_CD10':
       return {
         name: 'cd-main',
         size: 15
@@ -39,11 +39,11 @@ function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconP
         name: 'service-kubernetes',
         size: 15
       }
-    case 'OTHER':
-      return {
-        name: 'config-change',
-        size: 15
-      }
+    // case 'OTHER':
+    //   return {
+    //     name: 'config-change',
+    //     size: 15
+    //   }
     default:
       return {} as IconProps
   }
@@ -302,11 +302,11 @@ export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }
     }
   })
   useEffect(() => {
-    if (!data?.resource?.content?.length) {
+    if (!data?.data?.content?.length) {
       return
     }
     const options: MultiSelectOption[] = []
-    for (const option of data.resource.content) {
+    for (const option of data.data.content) {
       if (option.monitoringSourceIdentifier && option.monitoringSourceName && option.type) {
         options.push({
           label: `${option.monitoringSourceName} - ${option.type?.toLocaleLowerCase()}`,

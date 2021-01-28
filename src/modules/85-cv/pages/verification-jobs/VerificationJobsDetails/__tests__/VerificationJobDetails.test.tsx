@@ -12,7 +12,7 @@ import VerificationJobsDetails from '../VerificationJobsDetails'
 
 const MockDataSources = {
   metaData: {},
-  resource: {
+  data: {
     content: [
       {
         type: 'APP_DYNAMICS',

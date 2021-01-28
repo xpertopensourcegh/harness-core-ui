@@ -2,11 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Formik, FormikForm, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
-import type { FormikProps } from 'formik'
+import { useHistory } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
-
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-
 import {
   GetListServicesQueryParams,
   RestResponsePageResponseApplication,
@@ -27,6 +25,8 @@ import {
 } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { useRegisterActivitySource, ActivitySourceDTO } from 'services/cv'
+import routes from '@common/RouteDefinitions'
 import css from './SelectServices.module.scss'
 
 export interface SelectServicesProps {
@@ -51,6 +51,19 @@ interface TableData {
   service?: SelectOption
 }
 
+export interface CDActivitySourceDTO extends ActivitySourceDTO {
+  envMappings?: Array<{
+    envId: string
+    appId: string
+    envIdentifier: string
+  }>
+  serviceMappings?: Array<{
+    serviceId: string
+    appId: string
+    serviceIdentifier: string
+  }>
+}
+
 const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
   const data = row.original
   return (
@@ -58,6 +71,29 @@ const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
       {data.appName}
     </Text>
   )
+}
+
+export function transformToSavePayload(data: any): CDActivitySourceDTO | undefined {
+  const envMappings = Object.values(data.environments || {}).map((val: any) => ({
+    envId: val.id,
+    appId: val.appId,
+    envIdentifier: val.environment?.value
+  }))
+  const serviceMappings = Object.values(data.services || {}).map((val: any) => ({
+    serviceId: val.id,
+    appId: val.appId,
+    serviceIdentifier: val.service?.value
+  }))
+  if (envMappings.length && serviceMappings.length) {
+    return {
+      identifier: data.identifier,
+      name: data.name,
+      uuid: data.uuid,
+      type: 'HARNESS_CD10',
+      envMappings,
+      serviceMappings
+    }
+  }
 }
 
 const SelectServices: React.FC<SelectServicesProps> = props => {
@@ -68,6 +104,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   const [page, setPage] = useState(0)
   const [filter, setFilter] = useState<string | undefined>()
   const [offset, setOffset] = useState(0)
+  const history = useHistory()
   const appIds = useMemo(() => Object.keys(props.initialValues.applications), [props.initialValues.applications])
   const { data, loading, error, refetch } = useGetListServices({
     queryParams: {
@@ -86,6 +123,14 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       projectIdentifier
     } as GetServiceListForProjectQueryParams,
     mock: props.mockGetServices
+  })
+
+  const { mutate } = useRegisterActivitySource({
+    queryParams: {
+      accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
   })
 
   useEffect(() => {
@@ -160,7 +205,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       </Container>
     )
   }
-  const onNext = () => {
+  const onNext = async () => {
     const services = tableData.reduce((acc: any, curr) => {
       if (curr.selected && curr.service) {
         acc[curr.id] = {
@@ -173,10 +218,24 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       }
       return acc
     }, {})
+
     if (Object.keys(services).length) {
       props.onSubmit?.({ services })
+
+      const savePayload = transformToSavePayload({ ...props.initialValues, services })
+      if (savePayload) {
+        await mutate(savePayload)
+        history.push(
+          `${routes.toCVAdminSetup({
+            accountId,
+            projectIdentifier,
+            orgIdentifier
+          })}?step=1`
+        )
+      }
     }
   }
+
   return (
     <Container className={css.main}>
       <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
@@ -188,7 +247,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
           onNext()
         }}
       >
-        {(formik: FormikProps<{ selectedServices: Array<TableData> }>) => {
+        {() => {
           return (
             <FormikForm>
               <Table<TableData>
@@ -278,9 +337,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
               />
               <SubmitAndPreviousButtons
                 onPreviousClick={props.onPrevious}
-                onNextClick={() => {
-                  formik.submitForm()
-                }}
+                nextButtonProps={{ text: getString('submit') }}
               />
             </FormikForm>
           )

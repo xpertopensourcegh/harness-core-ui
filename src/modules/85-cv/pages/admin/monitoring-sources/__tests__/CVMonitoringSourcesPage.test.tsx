@@ -31,18 +31,12 @@ describe('CVMonitoringSourcesPage', () => {
       () =>
         ({
           data: {
-            resource: {
+            data: {
               content: [
                 {
                   monitoringSourceIdentifier: 'nameTTID',
                   monitoringSourceName: 'name',
                   type: 'APP_DYNAMICS',
-                  importStatus: {
-                    numberOfApplications: 2,
-                    totalNumberOfApplications: 41,
-                    numberOfEnvironments: 2,
-                    totalNumberOfEnvironments: 9
-                  },
                   numberOfServices: 2,
                   importedAt: 1607944938295
                 }

@@ -35,7 +35,7 @@ function generateOverallRiskScores(serviceData?: EnvServiceRiskDTO[]): Map<strin
 
     let envScore = NO_DATA_RISK_SCORE
     for (const serviceScore of serviceInfo.serviceRisks) {
-      if (serviceScore?.risk && serviceScore.risk > envScore) envScore = serviceScore.risk
+      if (typeof serviceScore.risk === 'number' && serviceScore.risk > envScore) envScore = serviceScore.risk
     }
 
     if (envScore > maxOverallRiskScore) maxOverallRiskScore = envScore

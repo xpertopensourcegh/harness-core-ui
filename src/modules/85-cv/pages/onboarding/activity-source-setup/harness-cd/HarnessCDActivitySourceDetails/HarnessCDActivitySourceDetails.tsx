@@ -22,7 +22,8 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
   return (
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik
-        initialValues={initialValues || {}}
+        enableReinitialize
+        initialValues={{ identifier: '', ...(initialValues || {}) }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('validation.nameRequired')),
           identifier: Yup.string().when('name', {

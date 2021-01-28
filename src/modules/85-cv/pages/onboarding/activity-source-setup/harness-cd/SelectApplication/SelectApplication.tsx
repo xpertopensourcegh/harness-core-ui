@@ -79,7 +79,6 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
         return {
           name: item.name,
           id: item.uuid,
-
           selected: !!apps[String(item.uuid)],
           serviceCount: item.services?.length
         }
