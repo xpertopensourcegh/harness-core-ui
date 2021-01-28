@@ -28,7 +28,7 @@ import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from '@ci/pages/pipeline-studio/CIPipelineStudio'
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
-import SideNav from '@ci/components/SideNav/SideNav'
+import CISideNav from '@ci/components/CISideNav/CISideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
@@ -84,7 +84,7 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
 }
 
 const CISideNavProps: SidebarContext = {
-  navComponent: SideNav,
+  navComponent: CISideNav,
   subtitle: 'CONTINUOUS',
   title: 'Integration'
 }

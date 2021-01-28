@@ -109,6 +109,167 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </button>
         </div>
       </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card commit"
+      >
+        <div>
+          <p
+            class="StyledProps--font StyledProps--main commitTitle StyledProps--font-small"
+          >
+            Update README.md
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main commitDescription StyledProps--font-small StyledProps--margin-top-xsmall"
+          >
+            Description
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="avatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                  tabindex="0"
+                >
+                  U
+                </div>
+              </span>
+            </span>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main committed StyledProps--font-xsmall StyledProps--margin-right-xlarge"
+          >
+            userid
+             
+            committed
+             
+            1 day ago
+          </p>
+          <button
+            class="hash"
+          >
+            <p
+              class="StyledProps--font StyledProps--main hashText StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--padding-top-xsmall StyledProps--padding-right-small StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--margin-right-small"
+            >
+              abc
+            </p>
+            <span
+              class="bp3-icon bp3-icon-clipboard StyledProps--main hashIcon StyledProps--margin-right-small"
+              icon="clipboard"
+            >
+              <svg
+                data-icon="clipboard"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+              >
+                <desc>
+                  clipboard
+                </desc>
+                <path
+                  d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="stack"
+    >
+      <div
+        class="stackHeader"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-commit StyledProps--main stackHeaderIcon StyledProps--margin-right-medium"
+          icon="git-commit"
+        >
+          <svg
+            data-icon="git-commit"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              git-commit
+            </desc>
+            <path
+              d="M19 9h-4.1a5 5 0 00-9.8 0H1c-.55 0-1 .45-1 1s.45 1 1 1h4.1a5 5 0 009.8 0H19c.55 0 1-.45 1-1s-.45-1-1-1zm-9 4c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps--font StyledProps--main stackHeaderText StyledProps--font-small"
+        >
+          Commits on
+           
+          Jan 1, 1970
+        </p>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card commit"
+      >
+        <div>
+          <p
+            class="StyledProps--font StyledProps--main commitTitle StyledProps--font-small"
+          >
+            
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex"
+        >
+          <p
+            class="StyledProps--font StyledProps--main committed StyledProps--font-xsmall StyledProps--margin-right-xlarge"
+          >
+             
+            committed
+             
+            1 day ago
+          </p>
+          <button
+            class="hash"
+          >
+            <p
+              class="StyledProps--font StyledProps--main hashText StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--padding-top-xsmall StyledProps--padding-right-small StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--margin-right-small"
+            >
+              abc
+            </p>
+            <span
+              class="bp3-icon bp3-icon-clipboard StyledProps--main hashIcon StyledProps--margin-right-small"
+              icon="clipboard"
+            >
+              <svg
+                data-icon="clipboard"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+              >
+                <desc>
+                  clipboard
+                </desc>
+                <path
+                  d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

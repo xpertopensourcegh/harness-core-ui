@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideNav render properly 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+  >
+    <button
+      id="projectSelectorId"
+    />
+    <a
+      class="link"
+      href="/account/dummy/ci/orgs/dummy/projects/dummy/dashboard"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/ci/orgs/dummy/projects/dummy/deployments"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Builds
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/ci/orgs/dummy/projects/dummy/pipelines"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Pipelines
+      </p>
+    </a>
+    <div
+      class="bp3-popover-wrapper bp3-fill"
+    >
+      <div
+        class="bp3-popover-target"
+      >
+        <a
+          class="adminLink"
+          href="/account/dummy/ci/orgs/dummy/projects/dummy/admin"
+        >
+          Admin
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SideNav render properly 2`] = `undefined`;
