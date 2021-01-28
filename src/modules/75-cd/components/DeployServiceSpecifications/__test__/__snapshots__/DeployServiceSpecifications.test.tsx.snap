@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OverrideSet tests renders overrideSets without crashing: changed data 1`] = `
-<input
-  class="overideCheckbox"
-  id="overrideSetCheckbox"
-  type="checkbox"
-/>
-`;
-
 exports[`OverrideSet tests renders without crashing 1`] = `
 <div>
   <div

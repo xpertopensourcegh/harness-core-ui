@@ -1486,3 +1486,4 @@ pipeline-list:
   readyToRun: Ready To Run
 customVariables:
   title: Custom Variables
+  variableAndType: '{{name}} [Type: {{type}}]'

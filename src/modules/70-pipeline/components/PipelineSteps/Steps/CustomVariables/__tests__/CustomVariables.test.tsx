@@ -63,7 +63,7 @@ describe('Custom Variables', () => {
       fireEvent.click(save)
     })
 
-    await waitFor(() => findByText('myVar', { selector: 'span' }))
+    await waitFor(() => findByText('myVar [Type: String]', { selector: 'span' }))
 
     const value = queryByAttribute('name', container, 'variables[0].value')
 

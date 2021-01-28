@@ -39,11 +39,13 @@
 .artifactHeader {
   display: block;
   font-weight: bold;
+  padding: 0 var(--spacing-large);
+  margin-bottom: var(--spacing-medium);
   &.mtop {
     margin-top: var(--spacing-medium);
   }
 }
 
 .custom-variables {
-  padding: var(--spacing-large) var(--spacing-large) 0 var(--spacing-large);
+  padding: 0 var(--spacing-large);
 }

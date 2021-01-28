@@ -323,15 +323,18 @@ export default function DeployStageSetupShell(): JSX.Element {
             }
           />
           {selectedTabId === i18n.executionLabel ? (
-            <Button
-              minimal
-              intent="primary"
-              className={css.failureStrategy}
-              onClick={openFailureStrategyPanel}
-              rightIcon="cog"
-            >
-              {getString('failureStrategy.title')}
-            </Button>
+            <React.Fragment>
+              <div className={css.spacer} />
+              <Button
+                minimal
+                intent="primary"
+                className={css.failureStrategy}
+                onClick={openFailureStrategyPanel}
+                rightIcon="cog"
+              >
+                {getString('failureStrategy.title')}
+              </Button>
+            </React.Fragment>
           ) : null}
         </Tabs>
       </Layout.Horizontal>

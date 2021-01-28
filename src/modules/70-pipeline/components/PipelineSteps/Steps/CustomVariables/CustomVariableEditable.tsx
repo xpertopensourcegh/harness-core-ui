@@ -4,6 +4,8 @@ import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
+
+import { String } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
@@ -29,6 +31,7 @@ export interface CustomVariableEditableExtraProps {
   heading?: React.ReactNode
   className?: string
   yamlProperties?: YamlProperties[]
+  showHeaders?: boolean
 }
 
 export interface CustomVariableEditableProps extends CustomVariableEditableExtraProps {
@@ -94,11 +97,10 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                     <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={addNew} />
                   </div>
                 ) : /* istanbul ignore next */ null}
-                {values.variables.length > 0 ? (
+                {props.showHeaders && values.variables.length > 0 ? (
                   <section className={css.subHeader}>
-                    <span>{i18n.variablesTableHeaders.name}</span>
-                    <span>{i18n.variablesTableHeaders.type}</span>
-                    <span>{i18n.variablesTableHeaders.value}</span>
+                    <String stringID="variableLabel" />
+                    <String stringID="valueLabel" />
                   </section>
                 ) : /* istanbul ignore next */ null}
                 {values.variables.map?.((variable, index) => {
@@ -113,15 +115,19 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                     <div key={key} className={css.variableListTable}>
                       {yamlData && yamlData.fqn && yamlData.localName ? (
                         <CopyText textToCopy={toVariableStr(yamlData.fqn)}>
-                          <span>{yamlData.localName}</span>
+                          <String
+                            stringID="customVariables.variableAndType"
+                            vars={{ name: yamlData.localName, type: variable.type }}
+                          />
                         </CopyText>
                       ) : (
-                        <Text>
-                          <span>{`${variableNamePrefix}${variable.name}`}</span>
+                        <Text lineClamp={1}>
+                          <String
+                            stringID="customVariables.variableAndType"
+                            vars={{ name: `${variableNamePrefix}${variable.name}`, type: variable.type }}
+                          />
                         </Text>
                       )}
-
-                      <Text>{variable.type}</Text>
                       <div className={css.valueRow}>
                         <div>
                           {variable.type === VariableTypes.Secret ? (
@@ -132,6 +138,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               name={`variables[${index}].value`}
                               label=""
                               multiTextInputProps={{
+                                defaultValueToReset: '',
                                 textProps: {
                                   disabled: !initialValues.canAddVariable,
                                   type: variable.type === VariableTypes.Number ? 'number' : 'text'

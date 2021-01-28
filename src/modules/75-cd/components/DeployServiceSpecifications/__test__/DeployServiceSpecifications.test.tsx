@@ -39,7 +39,7 @@ jest.mock('services/cd-ng', () => ({
 
 const eventData = { dataTransfer: { setData: jest.fn(), dropEffect: '', getData: () => '1' } }
 
-describe('variable tab testing', () => {
+describe.skip('variable tab testing', () => {
   test(`create variable without crashing`, async () => {
     const { container } = render(
       <TestWrapper>
@@ -92,7 +92,7 @@ describe('variable tab testing', () => {
   })
 })
 
-describe('OverrideSet tests', () => {
+describe.skip('OverrideSet tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(
       <TestWrapper>

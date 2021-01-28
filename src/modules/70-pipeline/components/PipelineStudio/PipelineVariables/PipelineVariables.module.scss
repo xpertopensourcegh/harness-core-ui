@@ -5,10 +5,17 @@
 
   height: 100%;
 
+  .variable-card {
+    width: 100%;
+    box-shadow: none;
+    margin-bottom: var(--spacing-large);
+  }
+
   .variables-container {
     overflow-x: auto;
     display: grid;
     grid-template-rows: 75px 1fr;
+    height: 100%;
 
     .header {
       padding: var(--spacing-xlarge) var(--spacing-large);
@@ -50,11 +57,6 @@
           }
         }
 
-        .variable-card {
-          width: 100%;
-          box-shadow: none;
-        }
-
         :global(.Accordion--panel) {
           background-color: var(--white);
         }
@@ -65,6 +67,10 @@
 
         :global(.Accordion--summary) {
           border-bottom: 1px solid var(--grey-250);
+        }
+
+        :global(.Accordion--details) {
+          padding-top: var(--spacing-medium);
         }
       }
     }
@@ -79,7 +85,7 @@
 
   .variable-list-header {
     display: grid;
-    grid-template-columns: var(--variable-column1) minmax(10px, 1fr);
+    grid-template-columns: repeat(2, minmax(10px, 1fr));
     padding: 0 calc(2 * var(--spacing-large));
     font-size: var(--font-size-small);
     margin: var(--spacing-small) 0;
@@ -87,7 +93,7 @@
   }
 
   .custom-variables {
-    padding: var(--spacing-large) var(--spacing-large) 0 var(--spacing-large);
+    padding: var(--spacing-small) var(--spacing-large) 0 var(--spacing-large);
   }
 
   .panel {
@@ -111,7 +117,7 @@
     }
 
     :global(.Accordion--details) {
-      padding: var(--spacing-small) var(--spacing-small) var(--spacing-medium) 0;
+      padding: var(--spacing-medium) var(--spacing-small) var(--spacing-medium) 0;
     }
   }
 

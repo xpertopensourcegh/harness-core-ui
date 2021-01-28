@@ -2,6 +2,8 @@ import React from 'react'
 import { NestedAccordionPanel } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty, omit } from 'lodash-es'
+
+import { useStrings } from 'framework/exports'
 import type { ServiceSpec } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, YamlProperties } from 'services/pipeline-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -9,8 +11,10 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+
 import type { CustomVariablesData, CustomVariableEditableExtraProps } from '../CustomVariables/CustomVariableEditable'
 import css from './K8sServiceSpec.module.scss'
+
 export interface K8sServiceSpecVariablesFormProps {
   initialValues: ServiceSpec
   stepsFactory: AbstractStepFactory
@@ -19,6 +23,7 @@ export interface K8sServiceSpecVariablesFormProps {
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: ServiceSpec
 }
+
 export interface VariableRowProps {
   data?: YamlProperties | undefined
   valueType?: string
@@ -28,6 +33,7 @@ export interface VariableRowProps {
 export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormProps): React.ReactElement {
   const { initialValues, stepsFactory, stageIdentifier, onUpdate, variablesData, metadataMap } = props
   const { manifests, artifacts, variables } = initialValues
+  const { getString } = useStrings()
 
   const primaryArtifactVariables = variablesData?.artifacts?.primary?.spec
   const sidecarArtifactVariables = variablesData?.artifacts?.sidecars
@@ -106,6 +112,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             customStepProps={{
               variableNamePrefix: 'serviceConfig.variables.',
               className: css.customVariables,
+              heading: <b>{getString('customVariables.title')}</b>,
               yamlProperties: variablesData?.variables?.map(
                 variable => metadataMap?.[variable.value || '']?.yamlProperties || {}
               )

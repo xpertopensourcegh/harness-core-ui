@@ -39,33 +39,16 @@ exports[`Custom Variables can add a string variable 1`] = `
         </span>
       </button>
     </div>
-    <section
-      class="subHeader"
-    >
-      <span>
-        Name
-      </span>
-      <span>
-        Type
-      </span>
-      <span>
-        Value
-      </span>
-    </section>
     <div
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar
+          myVar [Type: String]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        String
       </p>
       <div
         class="valueRow"
@@ -241,33 +224,16 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
         </span>
       </button>
     </div>
-    <section
-      class="subHeader"
-    >
-      <span>
-        Name
-      </span>
-      <span>
-        Type
-      </span>
-      <span>
-        Value
-      </span>
-    </section>
     <div
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: String]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        String
       </p>
       <div
         class="valueRow"
@@ -404,16 +370,12 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: Number]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        Number
       </p>
       <div
         class="valueRow"
@@ -589,33 +551,16 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
         </span>
       </button>
     </div>
-    <section
-      class="subHeader"
-    >
-      <span>
-        Name
-      </span>
-      <span>
-        Type
-      </span>
-      <span>
-        Value
-      </span>
-    </section>
     <div
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: String]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        String
       </p>
       <div
         class="valueRow"
@@ -752,16 +697,12 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: Number]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        Number
       </p>
       <div
         class="valueRow"
@@ -898,16 +839,12 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: Secret]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        Secret
       </p>
       <div
         class="valueRow"
@@ -1158,33 +1095,16 @@ exports[`Custom Variables should render variables 1`] = `
         </span>
       </button>
     </div>
-    <section
-      class="subHeader"
-    >
-      <span>
-        Name
-      </span>
-      <span>
-        Type
-      </span>
-      <span>
-        Value
-      </span>
-    </section>
     <div
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: String]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        String
       </p>
       <div
         class="valueRow"
@@ -1321,16 +1241,12 @@ exports[`Custom Variables should render variables 1`] = `
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: Number]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        Number
       </p>
       <div
         class="valueRow"
@@ -1467,16 +1383,12 @@ exports[`Custom Variables should render variables 1`] = `
       class="variableListTable"
     >
       <p
-        class="StyledProps--font StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span>
-          myVar1
+          myVar1 [Type: Secret]
         </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        Secret
       </p>
       <div
         class="valueRow"

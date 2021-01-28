@@ -8,7 +8,7 @@
   .subHeader {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 300px var(--variable-column2) var(--variable-column3);
+    grid-template-columns: repeat(2, minmax(10px, 1fr));
     align-items: baseline;
     margin: var(--spacing-medium) 0 var(--spacing-large) 0;
     text-transform: uppercase;
@@ -18,8 +18,10 @@
 
   .value-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: baseline;
+    column-gap: var(--spacing-xsmall);
+
     & > div {
       display: flex;
     }
@@ -38,7 +40,7 @@
   .variable-list-table {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 300px var(--variable-column2) var(--variable-column3);
+    grid-template-columns: repeat(2, minmax(10px, 1fr));
     align-items: baseline;
     margin-top: var(--spacing-small);
 

@@ -119,10 +119,6 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
 
   if (initLoading) return <PageSpinner />
 
-  if (error) {
-    return <PageError message={error} />
-  }
-
   return (
     <div className={css.pipelineVariables}>
       <div className={css.variablesContainer}>
@@ -136,34 +132,42 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
             }}
           />
         </div>
-        <div className={css.content}>
-          <StagesTree
-            className={css.stagesTree}
-            contents={nodes}
-            selectedId={selectedTreeNodeId}
-            selectionChange={handleSelectionChange}
-          />
-          <div className={css.variableList}>
-            <String stringID="pipeline" className={css.title} />
-            <div className={css.variableListHeader}>
-              <String stringID="variableLabel" />
-              <String stringID="valueLabel" />
-            </div>
-            <PipelineCard
-              pipeline={variablesPipeline}
-              originalPipeline={originalPipeline}
-              stepsFactory={stepsFactory}
-              updatePipeline={updatePipeline}
-              metadataMap={metadataMap}
+        {error ? (
+          <PageError message={error} />
+        ) : (
+          <div className={css.content}>
+            <StagesTree
+              className={css.stagesTree}
+              contents={nodes}
+              selectedId={selectedTreeNodeId}
+              selectionChange={handleSelectionChange}
             />
-            <String stringID="stages" className={css.title} />
-            <div className={css.variableListHeader}>
-              <String stringID="variableLabel" />
-              <String stringID="valueLabel" />
+            <div className={css.variableList}>
+              <String stringID="pipeline" className={css.title} />
+              <div className={css.variableListHeader}>
+                <String stringID="variableLabel" />
+                <String stringID="valueLabel" />
+              </div>
+              <PipelineCard
+                pipeline={variablesPipeline}
+                originalPipeline={originalPipeline}
+                stepsFactory={stepsFactory}
+                updatePipeline={updatePipeline}
+                metadataMap={metadataMap}
+              />
+              {stagesCards.length > 0 ? (
+                <React.Fragment>
+                  <String stringID="stages" className={css.title} />
+                  <div className={css.variableListHeader}>
+                    <String stringID="variableLabel" />
+                    <String stringID="valueLabel" />
+                  </div>
+                  {stagesCards}
+                </React.Fragment>
+              ) : null}
             </div>
-            {stagesCards}
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

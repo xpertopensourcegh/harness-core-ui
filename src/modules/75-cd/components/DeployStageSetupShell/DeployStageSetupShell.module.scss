@@ -12,6 +12,7 @@
       position: sticky;
       top: 0;
       z-index: 2;
+      padding-right: var(--spacing-xxxlarge);
     }
 
     & > :global(.bp3-tabs > .bp3-tab-panel) {
@@ -101,8 +102,12 @@
     }
   }
 
+  .spacer {
+    flex: 1 1 auto;
+  }
+
   .failureStrategy {
-    right: 160px;
+    position: relative;
   }
 
   .footer {
