@@ -1,11 +1,11 @@
 import React from 'react'
 import { WizardWithProgress } from '@common/components/WizardWithProgress/WizardWithProgress'
 import { Status } from '@common/components/WizardWithProgress/WizardHelper'
-import { Delegates } from '@delegates/constants'
+
 import { GetDelegateTitleTextByType } from '@delegates/pages/delegates/utils/DelegateHelper'
-import { useStrings } from 'framework/exports'
+
 import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
-import DelegateDetailsStep from '../commonSteps/DelegateDetailsStep'
+import { DelegateTypes } from '@delegates/constants'
 import DelegateSetupStep from './DelegateSetupStep/DelegateSetupStep'
 import Stepk8ReviewScript from './StepReviewScript/Stepk8sReviewScript'
 
@@ -14,11 +14,10 @@ import css from './CreateK8sDelegate.module.scss'
 
 interface CreateK8sDelegateProps {
   delegateInfo?: DelegateInfoDTO | void
+  onBack: any
 }
 
-const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = () => {
-  const { getString } = useStrings()
-  const [showWizard, setShowWizard] = React.useState(false)
+const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = props => {
   const panels = [
     {
       tabTitle: 'Delegate Setup',
@@ -35,31 +34,20 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = () => {
 
   return (
     <>
-      {!showWizard && (
-        <DelegateDetailsStep
-          type={Delegates.KUBERNETES_CLUSTER}
-          name={getString('delegate.stepOneWizard')}
-          onClick={() => {
-            setShowWizard(true)
+      <WizardWithProgress
+        title={GetDelegateTitleTextByType(DelegateTypes.KUBERNETES_CLUSTER)}
+        isNavMode={false}
+        className={css.stepWizard}
+        panels={panels}
+      >
+        <DelegateSetupStep
+          onBack={() => {
+            props?.onBack()
           }}
         />
-      )}
-      {showWizard && (
-        <WizardWithProgress
-          title={GetDelegateTitleTextByType(Delegates.KUBERNETES_CLUSTER)}
-          isNavMode={false}
-          className={css.stepWizard}
-          panels={panels}
-        >
-          <DelegateSetupStep
-            onBack={() => {
-              setShowWizard(false)
-            }}
-          />
-          <Stepk8ReviewScript />
-          <StepSuccessVerification />
-        </WizardWithProgress>
-      )}
+        <Stepk8ReviewScript />
+        <StepSuccessVerification />
+      </WizardWithProgress>
     </>
   )
 }

@@ -1,7 +1,10 @@
 import React from 'react'
 import { Color, CardSelect, CardBody, Text, Heading, Layout } from '@wings-software/uicore'
+
 import type { IconName } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
+import { DelegateTypes } from '@delegates/constants'
+
 import type { CardData } from '../CreateDelegate/commonSteps/DelegateDetailsStep'
 import css from './Delegates4Ways.module.scss'
 
@@ -18,25 +21,29 @@ const Delegates4Ways: React.FC<Delegates4WaysProps> = props => {
       text: getString('delegate.cardData.docker.text'),
       value: getString('delegate.cardData.docker.value'),
       icon: getString('delegate.cardData.docker.icon'),
-      name: getString('delegate.cardData.docker.name')
+      name: getString('delegate.cardData.docker.name'),
+      type: DelegateTypes.DOCKER
     },
     {
       text: getString('delegate.cardData.kubernetes.text'),
       value: getString('delegate.cardData.kubernetes.value'),
       icon: getString('delegate.cardData.kubernetes.icon'),
-      name: getString('delegate.cardData.kubernetes.name')
+      name: getString('delegate.cardData.kubernetes.name'),
+      type: DelegateTypes.KUBERNETES_CLUSTER
     },
     {
       text: getString('delegate.cardData.amazonECS.text'),
       value: getString('delegate.cardData.amazonECS.value'),
       icon: getString('delegate.cardData.amazonECS.icon'),
-      name: getString('delegate.cardData.amazonECS.name')
+      name: getString('delegate.cardData.amazonECS.name'),
+      type: DelegateTypes.ECS
     },
     {
       text: getString('delegate.cardData.linux.text'),
       value: getString('delegate.cardData.linux.value'),
       icon: getString('delegate.cardData.linux.icon'),
-      name: getString('delegate.cardData.linux.name')
+      name: getString('delegate.cardData.linux.name'),
+      type: DelegateTypes.LINUX
     }
   ]
 

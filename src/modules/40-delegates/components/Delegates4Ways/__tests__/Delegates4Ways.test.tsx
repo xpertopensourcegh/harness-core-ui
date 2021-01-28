@@ -9,7 +9,8 @@ const data = {
   text: 'Runs Harness Delegate as a Docker container on any Linux or Mac',
   value: 'service-kubernetes',
   icon: 'service-dockerhub',
-  name: 'Docker'
+  name: 'Docker',
+  type: 'DOCKER'
 }
 
 describe('Render Delegates4Ways', () => {

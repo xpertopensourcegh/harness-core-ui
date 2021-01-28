@@ -7,7 +7,7 @@ import harnessDelegate from './images/harness-delegate.svg'
 import css from './DelegateDetailsStep.module.scss'
 
 interface DelegateDetailsStepProps extends StepProps<DelegateConfigDTO> {
-  type: DelegateInfoDTO['type']
+  type: string
   name: string
   delegateInfo?: DelegateConfigDTO | void
   detailsData?: string
@@ -18,6 +18,7 @@ export interface CardData {
   value: string
   icon: string
   name: string
+  type: string
 }
 
 const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetailsStepProps> = props => {
@@ -101,7 +102,7 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
               rightIcon="chevron-right"
               onClick={() => {
                 /* istanbul ignore next */
-                props?.onClick()
+                props?.onClick(selectedCard)
               }}
               disabled={selectedCard ? false : true}
             />

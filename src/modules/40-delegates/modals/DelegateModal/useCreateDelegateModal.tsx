@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { Delegates } from '@delegates/constants'
 import { CreateDelegateWizard } from '@delegates/components/CreateDelegateWizard/CreateDelegateWizard'
 import css from './useCreateDelegateModal.module.scss'
 
@@ -31,7 +30,7 @@ const useCreateDelegateModal = (): UseCreateDelegateModalReturn => {
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog {...modalProps} onClose={() => hideModal()}>
-        <CreateDelegateWizard type={Delegates.KUBERNETES_CLUSTER} />
+        <CreateDelegateWizard />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
