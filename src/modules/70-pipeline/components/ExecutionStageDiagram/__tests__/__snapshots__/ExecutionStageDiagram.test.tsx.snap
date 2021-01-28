@@ -733,7 +733,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="parallel3"
-          style="top: 136px; left: 430px;"
+          style="top: 158px; left: 430px;"
         >
           <div
             class="defaultNode"

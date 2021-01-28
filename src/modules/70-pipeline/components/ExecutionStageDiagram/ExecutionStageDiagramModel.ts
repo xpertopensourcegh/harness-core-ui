@@ -187,7 +187,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             verticalStepGroup
           )
           startX = resp.startX
-          newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
+          newY = resp.startY + this.gap / 2 + (nodeStyle.height - 42)
           /* istanbul ignore else */ if (resp.prevNodes) {
             prevNodesAr.push(...resp.prevNodes)
           }
