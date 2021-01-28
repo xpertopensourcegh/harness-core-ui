@@ -17,6 +17,7 @@ interface ConfigurePagerDutyNotificationsProps {
   onSuccess: (config: PagerDutyNotificationConfiguration) => void
   hideModal: () => void
   isStep?: boolean
+  withoutHeading?: boolean
   onBack?: () => void
   config?: PagerDutyNotificationConfiguration
 }
@@ -62,8 +63,12 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
   return (
     <div className={css.body}>
       <Layout.Vertical spacing="large">
-        <Icon name="service-pagerduty" size={24} />
-        <Heading className={css.title}>{i18n.titlePagerDuty}</Heading>
+        {props.withoutHeading ? null : (
+          <>
+            <Icon name="service-pagerduty" size={24} />
+            <Heading className={css.title}>{i18n.titlePagerDuty}</Heading>
+          </>
+        )}
         <Text>{i18n.helpPagerDuty}</Text>
         <Text>{i18n.infoPagerDuty}</Text>
         <Formik

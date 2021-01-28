@@ -155,6 +155,8 @@ showAll: Show All
 categories: Categories
 plaintext: Plaintext
 encrypted: Encrypted
+newNotification: New Notification
+addNotification: + Add Notification
 noSearchResultsFoundPeriod: No results found.
 createOrSelectSecret: Create or Select a Secret
 description: Description
@@ -367,6 +369,7 @@ inputValue: Input Value
 inputName: Input Name
 outputValue: Output Value
 outputName: Output Name
+notificationMethod: Notification Method
 pipelines-studio:
   addStep: Add step
   dependenciesGroupTitle: Dependencies
@@ -530,6 +533,19 @@ execution:
     MANUAL: Manually
     WEBHOOK: Webhook
   stepLogs: 'Step Logs'
+pipeline-notifications:
+  nameOftheRule: Name of the Rule
+  notificationName: Give your notification a name
+  pipelineEvents: Pipeline Events
+  selectPipelineEvents: Select Pipeline Events
+  placeholder: 'Type and Press Enter to add Stages'
+  notificationMethod: '{{$.notificationMethod}}'
+  emailRecipients: Type emails of your recipients
+  emailUserGroups: Email all members of these user groups
+  slackwebhookUrl: Slack Webhook URL (Optional)
+  slackuserGroups: Notify the Slack Channels associated with these user groups
+  pagerDutykey: PagerDuty Key (Optional)
+  pagerDutyuserGroups: Notify these user groups
 pipeline-triggers:
   aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
   addNewTrigger: Add New Trigger
@@ -1187,7 +1203,7 @@ cv:
     notifications:
       newNotification: 'New Notification Rule'
       name: 'Name of the rule'
-      method: 'Notification Method'
+      method: '{{$.notificationMethod}}'
       createSuccess: Notification rule created succesfully
       updateSuccess: 'Notification rule updated successfully'
       deleteSuccess: 'Notification rule deleted succesfully'

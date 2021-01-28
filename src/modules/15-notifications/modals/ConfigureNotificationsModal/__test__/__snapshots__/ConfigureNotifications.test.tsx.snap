@@ -100,7 +100,7 @@ exports[`ConfigureNotifications Email 1`] = `
             </span>
           </div>
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xlarge"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
           >
             <button
               class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"

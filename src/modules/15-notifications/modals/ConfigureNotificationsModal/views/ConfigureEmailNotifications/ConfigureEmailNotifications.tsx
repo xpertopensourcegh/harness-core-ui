@@ -24,6 +24,7 @@ interface ConfigureEmailNotificationsProps {
   hideModal: () => void
   isStep?: boolean
   onBack?: () => void
+  withoutHeading?: boolean
   config?: EmailNotificationConfiguration
 }
 
@@ -124,7 +125,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
   return (
     <div className={css.body}>
       <Layout.Vertical spacing="large">
-        <Heading className={css.title}>{i18n.titleEmail}</Heading>
+        {props.withoutHeading ? null : <Heading className={css.title}>{i18n.titleEmail}</Heading>}
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
@@ -154,12 +155,12 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
                   {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
                 </Layout.Horizontal>
                 {props.isStep ? (
-                  <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
+                  <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
                     <Button text={getString('back')} onClick={props.onBack} />
                     <Button text={getString('next')} intent="primary" type="submit" />
                   </Layout.Horizontal>
                 ) : (
-                  <Layout.Horizontal spacing={'medium'} margin={{ top: 'xlarge' }}>
+                  <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
                     <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
                     <Button text={i18n.buttonCancel} onClick={props.hideModal} />
                   </Layout.Horizontal>

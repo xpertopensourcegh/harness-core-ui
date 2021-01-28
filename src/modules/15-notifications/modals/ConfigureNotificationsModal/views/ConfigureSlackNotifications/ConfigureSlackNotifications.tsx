@@ -14,6 +14,7 @@ import css from '../../ConfigureNotificationsModal.module.scss'
 interface ConfigureSlackNotificationsProps {
   onSuccess: (config: SlackNotificationConfiguration) => void
   hideModal: () => void
+  withoutHeading?: boolean
   isStep?: boolean
   onBack?: () => void
   config?: SlackNotificationConfiguration
@@ -60,10 +61,15 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
   return (
     <div className={css.body}>
       <Layout.Vertical spacing="large">
-        <Icon name="service-slack" size={24} />
-        <Heading className={css.title}>{i18n.titleSlack}</Heading>
+        {props.withoutHeading ? null : (
+          <>
+            <Icon name="service-slack" size={24} />
+            <Heading className={css.title}>{i18n.titleSlack}</Heading>
+          </>
+        )}
         <Text>{i18n.helpSlack}</Text>
         <Text>{i18n.infoSlack}</Text>
+
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({

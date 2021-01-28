@@ -1,0 +1,17 @@
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.dialog {
+  border-radius: 11px;
+  width: 1000px;
+  position: relative;
+  padding-bottom: 0;
+  border-left: none !important;
+}
+
+.forStages {
+  width: 300px;
+}
