@@ -246,9 +246,12 @@ const RenderWebhookIcon = ({
   if (!type || type !== TriggerTypes.WEBHOOK) {
     return <Text color={Color.GREY_400}>N/A</Text>
   }
+  const pathnameWithoutNg = window.location.pathname?.replace('/ng/', '')
   const webhookUrl =
     window.location.origin +
-    `/pipeline/api/webhook/trigger?accountIdentifier=${column.accountId}&orgIdentifier=${column.orgIdentifier}&projectIdentifier=${column.projectIdentifier}`
+    `${pathnameWithoutNg !== '/' ? pathnameWithoutNg : ''}/pipeline/api/webhook/trigger?accountIdentifier=${
+      column.accountId
+    }&orgIdentifier=${column.orgIdentifier}&projectIdentifier=${column.projectIdentifier}`
 
   if (webhookSourceRepo === GitSourceProviders.CUSTOM.value && webhookSecret) {
     const curlCommand = `curl -X POST 
