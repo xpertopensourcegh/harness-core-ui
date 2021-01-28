@@ -567,7 +567,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                               </p>
                               <div
                                 class="bp3-form-group"
-                                data-id="actions-5"
                               >
                                 <div
                                   class="bp3-form-content"

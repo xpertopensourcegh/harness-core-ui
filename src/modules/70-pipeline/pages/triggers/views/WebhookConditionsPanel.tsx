@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import { eventTypes } from '../utils/TriggersWizardPageUtils'
 import { GitSourceProviders } from '../utils/TriggersListUtils'
-import PayloadConditionsSection from './PayloadConditionsSection'
+import AddConditionsSection from './AddConditionsSection'
 import css from './WebhookConditionsPanel.module.scss'
 
 export const mockOperators = [
@@ -24,19 +24,15 @@ interface WebhookConditionsPanelPropsInterface {
 
 const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = ({ formikProps }): JSX.Element => {
   const {
-    values: { payloadConditions, event, sourceRepo },
+    values: { event, sourceRepo },
+    values: formikValues,
     setFieldValue,
     errors
   } = formikProps
   const { getString } = useStrings()
   const eventIsPush = event === eventTypes.PUSH
   return (
-    <Layout.Vertical
-      key={payloadConditions?.length || 0}
-      className={cx(css.webhookConditionsContainer)}
-      spacing="large"
-      padding="xxlarge"
-    >
+    <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
       <h2 className={css.heading}>
         {getString('conditions')}{' '}
         <Text style={{ display: 'inline-block' }} color="grey400">
@@ -85,9 +81,21 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
           </div>
         </section>
       )}
-      <PayloadConditionsSection
-        key={payloadConditions?.length || 0}
-        payloadConditions={payloadConditions}
+      {sourceRepo === GitSourceProviders.CUSTOM.value && (
+        <AddConditionsSection
+          title={getString('pipeline-triggers.conditionsPanel.headerConditions')}
+          key="headerConditions"
+          fieldId="headerConditions"
+          formikValues={formikValues}
+          setFieldValue={setFieldValue}
+          errors={errors}
+        />
+      )}
+      <AddConditionsSection
+        title={getString('pipeline-triggers.conditionsPanel.payloadConditions')}
+        key="payloadConditions"
+        fieldId="payloadConditions"
+        formikValues={formikValues}
         setFieldValue={setFieldValue}
         errors={errors}
       />

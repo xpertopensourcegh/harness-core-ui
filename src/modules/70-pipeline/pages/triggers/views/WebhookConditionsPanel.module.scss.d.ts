@@ -4,6 +4,6 @@ declare const styles: {
   readonly webhookConditionsContainer: string
   readonly heading: string
   readonly conditionsRow: string
-  readonly payloadConditions: string
+  readonly addConditionsRow: string
 }
 export default styles

@@ -1,6 +1,92 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render - Conditions Panel 1`] = `
+exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render - Custom Trigger Conditions Panel 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookConditionsContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            Conditions
+             
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              style="display: inline-block;"
+            >
+              (OPTIONAL)
+            </p>
+          </h2>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.
+          </p>
+          <section
+            data-name="headerConditions"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
+              level="2"
+            >
+              Header Conditions
+            </h2>
+            <div
+              style="margin-top: 20px;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-name="plusAdd"
+              style="cursor: pointer; width: 70px;"
+            >
+              + Add
+            </p>
+          </section>
+          <section
+            data-name="payloadConditions"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
+              level="2"
+            >
+              Payload Conditions
+            </h2>
+            <div
+              style="margin-top: 20px;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-name="plusAdd"
+              style="cursor: pointer; width: 70px;"
+            >
+              + Add
+            </p>
+          </section>
+        </div>
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main submitButton"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render - Github Trigger Conditions Panel 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -247,7 +333,9 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               </div>
             </div>
           </section>
-          <section>
+          <section
+            data-name="payloadConditions"
+          >
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
@@ -259,6 +347,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
             />
             <p
               class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-name="plusAdd"
               style="cursor: pointer; width: 70px;"
             >
               + Add

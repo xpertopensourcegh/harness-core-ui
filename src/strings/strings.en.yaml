@@ -572,6 +572,7 @@ pipeline-triggers:
     operator: 'Operator is required with Matches Value.'
     matchesValue: 'Matches Value is required with Operator.'
     payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
+    headerConditions: 'Each header condition requires values for Attribute, Operator, and Matches Value.'
   toast:
     successfulCreate: 'Successfully created {{name}}.'
     successfulUpdate: 'Successfully updated {{name}}.'
@@ -599,6 +600,7 @@ pipeline-triggers:
     sourceBranch: 'Source Branch'
     targetBranch: 'Target Branch'
     branchName: 'Branch Name'
+    headerConditions: 'Header Conditions'
     payloadConditions: 'Payload Conditions'
     attribute: 'Attribute'
     operator: 'Operator'

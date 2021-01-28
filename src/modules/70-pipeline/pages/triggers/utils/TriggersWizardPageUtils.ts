@@ -3,7 +3,7 @@ import { string, array, object, ObjectSchema } from 'yup'
 import type { NgPipeline } from 'services/cd-ng'
 import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from 'services/pipeline-ng'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
-import type { PayloadConditionInterface } from '../views/PayloadConditionsSection'
+import type { AddConditionInterface } from '../views/AddConditionsSection'
 
 const CUSTOM = 'CUSTOM'
 
@@ -38,7 +38,8 @@ export interface FlatOnEditValuesInterface {
   sourceBranchValue?: string
   targetBranchOperator?: string
   targetBranchValue?: string
-  payloadConditions?: PayloadConditionInterface[]
+  headerConditions?: AddConditionInterface[]
+  payloadConditions?: AddConditionInterface[]
 }
 
 export interface FlatValidFormikValuesInterface {
@@ -61,7 +62,8 @@ export interface FlatValidFormikValuesInterface {
   sourceBranchValue?: string
   targetBranchOperator?: string
   targetBranchValue?: string
-  payloadConditions?: PayloadConditionInterface[]
+  headerConditions?: AddConditionInterface[]
+  payloadConditions?: AddConditionInterface[]
 }
 
 export const TriggerTypes = {
@@ -127,7 +129,7 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
 }
 export const isUndefinedOrEmptyString = (str: string | undefined): boolean => isUndefined(str) || str?.trim() === ''
 
-const isRowUnfilled = (payloadCondition: PayloadConditionInterface): boolean => {
+const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
   const truthyValuesLength = Object.values(payloadCondition).filter(val => isUndefinedOrEmptyString(val?.trim?.()))
     ?.length
   return truthyValuesLength > 0 && truthyValuesLength < 3
@@ -144,13 +146,19 @@ const checkValidTriggerConfiguration = (formikValues: FlatValidFormikValuesInter
 
 const checkValidPayloadConditions = (formikValues: FlatValidFormikValuesInterface): boolean => {
   const payloadConditions = formikValues['payloadConditions']
+  const headerConditions = formikValues['headerConditions']
   if (
     (formikValues['sourceBranchOperator'] && !formikValues['sourceBranchValue']) ||
     (!formikValues['sourceBranchOperator'] && formikValues['sourceBranchValue']?.trim()) ||
     (formikValues['targetBranchOperator'] && !formikValues['targetBranchValue']) ||
     (!formikValues['targetBranchOperator'] && formikValues['targetBranchValue']?.trim()) ||
     (payloadConditions?.length &&
-      payloadConditions.some((payloadCondition: PayloadConditionInterface) => isRowUnfilled(payloadCondition)))
+      payloadConditions.some((payloadCondition: AddConditionInterface) => isRowUnfilled(payloadCondition)))
+  ) {
+    return false
+  } else if (
+    headerConditions?.length &&
+    headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))
   ) {
     return false
   }
@@ -267,7 +275,17 @@ export const getValidationSchema = (getString: (key: string) => string): ObjectS
       getString('pipeline-triggers.validation.payloadConditions'),
       getString('pipeline-triggers.validation.payloadConditions'),
       function (payloadConditions = []) {
-        if (payloadConditions.some((payloadCondition: PayloadConditionInterface) => isRowUnfilled(payloadCondition))) {
+        if (payloadConditions.some((payloadCondition: AddConditionInterface) => isRowUnfilled(payloadCondition))) {
+          return false
+        }
+        return true
+      }
+    ),
+    headerConditions: array().test(
+      getString('pipeline-triggers.validation.headerConditions'),
+      getString('pipeline-triggers.validation.headerConditions'),
+      function (headerConditions = []) {
+        if (headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))) {
           return false
         }
         return true

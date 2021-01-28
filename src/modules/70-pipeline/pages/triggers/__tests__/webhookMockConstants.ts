@@ -1,7 +1,90 @@
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import type { NgPipeline } from 'services/cd-ng'
 import type { WebhookTriggerConfigPanelPropsInterface } from '../views/WebhookTriggerConfigPanel'
-export const triggerConfigInitialValues = { identifier: '', sourceRepo: 'GITHUB', triggerType: 'Webhook' }
-// export const triggerConfigInitialValues = { identifier: '', sourceRepo: 'GITHUB', triggerType: 'Webhook' }
+
+export const originalPipeline = {
+  name: 'pipeline-1',
+  identifier: 'pipeline1',
+  description: 'test',
+  tags: undefined,
+  stages: [
+    {
+      stage: {
+        name: 's1',
+        identifier: 's1',
+        description: '',
+        type: 'Deployment',
+        spec: {
+          service: {
+            identifier: 'service1',
+            name: 'service-1',
+            description: '',
+            serviceDefinition: {
+              type: 'Kubernetes',
+              spec: {
+                artifacts: {
+                  sidecars: []
+                },
+                manifests: [],
+                artifactOverrideSets: [],
+                manifestOverrideSets: []
+              }
+            },
+            tags: null
+          },
+          infrastructure: {
+            environment: {
+              name: 'env1',
+              identifier: 'env1',
+              description: null,
+              type: 'PreProduction'
+            },
+            infrastructureDefinition: {}
+          },
+          execution: {
+            steps: [
+              {
+                step: {
+                  name: 'Rollout Deployment',
+                  identifier: 'rolloutDeployment',
+                  type: 'K8sRollingDeploy',
+                  spec: {
+                    timeout: '10m',
+                    skipDryRun: false
+                  }
+                }
+              }
+            ],
+            rollbackSteps: [
+              {
+                step: {
+                  name: 'Rollback Rollout Deployment',
+                  identifier: 'rollbackRolloutDeployment',
+                  type: 'K8sRollingRollback',
+                  spec: {
+                    timeout: '10m'
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+
+export const getTriggerConfigInitialValues = ({
+  sourceRepo
+}: {
+  sourceRepo?: string
+}): { identifier: string; sourceRepo: string; triggerType: string; originalPipeline: NgPipeline } => ({
+  identifier: '',
+  sourceRepo: sourceRepo || 'GITHUB',
+  triggerType: 'Webhook',
+  originalPipeline
+})
+
 export const pipelineInputInitialValues = {
   identifier: '',
   originalPipeline: {

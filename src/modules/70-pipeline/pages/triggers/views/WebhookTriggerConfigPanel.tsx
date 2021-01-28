@@ -31,7 +31,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
   formikProps,
   isEdit = false
 }) => {
-  const { sourceRepo, actions, event, secureToken, originalPipeline } = formikProps.values
+  const { sourceRepo, actions, anyAction, event, secureToken, originalPipeline } = formikProps.values
   const { data: ResponseSourceRepoToEvent, loading: loadingGetSourceRepoToEvent } = useGetSourceRepoToEvent({})
   const { data: actionsListResponse, refetch: refetchActions } = useGetActionsList({
     queryParams: { sourceRepo, event },
@@ -44,8 +44,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
 
   const [eventOptions, setEventOptions] = useState<SelectOption[]>([])
   const [actionsOptions, setActionsOptions] = useState<SelectOption[]>([]) // will need to get actions from api
-  const [actionsDisabled, setActionsDisabled] = useState<boolean>(false) // no action options to choose from
-  const [tokenVisibility, setTokenVisibility] = useState<boolean>(false) // no action options to choose from
+  const [tokenVisibility, setTokenVisibility] = useState<boolean>(false)
   const { getString } = useStrings()
   const loading = loadingGetSourceRepoToEvent
   const { showSuccess } = useToaster()
@@ -79,8 +78,9 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
       const actionsOptionsKV = actionsListResponse.data.map(item => ({ label: item, value: item }))
       setActionsOptions(actionsOptionsKV)
       if (actionsOptionsKV.length === 0) {
-        formikProps.setValues({ ...formikProps.values, actions: [], anyAction: true })
-        setActionsDisabled(true)
+        formikProps.setFieldValue('actions', [])
+      } else if (actionsOptionsKV.length && !anyAction && Array.isArray(actions) && actions.length === 0) {
+        formikProps.setFieldValue('actions', undefined)
       }
     }
   }, [actionsListResponse?.data])
@@ -118,14 +118,24 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             name="sourceRepo"
             items={getSourceRepoOptions(getString)}
             onChange={e => {
-              setActionsDisabled(false)
-              formikProps.setValues({
-                ...formikProps.values,
-                sourceRepo: e.value,
-                actions: undefined,
-                anyAction: false,
-                secretToken: undefined
-              })
+              if (e.value === GitSourceProviders.CUSTOM.value) {
+                formikProps.setValues({
+                  ...formikProps.values,
+                  sourceRepo: e.value,
+                  actions: undefined,
+                  anyAction: false,
+                  secretToken: undefined
+                })
+              } else {
+                formikProps.setValues({
+                  ...formikProps.values,
+                  sourceRepo: e.value,
+                  actions: undefined,
+                  anyAction: false,
+                  secretToken: undefined,
+                  headerConditions: undefined
+                })
+              }
             }}
           />
           {sourceRepo !== GitSourceProviders.CUSTOM.value ? (
@@ -137,7 +147,6 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 name="event"
                 items={eventOptions}
                 onChange={e => {
-                  setActionsDisabled(false)
                   const additionalValues: { sourceBranchOperator?: string; sourceBranchValue?: string } = {}
 
                   if (event === eventTypes.PUSH) {
@@ -154,7 +163,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                   })
                 }}
               />
-              {event && event !== eventTypes.PUSH && (
+              {event && event !== eventTypes.PUSH && actionsOptions.length !== 0 && (
                 <div className={css.actionsContainer}>
                   <div>
                     <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
@@ -178,7 +187,6 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                     name="anyAction"
                     key={Date.now()}
                     label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
-                    disabled={actionsDisabled}
                     defaultChecked={Array.isArray(actions) && actions.length === 0}
                     className={css.anyAction}
                     onClick={(e: React.FormEvent<HTMLInputElement>) => {
@@ -198,7 +206,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 <Text style={{ alignSelf: 'center' }}>{getString('secureToken')}</Text>
                 <Container style={{ paddingBottom: 'var(--spacing-xsmall)' }}>
                   <Button
-                    className={tokenVisibility ? css.eyeCon : ''}
+                    data-name="eye-con"
+                    className={tokenVisibility ? css.eyeConOpen : ''}
                     tooltip={getString('pipeline-triggers.triggerConfigurationPanel.viewToken')}
                     tooltipProps={{ hoverOpenDelay: 300 }}
                     icon={tokenVisibility ? 'eye-open' : 'eye-off'}
@@ -209,6 +218,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                     }}
                   />
                   <Button
+                    data-name="copy"
                     tooltip={getString('pipeline-triggers.triggerConfigurationPanel.copyToken')}
                     tooltipProps={{ hoverOpenDelay: 300 }}
                     icon="duplicate"
@@ -216,10 +226,11 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                     onClick={e => {
                       e.stopPropagation()
                       copy(secureToken)
-                      showSuccess(getString('pipeline-triggers.triggerConfigurationPanel.copiedToken'))
+                      showSuccess(getString('copiedToClipboard'))
                     }}
                   />
                   <Button
+                    data-name="regenerate-token"
                     icon="main-refresh"
                     tooltip={getString('pipeline-triggers.triggerConfigurationPanel.regenerateToken')}
                     tooltipProps={{ hoverOpenDelay: 300 }}

@@ -7,7 +7,7 @@ import { useStrings } from 'framework/exports'
 import strings from 'strings/strings.en.yaml'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
-import { getTriggerConfigDefaultProps, triggerConfigInitialValues } from './webhookMockConstants'
+import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
 import { getValidationSchema } from '../utils/TriggersWizardPageUtils'
 import WebhookConditionsPanel from '../views/WebhookConditionsPanel'
 
@@ -24,11 +24,12 @@ const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement 
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
-function WrapperComponent(): JSX.Element {
+function WrapperComponent(props: { initialValues: any }): JSX.Element {
+  const { initialValues } = props
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={triggerConfigInitialValues}
+      initialValues={initialValues}
       validationSchema={getValidationSchema(result.current.getString)}
       onSubmit={jest.fn()}
     >
@@ -48,19 +49,27 @@ function WrapperComponent(): JSX.Element {
 
 describe('WebhookConditionsPanel Triggers tests', () => {
   describe('Renders/snapshots', () => {
-    test('Initial Render - Conditions Panel', async () => {
-      const { container } = render(<WrapperComponent />)
+    test('Initial Render - Github Trigger Conditions Panel', async () => {
+      const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
+      await waitFor(() => queryByText(container, result.current.getString('conditions')))
+      expect(container).toMatchSnapshot()
+    })
+
+    test('Initial Render - Custom Trigger Conditions Panel', async () => {
+      const { container } = render(
+        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
+      )
       await waitFor(() => queryByText(container, result.current.getString('conditions')))
       expect(container).toMatchSnapshot()
     })
   })
-  describe('Interactivity', () => {
+  describe('Interactivity: Non-Custom Source Repo/Payload Type', () => {
     test('Add Payload Conditions row', async () => {
-      const { container } = render(<WrapperComponent />)
+      const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
 
       await waitFor(() => queryByText(container, result.current.getString('conditions')))
 
-      const addButton = queryByText(container, result.current.getString('plusAdd'))
+      const addButton = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton) {
         throw Error('no add button')
       }
@@ -68,32 +77,81 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
     })
 
-    test('Delete Payload Conditions row (2nd of 3 rows)', async () => {
-      const { container } = render(<WrapperComponent />)
+    test('Delete Payload Conditions row (1st of 3 rows)', async () => {
+      const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
 
       await waitFor(() => queryByText(container, result.current.getString('conditions')))
 
-      const addButton = queryByText(container, result.current.getString('plusAdd'))
+      const addButton = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton) {
         throw Error('no add button')
       }
       fireEvent.click(addButton)
       expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
-      await waitFor(() => expect(container.querySelectorAll('[class*="payloadConditions"').length).toEqual(1))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
 
-      const addButton2 = queryByText(container, result.current.getString('plusAdd'))
+      const addButton2 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton2) {
         throw Error('no add button')
       }
       fireEvent.click(addButton2)
-      await waitFor(() => expect(container.querySelectorAll('[class*="payloadConditions"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
 
-      const addButton3 = queryByText(container, result.current.getString('plusAdd'))
+      const addButton3 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton3) {
         throw Error('no add button')
       }
       fireEvent.click(addButton3)
-      await waitFor(() => expect(container.querySelectorAll('[class*="payloadConditions"').length).toEqual(3))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(3))
+      const firstAttributeInput = document.body.querySelector('[name="payloadConditions.0.key"]')
+      const thirdAttributeInput = document.body.querySelector('[name="payloadConditions.2.key"]')
+      if (!firstAttributeInput || !thirdAttributeInput) {
+        throw Error('missing attribute input')
+      }
+
+      fireEvent.change(firstAttributeInput, { target: { value: 'attribute1' } })
+      fireEvent.change(thirdAttributeInput, { target: { value: 'attribute3' } })
+      expect('attribute1').not.toBeNull()
+      expect('attribute2').not.toBeNull()
+      expect('attribute3').not.toBeNull()
+
+      const firstDeleteButton = document.body.querySelectorAll('[data-name="main-delete"]')[0]
+      if (!firstDeleteButton) {
+        throw Error('no delete button')
+      }
+      fireEvent.click(firstDeleteButton)
+
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      expect('attribute2').not.toBeNull()
+      expect('attribute3').not.toBeNull()
+    })
+
+    test('Delete Payload Conditions row (2nd of 3 rows)', async () => {
+      const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
+
+      await waitFor(() => queryByText(container, result.current.getString('conditions')))
+
+      const addButton = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
+      if (!addButton) {
+        throw Error('no add button')
+      }
+      fireEvent.click(addButton)
+      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
+
+      const addButton2 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
+      if (!addButton2) {
+        throw Error('no add button')
+      }
+      fireEvent.click(addButton2)
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+
+      const addButton3 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
+      if (!addButton3) {
+        throw Error('no add button')
+      }
+      fireEvent.click(addButton3)
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(3))
       const firstAttributeInput = document.body.querySelector('[name="payloadConditions.0.key"]')
       const thirdAttributeInput = document.body.querySelector('[name="payloadConditions.2.key"]')
       if (!firstAttributeInput || !thirdAttributeInput) {
@@ -112,13 +170,15 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(middleDeleteButton)
 
-      await waitFor(() => expect(container.querySelectorAll('[class*="payloadConditions"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
       expect('attribute1').not.toBeNull()
       expect('attribute3').not.toBeNull()
     })
 
+    // 3rd of 3 in Header Conditions for custom source repo. Logic is same for both
+
     test('Source Branch Conditions Row validation with all values or none filled', async () => {
-      const { container, getByText } = render(<WrapperComponent />)
+      const { container, getByText } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
 
       const sourceBranchValue = container.querySelector('[name="sourceBranchValue"]')
       if (!sourceBranchValue) {
@@ -165,14 +225,14 @@ describe('WebhookConditionsPanel Triggers tests', () => {
     })
 
     test('Payload Conditions Row validation with all values or none filled', async () => {
-      const { container, getByText } = render(<WrapperComponent />)
-      const addButton2 = queryByText(container, result.current.getString('plusAdd'))
+      const { container, getByText } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
+      const addButton2 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
 
       if (!addButton2) {
         throw Error('no add button')
       }
       fireEvent.click(addButton2)
-      await waitFor(() => expect(container.querySelectorAll('[class*="payloadConditions"').length).toEqual(1))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
 
       const sourceBranchValue = container.querySelector('[name="sourceBranchValue"]')
       if (!sourceBranchValue) {
@@ -201,6 +261,73 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       await waitFor(() =>
         expect(getByText(result.current.getString('pipeline-triggers.validation.payloadConditions'))).not.toBeNull()
       )
+    })
+  })
+  describe('Interactivity: Custom Source Repo/Payload Type', () => {
+    test('Add Header Conditions row', async () => {
+      const { container } = render(
+        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
+      )
+
+      await waitFor(() => queryByText(container, result.current.getString('conditions')))
+
+      const addButton = document.body.querySelector('[data-name="headerConditions"] [data-name="plusAdd"]')
+      if (!addButton) {
+        throw Error('no add button')
+      }
+      fireEvent.click(addButton)
+      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+    })
+
+    test('Delete Header Conditions row (3rd of 3 rows)', async () => {
+      const { container } = render(
+        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
+      )
+
+      await waitFor(() => queryByText(container, result.current.getString('conditions')))
+
+      const addButton = document.body.querySelector('[data-name="headerConditions"] [data-name="plusAdd"]')
+      if (!addButton) {
+        throw Error('no add button')
+      }
+      fireEvent.click(addButton)
+      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
+
+      const addButton2 = document.body.querySelector('[data-name="headerConditions"] [data-name="plusAdd"]')
+      if (!addButton2) {
+        throw Error('no add button')
+      }
+      fireEvent.click(addButton2)
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+
+      const addButton3 = document.body.querySelector('[data-name="headerConditions"] [data-name="plusAdd"]')
+      if (!addButton3) {
+        throw Error('no add button')
+      }
+      fireEvent.click(addButton3)
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(3))
+      const firstAttributeInput = document.body.querySelector('[name="headerConditions.0.key"]')
+      const thirdAttributeInput = document.body.querySelector('[name="headerConditions.2.key"]')
+      if (!firstAttributeInput || !thirdAttributeInput) {
+        throw Error('missing attribute input')
+      }
+
+      fireEvent.change(firstAttributeInput, { target: { value: 'attribute1' } })
+      fireEvent.change(thirdAttributeInput, { target: { value: 'attribute3' } })
+      expect('attribute1').not.toBeNull()
+      expect('attribute2').not.toBeNull()
+      expect('attribute3').not.toBeNull()
+
+      const lastDeleteButton = document.body.querySelectorAll('[data-name="main-delete"]')[2]
+      if (!lastDeleteButton) {
+        throw Error('no delete button')
+      }
+      fireEvent.click(lastDeleteButton)
+
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      expect('attribute1').not.toBeNull()
+      expect('attribute2').not.toBeNull()
     })
   })
 })

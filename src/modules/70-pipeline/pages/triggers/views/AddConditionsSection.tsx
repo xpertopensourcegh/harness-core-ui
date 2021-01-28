@@ -15,51 +15,58 @@ export const mockOperators = [
   { label: 'ends with', value: 'ends with' },
   { label: 'regex', value: 'regex' }
 ]
-export interface PayloadConditionInterface {
+export interface AddConditionInterface {
   key: string
   operator: string
   value: string
 }
 
-interface PayloadConditionsSectionInterface {
-  payloadConditions: PayloadConditionInterface[]
+interface AddConditionsSectionPropsInterface {
+  title: string
+  fieldId: string
+  formikValues?: { [key: string]: any }
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
   errors: { [key: string]: string }
 }
-interface PayloadConditionRowInterface {
+
+interface AddConditionRowInterface {
+  fieldId: string
   index: number
   getString: (key: string) => string
 }
 
-const PayloadConditionRow: React.FC<PayloadConditionRowInterface> = ({ index, getString }) => (
-  <div className={cx(css.conditionsRow, css.payloadConditions)}>
-    <FormInput.Text name={`payloadConditions.${[index]}.key`} label="Attribute" />
-    <FormInput.Select items={mockOperators} name={`payloadConditions.${[index]}.operator`} label="Operator" />
+const AddConditionRow: React.FC<AddConditionRowInterface> = ({ fieldId, index, getString }) => (
+  <div className={cx(css.conditionsRow, css.addConditionsRow)}>
+    <FormInput.Text name={`${fieldId}.${[index]}.key`} label="Attribute" />
+    <FormInput.Select items={mockOperators} name={`${fieldId}.${[index]}.operator`} label="Operator" />
     <FormInput.Text
-      name={`payloadConditions.${[index]}.value`}
+      name={`${fieldId}.${[index]}.value`}
       label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
     />
   </div>
 )
 
-export const PayloadConditionsSection: React.FC<PayloadConditionsSectionInterface> = ({
-  payloadConditions,
+export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> = ({
+  title,
+  fieldId,
+  formikValues,
   setFieldValue,
   errors
 }) => {
   const { getString } = useStrings()
+  const addConditions = formikValues?.[fieldId] || []
   return (
-    <section>
+    <section data-name={fieldId}>
       <Heading level={2} font={{ weight: 'bold' }}>
-        {getString('pipeline-triggers.conditionsPanel.payloadConditions')}
+        {title}
       </Heading>
       <FieldArray
-        name="payloadConditions"
+        name={fieldId}
         render={() => (
           <div style={{ marginTop: '20px' }}>
-            {payloadConditions?.map((_payloadCondition: PayloadConditionInterface, index: number) => (
+            {addConditions?.map((_addCondition: AddConditionInterface, index: number) => (
               <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                <PayloadConditionRow index={index} getString={getString} />
+                <AddConditionRow index={index} getString={getString} fieldId={fieldId} />
                 <Icon
                   style={{
                     position: 'absolute',
@@ -71,28 +78,29 @@ export const PayloadConditionsSection: React.FC<PayloadConditionsSectionInterfac
                   color={Color.GREY_500}
                   name="main-delete"
                   onClick={() => {
-                    const newPayloadConditions = [...payloadConditions]
-                    newPayloadConditions.splice(index, 1)
-                    setFieldValue('payloadConditions', newPayloadConditions)
+                    const newAddConditions = [...addConditions]
+                    newAddConditions.splice(index, 1)
+                    setFieldValue(fieldId, newAddConditions)
                   }}
                 />
               </div>
             ))}
-            {errors['payloadConditions'] && (
+            {errors[fieldId] && (
               <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
-                {errors['payloadConditions']}
+                {errors[fieldId]}
               </Text>
             )}
           </div>
         )}
       />
       <Text
+        data-name="plusAdd"
         intent="primary"
         style={{ cursor: 'pointer', width: '70px' }}
         onClick={() => {
           const emptyRow = { key: '', operator: '', value: '' }
-          if (!payloadConditions) setFieldValue('payloadConditions', [emptyRow])
-          else setFieldValue('payloadConditions', [...payloadConditions, emptyRow])
+          if (!addConditions) setFieldValue(fieldId, [emptyRow])
+          else setFieldValue(fieldId, [...addConditions, emptyRow])
         }}
       >
         {getString('plusAdd')}
@@ -101,4 +109,4 @@ export const PayloadConditionsSection: React.FC<PayloadConditionsSectionInterfac
   )
 }
 
-export default PayloadConditionsSection
+export default AddConditionsSection

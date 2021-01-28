@@ -21,7 +21,7 @@ import {
 import { useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
-import type { PayloadConditionInterface } from './views/PayloadConditionsSection'
+import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import { eventTypes } from './utils/TriggersWizardPageUtils'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
@@ -121,7 +121,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             tags,
             source: {
               spec: {
-                spec: { actions, event, repoUrl, payloadConditions, authToken },
+                spec: { actions, event, repoUrl, payloadConditions, headerConditions, authToken },
                 type
               }
             },
@@ -133,13 +133,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         } = triggerResponseJson
         const { value: sourceBranchValue, operator: sourceBranchOperator } =
           payloadConditions?.find(
-            (payloadCondition: PayloadConditionInterface) =>
-              payloadCondition.key === PayloadConditionTypes.SOURCE_BRANCH
+            (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.SOURCE_BRANCH
           ) || {}
         const { value: targetBranchValue, operator: targetBranchOperator } =
           payloadConditions?.find(
-            (payloadCondition: PayloadConditionInterface) =>
-              payloadCondition.key === PayloadConditionTypes.TARGET_BRANCH
+            (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.TARGET_BRANCH
           ) || {}
         let pipelineJson = undefined
         try {
@@ -165,8 +163,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           sourceBranchValue,
           targetBranchOperator,
           targetBranchValue,
+          headerConditions,
           payloadConditions: payloadConditions?.filter(
-            (payloadCondition: PayloadConditionInterface) =>
+            (payloadCondition: AddConditionInterface) =>
               payloadCondition.key !== PayloadConditionTypes.SOURCE_BRANCH &&
               payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH
           )
@@ -216,6 +215,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       sourceBranchValue,
       targetBranchOperator,
       targetBranchValue,
+      headerConditions = [],
       payloadConditions = [],
       secureToken
     } = val
@@ -268,6 +268,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
     if (!isEmpty(payloadConditions) && triggerJson.source?.spec) {
       triggerJson.source.spec.spec.payloadConditions = payloadConditions
+    }
+
+    if (!isEmpty(headerConditions) && triggerJson.source?.spec) {
+      triggerJson.source.spec.spec.headerConditions = headerConditions
     }
 
     if (onEditInitialValues?.identifier) {
