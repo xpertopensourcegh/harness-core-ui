@@ -279,7 +279,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           }
         />
       )}
-      {deploymentStageTemplate.sharedPaths && (
+      {(deploymentStageTemplate as any).sharedPaths && (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId
@@ -292,7 +292,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           details={<List name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`} />}
         />
       )}
-      {deploymentStageTemplate.variables && (
+      {(deploymentStageTemplate as ServiceSpec).variables && (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId

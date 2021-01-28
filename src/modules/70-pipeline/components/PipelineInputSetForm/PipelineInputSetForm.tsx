@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Card, NestedAccordionPanel, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
-import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
 import { CollapseForm } from './CollapseForm'
 import { StageInputSetForm } from './StageInputSetForm'
@@ -73,8 +73,8 @@ function StageForm({
             <StageInputSetForm
               stageIdentifier={template?.stage?.identifier}
               path={`${path}.spec`}
-              deploymentStageTemplate={template?.stage.spec}
-              deploymentStage={allValues?.stage?.spec}
+              deploymentStageTemplate={template?.stage.spec as DeploymentStageConfig}
+              deploymentStage={allValues?.stage?.spec as DeploymentStageConfig}
               readonly={readonly}
             />
           )}

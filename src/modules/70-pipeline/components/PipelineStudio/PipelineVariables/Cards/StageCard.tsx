@@ -3,7 +3,7 @@ import produce from 'immer'
 import { set } from 'lodash-es'
 import { Text, Color, NestedAccordionPanel } from '@wings-software/uicore'
 
-import type { StageElement, DeploymentStage } from 'services/cd-ng'
+import type { StageElement, DeploymentStage, StageElementConfig } from 'services/cd-ng'
 import type {
   CustomVariablesData,
   CustomVariableEditableExtraProps
@@ -60,7 +60,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                 type={StepType.CustomVariable}
                 stepViewType={StepViewType.InputVariable}
                 onUpdate={({ variables }: CustomVariablesData) => {
-                  updateStage({ ...originalStage, variables })
+                  updateStage({ ...originalStage, variables } as StageElementConfig)
                 }}
                 customStepProps={{
                   variableNamePrefix: `${originalStage.identifier}.variables.`,
@@ -93,7 +93,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                             if (serviceSpec.variables) {
                               set(draft, 'spec.serviceConfig.serviceDefinition.spec.variables', serviceSpec.variables)
                             }
-                          })
+                          }) as StageElementConfig
                         )
                       }}
                     />
@@ -108,7 +108,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                         updateStage(
                           produce(originalStage, draft => {
                             set(draft, 'spec.infrastructure', infrastructure)
-                          })
+                          }) as StageElementConfig
                         )
                       }}
                     />
@@ -123,7 +123,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                         updateStage(
                           produce(originalStage, draft => {
                             set(draft, 'spec.execution', execution)
-                          })
+                          }) as StageElementConfig
                         )
                       }}
                     />

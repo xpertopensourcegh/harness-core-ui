@@ -13,7 +13,9 @@ import type {
   StepElement,
   ExecutionWrapper,
   PipelineInfoConfig,
-  StageElementWrapperConfig
+  StageElementWrapperConfig,
+  DeploymentStageConfig,
+  Infrastructure
 } from 'services/cd-ng'
 
 import type { UseStringsReturn } from 'framework/exports'
@@ -135,9 +137,14 @@ const validateStage = (
   const errors = {}
 
   // Validation for infrastructure namespace
+  // For CD spec is DeploymentStageConfig
+  const stageConfig = stage.spec as DeploymentStageConfig | undefined
+  const templateStageConfig = template.spec as DeploymentStageConfig | undefined
+  const originalStageConfig = originalStage?.spec as DeploymentStageConfig | undefined
   if (
-    isEmpty(stage.spec?.infrastructure?.spec?.namespace) &&
-    getMultiTypeFromValue(template.spec?.infrastructure?.spec?.namespace) === MultiTypeInputType.RUNTIME
+    isEmpty((stageConfig?.infrastructure as Infrastructure)?.spec?.namespace) &&
+    getMultiTypeFromValue((templateStageConfig?.infrastructure as Infrastructure)?.spec?.namespace) ===
+      MultiTypeInputType.RUNTIME
   ) {
     set(
       errors,
@@ -147,13 +154,13 @@ const validateStage = (
   }
 
   if (
-    stage.spec?.infrastructure?.infrastructureDefinition?.spec &&
-    originalStage?.spec?.infrastructure?.infrastructureDefinition?.type
+    stageConfig?.infrastructure?.infrastructureDefinition?.spec &&
+    originalStageConfig?.infrastructure?.infrastructureDefinition?.type
   ) {
-    const step = factory.getStep(originalStage.spec.infrastructure.infrastructureDefinition.type)
+    const step = factory.getStep(originalStageConfig.infrastructure.infrastructureDefinition.type)
     const errorsResponse = step?.validateInputSet(
-      stage.spec?.infrastructure?.infrastructureDefinition?.spec,
-      template.spec?.infrastructure?.infrastructureDefinition?.spec,
+      stageConfig?.infrastructure?.infrastructureDefinition?.spec,
+      templateStageConfig?.infrastructure?.infrastructureDefinition?.spec,
       getString
     )
     if (!isEmpty(errorsResponse)) {
@@ -168,11 +175,11 @@ const validateStage = (
       set(errors, 'variables', errorsResponse?.variables)
     }
   }
-  if (originalStage?.spec?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
+  if (originalStageConfig?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
     const step = factory.getStep(StepType.K8sServiceSpec)
     const errorsResponse = step?.validateInputSet(
-      stage.spec?.serviceConfig?.serviceDefinition?.spec,
-      template.spec?.serviceConfig?.serviceDefinition?.spec,
+      stageConfig?.serviceConfig?.serviceDefinition?.spec,
+      templateStageConfig?.serviceConfig?.serviceDefinition?.spec,
       getString
     )
 
@@ -180,11 +187,11 @@ const validateStage = (
       set(errors, 'spec.serviceConfig.serviceDefinition.spec', errorsResponse)
     }
 
-    if (originalStage?.spec?.serviceConfig?.serviceDefinition?.spec?.variables) {
+    if (originalStageConfig?.serviceConfig?.serviceDefinition?.spec?.variables) {
       const currentStep = factory.getStep(StepType.CustomVariable)
       const stepErrorsResponse = currentStep?.validateInputSet(
-        stage?.spec?.serviceConfig?.serviceDefinition?.spec,
-        template?.spec?.serviceConfig?.serviceDefinition?.spec,
+        stageConfig?.serviceConfig?.serviceDefinition?.spec,
+        templateStageConfig?.serviceConfig?.serviceDefinition?.spec,
         getString
       )
 
@@ -193,22 +200,22 @@ const validateStage = (
       }
     }
   }
-  if (stage.spec?.execution?.steps) {
+  if (stageConfig?.execution?.steps) {
     const errorsResponse = validateStep(
-      stage.spec.execution.steps as ExecutionWrapperConfig[],
-      template.spec?.execution?.steps,
-      originalStage?.spec?.execution?.steps,
+      stageConfig.execution.steps as ExecutionWrapperConfig[],
+      templateStageConfig?.execution?.steps,
+      originalStageConfig?.execution?.steps,
       getString
     )
     if (!isEmpty(errorsResponse)) {
       set(errors, 'spec.execution', errorsResponse)
     }
   }
-  if (stage.spec?.execution?.rollbackSteps) {
+  if (stageConfig?.execution?.rollbackSteps) {
     const errorsResponse = validateStep(
-      stage.spec.execution.rollbackSteps as ExecutionWrapperConfig[],
-      template.spec?.execution?.rollbackSteps,
-      originalStage?.spec?.execution?.rollbackSteps,
+      stageConfig.execution.rollbackSteps as ExecutionWrapperConfig[],
+      templateStageConfig?.execution?.rollbackSteps,
+      originalStageConfig?.execution?.rollbackSteps,
       getString
     )
     if (!isEmpty(errorsResponse)) {
