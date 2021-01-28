@@ -701,7 +701,9 @@ exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
     <p
       class="StyledProps--font Text--lineclamp StyledProps--main"
       style="--text-line-clamp: 1;"
-    />
+    >
+      true
+    </p>
   </div>
 </div>
 `;

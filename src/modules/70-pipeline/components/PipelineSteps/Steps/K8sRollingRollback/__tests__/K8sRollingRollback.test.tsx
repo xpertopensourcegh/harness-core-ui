@@ -73,7 +73,11 @@ describe('Test K8sRollingRollback Step', () => {
       <K8sRollingRollback
         initialValues={{
           identifier: 'Test_A',
-          type: StepType.K8sRollingRollback
+          type: StepType.K8sRollingRollback,
+          spec: {
+            timeout: '10m',
+            skipDryRun: false
+          }
         }}
         customStepProps={{
           stageIdentifier: 'qaStage',

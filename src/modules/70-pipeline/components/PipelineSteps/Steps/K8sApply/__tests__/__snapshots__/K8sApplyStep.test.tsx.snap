@@ -1047,9 +1047,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.k8sApply.skipDryRun
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -1090,22 +1088,18 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
-      Boolean
+      false
     </p>
-    <p
-      class="StyledProps--font StyledProps--main"
-    />
     <div
       class="main"
     >
       <div
         class="text"
       >
-        &lt;+
         step.k8sApply.skipSteadyStateCheck
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -1146,13 +1140,11 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
-      Boolean
+      false
     </p>
-    <p
-      class="StyledProps--font StyledProps--main"
-    />
   </div>
 </div>
 `;

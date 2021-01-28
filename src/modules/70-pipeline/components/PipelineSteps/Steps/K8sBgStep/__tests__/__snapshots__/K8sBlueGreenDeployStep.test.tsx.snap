@@ -616,9 +616,7 @@ exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.k8sBlueGreenDeploy.timeout
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -659,12 +657,8 @@ exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
-    >
-      String
-    </p>
-    <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       10m
     </p>
@@ -674,9 +668,7 @@ exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
       <div
         class="text"
       >
-        &lt;+
         step.k8sBlueGreenDeploy.skipDryRun
-        &gt;
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"
@@ -717,12 +709,8 @@ exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main"
-    >
-      String
-    </p>
-    <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
     >
       &lt;+input&gt;
     </p>
