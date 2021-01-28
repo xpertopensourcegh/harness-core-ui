@@ -51,4 +51,39 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('should render Variable view', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{ type: 'K8sBGSwapServices', name: 'Test A', timeout: '10m' }}
+        template={{ type: 'K8sBGSwapServices', name: 'Test A', timeout: '10m' }}
+        allValues={{
+          type: 'K8sBGSwapServices',
+          name: 'Test A',
+          timeout: '10m'
+        }}
+        type={StepType.K8sBGSwapServices}
+        stepViewType={StepViewType.InputVariable}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            name: {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sBGSwapServices.name',
+                localName: 'step.k8sBGSwapServices.name'
+              }
+            }
+          },
+          variablesData: {
+            name: 'Test A',
+            identifier: 'k8sBGSwapServices',
+            type: 'k8sBGSwapServices',
+            timeout: '10m'
+          }
+        }}
+      />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 })

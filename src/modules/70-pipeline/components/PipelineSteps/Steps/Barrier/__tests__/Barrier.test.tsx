@@ -67,4 +67,52 @@ describe('Test Barrier Step', () => {
     })
     expect(container).toMatchSnapshot()
   })
+
+  test('Barrier - Variable view', async () => {
+    const { container } = render(
+      <Barrier
+        type={StepType.Barrier}
+        initialValues={{ identifier: 'Test_A', type: StepType.Barrier }}
+        stepViewType={StepViewType.InputVariable}
+        path=""
+        template={{
+          identifier: 'Test_A',
+          type: StepType.Barrier,
+          spec: { timeout: '10m' }
+        }}
+        allValues={{
+          type: StepType.Barrier,
+          name: 'Test A',
+          identifier: 'Test_A',
+          spec: { timeout: '10m' }
+        }}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.barrier.name',
+                localName: 'step.barrier.name'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.barrier.timeout',
+                localName: 'step.barrier.timeout'
+              }
+            }
+          },
+          variablesData: {
+            name: 'step-name',
+            identifier: 'barrier',
+            type: StepType.Barrier,
+            spec: { timeout: 'step-timeout' }
+          }
+        }}
+      />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 })

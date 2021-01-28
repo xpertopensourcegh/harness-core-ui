@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test K8sBlueGreenDeployStep should render Variable view 1`] = `<div />`;
+
 exports[`Test K8sBlueGreenDeployStep should render edit view  1`] = `
 <div>
   <div

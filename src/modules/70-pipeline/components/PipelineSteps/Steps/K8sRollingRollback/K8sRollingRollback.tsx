@@ -16,6 +16,8 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import {
@@ -30,6 +32,14 @@ import stepCss from '../Steps.module.scss'
 
 export interface K8sRollingRollbackData extends StepElement {
   spec: K8sRollingRollbackStepInfo
+}
+
+export interface K8RollingRollbackVariableStepProps {
+  initialValues: K8sRollingRollbackData
+  stageIdentifier: string
+  onUpdate?(data: K8sRollingRollbackData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8sRollingRollbackData
 }
 
 interface K8sRollingRollbackProps {
@@ -131,10 +141,23 @@ const K8sRollingRollbackInputStep: React.FC<K8sRollingRollbackProps> = ({ inputS
     </>
   )
 }
+
+const K8RollingRollbackVariableStep: React.FC<K8RollingRollbackVariableStepProps> = ({
+  variablesData,
+  metadataMap,
+  initialValues
+}) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8sRollingRollbackWidgetWithRef = React.forwardRef(K8sRollingRollbackWidget)
 export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<K8sRollingRollbackData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sRollingRollbackInputStep
@@ -142,6 +165,14 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8RollingRollbackVariableStep
+          {...(customStepProps as K8RollingRollbackVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

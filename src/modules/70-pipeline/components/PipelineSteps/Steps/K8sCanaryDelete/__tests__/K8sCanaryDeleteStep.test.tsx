@@ -51,4 +51,43 @@ describe('Test K8sCanaryDeleteStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('should render variable view', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sCanaryDelete',
+          name: 'Test_A',
+          timeout: '10m'
+        }}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sCanaryDelete.name',
+                localName: 'step.k8sCanaryDelete.name'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sCanaryDelete.timeout',
+                localName: 'step.k8sCanaryDelete.timeout'
+              }
+            }
+          },
+          variablesData: {
+            name: 'step-name',
+            identifier: 'k8sCanaryDelete',
+            type: 'K8sCanaryDelete',
+            timeout: 'step-timeout'
+          }
+        }}
+        type={StepType.K8sCanaryDelete}
+        stepViewType={StepViewType.InputVariable}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
 })

@@ -46,7 +46,8 @@ export const Barrier: Story<Omit<StepWidgetProps, 'factory'>> = args => {
 Barrier.args = {
   initialValues: { identifier: 'Test_A', type: StepType.Barrier },
   type: StepType.Barrier,
-  stepViewType: StepViewType.Edit,
+  stepViewType: StepViewType.InputVariable,
+
   path: '',
   template: {
     identifier: 'Test_A',

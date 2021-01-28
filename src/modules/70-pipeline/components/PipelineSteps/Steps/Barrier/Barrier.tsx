@@ -16,6 +16,9 @@ import { StepViewType } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
+
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -25,6 +28,14 @@ import stepCss from '../Steps.module.scss'
 
 export interface BarrierData extends StepElement {
   spec: K8sRollingRollbackStepInfo
+}
+
+export interface BarrierVariableStepProps {
+  initialValues: BarrierData
+  stageIdentifier: string
+  onUpdate?(data: BarrierData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: BarrierData
 }
 
 interface BarrierProps {
@@ -113,10 +124,20 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
     </>
   )
 }
+
+const BarrierVariableStep: React.FC<BarrierVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const BarrierWidgetWithRef = React.forwardRef(BarrierWidget)
 export class BarrierStep extends PipelineStep<BarrierData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   renderStep(props: StepProps<BarrierData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -125,6 +146,14 @@ export class BarrierStep extends PipelineStep<BarrierData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <BarrierVariableStep
+          {...(customStepProps as BarrierVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

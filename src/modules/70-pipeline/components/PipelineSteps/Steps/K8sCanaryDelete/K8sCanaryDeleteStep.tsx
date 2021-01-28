@@ -15,6 +15,9 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings, UseStringsReturn } from 'framework/exports'
@@ -36,6 +39,14 @@ interface K8sCanaryDeployProps {
     path?: string
     readonly?: boolean
   }
+}
+
+export interface K8sCanaryDeleteVariableStepProps {
+  initialValues: StepElement
+  stageIdentifier: string
+  onUpdate?(data: StepElement): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: StepElement
 }
 
 function K8sCanaryDeleteWidget(
@@ -122,10 +133,23 @@ const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetDa
     </>
   )
 }
+
+const K8sCanaryDeleteVariableStep: React.FC<K8sCanaryDeleteVariableStepProps> = ({
+  variablesData,
+  metadataMap,
+  initialValues
+}) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8sCanaryDeleteWidgetWithRef = React.forwardRef(K8sCanaryDeleteWidget)
 export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<StepElement>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -134,6 +158,14 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8sCanaryDeleteVariableStep
+          {...(customStepProps as K8sCanaryDeleteVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

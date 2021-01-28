@@ -67,4 +67,51 @@ describe('Test K8sRollingRollback Step', () => {
     })
     expect(container).toMatchSnapshot()
   })
+
+  test('should render variable view', () => {
+    const { container } = render(
+      <K8sRollingRollback
+        initialValues={{
+          identifier: 'Test_A',
+          type: StepType.K8sRollingRollback
+        }}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.rollingRollback.name',
+                localName: 'step.rollingRollback.name'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.rollingRollback.timeout',
+                localName: 'step.rollingRollback.timeout'
+              }
+            },
+            'step-skip': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.rollingRollback.skipDryRun',
+                localName: 'step.rollingRollback.skipDryRun'
+              }
+            }
+          },
+          variablesData: {
+            name: 'Test_A',
+            identifier: 'rollingDeploy',
+            type: 'K8sRollingRollback',
+            spec: {
+              timeout: 'step-timeout',
+              skipDryRun: 'step-skip'
+            }
+          }
+        }}
+        type={StepType.K8sRollingRollback}
+        stepViewType={StepViewType.InputVariable}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
 })

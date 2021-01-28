@@ -17,6 +17,9 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
+
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
@@ -40,6 +43,14 @@ export interface K8sApplyData extends StepElement {
   identifier: string
   timeout?: string
   spec: K8sApplySpec
+}
+
+export interface K8sApplyVariableStepProps {
+  initialValues: K8sApplyData
+  stageIdentifier: string
+  onUpdate?(data: K8sApplyData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8sApplyData
 }
 
 interface K8sApplyProps {
@@ -202,11 +213,19 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
     </>
   )
 }
+
+const K8sApplyVariableStep: React.FC<K8sApplyVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8sApplyDeployWidgetWithRef = React.forwardRef(K8sApplyDeployWidget)
 export class K8sApplyStep extends PipelineStep<K8sApplyData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<K8sApplyData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
-
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sApplyInputStep
@@ -215,6 +234,14 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
           stepViewType={stepViewType}
           inputSetData={inputSetData}
           readonly={!!inputSetData?.readonly}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8sApplyVariableStep
+          {...(customStepProps as K8sApplyVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

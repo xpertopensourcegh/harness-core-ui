@@ -46,7 +46,7 @@ export const K8sRolloutDeployStep: Story<Omit<StepWidgetProps, 'factory'>> = arg
 K8sRolloutDeployStep.args = {
   initialValues: { identifier: 'Test_A', type: StepType.K8sRollingDeploy },
   type: StepType.K8sRollingDeploy,
-  stepViewType: StepViewType.Edit,
+  stepViewType: StepViewType.InputVariable,
   path: '',
   template: {
     identifier: 'Test_A',

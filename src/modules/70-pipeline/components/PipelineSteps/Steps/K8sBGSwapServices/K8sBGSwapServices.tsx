@@ -17,6 +17,10 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
+
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 
@@ -39,6 +43,14 @@ interface K8sBGSwapProps {
     path?: string
     readonly?: boolean
   }
+}
+
+export interface K8sBGSwapServicesVariablesStepProps {
+  initialValues: StepElement
+  stageIdentifier: string
+  onUpdate?(data: StepElement): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: StepElement
 }
 
 function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<StepElement>): React.ReactElement {
@@ -125,10 +137,23 @@ const K8sBGSwapInputStep: React.FC<K8sBGSwapProps> = ({ inputSetData }) => {
     </>
   )
 }
+
+const K8sBGSwapServicesVariablesStep: React.FC<K8sBGSwapServicesVariablesStepProps> = ({
+  variablesData,
+  metadataMap,
+  initialValues
+}) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8sBGSwapWidgetWithRef = React.forwardRef(K8sBGSwapWidget)
 export class K8sBGSwapServices extends PipelineStep<StepElement> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<StepElement>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -137,6 +162,14 @@ export class K8sBGSwapServices extends PipelineStep<StepElement> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8sBGSwapServicesVariablesStep
+          {...(customStepProps as K8sBGSwapServicesVariablesStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

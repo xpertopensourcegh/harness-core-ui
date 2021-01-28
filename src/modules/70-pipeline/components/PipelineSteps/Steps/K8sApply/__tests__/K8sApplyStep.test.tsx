@@ -86,4 +86,98 @@ describe('Test K8sApplyStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('should render variable view', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+
+          spec: {
+            skipDryRun: false,
+            skipSteadyStateCheck: false,
+            filePaths: ['test-1', 'test-2']
+          }
+        }}
+        template={{
+          type: 'K8sApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+
+          spec: {
+            skipDryRun: false,
+            skipSteadyStateCheck: false,
+            filePaths: ['test-1', 'test-2']
+          }
+        }}
+        allValues={{
+          type: 'K8sApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+
+          spec: {
+            skipDryRun: false,
+            skipSteadyStateCheck: false,
+            filePaths: ['test-1', 'test-2']
+          }
+        }}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sApply.name',
+                localName: 'step.k8sApply.name'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sApply.timeout',
+                localName: 'step.k8sApply.timeout'
+              }
+            },
+            'step-filePaths': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sApply.filepaths',
+                localName: 'step.k8sApply.filepaths'
+              }
+            },
+            'step-skipdryRun': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sApply.skipDryRun',
+                localName: 'step.k8sApply.skipDryRun'
+              }
+            },
+            'step-skipSteadyCheck': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sApply.skipSteadyStateCheck',
+                localName: 'step.k8sApply.skipSteadyStateCheck'
+              }
+            }
+          },
+          variablesData: {
+            type: 'K8sApply',
+            name: 'step-name',
+            identifier: 'Test_A',
+            timeout: 'step-timeout',
+
+            spec: {
+              skipDryRun: 'step-skipdryRun',
+              skipSteadyStateCheck: 'step-skipSteadyCheck',
+              filePaths: ['step-filePaths', 'test-2']
+            }
+          }
+        }}
+        type={StepType.K8sApply}
+        stepViewType={StepViewType.InputVariable}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
 })

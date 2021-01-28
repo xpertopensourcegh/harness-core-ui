@@ -24,6 +24,8 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -143,10 +145,27 @@ const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData }) => {
     </>
   )
 }
+
+export interface K8BGVariableStepProps {
+  initialValues: K8sBGDeployData
+  stageIdentifier: string
+  onUpdate?(data: K8sBGDeployData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8sBGDeployData
+}
+
+const K8BGVariableStep: React.FC<K8BGVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8BGDeployWidgetWidgetWithRef = React.forwardRef(K8BGDeployWidget)
 export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<K8sBGDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -155,6 +174,14 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8BGVariableStep
+          {...(customStepProps as K8BGVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

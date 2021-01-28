@@ -46,7 +46,7 @@ export const K8sRollingRollback: Story<Omit<StepWidgetProps, 'factory'>> = args 
 K8sRollingRollback.args = {
   initialValues: { identifier: 'Test_A', type: StepType.K8sRollingRollback },
   type: StepType.K8sRollingRollback,
-  stepViewType: StepViewType.Edit,
+  stepViewType: StepViewType.InputVariable,
   path: '',
   template: {
     identifier: 'Test_A',
@@ -58,5 +58,38 @@ K8sRollingRollback.args = {
     name: 'Test A',
     identifier: 'Test_A',
     spec: { timeout: RUNTIME_INPUT_VALUE }
+  },
+  customStepProps: {
+    stageIdentifier: 'qaStage',
+    metadataMap: {
+      'step-name': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.rollingRollback.name',
+          localName: 'step.rollingRollback.name'
+        }
+      },
+
+      'step-timeout': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.rollingRollback.timeout',
+          localName: 'step.rollingRollback.timeout'
+        }
+      },
+      'step-skip': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.rollingRollback.skipDryRun',
+          localName: 'step.rollingRollback.skipDryRun'
+        }
+      }
+    },
+    variablesData: {
+      name: 'Test_A',
+      identifier: 'rollingDeploy',
+      type: 'K8sRollingRollback',
+      spec: {
+        timeout: 'step-timeout',
+        skipDryRun: 'step-skip'
+      }
+    }
   }
 }
