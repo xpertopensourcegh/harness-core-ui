@@ -3,32 +3,39 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { Container } from '@wings-software/uicore'
 import type { LogAnalysisClusterChartDTO } from 'services/cv'
+import { Risk, RiskValues } from '../../../utils/CommonUtils'
 
 export interface ClusterChartProps {
   data: LogAnalysisClusterChartDTO[]
 }
 
-export const mapRisk = (risk: number): Highcharts.PointOptionsObject => {
-  if (risk > 1) {
-    risk = risk / 100
-  }
-  risk = Math.max(Math.min(risk, 1), 0)
-  if (risk < 0.3) {
-    return {
-      color: '#F3FFE5',
-      marker: {
-        lineWidth: 1,
-        lineColor: 'var(--green-450)',
-        radius: 9
+export const mapRisk = (risk?: Risk): Highcharts.PointOptionsObject => {
+  switch (risk) {
+    case RiskValues.LOW:
+      return {
+        color: '#F3FFE5',
+        marker: {
+          lineWidth: 1,
+          lineColor: 'var(--green-450)',
+          radius: 9
+        }
       }
-    }
-  } else {
-    return {
-      color: risk < 0.6 ? 'var(--yellow-500)' : 'var(--red-500)',
-      marker: {
-        radius: 7
+    case RiskValues.MEDIUM:
+      return {
+        color: 'var(--yellow-500)',
+        marker: {
+          radius: 7
+        }
       }
-    }
+    case RiskValues.HIGH:
+      return {
+        color: 'var(--red-500)',
+        marker: {
+          radius: 7
+        }
+      }
+    default:
+      return {}
   }
 }
 
@@ -48,7 +55,7 @@ export default function ClusterChart({ data }: ClusterChartProps) {
               x: val.x,
               y: val.y
             },
-            mapRisk(val.risk ?? 0)
+            mapRisk(val.risk)
           )
         )
       }

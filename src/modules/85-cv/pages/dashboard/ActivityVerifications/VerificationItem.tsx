@@ -12,7 +12,6 @@ import {
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import ActivityType from '../ActivityType/ActivityType'
 import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
-import { RiskScoreTile } from '../../../components/RiskScoreTile/RiskScoreTile'
 import i18n from './ActivityVerifications.i18n'
 import css from './ActivityVerifications.module.scss'
 
@@ -133,7 +132,6 @@ function ItemTooltip(props: {
                       </Text>
                     </Container>
                   </Container>
-                  <RiskScoreTile riskScore={roundRiskScore(item.riskScore || 0)} isSmall />
                 </Container>
               ))}
             </>
@@ -144,10 +142,6 @@ function ItemTooltip(props: {
       {props.children}
     </Tooltip>
   )
-}
-
-export function roundRiskScore(score: number) {
-  return Math.round(score * 100) / 100
 }
 
 export function mapTooltipItemStatus(status: VerificationResult['status'], remainingTimeMs?: number) {

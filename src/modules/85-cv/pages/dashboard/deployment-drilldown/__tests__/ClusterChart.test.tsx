@@ -9,7 +9,7 @@ const mockData = [
     label: 2,
     text: 'test',
     hostName: 'host1',
-    risk: 0.5,
+    risk: 'LOW' as any,
     x: 2,
     y: 3
   }
@@ -21,7 +21,7 @@ describe('ClusterChart', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('mapRisk normalizes risk and returns correct color for low risk', () => {
-    expect(mapRisk(1.2).marker?.lineColor).toEqual('var(--green-450)')
+  test('mapRisk works as expected', () => {
+    expect(mapRisk('LOW').marker?.lineColor).toEqual('var(--green-450)')
   })
 })

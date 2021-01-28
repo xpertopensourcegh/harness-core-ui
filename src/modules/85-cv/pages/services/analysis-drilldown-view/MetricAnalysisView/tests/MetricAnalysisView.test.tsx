@@ -24,12 +24,12 @@ const MockAnomalousData: cvService.RestResponsePageTimeSeriesMetricDataDTO = {
         metricName: 'Number of Errors',
         metricDataList: [
           {
-            risk: 'HIGH_RISK',
+            risk: 'HIGH',
             timestamp: 1609208400000,
             value: 100
           },
           {
-            risk: 'HIGH_RISK',
+            risk: 'HIGH',
             timestamp: 1609208460000,
             value: 108
           }

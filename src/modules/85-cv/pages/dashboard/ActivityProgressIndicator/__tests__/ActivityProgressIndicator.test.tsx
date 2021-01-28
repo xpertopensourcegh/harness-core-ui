@@ -18,7 +18,7 @@ describe('ActivityProgressIndicator', () => {
           progress: 2,
           progressPercentage: 10,
           remainingTimeMs: 60000,
-          riskScore: 0.3,
+          risk: 'LOW',
           startTime: 1605187103793,
           total: 2
         }}
@@ -37,7 +37,7 @@ describe('ActivityProgressIndicator', () => {
           progress: 2,
           progressPercentage: 100,
           remainingTimeMs: 60000,
-          riskScore: 0.3,
+          risk: 'LOW',
           startTime: 1605187103793,
           total: 2
         }}

@@ -25,22 +25,28 @@ export interface VerificationJobRuntimeDetails {
   }
 }
 
-export interface AdditionalInfo {
-  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-}
-
-export interface DeploymentVerificationJobInstanceSummary {
+export interface ActivityVerificationSummary {
+  total?: number
+  passed?: number
+  failed?: number
+  errors?: number
+  progress?: number
+  notStarted?: number
+  remainingTimeMs?: number
   progressPercentage?: number
   startTime?: number
   durationMs?: number
-  riskScore?: number
-  environmentName?: string
-  jobName?: string
-  verificationJobInstanceId?: string
-  activityId?: string
-  activityStartTime?: number
-  status?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-  additionalInfo?: AdditionalInfo
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  aggregatedStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+}
+
+export interface DeploymentActivityVerificationResultDTO {
+  tag?: string
+  serviceName?: string
+  serviceIdentifier?: string
+  preProductionDeploymentSummary?: ActivityVerificationSummary
+  productionDeploymentSummary?: ActivityVerificationSummary
+  postDeploymentSummary?: ActivityVerificationSummary
 }
 
 export interface ResponseMessage {
@@ -289,11 +295,11 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseDeploymentVerificationJobInstanceSummary {
+export interface RestResponseListDeploymentActivityVerificationResultDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: DeploymentVerificationJobInstanceSummary
+  resource?: DeploymentActivityVerificationResultDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -313,36 +319,8 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
-export interface ActivityVerificationSummary {
-  total?: number
-  passed?: number
-  failed?: number
-  errors?: number
-  progress?: number
-  notStarted?: number
-  remainingTimeMs?: number
-  progressPercentage?: number
-  startTime?: number
-  durationMs?: number
-  riskScore?: number
-  aggregatedStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-}
-
-export interface DeploymentActivityVerificationResultDTO {
-  tag?: string
-  serviceName?: string
-  serviceIdentifier?: string
-  preProductionDeploymentSummary?: ActivityVerificationSummary
-  productionDeploymentSummary?: ActivityVerificationSummary
-  postDeploymentSummary?: ActivityVerificationSummary
-}
-
-export interface RestResponseListDeploymentActivityVerificationResultDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentActivityVerificationResultDTO[]
-  responseMessages?: ResponseMessage[]
+export interface AdditionalInfo {
+  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
 }
 
 export interface DeploymentActivityResultDTO {
@@ -357,6 +335,20 @@ export interface DeploymentResultSummary {
   preProductionDeploymentVerificationJobInstanceSummaries?: DeploymentVerificationJobInstanceSummary[]
   productionDeploymentVerificationJobInstanceSummaries?: DeploymentVerificationJobInstanceSummary[]
   postDeploymentVerificationJobInstanceSummaries?: DeploymentVerificationJobInstanceSummary[]
+}
+
+export interface DeploymentVerificationJobInstanceSummary {
+  progressPercentage?: number
+  startTime?: number
+  durationMs?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  environmentName?: string
+  jobName?: string
+  verificationJobInstanceId?: string
+  activityId?: string
+  activityStartTime?: number
+  status?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  additionalInfo?: AdditionalInfo
 }
 
 export interface RestResponseDeploymentActivityResultDTO {
@@ -391,7 +383,7 @@ export interface RestResponseDeploymentActivityPopoverResultDTO {
 export interface VerificationResult {
   jobName?: string
   status?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-  riskScore?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   remainingTimeMs?: number
   progressPercentage?: number
   startTime?: number
@@ -432,6 +424,14 @@ export interface RestResponseActivityVerificationResultDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: ActivityVerificationResultDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDeploymentVerificationJobInstanceSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentVerificationJobInstanceSummary
   responseMessages?: ResponseMessage[]
 }
 
@@ -582,6 +582,14 @@ export interface RestResponsePageString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListActivityType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AlertCondition {
   services?: string[]
   environments?: string[]
@@ -613,14 +621,6 @@ export interface NotificationMethod {
   emails?: string[]
 }
 
-export interface RestResponseAlertRuleDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RiskNotify {
   threshold?: number
 }
@@ -638,14 +638,6 @@ export interface VerificationsNotify {
   allVerificationStatuses?: boolean
 }
 
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface PageAlertRuleDTO {
   totalPages?: number
   totalItems?: number
@@ -661,6 +653,14 @@ export interface RestResponsePageAlertRuleDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAlertRuleDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAlertRuleDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertRuleDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -769,7 +769,7 @@ export interface ClusterCoordinates {
 export interface ClusterSummary {
   label?: number
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   count?: number
   testFrequencyData?: number[]
@@ -801,7 +801,7 @@ export interface RestResponseDeploymentLogAnalysisDTO {
 }
 
 export interface ResultSummary {
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   controlClusterSummaries?: ControlClusterSummary[]
   testClusterSummaries?: ClusterSummary[]
@@ -940,7 +940,7 @@ export interface ServiceGuardTimeSeriesAnalysisDTO {
 export interface ServiceGuardTxnMetricAnalysisDataDTO {
   longTermPattern?: boolean
   lastSeenTime?: number
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   shortTermHistory?: number[]
   anomalousPatterns?: TimeSeriesAnomalies[]
@@ -950,7 +950,7 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
 }
 
 export interface DeploymentTimeSeriesAnalysisDTO {
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   hostSummaries?: HostInfo[]
   transactionMetricSummaries?: TransactionMetricHostData[]
@@ -958,26 +958,28 @@ export interface DeploymentTimeSeriesAnalysisDTO {
 
 export interface HostData {
   hostName?: string
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   controlData?: number[]
   testData?: number[]
+  anomalous?: boolean
 }
 
 export interface HostInfo {
   hostName?: string
   primary?: boolean
   canary?: boolean
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
 }
 
 export interface TransactionMetricHostData {
   transactionName?: string
   metricName?: string
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   hostData?: HostData[]
+  anomalous?: boolean
 }
 
 export interface AppDynamicsApplication {
@@ -1116,8 +1118,8 @@ export interface CVConfig {
   identifier: string
   monitoringSourceName: string
   analysisOrchestrationIteration?: number
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   firstTimeDataCollectionTimeRange?: TimeRange
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
 }
 
 export interface RestResponseCVConfig {
@@ -1923,9 +1925,9 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   appRoleId?: string
   secretId?: string
   secretEngineVersion?: number
+  accessType?: 'APP_ROLE' | 'TOKEN'
   default?: boolean
   readOnly?: boolean
-  accessType?: 'APP_ROLE' | 'TOKEN'
 }
 
 export interface Bar {
@@ -2047,7 +2049,7 @@ export interface TimeSeriesSampleDTO {
 export interface MetricData {
   timestamp?: number
   value?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW_RISK' | 'MEDIUM_RISK' | 'HIGH_RISK'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
 }
 
 export interface RestResponseTimeSeriesTestDataDTO {
@@ -2275,7 +2277,7 @@ export interface LogAnalysisClusterChartDTO {
   label?: number
   text?: string
   hostName?: string
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   x?: number
   y?: number
 }
@@ -2292,7 +2294,7 @@ export interface LogAnalysisClusterDTO {
   message?: string
   label?: number
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   count?: number
   controlFrequencyData?: number[]
@@ -2339,6 +2341,7 @@ export interface TransactionMetric {
   transactionName?: string
   metricName?: string
   score?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
 }
 
 export interface TransactionMetricInfo {
@@ -2365,19 +2368,13 @@ export interface TestVerificationBaselineExecutionDTO {
   createdAt?: number
 }
 
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface VerificationJobDTO {
   identifier?: string
   jobName?: string
   serviceIdentifier?: string
+  serviceName?: string
   envIdentifier?: string
+  envName?: string
   projectIdentifier?: string
   orgIdentifier?: string
   activitySourceIdentifier?: string
@@ -2385,8 +2382,16 @@ export interface VerificationJobDTO {
   monitoringSources?: string[]
   verificationJobUrl?: string
   duration?: string
-  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
   defaultJob?: boolean
+  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
+}
+
+export interface RestResponseVerificationJobDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationJobDTO
+  responseMessages?: ResponseMessage[]
 }
 
 export interface PageVerificationJobDTO {
@@ -3514,6 +3519,8 @@ export const getRiskSummaryPopoverPromise = (
 
 export interface GetVerificationJobQueryParams {
   accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
   identifier?: string
 }
 
@@ -3613,6 +3620,8 @@ export const saveVerificationJobPromise = (
 
 export interface DeleteVerificationJobQueryParams {
   accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
   identifier?: string
 }
 

@@ -11,5 +11,7 @@ declare const styles: {
   readonly heatmapColor8: string
   readonly heatmapColor9: string
   readonly heatmapColor10: string
+  readonly noAnalysisColor: string
+  readonly noDataColor: string
 }
 export default styles

@@ -9,7 +9,7 @@ import { ActivitiesFlagBorder } from '@cv/components/ActivitiesTimelineView/Acti
 import ActivitiesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { riskScoreToColor } from '@cv/pages/services/analysis-drilldown-view/MetricAnalysisView/MetricsAnalysisRow/MetricAnalysisRow'
+import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import {
   useGetActivityDetails,
   useGetActivityMetrics,
@@ -250,7 +250,7 @@ export function mapMetricsData(res: any, startTime: number, endTime: number, act
   }))
 }
 
-export function getSeriesZones(items: any[], mapColor = riskScoreToColor) {
+export function getSeriesZones(items: any[], mapColor = getRiskColorValue) {
   const zones = []
   for (let i = 0; i < items.length; i++) {
     const prevRisk = i > 0 ? items[i - 1].risk : undefined

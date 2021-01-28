@@ -4,7 +4,7 @@ import { extendMoment } from 'moment-range'
 import classnames from 'classnames'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData, TimeRange } from 'services/cv'
-import { getColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import {
   MetricAnalysisFilter,
@@ -136,7 +136,7 @@ function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: 
               {
                 name: 'testData',
                 type: 'spline',
-                color: getColorValue(node.score!),
+                color: getRiskColorValue(node.risk),
                 data: mapSeriesData(node.testData)
               },
               {

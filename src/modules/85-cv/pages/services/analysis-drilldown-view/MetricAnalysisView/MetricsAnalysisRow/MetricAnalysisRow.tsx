@@ -3,6 +3,7 @@ import { Color, Container } from '@wings-software/uicore'
 import { isNumber } from 'lodash-es'
 import moment from 'moment'
 import type { MetricData } from 'services/cv'
+import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import TimeseriesRow, { SeriesConfig } from '@cv/components/TimeseriesRow/TimeseriesRow'
 import css from './MetricAnalysisRow.module.scss'
 
@@ -17,19 +18,6 @@ interface MetricAnalysisRowProps {
 }
 
 const ROW_HEIGHT = 60
-
-export function riskScoreToColor(riskScore: string): string {
-  switch (riskScore) {
-    case 'HIGH_RISK':
-      return 'var(--red-500)'
-    case 'MEDIUM_RISK':
-      return 'var(--orange-500)'
-    case 'LOW_RISK':
-      return 'var(--green-500)'
-    default:
-      return 'var(--grey-350)'
-  }
-}
 
 function getTimeMaskWidthBasedOnTimeRange(startTime: number, endTime: number): number {
   switch (Math.round(moment.duration(moment(endTime).diff(startTime)).asMinutes())) {
@@ -53,12 +41,12 @@ function getTimeMaskWidthBasedOnTimeRange(startTime: number, endTime: number): n
 function transformAnalysisDataToChartSeries(analysisData: any[]): SeriesConfig[] {
   const highchartsLineData = []
   analysisData.sort((a, b) => a.timestamp - b.timestamp)
-  let currentRiskColor: string | null = riskScoreToColor(analysisData?.[0].risk)
+  let currentRiskColor: string | null = getRiskColorValue(analysisData?.[0].risk)
   const zones: Highcharts.SeriesZonesOptionsObject[] = [{ value: undefined, color: currentRiskColor }]
 
   for (const dataPoint of analysisData) {
     const { timestamp: x, risk, value: y } = dataPoint || {}
-    const riskColor = riskScoreToColor(risk)
+    const riskColor = getRiskColorValue(risk)
     if (isNumber(x) && isNumber(y) && risk) {
       highchartsLineData.push({
         x,

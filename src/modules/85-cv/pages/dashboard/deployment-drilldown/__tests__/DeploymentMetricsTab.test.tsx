@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { RestResponseTransactionMetricInfoSummaryPageDTO } from 'services/cv'
 import DeploymentMetricsTab from '../DeploymentMetricsTab'
 import TimeseriesRow from '../../../../components/TimeseriesRow/TimeseriesRow'
 
@@ -8,7 +9,7 @@ jest.mock('../../../../components/TimeseriesRow/TimeseriesRow', () =>
   jest.fn().mockImplementation((_props: any) => <div />)
 )
 
-const dataMock = {
+const dataMock: RestResponseTransactionMetricInfoSummaryPageDTO = {
   resource: {
     pageResponse: {
       totalPages: 1,
@@ -26,7 +27,7 @@ const dataMock = {
           nodes: [
             {
               hostName: undefined,
-              risk: -2,
+              risk: 'LOW',
               score: 0,
               controlData: [],
               testData: [130, 692, 718, 703, 687]
@@ -43,7 +44,7 @@ const dataMock = {
           nodes: [
             {
               hostName: undefined,
-              risk: -2,
+              risk: 'LOW',
               score: 0,
               controlData: [130],
               testData: [130]

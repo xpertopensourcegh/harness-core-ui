@@ -5,7 +5,7 @@ import type {
   RestResponseListLogAnalysisClusterChartDTO,
   LogData
 } from 'services/cv'
-import { getColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import ClusterChart from './ClusterChart'
 import i18n from './DeploymentDrilldownView.i18n'
@@ -44,7 +44,7 @@ export default function DeploymentLogsTab({ data, clusterChartData, goToPage, is
           {
             name: 'testData',
             type: 'line',
-            color: getColorValue(d.risk!),
+            color: getRiskColorValue(d.risk),
             data: d!.testFrequencyData
           },
           {

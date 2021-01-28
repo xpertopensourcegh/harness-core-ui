@@ -183,7 +183,6 @@ function transformGetApi(
       progress: activityVerificationSummary.progressPercentage || 0,
       activityName,
       activityStatus: activity.verificationStatus,
-      riskScore: activityVerificationSummary.riskScore || -1,
       activityType,
       environmentName,
       serviceIdentifier,
@@ -207,7 +206,6 @@ function transformGetApi(
 //           startTime: currTime,
 //           progress: Math.floor(Math.random() * 100),
 //           activityName: 'Build 78',
-//           riskScore: Math.floor(Math.random() * 100),
 //           activityType: Object.keys(ActivityTypes)[activityTypeIndex],
 //           activitySummaryText: 'Delegate',
 //           uuid: Utils.randomId()

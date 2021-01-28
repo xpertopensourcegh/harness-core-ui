@@ -30,13 +30,13 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
       canary: [
         {
           hostName: 'harness-test-appd-deployment-68977b7dbf-shkq6',
-          riskScore: 'LOW_RISK',
+          risk: 'LOW',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'harness-test-appd-deployment-68977b7dbf-27znb',
-          riskScore: 'LOW_RISK',
+          risk: 'LOW',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         }
@@ -44,73 +44,73 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
       primary: [
         {
           hostName: 'manager-b6b7c4d9b-s228g',
-          riskScore: 'NO_DATA',
+          risk: 'NO_DATA',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-b6b7c4d9b-p2qlw',
-          riskScore: 'HIGH_RISK',
+          risk: 'HIGH',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-58d9c944df-ghqpv',
-          riskScore: null,
+          risk: null,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-58d9c944df-9sv75',
-          riskScore: null,
+          risk: null,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-58d9c944df-czh8b',
-          riskScore: 'NO_DATA',
+          risk: 'NO_DATA',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-58d9c944df-pg5wb',
-          riskScore: null,
+          risk: null,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-58d9c944df-6bkpw',
-          riskScore: null,
+          risk: null,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-b6b7c4d9b-7cp2g',
-          riskScore: 'HIGH_RISK',
+          risk: 'HIGH',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-b6b7c4d9b-s6zzs',
-          riskScore: 'HIGH_RISK',
+          risk: 'HIGH',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'harness-test-appd-deployment-68977b7dbf-shkq6',
-          riskScore: null,
+          risk: null,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-b6b7c4d9b-c8gzk',
-          riskScore: 'HIGH_RISK',
+          risk: 'HIGH',
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'harness-test-appd-deployment-68977b7dbf-27znb',
-          riskScore: null,
+          risk: null,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         }
@@ -139,7 +139,6 @@ describe('Deployment progress and nodes unit tests', () => {
   test('Ensure production info for a canary deeployment is rendered with red bar', async () => {
     const { container, getByText } = render(<DeploymentProgressAndNodes {...CanaryDeploymentMockData} />)
     await waitFor(() => getByText('CANARY'))
-
     expect(container.querySelector('[class*="bp3-intent-danger"]'))
     expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 58%;')
     getByText('PRIMARY')
@@ -148,7 +147,7 @@ describe('Deployment progress and nodes unit tests', () => {
     const deploymentNodes = container.querySelectorAll('[class*="boxWrap"]')
     expect(deploymentNodes.length).toBe(3)
     expect(deploymentNodes[0].querySelector('[class*="box"]')?.children.length).toBe(12)
-    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('[class*="red500"]').length).toBe(4)
-    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('[class*="grey300"]').length).toBe(8)
+    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('.heatmapColor10').length).toBe(4)
+    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('.noAnalysisColor').length).toBe(6)
   })
 })

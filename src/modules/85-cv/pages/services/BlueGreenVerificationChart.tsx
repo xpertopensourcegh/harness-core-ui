@@ -2,13 +2,14 @@ import React from 'react'
 import { Text, Container, Color } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
 import classnames from 'classnames'
+import { getRiskColorStyle } from '@common/components/HeatMap/ColorUtils'
 import styles from './BlueGreenVerificationChart.module.scss'
 
 const MAX_SERIE_LENGTH = 16
 
 export interface NodeData {
   hostName?: string
-  riskScore?: string
+  risk?: string
   anomalousLogClustersCount?: number
   anomalousMetricsCount?: number
 }
@@ -20,19 +21,6 @@ export interface BlueGreenVerificationChartProps {
   percentageAfter?: number
   selectedNode?: NodeData
   onSelectNode?(node?: NodeData): void
-}
-
-const mapColor = (riskScore?: string): Color => {
-  switch (riskScore) {
-    case 'LOW_RISK':
-      return Color.GREEN_400
-    case 'MEDIUM_RISK':
-      return Color.ORANGE_500
-    case 'HIGH_RISK':
-      return Color.RED_500
-    default:
-      return Color.GREY_300
-  }
 }
 
 export default function BlueGreenVerificationChart({
@@ -69,8 +57,7 @@ export default function BlueGreenVerificationChart({
             }
           >
             <Container
-              className={classnames({ [styles.nodeSelected]: cell === selectedNode })}
-              background={cell === selectedNode ? Color.BLUE_500 : mapColor(cell.riskScore)}
+              className={classnames({ [styles.nodeSelected]: cell === selectedNode }, getRiskColorStyle(cell.risk))}
               onClick={canSelectNodes ? () => onSelectNode?.(cell === selectedNode ? undefined : cell) : undefined}
             />
           </Tooltip>
