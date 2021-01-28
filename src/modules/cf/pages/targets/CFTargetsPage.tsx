@@ -152,7 +152,7 @@ const CFTargetsPage: React.FC = () => {
   }, [loadingEnvs])
 
   const loading = loadingEnvs || loadingFlags || loadingSegments || loadingTargets
-  const error = errEnvs || errFlags || errSegments || errTargets
+  const error = errEnvs || errFlags || (view === 'segments' && errSegments) || (view === 'individual' && errTargets)
 
   return (
     <>

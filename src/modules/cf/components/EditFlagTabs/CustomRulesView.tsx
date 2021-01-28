@@ -14,9 +14,10 @@ import {
   Icon,
   useModalHook,
   Button,
-  Popover
+  Popover,
+  SimpleTagInput
 } from '@wings-software/uicore'
-import { Dialog, Menu } from '@blueprintjs/core'
+import { Dialog, Menu, Spinner } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
@@ -414,7 +415,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   const [openMenu, setOpenMenu] = useState(false)
   const [tagOpts] = useOptions(targetAvatars, prop(['name']))
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const { data } = useGetAllTargets({
+  const { data, loading } = useGetAllTargets({
     queryParams: {
       environment,
       project,
@@ -423,12 +424,13 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
     }
   })
 
-  const availableTargets = ((data?.targets || []) as Target[]).map(compose(toOption, prop('identifier'))) || []
+  const availableTargets: Option<string>[] =
+    ((data?.targets || []) as Target[]).map(compose(toOption, prop('identifier'))) || []
   const [tempTargets, setTempTargets] = useState(tagOpts)
 
   const [openEditModal, hideModal] = useModalHook(() => {
     const handleTempTargetChange = (newData: any) => {
-      setTempTargets(newData)
+      setTempTargets(newData.map(toOption))
     }
 
     const handleSaveTemp = () => {
@@ -436,21 +438,31 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
       hideModal()
     }
 
+    const handleClose = () => {
+      setTempTargets(tagOpts)
+      hideModal()
+    }
+
     return (
-      <Dialog isOpen onClose={hideModal} title={`Serve ${variation} to the following`}>
+      <Dialog isOpen onClose={handleClose} title={`Serve ${variation} to the following`}>
         <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
-          <MultiSelect
-            allowCreatingNewItems={false}
-            fill
-            value={tempTargets}
-            items={availableTargets}
-            onChange={handleTempTargetChange}
-          />
+          {loading ? (
+            <Spinner size={24} />
+          ) : (
+            <SimpleTagInput
+              fill
+              allowNewTag={false}
+              selectedItems={tempTargets}
+              items={availableTargets}
+              tagInputProps={{}}
+              onChange={handleTempTargetChange}
+            />
+          )}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
             <Button intent="primary" onClick={handleSaveTemp}>
               {i18n.save}
             </Button>
-            <Button minimal onClick={hideModal}>
+            <Button minimal onClick={handleClose}>
               {i18n.cancel}
             </Button>
             <div style={{ marginLeft: 'auto' }}>
@@ -460,7 +472,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
         </Layout.Vertical>
       </Dialog>
     )
-  }, [tagOpts, availableTargets])
+  }, [tagOpts, availableTargets, tempTargets])
 
   const avatars = editing ? targetAvatars.concat([addTargetAvatar(openEditModal)]) : targetAvatars
   const selectValue = variationOps.find(v => v.value === variation)

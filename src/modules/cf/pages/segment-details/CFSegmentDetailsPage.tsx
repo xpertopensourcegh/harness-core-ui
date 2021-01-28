@@ -13,6 +13,7 @@ import {
   MultiSelectOption,
   Select,
   SelectOption,
+  SimpleTagInput,
   Tabs,
   Text,
   TextInput,
@@ -146,6 +147,7 @@ interface RulesTabProps {
   excluded: string[]
   included: string[]
   availableTargets: string[]
+  loadingTargets: boolean
   rules: Clause[]
   editing: boolean
   loadingSave: boolean
@@ -164,6 +166,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
   included,
   rules,
   availableTargets,
+  loadingTargets,
   editing,
   loadingSave,
   errors,
@@ -178,10 +181,9 @@ const RulesTab: React.FC<RulesTabProps> = ({
   const operators = useOperatorsFromYaml()
 
   const [tempIncluded, setTempIncluded] = useState(included.map(toOption))
-  useEffect(() => setTempIncluded(included.map(toOption)), [included])
   const [openIncluded, hideIncluded] = useModalHook(() => {
     const handleTempIncludedChange = (newData: any) => {
-      setTempIncluded(newData)
+      setTempIncluded(newData.map((x: any) => (typeof x === 'string' ? toOption(x) : x)))
     }
 
     const handleSaveTempIncluded = () => {
@@ -189,21 +191,30 @@ const RulesTab: React.FC<RulesTabProps> = ({
       hideIncluded()
     }
 
+    const handleCancelIncluded = () => {
+      setTempIncluded(included.map(toOption))
+      hideIncluded()
+    }
+
     return (
       <Dialog isOpen onClose={hideIncluded} title={`Serve variation to the following`}>
         <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
-          <MultiSelect
-            fill
-            allowCreatingNewItems={false}
-            value={tempIncluded}
-            items={availableTargets.map(toOption)}
-            onChange={handleTempIncludedChange}
-          />
+          {loadingTargets ? (
+            <Spinner size={24} />
+          ) : (
+            <SimpleTagInput
+              fill
+              allowNewTag={false}
+              selectedItems={tempIncluded}
+              items={availableTargets.map(toOption)}
+              onChange={handleTempIncludedChange}
+            />
+          )}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
             <Button intent="primary" onClick={handleSaveTempIncluded}>
               Save
             </Button>
-            <Button minimal onClick={hideIncluded}>
+            <Button minimal onClick={handleCancelIncluded}>
               Cancel
             </Button>
             <div style={{ marginLeft: 'auto' }}>
@@ -216,10 +227,9 @@ const RulesTab: React.FC<RulesTabProps> = ({
   }, [tempIncluded, availableTargets])
 
   const [tempExcluded, setTempExcluded] = useState(excluded.map(toOption))
-  useEffect(() => setTempExcluded(excluded.map(toOption)), [excluded])
   const [openExcluded, hideExcluded] = useModalHook(() => {
     const handleTempExcludedChange = (newData: any) => {
-      setTempExcluded(newData)
+      setTempExcluded(newData.map((x: any) => (typeof x === 'string' ? toOption(x) : x)))
     }
 
     const handleSaveTempExcluded = () => {
@@ -227,21 +237,30 @@ const RulesTab: React.FC<RulesTabProps> = ({
       hideExcluded()
     }
 
+    const handleCancelExcluded = () => {
+      setTempExcluded(excluded.map(toOption))
+      hideExcluded()
+    }
+
     return (
       <Dialog isOpen onClose={hideExcluded} title={`Serve variation to the following`}>
         <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
-          <MultiSelect
-            fill
-            allowCreatingNewItems={false}
-            value={tempExcluded}
-            items={availableTargets.map(toOption)}
-            onChange={handleTempExcludedChange}
-          />
+          {loadingTargets ? (
+            <Spinner size={24} />
+          ) : (
+            <SimpleTagInput
+              fill
+              allowNewTag={false}
+              selectedItems={tempExcluded}
+              items={availableTargets.map(toOption)}
+              onChange={handleTempExcludedChange}
+            />
+          )}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
             <Button intent="primary" onClick={handleSaveTempExcluded}>
               Save
             </Button>
-            <Button minimal onClick={hideExcluded}>
+            <Button minimal onClick={handleCancelExcluded}>
               Cancel
             </Button>
             <div style={{ marginLeft: 'auto' }}>
@@ -622,6 +641,7 @@ const CFSegmentDetailsPage = () => {
               panel={
                 <RulesTab
                   availableTargets={targets}
+                  loadingTargets={loadingTargets}
                   rules={tempSegment.rules || []}
                   included={tempSegment.included}
                   excluded={tempSegment.excluded}
