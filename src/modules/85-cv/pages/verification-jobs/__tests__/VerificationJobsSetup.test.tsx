@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import * as cvService from 'services/cv'
 import * as cdService from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -371,5 +372,134 @@ describe('VerificationJobsSetup', () => {
     fireEvent.click(getByText('Next'))
     await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
     await waitFor(() => expect(getByText('BlueGreen')).not.toBeNull())
+  })
+
+  test('Ensure that when api returns runtime values, it is transformed correctly for test verification', async () => {
+    jest.spyOn(cvService, 'useGetVerificationJob').mockReturnValue({
+      refetch: jest.fn() as unknown,
+      loading: false,
+      data: {
+        resource: {
+          identifier: 'sdfsfdsf',
+          jobName: 'sdfsfdsf',
+          serviceIdentifier: RUNTIME_INPUT_VALUE,
+          envIdentifier: RUNTIME_INPUT_VALUE,
+          projectIdentifier: 'raghu_p',
+          orgIdentifier: 'harness_test',
+          activitySourceIdentifier: null,
+          dataSources: null,
+          monitoringSources: ['appdtest'],
+          duration: RUNTIME_INPUT_VALUE,
+          sensitivity: RUNTIME_INPUT_VALUE,
+          baselineVerificationJobInstanceId: null,
+          type: 'TEST',
+          defaultJob: false
+        }
+      }
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useListAllSupportedDataSource').mockReturnValue({
+      refetch: jest.fn() as unknown,
+      data: null,
+      loading: false
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cdService, 'useGetEnvironmentListForProject').mockReturnValue({
+      data: MockEnvironentResponse
+    } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cdService, 'useGetServiceListForProject').mockReturnValue({
+      data: MockServiceResponse
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useListBaselineExecutions').mockReturnValue({
+      data: {}
+    } as UseGetReturn<any, any, any, any>)
+
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <VerificationJobsSetup />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    fireEvent.click(getByText('Next'))
+    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
+    expect(container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`).length).toBe(5)
+  })
+
+  test('Ensure that when api returns runtime values, it is transformed correctly for test verification', async () => {
+    jest.spyOn(cvService, 'useGetVerificationJob').mockReturnValue({
+      refetch: jest.fn() as unknown,
+      loading: false,
+      data: {
+        resource: {
+          identifier: 'sdfsfdsf',
+          jobName: 'sdfsfdsf',
+          serviceIdentifier: 'asdasdadsd',
+          envIdentifier: 'test',
+          projectIdentifier: 'raghu_p',
+          orgIdentifier: 'harness_test',
+          activitySourceIdentifier: null,
+          dataSources: null,
+          monitoringSources: ['appdtest'],
+          duration: '15m',
+          sensitivity: RUNTIME_INPUT_VALUE,
+          trafficSplitPercentage: RUNTIME_INPUT_VALUE,
+          type: 'BLUE_GREEN',
+          defaultJob: false
+        }
+      }
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useListAllSupportedDataSource').mockReturnValue({
+      refetch: jest.fn() as unknown,
+      data: null,
+      loading: false
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cdService, 'useGetEnvironmentListForProject').mockReturnValue({
+      data: MockEnvironentResponse
+    } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cdService, 'useGetServiceListForProject').mockReturnValue({
+      data: MockServiceResponse
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useListBaselineExecutions').mockReturnValue({
+      data: {}
+    } as UseGetReturn<any, any, any, any>)
+
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <VerificationJobsSetup />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    fireEvent.click(getByText('Next'))
+    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
+    const dynamicFields = container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`)
+    expect(dynamicFields.length).toBe(2)
+    expect(dynamicFields[1].getAttribute('name')).toEqual('trafficSplit')
+    expect(dynamicFields[0].getAttribute('name')).toEqual('sensitivity')
   })
 })

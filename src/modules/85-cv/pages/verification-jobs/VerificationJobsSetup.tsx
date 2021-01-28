@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, IconName } from '@wings-software/uicore'
+import { Container, IconName, RUNTIME_INPUT_VALUE, SelectOption } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 
@@ -47,6 +47,25 @@ export const getIconByVerificationType = (type: string | undefined) => {
     default:
       return '' as IconName
   }
+}
+
+export function getRuntimeValueOrSelectOption(val?: string): SelectOption | string | undefined {
+  if (!val) {
+    return
+  }
+  return val === RUNTIME_INPUT_VALUE ? val : { label: val, value: val }
+}
+
+export function getRuntimeValueOrSelectOptionForSensitivity(
+  val?: VerificationSensitivity | string
+): SelectOption | string | undefined {
+  if (!val) {
+    return
+  }
+
+  return val === RUNTIME_INPUT_VALUE
+    ? val
+    : { label: sensitivityEnunToLabel(val as VerificationSensitivity), value: val }
 }
 
 export function sensitivityEnunToLabel(sensitivity: VerificationSensitivity): string {
@@ -112,28 +131,14 @@ const VerificationJobsSetup = (): JSX.Element => {
           label: source,
           value: source
         })),
-        sensitivity: (verificationJob.resource as any).sensitivity
-          ? {
-              label: sensitivityEnunToLabel((verificationJob.resource as any).sensitivity),
-              value: (verificationJob.resource as any).sensitivity
-            }
-          : undefined,
-        trafficSplit: (verificationJob.resource as any).trafficSplitPercentage
-          ? {
-              label: (verificationJob.resource as any).trafficSplitPercentage,
-              value: (verificationJob.resource as any).trafficSplitPercentage
-            }
-          : undefined,
-        duration: verificationJob.resource.duration
-          ? { label: verificationJob.resource.duration, value: verificationJob.resource.duration }
-          : undefined,
+        sensitivity: getRuntimeValueOrSelectOptionForSensitivity((verificationJob.resource as any).sensitivity),
+        trafficSplit: getRuntimeValueOrSelectOption((verificationJob.resource as any).trafficSplitPercentage),
+        duration: getRuntimeValueOrSelectOption(verificationJob.resource.duration),
         name: verificationJob.resource.jobName,
-        service: {
-          label: verificationJob.resource.serviceIdentifier,
-          value: verificationJob.resource.serviceIdentifier
-        },
-        environment: { label: verificationJob.resource.envIdentifier, value: verificationJob.resource.envIdentifier },
-        activitySource: verificationJob.resource.activitySourceIdentifier
+        service: getRuntimeValueOrSelectOption(verificationJob.resource.serviceIdentifier),
+        environment: getRuntimeValueOrSelectOption(verificationJob.resource.envIdentifier),
+        activitySource: verificationJob.resource.activitySourceIdentifier,
+        baseline: getRuntimeValueOrSelectOption(verificationJob.resource.envIdentifier)
       } as VerificationJobsData)
     }
   }, [verificationJob?.resource])
