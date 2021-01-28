@@ -17,6 +17,10 @@
     background: var(--grey-200);
     text-decoration: none;
   }
+  &.disabled {
+    cursor: not-allowed;
+    color: var(--grey-400);
+  }
 }
 .activeTag {
   background: var(--grey-800);

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Layout } from '@wings-software/uicore'
 import { NavLink, useParams } from 'react-router-dom'
+import cx from 'classnames'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
@@ -70,8 +71,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
                 {getString('studioText')}
               </NavLink>
               <NavLink
-                className={css.tags}
+                className={cx(css.tags, { [css.disabled]: pipelineIdentifier === DefaultNewPipelineId })}
                 activeClassName={css.activeTag}
+                onClick={e => pipelineIdentifier === DefaultNewPipelineId && e.preventDefault()}
                 to={routes.toPipelineDeploymentList({
                   orgIdentifier,
                   projectIdentifier,
@@ -84,8 +86,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
               </NavLink>
 
               <NavLink
-                className={css.tags}
+                className={cx(css.tags, { [css.disabled]: pipelineIdentifier === DefaultNewPipelineId })}
                 activeClassName={css.activeTag}
+                onClick={e => pipelineIdentifier === DefaultNewPipelineId && e.preventDefault()}
                 to={routes.toInputSetList({
                   orgIdentifier,
                   projectIdentifier,
@@ -97,8 +100,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
                 {getString('inputSetsText')}
               </NavLink>
               <NavLink
-                className={css.tags}
+                className={cx(css.tags, { [css.disabled]: pipelineIdentifier === DefaultNewPipelineId })}
                 activeClassName={css.activeTag}
+                onClick={e => pipelineIdentifier === DefaultNewPipelineId && e.preventDefault()}
                 to={routes.toTriggersPage({
                   orgIdentifier,
                   projectIdentifier,
