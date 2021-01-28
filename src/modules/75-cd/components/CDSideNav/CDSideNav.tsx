@@ -5,15 +5,15 @@ import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/exports'
 
 export default function CDSideNav(): React.ReactElement {
-  const params = useParams<ProjectPathProps>()
-  const { accountId, projectIdentifier, orgIdentifier } = params
+  const params = useParams<PipelinePathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = params
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const module = 'cd'
@@ -26,7 +26,8 @@ export default function CDSideNav(): React.ReactElement {
         moduleFilter={ModuleName.CD}
         onSelect={data => {
           updateAppStore({ selectedProject: data })
-          if (projectIdentifier) {
+          // if a user is on a pipeline related page, redirect them to project dashboard
+          if (projectIdentifier && !pipelineIdentifier) {
             // changing project
             history.push(
               compile(routeMatch.path)({

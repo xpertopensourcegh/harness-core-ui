@@ -5,14 +5,14 @@ import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { useAppStore, useStrings } from 'framework/exports'
 import { ModuleName } from 'framework/types/ModuleName'
 
 export default function CVSideNav(): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
   const routeMatch = useRouteMatch()
   const { getString } = useStrings()
   const history = useHistory()
@@ -25,7 +25,8 @@ export default function CVSideNav(): React.ReactElement {
         moduleFilter={ModuleName.CV}
         onSelect={data => {
           updateAppStore({ selectedProject: data })
-          if (projectIdentifier) {
+          // if a user is on a pipeline related page, redirect them to project dashboard
+          if (projectIdentifier && !pipelineIdentifier) {
             // changing project
             history.push(
               compile(routeMatch.path)({

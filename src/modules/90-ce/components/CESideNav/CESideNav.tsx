@@ -5,12 +5,12 @@ import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/exports'
 
 export default function CESideNav(): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
   const routeMatch = useRouteMatch()
   const history = useHistory()
 
@@ -20,7 +20,8 @@ export default function CESideNav(): React.ReactElement {
       <ProjectSelector
         moduleFilter={ModuleName.CE}
         onSelect={data => {
-          if (projectIdentifier) {
+          // if a user is on a pipeline related page, redirect them to project dashboard
+          if (projectIdentifier && !pipelineIdentifier) {
             // changing project
             history.push(
               compile(routeMatch.path)({
