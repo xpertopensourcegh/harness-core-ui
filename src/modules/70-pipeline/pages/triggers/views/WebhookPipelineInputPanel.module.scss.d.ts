@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly webhookPipelineInputContainer: string
+  readonly heading: string
   readonly pipelineInputRow: string
   readonly inputsetGrid: string
   readonly treeSidebar: string

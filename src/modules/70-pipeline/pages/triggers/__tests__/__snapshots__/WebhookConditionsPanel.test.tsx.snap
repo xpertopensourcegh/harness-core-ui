@@ -136,6 +136,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               <div
                 class="bp3-form-group"
                 data-id="sourceBranchOperator-0"
+                style="align-self: center;"
               >
                 <label
                   class="bp3-label"
@@ -199,6 +200,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               <div
                 class="bp3-form-group"
                 data-id="sourceBranchValue-1"
+                style="align-self: center;"
               >
                 <label
                   class="bp3-label"
@@ -241,6 +243,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               <div
                 class="bp3-form-group"
                 data-id="targetBranchOperator-2"
+                style="align-self: center;"
               >
                 <label
                   class="bp3-label"
@@ -304,6 +307,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               <div
                 class="bp3-form-group"
                 data-id="targetBranchValue-3"
+                style="align-self: center;"
               >
                 <label
                   class="bp3-label"

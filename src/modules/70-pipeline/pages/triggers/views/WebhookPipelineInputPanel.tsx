@@ -156,9 +156,12 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
           </div>
         </div>
       ) : (
-        <Layout.Horizontal padding="medium" margin="medium">
+        <Layout.Vertical style={{ padding: '0 var(--spacing-small)' }} margin="large" spacing="large">
+          <h2 className={css.heading} style={{ marginTop: '0!important' }}>
+            {getString('pipeline-triggers.pipelineInputLabel')}
+          </h2>
           <Text>{getString('pipeline-triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
-        </Layout.Horizontal>
+        </Layout.Vertical>
       )}
     </Layout.Vertical>
   )

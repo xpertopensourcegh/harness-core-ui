@@ -190,6 +190,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                     defaultChecked={Array.isArray(actions) && actions.length === 0}
                     className={css.anyAction}
                     onClick={(e: React.FormEvent<HTMLInputElement>) => {
+                      formikProps.setFieldTouched('actions', true)
                       if (e.currentTarget?.checked) {
                         formikProps.setFieldValue('actions', [])
                       } else {

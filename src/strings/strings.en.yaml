@@ -623,7 +623,7 @@ pipeline-triggers:
     matchesValue: 'Matches Value'
     jexlConditions: 'JEXL Conditions'
   pipelineInputPanel:
-    noRuntimeInputs: 'No Runtime inputs'
+    noRuntimeInputs: 'No Runtime Inputs'
 repo-provider:
   bitbucketLabel: BitBucket
   customLabel: Custom

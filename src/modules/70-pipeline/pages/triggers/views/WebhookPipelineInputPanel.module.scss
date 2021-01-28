@@ -1,6 +1,9 @@
 .webhookPipelineInputContainer {
   width: 800px !important;
   // padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
+  .heading {
+    margin: 0;
+  }
 }
 
 .pipelineInputRow {

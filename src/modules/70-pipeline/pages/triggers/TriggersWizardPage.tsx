@@ -353,8 +353,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         formikInitialProps={{
           initialValues,
           onSubmit: (val: FlatValidFormikValuesInterface) => handleSubmit(val),
-          validateOnBlur: false,
-          validateOnChange: isEdit,
           validationSchema: getValidationSchema(getString),
           enableReinitialize: true
         }}
