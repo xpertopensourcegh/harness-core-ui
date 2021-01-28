@@ -37,13 +37,12 @@ import {
 import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import { PageSpinner } from '@common/components'
+import { PageSpinner, NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useAppStore, useStrings } from 'framework/exports'
@@ -365,7 +364,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             handleSubmit(values)
           }}
         >
-          {({ values }) => {
+          {formikProps => {
             return (
               <>
                 {selectedView === SelectedView.VISUAL ? (
@@ -383,11 +382,13 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                       <FormikForm>
                         {executionView ? null : (
                           <Layout.Vertical className={css.content} padding="xlarge">
-                            <AddDescriptionAndKVTagsWithIdentifier
+                            <NameIdDescriptionTags
+                              className={css.nameiddescription}
                               identifierProps={{
                                 inputLabel: i18n.inputSetName,
                                 isIdentifierEditable: !isEdit
                               }}
+                              formikProps={formikProps}
                             />
                             {pipeline?.data?.yamlPipeline &&
                               template?.data?.inputSetTemplateYaml &&
@@ -421,7 +422,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                       ) : (
                         <YAMLBuilder
                           {...yamlBuilderReadOnlyModeProps}
-                          existingJSON={{ inputSet: omit(values, 'inputSetReferences') }}
+                          existingJSON={{ inputSet: omit(formikProps?.values, 'inputSetReferences') }}
                           bind={setYamlHandler}
                           schema={pipelineSchema?.data}
                           height="calc(100vh - 230px)"

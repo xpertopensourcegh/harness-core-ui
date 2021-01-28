@@ -239,7 +239,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Setup Stage
+                Set up Stage
               </span>
             </button>
           </div>
@@ -636,7 +636,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Setup Stage
+                Set up Stage
               </span>
             </button>
           </div>

@@ -18,5 +18,6 @@ declare const styles: {
   readonly cardCard: string
   readonly inputSetcard: string
   readonly errorHeader: string
+  readonly nameiddescription: string
 }
 export default styles

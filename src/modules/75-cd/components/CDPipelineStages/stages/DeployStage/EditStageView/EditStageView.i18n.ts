@@ -6,7 +6,7 @@ export default {
   // Service Selection
   service: 'Service',
   stageNameRequired: 'Stage Name is required',
-  multipleService: 'Multiple Service',
+  multipleService: 'Multiple Services',
   functions: 'Functions',
   otherWorkloads: 'Other Workloads',
   setupStage: 'Setup Stage',

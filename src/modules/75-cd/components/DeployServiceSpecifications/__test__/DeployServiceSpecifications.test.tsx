@@ -122,12 +122,10 @@ describe.skip('OverrideSet tests', () => {
     await waitFor(() => document.body.querySelector('.bp3-menu'))
     const stage1Option = await findByText(document.body, 'Previous Stage st1 [st1]')
     fireEvent.click(stage1Option)
-
     //Enable use of OverrideSet
     const overrideSetCheckbox = container.querySelector('input[id=overrideSetCheckbox]')
     expect(overrideSetCheckbox).toBeDefined()
     fireEvent.click(overrideSetCheckbox as Element)
-    expect(overrideSetCheckbox).toMatchSnapshot('changed data')
     //Add Predefined Set to list
     await waitFor(() => findByText(container, '+ Add Predefined Set'))
     let addOverrideSetButton = container.querySelector('button[class*="addOverrideSetButton"]')

@@ -1,8 +1,7 @@
 import React from 'react'
-import { queryByAttribute, render, getByPlaceholderText, fireEvent, act, waitFor } from '@testing-library/react'
+import { queryByAttribute, render, fireEvent, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import PipelineCreate from '../CreateModal/PipelineCreate'
-import i18n from '../CreateModal/PipelineCreate.i18n'
 import type { PipelineCreateProps } from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 
@@ -30,22 +29,22 @@ describe('PipelineCreate test', () => {
     )
     expect(container).toMatchSnapshot()
     expect(queryByAttribute('class', container, /container/)).not.toBeNull()
-    const nameInput = getByPlaceholderText(container, i18n.pipelineNamePlaceholder)
+    const nameInput = container.querySelector('[name="name"]')
     expect(nameInput).not.toBeNull()
-    const collpase = container.querySelector('[class*="collapseDiv"]')
+    const collpase = container.querySelector('.Collapse--main')?.querySelector('.CollapseHeader--leftSection')
     expect(collpase).not.toBeNull()
     const submit = container.getElementsByTagName('button')[0]
     await act(async () => {
-      fireEvent.change(nameInput, 'Sample Pipeline')
+      fireEvent.change(nameInput as Element, 'Sample Pipeline')
       fireEvent.click(submit)
     })
-    await waitFor(() => nameInput.getAttribute('value') == 'Sample Pipeline')
+    await waitFor(() => nameInput?.getAttribute('value') == 'Sample Pipeline')
     if (collpase) {
       await act(async () => {
         fireEvent.click(collpase)
       })
 
-      expect(container.querySelector('[class*="collapseDiv"]')).not.toBeNull()
+      expect(container.querySelector('.Collapse--main')).not.toBeNull()
     }
   })
   test('initializes ok for CD module', async () => {
@@ -62,22 +61,22 @@ describe('PipelineCreate test', () => {
     )
     expect(container).toMatchSnapshot()
     expect(queryByAttribute('class', container, /container/)).not.toBeNull()
-    const nameInput = getByPlaceholderText(container, i18n.pipelineNamePlaceholder)
+    const nameInput = container.querySelector('[name="name"]')
     expect(nameInput).not.toBeNull()
-    const collpase = container.querySelector('[class*="collapseDiv"]')
+    const collpase = container.querySelector('.Collapse--main')?.querySelector('.CollapseHeader--leftSection')
     expect(collpase).not.toBeNull()
     const submit = container.getElementsByTagName('button')[0]
     await act(async () => {
-      fireEvent.change(nameInput, 'Sample Pipeline')
+      fireEvent.change(nameInput as Element, 'Sample Pipeline')
       fireEvent.click(submit)
     })
-    await waitFor(() => nameInput.getAttribute('value') == 'Sample Pipeline')
+    await waitFor(() => nameInput?.getAttribute('value') == 'Sample Pipeline')
     if (collpase) {
       await act(async () => {
         fireEvent.click(collpase)
       })
 
-      expect(container.querySelector('[class*="collapseDiv"]')).not.toBeNull()
+      expect(container.querySelector('.Collapse--main')).not.toBeNull()
     }
   })
   test('initializes ok edit pipeline', async () => {

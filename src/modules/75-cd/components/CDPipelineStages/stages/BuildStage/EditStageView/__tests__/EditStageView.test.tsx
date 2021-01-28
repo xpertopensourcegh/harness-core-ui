@@ -71,7 +71,7 @@ describe('EditStageView save', () => {
     const { getByText } = renderComponent(getStepData(), submitFn)
 
     await act(async () => {
-      fireEvent.click(getByText('Setup Stage'))
+      fireEvent.click(getByText('Set up Stage'))
     })
 
     expect(submitFn).toBeCalled()
@@ -81,7 +81,7 @@ describe('EditStageView save', () => {
     const { getByText } = renderComponent(undefined, submitFn)
 
     await act(async () => {
-      fireEvent.click(getByText('Setup Stage'))
+      fireEvent.click(getByText('Set up Stage'))
     })
 
     expect(submitFn).not.toBeCalled()

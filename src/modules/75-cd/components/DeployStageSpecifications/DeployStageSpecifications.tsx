@@ -43,7 +43,7 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
   }, [])
 
   return (
-    <Layout.Vertical spacing="large">
+    <Layout.Vertical spacing="large" style={{ paddingBottom: '64px' }}>
       <EditStageView
         data={cloneOriginalData}
         context={'setup'}

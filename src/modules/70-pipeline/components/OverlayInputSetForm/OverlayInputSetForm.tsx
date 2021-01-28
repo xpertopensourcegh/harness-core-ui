@@ -32,7 +32,7 @@ import type {
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { NameIdDescriptionTags } from '@common/components'
 import i18n from './OverlayInputSetForm.18n'
 import css from './OverlayInputSetForm.module.scss'
 
@@ -367,18 +367,19 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
               handleSubmit(values)
             }}
           >
-            {({ values }) => {
+            {formikProps => {
               return (
                 <>
                   {selectedView === SelectedView.VISUAL ? (
                     <FormikForm>
                       <div className={css.inputSetForm}>
-                        <AddDescriptionAndKVTagsWithIdentifier
+                        <NameIdDescriptionTags
                           className={css.inputSetName}
                           identifierProps={{
                             inputLabel: i18n.overlaySetName,
                             isIdentifierEditable: !isEdit
                           }}
+                          formikProps={formikProps}
                         />
 
                         <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }} spacing="small">
@@ -391,7 +392,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                               name="inputSetReferences"
                               render={arrayHelpers => (
                                 <Layout.Vertical>
-                                  {values.inputSetReferences?.map((inputReference, index) => (
+                                  {formikProps?.values.inputSetReferences?.map((inputReference, index) => (
                                     <Layout.Horizontal
                                       key={`${index}-${inputReference}`}
                                       flex={{ distribution: 'space-between' }}
@@ -449,7 +450,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                       ) : (
                         <YAMLBuilder
                           {...yamlBuilderReadOnlyModeProps}
-                          existingJSON={{ overlayInputSet: omit(values, 'pipeline') }}
+                          existingJSON={{ overlayInputSet: omit(formikProps?.values, 'pipeline') }}
                           invocationMap={invocationMap}
                           bind={setYamlHandler}
                           schema={pipelineSchema?.data}

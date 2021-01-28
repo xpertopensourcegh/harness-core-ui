@@ -100,7 +100,7 @@ describe('Stage Builder Test', () => {
     // Enter Stage Name
     fireEvent.change(stageName!, { target: { value: 'New Stage' } })
     await waitFor(() => getByTextBody(document.body, 'New_Stage'))
-    const setupStage = getByTextBody(document.body, 'Setup Stage')
+    const setupStage = getByTextBody(document.body, 'Set up Stage')
     // Click Setup
     fireEvent.click(setupStage)
     await waitFor(() => getByTextBody(document.body, 'Propagate from existing service'))
@@ -205,7 +205,7 @@ describe('Stage Builder Test', () => {
     // Enter Stage Name
     fireEvent.change(stageName!, { target: { value: 'New Stage' } })
     await waitFor(() => expect(getByTextBody(document.body, 'New_Stage')).toBeDefined())
-    const setupStage = getByTextBody(document.body, 'Setup Stage')
+    const setupStage = getByTextBody(document.body, 'Set up Stage')
     // Click Setup
     fireEvent.click(setupStage)
     await waitFor(() => getByTextContainer('Deploy different service'))

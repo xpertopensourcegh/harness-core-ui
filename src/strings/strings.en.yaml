@@ -832,7 +832,7 @@ pipelineSteps:
       repositoryNameRequiredError: 'Repository Name is required'
       repositoryUrlWrongUrlError: 'Please enter valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
-      setupStage: 'Setup Stage'
+      setupStage: 'Set up Stage'
 
     stageSpecifications:
       stageNamePlaceholder: 'Enter your stage name'
@@ -854,6 +854,8 @@ pipelineSteps:
       propagateConnectorLabel: 'Kubernetes Cluster'
       namespace: 'Namespace'
   deploy:
+    create:
+      multipleServices: Multiple Services
     inputSet:
       imagePath: 'Image Path'
       artifactServer: 'Artifact Server'

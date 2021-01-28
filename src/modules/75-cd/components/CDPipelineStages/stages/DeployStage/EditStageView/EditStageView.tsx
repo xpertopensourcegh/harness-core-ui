@@ -4,7 +4,6 @@ import {
   Container,
   Formik,
   FormikForm,
-  FormInput,
   Button,
   CardBody,
   Card,
@@ -29,6 +28,7 @@ import {
   PipelineContext
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
+import { NameIdDescription } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
@@ -72,13 +72,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
       pipeline: { stages = [] }
     }
   } = React.useContext(PipelineContext)
-  const [isDescriptionVisible, toggleDescription] = React.useState(!!data?.stage?.description)
   const { stepsFactory } = usePipelineContext()
-
-  const removeDescription = (values: any) => {
-    onChange?.({ ...values, description: '' })
-    toggleDescription(false)
-  }
 
   const { getString } = useStrings()
 
@@ -98,6 +92,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                 identifier: data?.stage.identifier,
                 name: data?.stage.name,
                 description: data?.stage.description,
+                tags: data?.stage?.tags || '',
                 skipCondition: data?.stage.skipCondition,
                 serviceType: newStageData[0]
               }}
@@ -125,34 +120,12 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
               {formikProps => {
                 return (
                   <FormikForm>
-                    <div className={cx({ [css.inputContainer]: true, [css.sideDescription]: !!context })}>
-                      <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
-
-                      {!isDescriptionVisible && (
-                        <Button
-                          minimal
-                          text={getString('description')}
-                          className={css.toggleDesc}
-                          icon="plus"
-                          onClick={() => toggleDescription(true)}
-                        />
-                      )}
-                    </div>
-                    {isDescriptionVisible && (
-                      <div>
-                        <span
-                          onClick={() => removeDescription(formikProps.values)}
-                          className={cx({ [css.removeLink]: true, [css.dialogView]: !context })}
-                        >
-                          {i18n.removeLabel}
-                        </span>
-                        <FormInput.TextArea
-                          name="description"
-                          label={getString('description')}
-                          style={{ width: context ? 440 : 320 }}
-                        />
-                      </div>
-                    )}
+                    <NameIdDescription
+                      formikProps={formikProps}
+                      identifierProps={{
+                        isIdentifierEditable: !context
+                      }}
+                    />
                     <div className={css.labelBold}>
                       <Label>{i18n.whatToDeploy}</Label>
                     </div>
@@ -195,7 +168,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                         <Button
                           type="submit"
                           intent="primary"
-                          text={i18n.setupStage}
+                          text={getString('pipelineSteps.build.create.setupStage')}
                           onClick={() => {
                             formikProps.submitForm()
                           }}

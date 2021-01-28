@@ -111,7 +111,7 @@ describe('Test Pipeline Studio', () => {
     )
     await waitFor(() => getByText(document.body, 'Welcome to the Pipeline Studio'))
     const dialog = findDialogContainer()
-    const input = dialog?.querySelector('[placeholder="Name"]') as HTMLElement
+    const input = dialog?.querySelector('[name="name"]') as HTMLElement
     fireEvent.change(input, { target: { value: 'test' } })
     fireEvent.click(getByText(dialog as HTMLElement, 'Start'))
     const saveBtn = getByText(document.body, 'Save')

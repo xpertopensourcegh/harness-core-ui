@@ -193,6 +193,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       >
         <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
           <Tab
+            panelClassName="tabsfoo"
             id={i18n.defaultId}
             panel={<DeployStageSpecifications>{navBtns}</DeployStageSpecifications>}
             title={

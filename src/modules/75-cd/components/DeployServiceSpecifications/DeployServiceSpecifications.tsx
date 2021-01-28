@@ -388,12 +388,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           </Layout.Vertical>
         </div>
       )}
-      {stageIndex > 0 && setupModeType === setupMode.PROPAGATE && (
+      {stageIndex > 0 && setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.label && (
         <Layout.Horizontal flex={true} className={cx(css.specTabs, css.tabHeading)}>
           <Button minimal text={i18n.stageOverrideLabel} className={css.selected} />
         </Layout.Horizontal>
       )}
-      {stageIndex > 0 && setupModeType === setupMode.PROPAGATE && (
+      {stageIndex > 0 && setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.label && (
         <Layout.Vertical spacing="medium" padding="xxlarge">
           <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
             <input
@@ -507,7 +507,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           </div>
         </>
       )}
-      {setupModeType === setupMode.PROPAGATE && checkedItems.overrideSetCheckbox && (
+      {setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.label && checkedItems.overrideSetCheckbox && (
         <div className={cx(css.artifactType, css.overrideAlignCenter)}>
           <Tabs id="serviceSpecifications" onChange={handleTabChange}>
             <Tab

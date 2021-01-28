@@ -1,24 +1,12 @@
 import React from 'react'
-import {
-  Container,
-  Heading,
-  Formik,
-  FormikForm,
-  FormInput,
-  Button,
-  Collapse,
-  IconName,
-  Text,
-  Carousel
-} from '@wings-software/uicore'
+import { Container, Heading, Formik, FormikForm, Button, Text, Carousel } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import isEmpty from 'lodash-es/isEmpty'
 import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName, useStrings } from 'framework/exports'
 import type { NgPipeline } from 'services/cd-ng'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { StringUtils } from '@common/exports'
-import i18n from './PipelineCreate.i18n'
+import { NameIdDescriptionTags } from '@common/components'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import image1 from './images/first.png'
 import image2 from './images/second.png'
@@ -26,16 +14,10 @@ import image3 from './images/third.png'
 import ciSteps from './images/ci-steps.svg'
 import pipelineStudio from './images/pipeline-studio.svg'
 import testIntelligence from './images/test-intelligence.svg'
+import i18n from './PipelineCreate.i18n'
 import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
-const collapseProps = {
-  collapsedIcon: 'small-plus' as IconName,
-  expandedIcon: 'small-minus' as IconName,
-  isOpen: false,
-  isRemovable: false,
-  className: 'collapse'
-}
 
 export interface PipelineCreateProps {
   afterSave?: (values: NgPipeline) => void
@@ -43,15 +25,12 @@ export interface PipelineCreateProps {
   closeModal?: () => void
 }
 
-const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18n.description })
-const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.tags })
-
 export default function CreatePipelines({
   afterSave,
   initialValues = { identifier: '', name: '', description: '', tags: {} },
   closeModal
 }: PipelineCreateProps): JSX.Element {
-  const { module, pipelineIdentifier } = useParams<PipelineType<{ module: string; pipelineIdentifier: string }>>()
+  const { module } = useParams<PipelineType<{ module: string; pipelineIdentifier: string }>>()
   const { getString } = useStrings()
 
   const identifier = initialValues?.identifier
@@ -86,27 +65,15 @@ export default function CreatePipelines({
               afterSave && afterSave(values)
             }}
           >
-            {({ values }) => (
+            {formikProps => (
               <FormikForm>
                 <div className={css.formInput}>
-                  <FormInput.InputWithIdentifier
-                    isIdentifierEditable={pipelineIdentifier === DefaultNewPipelineId}
-                    inputLabel={i18n.pipelineNameLabel}
-                    inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
+                  <NameIdDescriptionTags
+                    formikProps={formikProps}
+                    identifierProps={{
+                      isIdentifierEditable: !isEdit
+                    }}
                   />
-                  <div className={css.collapseDiv}>
-                    <Collapse
-                      {...descriptionCollapseProps}
-                      isOpen={(values.description && values.description?.length > 0) || false}
-                    >
-                      <FormInput.TextArea name="description" />
-                    </Collapse>
-                  </div>
-                  <div className={css.collapseDiv}>
-                    <Collapse {...tagCollapseProps} isOpen={!isEmpty(values?.tags)}>
-                      <FormInput.KVTagInput name="tags" />
-                    </Collapse>
-                  </div>
                 </div>
                 <Button
                   intent="primary"
