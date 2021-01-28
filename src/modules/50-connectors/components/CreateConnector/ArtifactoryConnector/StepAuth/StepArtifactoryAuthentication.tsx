@@ -82,11 +82,11 @@ const StepArtifactoryAuthentication: React.FC<
     {
       label: getString('usernamePassword'),
       value: AuthTypes.USER_PASSWORD
+    },
+    {
+      label: getString('anonymous'),
+      value: AuthTypes.ANNONYMOUS
     }
-    // {
-    //   label: getString('annonymous'),
-    //   value: AuthTypes.ANNONYMOUS
-    // }
   ]
 
   const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {

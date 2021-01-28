@@ -41,6 +41,7 @@ describe('Connector Utils', () => {
           identifier: 'dummy_name',
           tags: {},
           artifactoryServerUrl: 'dummyurl',
+          authType: 'UsernamePassword',
           username: { type: 'TEXT', value: 'dummyusername' },
           password: { name: 'jkdhkjdhk', identifier: 'jkdhkjdhk', referenceString: 'account.jkdhkjdhk' }
         })

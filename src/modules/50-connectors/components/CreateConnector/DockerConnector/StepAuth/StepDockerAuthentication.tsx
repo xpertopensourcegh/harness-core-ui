@@ -86,7 +86,7 @@ const StepDockerAuthentication: React.FC<
       value: AuthTypes.USER_PASSWORD
     },
     {
-      label: getString('annonymous'),
+      label: getString('anonymous'),
       value: AuthTypes.ANNONYMOUS
     }
   ]

@@ -745,21 +745,22 @@ export const buildKubFormData = (connector: ConnectorInfoDTO) => {
 export const buildNexusPayload = (formData: FormData) => {
   const savedData = {
     type: Connectors.NEXUS,
+
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     spec: {
       nexusServerUrl: formData?.nexusServerUrl,
       version: formData?.nexusVersion,
-      auth:
-        formData.username && formData.password
-          ? {
-              type: AuthTypes.USER_PASSWORD,
-              spec: {
+      auth: {
+        type: formData.authType,
+        spec:
+          formData.authType === AuthTypes.USER_PASSWORD
+            ? {
                 username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
                 usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
                 passwordRef: formData.password.referenceString
               }
-            }
-          : null
+            : null
+      }
     }
   }
 
@@ -772,17 +773,17 @@ export const buildArtifactoryPayload = (formData: FormData) => {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     spec: {
       artifactoryServerUrl: formData?.artifactoryServerUrl,
-      auth:
-        formData.username && formData.password
-          ? {
-              type: AuthTypes.USER_PASSWORD,
-              spec: {
+      auth: {
+        type: formData.authType,
+        spec:
+          formData.authType === AuthTypes.USER_PASSWORD
+            ? {
                 username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
                 usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
                 passwordRef: formData.password.referenceString
               }
-            }
-          : null
+            : null
+      }
     }
   }
 
