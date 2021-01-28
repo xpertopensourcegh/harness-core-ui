@@ -1,10 +1,11 @@
 import React from 'react'
-import { isPlainObject, toPairs, startCase, isEmpty } from 'lodash-es'
+import { isPlainObject, toPairs, startCase, isEmpty, isNil } from 'lodash-es'
 import { Collapse as BPCollapse, Icon } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import { useStrings } from 'framework/exports'
 import { CopyText } from '@common/components/CopyText/CopyText'
+import { toVariableStr } from '@common/utils/StringUtils'
 import css from './ExecutionStepDetails.module.scss'
 
 function Collapse(props: React.PropsWithChildren<{ title: string }>): React.ReactElement {
@@ -36,26 +37,26 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
   return (
     <React.Fragment>
       {toPairs(props.data).map(([key, value]) => {
-        if (key.startsWith('_')) return null
+        if (key.startsWith('_') || isNil(value) || isEmpty(value)) return null
 
-        if (typeof value === 'string') {
+        const newKey = `${props.prefix}.${key}`
+
+        if (isPlainObject(value)) {
+          return (
+            <Collapse key={key} title={startCase(key)}>
+              <ExecutionStepInputOutputTabRow prefix={newKey} data={value} level={props.level + 1} />
+            </Collapse>
+          )
+        } else {
           return (
             <div className={css.ioRow} key={key}>
               <div className={css.key}>
-                <CopyText textToCopy={`<+${props.prefix}.${key}>`}>{startCase(key)}</CopyText>
+                <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
               </div>
               <div className={css.value}>{value}</div>
             </div>
           )
-        } else if (isPlainObject(value) && !isEmpty(value)) {
-          return (
-            <Collapse key={key} title={startCase(key)}>
-              <ExecutionStepInputOutputTabRow prefix={`${props.prefix}.${key}`} data={value} level={props.level + 1} />
-            </Collapse>
-          )
         }
-
-        return null
       })}
     </React.Fragment>
   )
