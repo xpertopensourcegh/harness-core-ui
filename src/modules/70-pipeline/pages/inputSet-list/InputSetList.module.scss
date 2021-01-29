@@ -9,3 +9,7 @@
 .actionButton {
   transform: rotate(90deg);
 }
+.runPipelineBtn {
+  background-color: var(--green-500) !important;
+  border-color: var(--green-500) !important;
+}

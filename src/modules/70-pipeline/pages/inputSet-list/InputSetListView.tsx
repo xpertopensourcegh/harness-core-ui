@@ -81,7 +81,7 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         }
       ]}
     >
-      <Button icon="run-pipeline" intent="primary" text={i18n.runPipeline} />
+      <Button icon="run-pipeline" className={css.runPipelineBtn} intent="primary" text={i18n.runPipeline} />
     </RunPipelineModal>
   )
 }

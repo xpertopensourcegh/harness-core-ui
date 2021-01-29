@@ -3,6 +3,7 @@ import { Text, Layout, Color, Button, Popover, Switch, Pagination, Container, Ic
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Menu, Position, Tag } from '@blueprintjs/core'
 import { startCase } from 'lodash-es'
+import produce from 'immer'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
 import type { NotificationRules, PipelineEvent } from 'services/pipeline-ng'
@@ -51,8 +52,13 @@ const RenderColumnEnabled: Renderer<CellProps<NotificationRules>> = ({ row, colu
     <Switch
       checked={data.enabled}
       onChange={e => {
-        data.enabled = e.currentTarget.checked
-        ;(column as any).onUpdate?.(data, row.id, Actions.Update)
+        ;(column as any).onUpdate?.(
+          produce(data, draft => {
+            draft.enabled = e.currentTarget.checked
+          }),
+          row.id,
+          Actions.Update
+        )
       }}
     />
   )
