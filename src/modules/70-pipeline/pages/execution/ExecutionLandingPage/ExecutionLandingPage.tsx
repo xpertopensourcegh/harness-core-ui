@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 
 import { isEmpty } from 'lodash-es'
 import { Layout, Text } from '@wings-software/uicore'
-import { Redirect } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/cd-ng'
@@ -27,6 +26,7 @@ import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
+import { PageError } from '@common/components/Page/PageError'
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -76,7 +76,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   const [selectedStepId, setSelectedStepId] = React.useState('')
   const queryParams = useQueryParams<ExecutionPageQueryParams>()
 
-  const { data, refetch, loading } = useGetExecutionDetail({
+  const { data, refetch, loading, error } = useGetExecutionDetail({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
@@ -162,10 +162,6 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
 
   const { pipelineExecutionSummary = {} } = data?.data || {}
 
-  if (!loading && !data) {
-    return <Redirect to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module })} />
-  }
-
   return (
     <ExecutionContext.Provider
       value={{
@@ -181,85 +177,89 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       }}
     >
       {loading && !data ? <PageSpinner /> : null}
-      <main className={css.main}>
-        <div className={css.lhs}>
-          <header className={css.header}>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
-                  label: project?.name as string
-                },
-                {
-                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: getString('pipelines')
-                },
-                {
-                  url: routes.toPipelineDeploymentList({
-                    orgIdentifier,
-                    projectIdentifier,
-                    pipelineIdentifier,
-                    accountId,
-                    module
-                  }),
-                  label: pipelineExecutionSummary.name || getString('pipeline')
-                },
-                { url: '#', label: getString('executionText') }
-              ]}
-            />
-            <div className={css.headerTopRow}>
-              <div className={css.titleContainer}>
-                <div className={css.title}>{pipelineExecutionSummary.name}</div>
-                <div className={css.pipelineId}>
-                  <String
-                    stringID={
-                      module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'
-                    }
-                    vars={pipelineExecutionSummary}
+      {error ? (
+        <PageError />
+      ) : (
+        <main className={css.main}>
+          <div className={css.lhs}>
+            <header className={css.header}>
+              <Breadcrumbs
+                links={[
+                  {
+                    url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+                    label: project?.name as string
+                  },
+                  {
+                    url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
+                    label: getString('pipelines')
+                  },
+                  {
+                    url: routes.toPipelineDeploymentList({
+                      orgIdentifier,
+                      projectIdentifier,
+                      pipelineIdentifier,
+                      accountId,
+                      module
+                    }),
+                    label: pipelineExecutionSummary.name || getString('pipeline')
+                  },
+                  { url: '#', label: getString('executionText') }
+                ]}
+              />
+              <div className={css.headerTopRow}>
+                <div className={css.titleContainer}>
+                  <div className={css.title}>{pipelineExecutionSummary.name}</div>
+                  <div className={css.pipelineId}>
+                    <String
+                      stringID={
+                        module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'
+                      }
+                      vars={pipelineExecutionSummary}
+                    />
+                  </div>
+                </div>
+                <div className={css.statusBar}>
+                  {pipelineExecutionSummary.status && (
+                    <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecutionSummary.status} />
+                  )}
+                  {pipelineExecutionSummary.startTs && (
+                    <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
+                      <Text>
+                        <String stringID="startTime" />
+                      </Text>
+                      <Text font={{ weight: 'semi-bold' }}>{formatDatetoLocale(pipelineExecutionSummary.startTs)}</Text>
+                    </Layout.Horizontal>
+                  )}
+                  <Duration
+                    startTime={pipelineExecutionSummary.startTs}
+                    endTime={pipelineExecutionSummary.endTs}
+                    durationText={' '}
+                  />
+                  <ExecutionActions
+                    executionStatus={pipelineExecutionSummary.status}
+                    // inputSetYAML={pipelineExecutionSummary.inputSetYaml}
+                    refetch={refetch}
+                    params={{
+                      orgIdentifier,
+                      pipelineIdentifier,
+                      projectIdentifier,
+                      accountId,
+                      executionIdentifier,
+                      module
+                    }}
                   />
                 </div>
               </div>
-              <div className={css.statusBar}>
-                {pipelineExecutionSummary.status && (
-                  <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecutionSummary.status} />
-                )}
-                {pipelineExecutionSummary.startTs && (
-                  <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
-                    <Text>
-                      <String stringID="startTime" />
-                    </Text>
-                    <Text font={{ weight: 'semi-bold' }}>{formatDatetoLocale(pipelineExecutionSummary.startTs)}</Text>
-                  </Layout.Horizontal>
-                )}
-                <Duration
-                  startTime={pipelineExecutionSummary.startTs}
-                  endTime={pipelineExecutionSummary.endTs}
-                  durationText={' '}
-                />
-                <ExecutionActions
-                  executionStatus={pipelineExecutionSummary.status}
-                  // inputSetYAML={pipelineExecutionSummary.inputSetYaml}
-                  refetch={refetch}
-                  params={{
-                    orgIdentifier,
-                    pipelineIdentifier,
-                    projectIdentifier,
-                    accountId,
-                    executionIdentifier,
-                    module
-                  }}
-                />
-              </div>
+            </header>
+            <ExecutionMetadata />
+            <ExecutionTabs />
+            <div className={css.childContainer} id="pipeline-execution-container">
+              {props.children}
             </div>
-          </header>
-          <ExecutionMetadata />
-          <ExecutionTabs />
-          <div className={css.childContainer} id="pipeline-execution-container">
-            {props.children}
           </div>
-        </div>
-        <RightBar />
-      </main>
+          <RightBar />
+        </main>
+      )}
     </ExecutionContext.Provider>
   )
 }
