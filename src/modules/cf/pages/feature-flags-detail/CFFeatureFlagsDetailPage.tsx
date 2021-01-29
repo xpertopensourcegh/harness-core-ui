@@ -9,14 +9,15 @@ import { useGetFeatureFlag } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import { useLocalStorage } from '@common/hooks'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
 import css from './CFFeatureFlagsDetailPage.module.scss'
 
 const CFFeatureFlagsDetailPage: React.FC = () => {
   const history = useHistory()
-
   const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<any>()
+  const [environment, setEnvironment] = useLocalStorage('cf_selected_env', { label: '', value: '' })
 
   const { data: environments, error: errorEnvs, loading: envsLoading, refetch: refetchEnvironments } = useEnvironments({
     projectIdentifier,
@@ -46,25 +47,30 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     }
   })
 
-  useEffect(() => {
-    if (environmentOption) {
-      refetch()
-    }
-  }, [environmentOption])
-
   const onEnvChange = (item: SelectOption) => {
+    setEnvironment({ label: item?.label, value: item?.value as string })
+
     if (item?.value) {
       history.push(
         routes.toCFFeatureFlagsDetail({
           orgIdentifier: orgIdentifier as string,
           projectIdentifier: projectIdentifier as string,
-          environmentIdentifier: item.value as string,
+          environmentIdentifier: item?.value as string,
           featureFlagIdentifier: featureFlagIdentifier as string,
           accountId
         })
       )
     }
   }
+
+  useEffect(() => {
+    if (environmentOption) {
+      refetch()
+      if (environment) {
+        onEnvChange(environment as SelectOption)
+      }
+    }
+  }, [environmentOption])
 
   const error = errorFlag || errorEnvs
   const loading = envsLoading || loadingFlag

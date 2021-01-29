@@ -7,6 +7,7 @@ import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures, Feature } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { Page } from '@common/exports'
+import { useLocalStorage } from '@common/hooks'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import IndividualTargets from './IndividualTargets'
@@ -54,6 +55,8 @@ const HeaderToolbar: React.FC<HeaderToolbar> = ({ label, environment, environmen
   </Layout.Horizontal>
 )
 
+const defaultOption: SelectOption = { label: '', value: '' }
+
 const CFTargetsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
 
@@ -71,7 +74,8 @@ const CFTargetsPage: React.FC = () => {
   const { getString } = useStrings()
   const getSharedString = (key: string) => getString(`cf.shared.${key}`)
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
-  const [environment, setEnvironment] = useState<SelectOption>()
+  // const [environment, setEnvironment] = useState<SelectOption>()
+  const [environment, setEnvironment] = useLocalStorage('cf_selected_env', defaultOption)
 
   const [targetPage, setTargetPage] = useState(0)
   const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: fetchTargets } = useGetAllTargets({
@@ -146,8 +150,12 @@ const CFTargetsPage: React.FC = () => {
   }, [environment, view, segmentPage])
 
   useEffect(() => {
-    if (!loadingEnvs && environments?.length > 0) {
-      setEnvironment(environments[0])
+    if (!loadingEnvs && environments?.length > 0 && environment?.label) {
+      if (environments.find(v => v.value === environment.value)) {
+        setEnvironment({ label: environment['label'], value: environment['value'] })
+      } else {
+        setEnvironment({ label: environments[0]['label'], value: environments[0]['value'] as string })
+      }
     }
   }, [loadingEnvs])
 
@@ -170,7 +178,7 @@ const CFTargetsPage: React.FC = () => {
         toolbar={
           <HeaderToolbar
             label={getSharedString('environment').toLocaleUpperCase()}
-            environment={environment}
+            environment={environment?.value ? environment : environments[0]}
             environments={environments}
             onChange={setEnvironment}
           />

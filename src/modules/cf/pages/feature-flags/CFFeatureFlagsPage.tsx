@@ -20,6 +20,7 @@ import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useToaster, useConfirmationDialog } from '@common/exports'
+import { useLocalStorage } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
@@ -209,12 +210,12 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   )
 }
 
-const defaultEnv = { label: 'production', value: 'production' }
+const defaultEnv = { label: '', value: '' }
 
 const CFFeatureFlagsPage: React.FC = () => {
   const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
-  const [environment, setEnvironment] = useState<SelectOption | null>(null)
+  const [environment, setEnvironment] = useLocalStorage('cf_selected_env', defaultEnv)
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
 
@@ -246,8 +247,12 @@ const CFFeatureFlagsPage: React.FC = () => {
   }, [environment])
 
   useEffect(() => {
-    if (!envsLoading) {
-      setEnvironment(environments?.length > 0 ? environments[0] : defaultEnv)
+    if (!envsLoading && environments?.length > 0 && environment?.label) {
+      if (environments.find(v => v.value === environment.value)) {
+        setEnvironment({ label: environment['label'], value: environment['value'] })
+      } else {
+        setEnvironment({ label: environments[0]['label'], value: environments[0]['value'] as string })
+      }
     }
   }, [environments.length, envsLoading])
 
@@ -314,7 +319,7 @@ const CFFeatureFlagsPage: React.FC = () => {
   }
 
   const onEnvChange = (item: SelectOption) => {
-    setEnvironment(item)
+    setEnvironment({ label: item?.label, value: item.value as string })
   }
   const hasFeatureFlags = flagList?.features && flagList?.features?.length > 0
   const emptyFeatureFlags = flagList?.features && flagList?.features?.length === 0
@@ -343,7 +348,7 @@ const CFFeatureFlagsPage: React.FC = () => {
             className={css.ffPageBtnsSelect}
             inputProps={{ placeholder: i18n.selectEnv }}
             onChange={onEnvChange}
-            value={environment}
+            value={environment?.value ? environment : environments[0]}
           />
 
           {/* TODO: Filters length/count should be displayed next to the button, check with BE */}
@@ -378,7 +383,7 @@ const CFFeatureFlagsPage: React.FC = () => {
                   routes.toCFFeatureFlagsDetail({
                     orgIdentifier: orgIdentifier as string,
                     projectIdentifier: projectIdentifier as string,
-                    environmentIdentifier: environment?.value as string,
+                    environmentIdentifier: environment?.value || (environments[0]?.value as string),
                     featureFlagIdentifier: feature.identifier,
                     accountId
                   })

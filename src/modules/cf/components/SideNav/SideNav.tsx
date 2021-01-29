@@ -17,7 +17,6 @@ export default function CFSideNav(): React.ReactElement {
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const { updateAppStore } = useAppStore()
-
   return (
     <Layout.Vertical spacing="small">
       {/* <SidebarLink label="Dashboard" to={routes.toCFHome({ accountId })} /> */}
