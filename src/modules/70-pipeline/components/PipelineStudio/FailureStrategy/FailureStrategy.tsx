@@ -5,7 +5,10 @@ import { Button } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/exports'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
-import { FailureStrategyPanelMode } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import {
+  ErrorType,
+  FailureStrategyPanelMode
+} from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 
 export interface FailureStrategyProps {
   selectedStage: any
@@ -20,7 +23,12 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
   } = props
 
   return (
-    <Formik initialValues={{ failureStrategies: stage.failureStrategies || [{}] }} onSubmit={onUpdate}>
+    <Formik
+      initialValues={{
+        failureStrategies: stage.failureStrategies || [{ onFailure: { errors: [ErrorType.AnyOther] } }]
+      }}
+      onSubmit={onUpdate}
+    >
       {formik => {
         return (
           <React.Fragment>

@@ -3,8 +3,12 @@ import YAML from 'yaml'
 import { Text, Icon, Layout, Button, Card, IconName } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import cx from 'classnames'
+import produce from 'immer'
 import {
+  DeploymentStageConfig,
   GetExecutionStrategyYamlQueryParams,
+  StageElementConfig,
+  StageElementWrapperConfig,
   useGetExecutionStrategyList,
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
@@ -51,8 +55,8 @@ type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'Blank
 
 export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedStage }): JSX.Element => {
   const {
-    state: { pipeline, pipelineView },
-    updatePipeline,
+    state: { pipelineView },
+    updateStage,
     updatePipelineView
   } = React.useContext(PipelineContext)
   const { getString } = useStrings()
@@ -82,7 +86,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   })
 
   useEffect(() => {
-    if (error && selectedStrategy !== 'BlankCanvas') {
+    if (error) {
       disableSubmit(true)
     } else {
       disableSubmit(false)
@@ -90,21 +94,17 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   }, [error])
 
   useEffect(() => {
-    if (yamlSnippet?.data && selectedStrategy !== 'BlankCanvas') {
-      const selectedStageSpec = get(selectedStage, 'stage.spec', null)
-      const jsonFromYaml = YAML.parse(yamlSnippet?.data)
-      selectedStageSpec['execution'] = jsonFromYaml['execution']
-      updatePipeline(pipeline)
-    } else {
-      const selectedStageSpec = get(selectedStage, 'stage.spec', null)
-      const jsonFromYaml = {
-        execution: {
-          steps: [],
-          rollbackSteps: []
-        }
-      }
-      selectedStageSpec['execution'] = jsonFromYaml['execution']
-      updatePipeline(pipeline)
+    if (yamlSnippet?.data) {
+      updateStage(
+        produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
+          const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
+          if (draft.stage && draft.stage.spec) {
+            draft.stage.failureStrategies = jsonFromYaml.failureStrategies
+            ;(draft.stage.spec as DeploymentStageConfig).execution =
+              (jsonFromYaml.spec as DeploymentStageConfig)?.execution || {}
+          }
+        }).stage as StageElementConfig
+      )
     }
   }, [yamlSnippet?.data, selectedStrategy])
 
@@ -135,22 +135,6 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
                   <section className={css.strategyType}>{i18n.strategyType}</section>
                 </Card>
               ))}
-            </section>
-          </section>
-          <section className={css.patterns}>
-            <Text style={{ color: 'var(--grey-600)' }}>{i18n.letMeExplore}</Text>
-            <section className={css.strategies}>
-              <Card
-                className={cx(css.card, selectedStrategy === 'BlankCanvas' && css.active)}
-                elevation={0}
-                interactive={true}
-                onClick={() => setSelectedStrategy('BlankCanvas')}
-              >
-                <Icon name={iconMap['BlankCanvas'] as IconName} size={24} />
-                <section className={css.strategyName} style={{ marginTop: 'var(--spacing-large)' }}>
-                  {i18n.blankCanvas}
-                </section>
-              </Card>
             </section>
           </section>
           <Button

@@ -437,7 +437,7 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
         updateStage(stage)
       }
     }
-  }, [updateStage, stage])
+  }, [stage])
 
   return (
     <div

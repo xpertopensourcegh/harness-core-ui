@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
+import { setAutoFreeze } from 'immer'
 import SessionToken from 'framework/utils/SessionToken'
 import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
@@ -17,7 +18,7 @@ import './App.scss'
 FocusStyleManager.onlyShowFocusOnTabs()
 
 const LOGIN_PAGE_URL = '/#/login'
-
+setAutoFreeze(false)
 interface AppProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   strings: Record<string, any>

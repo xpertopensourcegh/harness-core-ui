@@ -43,7 +43,6 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
 
   const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('Pipeline_Variables')
   const { mutate: createVariables } = useCreateVariables({
-    pipelineIdentifier: '-1',
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'
