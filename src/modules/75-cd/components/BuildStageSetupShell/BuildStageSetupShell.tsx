@@ -72,8 +72,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     // @TODO: add CI Codebase field check if Clone Codebase is checked
     // once it is added to BuildStageSpecifications (CI-757)
     const specifications = stageData?.name && stageData?.identifier
-    const infra =
-      stageData?.spec?.infrastructure?.spec?.connectorRef || stageData?.spec?.infrastructure?.useFromStage?.stage
+    const infra = stageData?.spec?.infrastructure?.spec?.connectorRef || stageData?.spec?.infrastructure?.useFromStage
     const execution = !!stageData?.spec?.execution?.steps?.length
     setFilledUpStages({ specifications, infra, execution })
   }, [
