@@ -6,29 +6,30 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
+import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
+import type { StepElementConfig } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
-import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import {
+  DurationInputFieldForInputSet,
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep, StepProps } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-export interface BarrierData extends StepElement {
-  spec: K8sRollingRollbackStepInfo
-}
+type BarrierData = StepElementConfig
 
 export interface BarrierVariableStepProps {
   initialValues: BarrierData
@@ -45,6 +46,7 @@ interface BarrierProps {
   inputSetData?: {
     template?: BarrierData
     path?: string
+    readonly?: boolean
   }
 }
 
@@ -60,7 +62,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-          spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<BarrierData>) => {
@@ -68,37 +70,30 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.barrier')}
-                  details={
-                    <>
-                      <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <FormMultiTypeDurationField
-                          name="spec.timeout"
-                          label={getString('pipelineSteps.timeoutLabel')}
-                          multiTypeDurationProps={{ enableConfigureOptions: false }}
-                        />
-                        {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={values.spec.timeout as string}
-                            type="String"
-                            variableName="step.spec.timeout"
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              setFieldValue('spec.timeout', value)
-                            }}
-                          />
-                        )}
-                      </Layout.Horizontal>
-                    </>
-                  }
-                />
-              </Accordion>
+              <>
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('timeout', value)
+                      }}
+                    />
+                  )}
+                </Layout.Horizontal>
+              </>
+
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>
@@ -114,11 +109,11 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
   const { getString } = useStrings()
   return (
     <>
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeDurationField
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+      {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
+        <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false }}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
+          disabled={inputSetData?.readonly}
         />
       )}
     </>
@@ -167,10 +162,27 @@ export class BarrierStep extends PipelineStep<BarrierData> {
     )
   }
   validateInputSet(data: BarrierData, template: BarrierData, getString?: UseStringsReturn['getString']): object {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
-    if (isEmpty(data?.spec?.timeout) && getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
-      errors.spec = {}
-      errors.spec.timeout = getString?.('fieldRequired', { field: 'Timeout' })
+    if (isEmpty(data?.timeout) && getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
+    }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
     }
     return errors
   }
@@ -181,8 +193,6 @@ export class BarrierStep extends PipelineStep<BarrierData> {
 
   protected defaultValues: BarrierData = {
     identifier: '',
-    spec: {
-      timeout: '10m'
-    }
+    timeout: '10m'
   }
 }

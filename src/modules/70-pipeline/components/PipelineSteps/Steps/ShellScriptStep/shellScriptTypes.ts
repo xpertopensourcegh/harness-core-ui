@@ -1,4 +1,4 @@
-import type { ShellScriptStepInfo, StepElement } from 'services/cd-ng'
+import type { ShellScriptStepInfo, StepElementConfig } from 'services/cd-ng'
 
 export interface ShellScriptStepVariable {
   value: number | string
@@ -19,7 +19,7 @@ interface ShellScriptSource {
 export interface ShellScriptInline {
   script?: string
 }
-export interface ShellScriptData extends StepElement {
+export interface ShellScriptData extends StepElementConfig {
   spec: Omit<ShellScriptStepInfo, 'environmentVariables' | 'outputVariables' | 'source'> & {
     environmentVariables?: Array<Omit<ShellScriptStepVariable, 'id'>>
     outputVariables?: Array<Omit<ShellScriptOutputStepVariable, 'id'>>
@@ -27,7 +27,7 @@ export interface ShellScriptData extends StepElement {
   }
 }
 
-export interface ShellScriptFormData extends StepElement {
+export interface ShellScriptFormData extends StepElementConfig {
   spec: Omit<ShellScriptStepInfo, 'environmentVariables' | 'outputVariables' | 'source'> & {
     environmentVariables?: Array<ShellScriptStepVariable>
     outputVariables?: Array<ShellScriptOutputStepVariable>

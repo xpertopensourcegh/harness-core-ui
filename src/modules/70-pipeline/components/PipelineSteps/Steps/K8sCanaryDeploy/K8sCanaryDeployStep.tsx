@@ -1,20 +1,12 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  FormInput,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
-} from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
+import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
@@ -30,7 +22,7 @@ import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-export interface K8sCanaryDeployData extends StepElement {
+export interface K8sCanaryDeployData extends StepElementConfig {
   spec: K8sRollingStepInfo
   identifier: string
 }
@@ -60,11 +52,10 @@ function K8CanaryDeployWidget(
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+            getString('validation.timeout10SecMinimum')
+          ),
           spec: Yup.object().shape({
-            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-              getString('validation.timeout10SecMinimum')
-            ),
             instanceSelection: getInstanceDropdownSchema()
           })
         })}
@@ -74,72 +65,62 @@ function K8CanaryDeployWidget(
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.k8sCanaryDeploy')}
-                  details={
-                    <>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <FormInstanceDropdown
-                          name={'spec.instanceSelection'}
-                          label={getString('pipelineSteps.instanceLabel')}
-                        />
-                        {(getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.count) ===
-                          MultiTypeInputType.RUNTIME ||
-                          getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
-                            MultiTypeInputType.RUNTIME) && (
-                          <ConfigureOptions
-                            value={
-                              (values?.spec?.instanceSelection?.spec?.count as string) ||
-                              (values?.spec?.instanceSelection?.spec?.percentage as string)
-                            }
-                            type="String"
-                            variableName={getString('instanceFieldOptions.instances')}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              setFieldValue('instances', value)
-                            }}
-                          />
-                        )}
-                      </div>
+              <>
+                <div className={stepCss.formGroup}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                </div>
+                <div className={stepCss.formGroup}>
+                  <FormInstanceDropdown
+                    name={'spec.instanceSelection'}
+                    label={getString('pipelineSteps.instanceLabel')}
+                  />
+                  {(getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.count) ===
+                    MultiTypeInputType.RUNTIME ||
+                    getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
+                      MultiTypeInputType.RUNTIME) && (
+                    <ConfigureOptions
+                      value={
+                        (values?.spec?.instanceSelection?.spec?.count as string) ||
+                        (values?.spec?.instanceSelection?.spec?.percentage as string)
+                      }
+                      type="String"
+                      variableName={getString('instanceFieldOptions.instances')}
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('instances', value)
+                      }}
+                    />
+                  )}
+                </div>
 
-                      <div className={stepCss.formGroup}>
-                        <FormMultiTypeDurationField
-                          name="spec.timeout"
-                          label={getString('pipelineSteps.timeoutLabel')}
-                          className={stepCss.duration}
-                          multiTypeDurationProps={{ enableConfigureOptions: false }}
-                        />
-                        {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={values.spec.timeout as string}
-                            type="String"
-                            variableName="step.spec.timeout"
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              setFieldValue('spec.timeout', value)
-                            }}
-                          />
-                        )}
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <FormMultiTypeCheckboxField
-                          name="spec.skipDryRun"
-                          label={getString('pipelineSteps.skipDryRun')}
-                        />
-                      </div>
-                    </>
-                  }
-                />
-              </Accordion>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    className={stepCss.duration}
+                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('timeout', value)
+                      }}
+                    />
+                  )}
+                </div>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
+                </div>
+              </>
+
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>
@@ -156,10 +137,10 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, rea
   const prefix = isEmpty(path) ? '' : `${path}.`
   return (
     <>
-      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}spec.timeout`}
+          name={`${prefix}timeout`}
           disabled={readonly}
         />
       ) : null}
@@ -221,7 +202,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
-    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
@@ -233,7 +214,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
-          Object.assign(errors.spec, err)
+          Object.assign(errors, err)
         }
       }
     } else if (
@@ -248,7 +229,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
       })
 
       try {
-        instanceSelection.validateSync(data.spec)
+        instanceSelection.validateSync(data)
       } catch (e) {
         /* istanbul ignore else */
         if (e instanceof Yup.ValidationError) {

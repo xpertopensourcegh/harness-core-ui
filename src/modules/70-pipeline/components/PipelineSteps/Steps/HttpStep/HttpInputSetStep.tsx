@@ -50,10 +50,10 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
       {getMultiTypeFromValue(template?.spec?.assertion) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Text label={getString('assertionLabel')} name={`${prefix}spec.assertion`} disabled={readonly} />
       ) : null}
-      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}spec.timeout`}
+          name={`${prefix}timeout`}
           disabled={readonly}
         />
       ) : null}

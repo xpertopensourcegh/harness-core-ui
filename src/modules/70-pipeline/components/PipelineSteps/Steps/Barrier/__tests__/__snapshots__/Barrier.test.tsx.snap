@@ -7,64 +7,7 @@ exports[`Test Barrier Step Barrier - Variable view 1`] = `
   >
     <div
       class="bp3-card bp3-elevation-0 Card--card"
-    >
-      <div
-        class="variablesListTable"
-      >
-        <div
-          class="main"
-        >
-          <div
-            class="text"
-          >
-            step.barrier.timeout
-          </div>
-          <div
-            class="bp3-popover-wrapper btnWrapper"
-          >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="copy"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 14 16"
-                    width="16"
-                  >
-                    <g
-                      fill="#22272D"
-                      stroke="#22272D"
-                      stroke-width="0.25"
-                    >
-                      <path
-                        d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
-                      />
-                      <path
-                        d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
-                      />
-                    </g>
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </div>
-        </div>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main"
-          style="--text-line-clamp: 1;"
-        >
-          10m
-        </p>
-      </div>
-    </div>
+    />
     <div
       class="bp3-card bp3-elevation-0 Card--card"
     >
@@ -89,188 +32,149 @@ exports[`Test Barrier Step should render edit view 1`] = `
         class="OverlaySpinner--overlaySpinner"
       >
         <div
-          class="Accordion--accordion"
+          class="InputWithIdentifier--txtNameContainer"
         >
           <div
-            class="Accordion--panel"
-            data-open="true"
-            data-testid="details-panel"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
           >
-            <div
-              class="Accordion--summary"
-              data-testid="details-summary"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <div
-                class="Accordion--label"
-              >
-                Barrier
-              </div>
-              <div
-                class="Accordion--chevron"
-              />
-            </div>
-            <div
-              class="bp3-collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
+              ID
+              :
+            </p>
+            <span
+              class="bp3-popover-wrapper"
             >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
+              <span
+                class="bp3-popover-target"
               >
                 <div
-                  class="Accordion--details"
-                  data-testid="details-details"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
-                  <div
-                    class="InputWithIdentifier--txtNameContainer"
+                  <span
+                    class="bp3-editable-text-content"
+                    style="height: 1px; line-height: 1px; min-width: 0;"
                   >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                    Test_A
+                  </span>
+                </div>
+              </span>
+            </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="bp3-form-group"
+          >
+            <label
+              class="bp3-label"
+              for="name"
+            >
+              Name
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="name"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          style="align-items: center;"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <label
+              class="bp3-label"
+              for="timeout"
+            >
+              Timeout
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                style="flex-grow: 1;"
+              >
+                <div
+                  class="bp3-input-group bp3-fill"
+                >
+                  <input
+                    class="bp3-input"
+                    name="timeout"
+                    placeholder="Enter w/d/h/m/s/ms"
+                    type="text"
+                    value="10m"
+                  />
+                </div>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                      >
-                        ID
-                        :
-                      </p>
                       <span
-                        class="bp3-popover-wrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-editable-text InputWithIdentifier--idValue"
-                            tabindex="0"
-                          >
-                            <span
-                              class="bp3-editable-text-content"
-                              style="height: 1px; line-height: 1px; min-width: 0;"
-                            >
-                              Test_A
-                            </span>
-                          </div>
-                        </span>
-                      </span>
-                      <span
-                        class="bp3-icon bp3-icon-edit StyledProps--main"
-                        icon="edit"
-                        style="vertical-align: middle;"
+                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="fixed-input"
                       >
                         <svg
-                          data-icon="edit"
                           height="12"
-                          viewBox="0 0 16 16"
+                          viewBox="0 0 9 9"
                           width="12"
                         >
-                          <desc>
-                            edit
-                          </desc>
                           <path
-                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                            fill-rule="evenodd"
+                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                            fill="#009dff"
                           />
                         </svg>
                       </span>
-                    </div>
-                    <div
-                      class="bp3-form-group"
-                    >
-                      <label
-                        class="bp3-label"
-                        for="name"
-                      >
-                        Name
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
-                      <div
-                        class="bp3-form-content"
-                      >
-                        <div
-                          class="bp3-input-group"
-                        >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="name"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-                    style="align-items: center;"
-                  >
-                    <div
-                      class="bp3-form-group"
-                    >
-                      <label
-                        class="bp3-label"
-                        for="spec.timeout"
-                      >
-                        Timeout
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
-                      <div
-                        class="bp3-form-content"
-                      >
-                        <div
-                          class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                          style="flex-grow: 1;"
-                        >
-                          <div
-                            class="bp3-input-group bp3-fill"
-                          >
-                            <input
-                              class="bp3-input"
-                              name="spec.timeout"
-                              placeholder="Enter w/d/h/m/s/ms"
-                              type="text"
-                              value="10m"
-                            />
-                          </div>
-                          <span
-                            class="bp3-popover-wrapper"
-                          >
-                            <span
-                              class="bp3-popover-target"
-                            >
-                              <button
-                                class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                              >
-                                <span
-                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                                  data-icon="fixed-input"
-                                >
-                                  <svg
-                                    height="12"
-                                    viewBox="0 0 9 9"
-                                    width="12"
-                                  >
-                                    <path
-                                      d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                                      fill="#009dff"
-                                    />
-                                  </svg>
-                                </span>
-                              </button>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                    </button>
+                  </span>
+                </span>
               </div>
             </div>
           </div>
@@ -314,67 +218,6 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
       <div
         class="OverlaySpinner--overlaySpinner"
       >
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="spec.timeout"
-          >
-            Timeout
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="flex-grow: 1;"
-            >
-              <div
-                class="bp3-input-group bp3-fill"
-              >
-                <input
-                  class="bp3-input"
-                  name="spec.timeout"
-                  placeholder="Enter w/d/h/m/s/ms"
-                  type="text"
-                  value=""
-                />
-              </div>
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                      data-icon="fixed-input"
-                    >
-                      <svg
-                        height="12"
-                        viewBox="0 0 9 9"
-                        width="12"
-                      >
-                        <path
-                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
         <p
           class="StyledProps--font StyledProps--main"
         >
@@ -418,83 +261,13 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
       <div
         class="OverlaySpinner--overlaySpinner"
       >
-        <div
-          class="bp3-form-group bp3-intent-danger"
-        >
-          <label
-            class="bp3-label"
-            for="spec.timeout"
-          >
-            Timeout
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="flex-grow: 1;"
-            >
-              <div
-                class="bp3-input-group bp3-fill"
-              >
-                <input
-                  class="bp3-input"
-                  name="spec.timeout"
-                  placeholder="Enter w/d/h/m/s/ms"
-                  type="text"
-                  value=""
-                />
-              </div>
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                      data-icon="fixed-input"
-                    >
-                      <svg
-                        height="12"
-                        viewBox="0 0 9 9"
-                        width="12"
-                      >
-                        <path
-                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </div>
-            <div
-              class="bp3-form-helper-text"
-            >
-              Timeout is a required field
-            </div>
-          </div>
-        </div>
         <p
           class="StyledProps--font StyledProps--main"
         >
           Errors
         </p>
         <pre>
-          {
-  "spec": {
-    "timeout": "Timeout is a required field"
-  }
-}
+          {}
         </pre>
         <button
           class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
@@ -512,7 +285,8 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
       class="bp3-card bp3-elevation-0 Card--card"
     >
       <pre>
-        {}
+        identifier: Test_A
+type: Barrier
 
       </pre>
     </div>

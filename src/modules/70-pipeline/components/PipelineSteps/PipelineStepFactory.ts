@@ -49,9 +49,9 @@ factory.registerStep(new K8sScaleStep())
 factory.registerStep(new K8sCanaryDeleteStep())
 factory.registerStep(new K8sApplyStep())
 factory.registerStep(new K8sDeleteStep())
-
 factory.registerStep(new ShellScriptStep())
 factory.registerStep(new StepGroupStep())
+
 factory.registerStep(new CustomVariables())
 factory.registerStep(new KubernetesInfraSpec())
 factory.registerStep(new DeployEnvironmentStep())

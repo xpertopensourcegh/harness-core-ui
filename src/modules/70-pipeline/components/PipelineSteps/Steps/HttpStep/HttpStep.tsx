@@ -53,10 +53,10 @@ function HttpStepWidget(props: HttpStepWidgetProps, formikRef: StepFormikFowardR
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           url: Yup.string().required(getString('validation.UrlRequired')),
-          method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
+          method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired'))
         })
       })}
     >
@@ -67,8 +67,12 @@ function HttpStepWidget(props: HttpStepWidgetProps, formikRef: StepFormikFowardR
         return (
           <React.Fragment>
             <Accordion activeId="step-1" className={stepCss.accordion}>
-              <Accordion.Panel id="step-1" summary="Http Step" details={<HttpStepBase formik={formik} />} />
-              <Accordion.Panel id="step-2" summary="Response Mapping" details={<ResponseMapping formik={formik} />} />
+              <Accordion.Panel id="step-1" summary={getString('basic')} details={<HttpStepBase formik={formik} />} />
+              <Accordion.Panel
+                id="step-2"
+                summary={getString('responseMapping')}
+                details={<ResponseMapping formik={formik} />}
+              />
             </Accordion>
             <div className={stepCss.actionsPanel}>
               <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
@@ -137,19 +141,19 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     }
 
     /* istanbul ignore else */
-    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
 
       try {
-        timeout.validateSync(data.spec)
+        timeout.validateSync(data)
       } catch (e) {
         /* istanbul ignore else */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
-          Object.assign(errors.spec, err)
+          Object.assign(errors, err)
         }
       }
     }
@@ -163,10 +167,10 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   }
   protected defaultValues: HttpStepData = {
     identifier: '',
+    timeout: '10s',
     spec: {
       url: '',
-      method: httpStepType[0].value as string,
-      timeout: '10s'
+      method: httpStepType[0].value as string
     }
   }
 

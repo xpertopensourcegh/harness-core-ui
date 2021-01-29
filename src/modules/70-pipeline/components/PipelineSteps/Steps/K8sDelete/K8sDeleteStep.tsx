@@ -6,8 +6,7 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { FieldArray, FormikProps, yupToFormErrors } from 'formik'
 import type { IOptionProps } from '@blueprintjs/core'
@@ -16,7 +15,7 @@ import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElement } from 'services/cd-ng'
+import type { StepElementConfig } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import {
@@ -39,9 +38,7 @@ interface K8sDeleteSpec {
   deleteResourcesBy?: string
   spec?: K8sDeleteSpec
 }
-export interface K8sDeleteData extends StepElement {
-  identifier: string
-  timeout?: string
+export interface K8sDeleteData extends StepElementConfig {
   spec: K8sDeleteSpec
 }
 
@@ -116,151 +113,144 @@ function K8sDeleteDeployWidget(
           const values = formikProps.values
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.k8sDelete')}
-                  details={
-                    <>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.RadioGroup
-                          label={getString('pipelineSteps.deleteResourcesBy')}
-                          name="spec.deleteResourcesBy"
-                          items={accessTypeOptions}
-                          radioGroup={{ inline: true }}
-                        />
-                      </div>
+              <>
+                <div className={stepCss.formGroup}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                </div>
+                <div className={stepCss.formGroup}>
+                  <FormInput.RadioGroup
+                    label={getString('pipelineSteps.deleteResourcesBy')}
+                    name="spec.deleteResourcesBy"
+                    items={accessTypeOptions}
+                    radioGroup={{ inline: true }}
+                  />
+                </div>
 
-                      {values?.spec?.deleteResourcesBy === getString('pipelineSteps.resourceNameValue') && (
-                        <div className={stepCss.formGroup}>
-                          <FieldArray
-                            name="spec.spec.resourceNames"
-                            render={arrayHelpers => (
-                              <Layout.Vertical>
-                                {formikProps.values?.spec?.spec?.resourceNames?.map((path: string, index: number) => (
-                                  <Layout.Horizontal
-                                    key={path}
-                                    flex={{ distribution: 'space-between' }}
-                                    style={{ alignItems: 'end' }}
-                                  >
-                                    <FormInput.MultiTextInput
-                                      label=""
-                                      placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
-                                      name={`spec.spec.resourceNames[${index}]`}
-                                      style={{ width: '430px' }}
-                                    />
-                                    {/* istanbul ignore next */}
-                                    {formikProps.values?.spec?.spec?.resourceNames &&
-                                      formikProps.values?.spec?.spec?.resourceNames.length > 1 && (
-                                        <Button
-                                          minimal
-                                          icon="minus"
-                                          onClick={() => {
-                                            /* istanbul ignore next */
-                                            arrayHelpers.remove(index)
-                                          }}
-                                        />
-                                      )}
-                                  </Layout.Horizontal>
-                                ))}
-                                <span>
+                {values?.spec?.deleteResourcesBy === getString('pipelineSteps.resourceNameValue') && (
+                  <div className={stepCss.formGroup}>
+                    <FieldArray
+                      name="spec.spec.resourceNames"
+                      render={arrayHelpers => (
+                        <Layout.Vertical>
+                          {formikProps.values?.spec?.spec?.resourceNames?.map((path: string, index: number) => (
+                            <Layout.Horizontal
+                              key={path}
+                              flex={{ distribution: 'space-between' }}
+                              style={{ alignItems: 'end' }}
+                            >
+                              <FormInput.MultiTextInput
+                                label=""
+                                placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
+                                name={`spec.spec.resourceNames[${index}]`}
+                                style={{ width: '430px' }}
+                              />
+                              {/* istanbul ignore next */}
+                              {formikProps.values?.spec?.spec?.resourceNames &&
+                                formikProps.values?.spec?.spec?.resourceNames.length > 1 && (
                                   <Button
                                     minimal
-                                    text={getString('addFileText')}
-                                    intent="primary"
+                                    icon="minus"
                                     onClick={() => {
                                       /* istanbul ignore next */
-                                      arrayHelpers.push('')
+                                      arrayHelpers.remove(index)
                                     }}
                                   />
-                                </span>
-                              </Layout.Vertical>
-                            )}
-                          />
-                        </div>
-                      )}
-
-                      {values?.spec?.deleteResourcesBy === getString('pipelineSteps.releaseNameValue') && (
-                        <div className={stepCss.formGroup}>
-                          <Layout.Horizontal
-                            spacing="medium"
-                            flex={{ distribution: 'space-between' }}
-                            style={{ alignItems: 'center' }}
-                            className={css.nameSpace}
-                          >
-                            <FormInput.CheckBox name="spec.spec.deleteNamespace" label="Delete namespace" />
-                          </Layout.Horizontal>
-                        </div>
-                      )}
-
-                      {values?.spec?.deleteResourcesBy === getString('pipelineSteps.manifestPathValue') && (
-                        <div className={stepCss.formGroup}>
-                          <FieldArray
-                            name="spec.spec.manifestPaths"
-                            render={arrayHelpers => (
-                              <Layout.Vertical>
-                                {/* istanbul ignore next */}
-                                {formikProps.values?.spec?.spec?.manifestPaths?.map((path: string, index: number) => (
-                                  <Layout.Horizontal
-                                    key={path}
-                                    flex={{ distribution: 'space-between' }}
-                                    style={{ alignItems: 'end' }}
-                                  >
-                                    <FormInput.MultiTextInput
-                                      label=""
-                                      placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
-                                      name={`spec.spec.manifestPaths[${index}]`}
-                                      style={{ width: '430px' }}
-                                    />
-                                    {/* istanbul ignore next */}
-                                    {formikProps.values?.spec?.spec?.manifestPaths &&
-                                      formikProps.values?.spec?.spec?.manifestPaths.length > 1 && (
-                                        <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
-                                      )}
-                                  </Layout.Horizontal>
-                                ))}
-                                <span>
-                                  <Button
-                                    minimal
-                                    text={getString('plusAdd')}
-                                    intent="primary"
-                                    onClick={() => arrayHelpers.push('')}
-                                  />
-                                </span>
-                              </Layout.Vertical>
-                            )}
-                          />
-                        </div>
-                      )}
-                      <div className={stepCss.formGroup}>
-                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                          <FormMultiTypeDurationField
-                            name="timeout"
-                            label={getString('pipelineSteps.timeoutLabel')}
-                            multiTypeDurationProps={{ enableConfigureOptions: false }}
-                          />
-                          {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={values.timeout as string}
-                              type="String"
-                              variableName="step.timeout"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => {
-                                formikProps.setFieldValue('timeout', value)
+                                )}
+                            </Layout.Horizontal>
+                          ))}
+                          <span>
+                            <Button
+                              minimal
+                              text={getString('addFileText')}
+                              intent="primary"
+                              onClick={() => {
+                                /* istanbul ignore next */
+                                arrayHelpers.push('')
                               }}
                             />
-                          )}
-                        </Layout.Horizontal>
-                      </div>
-                    </>
-                  }
-                />
-              </Accordion>
+                          </span>
+                        </Layout.Vertical>
+                      )}
+                    />
+                  </div>
+                )}
+
+                {values?.spec?.deleteResourcesBy === getString('pipelineSteps.releaseNameValue') && (
+                  <div className={stepCss.formGroup}>
+                    <Layout.Horizontal
+                      spacing="medium"
+                      flex={{ distribution: 'space-between' }}
+                      style={{ alignItems: 'center' }}
+                      className={css.nameSpace}
+                    >
+                      <FormInput.CheckBox name="spec.spec.deleteNamespace" label="Delete namespace" />
+                    </Layout.Horizontal>
+                  </div>
+                )}
+
+                {values?.spec?.deleteResourcesBy === getString('pipelineSteps.manifestPathValue') && (
+                  <div className={stepCss.formGroup}>
+                    <FieldArray
+                      name="spec.spec.manifestPaths"
+                      render={arrayHelpers => (
+                        <Layout.Vertical>
+                          {/* istanbul ignore next */}
+                          {formikProps.values?.spec?.spec?.manifestPaths?.map((path: string, index: number) => (
+                            <Layout.Horizontal
+                              key={path}
+                              flex={{ distribution: 'space-between' }}
+                              style={{ alignItems: 'end' }}
+                            >
+                              <FormInput.MultiTextInput
+                                label=""
+                                placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
+                                name={`spec.spec.manifestPaths[${index}]`}
+                                style={{ width: '430px' }}
+                              />
+                              {/* istanbul ignore next */}
+                              {formikProps.values?.spec?.spec?.manifestPaths &&
+                                formikProps.values?.spec?.spec?.manifestPaths.length > 1 && (
+                                  <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                                )}
+                            </Layout.Horizontal>
+                          ))}
+                          <span>
+                            <Button
+                              minimal
+                              text={getString('plusAdd')}
+                              intent="primary"
+                              onClick={() => arrayHelpers.push('')}
+                            />
+                          </span>
+                        </Layout.Vertical>
+                      )}
+                    />
+                  </div>
+                )}
+                <div className={stepCss.formGroup}>
+                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                    <FormMultiTypeDurationField
+                      name="timeout"
+                      label={getString('pipelineSteps.timeoutLabel')}
+                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    />
+                    {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={values.timeout as string}
+                        type="String"
+                        variableName="step.timeout"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          formikProps.setFieldValue('timeout', value)
+                        }}
+                      />
+                    )}
+                  </Layout.Horizontal>
+                </div>
+              </>
+
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
               </div>
@@ -280,7 +270,7 @@ const K8sDeleteInputStep: React.FC<K8sDeleteProps> = ({ inputSetData, readonly }
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           disabled={readonly}
         />
       )}

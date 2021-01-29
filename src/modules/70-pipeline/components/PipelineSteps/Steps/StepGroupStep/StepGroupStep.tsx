@@ -1,12 +1,11 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Button, Accordion } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Button, Layout } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import type { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepGroupElement } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './StepGroupStep.i18n'
 import { PipelineStep } from '../../PipelineStep'
@@ -23,7 +22,6 @@ function StepGroupWidget(
   formikRef: StepFormikFowardRef<StepGroupElement>
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
-  const { getString } = useStrings()
   return (
     <>
       <Formik<StepGroupElement>
@@ -40,17 +38,9 @@ function StepGroupWidget(
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.k8sDelete')}
-                  details={
-                    <>
-                      <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
-                    </>
-                  }
-                />
-              </Accordion>
+              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+                <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
+              </Layout.Vertical>
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={i18n.submit} onClick={submitForm} />
               </div>

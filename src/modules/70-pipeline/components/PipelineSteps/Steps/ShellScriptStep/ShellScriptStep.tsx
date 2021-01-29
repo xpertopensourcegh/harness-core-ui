@@ -2,12 +2,13 @@ import React from 'react'
 import { IconName, Formik, Button, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
 import { isEmpty, set } from 'lodash-es'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
+import { FormikProps, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { StepProps } from '@pipeline/exports'
 import { StepViewType } from '@pipeline/exports'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './ShellScriptStep.i18n'
 import { PipelineStep } from '../../PipelineStep'
@@ -38,6 +39,7 @@ function ShellScriptWidget(
 
   const defaultSSHSchema = Yup.object().shape({
     name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
       shell: Yup.string().required(getString('validation.scriptTypeRequired')),
       source: Yup.object().shape({
@@ -76,18 +78,22 @@ function ShellScriptWidget(
         return (
           <>
             <Accordion activeId="step-1" className={stepCss.accordion}>
-              <Accordion.Panel id="step-1" summary="Shell Script" details={<BaseShellScript formik={formik} />} />
+              <Accordion.Panel id="step-1" summary={getString('basic')} details={<BaseShellScript formik={formik} />} />
               <Accordion.Panel
                 id="step-2"
-                summary="Script Input Variables"
+                summary={getString('scriptInputVariables')}
                 details={<ShellScriptInput formik={formik} />}
               />
               <Accordion.Panel
                 id="step-4"
-                summary="Script Output Variables"
+                summary={getString('scriptOutputVariables')}
                 details={<ShellScriptOutput formik={formik} />}
               />
-              <Accordion.Panel id="step-3" summary="Execution Target" details={<ExecutionTarget formik={formik} />} />
+              <Accordion.Panel
+                id="step-3"
+                summary={getString('executionTarget')}
+                details={<ExecutionTarget formik={formik} />}
+              />
             </Accordion>
             <div className={stepCss.actionsPanel}>
               <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
@@ -133,6 +139,23 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     getString?: UseStringsReturn['getString']
   ): object {
     const errors = {} as any
+
+    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
+    }
 
     /* istanbul ignore else */
     if (

@@ -1,20 +1,12 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  FormInput,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
-} from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElement } from 'services/cd-ng'
+import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
@@ -31,35 +23,35 @@ import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
 interface K8sCanaryDeployProps {
-  initialValues: StepElement
-  onUpdate?: (data: StepElement) => void
+  initialValues: StepElementConfig
+  onUpdate?: (data: StepElementConfig) => void
   stepViewType?: StepViewType
   inputSetData?: {
-    template?: StepElement
+    template?: StepElementConfig
     path?: string
     readonly?: boolean
   }
 }
 
 export interface K8sCanaryDeleteVariableStepProps {
-  initialValues: StepElement
+  initialValues: StepElementConfig
   stageIdentifier: string
-  onUpdate?(data: StepElement): void
+  onUpdate?(data: StepElementConfig): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: StepElement
+  variablesData: StepElementConfig
 }
 
 function K8sCanaryDeleteWidget(
   props: K8sCanaryDeployProps,
-  formikRef: StepFormikFowardRef<StepElement>
+  formikRef: StepFormikFowardRef<StepElementConfig>
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   return (
     <>
-      <Formik<StepElement>
-        onSubmit={(values: StepElement) => {
+      <Formik<StepElementConfig>
+        onSubmit={(values: StepElementConfig) => {
           onUpdate?.(values)
         }}
         initialValues={initialValues}
@@ -68,46 +60,39 @@ function K8sCanaryDeleteWidget(
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
-        {(formik: FormikProps<StepElement>) => {
+        {(formik: FormikProps<StepElementConfig>) => {
           const { values, setFieldValue, submitForm } = formik
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.K8sCanaryDelete')}
-                  details={
-                    <>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      </div>
+              <>
+                <div className={stepCss.formGroup}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                </div>
 
-                      <div className={stepCss.formGroup}>
-                        <FormMultiTypeDurationField
-                          name="timeout"
-                          label={getString('pipelineSteps.timeoutLabel')}
-                          className={stepCss.duration}
-                          multiTypeDurationProps={{ enableConfigureOptions: false }}
-                        />
-                        {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={values.timeout as string}
-                            type="String"
-                            variableName="timeout"
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              setFieldValue('timeout', value)
-                            }}
-                          />
-                        )}
-                      </div>
-                    </>
-                  }
-                />
-              </Accordion>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    className={stepCss.duration}
+                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('timeout', value)
+                      }}
+                    />
+                  )}
+                </div>
+              </>
+
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>
@@ -125,7 +110,7 @@ const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetDa
     <>
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={inputSetData?.readonly}
         />
@@ -143,12 +128,12 @@ const K8sCanaryDeleteVariableStep: React.FC<K8sCanaryDeleteVariableStepProps> = 
 }
 
 const K8sCanaryDeleteWidgetWithRef = React.forwardRef(K8sCanaryDeleteWidget)
-export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
+export class K8sCanaryDeleteStep extends PipelineStep<StepElementConfig> {
   constructor() {
     super()
     this._hasStepVariables = true
   }
-  renderStep(props: StepProps<StepElement>): JSX.Element {
+  renderStep(props: StepProps<StepElementConfig>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -184,22 +169,26 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
 
   protected stepIcon: IconName = 'service-kubernetes'
   /* istanbul ignore next */
-  validateInputSet(data: StepElement, template: StepElement, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: StepElementConfig,
+    template: StepElementConfig,
+    getString?: UseStringsReturn['getString']
+  ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
-    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
 
       try {
-        timeout.validateSync(data.spec)
+        timeout.validateSync(data)
       } catch (e) {
         /* istanbul ignore else */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
-          Object.assign(errors.spec, err)
+          Object.assign(errors, err)
         }
       }
     }
@@ -210,7 +199,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
     return errors
   }
 
-  protected defaultValues: StepElement = {
+  protected defaultValues: StepElementConfig = {
     name: '',
     identifier: '',
     timeout: '10m'

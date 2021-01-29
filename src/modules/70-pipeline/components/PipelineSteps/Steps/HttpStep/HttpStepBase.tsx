@@ -140,19 +140,19 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
       </div>
       <div className={stepCss.formGroup}>
         <FormMultiTypeDurationField
-          name="spec.timeout"
+          name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
           multiTypeDurationProps={{ enableConfigureOptions: false }}
         />
-        {getMultiTypeFromValue(formValues.spec.timeout) === MultiTypeInputType.RUNTIME && (
+        {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={formValues.spec.timeout}
+            value={formValues.timeout || ''}
             type="String"
-            variableName="spec.timeout"
+            variableName="timeout"
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}
-            onChange={value => setFieldValue('spec.timeout', value)}
+            onChange={value => setFieldValue('timeout', value)}
           />
         )}
       </div>

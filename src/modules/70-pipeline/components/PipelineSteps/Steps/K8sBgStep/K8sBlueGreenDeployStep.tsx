@@ -6,8 +6,7 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -16,7 +15,7 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings, UseStringsReturn } from 'framework/exports'
-import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
+import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import {
@@ -30,7 +29,7 @@ import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-export interface K8sBGDeployData extends StepElement {
+export interface K8sBGDeployData extends StepElementConfig {
   spec: K8sRollingStepInfo
 }
 
@@ -58,12 +57,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-
-          spec: Yup.object().shape({
-            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-              getString('validation.timeout10SecMinimum')
-            )
-          })
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<K8sBGDeployData>) => {
@@ -71,47 +65,37 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.k8sBGDeploy')}
-                  details={
-                    <>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                          <FormMultiTypeDurationField
-                            name="spec.timeout"
-                            label={getString('pipelineSteps.timeoutLabel')}
-                            multiTypeDurationProps={{ enableConfigureOptions: false }}
-                          />
-                          {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={values.spec.timeout as string}
-                              type="String"
-                              variableName="step.spec.timeout"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => {
-                                setFieldValue('spec.timeout', value)
-                              }}
-                            />
-                          )}
-                        </Layout.Horizontal>
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <FormMultiTypeCheckboxField
-                          name="spec.skipDryRun"
-                          label={getString('pipelineSteps.skipDryRun')}
-                        />
-                      </div>
-                    </>
-                  }
-                />
-              </Accordion>
+              <>
+                <div className={stepCss.formGroup}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                </div>
+                <div className={stepCss.formGroup}>
+                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                    <FormMultiTypeDurationField
+                      name="timeout"
+                      label={getString('pipelineSteps.timeoutLabel')}
+                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    />
+                    {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={values.timeout as string}
+                        type="String"
+                        variableName="step.timeout"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          setFieldValue('timeout', value)
+                        }}
+                      />
+                    )}
+                  </Layout.Horizontal>
+                </div>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
+                </div>
+              </>
+
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>
@@ -127,10 +111,10 @@ const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData }) => {
   const { getString } = useStrings()
   return (
     <>
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           disabled={inputSetData?.readonly}
         />
       )}
@@ -202,19 +186,19 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
-    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
 
       try {
-        timeout.validateSync(data.spec)
+        timeout.validateSync(data)
       } catch (e) {
         /* istanbul ignore else */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
-          Object.assign(errors.spec, err)
+          Object.assign(errors, err)
         }
       }
     }
@@ -231,9 +215,9 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
 
   protected defaultValues: K8sBGDeployData = {
     identifier: '',
+    timeout: '10m',
     spec: {
-      skipDryRun: false,
-      timeout: '10m'
+      skipDryRun: false
     }
   }
 }

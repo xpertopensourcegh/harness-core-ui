@@ -6,8 +6,7 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { FieldArray, FormikProps, yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
@@ -16,7 +15,7 @@ import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElement } from 'services/cd-ng'
+import type { StepElementConfig, K8sApplyStepInfo } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -34,15 +33,8 @@ import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-interface K8sApplySpec {
-  skipDryRun?: boolean
-  skipSteadyStateCheck?: boolean
-  filePaths?: string[]
-}
-export interface K8sApplyData extends StepElement {
-  identifier: string
-  timeout?: string
-  spec: K8sApplySpec
+export interface K8sApplyData extends StepElementConfig {
+  spec: K8sApplyStepInfo
 }
 
 export interface K8sApplyVariableStepProps {
@@ -85,94 +77,84 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.k8sApply')}
-                  details={
-                    <>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <MultiTypeFieldSelector
-                          defaultValueToReset={defaultValueToReset}
-                          name={'spec.filePaths'}
-                          label={getString('fileFolderPathText')}
-                        >
-                          <FieldArray
-                            name="spec.filePaths"
-                            render={arrayHelpers => (
-                              <Layout.Vertical>
-                                {values?.spec?.filePaths?.map((path: string, index: number) => (
-                                  <Layout.Horizontal
-                                    key={path}
-                                    flex={{ distribution: 'space-between' }}
-                                    style={{ alignItems: 'end' }}
-                                  >
-                                    <FormInput.MultiTextInput
-                                      label=""
-                                      placeholder={'Enter overrides file path'}
-                                      name={`spec.filePaths[${index}]`}
-                                      style={{ width: '430px' }}
-                                    />
+              <>
+                <div className={stepCss.formGroup}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                </div>
+                <div className={stepCss.formGroup}>
+                  <MultiTypeFieldSelector
+                    defaultValueToReset={defaultValueToReset}
+                    name={'spec.filePaths'}
+                    label={getString('fileFolderPathText')}
+                  >
+                    <FieldArray
+                      name="spec.filePaths"
+                      render={arrayHelpers => (
+                        <Layout.Vertical>
+                          {values?.spec?.filePaths?.map((path: string, index: number) => (
+                            <Layout.Horizontal
+                              key={path}
+                              flex={{ distribution: 'space-between' }}
+                              style={{ alignItems: 'end' }}
+                            >
+                              <FormInput.MultiTextInput
+                                label=""
+                                placeholder={'Enter overrides file path'}
+                                name={`spec.filePaths[${index}]`}
+                                style={{ width: '430px' }}
+                              />
 
-                                    {values?.spec?.filePaths && values?.spec?.filePaths?.length > 1 && (
-                                      <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
-                                    )}
-                                  </Layout.Horizontal>
-                                ))}
-                                <span>
-                                  <Button
-                                    minimal
-                                    text={getString('addFileText')}
-                                    intent="primary"
-                                    onClick={() => arrayHelpers.push('')}
-                                  />
-                                </span>
-                              </Layout.Vertical>
-                            )}
-                          />
-                        </MultiTypeFieldSelector>
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                          <FormMultiTypeDurationField
-                            name="spec.timeout"
-                            label={getString('pipelineSteps.timeoutLabel')}
-                            multiTypeDurationProps={{ enableConfigureOptions: false }}
-                          />
-                          {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={values.timeout as string}
-                              type="String"
-                              variableName="step.spec.timeout"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => {
-                                setFieldValue('spec.timeout', value)
-                              }}
+                              {values?.spec?.filePaths && values?.spec?.filePaths?.length > 1 && (
+                                <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                              )}
+                            </Layout.Horizontal>
+                          ))}
+                          <span>
+                            <Button
+                              minimal
+                              text={getString('addFileText')}
+                              intent="primary"
+                              onClick={() => arrayHelpers.push('')}
                             />
-                          )}
-                        </Layout.Horizontal>
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <FormMultiTypeCheckboxField
-                          name="spec.skipDryRun"
-                          label={getString('pipelineSteps.skipDryRun')}
-                        />
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <FormMultiTypeCheckboxField
-                          name="spec.skipSteadyStateCheck"
-                          label={getString('pipelineSteps.skipSteadyStateCheck')}
-                        />
-                      </div>
-                    </>
-                  }
-                />
-              </Accordion>
+                          </span>
+                        </Layout.Vertical>
+                      )}
+                    />
+                  </MultiTypeFieldSelector>
+                </div>
+                <div className={stepCss.formGroup}>
+                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                    <FormMultiTypeDurationField
+                      name="timeout"
+                      label={getString('pipelineSteps.timeoutLabel')}
+                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    />
+                    {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={values.timeout as string}
+                        type="String"
+                        variableName="step.timeout"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          setFieldValue('timeout', value)
+                        }}
+                      />
+                    )}
+                  </Layout.Horizontal>
+                </div>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
+                </div>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeCheckboxField
+                    name="spec.skipSteadyStateCheck"
+                    label={getString('pipelineSteps.skipSteadyStateCheck')}
+                  />
+                </div>
+              </>
+
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>
@@ -191,7 +173,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           disabled={readonly}
         />
       )}
@@ -264,13 +246,13 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       })
 
       try {
-        timeout.validateSync(data.spec)
+        timeout.validateSync(data)
       } catch (e) {
         /* istanbul ignore else */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
-          Object.assign(errors.spec, err)
+          Object.assign(errors, err)
         }
       }
     }

@@ -315,7 +315,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           <div
             class="Accordion--label"
           >
-            Shell Script
+            Basic
           </div>
           <div
             class="Accordion--chevron"
@@ -553,7 +553,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 >
                   <label
                     class="bp3-label"
-                    for="spec.timeout"
+                    for="timeout"
                   >
                     Timeout
                      
@@ -573,7 +573,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                       >
                         <input
                           class="bp3-input"
-                          name="spec.timeout"
+                          name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
                           value=""
@@ -737,7 +737,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           <div
             class="Accordion--label"
           >
-            Shell Script
+            Basic
           </div>
           <div
             class="Accordion--chevron"
@@ -977,7 +977,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 >
                   <label
                     class="bp3-label"
-                    for="spec.timeout"
+                    for="timeout"
                   >
                     Timeout
                      
@@ -997,7 +997,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                       >
                         <input
                           class="bp3-input"
-                          name="spec.timeout"
+                          name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
                           value=""
@@ -1161,7 +1161,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           <div
             class="Accordion--label"
           >
-            Shell Script
+            Basic
           </div>
           <div
             class="Accordion--chevron"
@@ -1401,7 +1401,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 >
                   <label
                     class="bp3-label"
-                    for="spec.timeout"
+                    for="timeout"
                   >
                     Timeout
                      
@@ -1421,7 +1421,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                       >
                         <input
                           class="bp3-input"
-                          name="spec.timeout"
+                          name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
                           value=""
@@ -1585,7 +1585,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           <div
             class="Accordion--label"
           >
-            Shell Script
+            Basic
           </div>
           <div
             class="Accordion--chevron"
@@ -1823,7 +1823,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 >
                   <label
                     class="bp3-label"
-                    for="spec.timeout"
+                    for="timeout"
                   >
                     Timeout
                      
@@ -1843,7 +1843,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                       >
                         <input
                           class="bp3-input"
-                          name="spec.timeout"
+                          name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
                           value=""
@@ -2007,7 +2007,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           <div
             class="Accordion--label"
           >
-            Shell Script
+            Basic
           </div>
           <div
             class="Accordion--chevron"
@@ -2243,7 +2243,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 >
                   <label
                     class="bp3-label"
-                    for="spec.timeout"
+                    for="timeout"
                   >
                     Timeout
                      
@@ -2263,7 +2263,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                       >
                         <input
                           class="bp3-input"
-                          name="spec.timeout"
+                          name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
                           value=""

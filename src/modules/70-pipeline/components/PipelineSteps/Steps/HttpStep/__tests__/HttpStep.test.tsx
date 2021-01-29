@@ -113,6 +113,7 @@ describe('Http Step', () => {
     expect(onUpdate).toHaveBeenCalledWith({
       identifier: 'My_Http_Step',
       name: 'My Http Step',
+      timeout: '10s',
       spec: {
         headers: [
           {
@@ -129,7 +130,7 @@ describe('Http Step', () => {
             value: 'response.message'
           }
         ],
-        timeout: '10s',
+
         url: 'https://someapi.com/v3'
       }
     })

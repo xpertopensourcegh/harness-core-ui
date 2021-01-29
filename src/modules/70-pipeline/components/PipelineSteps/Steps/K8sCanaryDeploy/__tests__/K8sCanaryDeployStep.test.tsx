@@ -128,7 +128,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: false, timeout: '10m', instanceSelection: { type: 'Count', spec: { count: 20 } } },
+          timeout: '10m',
+          spec: { skipDryRun: false, instanceSelection: { type: 'Count', spec: { count: 20 } } },
           name: 'Test A'
         }}
         type={StepType.K8sCanaryDeploy}
@@ -149,9 +150,9 @@ describe('Test K8sBlueGreenDeployStep', () => {
             },
             type: 'Count'
           },
-          skipDryRun: false,
-          timeout: '10m'
+          skipDryRun: false
         },
+        timeout: '10m',
         type: 'K8sCanaryDeploy'
       })
     )
@@ -166,9 +167,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
+          timeout: '10m',
           spec: {
             skipDryRun: false,
-            timeout: '10m',
+
             instanceSelection: {
               spec: {
                 percentage: 20
@@ -196,9 +198,9 @@ describe('Test K8sBlueGreenDeployStep', () => {
             },
             type: 'Percentage'
           },
-          skipDryRun: false,
-          timeout: '10m'
+          skipDryRun: false
         },
+        timeout: '10m',
         type: 'K8sCanaryDeploy'
       })
     )
@@ -213,6 +215,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           name: 'Test A',
+          timeout: '10m',
           spec: {
             instanceSelection: {
               spec: {
@@ -220,8 +223,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
               },
               type: 'Percentage'
             },
-            skipDryRun: false,
-            timeout: '10m'
+            skipDryRun: false
           },
           type: 'K8sCanaryDeploy'
         }}
@@ -243,9 +245,9 @@ describe('Test K8sBlueGreenDeployStep', () => {
             },
             type: 'Percentage'
           },
-          skipDryRun: false,
-          timeout: '10m'
+          skipDryRun: false
         },
+        timeout: '10m',
         type: 'K8sCanaryDeploy'
       })
     )

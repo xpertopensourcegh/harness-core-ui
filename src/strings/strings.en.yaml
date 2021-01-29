@@ -313,6 +313,11 @@ failureStrategies:
 onTimeoutLabel: Post timeout action
 preRequisitesTitle: Pre-requisites
 advancedTitle: Advanced
+responseMapping: Response Mapping
+scriptInputVariables: Script Input Variables
+scriptOutputVariables: Script Output Variables
+executionTarget: Execution Target
+basic: Basic
 stepConfiguration: Basics
 stepGroupConfiguration: Step Group Configuration
 image: 'Image:'

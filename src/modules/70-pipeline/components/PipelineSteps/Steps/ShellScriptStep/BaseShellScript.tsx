@@ -53,21 +53,21 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
       </div>
       <div className={stepCss.formGroup}>
         <FormMultiTypeDurationField
-          name="spec.timeout"
+          name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
           multiTypeDurationProps={{ enableConfigureOptions: false }}
           className={stepCss.duration}
         />
-        {getMultiTypeFromValue(formValues.spec?.timeout) === MultiTypeInputType.RUNTIME && (
+        {getMultiTypeFromValue(formValues?.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec?.timeout as string}
             type="String"
-            variableName="step.spec.timeout"
+            variableName="step.timeout"
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => {
-              setFieldValue('spec.timeout', value)
+              setFieldValue('timeout', value)
             }}
           />
         )}

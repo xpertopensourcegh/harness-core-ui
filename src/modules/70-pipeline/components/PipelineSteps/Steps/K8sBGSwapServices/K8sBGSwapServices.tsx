@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  FormInput,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
-} from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 
@@ -76,42 +68,34 @@ function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<S
 
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.k8sBGSwapServices')}
-                  details={
-                    <>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      </div>
+              <>
+                <div className={stepCss.formGroup}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                </div>
 
-                      <div className={stepCss.formGroup}>
-                        <FormMultiTypeDurationField
-                          name="timeout"
-                          label={getString('pipelineSteps.timeoutLabel')}
-                          className={stepCss.duration}
-                          multiTypeDurationProps={{ enableConfigureOptions: false }}
-                        />
-                        {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={values.timeout as string}
-                            type="String"
-                            variableName="step.spec.timeout"
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              /* istanbul ignore next */
-                              setFieldValue('timeout', value)
-                            }}
-                          />
-                        )}
-                      </div>
-                    </>
-                  }
-                />
-              </Accordion>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    className={stepCss.duration}
+                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        /* istanbul ignore next */
+                        setFieldValue('timeout', value)
+                      }}
+                    />
+                  )}
+                </div>
+              </>
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>

@@ -233,7 +233,7 @@ describe('Test Shell Script Step', () => {
     await act(async () => {
       fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
       fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'Bash' } })
-
+      fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '10m' } })
       fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
         target: { value: 'script test' },
         bubbles: true
@@ -274,6 +274,7 @@ describe('Test Shell Script Step', () => {
     expect(onUpdate).toHaveBeenCalledWith({
       identifier: 'SSH',
       name: 'SSH',
+      timeout: '10m',
       spec: {
         shell: 'Bash',
         onDelegate: true,
@@ -330,7 +331,7 @@ describe('Test Shell Script Step', () => {
     await act(async () => {
       fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
       fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'Bash' } })
-
+      fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '10m' } })
       fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
         target: { value: 'script test' },
         bubbles: true
@@ -385,6 +386,7 @@ describe('Test Shell Script Step', () => {
     expect(onUpdate).toHaveBeenCalledWith({
       identifier: 'SSH',
       name: 'SSH',
+      timeout: '10m',
       spec: {
         shell: 'Bash',
         onDelegate: false,

@@ -6,8 +6,7 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  Accordion
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -15,7 +14,7 @@ import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
+import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -30,9 +29,7 @@ import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-export interface K8sRollingRollbackData extends StepElement {
-  spec: K8sRollingRollbackStepInfo
-}
+type K8sRollingRollbackData = StepElementConfig
 
 export interface K8RollingRollbackVariableStepProps {
   initialValues: K8sRollingRollbackData
@@ -68,11 +65,7 @@ function K8sRollingRollbackWidget(
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-          spec: Yup.object().shape({
-            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-              getString('validation.timeout10SecMinimum')
-            )
-          })
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<K8sRollingRollbackData>) => {
@@ -81,41 +74,33 @@ function K8sRollingRollbackWidget(
 
           return (
             <>
-              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
-                <Accordion.Panel
-                  id="details"
-                  summary={getString('pipelineSteps.k8sRolloutRollback')}
-                  details={
-                    <>
-                      <div className={stepCss.formGroup}>
-                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      </div>
-                      <div className={stepCss.formGroup}>
-                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                          <FormMultiTypeDurationField
-                            name="spec.timeout"
-                            label={getString('pipelineSteps.timeoutLabel')}
-                            multiTypeDurationProps={{ enableConfigureOptions: false }}
-                          />
-                          {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={values.spec.timeout as string}
-                              type="String"
-                              variableName="step.spec.timeout"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => {
-                                setFieldValue('spec.timeout', value)
-                              }}
-                            />
-                          )}
-                        </Layout.Horizontal>
-                      </div>
-                    </>
-                  }
-                />
-              </Accordion>
+              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+                <div className={stepCss.formGroup}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                </div>
+                <div className={stepCss.formGroup}>
+                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                    <FormMultiTypeDurationField
+                      name="timeout"
+                      label={getString('pipelineSteps.timeoutLabel')}
+                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    />
+                    {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={values.timeout as string}
+                        type="String"
+                        variableName="step.timeout"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          setFieldValue('timeout', value)
+                        }}
+                      />
+                    )}
+                  </Layout.Horizontal>
+                </div>
+              </Layout.Vertical>
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>
@@ -131,9 +116,9 @@ const K8sRollingRollbackInputStep: React.FC<K8sRollingRollbackProps> = ({ inputS
   const { getString } = useStrings()
   return (
     <>
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={inputSetData?.readonly}
         />
@@ -192,19 +177,19 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
-    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
 
       try {
-        timeout.validateSync(data.spec)
+        timeout.validateSync(data)
       } catch (e) {
         /* istanbul ignore else */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
-          Object.assign(errors.spec, err)
+          Object.assign(errors, err)
         }
       }
     }
@@ -221,8 +206,6 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
 
   protected defaultValues: K8sRollingRollbackData = {
     identifier: '',
-    spec: {
-      timeout: '10m'
-    }
+    timeout: '10m'
   }
 }

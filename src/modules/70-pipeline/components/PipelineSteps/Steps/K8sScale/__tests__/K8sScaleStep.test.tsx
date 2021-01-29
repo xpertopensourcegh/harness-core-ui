@@ -137,11 +137,11 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sScale',
           spec: {
             skipDryRun: false,
-            timeout: '10m',
             workload: 'test',
             instanceSelection: { type: 'Count', spec: { count: 10 } }
           },
-          name: 'Test A'
+          name: 'Test A',
+          timeout: '10m'
         }}
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
@@ -162,9 +162,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
             type: 'Count'
           },
           skipDryRun: false,
-          timeout: '10m',
+
           workload: 'test'
         },
+        timeout: '10m',
         type: 'K8sScale'
       })
     )
@@ -181,7 +182,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sScale',
           spec: {
             skipDryRun: false,
-            timeout: '10m',
+
             workload: 'test',
             instanceSelection: {
               spec: {
@@ -190,6 +191,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
               type: InstanceTypes.Percentage
             }
           },
+          timeout: '10m',
           name: 'Test A'
         }}
         type={StepType.K8sScale}
@@ -211,9 +213,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
             type: 'Percentage'
           },
           skipDryRun: false,
-          timeout: '10m',
+
           workload: 'test'
         },
+        timeout: '10m',
         type: 'K8sScale'
       })
     )
@@ -235,9 +238,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
               type: 'Percentage'
             },
             skipDryRun: false,
-            timeout: '10m',
+
             workload: 'test'
           },
+          timeout: '10m',
           type: 'K8sScale'
         }}
         type={StepType.K8sScale}
@@ -259,9 +263,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
             type: 'Percentage'
           },
           skipDryRun: false,
-          timeout: '10m',
+
           workload: 'test'
         },
+        timeout: '10m',
         type: 'K8sScale'
       })
     )
@@ -281,9 +286,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
               type: 'Count'
             },
             skipDryRun: false,
-            timeout: '10m',
+
             workload: 'test'
           },
+          timeout: '10m',
           type: 'K8sScale'
         }}
         type={StepType.K8sScale}
@@ -305,9 +311,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
             type: 'Count'
           },
           skipDryRun: false,
-          timeout: '10m',
+
           workload: 'test'
         },
+        timeout: '10m',
         type: 'K8sScale'
       })
     )
