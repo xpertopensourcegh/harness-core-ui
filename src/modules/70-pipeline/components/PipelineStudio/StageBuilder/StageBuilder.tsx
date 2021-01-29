@@ -35,7 +35,6 @@ import {
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
-import { PipelineTriggers } from '../PipelineTriggers/PipelineTriggers'
 import css from './StageBuilder.module.scss'
 
 const PANEL_RESIZE_DELTA = 4
@@ -612,7 +611,6 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             >
               {type === SplitViewTypes.StageView && renderPipelineStage({ stageType, minimal: false })}
               {type === SplitViewTypes.Notifications && <PipelineNotifications />}
-              {type === SplitViewTypes.Triggers && <PipelineTriggers />}
             </div>
           </SplitPane>
         ) : (

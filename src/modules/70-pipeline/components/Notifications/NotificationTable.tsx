@@ -10,10 +10,11 @@ import { getIconByNotificationMethod } from '@notifications/Utils/Utils'
 import type { NotificationType } from '@notifications/interfaces/Notifications'
 import { useNotificationModal } from './useNotificationModal'
 import { PipelineEventType } from './Steps/PipelineEvents'
+import { Actions } from './NotificationUtils'
 
 export interface NotificationTableProps {
   data: NotificationRules[]
-  onUpdate?: (data?: NotificationRules, index?: number) => void
+  onUpdate?: (data?: NotificationRules, index?: number, action?: Actions, closeModal?: () => void) => void
   gotoPage: (index: number) => void
   totalPages?: number
   totalItems?: number
@@ -51,7 +52,7 @@ const RenderColumnEnabled: Renderer<CellProps<NotificationRules>> = ({ row, colu
       checked={data.enabled}
       onChange={e => {
         data.enabled = e.currentTarget.checked
-        ;(column as any).onUpdate?.(data, row.id)
+        ;(column as any).onUpdate?.(data, row.id, Actions.Update)
       }}
     />
   )
@@ -96,13 +97,13 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRules>> = ({ row, column 
   const handleEdit = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
-    ;(column as any).openNotificationModal?.(data, row.id)
+    ;(column as any).openNotificationModal?.(data)
   }
 
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
-    ;(column as any).onUpdate?.(undefined, row.id)
+    ;(column as any).onUpdate?.(row, row.id, Actions.Delete)
   }
   return (
     <Layout.Horizontal>
@@ -135,7 +136,11 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRules>> = ({ row, column 
 const NotificationTable: React.FC<NotificationTableProps> = props => {
   const { data, gotoPage, onUpdate, totalItems = 0, pageSize = 5, totalPages = 1, pageIndex = 0 } = props
   const { getString } = useStrings()
-  const { openNotificationModal } = useNotificationModal({})
+  const { openNotificationModal, closeNotificationModal } = useNotificationModal({
+    onCreateOrUpdate: (_data?: NotificationRules, _index?: number, _action?: Actions) => {
+      onUpdate?.(_data, _index, _action, closeNotificationModal)
+    }
+  })
 
   const columns: CustomColumn<NotificationRules>[] = useMemo(
     () => [

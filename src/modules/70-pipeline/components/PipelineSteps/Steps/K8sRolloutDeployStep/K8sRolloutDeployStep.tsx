@@ -215,7 +215,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
 
   protected type = StepType.K8sRollingDeploy
   protected stepName = 'K8s Rollout Deploy'
-  protected stepIcon: IconName = 'service-kubernetes'
+  protected stepIcon: IconName = 'rolling'
 
   protected defaultValues: K8RolloutDeployData = {
     identifier: '',

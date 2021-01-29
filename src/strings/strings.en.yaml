@@ -233,6 +233,13 @@ selectProject: 'Select Project'
 mapApplications: 'Map Applications to Harness Services'
 pipelineActivityLabel: 'Executions in last 7 days'
 total: 'Total'
+cd:
+  continuousIntegration: 'Continuous Delivery'
+  dashboard:
+    subHeading: Take your software build processes to the next level using our Harness Continuous Delivery
+    learnMore: Learn more about Continuous Delivery
+    createProject: '{{$.ci.dashboard.createProject}}'
+    orSelectExisting: '{{$.ci.dashboard.orSelectExisting}}'
 createSecretYAML:
   create: Create
   newSecret: New Secret

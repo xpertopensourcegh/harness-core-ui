@@ -202,7 +202,7 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
 
   protected type = StepType.K8sRollingRollback
   protected stepName = 'K8s Rollout Rollback'
-  protected stepIcon: IconName = 'service-kubernetes'
+  protected stepIcon: IconName = 'undo'
 
   protected defaultValues: K8sRollingRollbackData = {
     identifier: '',

@@ -170,7 +170,7 @@ export class K8sBGSwapServices extends PipelineStep<StepElement> {
   protected type = StepType.K8sBGSwapServices
   protected stepName = 'K8s Blue Green Swap Services'
 
-  protected stepIcon: IconName = 'service-kubernetes'
+  protected stepIcon: IconName = 'command-swap'
   /* istanbul ignore next */
 
   validateInputSet(data: StepElement, template: StepElement, getString?: UseStringsReturn['getString']): object {

@@ -211,7 +211,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
   }
   protected type = StepType.K8sBlueGreenDeploy
   protected stepName = 'K8s Blue Green Deploy'
-  protected stepIcon: IconName = 'service-kubernetes'
+  protected stepIcon: IconName = 'bluegreen'
 
   protected defaultValues: K8sBGDeployData = {
     identifier: '',

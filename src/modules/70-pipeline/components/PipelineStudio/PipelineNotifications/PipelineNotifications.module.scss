@@ -14,7 +14,7 @@
   .content {
     overflow: hidden;
     background-color: var(--white);
-
+    padding: var(--spacing-large);
     & > div {
       overflow: auto;
     }

@@ -42,7 +42,6 @@ export const DrawerSizes: { [key: string]: number } = {
 }
 
 export enum SplitViewTypes {
-  Triggers = 'Triggers',
   Notifications = 'Notifications',
   StageView = 'StageView'
 }

@@ -27,12 +27,78 @@ exports[`Test PipelineNotifications should test render 1`] = `
             />
           </svg>
         </span>
-        Notifications
+        <span>
+          Notifications
+        </span>
       </span>
     </div>
     <div
       class="content"
-    />
+    >
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-bottom-huge"
+      >
+        <div
+          class="table"
+        >
+          <div
+            class="header"
+            role="row"
+          >
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              ENABLED
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 20%;"
+            >
+              NAME OF THE RULE
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 30%;"
+            >
+              PIPELINE EVENTS
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 30%;"
+            >
+              NOTIFICATION METHOD
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 5%;"
+            >
+              
+            </div>
+          </div>
+        </div>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            + Add Notification
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 `;

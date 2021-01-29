@@ -167,7 +167,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElementConfig> {
   protected type = StepType.K8sCanaryDelete
   protected stepName = 'K8s Canary Delete'
 
-  protected stepIcon: IconName = 'service-kubernetes'
+  protected stepIcon: IconName = 'delete'
   /* istanbul ignore next */
   validateInputSet(
     data: StepElementConfig,

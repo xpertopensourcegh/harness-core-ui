@@ -7,15 +7,16 @@ import { useStrings } from 'framework/exports'
 import Overview from './Steps/Overview'
 import PipelineEvents from './Steps/PipelineEvents'
 import NotificationMethods from './Steps/NotificationMethods'
+import { Actions } from './NotificationUtils'
 import css from './useNotificationModal.module.scss'
 
 export interface UseNotificationModalProps {
   onCloseModal?: () => void
-  onCreateOrUpdate?: (data?: NotificationRules, index?: number) => void
+  onCreateOrUpdate?: (data?: NotificationRules, index?: number, action?: Actions) => void
 }
 
 export interface UseNotificationModalReturn {
-  openNotificationModal: (NotificationRules?: NotificationRules) => void
+  openNotificationModal: (NotificationRules?: NotificationRules, index?: number) => void
   closeNotificationModal: () => void
 }
 
@@ -33,7 +34,7 @@ export const useNotificationModal = ({
   const [NotificationData, setNotificationData] = useState<NotificationRules>()
   const { getString } = useStrings()
   const wizardCompleteHandler = async (wizardData?: NotificationRules): Promise<void> => {
-    onCreateOrUpdate?.(wizardData, index)
+    onCreateOrUpdate?.(wizardData, index, view === Views.CREATE ? Actions.Added : Actions.Update)
   }
 
   const [showModal, hideModal] = useModalHook(

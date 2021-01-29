@@ -265,7 +265,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
 
   protected type = StepType.K8sApply
   protected stepName = 'K8s Apply'
-  protected stepIcon: IconName = 'service-kubernetes'
+  protected stepIcon: IconName = 'code'
 
   protected defaultValues: K8sApplyData = {
     identifier: '',
