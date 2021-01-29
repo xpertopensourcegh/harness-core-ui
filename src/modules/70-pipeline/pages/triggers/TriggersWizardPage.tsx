@@ -159,6 +159,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           targetIdentifier,
           secureToken: authToken?.spec?.value,
           actions: actions?.map((action: string) => ({ label: action, value: action })),
+          anyAction: actions?.length === 0,
           sourceBranchOperator,
           sourceBranchValue,
           targetBranchOperator,

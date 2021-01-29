@@ -33,6 +33,7 @@ export interface FlatOnEditValuesInterface {
   repoUrl: string
   event: string
   actions: string[]
+  anyAction?: boolean // required for onEdit to show checked
   secureToken?: string
   sourceBranchOperator?: string
   sourceBranchValue?: string
