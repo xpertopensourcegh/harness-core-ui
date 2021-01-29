@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
-import { useGetFeatureFlag } from 'services/cf'
+import { useGetAllFeatures, useGetFeatureFlag } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -47,6 +47,23 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     }
   })
 
+  const { data: featureList, refetch: fetchFlagList } = useGetAllFeatures({
+    lazy: true,
+    queryParams: {
+      environment: environmentOption?.value as string,
+      project: projectIdentifier as string,
+      account: accountId,
+      org: orgIdentifier
+    }
+  })
+
+  useEffect(() => {
+    if (environmentOption) {
+      refetch()
+      fetchFlagList()
+    }
+  }, [environmentOption])
+
   const onEnvChange = (item: SelectOption) => {
     setEnvironment({ label: item?.label, value: item?.value as string })
 
@@ -79,7 +96,9 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     <Container flex height="100%">
       <Layout.Horizontal className={css.flagContainer}>
         <Layout.Vertical width="100%">
-          {featureFlag && <FlagActivationDetails featureFlag={featureFlag} refetchFlag={refetch} />}
+          {featureFlag && (
+            <FlagActivationDetails featureFlag={featureFlag} featureList={featureList} refetchFlag={refetch} />
+          )}
         </Layout.Vertical>
       </Layout.Horizontal>
 

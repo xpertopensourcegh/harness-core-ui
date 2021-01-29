@@ -35,7 +35,7 @@ type PatchKind =
   | 'removeFromExcludeList'
   | 'updateRule'
 
-export type FeatureList = Pick<Prerequisite, 'feature'>[]
+export type PrerequisiteFeature = Pick<Prerequisite, 'feature'>
 export type VariationIdentifier = Pick<Variation, 'identifier'>[]
 export interface TagParams {
   name: string
@@ -117,8 +117,8 @@ type ParameterType =
   | UpdateDescriptionParams
   | SetStateParams
   | Distribution
-  | Prerequisite[]
-  | FeatureList
+  | Prerequisite
+  | PrerequisiteFeature
   | Variation
   | VariationIdentifier
   | TagParams
@@ -182,17 +182,17 @@ const updateDescription: (description: string) => Instruction<UpdateDescriptionP
   'updateDescription',
   shape<UpdateDescriptionParams>('description')
 )
-const addPrerequisite: (prerequisites: Prerequisite[]) => Instruction<Prerequisite[]> = unaryInstructionCreator(
+const addPrerequisite: (prerequisite: Prerequisite) => Instruction<Prerequisite> = unaryInstructionCreator(
   'addPrerequisite',
   identity
 )
-const updatePrequisite: (prerequisites: Prerequisite[]) => Instruction<Prerequisite[]> = unaryInstructionCreator(
+const updatePrequisite: (prerequisites: Prerequisite) => Instruction<Prerequisite> = unaryInstructionCreator(
   'updatePrerequisite',
   identity
 )
-const removePrerequisite: (prerequisites: FeatureList) => Instruction<FeatureList> = unaryInstructionCreator(
+const removePrerequisite: (prerequisiteFeature: string) => Instruction<PrerequisiteFeature> = unaryInstructionCreator(
   'removePrerequisite',
-  identity
+  shape('feature')
 )
 const addVariation: (variation: Variation) => Instruction<Variation> = unaryInstructionCreator('addVariation', identity)
 const updateVariation: (variation: Variation) => Instruction<Variation> = unaryInstructionCreator(

@@ -35,7 +35,8 @@ export default {
     addPrerequisitesHeading: 'Add Prerequisites',
     addPrerequisitesDesc: 'The following must be met before your flag can be enabled',
     selectFlag: 'Select a Flag',
-    selectVariation: 'Select a Variation'
+    selectVariation: 'Select a Variation',
+    editPrerequisitesHeading: 'Edit Prerequisites'
   },
   editDetails: {
     editDetailsHeading: 'Edit Flag Details',

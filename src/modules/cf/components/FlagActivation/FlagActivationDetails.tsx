@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { isEqual, zip, cloneDeep, orderBy } from 'lodash-es'
+import { get, isEqual, zip, flatMap, cloneDeep, orderBy } from 'lodash-es'
 import {
   Color,
   Layout,
@@ -19,20 +19,16 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import moment from 'moment'
+import { FieldArray } from 'formik'
 import { Menu, Dialog, Classes } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
-import { FieldArray } from 'formik'
-import { Feature, usePatchFeature, Variation } from 'services/cf'
+import { useToaster } from '@common/exports'
+import { Feature, Features, Prerequisite, usePatchFeature, Variation } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from '../CreateFlagWizard/common/InputDescOptional'
 import patch from '../../utils/instructions'
 import i18n from './FlagActivationDetails.i18n'
 import css from './FlagActivationDetails.module.scss'
-
-interface ListPrerequisitesOptionElement {
-  prerequisitesFlag: string
-  prerequisitesVariation: string
-}
 
 const editCardCollapsedProps = {
   collapsedIcon: 'main-chevron-right' as IconName,
@@ -44,7 +40,13 @@ const editCardCollapsedProps = {
 
 interface FlagActivationDetailsProps {
   featureFlag: Feature
+  featureList: Features | null
   refetchFlag: () => void
+}
+
+interface PrerequisiteEntry {
+  feature: string
+  variation: string
 }
 
 const VariationItem: React.FC<{ variation: Variation }> = ({ variation }) => {
@@ -93,12 +95,13 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
 }
 
 const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
-  const { featureFlag: featureFlag, refetchFlag } = props
+  const { featureList, featureFlag, refetchFlag } = props
+  const { showError } = useToaster()
   const [editOpenedMenu, setEditOpenedMenu] = useState(false)
-  const [showPrerequisites, setShowPrerequisites] = useState(false)
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const [listPrerequisites, setListPrequisites] = useState<ListPrerequisitesOptionElement[]>([])
   const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
+  const [isEditingPrerequisites, setEditingPrerequisites] = useState<boolean>(false)
+
   const { mutate: submitPatch } = usePatchFeature({
     identifier: featureFlag?.identifier as string,
     queryParams: {
@@ -124,6 +127,23 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     setEditDefaultValuesModal(localVars)
   }
   const initialVariations = cloneDeep(featureFlag?.variations)
+
+  const handlePrerequisiteInteraction = (action: 'edit' | 'delete', prereq: Prerequisite) => () => {
+    if (action === 'delete') {
+      patch.feature.addInstruction(patch.creators.removePrerequisite(prereq.feature))
+      patch.feature.onPatchAvailable(data => {
+        submitPatch(data)
+          .then(refetchFlag)
+          .catch(err => {
+            showError(get(err, 'data.message', err?.message))
+          })
+          .finally(patch.feature.reset)
+      })
+    } else {
+      setEditingPrerequisites(true)
+      openModalPrerequisites()
+    }
+  }
 
   const [openModalEditVariations, hideModalEditVariations] = useModalHook(() => {
     const initialValues = {
@@ -348,63 +368,137 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     )
   }, [editDefaultValuesModal, featureFlag?.variations])
 
-  const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => (
-    <Dialog title={i18n.addPrerequisites.addPrerequisitesHeading} onClose={hideModalPrerequisites} isOpen={true}>
-      <Layout.Vertical padding={{ left: 'large', right: 'medium' }}>
-        <Text margin={{ top: 'medium', bottom: 'xlarge' }}>{i18n.addPrerequisites.addPrerequisitesDesc}</Text>
-        <Formik
-          initialValues={{
-            prerequisitesDialog: [{ prerequisitesFlag: '', prerequisitesVariation: '' }]
-          }}
-          onSubmit={vals => {
-            setShowPrerequisites(true)
-            setListPrequisites(vals.prerequisitesDialog)
-            alert(JSON.stringify(vals, null, 2))
-          }}
-        >
-          {formikProps => (
-            <Form>
-              <FieldArray name="prerequisitesDialog">
-                {arrayHelpers => {
-                  return (
-                    <>
-                      {formikProps.values.prerequisitesDialog.map((__, i) => (
-                        <Layout.Horizontal flex key={i}>
-                          <FormInput.Select
-                            name={`prerequisitesDialog.${i}.prerequisitesFlag`}
-                            placeholder={i18n.addPrerequisites.selectFlag}
-                            items={[{ label: 'Placeholder', value: 'placeholder' }]}
-                          />
-                          <FormInput.Select
-                            name={`prerequisitesDialog.${i}.prerequisitesVariation`}
-                            placeholder={i18n.addPrerequisites.selectVariation}
-                            items={[{ label: 'Placeholder', value: 'placeholder' }]}
-                          />
-                        </Layout.Horizontal>
-                      ))}
-                      <Button
-                        minimal
-                        intent="primary"
-                        text={i18n.prerequisites}
-                        icon="small-plus"
-                        onClick={() => {
-                          arrayHelpers.push({ prerequisitesFlag: '', prerequisitesVariation: '' })
-                        }}
-                      />
-                    </>
-                  )
-                }}
-              </FieldArray>
-              <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }} border={{ bottom: true }}>
-                <Button text={i18n.save} intent="primary" margin={{ right: 'small' }} type="submit" />
-                <Button text={i18n.cancel} onClick={hideModalPrerequisites} />
-              </Layout.Horizontal>
-            </Form>
-          )}
-        </Formik>
-      </Layout.Vertical>
-    </Dialog>
-  ))
+  const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => {
+    const initialPrereqValues = {
+      prerequisites: flatMap(featureFlag.prerequisites, ({ feature, variations }) => {
+        return variations.map(variation => ({ variation, feature } as PrerequisiteEntry))
+      })
+    }
+
+    const handleAddPrerequisite = (prereqValues: typeof initialPrereqValues) => {
+      const validPreqs = prereqValues.prerequisites
+        .reduce((acc, next) => {
+          const prIndex = acc.findIndex(p => p.feature === next.feature)
+          if (prIndex === -1) {
+            acc.push({ feature: next.feature, variations: [next.variation] })
+          } else {
+            acc[prIndex].variations.push(next.variation)
+          }
+          return acc
+        }, [] as Prerequisite[])
+        .filter(({ feature, variations }) => Boolean(feature.length && variations.filter(x => x.length).length))
+      const prerequisites = validPreqs
+        .reduce((acc, prereq) => {
+          const { feature, variations } = prereq
+          const exists = acc.find(p => p.feature === feature)
+          if (exists) {
+            exists.variations = exists.variations.concat(variations)
+            return acc
+          } else {
+            return [...acc, prereq]
+          }
+        }, [] as Prerequisite[])
+        .map(p => ({ ...p, variations: p.variations.sort() } as Prerequisite))
+        .sort((a, b) => a.feature.localeCompare(b.feature))
+
+      const initialPrerequisites = featureFlag.prerequisites || []
+      const removedPrerequisites = initialPrerequisites.filter(pr => !prerequisites.find(p => pr.feature === p.feature))
+      const newPrerequisites = prerequisites.filter(p => !initialPrerequisites.find(pr => pr.feature === p.feature))
+      const updatedPrequisites = prerequisites.filter(p =>
+        initialPrerequisites.find(pr => pr.feature === p.feature && !isEqual(pr.variations, p.variations))
+      )
+
+      const instructions = [
+        ...removedPrerequisites.map(p => patch.creators.removePrerequisite(p.feature)),
+        ...newPrerequisites.map(patch.creators.addPrerequisite),
+        ...updatedPrequisites.map(patch.creators.updatePrequisite)
+      ]
+
+      patch.feature.addAllInstructions(instructions)
+      patch.feature
+        .onPatchAvailable(data => {
+          submitPatch(data)
+            .then(() => {
+              hideModalPrerequisites()
+              refetchFlag()
+            })
+            .catch(err => {
+              showError(get(err, 'data.message', err?.message))
+            })
+            .finally(() => {
+              patch.feature.reset()
+            })
+        })
+        .onEmptyPatch(hideModalPrerequisites)
+    }
+
+    const title = isEditingPrerequisites
+      ? i18n.addPrerequisites.editPrerequisitesHeading
+      : i18n.addPrerequisites.addPrerequisitesHeading
+
+    return (
+      <Dialog title={title} onClose={hideModalPrerequisites} isOpen={true}>
+        <Layout.Vertical padding={{ left: 'large', right: 'medium' }}>
+          <Text margin={{ top: 'medium', bottom: 'xlarge' }}>{i18n.addPrerequisites.addPrerequisitesDesc}</Text>
+          <Formik initialValues={initialPrereqValues} onSubmit={handleAddPrerequisite}>
+            {formikProps => (
+              <Form>
+                <FieldArray name="prerequisites">
+                  {arrayHelpers => {
+                    return (
+                      <>
+                        {formikProps.values.prerequisites.map((elem, i) => {
+                          return (
+                            <Layout.Horizontal flex key={`prereq-${i}`}>
+                              <FormInput.Select
+                                name={`prerequisites.${i}.feature`}
+                                placeholder={i18n.addPrerequisites.selectFlag}
+                                items={
+                                  featureList?.features?.map((flag: Feature) => ({
+                                    label: flag.name,
+                                    value: flag.identifier
+                                  })) || []
+                                }
+                              />
+                              <FormInput.Select
+                                name={`prerequisites.${i}.variation`}
+                                placeholder={i18n.addPrerequisites.selectVariation}
+                                items={
+                                  featureList?.features
+                                    ?.find(ff => ff.identifier === elem.feature)
+                                    ?.variations?.map((v: Variation) => ({
+                                      label: v.name?.length ? v.name : v.identifier,
+                                      value: v.identifier
+                                    })) || []
+                                }
+                              />
+                            </Layout.Horizontal>
+                          )
+                        })}
+                        <Button
+                          minimal
+                          intent="primary"
+                          text={i18n.prerequisites}
+                          icon="small-plus"
+                          onClick={() => {
+                            arrayHelpers.push({ feature: '', variations: [''] })
+                          }}
+                        />
+                      </>
+                    )
+                  }}
+                </FieldArray>
+                <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }} border={{ bottom: true }}>
+                  <Button text={i18n.save} intent="primary" margin={{ right: 'small' }} type="submit" />
+                  <Button text={i18n.cancel} onClick={hideModalPrerequisites} />
+                </Layout.Horizontal>
+              </Form>
+            )}
+          </Formik>
+        </Layout.Vertical>
+      </Dialog>
+    )
+  }, [featureList, isEditingPrerequisites])
 
   const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => {
     const initialValues = {
@@ -608,13 +702,32 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               <Text width="50%">{i18n.variation}</Text>
             </Layout.Horizontal>
             <Layout.Vertical className={css.collapseFeaturesPrerequisites}>
-              {showPrerequisites &&
-                listPrerequisites.map((elem, i) => (
+              {Boolean(featureFlag.prerequisites?.length) &&
+                featureFlag.prerequisites?.map((elem, i) => (
                   <Layout.Horizontal key={i} flex padding="medium">
-                    <Text>{elem.prerequisitesFlag}</Text>
-                    <Text>{elem.prerequisitesVariation}</Text>
-                    {/* TODO: In the future, replace this with Popover */}
-                    <Icon name="more" color={Color.GREY_500} />
+                    <Text>{elem.feature}</Text>
+                    <Text>{elem.variations[0]}</Text>
+                    <Button
+                      minimal
+                      icon="Options"
+                      iconProps={{ size: 24 }}
+                      style={{ marginLeft: 'auto' }}
+                      tooltip={
+                        <Menu style={{ minWidth: 'unset' }}>
+                          <Menu.Item
+                            icon="edit"
+                            text={i18n.edit}
+                            onClick={handlePrerequisiteInteraction('edit', elem)}
+                          />
+                          <Menu.Item
+                            icon="cross"
+                            text={i18n.delete}
+                            onClick={handlePrerequisiteInteraction('delete', elem)}
+                          />
+                        </Menu>
+                      }
+                      tooltipProps={{ isDark: true, interactionKind: 'click' }}
+                    />
                   </Layout.Horizontal>
                 ))}
               <Button
@@ -622,7 +735,10 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 intent="primary"
                 icon="small-plus"
                 text={i18n.prerequisites}
-                onClick={openModalPrerequisites}
+                onClick={() => {
+                  setEditingPrerequisites(false)
+                  openModalPrerequisites()
+                }}
               />
             </Layout.Vertical>
           </Collapse>
