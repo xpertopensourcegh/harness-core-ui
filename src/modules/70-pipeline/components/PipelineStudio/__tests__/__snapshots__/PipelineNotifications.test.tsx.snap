@@ -65,7 +65,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 30%;"
+              style="width: 35%;"
             >
               PIPELINE EVENTS
             </div>
@@ -73,7 +73,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 30%;"
+              style="width: 25%;"
             >
               NOTIFICATION METHOD
             </div>

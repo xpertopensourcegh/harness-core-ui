@@ -10,17 +10,17 @@ const args: NotificationTableProps = {
     {
       name: 'name',
       enabled: true,
-      pipelineEvents: [{ type: 'AllEvents' }],
-      notificationMethod: { type: 'Email', spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] } }
-    },
-    {
-      name: 'name',
-      enabled: true,
       pipelineEvents: [{ type: 'AllEvents' }, { type: 'PipelineFailed' }],
       notificationMethod: {
         type: 'Slack',
         spec: { userGroups: ['pl-cd-ng'], webhookUrls: 'webhookURL' }
       }
+    },
+    {
+      name: 'name',
+      enabled: true,
+      pipelineEvents: [{ type: 'AllEvents' }],
+      notificationMethod: { type: 'Email', spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] } }
     },
     {
       name: 'name',

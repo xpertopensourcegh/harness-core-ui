@@ -1,7 +1,5 @@
-import { Color, Formik, FormInput, Layout, StepProps, Text } from '@wings-software/uicore'
-import React from 'react'
-import * as Yup from 'yup'
-import { Form } from 'formik'
+import { Color, Layout, Select, SelectOption, StepProps, Text } from '@wings-software/uicore'
+import React, { useState } from 'react'
 import { noop } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import { NotificationType } from '@notifications/interfaces/Notifications'
@@ -13,134 +11,113 @@ import ConfigurePagerDutyNotifications from '@notifications/modals/ConfigureNoti
 
 const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepData, nextStep, previousStep }) => {
   const { getString } = useStrings()
+  const [method, setMethod] = useState<SelectOption | undefined>(
+    prevStepData?.notificationMethod?.type
+      ? {
+          label: prevStepData?.notificationMethod?.type,
+          value: prevStepData?.notificationMethod?.type
+        }
+      : undefined
+  )
   return (
     <Layout.Vertical spacing="xxlarge" padding="small">
       <Text font="medium" color={Color.BLACK}>
         {getString('pipeline-notifications.notificationMethod')}
       </Text>
-      <Formik
-        initialValues={{
-          type: prevStepData?.notificationMethod?.type || '',
-          emailIds: [],
-          userGroups: [],
-          recipients: [],
-          webhookUrls: '',
-          integrationKeys: '',
-          ...prevStepData?.notificationMethod?.spec
-        }}
-        validationSchema={Yup.object().shape({
-          type: Yup.string().required()
-        })}
-        onSubmit={values => {
-          nextStep?.({
-            notificationMethod: {
-              type: values.type,
-              spec: {
-                userGroups: values.userGroups ? Object.keys(values.userGroups) : [],
-                recipients: values.type === NotificationType.Email ? values.recipients : undefined,
-                integrationKeys: values.type === NotificationType.PagerDuty ? values.recipients : undefined,
-                webhookUrls: values.type === NotificationType.Slack ? values.recipients : undefined
-              }
-            },
-            ...prevStepData
-          })
-        }}
-      >
-        {formikProps => {
-          return (
-            <Form>
-              <Layout.Vertical height={500} width={500} spacing="large">
-                <FormInput.Select
-                  name="type"
-                  label={getString('pipeline-notifications.notificationMethod')}
-                  items={NotificationTypeSelectOptions}
-                />
-                {formikProps.values.type === NotificationType.Email ? (
-                  <>
-                    <ConfigureEmailNotifications
-                      withoutHeading={true}
-                      onSuccess={data => {
-                        nextStep?.({
-                          notificationMethod: {
-                            type: formikProps.values.type,
-                            spec: {
-                              userGroups: Object.keys(data.userGroups),
-                              recipients: data.emailIds
-                            }
-                          },
-                          ...prevStepData
-                        })
-                      }}
-                      hideModal={noop}
-                      isStep={true}
-                      onBack={() => previousStep?.({ ...prevStepData })}
-                      config={{
-                        type: NotificationType.Email,
-                        emailIds: (prevStepData?.notificationMethod?.spec as PmsEmailChannel)?.recipients || [],
-                        userGroups: prevStepData?.notificationMethod?.spec?.userGroups || []
-                      }}
-                    />
-                  </>
-                ) : null}
 
-                {formikProps.values.type === NotificationType.Slack ? (
-                  <ConfigureSlackNotifications
-                    withoutHeading={true}
-                    onSuccess={data => {
-                      nextStep?.({
-                        notificationMethod: {
-                          type: formikProps.values.type,
-                          spec: {
-                            userGroups: Object.keys(data.userGroups),
-                            webhookUrl: data.webhookUrl
-                          }
-                        },
-                        ...prevStepData
-                      })
-                    }}
-                    hideModal={noop}
-                    isStep={true}
-                    onBack={() => previousStep?.({ ...prevStepData })}
-                    config={{
-                      type: NotificationType.Slack,
-                      webhookUrl:
-                        (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.webhookUrls?.toString() || '',
-                      userGroups: prevStepData?.notificationMethod?.spec?.userGroups || []
-                    }}
-                  />
-                ) : null}
-                {formikProps.values.type === NotificationType.PagerDuty ? (
-                  <ConfigurePagerDutyNotifications
-                    withoutHeading={true}
-                    onSuccess={data => {
-                      nextStep?.({
-                        notificationMethod: {
-                          type: formikProps.values.type,
-                          spec: {
-                            userGroups: Object.keys(data.userGroups),
-                            integrationKey: data.key
-                          }
-                        },
-                        ...prevStepData
-                      })
-                    }}
-                    hideModal={() => undefined}
-                    isStep={true}
-                    onBack={() => previousStep?.({ ...prevStepData })}
-                    config={{
-                      type: NotificationType.PagerDuty,
-                      key:
-                        (prevStepData?.notificationMethod?.spec as PmsPagerDutyChannel).integrationKeys?.toString() ||
-                        '',
-                      userGroups: prevStepData?.notificationMethod?.spec?.userGroups || []
-                    }}
-                  />
-                ) : null}
-              </Layout.Vertical>
-            </Form>
-          )
-        }}
-      </Formik>
+      <Layout.Vertical height={500} width={500} spacing="large">
+        <Layout.Vertical spacing="xsmall">
+          <Text>{getString('pipeline-notifications.notificationMethod')}</Text>
+          <Select
+            items={NotificationTypeSelectOptions}
+            value={method}
+            onChange={item => {
+              setMethod(item)
+            }}
+          />
+        </Layout.Vertical>
+        {method?.value === NotificationType.Email ? (
+          <>
+            <ConfigureEmailNotifications
+              withoutHeading={true}
+              submitButtonText={getString('finish')}
+              onSuccess={data => {
+                nextStep?.({
+                  notificationMethod: {
+                    type: method.value.toString(),
+                    spec: {
+                      userGroups: Object.keys(data.userGroups),
+                      recipients: data.emailIds
+                    }
+                  },
+                  ...prevStepData
+                })
+              }}
+              hideModal={noop}
+              isStep={true}
+              onBack={() => previousStep?.({ ...prevStepData })}
+              config={{
+                type: NotificationType.Email,
+                emailIds: (prevStepData?.notificationMethod?.spec as PmsEmailChannel)?.recipients || [],
+                userGroups: (prevStepData?.notificationMethod?.spec as PmsEmailChannel)?.userGroups || []
+              }}
+            />
+          </>
+        ) : null}
+
+        {method?.value === NotificationType.Slack ? (
+          <ConfigureSlackNotifications
+            withoutHeading={true}
+            submitButtonText={getString('finish')}
+            onSuccess={data => {
+              nextStep?.({
+                notificationMethod: {
+                  type: method.value.toString(),
+                  spec: {
+                    userGroups: Object.keys(data.userGroups),
+                    webhookUrl: data.webhookUrl
+                  }
+                },
+                ...prevStepData
+              })
+            }}
+            hideModal={noop}
+            isStep={true}
+            onBack={() => previousStep?.({ ...prevStepData })}
+            config={{
+              type: NotificationType.Slack,
+              webhookUrl: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.webhookUrl || '',
+              userGroups: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.userGroups || []
+            }}
+          />
+        ) : null}
+        {method?.value === NotificationType.PagerDuty ? (
+          <ConfigurePagerDutyNotifications
+            withoutHeading={true}
+            submitButtonText={getString('finish')}
+            onSuccess={data => {
+              nextStep?.({
+                notificationMethod: {
+                  type: method.value.toString(),
+                  spec: {
+                    userGroups: Object.keys(data.userGroups),
+                    integrationKey: data.key
+                  }
+                },
+                ...prevStepData
+              })
+            }}
+            hideModal={() => undefined}
+            isStep={true}
+            onBack={() => previousStep?.({ ...prevStepData })}
+            config={{
+              type: NotificationType.PagerDuty,
+              key: (prevStepData?.notificationMethod?.spec as PmsPagerDutyChannel)?.integrationKey?.toString() || '',
+              userGroups: (prevStepData?.notificationMethod?.spec as PmsPagerDutyChannel)?.userGroups || []
+            }}
+          />
+        ) : null}
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

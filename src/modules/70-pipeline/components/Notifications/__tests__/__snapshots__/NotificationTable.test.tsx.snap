@@ -32,7 +32,7 @@ exports[`Notification Table test render 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           PIPELINE EVENTS
         </div>
@@ -40,7 +40,7 @@ exports[`Notification Table test render 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 30%;"
+          style="width: 25%;"
         >
           NOTIFICATION METHOD
         </div>
@@ -89,150 +89,7 @@ exports[`Notification Table test render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-          >
-            <span
-              class="bp3-tag bp3-round"
-            >
-              <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
-              >
-                All Events
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="main-email"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 14 9"
-                width="16"
-              >
-                <path
-                  d="M0 .7v7.7l4.4-4zM13.2 0H.8L7 5.1zM9.6 4.3l4.4 4V.7zM7.3 6.1c0 .1-.2.2-.3.2s-.3 0-.3-.1L5.2 4.9.7 9h12.5L8.8 4.9z"
-                  fill="#4d5969"
-                />
-              </svg>
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              Email
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
-        >
-          <div
-            class="Layout--horizontal StyledProps--main"
-          >
-            <span
-              class="bp3-popover-wrapper bp3-dark"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="Options"
-                  >
-                    <svg
-                      height="24"
-                      width="24"
-                    >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
-                        fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 15%;"
-        >
-          <label
-            class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
-          >
-            <input
-              checked=""
-              type="checkbox"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-          </label>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            name
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
@@ -260,7 +117,7 @@ exports[`Notification Table test render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
+          style="width: 25%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -408,7 +265,7 @@ exports[`Notification Table test render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
@@ -427,7 +284,150 @@ exports[`Notification Table test render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
+          style="width: 25%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="main-email"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 14 9"
+                width="16"
+              >
+                <path
+                  d="M0 .7v7.7l4.4-4zM13.2 0H.8L7 5.1zM9.6 4.3l4.4 4V.7zM7.3 6.1c0 .1-.2.2-.3.2s-.3 0-.3-.1L5.2 4.9.7 9h12.5L8.8 4.9z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              Email
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <span
+              class="bp3-popover-wrapper bp3-dark"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="Options"
+                  >
+                    <svg
+                      height="24"
+                      width="24"
+                    >
+                      <defs>
+                        <path
+                          d="M0 0h24v24H0z"
+                          id="Options_svg__a"
+                        />
+                      </defs>
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                      >
+                        <mask
+                          fill="#fff"
+                          id="Options_svg__b"
+                        >
+                          <use
+                            xlink:href="#Options_svg__a"
+                          />
+                        </mask>
+                        <path
+                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                          mask="url(#Options_svg__b)"
+                          stroke="#25A6F7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          transform="rotate(90 12 12)"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 15%;"
+        >
+          <label
+            class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+          >
+            <input
+              checked=""
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+          </label>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 20%;"
+        >
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+            style="--text-line-clamp: 1;"
+          >
+            name
+          </p>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 35%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+          >
+            <span
+              class="bp3-tag bp3-round"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                All Events
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 25%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"

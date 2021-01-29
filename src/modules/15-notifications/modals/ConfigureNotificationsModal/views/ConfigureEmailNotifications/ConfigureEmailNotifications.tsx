@@ -25,6 +25,7 @@ interface ConfigureEmailNotificationsProps {
   isStep?: boolean
   onBack?: () => void
   withoutHeading?: boolean
+  submitButtonText?: string
   config?: EmailNotificationConfiguration
 }
 
@@ -157,11 +158,11 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
                     <Button text={getString('back')} onClick={props.onBack} />
-                    <Button text={getString('next')} intent="primary" type="submit" />
+                    <Button text={props.submitButtonText || getString('next')} intent="primary" type="submit" />
                   </Layout.Horizontal>
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                    <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
+                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || i18n.buttonSubmit} />
                     <Button text={i18n.buttonCancel} onClick={props.hideModal} />
                   </Layout.Horizontal>
                 )}

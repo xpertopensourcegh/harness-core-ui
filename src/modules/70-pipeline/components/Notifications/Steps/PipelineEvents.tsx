@@ -91,7 +91,7 @@ const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prev
           nextStep?.({ ...prevStepData, pipelineEvents })
         }}
       >
-        {() => {
+        {formikProps => {
           return (
             <Form>
               <Layout.Vertical spacing="medium" height={400} width={500}>
@@ -101,9 +101,23 @@ const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prev
                     <Layout.Vertical key={event.label}>
                       <Layout.Horizontal spacing="small" flex>
                         <FormInput.CheckBox
-                          label={event.label}
                           name={`types.${event.value}`}
+                          checked={formikProps.values.types[event.label]}
+                          label={event.label}
                           padding={{ left: 'xxxlarge' }}
+                          onChange={e => {
+                            if (e.currentTarget.checked) {
+                              if (event.value === PipelineEventType.ALL_EVENTS) {
+                                Object.keys(formikProps.values.types).forEach(item => {
+                                  item !== PipelineEventType.ALL_EVENTS
+                                    ? (formikProps.values.types[item] = false)
+                                    : (formikProps.values.types[item] = true)
+                                })
+                              } else {
+                                formikProps.values.types[PipelineEventType.ALL_EVENTS] = false
+                              }
+                            }
+                          }}
                         />
                         {(event.value === PipelineEventType.StageSuccess ||
                           event.value === PipelineEventType.StageFailed ||

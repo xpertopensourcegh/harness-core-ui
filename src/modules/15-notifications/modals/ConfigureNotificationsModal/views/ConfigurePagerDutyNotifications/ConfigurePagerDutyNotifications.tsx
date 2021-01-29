@@ -19,6 +19,7 @@ interface ConfigurePagerDutyNotificationsProps {
   isStep?: boolean
   withoutHeading?: boolean
   onBack?: () => void
+  submitButtonText?: string
   config?: PagerDutyNotificationConfiguration
 }
 
@@ -96,11 +97,11 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
                     <Button text={getString('back')} onClick={props.onBack} />
-                    <Button text={getString('next')} intent="primary" type="submit" />
+                    <Button text={props.submitButtonText || getString('next')} intent="primary" type="submit" />
                   </Layout.Horizontal>
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
-                    <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
+                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || i18n.buttonSubmit} />
                     <Button text={i18n.buttonCancel} onClick={props.hideModal} />
                   </Layout.Horizontal>
                 )}

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { Text, Layout, Color, Button, Popover, Switch, Pagination, Container, Icon } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Classes, Menu, Position, Tag } from '@blueprintjs/core'
+import { Classes, Menu, PopoverInteractionKind, Position, Tag } from '@blueprintjs/core'
 import { startCase } from 'lodash-es'
 import produce from 'immer'
 import Table from '@common/components/Table/Table'
@@ -73,14 +73,30 @@ const RenderColumnName: Renderer<CellProps<NotificationRules>> = ({ row }) => {
 }
 
 const RenderColumnEvents: Renderer<CellProps<NotificationRules>> = ({ row }) => {
-  const data = row.original.pipelineEvents
+  const data = row.original.pipelineEvents?.map(event => event.type)
+  const baseData = data?.slice(0, 3)
+  const popoverData = data?.slice(3, data.length)
   return (
     <Layout.Horizontal spacing="xsmall">
-      {data?.map(event => (
-        <Tag round={true} key={event.type} style={{ backgroundColor: getPipelineEventColor(event.type) }}>
-          {startCase(event.type)}
+      {baseData?.map(event => (
+        <Tag round={true} key={event} style={{ backgroundColor: getPipelineEventColor(event) }}>
+          {startCase(event)}
         </Tag>
       ))}
+      {popoverData?.length ? (
+        <Popover interactionKind={PopoverInteractionKind.HOVER}>
+          <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
+            <Icon name="main-tags" size={15} />
+          </Layout.Horizontal>
+          <Layout.Vertical padding="small" spacing="small">
+            {popoverData?.map(event => (
+              <Tag round={true} key={event} style={{ backgroundColor: getPipelineEventColor(event) }}>
+                {startCase(event)}
+              </Tag>
+            ))}
+          </Layout.Vertical>
+        </Popover>
+      ) : null}
     </Layout.Horizontal>
   )
 }
@@ -171,7 +187,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         Header: getString('pipeline-notifications.pipelineEvents').toUpperCase(),
         id: 'events',
         accessor: row => row.pipelineEvents,
-        width: '30%',
+        width: '35%',
         Cell: RenderColumnEvents,
         disableSortBy: true
       },
@@ -179,7 +195,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         Header: getString('pipeline-notifications.notificationMethod').toUpperCase(),
         id: 'methods',
         accessor: row => row.notificationMethod?.type,
-        width: '30%',
+        width: '25%',
         Cell: RenderColumnMethod,
         disableSortBy: true
       },
