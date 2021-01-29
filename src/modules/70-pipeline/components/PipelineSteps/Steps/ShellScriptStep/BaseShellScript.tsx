@@ -37,7 +37,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
         <FormMultiTypeTextAreaField
           name="spec.source.spec.script"
           label={getString('script')}
-          multiTypeTextArea={{ enableConfigureOptions: false }}
+          multiTypeTextArea={{ enableConfigureOptions: false, textAreaProps: { className: stepCss.code } }}
         />
         {getMultiTypeFromValue(formValues.spec.source?.spec?.script) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions

@@ -28,7 +28,7 @@ import {
   PipelineContext
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
-import { NameIdDescription } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
@@ -92,7 +92,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                 identifier: data?.stage.identifier,
                 name: data?.stage.name,
                 description: data?.stage.description,
-                tags: data?.stage?.tags || '',
+                tags: data?.stage?.tags || {},
                 skipCondition: data?.stage.skipCondition,
                 serviceType: newStageData[0]
               }}
@@ -100,6 +100,8 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                 if (data) {
                   data.stage.identifier = values.identifier
                   data.stage.name = values.name
+                  data.stage.description = values.description
+                  data.stage.tags = values.tags || {}
                   onSubmit?.(data, values.identifier)
                 }
               }}
@@ -120,7 +122,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
               {formikProps => {
                 return (
                   <FormikForm>
-                    <NameIdDescription
+                    <NameIdDescriptionTags
                       formikProps={formikProps}
                       identifierProps={{
                         isIdentifierEditable: !context

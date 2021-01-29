@@ -30,6 +30,11 @@
   display: grid;
   grid-template-columns: 1fr 30px;
   align-items: center;
+
+  textarea.code {
+    min-height: 200px;
+    font-family: var(--font-family-mono);
+  }
 }
 
 .fieldsSection {

@@ -93,7 +93,6 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
   }
 
   function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
-    e.preventDefault()
     e.stopPropagation()
   }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import cx from 'classnames'
 import { Container, TextInput, Button, Layout, Text } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
-import { debounce } from 'lodash-es'
+import { debounce, isEmpty } from 'lodash-es'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -63,6 +63,15 @@ export interface EntityReferenceProps<T> {
   defaultScope?: Scope
 }
 
+function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
+  if (!isEmpty(projectIdentifier)) {
+    return Scope.PROJECT
+  } else if (!isEmpty(orgIdentifier)) {
+    return Scope.ORG
+  }
+  return Scope.ACCOUNT
+}
+
 export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element {
   const {
     defaultScope,
@@ -75,10 +84,16 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     noRecordsText = i18n.noRecordFound
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
-  const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)
+  const [selectedScope, setSelectedScope] = useState<Scope>(
+    defaultScope || getDefaultScope(orgIdentifier, projectIdentifier)
+  )
   const [data, setData] = useState<EntityReferenceResponse<T>[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
+
+  React.useEffect(() => {
+    setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
+  }, [projectIdentifier, orgIdentifier])
 
   const delayedFetchRecords = useRef(
     debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {

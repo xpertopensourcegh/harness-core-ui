@@ -182,7 +182,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const setDefaultServiceSchema = (): void => {
     stage.stage.spec = {
       serviceConfig: {
-        serviceRef: null,
+        serviceRef: '',
         serviceDefinition: {
           type: 'Kubernetes',
           spec: {
@@ -421,7 +421,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <Layout.Horizontal spacing="medium">
                 <StepWidget
                   type={StepType.DeployService}
-                  initialValues={get(stage, 'stage.spec.serviceConfig', {})}
+                  initialValues={{ ...get(stage, 'stage.spec.serviceConfig', {}), ...{ serviceRef: '' } }}
                   onUpdate={(value: ServiceConfig) => {
                     const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
                     if (value.service) {

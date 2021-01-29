@@ -202,6 +202,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
 
   protected defaultValues: ShellScriptData = {
     identifier: '',
+    timeout: '10m',
     spec: {
       shell: shellScriptType[0].value,
       onDelegate: 'targethost',

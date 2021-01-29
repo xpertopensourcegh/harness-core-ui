@@ -511,7 +511,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                       style="flex-grow: 1;"
                     >
                       <textarea
-                        class="bp3-input input"
+                        class="bp3-input input code"
                         name="spec.source.spec.script"
                       />
                       <span
@@ -576,7 +576,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                           name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
-                          value=""
+                          value="10m"
                         />
                       </div>
                       <span
@@ -933,7 +933,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                       style="flex-grow: 1;"
                     >
                       <textarea
-                        class="bp3-input input"
+                        class="bp3-input input code"
                         name="spec.source.spec.script"
                       >
                         test script
@@ -1000,7 +1000,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                           name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
-                          value=""
+                          value="10m"
                         />
                       </div>
                       <span
@@ -1357,7 +1357,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                       style="flex-grow: 1;"
                     >
                       <textarea
-                        class="bp3-input input"
+                        class="bp3-input input code"
                         name="spec.source.spec.script"
                       >
                         test script
@@ -1424,7 +1424,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                           name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
-                          value=""
+                          value="10m"
                         />
                       </div>
                       <span
@@ -1781,7 +1781,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                       style="flex-grow: 1;"
                     >
                       <textarea
-                        class="bp3-input input"
+                        class="bp3-input input code"
                         name="spec.source.spec.script"
                       />
                       <span
@@ -1846,7 +1846,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                           name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
-                          value=""
+                          value="10m"
                         />
                       </div>
                       <span
@@ -2201,7 +2201,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                       style="flex-grow: 1;"
                     >
                       <textarea
-                        class="bp3-input input"
+                        class="bp3-input input code"
                         name="spec.source.spec.script"
                       />
                       <span
@@ -2266,7 +2266,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                           name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
-                          value=""
+                          value="10m"
                         />
                       </div>
                       <span
