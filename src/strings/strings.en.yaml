@@ -855,7 +855,7 @@ pipelineSteps:
       repositoryNameRequiredError: 'Repository Name is required'
       repositoryUrlWrongUrlError: 'Please enter valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
-      setupStage: 'Set up Stage'
+      setupStage: 'Set Up Stage'
 
     stageSpecifications:
       stageNamePlaceholder: 'Enter your stage name'

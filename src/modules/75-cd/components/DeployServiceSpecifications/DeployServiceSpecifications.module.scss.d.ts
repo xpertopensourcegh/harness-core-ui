@@ -21,5 +21,7 @@ declare const styles: {
   readonly disabled: string
   readonly serviceSpecType: string
   readonly stageOverridesTab: string
+  readonly squareCardContainer: string
+  readonly squareCard: string
 }
 export default styles

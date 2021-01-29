@@ -11,16 +11,17 @@
 
 .grid {
   display: grid;
-  grid-auto-rows: auto;
-  grid-gap: var(--spacing-small);
-  padding-top: var(--spacing-small);
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  grid-auto-flow: column;
+}
 
-  :global(.bp3-card) {
-    padding: var(--spacing-large);
-    width: 70px;
-    height: 70px;
-  }
+.squareCard {
+  width: 64px;
+  height: 64px;
+  padding: var(--spacing-small) 0;
+  margin-bottom: var(--spacing-small);
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
 }
 
 .stage-create {
@@ -90,6 +91,13 @@
     &.dialogView {
       left: 276px;
     }
+  }
+  .squareCardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    margin-right: var(--spacing-small);
   }
 }
 

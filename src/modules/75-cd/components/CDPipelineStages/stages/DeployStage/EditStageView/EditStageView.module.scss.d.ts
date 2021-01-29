@@ -4,6 +4,7 @@ declare const styles: {
   readonly collapseDiv: string
   readonly labelBold: string
   readonly grid: string
+  readonly squareCard: string
   readonly stageCreate: string
   readonly btnSetup: string
   readonly stageSection: string
@@ -16,6 +17,7 @@ declare const styles: {
   readonly sideDescription: string
   readonly removeLink: string
   readonly dialogView: string
+  readonly squareCardContainer: string
   readonly variablesGrid: string
   readonly variableTitle: string
   readonly box: string

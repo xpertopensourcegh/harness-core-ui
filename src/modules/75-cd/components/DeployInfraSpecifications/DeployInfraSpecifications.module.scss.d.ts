@@ -15,5 +15,7 @@ declare const styles: {
   readonly serviceCards: string
   readonly bp3Card: string
   readonly disabled: string
+  readonly squareCardContainer: string
+  readonly squareCard: string
 }
 export default styles

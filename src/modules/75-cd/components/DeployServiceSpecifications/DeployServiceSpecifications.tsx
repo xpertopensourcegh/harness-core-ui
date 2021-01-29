@@ -3,7 +3,7 @@ import {
   Layout,
   Button,
   Card,
-  CardBody,
+  Icon,
   Text,
   Label,
   Select,
@@ -449,6 +449,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   <div>
                     <Button
                       minimal
+                      style={{ fontSize: '14px', fontWeight: 'bold' }}
                       text={i18n.serviceSpecificationLabel}
                       onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
                       className={cx({
@@ -468,25 +469,43 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 </div>
               </div>
               {specSelected === specificationTypes.SPECIFICATION && (
-                <Layout.Vertical spacing="medium" style={{ display: 'inline-block', marginTop: '12px' }}>
-                  <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
+                <Layout.Vertical
+                  spacing="medium"
+                  style={{ display: 'inline-block', marginTop: '12px', marginBottom: '40px' }}
+                >
+                  <Text style={{ fontSize: 16, color: 'var(--grey-400)', marginBottom: 'var(--spacing-medium)' }}>
+                    {i18n.deploymentTypeLabel}
+                  </Text>
 
-                  {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
-                    <Card
-                      disabled={!type.enabled}
-                      key={type.name}
-                      interactive={true}
-                      selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                      style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
-                      className={cx({ [css.disabled]: !type.enabled })}
-                    >
-                      <CardBody.Icon icon={type.icon as IconName} iconSize={26}>
-                        <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
+                  <Layout.Horizontal>
+                    {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
+                      <div
+                        key={type.name}
+                        className={css.squareCardContainer}
+
+                        // style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
+                      >
+                        <Card
+                          disabled={!type.enabled}
+                          interactive={true}
+                          selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                          // style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
+                          className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                        >
+                          <Icon name={type.icon as IconName} size={26} height={26} />
+                        </Card>
+                        <Text
+                          style={{
+                            fontSize: '12px',
+                            color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                            textAlign: 'center'
+                          }}
+                        >
                           {type.name}
                         </Text>
-                      </CardBody.Icon>
-                    </Card>
-                  ))}
+                      </div>
+                    ))}
+                  </Layout.Horizontal>
                 </Layout.Vertical>
               )}
               <div className={css.artifactType}>

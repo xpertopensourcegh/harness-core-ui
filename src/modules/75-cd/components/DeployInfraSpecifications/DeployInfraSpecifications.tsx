@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Card, CardBody, Text } from '@wings-software/uicore'
+import { Layout, Card, Icon, Text } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { debounce, get, isNil } from 'lodash-es'
 import cx from 'classnames'
@@ -126,22 +126,29 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         <div>
           <div className={css.stepContainer}>
             <div className={css.serviceCards}>
-              {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
-                <Card
-                  disabled={!type.enabled}
-                  key={type.name}
-                  interactive={true}
-                  selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                  style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
-                  className={cx({ [css.disabled]: !type.enabled })}
-                >
-                  <CardBody.Icon icon={type.icon as IconName} iconSize={26}>
-                    <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
+              <Layout.Horizontal>
+                {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
+                  <div key={type.name} className={css.squareCardContainer}>
+                    <Card
+                      disabled={!type.enabled}
+                      interactive={true}
+                      selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                      className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                    >
+                      <Icon name={type.icon as IconName} size={26} height={26} />
+                    </Card>
+                    <Text
+                      style={{
+                        fontSize: '12px',
+                        color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                        textAlign: 'center'
+                      }}
+                    >
                       {type.name}
                     </Text>
-                  </CardBody.Icon>
-                </Card>
-              ))}
+                  </div>
+                ))}
+              </Layout.Horizontal>
             </div>
             <StepWidget<K8SDirectInfrastructure>
               factory={factory}

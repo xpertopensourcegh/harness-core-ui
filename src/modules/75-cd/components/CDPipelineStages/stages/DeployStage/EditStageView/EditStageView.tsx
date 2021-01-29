@@ -5,7 +5,7 @@ import {
   Formik,
   FormikForm,
   Button,
-  CardBody,
+  Icon,
   Card,
   CardSelectType,
   CardSelect,
@@ -129,7 +129,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                       }}
                     />
                     <div className={css.labelBold}>
-                      <Label>{i18n.whatToDeploy}</Label>
+                      <Label style={{ marginBottom: 'var(--spacing-medium)' }}>{i18n.whatToDeploy}</Label>
                     </div>
                     <div>
                       <CardSelect
@@ -137,28 +137,33 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                         selected={formikProps.values.serviceType}
                         onChange={item => formikProps.setFieldValue('serviceType', item)}
                         renderItem={(item, selected) => (
-                          <span
+                          <div
+                            key={item.text}
+                            className={css.squareCardContainer}
                             onClick={e => {
                               if (item.disabled) {
                                 e.stopPropagation()
                               }
                             }}
                           >
-                            <Card selected={selected} interactive={!item.disabled} disabled={item.disabled}>
-                              <CardBody.Icon icon={item.icon as IconName} iconSize={25} />
+                            <Card
+                              selected={selected}
+                              interactive={!item.disabled}
+                              disabled={item.disabled}
+                              className={css.squareCard}
+                            >
+                              <Icon name={item.icon as IconName} size={26} height={26} />
                             </Card>
                             <Text
-                              font={{
-                                size: 'small',
-                                align: 'center'
-                              }}
                               style={{
-                                color: selected ? 'var(--grey-900)' : 'var(--grey-350)'
+                                fontSize: '12px',
+                                color: selected ? 'var(--grey-900)' : 'var(--grey-350)',
+                                textAlign: 'center'
                               }}
                             >
                               {item.text}
                             </Text>
-                          </span>
+                          </div>
                         )}
                         data={newStageData}
                         className={css.grid}
