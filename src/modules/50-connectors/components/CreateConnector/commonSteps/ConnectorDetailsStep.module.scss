@@ -15,20 +15,8 @@
   }
 
   :global {
-    .link {
-      cursor: pointer;
-      color: var(--blue-500);
-      &:hover {
-        color: var(--blue-600);
-      }
-    }
-    .bp3-input-group {
-      .bp3-input {
-        height: 36px;
-      }
-    }
     textarea {
-      height: 96px;
+      max-height: 200px;
     }
   }
 }

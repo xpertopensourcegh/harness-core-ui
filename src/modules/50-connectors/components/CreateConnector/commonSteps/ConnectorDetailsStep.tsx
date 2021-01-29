@@ -20,8 +20,8 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { String } from 'framework/exports'
+import { NameIdDescriptionTags } from '@common/components'
 import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
@@ -126,7 +126,8 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
-                  <AddDescriptionAndKVTagsWithIdentifier
+                  <NameIdDescriptionTags
+                    className={css.formElm}
                     formikProps={formikProps}
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />

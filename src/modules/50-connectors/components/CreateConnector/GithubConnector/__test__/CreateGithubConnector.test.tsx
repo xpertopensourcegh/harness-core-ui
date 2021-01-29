@@ -1,13 +1,12 @@
 import React from 'react'
 import { noop } from 'lodash-es'
-import { render, fireEvent, queryByText } from '@testing-library/react'
+import { render, fireEvent, queryByText, queryByAttribute } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
 
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import i18n from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags.i18n'
-import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import CreateGithubConnector from '../CreateGithubConnector'
 import {
   mockResponse,
@@ -44,37 +43,66 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 describe('Create Github connector Wizard', () => {
-  test('Github step one', async () => {
-    const description = 'dummy description'
+  test('Creating Github step one', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGithubConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      </TestWrapper>
+    )
+    // fill step 1
+    await act(async () => {
+      clickSubmit(container)
+    })
 
-    const { container, getByText } = render(
+    expect(container).toMatchSnapshot() // Form validation for all required fields in step one
+  })
+
+  test('Creating Github step one and step two for HTTPS', async () => {
+    const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
 
-    expect(queryByText(container, 'Name')).not.toBeNull()
-    fireEvent.click(getByText(i18n.addDescriptionLabel))
     // fill step 1
+    const nameInput = queryByAttribute('name', container, 'name')
+    expect(nameInput).toBeTruthy()
+    if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+
     fillAtForm([
       {
         container,
         type: InputTypes.TEXTFIELD,
-        fieldId: 'name',
-        value: 'dummyname'
-      },
-      {
-        container,
-        type: InputTypes.TEXTAREA,
-        fieldId: 'description',
-        value: description
-      },
-      {
-        container,
-        type: InputTypes.RADIOS,
-        fieldId: 'urlType',
-        value: GitUrlType.ACCOUNT
-      },
+        fieldId: 'url',
+        value: 'githubTestUrl'
+      }
+    ])
+
+    expect(container).toMatchSnapshot() // matching snapshot with data
+    await act(async () => {
+      clickSubmit(container)
+    })
+    //step 2
+    await act(async () => {
+      clickSubmit(container)
+    })
+    expect(container).toMatchSnapshot() // Form validation for all required fields
+    expect(createConnector).toBeCalledTimes(0)
+  })
+
+  test('Creating Github step two for SSH key', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGithubConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      </TestWrapper>
+    )
+
+    // fill step 1
+    const nameInput = queryByAttribute('name', container, 'name')
+    expect(nameInput).toBeTruthy()
+    if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+
+    fillAtForm([
       {
         container,
         type: InputTypes.RADIOS,
@@ -89,32 +117,19 @@ describe('Create Github connector Wizard', () => {
       }
     ])
 
-    // test for retaining values on toggling form fields
-    fireEvent.click(getByText('remove')) //removing description
-    expect(container).toMatchSnapshot() // matching snapshot with description and tags hidden
-    fireEvent.click(getByText(i18n.addDescriptionLabel)) //showing description
-    fireEvent.click(getByText(i18n.addTagsLabel)) //showing tags
-    expect(container).toMatchSnapshot()
+    expect(container).toMatchSnapshot() // matching snapshot with data
     await act(async () => {
       clickSubmit(container)
     })
     //step 2
-    expect(container).toMatchSnapshot()
-    fillAtForm([
-      {
-        container,
-        type: InputTypes.CHECKBOX,
-        fieldId: 'enableAPIAccess'
-      }
-    ])
     await act(async () => {
       clickSubmit(container)
     })
-    expect(container).toMatchSnapshot() //Form validation for required fields
+    expect(container).toMatchSnapshot() // Form validation for all required fields
     expect(createConnector).toBeCalledTimes(0)
   })
 
-  test('should form for edit http and authtype username', async () => {
+  test('should edit form for  http and authtype username', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector

@@ -24,10 +24,10 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { String, useStrings } from 'framework/exports'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { Connectors } from '@connectors/constants'
+import { NameIdDescriptionTags } from '@common/components'
 import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
@@ -224,7 +224,8 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
-                  <AddDescriptionAndKVTagsWithIdentifier
+                  <NameIdDescriptionTags
+                    className={css.formElm}
                     formikProps={formikProps}
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />

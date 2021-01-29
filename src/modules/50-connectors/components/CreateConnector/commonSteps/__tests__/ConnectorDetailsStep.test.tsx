@@ -1,32 +1,47 @@
 import React from 'react'
-import { render, queryByText, fireEvent } from '@testing-library/react'
-import { clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
-import i18n from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags.i18n'
+import { render, fireEvent, queryByAttribute } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
+import { clickSubmit } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorDetailsStep from '../ConnectorDetailsStep'
 
+jest.mock('services/cd-ng', () => ({
+  validateTheIdentifierIsUniquePromise: jest
+    .fn()
+    .mockImplementation(() => Promise.resolve({ status: 'SUCCESS', data: true }))
+}))
+
 describe('Connector details step', () => {
-  test('render for create kubernetes connector step one', async () => {
-    const description = 'dummy description'
-    const { container, getByText } = render(
+  test('Test for  create  connector step one required feilds', async () => {
+    const { container } = render(
       <TestWrapper>
         <ConnectorDetailsStep name="sample-name" type="K8sCluster" />
       </TestWrapper>
     )
-    expect(queryByText(container, 'Name')).not.toBeNull()
-    fireEvent.click(getByText(i18n.addDescriptionLabel))
-    setFieldValue({
-      type: InputTypes.TEXTAREA,
-      container: container,
-      fieldId: 'description',
-      value: description
+    // fill step 1
+    await act(async () => {
+      clickSubmit(container)
     })
-    // test for retaining values on toggling form feilds
-    fireEvent.click(getByText('remove')) //removing description
-    expect(container).toMatchSnapshot() // matching snapshot with description and tags hidden
-    fireEvent.click(getByText(i18n.addDescriptionLabel)) //showing description
-    fireEvent.click(getByText(i18n.addTagsLabel)) //showing tags
+
+    expect(container).toMatchSnapshot() // Form validation for all required fields in step one
+  })
+
+  test('Test for going to next step', async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ConnectorDetailsStep name="sample-name" type="K8sCluster" />
+      </TestWrapper>
+    )
+
+    // fill step 1
+    const nameInput = queryByAttribute('name', container, 'name')
+    expect(nameInput).toBeTruthy()
+    if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+    //step 2
     expect(container).toMatchSnapshot()
-    clickSubmit(container)
   })
 })
