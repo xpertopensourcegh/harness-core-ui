@@ -22,4 +22,7 @@
   .bp3-popover-content p {
     white-space: break-spaces !important;
   }
+  .bp3-overlay.bp3-overlay-inline {
+    overflow-x: hidden;
+  }
 }
