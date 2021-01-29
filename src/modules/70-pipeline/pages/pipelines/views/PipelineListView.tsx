@@ -92,7 +92,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             setMenuOpen(true)
           }}
         />
-        <Menu style={{ minWidth: 'unset' }}>
+        <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
           <RunPipelineModal pipelineIdentifier={data.identifier || /* istanbul ignore next */ ''}>
             <Menu.Item icon="play" text={getString('runPipelineText')} />
           </RunPipelineModal>

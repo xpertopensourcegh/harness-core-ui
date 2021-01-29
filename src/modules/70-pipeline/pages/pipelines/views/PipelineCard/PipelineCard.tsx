@@ -67,7 +67,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   })
 
   return (
-    <Menu style={{ minWidth: 'unset' }}>
+    <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
       <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
         <Menu.Item icon="play" text={getString('runPipelineText')} />
       </RunPipelineModal>
@@ -81,7 +81,8 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
       <Menu.Item
         icon="list-detail-view"
         text={getString('viewExecutions')}
-        onClick={() => {
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation()
           goToPipelineDetail(pipeline.identifier)
         }}
       />
@@ -92,6 +93,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
         disabled
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation()
+          return false
         }}
       />
       <Menu.Item
