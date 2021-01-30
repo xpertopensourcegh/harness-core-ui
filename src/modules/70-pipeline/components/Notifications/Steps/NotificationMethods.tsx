@@ -43,14 +43,14 @@ const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepD
               submitButtonText={getString('finish')}
               onSuccess={data => {
                 nextStep?.({
+                  ...prevStepData,
                   notificationMethod: {
                     type: method.value.toString(),
                     spec: {
-                      userGroups: Object.keys(data.userGroups),
+                      userGroups: data.userGroups,
                       recipients: data.emailIds
                     }
-                  },
-                  ...prevStepData
+                  }
                 })
               }}
               hideModal={noop}
@@ -71,14 +71,14 @@ const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepD
             submitButtonText={getString('finish')}
             onSuccess={data => {
               nextStep?.({
+                ...prevStepData,
                 notificationMethod: {
                   type: method.value.toString(),
                   spec: {
-                    userGroups: Object.keys(data.userGroups),
+                    userGroups: data.userGroups,
                     webhookUrl: data.webhookUrl
                   }
-                },
-                ...prevStepData
+                }
               })
             }}
             hideModal={noop}
@@ -97,14 +97,14 @@ const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepD
             submitButtonText={getString('finish')}
             onSuccess={data => {
               nextStep?.({
+                ...prevStepData,
                 notificationMethod: {
                   type: method.value.toString(),
                   spec: {
-                    userGroups: Object.keys(data.userGroups),
+                    userGroups: data.userGroups,
                     integrationKey: data.key
                   }
-                },
-                ...prevStepData
+                }
               })
             }}
             hideModal={() => undefined}

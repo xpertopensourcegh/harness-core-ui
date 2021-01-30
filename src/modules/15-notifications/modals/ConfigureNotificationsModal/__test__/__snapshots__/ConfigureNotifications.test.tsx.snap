@@ -68,7 +68,7 @@ exports[`ConfigureNotifications Email 1`] = `
                 >
                   <input
                     class="bp3-input-ghost"
-                    data-mentions="kv-tag-input-userGroups}"
+                    data-mentions="multi-input-userGroups}"
                     placeholder="Type and press enter to create a tag"
                     value=""
                   />
@@ -253,7 +253,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
                 >
                   <input
                     class="bp3-input-ghost"
-                    data-mentions="kv-tag-input-userGroups}"
+                    data-mentions="multi-input-userGroups}"
                     placeholder="Type and press enter to create a tag"
                     value=""
                   />
@@ -428,7 +428,7 @@ exports[`ConfigureNotifications Slack 1`] = `
                 >
                   <input
                     class="bp3-input-ghost"
-                    data-mentions="kv-tag-input-userGroups}"
+                    data-mentions="multi-input-userGroups}"
                     placeholder="Type and press enter to create a tag"
                     value=""
                   />

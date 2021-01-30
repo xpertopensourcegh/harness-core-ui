@@ -54,7 +54,7 @@ const pipelineEventItems = [
 
 interface PipelineEventsFormData {
   types: { [key: string]: any }
-  [key: string]: { [key: string]: any }
+  [key: string]: any
 }
 
 const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prevStepData }) => {
@@ -82,10 +82,9 @@ const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prev
               return values.types[k]
             })
             .map(value => {
-              return {
-                type: value as PipelineEventType,
-                forStages: values[value] ? Object.keys(values[value]) : undefined
-              }
+              const dataToSubmit: PipelineEvent = { type: value as PipelineEventType }
+              if (values[value]?.length) dataToSubmit['forStages'] = values[value]
+              return dataToSubmit
             })
 
           nextStep?.({ ...prevStepData, pipelineEvents })
@@ -122,7 +121,7 @@ const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prev
                         {(event.value === PipelineEventType.StageSuccess ||
                           event.value === PipelineEventType.StageFailed ||
                           event.value === PipelineEventType.StageStart) && (
-                          <FormInput.KVTagInput
+                          <FormInput.MultiInput
                             name={event.value}
                             className={css.forStages}
                             tagsProps={{ placeholder: getString('pipeline-notifications.placeholder') }}

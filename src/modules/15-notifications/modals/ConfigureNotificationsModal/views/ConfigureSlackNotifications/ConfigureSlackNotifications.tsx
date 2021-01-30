@@ -91,7 +91,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                   {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={css.green} /> : null}
                   {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
                 </Layout.Horizontal>
-                <FormInput.KVTagInput name={'userGroups'} label={i18n.labelSlackUserGroups} />
+                <FormInput.MultiInput name={'userGroups'} label={i18n.labelSlackUserGroups} />
 
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>

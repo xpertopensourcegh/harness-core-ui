@@ -92,8 +92,7 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
                   {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={css.green} /> : null}
                   {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
                 </Layout.Horizontal>
-                <FormInput.KVTagInput name={'userGroups'} label={i18n.labelPDUserGroups} />
-
+                <FormInput.MultiInput name={'userGroups'} label={i18n.labelPDUserGroups} />
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
                     <Button text={getString('back')} onClick={props.onBack} />

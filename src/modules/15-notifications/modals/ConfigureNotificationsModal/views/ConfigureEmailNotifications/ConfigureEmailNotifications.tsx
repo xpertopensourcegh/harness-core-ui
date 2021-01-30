@@ -142,7 +142,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             return (
               <FormikForm>
                 <FormInput.TextArea name={'emailIds'} label={i18n.labelEmailIds} />
-                <FormInput.KVTagInput name={'userGroups'} label={i18n.labelEmailUserGroups} />
+                <FormInput.MultiInput name={'userGroups'} label={i18n.labelEmailUserGroups} />
                 <Layout.Horizontal style={{ alignItems: 'center' }}>
                   <Popover isOpen={isOpen} onInteraction={setIsOpen}>
                     <Button
