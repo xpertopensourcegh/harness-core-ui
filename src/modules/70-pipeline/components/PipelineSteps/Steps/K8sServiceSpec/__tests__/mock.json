@@ -13,7 +13,7 @@
             "type": "Deployment",
             "spec": {
               "serviceConfig": {
-                "service": { "identifier": "", "name": "", "description": "" },
+                "service": { "identifier": "svc", "name": "svc", "description": "" },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {
@@ -23,7 +23,11 @@
                           "sidecar": {
                             "type": "Dockerhub",
                             "identifier": "sidecar1",
-                            "spec": { "connectorRef": "account.harnessimage", "imagePath": "<+input>" }
+                            "spec": {
+                              "connectorRef": "account.harnessimage",
+                              "imagePath": "<+input>",
+                              "tag": "<+input>"
+                            }
                           }
                         }
                       ]

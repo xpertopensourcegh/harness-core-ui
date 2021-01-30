@@ -1,4 +1,5 @@
-import type { IOptionProps } from '@blueprintjs/core'
+import React from 'react'
+import { IOptionProps, Menu } from '@blueprintjs/core'
 import {
   Formik,
   FormInput,
@@ -6,11 +7,15 @@ import {
   Layout,
   MultiTypeInputType,
   Button,
-  StepProps
+  StepProps,
+  Text
 } from '@wings-software/uicore'
 import { Form } from 'formik'
-import React from 'react'
+import memoize from 'lodash-es/memoize'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
+import { useGetBuildDetailsForDocker } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
@@ -30,7 +35,8 @@ interface ImagePathProps {
 }
 
 const primarySchema = Yup.object().shape({
-  imagePath: Yup.string().trim().required(i18n.validation.imagePath)
+  imagePath: Yup.string().trim().required(i18n.validation.imagePath),
+  tag: Yup.string().trim().required('Tag is required')
 })
 
 const sidecarSchema = Yup.object().shape({
@@ -39,7 +45,9 @@ const sidecarSchema = Yup.object().shape({
     .trim()
     .required(i18n.validation.sidecarId)
     .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-    .notOneOf(StringUtils.illegalIdentifiers)
+    .notOneOf(StringUtils.illegalIdentifiers),
+  imagePath: Yup.string().trim().required('Image Path is required'),
+  tag: Yup.string().trim().required('Tag is required')
 })
 
 const tagOptions: IOptionProps[] = [
@@ -55,20 +63,87 @@ const tagOptions: IOptionProps[] = [
 
 export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
   const { name, context, handleSubmit, prevStepData, initialValues } = props
+  const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const [tagList, setTagList] = React.useState([])
+  const [lastImagePath, setLastImagePath] = React.useState('')
 
+  const { data, loading, refetch } = useGetBuildDetailsForDocker({
+    queryParams: {
+      imagePath: lastImagePath,
+      connectorRef: prevStepData?.connectorId?.value
+        ? prevStepData?.connectorId?.value
+        : prevStepData?.identifier || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    lazy: true
+  })
+
+  React.useEffect(() => {
+    if (Array.isArray(data?.data?.buildDetailsList)) {
+      setTagList(data?.data?.buildDetailsList as [])
+    }
+  }, [data])
+  React.useEffect(() => {
+    refetch()
+  }, [lastImagePath])
+  const getSelectItems = React.useCallback(() => {
+    const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
+    return list
+  }, [tagList])
+  const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
+  const getInitialValues = () => {
+    const initialData = {
+      ...initialValues
+    }
+    if (getMultiTypeFromValue(prevStepData?.connectorId) === MultiTypeInputType.RUNTIME) {
+      initialData.connectorId = prevStepData?.connectorId
+    } else if (prevStepData?.connectorId?.value) {
+      initialData.connectorId = prevStepData?.connectorId?.value
+    } else {
+      initialData.connectorId = prevStepData?.identifier || ''
+    }
+    if (getMultiTypeFromValue(initialValues?.tag) === MultiTypeInputType.FIXED) {
+      initialData.tag = initialValues?.tag?.map((tag: string) => ({ label: tag, value: tag }))
+    }
+
+    return initialData
+  }
+  const fetchTags = (imagePath = '') => {
+    if (imagePath.length && lastImagePath !== imagePath) {
+      setLastImagePath(imagePath)
+    }
+  }
+
+  const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
+    <div key={item.label.toString()}>
+      <Menu.Item
+        text={
+          <Layout.Horizontal spacing="small">
+            <Text>{item.label}</Text>
+          </Layout.Horizontal>
+        }
+        disabled={loading}
+        onClick={handleClick}
+      />
+    </div>
+  ))
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{i18n.specifyArtifactServer}</div>
       <Formik
-        initialValues={{
-          ...initialValues,
-          connectorId: prevStepData?.connectorId?.value
-            ? prevStepData?.connectorId?.value
-            : prevStepData?.identifier || ''
-        }}
+        initialValues={getInitialValues()}
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
         onSubmit={formData => {
-          handleSubmit({ ...prevStepData, ...formData })
+          handleSubmit({
+            ...prevStepData,
+            ...formData,
+            tag: Array.isArray(formData?.tag)
+              ? formData?.tag?.map((tag: { label: string; value: string }) => tag.value)
+              : formData.tag
+          })
         }}
       >
         {formik => (
@@ -116,11 +191,24 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
               </div>
               {formik.values.tagType === 'value' ? (
                 <div className={css.imagePathContainer}>
-                  <FormInput.MultiTextInput
+                  <FormInput.MultiTypeInput
+                    selectItems={tags}
+                    disabled={!formik.values?.imagePath?.length}
+                    multiTypeInputProps={{
+                      selectProps: {
+                        noResults: (
+                          <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                        ),
+                        items: tags,
+                        addClearBtn: true,
+                        itemRenderer: itemRenderer
+                      },
+                      onFocus: () => fetchTags(formik.values.imagePath)
+                    }}
                     label={i18n.existingDocker.tag}
                     name="tag"
-                    placeholder={i18n.existingDocker.enterTag}
                   />
+
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
@@ -141,7 +229,8 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
 
               {formik.values.tagType === 'regex' ? (
                 <div className={css.imagePathContainer}>
-                  <FormInput.MultiTextInput
+                  <FormInput.MultiSelectTypeInput
+                    selectItems={[]}
                     label={i18n.existingDocker.tagRegex}
                     name="tagRegex"
                     placeholder={i18n.existingDocker.enterTagRegex}

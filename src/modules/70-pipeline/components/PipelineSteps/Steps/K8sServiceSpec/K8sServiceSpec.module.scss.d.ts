@@ -8,5 +8,6 @@ declare const styles: {
   readonly artifactHeader: string
   readonly mtop: string
   readonly customVariables: string
+  readonly padSmall: string
 }
 export default styles

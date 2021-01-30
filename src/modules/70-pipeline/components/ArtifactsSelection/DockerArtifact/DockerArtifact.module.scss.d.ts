@@ -16,5 +16,6 @@ declare const styles: {
   readonly bp3PopoverTarget: string
   readonly tagGroup: string
   readonly radioGroup: string
+  readonly padSmall: string
 }
 export default styles

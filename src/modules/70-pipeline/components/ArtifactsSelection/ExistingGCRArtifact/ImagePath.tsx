@@ -1,4 +1,5 @@
-import type { IOptionProps } from '@blueprintjs/core'
+import React from 'react'
+import { IOptionProps, Menu } from '@blueprintjs/core'
 import {
   Formik,
   FormInput,
@@ -6,11 +7,14 @@ import {
   Layout,
   MultiTypeInputType,
   Button,
-  StepProps
+  StepProps,
+  Text
 } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
-import React from 'react'
+import memoize from 'lodash-es/memoize'
 import * as Yup from 'yup'
+import { useGetBuildDetailsForGcr } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
@@ -32,7 +36,8 @@ interface ImagePathProps {
 
 const primarySchema = Yup.object().shape({
   imagePath: Yup.string().trim().required(i18n.validation.imagePath),
-  registryHostname: Yup.string().trim().required('GCR Registry URL is required')
+  registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
+  tag: Yup.string().trim().required('Tag is required')
 })
 
 const sidecarSchema = Yup.object().shape({
@@ -42,7 +47,8 @@ const sidecarSchema = Yup.object().shape({
     .required(i18n.validation.sidecarId)
     .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
     .notOneOf(StringUtils.illegalIdentifiers),
-  registryHostname: Yup.string().trim().required('GCR Registry URL is required')
+  registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
+  tag: Yup.string().trim().required('Tag is required')
 })
 
 const tagOptions: IOptionProps[] = [
@@ -59,19 +65,90 @@ const tagOptions: IOptionProps[] = [
 export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
   const { name, context, handleSubmit, prevStepData, initialValues } = props
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const [tagList, setTagList] = React.useState([])
+  const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
+
+  const { data, loading, refetch } = useGetBuildDetailsForGcr({
+    queryParams: {
+      imagePath: lastQueryData.imagePath,
+      connectorRef: prevStepData?.connectorId?.value
+        ? prevStepData?.connectorId?.value
+        : prevStepData?.identifier || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      registryHostname: lastQueryData.registryHostname
+    },
+    lazy: true
+  })
+
+  React.useEffect(() => {
+    if (Array.isArray(data?.data?.buildDetailsList)) {
+      setTagList(data?.data?.buildDetailsList as [])
+    }
+  }, [data])
+  React.useEffect(() => {
+    lastQueryData.registryHostname.length && lastQueryData.imagePath.length && refetch()
+  }, [lastQueryData])
+  const getSelectItems = React.useCallback(() => {
+    const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
+    return list
+  }, [tagList])
+  const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
+  const getInitialValues = () => {
+    const initialData = {
+      ...initialValues
+    }
+    if (getMultiTypeFromValue(prevStepData?.connectorId) === MultiTypeInputType.RUNTIME) {
+      initialData.connectorId = prevStepData?.connectorId
+    } else if (prevStepData?.connectorId?.value) {
+      initialData.connectorId = prevStepData?.connectorId?.value
+    } else {
+      initialData.connectorId = prevStepData?.identifier || ''
+    }
+    if (getMultiTypeFromValue(initialValues?.tag) === MultiTypeInputType.FIXED) {
+      initialData.tag = initialValues?.tag?.map((tag: string) => ({ label: tag, value: tag }))
+    }
+
+    return initialData
+  }
+  const fetchTags = (imagePath = '', registryHostname = '') => {
+    if (
+      imagePath.length &&
+      registryHostname.length &&
+      (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
+    ) {
+      setLastQueryData({ imagePath, registryHostname })
+    }
+  }
+  const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
+    <div key={item.label.toString()}>
+      <Menu.Item
+        text={
+          <Layout.Horizontal spacing="small">
+            <Text>{item.label}</Text>
+          </Layout.Horizontal>
+        }
+        disabled={loading}
+        onClick={handleClick}
+      />
+    </div>
+  ))
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{i18n.specifyArtifactServer}</div>
       <Formik
-        initialValues={{
-          ...initialValues,
-          connectorId: prevStepData?.connectorId?.value
-            ? prevStepData?.connectorId?.value
-            : prevStepData?.identifier || ''
-        }}
+        initialValues={getInitialValues()}
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
         onSubmit={formData => {
-          handleSubmit({ ...prevStepData, ...formData })
+          handleSubmit({
+            ...prevStepData,
+            ...formData,
+            tag: Array.isArray(formData?.tag)
+              ? formData?.tag?.map((tag: { label: string; value: string }) => tag.value)
+              : formData.tag
+          })
         }}
       >
         {formik => (
@@ -126,10 +203,18 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
               </div>
               {formik.values.tagType === 'value' ? (
                 <div className={css.imagePathContainer}>
-                  <FormInput.MultiTextInput
+                  <FormInput.MultiTypeInput
+                    selectItems={tags}
+                    disabled={!formik.values?.imagePath?.length}
+                    multiTypeInputProps={{
+                      selectProps: {
+                        items: tags,
+                        itemRenderer: itemRenderer
+                      },
+                      onFocus: () => fetchTags(formik.values.imagePath, formik.values?.registryHostname)
+                    }}
                     label={i18n.existingDocker.tag}
                     name="tag"
-                    placeholder={i18n.existingDocker.enterTag}
                   />
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
