@@ -1362,3 +1362,11 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
   </div>
 </div>
 `;
+
+exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
+<div>
+  <div
+    class="variablesListTable"
+  />
+</div>
+`;

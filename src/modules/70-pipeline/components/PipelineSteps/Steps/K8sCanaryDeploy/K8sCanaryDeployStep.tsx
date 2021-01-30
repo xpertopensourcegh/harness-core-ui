@@ -7,6 +7,9 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
+
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
@@ -25,6 +28,14 @@ import stepCss from '../Steps.module.scss'
 export interface K8sCanaryDeployData extends StepElementConfig {
   spec: K8sRollingStepInfo
   identifier: string
+}
+
+export interface K8sCanaryDeployVariableStepProps {
+  initialValues: K8sCanaryDeployData
+  stageIdentifier: string
+  onUpdate?(data: K8sCanaryDeployData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8sCanaryDeployData
 }
 
 interface K8sCanaryDeployProps {
@@ -164,11 +175,23 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, rea
     </>
   )
 }
+
+const K8sCanaryDeployVariableStep: React.FC<K8sCanaryDeployVariableStepProps> = ({
+  variablesData,
+  metadataMap,
+  initialValues
+}) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8CanaryDeployWidgetWithRef = React.forwardRef(K8CanaryDeployWidget)
 export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
-
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8CanaryDeployInputStep
@@ -178,6 +201,14 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
           template={inputSetData?.template}
           readonly={inputSetData?.readonly}
           path={inputSetData?.path}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8sCanaryDeployVariableStep
+          {...(customStepProps as K8sCanaryDeployVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

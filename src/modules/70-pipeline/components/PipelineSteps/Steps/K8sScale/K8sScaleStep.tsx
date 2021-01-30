@@ -6,12 +6,17 @@ import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+
 import type {
   CountInstanceSelection,
   K8sScaleStepInfo,
   PercentageInstanceSelection,
   StepElementConfig
 } from 'services/cd-ng'
+
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+
 import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
@@ -30,6 +35,14 @@ import stepCss from '../Steps.module.scss'
 export interface K8sScaleData extends StepElementConfig {
   spec: K8sScaleStepInfo
   identifier: string
+}
+
+export interface K8sScaleVariableStepProps {
+  initialValues: K8sScaleData
+  stageIdentifier: string
+  onUpdate?(data: K8sScaleData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8sScaleData
 }
 
 interface K8sScaleProps {
@@ -193,10 +206,19 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
     </>
   )
 }
+
+const K8sScaleVariableStep: React.FC<K8sScaleVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8ScaleDeployWidgetWithRef = React.forwardRef(K8ScaleDeployWidget)
 export class K8sScaleStep extends PipelineStep<K8sScaleData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -207,6 +229,14 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
           template={inputSetData?.template}
           readonly={inputSetData?.readonly}
           path={inputSetData?.path}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8sScaleVariableStep
+          {...(customStepProps as K8sScaleVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }

@@ -319,4 +319,66 @@ describe('Test K8sBlueGreenDeployStep', () => {
       })
     )
   })
+
+  test('should render variable view', () => {
+    const onUpdate = jest.fn()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          identifier: 'Test_A',
+          name: 'Test A',
+          spec: {
+            instanceSelection: {
+              spec: {
+                count: 10
+              },
+              type: 'Count'
+            },
+            skipDryRun: false,
+            timeout: '10m',
+            workload: 'test'
+          },
+          type: 'K8sScale'
+        }}
+        type={StepType.K8sScale}
+        onUpdate={onUpdate}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sCanaryDeploy.name',
+                localName: 'step.k8sCanaryDeploy.name'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.k8sCanaryDeploy.timeout',
+                localName: 'step.k8sCanaryDeploy.timeout'
+              }
+            }
+          },
+          variablesData: {
+            identifier: 'Test_A',
+            name: 'step-name',
+            spec: {
+              instanceSelection: {
+                spec: {
+                  count: 10
+                },
+                type: 'Count'
+              },
+              skipDryRun: false,
+              timeout: 'step-timeout',
+              workload: 'test'
+            },
+            type: 'K8sScale'
+          }
+        }}
+        stepViewType={StepViewType.InputVariable}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
 })

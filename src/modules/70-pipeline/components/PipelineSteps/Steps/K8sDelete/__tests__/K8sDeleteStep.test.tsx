@@ -84,4 +84,56 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('should render variable view', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sDelete',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '12m',
+          spec: {
+            deleteResourcesBy: 'ResourceName',
+            spec: {
+              resourceNames: ['testABC', 'test123']
+            }
+          }
+        }}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.K8sDelete.name',
+                localName: 'step.K8sDelete.name'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.K8sDelete.timeout',
+                localName: 'step.K8sDelete.timeout'
+              }
+            }
+          },
+          variablesData: {
+            type: 'K8sDelete',
+            name: 'step-name',
+            identifier: 'Test_A',
+            timeout: 'step-timeout',
+            spec: {
+              deleteResourcesBy: 'ResourceName',
+              spec: {
+                resourceNames: ['testABC', 'test123']
+              }
+            }
+          }
+        }}
+        type={StepType.K8sDelete}
+        stepViewType={StepViewType.InputVariable}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
 })

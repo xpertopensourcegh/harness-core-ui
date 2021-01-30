@@ -16,6 +16,10 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig } from 'services/cd-ng'
+
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import {
@@ -40,6 +44,14 @@ interface K8sDeleteSpec {
 }
 export interface K8sDeleteData extends StepElementConfig {
   spec: K8sDeleteSpec
+}
+
+export interface K8sDeleteVariableStepProps {
+  initialValues: K8sDeleteData
+  stageIdentifier: string
+  onUpdate?(data: K8sDeleteData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8sDeleteData
 }
 
 interface K8sDeleteProps {
@@ -277,12 +289,21 @@ const K8sDeleteInputStep: React.FC<K8sDeleteProps> = ({ inputSetData, readonly }
     </>
   )
 }
+
+const K8sDeleteVariableStep: React.FC<K8sDeleteVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+}
+
 const K8sDeleteDeployWidgetWithRef = React.forwardRef(K8sDeleteDeployWidget)
 export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<K8sDeleteData>): JSX.Element {
     /* istanbul ignore next */
 
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       /* istanbul ignore next */
@@ -293,6 +314,14 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
           stepViewType={stepViewType}
           inputSetData={inputSetData}
           readonly={!!inputSetData?.readonly}
+        />
+      )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8sDeleteVariableStep
+          {...(customStepProps as K8sDeleteVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
         />
       )
     }
