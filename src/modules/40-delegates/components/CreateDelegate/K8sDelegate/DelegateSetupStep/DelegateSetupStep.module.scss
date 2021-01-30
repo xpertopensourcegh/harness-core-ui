@@ -16,6 +16,37 @@
   }
 }
 
+.delegateSizeLabel {
+  margin-bottom: var(--spacing-small);
+}
+
+.delegateSizeField {
+  margin-bottom: var(--spacing-large) !important;
+}
+
+.workloadSeparator {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: orange;
+  width: 70%;
+  margin-top: var(--spacing-large) !important;
+}
+
+.workloadSeparator:before,
+.workloadSeparator:after {
+  content: '';
+  width: 20%;
+  border-bottom: 1px solid orange;
+}
+.workloadSeparator:before {
+  margin-right: var(--spacing-small);
+}
+.workloadSeparator:after {
+  margin-left: var(--spacing-small);
+}
+
 .formGroup {
   display: grid;
   grid-template-columns: 1fr 30px;
@@ -50,6 +81,10 @@
       width: 50%;
     }
   }
+}
+
+.profileSelectors {
+  margin-top: var(--spacing-medium);
 }
 
 .small {

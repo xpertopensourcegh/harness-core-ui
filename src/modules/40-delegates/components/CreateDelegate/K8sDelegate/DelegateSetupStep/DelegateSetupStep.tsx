@@ -10,10 +10,17 @@ import {
   CardSelect,
   SelectOption,
   Text,
-  StepProps
+  StepProps,
+  Tag,
+  Color
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useGetDelegateProfilesV2, useGetDelegateSizes, useValidateKubernetesYaml } from 'services/portal'
+import {
+  useGetDelegateProfilesV2,
+  DelegateSizesResponse,
+  useGetDelegateSizes,
+  useValidateKubernetesYaml
+} from 'services/portal'
 
 import { useStrings } from 'framework/exports'
 import type { DelegateProfile } from '@delegates/DelegateInterface'
@@ -29,12 +36,18 @@ interface DelegateSetupStepProps {
 
 const formatProfileList = (data: any): Array<SelectOption> => {
   const profiles: Array<DelegateProfile> = data?.resource?.response
+
   const options: Array<SelectOption> = profiles
     ? profiles.map((item: DelegateProfile) => {
-        return { label: item.name || '', value: item.name || '' }
+        return { label: item.name || '', value: item.uuid || '' }
       })
     : [{ label: '', value: '' }]
   return options
+}
+
+const getDefaultDelegateConfiguration = (data: any) => {
+  const configurations: DelegateProfile[] = data?.resource?.response
+  return configurations ? configurations.find((item: DelegateProfile) => item.primary) : null
 }
 
 const filterDelegatesize = (delegateSizes: any, size: any) => {
@@ -51,18 +64,26 @@ const formatDelegateSizeArr = (delegateSizes: any) => {
   }))
 }
 
+const getDefaultDelegateSize = (delegateSizes: DelegateSizesResponse[]) => {
+  return delegateSizes ? delegateSizes.find((item: DelegateSizesResponse) => item.size === 'EXTRA_SMALL') : undefined
+}
+
+const getProfile = (data: any, configId: any) => {
+  const configs: DelegateProfile[] = data?.resource?.response
+  const selProfile = configs ? configs.find(item => item.uuid == configId) : null
+  return selProfile?.selectors
+}
 const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> = props => {
   const initialValues = {
     name: '',
     identifier: '',
     description: '',
-    delegateConfigurationId: 'Primary',
-    size: '',
+    delegateConfigurationId: '',
+    size: 'EXTRA_SMALL',
     sesssionIdentifier: ''
   }
   const { accountId } = useParams()
   const { getString } = useStrings()
-  const [selectedCard, setSelectedCard] = React.useState<any | undefined>()
 
   const { mutate: createKubernetesYaml } = useValidateKubernetesYaml({ queryParams: { accountId } })
 
@@ -70,9 +91,17 @@ const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> 
   const { data: delegateSizes } = useGetDelegateSizes({
     queryParams: { accountId }
   })
-  const delegateSizeMappings = delegateSizes?.resource
+  const delegateSizeMappings: DelegateSizesResponse[] | undefined = delegateSizes?.resource
   const selectCardData = formatDelegateSizeArr(delegateSizeMappings)
   const profileOptions: SelectOption[] = formatProfileList(data)
+  const defaultProfile = getDefaultDelegateConfiguration(data)
+  const defaultSize: DelegateSizesResponse | undefined = delegateSizeMappings
+    ? getDefaultDelegateSize(delegateSizeMappings)
+    : undefined
+
+  const [selectedCard, setSelectedCard] = React.useState<SelectOption | undefined>()
+
+  const [formData, setInitValues] = React.useState<DelegateYaml>(initialValues)
 
   const onSubmit = async (values: DelegateYaml) => {
     const response = await createKubernetesYaml(values)
@@ -80,11 +109,25 @@ const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> 
     props?.nextStep?.(delegateYaml)
   }
 
+  React.useEffect(() => {
+    if (defaultSize) {
+      const defaultCard: SelectOption = selectCardData.find((item: SelectOption) => item.value === defaultSize.size)
+      setSelectedCard(defaultCard)
+    }
+  }, [defaultSize])
+
+  React.useEffect(() => {
+    if (defaultProfile) {
+      formData['delegateConfigurationId'] = defaultProfile?.uuid
+      setInitValues(formData)
+    }
+  }, [defaultProfile, formData])
+
   return (
     <Layout.Vertical padding="xxlarge">
       <Container padding="small">
         <Formik
-          initialValues={initialValues}
+          initialValues={formData}
           onSubmit={values => {
             onSubmit(values)
             /** to do here */
@@ -96,8 +139,7 @@ const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> 
           })}
         >
           {formikProps => {
-            // const selProfile =
-            //   data && data.resource ? data?.resource.find(item => item.uuid == formikProps.values.profile) : null
+            const selectedProfile: any = getProfile(data, formikProps.values.delegateConfigurationId)
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }} className={css.container}>
@@ -105,51 +147,62 @@ const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> 
                     <AddDescriptionWithIdentifier identifierProps={{ inputName: 'name' }} />
                   </div>
                   {delegateSizeMappings && (
-                    <div className={css.formGroup}>
-                      <CardSelect
-                        cornerSelected={true}
-                        data={selectCardData}
-                        selected={
-                          selectCardData[selectCardData.findIndex((card: any) => card.value === selectedCard?.value)]
-                        }
-                        renderItem={item => {
-                          const cardData = filterDelegatesize(delegateSizeMappings, item)
+                    <Layout.Vertical className={css.delegateSizeField}>
+                      <label className={css.delegateSizeLabel}>{getString('delegate.delegateSize')}</label>
+                      <div className={css.formGroup}>
+                        <CardSelect
+                          cornerSelected={true}
+                          data={selectCardData}
+                          selected={
+                            selectCardData[selectCardData.findIndex((card: any) => card.value === selectedCard?.value)]
+                          }
+                          renderItem={item => {
+                            const cardData = filterDelegatesize(delegateSizeMappings, item)
 
-                          const tagClsName =
-                            cardData.size === 'small' ? css.small : cardData.size === 'medium' ? css.medium : css.large
+                            const tagClsName =
+                              cardData.size === 'small'
+                                ? css.small
+                                : cardData.size === 'medium'
+                                ? css.medium
+                                : css.large
 
-                          return (
-                            <Container className={`${css.cardWrapper}`}>
-                              <div className={`${tagClsName} ${css.sizeTag}`}>{cardData.label}</div>
-                              <Container>
-                                <Text>{cardData.ram}</Text>
-                                <Text>
-                                  {getString('delegate.replicaText')}
-                                  {cardData.replicas}{' '}
-                                </Text>
+                            return (
+                              <Container className={`${css.cardWrapper}`}>
+                                <div className={`${tagClsName} ${css.sizeTag}`}>{cardData.label}</div>
+                                <Container>
+                                  <Text>{cardData.ram}</Text>
+                                  <Text>
+                                    {getString('delegate.replicaText')}
+                                    {cardData.replicas}{' '}
+                                  </Text>
+                                </Container>
+                                <Container className={css.footer}>
+                                  <div>
+                                    <Text> {getString('delegate.totalMem')}</Text>
+                                    <Text>{cardData.taskLimit} </Text>
+                                  </div>
+
+                                  <div>
+                                    <Text>{getString('delegate.totalCpu')}</Text>
+                                    <Text>{cardData.cpu}</Text>
+                                  </div>
+                                </Container>
                               </Container>
-                              <Container className={css.footer}>
-                                <div>
-                                  <Text> {getString('delegate.totalMem')}</Text>
-                                  <Text>{cardData.taskLimit} </Text>
-                                </div>
+                            )
+                          }}
+                          onChange={size => {
+                            /* istanbul ignore next */
+                            setSelectedCard(size)
+                            formikProps.setFieldValue('size', size.value)
+                          }}
+                          className={`grid ${css.delegateSizeWrapper}`}
+                        ></CardSelect>
+                      </div>
 
-                                <div>
-                                  <Text>{getString('delegate.totalCpu')}</Text>
-                                  <Text>{cardData.cpu}</Text>
-                                </div>
-                              </Container>
-                            </Container>
-                          )
-                        }}
-                        onChange={size => {
-                          /* istanbul ignore next */
-                          setSelectedCard(size)
-                          formikProps.setFieldValue('size', size.value)
-                        }}
-                        className={`grid ${css.delegateSizeWrapper}`}
-                      ></CardSelect>
-                    </div>
+                      <Container className={css.workloadSeparator}>
+                        <Text color={Color.ORANGE_500}>{getString('delegate.productionWorkloads')}</Text>
+                      </Container>
+                    </Layout.Vertical>
                   )}
                   <div className={`${css.formGroup} ${css.profileSelect}`}>
                     <FormInput.Select
@@ -158,16 +211,18 @@ const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> 
                       name={'delegateConfigurationId'}
                     />
                   </div>
-                  {/* 
-                    <Container>
+
+                  {formikProps.values.delegateConfigurationId && selectedProfile && selectedProfile?.selectors && (
+                    <Container className={css.profileSelectors}>
                       <Text>Delegate Tags</Text>
                       <Text>Tags inherited from the delegate configuration</Text>
 
-                      {selProfile?.selectors &&
-                        selProfile.selectors.map(item => {
-                          return <Tag>Tag</Tag>
+                      {selectedProfile?.selectors &&
+                        selectedProfile.selectors.map((item: string) => {
+                          return <Tag key={item}>{item}</Tag>
                         })}
-                    </Container> */}
+                    </Container>
+                  )}
 
                   <Layout.Horizontal className={css.footer}>
                     <Button

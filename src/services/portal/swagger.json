@@ -12167,7 +12167,7 @@
             "description": "successful operation",
             "headers": {},
             "schema": {
-              "$ref": "#/definitions/RestResponseSetString"
+              "$ref": "#/definitions/RestDelegateSizeResponse"
             }
           }
         }
@@ -47919,6 +47919,29 @@
         }
       }
     },
+    "DelegateSizesResponse": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "number"
+        },
+        "label": {
+          "type": "string"
+        },
+        "ram": {
+          "type": "number"
+        },
+        "replicas": {
+          "type": "number"
+        },
+        "size": {
+          "type": "string"
+        },
+        "taskLimit": {
+          "type": "number"
+        }
+      }
+    },
     "Throwable": {
       "type": "object",
       "properties": {
@@ -47945,6 +47968,31 @@
         }
       }
     },
+
+    "RestDelegateSizeResponse": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateSizesResponse"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+
     "RestResponseBoolean": {
       "type": "object",
       "properties": {

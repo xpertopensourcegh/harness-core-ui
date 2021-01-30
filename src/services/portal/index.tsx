@@ -283,12 +283,29 @@ export interface StackTraceElement {
   nativeMethod?: boolean
 }
 
+export interface DelegateSizesResponse {
+  cpu?: number
+  label?: string
+  ram?: number
+  replicas?: number
+  size?: string
+  taskLimit?: number
+}
+
 export interface Throwable {
   cause?: Throwable
   stackTrace?: StackTraceElement[]
   message?: string
   localizedMessage?: string
   suppressed?: Throwable[]
+}
+
+export interface RestDelegateSizeResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateSizesResponse[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseBoolean {
@@ -19082,12 +19099,12 @@ export interface GetDelegateSizesQueryParams {
 }
 
 export type GetDelegateSizesProps = Omit<
-  GetProps<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>,
+  GetProps<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>,
   'path'
 >
 
 export const GetDelegateSizes = (props: GetDelegateSizesProps) => (
-  <Get<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>
+  <Get<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>
     path="/setup/delegates/delegate-sizes"
     base={getConfig('api')}
     {...props}
@@ -19095,12 +19112,12 @@ export const GetDelegateSizes = (props: GetDelegateSizesProps) => (
 )
 
 export type UseGetDelegateSizesProps = Omit<
-  UseGetProps<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>,
+  UseGetProps<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>,
   'path'
 >
 
 export const useGetDelegateSizes = (props: UseGetDelegateSizesProps) =>
-  useGet<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>(`/setup/delegates/delegate-sizes`, {
+  useGet<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>(`/setup/delegates/delegate-sizes`, {
     base: getConfig('api'),
     ...props
   })
