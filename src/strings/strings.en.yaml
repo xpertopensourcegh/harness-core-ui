@@ -488,6 +488,7 @@ delegate:
     checkDelegateInstalled: Checking if the delegate is installed. It might take 1-2 minutes for the installation.
     heartbeatReceived: Heartbeat received
     delegateInitialized: Delegate initialized
+    delegateInstalled: Delegate Installed Successfully
   delegateNotInstalled:
     title: Delegate not installed
     verifyField1: kubectl describe pod <your-delegate-pod> -n harness-delegate

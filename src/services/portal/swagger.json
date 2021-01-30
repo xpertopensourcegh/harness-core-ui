@@ -11614,6 +11614,68 @@
         }
       }
     },
+
+    "/delegates-verification/heartbeat": {
+      "get": {
+        "tags": ["delegatesverification"],
+        "operationId": "heartbeat",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sessionId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestVerificationResponse"
+            }
+          }
+        }
+      }
+    },
+
+    "/delegates-verification/initialized": {
+      "get": {
+        "tags": ["delegatesverification"],
+        "operationId": "initialization",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sessionId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestInitializationResponse"
+            }
+          }
+        }
+      }
+    },
     "/setup/delegates/kubernetes-delegates": {
       "get": {
         "tags": ["setupdelegates"],
@@ -48050,6 +48112,60 @@
         }
       }
     },
+    "InitializationResponse": {
+      "type": "object",
+      "properties": {
+        "delegateId": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "initialized": {
+          "type": "boolean"
+        },
+        "profileError": {
+          "type": "boolean"
+        },
+        "profileExecutedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "VerificationResponse": {
+      "type": "object",
+      "properties": {
+        "numberOfRegisteredDelegates": {
+          "type": "number"
+        },
+        "numberOfConnectedDelegates": {
+          "type": "number"
+        }
+      }
+    },
+    "DelegateSizesResponse": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "number"
+        },
+        "label": {
+          "type": "string"
+        },
+        "ram": {
+          "type": "number"
+        },
+        "replicas": {
+          "type": "number"
+        },
+        "size": {
+          "type": "string"
+        },
+        "taskLimit": {
+          "type": "number"
+        }
+      }
+    },
     "Account": {
       "type": "object",
       "required": ["accountName", "appId", "companyName", "lastUpdatedAt", "uuid"],
@@ -48323,6 +48439,72 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/Account"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestVerificationResponse": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/VerificationResponse"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestInitializationResponse": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InitializationResponse"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestDelegateSizeResponse": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateSizesResponse"
           }
         },
         "responseMessages": {

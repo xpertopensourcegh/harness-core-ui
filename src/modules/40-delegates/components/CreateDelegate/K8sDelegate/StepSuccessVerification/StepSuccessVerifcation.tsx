@@ -1,14 +1,27 @@
 import React from 'react'
-import { Button, Layout, StepProps, Tabs, Tab, Icon, Heading, Text, Container, Color } from '@wings-software/uicore'
+
+import { Button, Layout, StepProps, Heading, Text } from '@wings-software/uicore'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import { useStrings } from 'framework/exports'
-import CommonProblems from '@delegates/components/CreateDelegate/K8sDelegate/StepSuccessVerification/CommonProblems/CommonProblems'
-import addFile from './images/addFile.svg'
+import type { StepK8Data } from '@delegates/DelegateInterface'
+import StepProcessing from '../StepProcessing/StepProcessing'
+// import CommonProblems from '@delegates/components/CreateDelegate/K8sDelegate/StepSuccessVerification/CommonProblems/CommonProblems'
+// import addFile from './images/addFile.svg'
 import css from '../CreateK8sDelegate.module.scss'
 
-const StepSuccessVerification: React.FC<StepProps<null>> = props => {
-  const showTab = true
+const StepSuccessVerification: React.FC<StepProps<StepK8Data>> = props => {
+  const [showProcessing, setShowProcessing] = React.useState(false)
   const { previousStep } = props
+  // const { accountId } = useParams()
   const { getString } = useStrings()
+
+  // const { data, loading, error, refetch: verifyHeartBeat } = useHeartbeat({
+  //   queryParams: { accountId, sessionId: 'WB4xZm8BRAiSMyTPf2dmRQ' },
+  //   lazy: true
+  // })
+
+  // const onVerify = () => {}
+
   const onClickBack = (): void => {
     previousStep?.()
   }
@@ -32,7 +45,10 @@ const StepSuccessVerification: React.FC<StepProps<null>> = props => {
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="medium" className={css.verificationFieldWrapper}>
-            <Container
+            <CopyText textToCopy="$ kubectl apply -f harness-delegate.yaml">
+              <span>$ kubectl apply -f harness-delegate.yaml</span>
+            </CopyText>
+            {/* <Container
               intent="primary"
               padding="small"
               font={{
@@ -43,50 +59,25 @@ const StepSuccessVerification: React.FC<StepProps<null>> = props => {
             >
               <Text style={{ marginRight: '24px' }}>$ kubectl apply -f harness-delegate.yaml</Text>
               <img src={addFile} alt="" aria-hidden className={css.addConfigImg} />
-            </Container>
-            <Button text={getString('verify')} intent="primary" padding="small" />
+            </Container> */}
+            <Button
+              text={getString('verify')}
+              intent="primary"
+              padding="small"
+              onClick={() => {
+                setShowProcessing(true)
+                // console.log('on verify', data)
+                // onVerify()
+              }}
+            />
           </Layout.Horizontal>
         </Layout.Vertical>
         <Layout.Vertical>
           <hr className={css.verticalLine} />
         </Layout.Vertical>
-        {showTab ? (
-          <Layout.Vertical padding="large">
-            <Layout.Horizontal spacing="small">
-              <Icon name="warning-sign" color={Color.ORANGE_600} size={16} />
-              <Text>{getString('delegate.delegateNotInstalled.title')}</Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal spacing="small">
-              <Tabs id="delegateNotInstalledTabs">
-                <Tab
-                  id="tabId1"
-                  title={<Text>{getString('delegate.delegateNotInstalled.tabs.commonProblems.title')}</Text>}
-                  panel={<CommonProblems />}
-                />
-                <Tab
-                  id="tabId2"
-                  title={<Text>{getString('delegate.delegateNotInstalled.tabs.troubleshooting')}</Text>}
-                  panel={<div>Hello</div>}
-                />
-              </Tabs>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        ) : (
-          <Layout.Vertical spacing="xxlarge">
-            <Layout.Horizontal padding="large">
-              <Icon size={16} name="steps-spinner" style={{ marginRight: '12px' }} />
-              <Text font="small">{getString('delegate.successVerification.checkDelegateInstalled')}</Text>
-            </Layout.Horizontal>
-            <Layout.Vertical padding="large">
-              <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>
-                <Icon size={10} color={Color.GREEN_500} name="command-artifact-check" className={css.checkIcon} />
-                <Text font={{ weight: 'bold' }}>{getString('delegate.successVerification.heartbeatReceived')}</Text>
-              </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>
-                <Icon size={10} color={Color.GREEN_500} name="command-artifact-check" className={css.checkIcon} />
-                <Text font={{ weight: 'bold' }}>{getString('delegate.successVerification.delegateInitialized')}</Text>
-              </Layout.Horizontal>
-            </Layout.Vertical>
+        {showProcessing && (
+          <Layout.Vertical>
+            <StepProcessing {...props} />
           </Layout.Vertical>
         )}
       </Layout.Horizontal>

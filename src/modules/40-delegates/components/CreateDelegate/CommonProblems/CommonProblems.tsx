@@ -2,8 +2,8 @@ import React from 'react'
 import { Container, Layout, Icon, Color, Text, StepProps } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
-import addFile from '../images/addFile.svg'
-import css from '../../CreateK8sDelegate.module.scss'
+import addFile from './images/addFile.svg'
+import css from '../K8sDelegate/CreateK8sDelegate.module.scss'
 
 const CommonProblems: React.FC<StepProps<null>> = () => {
   const { getString } = useStrings()

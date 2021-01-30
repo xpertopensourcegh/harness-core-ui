@@ -4,10 +4,10 @@ import { Button, Layout, StepProps, Accordion, Heading, Text, Link, Color } from
 import { useStrings } from 'framework/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { useGenerateKubernetesYaml } from 'services/portal'
-import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
+import type { StepK8Data } from '@delegates/DelegateInterface'
 import css from '../CreateK8sDelegate.module.scss'
 
-const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
+const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams()
   const { mutate: downloadYaml } = useGenerateKubernetesYaml({ queryParams: { accountId } })
@@ -58,7 +58,7 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
                     entityType="Delegates"
                     fileName={`harness-delegate.yaml`}
                     isReadOnlyMode={true}
-                    existingJSON={props?.prevStepData}
+                    existingJSON={props?.prevStepData?.delegateYaml}
                     showSnippetSection={false}
                     width="568px"
                     height="462px"
@@ -74,7 +74,7 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
               text={getString('delegate.downloadScript')}
               className={css.downloadButton}
               onClick={() => {
-                onDownload(props?.prevStepData)
+                onDownload(props?.prevStepData?.delegateYaml)
               }}
               outlined
             />
@@ -93,7 +93,7 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
               intent="primary"
               text={getString('continue')}
               rightIcon="chevron-right"
-              onClick={() => props.nextStep?.()}
+              onClick={() => props.nextStep?.(props?.prevStepData)}
             />
           </Layout.Horizontal>
         </Layout.Vertical>

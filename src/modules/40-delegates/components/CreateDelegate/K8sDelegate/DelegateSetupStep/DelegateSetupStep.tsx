@@ -26,7 +26,7 @@ import { useStrings } from 'framework/exports'
 import type { DelegateProfile } from '@delegates/DelegateInterface'
 
 import { AddDescriptionWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import type { DelegateYaml } from '@delegates/DelegateInterface'
+import type { DelegateYaml, StepK8Data } from '@delegates/DelegateInterface'
 
 import css from './DelegateSetupStep.module.scss'
 
@@ -73,7 +73,8 @@ const getProfile = (data: any, configId: any) => {
   const selProfile = configs ? configs.find(item => item.uuid == configId) : null
   return selProfile?.selectors
 }
-const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> = props => {
+
+const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = props => {
   const initialValues = {
     name: '',
     identifier: '',
@@ -106,7 +107,17 @@ const DelegateSetup: React.FC<StepProps<DelegateYaml> & DelegateSetupStepProps> 
   const onSubmit = async (values: DelegateYaml) => {
     const response = await createKubernetesYaml(values)
     const delegateYaml = response.resource
-    props?.nextStep?.(delegateYaml)
+    if (delegateSizeMappings) {
+      const delegateSize: DelegateSizesResponse =
+        delegateSizeMappings.find((item: DelegateSizesResponse) => item.size === values.size) || delegateSizeMappings[0]
+      if (delegateSize) {
+        const stepPrevData = {
+          delegateYaml,
+          replicas: delegateSize?.replicas
+        }
+        props?.nextStep?.(stepPrevData)
+      }
+    }
   }
 
   React.useEffect(() => {

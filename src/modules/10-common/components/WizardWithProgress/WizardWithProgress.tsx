@@ -107,11 +107,11 @@ export const WizardWithProgress = <SharedObject extends object>(props: StepWizar
   }, [state.activeStep])
   const nextStep = React.useCallback(
     (prevStepData?: SharedObject) => {
-      panels[state.panelActiveId].status = Status.COMPLETED
-      panels[state.panelActiveId + 1].status = Status.INPROGRESS
+      panels[state.activeStep - 1].status = Status.COMPLETED
+      panels[state.activeStep].status = Status.INPROGRESS
       gotoStep(state.activeStep + 1, prevStepData)
-      const panelActiveId = state.activeStep > 1 ? state.panelActiveId + 1 : state.panelActiveId
-      setState(prevState => ({ ...prevState, panels, panelActiveId }))
+      // const panelActiveId = state.activeStep ? state.panelActiveId + 1 : state.panelActiveId
+      setState(prevState => ({ ...prevState, panels }))
     },
     [gotoStep]
   )

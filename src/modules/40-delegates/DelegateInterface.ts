@@ -1,3 +1,5 @@
+import type { KubDelegateYaml } from 'services/portal'
+
 export interface DelegateInfoDTO {
   name: string
   identifier: string
@@ -34,4 +36,9 @@ export interface DelegateProfile {
   selectors?: string[]
   lastUpdatedAt?: string
   scopingRules?: string[]
+}
+
+export interface StepK8Data {
+  delegateYaml: KubDelegateYaml | undefined
+  replicas: number | undefined
 }

@@ -332,6 +332,28 @@ export interface LicenseUpdateInfo {
   }
 }
 
+export interface InitializationResponse {
+  delegateId?: string
+  hostname?: string
+  initialized?: boolean
+  profileError?: boolean
+  profileExecutedAt?: string
+}
+
+export interface VerificationResponse {
+  numberOfRegisteredDelegates?: number
+  numberOfConnectedDelegates?: number
+}
+
+export interface DelegateSizesResponse {
+  cpu?: number
+  label?: string
+  ram?: number
+  replicas?: number
+  size?: string
+  taskLimit?: number
+}
+
 export interface Account {
   uuid: string
   appId: string
@@ -438,6 +460,30 @@ export interface RestResponsePageResponseAccount {
     [key: string]: { [key: string]: any }
   }
   resource?: Account[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestVerificationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestInitializationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InitializationResponse[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestDelegateSizeResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateSizesResponse[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -19181,3 +19227,55 @@ export const useGenerateKubernetesYaml = (props: UseGenerateKubernetesYamlProps)
     `/setup/delegates/generate-kubernetes-yaml`,
     { base: getConfig('api'), ...props }
   )
+
+export interface HeartbeatQueryParams {
+  accountId?: string
+  sessionId?: string
+}
+
+export type HeartbeatProps = Omit<GetProps<RestVerificationResponse, unknown, HeartbeatQueryParams, void>, 'path'>
+
+export const Heartbeat = (props: HeartbeatProps) => (
+  <Get<RestVerificationResponse, unknown, HeartbeatQueryParams, void>
+    path="/delegates-verification/heartbeat"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseHeartbeatProps = Omit<UseGetProps<RestVerificationResponse, unknown, HeartbeatQueryParams, void>, 'path'>
+
+export const useHeartbeat = (props: UseHeartbeatProps) =>
+  useGet<RestVerificationResponse, unknown, HeartbeatQueryParams, void>(`/delegates-verification/heartbeat`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface InitializationQueryParams {
+  accountId?: string
+  sessionId?: string
+}
+
+export type InitializationProps = Omit<
+  GetProps<RestInitializationResponse, unknown, InitializationQueryParams, void>,
+  'path'
+>
+
+export const Initialization = (props: InitializationProps) => (
+  <Get<RestInitializationResponse, unknown, InitializationQueryParams, void>
+    path="/delegates-verification/initialized"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseInitializationProps = Omit<
+  UseGetProps<RestInitializationResponse, unknown, InitializationQueryParams, void>,
+  'path'
+>
+
+export const useInitialization = (props: UseInitializationProps) =>
+  useGet<RestInitializationResponse, unknown, InitializationQueryParams, void>(`/delegates-verification/initialized`, {
+    base: getConfig('api'),
+    ...props
+  })

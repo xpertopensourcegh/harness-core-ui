@@ -21,6 +21,8 @@ allowpaths:
   - '/setup/delegates/delegate-sizes.get'
   - '/setup/delegates/validate-kubernetes-yaml'
   - '/setup/delegates/generate-kubernetes-yaml'
+  - '/delegates-verification/heartbeat'
+  - '/delegates-verification/initialized'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
@@ -43,3 +45,5 @@ operationIdOverrides:
   /delegate-profiles/{delegateProfileId}.get: getDelegateConfigFromId
   /setup/delegates/validate-kubernetes-yaml: validateKubernetesYaml
   /setup/delegates/generate-kubernetes-yaml: generateKubernetesYaml
+  /delegates-verification/heartbeat: verifyDelegateHeartBeat
+  /delegates-verification/initialized: verifyDelegateInitialization
