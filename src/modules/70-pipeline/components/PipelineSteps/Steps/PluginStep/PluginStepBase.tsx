@@ -22,97 +22,11 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
-import {
-  getInitialValuesInCorrectFormat,
-  getFormValuesInCorrectFormat,
-  Types as TransformValuesTypes
-} from '../StepsTransformValuesUtils'
-import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import { getInitialValuesInCorrectFormat, getFormValuesInCorrectFormat } from '../StepsTransformValuesUtils'
+import { validate } from '../StepsValidateUtils'
+import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './PluginStepFunctionConfigs'
 import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './PluginStep'
 import css from '../Steps.module.scss'
-
-const transformValuesFields = [
-  {
-    name: 'identifier',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'name',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'description',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.connectorRef',
-    type: TransformValuesTypes.ConnectorRef
-  },
-  {
-    name: 'spec.image',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.settings',
-    type: TransformValuesTypes.Map
-  },
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // {
-  //   name: 'spec.pull',
-  //   type: TransformValuesTypes.Pull
-  // },
-  {
-    name: 'spec.limitMemory',
-    type: TransformValuesTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: TransformValuesTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: TransformValuesTypes.Text
-  }
-]
-
-const validateFields = [
-  {
-    name: 'identifier',
-    type: ValidationFieldTypes.Identifier,
-    required: true
-  },
-  {
-    name: 'name',
-    type: ValidationFieldTypes.Name,
-    required: true
-  },
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.ConnectorRef,
-    required: true
-  },
-  {
-    name: 'spec.image',
-    type: ValidationFieldTypes.Image,
-    required: true
-  },
-  {
-    name: 'spec.settings',
-    type: ValidationFieldTypes.Settings
-  },
-  {
-    name: 'spec.limitMemory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
 
 export const PluginStepBase = (
   { initialValues, onUpdate }: PluginStepProps,
@@ -139,20 +53,17 @@ export const PluginStepBase = (
   // const pullOptions = usePullOptions()
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(initialValues, transformValuesFields, {
+  // const values = getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-  const values = getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(initialValues, transformValuesFields)
+  const values = getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(
+    initialValues,
+    transformValuesFieldsConfig
+  )
 
   if (!loading) {
     values.spec.connectorRef = connector
   }
-
-  const validate = useValidate<PluginStepDataUI>(validateFields, {
-    initialValues,
-    steps: currentStage?.stage?.spec?.execution?.steps || {},
-    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
-  })
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -178,11 +89,18 @@ export const PluginStepBase = (
       ) : (
         <Formik
           initialValues={values}
-          validate={validate}
+          validate={valuesToValidate => {
+            return validate(valuesToValidate, editViewValidateFieldsConfig, {
+              initialValues,
+              steps: currentStage?.stage?.spec?.execution?.steps || {},
+              serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+              getString
+            })
+          }}
           onSubmit={(_values: PluginStepDataUI) => {
             const schemaValues = getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(
               _values,
-              transformValuesFields
+              transformValuesFieldsConfig
             )
             onUpdate?.(schemaValues)
           }}

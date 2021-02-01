@@ -1,11 +1,11 @@
 import React from 'react'
-import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
-import { isEmpty, set } from 'lodash-es'
+import type { IconName } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/exports'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { validateInputSet } from '../StepsValidateUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -17,6 +17,7 @@ import type {
 import { DependencyBase } from './DependencyBase'
 import { DependencyInputSet } from './DependencyInputSet'
 import { DependencyVariables, DependencyVariablesProps } from './DependencyVariables'
+import { inputSetViewValidateFieldsConfig } from './DependencyFunctionConfigs'
 
 export interface DependencySpec {
   connectorRef: string
@@ -84,26 +85,11 @@ export class Dependency extends PipelineStep<DependencyData> {
   }
 
   validateInputSet(data: DependencyData, template?: DependencyData, getString?: UseStringsReturn['getString']): object {
-    const errors = {} as any
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.connectorRef) &&
-      getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.connectorRef',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.connectorLabel') })
-      )
+    if (getString) {
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
 
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.image) && getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.image', getString?.('fieldRequired', { field: getString?.('imageLabel') }))
-    }
-
-    return errors
+    return {}
   }
 
   renderStep(props: StepProps<DependencyData>): JSX.Element {

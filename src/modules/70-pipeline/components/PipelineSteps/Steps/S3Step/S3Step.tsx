@@ -1,15 +1,16 @@
 import React from 'react'
-import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
-import { isEmpty, set } from 'lodash-es'
+import type { IconName } from '@wings-software/uicore'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
+import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { validateInputSet } from '../StepsValidateUtils'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { S3StepBaseWithRef } from './S3StepBase'
 import { S3StepInputSet } from './S3StepInputSet'
 import { S3StepVariables, S3StepVariablesProps } from './S3StepVariables'
+import { inputSetViewValidateFieldsConfig } from './S3StepFunctionConfigs'
 
 export interface S3StepSpec {
   connectorRef: string
@@ -75,43 +76,11 @@ export class S3Step extends PipelineStep<S3StepData> {
     }
   }
   validateInputSet(data: S3StepData, template?: S3StepData, getString?: UseStringsReturn['getString']): object {
-    const errors = {} as any
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.connectorRef) &&
-      getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.connectorRef',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.awsConnectorLabel') })
-      )
+    if (getString) {
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
 
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.region) && getMultiTypeFromValue(template?.spec?.region) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.region', getString?.('fieldRequired', { field: getString?.('pipelineSteps.regionLabel') }))
-    }
-
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.bucket) && getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.bucket', getString?.('fieldRequired', { field: getString?.('pipelineSteps.bucketLabel') }))
-    }
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.sourcePath) &&
-      getMultiTypeFromValue(template?.spec?.sourcePath) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.sourcePath',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.sourcePathLabel') })
-      )
-    }
-
-    return errors
+    return {}
   }
   renderStep(props: StepProps<S3StepData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props

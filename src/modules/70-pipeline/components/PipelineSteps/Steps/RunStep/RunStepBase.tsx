@@ -23,122 +23,11 @@ import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
-import {
-  getInitialValuesInCorrectFormat,
-  getFormValuesInCorrectFormat,
-  Types as TransformValuesTypes
-} from '../StepsTransformValuesUtils'
-import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import { getInitialValuesInCorrectFormat, getFormValuesInCorrectFormat } from '../StepsTransformValuesUtils'
+import { validate } from '../StepsValidateUtils'
 import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
+import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
 import css from '../Steps.module.scss'
-
-const transformValuesFields = [
-  {
-    name: 'identifier',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'name',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'description',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.connectorRef',
-    type: TransformValuesTypes.ConnectorRef
-  },
-  {
-    name: 'spec.image',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.command',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.reportPaths',
-    type: TransformValuesTypes.ReportPaths
-  },
-  {
-    name: 'spec.envVariables',
-    type: TransformValuesTypes.Map
-  },
-  {
-    name: 'spec.outputVariables',
-    type: TransformValuesTypes.List
-  },
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // {
-  //   name: 'spec.pull',
-  //   type: TransformValuesTypes.Pull
-  // },
-  {
-    name: 'spec.limitMemory',
-    type: TransformValuesTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: TransformValuesTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: TransformValuesTypes.Text
-  }
-]
-
-const validateFields = [
-  {
-    name: 'identifier',
-    type: ValidationFieldTypes.Identifier,
-    required: true
-  },
-  {
-    name: 'name',
-    type: ValidationFieldTypes.Name,
-    required: true
-  },
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.ConnectorRef,
-    required: true
-  },
-  {
-    name: 'spec.image',
-    type: ValidationFieldTypes.Image,
-    required: true
-  },
-  {
-    name: 'spec.command',
-    type: ValidationFieldTypes.Command,
-    required: true
-  },
-  {
-    name: 'spec.reportPaths',
-    type: ValidationFieldTypes.ReportPaths
-  },
-  {
-    name: 'spec.envVariables',
-    type: ValidationFieldTypes.EnvVariables
-  },
-  {
-    name: 'spec.outputVariables',
-    type: ValidationFieldTypes.OutputVariables
-  },
-  {
-    name: 'spec.limitMemory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
 
 export const RunStepBase = (
   { initialValues, onUpdate }: RunStepProps,
@@ -165,20 +54,14 @@ export const RunStepBase = (
   // const pullOptions = usePullOptions()
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(initialValues, transformValuesFields, {
+  // const values = getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-  const values = getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(initialValues, transformValuesFields)
+  const values = getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(initialValues, transformValuesFieldsConfig)
 
   if (!loading) {
     values.spec.connectorRef = connector
   }
-
-  const validate = useValidate<RunStepDataUI>(validateFields, {
-    initialValues,
-    steps: currentStage?.stage?.spec?.execution?.steps || {},
-    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
-  })
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -204,11 +87,18 @@ export const RunStepBase = (
       ) : (
         <Formik
           initialValues={values}
-          validate={validate}
+          validate={valuesToValidate => {
+            return validate(valuesToValidate, editViewValidateFieldsConfig, {
+              initialValues,
+              steps: currentStage?.stage?.spec?.execution?.steps || {},
+              serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+              getString
+            })
+          }}
           onSubmit={(_values: RunStepDataUI) => {
             const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(
               _values,
-              transformValuesFields
+              transformValuesFieldsConfig
             )
             onUpdate?.(schemaValues)
           }}

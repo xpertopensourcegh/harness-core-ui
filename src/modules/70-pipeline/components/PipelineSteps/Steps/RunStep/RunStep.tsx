@@ -1,11 +1,11 @@
 import React from 'react'
-import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
-import { isEmpty, set } from 'lodash-es'
+import type { IconName } from '@wings-software/uicore'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { validateInputSet } from '../StepsValidateUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -17,6 +17,7 @@ import type {
 import { RunStepBaseWithRef } from './RunStepBase'
 import { RunStepInputSet } from './RunStepInputSet'
 import { RunStepVariables, RunStepVariablesProps } from './RunStepVariables'
+import { inputSetViewValidateFieldsConfig } from './RunStepFunctionConfigs'
 
 export interface RunStepSpec {
   connectorRef: string
@@ -92,31 +93,11 @@ export class RunStep extends PipelineStep<RunStepData> {
   }
 
   validateInputSet(data: RunStepData, template?: RunStepData, getString?: UseStringsReturn['getString']): object {
-    const errors = {} as any
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.connectorRef) &&
-      getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.connectorRef',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.connectorLabel') })
-      )
+    if (getString) {
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
 
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.image) && getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.image', getString?.('fieldRequired', { field: getString?.('imageLabel') }))
-    }
-
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.command) && getMultiTypeFromValue(template?.spec?.command) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.command', getString?.('fieldRequired', { field: getString?.('commandLabel') }))
-    }
-
-    return errors
+    return {}
   }
 
   renderStep(props: StepProps<RunStepData>): JSX.Element {

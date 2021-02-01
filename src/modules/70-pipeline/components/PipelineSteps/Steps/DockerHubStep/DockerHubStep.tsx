@@ -1,11 +1,11 @@
 import React from 'react'
-import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
-import { isEmpty, set } from 'lodash-es'
+import type { IconName } from '@wings-software/uicore'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { validateInputSet } from '../StepsValidateUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -17,6 +17,7 @@ import type {
 import { DockerHubStepBaseWithRef } from './DockerHubStepBase'
 import { DockerHubStepInputSet } from './DockerHubStepInputSet'
 import { DockerHubStepVariables, DockerHubStepVariablesProps } from './DockerHubStepVariables'
+import { inputSetViewValidateFieldsConfig } from './DockerHubStepFunctionConfigs'
 
 export interface DockerHubStepSpec {
   connectorRef: string
@@ -92,37 +93,11 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     template?: DockerHubStepData,
     getString?: UseStringsReturn['getString']
   ): object {
-    const errors = {} as any
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.connectorRef) &&
-      getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.connectorRef',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.dockerHubConnectorLabel') })
-      )
+    if (getString) {
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
 
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.registry) &&
-      getMultiTypeFromValue(template?.spec?.registry) === MultiTypeInputType.RUNTIME
-    ) {
-      set(errors, 'spec.registry', getString?.('fieldRequired', { field: getString?.('dockerRegistry') }))
-    }
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.tags) &&
-      getMultiTypeFromValue(template?.spec?.tags as string) === MultiTypeInputType.RUNTIME
-    ) {
-      set(errors, 'spec.tags', getString?.('fieldRequired', { field: getString?.('tagsLabel') }))
-    }
-
-    return errors
+    return {}
   }
 
   renderStep(props: StepProps<DockerHubStepData>): JSX.Element {

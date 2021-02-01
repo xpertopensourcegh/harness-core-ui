@@ -1,15 +1,16 @@
 import React from 'react'
-import { isEmpty, set } from 'lodash-es'
-import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
+import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { validateInputSet } from '../StepsValidateUtils'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { RestoreCacheGCSStepBaseWithRef } from './RestoreCacheGCSStepBase'
 import { RestoreCacheGCSStepInputSet } from './RestoreCacheGCSStepInputSet'
 import { RestoreCacheGCSStepVariables, RestoreCacheGCSStepVariablesProps } from './RestoreCacheGCSStepVariables'
+import { inputSetViewValidateFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
 
 export interface RestoreCacheGCSStepSpec {
   connectorRef: string
@@ -73,27 +74,13 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
     template?: RestoreCacheGCSStepData,
     getString?: UseStringsReturn['getString']
   ): object {
-    const errors = {} as any
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.connectorRef) &&
-      getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-    ) {
-      set(errors, 'spec.connectorRef', getString?.('validation.GCPConnectorRefRequired'))
+    if (getString) {
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
 
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.bucket) && getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.bucket', getString?.('fieldRequired', { field: getString?.('pipelineSteps.bucketLabel') }))
-    }
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.key) && getMultiTypeFromValue(template?.spec?.key) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.key', getString?.('fieldRequired', { field: getString?.('keyLabel') }))
-    }
-
-    return errors
+    return {}
   }
+
   renderStep(props: StepProps<RestoreCacheGCSStepData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 

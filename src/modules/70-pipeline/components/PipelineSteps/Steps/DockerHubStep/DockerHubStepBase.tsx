@@ -22,122 +22,11 @@ import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
-import {
-  getInitialValuesInCorrectFormat,
-  getFormValuesInCorrectFormat,
-  Types as TransformValuesTypes
-} from '../StepsTransformValuesUtils'
-import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import { getInitialValuesInCorrectFormat, getFormValuesInCorrectFormat } from '../StepsTransformValuesUtils'
+import { validate } from '../StepsValidateUtils'
+import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './DockerHubStepFunctionConfigs'
 import type { DockerHubStepProps, DockerHubStepData, DockerHubStepDataUI } from './DockerHubStep'
 import css from '../Steps.module.scss'
-
-const transformValuesFields = [
-  {
-    name: 'identifier',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'name',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.connectorRef',
-    type: TransformValuesTypes.ConnectorRef
-  },
-  {
-    name: 'spec.registry',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.tags',
-    type: TransformValuesTypes.List
-  },
-  {
-    name: 'spec.dockerfile',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.context',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.labels',
-    type: TransformValuesTypes.Map
-  },
-  {
-    name: 'spec.buildArgs',
-    type: TransformValuesTypes.Map
-  },
-  {
-    name: 'spec.target',
-    type: TransformValuesTypes.Text
-  },
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // {
-  //   name: 'spec.pull',
-  //   type: TransformValuesTypes.Pull
-  // },
-  {
-    name: 'spec.limitMemory',
-    type: TransformValuesTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: TransformValuesTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: TransformValuesTypes.Text
-  }
-]
-
-const validateFields = [
-  {
-    name: 'identifier',
-    type: ValidationFieldTypes.Identifier,
-    required: true
-  },
-  {
-    name: 'name',
-    type: ValidationFieldTypes.Name,
-    required: true
-  },
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.DockerHubConnectorRef,
-    required: true
-  },
-  {
-    name: 'spec.registry',
-    type: ValidationFieldTypes.DockerRegistry,
-    required: true
-  },
-  {
-    name: 'spec.tags',
-    type: ValidationFieldTypes.Tags,
-    required: true
-  },
-  {
-    name: 'spec.labels',
-    type: ValidationFieldTypes.Labels
-  },
-  {
-    name: 'spec.buildArgs',
-    type: ValidationFieldTypes.BuildArgs
-  },
-  {
-    name: 'spec.limitMemory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
 
 export const DockerHubStepBase = (
   { initialValues, onUpdate }: DockerHubStepProps,
@@ -164,23 +53,17 @@ export const DockerHubStepBase = (
   // const pullOptions = usePullOptions()
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<DockerHubStepData, DockerHubStepDataUI>(initialValues, transformValuesFields, {
+  // const values = getInitialValuesInCorrectFormat<DockerHubStepData, DockerHubStepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
   const values = getInitialValuesInCorrectFormat<DockerHubStepData, DockerHubStepDataUI>(
     initialValues,
-    transformValuesFields
+    transformValuesFieldsConfig
   )
 
   if (!loading) {
     values.spec.connectorRef = connector
   }
-
-  const validate = useValidate<DockerHubStepDataUI>(validateFields, {
-    initialValues,
-    steps: currentStage?.stage?.spec?.execution?.steps || {},
-    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
-  })
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -206,11 +89,18 @@ export const DockerHubStepBase = (
       ) : (
         <Formik
           initialValues={values}
-          validate={validate}
+          validate={valuesToValidate => {
+            return validate(valuesToValidate, editViewValidateFieldsConfig, {
+              initialValues,
+              steps: currentStage?.stage?.spec?.execution?.steps || {},
+              serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+              getString
+            })
+          }}
           onSubmit={(_values: DockerHubStepDataUI) => {
             const schemaValues = getFormValuesInCorrectFormat<DockerHubStepDataUI, DockerHubStepData>(
               _values,
-              transformValuesFields
+              transformValuesFieldsConfig
             )
             onUpdate?.(schemaValues)
           }}

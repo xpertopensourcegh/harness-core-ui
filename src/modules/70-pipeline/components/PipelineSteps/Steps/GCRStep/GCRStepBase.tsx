@@ -22,140 +22,11 @@ import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
-import {
-  getInitialValuesInCorrectFormat,
-  getFormValuesInCorrectFormat,
-  Types as TransformValuesTypes
-} from '../StepsTransformValuesUtils'
-import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import { getInitialValuesInCorrectFormat, getFormValuesInCorrectFormat } from '../StepsTransformValuesUtils'
+import { validate } from '../StepsValidateUtils'
+import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './GCRStepFunctionConfigs'
 import type { GCRStepProps, GCRStepData, GCRStepDataUI } from './GCRStep'
 import css from '../Steps.module.scss'
-
-const transformValuesFields = [
-  {
-    name: 'identifier',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'name',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.connectorRef',
-    type: TransformValuesTypes.ConnectorRef
-  },
-  {
-    name: 'spec.host',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.projectID',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.imageName',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.tags',
-    type: TransformValuesTypes.List
-  },
-  {
-    name: 'spec.dockerfile',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.context',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.labels',
-    type: TransformValuesTypes.Map
-  },
-  {
-    name: 'spec.buildArgs',
-    type: TransformValuesTypes.Map
-  },
-  {
-    name: 'spec.target',
-    type: TransformValuesTypes.Text
-  },
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // {
-  //   name: 'spec.pull',
-  //   type: TransformValuesTypes.Pull
-  // },
-  {
-    name: 'spec.limitMemory',
-    type: TransformValuesTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: TransformValuesTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: TransformValuesTypes.Text
-  }
-]
-
-const validateFields = [
-  {
-    name: 'identifier',
-    type: ValidationFieldTypes.Identifier,
-    required: true
-  },
-  {
-    name: 'name',
-    type: ValidationFieldTypes.Name,
-    required: true
-  },
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.GCPConnectorRef,
-    required: true
-  },
-  {
-    name: 'spec.host',
-    type: ValidationFieldTypes.Host,
-    required: true
-  },
-  {
-    name: 'spec.projectID',
-    type: ValidationFieldTypes.ProjectID,
-    required: true
-  },
-  {
-    name: 'spec.imageName',
-    type: ValidationFieldTypes.ImageName,
-    required: true
-  },
-  {
-    name: 'spec.tags',
-    type: ValidationFieldTypes.Tags,
-    required: true
-  },
-  {
-    name: 'spec.labels',
-    type: ValidationFieldTypes.Labels
-  },
-  {
-    name: 'spec.buildArgs',
-    type: ValidationFieldTypes.BuildArgs
-  },
-  {
-    name: 'spec.limitMemory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
 
 export const GCRStepBase = (
   { initialValues, onUpdate }: GCRStepProps,
@@ -182,20 +53,14 @@ export const GCRStepBase = (
   // const pullOptions = usePullOptions()
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<GCRStepData, GCRStepDataUI>(initialValues, transformValuesFields, {
+  // const values = getInitialValuesInCorrectFormat<GCRStepData, GCRStepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-  const values = getInitialValuesInCorrectFormat<GCRStepData, GCRStepDataUI>(initialValues, transformValuesFields)
+  const values = getInitialValuesInCorrectFormat<GCRStepData, GCRStepDataUI>(initialValues, transformValuesFieldsConfig)
 
   if (!loading) {
     values.spec.connectorRef = connector
   }
-
-  const validate = useValidate<GCRStepDataUI>(validateFields, {
-    initialValues,
-    steps: currentStage?.stage?.spec?.execution?.steps || {},
-    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
-  })
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -221,11 +86,18 @@ export const GCRStepBase = (
       ) : (
         <Formik
           initialValues={values}
-          validate={validate}
+          validate={valuesToValidate => {
+            return validate(valuesToValidate, editViewValidateFieldsConfig, {
+              initialValues,
+              steps: currentStage?.stage?.spec?.execution?.steps || {},
+              serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+              getString
+            })
+          }}
           onSubmit={(_values: GCRStepDataUI) => {
             const schemaValues = getFormValuesInCorrectFormat<GCRStepDataUI, GCRStepData>(
               _values,
-              transformValuesFields
+              transformValuesFieldsConfig
             )
             onUpdate?.(schemaValues)
           }}

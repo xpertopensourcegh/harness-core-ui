@@ -21,115 +21,11 @@ import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
-import {
-  getInitialValuesInCorrectFormat,
-  getFormValuesInCorrectFormat,
-  Types as TransformValuesTypes
-} from '../StepsTransformValuesUtils'
-import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import { getInitialValuesInCorrectFormat, getFormValuesInCorrectFormat } from '../StepsTransformValuesUtils'
+import { validate } from '../StepsValidateUtils'
+import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './SaveCacheS3StepFunctionConfigs'
 import type { SaveCacheS3StepProps, SaveCacheS3StepData, SaveCacheS3StepDataUI } from './SaveCacheS3Step'
 import css from '../Steps.module.scss'
-
-const transformValuesFields = [
-  {
-    name: 'identifier',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'name',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.connectorRef',
-    type: TransformValuesTypes.ConnectorRef
-  },
-  {
-    name: 'spec.region',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.bucket',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.key',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.sourcePaths',
-    type: TransformValuesTypes.List
-  },
-  {
-    name: 'spec.endpoint',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.target',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.limitMemory',
-    type: TransformValuesTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: TransformValuesTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: TransformValuesTypes.Text
-  }
-]
-
-const validateFields = [
-  {
-    name: 'identifier',
-    type: ValidationFieldTypes.Identifier,
-    required: true
-  },
-  {
-    name: 'name',
-    type: ValidationFieldTypes.Name,
-    required: true
-  },
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.AWSConnectorRef,
-    required: true
-  },
-  {
-    name: 'spec.region',
-    type: ValidationFieldTypes.Region,
-    required: true
-  },
-  {
-    name: 'spec.bucket',
-    type: ValidationFieldTypes.Bucket,
-    required: true
-  },
-  {
-    name: 'spec.key',
-    type: ValidationFieldTypes.Key,
-    required: true
-  },
-  {
-    name: 'spec.sourcePaths',
-    type: ValidationFieldTypes.SourcePaths,
-    required: true
-  },
-  {
-    name: 'spec.limitMemory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
 
 export const SaveCacheS3StepBase = (
   { initialValues, onUpdate }: SaveCacheS3StepProps,
@@ -154,18 +50,12 @@ export const SaveCacheS3StepBase = (
 
   const values = getInitialValuesInCorrectFormat<SaveCacheS3StepData, SaveCacheS3StepDataUI>(
     initialValues,
-    transformValuesFields
+    transformValuesFieldsConfig
   )
 
   if (!loading) {
     values.spec.connectorRef = connector
   }
-
-  const validate = useValidate<SaveCacheS3StepDataUI>(validateFields, {
-    initialValues,
-    steps: currentStage?.stage?.spec?.execution?.steps || {},
-    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
-  })
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -191,11 +81,18 @@ export const SaveCacheS3StepBase = (
       ) : (
         <Formik
           initialValues={values}
-          validate={validate}
+          validate={valuesToValidate => {
+            return validate(valuesToValidate, editViewValidateFieldsConfig, {
+              initialValues,
+              steps: currentStage?.stage?.spec?.execution?.steps || {},
+              serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+              getString
+            })
+          }}
           onSubmit={(_values: SaveCacheS3StepDataUI) => {
             const schemaValues = getFormValuesInCorrectFormat<SaveCacheS3StepDataUI, SaveCacheS3StepData>(
               _values,
-              transformValuesFields
+              transformValuesFieldsConfig
             )
             onUpdate?.(schemaValues)
           }}

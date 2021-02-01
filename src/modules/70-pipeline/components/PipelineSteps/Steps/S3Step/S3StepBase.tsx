@@ -20,111 +20,11 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
-import {
-  getInitialValuesInCorrectFormat,
-  getFormValuesInCorrectFormat,
-  Types as TransformValuesTypes
-} from '../StepsTransformValuesUtils'
-import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import { getInitialValuesInCorrectFormat, getFormValuesInCorrectFormat } from '../StepsTransformValuesUtils'
+import { validate } from '../StepsValidateUtils'
+import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './S3StepFunctionConfigs'
 import type { S3StepData, S3StepDataUI, S3StepProps } from './S3Step'
 import css from '../Steps.module.scss'
-
-const transformValuesFields = [
-  {
-    name: 'identifier',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'name',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.connectorRef',
-    type: TransformValuesTypes.ConnectorRef
-  },
-  {
-    name: 'spec.region',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.bucket',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.sourcePath',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.endpoint',
-    type: TransformValuesTypes.Text
-  },
-  {
-    name: 'spec.target',
-    type: TransformValuesTypes.Text
-  },
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // {
-  //   name: 'spec.pull',
-  //   type: TransformValuesTypes.Pull
-  // },
-  {
-    name: 'spec.limitMemory',
-    type: TransformValuesTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: TransformValuesTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: TransformValuesTypes.Text
-  }
-]
-
-const validateFields = [
-  {
-    name: 'identifier',
-    type: ValidationFieldTypes.Identifier,
-    required: true
-  },
-  {
-    name: 'name',
-    type: ValidationFieldTypes.Name,
-    required: true
-  },
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.AWSConnectorRef,
-    required: true
-  },
-  {
-    name: 'spec.region',
-    type: ValidationFieldTypes.Region,
-    required: true
-  },
-  {
-    name: 'spec.bucket',
-    type: ValidationFieldTypes.Bucket,
-    required: true
-  },
-  {
-    name: 'spec.sourcePath',
-    type: ValidationFieldTypes.SourcePath,
-    required: true
-  },
-  {
-    name: 'spec.limitMemory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.limitCPU',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
 
 export const S3StepBase = (
   { initialValues, onUpdate }: S3StepProps,
@@ -151,20 +51,14 @@ export const S3StepBase = (
   // const pullOptions = usePullOptions()
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<S3StepData, S3StepDataUI>(initialValues, transformValuesFields, {
+  // const values = getInitialValuesInCorrectFormat<S3StepData, S3StepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-  const values = getInitialValuesInCorrectFormat<S3StepData, S3StepDataUI>(initialValues, transformValuesFields)
+  const values = getInitialValuesInCorrectFormat<S3StepData, S3StepDataUI>(initialValues, transformValuesFieldsConfig)
 
   if (!loading) {
     values.spec.connectorRef = connector
   }
-
-  const validate = useValidate<S3StepDataUI>(validateFields, {
-    initialValues,
-    steps: currentStage?.stage?.spec?.execution?.steps || {},
-    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
-  })
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -190,9 +84,19 @@ export const S3StepBase = (
       ) : (
         <Formik
           initialValues={values}
-          validate={validate}
+          validate={valuesToValidate => {
+            return validate(valuesToValidate, editViewValidateFieldsConfig, {
+              initialValues,
+              steps: currentStage?.stage?.spec?.execution?.steps || {},
+              serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+              getString
+            })
+          }}
           onSubmit={(_values: S3StepDataUI) => {
-            const schemaValues = getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(_values, transformValuesFields)
+            const schemaValues = getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(
+              _values,
+              transformValuesFieldsConfig
+            )
             onUpdate?.(schemaValues)
           }}
         >

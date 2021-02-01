@@ -1,15 +1,16 @@
 import React from 'react'
-import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
-import { isEmpty, set } from 'lodash-es'
+import type { IconName } from '@wings-software/uicore'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
+import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { validateInputSet } from '../StepsValidateUtils'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
 import { JFrogArtifactoryStepBaseWithRef } from './JFrogArtifactoryStepBase'
 import { JFrogArtifactoryStepInputSet } from './JFrogArtifactoryStepInputSet'
 import { JFrogArtifactoryStepVariables, JFrogArtifactoryStepVariablesProps } from './JFrogArtifactoryStepVariables'
+import { inputSetViewValidateFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
 
 export interface JFrogArtifactoryStepSpec {
   connectorRef: string
@@ -78,38 +79,11 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
     template?: JFrogArtifactoryStepData,
     getString?: UseStringsReturn['getString']
   ): object {
-    const errors = {} as any
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.connectorRef) &&
-      getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.connectorRef',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.connectorLabel') })
-      )
+    if (getString) {
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
 
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.target) && getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.target', getString?.('fieldRequired', { field: getString?.('pipelineSteps.targetLabel') }))
-    }
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.sourcePath) &&
-      getMultiTypeFromValue(template?.spec?.sourcePath) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.sourcePath',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.sourcePathLabel') })
-      )
-    }
-
-    return errors
+    return {}
   }
 
   renderStep(props: StepProps<JFrogArtifactoryStepData>): JSX.Element {

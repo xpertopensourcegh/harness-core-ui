@@ -1,11 +1,11 @@
 import React from 'react'
-import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
-import { isEmpty, set } from 'lodash-es'
+import type { IconName } from '@wings-software/uicore'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
+import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { validateInputSet } from '../StepsValidateUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -17,6 +17,7 @@ import type {
 import { GCRStepBaseWithRef } from './GCRStepBase'
 import { GCRStepInputSet } from './GCRStepInputSet'
 import { GCRStepVariables, GCRStepVariablesProps } from './GCRStepVariables'
+import { inputSetViewValidateFieldsConfig } from './GCRStepFunctionConfigs'
 
 export interface GCRStepSpec {
   connectorRef: string
@@ -92,54 +93,11 @@ export class GCRStep extends PipelineStep<GCRStepData> {
   }
 
   validateInputSet(data: GCRStepData, template?: GCRStepData, getString?: UseStringsReturn['getString']): object {
-    const errors = {} as any
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.connectorRef) &&
-      getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.connectorRef',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.gcpConnectorLabel') })
-      )
+    if (getString) {
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
 
-    /* istanbul ignore else */
-    if (isEmpty(data?.spec?.host) && getMultiTypeFromValue(template?.spec?.host) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.host', getString?.('fieldRequired', { field: getString?.('pipelineSteps.hostLabel') }))
-    }
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.projectID) &&
-      getMultiTypeFromValue(template?.spec?.projectID) === MultiTypeInputType.RUNTIME
-    ) {
-      set(
-        errors,
-        'spec.projectID',
-        getString?.('fieldRequired', { field: getString?.('pipelineSteps.projectIDLabel') })
-      )
-    }
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.imageName) &&
-      getMultiTypeFromValue(template?.spec?.imageName) === MultiTypeInputType.RUNTIME
-    ) {
-      set(errors, 'spec.imageName', getString?.('fieldRequired', { field: getString?.('imageNameLabel') }))
-    }
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.tags) &&
-      getMultiTypeFromValue(template?.spec?.tags as string) === MultiTypeInputType.RUNTIME
-    ) {
-      set(errors, 'spec.tags', getString?.('fieldRequired', { field: getString?.('tagsLabel') }))
-    }
-
-    return errors
+    return {}
   }
 
   renderStep(props: StepProps<GCRStepData>): JSX.Element {
