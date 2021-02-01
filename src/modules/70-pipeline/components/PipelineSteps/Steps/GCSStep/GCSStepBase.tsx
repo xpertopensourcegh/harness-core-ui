@@ -9,7 +9,7 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isPlainObject } from 'lodash-es'
+import { isPlainObject, isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -110,6 +110,7 @@ export const GCSStepBase = (
                   <FormInput.InputWithIdentifier
                     inputName="name"
                     idName="identifier"
+                    isIdentifierEditable={isEmpty(values.identifier)}
                     inputLabel={getString('pipelineSteps.stepNameLabel')}
                   />
                   <FormMultiTypeConnectorField

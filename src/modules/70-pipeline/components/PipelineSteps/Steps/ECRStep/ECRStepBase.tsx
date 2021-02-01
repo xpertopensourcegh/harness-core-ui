@@ -10,7 +10,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { isPlainObject } from 'lodash-es'
+import { isPlainObject, isEmpty } from 'lodash-es'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
@@ -112,6 +112,7 @@ export const ECRStepBase = (
                   <FormInput.InputWithIdentifier
                     inputName="name"
                     idName="identifier"
+                    isIdentifierEditable={isEmpty(values.identifier)}
                     inputLabel={getString('pipelineSteps.stepNameLabel')}
                   />
                   <FormMultiTypeConnectorField

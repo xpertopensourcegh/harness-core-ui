@@ -8,7 +8,7 @@ import {
   MultiTypeInputType,
   FormikForm
 } from '@wings-software/uicore'
-import { isPlainObject } from 'lodash-es'
+import { isPlainObject, isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
@@ -102,6 +102,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
+                isIdentifierEditable={isEmpty(values.identifier)}
                 inputLabel={getString('dependencyNameLabel')}
               />
               <FormMultiTypeTextAreaField
