@@ -1,25 +1,17 @@
 import React from 'react'
 import { Select as BPSelect, ISelectProps, IItemRendererProps } from '@blueprintjs/select'
-import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { Button, IconName, Icon } from '@wings-software/uicore'
 import { Menu } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import { String } from 'framework/exports'
 import type { StageSelectOption } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
+import { getIconFromStageModule } from '@pipeline/utils/executionUtils'
 import css from './StageSelection.module.scss'
 
 const Select = BPSelect.ofType<StageSelectOption>()
 
 export type { StageSelectOption }
-
-export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
-  Deployment: 'pipeline-deploy',
-  CI: 'pipeline-build-select',
-  Approval: 'pipeline-approval',
-  Pipeline: 'pipeline',
-  Custom: 'pipeline-custom'
-}
 
 export interface StageSelectionProps
   extends Omit<ISelectProps<StageSelectOption>, 'itemRenderer' | 'items' | 'onItemSelect'> {
@@ -49,7 +41,7 @@ export function StageSelection(props: StageSelectionProps): React.ReactElement {
             disabled={disabled}
             text={
               <React.Fragment>
-                <Icon className={css.icon} name={MapStepTypeToIcon[item.type]} />
+                <Icon className={css.icon} name={getIconFromStageModule(item.type.toLowerCase())} />
                 <span>{item.label}</span>
               </React.Fragment>
             }
@@ -66,7 +58,7 @@ export function StageSelection(props: StageSelectionProps): React.ReactElement {
       <Button className={css.btn} rightIcon={chevronIcon} iconProps={{ className: css.icon }}>
         {selectedStage ? (
           <React.Fragment>
-            <Icon className={css.icon} name={MapStepTypeToIcon[selectedStage.type]} />
+            <Icon className={css.icon} name={getIconFromStageModule(selectedStage.type.toLowerCase())} />
             <span>{selectedStage.label}</span>
           </React.Fragment>
         ) : (

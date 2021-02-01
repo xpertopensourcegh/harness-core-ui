@@ -110,11 +110,14 @@ export function StepsTree(props: StepsTreeProps): React.ReactElement {
           const isSuccess = step.parallel.every(pStep => isExecutionSuccess(pStep.item?.status || pStep.group?.status))
 
           let icon: IconName = IconMap.notstarted
+          let statusLower = ''
 
           if (isRunning) {
             icon = IconMap.running
+            statusLower = 'running'
           } else if (isSuccess) {
             icon = IconMap.success
+            statusLower = 'success'
           } else {
             // find first non success state
             const nonSuccessStep = step.parallel.find(
@@ -125,6 +128,7 @@ export function StepsTree(props: StepsTreeProps): React.ReactElement {
               const status = (nonSuccessStep.item?.status || nonSuccessStep.group?.status)?.toLowerCase()
 
               if (status) {
+                statusLower = status
                 icon = IconMap[status]
               }
             }
@@ -132,7 +136,7 @@ export function StepsTree(props: StepsTreeProps): React.ReactElement {
 
           return (
             <li className={css.item} key={i} data-type="parallel">
-              <div className={css.step}>
+              <div className={css.step} data-status={statusLower}>
                 <Icon className={css.icon} name={icon} />
                 <div className={css.nameWrapper}>
                   {isRoot ? null : <div className={css.parallelIcon} />}
