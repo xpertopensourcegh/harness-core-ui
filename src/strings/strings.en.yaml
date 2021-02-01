@@ -451,8 +451,19 @@ delegate:
   totalMem: 'Total Mem'
   totalCpu: 'Total CPU'
   productionWorkloads: 'For Production Workloads'
+  delegateName: 'Delegate Name'
   delegateType: 'Delegate Type'
   delegateSize: 'Delegate Size'
+  delegateSizeLower: 'Delegate size'
+  delegateSizeLarge: 'Large'
+  delegateMEM: MEM
+  delegateCPU: CPU
+  delegateDISK: DISK
+  delegateSizeUpto: Runs upto concurrent tasks
+  pendingApproval: Pending Approval
+  connected: Connected
+  notConnected: Not Connected
+  newConfiguration: New Delegate Configuration
   delegates: 'Delegates'
   NEW_DELEGATE: 'New Delegate'
   DelegateName: 'Delegate'

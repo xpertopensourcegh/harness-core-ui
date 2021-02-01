@@ -10,10 +10,11 @@ exports[`Delegates Details Page render data 1`] = `
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
           href="/account/dummy/resources/delegates/delegateId"
+          style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           Resources
         </a>
@@ -22,35 +23,81 @@ exports[`Delegates Details Page render data 1`] = `
         </span>
         <a
           href="/account/dummy/resources/delegates/delegateId"
+          style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           Delegates
         </a>
+        <span>
+          /
+        </span>
       </div>
       <p
         class="StyledProps--font StyledProps--main"
-        style="font-size: 20px; color: rgb(56, 57, 70); display: flex; align-items: center;"
+        style="font-size: 20px; display: flex; align-items: center;"
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-          data-icon="app-kubernetes"
+          data-icon="service-ecs"
         >
           <svg
-            height="20"
-            viewBox="0 0 32 30"
-            width="20"
+            height="21"
+            viewBox="0 0 14 14"
+            width="21"
           >
+            <path
+              d="M.8 13l-.8-.4V1.3L.8.9l3 5.8zM3.1 11l1.1 1.6L9 10.3l-1.1-.2zM2.2 2.9l1.2-1.7L9 3.7l-1 .2z"
+              fill="#9d5025"
+            />
+            <path
+              d="M2.6 1.3L.9.9V13l1.7-.5z"
+              fill="#f58536"
+            />
+            <path
+              d="M1.7 13.5l.9.5 1.7-7.8L2.6 0l-.9.5zM7.9 4L9 3.8l1.1 3.1L9 10.4l-1.1-.2z"
+              fill="#9d5025"
+            />
             <g
-              fill="none"
+              fill="#f58536"
             >
               <path
-                d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
-                fill="#326CE5"
+                d="M4.3.5L2.6 0v14l1.7-.5z"
               />
               <path
-                d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
-                fill="#FFF"
-                stroke="#FFF"
-                stroke-width="0.25"
+                d="M10.2 3.9L2.6 2.4V0l7.6 2.3zM10.4 10.1l-7.8 1.6V14l7.8-2.4z"
+              />
+              <path
+                d="M9 12l1.2-.4V2.4L9 2z"
+              />
+            </g>
+            <path
+              d="M14 8.2L10.7 8l-1.1.1 3.3 3z"
+              fill="#6b3a19"
+            />
+            <path
+              d="M9.4 8.2l3.4.2v2.7l-3.4-.6z"
+              fill="#9d5025"
+            />
+            <path
+              d="M6.3 8.3L9.7 12l1.7-3.6-3.5-.2z"
+              fill="#6b3a19"
+            />
+            <path
+              d="M6.3 8.4l3.4.3v3.4l-3.4-.9zM9.6 5.8l4.4-.1-1.1-2.8-3.3.6z"
+              fill="#9d5025"
+            />
+            <path
+              d="M6.3 5.6l5.1-.1-1.7-3.6-3.4.9z"
+              fill="#9d5025"
+            />
+            <path
+              d="M6.3 5.7l3.4-.4 1.7.2-3.5.3zM14 5.8l-3.3.2-1.1-.1 3.3-.3z"
+              fill="#fbbf93"
+            />
+            <g
+              fill="#f58536"
+            >
+              <path
+                d="M12.8 8.3l1.2-.1v2.5l-1.2.4zM11.4 8.5l-1.7.2v3.4l1.7-.5zM12.8 5.7l1.2.1V3.3l-1.2-.4zM11.4 5.5l-1.7-.2V1.9l1.7.5z"
               />
             </g>
           </svg>
@@ -63,20 +110,21 @@ exports[`Delegates Details Page render data 1`] = `
         D
       </p>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--margin-top-medium"
+        class="StyledProps--font StyledProps--main"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+          class="StyledProps--font StyledProps--main"
+          style="display: inline-flex; flex-wrap: wrap;"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-            style="background: rgb(205, 244, 254); border-radius: 5px; font-size: 10px; padding: 4px 8px;"
+            class="StyledProps--font StyledProps--main"
+            style="display: inline-block; background: rgb(205, 244, 254); border-radius: 4px; font-size: 10px;"
           >
             test-selectorA
           </p>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-            style="background: rgb(205, 244, 254); border-radius: 5px; font-size: 10px; padding: 4px 8px;"
+            class="StyledProps--font StyledProps--main"
+            style="display: inline-block; background: rgb(205, 244, 254); border-radius: 4px; font-size: 10px;"
           >
             test-selectorB
           </p>
@@ -91,30 +139,106 @@ exports[`Delegates Details Page render data 1`] = `
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main"
-        style="display: none;"
-      >
-        <div
-          class="optionBtns"
-        >
-          <div
-            class="item"
-          >
-            VISUAL
-          </div>
-          <div
-            class="item"
-          >
-            YAML
-          </div>
-        </div>
-      </div>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
       >
         <div
           class="StyledProps--font StyledProps--main cardContainer"
         />
+        <div
+          class="StyledProps--font StyledProps--main card StyledProps--padding-large"
+          style="width: 398px; height: 150px;"
+        >
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--flex"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              style="font-weight: 600;"
+            >
+              Delegate size
+            </p>
+            <span
+              style="flex-grow: 1;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="background: rgb(207, 180, 255); border-radius: 10px; color: rgb(77, 11, 143); text-align: center; padding: 3px 34px; font-weight: 600;"
+            >
+              Large
+            </p>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--flex"
+          >
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="width: 50%;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 16px; font-weight: 500; color: rgb(56, 57, 70); text-align: center;"
+              >
+                5000
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="color: rgb(146, 147, 171); text-align: center;"
+              >
+                <span
+                  style="width: 105px; display: inline-block;"
+                >
+                  Runs upto concurrent tasks
+                </span>
+              </p>
+            </div>
+            <span
+              style="display: inline-block; width: 1px; height: 63px; background: rgb(217, 218, 230);"
+            />
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="padding: 20px 0px 0px 38px; width: calc(50% - 1px);"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main"
+                style="flex-grow: 1; flex-basis: 0px;"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main delegateMachineSpec"
+                >
+                  MEM
+                   
+                  <span>
+                    16
+                    <span>
+                      GB
+                    </span>
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main delegateMachineSpec"
+                >
+                  CPU
+                   
+                  <span>
+                    4
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main delegateMachineSpec"
+                >
+                  DISK
+                   
+                  <span>
+                    15
+                    <span>
+                      GB
+                    </span>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

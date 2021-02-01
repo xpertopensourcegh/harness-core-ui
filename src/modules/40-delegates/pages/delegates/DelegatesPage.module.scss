@@ -5,6 +5,7 @@
 .delegateTabs {
   display: flex;
   justify-content: center;
+  background-color: var(--white);
 
   :global {
     .bp3-tab-list {
@@ -34,7 +35,6 @@
 .delegateTable {
   padding: var(--spacing-small) var(--spacing-xlarge);
   background-color: var(--grey-100);
-  margin-top: var(--spacing-small);
 }
 
 .connectivity {

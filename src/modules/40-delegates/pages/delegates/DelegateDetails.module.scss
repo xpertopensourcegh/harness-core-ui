@@ -1,7 +1,7 @@
 .main {
   --page-header-height: 143px;
   background-color: var(--grey-100) !important;
-  padding: var(--spacing-large) var(--spacing-xlarge) !important;
+  padding: var(--spacing-xlarge) !important;
 
   .panel {
     height: 100%;
@@ -22,6 +22,41 @@
       flex: 1;
       min-width: 440px;
     }
+  }
+}
+
+.card {
+  background: var(--white) !important;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+  border-radius: 4px;
+}
+
+.delegateMachineSpec {
+  font-size: 8px !important;
+  color: #6b6d85 !important;
+  width: 33.33%;
+  text-align: center;
+
+  > span {
+    color: var(--black);
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+    margin-top: var(--spacing-xsmall);
+
+    > span {
+      font-size: 12px;
+    }
+  }
+}
+
+.delegateOverviewEntry {
+  border-bottom: 0.5px solid #dce0e7;
+  padding: var(--spacing-medium) 0 !important;
+
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -48,25 +83,12 @@
     cursor: default;
   }
 }
+
 .advancedCard {
   width: 398px;
   height: 259px;
   background: #ffffff;
   border-radius: 4px;
-}
-
-.overview {
-  flex: 1;
-  min-width: 400px;
-  margin-bottom: var(--spacing-small);
-
-  width: 398px;
-  height: 358px;
-  background: #ffffff;
-  /* Light / Elevation 01 */
-
-  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
-  border-radius: 4px !important;
 }
 
 .cardContainer {

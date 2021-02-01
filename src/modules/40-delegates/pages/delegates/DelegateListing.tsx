@@ -1,50 +1,57 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { get } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Button, Container, Intent, Tag, Text, Layout, Popover, Color } from '@wings-software/uicore'
+import { Button, Container, Text, Layout, Popover, Color, FlexExpander } from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
-import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
-import { GetDelegatesStatusV2QueryParams, useDeleteDelegate, useGetDelegatesStatusV2 } from 'services/portal'
+import {
+  GetDelegatesStatusV2QueryParams,
+  useDeleteDelegate,
+  useGetDelegatesStatusV2,
+  DelegateInner
+} from 'services/portal'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import routes from '@common/RouteDefinitions'
 import { Page } from 'modules/10-common/exports'
 import Table from '@common/components/Table/Table'
+import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { DelegateStatus } from '@delegates/constants'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import { delegateTypeToIcon } from './utils/DelegateHelper'
 import { useDeleteDelegateModal } from '../../modals/DeleteDelegateModal/useDeleteDelegateModal'
-import success from './success.svg'
 
 import css from './DelegatesPage.module.scss'
 
-interface Delegate {
-  uuid: string
-  status: string
-  connections: string[]
-  delegateName: string
-  hostName: string
-  lastHeartBeat: number
-  tags?: string[]
-}
+const POLLING_INTERVAL = 10000
 
-const delegateStatus = (delegate: Delegate) => {
-  const isApprovalRequired = delegate.status === 'WAITING_FOR_APPROVAL'
+const RenderConnectivityColumn: Renderer<CellProps<DelegateInner>> = ({ row }) => {
+  const { getString } = useStrings()
+  const delegate = row.original
+  const isApprovalRequired = delegate.status === DelegateStatus.WAITING_FOR_APPROVAL
   const isConnected = delegate.connections ? delegate?.connections?.length > 0 : false
-  return isApprovalRequired ? 'Pending Approval' : isConnected ? 'Connected' : 'Not Connected'
-}
+  const text = isApprovalRequired
+    ? getString('delegate.pendingApproval')
+    : isConnected
+    ? getString('delegate.connected')
+    : getString('delegate.notConnected')
+  const color: Color = isApprovalRequired ? Color.YELLOW_500 : isConnected ? Color.GREEN_600 : Color.GREY_400
 
-const RenderConnectivityColumn: Renderer<CellProps<Delegate>> = ({ row }) => {
   return (
-    <Layout.Horizontal className={css.connectivity}>
-      <img src={success} alt="" aria-hidden className={css.successIcon} />
-      <Text>{row.values.connectivity}</Text>
-    </Layout.Horizontal>
+    <Text icon="full-circle" iconProps={{ size: 6, color }}>
+      {text}
+    </Text>
   )
 }
 
-const RenderNameColumn: Renderer<CellProps<Delegate>> = ({ row }) => {
+const RenderIconColumn: Renderer<CellProps<DelegateInner>> = ({ row }) => (
+  <Text icon={delegateTypeToIcon(row.original.delegateType as string)} iconProps={{ size: 24 }} />
+)
+
+const RenderNameColumn: Renderer<CellProps<DelegateInner>> = ({ row }) => {
   const data = row.values
   return (
     <>
@@ -60,28 +67,22 @@ const RenderNameColumn: Renderer<CellProps<Delegate>> = ({ row }) => {
   )
 }
 
-const RenderTagsColumn: Renderer<CellProps<Delegate>> = ({ row }) => {
+const RenderTagsColumn: Renderer<CellProps<DelegateInner>> = ({ row }) => {
   if (!row.values.tags || !row.values.tags.length) {
     return null
   }
   return (
     <Container className={css.connectivity}>
-      {row.values.tags.map((tag: string) => {
-        return (
-          <Tag intent={Intent.PRIMARY} minimal={true} key={tag}>
-            <span>{tag}</span>
-          </Tag>
-        )
-      })}
+      <TagsViewer tags={row.values.tags} />
     </Container>
   )
 }
 
-const RenderColumnMenu: Renderer<CellProps<Delegate>> = ({ row, column }) => {
+const RenderColumnMenu: Renderer<CellProps<Required<DelegateInner>>> = ({ row, column }) => {
   const data = row.original.uuid
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
-  const { accountId } = useParams()
+  const { accountId } = useParams<Record<string, string>>()
   const { mutate: deleteDelegate } = useDeleteDelegate({
     queryParams: { accountId: accountId }
   })
@@ -122,7 +123,8 @@ const RenderColumnMenu: Renderer<CellProps<Delegate>> = ({ row, column }) => {
       >
         <Button
           minimal
-          icon="main-more"
+          icon="Options"
+          iconProps={{ size: 24 }}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
@@ -137,83 +139,113 @@ const RenderColumnMenu: Renderer<CellProps<Delegate>> = ({ row, column }) => {
   )
 }
 
+const fullSizeContentStyle: React.CSSProperties = {
+  position: 'fixed',
+  top: '135px',
+  left: '270px',
+  width: 'calc(100% - 270px)',
+  height: 'calc(100% - 135px)'
+}
+
 export const DelegateListing: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, module } = useParams<Record<string, string>>()
   const history = useHistory()
-  // TODO: useGetDelegatesStatusV2 current does not support module, but it must in order to filter delegates per module
+  // TODO: useGetDelegatesStatusV2 current does not support project, but it must in order to filter delegates project
   const queryParams: GetDelegatesStatusV2QueryParams = { accountId, module } as GetDelegatesStatusV2QueryParams
   const { data, loading, error, refetch } = useGetDelegatesStatusV2({ queryParams })
   const { openDelegateModal } = useCreateDelegateModal()
-
-  if (loading) {
-    return <PageSpinner />
-  }
-
-  if (error) {
-    return <PageError message={error.message} onClick={() => refetch()} />
-  }
-
   const delegates = get(data, 'resource.delegates', [])
-
-  const columns: Column<Delegate>[] = [
+  const columns: Column<DelegateInner>[] = [
     {
-      Header: getString('delegate.DelegateName'),
-      accessor: (row: Delegate) => row.delegateName || row.hostName,
-      width: '25%',
+      Header: '',
+      width: '30px',
+      id: 'icon',
+      disableSortBy: true,
+      Cell: RenderIconColumn
+    },
+    {
+      Header: getString('delegate.DelegateName').toUpperCase(),
+      accessor: (row: DelegateInner) => row.delegateName || row.hostName,
+      width: '30%',
       id: 'name',
       Cell: RenderNameColumn
     },
     {
-      Header: getString('tagsLabel'),
-      accessor: (row: Delegate) => row.tags,
+      Header: getString('tagsLabel').toUpperCase(),
+      accessor: (row: DelegateInner) => row.tags,
       id: 'tags',
-      width: '25%',
+      width: '30%',
       Cell: RenderTagsColumn
     },
     {
-      Header: getString('delegate.LastHeartBeat'),
-      accessor: (row: Delegate) => moment(row.lastHeartBeat).fromNow(),
+      Header: getString('delegate.LastHeartBeat').toUpperCase(),
+      accessor: (row: DelegateInner) => moment(row.lastHeartBeat).fromNow(),
       id: 'lastHeartBeat',
-      width: '20%'
+      width: 'calc(20% - 10px)'
     },
     {
-      Header: getString('filters.connectivityStatus'),
-      accessor: (row: Delegate) => delegateStatus(row),
+      Header: getString('filters.connectivityStatus').toUpperCase(),
+      accessor: (row: DelegateInner) => row.status,
       id: 'connectivity',
-      width: '25%',
-      disableSortBy: true,
+      width: 'calc(15% - 20px)',
       Cell: RenderConnectivityColumn
     },
     {
       Header: '',
       width: '5%',
-      accessor: (row: Delegate) => row?.uuid,
+      accessor: (row: DelegateInner) => row?.uuid,
       disableSortBy: true,
       id: 'action',
       Cell: RenderColumnMenu
     }
   ]
+
+  // Add polling
+  useEffect(() => {
+    let timeoutId = 0
+
+    if (!loading && !error && data) {
+      timeoutId = window.setTimeout(() => {
+        refetch()
+      }, POLLING_INTERVAL)
+    }
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [loading, error, data, refetch])
+
+  if (loading && !data) {
+    return (
+      <Container style={fullSizeContentStyle}>
+        <ContainerSpinner />
+      </Container>
+    )
+  }
+
+  if (error) {
+    return (
+      <Container style={fullSizeContentStyle}>
+        <PageError message={error.message} onClick={() => refetch()} />
+      </Container>
+    )
+  }
+
   return (
-    <Container className={css.delegateContainer}>
+    <Container>
       <Layout.Horizontal className={css.header}>
-        <Layout.Horizontal inline width="50%">
-          <Button
-            id="delegateButton"
-            intent="primary"
-            text={getString('delegate.NEW_DELEGATE')}
-            icon="plus"
-            onClick={() => openDelegateModal()}
-          />
+        <Button
+          intent="primary"
+          text={getString('delegate.NEW_DELEGATE')}
+          icon="plus"
+          onClick={() => openDelegateModal()}
+        />
+        <FlexExpander />
+        <Layout.Horizontal spacing="xsmall">
+          <Button minimal icon="main-search" disabled />
+          <Button minimal icon="settings" disabled />
         </Layout.Horizontal>
-        <Container flex className={css.view}>
-          <Layout.Horizontal spacing="small" width="30%" className={css.view}>
-            <Button icon="main-search" placeholder={getString('search')} />
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="small" width="20%" className={css.view}>
-            <Button id="ngfilterbtn" icon="ng-filter" width="32px" height="32px" />
-          </Layout.Horizontal>
-        </Container>
       </Layout.Horizontal>
       <Page.Body>
         <Table
@@ -224,7 +256,7 @@ export const DelegateListing: React.FC = () => {
             history.push(
               routes.toResourcesDelegatesDetails({
                 accountId,
-                delegateId: item.uuid
+                delegateId: item.uuid as string
               })
             )
           }}

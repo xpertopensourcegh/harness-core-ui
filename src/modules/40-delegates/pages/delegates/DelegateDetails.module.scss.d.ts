@@ -6,6 +6,9 @@ declare const styles: {
   readonly information: string
   readonly overview: string
   readonly inputSet: string
+  readonly card: string
+  readonly delegateMachineSpec: string
+  readonly delegateOverviewEntry: string
   readonly optionBtns: string
   readonly item: string
   readonly selected: string
