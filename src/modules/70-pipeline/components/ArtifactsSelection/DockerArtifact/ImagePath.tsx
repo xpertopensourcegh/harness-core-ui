@@ -229,8 +229,7 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
 
               {formik.values.tagType === 'regex' ? (
                 <div className={css.imagePathContainer}>
-                  <FormInput.MultiSelectTypeInput
-                    selectItems={[]}
+                  <FormInput.MultiTextInput
                     label={i18n.existingDocker.tagRegex}
                     name="tagRegex"
                     placeholder={i18n.existingDocker.enterTagRegex}
