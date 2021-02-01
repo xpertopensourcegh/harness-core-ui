@@ -37,7 +37,15 @@ interface ImagePathProps {
 const primarySchema = Yup.object().shape({
   imagePath: Yup.string().trim().required(i18n.validation.imagePath),
   registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
-  tag: Yup.string().trim().required('Tag is required')
+  tagType: Yup.string().required(),
+  tagRegex: Yup.string().when('tagType', {
+    is: 'regex',
+    then: Yup.string().trim().required('Tag Regex is required')
+  }),
+  tag: Yup.string().when('tagType', {
+    is: 'value',
+    then: Yup.string().trim().required('Tag is required')
+  })
 })
 
 const sidecarSchema = Yup.object().shape({
@@ -48,7 +56,15 @@ const sidecarSchema = Yup.object().shape({
     .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
     .notOneOf(StringUtils.illegalIdentifiers),
   registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
-  tag: Yup.string().trim().required('Tag is required')
+  tagType: Yup.string().required(),
+  tagRegex: Yup.string().when('tagType', {
+    is: 'regex',
+    then: Yup.string().trim().required('Tag Regex is required')
+  }),
+  tag: Yup.string().when('tagType', {
+    is: 'value',
+    then: Yup.string().trim().required('Tag is required')
+  })
 })
 
 const tagOptions: IOptionProps[] = [
