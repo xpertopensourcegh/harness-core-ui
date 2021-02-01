@@ -2,6 +2,7 @@ import React from 'react'
 import { IconName, Formik, FormInput, Button, Layout } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
+import { isEmpty } from 'lodash-es'
 import type { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -39,7 +40,10 @@ function StepGroupWidget(
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
+                <FormInput.InputWithIdentifier
+                  inputLabel={i18n.displayName}
+                  isIdentifierEditable={isEmpty(initialValues.identifier)}
+                />
               </Layout.Vertical>
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={i18n.submit} onClick={submitForm} />

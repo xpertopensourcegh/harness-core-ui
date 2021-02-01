@@ -9,7 +9,8 @@ import {
 } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
 import type {
   ExecutionGraphAddStepEvent,
-  ExecutionGraphEditStepEvent
+  ExecutionGraphEditStepEvent,
+  ExecutionGraphRefObj
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
@@ -145,6 +146,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
   const selectedStage = getStageFromPipeline(pipeline, selectedStageId).stage
+  const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
       <Button
@@ -279,6 +281,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                 hasRollback={true}
                 hasDependencies={false}
                 stepsFactory={stepsFactory}
+                ref={executionRef}
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 stage={selectedStage!}
                 updateStage={() => {
@@ -293,6 +296,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                       data: {
                         paletteData: {
                           entity: event.entity,
+                          onUpdate: executionRef.current?.stepGroupUpdated,
                           // isAddStepOverride: true,
                           isRollback: event.isRollback,
                           isParallelNodeClicked: event.isParallel,
@@ -311,6 +315,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                       data: {
                         stepConfig: {
                           node: event.node,
+                          onUpdate: executionRef.current?.stepGroupUpdated,
                           isStepGroup: event.isStepGroup,
                           isUnderStepGroup: event.isUnderStepGroup,
                           addOrEdit: event.addOrEdit,

@@ -9,6 +9,7 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   allowAdd?: boolean
   identifier?: string
   showRollback?: boolean
+  inComplete?: boolean
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
 }
 
@@ -30,6 +31,7 @@ export class StepGroupNodeLayerModel<
       isSvg: false,
       allowAdd: false,
       depth: 1,
+      inComplete: false,
       transformed: true,
       showRollback: true,
       ...options

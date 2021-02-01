@@ -2,6 +2,7 @@ import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Icon } from '@wings-software/uicore'
 
+import { isNil } from 'lodash-es'
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -91,7 +92,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               if (item.spec && item.tab !== TabTypes.Advanced) {
                 node.spec = { ...item.spec }
               }
-
+              data?.stepConfig?.onUpdate?.(item)
               updatePipeline(pipeline)
             }
 
@@ -119,6 +120,18 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                   identifier: generateRandomString(item.name)
                 }
               }
+              if (pipelineStage && isNil(pipelineStage.stage.spec.execution)) {
+                if (paletteData.isRollback) {
+                  pipelineStage.stage.spec.execution = {
+                    rollbackSteps: []
+                  }
+                } else {
+                  pipelineStage.stage.spec.execution = {
+                    steps: []
+                  }
+                }
+              }
+              data?.paletteData?.onUpdate?.(newStepData.step)
               addStepOrGroup(
                 paletteData.entity,
                 pipelineStage?.stage.spec.execution,
@@ -135,6 +148,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                     data: {
                       stepConfig: {
                         node: newStepData.step,
+                        onUpdate: data?.paletteData?.onUpdate,
                         isStepGroup: false,
                         addOrEdit: 'edit',
                         hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels

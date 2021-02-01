@@ -310,6 +310,7 @@ export class ExecutionStepModel extends DiagramModel {
         const stepGroupLayer = new StepGroupNodeLayerModel({
           identifier: node.stepGroup.identifier,
           label: node.stepGroup.name,
+          inComplete: isCustomGeneratedString(node.stepGroup.identifier),
           depth: stepState?.inheritedSG || 1,
           allowAdd: allowAdd === true,
           showRollback: !isRollback,

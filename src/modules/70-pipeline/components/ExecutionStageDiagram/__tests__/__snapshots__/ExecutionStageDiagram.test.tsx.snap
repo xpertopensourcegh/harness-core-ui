@@ -35,8 +35,8 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           />
         </div>
         <div
-          class="header"
-          style="top: 15px; left: 1200px; width: 480px;"
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
+          style="top: 15px; left: 1200px; width: 480px; align-items: center;"
         >
           <button
             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
@@ -63,7 +63,8 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </span>
           </button>
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font Text--lineclamp StyledProps--main"
+            style="--text-line-clamp: 1;"
           >
             Step Group HTTP
              
@@ -1170,8 +1171,8 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           />
         </div>
         <div
-          class="header"
-          style="top: -17px; left: 920px; width: 1040px;"
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
+          style="top: -17px; left: 920px; width: 1040px; align-items: center;"
         >
           <button
             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
@@ -1198,7 +1199,8 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </span>
           </button>
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font Text--lineclamp StyledProps--main"
+            style="--text-line-clamp: 1;"
           >
             service
              

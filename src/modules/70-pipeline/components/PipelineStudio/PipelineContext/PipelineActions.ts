@@ -51,6 +51,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
     paletteData?: {
       isRollback: boolean
       isParallelNodeClicked: boolean
+      onUpdate?: (stepOrGroup: ExecutionWrapper) => void
       entity: Diagram.DefaultNodeModel
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
@@ -58,6 +59,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
       node: ExecutionWrapper | DependenciesWrapper
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
+      onUpdate?: (stepOrGroup: ExecutionWrapper) => void
       isUnderStepGroup?: boolean
       hiddenAdvancedPanels?: AdvancedPanels[]
     }

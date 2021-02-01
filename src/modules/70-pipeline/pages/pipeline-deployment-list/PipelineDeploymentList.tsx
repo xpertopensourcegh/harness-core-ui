@@ -86,6 +86,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     accountIdentifier: accountId,
     projectIdentifier,
     orgIdentifier,
+    module,
     pipelineIdentifier,
     page: page - 1
   }

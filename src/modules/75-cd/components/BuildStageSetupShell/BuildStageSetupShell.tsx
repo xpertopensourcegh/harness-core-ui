@@ -13,7 +13,8 @@ import type { StageElementWrapper } from 'services/cd-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type {
   ExecutionGraphAddStepEvent,
-  ExecutionGraphEditStepEvent
+  ExecutionGraphEditStepEvent,
+  ExecutionGraphRefObj
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import {
   generateRandomString,
@@ -147,6 +148,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     }
   }, [pipeline, selectedStageId])
 
+  const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
   const selectedStage = getStageFromPipeline(pipeline, selectedStageId).stage
 
@@ -266,6 +268,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                 hasDependencies={true}
                 stepsFactory={stepsFactory}
                 stage={selectedStage!}
+                ref={executionRef}
                 updateStage={() => {
                   updatePipeline(pipeline)
                 }}
@@ -283,6 +286,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                               name: name,
                               identifier: generateRandomString(name)
                             },
+                            onUpdate: executionRef.current?.stepGroupUpdated,
                             addOrEdit: 'add',
                             isStepGroup: false,
                             hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
@@ -299,6 +303,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                         data: {
                           paletteData: {
                             entity: event.entity,
+                            onUpdate: executionRef.current?.stepGroupUpdated,
                             // isAddStepOverride: true,
                             isRollback: event.isRollback,
                             isParallelNodeClicked: event.isParallel,
@@ -318,6 +323,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                       data: {
                         stepConfig: {
                           node: event.node,
+                          onUpdate: executionRef.current?.stepGroupUpdated,
                           isStepGroup: event.isStepGroup,
                           isUnderStepGroup: event.isUnderStepGroup,
                           addOrEdit: event.addOrEdit,

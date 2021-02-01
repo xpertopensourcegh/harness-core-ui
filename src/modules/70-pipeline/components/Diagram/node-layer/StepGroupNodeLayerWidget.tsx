@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { map } from 'lodash-es'
 import { DiagramEngine, NodeWidget, NodeModel } from '@projectstorm/react-diagrams-core'
-import { Text, Button, Icon } from '@wings-software/uicore'
+import { Text, Button, Icon, Color, Layout } from '@wings-software/uicore'
 import type { StepGroupNodeLayerModel } from './StepGroupNodeLayerModel'
 import { Event, StepsType, DiagramDrag } from '../Constants'
 import { RollbackToggleSwitch } from '../canvas/RollbackToggleSwitch/RollbackToggleSwitch'
@@ -140,6 +140,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         ></div>
         {options.showRollback && (
           <RollbackToggleSwitch
+            disabled={options.inComplete}
             style={{ left: width - 60, top: 5 }}
             {...rollBackProps}
             onChange={type => props.layer.fireEvent({ type }, Event.RollbackClicked)}
@@ -164,17 +165,20 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           </div>
         )}
       </div>
-      <div
+      <Layout.Horizontal
+        spacing="xsmall"
         className={css.header}
         style={{
           top: config.minY - (40 * depth - 5),
           left: config.minX + 10,
-          width
+          width,
+          alignItems: 'center'
         }}
       >
         <Button
           minimal
           icon="minus"
+          disabled={options.inComplete}
           iconProps={{
             size: 8
           }}
@@ -184,6 +188,9 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           }}
         />
         <Text
+          icon={options.inComplete ? 'warning-sign' : undefined}
+          iconProps={{ color: Color.ORANGE_500 }}
+          lineClamp={1}
           onClick={e => {
             e.stopPropagation()
             props.layer.fireEvent({}, Event.StepGroupClicked)
@@ -191,7 +198,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         >
           {options.label} {options.rollBackProps?.active === StepsType.Rollback && `(${i18n.Rollback})`}
         </Text>
-      </div>
+      </Layout.Horizontal>
       <>
         {map(nodes, (node: NodeModel) => {
           return <NodeWidget key={node.getID()} diagramEngine={props.engine} node={node} />

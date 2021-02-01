@@ -22,7 +22,10 @@ import {
   getDependenciesState,
   StepType,
   getDependencyFromNode,
-  DependenciesWrapper
+  DependenciesWrapper,
+  isCustomGeneratedString,
+  defaultStepState,
+  defaultStepGroupState
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -40,6 +43,14 @@ import {
 } from '../../Diagram'
 import { CanvasButtons } from '../../CanvasButtons/CanvasButtons'
 import css from './ExecutionGraph.module.scss'
+export interface ExecutionGraphRefObj {
+  stepGroupUpdated: (stepOrGroup: ExecutionWrapper) => void
+}
+
+export type ExecutionGraphForwardRef =
+  | ((instance: ExecutionGraphRefObj | null) => void)
+  | React.MutableRefObject<ExecutionGraphRefObj | null>
+  | null
 
 interface PopoverData {
   event?: DefaultNodeEvent
@@ -98,7 +109,7 @@ export interface ExecutionGraphProp {
   onEditStep: (event: ExecutionGraphEditStepEvent) => void
 }
 
-const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
+function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForwardRef): JSX.Element {
   const {
     allowAddGroup = true,
     hasDependencies = false,
@@ -150,19 +161,26 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
         isParallel: isParallelNodeClicked
       })
     } else if (event?.entity) {
+      const node = {
+        name: EmptyStageName,
+        identifier: generateRandomString(EmptyStageName),
+        steps: []
+      }
       addStepOrGroup(
         event.entity,
         state.stepsData,
         {
-          stepGroup: {
-            name: EmptyStageName,
-            identifier: generateRandomString(EmptyStageName),
-            steps: []
-          }
+          stepGroup: node
         },
         isParallelNodeClicked,
         state.isRollback
       )
+      editStep({
+        node,
+        isStepGroup: true,
+        addOrEdit: 'edit',
+        stepType: StepType.STEP
+      })
       updateStage(stage)
     }
     dynamicPopoverHandler?.hide()
@@ -417,15 +435,15 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
       const data = stage
 
       if (data?.stage?.spec?.execution) {
-        getStepsState(data.stage.spec.execution, state.states)
-
+        const newStateMap = new Map<string, StepState>()
+        getStepsState(data.stage.spec.execution, newStateMap)
         if (hasDependencies && data?.stage?.spec?.serviceDependencies) {
-          getDependenciesState(data.stage.spec.serviceDependencies, state.states)
+          getDependenciesState(data.stage.spec.serviceDependencies, newStateMap)
         }
 
         setState(prevState => ({
           ...prevState,
-          states: state.states,
+          states: newStateMap,
           stepsData: data.stage.spec.execution,
           dependenciesData: data.stage.spec.serviceDependencies
         }))
@@ -437,7 +455,34 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
         updateStage(stage)
       }
     }
-  }, [stage])
+  }, [stage, ref])
+
+  const stepGroupUpdated = React.useCallback(
+    stepOrGroup => {
+      if (stepOrGroup.identifier && !isCustomGeneratedString(stepOrGroup.identifier)) {
+        const newStateMap = new Map<string, StepState>([...state.states])
+        if (stepOrGroup.steps) {
+          newStateMap.set(stepOrGroup.identifier, defaultStepState)
+        } else {
+          newStateMap.set(stepOrGroup.identifier, defaultStepGroupState)
+        }
+        setState(prev => ({ ...prev, states: newStateMap }))
+      }
+    },
+    [state.states]
+  )
+
+  useEffect(() => {
+    if (!ref) return
+
+    if (typeof ref === 'function') {
+      return
+    }
+
+    ref.current = {
+      stepGroupUpdated
+    }
+  }, [ref, stepGroupUpdated])
 
   return (
     <div
@@ -528,5 +573,5 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
     </div>
   )
 }
-
+const ExecutionGraph = React.forwardRef(ExecutionGraphRef)
 export default ExecutionGraph
