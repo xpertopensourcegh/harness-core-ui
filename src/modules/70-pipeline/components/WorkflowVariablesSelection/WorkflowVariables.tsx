@@ -118,11 +118,11 @@ export default function WorkflowVariables({
   return (
     <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)', borderRadius: '5px' }}>
       {isForPredefinedSets && <PredefinedOverrideSets context="VARIABLES" currentStage={stage} />}
-      {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
-        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
-      )}
 
       <section className={css.variablesList}>
+        {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
+          <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
+        )}
         <StepWidget<{ variables: Variable[]; isPropagating?: boolean; canAddVariable: boolean }>
           factory={factory}
           stepViewType={StepViewType.StageVariable}

@@ -24,14 +24,14 @@ export class CustomVariables extends Step<CustomVariablesData> {
     return stepViewType === StepViewType.InputSet ? (
       <CustomVariableInputSet
         initialValues={initialValues}
-        onUpdate={onUpdate}
+        onUpdate={data => onUpdate?.(this.processData(data))}
         stepViewType={stepViewType}
         {...customStepProps}
       />
     ) : (
       <CustomVariableEditable
         initialValues={initialValues}
-        onUpdate={onUpdate}
+        onUpdate={data => onUpdate?.(this.processData(data))}
         stepViewType={stepViewType}
         {...customStepProps}
       />
@@ -64,4 +64,17 @@ export class CustomVariables extends Step<CustomVariablesData> {
   protected _hasStepVariables = true
 
   protected defaultValues: CustomVariablesData = { variables: [] }
+
+  protected processData(data: CustomVariablesData): CustomVariablesData {
+    return {
+      ...data,
+      variables: data.variables.map(row => ({
+        ...row,
+        value:
+          row.type === 'Number' && getMultiTypeFromValue(row.value) === MultiTypeInputType.FIXED && row.value
+            ? parseFloat(row.value)
+            : row.value
+      })) as NGVariable[]
+    }
+  }
 }
