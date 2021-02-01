@@ -2,6 +2,7 @@ import type { ExecutionNode } from 'services/pipeline-ng'
 import { createLogSection, getLogsFromBlob, getStageType } from '../LogsContentUtils'
 
 const fetchMock = jest.spyOn(global, 'fetch' as any)
+jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({}))
 
 const getLiteEngineStep = () => {
   return {

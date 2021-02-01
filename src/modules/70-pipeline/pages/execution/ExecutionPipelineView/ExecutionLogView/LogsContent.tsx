@@ -25,7 +25,7 @@ interface LogsContentProps {
   rows?: number
 }
 
-const LogsContent = (props: LogsContentProps) => {
+const LogsContent = (props: LogsContentProps): React.ReactElement => {
   // >> NOTE: search functionality became buggy after latest update of MultiLogsViewer component
   const [searchDir, setDir] = useState('')
   const [highlightInd, sethighlightInd] = useState(0)
@@ -166,13 +166,13 @@ const LogsContent = (props: LogsContentProps) => {
     }
   }, [loadingIndex, touched])
 
-  const onNext = (text: string) => {
+  const onNext = (text: string): void => {
     setSearchText(text)
     setDir(`next`)
     sethighlightInd(highlightInd + 1)
   }
 
-  const onPrev = (text: string) => {
+  const onPrev = (text: string): void => {
     setSearchText(text)
     setDir(`prev`)
     sethighlightInd(highlightInd - 1)

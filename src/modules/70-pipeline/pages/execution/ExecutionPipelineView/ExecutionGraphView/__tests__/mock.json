@@ -87,7 +87,7 @@
           "uuid": "K8sRollingUuid",
           "name": "Rollout Deployment",
           "startTs": 1608292073511,
-          "endTs": null,
+          "endTs": 1608292073511,
           "stepType": "K8S_ROLLING",
           "status": "Running",
           "failureInfo": null,
@@ -103,7 +103,7 @@
           "uuid": "ztUSwKDiR6KswSvkU7fctw",
           "name": "qa stage",
           "startTs": 1608292073511,
-          "endTs": null,
+          "endTs": 1608292073511,
           "stepType": "SECTION",
           "status": "Running",
           "failureInfo": null,
@@ -113,8 +113,8 @@
         "K8sRollingUuid2": {
           "uuid": "K8sRollingUuid2",
           "name": "RolloutSecond",
-          "startTs": null,
-          "endTs": null,
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
           "stepType": "K8S_ROLLING",
           "status": "NotStarted",
           "failureInfo": null

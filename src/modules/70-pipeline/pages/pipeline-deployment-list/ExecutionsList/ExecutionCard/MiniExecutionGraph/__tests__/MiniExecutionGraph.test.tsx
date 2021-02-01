@@ -5,6 +5,8 @@ import MiniExecutionGraph from '../MiniExecutionGraph'
 
 import pipeline from './pipeline.json'
 
+jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({}))
+
 describe('<MiniExecutionGraph /> tests', () => {
   test('snapshot test', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

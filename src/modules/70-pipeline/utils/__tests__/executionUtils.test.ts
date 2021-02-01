@@ -2,6 +2,8 @@ import * as utils from '../executionUtils'
 
 import stageGraph from './stage-graph.json'
 
+jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({}))
+
 describe('ExecutionUtils tests', () => {
   describe('getRunningStep tests', () => {
     test('gives current running step from stage graph', () => {

@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 `
 
 export default {
-  title: 'Pipelines / MiniExecutionGraph',
+  title: 'Pipelines / Execution / MiniExecutionGraph',
   component: MiniExecutionGraph
 } as Meta
 

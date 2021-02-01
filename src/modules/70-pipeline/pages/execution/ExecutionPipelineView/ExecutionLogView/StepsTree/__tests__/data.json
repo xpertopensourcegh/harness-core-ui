@@ -1,0 +1,174 @@
+[
+  {
+    "item": {
+      "identifier": "step_1",
+      "name": "Step 1",
+      "status": "Success",
+      "data": { "startTs": 100, "endTs": 551124 }
+    }
+  },
+  {
+    "group": {
+      "identifier": "step_2",
+      "name": "Step 2",
+      "status": "SUCCESS",
+      "data": { "startTs": 100, "endTs": 568765 },
+      "items": [
+        {
+          "item": {
+            "identifier": "step_2_1",
+            "name": "Success",
+            "status": "Success",
+            "data": { "startTs": 100, "endTs": 778772 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_2",
+            "name": "Running",
+            "status": "Running",
+            "data": { "startTs": 100, "endTs": 857047 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_3",
+            "name": "Failed",
+            "status": "Failed",
+            "data": { "startTs": 100, "endTs": 120959 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_4",
+            "name": "Expired",
+            "status": "Expired",
+            "data": { "startTs": 100, "endTs": 302172 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_5",
+            "name": "Aborted",
+            "status": "Aborted",
+            "data": { "startTs": 100, "endTs": 134006 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_6",
+            "name": "Suspended",
+            "status": "Suspended",
+            "data": { "startTs": 100, "endTs": 422468 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_7",
+            "name": "Queued",
+            "status": "Queued",
+            "data": { "startTs": 100, "endTs": 578207 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_8",
+            "name": "Not Started",
+            "status": "NotStarted",
+            "data": { "startTs": 100, "endTs": 425650 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_9",
+            "name": "Paused",
+            "status": "Paused",
+            "data": { "startTs": 100, "endTs": 323587 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_10",
+            "name": "Waiting",
+            "status": "Waiting",
+            "data": { "startTs": 100, "endTs": 501499 }
+          }
+        },
+        {
+          "item": {
+            "identifier": "step_2_11",
+            "name": "Skipped",
+            "status": "Skipped",
+            "data": { "startTs": 100, "endTs": 792494 }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "group": {
+      "identifier": "step_3",
+      "name": "Step 3",
+      "status": "Success",
+      "data": { "startTs": 100, "endTs": 371951 },
+      "items": [
+        {
+          "parallel": [
+            {
+              "item": {
+                "identifier": "step_3_1",
+                "name": "Success",
+                "status": "Success",
+                "data": { "startTs": 100, "endTs": 218582 }
+              }
+            },
+            {
+              "item": {
+                "identifier": "step_3_2",
+                "name": "Running",
+                "status": "Running",
+                "data": { "startTs": 100, "endTs": 799824 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "group": {
+      "identifier": "step_4",
+      "name": "Step 4",
+      "status": "RUNNING",
+      "data": { "startTs": 100, "endTs": 515665 },
+      "items": [
+        {
+          "group": {
+            "identifier": "step_4_1",
+            "name": "Step 4",
+            "status": "RUNNING",
+            "data": { "startTs": 100, "endTs": 897804 },
+            "items": [
+              {
+                "item": {
+                  "identifier": "step_4_1_1",
+                  "name": "a very long name for no reason",
+                  "status": "Success",
+                  "data": { "startTs": 100, "endTs": 111928 }
+                }
+              },
+              {
+                "item": {
+                  "identifier": "step_4_1_2",
+                  "name": "Running",
+                  "status": "Running",
+                  "data": { "startTs": 100, "endTs": 752391 }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

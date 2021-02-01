@@ -1,0 +1,40 @@
+.select {
+  display: inline-block;
+  min-width: 150px;
+
+  .btn {
+    width: 100%;
+    justify-content: space-between;
+
+    & > .icon {
+      color: var(--blue-500) !important;
+    }
+  }
+}
+
+.icon {
+  &:global(.bp3-icon) {
+    margin-right: var(--spacing-small) !important;
+
+    &[data-icon='pipeline-deploy'] {
+      color: var(--blue-500) !important;
+    }
+  }
+}
+
+.menuItem {
+  &:global(.bp3-active) {
+    background-color: var(--blue-500) !important;
+    color: white !important;
+
+    &:hover {
+      background-color: var(--blue-450) !important;
+    }
+
+    .icon {
+      &:global(.bp3-icon) {
+        color: var(--white) !important;
+      }
+    }
+  }
+}

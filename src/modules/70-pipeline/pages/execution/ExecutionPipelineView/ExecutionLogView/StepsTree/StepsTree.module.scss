@@ -1,0 +1,206 @@
+$column-gap: 10px;
+$icon-row: 20px;
+$height: 40px;
+
+.root {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  .item {
+    padding: 0;
+    display: block;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      right: 100%;
+      background-color: transparent;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: $height;
+      height: $height;
+      border-radius: 50%;
+      top: 0;
+      left: 100%;
+      transform: translateX(-50%);
+      background-color: transparent;
+    }
+
+    &.active,
+    &.active::before,
+    &.active::after {
+      background-color: var(--blue-500);
+      color: var(--white);
+    }
+
+    & > .root > .item {
+      padding-left: $icon-row + $column-gap;
+    }
+
+    &[data-type='item'] > .step {
+      cursor: pointer;
+    }
+
+    &[data-type='group'] > .step,
+    &[data-type='parallel'] > .step {
+      cursor: not-allowed;
+    }
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: $icon-row minmax(10px, 1fr) minmax(10px, max-content);
+    align-items: center;
+    height: $height;
+    column-gap: $column-gap;
+
+    .name-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    & > :global(.bp3-popover-wrapper) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      & > :global(.bp3-popover-target) {
+        width: 100%;
+      }
+    }
+
+    .name {
+      display: inline-block !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: currentColor !important;
+      width: 100%;
+    }
+
+    .parallelIcon ~ .name,
+    .groupIcon ~ .name {
+      margin-left: 10px;
+    }
+
+    .icon {
+      color: var(--icon-color, var(--grey-600));
+    }
+
+    .duration {
+      text-align: right;
+      color: var(--grey-500) !important;
+      white-space: nowrap !important;
+      z-index: 1;
+      font-size: var(--font-size-xsmall) !important;
+    }
+  }
+
+  .item {
+    .step {
+      --icon-color: var(--grey-450);
+
+      &[data-status='success'] {
+        --icon-color: var(--green-500);
+      }
+
+      &[data-status='failed'],
+      &[data-status='expired'],
+      &[data-status='aborted'],
+      &[data-status='suspended'] {
+        --icon-color: var(--red-500);
+      }
+
+      &[data-status='running'] {
+        --icon-color: var(--blue-500);
+      }
+
+      &[data-status='notstarted'],
+      &[data-status='queued'] {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .item.active {
+    .step {
+      --icon-color: var(--white);
+    }
+
+    .duration {
+      color: var(--white);
+    }
+  }
+}
+
+.parallelIcon {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  min-width: 16px;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    top: 0;
+    left: 0;
+    border: 1px solid var(--grey-400);
+    border-radius: 1px;
+  }
+
+  &::before {
+    top: 3px;
+  }
+
+  &::after {
+    top: 9px;
+  }
+}
+
+.groupIcon {
+  width: 17px;
+  height: 11px;
+  position: relative;
+  display: inline-block;
+  background-color: var(--grey-200);
+  border-radius: 1px;
+  border: 1px solid var(--grey-400);
+  min-width: 17px;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    top: 2px;
+    left: 0;
+    border: 1px solid var(--grey-400);
+    background-color: var(--grey-300);
+    border-radius: 1px;
+  }
+
+  &::before {
+    left: 2px;
+  }
+
+  &::after {
+    left: 8px;
+  }
+}

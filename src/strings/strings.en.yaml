@@ -16,6 +16,8 @@ more: '+{{number}} more'
 noData: No Data
 members: Members
 wip: Work in progress
+parallelSteps: Parallel Steps
+stepGroup: Step Group
 changeHistory: Change History
 lastUpdated: Last Updated
 lastActivity: last activity
@@ -136,6 +138,7 @@ reinstall: Reinstall
 edit: Edit
 delete: Delete
 select: Select
+selectStage: Select a stage
 verify: Verify
 save: Save
 back: Back

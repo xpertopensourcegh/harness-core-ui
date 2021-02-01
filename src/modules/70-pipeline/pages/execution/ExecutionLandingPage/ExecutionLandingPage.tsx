@@ -233,6 +233,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                   <Duration
                     startTime={pipelineExecutionSummary.startTs}
                     endTime={pipelineExecutionSummary.endTs}
+                    icon="hourglass"
                     durationText={' '}
                   />
                   <ExecutionActions

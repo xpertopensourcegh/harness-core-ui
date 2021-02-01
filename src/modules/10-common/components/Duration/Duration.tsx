@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Text, TextProps } from '@wings-software/uicore'
+import { isNil } from 'lodash-es'
 import i18n from './Duration.i18n'
 
-export interface DurationProps extends TextProps {
+export interface DurationProps extends Omit<TextProps, 'icon'> {
   startTime?: number
   endTime?: number // if endTime is nullable, endTime is Date.now() and the duration is re-calculated by an interval
   formatter?: string // subset of 'wdhms'
   durationText?: string // optional text to override the default `Duration: ` prefix
+  icon?: TextProps['icon'] | null
 }
 
 /**
@@ -48,7 +50,14 @@ export function timeDelta(start: number, end: number, formatter = 'wdhms'): Dura
   return delta
 }
 
-export const Duration: React.FC<DurationProps> = ({ startTime, endTime, formatter, durationText, ...textProps }) => {
+export const Duration: React.FC<DurationProps> = ({
+  startTime,
+  endTime,
+  formatter,
+  durationText,
+  icon,
+  ...textProps
+}) => {
   const [_endTime, setEndTime] = useState(endTime || Date.now())
   React.useEffect(() => {
     if (endTime) {
@@ -72,7 +81,7 @@ export const Duration: React.FC<DurationProps> = ({ startTime, endTime, formatte
 
   if (startTime && endTime && endTime - startTime < 1000) {
     return (
-      <Text inline icon="hourglass" {...textProps}>
+      <Text inline icon={isNil(icon) ? undefined : icon || 'hourglass'} {...textProps}>
         {endTime - startTime}ms
       </Text>
     )
@@ -81,7 +90,7 @@ export const Duration: React.FC<DurationProps> = ({ startTime, endTime, formatte
   const text = i18n.humanizeDuration(delta.w, delta.d, delta.h, delta.m, delta.s)
 
   return (
-    <Text inline icon="hourglass" {...textProps}>
+    <Text inline icon={isNil(icon) ? undefined : icon || 'hourglass'} {...textProps}>
       {durationText || i18n.duration}
       {text}
     </Text>

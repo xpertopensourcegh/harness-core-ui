@@ -9,38 +9,30 @@
   height: 100%;
   overflow: auto;
 }
-.stageIcon {
-  background: linear-gradient(147.14deg, #73dfe7 6.95%, #0095f7 93.05%);
-}
 
-.stageRootNode {
-  padding: var(--spacing-small);
-}
+.stageSelector {
+  width: 100%;
+  display: block;
 
-.rootIcon {
-  :global {
-    .bp3-icon-geolocation {
-      margin-right: var(--spacing-large) !important;
-    }
-    .bp3-button-text {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 24px;
-    }
+  :global(.bp3-popover-target) {
+    width: 100%;
+    display: block;
+  }
+
+  :global(.bp3-button) {
+    width: 100%;
+    justify-content: space-between;
+    height: 48px !important;
+    padding: var(--spacing-xsmall) var(--spacing-large) !important;
   }
 }
 
-.nodeText {
-  color: var(--black-color-2);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-size: 13px !important;
-  line-height: 24px !important;
+.stageSelectionMenu {
+  width: 280px;
 }
 
-.timeDiff {
-  padding-right: var(--spacing-xsmall) !important;
+.stageTree {
+  padding: 0 var(--spacing-xxlarge);
 }
 
 .logContent {
@@ -78,77 +70,4 @@
   border: 1px solid var(--black-color-3);
   font-family: 'Roboto Mono' !important;
   background: #0b0b0d !important;
-}
-
-.node {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2px;
-  margin: 0;
-  cursor: pointer;
-}
-
-.highlighted {
-  background: var(--blue-500);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  p {
-    color: var(--white) !important;
-  }
-  // padding: 5px;
-}
-
-.disabled {
-  cursor: default;
-}
-
-.icon {
-  margin-right: var(--spacing-large) !important;
-  margin-left: var(--spacing-xlarge) !important;
-  width: 10.5px;
-}
-
-.node:not(first-child) {
-  margin-top: var(--spacing-small);
-}
-
-.rootNode {
-  width: 100%;
-  border-bottom: 1px solid #d9dae6;
-  position: relative;
-  :global {
-    .bp3-icon[icon='chevron-down'] {
-      position: absolute;
-      right: 9px;
-    }
-
-    .bp3-icon[icon='chevron-down'] svg {
-      width: 15px;
-    }
-  }
-}
-
-.rootElement {
-  margin: 0;
-  width: 100%;
-  padding: 0;
-}
-
-ul {
-  list-style: none;
-  border: none;
-  padding: 0 !important;
-}
-
-.subChild {
-  margin-left: var(--spacing-large);
-}
-.childNode {
-  padding-right: 3px !important;
-}
-
-.nodeInfo {
-  display: flex;
-  align-items: center;
 }

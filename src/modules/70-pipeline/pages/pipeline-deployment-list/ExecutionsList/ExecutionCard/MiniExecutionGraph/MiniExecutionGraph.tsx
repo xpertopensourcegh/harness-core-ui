@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Icon, Button } from '@wings-software/uicore'
+import { Icon, Button } from '@wings-software/uicore'
 import { Tooltip, ITooltipProps, Popover, ResizeSensor, Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import { startCase, sortBy, throttle } from 'lodash-es'
@@ -8,25 +8,11 @@ import { useHistory } from 'react-router-dom'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
-import { processLayoutNodeMap } from '@pipeline/utils/executionUtils'
+import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap } from '@pipeline/utils/executionUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
 import css from './MiniExecutionGraph.module.scss'
-
-const IconMap: Record<ExecutionStatus, IconName> = {
-  Success: 'tick-circle',
-  Running: 'main-more',
-  Failed: 'circle-cross',
-  Expired: 'expired',
-  Aborted: 'banned',
-  Suspended: 'banned',
-  Queued: 'queued',
-  NotStarted: 'pending',
-  Paused: 'pause',
-  Waiting: 'waiting',
-  Skipped: 'skipped'
-}
 
 // Higher the number, Higher the Priority, Max 100.
 const StagePriority: Record<ExecutionStatus, number> = {

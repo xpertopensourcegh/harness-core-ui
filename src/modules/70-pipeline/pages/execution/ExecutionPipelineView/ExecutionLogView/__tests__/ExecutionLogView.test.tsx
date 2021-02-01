@@ -7,6 +7,10 @@ import ExecutionLogView from '../ExecutionLogView'
 import type { ExecutionContextParams } from '../../../ExecutionContext/ExecutionContext'
 import mock from '../../ExecutionGraphView/__tests__/mock.json'
 
+jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({
+  getStepIcon: jest.fn()
+}))
+
 const contextValue: ExecutionContextParams = {
   pipelineExecutionDetail: mock.data as any,
   allNodeMap: mock.data.executionGraph.nodeMap as any,
