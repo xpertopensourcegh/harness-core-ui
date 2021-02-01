@@ -222,14 +222,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } = val
 
     if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
-      if (targetBranchOperator && targetBranchValue?.trim() && event !== eventTypes.PUSH) {
+      if (targetBranchOperator && targetBranchValue?.trim()) {
         payloadConditions.unshift({
           key: PayloadConditionTypes.TARGET_BRANCH,
           operator: targetBranchOperator,
           value: targetBranchValue
         })
       }
-      if (sourceBranchOperator && sourceBranchValue?.trim()) {
+      if (sourceBranchOperator && sourceBranchValue?.trim() && event !== eventTypes.PUSH) {
         payloadConditions.unshift({
           key: PayloadConditionTypes.SOURCE_BRANCH,
           operator: sourceBranchOperator,
