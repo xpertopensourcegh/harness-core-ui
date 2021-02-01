@@ -1,16 +1,18 @@
 import React from 'react'
 import { Icon, Button } from '@wings-software/uicore'
-import { Tooltip, ITooltipProps, Popover, ResizeSensor, Position } from '@blueprintjs/core'
+import { Tooltip, Popover, ResizeSensor, Position, IPopoverProps } from '@blueprintjs/core'
 import cx from 'classnames'
-import { startCase, sortBy, throttle } from 'lodash-es'
+import { sortBy, throttle, isEmpty, get } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 
+import { String } from 'framework/exports'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
 import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap } from '@pipeline/utils/executionUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 
 import css from './MiniExecutionGraph.module.scss'
 
@@ -39,31 +41,76 @@ function RunningIcon(): React.ReactElement {
   )
 }
 
-export interface StageNodeProps extends Omit<ITooltipProps, 'content'> {
+export interface StageNodeProps extends Omit<IPopoverProps, 'content'> {
   stage: GraphLayoutNode
   onClick(stageId: string): void
 }
 
 export function StageNode({ stage, onClick, ...rest }: StageNodeProps): React.ReactElement {
-  const statusLower = stage.status?.toLowerCase() || ''
+  const { moduleInfo, module, status } = stage || {}
+  const statusLower = status?.toLowerCase() || ''
+
+  const HAS_CD = module === 'cd' || !isEmpty(stage?.moduleInfo?.cd)
+  const HAS_CI = module === 'ci' || !isEmpty(stage?.moduleInfo?.ci)
 
   return (
-    <Tooltip
+    <Popover
       position="top"
       {...rest}
-      content={startCase(stage.status)}
       className={cx(css.stageWrapper, css[statusLower as keyof typeof css])}
       targetClassName={css.stage}
       targetTagName="div"
       wrapperTagName="div"
       targetProps={{ onClick: () => onClick(stage.nodeUuid || '') }}
+      interactionKind="hover"
     >
       {stage.status === 'Running' ? (
         <RunningIcon />
       ) : (
         <Icon name={IconMap[stage.status as ExecutionStatus]} size={13} className={css.icon} />
       )}
-    </Tooltip>
+      <div className={css.infoPopover}>
+        <div className={css.title}>{stage.nodeIdentifier}</div>
+        <ExecutionStatusLabel status={stage.status} />
+        {HAS_CD ? (
+          <div className={css.section}>
+            <String tagName="div" className={css.sectionTitle} stringID="services" />
+            <div className={css.sectionData}>{get(stage.moduleInfo, 'cd.serviceInfo.displayName', '-')}</div>
+            <String tagName="div" className={css.sectionTitle} stringID="artifacts" />
+            <div className={css.sectionData}>
+              {moduleInfo?.cd?.serviceInfo?.artifacts?.primary ? (
+                <String
+                  tagName="div"
+                  stringID="artifactDisplay"
+                  useRichText
+                  vars={{
+                    image: moduleInfo.cd.serviceInfo.artifacts.primary.imagePath,
+                    tag: moduleInfo.cd.serviceInfo.artifacts.primary.tag
+                  }}
+                />
+              ) : (
+                <div>-</div>
+              )}
+              {(get(stage.moduleInfo, 'cd.serviceInfo.artifacts.sidecars', []) as any[]).map((row, i) => (
+                <String
+                  key={i}
+                  tagName="div"
+                  stringID="artifactDisplay"
+                  useRichText
+                  vars={{
+                    image: row.imagePath,
+                    tag: row.tag
+                  }}
+                />
+              ))}
+            </div>
+            <String tagName="div" className={css.sectionTitle} stringID="environments" />
+            <div className={css.sectionData}>{get(stage.moduleInfo, 'cd.infraExecutionSummary.name', '-')}</div>
+          </div>
+        ) : null}
+        {HAS_CI ? <div></div> : null}
+      </div>
+    </Popover>
   )
 }
 

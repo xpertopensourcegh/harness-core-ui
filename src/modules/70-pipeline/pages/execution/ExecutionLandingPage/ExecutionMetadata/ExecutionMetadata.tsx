@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { first, isEmpty, isObject } from 'lodash-es'
 import { Color, Icon, Link, Popover, Text } from '@wings-software/uicore'
-import { Position } from '@blueprintjs/core'
+import { Position, HTMLTable } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/exports'
 import type { CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
@@ -154,7 +154,44 @@ export default function ExecutionMetadata(): React.ReactElement {
               className={css.services}
             >
               <div>(+{services.length - 2})</div>
-              <div>Table will come here</div>
+              <div>
+                <HTMLTable small className={css.servicesTable}>
+                  <thead>
+                    <tr>
+                      <th>Service</th>
+                      <th>Primary Artifact</th>
+                      <th>Sidecars</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {services.slice(2).map(service => (
+                      <tr key={service.identifier}>
+                        <td>{service.displayName}</td>
+                        <td>
+                          {service.artifacts?.primary
+                            ? getString('artifactDisplay', {
+                                image: ((service.artifacts.primary as unknown) as any).imagePath,
+                                tag: ((service.artifacts.primary as unknown) as any).tag
+                              })
+                            : '-'}
+                        </td>
+                        <td>
+                          {service.artifacts?.sidecars && service.artifacts?.sidecars.length > 0
+                            ? service.artifacts.sidecars
+                                .map(artifact =>
+                                  getString('artifactDisplay', {
+                                    image: ((artifact as unknown) as any).imagePath,
+                                    tag: ((artifact as unknown) as any).tag
+                                  })
+                                )
+                                .join(', ')
+                            : '-'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </HTMLTable>
+              </div>
             </Popover>
           ) : null}
         </div>

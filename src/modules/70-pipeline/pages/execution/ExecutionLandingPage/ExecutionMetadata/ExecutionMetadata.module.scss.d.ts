@@ -13,5 +13,6 @@ declare const styles: {
   readonly moreBox: string
   readonly servicesWrapper: string
   readonly services: string
+  readonly servicesTable: string
 }
 export default styles

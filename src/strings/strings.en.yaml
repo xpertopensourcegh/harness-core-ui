@@ -81,6 +81,9 @@ submit: Submit
 previous: Previous
 startTime: Start time
 services: Services
+artifacts: Artifacts
+manifests: Manifests
+environments: Environments
 servicesWithCount: '{{ $.services }} ({{ count }})'
 buildText: Build
 pipeline: Pipeline
@@ -903,8 +906,8 @@ pipelineSteps:
       serviceDefinition: Service Definition
       useFromStageLabel: 'Use from Stage'
       deploymentTypes:
-        artifacts: 'Artifacts'
-        manifests: 'Manifests'
+        artifacts: '{{ $.artifacts }}'
+        manifests: '{{ $.manifests }}'
 
 validation:
   nameRequired: Name is a required field
@@ -1169,7 +1172,7 @@ cf:
       message: 'Are you sure you want to delete Segment: {{segmentName}}'
       title: 'Delete Segment'
   environments:
-    title: 'Environments'
+    title: '{{ $.environments }}'
     empty: 'There are currently no environments'
     createdBy: 'Created by'
     modifiedBy: 'Modified by'
