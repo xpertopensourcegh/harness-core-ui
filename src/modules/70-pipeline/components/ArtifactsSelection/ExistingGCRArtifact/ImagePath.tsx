@@ -124,9 +124,8 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
       initialData.connectorId = prevStepData?.identifier || ''
     }
     if (getMultiTypeFromValue(initialValues?.tag) === MultiTypeInputType.FIXED) {
-      initialData.tag = initialValues?.tag?.map((tag: string) => ({ label: tag, value: tag }))
+      initialData.tag = { label: initialValues?.tag, value: initialValues?.tag }
     }
-
     return initialData
   }
   const fetchTags = (imagePath = '', registryHostname = '') => {
@@ -161,9 +160,7 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
           handleSubmit({
             ...prevStepData,
             ...formData,
-            tag: Array.isArray(formData?.tag)
-              ? formData?.tag?.map((tag: { label: string; value: string }) => tag.value)
-              : formData.tag
+            tag: formData?.tag?.value ? formData?.tag?.value : formData?.tag
           })
         }}
       >
@@ -224,8 +221,10 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
                     disabled={!formik.values?.imagePath?.length}
                     multiTypeInputProps={{
                       selectProps: {
+                        defaultSelectedItem: formik.values?.tag,
                         items: tags,
-                        itemRenderer: itemRenderer
+                        itemRenderer: itemRenderer,
+                        allowCreatingNewItems: true
                       },
                       onFocus: () => fetchTags(formik.values.imagePath, formik.values?.registryHostname)
                     }}

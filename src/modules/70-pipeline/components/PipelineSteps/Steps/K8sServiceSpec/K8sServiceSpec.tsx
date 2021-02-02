@@ -57,7 +57,7 @@ export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template:
   const fields: { [key: string]: any } = {}
 
   Object.entries(spec).forEach(([key]): void => {
-    if (getMultiTypeFromValue(template[key]) !== MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(template?.[key]) !== MultiTypeInputType.RUNTIME) {
       fields[key] = spec[key]
     }
   })
@@ -294,7 +294,12 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
             {template?.artifacts?.primary && (
               <Text className={css.sectionHeader}>
                 {getString('primaryArtifactText')}
-                {
+                {!isEmpty(
+                  getNonRuntimeFields(
+                    get(pipeline, `${path}.artifacts.primary.spec`),
+                    get(template, 'artifacts.primary.spec')
+                  )
+                ) && (
                   <Tooltip
                     position="top"
                     content={getNonRuntimeFields(
@@ -304,11 +309,11 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                   >
                     <Icon name="info" />
                   </Tooltip>
-                }
+                )}
               </Text>
             )}
             {template?.artifacts?.primary && (
-              <Layout.Vertical key="primary">
+              <Layout.Vertical key="primary" className={css.inputWidth}>
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
                   MultiTypeInputType.RUNTIME && (
                   <FormGroup
@@ -384,11 +389,15 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         noResults: (
                           <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                         ),
-                        itemRenderer: itemRenderer
+                        itemRenderer: itemRenderer,
+                        allowCreatingNewItems: true
                       }}
                       name={`${path}.artifacts.primary.spec.tag`}
                     />
                   </div>
+                )}
+                {getMultiTypeFromValue(artifacts?.primary?.spec?.tagRegex) === MultiTypeInputType.RUNTIME && (
+                  <FormInput.Text label={getString('tagRegex')} name={`${path}.artifacts.primary.spec.tagRegex`} />
                 )}
               </Layout.Vertical>
             )}
@@ -408,20 +417,20 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               ) => {
                 const currentSidecarSpec = initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec
                 return (
-                  <Layout.Vertical key={identifier}>
+                  <Layout.Vertical key={identifier} className={css.inputWidth}>
                     <Text className={css.subSectonHeader}>
                       {identifier}
-                      {(getMultiTypeFromValue(
-                        get(template, `artifacts.sidecars[${index}].sidecar.spec.connectorRef`, '')
-                      ) !== MultiTypeInputType.RUNTIME ||
-                        getMultiTypeFromValue(
-                          get(template, `artifacts.sidecars[${index}].sidecar.spec.imagePath`, '')
-                        ) !== MultiTypeInputType.RUNTIME) && (
+                      {!isEmpty(
+                        getNonRuntimeFields(
+                          get(pipeline, `${path}.artifacts.sidecars[${index}].sidecar.spec`),
+                          get(template, 'artifacts.primary.spec')
+                        )
+                      ) && (
                         <Tooltip
                           position="top"
                           content={getNonRuntimeFields(
                             get(pipeline, `${path}.artifacts.sidecars[${index}].sidecar.spec`),
-                            get(template, 'artifacts.primary.spec')
+                            get(template, `artifacts.sidecars[${index}].sidecar.spec`)
                           )}
                         >
                           <Icon name="info" />
@@ -512,11 +521,19 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             noResults: (
                               <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                             ),
-                            itemRenderer: itemRenderer
+                            itemRenderer: itemRenderer,
+                            allowCreatingNewItems: true
                           }}
                           name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`}
                         />
                       </div>
+                    )}
+                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.tagRegex) ===
+                      MultiTypeInputType.RUNTIME && (
+                      <FormInput.Text
+                        label={getString('tagRegex')}
+                        name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tagRegex`}
+                      />
                     )}
                   </Layout.Vertical>
                 )
@@ -660,6 +677,18 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     ) {
       set(errors, 'artifacts.primary.spec.imagePath', getString?.('fieldRequired', { field: 'Image Path' }))
     }
+    if (
+      isEmpty(data?.artifacts?.primary?.spec?.tag) &&
+      getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME
+    ) {
+      set(errors, 'artifacts.primary.spec.tag', getString?.('fieldRequired', { field: 'Tag' }))
+    }
+    if (
+      isEmpty(data?.artifacts?.primary?.spec?.tagRegex) &&
+      getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tagRegex) === MultiTypeInputType.RUNTIME
+    ) {
+      set(errors, 'artifacts.primary.spec.tagRegex', getString?.('fieldRequired', { field: 'Tag Regex' }))
+    }
     data?.artifacts?.sidecars?.forEach((sidecar, index) => {
       const currentSidecarTemplate = get(template, `artifacts.sidecars[${index}].sidecar.spec`, '')
       if (
@@ -669,7 +698,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         set(
           errors,
           `artifacts.sidecars[${index}].sidecar.spec.connectorRef`,
-          getString?.('fieldRequired', { field: 'ConnectorRef' })
+          getString?.('fieldRequired', { field: 'Artifact Server' })
         )
       }
       if (
@@ -680,6 +709,23 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           errors,
           `artifacts.sidecars[${index}].sidecar.spec.imagePath`,
           getString?.('fieldRequired', { field: 'Image Path' })
+        )
+      }
+
+      if (
+        isEmpty(sidecar?.sidecar?.spec?.tag) &&
+        getMultiTypeFromValue(currentSidecarTemplate?.tag) === MultiTypeInputType.RUNTIME
+      ) {
+        set(errors, `artifacts.sidecars[${index}].sidecar.spec.tag`, getString?.('fieldRequired', { field: 'Tag' }))
+      }
+      if (
+        isEmpty(sidecar?.sidecar?.spec?.tagRegex) &&
+        getMultiTypeFromValue(currentSidecarTemplate?.tagRegex) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `artifacts.sidecars[${index}].sidecar.spec.tagRegex`,
+          getString?.('fieldRequired', { field: 'Tag Regex' })
         )
       }
     })
@@ -693,7 +739,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         set(
           errors,
           `manifests[${index}].manifest.spec.store.spec.connectorRef`,
-          getString?.('fieldRequired', { field: 'ConnectorRef' })
+          getString?.('fieldRequired', { field: 'Artifact Server' })
         )
       }
       if (

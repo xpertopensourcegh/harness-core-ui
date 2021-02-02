@@ -16,6 +16,7 @@ more: '+{{number}} more'
 noData: No Data
 members: Members
 wip: Work in progress
+tagRegex: Tag Regex
 parallelSteps: Parallel Steps
 stepGroup: Step Group
 changeHistory: Change History

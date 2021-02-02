@@ -11,6 +11,7 @@
   :global {
     .bp3-icon {
       padding: 0 var(--spacing-medium) !important;
+      margin-left: var(--spacing-xsmall);
     }
   }
 }
@@ -51,4 +52,7 @@
 }
 .padSmall {
   padding: var(--spacing-small);
+}
+.inputWidth {
+  width: 450px !important;
 }

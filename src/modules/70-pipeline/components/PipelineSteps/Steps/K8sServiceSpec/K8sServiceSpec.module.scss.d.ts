@@ -9,5 +9,6 @@ declare const styles: {
   readonly mtop: string
   readonly customVariables: string
   readonly padSmall: string
+  readonly inputWidth: string
 }
 export default styles
