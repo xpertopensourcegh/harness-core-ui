@@ -1,9 +1,10 @@
 import styles from './HeatMapColors.module.scss'
 
-export const noAnalysisColorStyle = styles.noAnalysisColor
 export const noAnalysisColor = 'var(--grey-200)'
-export const noDataColorStyle = styles.noDataColor
 export const noDataColor = 'var(--grey-300)'
+export const lowRiskColor = 'var(--green-500)'
+export const mediumRiskColor = 'var(--orange-500)'
+export const highRiskColor = 'var(--red-500)'
 
 export const colors = [
   styles.heatmapColor1,
@@ -48,17 +49,17 @@ export function getColorValue(value: number, minValue = 0, maxValue = 1): string
 export function getRiskColorStyle(value?: string) {
   switch (value) {
     case 'NO_ANALYSIS':
-      return noAnalysisColorStyle
+      return styles.noAnalysisColor
     case 'NO_DATA':
-      return noDataColorStyle
+      return styles.noDataColor
     case 'LOW':
-      return styles.heatmapColor1
+      return styles.lowRiskColor
     case 'MEDIUM':
-      return styles.heatmapColor6
+      return styles.mediumRiskColor
     case 'HIGH':
-      return styles.heatmapColor10
+      return styles.highRiskColor
     default:
-      return noAnalysisColorStyle
+      return styles.noAnalysisColor
   }
 }
 
@@ -69,11 +70,11 @@ export function getRiskColorValue(value?: string) {
     case 'NO_DATA':
       return noDataColor
     case 'LOW':
-      return HeatMapColors.COLOR_1
+      return lowRiskColor
     case 'MEDIUM':
-      return HeatMapColors.COLOR_6
+      return mediumRiskColor
     case 'HIGH':
-      return HeatMapColors.COLOR_10
+      return highRiskColor
     default:
       return noAnalysisColor
   }

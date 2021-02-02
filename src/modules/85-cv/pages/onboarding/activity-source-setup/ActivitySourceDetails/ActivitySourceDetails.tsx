@@ -10,6 +10,7 @@ interface ActivitySourceDetailsProps {
   iconName: IconName
   iconLabel: string
   iconSize?: number
+  isEditMode?: boolean
 }
 
 const ActivitySourceDetails: React.FC<ActivitySourceDetailsProps> = props => {
@@ -29,7 +30,12 @@ const ActivitySourceDetails: React.FC<ActivitySourceDetailsProps> = props => {
         cardLabel={props.iconLabel}
         renderLabelOutsideCard={true}
       />
-      <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: getString('cv.activitySources.name') }} />
+      <AddDescriptionAndTagsWithIdentifier
+        identifierProps={{
+          inputLabel: getString('cv.activitySources.name'),
+          isIdentifierEditable: !props.isEditMode
+        }}
+      />
     </Container>
   )
 }

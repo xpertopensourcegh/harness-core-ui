@@ -147,7 +147,7 @@ describe('Deployment progress and nodes unit tests', () => {
     const deploymentNodes = container.querySelectorAll('[class*="boxWrap"]')
     expect(deploymentNodes.length).toBe(3)
     expect(deploymentNodes[0].querySelector('[class*="box"]')?.children.length).toBe(12)
-    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('.heatmapColor10').length).toBe(4)
+    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('.highRiskColor').length).toBe(4)
     expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('.noAnalysisColor').length).toBe(6)
   })
 })

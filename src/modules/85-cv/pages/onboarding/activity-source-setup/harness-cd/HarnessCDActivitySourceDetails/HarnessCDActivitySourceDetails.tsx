@@ -18,7 +18,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
   const { getString } = useStrings()
   const { initialValues } = props
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId, activitySourceId } = useParams()
   return (
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik
@@ -46,6 +46,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
                 heading={getString('cv.activitySources.harnessCD.select')}
                 iconLabel={getString('cv.activitySources.harnessCD.iconLabel')}
                 iconName={'cd-main'}
+                isEditMode={!!activitySourceId}
               />
               <SubmitAndPreviousButtons
                 onPreviousClick={() =>
