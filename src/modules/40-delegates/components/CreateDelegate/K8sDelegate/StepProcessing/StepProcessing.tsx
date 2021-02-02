@@ -22,7 +22,7 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
   const [isDelegateInitialized, setIsDelegateInitialised] = React.useState(false)
 
   const { data, loading, refetch: verifyHeartBeat } = useHeartbeat({
-    queryParams: { accountId, sessionId: 'WB4xZm8BRAiSMyTPf2dmRQ' },
+    queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sesssionIdentifier },
     debounce: 200
   })
 
