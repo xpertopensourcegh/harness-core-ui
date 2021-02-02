@@ -233,17 +233,7 @@ exports[`Delegates Configurations Page render data 1`] = `
                         </p>
                       </span>
                     </span>
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline"
-                      style="color: rgb(146, 147, 171); font-size: 10px; letter-spacing: 0.375px; padding-left: 3px;"
-                    >
-                      <time
-                        datetime="2021-01-31T12:08:48.765Z"
-                        title="2021-01-31 12:08"
-                      >
-                        1 day ago
-                      </time>
-                    </span>
+                    <div />
                   </div>
                 </div>
               </div>

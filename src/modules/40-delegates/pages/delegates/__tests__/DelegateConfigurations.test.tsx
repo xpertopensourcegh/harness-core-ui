@@ -16,8 +16,11 @@ jest.mock('services/portal', () => ({
   })
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Delegates Configurations Page', () => {
+jest.mock('@common/exports', () => ({
+  TimeAgo: jest.fn().mockImplementation(() => <div />)
+}))
+
+describe('Delegates Configurations Page', () => {
   test('render data', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>

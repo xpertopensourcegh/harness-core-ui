@@ -7,7 +7,7 @@ import { accountPathProps, orgPathProps, delegateConfigProps, delegatePathProps 
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import DelegatesPage from 'modules/40-delegates/pages/delegates/DelegatesPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
-import DelegateProfileDetails from 'modules/40-delegates/pages/delegates/DelegateProfileDetails'
+import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import DelegateDetails from 'modules/40-delegates/pages/delegates/DelegateDetails'
 
 const AccountSettingsSideNavProps: SidebarContext = {
@@ -47,9 +47,7 @@ export default (
         routes.toResourcesDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })
       ]}
     >
-      <ResourcesPage>
-        <DelegateProfileDetails />
-      </ResourcesPage>
+      <DelegateProfileDetails />
     </RouteWithLayout>
   </>
 )

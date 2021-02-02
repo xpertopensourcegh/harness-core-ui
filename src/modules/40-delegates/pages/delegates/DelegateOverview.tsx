@@ -2,8 +2,12 @@ import React from 'react'
 import { Container, Text, FlexExpander } from '@wings-software/uicore'
 import type { Delegate, DelegateProfile } from 'services/portal'
 import { useStrings } from 'framework/exports'
+import {
+  SectionContainer,
+  SectionContainerTitle,
+  SectionLabelValuePair
+} from '@delegates/components/SectionContainer/SectionContainer'
 import { delegateTypeToIcon } from './utils/DelegateHelper'
-import css from './DelegateDetails.module.scss'
 
 interface DelegateOverviewProps {
   delegate: Delegate
@@ -14,45 +18,21 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
   const { getString } = useStrings()
 
   return (
-    <Container className={css.card} padding="xlarge">
-      <Text
-        font={{ size: 'medium', weight: 'bold' }}
-        style={{ color: '#22272D', paddingBottom: 'var(--spacing-medium)' }}
-      >
-        {getString('overview')}
-      </Text>
+    <SectionContainer>
+      <SectionContainerTitle>{getString('overview')}</SectionContainerTitle>
 
-      <Container className={css.delegateOverviewEntry}>
-        <Container flex>
-          <Container>
-            <Text
-              style={{
-                fontSize: '12px',
-                lineHeight: '16px',
-                color: 'var(--grey-450)',
-                letterSpacing: '0.2px',
-                paddingBottom: 'var(--spacing-xsmall)'
-              }}
-            >
-              {getString('delegate.hostName')}
-            </Text>
-            <Text style={{ fontSize: '14px', lineHeight: '24px', color: '#22272D', letterSpacing: '-0.01px' }}>
-              {delegate.hostName}
-            </Text>
-          </Container>
-          <FlexExpander />
-          <Container>
-            <Text
-              style={{
-                fontSize: '12px',
-                lineHeight: '16px',
-                color: 'var(--grey-450)',
-                letterSpacing: '0.2px',
-                paddingBottom: 'var(--spacing-xsmall)'
-              }}
-            >
-              {getString('delegate.delegateType')}
-            </Text>
+      <Container flex style={{ borderBottom: '0.5px solid #dce0e7' }}>
+        <SectionLabelValuePair
+          label={getString('delegate.hostName')}
+          value={delegate.hostName}
+          style={{ borderBottom: 'none' }}
+        />
+
+        <FlexExpander />
+
+        <SectionLabelValuePair
+          label={getString('delegate.delegateType')}
+          value={
             <Text
               style={{ fontSize: '14px', color: 'var(--black)' }}
               icon={delegateTypeToIcon(delegate.delegateType as string)}
@@ -60,62 +40,24 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
             >
               {delegate.delegateType}
             </Text>
-          </Container>
-        </Container>
+          }
+          style={{ borderBottom: 'none' }}
+          ignoreLastElementStyling
+        />
       </Container>
 
-      <Container className={css.delegateOverviewEntry}>
-        <Text
-          style={{
-            fontSize: '12px',
-            lineHeight: '16px',
-            color: 'var(--grey-450)',
-            letterSpacing: '0.2px',
-            paddingBottom: 'var(--spacing-xsmall)'
-          }}
-        >
-          {getString('delegate.delegateName')}
-        </Text>
-        <Text style={{ fontSize: '14px', lineHeight: '24px', color: '#22272D', letterSpacing: '-0.01px' }}>
-          {delegate.delegateName}
-        </Text>
-      </Container>
+      <SectionLabelValuePair label={getString('delegate.delegateName')} value={delegate.delegateName} />
 
-      <Container className={css.delegateOverviewEntry}>
-        <Text
-          style={{
-            fontSize: '12px',
-            lineHeight: '16px',
-            color: 'var(--grey-450)',
-            letterSpacing: '0.2px',
-            paddingBottom: 'var(--spacing-xsmall)'
-          }}
-        >
-          {getString('delegate.delegateConfiguration')}
-        </Text>
-        <Text style={{ fontSize: '14px', lineHeight: '24px', color: '#25A6F7', letterSpacing: '-0.01px' }}>
-          {delegateProfile.name}
-        </Text>
-      </Container>
-
-      {delegate.description && (
-        <Container className={css.delegateOverviewEntry}>
-          <Text
-            style={{
-              fontSize: '12px',
-              lineHeight: '16px',
-              color: 'var(--grey-450)',
-              letterSpacing: '0.2px',
-              paddingBottom: 'var(--spacing-xsmall)'
-            }}
-          >
-            {getString('description')}
+      <SectionLabelValuePair
+        label={getString('delegate.delegateConfiguration')}
+        value={
+          <Text style={{ fontSize: '14px', lineHeight: '24px', color: '#25A6F7', letterSpacing: '-0.01px' }}>
+            {delegateProfile.name}
           </Text>
-          <Text style={{ fontSize: '14px', lineHeight: '24px', color: '#22272D', letterSpacing: '-0.01px' }}>
-            {delegate.description}
-          </Text>
-        </Container>
-      )}
-    </Container>
+        }
+      />
+
+      {delegate.description && <SectionLabelValuePair label={getString('description')} value={delegate.description} />}
+    </SectionContainer>
   )
 }

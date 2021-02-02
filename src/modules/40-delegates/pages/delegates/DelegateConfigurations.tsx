@@ -160,7 +160,7 @@ export default function DelegateConfigurations(): JSX.Element {
                       {/** TODO: Backend currently does not send back lastUpdated */}
                       <TimeAgo
                         icon={undefined}
-                        time={1612094928765}
+                        time={Date.now()}
                         style={{ color: '#9293AB', fontSize: '10px', letterSpacing: '0.375px', paddingLeft: '3px' }}
                       />
                     </Container>

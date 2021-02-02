@@ -3,16 +3,18 @@
 exports[`Delegates Profile Detail initial render 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="StyledProps--font StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--padding-left-xlarge"
+    style="background-color: rgba(219, 241, 255, 0.46); position: relative; height: 143px;"
   >
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/admin/resources/delegates"
+          href="/account/dummy/admin/resources"
+          style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           Resources
         </a>
@@ -21,128 +23,229 @@ exports[`Delegates Profile Detail initial render 1`] = `
         </span>
         <a
           href="/account/dummy/admin/resources/delegates"
+          style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           Delegates
         </a>
+        <span>
+          /
+        </span>
+        <a
+          href="/account/dummy/admin/resources/delegates?tab=configuration"
+          style="color: rgb(0, 146, 228); font-size: 12px;"
+        >
+          Delegates Configurations
+        </a>
+        <span>
+          /
+        </span>
       </div>
-      <span>
-        test
-      </span>
+      <p
+        class="StyledProps--font StyledProps--main"
+        style="font-size: 20px;"
+      >
+        Primary
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+      >
+        The primary profile for the account
+      </p>
     </div>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main"
+      style="position: absolute; top: 50px; right: 50px;"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+        icon="edit"
+      >
+        <svg
+          data-icon="edit"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <desc>
+            edit
+          </desc>
+          <path
+            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <span
+        class="bp3-button-text"
+      >
+        Edit
+      </span>
+    </button>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody main"
+    class="StyledProps--font StyledProps--main"
+    style="height: calc(100vh - 143px); overflow: auto; background: rgba(228, 235, 244, 0.2);"
   >
     <div
-      class="Layout--vertical StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
     >
       <div
-        class="StyledProps--font StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
       >
         <div
-          class="optionBtns"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          style="width: 400px;"
         >
           <div
-            class="item"
+            class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+            style="box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16); border-radius: 4px;"
           >
-            VISUAL
-          </div>
-          <div
-            class="item"
-          >
-            YAML
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main configurationContainer"
-    >
-      <div
-        class="StyledProps--font StyledProps--main cardContainer"
-      >
-        <div
-          class="bp3-card bp3-elevation-0 Card--card overview"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-          >
-            <div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+              style="color: rgb(34, 39, 45);"
+            >
+              Overview
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
-                Overview
+                Delegate Configuration Name
               </p>
-              <div>
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 14px; line-height: 24px; color: rgb(34, 39, 45); letter-spacing: -0.01px;"
+              >
+                Primary
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
+                Description
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 14px; line-height: 24px; color: rgb(34, 39, 45); letter-spacing: -0.01px;"
+              >
+                The primary profile for the account
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
+                Identifier
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 14px; line-height: 24px; color: rgb(34, 39, 45); letter-spacing: -0.01px;"
+              >
+                profile2
+              </p>
+            </div>
+             
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+            style="box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16); border-radius: 4px;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+              style="color: rgb(34, 39, 45);"
+            >
+              Scope
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="font-size: 14px; color: rgb(34, 39, 45); line-height: 24px; font-weight: 500;"
+            >
+              Limit the delegate to perform tasks related to the following environments
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
+                Environment types
+              </p>
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="display: inline-flex; flex-wrap: wrap;"
+              >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-small"
-                  style="margin-bottom: 5px;"
+                  class="StyledProps--font StyledProps--main"
+                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
                 >
-                  Delegate Configuration Name
+                  prod
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  class="StyledProps--font StyledProps--main"
+                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
                 >
-                  Primary
+                  non-prod
                 </p>
               </div>
-              <hr />
-              <div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
+                Environments
+              </p>
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="display: inline-flex; flex-wrap: wrap;"
+              >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-small"
-                  style="margin-bottom: 5px;"
+                  class="StyledProps--font StyledProps--main"
+                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
                 >
-                  Description
+                  k8s-prod-app1
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  class="StyledProps--font StyledProps--main"
+                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
                 >
-                  The primary profile for the account
+                  k8s-prod-app2
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card initScript"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium"
-        >
-           
-          Initialization Script
-        </p>
         <div
-          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
+          class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+          style="box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16); border-radius: 4px; width: 550px;"
         >
-          <pre>
-            test this
-          </pre>
-          <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-            type="button"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+            style="color: rgb(34, 39, 45);"
           >
-            <span
-              class="bp3-icon bp3-icon-duplicate StyledProps--main"
-              icon="duplicate"
-            >
-              <svg
-                data-icon="duplicate"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  duplicate
-                </desc>
-                <path
-                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+            Initialization Script
+          </p>
+          <textarea
+            class="codeEditor"
+            disabled=""
+            placeholder="Enter initialization script..."
+          >
+            test this
+          </textarea>
         </div>
       </div>
     </div>

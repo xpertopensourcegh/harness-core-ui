@@ -1,0 +1,18 @@
+.codeEditor {
+  border: 1px solid var(--grey-400);
+  margin: 0px;
+  padding: var(--spacing-small);
+  width: 100%;
+  height: calc(100% - 40px);
+  font-family: var(--font-family-mono);
+
+  &:focus {
+    border-color: var(--blue-500);
+  }
+
+  &[disabled] {
+    border: none;
+    background: transparent;
+    resize: none;
+  }
+}

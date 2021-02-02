@@ -470,6 +470,8 @@ delegate:
   delegateCPU: CPU
   delegateDISK: DISK
   delegateSizeUpto: Runs upto concurrent tasks
+  delegatesConfigurations: Delegates Configurations
+  envTypes: Environment types
   pendingApproval: Pending Approval
   connected: Connected
   notConnected: Not Connected

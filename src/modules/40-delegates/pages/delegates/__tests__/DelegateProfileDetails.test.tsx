@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import DelegateProfileDetails from '../DelegateProfileDetails'
+import DelegateProfileDetails from '../DelegateConfigurationDetailPage'
 import ProfileMock from './ProfileMock.json'
 
 const mockGetCallFunction = jest.fn()

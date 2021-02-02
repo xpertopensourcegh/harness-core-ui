@@ -3,6 +3,7 @@ import { Button, Container, FlexExpander, Text, useToggle } from '@wings-softwar
 import { useStrings } from 'framework/exports'
 import type { Delegate, DelegateProfile } from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { SectionContainer } from '@delegates/components/SectionContainer/SectionContainer'
 import css from './DelegateDetails.module.scss'
 
 interface DelegateAdvancedProps {
@@ -15,7 +16,7 @@ export const DelegateAdvanced: React.FC<DelegateAdvancedProps> = ({ delegate, de
   const { getString } = useStrings()
 
   return (
-    <Container className={css.card} padding="xlarge" style={{ paddingTop: 'var(--spacing-large)' }}>
+    <SectionContainer style={{ paddingTop: 'var(--spacing-large)' }}>
       <Container flex>
         <Text style={{ color: '#4F4F4F', fontSize: 'var(--font-size-normal)' }}>{getString('advancedTitle')}</Text>
         <FlexExpander />
@@ -49,6 +50,6 @@ export const DelegateAdvanced: React.FC<DelegateAdvancedProps> = ({ delegate, de
           </div>
         </Container>
       )}
-    </Container>
+    </SectionContainer>
   )
 }

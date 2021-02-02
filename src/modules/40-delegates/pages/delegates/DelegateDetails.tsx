@@ -5,6 +5,7 @@ import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { useGetDelegateFromId, useGetDelegateConfigFromId } from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { SectionContainer } from '@delegates/components/SectionContainer/SectionContainer'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { DelegateOverview } from './DelegateOverview'
 import { DelegateAdvanced } from './DelegateAdvanced'
@@ -100,13 +101,13 @@ export default function DelegateDetails(): JSX.Element {
           <Layout.Horizontal spacing="large">
             <Container className={css.cardContainer}>
               {delegate && delegateProfile && (
-                <Layout.Vertical spacing="medium" width={550}>
+                <Layout.Vertical spacing="large" width={550}>
                   <DelegateOverview delegate={delegate} delegateProfile={delegateProfile} />
                   <DelegateAdvanced delegate={delegate} delegateProfile={delegateProfile} />
                 </Layout.Vertical>
               )}
             </Container>
-            <Container className={css.card} padding="large" width={398} height={150}>
+            <SectionContainer width={398} height={150}>
               <Container flex>
                 <Text color={Color.GREY_800} style={{ fontWeight: 600 }}>
                   {getString('delegate.delegateSizeLower')}
@@ -183,7 +184,7 @@ export default function DelegateDetails(): JSX.Element {
                   </Layout.Horizontal>
                 </Container>
               </Container>
-            </Container>
+            </SectionContainer>
           </Layout.Horizontal>
         </Layout.Vertical>
       </Page.Body>
