@@ -131,7 +131,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     if (appliedFilter !== undefined) {
       fetchExecutions(defaultQueryParamsForExecutions, appliedFilter?.filterProperties || {})
     }
-  }, [appliedFilter?.identifier])
+  }, [appliedFilter])
 
   useEffect(() => {
     cancel()
