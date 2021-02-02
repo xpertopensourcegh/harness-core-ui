@@ -33,3 +33,20 @@
 .right-status {
   display: flex;
 }
+.label {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap !important;
+}
+.selectWrapper {
+  width: 100%;
+  :global {
+    .bp3-popover-wrapper {
+      max-width: calc(100% - 90px);
+    }
+    .bp3-popover-target {
+      max-width: 100%;
+    }
+  }
+}

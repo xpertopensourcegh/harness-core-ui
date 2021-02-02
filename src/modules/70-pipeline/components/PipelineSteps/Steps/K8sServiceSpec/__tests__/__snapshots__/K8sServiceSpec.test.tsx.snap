@@ -484,14 +484,22 @@ exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
                                 class="bp3-button-text"
                               >
                                 <div
-                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                                  style="justify-content: space-between; width: 100%;"
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                 >
-                                  <p
-                                    class="StyledProps--font StyledProps--main"
+                                  <span
+                                    class="bp3-popover-wrapper"
                                   >
-                                    dockerAleks
-                                  </p>
+                                    <span
+                                      class="bp3-popover-target"
+                                    >
+                                      <p
+                                        class="StyledProps--font StyledProps--main label"
+                                        tabindex="0"
+                                      >
+                                        dockerAleks
+                                      </p>
+                                    </span>
+                                  </span>
                                   <div
                                     class="rightStatus"
                                   >

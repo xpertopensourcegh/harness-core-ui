@@ -117,8 +117,11 @@ export function getEditRenderer(
 }
 export function getSelectedRenderer(selected: ConnectorSelectedValue): JSX.Element {
   return (
-    <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
-      <Text>{selected?.label}</Text>
+    <Layout.Horizontal spacing="small" flex={{ distribution: 'space-between' }} className={css.selectWrapper}>
+      <Text tooltip={selected?.label} className={css.label}>
+        {selected?.label}
+      </Text>
+
       <div className={css.rightStatus}>
         <Icon
           className={cx(css.status, { [css.redStatus]: !selected?.live }, { [css.greenStatus]: selected?.live })}

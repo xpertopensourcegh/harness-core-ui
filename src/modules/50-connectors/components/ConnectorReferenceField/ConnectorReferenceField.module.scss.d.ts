@@ -8,5 +8,7 @@ declare const styles: {
   readonly greenStatus: string
   readonly tag: string
   readonly rightStatus: string
+  readonly label: string
+  readonly selectWrapper: string
 }
 export default styles
