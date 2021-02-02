@@ -79,7 +79,10 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
             <>
               <>
                 <div className={stepCss.formGroup}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isEmpty(initialValues.identifier)}
+                  />
                 </div>
                 <div className={stepCss.formGroup}>
                   <MultiTypeFieldSelector

@@ -67,7 +67,10 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
             <>
               <>
                 <div className={stepCss.formGroup}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isEmpty(initialValues.identifier)}
+                  />
                 </div>
                 <div className={stepCss.formGroup}>
                   <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>

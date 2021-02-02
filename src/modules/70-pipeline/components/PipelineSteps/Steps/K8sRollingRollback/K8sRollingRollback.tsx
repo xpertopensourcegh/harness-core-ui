@@ -76,7 +76,10 @@ function K8sRollingRollbackWidget(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={stepCss.formGroup}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isEmpty(initialValues.identifier)}
+                  />
                 </div>
                 <div className={stepCss.formGroup}>
                   <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>

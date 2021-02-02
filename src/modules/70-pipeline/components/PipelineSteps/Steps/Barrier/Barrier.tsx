@@ -71,7 +71,10 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
           return (
             <>
               <>
-                <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                <FormInput.InputWithIdentifier
+                  inputLabel={getString('name')}
+                  isIdentifierEditable={isEmpty(initialValues.identifier)}
+                />
                 <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                   <FormMultiTypeDurationField
                     name="timeout"
