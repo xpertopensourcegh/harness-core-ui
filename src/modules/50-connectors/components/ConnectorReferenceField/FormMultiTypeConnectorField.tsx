@@ -110,7 +110,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
             ? `${scope}.${connectorData?.data?.connector?.identifier}`
             : connectorData?.data?.connector?.identifier,
         scope: scope,
-        live: connectorData?.data?.status?.status === 'SUCCESS'
+        live: connectorData?.data?.status?.status === 'SUCCESS',
+        connector: connectorData?.data?.connector
       }
       formik?.setFieldValue(name, value)
     }
@@ -128,12 +129,15 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: (data?: ConnectorConfigDTO) => {
       if (data) {
-        const scope = getScopeFromDTO<ConnectorConfigDTO>(data)
+        const scope = getScopeFromDTO<ConnectorConfigDTO>(data.connector)
         const val = {
-          label: data.name,
-          value: scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${data.identifier}` : data.identifier,
+          label: data.connector.name,
+          value:
+            scope === Scope.ORG || scope === Scope.ACCOUNT
+              ? `${scope}.${data.connector.identifier}`
+              : data.connector.identifier,
           scope,
-          connector: data,
+          connector: data.connector,
           live: data?.status?.status === 'SUCCESS'
         }
         props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)

@@ -272,7 +272,6 @@ function ManifestListView({
 
   const getManifestInitialValues = () => {
     const initValues = get(selectedManifestReference, 'spec.store.spec', null)
-    initValues.connectorRef = initValues?.connectorRef || initValues?.connectorIdentifier
     if (initValues) {
       const values = {
         ...initValues,

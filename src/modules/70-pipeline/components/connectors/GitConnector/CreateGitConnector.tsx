@@ -94,7 +94,7 @@ const ManifestSourceConfigForm: React.FC<
                 store: {
                   type: 'Git',
                   spec: {
-                    connectorIdentifier: prevStepData?.identifier,
+                    connectorRef: prevStepData?.identifier,
                     gitFetchType: formData?.gitFetchType,
                     branch: formData?.branch,
                     commitId: formData?.commitId,
