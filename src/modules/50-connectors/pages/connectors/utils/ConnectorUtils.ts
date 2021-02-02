@@ -59,7 +59,7 @@ export const GitUrlType = {
 }
 
 export const GitConnectionType = {
-  HTTPS: 'Http',
+  HTTP: 'Http',
   SSH: 'Ssh'
 }
 

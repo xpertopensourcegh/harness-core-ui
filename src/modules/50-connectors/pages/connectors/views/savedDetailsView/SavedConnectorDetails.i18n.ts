@@ -95,6 +95,7 @@ export default {
   },
   AWS: {
     STSEnabled: 'STS Role enabled',
+    accessKey: 'Access Key',
     roleARN: 'Role ARN',
     externalId: 'External Id'
   },

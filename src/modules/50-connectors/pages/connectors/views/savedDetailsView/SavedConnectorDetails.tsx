@@ -100,6 +100,7 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
       label: i18n.k8sCluster.username,
       value:
         connector?.spec?.credential?.spec?.auth?.spec?.username ||
+        connector?.spec?.credential?.spec?.auth?.spec?.usernameRef ||
         connector?.spec?.credential?.spec?.auth?.spec?.oidcUsername
     },
     {
@@ -161,7 +162,7 @@ const getGitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
 
     {
       label: i18n.GIT.username,
-      value: connector?.spec?.spec?.username
+      value: connector?.spec?.spec?.username || connector?.spec?.spec?.usernameRef
     },
     {
       label: i18n.GIT.password,
@@ -182,7 +183,7 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     },
     {
       label: i18n.Github.connection,
-      value: connector?.spec?.authentication?.type
+      value: connector?.spec?.authentication?.type?.toUpperCase?.()
     },
     {
       label: i18n.Github.url,
@@ -194,7 +195,9 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     },
     {
       label: i18n.Github.username,
-      value: connector?.spec?.authentication?.spec?.spec?.username
+      value:
+        connector?.spec?.authentication?.spec?.spec?.username ||
+        connector?.spec?.authentication?.spec?.spec?.usernameRef
     },
     {
       label: i18n.Github.password,
@@ -240,7 +243,7 @@ const getDockerSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     },
     {
       label: i18n.Docker.username,
-      value: connector?.spec?.auth?.spec?.username
+      value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.usernameRef
     },
     {
       label: i18n.Docker.password,
@@ -307,14 +310,12 @@ const getAWSSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
       value: connector.spec?.credential?.spec?.delegateName || connector.spec?.credential?.spec?.delegateSelector
     },
     {
-      label: i18n.username,
-      value:
-        connector?.spec?.credential?.spec?.auth?.spec?.username ||
-        connector?.spec?.credential?.spec?.auth?.spec?.oidcUsername
-    },
-    {
       label: i18n.password,
       value: connector?.spec?.credential?.spec?.secretKeyRef
+    },
+    {
+      label: i18n.AWS.accessKey,
+      value: connector?.spec?.credential?.spec?.accessKey || connector?.spec?.credential?.spec?.accessKeyRef
     },
     {
       label: i18n.AWS.STSEnabled,
@@ -347,7 +348,7 @@ const getNexusSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
     },
     {
       label: i18n.username,
-      value: connector?.spec?.auth?.spec?.username
+      value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.usernameRef
     },
     {
       label: i18n.password,
@@ -372,7 +373,7 @@ const getArtifactorySchema = (connector: ConnectorInfoDTO): Array<ActivityDetail
     },
     {
       label: i18n.username,
-      value: connector?.spec?.auth?.spec?.username
+      value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.usernameRef
     },
     {
       label: i18n.password,
@@ -512,7 +513,11 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
                 renderTags(item.value)
               ) : (
                 <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>
-                  <Text inline color={item.value === 'encrypted' ? Color.GREY_350 : Color.BLACK}>
+                  <Text
+                    inline
+                    className={css.detailsValue}
+                    color={item.value === 'encrypted' ? Color.GREY_350 : Color.BLACK}
+                  >
                     {item.value}
                   </Text>
                   {item.iconData?.icon ? (

@@ -38,7 +38,6 @@ import { useStrings } from 'framework/exports'
 import { ConnectorStatus } from '@connectors/constants'
 import { getUrlValueByType } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
-import i18n from './ConnectorView.i18n'
 import css from './ConnectorView.module.scss'
 
 export interface ConnectorViewProps {
@@ -116,7 +115,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     try {
       const data = await props.updateConnector(connectorPayload)
       if (data) {
-        showSuccess(i18n.SaveConnector.SUCCESS)
+        showSuccess(getString('saveConnectorSuccess'))
         props.refetchConnector()
         state.setEnableEdit(false)
       }
@@ -440,13 +439,13 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                 )}
                 onClick={() => handleModeSwitch(SelectedView.VISUAL)}
               >
-                {i18n.VISUAL}
+                {getString('visual')}
               </div>
               <div
                 className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
                 onClick={() => handleModeSwitch(SelectedView.YAML)}
               >
-                {i18n.YAML}
+                {getString('yaml')}
               </div>
             </div>
           )}
@@ -454,7 +453,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
             <Button
               id="editDetailsBtn"
               className={css.editButton}
-              text={i18n.EDIT_DETAILS}
+              text={getString('editDetails')}
               icon="edit"
               onClick={() => {
                 state.setEnableEdit(true)
@@ -487,7 +486,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                     text={getString('saveChanges')}
                     onClick={handleSaveYaml}
                     margin={{ top: 'large' }}
-                    title={isValidYAML ? '' : i18n.invalidYAML}
+                    title={isValidYAML ? '' : getString('invalidYaml')}
                   />
                   <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
                 </Layout.Horizontal>

@@ -368,7 +368,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
@@ -862,7 +862,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
@@ -1356,7 +1356,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
@@ -1852,7 +1852,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"

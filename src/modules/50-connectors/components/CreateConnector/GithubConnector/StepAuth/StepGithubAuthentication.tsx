@@ -68,7 +68,7 @@ interface GithubFormInterface {
 }
 
 const defaultInitialFormData: GithubFormInterface = {
-  connectionType: GitConnectionType.HTTPS,
+  connectionType: GitConnectionType.HTTP,
   authType: GitAuthTypes.USER_PASSWORD,
   username: undefined,
   password: undefined,
@@ -256,11 +256,11 @@ const StepGithubAuthentication: React.FC<
           username: Yup.string()
             .nullable()
             .when('connectionType', {
-              is: val => val === GitConnectionType.HTTPS,
+              is: val => val === GitConnectionType.HTTP,
               then: Yup.string().trim().required(getString('validation.username'))
             }),
           authType: Yup.string().when('connectionType', {
-            is: val => val === GitConnectionType.HTTPS,
+            is: val => val === GitConnectionType.HTTP,
             then: Yup.string().trim().required(getString('validation.authType'))
           }),
           sshKey: Yup.object().when('connectionType', {
@@ -270,13 +270,13 @@ const StepGithubAuthentication: React.FC<
           }),
           password: Yup.object().when(['connectionType', 'authType'], {
             is: (connectionType, authType) =>
-              connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_PASSWORD,
+              connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_PASSWORD,
             then: Yup.object().required(getString('validation.password')),
             otherwise: Yup.object().nullable()
           }),
           accessToken: Yup.object().when(['connectionType', 'authType'], {
             is: (connectionType, authType) =>
-              connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_TOKEN,
+              connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_TOKEN,
 
             then: Yup.object().required(getString('validation.accessToken')),
             otherwise: Yup.object().nullable()

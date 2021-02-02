@@ -217,7 +217,7 @@ export function getReferenceFieldProps({
     },
     projectIdentifier,
     orgIdentifier,
-    noRecordsText: getString('noSecretsFound'),
+    noRecordsText: getString('noConnectorFound'),
     recordRender: function renderItem(item) {
       return (
         <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between' }}>

@@ -65,7 +65,7 @@ interface BitbucketFormInterface {
 }
 
 const defaultInitialFormData: BitbucketFormInterface = {
-  connectionType: GitConnectionType.HTTPS,
+  connectionType: GitConnectionType.HTTP,
   authType: GitAuthTypes.USER_PASSWORD,
   username: undefined,
   password: undefined,
@@ -205,12 +205,12 @@ const StepBitbucketAuthentication: React.FC<
         }}
         validationSchema={Yup.object().shape({
           username: Yup.string().when(['connectionType'], {
-            is: connectionType => connectionType === GitConnectionType.HTTPS,
+            is: connectionType => connectionType === GitConnectionType.HTTP,
             then: Yup.string().trim().required(getString('validation.username')),
             otherwise: Yup.string().nullable()
           }),
           authType: Yup.string().when('connectionType', {
-            is: val => val === GitConnectionType.HTTPS,
+            is: val => val === GitConnectionType.HTTP,
             then: Yup.string().trim().required(getString('validation.authType'))
           }),
           sshKey: Yup.object().when('connectionType', {
@@ -220,7 +220,7 @@ const StepBitbucketAuthentication: React.FC<
           }),
           password: Yup.object().when(['connectionType', 'authType'], {
             is: (connectionType, authType) =>
-              connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_PASSWORD,
+              connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_PASSWORD,
             then: Yup.object().required(getString('validation.password')),
             otherwise: Yup.object().nullable()
           }),

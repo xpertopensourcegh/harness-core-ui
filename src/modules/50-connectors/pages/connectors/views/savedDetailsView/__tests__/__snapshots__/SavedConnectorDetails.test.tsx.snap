@@ -25,7 +25,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             AWS demo
           </span>
@@ -43,7 +43,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             connector description
           </span>
@@ -61,7 +61,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             AWS_demo
           </span>
@@ -127,7 +127,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             InheritFromDelegate
           </span>
@@ -145,7 +145,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             primary
           </span>
@@ -163,7 +163,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             true
           </span>
@@ -181,7 +181,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             dummyRoleARN
           </span>
@@ -199,7 +199,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             12345
           </span>
@@ -235,7 +235,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Artifacory One
           </span>
@@ -253,7 +253,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Artifacory_One
           </span>
@@ -280,7 +280,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             https://test-repo.blackducksoftware.com/artifactory/
           </span>
@@ -298,7 +298,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Username and Password
           </span>
@@ -316,7 +316,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             harness-dev
           </span>
@@ -334,7 +334,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             account.connectorSecret
           </span>
@@ -370,7 +370,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             DockerName
           </span>
@@ -388,7 +388,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for Docker
           </span>
@@ -406,7 +406,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             DockerId
           </span>
@@ -477,7 +477,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GCP for demo
           </span>
@@ -495,7 +495,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Details
           </span>
@@ -513,7 +513,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GCP_for_demo
           </span>
@@ -579,7 +579,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             ManualConfig
           </span>
@@ -597,7 +597,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             account.GCP
           </span>
@@ -633,7 +633,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GitHttpName
           </span>
@@ -651,7 +651,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for Git
           </span>
@@ -669,7 +669,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GitHttpId
           </span>
@@ -722,7 +722,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             REPO
           </span>
@@ -740,7 +740,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             HTTP
           </span>
@@ -758,7 +758,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             url
           </span>
@@ -776,7 +776,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             user name
           </span>
@@ -794,7 +794,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             account.secretname
           </span>
@@ -830,7 +830,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             K8sName
           </span>
@@ -848,7 +848,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for K8s
           </span>
@@ -866,7 +866,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             k8sId
           </span>
@@ -919,7 +919,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Harness Delegate running In-Cluster
           </span>
@@ -937,7 +937,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             kubernetes
           </span>
@@ -973,7 +973,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             K8sName
           </span>
@@ -991,7 +991,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for K8s
           </span>
@@ -1009,7 +1009,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             k8sId
           </span>
@@ -1036,7 +1036,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Harness Delegate running Out-of-Cluster
           </span>
@@ -1054,7 +1054,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             master url
           </span>
@@ -1072,7 +1072,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Username and Password
           </span>
@@ -1090,7 +1090,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             user name
           </span>
@@ -1108,7 +1108,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             account.secretname
           </span>
@@ -1144,7 +1144,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Nexus one
           </span>
@@ -1162,7 +1162,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             testing nexus connector
           </span>
@@ -1180,7 +1180,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Nexus_one
           </span>
@@ -1207,7 +1207,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             https://nexus2.harness.io
           </span>
@@ -1225,7 +1225,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             3.x
           </span>
@@ -1243,7 +1243,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Username and Password
           </span>
@@ -1261,7 +1261,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             dev
           </span>
@@ -1279,7 +1279,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             account.NexusPassword
           </span>
@@ -1315,7 +1315,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             VaultName
           </span>
@@ -1333,7 +1333,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for Vault
           </span>
@@ -1351,7 +1351,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             VaultId
           </span>
@@ -1419,7 +1419,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
       >
         <span
-          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+          class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
         >
           09/27/2020 09:29 am
         </span>
@@ -1437,7 +1437,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
       >
         <span
-          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+          class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
         >
           09/27/2020 09:30 am
         </span>
@@ -1455,7 +1455,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
       >
         <span
-          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+          class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
         >
           09/27/2020 09:30 am
         </span>

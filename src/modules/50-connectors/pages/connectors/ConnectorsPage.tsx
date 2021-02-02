@@ -56,7 +56,6 @@ import { useStrings } from 'framework/exports'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import { UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'
 import ConnectorsListView from './views/ConnectorsListView'
-import i18n from '../../components/CreateConnectorWizard/CreateConnectorWizard.i18n'
 import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import {
@@ -569,12 +568,18 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal inline width="50%">
-          <Button intent="primary" text={i18n.NEW_CONNECTOR} icon="plus" onClick={openDrawer} id="newConnectorBtn" />
+          <Button
+            intent="primary"
+            text={getString('newConnector')}
+            icon="plus"
+            onClick={openDrawer}
+            id="newConnectorBtn"
+          />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small" width="30%" className={css.view}>
           <TextInput
             leftIcon="search"
-            placeholder={i18n.Search}
+            placeholder={getString('search')}
             value={searchTerm}
             onChange={onSearch}
             id="filterConnectorByName"
@@ -642,7 +647,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             gotoPage={pageNumber => setPage(pageNumber)}
           />
         ) : (
-          <Page.NoDataCard icon="nav-dashboard" message={i18n.NoConnector} />
+          <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
         )}
       </Page.Body>
     </Layout.Vertical>

@@ -357,7 +357,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -811,7 +811,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1666,7 +1666,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -2364,7 +2364,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"

@@ -711,7 +711,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                             <span
                               class="bp3-control-indicator"
                             />
-                            HTTPS
+                            HTTP
                           </label>
                           <label
                             class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1896,7 +1896,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                             <span
                               class="bp3-control-indicator"
                             />
-                            HTTPS
+                            HTTP
                           </label>
                           <label
                             class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
@@ -2378,7 +2378,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                             <span
                               class="bp3-control-indicator"
                             />
-                            HTTPS
+                            HTTP
                           </label>
                           <label
                             class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -2854,7 +2854,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                             <span
                               class="bp3-control-indicator"
                             />
-                            HTTPS
+                            HTTP
                           </label>
                           <label
                             class="bp3-control bp3-radio bp3-inline Radio--radio"

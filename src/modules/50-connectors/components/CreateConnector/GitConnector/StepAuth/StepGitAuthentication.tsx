@@ -57,7 +57,7 @@ interface GitFormInterface {
 }
 
 const defaultInitialFormData: GitFormInterface = {
-  connectionType: GitConnectionType.HTTPS,
+  connectionType: GitConnectionType.HTTP,
   username: undefined,
   password: undefined,
   sshKey: undefined
@@ -149,7 +149,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
         }}
         validationSchema={Yup.object().shape({
           username: Yup.string().when('connectionType', {
-            is: val => val === GitConnectionType.HTTPS,
+            is: val => val === GitConnectionType.HTTP,
             then: Yup.string().trim().required(getString('validation.username'))
           }),
           sshKey: Yup.object().when('connectionType', {
@@ -158,7 +158,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
             otherwise: Yup.object().nullable()
           }),
           password: Yup.object().when('connectionType', {
-            is: val => val === GitConnectionType.HTTPS,
+            is: val => val === GitConnectionType.HTTP,
             then: Yup.object().required(getString('validation.password')),
             otherwise: Yup.object().nullable()
           })

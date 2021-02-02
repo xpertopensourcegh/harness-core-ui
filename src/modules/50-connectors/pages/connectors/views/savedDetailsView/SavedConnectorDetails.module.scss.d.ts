@@ -5,5 +5,6 @@ declare const styles: {
   readonly detailsSection: string
   readonly detailsSectionRowWrapper: string
   readonly detailsSectionRow: string
+  readonly detailsValue: string
 }
 export default styles

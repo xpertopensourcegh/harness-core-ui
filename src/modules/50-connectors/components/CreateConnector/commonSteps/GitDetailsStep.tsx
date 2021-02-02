@@ -75,8 +75,8 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
 
   const connectionTypeOptions: IOptionProps[] = [
     {
-      label: getString('HTTPS'),
-      value: GitConnectionType.HTTPS
+      label: getString('HTTP'),
+      value: GitConnectionType.HTTP
     },
     {
       label: getString('SSH'),
@@ -112,15 +112,15 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
     switch (connectorType) {
       case Connectors.GIT:
       case Connectors.GITHUB:
-        return connectionType === GitConnectionType.HTTPS
+        return connectionType === GitConnectionType.HTTP
           ? getString('connectors.git.gitHubUrlPlaceholder')
           : getString('connectors.git.gitHubUrlPlaceholderSSH')
       case Connectors.GITLAB:
-        return connectionType === GitConnectionType.HTTPS
+        return connectionType === GitConnectionType.HTTP
           ? getString('connectors.git.gitLabUrlPlaceholder')
           : getString('connectors.git.gitLabUrlPlaceholderSSH')
       case Connectors.BITBUCKET:
-        return connectionType === GitConnectionType.HTTPS
+        return connectionType === GitConnectionType.HTTP
           ? getString('connectors.git.bitbucketUrlPlaceholder')
           : getString('connectors.git.bitbucketPlaceholderSSH')
       default:
@@ -185,7 +185,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
         identifier: '',
         tags: {},
         urlType: GitUrlType.ACCOUNT,
-        connectionType: GitConnectionType.HTTPS,
+        connectionType: GitConnectionType.HTTP,
         url: '',
         branchName: ''
       }

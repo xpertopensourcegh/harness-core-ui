@@ -375,7 +375,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -847,7 +847,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1738,7 +1738,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           <span
                             class="bp3-control-indicator"
                           />
-                          HTTPS
+                          HTTP
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"

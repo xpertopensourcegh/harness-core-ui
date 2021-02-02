@@ -32,8 +32,7 @@ jest.mock('services/cd-ng', () => ({
   useDeleteConnector: jest.fn().mockImplementation(() => Promise.resolve())
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Connectors Page Test', () => {
+describe('Connectors Page Test', () => {
   const props = {
     mockData: {
       data: connectorsData as any,
@@ -98,7 +97,8 @@ describe.skip('Connectors Page Test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('Render filter panel', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Render filter panel', async () => {
     const renderProps = {
       ...Object.assign(props, {
         filtersMockData: {

@@ -19,6 +19,10 @@
       .detailsSectionRow {
         display: flex;
         justify-content: space-between;
+
+        .detailsValue {
+          word-break: break-all;
+        }
       }
     }
   }
