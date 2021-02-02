@@ -36,7 +36,7 @@ import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/exports'
 import { ConnectorStatus } from '@connectors/constants'
-import { getUrlValueByType } from './utils/ConnectorUtils'
+import { getInvocationPathsForSecrets, getUrlValueByType } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
 
@@ -196,66 +196,14 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       secretsResponse?.data?.content?.map(item => ({
         label: getReference(currentScope, item.secret.name) || /* istanbul ignore next */ '',
         insertText: getReference(currentScope, item.secret.identifier) || /* istanbul ignore next */ '',
-        kind: CompletionItemKind.Field,
+        kind: CompletionItemKind.Enum,
         key: item.secret.identifier
       })) || []
     )
   }, [secretsResponse?.data?.content?.map])
 
-  const getInvocationPaths = (): Set<RegExp> | undefined => {
-    switch (connector.type) {
-      case 'K8sCluster':
-        return new Set([
-          /^.+\.passwordRef$/,
-          /^.+\.usernameRef$/,
-          /^.+\.serviceAccountTokenRef$/,
-          /^.+\.oidcUsernameRef$/,
-          /^.+\.oidcClientIdRef$/,
-          /^.+\.oidcPasswordRef$/,
-          /^.+\.oidcSecretRef$/,
-          /^.+\.caCertRef$/,
-          /^.+\.clientCertRef$/,
-          /^.+\.clientKeyRef$/,
-          /^.+\.clientKeyPassphraseRef$/
-        ])
-      case 'DockerRegistry':
-        return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/])
-      case 'Nexus':
-        return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/])
-      case 'Git':
-        return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/, /^.+\.encryptedSshKey$/])
-      case 'Splunk':
-        return new Set([/^.+\.passwordRef$/])
-      case 'AppDynamics':
-        return new Set([/^.+\.passwordRef$/])
-      case 'Gcp':
-        return new Set([/^.+\.secretKeyRef$/])
-      case 'Aws':
-        return new Set([/^.+\.accessKeyRef$/, /^.+\.secretKeyRef$/])
-      case 'Github':
-        return new Set([
-          /^.+\.usernameRef$/,
-          /^.+\.passwordRef$/,
-          /^.+\.tokenRef$/,
-          /^.+\.sshKeyRef$/,
-          /^.+\.privateKeyRef$/
-        ])
-      case 'Gitlab':
-        return new Set([
-          /^.+\.usernameRef$/,
-          /^.+\.passwordRef$/,
-          /^.+\.tokenRef$/,
-          /^.+\.sshKeyRef$/,
-          /^.+\.kerberosKeyRef$/
-        ])
-      case 'Bitbucket':
-        return new Set([/^.+\.usernameRef$/, /^.+\.passwordRef$/, /^.+\.tokenRef$/, /^.+\.sshKeyRef$/])
-    }
-    return
-  }
-
   const invocationMap: YamlBuilderProps['invocationMap'] = new Map<RegExp, InvocationMapFunction>()
-  getInvocationPaths()?.forEach((path: RegExp) =>
+  getInvocationPathsForSecrets(connector.type).forEach((path: RegExp) =>
     invocationMap.set(
       path,
       (_matchingPath: string, _currentYaml: string): Promise<CompletionItemInterface[]> => {
@@ -270,7 +218,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     fileName: `${connectorForYaml?.name ?? 'Connector'}.yaml`,
     entityType: 'Connectors',
     existingJSON: { connector: connectorForYaml },
-    isReadOnlyMode: true
+    isReadOnlyMode: true,
+    width: 900
   }
 
   const { openConnectorModal } = useCreateConnectorModal({

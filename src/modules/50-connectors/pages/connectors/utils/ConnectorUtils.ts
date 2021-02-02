@@ -960,3 +960,58 @@ export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: Con
       return ''
   }
 }
+
+export const getInvocationPathsForSecrets = (type: ConnectorInfoDTO['type'] | 'Unknown'): Set<RegExp> => {
+  switch (type) {
+    case 'K8sCluster':
+      return new Set([
+        /^.+\.passwordRef$/,
+        /^.+\.usernameRef$/,
+        /^.+\.serviceAccountTokenRef$/,
+        /^.+\.oidcUsernameRef$/,
+        /^.+\.oidcClientIdRef$/,
+        /^.+\.oidcPasswordRef$/,
+        /^.+\.oidcSecretRef$/,
+        /^.+\.caCertRef$/,
+        /^.+\.clientCertRef$/,
+        /^.+\.clientKeyRef$/,
+        /^.+\.clientKeyPassphraseRef$/
+      ])
+    case 'DockerRegistry':
+      return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/])
+    case 'Nexus':
+      return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/])
+    case 'Git':
+      return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/, /^.+\.encryptedSshKey$/])
+    case 'Splunk':
+      return new Set([/^.+\.passwordRef$/])
+    case 'AppDynamics':
+      return new Set([/^.+\.passwordRef$/])
+    case 'Gcp':
+      return new Set([/^.+\.secretKeyRef$/])
+    case 'Aws':
+      return new Set([/^.+\.accessKeyRef$/, /^.+\.secretKeyRef$/])
+    case 'Github':
+      return new Set([
+        /^.+\.usernameRef$/,
+        /^.+\.passwordRef$/,
+        /^.+\.tokenRef$/,
+        /^.+\.sshKeyRef$/,
+        /^.+\.privateKeyRef$/
+      ])
+    case 'Gitlab':
+      return new Set([
+        /^.+\.usernameRef$/,
+        /^.+\.passwordRef$/,
+        /^.+\.tokenRef$/,
+        /^.+\.sshKeyRef$/,
+        /^.+\.kerberosKeyRef$/
+      ])
+    case 'Bitbucket':
+      return new Set([/^.+\.usernameRef$/, /^.+\.passwordRef$/, /^.+\.tokenRef$/, /^.+\.sshKeyRef$/])
+    case 'Unknown':
+      return new Set([/^.+\.Ref$/])
+    default:
+      return new Set([])
+  }
+}

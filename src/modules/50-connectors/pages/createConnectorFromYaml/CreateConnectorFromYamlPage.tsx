@@ -2,18 +2,32 @@ import React, { useState, useEffect } from 'react'
 import { Container, Button, Layout } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
-import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { useCreateConnector, useGetYamlSnippetMetadata, useGetYamlSchema, useGetYamlSnippet } from 'services/cd-ng'
+import type {
+  CompletionItemInterface,
+  InvocationMapFunction,
+  YamlBuilderHandlerBinding,
+  YamlBuilderProps
+} from '@common/interfaces/YAMLBuilderProps'
+import {
+  useCreateConnector,
+  useGetYamlSnippetMetadata,
+  useGetYamlSchema,
+  useGetYamlSnippet,
+  useListSecretsV2
+} from 'services/cd-ng'
+import { getReference } from '@secrets/utils/SSHAuthUtils'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import routes from '@common/RouteDefinitions'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/exports'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { getInvocationPathsForSecrets } from '../connectors/utils/ConnectorUtils'
 import i18n from './CreateConnectorFromYaml.i18n'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
@@ -127,6 +141,38 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     openDialog()
   }
 
+  const { data: secretsResponse } = useListSecretsV2({
+    queryParams: {
+      accountIdentifier: accountId,
+      pageIndex: 0,
+      pageSize: 100,
+      orgIdentifier,
+      projectIdentifier
+    },
+    debounce: 300
+  })
+
+  const currentScope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+
+  const secrets: CompletionItemInterface[] = React.useMemo(() => {
+    return (
+      secretsResponse?.data?.content?.map(item => ({
+        label: getReference(currentScope, item.secret.name) || /* istanbul ignore next */ '',
+        insertText: getReference(currentScope, item.secret.identifier) || /* istanbul ignore next */ '',
+        kind: CompletionItemKind.Enum,
+        key: item.secret.identifier
+      })) || []
+    )
+  }, [secretsResponse?.data?.content?.map])
+
+  const invocationMap: YamlBuilderProps['invocationMap'] = new Map<RegExp, InvocationMapFunction>()
+  getInvocationPathsForSecrets('Unknown')?.forEach((path: RegExp) =>
+    invocationMap.set(
+      path,
+      (_matchingPath: string, _currentYaml: string): Promise<CompletionItemInterface[]> => Promise.resolve(secrets)
+    )
+  )
+
   return (
     <>
       <PageHeader title={i18n.title} />
@@ -145,6 +191,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               onSnippetCopy={onSnippetCopy}
               snippetYaml={snippetYaml}
               needEditorReset={needEditorReset}
+              invocationMap={invocationMap}
             />
           )}
           <Layout.Horizontal spacing="small">
