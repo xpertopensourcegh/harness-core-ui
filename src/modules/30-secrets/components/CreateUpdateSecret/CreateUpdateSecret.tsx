@@ -64,11 +64,11 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   })
   const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecret({
     identifier: secret?.identifier as string,
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
   const { mutate: updateSecretFile, loading: loadingUpdateFile } = usePutSecretFileV2({
     identifier: secret?.identifier as string,
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
 
   const loading = loadingCreateText || loadingUpdateText || loadingCreateFile || loadingUpdateFile
@@ -203,8 +203,9 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
           const typeOfSelectedSecretManager = secretManagersApiResponse?.data?.content?.filter(
             itemValue => itemValue.connector?.identifier === formikProps.values['secretManagerIdentifier']
           )?.[0]?.connector?.type
-          typeOfSelectedSecretManager === 'Vault' &&
-            setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO)?.readOnly)
+          typeOfSelectedSecretManager === 'Vault'
+            ? setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO)?.readOnly)
+            : setReadOnlySecretManager(false)
 
           return (
             <FormikForm>

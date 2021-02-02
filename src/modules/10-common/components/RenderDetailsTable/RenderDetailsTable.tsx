@@ -13,6 +13,7 @@ export interface ActivityDetailsRowInterface {
     icon: IconName
     color?: string
   }
+  valueColor?: Color
 }
 
 interface RenderDetailsSectionProps {
@@ -59,7 +60,7 @@ export const RenderDetailsTable: React.FC<RenderDetailsSectionProps> = props => 
                 renderTags(item.value as tagsType)
               ) : (
                 <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>
-                  <Text inline color={item.value === 'encrypted' ? Color.GREY_350 : Color.BLACK}>
+                  <Text inline color={item.valueColor || Color.BLACK}>
                     {item.value}
                   </Text>
                   {item.iconData?.icon ? (

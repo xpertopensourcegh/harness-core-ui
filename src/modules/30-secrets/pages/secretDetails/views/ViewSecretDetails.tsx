@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Color, Layout } from '@wings-software/uicore'
 
 import type {
   KerberosConfigDTO,
@@ -124,12 +124,21 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
 
     if (secret.type === 'SecretText') {
       const secretTextSpec = secret.spec as SecretTextSpecDTO
-      if (secretTextSpec.valueType == 'Inline') items.push({ label: i18n.labelValue, value: i18n.valueValueFile })
+      if (secretTextSpec.valueType == 'Inline')
+        items.push({
+          label: i18n.labelValue,
+          value: getString('encrypted').toLowerCase(),
+          valueColor: Color.GREY_350
+        })
       if (secretTextSpec.valueType == 'Reference') items.push({ label: i18n.labelPath, value: secretTextSpec.value })
       items.push({ label: i18n.labelSecretManager, value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier })
     }
     if (secret.type === 'SecretFile') {
-      items.push({ label: i18n.labelValue, value: i18n.valueValueFile })
+      items.push({
+        label: i18n.labelValue,
+        value: getString('encryptedFile').toLowerCase(),
+        valueColor: Color.GREY_350
+      })
       items.push({ label: i18n.labelSecretManager, value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier })
     }
     return items

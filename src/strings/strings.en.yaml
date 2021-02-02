@@ -164,6 +164,7 @@ deleted: deleted
 showAll: Show All
 categories: Categories
 plaintext: Plaintext
+encryptedFile: Encrypted File
 encrypted: Encrypted
 newNotification: New Notification
 addNotification: + Add Notification

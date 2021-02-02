@@ -21,7 +21,7 @@ import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
-  const { accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
   useDocumentTitle(getString('createSecretYAML.createSecret'))
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
@@ -45,7 +45,16 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
       try {
         await createSecret(yamlData as any)
         showSuccess(getString('createSecretYAML.secretCreated'))
-        history.push(routes.toResourcesSecretDetails({ secretId: jsonData['identifier'], accountId }))
+        // TODO: we don't know how to handle project scope redirect yet
+        if (orgIdentifier && !projectIdentifier) {
+          // org scope secret
+          history.push(
+            routes.toOrgResourcesSecretDetails({ secretId: jsonData['identifier'], accountId, orgIdentifier })
+          )
+        } else if (!orgIdentifier && !projectIdentifier) {
+          // account scope secret
+          history.push(routes.toResourcesSecretDetails({ secretId: jsonData['identifier'], accountId }))
+        }
       } catch (err) {
         showError(err.data?.message || err.message)
       }

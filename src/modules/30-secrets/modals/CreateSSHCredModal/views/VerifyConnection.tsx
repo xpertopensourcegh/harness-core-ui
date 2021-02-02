@@ -27,6 +27,7 @@ const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeMo
             })
           }}
           initialValues={{
+            type: 'SSHKey',
             host: ''
           }}
           validationSchema={Yup.object().shape({

@@ -89,7 +89,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
   const { mutate: editSecret } = usePutSecret({
     identifier: prevStepData?.detailsData?.identifier || '',
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
   const { getString } = useStrings()
   const isEdit = prevStepData?.isEdit
