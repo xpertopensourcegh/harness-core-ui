@@ -113,24 +113,6 @@ describe('<ExecutionLayout /> tests', () => {
     expect(container).toMatchSnapshot('Child 3 is not shown')
   })
 
-  test('Resizing via resize button works', () => {
-    const { container } = render(
-      <ExecutionLayout>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">Child 2</div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
-    )
-
-    const [resizeUp, resizeDown] = container.querySelectorAll('.bp3-button')
-
-    fireEvent.click(resizeDown)
-    expect(container.querySelector<HTMLDivElement>('.splitPane1 .Pane1')?.style.height).toBe('300px')
-
-    fireEvent.click(resizeUp)
-    expect(container.querySelector<HTMLDivElement>('.splitPane1 .Pane1')?.style.height).toBe('200px')
-  })
-
   test('ExecutionLayout.Toggle works', () => {
     const { container, getByTestId } = render(
       <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>

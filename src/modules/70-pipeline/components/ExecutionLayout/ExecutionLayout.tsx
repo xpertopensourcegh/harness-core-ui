@@ -1,6 +1,5 @@
 import React from 'react'
 import SplitPane, { Pane, SplitPaneProps } from 'react-split-pane'
-import { Button } from '@wings-software/uicore'
 import { debounce } from 'lodash-es'
 import cx from 'classnames'
 
@@ -14,7 +13,6 @@ import css from './ExecutionLayout.module.scss'
 const IS_TEST = process.env.NODE_ENV === 'test'
 export const PANEL_RESIZE_DELTA = 50
 export const MIN_PANEL_SIZE = 200
-const RESIZER_POSITION_DELTA = 18
 const EXECUTION_LAYOUT_DOM_ID = `execution-layout-${IS_TEST ? 'test' : /* istanbul ignore next */ Date.now()}`
 
 const splitPaneProps: Partial<Record<ExecutionLayoutState, SplitPaneProps>> = {
@@ -49,7 +47,6 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
   const [isStepDetailsVisible, setStepDetailsVisibility] = React.useState(!!props.defaultStepVisibility)
   const [primaryPaneSize, setPrimaryPaneSize] = React.useState(250)
   const [teritiaryPaneSize, setTeritiaryPaneSize] = React.useState(250)
-  const resizerRef = React.useRef<HTMLDivElement | null>(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setStageSplitPaneSizeDebounce = React.useCallback(debounce(setPrimaryPaneSize, 300), [setPrimaryPaneSize])
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,12 +55,6 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
   /* Ignoring this function as it is used by "react-split-pane" */
   /* istanbul ignore next */
   function handleStageResize(size: number): void {
-    window.requestAnimationFrame(() => {
-      if (resizerRef.current) {
-        resizerRef.current.style.transform = `translateY(${size - RESIZER_POSITION_DELTA}px)`
-      }
-    })
-
     setStageSplitPaneSizeDebounce(size)
   }
 
@@ -90,20 +81,6 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
       }}
     >
       <div className={cx(css.main, props.className)} id={EXECUTION_LAYOUT_DOM_ID}>
-        <div
-          className={css.resizers}
-          ref={resizerRef}
-          style={{ transform: `translateY(${primaryPaneSize - RESIZER_POSITION_DELTA}px)` }}
-        >
-          <Button icon="up" minimal small iconProps={{ size: 12 }} onClick={() => setPrimaryPaneSize(MIN_PANEL_SIZE)} />
-          <Button
-            icon="down"
-            minimal
-            small
-            iconProps={{ size: 12 }}
-            onClick={() => setPrimaryPaneSize(size => size + PANEL_RESIZE_DELTA)}
-          />
-        </div>
         <SplitPane
           split="horizontal"
           className={css.splitPane1}

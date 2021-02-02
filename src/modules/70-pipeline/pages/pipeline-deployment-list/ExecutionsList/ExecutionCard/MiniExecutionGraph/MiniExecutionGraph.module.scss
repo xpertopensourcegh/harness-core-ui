@@ -50,14 +50,15 @@ $node-width: 40px;
     column-gap: var(--spacing-small);
     z-index: 1;
     margin-top: var(--spacing-small);
+    overflow: hidden;
   }
 
   .stepCount {
     display: inline-flex;
     align-items: center;
-    padding: 0 var(--spacing-small);
-    font-size: var(--font-size-small);
-    line-height: 1.5;
+    padding: 0 var(--spacing-small) !important;
+    font-size: var(--font-size-small) !important;
+    line-height: 1.5 !important;
     border: 0.4px solid #d9dae6;
     border-radius: 4px;
     white-space: nowrap;
@@ -77,16 +78,23 @@ $node-width: 40px;
   }
 
   .errorMsg {
-    color: var(--red-500);
+    color: var(--red-500) !important;
     max-width: 280px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
   }
-}
-.errorTooltip {
-  max-width: 500px;
+
+  & :global(.bp3-popover-wrapper),
+  & :global(.bp3-popover-target) {
+    display: block;
+  }
+
+  & :global(.bp3-popover-target),
+  & :global(.bp3-popover-target > p) {
+    height: 100%;
+  }
 }
 
 .stageWrapper {

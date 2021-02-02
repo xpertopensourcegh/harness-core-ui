@@ -7,57 +7,6 @@ exports[`<ExecutionLayout /> tests "BOTTOM" Layout works 1`] = `
     id="execution-layout-test"
   >
     <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
-    <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
@@ -140,57 +89,6 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
     class="main"
     id="execution-layout-test"
   >
-    <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
     <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
@@ -306,57 +204,6 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
     id="execution-layout-test"
   >
     <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
-    <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
@@ -452,57 +299,6 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout works 1`] = `
     class="main"
     id="execution-layout-test"
   >
-    <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
     <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
@@ -600,57 +396,6 @@ exports[`<ExecutionLayout /> tests "RIGHT" Layout works 1`] = `
     id="execution-layout-test"
   >
     <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
-    <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
@@ -734,57 +479,6 @@ exports[`<ExecutionLayout /> tests Does not render third child by default 1`] = 
     id="execution-layout-test"
   >
     <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
-    <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
@@ -833,57 +527,6 @@ exports[`<ExecutionLayout /> tests ExecutionLayout.Toggle works 1`] = `
     class="main"
     id="execution-layout-test"
   >
-    <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
     <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
@@ -1094,57 +737,6 @@ exports[`<ExecutionLayout /> tests Showing third child works 1`] = `
     class="main"
     id="execution-layout-test"
   >
-    <div
-      class="resizers"
-      style="transform: translateY(232px);"
-    >
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="up"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 4.125l5.78-3.25 5.806 3.25m-11.586 5l5.78-3.25 5.806 3.25"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
-        type="button"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="down"
-        >
-          <svg
-            height="12"
-            viewBox="0 0 14 10"
-            width="12"
-          >
-            <path
-              d="M1.207 6.125l5.78 2.75 5.806-2.75m-11.586-5l5.78 2.75 5.806-2.75"
-              fill="none"
-              stroke="#3E7BFA"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
     <div
       class="SplitPane splitPane1 horizontal "
       style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"

@@ -8,7 +8,6 @@ declare const styles: {
   readonly pane12: string
   readonly pane21: string
   readonly pane22: string
-  readonly resizers: string
   readonly floatingView: string
   readonly stepDetails: string
   readonly draggable: string

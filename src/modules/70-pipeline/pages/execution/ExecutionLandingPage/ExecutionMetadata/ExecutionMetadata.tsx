@@ -198,7 +198,7 @@ export default function ExecutionMetadata(): React.ReactElement {
       )
     })
 
-    cdEntries.push({ label: `Environments (${services.length})`, value: <>{environments.join(', ')}</> })
+    cdEntries.push({ label: `Environments (${environments.length})`, value: <>{environments.join(', ')}</> })
   }
   // removed items from cdEntries
   //{ label: 'Trigger Type', value: <>{pipelineExecutionSummary?.executionTriggerInfo?.triggerType}</> },
