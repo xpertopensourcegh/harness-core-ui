@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { PopoverInteractionKind, Tooltip } from '@blueprintjs/core'
-import { Container, Icon, Text, Color, Button, IconName, TextInput } from '@wings-software/uicore'
+import { Container, Icon, Text, Color, Button, TextInput } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useStrings, String } from 'framework/exports'
@@ -161,26 +161,14 @@ export default function CVVerificationJobsPage() {
               Cell: ChangeSourceCell
             },
             {
-              Header: getString('monitoringSource'),
-              width: '12%',
-              accessor: 'dataSources',
-              Cell: DataSourceCell
-            },
-            {
               Header: getString('duration'),
               width: '10%',
               accessor: 'duration',
               Cell: TableCell
             },
-            // {
-            //   Header: getString('sensitivity'),
-            //   width: '10%',
-            //   disableSortBy: false,
-            //   Cell: SensitivityCell
-            // },
             {
               Header: getString('execution.triggerType.WEBHOOK'),
-              width: '22%',
+              width: '33%',
               Cell: function WebHookCellWrapper(props: CellProps<VerificationJobDTO>) {
                 return props.row.original?.defaultJob ? (
                   <Text color={Color.BLACK}>{getString('na')}</Text>
@@ -278,50 +266,11 @@ function TypeCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
   }
 }
 
-function DataSourceCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
-  const { serviceIdentifier, envIdentifier } = tableProps.row.original || {}
-  const { getString } = useStrings()
-  return envIdentifier === ENV_IDENTIFIER && serviceIdentifier === SERVICE_IDENTIFIER ? (
-    <Text color={Color.BLACK}>{getString('all')}</Text>
-  ) : (
-    <>
-      {tableProps.row.original.dataSources?.map(item => {
-        let iconName: IconName
-        switch (item) {
-          case 'APP_DYNAMICS':
-            iconName = 'service-appdynamics'
-            break
-          case 'SPLUNK':
-            iconName = 'service-splunk'
-            break
-          case 'STACKDRIVER':
-            iconName = 'service-stackdriver'
-            break
-        }
-        if (iconName) {
-          return <Icon name={iconName} size={18} margin={{ right: 'xsmall' }} />
-        } else {
-          return null
-        }
-      })}
-    </>
-  )
-}
-
-// function SensitivityCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
-//   // TODO - swagger issue, VerificationJobDTO's missing sensitivity
-//   const { getString } = useStrings()
-//   const data = tableProps.row.original as any
-//   return (
-//     <Text color={Color.BLACK}>{tableProps.row.original.type === 'HEALTH' ? getString('na') : data.sensitivity}</Text>
-//   )
-// }
-
 function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): void; onEdit(): void }): JSX.Element {
   const { getString } = useStrings()
   return (
     <Container flex>
-      <Container width={180} onClick={e => e.stopPropagation()}>
+      <Container width={400} onClick={e => e.stopPropagation()}>
         <CopyText textToCopy={tableProps.row.original.verificationJobUrl!}>
           {tableProps.row.original.verificationJobUrl}
         </CopyText>
