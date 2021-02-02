@@ -2834,7 +2834,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                             <span
                               class="bp3-text-overflow-ellipsis bp3-fill"
                             >
-                              account
+                              project
                             </span>
                           </span>
                         </span>

@@ -8,7 +8,7 @@ import {
   MultiTypeInputType,
   FormikForm
 } from '@wings-software/uicore'
-import { isPlainObject, isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
@@ -19,7 +19,6 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
 import { getInitialValuesInCorrectFormat, getFormValuesInCorrectFormat } from '../StepsTransformValuesUtils'
 import { validate } from '../StepsValidateUtils'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './DependencyFunctionConfigs'
@@ -40,8 +39,6 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
     accountId: string
   }>()
 
-  const { connector, loading } = useConnectorRef(initialValues.spec.connectorRef)
-
   const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -51,14 +48,6 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
   // const values = getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-  const values = getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(
-    initialValues,
-    transformValuesFieldsConfig
-  )
-
-  if (!loading) {
-    values.spec.connectorRef = connector
-  }
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -68,17 +57,12 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
     })
   }
 
-  const isConnectorLoaded =
-    initialValues.spec.connectorRef &&
-    getMultiTypeFromValue(initialValues.spec.connectorRef) === MultiTypeInputType.FIXED
-      ? isPlainObject(values.spec.connectorRef)
-      : true
-
-  if (!isConnectorLoaded) return <>{getString('loading')}</>
-
   return (
     <Formik<DependencyDataUI>
-      initialValues={values}
+      initialValues={getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(
+        initialValues,
+        transformValuesFieldsConfig
+      )}
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
@@ -102,7 +86,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(values.identifier)}
+                isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('dependencyNameLabel')}
               />
               <FormMultiTypeTextAreaField
@@ -126,8 +110,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
                 type={['Gcp', 'Aws', 'DockerRegistry']}
                 width={getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
                 name="spec.connectorRef"
-                placeholder={loading ? getString('loading') : getString('select')}
-                disabled={loading}
+                placeholder={getString('select')}
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
