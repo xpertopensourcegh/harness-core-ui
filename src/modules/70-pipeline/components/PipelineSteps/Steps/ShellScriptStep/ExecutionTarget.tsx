@@ -59,6 +59,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
                 showDefaultField={false}
                 showAdvanced={true}
                 onChange={value => setFieldValue('spec.executionTarget.host', value)}
+                style={{ marginTop: 12 }}
               />
             )}
           </div>
@@ -83,6 +84,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
                 onChange={value => {
                   setFieldValue('spec.executionTarget.connectorRef', value)
                 }}
+                style={{ marginTop: 4 }}
               />
             )}
           </div>
@@ -101,6 +103,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
                 showDefaultField={false}
                 showAdvanced={true}
                 onChange={value => setFieldValue('spec.executionTarget.workingDirectory', value)}
+                style={{ marginTop: 12 }}
               />
             )}
           </div>

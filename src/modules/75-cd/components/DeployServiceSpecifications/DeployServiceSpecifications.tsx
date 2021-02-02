@@ -169,7 +169,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             useFromStage: {
               stage: null
             },
-            stageOverrides: null
+            stageOverrides: {}
           }
         }
         debounceUpdatePipeline(pipeline)
@@ -213,6 +213,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           label: `Previous Stage ${name} [${item.value as string}]`,
           value: item.value
         })
+        delete stage?.stage?.spec.serviceConfig?.serviceDefinition
         debounceUpdatePipeline(pipeline)
       }
     }
@@ -259,7 +260,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         !hasDeploymentStages && setSetupMode(setupMode.DIFFERENT)
       }
     }
-    if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type) {
+    if (
+      !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
+      !stage?.stage?.spec.serviceConfig?.useFromStage
+    ) {
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       debounceUpdatePipeline(pipeline)
     }
