@@ -25,7 +25,6 @@ import { useStrings } from 'framework/exports'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
 import { getIconByType, GetTestConnectionValidationTextByType } from '../utils/ConnectorUtils'
-import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
 
 interface ConnectorListViewProps {
@@ -110,6 +109,14 @@ const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) =
   return (
     <Layout.Horizontal spacing="small">
       <Icon name="activity" />
+      {data.activityDetails?.lastActivityTime ? <ReactTimeago date={data.activityDetails?.lastActivityTime} /> : null}
+    </Layout.Horizontal>
+  )
+}
+const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+  const data = row.original
+  return (
+    <Layout.Horizontal spacing="small">
       {data.lastModifiedAt ? <ReactTimeago date={data.lastModifiedAt} /> : null}
     </Layout.Horizontal>
   )
@@ -225,7 +232,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                       </Layout.Vertical>
                     ) : (
                       <Text padding="small" color={Color.WHITE}>
-                        {i18n.noDetails}
+                        {getString('noDetails')}
                       </Text>
                     )
                   ) : (
@@ -235,8 +242,8 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                 tooltipProps={{ isDark: true, position: 'bottom' }}
               >
                 {status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
-                  ? i18n.success
-                  : i18n.failed}
+                  ? getString('active').toLowerCase()
+                  : getString('error').toLowerCase()}
               </Text>
             ) : null}
           </Layout.Horizontal>
@@ -259,14 +266,14 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
               />
             </div>
           </Popover>
-          <Text style={{ margin: 8 }}>{i18n.TestInProgress}</Text>
+          <Text style={{ margin: 8 }}>{getString('connectors.testInProgress')}</Text>
         </Layout.Horizontal>
       )}
       {!testing && (status !== 'SUCCESS' || data.status?.status !== 'SUCCESS') ? (
         <Button
           font="small"
           className={css.testBtn}
-          text={i18n.TEST_CONNECTION}
+          text={getString('test').toUpperCase()}
           onClick={e => {
             e.stopPropagation()
             setTesting(true)
@@ -288,16 +295,16 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-
+  const { getString } = useStrings()
   const { mutate: deleteConnector } = useDeleteConnector({
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
 
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.connector?.name || ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.deleteButton,
-    cancelButtonText: i18n.cancelButton,
+    contentText: `${getString('connectors.confirmDelete')} ${data.connector?.name}`,
+    titleText: getString('connectors.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
@@ -365,37 +372,45 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
 const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { data, reload, gotoPage } = props
   const history = useHistory()
+  const { getString } = useStrings()
   const listData: ConnectorResponse[] = useMemo(() => data?.content || [], [data?.content])
   const { pathname } = useLocation()
   const columns: CustomColumn<ConnectorResponse>[] = useMemo(
     () => [
       {
-        Header: i18n.connector.toUpperCase(),
+        Header: getString('connector').toUpperCase(),
         accessor: row => row.connector?.name,
         id: 'name',
         width: '25%',
         Cell: RenderColumnConnector
       },
       {
-        Header: i18n.details.toUpperCase(),
+        Header: getString('details').toUpperCase(),
         accessor: row => row.connector?.description,
         id: 'details',
         width: '25%',
         Cell: RenderColumnDetails
       },
       {
-        Header: i18n.lastActivity.toUpperCase(),
-        accessor: 'lastModifiedAt',
+        Header: getString('lastActivity').toUpperCase(),
+        accessor: 'activityDetails',
         id: 'activity',
-        width: '20%',
+        width: '15%',
         Cell: RenderColumnActivity
       },
       {
-        Header: i18n.status.toUpperCase(),
+        Header: getString('connectivityStatus').toUpperCase(),
         accessor: 'status',
         id: 'status',
-        width: '25%',
+        width: '15%',
         Cell: RenderColumnStatus
+      },
+      {
+        Header: getString('lastUpdated').toUpperCase(),
+        accessor: 'lastModifiedAt',
+        id: 'lastModifiedAt',
+        width: '15%',
+        Cell: RenderColumnLastUpdated
       },
       {
         Header: '',

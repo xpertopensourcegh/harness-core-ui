@@ -288,7 +288,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       <FormInput.MultiSelect
         items={getOptionsForMultiSelect(ConnectorStatCategories.STATUS, metaData || {})}
         name="connectivityStatuses"
-        label={getString('filters.connectivityStatus')}
+        label={getString('connectivityStatus')}
         key="connectivityStatuses"
         multiSelectProps={{
           allowCreatingNewItems: false
@@ -554,7 +554,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   fieldToLabelMapping.set('description', getString('description'))
   fieldToLabelMapping.set('types', getString('typeLabel'))
   fieldToLabelMapping.set('tags', getString('tagsLabel'))
-  fieldToLabelMapping.set('connectivityStatuses', getString('filters.connectivityStatus'))
+  fieldToLabelMapping.set('connectivityStatuses', getString('connectivityStatus'))
 
   const reset = (): void => {
     setAppliedFilter(null)

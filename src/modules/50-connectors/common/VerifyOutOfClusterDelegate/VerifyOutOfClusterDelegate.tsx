@@ -8,7 +8,10 @@ import { useGetTestConnectionResult, ResponseConnectorValidationResult, Connecto
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
-import { GetTestConnectionValidationTextByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  GetTestConnectionValidationTextByType,
+  removeErrorCode
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
@@ -196,9 +199,7 @@ const VerifyOutOfClusterDelegate: React.FC<
         </Layout.Horizontal>
         {viewDetails ? (
           <div className={css.errorMsg}>
-            <pre>
-              {JSON.stringify(JSON.parse(JSON.stringify({ errors: testConnectionResponse?.data?.errors })), null, ' ')}
-            </pre>
+            <pre>{JSON.stringify({ errors: removeErrorCode(testConnectionResponse?.data?.errors) }, null, ' ')}</pre>
           </div>
         ) : null}
         {/* TODO: when install delegate behaviour is known {testConnectionResponse?.data?.delegateId ? ( */}

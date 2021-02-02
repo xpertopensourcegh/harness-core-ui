@@ -451,7 +451,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 20%;"
+            style="width: 15%;"
             title="Toggle SortBy"
           >
             LAST ACTIVITY
@@ -479,10 +479,38 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 25%;"
+            style="width: 15%;"
             title="Toggle SortBy"
           >
-            STATUS
+            CONNECTIVITY STATUS
+            <span
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+              icon="double-caret-vertical"
+            >
+              <svg
+                data-icon="double-caret-vertical"
+                height="15"
+                viewBox="0 0 16 16"
+                width="15"
+              >
+                <desc>
+                  double-caret-vertical
+                </desc>
+                <path
+                  d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="cell"
+            colspan="1"
+            role="columnheader"
+            style="width: 15%;"
+            title="Toggle SortBy"
+          >
+            LAST UPDATED
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -592,7 +620,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -611,13 +639,12 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -640,6 +667,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -820,7 +858,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -839,13 +877,12 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -868,6 +905,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -1015,7 +1063,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1034,13 +1082,12 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -1063,6 +1110,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -1215,7 +1273,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1234,13 +1292,12 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -1303,6 +1360,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -1455,7 +1523,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1474,13 +1542,12 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -1524,6 +1591,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   dummy date
                 </p>
               </div>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -1687,7 +1765,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1711,7 +1789,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -1735,6 +1813,15 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 </span>
               </button>
             </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            />
           </div>
           <div
             class="cell"
@@ -1918,7 +2005,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1937,13 +2024,12 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -1987,6 +2073,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   dummy date
                 </p>
               </div>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -4839,7 +4936,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 20%;"
+            style="width: 15%;"
             title="Toggle SortBy"
           >
             LAST ACTIVITY
@@ -4867,10 +4964,38 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 25%;"
+            style="width: 15%;"
             title="Toggle SortBy"
           >
-            STATUS
+            CONNECTIVITY STATUS
+            <span
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+              icon="double-caret-vertical"
+            >
+              <svg
+                data-icon="double-caret-vertical"
+                height="15"
+                viewBox="0 0 16 16"
+                width="15"
+              >
+                <desc>
+                  double-caret-vertical
+                </desc>
+                <path
+                  d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="cell"
+            colspan="1"
+            role="columnheader"
+            style="width: 15%;"
+            title="Toggle SortBy"
+          >
+            LAST UPDATED
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -4980,7 +5105,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -4999,13 +5124,12 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -5028,6 +5152,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -5208,7 +5343,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -5227,13 +5362,12 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -5256,6 +5390,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -5403,7 +5548,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -5422,13 +5567,12 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -5451,6 +5595,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -5603,7 +5758,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -5622,13 +5777,12 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -5691,6 +5845,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   TEST
                 </span>
               </button>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -5843,7 +6008,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -5862,13 +6027,12 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -5912,6 +6076,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   dummy date
                 </p>
               </div>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div
@@ -6075,7 +6250,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -6099,7 +6274,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -6123,6 +6298,15 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                 </span>
               </button>
             </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            />
           </div>
           <div
             class="cell"
@@ -6306,7 +6490,7 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -6325,13 +6509,12 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   />
                 </svg>
               </span>
-              dummy date
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 15%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -6375,6 +6558,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   dummy date
                 </p>
               </div>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
             </div>
           </div>
           <div

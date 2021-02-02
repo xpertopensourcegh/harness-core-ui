@@ -110,9 +110,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
         name: Yup.string().required(getString('fieldRequired', { field: getString('stageNameLabel') })),
         ...(!codebase &&
           values.cloneCodebase && {
-            connectorRef: Yup.mixed().required(
-              getString('fieldRequired', { field: getString('pipelineSteps.build.create.connectorLabel') })
-            ),
+            connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
             ...(connectionType === 'Account' && {
               repoName: Yup.string().required(
                 getString('fieldRequired', { field: getString('pipelineSteps.build.create.repositoryNameLabel') })
@@ -233,7 +231,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     name="connectorRef"
                     category={'CODE_REPO'}
                     selected={formikProps.values.connectorRef}
-                    label={getString('pipelineSteps.build.create.connectorLabel')}
+                    label={getString('connector')}
                     placeholder={loading ? getString('loading') : getString('select')}
                     disabled={loading}
                     accountIdentifier={accountId}

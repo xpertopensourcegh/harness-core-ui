@@ -1,4 +1,4 @@
-import { buildAWSPayload, buildArtifactoryPayload, buildGitPayload } from '../ConnectorUtils'
+import { buildAWSPayload, buildArtifactoryPayload, buildGitPayload, removeErrorCode } from '../ConnectorUtils'
 
 describe('Connector Utils', () => {
   test(' test buildAWSPayload', () => {
@@ -96,5 +96,23 @@ describe('Connector Utils', () => {
           }
         }
       })
+    }),
+    test(' test remove error code ', () => {
+      expect(
+        removeErrorCode([
+          {
+            message:
+              'No eligible delegates could perform the required capabilities for this task: [ dhgjdgk ]↵  -  The capabilities were tested by the following delegates: [ Meenakshi-Raikwar-MBP ]↵  -  Following delegates were validating but never returned: [  ]↵  -  Other delegates (if any) may have been offline or were not eligible due to tag or scope restrictions.',
+            reason: ' No Eligible Delegate Found',
+            code: 450
+          }
+        ])
+      ).toEqual([
+        {
+          message:
+            'No eligible delegates could perform the required capabilities for this task: [ dhgjdgk ]↵  -  The capabilities were tested by the following delegates: [ Meenakshi-Raikwar-MBP ]↵  -  Following delegates were validating but never returned: [  ]↵  -  Other delegates (if any) may have been offline or were not eligible due to tag or scope restrictions.',
+          reason: ' No Eligible Delegate Found'
+        }
+      ])
     })
 })

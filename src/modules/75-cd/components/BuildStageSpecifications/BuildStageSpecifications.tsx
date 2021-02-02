@@ -379,7 +379,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           name="connectorRef"
                           category={'CODE_REPO'}
                           selected={formValues.connectorRef}
-                          label={getString('pipelineSteps.build.create.connectorLabel')}
+                          label={getString('connector')}
                           placeholder={loading ? getString('loading') : getString('select')}
                           disabled={loading}
                           width={300}

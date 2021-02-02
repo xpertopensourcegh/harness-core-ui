@@ -318,7 +318,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         <Container className={css.activitySummary}>
           <Layout.Horizontal spacing="small">
             <Text font={{ weight: 'bold', size: 'medium' }} inline={true} color={Color.GREY_800}>
-              {getString('filters.connectivityStatus')}
+              {getString('connectivityStatus')}
             </Text>
             {RenderConnectorStatus(activityDetailsProp.connector?.status?.status)}
           </Layout.Horizontal>

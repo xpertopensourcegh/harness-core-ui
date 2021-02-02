@@ -22,6 +22,8 @@ stepGroup: Step Group
 changeHistory: Change History
 lastUpdated: Last Updated
 lastActivity: last activity
+noDetails: No details found
+connectivityStatus: Connectivity Status
 lastStatusCheckAt: 'Last status check at '
 lastSuccessfulStatusCheckAt: 'Last successful status check at '
 connectorCreated: Connector Created
@@ -37,6 +39,7 @@ runPipelineText: Run Pipeline
 noConnectorFound: No Connector Found
 saveConnectorSuccess: Connector saved successfully
 resources: 'Resources'
+connector: Connector
 secrets: 'Secrets'
 secretDetails: 'Secret Details'
 noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
@@ -56,6 +59,8 @@ test: Test
 enable: Enable
 reset: Reset
 risk: Risk
+error: Error
+active: Active
 health: Health
 changeSource: Change Source
 monitoringSource: Monitoring Source
@@ -268,7 +273,6 @@ filters:
   clearAll: Clear All
   newFilter: New Filter
   typeFilterName: Type filter name
-  connectivityStatus: Connectivity Status
   nameRequired: filter name cannot be empty
   visibilityRequired: filter visibility needs to be specified
   deleteFilterForUser: Deleting a private filter will remove it from your saved filter list. This action can not be undone.
@@ -882,7 +886,6 @@ pipelineSteps:
       stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'
       configureCodebase: 'Configure Codebase'
       configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
-      connectorLabel: 'Connector'
       connectorRequiredError: 'Connector is required'
       repositoryNameLabel: 'Repository Name'
       repositoryNameRequiredError: 'Repository Name is required'
@@ -1010,6 +1013,9 @@ activityHistory:
   failedActivity: Failed Activity
   heartbeatFailure: Heart beat Failure
 connectors:
+  confirmDeleteTitle: Delete Connector
+  confirmDelete: Are you sure you want to delete the Connector
+  testInProgress: Test in progress
   label: 'Connectors'
   stepThreeName: 'Test Connection'
   stepFourName: 'Artifact Source'

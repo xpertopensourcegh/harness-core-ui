@@ -308,9 +308,7 @@ export const RightBar = (): JSX.Element => {
             enableReinitialize
             initialValues={codebaseInitialValues}
             validationSchema={Yup.object().shape({
-              connectorRef: Yup.mixed().required(
-                getString('fieldRequired', { field: getString('pipelineSteps.build.create.connectorLabel') })
-              ),
+              connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
               ...(connectionType === 'Account' && {
                 repoName: Yup.string().required(getString('pipelineSteps.build.create.repositoryNameRequiredError'))
               })
@@ -343,7 +341,7 @@ export const RightBar = (): JSX.Element => {
                       selected={values.connectorRef}
                       width={460}
                       error={errors?.connectorRef}
-                      label={getString('pipelineSteps.build.create.connectorLabel')}
+                      label={getString('connector')}
                       placeholder={loading ? getString('loading') : getString('select')}
                       disabled={loading}
                       accountIdentifier={accountId}

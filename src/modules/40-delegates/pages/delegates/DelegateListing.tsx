@@ -185,7 +185,7 @@ export const DelegateListing: React.FC = () => {
       width: 'calc(20% - 10px)'
     },
     {
-      Header: getString('filters.connectivityStatus').toUpperCase(),
+      Header: getString('connectivityStatus').toUpperCase(),
       accessor: (row: DelegateInner) => row.status,
       id: 'connectivity',
       width: 'calc(15% - 20px)',

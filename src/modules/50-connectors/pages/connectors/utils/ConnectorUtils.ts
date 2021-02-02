@@ -6,7 +6,8 @@ import {
   getSecretV2Promise,
   GetSecretV2QueryParams,
   ConnectorConfigDTO,
-  AwsCredential
+  AwsCredential,
+  ErrorDetail
 } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -1014,4 +1015,9 @@ export const getInvocationPathsForSecrets = (type: ConnectorInfoDTO['type'] | 'U
     default:
       return new Set([])
   }
+}
+
+export const removeErrorCode = (errors: ErrorDetail[] = []) => {
+  errors.forEach(item => delete item.code)
+  return errors
 }
