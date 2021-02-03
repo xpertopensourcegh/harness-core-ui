@@ -9,7 +9,7 @@ import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-lis
 import type { FilterProperties } from 'services/cd-ng'
 import { isObjectEmpty, removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 
-interface BuildContext {
+export interface BuildContext {
   buildType?: BUILD_TYPE
   repositoryName?: string
   sourceBranch?: string
@@ -141,24 +141,6 @@ export const getFilterWithValidFields = (
     return removeNullAndEmpty(formData || {})
   }
   return {}
-}
-
-export const flattenObject = (obj: Record<string, any>) => {
-  const flattened: {
-    [key: string]: string
-  } = {}
-  Object.keys(obj).forEach((key: string) => {
-    if (Object.prototype.toString.call(obj[key]) === '[object Object]' && obj[key] !== null) {
-      Object.assign(flattened, flattenObject(obj[key]))
-    } else {
-      flattened[key as string] = obj[key]
-    }
-  })
-  return flattened
-}
-
-export const getFilterSize = (obj: Record<string, any>): number => {
-  return Object.keys(flattenObject(obj)).length
 }
 
 export const getBuildType = (moduleProperties: {

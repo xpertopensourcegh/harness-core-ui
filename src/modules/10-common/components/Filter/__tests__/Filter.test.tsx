@@ -6,15 +6,14 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { Filter, FilterProps } from '../Filter'
 import type { FilterInterface } from '../Constants'
 
-const props: FilterProps<object, FilterInterface> = {
+const props: FilterProps<unknown, FilterInterface> = {
   onClose: jest.fn(),
-  formFields: [<></>],
+  formFields: <></>,
   /*******/
   onApply: jest.fn(),
   filters: [],
   onSaveOrUpdate: jest.fn(),
   onDelete: jest.fn(),
-  onDuplicate: jest.fn(),
   initialFilter: {
     formValues: { connectorNames: [''], description: '' },
     metadata: { name: 'Sample', filterVisibility: 'OnlyCreator', identifier: 'Sample' }

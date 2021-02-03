@@ -1,5 +1,6 @@
 import { isEmpty, isUndefined, omitBy } from 'lodash-es'
 import React from 'react'
+import type { FilterDTO } from 'services/cd-ng'
 
 import css from './FilterUtils.module.scss'
 
@@ -45,3 +46,24 @@ export const removeNullAndEmpty = (object: Record<string, any>) => omitBy(omitBy
 export const isObjectEmpty = (arg: Record<string, any>): boolean => isEmpty(omitBy(arg, isEmpty))
 export const UNSAVED_FILTER = 'Unsaved Filter'
 export const MAX_FILTER_NAME_LENGTH = 25
+
+export const flattenObject = (obj: Record<string, any>) => {
+  const flattened: {
+    [key: string]: string
+  } = {}
+  Object.keys(obj).forEach((key: string) => {
+    if (Object.prototype.toString.call(obj[key]) === '[object Object]' && obj[key] !== null) {
+      Object.assign(flattened, flattenObject(obj[key]))
+    } else {
+      flattened[key as string] = obj[key]
+    }
+  })
+  return flattened
+}
+
+export const getFilterSize = (obj: Record<string, any>): number => {
+  return Object.keys(flattenObject(obj)).length
+}
+
+export const getFilterByIdentifier = (filters: FilterDTO[], identifier: string): FilterDTO | undefined =>
+  filters?.find((filter: FilterDTO) => filter.identifier?.toLowerCase() === identifier.toLowerCase())

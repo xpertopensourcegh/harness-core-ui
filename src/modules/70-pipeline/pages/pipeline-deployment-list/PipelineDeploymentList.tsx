@@ -1,20 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { MenuItem, PopoverInteractionKind, Position } from '@blueprintjs/core'
-import {
-  useModalHook,
-  FormInput,
-  Select,
-  SelectOption,
-  Layout,
-  Popover,
-  Button,
-  Text,
-  Icon,
-  OverlaySpinner
-} from '@wings-software/uicore'
-import { pick, truncate } from 'lodash-es'
+import { useModalHook, SelectOption, Layout, Button, Text, Icon, OverlaySpinner } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import {
   useGetListOfExecutions,
   PagePipelineExecutionSummary,
@@ -31,33 +19,29 @@ import { useStrings } from 'framework/exports'
 import { Page, StringUtils, useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
-import { Filter } from '@common/components/Filter/Filter'
+import { Filter, FilterRef } from '@common/components/Filter/Filter'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { shouldShowError } from '@common/utils/errorUtils'
-import { UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'
 import {
-  getFilterSummary,
   isObjectEmpty,
   UNSAVED_FILTER,
-  MAX_FILTER_NAME_LENGTH,
-  removeNullAndEmpty
+  removeNullAndEmpty,
+  flattenObject
 } from '@common/components/Filter/utils/FilterUtils'
+import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
+import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import ExecutionsFilter, { FilterQueryParams } from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import {
-  getOptionsForMultiSelect,
   createRequestBodyPayload,
   PipelineExecutionFormType,
   getValidFilterArguments,
-  BUILD_TYPE,
-  getFilterSize,
-  flattenObject,
   getBuildType
 } from '../../utils/RequestUtils'
-
+import ExecutionsFilterForm from './ExecutionsFilterForm/ExecutionsFilterForm'
 import css from './PipelineDeploymentList.module.scss'
 
 const pollingIntervalInMilliseconds = 500_000
@@ -75,12 +59,12 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const page = parseInt(queryParams.page || '1', 10)
   const [initLoading, setInitLoading] = React.useState(true)
   const { getString } = useStrings()
-  const { showError, showSuccess } = useToaster()
+  const { showError } = useToaster()
   useDocumentTitle([getString('pipelines'), getString('executionsText')])
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [filters, setFilters] = useState<FilterDTO[]>()
-  const [buildType, setBuildType] = useState<BUILD_TYPE>()
+  const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
 
   const defaultQueryParamsForExecutions: GetListOfExecutionsQueryParams = {
     accountIdentifier: accountId,
@@ -92,7 +76,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   }
 
   /* #regions Fetch executions */
-
   const { loading, mutate: fetchListOfExecutions, cancel } = useGetListOfExecutions({
     queryParams: defaultQueryParamsForExecutions,
     queryParamStringifyOptions: {
@@ -164,121 +147,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 
   /* #endregion */
 
-  const getBuildTypeOptions = (): SelectOption[] => {
-    return [
-      { label: getString('filters.executions.pullOrMergeRequest'), value: BUILD_TYPE.PULL_OR_MERGE_REQUEST },
-      { label: getString('pipelineSteps.deploy.inputSet.branch'), value: BUILD_TYPE.BRANCH },
-      { label: getString('tagLabel'), value: BUILD_TYPE.TAG }
-    ]
-  }
-
-  const handleBuildTypeChange = (item: SelectOption, event?: React.SyntheticEvent<HTMLElement, Event> | undefined) => {
-    event?.preventDefault()
-    setBuildType(item.value as BUILD_TYPE)
-  }
-
-  const getPipelineFormFieldsWithBuildTypeOptions = (): JSX.Element[] => {
-    let buildTypeField: JSX.Element = <></>
-    switch (buildType) {
-      case BUILD_TYPE.PULL_OR_MERGE_REQUEST:
-        buildTypeField = (
-          <div className={css.subfilter} key="buildSubType">
-            <FormInput.Text
-              name={'sourceBranch'}
-              label={getString('pipeline-triggers.conditionsPanel.sourceBranch')}
-              key={'sourceBranch'}
-              placeholder={getString('enterNamePlaceholder')}
-            />
-            <FormInput.Text
-              name={'targetBranch'}
-              label={getString('pipeline-triggers.conditionsPanel.targetBranch')}
-              key={'targetBranch'}
-              placeholder={getString('enterNamePlaceholder')}
-            />
-          </div>
-        )
-        break
-      case BUILD_TYPE.BRANCH:
-        buildTypeField = (
-          <div className={css.subfilter} key="buildSubType">
-            <FormInput.Text
-              name={'branch'}
-              label={getString('pipelineSteps.deploy.inputSet.branch')}
-              key={'branch'}
-              placeholder={getString('enterNamePlaceholder')}
-            />
-          </div>
-        )
-        break
-      case BUILD_TYPE.TAG:
-        buildTypeField = (
-          <div className={css.subfilter} key="buildSubType">
-            <FormInput.Text
-              name={'tag'}
-              label={getString('tagLabel')}
-              key={'tag'}
-              placeholder={getString('filters.executions.tagPlaceholder')}
-            />
-          </div>
-        )
-        break
-      default:
-        break
-    }
-    const fixedFields = getPipelineFormFields()
-    fixedFields.push(buildTypeField)
-    return fixedFields
-  }
-
-  const getPipelineFormFields = (): JSX.Element[] => {
-    return [
-      <FormInput.Text
-        name={'pipelineName'}
-        label={getString('filters.executions.pipelineName')}
-        key={'pipelineName'}
-        placeholder={getString('enterNamePlaceholder')}
-      />,
-      <FormInput.MultiSelect
-        items={getOptionsForMultiSelect()}
-        name="status"
-        label={getString('status')}
-        key="status"
-        multiSelectProps={{
-          allowCreatingNewItems: false
-        }}
-      />,
-      <span className={css.separator} key="buildsSeparator">
-        <Text>{getString('buildsText').toUpperCase()}</Text>
-      </span>,
-      //TODO enable this later on when this field gets populated from backend
-      // <FormInput.Text
-      //   name={'repositoryName'}
-      //   label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-      //   key={'repositoryName'}
-      //   placeholder={getString('enterNamePlaceholder')}
-      // />,
-      <FormInput.Select
-        items={getBuildTypeOptions()}
-        name="buildType"
-        label={getString('filters.executions.buildType')}
-        key="buildType"
-        onChange={handleBuildTypeChange}
-      />
-    ]
-  }
-
   const reset = (): void => {
     setAppliedFilter(null)
     setError(null)
-    setBuildType(undefined)
   }
 
   const getFilterByIdentifier = (identifier: string): FilterDTO | undefined =>
-    /* istanbul ignore if */
     filters?.find((filter: FilterDTO) => filter.identifier?.toLowerCase() === identifier.toLowerCase())
-
   /* #region FIlter CRUD operations */
-
   const defaultQueryParamsForFilters: GetFilterListQueryParams = {
     accountIdentifier: accountId,
     projectIdentifier,
@@ -294,7 +170,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   } = useGetFilterList({
     queryParams: defaultQueryParamsForFilters
   })
-
   if (errorFetchingFilters) {
     if (errorFetchingFilters?.data) {
       showError(errorFetchingFilters?.data)
@@ -319,85 +194,38 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const { mutate: deleteFilter } = useDeleteFilter({
     queryParams: defaultQueryParamsForFilters
   })
-
   /* #endregion */
 
   /* #region Filter interaction callback handlers */
-  const onClose = () => hideFilterDrawer()
   const handleSaveOrUpdate = async (
     isUpdate: boolean,
     data: FilterDataInterface<PipelineExecutionFormType, FilterInterface>
   ): Promise<void> => {
     setIsRefreshingFilters(true)
     const requestBodyPayload = createRequestBodyPayload({ isUpdate, data, projectIdentifier, orgIdentifier })
-    try {
-      const { status, data: updatedFilter } = isUpdate
-        ? await updateFilter(requestBodyPayload)
-        : await createFilter(requestBodyPayload)
-      if (status === 'SUCCESS') {
-        showSuccess(`${requestBodyPayload?.name} ${isUpdate ? 'updated' : 'saved'}.`)
-        await refetchFilterList()
-        if (isUpdate) {
-          setAppliedFilter(updatedFilter)
-        }
-      }
-    } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
+    const saveOrUpdateHandler = filterRef.current?.saveOrUpdateFilterHandler
+    if (saveOrUpdateHandler && typeof saveOrUpdateHandler === 'function') {
+      const updatedFilter = await saveOrUpdateHandler(isUpdate, requestBodyPayload)
+      setAppliedFilter(updatedFilter)
     }
+    await refetchFilterList()
     setIsRefreshingFilters(false)
   }
 
   const handleDelete = async (identifier: string): Promise<void> => {
     setIsRefreshingFilters(true)
-    const matchingFilter = getFilterByIdentifier(identifier)
-    if (!matchingFilter?.identifier) {
-      showError(getString('somethingWentWrong'))
-      return
+    const deleteHandler = filterRef.current?.deleteFilterHandler
+    if (deleteHandler && typeof deleteFilter === 'function') {
+      await deleteHandler(identifier)
     }
-    try {
-      const { status } = await deleteFilter(matchingFilter?.identifier || '')
-      if (status === 'SUCCESS') {
-        showSuccess(`${matchingFilter?.name} ${getString('filters.filterDeleted')}`)
-        await refetchFilterList()
-        if (matchingFilter?.identifier === appliedFilter?.identifier) {
-          reset()
-        }
-      }
-    } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
+    if (identifier === appliedFilter?.identifier) {
+      reset()
     }
-    setIsRefreshingFilters(false)
-  }
-
-  const handleDuplicate = async (identifier: string): Promise<void> => {
-    setIsRefreshingFilters(true)
-    const matchingFilter = getFilterByIdentifier(identifier)
-    const { name: _name, filterVisibility: _filterVisibility, filterProperties } = matchingFilter as FilterDTO
-    const uniqueId = new Date().getTime().toString()
-    const duplicatedFilterName = (_name.concat(uniqueId) || '').substring(0, UNIQUE_ID_MAX_LENGTH)
-    const requestBodyPayload = {
-      name: duplicatedFilterName,
-      identifier: StringUtils.getIdentifierFromName(duplicatedFilterName).concat(uniqueId),
-      projectIdentifier,
-      orgIdentifier,
-      filterVisibility: _filterVisibility,
-      filterProperties
-    }
-    try {
-      const { status, data: duplicatedFilter } = await createFilter(requestBodyPayload)
-      if (status === 'SUCCESS') {
-        showSuccess(`${_name} ${getString('filters.filterDuplicated')}`)
-        await refetchFilterList()
-        setAppliedFilter(duplicatedFilter)
-      }
-    } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
-    }
+    await refetchFilterList()
     setIsRefreshingFilters(false)
   }
 
   /* #endregion CRUD filter interactions */
-
   const unsavedFilter = {
     name: UNSAVED_FILTER,
     identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
@@ -424,9 +252,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       if (identifier !== unsavedFilter.identifier) {
         const selectedFilter = getFilterByIdentifier(identifier)
         setAppliedFilter(selectedFilter)
-        setBuildType(
-          getBuildType((selectedFilter?.filterProperties as PipelineExecutionFilterProperties)?.moduleProperties || {})
-        )
       }
     }
 
@@ -446,7 +271,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       </div>
     ) : (
       <Filter<PipelineExecutionFormType, FilterDTO>
-        formFields={getPipelineFormFieldsWithBuildTypeOptions()}
+        formFields={<ExecutionsFilterForm />}
         initialFilter={{
           formValues: {
             pipelineName,
@@ -462,28 +287,25 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         filters={filters}
         isRefreshingFilters={isRefreshingFilters}
         onApply={onApply}
-        onClose={onClose}
+        onClose={() => hideFilterDrawer()}
         onSaveOrUpdate={handleSaveOrUpdate}
         onDelete={handleDelete}
-        onDuplicate={handleDuplicate}
         onFilterSelect={handleFilterClick}
         onClear={reset}
+        ref={filterRef}
+        dataSvcConfig={
+          new Map<CrudOperation, Function>([
+            ['ADD', createFilter],
+            ['UPDATE', updateFilter],
+            ['DELETE', deleteFilter]
+          ])
+        }
+        onSuccessfulCrudOperation={refetchFilterList}
       />
     )
-  }, [isRefreshingFilters, appliedFilter, buildType])
+  }, [isRefreshingFilters, appliedFilter, filters])
 
   /* #region Filter Selection */
-
-  const renderFilterBtn = (): JSX.Element => (
-    <Button
-      id="ngfilterbtn"
-      icon="ng-filter"
-      onClick={openFilterDrawer}
-      className={css.ngFilter}
-      width="32px"
-      height="32px"
-    />
-  )
 
   const handleFilterSelection = (
     option: SelectOption,
@@ -497,9 +319,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       const aggregatedFilter = selectedFilter?.filterProperties || {}
       const combinedFilter = Object.assign(selectedFilter, { filterProperties: aggregatedFilter })
       setAppliedFilter(combinedFilter)
-      setBuildType(
-        getBuildType((combinedFilter?.filterProperties as PipelineExecutionFilterProperties)?.moduleProperties || {})
-      )
     } else {
       reset()
     }
@@ -508,26 +327,31 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const fieldToLabelMapping = new Map<string, string>()
   fieldToLabelMapping.set('pipelineName', getString('filters.executions.pipelineName'))
   fieldToLabelMapping.set('status', getString('status'))
-  fieldToLabelMapping.set('repositoryName', getString('pipelineSteps.build.create.repositoryNameLabel'))
   fieldToLabelMapping.set('sourceBranch', getString('pipeline-triggers.conditionsPanel.sourceBranch'))
   fieldToLabelMapping.set('targetBranch', getString('pipeline-triggers.conditionsPanel.targetBranch'))
   fieldToLabelMapping.set('branch', getString('pipelineSteps.deploy.inputSet.branch'))
   fieldToLabelMapping.set('tag', getString('tagLabel'))
   fieldToLabelMapping.set('buildType', getString('filters.executions.buildType'))
 
-  const allValidKeys = [
-    'pipelineName',
-    'status',
-    'repositoryName',
-    'moduleProperties.ci.branch',
-    'moduleProperties.ci.tag',
-    'moduleProperties.ci.ciExecutionInfoDTO.pullRequest.sourceBranch',
-    'moduleProperties.ci.ciExecutionInfoDTO.pullRequest.targetBranch',
-    'buildType'
-  ]
   const filterWithValidFields = flattenObject(
-    removeNullAndEmpty(pick(appliedFilter?.filterProperties, ...allValidKeys) || {})
+    removeNullAndEmpty(
+      pick(
+        appliedFilter?.filterProperties,
+        ...[
+          [
+            'pipelineName',
+            'status',
+            'buildType',
+            'moduleProperties.ci.branch',
+            'moduleProperties.ci.tag',
+            'moduleProperties.ci.ciExecutionInfoDTO.pullRequest.sourceBranch',
+            'moduleProperties.ci.ciExecutionInfoDTO.pullRequest.targetBranch'
+          ]
+        ]
+      ) || {}
+    )
   )
+
   const filterWithValidFieldsWithMetaInfo =
     filterWithValidFields.sourceBranch && filterWithValidFields.targetBranch
       ? Object.assign(filterWithValidFields, { buildType: getString('filters.executions.pullOrMergeRequest') })
@@ -536,7 +360,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       : filterWithValidFields.tag
       ? Object.assign(filterWithValidFields, { buildType: getString('tagLabel') })
       : filterWithValidFields
-  const fieldCountInAppliedFilter = getFilterSize(filterWithValidFieldsWithMetaInfo)
 
   /* #endregion */
 
@@ -550,47 +373,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       <React.Fragment>
         <Layout.Horizontal flex>
           <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
-          {isCIModule ? (
-            <Layout.Horizontal padding={{ top: 'large' }}>
-              <Select
-                className={css.filterSelector}
-                items={
-                  filters?.map((item: FilterDTO) => {
-                    return {
-                      label: truncate(item?.name, { length: MAX_FILTER_NAME_LENGTH }),
-                      value: item?.identifier
-                    } as SelectOption
-                  }) || []
-                }
-                onChange={handleFilterSelection}
-                addClearBtn={true}
-                value={{ label: appliedFilter?.name || '', value: appliedFilter?.identifier || '' }}
-                inputProps={{
-                  placeholder: getString('filters.selectFilter')
-                }}
-                noResults={<MenuItem disabled={true} text="No filter found." />}
-              />
-              <div className={css.filterBtn}>
-                {fieldCountInAppliedFilter ? (
-                  <Popover
-                    interactionKind={PopoverInteractionKind.HOVER}
-                    position={Position.BOTTOM}
-                    content={getFilterSummary(fieldToLabelMapping, filterWithValidFields)}
-                    popoverClassName={css.summaryPopover}
-                  >
-                    {renderFilterBtn()}
-                  </Popover>
-                ) : (
-                  renderFilterBtn()
-                )}
-              </div>
-              <Layout.Horizontal>
-                {fieldCountInAppliedFilter > 0 ? (
-                  <span className={css.fieldCount}>{fieldCountInAppliedFilter}</span>
-                ) : null}
-              </Layout.Horizontal>
-            </Layout.Horizontal>
-          ) : null}
+          <FilterSelector<FilterDTO>
+            appliedFilter={appliedFilter}
+            filters={filters}
+            onFilterBtnClick={openFilterDrawer}
+            onFilterSelect={handleFilterSelection}
+            fieldToLabelMapping={fieldToLabelMapping}
+            filterWithValidFields={filterWithValidFieldsWithMetaInfo}
+          />
         </Layout.Horizontal>
         {initLoading ? (
           <OverlaySpinner show={true} className={css.loading}>

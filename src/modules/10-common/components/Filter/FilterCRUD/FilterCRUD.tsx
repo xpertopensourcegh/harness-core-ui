@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { isEmpty, omitBy, truncate } from 'lodash-es'
@@ -17,10 +17,15 @@ import {
 } from '@wings-software/uicore'
 import type { FormikProps, FormikErrors } from 'formik'
 import { Menu, Classes, Position, PopoverInteractionKind, Dialog, IDialogProps } from '@blueprintjs/core'
+import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
+import { StringUtils } from '@common/exports'
+import { UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'
 import type { FilterInterface } from '../Constants'
 
 import css from './FilterCRUD.module.scss'
+
+export type CrudOperation = 'ADD' | 'UPDATE' | 'DELETE'
 
 interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues'>> {
   filters?: T[]
@@ -28,10 +33,12 @@ interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues
   onSaveOrUpdate: (isUpdate: boolean, data: T) => Promise<void>
   onDelete: (identifier: string) => Promise<void>
   onClose: () => void
-  onDuplicate: (identifier: string) => Promise<void>
   onFilterSelect: (identifier: string) => void
   enableEdit?: boolean
   isRefreshingFilters: boolean
+  dataSvcConfig?: Map<CrudOperation, Function>
+  ref?: FilterCRUDFowardRef<T>
+  onSuccessfulCrudOperation?: () => Promise<void>
 }
 
 const FILTER_LIST_MAX_HEIGHT = 85
@@ -39,23 +46,37 @@ const EDIT_SECTION_HEIGHT = 30
 const STEP_SIZE = 1.5
 const MAX_FILTER_NAME_LENGTH = 20
 
-export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>) => {
+export interface FilterCRUDRef<T> {
+  saveOrUpdateFilterHandler: (isUpdate: boolean, payload: T) => Promise<T | undefined>
+  deleteFilterHandler: (identifier: string) => Promise<void>
+  duplicateFilterHandler: (identifier: string) => Promise<void>
+}
+
+export type FilterCRUDFowardRef<T> =
+  | ((instance: FilterCRUDRef<T> | null) => void)
+  | React.MutableRefObject<FilterCRUDRef<T> | null>
+  | null
+
+const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, filterCRUDRef: FilterCRUDFowardRef<T>) => {
   const {
     filters,
     initialValues,
     onSaveOrUpdate,
     onClose,
     onDelete,
-    onDuplicate,
     onFilterSelect,
     enableEdit,
-    isRefreshingFilters
+    isRefreshingFilters,
+    dataSvcConfig,
+    onSuccessfulCrudOperation
   } = props
 
   const [isEditEnabled, setIsEditEnabled] = useState<boolean>()
   const [isNewFilter, setIsNewFilter] = useState<boolean>(false)
   const [filterInContext, setFilterInContext] = useState<T | null>()
   const { getString } = useStrings()
+  const { showError, showSuccess } = useToaster()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const ignoreClickEventDefaultBehaviour = (event: React.MouseEvent<Element, MouseEvent>): void => {
     event.preventDefault()
@@ -86,6 +107,92 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
       onFilterSelect(filterInContext?.identifier || '')
     }
   }, [filterInContext?.identifier])
+
+  const getFilterByIdentifier = (identifier: string): T | undefined =>
+    filters?.find((filter: T) => filter.identifier?.toLowerCase() === identifier.toLowerCase())
+
+  const handleSaveOrUpdate = async (isUpdate: boolean, payload: T): Promise<T | undefined> => {
+    try {
+      if (isUpdate) {
+        const { status, data: updatedFilter } = await dataSvcConfig?.get('UPDATE')?.(payload)
+        if (status === 'SUCCESS') {
+          showSuccess(`${payload?.name} updated.`)
+          return updatedFilter
+        }
+      } else {
+        const { status } = await dataSvcConfig?.get('ADD')?.(payload)
+        if (status === 'SUCCESS') {
+          showSuccess(`${payload?.name} saved.`)
+        }
+      }
+    } /* istanbul ignore next */ catch (e) {
+      showError(e.data?.message || e.message)
+    }
+  }
+
+  const handleDelete = async (identifier: string): Promise<void> => {
+    const matchingFilter = getFilterByIdentifier(identifier)
+    if (!matchingFilter?.identifier) {
+      showError(getString('somethingWentWrong'))
+      return
+    }
+    try {
+      const { status } = await dataSvcConfig?.get('DELETE')?.(matchingFilter?.identifier || '')
+      if (status === 'SUCCESS') {
+        showSuccess(`${matchingFilter?.name} ${getString('filters.filterDeleted')}`)
+      }
+    } /* istanbul ignore next */ catch (e) {
+      showError(e.data?.message || e.message)
+    }
+  }
+
+  const handleDuplicate = async (identifier: string): Promise<void> => {
+    setIsLoading(true)
+    const matchingFilter = getFilterByIdentifier(identifier)
+    const {
+      name: _name,
+      filterVisibility: _filterVisibility,
+      filterProperties,
+      projectIdentifier,
+      orgIdentifier
+    } = matchingFilter as T
+    const uniqueId = new Date().getTime().toString()
+    const duplicatedFilterName = (_name.concat(uniqueId) || '').substring(0, UNIQUE_ID_MAX_LENGTH)
+    const payload = {
+      name: duplicatedFilterName,
+      identifier: StringUtils.getIdentifierFromName(duplicatedFilterName)
+        .concat(uniqueId)
+        .substring(0, UNIQUE_ID_MAX_LENGTH),
+      projectIdentifier,
+      orgIdentifier,
+      filterVisibility: _filterVisibility,
+      filterProperties
+    }
+    try {
+      const { status } = await dataSvcConfig?.get('ADD')?.(payload)
+      if (status === 'SUCCESS') {
+        showSuccess(`${payload?.name} duplicated.`)
+        await onSuccessfulCrudOperation?.()
+      }
+    } /* istanbul ignore next */ catch (e) {
+      showError(e.data?.message || e.message)
+    }
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    if (!filterCRUDRef) return
+
+    if (typeof filterCRUDRef === 'function') {
+      return
+    }
+
+    filterCRUDRef.current = {
+      deleteFilterHandler: handleDelete,
+      saveOrUpdateFilterHandler: handleSaveOrUpdate,
+      duplicateFilterHandler: handleDuplicate
+    }
+  })
 
   const confirmDialogProps: IDialogProps = {
     isOpen: true,
@@ -162,7 +269,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             className={css.menuItem}
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
               ignoreClickEventDefaultBehaviour(event)
-              onDuplicate(filter.identifier).then(_res => {
+              handleDuplicate(filter.identifier).then(_res => {
                 setIsEditEnabled(false)
               })
             }}
@@ -258,7 +365,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
           <Button minimal icon="cross" onClick={onClose} color={Color.WHITE} />
         </Layout.Horizontal>
       </Layout.Vertical>
-      {isRefreshingFilters ? (
+      {isRefreshingFilters || isLoading ? (
         <OverlaySpinner show={true} className={css.loading}>
           <></>
         </OverlaySpinner>
@@ -367,3 +474,8 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
     </div>
   )
 }
+
+export const FilterCRUD = React.forwardRef(FilterCRUDRef) as <T extends FilterInterface>(
+  props: FilterCRUDProps<T>,
+  ref: FilterCRUDFowardRef<T>
+) => ReactElement

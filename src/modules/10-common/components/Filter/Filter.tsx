@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { Drawer, IDrawerProps } from '@blueprintjs/core'
 import { Formik, FormikProps, FormikErrors } from 'formik'
 import { truncate } from 'lodash-es'
 import { FormikForm, Button, Layout, OverlaySpinner } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-import { FilterCRUD } from './FilterCRUD/FilterCRUD'
+import { CrudOperation, FilterCRUD, FilterCRUDRef } from './FilterCRUD/FilterCRUD'
 import type { FilterInterface, FilterDataInterface } from './Constants'
 
 import css from './Filter.module.scss'
@@ -13,7 +13,7 @@ const MAX_FILTER_NAME_LENGTH = 30
 const KEY_CODE_FOR_ENTER_KEY = 13
 
 export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmit' | 'initialValues'>> {
-  formFields: JSX.Element[]
+  formFields: React.ReactElement
   initialFilter: FilterDataInterface<T, U>
   filters?: U[]
   isRefreshingFilters: boolean
@@ -23,13 +23,26 @@ export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmi
   onClose: () => void
   onSaveOrUpdate: (isUpdate: boolean, data: FilterDataInterface<T, U>) => Promise<void>
   onDelete: (identifier: string) => Promise<void>
-  onDuplicate: (identifier: string) => Promise<void>
   onFilterSelect: (identifier: string) => void
   onValidate?: (values: Partial<T>) => FormikErrors<Partial<T>>
   onClear?: () => void
+  dataSvcConfig?: Map<CrudOperation, Function>
+  ref?: FilterFowardRef<U>
+  onSuccessfulCrudOperation?: () => Promise<void>
 }
 
-export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) => {
+export interface FilterRef<U> {
+  saveOrUpdateFilterHandler: ((isUpdate: boolean, payload: U) => Promise<U | undefined>) | undefined
+  deleteFilterHandler: ((identifier: string) => Promise<void>) | undefined
+  duplicateFilterHandler: ((identifier: string) => Promise<void>) | undefined
+}
+
+export type FilterFowardRef<U> =
+  | ((instance: FilterRef<U> | null) => void)
+  | React.MutableRefObject<FilterRef<U> | null>
+  | null
+
+const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filterRef: FilterFowardRef<U>) => {
   const {
     formFields,
     onApply,
@@ -38,13 +51,29 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
     filters,
     onSaveOrUpdate,
     onDelete,
-    onDuplicate,
     onFilterSelect,
     onValidate,
     isRefreshingFilters,
-    onClear
+    onClear,
+    dataSvcConfig,
+    onSuccessfulCrudOperation
   } = props
   const { getString } = useStrings()
+  const filterCRUDRef = React.useRef<FilterCRUDRef<U> | null>(null)
+
+  useEffect(() => {
+    if (!filterRef) return
+
+    if (typeof filterRef === 'function') {
+      return
+    }
+
+    filterRef.current = {
+      deleteFilterHandler: filterCRUDRef.current?.deleteFilterHandler,
+      saveOrUpdateFilterHandler: filterCRUDRef.current?.saveOrUpdateFilterHandler,
+      duplicateFilterHandler: filterCRUDRef.current?.duplicateFilterHandler
+    }
+  })
 
   const defaultPageDrawerProps: IDrawerProps = {
     autoFocus: true,
@@ -107,7 +136,9 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
                         </OverlaySpinner>
                       ) : (
                         <>
-                          <div>{formFields}</div>
+                          <div>
+                            {formFields && React.cloneElement(formFields, { ...formFields.props, formikProps: formik })}
+                          </div>
                           <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
                             <Button type="submit" intent="primary" text={getString('filters.apply')} />
                             <Button
@@ -117,21 +148,7 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
                               onClick={(event: React.MouseEvent<Element, MouseEvent>) => {
                                 event.preventDefault()
                                 onClear?.()
-                                formFields?.map((formField: JSX.Element) => {
-                                  if (formField?.key === 'tags') {
-                                    formik?.setFieldValue(formField?.key as string, {})
-                                    return
-                                  } else if (formField.type === 'div') {
-                                    formik?.setFieldValue(formField?.key as string, undefined)
-                                    if (formField?.props?.children && Array.isArray(formField.props.children)) {
-                                      formField.props.children.forEach((childFormField: JSX.Element) => {
-                                        formik?.setFieldValue(childFormField?.key as string, undefined)
-                                      })
-                                    }
-                                    return
-                                  }
-                                  formik?.setFieldValue(formField?.key as string, undefined)
-                                })
+                                formik?.setValues({} as T)
                               }}
                             />
                           </Layout.Horizontal>
@@ -153,9 +170,10 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
                     initialValues={{ name, filterVisibility, identifier } as U}
                     onClose={onClose}
                     onDelete={onDelete}
-                    onDuplicate={onDuplicate}
                     onFilterSelect={onFilterSelect}
-                    // enableEdit={formik.dirty}
+                    ref={filterCRUDRef}
+                    dataSvcConfig={dataSvcConfig}
+                    onSuccessfulCrudOperation={onSuccessfulCrudOperation}
                   />
                 </section>
               </div>
@@ -166,3 +184,8 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
     </Drawer>
   )
 }
+
+export const Filter = React.forwardRef(FilterRef) as <T, U extends FilterInterface>(
+  props: FilterProps<T, U>,
+  filterRef: FilterFowardRef<U>
+) => ReactElement

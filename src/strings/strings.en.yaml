@@ -285,6 +285,7 @@ filters:
   visibilityTitle: This filter is visible to only me.
   invalidCriteria: Invalid or no filter criteria specified.
   noDataFound: No data found as per the applied filter(s).
+  noFilterFound: No filter found.
   executions:
     pipelineName: Pipeline Name
     buildType: Build Type

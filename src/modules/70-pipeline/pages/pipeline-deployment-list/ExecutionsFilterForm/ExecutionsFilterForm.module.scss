@@ -1,0 +1,24 @@
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-top: var(--spacing-xsmall);
+  padding-bottom: var(--spacing-medium);
+}
+.separator::before {
+  content: '';
+}
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--grey-200);
+}
+.separator::after {
+  margin-left: 0.5em;
+}
+
+.subfilter {
+  border-left: 1px solid var(--grey-350);
+  padding-left: var(--spacing-large);
+  margin-left: var(--spacing-large);
+}

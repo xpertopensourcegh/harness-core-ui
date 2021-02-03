@@ -54,7 +54,7 @@ import {
 } from '@common/components/Filter/utils/FilterUtils'
 import { useStrings } from 'framework/exports'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
-import { UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'
+import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import ConnectorsListView from './views/ConnectorsListView'
 import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
@@ -79,7 +79,11 @@ interface ConnectorsListProps {
 
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
   const [filters, setFilters] = useState<FilterDTO[]>()
@@ -270,31 +274,33 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   /* #region Connector Filter CRUD Section */
 
-  const getConnectorFormFields = (): JSX.Element[] => {
-    return [
-      <FormInput.Text name={'connectorNames'} label={getString('connectors.name')} key={'connectorNames'} />,
-      <FormInput.Text name={'connectorIdentifiers'} label={getString('identifier')} key={'connectorIdentifiers'} />,
-      <FormInput.Text name={'description'} label={getString('description')} key={'description'} />,
-      <FormInput.MultiSelect
-        items={getOptionsForMultiSelect(ConnectorStatCategories.TYPE, metaData || {})}
-        name="types"
-        label={getString('typeLabel')}
-        key="types"
-        multiSelectProps={{
-          allowCreatingNewItems: false
-        }}
-      />,
-      <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} key="tags" />,
-      <FormInput.MultiSelect
-        items={getOptionsForMultiSelect(ConnectorStatCategories.STATUS, metaData || {})}
-        name="connectivityStatuses"
-        label={getString('connectivityStatus')}
-        key="connectivityStatuses"
-        multiSelectProps={{
-          allowCreatingNewItems: false
-        }}
-      />
-    ]
+  const ConnectorForm = (): React.ReactElement => {
+    return (
+      <>
+        <FormInput.Text name={'connectorNames'} label={getString('connectors.name')} key={'connectorNames'} />
+        <FormInput.Text name={'connectorIdentifiers'} label={getString('identifier')} key={'connectorIdentifiers'} />
+        <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
+        <FormInput.MultiSelect
+          items={getOptionsForMultiSelect(ConnectorStatCategories.TYPE, metaData || {})}
+          name="types"
+          label={getString('typeLabel')}
+          key="types"
+          multiSelectProps={{
+            allowCreatingNewItems: false
+          }}
+        />
+        <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} key="tags" />
+        <FormInput.MultiSelect
+          items={getOptionsForMultiSelect(ConnectorStatCategories.STATUS, metaData || {})}
+          name="connectivityStatuses"
+          label={getString('connectivityStatus')}
+          key="connectivityStatuses"
+          multiSelectProps={{
+            allowCreatingNewItems: false
+          }}
+        />
+      </>
+    )
   }
 
   const {
@@ -397,33 +403,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     setIsRefreshingFilters(false)
   }
 
-  const handleDuplicate = async (identifier: string): Promise<void> => {
-    setIsRefreshingFilters(true)
-    const matchingFilter = getFilterByIdentifier(identifier)
-    const { name: _name, filterVisibility: _filterVisibility, filterProperties } = matchingFilter as FilterDTO
-    const uniqueId = new Date().getTime().toString()
-    const duplicatedFilterName = (_name.concat(uniqueId) || '').substring(0, UNIQUE_ID_MAX_LENGTH)
-    const requestBodyPayload = {
-      name: duplicatedFilterName,
-      identifier: StringUtils.getIdentifierFromName(duplicatedFilterName).concat(uniqueId),
-      projectIdentifier,
-      orgIdentifier,
-      filterVisibility: _filterVisibility,
-      filterProperties
-    }
-    try {
-      const { status, data: duplicatedFilter } = await createFilter(requestBodyPayload)
-      if (status === 'SUCCESS') {
-        showSuccess(`${_name} ${getString('filters.filterDuplicated')}`)
-        await refetchFilterList()
-        setAppliedFilter(duplicatedFilter)
-      }
-    } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
-    }
-    setIsRefreshingFilters(false)
-  }
-
   const unsavedFilter = {
     name: UNSAVED_FILTER,
     identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
@@ -467,13 +446,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           hideFilterDrawer()
           refetchFilterList()
         }}
-        filters={filters?.map((item: FilterDTO) => {
-          return {
-            name: item?.name,
-            filterVisibility: item?.filterVisibility,
-            identifier: item?.identifier
-          }
-        })}
+        filters={filters}
         initialFilter={{
           formValues: {
             connectorNames,
@@ -491,10 +464,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         }}
         onSaveOrUpdate={handleSaveOrUpdate}
         onDelete={handleDelete}
-        onDuplicate={handleDuplicate}
         onFilterSelect={handleFilterClick}
         isRefreshingFilters={isRefreshingFilters || isFetchingStats}
-        formFields={getConnectorFormFields()}
+        formFields={<ConnectorForm />}
         onValidate={(values: Partial<ConnectorFormType>): FormikErrors<Partial<ConnectorFormType>> => {
           const errors: FormikErrors<{ types?: MultiSelectOption[]; connectivityStatuses?: MultiSelectOption[] }> = {}
           const { typeErrors, connectivityStatusErrors } = validateForm(
@@ -512,6 +484,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           }
           return errors
         }}
+        dataSvcConfig={new Map<CrudOperation, Function>([['ADD', createFilter]])}
+        onSuccessfulCrudOperation={refetchFilterList}
       />
     )
   }, [isRefreshingFilters, filters, appliedFilter, isFetchingStats, searchTerm])
