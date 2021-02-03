@@ -40,11 +40,25 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
         if (key.startsWith('_') || isNil(value) || isEmpty(value)) return null
 
         const newKey = `${props.prefix}.${key}`
-
         if (isPlainObject(value)) {
           return (
             <Collapse key={key} title={startCase(key)}>
               <ExecutionStepInputOutputTabRow prefix={newKey} data={value} level={props.level + 1} />
+            </Collapse>
+          )
+        } else if (Array.isArray(value)) {
+          return (
+            <Collapse key={key} title={startCase(key)}>
+              {value.map((item, index) => {
+                return (
+                  <ExecutionStepInputOutputTabRow
+                    key={`${newKey}[${index}]`}
+                    prefix={`${newKey}[${index}]`}
+                    data={item}
+                    level={props.level + 1}
+                  />
+                )
+              })}
             </Collapse>
           )
         } else {
@@ -71,7 +85,7 @@ export interface ExecutionStepInputOutputTabProps {
 
 export default function ExecutionStepInputOutputTab(props: ExecutionStepInputOutputTabProps): React.ReactElement {
   const { getString } = useStrings()
-  const prefix = props.baseFqn || ''
+  const prefix = props.mode === 'output' ? `${props.baseFqn || ''}.output` : props.baseFqn || ''
 
   return (
     <div className={css.ioTab}>
