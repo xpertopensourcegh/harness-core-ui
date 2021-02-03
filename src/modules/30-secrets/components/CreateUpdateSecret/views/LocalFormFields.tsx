@@ -25,6 +25,9 @@ const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> 
           label={i18n.labelSecretValue}
           placeholder={editing ? i18n.valueEncrypted : i18n.placeholderSecretValue}
           inputGroup={{ type: 'password' }}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            event.target.value.trim()
+          }}
         />
       ) : null}
       {type === 'SecretFile' ? <FormInput.FileInput name="file" label={i18n.labelSecretFile} multiple /> : null}

@@ -185,7 +185,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validationIdentifierChars)
               .notOneOf(illegalIdentifiers)
           }),
-          value: editing || type === 'SecretFile' ? Yup.string() : Yup.string().trim().required(i18n.validationValue),
+          value:
+            editing || type === 'SecretFile' ? Yup.string().trim() : Yup.string().trim().required(i18n.validationValue),
           secretManagerIdentifier: Yup.string().required(i18n.validationKms)
         })}
         validate={formData => {

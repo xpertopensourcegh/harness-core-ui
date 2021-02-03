@@ -41,6 +41,9 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
               label={i18n.labelSecretValue}
               placeholder={editing ? i18n.valueEncrypted : i18n.placeholderSecretValue}
               inputGroup={{ type: 'password' }}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                event.target.value.trim()
+              }}
             />
           ) : null}
           {formik?.values['valueType'] === 'Reference' ? (
