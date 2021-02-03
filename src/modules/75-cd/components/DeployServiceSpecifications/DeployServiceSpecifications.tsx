@@ -425,7 +425,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <Layout.Horizontal spacing="medium">
                 <StepWidget
                   type={StepType.DeployService}
-                  initialValues={{ ...get(stage, 'stage.spec.serviceConfig', {}), ...{ serviceRef: '' } }}
+                  initialValues={{ ...{ serviceRef: '' }, ...get(stage, 'stage.spec.serviceConfig', {}) }}
                   onUpdate={(value: ServiceConfig) => {
                     const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
                     if (value.service) {
