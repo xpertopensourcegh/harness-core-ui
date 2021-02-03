@@ -53,7 +53,7 @@ const LogsContent = (props: LogsContentProps): React.ReactElement => {
     pipelineExecutionDetail
   } = useExecutionContext()
 
-  const runSequence = (pipelineExecutionDetail?.pipelineExecutionSummary as any)?.runSequence // TODO: remove any once DTO is ready
+  const runSequence = pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
   const stage = pipelineStagesMap.get(selectedStageId)
   const step = allNodeMap[selectedStepId]
 
@@ -77,7 +77,7 @@ const LogsContent = (props: LogsContentProps): React.ReactElement => {
     accountId,
     orgIdentifier,
     projectIdentifier,
-    runSequence,
+    runSequence?.toString(),
     pipelineIdentifier,
     stage?.nodeIdentifier,
     stage?.status,
@@ -153,7 +153,7 @@ const LogsContent = (props: LogsContentProps): React.ReactElement => {
         }
       }
     }
-  }, [logsToken, activeLoadingSection?.sectionIdx, (step as any)?.identifier]) // TODO: remove any once DTO is available
+  }, [logsToken, activeLoadingSection?.sectionIdx, step?.identifier])
 
   useEffect(() => {
     // NOTE: auto open loading section and close other if user is not interacted with logs
@@ -164,7 +164,7 @@ const LogsContent = (props: LogsContentProps): React.ReactElement => {
       setOpenPanelArr(openPanelArrNew)
       //}, 50)
     }
-  }, [loadingIndex, touched])
+  }, [loadingIndex, touched, step?.identifier])
 
   const onNext = (text: string): void => {
     setSearchText(text)
