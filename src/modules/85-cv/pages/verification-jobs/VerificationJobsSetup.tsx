@@ -12,12 +12,12 @@ import { VerificationJobType } from '@cv/constants'
 import { GetVerificationJobQueryParams, useGetVerificationJob } from 'services/cv'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
-import { VerificationSensitivityOptions } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields.tsx'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
 import VerificationJobsDetails from './VerificationJobsDetails/VerificationJobsDetails'
 import TestVerificationJob from './TestVerificationJob/TestVerificationJob'
 import CanaryBlueGreenVerificationJob from './CanaryBlueGreenVerificationJob/CanaryBlueGreenVerificationJob'
 import HealthVerificationJob from './HealthVerificationJob/HealthVerificationJob'
+import { baselineEnumToLabel, sensitivityEnunToLabel } from './VerificationJobForms/VerificationJobFormCommons'
 import css from './VerificationJobsSetup.module.scss'
 
 interface VerificationJobsData {
@@ -56,11 +56,30 @@ export function getRuntimeValueOrSelectOption(val?: string): SelectOption | stri
   return val === RUNTIME_INPUT_VALUE ? val : { label: val, value: val }
 }
 
+export function replaceNullWithRuntimeValue(jobType: string, val?: string): string | undefined {
+  return jobType === VerificationJobType.CANARY ||
+    jobType === VerificationJobType.BLUE_GREEN ||
+    jobType === VerificationJobType.TEST
+    ? RUNTIME_INPUT_VALUE
+    : val
+}
+
+export function getRuntimeValueOrSelectOptionForBaseline(
+  jobType: string,
+  val: string | number
+): SelectOption | string | undefined | number {
+  if (!val) {
+    return jobType === VerificationJobType.TEST ? RUNTIME_INPUT_VALUE : val
+  }
+  return val === RUNTIME_INPUT_VALUE ? val : { label: baselineEnumToLabel(val), value: val }
+}
+
 export function getRuntimeValueOrSelectOptionForSensitivity(
+  jobType: string,
   val?: VerificationSensitivity | string
 ): SelectOption | string | undefined {
   if (!val) {
-    return
+    return replaceNullWithRuntimeValue(jobType, val)
   }
 
   return val === RUNTIME_INPUT_VALUE
@@ -68,16 +87,15 @@ export function getRuntimeValueOrSelectOptionForSensitivity(
     : { label: sensitivityEnunToLabel(val as VerificationSensitivity), value: val }
 }
 
-export function sensitivityEnunToLabel(sensitivity: VerificationSensitivity): string {
-  switch (sensitivity) {
-    case 'HIGH':
-      return VerificationSensitivityOptions[0].label
-    case 'MEDIUM':
-      return VerificationSensitivityOptions[1].label
-    case 'LOW':
-    default:
-      return VerificationSensitivityOptions[2].label
+export function getRuntimeValueOrSelectOptionForTrafficSplit(
+  jobType: string,
+  val?: string
+): SelectOption | string | undefined {
+  if (!val) {
+    return replaceNullWithRuntimeValue(jobType, val)
   }
+
+  return getRuntimeValueOrSelectOption(val)
 }
 
 const ConfigureVerificationJob: React.FC<ConfigureVerificationJobProps> = props => {
@@ -131,14 +149,23 @@ const VerificationJobsSetup = (): JSX.Element => {
           label: source,
           value: source
         })),
-        sensitivity: getRuntimeValueOrSelectOptionForSensitivity((verificationJob.resource as any).sensitivity),
-        trafficSplit: getRuntimeValueOrSelectOption((verificationJob.resource as any).trafficSplitPercentage),
+        sensitivity: getRuntimeValueOrSelectOptionForSensitivity(
+          verificationJob.resource.type as string,
+          (verificationJob.resource as any).sensitivity
+        ),
+        trafficSplit: getRuntimeValueOrSelectOptionForTrafficSplit(
+          verificationJob.resource.type as string,
+          (verificationJob.resource as any).trafficSplitPercentage
+        ),
         duration: getRuntimeValueOrSelectOption(verificationJob.resource.duration),
         name: verificationJob.resource.jobName,
         service: getRuntimeValueOrSelectOption(verificationJob.resource.serviceIdentifier),
         environment: getRuntimeValueOrSelectOption(verificationJob.resource.envIdentifier),
         activitySource: verificationJob.resource.activitySourceIdentifier,
-        baseline: getRuntimeValueOrSelectOption(verificationJob.resource.envIdentifier)
+        baseline: getRuntimeValueOrSelectOptionForBaseline(
+          verificationJob.resource.type as string,
+          (verificationJob.resource as any).baselineVerificationJobInstanceId
+        )
       } as VerificationJobsData)
     }
   }, [verificationJob?.resource])

@@ -4,7 +4,15 @@ import { renderHook } from '@testing-library/react-hooks'
 import { TestWrapperProps, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import { FormControlButtons, basicValidation, useFormSubmit } from '../VerificationJobFormCommons'
+import {
+  FormControlButtons,
+  basicValidation,
+  useFormSubmit,
+  sensitivityEnunToLabel,
+  baselineEnumToLabel
+} from '../VerificationJobFormCommons'
+import { DefaultBaselineOptions, VerificationSensitivityOptions } from '../VerificationJobFields'
+import type { VerificationSensitivity } from '../../VerificationJobsSetup'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVActivityDashboard({ ...accountPathProps, ...projectPathProps }),
@@ -37,6 +45,24 @@ describe('VerificationJobFormCommons', () => {
     })
 
     expect(callSaveVerification).toBeCalled()
+  })
+
+  test('Ensure sensitivity labels are correct', () => {
+    expect(sensitivityEnunToLabel(VerificationSensitivityOptions[0].value as VerificationSensitivity)).toEqual(
+      VerificationSensitivityOptions[0].label
+    )
+    expect(sensitivityEnunToLabel(VerificationSensitivityOptions[1].value as VerificationSensitivity)).toEqual(
+      VerificationSensitivityOptions[1].label
+    )
+    expect(sensitivityEnunToLabel(VerificationSensitivityOptions[2].value as VerificationSensitivity)).toEqual(
+      VerificationSensitivityOptions[2].label
+    )
+  })
+
+  test('Ensure baseline labels are correct', () => {
+    expect(baselineEnumToLabel(DefaultBaselineOptions[0].value as string)).toEqual(DefaultBaselineOptions[0].label)
+    expect(baselineEnumToLabel(DefaultBaselineOptions[1].value as string)).toEqual(DefaultBaselineOptions[1].label)
+    expect(baselineEnumToLabel(1612376957777))
   })
 
   test('formControllerBtn render', async () => {

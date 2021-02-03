@@ -68,6 +68,11 @@ export const VerificationSensitivityOptions: SelectOption[] = [
   { label: i18n.verificationSensitivityLabel.low, value: 'LOW' }
 ]
 
+export const DefaultBaselineOptions: SelectOption[] = [
+  { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' },
+  { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
+]
+
 export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 10 }), [zIndex]) as CSSProperties
@@ -222,10 +227,7 @@ export function Baseline(props: BaseFieldProps): JSX.Element {
 
 export function BaselineSelect(props: BaseFieldProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const [baselineOption, setBaselineOption] = useState([
-    { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' },
-    { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
-  ])
+  const [baselineOption, setBaselineOption] = useState([...DefaultBaselineOptions])
   const { data } = useListBaselineExecutions({
     queryParams: {
       accountId,

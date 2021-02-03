@@ -9,6 +9,8 @@ import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import { useStrings } from 'framework/exports'
+import { DefaultBaselineOptions, VerificationSensitivityOptions } from './VerificationJobFields'
+import type { VerificationSensitivity } from '../VerificationJobsSetup'
 
 export const FormControlButtons = connect(({ formik }) => (
   <Container
@@ -44,6 +46,29 @@ const mapType = (type: string) => {
       return 'CANARY'
     case 'health-verification':
       return 'HEALTH'
+  }
+}
+
+export function sensitivityEnunToLabel(sensitivity: VerificationSensitivity): string {
+  switch (sensitivity) {
+    case 'HIGH':
+      return VerificationSensitivityOptions[0].label
+    case 'MEDIUM':
+      return VerificationSensitivityOptions[1].label
+    case 'LOW':
+    default:
+      return VerificationSensitivityOptions[2].label
+  }
+}
+
+export function baselineEnumToLabel(baselineValue: string | number): string {
+  switch (baselineValue) {
+    case DefaultBaselineOptions[0].value:
+      return DefaultBaselineOptions[0].label
+    case DefaultBaselineOptions[1].value:
+      return DefaultBaselineOptions[1].label
+    default:
+      return new Date(baselineValue || 0).toLocaleString()
   }
 }
 
@@ -144,7 +169,8 @@ export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitPr
       sensitivity: values.sensitivity?.value || values.sensitivity,
       duration: values.duration?.value || values.duration,
       type: values.type,
-      trafficSplitPercentage: values.trafficSplit?.value
+      trafficSplitPercentage: values.trafficSplit?.value,
+      baselineVerificationJobInstanceId: values.baseline?.value
     }
 
     saveVerificationJob(payload as VerificationJobDTO, values)
