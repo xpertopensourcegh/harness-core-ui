@@ -292,6 +292,7 @@ filters:
     buildType: Build Type
     pullOrMergeRequest: Pull Request / Merge Request
     tagPlaceholder: Enter tag
+    selectBuildTypeLabel: Select a build type
 customText: '{{text}}'
 adminLabel: 'Admin'
 collaboratorsLabel: 'Collaborators'

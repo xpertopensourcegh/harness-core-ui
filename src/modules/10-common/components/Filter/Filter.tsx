@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect } from 'react'
+import * as Yup from 'yup'
 import { Drawer, IDrawerProps } from '@blueprintjs/core'
 import { Formik, FormikProps, FormikErrors } from 'formik'
 import { truncate } from 'lodash-es'
@@ -29,6 +30,7 @@ export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmi
   dataSvcConfig?: Map<CrudOperation, Function>
   ref?: FilterFowardRef<U>
   onSuccessfulCrudOperation?: () => Promise<void>
+  validationSchema?: Yup.ObjectSchema
 }
 
 export interface FilterRef<U> {
@@ -56,7 +58,8 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
     isRefreshingFilters,
     onClear,
     dataSvcConfig,
-    onSuccessfulCrudOperation
+    onSuccessfulCrudOperation,
+    validationSchema
   } = props
   const { getString } = useStrings()
   const filterCRUDRef = React.useRef<FilterCRUDRef<U> | null>(null)
@@ -111,6 +114,7 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
         validate={values => {
           return onValidate?.(values)
         }}
+        validationSchema={validationSchema ?? Yup.object()}
       >
         {formik => {
           return (

@@ -13,10 +13,13 @@ interface ExecutionsFilterFormProps<T> {
 export default function ExecutionsFilterForm<T extends { buildType: BUILD_TYPE }>(
   props: ExecutionsFilterFormProps<T>
 ): React.ReactElement {
+  const { formikProps } = props
   const { getString } = useStrings()
+
   const getPipelineFormFieldsWithBuildTypeOptions = (): React.ReactElement => {
     let buildTypeField: JSX.Element = <></>
-    switch (props?.formikProps?.values?.buildType) {
+    const buildType = formikProps?.values?.buildType
+    switch (buildType) {
       case BUILD_TYPE.PULL_OR_MERGE_REQUEST:
         buildTypeField = (
           <div className={css.subfilter} key="buildSubType">
@@ -63,7 +66,9 @@ export default function ExecutionsFilterForm<T extends { buildType: BUILD_TYPE }
         break
     }
     const fixedFields = getPipelineFormFields()
-    fixedFields.push(buildTypeField)
+    if (buildType) {
+      fixedFields.push(buildTypeField)
+    }
     return <>{fixedFields}</>
   }
 
@@ -103,6 +108,7 @@ export default function ExecutionsFilterForm<T extends { buildType: BUILD_TYPE }
         name="buildType"
         label={getString('filters.executions.buildType')}
         key="buildType"
+        placeholder={getString('filters.executions.selectBuildTypeLabel')}
       />
     ]
   }

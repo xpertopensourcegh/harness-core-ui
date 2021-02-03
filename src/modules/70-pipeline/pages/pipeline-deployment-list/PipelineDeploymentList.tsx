@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import { useModalHook, SelectOption, Layout, Button, Text, Icon, OverlaySpinner } from '@wings-software/uicore'
@@ -39,7 +40,8 @@ import {
   createRequestBodyPayload,
   PipelineExecutionFormType,
   getValidFilterArguments,
-  getBuildType
+  getBuildType,
+  BUILD_TYPE
 } from '../../utils/RequestUtils'
 import ExecutionsFilterForm from './ExecutionsFilterForm/ExecutionsFilterForm'
 import css from './PipelineDeploymentList.module.scss'
@@ -301,6 +303,24 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           ])
         }
         onSuccessfulCrudOperation={refetchFilterList}
+        validationSchema={Yup.object().shape({
+          sourceBranch: Yup.string().when('buildType', {
+            is: BUILD_TYPE.PULL_OR_MERGE_REQUEST,
+            then: Yup.string().required()
+          }),
+          targetBranch: Yup.string().when('buildType', {
+            is: BUILD_TYPE.PULL_OR_MERGE_REQUEST,
+            then: Yup.string().required()
+          }),
+          branch: Yup.string().when('buildType', {
+            is: BUILD_TYPE.BRANCH,
+            then: Yup.string().required()
+          }),
+          tag: Yup.string().when('buildType', {
+            is: BUILD_TYPE.TAG,
+            then: Yup.string().required()
+          })
+        })}
       />
     )
   }, [isRefreshingFilters, appliedFilter, filters])
