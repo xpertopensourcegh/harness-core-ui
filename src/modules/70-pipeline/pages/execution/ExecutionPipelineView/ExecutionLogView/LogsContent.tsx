@@ -191,6 +191,7 @@ const LogsContent = (props: LogsContentProps): React.ReactElement => {
             redirectToLogView={props.redirectToLogView}
           />
           <MultiLogsViewer
+            scrollbackLines={1000000}
             loadingIndex={loadingIndex}
             numberOfLogSections={logsSectionsModel.length}
             titleForSection={sectionIndex => {
