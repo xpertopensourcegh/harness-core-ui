@@ -55,6 +55,7 @@ import {
 import { useStrings } from 'framework/exports'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ConnectorsListView from './views/ConnectorsListView'
 import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
@@ -103,6 +104,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     accountIdentifier: accountId
   }
   const history = useHistory()
+  useDocumentTitle([getString('resources'), getString('connectors.label')])
 
   /* #region Connector CRUD section */
 

@@ -9,6 +9,7 @@ import { useGetConnector, ConnectorResponse, useUpdateConnector, useGetOrganizat
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/exports'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
 import i18n from './ConnectorDetailsPage.i18n'
@@ -39,6 +40,13 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     },
     mock: props.mockData
   })
+  const connectorName = data?.data?.connector?.name
+  const titleStrings = [
+    getString('resources'),
+    getString('connectors.label'),
+    ...(connectorName ? [connectorName] : [])
+  ]
+  useDocumentTitle(titleStrings)
 
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
 
@@ -94,7 +102,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
           ></Icon>
           <Container>
             <Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}>
-              {data?.data?.connector?.name}
+              {connectorName}
             </Text>
             <Text color={Color.GREY_400}>{data?.data?.connector?.identifier}</Text>
           </Container>
