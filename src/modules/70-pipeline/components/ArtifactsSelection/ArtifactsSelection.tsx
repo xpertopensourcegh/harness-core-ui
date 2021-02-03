@@ -25,14 +25,14 @@ import { getConnectorIconByType } from '@connectors/pages/connectors/utils/Conne
 
 import CreateDockerConnector from '@pipeline/components/connectors/DockerConnector/CreateDockerConnector'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
 import ExistingGCRArtifact from './ExistingGCRArtifact/ExistingGCRArtifact'
 import {
   getStageIndexFromPipeline,
   getPrevoiusStageFromIndex,
-  getStatus,
-  getScope,
-  getConnectorIdentifier
+  getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import CreateGCRConnector from '../connectors/GcrConnector/CreateGCRConnector'
@@ -221,12 +221,20 @@ export default function ArtifactsSelection({
   const [sidecarIndex, setEditIndex] = React.useState(0)
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
 
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<
+    PipelineType<{
+      orgIdentifier: string
+      projectIdentifier: string
+      accountId: string
+    }>
+  >()
   const defaultQueryParams = {
     pageIndex: 0,
     pageSize: 10,
     searchTerm: '',
     accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier,
     includeAllConnectorsAvailableAtScope: true
   }
   const { mutate: fetchConnectors } = useGetConnectorListV2({
@@ -236,8 +244,8 @@ export default function ArtifactsSelection({
   const connectorScopeIdentifierList = primaryArtifact
     ? [
         {
-          scope: getScope(primaryArtifact?.spec?.connectorRef),
-          identifier: getConnectorIdentifier(primaryArtifact?.spec?.connectorRef)
+          scope: getScopeFromValue(primaryArtifact?.spec?.connectorRef),
+          identifier: getIdentifierFromValue(primaryArtifact?.spec?.connectorRef)
         }
       ]
     : []
@@ -256,8 +264,8 @@ export default function ArtifactsSelection({
               }
             }
           }) => ({
-            scope: getScope(data?.sidecar?.spec?.connectorRef),
-            identifier: getConnectorIdentifier(data?.sidecar?.spec?.connectorRef)
+            scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
+            identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
           })
         )
       : []

@@ -32,12 +32,12 @@ import CreateGitConnector from '@pipeline/components/connectors/GitConnector/Cre
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { useStrings, String } from 'framework/exports'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import {
   getStageIndexFromPipeline,
   getPrevoiusStageFromIndex,
-  getScope,
-  getConnectorIdentifier,
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
@@ -669,12 +669,20 @@ export default function ManifestSelection({
 
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
 
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<
+    PipelineType<{
+      orgIdentifier: string
+      projectIdentifier: string
+      accountId: string
+    }>
+  >()
   const defaultQueryParams = {
     pageIndex: 0,
     pageSize: 10,
     searchTerm: '',
     accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier,
     includeAllConnectorsAvailableAtScope: true
   }
   const { mutate: fetchConnectors } = useGetConnectorListV2({
@@ -702,15 +710,15 @@ export default function ManifestSelection({
             }
           }
         }) => ({
-          scope: getScope(data?.manifest?.spec?.store?.spec?.connectorRef),
-          identifier: getConnectorIdentifier(data?.manifest?.spec?.store?.spec?.connectorRef)
+          scope: getScopeFromValue(data?.manifest?.spec?.store?.spec?.connectorRef),
+          identifier: getIdentifierFromValue(data?.manifest?.spec?.store?.spec?.connectorRef)
         })
       )
     : []
 
   const connectorIdentifiers = connectorList.map((item: { scope: string; identifier: string }) => item.identifier)
 
-  const refetchConnectorList = async () => {
+  const refetchConnectorList = async (): Promise<void> => {
     const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
     setFetchedConnectorResponse(connectorResponse)
   }

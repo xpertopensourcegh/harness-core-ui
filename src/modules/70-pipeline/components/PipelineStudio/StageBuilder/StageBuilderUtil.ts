@@ -4,7 +4,11 @@ import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import type { StageElementWrapper, NgPipeline, PageConnectorResponse } from 'services/cd-ng'
 import type { Diagram } from '@pipeline/exports'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import {
+  getIdentifierFromValue,
+  getScopeFromDTO,
+  getScopeFromValue
+} from '@common/components/EntityReference/EntityReference'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
 
@@ -97,26 +101,17 @@ export const getStageFromPipeline = (
   return { stage, parent }
 }
 
-export const getScope = (connectorRef: string) => {
-  const dotIndex = connectorRef?.indexOf('.')
-  return connectorRef?.substr(0, dotIndex)
-}
-export const getConnectorIdentifier = (connectorRef: string) => {
-  const dotIndex = connectorRef?.indexOf('.')
-  return connectorRef && dotIndex ? connectorRef.substring(dotIndex + 1, connectorRef.length) : ''
-}
-
 export const getStatus = (
   connectorRef: string,
   fetchedConnectorResponse: PageConnectorResponse | undefined,
   accountId: string
-) => {
+): { status?: string; color: string } => {
   if (!connectorRef || !fetchedConnectorResponse) {
     return { status: '', color: '' }
   }
 
-  const connectorScope = getScope(connectorRef)
-  const connector = getConnectorIdentifier(connectorRef)
+  const connectorScope = getScopeFromValue(connectorRef)
+  const connector = getIdentifierFromValue(connectorRef)
   const filteredConnector = fetchedConnectorResponse?.content?.find(item => item.connector?.identifier === connector)
   const scope = getScopeFromDTO({
     accountIdentifier: accountId,
