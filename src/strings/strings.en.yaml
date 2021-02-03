@@ -253,7 +253,7 @@ total: 'Total'
 cd:
   continuousIntegration: 'Continuous Delivery'
   dashboard:
-    subHeading: Take your software build processes to the next level using our Harness Continuous Delivery
+    subHeading: Let Harness take your software release process to the next level with Continuous Delivery
     learnMore: Learn more about Continuous Delivery
     createProject: '{{$.ci.dashboard.createProject}}'
     orSelectExisting: '{{$.ci.dashboard.orSelectExisting}}'
