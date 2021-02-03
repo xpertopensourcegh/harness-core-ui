@@ -14,6 +14,7 @@ import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/Rout
 import routes from '@common/RouteDefinitions'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 
+import { Duration } from '@common/exports'
 import css from './MiniExecutionGraph.module.scss'
 
 // Higher the number, Higher the Priority, Max 100.
@@ -72,6 +73,16 @@ export function StageNode({ stage, onClick, ...rest }: StageNodeProps): React.Re
       <div className={css.infoPopover}>
         <div className={css.title}>{stage.nodeIdentifier}</div>
         <ExecutionStatusLabel status={stage.status} />
+        {stage?.startTs && (
+          <Duration
+            padding={{ left: 'small' }}
+            durationText=" "
+            icon="time"
+            iconProps={{ size: 12 }}
+            startTime={stage?.startTs}
+            endTime={stage?.endTs}
+          />
+        )}
         {HAS_CD ? (
           <div className={css.section}>
             <String tagName="div" className={css.sectionTitle} stringID="services" />

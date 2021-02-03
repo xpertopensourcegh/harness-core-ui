@@ -18,7 +18,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
         class="stageCreate stageDetails"
       >
         <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+          class="StyledProps--font StyledProps--main"
         >
           <div
             class="OverlaySpinner--overlaySpinner"
@@ -358,7 +358,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
         Variable
       </div>
       <div
-        class="stageCreate stageDetails"
+        class="stageDetails stageVariables"
       >
         <div
           class="customVariables"

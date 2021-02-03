@@ -338,7 +338,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
       const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
       if (obj.type === KubernetesDirectType) {
         return getConnectorListV2Promise({
-          queryParams: { accountIdentifier: accountId },
+          queryParams: { accountIdentifier: accountId, includeAllConnectorsAvailableAtScope: true },
           body: { types: ['K8sCluster'], filterType: 'Connector' }
         }).then(response => {
           const data =

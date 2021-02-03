@@ -674,7 +674,8 @@ export default function ManifestSelection({
     pageIndex: 0,
     pageSize: 10,
     searchTerm: '',
-    accountIdentifier: accountId
+    accountIdentifier: accountId,
+    includeAllConnectorsAvailableAtScope: true
   }
   const { mutate: fetchConnectors } = useGetConnectorListV2({
     queryParams: defaultQueryParams

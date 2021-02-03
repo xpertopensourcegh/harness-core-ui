@@ -78,15 +78,15 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
 
   return (
     <>
-      <div className={css.stageSection}>
+      <div className={cx(css.stageSection, { [css.stagePopover]: !context })}>
         {context && <Layout.Vertical className={css.tabHeading}>{i18n.stageDetails}</Layout.Vertical>}
         <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
           {!context && (
-            <Text icon="pipeline-deploy" iconProps={{ size: 16 }}>
+            <Text icon="pipeline-deploy" iconProps={{ size: 16 }} style={{ paddingBottom: 'var(--spacing-medium)' }}>
               {i18n.aboutYourStage}
             </Text>
           )}
-          <Container padding="medium">
+          <Container>
             <Formik
               initialValues={{
                 identifier: data?.stage.identifier,
@@ -189,26 +189,27 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
           </Container>
         </div>
       </div>
-      <div className={css.stageSection}>
-        {context && <Layout.Vertical className={css.tabHeading}>{getString('variableLabel')}</Layout.Vertical>}
-
-        <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
-          {context ? (
-            <StepWidget<CustomVariablesData>
-              factory={stepsFactory}
-              initialValues={{
-                variables: (data?.stage as any)?.variables || [],
-                canAddVariable: true
-              }}
-              type={StepType.CustomVariable}
-              stepViewType={StepViewType.InputVariable}
-              onUpdate={({ variables }: CustomVariablesData) => {
-                onChange?.({ ...data?.stage, variables } as any)
-              }}
-            />
-          ) : null}
+      {context && (
+        <div className={css.stageSection}>
+          <Layout.Vertical className={css.tabHeading}>{getString('variableLabel')}</Layout.Vertical>
+          <div className={cx(css.stageDetails, css.stageVariables)}>
+            {context ? (
+              <StepWidget<CustomVariablesData>
+                factory={stepsFactory}
+                initialValues={{
+                  variables: (data?.stage as any)?.variables || [],
+                  canAddVariable: true
+                }}
+                type={StepType.CustomVariable}
+                stepViewType={StepViewType.InputVariable}
+                onUpdate={({ variables }: CustomVariablesData) => {
+                  onChange?.({ ...data?.stage, variables } as any)
+                }}
+              />
+            ) : null}
+          </div>
         </div>
-      </div>
+      )}
       {context && (
         <div className={css.stageSection}>
           <Layout.Vertical className={css.tabHeading}>{getString('skipConditionsTitle')}</Layout.Vertical>

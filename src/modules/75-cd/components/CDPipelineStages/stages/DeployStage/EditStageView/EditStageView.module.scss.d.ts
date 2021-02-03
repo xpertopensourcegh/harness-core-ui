@@ -8,10 +8,12 @@ declare const styles: {
   readonly stageCreate: string
   readonly btnSetup: string
   readonly stageSection: string
+  readonly stagePopover: string
   readonly tabHeading: string
   readonly noPadVertical: string
   readonly disabled: string
   readonly stageDetails: string
+  readonly stageVariables: string
   readonly stageOverridesTab: string
   readonly inputContainer: string
   readonly sideDescription: string

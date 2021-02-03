@@ -40,6 +40,10 @@
   padding: var(--spacing-small);
   background-color: var(--white);
 
+  &.stagePopover {
+    padding: var(--spacing-medium);
+  }
+
   .tabHeading {
     font-weight: 500;
     font-size: var(--font-size-medium);
@@ -57,6 +61,9 @@
   .stageDetails {
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
+    &.stageVariables {
+      width: 700px;
+    }
     .stageOverridesTab {
       justify-content: end;
       display: grid;
