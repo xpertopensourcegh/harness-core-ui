@@ -119,6 +119,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     } else {
       showError(response?.message || getString('errorWhileSaving'))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     deletePipelineCache,
     accountId,
@@ -142,6 +143,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     ),
     [pipeline.identifier, pipeline]
   )
+
+  React.useEffect(() => {
+    // for new pipeline always use UI as default view
+    if (pipelineIdentifier === DefaultNewPipelineId) {
+      setView(PipelineStudioView.ui)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pipelineIdentifier])
 
   React.useEffect(() => {
     if (isInitialized) {
@@ -179,6 +188,31 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     },
     [hideModal, pipeline, updatePipeline]
   )
+
+  function handleViewChange(newView: PipelineStudioView): void {
+    if (newView === PipelineStudioView.ui && yamlHandler) {
+      try {
+        const parsedYaml = parse(yamlHandler.getLatestYaml())
+        if (!parsedYaml) {
+          showError(getString('invalidYamlText'))
+          return
+        }
+        // TODO: only apply for CI as its schema is implemented
+        if (module === 'ci') {
+          if (yamlHandler.getYAMLValidationErrorMap().size > 0) {
+            setYamlError(true)
+            return
+          }
+        }
+        updatePipeline(parsedYaml.pipeline)
+      } catch (e) {
+        setYamlError(true)
+        return
+      }
+    }
+
+    setView(newView)
+  }
 
   if (isLoading) {
     return (
@@ -254,12 +288,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
 
           <div className={css.pipelineStudioTitleContainer}>
             <div className={css.optionBtns}>
-              <div className={cx(css.item, { [css.selected]: !isYaml })} onClick={() => setView(PipelineStudioView.ui)}>
+              <div
+                className={cx(css.item, { [css.selected]: !isYaml })}
+                onClick={() => handleViewChange(PipelineStudioView.ui)}
+              >
                 {getString('visual')}
               </div>
               <div
                 className={cx(css.item, { [css.selected]: isYaml })}
-                onClick={() => setView(PipelineStudioView.yaml)}
+                onClick={() => handleViewChange(PipelineStudioView.yaml)}
               >
                 {getString('yaml')}
               </div>

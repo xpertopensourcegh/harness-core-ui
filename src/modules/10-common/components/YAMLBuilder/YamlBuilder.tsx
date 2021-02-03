@@ -242,10 +242,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   /* #region Handle various interactions with the editor */
 
-  const onYamlChange = (updatedYaml: string): void => {
-    setCurrentYaml(updatedYaml)
-    verifyYAML(updatedYaml)
-  }
+  const onYamlChange = React.useRef(
+    debounce((updatedYaml: string): void => {
+      setCurrentYaml(updatedYaml)
+      verifyYAML(updatedYaml)
+    }, 200)
+  ).current
 
   const verifyYAML = (currentYaml: string): void => {
     try {
@@ -465,7 +467,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
               height={height ?? DEFAULT_EDITOR_HEIGHT}
               language="yaml"
               value={currentYaml}
-              onChange={debounce(onYamlChange, 200)}
+              onChange={onYamlChange}
               editorDidMount={editorDidMount}
               options={{
                 readOnly: isReadOnlyMode,
