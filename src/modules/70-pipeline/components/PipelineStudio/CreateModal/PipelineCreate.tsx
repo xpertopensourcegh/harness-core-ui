@@ -39,7 +39,7 @@ export default function CreatePipelines({
   }
   const isEdit = (initialValues?.identifier?.length || '') > 0
   return (
-    <Container padding="small" className={css.container}>
+    <Container className={css.container}>
       <Button icon="cross" minimal className={css.closeModal} onClick={closeModal} />
       <Heading className={css.heading} level={2}>
         {isEdit ? i18n.pipelineEdit : i18n.welcomeToPipelineStudio}

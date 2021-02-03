@@ -148,6 +148,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                           >
                             <Card
                               selected={selected}
+                              cornerSelected={selected}
                               interactive={!item.disabled}
                               disabled={item.disabled}
                               className={css.squareCard}

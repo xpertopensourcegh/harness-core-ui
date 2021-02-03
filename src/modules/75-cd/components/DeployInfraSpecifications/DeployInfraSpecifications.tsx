@@ -133,6 +133,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                       disabled={!type.enabled}
                       interactive={true}
                       selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                      cornerSelected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
                       className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
                     >
                       <Icon name={type.icon as IconName} size={26} height={26} />

@@ -3,7 +3,7 @@
 exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container StyledProps--padding-small"
+    class="StyledProps--font StyledProps--main container"
   >
     <button
       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main closeModal"
@@ -363,7 +363,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
 exports[`PipelineCreate test initializes ok for CD module 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container StyledProps--padding-small"
+    class="StyledProps--font StyledProps--main container"
   >
     <button
       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main closeModal"
@@ -729,7 +729,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
 exports[`PipelineCreate test initializes ok for CI module 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container StyledProps--padding-small"
+    class="StyledProps--font StyledProps--main container"
   >
     <button
       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main closeModal"
@@ -1095,7 +1095,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
 exports[`PipelineCreate test initializes ok new pipeline 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container StyledProps--padding-small"
+    class="StyledProps--font StyledProps--main container"
   >
     <button
       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main closeModal"

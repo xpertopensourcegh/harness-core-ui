@@ -493,6 +493,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                           disabled={!type.enabled}
                           interactive={true}
                           selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                          cornerSelected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
                           // style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
                           className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
                         >
