@@ -356,7 +356,6 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     }
   }
 
-  // TODO: Add support for multi type connectors
   if (typeof type === 'string' && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue as ConnectorSelectedValue,

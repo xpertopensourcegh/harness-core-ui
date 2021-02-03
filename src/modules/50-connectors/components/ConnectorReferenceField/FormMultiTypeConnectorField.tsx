@@ -72,6 +72,9 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   } = restProps
 
   const selected = get(formik?.values, name, '')
+
+  const [selectedValue, setSelectedValue] = React.useState(selected)
+
   const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
   const selectedRef = typeof selected === 'string' && getIdentifierFromValue(selected || '')
   const { data: connectorData, loading, refetch } = useGetConnector({
@@ -91,6 +94,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       selected.length > 0
     ) {
       refetch()
+    } else {
+      setSelectedValue(selected)
     }
   }, [selected])
 
@@ -114,6 +119,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
         connector: connectorData?.data?.connector
       }
       formik?.setFieldValue(name, value)
+      setSelectedValue(value)
     }
   }, [
     connectorData?.data?.connector?.name,
@@ -160,10 +166,20 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     }
   }
 
-  // TODO: Add support for multi type connectors
-  if (typeof type === 'string') {
-    optionalReferenceSelectProps.editRenderer = getEditRenderer(selected, openConnectorModal, type)
+  if (typeof type === 'string' && typeof selectedValue === 'object') {
+    optionalReferenceSelectProps.editRenderer = getEditRenderer(
+      selectedValue,
+      openConnectorModal,
+      selectedValue?.connector?.type || type
+    )
+  } else if (Array.isArray(type) && typeof selectedValue === 'object') {
+    optionalReferenceSelectProps.editRenderer = getEditRenderer(
+      selectedValue,
+      openConnectorModal,
+      selectedValue?.connector?.type
+    )
   }
+
   const component = (
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} style={{ marginBottom: 0 }}>
       <MultiTypeReferenceInput<ConnectorReferenceDTO>
@@ -197,7 +213,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
               value:
                 scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record.identifier}` : record.identifier,
               scope,
-              live: record?.status?.status === 'SUCCESS'
+              live: record?.status?.status === 'SUCCESS',
+              connector: record
             }
 
             formik?.setFieldValue(name, value)

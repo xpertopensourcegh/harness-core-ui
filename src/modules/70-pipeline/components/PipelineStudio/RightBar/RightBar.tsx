@@ -354,7 +354,8 @@ export const RightBar = (): JSX.Element => {
                         setFieldValue('connectorRef', {
                           label: value.name || '',
                           value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
-                          scope: scope
+                          scope: scope,
+                          connector: value
                         })
                       }}
                     />
