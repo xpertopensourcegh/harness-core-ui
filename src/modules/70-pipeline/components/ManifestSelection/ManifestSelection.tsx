@@ -190,7 +190,8 @@ function ManifestListView({
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             onSuccess={() => {
-              // handle success
+              setView(ModalView.OPTIONS)
+              setModalContext(ModalContext.EXISTING)
             }}
             isForOverrideSets={isForOverrideSets}
             isForPredefinedSets={isForPredefinedSets}

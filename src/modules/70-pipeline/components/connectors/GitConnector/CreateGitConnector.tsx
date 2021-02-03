@@ -54,6 +54,7 @@ const gitFetchTypes = [
 const ManifestSourceConfigForm: React.FC<
   StepProps<StepGitConnectorProps> & {
     hideLightModal: () => void
+    onSuccess: () => void
     pipeline: NgPipeline
     updatePipeline: (pipeline: NgPipeline) => Promise<void>
     isForOverrideSets?: boolean
@@ -120,6 +121,7 @@ const ManifestSourceConfigForm: React.FC<
 
           props.updatePipeline(props.pipeline)
           props.hideLightModal()
+          props.onSuccess()
         }}
       >
         {(formik: { values: { gitFetchType: string } }) => (
