@@ -85,7 +85,7 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
         return props.prevStepData?.artifactoryServerUrl
 
       case Connectors.APP_DYNAMICS:
-        return props.prevStepData?.controllerUrl
+        return props.prevStepData?.spec?.controllerUrl
 
       case Connectors.SPLUNK:
         return props.prevStepData?.splunkUrl

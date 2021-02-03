@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
+import xhr, { XhrPromise } from '@wings-software/xhr-async'
 import { useSaveDSConfig } from 'services/cv'
 import ReviewTiersAndApps from '../ReviewTiersAndApps'
 
@@ -32,12 +33,25 @@ jest.mock('framework/exports', () => ({
   })
 }))
 
+jest.mock('@wings-software/xhr-async')
+
 jest.mock('services/cv', () => ({
   useSaveDSConfig: jest.fn().mockReturnValue({
     loading: false,
     mutate: jest.fn()
   })
 }))
+
+jest.spyOn(xhr, 'get').mockImplementation(
+  () =>
+    Promise.resolve({
+      response: {
+        resource: {
+          totalItems: 3
+        }
+      }
+    }) as XhrPromise<any>
+)
 
 const applications = {
   app1: {
@@ -52,6 +66,20 @@ const applications = {
       tier2: {
         name: 'tier2',
         service: 'test-service-b'
+      }
+    }
+  },
+  app2: {
+    name: 'app2',
+    environment: 'qb',
+    tiers: {
+      tierA: {
+        name: 'tierA',
+        service: 'service-1-1'
+      },
+      tierB: {
+        name: 'tierB',
+        service: 'service-1-2'
       }
     }
   }

@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   StepWizard,
+  StepProps,
   Layout,
   Button,
   Text,
@@ -17,49 +18,39 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import {
   useCreateConnector,
   ConnectorConfigDTO,
+  ConnectorInfoDTO,
   ConnectorRequestBody,
-  Connector,
-  useUpdateConnector,
-  ResponseBoolean
+  ResponseBoolean,
+  useUpdateConnector
 } from 'services/cd-ng'
-
-import { Connectors } from '@connectors/constants'
-
+import { setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import i18n from './CreateAppDynamicsConnector.i18n'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
-interface CreateAppDynamicsConnectorProps {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  onClose: () => void
-  onConnectorCreated?: (data: ConnectorRequestBody) => void | Promise<void>
+interface CreateAppDynamicsConnectorProps extends CreateConnectorModalProps {
+  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   mockIdentifierValidate?: ResponseBoolean
 }
 
-export interface ConnectionConfigProps {
+export interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
   accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
-  formData: ConnectorConfigDTO | undefined
-  setFormData: (data: ConnectorConfigDTO | undefined) => void
-  name: string
-  previousStep?: () => void
-  nextStep?: () => void
-  handleCreate: (data: ConnectorConfigDTO) => Promise<void>
-  handleUpdate: (data: ConnectorConfigDTO) => Promise<void>
+  handleCreate: (data: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
+  handleUpdate: (data: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
   isEditMode: boolean
+  connectorInfo?: ConnectorInfoDTO | void
 }
 
 export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
-  const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>({})
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
-  const [connectorResponse, setConnectorResponse] = useState<Connector | undefined>()
-  const [isEditMode, setIsEditMode] = useState<boolean>(false)
   const { showSuccess } = useToaster()
-  const handleCreate = async (data: ConnectorConfigDTO): Promise<void> => {
+  const [successfullyCreated, setSuccessfullyCreated] = useState(false)
+  const handleCreate = async (data: ConnectorConfigDTO): Promise<ConnectorInfoDTO | undefined> => {
     const res = await createConnector({
       connector: {
         name: data.name,
@@ -78,16 +69,18 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     })
     if (res && res.status === 'SUCCESS') {
       showSuccess(i18n.showSuccessCreated(data?.name || ''))
-      setConnectorResponse(res.data)
       if (res.data) {
+        setSuccessfullyCreated(true)
         props.onConnectorCreated?.(res.data)
+        props.onSuccess?.(res.data)
       }
     } else {
       throw new Error(i18n.errorCreate)
     }
+    return res.data?.connector
   }
 
-  const handleUpdate = async (data: ConnectorConfigDTO): Promise<void> => {
+  const handleUpdate = async (data: ConnectorConfigDTO): Promise<ConnectorInfoDTO | undefined> => {
     const res = await updateConnector({
       connector: {
         name: data.name,
@@ -106,14 +99,17 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     })
     if (res && res.status === 'SUCCESS') {
       showSuccess(i18n.showSuccessUpdated(data?.name || ''))
-      setConnectorResponse(res.data)
       if (res.data) {
         props.onConnectorCreated?.(res.data)
+        props.onSuccess?.(res.data)
       }
     } else {
       throw new Error(i18n.errorCreate)
     }
+    return res.data?.connector
   }
+
+  const isEditMode = props.isEditMode || successfullyCreated
 
   return (
     <>
@@ -121,8 +117,8 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         <ConnectorDetailsStep
           type={Connectors.APP_DYNAMICS}
           name={i18n.wizardStepName.connectorDetails}
-          setFormData={setFormData}
-          formData={formData}
+          isEditMode={isEditMode}
+          connectorInfo={props.connectorInfo}
           mock={props.mockIdentifierValidate}
         />
         <ConnectionConfigStep
@@ -130,21 +126,18 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           name={i18n.wizardStepName.credentials}
-          setFormData={setFormData}
-          formData={formData}
           handleCreate={handleCreate}
           handleUpdate={handleUpdate}
           isEditMode={isEditMode}
+          connectorInfo={props.connectorInfo}
         />
         <VerifyOutOfClusterDelegate
           name={i18n.verifyConnection}
-          url={formData?.url}
-          connectorIdentifier={formData?.identifier}
-          onClose={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestBody)}
+          onClose={props.onClose}
           isStep
           isLastStep
           type={Connectors.APP_DYNAMICS}
-          setIsEditMode={() => setIsEditMode(true)}
+          setIsEditMode={props.setIsEditMode}
         />
       </StepWizard>
     </>
@@ -153,32 +146,61 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
 
 function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const [loadingSecrets, setLoadingSecrets] = useState(props.isEditMode)
+  const [initialValues, setInitialValues] = useState<ConnectorConfigDTO>({
+    url: '',
+    accountName: '',
+    username: '',
+    password: undefined
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      if (props.isEditMode) {
+        setInitialValues({
+          url: props.prevStepData?.spec?.controllerUrl || '',
+          accountName: props.prevStepData?.spec?.accountname || '',
+          username: props.prevStepData?.spec?.username || '',
+          password: await setSecretField((props.connectorInfo as ConnectorInfoDTO)?.spec?.passwordRef, {
+            accountIdentifier: props.accountId,
+            projectIdentifier: props.projectIdentifier,
+            orgIdentifier: props.orgIdentifier
+          })
+        })
+        setLoadingSecrets(false)
+      }
+    })()
+  }, [])
+
   const handleFormSubmission = async (formData: ConnectorConfigDTO) => {
     modalErrorHandler?.hide()
     if (props.isEditMode) {
       try {
-        await props.handleUpdate(formData)
-        props.nextStep?.()
+        const res = await props.handleUpdate(formData)
+        props.nextStep?.({ ...(res || {}), ...formData })
       } catch (error) {
         modalErrorHandler?.showDanger(error?.data?.message)
       }
     } else {
       try {
-        await props.handleCreate(formData)
-        props.nextStep?.()
+        const res = await props.handleCreate(formData)
+        props.nextStep?.({ ...(res || {}), ...formData })
       } catch (error) {
         modalErrorHandler?.showDanger(error?.data?.message)
       }
     }
   }
+
+  if (loadingSecrets) {
+    return <PageSpinner />
+  }
+
   return (
     <Formik
+      enableReinitialize
       initialValues={{
-        url: props.formData?.url || '',
-        accountName: props.formData?.accountname || '',
-        username: props.formData?.username || '',
-        password: props.formData?.password || '',
-        ...props.formData
+        ...initialValues,
+        ...props.prevStepData
       }}
       validationSchema={Yup.object().shape({
         url: Yup.string().trim().required(),
@@ -187,7 +209,6 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
         password: Yup.string().trim().required()
       })}
       onSubmit={formData => {
-        props.setFormData(formData)
         handleFormSubmission(formData)
       }}
     >
@@ -202,7 +223,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
             <SecretInput name="password" label={i18n.Password} />
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
-            <Button onClick={() => props.previousStep?.()} text={i18n.back} />
+            <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={i18n.back} />
             <Button type="submit" text={i18n.connectAndSave} />
           </Layout.Horizontal>
         </FormikForm>

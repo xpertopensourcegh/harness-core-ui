@@ -220,7 +220,11 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
         ]}
         data={tableData}
       />
-      <SubmitAndPreviousButtons onPreviousClick={onPrevious} onNextClick={onNext} />
+      <SubmitAndPreviousButtons
+        nextButtonProps={{ text: getString('submit') }}
+        onPreviousClick={onPrevious}
+        onNextClick={onNext}
+      />
     </Container>
   )
 }
