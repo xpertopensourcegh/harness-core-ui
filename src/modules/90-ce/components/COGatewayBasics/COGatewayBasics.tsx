@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import {
-  Formik,
-  FormikForm,
-  FormInput,
-  Container,
-  Button,
-  Layout,
-  Card,
-  CardBody,
-  SelectOption,
-  Text
-} from '@wings-software/uicore'
+import React from 'react'
+import { Formik, FormikForm, Container, Button, Layout, Card, CardBody, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
-import { useAllAccounts } from 'services/lw'
+import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import i18n from './COGatewayBasics.i18n'
 import css from './COGatewayBasics.module.scss'
 interface COGatewayBasicsProps {
@@ -26,25 +15,9 @@ interface COGatewayBasicsProps {
 }
 
 const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
-  const { orgIdentifier } = useParams()
-  const [cloudAccounts, setcloudAccounts] = useState<SelectOption[]>([])
-  const { data } = useAllAccounts({
-    org_id: orgIdentifier // eslint-disable-line
-  })
-  useEffect(() => {
-    if (data && data.response) {
-      const filteredAccounts = data.response.filter(
-        item => item.service_provider == props.gatewayDetails.provider.value
-      )
-      const options: SelectOption[] = filteredAccounts.map(item => {
-        return {
-          value: item.id ? item.id : '',
-          label: item.name ? item.name : ''
-        }
-      })
-      setcloudAccounts(options)
-    }
-  }, [data])
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
   return (
     <Layout.Vertical spacing="large" padding="large">
       <Container width="40%" style={{ marginLeft: '10%', paddingTop: 200 }}>
@@ -61,31 +34,24 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
             render={formik => (
               <FormikForm>
                 <Layout.Vertical spacing="large">
-                  <FormInput.Text
-                    name="gatewayName"
-                    label={i18n.name}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      formik.setFieldValue('gatewayName', e.target.value)
-                      props.gatewayDetails.name = e.target.value
-                      props.setGatewayDetails(props.gatewayDetails)
-                    }}
-                  />
-                  <FormInput.Select
+                  <ConnectorReferenceField
                     name="cloudAccount"
+                    category={'CLOUD_COST'}
+                    selected={formik.values.cloudAccount.name}
                     label={[i18n.connect, props.gatewayDetails.provider.name, i18n.account].join(' ')}
                     placeholder={i18n.select}
-                    items={cloudAccounts}
-                    onChange={(e: SelectOption) => {
-                      formik.setFieldValue('cloudAccount', e.value)
-                      props.gatewayDetails.cloudAccount = { id: e.value?.toString(), name: e.label }
+                    accountIdentifier={accountId}
+                    onChange={e => {
+                      formik.setFieldValue('cloudAccount', e.identifier)
+                      props.gatewayDetails.cloudAccount = { id: e.identifier?.toString(), name: e.name }
                       props.setGatewayDetails(props.gatewayDetails)
+                      formik.setFieldValue('cloudAccount', e)
                     }}
                   />
                 </Layout.Vertical>
               </FormikForm>
             )}
             validationSchema={Yup.object().shape({
-              gatewayName: Yup.string().trim().required('Gateway Name is required field'),
               cloudAccount: Yup.string().trim().required('Cloud Account is required field')
             })}
           ></Formik>

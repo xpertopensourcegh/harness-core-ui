@@ -27,8 +27,13 @@ const data: Provider[] = [
     icon: 'harness'
   }
 ]
+
+function getProvider(name: string): Provider {
+  return data.filter(p => p.name == name)[0]
+}
+
 const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
-  const [selectedCard, setSelectedCard] = useState<Provider>(data[0])
+  const [selectedCard, setSelectedCard] = useState<Provider>(getProvider(props.gatewayDetails.provider.name))
   return (
     <Container style={{ margin: '0 auto', paddingTop: 200, paddingLeft: 50 }}>
       <Layout.Vertical spacing="large" padding="large">

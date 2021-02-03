@@ -18,7 +18,7 @@ function getString(val: string | undefined): string {
 }
 
 export const CECODashboardPage: React.FC = () => {
-  const { projectIdentifier, orgIdentifier } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
   const gatewayCreationTabs = ['providerSelector', 'gatewayBasics', 'gatewayConfig']
   const [currentTab, setCurrentTab] = useState<string | 'providerSelector'>('providerSelector')
   const initialGatewayDetails: GatewayDetails = {
@@ -33,6 +33,7 @@ export const CECODashboardPage: React.FC = () => {
     kind: 'instance',
     orgID: getString(orgIdentifier),
     projectID: getString(projectIdentifier),
+    accountID: accountId,
     hostName: '',
     customDomains: [],
     matchAllSubdomains: false,
@@ -44,7 +45,12 @@ export const CECODashboardPage: React.FC = () => {
       lb: '',
       ports: []
     },
-    healthCheck: undefined,
+    healthCheck: {
+      protocol: 'http',
+      path: '/',
+      port: 80,
+      timeout: 30
+    },
     opts: {
       preservePrivateIP: false,
       deleteCloudResources: false,
@@ -52,10 +58,11 @@ export const CECODashboardPage: React.FC = () => {
     },
     provider: {
       name: 'Azure',
-      icon: 'service-azure',
-      value: 'azure'
+      value: 'azure',
+      icon: 'service-azure'
     },
-    selectedInstances: []
+    selectedInstances: [],
+    accessPointID: ''
   }
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>(initialGatewayDetails)
   const nextTab = (): void => {

@@ -1,7 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly configDetails: string
-  readonly instanceTable: string
+  readonly title: string
+  readonly checkbox: string
+  readonly setupTab: string
 }
 export default styles

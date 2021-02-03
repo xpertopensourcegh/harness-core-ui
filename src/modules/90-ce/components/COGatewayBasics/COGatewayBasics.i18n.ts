@@ -1,5 +1,4 @@
 export default {
-  name: 'Name your Gateway',
   connect: 'Connect to your',
   account: 'account',
   select: 'Select your Cloud Account',

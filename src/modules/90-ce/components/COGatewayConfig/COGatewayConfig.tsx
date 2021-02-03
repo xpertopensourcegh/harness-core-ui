@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { CellProps } from 'react-table'
-
+import { Drawer } from '@blueprintjs/core'
 import {
   Formik,
   FormikForm,
   FormInput,
   Container,
   Layout,
-  Heading,
   CardSelect,
-  CardBody,
   Label,
   Text,
   Table,
@@ -20,94 +18,116 @@ import {
   Button,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  TextInput,
-  Switch
+  Switch,
+  Icon
 } from '@wings-software/uicore'
+
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import type { IconName } from '@blueprintjs/core'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
-import { useAllResourcesOfAccount } from 'services/lw'
+import { HealthCheck, PortConfig, useAllResourcesOfAccount, useSecurityGroupsOfInstances } from 'services/lw'
+import CORoutingTable from './CORoutingTable'
+import COHealthCheckTable from './COHealthCheckTable'
 import i18n from './COGatewayConfig.i18n'
+import odIcon from './images/ondemandIcon.svg'
+import spotIcon from './images/spotIcon.svg'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigProps {
   gatewayDetails: GatewayDetails
   setGatewayDetails: (gwDetails: GatewayDetails) => void
+  valid: boolean
+  setValidity: (tab: boolean) => void
 }
 interface CardData {
   text: string
   value: string
   icon: string
 }
-interface HealthCheck {
-  protocol: string
-  path: string
-  port: number
-  timeout: number
-}
-
-const defaultHealthCheck: HealthCheck = {
-  protocol: 'http',
-  path: '/',
-  port: 80,
-  timeout: 30
-}
 
 const instanceTypeCardData: CardData[] = [
   {
     text: 'Spot',
     value: 'spot',
-    icon: 'harness'
+    icon: spotIcon
   },
   {
     text: 'On-demand',
     value: 'ondemand',
-    icon: 'harness'
+    icon: odIcon
   }
 ]
-
-function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
-  return (
-    <Text lineClamp={3} color={Color.BLACK}>
-      {tableProps.value}
-    </Text>
-  )
-}
-function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
-  return (
-    <Text lineClamp={3} color={Color.BLACK}>
-      {tableProps.value} {tableProps.row.original.id}
-    </Text>
-  )
-}
-function HealthCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
-  return <TextInput defaultValue={tableProps.value} />
+const portProtocolMap: { [key: number]: string } = {
+  80: 'http',
+  443: 'https'
 }
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [healthCheck, setHealthCheck] = useState<boolean>(false)
+  const [healthCheck, setHealthCheck] = useState<boolean>(props.gatewayDetails.healthCheck ? true : false)
+  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck>(props.gatewayDetails.healthCheck)
+  const [gatewayName, setGatewayName] = useState<string>(props.gatewayDetails.name)
+  const [idleTime, setIdleTime] = useState<number>(props.gatewayDetails.idleTimeMins)
+  const [fullfilment, setFullfilment] = useState<string>(props.gatewayDetails.fullfilment)
+  const [matchSubdomains, setMatchSubdomains] = useState<boolean>(
+    props.gatewayDetails.matchAllSubdomains ? props.gatewayDetails.matchAllSubdomains : false
+  )
+  const [usePrivateIP, setUsePrivateIP] = useState<boolean>(
+    props.gatewayDetails.opts.alwaysUsePrivateIP ? props.gatewayDetails.opts.alwaysUsePrivateIP : false
+  )
+  const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
 
-  const { orgIdentifier } = useParams()
-  const { mutate: getInstances } = useAllResourcesOfAccount({
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+
+  function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
+    return (
+      <Text lineClamp={3} color={Color.BLACK}>
+        {tableProps.value}
+      </Text>
+    )
+  }
+  function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
+    return (
+      <Text lineClamp={3} color={Color.BLACK}>
+        {tableProps.value} {tableProps.row.original.id}
+      </Text>
+    )
+  }
+
+  const { mutate: getInstances, loading: loadingInstances } = useAllResourcesOfAccount({
     org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
     queryParams: {
-      cloud_account_id: +props.gatewayDetails.cloudAccount, // eslint-disable-line
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       type: 'instance'
     }
   })
-  const onComplete = async (): Promise<void> => {
+  useEffect(() => {
+    props.gatewayDetails.routing.ports = routingRecords
+    props.setGatewayDetails(props.gatewayDetails)
+  }, [routingRecords])
+  useEffect(() => {
+    if (healthCheck) {
+      props.gatewayDetails.healthCheck = healthCheckPattern
+      props.setGatewayDetails(props.gatewayDetails)
+    } else {
+      props.gatewayDetails.healthCheck = {}
+      props.setGatewayDetails(props.gatewayDetails)
+    }
+  }, [healthCheckPattern])
+  const refreshInstances = async (): Promise<void> => {
     try {
       const result = await getInstances(
         { Text: '' },
         {
           queryParams: {
-            cloud_account_id: 1, // eslint-disable-line
+            cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
             type: 'instance'
           }
         }
@@ -132,6 +152,75 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
+  const { mutate: getSecurityGroups, loading } = useSecurityGroupsOfInstances({
+    org_id: orgIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      cloud_account_id: props.gatewayDetails.cloudAccount.id // eslint-disable-line
+    }
+  })
+  const fetchInstanceSecurityGroups = async (): Promise<void> => {
+    const emptyRecords: PortConfig[] = []
+    try {
+      const result = await getSecurityGroups({
+        text: `id = ['${props.gatewayDetails.selectedInstances[0].id}']\nregions = ['${props.gatewayDetails.selectedInstances[0].region}']`
+      })
+      if (result && result.response) {
+        Object.keys(result.response).forEach(instance => {
+          result.response?.[instance].forEach(sg => {
+            sg?.inbound_rules?.forEach(rule => {
+              if (rule.protocol == '-1') {
+                addAllPorts()
+              } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
+                const fromRule = +rule.from
+                const toRule = +(rule.to ? rule.to : 0)
+                emptyRecords.push({
+                  protocol: portProtocolMap[fromRule],
+                  port: fromRule,
+                  action: 'forward',
+                  target_protocol: portProtocolMap[fromRule], // eslint-disable-line
+                  target_port: toRule, // eslint-disable-line
+                  server_name: '', // eslint-disable-line
+                  redirect_url: '', // eslint-disable-line
+                  routing_rules: [] // eslint-disable-line
+                })
+                const routes = [...emptyRecords]
+                if (routes.length) setRoutingRecords(routes)
+              }
+            })
+          })
+        })
+      }
+    } catch (e) {
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
+    }
+  }
+
+  function isValid(): boolean {
+    return (
+      selectedInstances.length > 0 &&
+      routingRecords.length > 0 &&
+      gatewayName != '' &&
+      idleTime >= 5 &&
+      fullfilment != ''
+    )
+  }
+  useEffect(() => {
+    if (!selectedInstances.length) return
+    fetchInstanceSecurityGroups()
+  }, [selectedInstances])
+  useEffect(() => {
+    if (!props.gatewayDetails.provider) return
+    refreshInstances()
+  }, [props.gatewayDetails.provider])
+  useEffect(() => {
+    if (isValid()) {
+      props.setValidity(true)
+    } else {
+      props.setValidity(false)
+    }
+  }, [selectedInstances, routingRecords, gatewayName, idleTime, fullfilment])
   function handleSearch(text: string): void {
     if (!text) {
       setFilteredInstances(allInstances)
@@ -145,61 +234,169 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     })
     setFilteredInstances(instances)
   }
+  function addPort(): void {
+    routingRecords.push({
+      protocol: 'http',
+      port: 80,
+      action: 'forward',
+      target_protocol: 'http', // eslint-disable-line
+      target_port: 80, // eslint-disable-line
+      redirect_url: '', // eslint-disable-line
+      server_name: '', // eslint-disable-line
+      routing_rules: [] // eslint-disable-line
+    })
+    const routes = [...routingRecords]
+    setRoutingRecords(routes)
+  }
+  function addAllPorts(): void {
+    Object.keys(portProtocolMap).forEach(item => {
+      routingRecords.push({
+        protocol: portProtocolMap[+item],
+        port: +item,
+        action: 'forward',
+        target_protocol: portProtocolMap[+item], // eslint-disable-line
+        target_port: +item, // eslint-disable-line
+        server_name: '', // eslint-disable-line
+        redirect_url: '', // eslint-disable-line
+        routing_rules: [] // eslint-disable-line
+      })
+    })
+    const routes = [...routingRecords]
+    setRoutingRecords(routes)
+  }
   return (
-    <Layout.Vertical className={css.page}>
+    <Layout.Vertical className={css.page} style={{ height: '100vh', marginLeft: '230px' }}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <COHelpSidebar pageName="configuration" />
-      <Container style={{ margin: '0 auto', paddingTop: 10, marginLeft: '264px' }}>
+      <Drawer
+        autoFocus={true}
+        enforceFocus={true}
+        hasBackdrop={false}
+        usePortal={true}
+        canOutsideClickClose={true}
+        canEscapeKeyClose={true}
+        isOpen={drawerOpen}
+        onClose={() => {
+          setDrawerOpen(false)
+        }}
+        size="392px"
+        style={{
+          top: '95px',
+          boxShadow: '0px 2px 8px rgba(40, 41, 61, 0.04), 0px 16px 24px rgba(96, 97, 112, 0.16)',
+          borderRadius: '8px'
+        }}
+      >
+        <Container style={{ textAlign: 'right' }}>
+          <Button icon="cross" minimal onClick={_ => setDrawerOpen(false)} />
+        </Container>
+        <COHelpSidebar pageName="configuration" />
+      </Drawer>
+      <Container style={{ paddingTop: 10 }}>
         <Layout.Vertical spacing="large" padding="large">
-          <Heading level={2} font={{ weight: 'semi-bold' }}>
-            {i18n.configHeading}
-          </Heading>
-          <Formik
-            initialValues={{
-              idleTime: props.gatewayDetails.idleTimeMins,
-              selectedIcon: props.gatewayDetails.fullfilment
-            }}
-            onSubmit={values => alert(JSON.stringify(values))}
-            render={formik => (
-              <FormikForm>
-                <Layout.Vertical spacing="medium" width="50%">
-                  <FormInput.Text name="idleTime" label="Idle time (mins)" placeholder="Enter time" />
-                  <Label style={{ fontSize: '13px', lineHeight: '20px' }}>Select Instance type</Label>
-                  <CardSelect
-                    data={instanceTypeCardData}
-                    className={css.instanceTypeViewGrid}
-                    onChange={item => {
-                      props.gatewayDetails.fullfilment = item.value
-                      props.setGatewayDetails(props.gatewayDetails)
-                      formik.setFieldValue('selectedIcon', item.value)
-                    }}
-                    renderItem={(item, _) => (
-                      <Layout.Vertical spacing="large">
-                        <CardBody.Icon className={css.card} icon={item.icon as IconName} iconSize={21}></CardBody.Icon>
-                        <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
-                          {item.text}
-                        </Text>
-                      </Layout.Vertical>
-                    )}
-                    selected={
-                      instanceTypeCardData[
-                        instanceTypeCardData.findIndex(card => card.value == formik.values.selectedIcon)
-                      ]
-                    }
-                    cornerSelected={true}
-                  ></CardSelect>
-                </Layout.Vertical>
-              </FormikForm>
-            )}
-            validationSchema={Yup.object().shape({
-              idleTime: Yup.number().required('Idle Time is required field'),
-              selectedIcon: Yup.string().required('Instance Type is required field')
-            })}
-          ></Formik>
+          <Text style={{ fontSize: '18px', lineHeight: '20px', fontWeight: 500 }}>{i18n.configHeading}</Text>
+          <Container width="50%">
+            <Formik
+              initialValues={{
+                gatewayName: props.gatewayDetails.name,
+                idleTime: props.gatewayDetails.idleTimeMins,
+                selectedIcon: props.gatewayDetails.fullfilment
+              }}
+              onSubmit={values => alert(JSON.stringify(values))}
+              render={formik => (
+                <FormikForm className={css.gatewayConfigForm}>
+                  <Layout.Vertical spacing="xxxlarge" width="50%">
+                    <FormInput.Text
+                      name="gatewayName"
+                      label={i18n.name}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        formik.setFieldValue('gatewayName', e.target.value)
+                        props.gatewayDetails.name = e.target.value
+                        props.setGatewayDetails(props.gatewayDetails)
+                        setGatewayName(e.target.value)
+                      }}
+                      style={{ height: '30px', fontSize: 'var(--font-size-normal)' }}
+                    />
+                    <FormInput.Text
+                      name="idleTime"
+                      label={
+                        <Layout.Horizontal spacing="small">
+                          <Text>Idle time (mins)</Text>
+                          <Icon
+                            name="info"
+                            onClick={() => {
+                              setDrawerOpen(true)
+                            }}
+                          ></Icon>
+                        </Layout.Horizontal>
+                      }
+                      placeholder="Enter time"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        formik.setFieldValue('idleTime', e.target.value)
+                        props.gatewayDetails.idleTimeMins = +e.target.value
+                        props.setGatewayDetails(props.gatewayDetails)
+                        setIdleTime(+e.target.value)
+                      }}
+                    />
+                    <Layout.Horizontal spacing="small">
+                      <Label style={{ fontSize: 'var(--font-size-normal)', lineHeight: '20px' }}>
+                        Select Instance type
+                      </Label>
+                      <Icon
+                        name="info"
+                        onClick={() => {
+                          setDrawerOpen(true)
+                        }}
+                      ></Icon>
+                    </Layout.Horizontal>
 
-          <Label style={{ fontSize: '13px', lineHeight: '20px' }}>Instances</Label>
-          <Container style={{ background: 'var(--grey-100)', padding: 25 }}>
-            <Text style={{ color: 'var(--grey-500)', lineHeight: '24px', fontSize: '13px', maxWidth: '897px' }}>
+                    <CardSelect
+                      data={instanceTypeCardData}
+                      className={css.instanceTypeViewGrid}
+                      onChange={item => {
+                        props.gatewayDetails.fullfilment = item.value
+                        props.setGatewayDetails(props.gatewayDetails)
+                        formik.setFieldValue('selectedIcon', item.value)
+                        setFullfilment(item.value)
+                      }}
+                      renderItem={(item, _) => (
+                        <Layout.Vertical spacing="large">
+                          <img src={item.icon} alt="" aria-hidden />
+                        </Layout.Vertical>
+                      )}
+                      selected={
+                        instanceTypeCardData[
+                          instanceTypeCardData.findIndex(card => card.value == formik.values.selectedIcon)
+                        ]
+                      }
+                      cornerSelected={true}
+                    ></CardSelect>
+                    <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
+                      <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
+                        Spot
+                      </Text>
+                      <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
+                        On demand
+                      </Text>
+                    </Layout.Horizontal>
+                  </Layout.Vertical>
+                </FormikForm>
+              )}
+              validationSchema={Yup.object().shape({
+                gatewayName: Yup.string().trim().required('Gateway Name is required field'),
+                idleTime: Yup.number().required('Idle Time is required field'),
+                selectedIcon: Yup.string().required('Instance Type is required field')
+              })}
+            ></Formik>
+          </Container>
+          <Label style={{ fontSize: 'var(--font-size-normal)', lineHeight: '20px' }}>Instances</Label>
+          <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '940px' }}>
+            <Text
+              style={{
+                color: 'var(--grey-500)',
+                lineHeight: '24px',
+                fontSize: 'var(--font-size-normal)',
+                maxWidth: '890px'
+              }}
+            >
               {i18n.info}
             </Text>
             {selectedInstances.length ? (
@@ -255,28 +452,60 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
               />
             ) : null}
           </Container>
-          <Container style={{ background: 'var(--grey-100)', padding: 25 }}>
+          <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '947px' }}>
             <Collapse collapsedIcon="plus" heading={i18n.addInstanceLabel}>
-              <Button style={{ float: 'right' }} onClick={onComplete} icon="refresh" />
-              <COInstanceSelector
-                selectedInstances={selectedInstances}
-                setSelectedInstances={setSelectedInstances}
-                setGatewayDetails={props.setGatewayDetails}
-                instances={filteredInstances}
-                gatewayDetails={props.gatewayDetails}
-                search={handleSearch}
-              />
+              <Button style={{ float: 'right' }} onClick={refreshInstances} icon="refresh" />
+              {loadingInstances ? (
+                <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center', marginTop: '10px' }} />
+              ) : (
+                <COInstanceSelector
+                  selectedInstances={selectedInstances}
+                  setSelectedInstances={setSelectedInstances}
+                  setGatewayDetails={props.setGatewayDetails}
+                  instances={filteredInstances}
+                  gatewayDetails={props.gatewayDetails}
+                  search={handleSearch}
+                />
+              )}
             </Collapse>
           </Container>
-          <Container>
-            <Layout.Horizontal spacing="small">
+          <Container style={{ justifyContent: 'center', maxWidth: '947px' }}>
+            <Container className={css.configTab}>
               <Tabs id="tabsId1">
-                <Tab id="routing" title="Routing" panel={<Text>Config related to routing</Text>} />
+                <Tab
+                  id="routing"
+                  title="Routing"
+                  panel={
+                    <Container style={{ backgroundColor: '#FBFBFB' }}>
+                      <Layout.Vertical spacing="large">
+                        {loading ? (
+                          <Icon
+                            name="spinner"
+                            size={24}
+                            color="blue500"
+                            style={{ alignSelf: 'center', marginTop: '10px' }}
+                          />
+                        ) : (
+                          <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
+                        )}
+                        <Container className={css.rowItem}>
+                          <Text
+                            onClick={() => {
+                              addPort()
+                            }}
+                          >
+                            {i18n.addPortLabel}
+                          </Text>
+                        </Container>
+                      </Layout.Vertical>
+                    </Container>
+                  }
+                />
                 <Tab
                   id="healthcheck"
                   title="Health check"
                   panel={
-                    <Container style={{ backgroundColor: '#FBFBFB' }}>
+                    <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
                       <Layout.Vertical spacing="large" padding="large">
                         <Switch
                           label={i18n.healthCheck}
@@ -284,40 +513,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                           onChange={e => {
                             setHealthCheck(e.currentTarget.checked)
                           }}
+                          checked={healthCheck}
                         />
                         {healthCheck ? (
-                          <Table<HealthCheck>
-                            data={[defaultHealthCheck]}
-                            bpTableProps={{}}
-                            className={css.healthCheckTable}
-                            columns={[
-                              {
-                                accessor: 'protocol',
-                                Header: 'PROTOCOL',
-                                width: '16.5%',
-                                Cell: HealthCell
-                              },
-                              {
-                                accessor: 'path',
-                                Header: 'PATH',
-                                width: '16.5%',
-                                Cell: HealthCell,
-                                disableSortBy: true
-                              },
-                              {
-                                accessor: 'port',
-                                Header: 'PORT',
-                                width: '16.5%',
-                                Cell: HealthCell
-                              },
-                              {
-                                accessor: 'timeout',
-                                Header: 'TIMEOUT(SECS)',
-                                width: '16.5%',
-                                Cell: HealthCell
-                              }
-                            ]}
-                          />
+                          <COHealthCheckTable pattern={healthCheckPattern} updatePattern={setHealthCheckPattern} />
                         ) : null}
                       </Layout.Vertical>
                     </Container>
@@ -327,25 +526,44 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   id="advanced"
                   title="Advanced Configuration"
                   panel={
-                    <Container style={{ backgroundColor: '#FBFBFB' }}>
-                      <Layout.Vertical spacing="medium" padding="large">
+                    <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                      <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
+                        <Switch
+                          label={i18n.allowTraffic}
+                          width="50%"
+                          className={css.switchFont}
+                          checked={matchSubdomains}
+                          onChange={e => {
+                            props.gatewayDetails.matchAllSubdomains = e.currentTarget.checked
+                            setMatchSubdomains(e.currentTarget.checked)
+                            props.setGatewayDetails(props.gatewayDetails)
+                          }}
+                        />
+                        <Switch
+                          label={i18n.usePrivateIP}
+                          width="50%"
+                          className={css.switchFont}
+                          checked={usePrivateIP}
+                          onChange={e => {
+                            props.gatewayDetails.opts.alwaysUsePrivateIP = e.currentTarget.checked
+                            setUsePrivateIP(e.currentTarget.checked)
+                            props.setGatewayDetails(props.gatewayDetails)
+                          }}
+                        />
+                        <Text>~brief description of what a dependency is~</Text>
                         <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
                           {i18n.addDependency}
                         </Label>
-                        <Label style={{ fontSize: '11px', fontWeight: 500 }}>{i18n.customDomain}</Label>
-                        <TextInput></TextInput>
-                        <Text style={{ fontSize: '12px', lineHeight: '20px' }}>{i18n.customDomainHelp}</Text>
-                        <Layout.Horizontal style={{ paddingTop: 24 }}>
-                          <Switch label={i18n.allowTraffic} width="50%" className={css.switchFont} />
-                          <Switch label={i18n.usePrivateIP} width="50%" className={css.switchFont} />
-                        </Layout.Horizontal>
-                        <Switch label={i18n.disable} className={css.switchFont} />
+                        <Text>{i18n.scheduleDescription}</Text>
+                        <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
+                          {i18n.addSchedule}
+                        </Label>
                       </Layout.Vertical>
                     </Container>
                   }
                 />
               </Tabs>
-            </Layout.Horizontal>
+            </Container>
           </Container>
         </Layout.Vertical>
       </Container>

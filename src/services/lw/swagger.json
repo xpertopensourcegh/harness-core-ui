@@ -8,7 +8,7 @@
       "email": "navaneeth@lightwing.io"
     }
   },
-  "host": "localhost:9090",
+  "host": "api.lightwing.io",
   "basePath": "/orgs",
   "tags": [
     {
@@ -258,7 +258,7 @@
         }
       }
     },
-    "/orgs/{org_id}/resources": {
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/resources": {
       "post": {
         "parameters": [
           {
@@ -268,10 +268,22 @@
             "type": "string"
           },
           {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "cloud_account_id",
             "in": "query",
             "required": true,
-            "type": "number"
+            "type": "string"
           },
           {
             "name": "type",
@@ -314,35 +326,48 @@
         }
       }
     },
-    "/orgs/{org_id}/accounts/{accountID}/instance_nsg}": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "accountID",
-          "in": "path",
-          "required": true,
-          "type": "number"
-        },
-        {
-          "name": "Token",
-          "in": "header",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "filter",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/ResourceFilterBody"
-          }
-        }
-      ],
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/instance_nsg": {
       "post": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SGResourceFilterBody"
+            }
+          }
+        ],
         "tags": ["Resources"],
         "summary": "Network security groups of an instance",
         "description": "Returns all the network security group definitions ",
@@ -362,8 +387,737 @@
           }
         }
       }
+    },
+    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/health": {
+      "get": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceID",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Health"],
+        "summary": "Health of a service",
+        "description": "Returns health of a service",
+        "operationId": "HealthOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceHealthResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/savings": {
+      "get": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceID",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "tags": ["Savings"],
+        "summary": "Savings of a service",
+        "description": "Returns savings of a service",
+        "operationId": "SavingsOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/ServiceSavingsResponse"
+                },
+                {
+                  "$ref": "#/definitions/ServiceSavingsGraphResponse"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/requests": {
+      "get": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceID",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Requests"],
+        "summary": "Requests of a service",
+        "description": "Returns requests of a service",
+        "operationId": "RequestsOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceRequestsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/logs": {
+      "get": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceID",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Logs"],
+        "summary": "Logs of a service",
+        "description": "Returns logs of a service",
+        "operationId": "LogsOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceLogsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/reports": {
+      "post": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReportRequestBody"
+            }
+          }
+        ],
+        "tags": ["GatewaySessionReport"],
+        "summary": "Get GatewaySessionReport",
+        "description": "Get GatewaySessionReport",
+        "operationId": "GatewaySessionReport",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "schema": {
+                "$ref": "#/definitions/GatewaySessionReportResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/{service_id}/toggle_state": {
+      "put": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "service_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "disable",
+            "in": "query",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["ToggleAutostoppingRule"],
+        "summary": "Toggle state of Autostopping Rule",
+        "description": "Toggle state of Autostopping Rule",
+        "operationId": "ToggleAutostoppingRule",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "schema": {
+                "$ref": "#/definitions/ServicesResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/regions": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["regions"],
+        "summary": "Lists all regions for a cloud account",
+        "description": "Returns all regions for a cloud account",
+        "operationId": "AllRegions",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllRegionsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/virtual_networks": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["vpcs"],
+        "summary": "Lists all vpcs for a cloud account",
+        "description": "Returns all vpcs for a cloud account",
+        "operationId": "AllVPCs",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllVPCsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/subnets": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "vpc",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["subnets"],
+        "summary": "Lists all subnets for a cloud account",
+        "description": "Returns all subnets for a cloud account",
+        "operationId": "AllSubnets",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllSubnetsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/network_security_groups": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "vpc_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["securityGroups"],
+        "summary": "Lists all securityGroups for a cloud account",
+        "description": "Returns all securityGroups for a cloud account",
+        "operationId": "AllSecurityGroups",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllSecurityGroupsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/access_points": {
+      "post": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accessPoint",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessPoint"
+            }
+          }
+        ],
+        "tags": ["CreateAccessPoint"],
+        "summary": "Create an AccessPoint",
+        "description": "Create an AccessPoint",
+        "operationId": "CreateAccessPoint",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "schema": {
+                "$ref": "#/definitions/CreateAccessPointResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["ListAccessPoints"],
+        "summary": "List all AccessPoints",
+        "description": "List all AccessPoints",
+        "operationId": "ListAccessPoints",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/access_points/{access_point_id}": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_point_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["GetAccessPoint"],
+        "summary": "status of access point",
+        "description": "status of access point",
+        "operationId": "GetAccessPoint",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/execution_roles": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["executionRoles"],
+        "summary": "Lists all executionRoles for a cloud account",
+        "description": "Returns all executionRoles for a cloud account",
+        "operationId": "AllExecutionRoles",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllExecutionRolesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
+
   "definitions": {
     "Service": {
       "type": "object",
@@ -377,8 +1131,10 @@
           "type": "string"
         },
         "org_id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
+        },
+        "account_identifier": {
+          "type": "string"
         },
         "project_id": {
           "type": "string"
@@ -390,8 +1146,7 @@
           "type": "string"
         },
         "cloud_account_id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "idle_time_mins": {
           "type": "integer",
@@ -421,8 +1176,15 @@
           "$ref": "#/definitions/RoutingData"
         },
         "opts": {
+          "required": true,
           "type": "object",
           "$ref": "#/definitions/Opts"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "access_point_id": {
+          "type": "string"
         }
       }
     },
@@ -439,6 +1201,28 @@
         },
         "delay_secs": {
           "type": "int"
+        }
+      }
+    },
+    "ServiceHealthResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "items": {
+            "error": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "target_url": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -464,13 +1248,16 @@
       "type": "object",
       "properties": {
         "from": {
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         "protocol": {
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         "to": {
-          "type": "string"
+          "type": "string",
+          "required": true
         }
       }
     },
@@ -498,6 +1285,15 @@
       }
     },
     "SecurityGroupsOfInstancesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/NetworkSecurityGroupForInstanceArray"
+        }
+      }
+    },
+    "NetworkSecurityGroupForInstanceArray": {
       "type": "object",
       "additionalProperties": {
         "type": "array",
@@ -590,12 +1386,78 @@
         }
       }
     },
+    "SessionReportRow": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        },
+        "hours": {
+          "type": "number"
+        }
+      }
+    },
+    "SessionReportRows": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SessionReportRow"
+          }
+        }
+      }
+    },
+    "GatewaySessionReportResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/SessionReportRows"
+        }
+      }
+    },
     "ResourceFilterBody": {
       "type": "object",
       "properties": {
         "Text": {
           "type": "string",
           "description": "String representation of TOML filter"
+        }
+      }
+    },
+    "SGResourceFilterBody": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "String representation of TOML filter"
+        }
+      }
+    },
+    "ReportRequestBody": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "report_name": {
+          "type": "string"
+        },
+        "service_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
         }
       }
     },
@@ -843,6 +1705,303 @@
         },
         "lb": {
           "type": "string"
+        }
+      }
+    },
+    "ServiceSavings": {
+      "type": "object",
+      "properties": {
+        "potential_cost": {
+          "type": "number",
+          "format": "float"
+        },
+        "actual_cost": {
+          "type": "number",
+          "format": "float"
+        },
+        "actual_savings": {
+          "type": "number",
+          "format": "float"
+        },
+        "savings_percentage": {
+          "type": "number",
+          "format": "float"
+        },
+        "usage_date": {
+          "type": "string"
+        }
+      }
+    },
+    "ServiceSavingsResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/ServiceSavings"
+        }
+      }
+    },
+    "ServiceSavingsGraphResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ServiceSavings"
+          }
+        }
+      }
+    },
+    "ServiceRequest": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "ServiceRequestsResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ServiceRequest"
+          }
+        }
+      }
+    },
+    "ServiceLog": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "ServiceLogsResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ServiceLog"
+          }
+        }
+      }
+    },
+    "AccessPointMeta": {
+      "type": "object",
+      "properties": {
+        "error": { "type": "string" },
+        "role": { "type": "string" },
+        "security_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AccessPoint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "cloud_account_id": {
+          "type": "string"
+        },
+        "org_id": {
+          "type": "string"
+        },
+        "project_id": {
+          "type": "string"
+        },
+        "host_name": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vpc": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object",
+          "$ref": "#/definitions/AccessPointMeta"
+        },
+        "subnets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "security_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CreateAccessPointResponse": {
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/AccessPoint"
+        }
+      }
+    },
+    "ListAccessPointResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AccessPoint"
+          }
+        }
+      }
+    },
+    "Region": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "AllRegionsResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Region"
+          }
+        }
+      }
+    },
+    "Vpc": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "AllVPCsResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Vpc"
+          }
+        }
+      }
+    },
+    "Subnet": {
+      "type": "object",
+      "properties": {
+        "az_id": {
+          "type": "string",
+          "required": true
+        },
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "ExecutionRule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "AllSubnetsResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Subnet"
+          }
+        }
+      }
+    },
+    "AllSecurityGroupsResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetworkSecurityGroup"
+          }
+        }
+      }
+    },
+    "GetAccessPointResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/AccessPoint"
+        }
+      }
+    },
+    "AllExecutionRolesResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExecutionRule"
+          }
         }
       }
     }

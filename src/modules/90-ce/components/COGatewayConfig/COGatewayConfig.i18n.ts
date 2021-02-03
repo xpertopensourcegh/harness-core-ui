@@ -10,5 +10,9 @@ export default {
   allowTraffic: 'Alllow traffic from all subdomains',
   disable: 'Disable',
   usePrivateIP: 'Use Private IP',
-  healthCheck: 'Health check'
+  healthCheck: 'Health check',
+  name: 'Name your Gateway',
+  addSchedule: '+ add schedule',
+  scheduleDescription:
+    'Set an automated schedule for uptime or downtime of all the resources that match your filter criteria.'
 }

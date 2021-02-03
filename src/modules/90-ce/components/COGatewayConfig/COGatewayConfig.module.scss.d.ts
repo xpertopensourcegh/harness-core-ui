@@ -5,6 +5,7 @@ declare const styles: {
   readonly type: string
   readonly server: string
   readonly instanceTypeViewGrid: string
+  readonly instanceTypeNameGrid: string
   readonly card: string
   readonly instanceTable: string
   readonly healthCheckTable: string
@@ -12,5 +13,11 @@ declare const styles: {
   readonly instanceSelection: string
   readonly switchFont: string
   readonly helpSidebar: string
+  readonly routingTable: string
+  readonly selectCell: string
+  readonly configTab: string
+  readonly gatewayConfigForm: string
+  readonly heading: string
+  readonly cardLabel: string
 }
 export default styles
