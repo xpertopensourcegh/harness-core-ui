@@ -1,6 +1,6 @@
 export default {
   addPrimarySourceLable: '+ Add Manifest',
-  addFileLabel: '+ Add File',
+  addFileLabel: '+ Add Manifest',
   manifestTypeLabelPrimary: 'Manifest/Config File',
   modalHeading: 'Select manifest type',
   modalSubHeading: 'Start by selecting your repository type.',

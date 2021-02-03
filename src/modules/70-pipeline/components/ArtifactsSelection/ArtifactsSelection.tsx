@@ -12,19 +12,28 @@ import {
   RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 
 import get from 'lodash-es/get'
 import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
+import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+
 import CreateDockerConnector from '@pipeline/components/connectors/DockerConnector/CreateDockerConnector'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
 import ExistingGCRArtifact from './ExistingGCRArtifact/ExistingGCRArtifact'
-import { getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
+import {
+  getStageIndexFromPipeline,
+  getPrevoiusStageFromIndex,
+  getStatus,
+  getScope,
+  getConnectorIdentifier
+} from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import CreateGCRConnector from '../connectors/GcrConnector/CreateGCRConnector'
 
@@ -210,6 +219,60 @@ export default function ArtifactsSelection({
   const [view, setView] = React.useState(ModalView.OPTIONS)
   const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
   const [sidecarIndex, setEditIndex] = React.useState(0)
+  const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
+
+  const { accountId } = useParams()
+  const defaultQueryParams = {
+    pageIndex: 0,
+    pageSize: 10,
+    searchTerm: '',
+    accountIdentifier: accountId
+  }
+  const { mutate: fetchConnectors } = useGetConnectorListV2({
+    queryParams: defaultQueryParams
+  })
+
+  const connectorScopeIdentifierList = primaryArtifact
+    ? [
+        {
+          scope: getScope(primaryArtifact?.spec?.connectorRef),
+          identifier: getConnectorIdentifier(primaryArtifact?.spec?.connectorRef)
+        }
+      ]
+    : []
+
+  const sideCarArtifacts =
+    sideCarArtifact && sideCarArtifact.length
+      ? sideCarArtifact &&
+        sideCarArtifact.map(
+          (data: {
+            sidecar: {
+              type: string
+              identifier: string
+              spec: {
+                connectorRef: string
+                imagePath: string
+              }
+            }
+          }) => ({
+            scope: getScope(data?.sidecar?.spec?.connectorRef),
+            identifier: getConnectorIdentifier(data?.sidecar?.spec?.connectorRef)
+          })
+        )
+      : []
+
+  connectorScopeIdentifierList.join(...sideCarArtifacts)
+
+  const connectorIdentifiers = connectorScopeIdentifierList.map(item => item.identifier)
+
+  const refetchConnectorList = async () => {
+    const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
+    setFetchedConnectorResponse(connectorResponse)
+  }
+
+  React.useEffect(() => {
+    refetchConnectorList()
+  }, [primaryArtifact, sideCarArtifact])
 
   const addArtifact = (data: {
     connectorId: undefined | { value: string }
@@ -547,6 +610,8 @@ export default function ArtifactsSelection({
     updatePipeline(pipeline)
   }
 
+  const { status, color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
+
   return (
     <Layout.Vertical
       padding={!isForOverrideSets ? 'large' : 'none'}
@@ -590,7 +655,9 @@ export default function ArtifactsSelection({
                   </Text>
                 </span>
                 <span>
-                  <Text inline icon="full-circle" iconProps={{ size: 10, color: Color.GREEN_500 }} />
+                  <Text width={200} inline icon="full-circle" iconProps={{ size: 10, color }}>
+                    {status}
+                  </Text>
                 </span>
                 <span>
                   <Text width={470} lineClamp={1} style={{ color: Color.GREY_500 }}>
@@ -635,6 +702,11 @@ export default function ArtifactsSelection({
                   index: number
                 ) => {
                   const { sidecar } = data
+                  const { status: sideCarConnectionStatus, color: sideCarConnectionColor } = getStatus(
+                    sidecar?.spec?.connectorRef,
+                    fetchedConnectorResponse,
+                    accountId
+                  )
                   return (
                     <section className={cx(css.thead, css.rowItem)} key={sidecar?.identifier + index}>
                       <Text width={200} lineClamp={1} className={css.type}>
@@ -653,7 +725,14 @@ export default function ArtifactsSelection({
                         </Text>
                       </span>
                       <span>
-                        <Text inline icon="full-circle" iconProps={{ size: 10, color: Color.GREEN_500 }} />
+                        <Text
+                          width={200}
+                          inline
+                          icon="full-circle"
+                          iconProps={{ size: 10, color: sideCarConnectionColor }}
+                        >
+                          {sideCarConnectionStatus}
+                        </Text>
                       </span>
                       <span>
                         <Text width={480} lineClamp={1} style={{ color: Color.GREY_500 }}>

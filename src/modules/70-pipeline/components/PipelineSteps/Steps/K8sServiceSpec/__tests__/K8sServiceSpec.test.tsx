@@ -14,6 +14,8 @@ import TemplateMock from './template.mock.json'
 import connectorListJSON from './connectorList.json'
 import secretMockdata from './secretMockdata.json'
 import { PipelineResponse } from './pipelineMock'
+
+const fetchConnectors = () => Promise.resolve({})
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -48,6 +50,7 @@ export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
   }
 }
 jest.mock('services/cd-ng', () => ({
+  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
   getConnectorListPromise: () => Promise.resolve(connectorListJSON),
   useGetConnector: jest.fn(() => ConnectorResponse),
   useCreateConnector: jest.fn(() =>

@@ -122,10 +122,10 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
             <span>
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="display: inline-flex; align-items: center;"
+                style="display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
@@ -143,6 +143,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                     />
                   </svg>
                 </span>
+                
               </span>
             </span>
             <span>
@@ -310,10 +311,10 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
             <span>
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="display: inline-flex; align-items: center;"
+                style="display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
@@ -331,6 +332,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                     />
                   </svg>
                 </span>
+                
               </span>
             </span>
             <span>
@@ -498,10 +500,10 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             <span>
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="display: inline-flex; align-items: center;"
+                style="display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
@@ -519,6 +521,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     />
                   </svg>
                 </span>
+                
               </span>
             </span>
             <span>

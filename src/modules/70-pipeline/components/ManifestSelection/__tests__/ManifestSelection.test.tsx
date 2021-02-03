@@ -3,10 +3,16 @@ import { render, findByText, fireEvent } from '@testing-library/react'
 // import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import ManifestSelection from '../ManifestSelection'
+// import connectorsData from './connectors_mock.json'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
 
+const fetchConnectors = () => Promise.resolve({})
+
+jest.mock('services/cd-ng', () => ({
+  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors }))
+}))
 describe('ManifestSelection tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(

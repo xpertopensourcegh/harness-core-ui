@@ -17,10 +17,11 @@ import environments from '@pipeline/components/PipelineSteps/Steps/DeployEnvStep
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
-
+const fetchConnectors = () => Promise.resolve({})
 window.HTMLElement.prototype.scrollTo = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
+  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
   useGetConnector: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
   useGetTestConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),

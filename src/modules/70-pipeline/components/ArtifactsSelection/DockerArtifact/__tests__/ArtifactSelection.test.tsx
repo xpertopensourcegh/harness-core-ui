@@ -12,6 +12,16 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
   <div>{children}</div>
 ))
 
+const fetchConnectors = () => Promise.resolve({})
+
+jest.mock('services/cd-ng', () => ({
+  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
+
+  useGetConnector: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn(), error: null }
+  })
+}))
+
 const getContextValue = (): PipelineContextInterface => {
   return pipelineContextMock as any
 }

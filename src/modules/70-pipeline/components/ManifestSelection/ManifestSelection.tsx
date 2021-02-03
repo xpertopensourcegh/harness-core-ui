@@ -15,12 +15,14 @@ import {
   MultiTypeInputType
 } from '@wings-software/uicore'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
+
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
+import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { getStageFromPipeline } from '@pipeline/exports'
@@ -31,7 +33,13 @@ import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideS
 import { useStrings, String } from 'framework/exports'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
-import { getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
+import {
+  getStageIndexFromPipeline,
+  getPrevoiusStageFromIndex,
+  getScope,
+  getConnectorIdentifier,
+  getStatus
+} from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
 import css from './ManifestSelection.module.scss'
 interface ManifestTable {
@@ -78,7 +86,8 @@ function ManifestListView({
   stage,
   isForPredefinedSets,
   isPropagating,
-  overrideSetIdentifier
+  overrideSetIdentifier,
+  connectors
 }: {
   identifier: string
   pipeline: NgPipeline
@@ -90,6 +99,7 @@ function ManifestListView({
   isForPredefinedSets: boolean
   isPropagating?: boolean
   overrideSetIdentifier?: string
+  connectors: PageConnectorResponse | undefined
 }): JSX.Element {
   const ModalView = { OPTIONS: 1, KUBERNETES: 2, VALUES: 3 }
   const ModalContext = { EXISTING: 0, NEW: 1 }
@@ -530,6 +540,9 @@ function ManifestListView({
                 index: number
               ) => {
                 const manifest = data['manifest']
+
+                const { status, color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
+
                 return (
                   <section
                     className={cx(css.thead, css.rowItem, isForOverrideSets && css.overrideSetRow)}
@@ -548,7 +561,9 @@ function ManifestListView({
                       </Text>
                     </span>
                     <span>
-                      <Text inline icon="full-circle" iconProps={{ size: 10, color: Color.GREEN_500 }} />
+                      <Text inline icon="full-circle" iconProps={{ size: 10, color }}>
+                        {status}
+                      </Text>
                     </span>
                     <span>
                       <Text style={{ color: Color.GREY_500 }}>
@@ -651,6 +666,57 @@ export default function ManifestSelection({
       .filter((x: { overrideSet: { identifier: string; manifests: [{}] } }) => x !== undefined)[0]
   }
 
+  const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
+
+  const { accountId } = useParams()
+  const defaultQueryParams = {
+    pageIndex: 0,
+    pageSize: 10,
+    searchTerm: '',
+    accountIdentifier: accountId
+  }
+  const { mutate: fetchConnectors } = useGetConnectorListV2({
+    queryParams: defaultQueryParams
+  })
+
+  const connectorList = listOfManifests
+    ? listOfManifests &&
+      listOfManifests.map(
+        (data: {
+          manifest: {
+            identifier: string
+            type: string
+            spec: {
+              store: {
+                type: string
+                spec: {
+                  connectorRef: string
+                  gitFetchType: string
+                  branch: string
+                  commitId: string
+                  paths: string[]
+                }
+              }
+            }
+          }
+        }) => ({
+          scope: getScope(data?.manifest?.spec?.store?.spec?.connectorRef),
+          identifier: getConnectorIdentifier(data?.manifest?.spec?.store?.spec?.connectorRef)
+        })
+      )
+    : []
+
+  const connectorIdentifiers = connectorList.map((item: { scope: string; identifier: string }) => item.identifier)
+
+  const refetchConnectorList = async () => {
+    const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
+    setFetchedConnectorResponse(connectorResponse)
+  }
+
+  React.useEffect(() => {
+    refetchConnectorList()
+  }, [listOfManifests])
+
   return (
     <Layout.Vertical
       padding={!isForOverrideSets ? 'large' : 'none'}
@@ -672,6 +738,7 @@ export default function ManifestSelection({
         identifierName={identifierName}
         isForPredefinedSets={isForPredefinedSets}
         overrideSetIdentifier={overrideSetIdentifier}
+        connectors={fetchedConnectorResponse}
       />
     </Layout.Vertical>
   )
