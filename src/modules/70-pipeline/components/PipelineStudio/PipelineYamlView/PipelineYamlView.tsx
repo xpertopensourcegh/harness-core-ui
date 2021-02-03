@@ -5,7 +5,7 @@ import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderPr
 import { useGetYamlSchema } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import { useGetYamlSnippetMetadata } from 'services/cd-ng'
+import { useGetYamlSnippet, useGetYamlSnippetMetadata } from 'services/cd-ng'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -37,11 +37,34 @@ const PipelineYamlView: React.FC = () => {
     requestOptions: { headers: { accept: 'application/json' } }
   })
 
+  const { data: snippet, refetch } = useGetYamlSnippet({
+    identifier: '',
+    requestOptions: { headers: { accept: 'application/json' } },
+    lazy: true,
+    queryParams: {
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
+  })
+  const [snippetYaml, setSnippetYaml] = React.useState<string>()
   React.useEffect(() => {
     if (yamlHandler) {
       setYamlHandlerContext(yamlHandler)
     }
   }, [yamlHandler, setYamlHandlerContext])
+
+  React.useEffect(() => {
+    setSnippetYaml(snippet?.data)
+  }, [snippet])
+
+  const onSnippetCopy = async (identifier: string): Promise<void> => {
+    await refetch({
+      pathParams: {
+        identifier
+      }
+    })
+  }
 
   const { loading, data: pipelineSchema } = useGetYamlSchema({
     queryParams: {
@@ -62,7 +85,9 @@ const PipelineYamlView: React.FC = () => {
           entityType="Pipelines"
           existingJSON={{ pipeline }}
           bind={setYamlHandler}
+          onSnippetCopy={onSnippetCopy}
           showIconMenu={true}
+          snippetYaml={snippetYaml}
           yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
           height={'calc(100vh - 200px)'}
           invocationMap={stepsFactory.getInvocationMap()}
