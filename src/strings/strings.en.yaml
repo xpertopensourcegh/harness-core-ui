@@ -49,6 +49,7 @@ thisConnectorIsSavedAs: 'This Connector is saved as'
 errorTitle: Something went wrong...
 errorSubtitle: This error has been reported and we are looking into it with high priority.
 errorHelp: to continue, this will remove all unsaved changes.
+errorTag: Error fetching tags
 please: Please
 clickHere: ' click here '
 blueGreen: BlueGreen

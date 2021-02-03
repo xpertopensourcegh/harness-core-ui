@@ -28,8 +28,7 @@
   &::before {
     content: '';
     position: absolute;
-
-    left: 30px;
+    left: 0px;
     width: 13px;
     height: 13px;
     background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
@@ -54,5 +53,11 @@
   padding: var(--spacing-small);
 }
 .inputWidth {
-  width: 450px !important;
+  width: 400px !important;
+}
+.nested-accordions {
+  box-shadow: none !important;
+}
+.nopad-left {
+  padding-left: 0 !important;
 }

@@ -5,5 +5,7 @@ declare const styles: {
   readonly header: string
   readonly stagesTreeBulletSquare: string
   readonly stagesTreeBulletCircle: string
+  readonly nestedAccordions: string
+  readonly nopadLeft: string
 }
 export default styles

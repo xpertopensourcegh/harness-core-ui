@@ -590,13 +590,13 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                         class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <div
-                          class="Accordion--panel"
+                          class="Accordion--panel nestedAccordions"
                           data-open="false"
                           data-testid="Stage.asd-panel"
                           id="Stage.asd-panel"
                         >
                           <div
-                            class="Accordion--summary"
+                            class="Accordion--summary nopadLeft"
                             data-testid="Stage.asd-summary"
                           >
                             <div
@@ -622,17 +622,17 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               style="transform: translateY(0);"
                             >
                               <div
-                                class="Accordion--details"
+                                class="Accordion--details nopadLeft"
                                 data-testid="Stage.asd-details"
                               >
                                 <div
-                                  class="Accordion--panel"
+                                  class="Accordion--panel nestedAccordions"
                                   data-open="false"
                                   data-testid="Stage.asd.Infrastructure-panel"
                                   id="Stage.asd.Infrastructure-panel"
                                 >
                                   <div
-                                    class="Accordion--summary"
+                                    class="Accordion--summary nopadLeft"
                                     data-testid="Stage.asd.Infrastructure-summary"
                                   >
                                     <div
@@ -2088,13 +2088,13 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                         class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <div
-                          class="Accordion--panel"
+                          class="Accordion--panel nestedAccordions"
                           data-open="true"
                           data-testid="Stage.asd-panel"
                           id="Stage.asd-panel"
                         >
                           <div
-                            class="Accordion--summary"
+                            class="Accordion--summary nopadLeft"
                             data-testid="Stage.asd-summary"
                           >
                             <div
@@ -2120,17 +2120,17 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                               style="transform: translateY(0); transition: none;"
                             >
                               <div
-                                class="Accordion--details"
+                                class="Accordion--details nopadLeft"
                                 data-testid="Stage.asd-details"
                               >
                                 <div
-                                  class="Accordion--panel"
+                                  class="Accordion--panel nestedAccordions"
                                   data-open="true"
                                   data-testid="Stage.asd.Infrastructure-panel"
                                   id="Stage.asd.Infrastructure-panel"
                                 >
                                   <div
-                                    class="Accordion--summary"
+                                    class="Accordion--summary nopadLeft"
                                     data-testid="Stage.asd.Infrastructure-summary"
                                   >
                                     <div

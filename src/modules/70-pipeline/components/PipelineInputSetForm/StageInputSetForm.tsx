@@ -185,6 +185,9 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Service`}
+          panelClassName={css.nestedAccordions}
+          summaryClassName={css.nopadLeft}
+          detailsClassName={css.nopadLeft}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="service" />
@@ -230,6 +233,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Infrastructure`}
+          panelClassName={css.nestedAccordions}
+          summaryClassName={css.nopadLeft}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="infrastructureText" />
@@ -284,6 +289,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.SharedPaths`}
+          panelClassName={css.nestedAccordions}
+          summaryClassName={css.nopadLeft}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="pipelineSteps.build.stageSpecifications.sharedPaths" />
@@ -297,6 +304,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Variables`}
+          panelClassName={css.nestedAccordions}
+          summaryClassName={css.nopadLeft}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="variablesText" />
@@ -310,6 +319,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Execution`}
+          panelClassName={css.nestedAccordions}
+          summaryClassName={css.nopadLeft}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="executionText" />

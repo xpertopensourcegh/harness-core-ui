@@ -259,13 +259,13 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-card bp3-elevation-0 Card--card"
                 >
                   <div
-                    class="Accordion--panel"
+                    class="Accordion--panel nestedAccordions"
                     data-open="true"
                     data-testid="Stage.stage1-panel"
                     id="Stage.stage1-panel"
                   >
                     <div
-                      class="Accordion--summary"
+                      class="Accordion--summary nopadLeft"
                       data-testid="Stage.stage1-summary"
                     >
                       <div
@@ -289,17 +289,17 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                         style="transform: translateY(0);"
                       >
                         <div
-                          class="Accordion--details"
+                          class="Accordion--details nopadLeft"
                           data-testid="Stage.stage1-details"
                         >
                           <div
-                            class="Accordion--panel"
+                            class="Accordion--panel nestedAccordions"
                             data-open="true"
                             data-testid="Stage.stage1.Infrastructure-panel"
                             id="Stage.stage1.Infrastructure-panel"
                           >
                             <div
-                              class="Accordion--summary"
+                              class="Accordion--summary nopadLeft"
                               data-testid="Stage.stage1.Infrastructure-summary"
                             >
                               <div

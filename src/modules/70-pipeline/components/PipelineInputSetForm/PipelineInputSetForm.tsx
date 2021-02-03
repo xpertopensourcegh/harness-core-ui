@@ -43,7 +43,10 @@ function StageForm({
       isDefaultOpen
       addDomId
       id={`Stage.${allValues?.stage?.identifier}`}
+      summaryClassName={css.nopadLeft}
+      panelClassName={css.nestedAccordions}
       summary={<div className={css.stagesTreeBulletSquare}>{allValues?.stage?.name || ''}</div>}
+      detailsClassName={css.nopadLeft}
       details={
         <>
           {template?.stage?.variables && (
@@ -52,6 +55,8 @@ function StageForm({
               addDomId
               id={`Stage.${allValues?.stage?.identifier}.Variables`}
               summary={<div className={css.stagesTreeBulletCircle}>{getString('variablesText')}</div>}
+              summaryClassName={css.nopadLeft}
+              panelClassName={css.nestedAccordions}
               details={
                 <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
                   factory={(factory as unknown) as AbstractStepFactory}

@@ -10,5 +10,7 @@ declare const styles: {
   readonly customVariables: string
   readonly padSmall: string
   readonly inputWidth: string
+  readonly nestedAccordions: string
+  readonly nopadLeft: string
 }
 export default styles
