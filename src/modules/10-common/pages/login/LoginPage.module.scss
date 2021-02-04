@@ -1,0 +1,10 @@
+.loginPage {
+  height: 100vh;
+  background: var(--blue-500);
+  display: flex;
+
+  .card {
+    width: 420px;
+    margin: auto;
+  }
+}
