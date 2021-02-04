@@ -1,10 +1,11 @@
 import React from 'react'
-import { useModalHook, Button, Text, Card, Icon, IconName, Layout } from '@wings-software/uicore'
+import { useModalHook, Button, Text, Card, Icon, Layout } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import useCreateConnectorModal, { UseCreateConnectorModalProps } from './useCreateConnectorModal'
-import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
-
+import wizardCss from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
+import css from './useCreateConnectorMultiTypeModal.module.scss'
 export interface UseCreateConnectorMultiTypeModalProps {
   types: ConnectorInfoDTO['type'][]
   onSuccess?: UseCreateConnectorModalProps['onSuccess']
@@ -30,24 +31,6 @@ const modalProps: IDialogProps = {
   }
 }
 
-const connectorsMap = {
-  Gcp: { label: 'GCP', icon: 'service-gcp' },
-  Aws: { label: 'AWS', icon: 'service-aws' },
-  K8sCluster: { label: 'Kubernetes cluster', icon: 'service-kubernetes' },
-  Vault: { label: 'HashiCorp Vault', icon: 'hashiCorpVault' },
-  Nexus: { label: 'Nexus', icon: 'service-nexus' },
-  DockerRegistry: { label: 'Docker', icon: 'service-dockerhub' },
-  Artifactory: { label: 'Artifactory', icon: 'service-artifactory' },
-  Bitbucket: { label: 'Bitbucket', icon: 'bitbucket' },
-  Github: { label: 'GitHub', icon: 'github' },
-  Git: { label: 'Git', icon: 'service-github' },
-  Gitlab: { label: 'GitLab', icon: 'service-gotlab' },
-  Splunk: { label: 'Splunk server', icon: 'service-splunk' },
-  AppDynamics: { label: 'AppDynamics server', icon: 'service-appdynamics' },
-  Jira: { label: 'Jira', icon: 'cog' },
-  YAML: { label: 'YAML', icon: 'cog' }
-}
-
 const useCreateConnectorMultiTypeModal = (
   props: UseCreateConnectorMultiTypeModalProps
 ): UseCreateConnectorMultiTypeModalReturn => {
@@ -67,7 +50,7 @@ const useCreateConnectorMultiTypeModal = (
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog {...modalProps}>
+      <Dialog {...modalProps} className={css.modal}>
         <Text font={{ size: 'large', weight: 'semi-bold' }} color="white" margin={{ bottom: 'small' }}>
           Select your Connector type
         </Text>
@@ -76,17 +59,17 @@ const useCreateConnectorMultiTypeModal = (
         </Text>
         <Layout.Horizontal spacing="medium">
           {props.types.map(type => (
-            <div key={type}>
+            <div key={type} className={css.card}>
               <Card interactive={true} elevation={0} selected={false} onClick={() => handleSelect(type)}>
-                <Icon name={(connectorsMap as any)?.[type]?.icon as IconName} size={20} />
+                <Icon name={getConnectorIconByType(type)} size={20} />
               </Card>
-              <Text color="white" margin={{ top: 'small' }} style={{ textAlign: 'center' }}>
-                {(connectorsMap as any)?.[type]?.label}
+              <Text lineClamp={3} color="white" margin={{ top: 'small' }} style={{ textAlign: 'center', width: 80 }}>
+                {getConnectorTitleTextByType(type)}
               </Text>
             </div>
           ))}
         </Layout.Horizontal>
-        <Button className={css.crossIcon} minimal icon="cross" iconProps={{ size: 18 }} onClick={handleClose} />
+        <Button className={wizardCss.crossIcon} minimal icon="cross" iconProps={{ size: 18 }} onClick={handleClose} />
       </Dialog>
     ),
     [props.types]
