@@ -7,7 +7,7 @@ import SessionToken from 'framework/utils/SessionToken'
 
 // NOTE: We are using custom implementation for loading stream logs
 // if we gets this info in DTO we can use it from there
-const streamEndpoint = '/log-service/stream'
+const streamEndpoint = `${window.apiUrl || ''}/log-service/stream`
 
 /**
  * Load logs using server events.
