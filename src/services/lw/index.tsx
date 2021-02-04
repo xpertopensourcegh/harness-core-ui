@@ -263,6 +263,7 @@ export interface ServiceLogsResponse {
 export interface AccessPointMeta {
   error?: string
   role?: string
+  certificate_id?: string
   security_groups?: string[]
 }
 
@@ -320,6 +321,11 @@ export interface ExecutionRule {
   name?: string
 }
 
+export interface Certificate {
+  id?: string
+  name?: string
+}
+
 export interface AllSubnetsResponse {
   response?: Subnet[]
 }
@@ -334,6 +340,10 @@ export interface GetAccessPointResponse {
 
 export interface AllExecutionRolesResponse {
   response?: ExecutionRule[]
+}
+
+export interface AllCertificatesResponse {
+  response?: Certificate[]
 }
 
 export interface GetServicesPathParams {
@@ -1411,5 +1421,53 @@ export const useAllExecutionRoles = ({ org_id, project_id, account_id, ...props 
   useGet<AllExecutionRolesResponse, void, AllExecutionRolesQueryParams, AllExecutionRolesPathParams>(
     (paramsInPath: AllExecutionRolesPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/execution_roles`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
+export interface AllCertificatesQueryParams {
+  cloud_account_id: string
+  region: string
+}
+
+export interface AllCertificatesPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type AllCertificatesProps = Omit<
+  GetProps<AllCertificatesResponse, void, AllCertificatesQueryParams, AllCertificatesPathParams>,
+  'path'
+> &
+  AllCertificatesPathParams
+
+/**
+ * Lists all certificates for a cloud account
+ *
+ * Returns all certificates for a cloud account
+ */
+export const AllCertificates = ({ org_id, project_id, account_id, ...props }: AllCertificatesProps) => (
+  <Get<AllCertificatesResponse, void, AllCertificatesQueryParams, AllCertificatesPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/certificates"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAllCertificatesProps = Omit<
+  UseGetProps<AllCertificatesResponse, void, AllCertificatesQueryParams, AllCertificatesPathParams>,
+  'path'
+> &
+  AllCertificatesPathParams
+
+/**
+ * Lists all certificates for a cloud account
+ *
+ * Returns all certificates for a cloud account
+ */
+export const useAllCertificates = ({ org_id, project_id, account_id, ...props }: UseAllCertificatesProps) =>
+  useGet<AllCertificatesResponse, void, AllCertificatesQueryParams, AllCertificatesPathParams>(
+    (paramsInPath: AllCertificatesPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/certificates`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )

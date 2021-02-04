@@ -18,6 +18,7 @@ import {
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import {
   AccessPoint,
+  useAllCertificates,
   useAllExecutionRoles,
   useAllRegions,
   useAllSecurityGroups,
@@ -116,6 +117,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   const [vpcOptions, setvpcOptions] = useState<SelectOption[]>([])
   const [roleOptions, setRoleOptions] = useState<SelectOption[]>([])
   const [sgOptions, setSGOptions] = useState<SelectOption[]>([])
+  const [certificateOptions, setCertificateOptions] = useState<SelectOption[]>([])
   const [selectedCloudAccount, setSelectedCloudAccount] = useState<string>(props.accessPoint.cloud_account_id as string)
   const [selectedRegion, setSelectedRegion] = useState<string>(props.accessPoint.region as string)
   const [selectedVpc, setSelectedVpc] = useState<string>(props.accessPoint.vpc as string)
@@ -185,6 +187,15 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       cloud_account_id: selectedCloudAccount // eslint-disable-line
     }
   })
+  const { data: certificates, loading: certificatesLoading } = useAllCertificates({
+    org_id: orgIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      cloud_account_id: selectedCloudAccount, // eslint-disable-line
+      region: selectedRegion
+    }
+  })
   const { data: securityGroups, loading: sgsLoading } = useAllSecurityGroups({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -247,7 +258,19 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       }) || []
     setSGOptions(loaded)
   }, [securityGroups])
-
+  useEffect(() => {
+    if (certificates?.response?.length == 0) {
+      return
+    }
+    const loaded: SelectOption[] =
+      certificates?.response?.map(v => {
+        return {
+          label: v.name as string,
+          value: v.id as string
+        }
+      }) || []
+    setCertificateOptions(loaded)
+  }, [certificates])
   const isLoading = (): boolean => {
     return accessPoint.status == 'submitted'
   }
@@ -316,6 +339,18 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                   formik.setFieldValue('accessPointRegion', e.value)
                 }}
                 disabled={regionsLoading || regionOptions.length == 0}
+              />
+              <FormInput.Select
+                name="certificate"
+                label={'Select an certificate'}
+                placeholder={'Select Certificate'}
+                items={certificateOptions}
+                onChange={e => {
+                  formik.setFieldValue('certificate', e)
+                  if (props.accessPoint.metadata) props.accessPoint.metadata.certificate_id = e.value as string // eslint-disable-line
+                  setAccessPoint(props.accessPoint)
+                }}
+                disabled={certificatesLoading || certificateOptions.length == 0}
               />
               <FormInput.Select
                 name="role"
