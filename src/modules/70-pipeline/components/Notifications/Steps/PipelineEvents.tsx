@@ -98,7 +98,7 @@ const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prev
                 {pipelineEventItems.map(event => {
                   return (
                     <Layout.Vertical key={event.label}>
-                      <Layout.Horizontal spacing="small" flex>
+                      <Layout.Horizontal margin={{ bottom: 'small' }} flex>
                         <FormInput.CheckBox
                           name={`types.${event.value}`}
                           checked={formikProps.values.types[event.label]}
