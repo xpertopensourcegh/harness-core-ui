@@ -9,5 +9,6 @@ declare const styles: {
   readonly headerLayout: string
   readonly savingsAmount: string
   readonly analyticsHeader: string
+  readonly breadCrumb: string
 }
 export default styles

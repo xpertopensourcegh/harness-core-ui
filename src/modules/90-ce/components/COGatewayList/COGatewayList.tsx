@@ -31,10 +31,12 @@ import {
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import { getRelativeTime } from './Utils'
+import landingPageSVG from './images/landingPageGraphic.svg'
 import css from './COGatewayList.module.scss'
 
 const gatewayStateMap: { [key: string]: JSX.Element } = {
@@ -344,7 +346,7 @@ const COGatewayList: React.FC = () => {
       </Container>
     )
   }
-  const { data, error } = useGetServices({
+  const { data, error, loading } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     debounce: 300
@@ -353,31 +355,38 @@ const COGatewayList: React.FC = () => {
     modalErrorHandler?.showDanger(error.data || error.message)
   }
   return (
-    <>
-      <Page.Header title="Autostopping Rules" className={css.header} />
-      <Drawer
-        autoFocus={true}
-        enforceFocus={true}
-        hasBackdrop={true}
-        usePortal={true}
-        canOutsideClickClose={true}
-        canEscapeKeyClose={true}
-        isOpen={isDrawerOpen}
-        onClose={() => {
-          setIsDrawerOpen(false)
-        }}
-        size="656px"
-        style={{
-          boxShadow: '0px 2px 8px rgba(40, 41, 61, 0.04), 0px 16px 24px rgba(96, 97, 112, 0.16)',
-          borderRadius: '8px',
-          overflowY: 'scroll'
-        }}
-      >
-        <COGatewayAnalytics service={selectedService as Service} />
-      </Drawer>
-      <>
-        <Layout.Horizontal padding="large">
-          <Layout.Horizontal width="55%">
+    <Container background={Color.WHITE} height="100vh">
+      {!loading && !data?.response ? (
+        <>
+          <Breadcrumbs
+            className={css.breadCrumb}
+            links={[
+              {
+                url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
+                label: 'Cost Optimization'
+              },
+              {
+                url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
+                label: 'Autostopping Rules'
+              }
+            ]}
+          />
+          <Layout.Vertical
+            spacing="large"
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingTop: '220px',
+              marginLeft: '300px',
+              width: '760px'
+            }}
+          >
+            <img src={landingPageSVG} alt="" width="300px"></img>
+            <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center' }}>
+              AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you)
+              only when you’re using them, and never when they are idle. Additionally, run your workloads on fully
+              orchestrated spot instances without any worry of spot interruptions. <Link href="/">Learn more</Link>
+            </Text>
             <Button
               intent="primary"
               text="New Autostopping Rule"
@@ -392,84 +401,132 @@ const COGatewayList: React.FC = () => {
                 )
               }
             />
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
-            <Layout.Horizontal flex>
-              <ExpandingSearchInput
-                placeholder="search"
-                // onChange={text => {
-                //   // console.log(text)
-                //   // setSearchParam(text.trim())
-                // }}
-                className={css.search}
-              />
-            </Layout.Horizontal>
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-      </>
-      <ModalErrorHandler bind={setModalErrorHandler} />
-      <Page.Body className={css.pageContainer}>
-        <Table<Service>
-          data={data?.response ? data.response : []}
-          className={css.table}
-          pagination={{
-            itemCount: 50, //data?.data?.totalItems || 0,
-            pageSize: 10, //data?.data?.pageSize || 10,
-            pageCount: 5, //data?.data?.totalPages || 0,
-            pageIndex: page, //data?.data?.pageIndex || 0,
-            gotoPage: (pageNumber: number) => setPage(pageNumber)
-          }}
-          onRowClick={e => {
-            setSelectedService(e)
-            setIsDrawerOpen(true)
-          }}
-          columns={[
-            {
-              accessor: 'name',
-              Header: 'Name'.toUpperCase(),
-              width: '18%',
-              Cell: NameCell
-            },
-            {
-              accessor: 'idle_time_mins',
-              Header: 'Idle Time'.toUpperCase(),
-              width: '8%',
-              Cell: TimeCell
-            },
-            {
-              accessor: 'fulfilment',
-              Header: 'Compute Type'.toUpperCase(),
-              width: '12%',
-              Cell: IconCell
-            },
-            {
-              Header: 'Resources Managed By The Rule'.toUpperCase(),
-              width: '32%',
-              Cell: ResourcesCell
-            },
-            {
-              Header: 'Cumulative Savings'.toUpperCase(),
-              width: '15%',
-              Cell: SavingsCell,
-              disableSortBy: true
-            },
-            {
-              Header: 'Last Activity'.toUpperCase(),
-              width: '10%',
-              Cell: ActivityCell
-            },
-            {
-              Header: '',
-              id: 'menu',
-              accessor: row => row.id,
-              width: '5%',
-              Cell: RenderColumnMenu,
-              disableSortBy: true
-            }
-          ]}
-        />
-      </Page.Body>
-    </>
+          </Layout.Vertical>
+        </>
+      ) : (
+        <>
+          {!loading ? (
+            <>
+              <Page.Header title="Autostopping Rules" className={css.header} />
+              <Drawer
+                autoFocus={true}
+                enforceFocus={true}
+                hasBackdrop={true}
+                usePortal={true}
+                canOutsideClickClose={true}
+                canEscapeKeyClose={true}
+                isOpen={isDrawerOpen}
+                onClose={() => {
+                  setIsDrawerOpen(false)
+                }}
+                size="656px"
+                style={{
+                  boxShadow: '0px 2px 8px rgba(40, 41, 61, 0.04), 0px 16px 24px rgba(96, 97, 112, 0.16)',
+                  borderRadius: '8px',
+                  overflowY: 'scroll'
+                }}
+              >
+                <COGatewayAnalytics service={selectedService as Service} />
+              </Drawer>
+              <>
+                <Layout.Horizontal padding="large">
+                  <Layout.Horizontal width="55%">
+                    <Button
+                      intent="primary"
+                      text="New Autostopping Rule"
+                      icon="plus"
+                      onClick={() =>
+                        history.push(
+                          routes.toCECOCreateGateway({
+                            orgIdentifier: orgIdentifier as string,
+                            projectIdentifier: projectIdentifier as string,
+                            accountId
+                          })
+                        )
+                      }
+                    />
+                  </Layout.Horizontal>
+                  <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
+                    <Layout.Horizontal flex>
+                      <ExpandingSearchInput
+                        placeholder="search"
+                        // onChange={text => {
+                        //   // console.log(text)
+                        //   // setSearchParam(text.trim())
+                        // }}
+                        className={css.search}
+                      />
+                    </Layout.Horizontal>
+                  </Layout.Horizontal>
+                </Layout.Horizontal>
+              </>
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              <Page.Body className={css.pageContainer}>
+                <Table<Service>
+                  data={data?.response ? data.response : []}
+                  className={css.table}
+                  pagination={{
+                    itemCount: 50, //data?.data?.totalItems || 0,
+                    pageSize: 10, //data?.data?.pageSize || 10,
+                    pageCount: 5, //data?.data?.totalPages || 0,
+                    pageIndex: page, //data?.data?.pageIndex || 0,
+                    gotoPage: (pageNumber: number) => setPage(pageNumber)
+                  }}
+                  onRowClick={e => {
+                    setSelectedService(e)
+                    setIsDrawerOpen(true)
+                  }}
+                  columns={[
+                    {
+                      accessor: 'name',
+                      Header: 'Name'.toUpperCase(),
+                      width: '18%',
+                      Cell: NameCell
+                    },
+                    {
+                      accessor: 'idle_time_mins',
+                      Header: 'Idle Time'.toUpperCase(),
+                      width: '8%',
+                      Cell: TimeCell
+                    },
+                    {
+                      accessor: 'fulfilment',
+                      Header: 'Compute Type'.toUpperCase(),
+                      width: '12%',
+                      Cell: IconCell
+                    },
+                    {
+                      Header: 'Resources Managed By The Rule'.toUpperCase(),
+                      width: '32%',
+                      Cell: ResourcesCell
+                    },
+                    {
+                      Header: 'Cumulative Savings'.toUpperCase(),
+                      width: '15%',
+                      Cell: SavingsCell,
+                      disableSortBy: true
+                    },
+                    {
+                      Header: 'Last Activity'.toUpperCase(),
+                      width: '10%',
+                      Cell: ActivityCell
+                    },
+                    {
+                      Header: '',
+                      id: 'menu',
+                      accessor: row => row.id,
+                      width: '5%',
+                      Cell: RenderColumnMenu,
+                      disableSortBy: true
+                    }
+                  ]}
+                />
+              </Page.Body>
+            </>
+          ) : null}
+        </>
+      )}
+    </Container>
   )
 }
 
