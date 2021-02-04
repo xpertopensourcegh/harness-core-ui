@@ -1,0 +1,46 @@
+.notInstalled {
+  color: var(--orange-500) !important;
+}
+
+.troubleShooting {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.podCmndField {
+  box-shadow: 0px 0px 5px rgba(40, 41, 61, 0.0348285);
+  background: #effbff !important;
+  border-radius: 4px !important;
+}
+
+.podCmndVerification {
+  margin-top: var(--spacing-medium) !important;
+}
+
+.noBtn {
+  background: #ebebeb !important;
+  margin-left: var(--spacing-small) !important;
+}
+
+.btnContainer {
+  margin-left: var(--spacing-medium) !important;
+}
+.error {
+  background: #ffffff !important;
+  width: 176px;
+  height: 36px !important;
+  /* Light / Elevation 03 */
+
+  box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16) !important;
+  border-radius: 4px !important;
+}
+
+.addSpacing {
+  margin-top: var(--spacing-small) !important;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: column;
+}

@@ -7,20 +7,25 @@ import DelegateDetailsStep from '../CreateDelegate/commonSteps/DelegateDetailsSt
 interface DelegateWizardProps {
   type?: string
   onBack: any
+  onClose?: any
+}
+
+interface CreateDelegateWizardProps {
+  onClose?: any
 }
 
 export const DelegateWizard: React.FC<DelegateWizardProps> = props => {
   const { type, onBack } = props
   switch (type) {
     case DelegateTypes.KUBERNETES_CLUSTER:
-      return <CreateK8sDelegate onBack={onBack} />
+      return <CreateK8sDelegate onBack={onBack} onClose={props.onClose} />
     default:
       /* istanbul ignore next */
       return null
   }
 }
 
-export const CreateDelegateWizard: React.FC = props => {
+export const CreateDelegateWizard: React.FC<CreateDelegateWizardProps> = props => {
   const { getString } = useStrings()
   const [showWizard, setShowWizard] = React.useState(false)
   const [delType, setDelType] = React.useState('')

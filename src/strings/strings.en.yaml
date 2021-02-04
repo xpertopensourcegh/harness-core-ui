@@ -13,6 +13,9 @@ modules: Modules
 account: 'Account'
 repository: 'Repository'
 more: '+{{number}} more'
+yes: 'Yes'
+no: 'No'
+restart: 'Restart'
 noData: No Data
 members: Members
 wip: Work in progress
@@ -153,6 +156,7 @@ delete: Delete
 select: Select
 selectStage: Select a stage
 verify: Verify
+done: Done
 save: Save
 back: Back
 next: Next
@@ -457,6 +461,7 @@ instanceFieldOptions:
   instanceHolder: 'Count'
 delegate:
   hostName: 'Hostname'
+
   delegateNameRequired: 'Delegate Name is Required.'
   delegateSizeRequired: 'Delegate Size is Required.'
   delegateConfigRequired: 'Delegate Configuration is Required.'
@@ -523,9 +528,17 @@ delegate:
     delegateInstalled: Delegate Installed Successfully
   delegateNotInstalled:
     title: Delegate not installed
-    verifyField1: kubectl describe pod <your-delegate-pod> -n harness-delegate
     verifyField2: kubectl logs -f <harness-delegate> -n harness-delegate
     verifyField3: kubectl describe pod_name -n harness-delegate
+    statusOfCluster: 'Check the status of your delegate on your cluster'
+    podCommand: 'kubectl describe pod <your-delegate-pod> -n harness-delegate'
+    podComeUp: 'Did the pod <pod name> come up?'
+    eventErrorBlock: 'Do you see the error in the events block? If so what is the error?'
+    permissionError: 'Permission Error'
+    crashloopError: 'Crashloop BackOff'
+    pullError: 'ErrorImage Pull'
+    harnessErrorValidation: 'Do you see an error "Failed to connect to Harness Sass? or Manager?"'
+    contactHarness: 'Contact Harness Support'
     tabs:
       commonProblems:
         title: Common Problems

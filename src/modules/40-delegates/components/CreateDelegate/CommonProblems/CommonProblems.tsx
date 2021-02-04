@@ -2,7 +2,8 @@ import React from 'react'
 import { Container, Layout, Icon, Color, Text, StepProps } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
-import addFile from './images/addFile.svg'
+
+import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import css from '../K8sDelegate/CreateK8sDelegate.module.scss'
 
 const CommonProblems: React.FC<StepProps<null>> = () => {
@@ -26,7 +27,7 @@ const CommonProblems: React.FC<StepProps<null>> = () => {
         </Layout.Horizontal>
         <Layout.Vertical width={511} style={{ padding: 'var(--spacing-medium) 0px' }}>
           <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-            Check the status of your delegate on your cluster
+            {getString('delegate.delegateNotInstalled.statusOfCluster')}
           </Text>
           <Link to="" href="/" style={{ textAlign: 'end', fontSize: '13px' }}>
             {getString('delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot')}
@@ -40,8 +41,8 @@ const CommonProblems: React.FC<StepProps<null>> = () => {
             flex
             className={css.verificationField}
           >
-            <Text style={{ marginRight: '24px' }}>{getString('delegate.delegateNotInstalled.verifyField1')}</Text>
-            <img src={addFile} alt="" aria-hidden className={css.addConfigImg} />
+            <Text style={{ marginRight: '24px' }}>{getString('delegate.delegateNotInstalled.podCommand')}</Text>
+            <CopyToClipboard content={getString('delegate.delegateNotInstalled.podCommand')} />
           </Container>
         </Layout.Vertical>
         <Layout.Vertical width={511} style={{ padding: 'var(--spacing-small) 0px' }}>
@@ -61,7 +62,7 @@ const CommonProblems: React.FC<StepProps<null>> = () => {
             className={css.verificationField}
           >
             <Text style={{ marginRight: '24px' }}>{getString('delegate.delegateNotInstalled.verifyField2')}</Text>
-            <img src={addFile} alt="" aria-hidden className={css.addConfigImg} />
+            <CopyToClipboard content={getString('delegate.delegateNotInstalled.verifyField2')} />
           </Container>
         </Layout.Vertical>
         <Layout.Horizontal width={511} style={{ padding: 'var(--spacing-small) 0px' }}>
@@ -86,7 +87,7 @@ const CommonProblems: React.FC<StepProps<null>> = () => {
             className={css.verificationField}
           >
             <Text style={{ marginRight: '24px' }}>{getString('delegate.delegateNotInstalled.verifyField3')}</Text>
-            <img src={addFile} alt="" aria-hidden className={css.addConfigImg} />
+            <CopyToClipboard content={getString('delegate.delegateNotInstalled.verifyField3')} />
           </Container>
         </Layout.Vertical>
         <Layout.Horizontal width={511} style={{ padding: 'var(--spacing-small) 0px' }}>

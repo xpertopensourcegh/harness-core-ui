@@ -26,10 +26,11 @@ import { InstanceDropdownField, FormInstanceDropdown } from './InstanceDropdownF
 import { DelegateSelectors } from './DelegateSelectors/DelegateSelectors'
 import Wizard from './Wizard/Wizard'
 import WizardWithProgress from './WizardWithProgress/WizardWithProgress'
-
+import CopyToClipBoard from './CopyToClipBoard/CopyToClipBoard'
 export {
   AdminSelector,
   AddDrawer,
+  CopyToClipBoard,
   ConnectorStats,
   Duration,
   DynamicPopover,

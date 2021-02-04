@@ -1,0 +1,19 @@
+.popoverContent {
+  display: flex;
+  background-color: black;
+  border-radius: 5px;
+  padding: var(--spacing-xsmall) var(--spacing-small);
+}
+.tooltipLabel {
+  color: var(--white);
+  padding-right: var(--spacing-small);
+}
+
+.copyIcon {
+  cursor: pointer;
+  margin-right: var(--spacing-xsmall) !important;
+  svg g {
+    fill: var(--blue-500);
+    stroke: var(--blue-500);
+  }
+}

@@ -1,0 +1,387 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Common Problems Tab render data 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+    style="width: 630px;"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--flex"
+      style="border-bottom: 0.5px solid #B0B1C4;"
+    >
+      <button
+        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Back
+        </span>
+      </button>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold"
+        style="line-height: 22px; display: flex; align-items: center;"
+      >
+        <span
+          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue800"
+          data-icon="info"
+        >
+          <svg
+            height="16"
+            viewBox="0 0 12 12"
+            width="16"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        Here is what you can do
+      </p>
+      <button
+        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Restart
+        </span>
+      </button>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main"
+      style="width: 511px;"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-bold"
+        >
+          Check the status of your delegate on your cluster
+        </p>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Troubleshoot
+          </span>
+        </button>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main podCmndField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
+      >
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          kubectl describe pod &lt;your-delegate-pod&gt; -n harness-delegate
+        </p>
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <div
+              class=""
+              tabindex="0"
+            >
+              <span
+                class="bp3-icon StyledProps--main copyIcon"
+                data-icon="copy"
+              >
+                <svg
+                  height="20"
+                  viewBox="0 0 14 16"
+                  width="20"
+                >
+                  <g
+                    fill="#22272D"
+                    stroke="#22272D"
+                    stroke-width="0.25"
+                  >
+                    <path
+                      d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                    />
+                    <path
+                      d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main podCmndVerification"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+      >
+        Did the pod &lt;pod name&gt; come up?
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Yes
+          </span>
+        </button>
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main noBtn"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            No
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Common Problems Tab show event error btn 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+    style="width: 630px;"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--flex"
+      style="border-bottom: 0.5px solid #B0B1C4;"
+    >
+      <button
+        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Back
+        </span>
+      </button>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold"
+        style="line-height: 22px; display: flex; align-items: center;"
+      >
+        <span
+          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue800"
+          data-icon="info"
+        >
+          <svg
+            height="16"
+            viewBox="0 0 12 12"
+            width="16"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        Here is what you can do
+      </p>
+      <button
+        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Restart
+        </span>
+      </button>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main"
+      style="width: 511px;"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-bold"
+        >
+          Check the status of your delegate on your cluster
+        </p>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Troubleshoot
+          </span>
+        </button>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main podCmndField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
+      >
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          kubectl describe pod &lt;your-delegate-pod&gt; -n harness-delegate
+        </p>
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <div
+              class=""
+              tabindex="0"
+            >
+              <span
+                class="bp3-icon StyledProps--main copyIcon"
+                data-icon="copy"
+              >
+                <svg
+                  height="20"
+                  viewBox="0 0 14 16"
+                  width="20"
+                >
+                  <g
+                    fill="#22272D"
+                    stroke="#22272D"
+                    stroke-width="0.25"
+                  >
+                    <path
+                      d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                    />
+                    <path
+                      d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main"
+      style="width: 511px;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-bold"
+      >
+        Do you see the error in the events block? If so what is the error?
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main btnContainer"
+    >
+      <button
+        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main error"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Permission Error
+        </span>
+        <span
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color"
+          icon="warning-sign"
+        >
+          <svg
+            data-icon="warning-sign"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              warning-sign
+            </desc>
+            <path
+              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main error addSpacing"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Crashloop BackOff
+        </span>
+        <span
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color"
+          icon="warning-sign"
+        >
+          <svg
+            data-icon="warning-sign"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              warning-sign
+            </desc>
+            <path
+              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main error addSpacing"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          ErrorImage Pull
+        </span>
+        <span
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color"
+          icon="warning-sign"
+        >
+          <svg
+            data-icon="warning-sign"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              warning-sign
+            </desc>
+            <path
+              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

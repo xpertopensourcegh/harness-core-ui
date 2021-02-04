@@ -8,13 +8,13 @@ import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
 import { DelegateTypes } from '@delegates/constants'
 import DelegateSetupStep from './DelegateSetupStep/DelegateSetupStep'
 import Stepk8ReviewScript from './StepReviewScript/Stepk8sReviewScript'
-
 import StepSuccessVerification from './StepSuccessVerification/StepSuccessVerifcation'
 import css from './CreateK8sDelegate.module.scss'
 
 interface CreateK8sDelegateProps {
   delegateInfo?: DelegateInfoDTO | void
   onBack: any
+  onClose?: any
 }
 
 const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = props => {
@@ -31,7 +31,6 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = props => {
       status: Status.TODO
     }
   ]
-
   return (
     <>
       <WizardWithProgress
@@ -46,7 +45,12 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = props => {
           }}
         />
         <Stepk8ReviewScript />
-        <StepSuccessVerification />
+
+        <StepSuccessVerification
+          onClose={() => {
+            props?.onClose()
+          }}
+        />
       </WizardWithProgress>
     </>
   )

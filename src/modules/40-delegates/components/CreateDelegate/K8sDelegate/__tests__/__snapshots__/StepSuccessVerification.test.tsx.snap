@@ -142,6 +142,16 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
         Back
       </span>
     </button>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Done
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -286,6 +296,16 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
         class="bp3-button-text"
       >
         Back
+      </span>
+    </button>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Done
       </span>
     </button>
   </div>

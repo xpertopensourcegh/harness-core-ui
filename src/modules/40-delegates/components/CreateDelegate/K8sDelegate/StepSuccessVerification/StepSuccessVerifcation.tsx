@@ -9,7 +9,10 @@ import StepProcessing from '../StepProcessing/StepProcessing'
 // import addFile from './images/addFile.svg'
 import css from '../CreateK8sDelegate.module.scss'
 
-const StepSuccessVerification: React.FC<StepProps<StepK8Data>> = props => {
+interface StepSuccessVerifcationProps {
+  onClose?: any
+}
+const StepSuccessVerification: React.FC<StepProps<StepK8Data> & StepSuccessVerifcationProps> = props => {
   const [showProcessing, setShowProcessing] = React.useState(false)
   const { previousStep } = props
   // const { accountId } = useParams()
@@ -66,8 +69,6 @@ const StepSuccessVerification: React.FC<StepProps<StepK8Data>> = props => {
               padding="small"
               onClick={() => {
                 setShowProcessing(true)
-                // console.log('on verify', data)
-                // onVerify()
               }}
             />
           </Layout.Horizontal>
@@ -88,6 +89,17 @@ const StepSuccessVerification: React.FC<StepProps<StepK8Data>> = props => {
           onClick={onClickBack}
           icon="chevron-left"
           margin={{ right: 'small' }}
+        />
+        <Button
+          text={getString('done')}
+          intent="primary"
+          padding="small"
+          onClick={() => {
+            props?.onClose()
+            // setShowProcessing(true)
+            // console.log('on verify', data)
+            // onVerify()
+          }}
         />
       </Layout.Horizontal>
     </>

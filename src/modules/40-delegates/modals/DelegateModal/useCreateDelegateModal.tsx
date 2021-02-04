@@ -30,7 +30,7 @@ const useCreateDelegateModal = (): UseCreateDelegateModalReturn => {
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog {...modalProps} onClose={() => hideModal()}>
-        <CreateDelegateWizard />
+        <CreateDelegateWizard onClose={() => hideModal()} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
