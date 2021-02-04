@@ -128,8 +128,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   React.useEffect(() => {
     if (stages && stages.length > 0) {
       const currentStageType = stage?.stage?.type
-      stages.map((item, index) => {
-        if (index < stageIndex && currentStageType === item?.stage?.type) {
+      stages.forEach((item, index) => {
+        if (
+          index < stageIndex &&
+          currentStageType === item?.stage?.type &&
+          !get(item.stage, `spec.serviceConfig.useFromStage.stage`)
+        ) {
           previousStageList.push({
             label: `Previous Stage ${item.stage.name} [${item.stage.identifier}]`,
             value: item.stage.identifier
