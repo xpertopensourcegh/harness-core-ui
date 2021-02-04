@@ -43,6 +43,7 @@ describe('Wizard tests', () => {
           </Wizard>
         </TestWrapper>
       )
+      // eslint-disable-next-line no-document-body-snapshot
       expect(document.body).toMatchSnapshot()
     })
   })
@@ -152,6 +153,7 @@ describe('Wizard tests', () => {
       }
       fireEvent.change(nameField, { target: { value: 'test' } })
       //   warning sign goes away onChange
+      // eslint-disable-next-line no-document-body-snapshot
       expect(document.body).toMatchSnapshot('look for warning')
     })
 

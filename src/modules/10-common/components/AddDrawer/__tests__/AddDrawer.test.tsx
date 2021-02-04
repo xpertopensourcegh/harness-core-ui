@@ -54,15 +54,14 @@ describe('AddDrawer Triggers tests', () => {
       }
       fireEvent.click(openButton)
       await waitFor(() => expect(document.body.querySelector(`.stepPalette`)).not.toBeNull())
+      // eslint-disable-next-line no-document-body-snapshot
       expect(document.body).toMatchSnapshot()
-
       // Should properly hide/close
       const closeButton = container.querySelector('.closeModal')
       if (!closeButton) {
         throw Error('close button was not found.')
       }
       fireEvent.click(closeButton)
-
       await waitFor(() => expect(container.querySelector(`.stepPalette`)).toBeNull())
     })
   })

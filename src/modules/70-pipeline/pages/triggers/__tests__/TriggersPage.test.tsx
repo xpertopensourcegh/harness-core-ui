@@ -71,6 +71,7 @@ describe('TriggersPage Triggers tests', () => {
       await waitFor(() =>
         expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
       )
+      // eslint-disable-next-line no-document-body-snapshot
       expect(document.body).toMatchSnapshot()
     })
   })

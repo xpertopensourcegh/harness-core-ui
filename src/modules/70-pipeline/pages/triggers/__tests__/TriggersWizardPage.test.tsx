@@ -77,9 +77,11 @@ describe('TriggersWizardPage Triggers tests', () => {
           queryByText(document.body, result.current.getString('pipeline-triggers.listenOnNewWebhook'))
         ).not.toBeNull()
       )
+      // eslint-disable-next-line no-document-body-snapshot
       expect(document.body).toMatchSnapshot()
     })
   })
+
   describe('Payload/Values Comparison', () => {
     test('Submit shows all onEdit values were parsed into FormikValues for re-submission', async () => {
       const { container } = render(<WrapperComponent />)
