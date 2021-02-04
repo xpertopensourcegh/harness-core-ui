@@ -269,7 +269,7 @@ export interface KubDelegateYaml {
   description?: string
   delegateConfigurationId?: string
   size?: string
-  sesssionIdentifier?: string
+  sessionIdentifier?: string
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -343,15 +343,6 @@ export interface InitializationResponse {
 export interface VerificationResponse {
   numberOfRegisteredDelegates?: number
   numberOfConnectedDelegates?: number
-}
-
-export interface DelegateSizesResponse {
-  cpu?: number
-  label?: string
-  ram?: number
-  replicas?: number
-  size?: string
-  taskLimit?: number
 }
 
 export interface Account {
@@ -476,14 +467,6 @@ export interface RestInitializationResponse {
     [key: string]: { [key: string]: any }
   }
   resource?: InitializationResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestDelegateSizeResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateSizesResponse[]
   responseMessages?: ResponseMessage[]
 }
 

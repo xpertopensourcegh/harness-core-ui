@@ -47951,7 +47951,7 @@
         "size": {
           "type": "string"
         },
-        "sesssionIdentifier": {
+        "sessionIdentifier": {
           "type": "string"
         }
       }

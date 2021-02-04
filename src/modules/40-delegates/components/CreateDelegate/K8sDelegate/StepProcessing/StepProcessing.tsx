@@ -20,12 +20,10 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
   const [showError, setShowError] = React.useState(false)
   const [isHeartBeatVerified, setVerifyHeartBeat] = React.useState(false)
   const [isDelegateInitialized, setIsDelegateInitialised] = React.useState(false)
-
   const { data, loading, refetch: verifyHeartBeat } = useHeartbeat({
-    queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sesssionIdentifier },
+    queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier },
     debounce: 200
   })
-
   React.useEffect(() => {
     if (
       !loading &&
