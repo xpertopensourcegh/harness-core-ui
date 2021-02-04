@@ -6,11 +6,18 @@ export const DelegateTypes = {
 }
 
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
-export const TIME_OUT = 10 * 60 * 1000
+export const TIME_OUT = 5 * 60 * 1000
 
 export enum DelegateStatus {
   ENABLED = 'ENABLED',
   WAITING_FOR_APPROVAL = 'WAITING_FOR_APPROVAL',
   DISABLED = 'DISABLED',
   DELETED = 'DELETED'
+}
+
+export enum TroubleShootingTypes {
+  VERIFY_PODS_COMEUP = 'VERIFY_PODS_COMEUP',
+  VERIFY_EVENTS = 'VERIFY_EVENTS',
+  VERIFY_HARNESS_SASS = 'VERIFY_HARNESS_SASS',
+  CONTACT_HARNESS_SUPPORT = 'CONTACT_HARNESS_SUPPORT'
 }

@@ -1,22 +1,17 @@
 import React from 'react'
-
 import { StepProps, Container, Layout, Text, Color, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
-
+import { TroubleShootingTypes } from '@delegates/constants'
 import css from './DelegateInstallationError.module.scss'
 
 const TroubleShooting: React.FC<StepProps<null>> = () => {
   const { getString } = useStrings()
-  const [showPodsError, setShowPodsError] = React.useState(true)
-  const [showEventsError, setShowEventsError] = React.useState(false)
-  const [showHarnessError, setShowHarnessError] = React.useState(false)
-  const [showHarnessSupport, setShowHarnessSupport] = React.useState(false)
+  const [activeEvent, setActiveEvent] = React.useState(TroubleShootingTypes.VERIFY_PODS_COMEUP)
   const iconProps = { size: 10, color: 'orange' }
 
   const onEventClick = () => {
-    setShowEventsError(false)
-    setShowHarnessError(true)
+    setActiveEvent(TroubleShootingTypes.VERIFY_HARNESS_SASS)
   }
   return (
     <Layout.Vertical width={630} style={{ padding: '0px var(--spacing-large)' }}>
@@ -24,11 +19,30 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
         flex
         style={{
           borderBottom: '0.5px solid #B0B1C4',
-
           padding: 'var(--spacing-small) var(--spacing-medium)'
         }}
       >
-        <Button intent="primary" minimal text={getString('back')} />
+        <Button
+          intent="primary"
+          minimal
+          text={getString('back')}
+          onClick={() => {
+            switch (activeEvent) {
+              case TroubleShootingTypes.VERIFY_EVENTS:
+                setActiveEvent(TroubleShootingTypes.VERIFY_PODS_COMEUP)
+                return
+              case TroubleShootingTypes.VERIFY_HARNESS_SASS:
+                setActiveEvent(TroubleShootingTypes.VERIFY_EVENTS)
+                return
+              case TroubleShootingTypes.CONTACT_HARNESS_SUPPORT:
+                setActiveEvent(TroubleShootingTypes.VERIFY_HARNESS_SASS)
+                return
+              default:
+                setActiveEvent(TroubleShootingTypes.VERIFY_PODS_COMEUP)
+                return
+            }
+          }}
+        />
 
         <Text
           icon="info"
@@ -41,7 +55,14 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
         >
           {getString('delegate.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo')}
         </Text>
-        <Button intent="primary" minimal text={getString('restart')} />
+        <Button
+          intent="primary"
+          minimal
+          text={getString('restart')}
+          onClick={() => {
+            setActiveEvent(TroubleShootingTypes.VERIFY_PODS_COMEUP)
+          }}
+        />
       </Layout.Horizontal>
       <Layout.Vertical width={511} style={{ padding: 'var(--spacing-medium) 0px' }}>
         <Layout.Horizontal flex>
@@ -67,7 +88,7 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
           <CopyToClipboard content={getString('delegate.delegateNotInstalled.podCommand')} />
         </Container>
       </Layout.Vertical>
-      {showPodsError && (
+      {activeEvent === TroubleShootingTypes.VERIFY_PODS_COMEUP && (
         <Container className={css.podCmndVerification}>
           <Text color={Color.BLACK_100}>{getString('delegate.delegateNotInstalled.podComeUp')}</Text>
           <Container style={{ marginTop: 'var(--spacing-medium)' }}>
@@ -75,8 +96,7 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
             <Button
               intent="none"
               onClick={() => {
-                setShowPodsError(false)
-                setShowEventsError(true)
+                setActiveEvent(TroubleShootingTypes.VERIFY_EVENTS)
               }}
               className={css.noBtn}
               text={getString('no')}
@@ -85,7 +105,7 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
         </Container>
       )}
 
-      {showEventsError && (
+      {activeEvent === TroubleShootingTypes.VERIFY_EVENTS && (
         <>
           <Layout.Vertical width={511} style={{ padding: 'var(--spacing-medium) 0px' }}>
             <Text color={Color.BLACK_100} font={{ weight: 'bold' }}>
@@ -115,7 +135,7 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
           </Container>
         </>
       )}
-      {showHarnessError && (
+      {activeEvent === TroubleShootingTypes.VERIFY_HARNESS_SASS && (
         <>
           <Layout.Vertical width={511} style={{ padding: 'var(--spacing-medium) 0px' }}>
             <Text color={Color.BLACK_100} font={{ weight: 'bold' }}>
@@ -125,9 +145,7 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
           <Container className={css.podCmndVerification}>
             <Button
               onClick={() => {
-                setShowHarnessError(false)
-                setShowEventsError(false)
-                setShowHarnessSupport(true)
+                setActiveEvent(TroubleShootingTypes.CONTACT_HARNESS_SUPPORT)
               }}
               text={getString('yes')}
             />
@@ -135,10 +153,14 @@ const TroubleShooting: React.FC<StepProps<null>> = () => {
           </Container>
         </>
       )}
-      {showHarnessSupport && (
-        <Text color={Color.BLACK_100} font={{ weight: 'bold' }}>
-          {getString('delegate.delegateNotInstalled.contactHarness')}
-        </Text>
+      {activeEvent === TroubleShootingTypes.CONTACT_HARNESS_SUPPORT && (
+        <Button
+          minimal
+          color={Color.BLACK_100}
+          font={{ weight: 'bold' }}
+          width={200}
+          text={getString('delegate.delegateNotInstalled.contactHarness')}
+        />
       )}
     </Layout.Vertical>
   )

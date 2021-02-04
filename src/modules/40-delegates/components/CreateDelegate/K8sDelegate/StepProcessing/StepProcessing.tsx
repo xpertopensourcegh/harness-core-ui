@@ -24,6 +24,8 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
     queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier },
     debounce: 200
   })
+
+  const timeout = props?.prevStepData?.replicas ? TIME_OUT * props?.prevStepData?.replicas : TIME_OUT
   React.useEffect(() => {
     if (
       !loading &&
@@ -36,7 +38,7 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
         verifyHeartBeat()
       }, POLL_INTERVAL)
 
-      if (counter * 60 * 1000 === TIME_OUT) {
+      if (counter * 60 * 1000 === timeout) {
         window.clearTimeout(timerId)
         setVerifyHeartBeat(true)
         setShowError(true)

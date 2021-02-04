@@ -21,11 +21,11 @@ const DelegateInitialization: React.FC<StepProps<StepK8Data> & DelegateInitProps
   const { accountId } = useParams()
   const { getString } = useStrings()
   const { data: initData, loading: initLoading, refetch: verifyInitialization } = useInitialization({
-    queryParams: { accountId, sessionId: 'WB4xZm8BRAiSMyTPf2dmRQ' },
+    queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier },
     lazy: true,
     debounce: 200
   })
-
+  const timeout = props?.prevStepData?.replicas ? TIME_OUT * props?.prevStepData?.replicas : TIME_OUT
   const getInitialisedArray = () => {
     return initData && initData?.resource ? initData?.resource.filter(item => item.initialized) : []
   }
@@ -38,7 +38,7 @@ const DelegateInitialization: React.FC<StepProps<StepK8Data> & DelegateInitProps
         verifyInitialization()
       }, POLL_INTERVAL)
 
-      if (counter * 60 * 1000 === TIME_OUT) {
+      if (counter * 60 * 1000 === timeout) {
         window.clearTimeout(timerId)
         // setVerifyHeartBeat(true)
         props.setShowError(true)
