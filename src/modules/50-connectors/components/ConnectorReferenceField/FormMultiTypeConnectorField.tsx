@@ -9,6 +9,7 @@ import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
+import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/useCreateConnectorMultiTypeModal'
 import { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse, useGetConnector } from 'services/cd-ng'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -132,24 +133,32 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     name
   ])
   const { getString } = useStrings()
-  const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: (data?: ConnectorConfigDTO) => {
-      if (data) {
-        const scope = getScopeFromDTO<ConnectorConfigDTO>(data.connector)
-        const val = {
-          label: data.connector.name,
-          value:
-            scope === Scope.ORG || scope === Scope.ACCOUNT
-              ? `${scope}.${data.connector.identifier}`
-              : data.connector.identifier,
-          scope,
-          connector: data.connector,
-          live: data?.status?.status === 'SUCCESS'
-        }
-        props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
-        formik?.setFieldValue(name, val)
+
+  function onConnectorCreateSuccess(data?: ConnectorConfigDTO): void {
+    if (data) {
+      const scope = getScopeFromDTO<ConnectorConfigDTO>(data.connector)
+      const val = {
+        label: data.connector.name,
+        value:
+          scope === Scope.ORG || scope === Scope.ACCOUNT
+            ? `${scope}.${data.connector.identifier}`
+            : data.connector.identifier,
+        scope,
+        connector: data.connector,
+        live: data?.status?.status === 'SUCCESS'
       }
+      props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
+      formik?.setFieldValue(name, val)
     }
+  }
+
+  const { openConnectorModal } = useCreateConnectorModal({
+    onSuccess: onConnectorCreateSuccess
+  })
+
+  const { openConnectorMultiTypeModal } = useCreateConnectorMultiTypeModal({
+    types: Array.isArray(type) ? type : [type],
+    onSuccess: onConnectorCreateSuccess
   })
 
   const placeHolderLocal = loading ? getString('loading') : placeholder
@@ -159,10 +168,13 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     'createNewHandler' | 'editRenderer'
   > = {}
 
-  // TODO: Add support for multi type connectors
   if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
       openConnectorModal(false, type, undefined)
+    }
+  } else if (Array.isArray(type) && !category) {
+    optionalReferenceSelectProps.createNewHandler = () => {
+      openConnectorMultiTypeModal()
     }
   }
 

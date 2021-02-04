@@ -31,6 +31,7 @@ import { getIconByType } from '@connectors/exports'
 import useCreateConnectorModal, {
   UseCreateConnectorModalReturn
 } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
+import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/useCreateConnectorMultiTypeModal'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { String, useStrings } from 'framework/exports'
 import { ReferenceSelect, ReferenceSelectProps } from '../../../10-common/components/ReferenceSelect/ReferenceSelect'
@@ -281,6 +282,15 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     }
   })
 
+  const { openConnectorMultiTypeModal } = useCreateConnectorMultiTypeModal({
+    types: Array.isArray(type) ? type : [type],
+    onSuccess: (data?: ConnectorConfigDTO) => {
+      if (data) {
+        props.onChange?.({ ...data.connector, status: data.status }, Scope.PROJECT)
+      }
+    }
+  })
+
   const [selectedValue, setSelectedValue] = React.useState(selected)
 
   const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
@@ -349,10 +359,13 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     'createNewHandler' | 'editRenderer'
   > = {}
 
-  // TODO: Add support for multi type connectors
   if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
       openConnectorModal(false, type, undefined)
+    }
+  } else if (Array.isArray(type) && !category) {
+    optionalReferenceSelectProps.createNewHandler = () => {
+      openConnectorMultiTypeModal()
     }
   }
 
