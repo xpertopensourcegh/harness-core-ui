@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import moment from 'moment'
 
 import { Position } from '@blueprintjs/core'
@@ -86,6 +86,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
   const [isDateRangePickerOpen, setIsDateRangePickerOpen] = useState<boolean>(false)
   const [dataFormat, setDataFormat] = useState<GetActivitiesSummaryQueryParams['timeGroupType']>('HOUR')
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const closeDateRangePicker = useCallback(() => setIsDateRangePickerOpen(false), [])
   const { data: activityList, loading, refetch: refetchActivities } = useListActivities({
     queryParams: {
       referredEntityType: props.referredEntityType,
@@ -132,6 +133,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
           isOpen={isDateRangePickerOpen}
           className={css.popoverClassname}
           popoverClassName={css.popoverClassname}
+          onClose={closeDateRangePicker}
         >
           <Button
             large
@@ -158,7 +160,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
                 }
 
                 setDateRange(range)
-                setIsDateRangePickerOpen(false)
+                closeDateRangePicker()
               }
             }}
             allowSingleDayRange={true}
