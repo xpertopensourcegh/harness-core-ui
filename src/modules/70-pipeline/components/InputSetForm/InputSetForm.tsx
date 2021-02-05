@@ -402,7 +402,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           </Layout.Vertical>
                         )}
                         <Layout.Horizontal className={css.footer} padding="xlarge">
-                          <Button intent="primary" type="submit" text={i18n.save} />
+                          <Button
+                            intent="primary"
+                            type="submit"
+                            onClick={() => {
+                              if (formikProps?.values?.name?.length && formikProps?.values?.identifier?.length) {
+                                handleSubmit(formikProps.values)
+                              }
+                            }}
+                            text={i18n.save}
+                          />
                           &nbsp; &nbsp;
                           <Button
                             onClick={() => {
