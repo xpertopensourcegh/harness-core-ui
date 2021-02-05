@@ -22,7 +22,8 @@ const fixedValues = {
     bucket: 'Bucket',
     key: 'Key',
     sourcePaths: ['some/path'],
-    target: 'Target',
+    archiveFormat: 'tar',
+    override: true,
     resources: {
       limits: {
         memory: '128Mi',
@@ -41,7 +42,8 @@ const runtimeValues = {
     bucket: RUNTIME_INPUT_VALUE,
     key: RUNTIME_INPUT_VALUE,
     sourcePaths: RUNTIME_INPUT_VALUE,
-    target: RUNTIME_INPUT_VALUE,
+    archiveFormat: RUNTIME_INPUT_VALUE,
+    override: RUNTIME_INPUT_VALUE,
     resources: {
       limits: {
         cpu: RUNTIME_INPUT_VALUE,
@@ -205,7 +207,8 @@ describe('Save Cache GCS Step', () => {
               bucket: 'Bucket',
               key: 'Key',
               sourcePaths: ['some/path'],
-              target: 'Target',
+              archiveFormat: 'tar',
+              override: true,
               resources: {
                 limits: {
                   memory: '128Mi',
@@ -253,10 +256,16 @@ describe('Save Cache GCS Step', () => {
                   localName: 'step.saveCacheGCS.spec.sourcePaths'
                 }
               },
-              'step-target': {
+              'step-archiveFormat': {
                 yamlProperties: {
-                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.target',
-                  localName: 'step.saveCacheGCS.spec.target'
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.archiveFormat',
+                  localName: 'step.saveCacheGCS.spec.archiveFormat'
+                }
+              },
+              'step-override': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheGCS.spec.override',
+                  localName: 'step.saveCacheGCS.spec.override'
                 }
               },
               // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -289,7 +298,8 @@ describe('Save Cache GCS Step', () => {
                 bucket: 'step-bucket',
                 key: 'step-key',
                 sourcePaths: 'step-sourcePaths',
-                target: 'step-target',
+                archiveFormat: 'step-archiveFormat',
+                override: 'step-override',
                 // TODO: Right now we do not support Image Pull Policy but will do in the future
                 // pull: 'step-pull',
                 resources: {

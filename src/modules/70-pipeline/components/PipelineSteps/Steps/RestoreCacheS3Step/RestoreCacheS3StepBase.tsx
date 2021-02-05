@@ -11,11 +11,13 @@ import {
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
+import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeCheckboxField } from '@common/components'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields from '@pipeline/components/StepCommonFields/StepCommonFields'
@@ -44,6 +46,11 @@ export const RestoreCacheS3StepBase = (
 
   const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
 
+  const archiveFormatOptions = [
+    { label: 'tar', value: 'tar' },
+    { label: 'gzip', value: 'gzip' }
+  ]
+
   const handleCancelClick = (): void => {
     updatePipelineView({
       ...pipelineView,
@@ -60,7 +67,8 @@ export const RestoreCacheS3StepBase = (
       <Formik
         initialValues={getInitialValuesInCorrectFormat<RestoreCacheS3StepData, RestoreCacheS3StepDataUI>(
           initialValues,
-          transformValuesFieldsConfig
+          transformValuesFieldsConfig,
+          { archiveFormatOptions }
         )}
         validate={valuesToValidate => {
           return validate(valuesToValidate, editViewValidateFieldsConfig, {
@@ -160,7 +168,6 @@ export const RestoreCacheS3StepBase = (
                       />
                     </Text>
                   }
-                  style={{ marginBottom: 'var(--spacing-small)' }}
                 />
               </div>
               <div className={css.fieldsSection}>
@@ -185,22 +192,32 @@ export const RestoreCacheS3StepBase = (
                   }}
                   style={{ marginBottom: 'var(--spacing-small)' }}
                 />
-                <MultiTypeTextField
-                  name="spec.target"
+                <MultiTypeSelectField
+                  name="spec.archiveFormat"
                   label={
-                    <Text>
-                      {getString('pipelineSteps.targetLabel')}
+                    <Text margin={{ top: 'small' }}>
+                      {getString('archiveFormat')}
                       <Button
                         icon="question"
                         minimal
-                        tooltip={getString('pipelineSteps.artifactsTargetInfo')}
+                        tooltip={getString('archiveFormatInfo')}
                         iconProps={{ size: 14 }}
                       />
                     </Text>
                   }
-                  multiTextInputProps={{
-                    placeholder: getString('pipelineSteps.artifactsTargetPlaceholder')
+                  multiTypeInputProps={{
+                    selectItems: archiveFormatOptions
                   }}
+                  style={{ marginBottom: 'var(--spacing-medium)' }}
+                />
+                <FormMultiTypeCheckboxField
+                  name="spec.pathStyle"
+                  label={getString('pathStyle')}
+                  style={{ marginBottom: 'var(--spacing-medium)' }}
+                />
+                <FormMultiTypeCheckboxField
+                  name="spec.failIfKeyNotFound"
+                  label={getString('failIfKeyNotFound')}
                   style={{ marginBottom: 'var(--spacing-small)' }}
                 />
                 <StepCommonFields />

@@ -23,7 +23,11 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Text
   },
   {
-    name: 'spec.target',
+    name: 'spec.archiveFormat',
+    type: TransformValuesTypes.ArchiveFormat
+  },
+  {
+    name: 'spec.failIfKeyNotFound',
     type: TransformValuesTypes.Text
   },
   {

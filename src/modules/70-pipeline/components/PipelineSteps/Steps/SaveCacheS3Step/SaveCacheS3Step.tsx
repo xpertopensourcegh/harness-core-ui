@@ -6,7 +6,14 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import { validateInputSet } from '../StepsValidateUtils'
-import type { MultiTypeListType, MultiTypeListUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
+import type {
+  MultiTypeListType,
+  MultiTypeListUIType,
+  MultiTypeConnectorRef,
+  MultiTypeArchiveFormatOption,
+  MultiTypeSelectOption,
+  Resources
+} from '../StepsTypes'
 import { SaveCacheS3StepBaseWithRef } from './SaveCacheS3StepBase'
 import { SaveCacheS3StepInputSet } from './SaveCacheS3StepInputSet'
 import { SaveCacheS3StepVariables, SaveCacheS3StepVariablesProps } from './SaveCacheS3StepVariables'
@@ -19,7 +26,9 @@ export interface SaveCacheS3StepSpec {
   key: string
   sourcePaths: MultiTypeListType
   endpoint?: string
-  target?: string
+  archiveFormat?: MultiTypeArchiveFormatOption
+  override?: boolean
+  pathStyle?: boolean
   resources?: Resources
 }
 
@@ -32,9 +41,10 @@ export interface SaveCacheS3StepData {
 }
 
 export interface SaveCacheS3StepSpecUI
-  extends Omit<SaveCacheS3StepSpec, 'connectorRef' | 'sourcePaths' | 'pull' | 'resources'> {
+  extends Omit<SaveCacheS3StepSpec, 'connectorRef' | 'sourcePaths' | 'archiveFormat' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
   sourcePaths: MultiTypeListUIType
+  archiveFormat?: MultiTypeSelectOption
   limitMemory?: string
   limitCPU?: string
 }

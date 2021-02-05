@@ -54,7 +54,8 @@ RestoreCacheGCSStep.args = {
       connectorRef: 'account.connectorRef',
       bucket: 'Bucket',
       key: 'Key',
-      target: 'Target',
+      archiveFormat: 'tar',
+      failIfKeyNotFound: true,
       resources: {
         limits: {
           memory: '128Mi',
@@ -78,7 +79,8 @@ RestoreCacheGCSStep.args = {
       connectorRef: RUNTIME_INPUT_VALUE,
       bucket: RUNTIME_INPUT_VALUE,
       key: RUNTIME_INPUT_VALUE,
-      target: RUNTIME_INPUT_VALUE,
+      archiveFormat: RUNTIME_INPUT_VALUE,
+      failIfKeyNotFound: RUNTIME_INPUT_VALUE,
       resources: {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
@@ -96,7 +98,8 @@ RestoreCacheGCSStep.args = {
       connectorRef: RUNTIME_INPUT_VALUE,
       bucket: RUNTIME_INPUT_VALUE,
       key: RUNTIME_INPUT_VALUE,
-      target: RUNTIME_INPUT_VALUE,
+      archiveFormat: RUNTIME_INPUT_VALUE,
+      failIfKeyNotFound: RUNTIME_INPUT_VALUE,
       resources: {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
@@ -138,10 +141,16 @@ RestoreCacheGCSStep.args = {
           localName: 'step.restoreCacheGCS.spec.key'
         }
       },
-      'step-target': {
+      'step-archiveFormat': {
         yamlProperties: {
-          fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheGCS.spec.target',
-          localName: 'step.restoreCacheGCS.spec.target'
+          fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheGCS.spec.archiveFormat',
+          localName: 'step.restoreCacheGCS.spec.archiveFormat'
+        }
+      },
+      'step-failIfKeyNotFound': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheGCS.spec.failIfKeyNotFound',
+          localName: 'step.restoreCacheGCS.spec.failIfKeyNotFound'
         }
       },
       // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -173,7 +182,8 @@ RestoreCacheGCSStep.args = {
         connectorRef: 'step-connectorRef',
         bucket: 'step-bucket',
         key: 'step-key',
-        target: 'step-target',
+        archiveFormat: 'step-archiveFormat',
+        failIfKeyNotFound: 'step-failIfKeyNotFound',
         // TODO: Right now we do not support Image Pull Policy but will do in the future
         // pull: 'step-pull',
         resources: {

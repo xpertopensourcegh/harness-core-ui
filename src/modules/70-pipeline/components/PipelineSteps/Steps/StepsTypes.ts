@@ -11,6 +11,8 @@ export type ListUIType = { id: string; value: string }[]
 export type MultiTypeListUIType = ListUIType | string
 export type PullOption = 'ifNotExists' | 'never' | 'always'
 export type MultiTypePullOption = PullOption | string
+export type ArchiveFormatOption = 'tar' | 'gzip'
+export type MultiTypeArchiveFormatOption = ArchiveFormatOption | string
 export type ConnectorRef = ConnectorReferenceFieldProps['selected']
 export type MultiTypeConnectorRef = ConnectorRef | string
 export { SelectOption }

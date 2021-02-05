@@ -27,7 +27,11 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.List
   },
   {
-    name: 'spec.target',
+    name: 'spec.archiveFormat',
+    type: TransformValuesTypes.ArchiveFormat
+  },
+  {
+    name: 'spec.override',
     type: TransformValuesTypes.Text
   },
   {

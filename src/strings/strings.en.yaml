@@ -69,6 +69,11 @@ details: Details
 test: Test
 enable: Enable
 reset: Reset
+archiveFormat: Archive Format
+archiveFormatInfo: Select archive format. Default is tar
+failIfKeyNotFound: Fail If Key Doesn’t exist
+override: Override Cache
+pathStyle: Path Style
 risk: Risk
 error: Error
 active: Active

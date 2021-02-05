@@ -18,6 +18,11 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
     accountId: string
   }>()
 
+  const archiveFormatOptions = [
+    { label: 'tar', value: 'tar' },
+    { label: 'gzip', value: 'gzip' }
+  ]
+
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
@@ -134,22 +139,33 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+      {getMultiTypeFromValue(template?.spec?.archiveFormat) === MultiTypeInputType.RUNTIME && (
+        <FormInput.Select
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.archiveFormat`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.targetLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                iconProps={{ size: 14 }}
-              />
+              {getString('archiveFormat')}
+              <Button icon="question" minimal tooltip={getString('archiveFormatInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          placeholder={getString('pipelineSteps.artifactsTargetPlaceholder')}
+          items={archiveFormatOptions}
+          disabled={readonly}
+          style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.override) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.override`}
+          label={getString('override')}
+          disabled={readonly}
+          style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.pathStyle) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
+          label={getString('pathStyle')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

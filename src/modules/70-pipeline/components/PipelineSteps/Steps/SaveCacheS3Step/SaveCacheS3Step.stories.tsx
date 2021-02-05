@@ -57,7 +57,9 @@ SaveCacheS3Step.args = {
       key: 'Key',
       sourcePaths: ['some/path'],
       endpoint: 'Endpoint',
-      target: 'Target',
+      archiveFormat: 'tar',
+      override: true,
+      pathStyle: true,
       resources: {
         limits: {
           memory: '128Mi',
@@ -84,7 +86,9 @@ SaveCacheS3Step.args = {
       endpoint: RUNTIME_INPUT_VALUE,
       key: RUNTIME_INPUT_VALUE,
       sourcePaths: RUNTIME_INPUT_VALUE,
-      target: RUNTIME_INPUT_VALUE,
+      archiveFormat: RUNTIME_INPUT_VALUE,
+      override: RUNTIME_INPUT_VALUE,
+      pathStyle: RUNTIME_INPUT_VALUE,
       resources: {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
@@ -105,7 +109,9 @@ SaveCacheS3Step.args = {
       endpoint: RUNTIME_INPUT_VALUE,
       key: RUNTIME_INPUT_VALUE,
       sourcePaths: RUNTIME_INPUT_VALUE,
-      target: RUNTIME_INPUT_VALUE,
+      archiveFormat: RUNTIME_INPUT_VALUE,
+      override: RUNTIME_INPUT_VALUE,
+      pathStyle: RUNTIME_INPUT_VALUE,
       resources: {
         limits: {
           cpu: RUNTIME_INPUT_VALUE,
@@ -165,10 +171,22 @@ SaveCacheS3Step.args = {
           localName: 'step.saveCacheS3.spec.sourcePaths'
         }
       },
-      'step-target': {
+      'step-archiveFormat': {
         yamlProperties: {
-          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.target',
-          localName: 'step.saveCacheS3.spec.target'
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.archiveFormat',
+          localName: 'step.saveCacheS3.spec.archiveFormat'
+        }
+      },
+      'step-override': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.override',
+          localName: 'step.saveCacheS3.spec.override'
+        }
+      },
+      'step-pathStyle': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.saveCacheS3.spec.pathStyle',
+          localName: 'step.saveCacheS3.spec.pathStyle'
         }
       },
       // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -203,7 +221,9 @@ SaveCacheS3Step.args = {
         endpoint: 'step-endpoint',
         key: 'step-key',
         sourcePaths: 'step-sourcePaths',
-        target: 'step-target',
+        archiveFormat: 'step-archiveFormat',
+        override: 'step-override',
+        pathStyle: 'step-pathStyle',
         // TODO: Right now we do not support Image Pull Policy but will do in the future
         // pull: 'step-pull',
         resources: {

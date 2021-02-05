@@ -6,7 +6,12 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import { validateInputSet } from '../StepsValidateUtils'
-import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
+import type {
+  MultiTypeConnectorRef,
+  Resources,
+  MultiTypeArchiveFormatOption,
+  MultiTypeSelectOption
+} from '../StepsTypes'
 import { RestoreCacheGCSStepBaseWithRef } from './RestoreCacheGCSStepBase'
 import { RestoreCacheGCSStepInputSet } from './RestoreCacheGCSStepInputSet'
 import { RestoreCacheGCSStepVariables, RestoreCacheGCSStepVariablesProps } from './RestoreCacheGCSStepVariables'
@@ -16,7 +21,8 @@ export interface RestoreCacheGCSStepSpec {
   connectorRef: string
   bucket: string
   key: string
-  target?: string
+  archiveFormat?: MultiTypeArchiveFormatOption
+  failIfKeyNotFound?: boolean
   resources?: Resources
 }
 
@@ -29,8 +35,9 @@ export interface RestoreCacheGCSStepData {
 }
 
 export interface RestoreCacheGCSStepSpecUI
-  extends Omit<RestoreCacheGCSStepSpec, 'connectorRef' | 'pull' | 'resources'> {
+  extends Omit<RestoreCacheGCSStepSpec, 'connectorRef' | 'archiveFormat' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
+  archiveFormat?: MultiTypeSelectOption
   limitMemory?: string
   limitCPU?: string
 }

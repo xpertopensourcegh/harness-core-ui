@@ -14,6 +14,7 @@ export enum Types {
   Text,
   Map,
   List,
+  ArchiveFormat,
   Pull,
   ConnectorRef,
   ReportPaths,
@@ -50,7 +51,7 @@ export function removeEmptyKeys<T>(object: { [key: string]: any }): T {
 export function getInitialValuesInCorrectFormat<T, U>(
   initialValues: T,
   fields: Field[],
-  { pullOptions }: Dependencies = {}
+  { archiveFormatOptions, pullOptions }: Dependencies = {}
 ): U {
   const values = {}
 
@@ -94,6 +95,15 @@ export function getInitialValuesInCorrectFormat<T, U>(
       }
 
       set(values, name, list)
+    }
+
+    if (type === Types.ArchiveFormat) {
+      const archiveFormat =
+        getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
+          ? archiveFormatOptions?.find((option: SelectOption) => option.value === value) || archiveFormatOptions[0]
+          : value
+
+      set(values, name, archiveFormat)
     }
 
     if (type === Types.Pull) {
@@ -179,7 +189,7 @@ export function getFormValuesInCorrectFormat<T, U>(formValues: T, fields: Field[
       set(values, name, connectorRef)
     }
 
-    if (type === Types.Pull) {
+    if (type === Types.ArchiveFormat || type === Types.Pull) {
       const value = get(formValues, name) as MultiTypeSelectOption
 
       const pull = typeof value === 'string' ? value : value?.value

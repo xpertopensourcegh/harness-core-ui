@@ -23,7 +23,9 @@ const fixedValues = {
     region: 'us-east-1',
     key: 'Key',
     endpoint: 'Endpoint',
-    target: 'Target',
+    archiveFormat: 'tar',
+    pathStyle: true,
+    failIfKeyNotFound: true,
     resources: {
       limits: {
         memory: '128Mi',
@@ -43,7 +45,9 @@ const runtimeValues = {
     bucket: RUNTIME_INPUT_VALUE,
     endpoint: RUNTIME_INPUT_VALUE,
     key: RUNTIME_INPUT_VALUE,
-    target: RUNTIME_INPUT_VALUE,
+    archiveFormat: RUNTIME_INPUT_VALUE,
+    pathStyle: RUNTIME_INPUT_VALUE,
+    failIfKeyNotFound: RUNTIME_INPUT_VALUE,
     resources: {
       limits: {
         cpu: RUNTIME_INPUT_VALUE,
@@ -208,7 +212,9 @@ describe('Restore Cache S3 Step', () => {
               region: 'us-east-1',
               key: 'Key',
               endpoint: 'Endpoint',
-              target: 'Target',
+              archiveFormat: 'tar',
+              pathStyle: true,
+              failIfKeyNotFound: true,
               resources: {
                 limits: {
                   memory: '128Mi',
@@ -262,10 +268,22 @@ describe('Restore Cache S3 Step', () => {
                   localName: 'step.restoreCacheS3.spec.endpoint'
                 }
               },
-              'step-target': {
+              'step-archiveFormat': {
                 yamlProperties: {
-                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.target',
-                  localName: 'step.restoreCacheS3.spec.target'
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.archiveFormat',
+                  localName: 'step.restoreCacheS3.spec.archiveFormat'
+                }
+              },
+              'step-pathStyle': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.pathStyle',
+                  localName: 'step.restoreCacheS3.spec.pathStyle'
+                }
+              },
+              'step-failIfKeyNotFound': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.restoreCacheS3.spec.failIfKeyNotFound',
+                  localName: 'step.restoreCacheS3.spec.failIfKeyNotFound'
                 }
               },
               // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -299,7 +317,9 @@ describe('Restore Cache S3 Step', () => {
                 region: 'step-region',
                 key: 'step-key',
                 endpoint: 'step-endpoint',
-                target: 'step-target',
+                archiveFormat: 'step-archiveFormat',
+                pathStyle: 'step-pathStyle',
+                failIfKeyNotFound: 'step-failIfKeyNotFound',
                 // TODO: Right now we do not support Image Pull Policy but will do in the future
                 // pull: 'step-pull',
                 resources: {
