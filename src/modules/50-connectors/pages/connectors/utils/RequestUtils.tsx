@@ -178,11 +178,13 @@ export const getOptionsForMultiSelect = (
 ): MultiSelectOption[] => {
   if (category === ConnectorStatCategories.STATUS) {
     return (
-      metaData?.data?.statusStats?.map((item: ConnectorStatusStatistics) => {
-        //TODO @vardan make it match mocks when label accepts custom renderer as well
-        const val = item?.status || 'NA'
-        return createOption(val, item?.count)
-      }) || []
+      metaData?.data?.statusStats
+        ?.filter((item: ConnectorStatusStatistics) => item?.status)
+        ?.map((item: ConnectorStatusStatistics) => {
+          //TODO @vardan make it match mocks when label accepts custom renderer as well
+          const val = item?.status || ''
+          return createOption(val, item?.count)
+        }) || []
     )
   } else if (category === ConnectorStatCategories.TYPE) {
     return (

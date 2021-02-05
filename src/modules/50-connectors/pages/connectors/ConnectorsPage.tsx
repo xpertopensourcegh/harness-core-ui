@@ -28,7 +28,8 @@ import {
   PageConnectorResponse,
   useDeleteFilter,
   ResponsePageFilterDTO,
-  ResponseConnectorStatistics
+  ResponseConnectorStatistics,
+  GetConnectorListV2QueryParams
 } from 'services/cd-ng'
 import type { ConnectorFilterProperties } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
@@ -112,43 +113,51 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     queryParams: defaultQueryParams
   })
 
-  const refetchConnectorList = async (filter?: ConnectorFilterProperties, needsRefinement = true): Promise<void> => {
-    setIsFetchingConnectors(true)
+  const refetchConnectorList = React.useCallback(
+    async (
+      params?: GetConnectorListV2QueryParams,
+      filter?: ConnectorFilterProperties,
+      needsRefinement = true
+    ): Promise<void> => {
+      setIsFetchingConnectors(true)
 
-    const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } = filter || {}
+      const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } = filter || {}
 
-    const requestBodyPayload = Object.assign(
-      filter
-        ? {
-            connectorNames: typeof connectorNames === 'string' ? [connectorNames] : connectorNames,
-            connectorIdentifiers:
-              typeof connectorIdentifiers === 'string' ? [connectorIdentifiers] : connectorIdentifiers,
-            description,
-            types: needsRefinement ? types?.map(type => type?.toString()) : types,
-            connectivityStatuses: needsRefinement
-              ? connectivityStatuses?.map(status => status?.toString())
-              : connectivityStatuses,
-            tags
-          }
-        : {},
-      {
-        filterType: 'Connector'
+      const requestBodyPayload = Object.assign(
+        filter
+          ? {
+              connectorNames: typeof connectorNames === 'string' ? [connectorNames] : connectorNames,
+              connectorIdentifiers:
+                typeof connectorIdentifiers === 'string' ? [connectorIdentifiers] : connectorIdentifiers,
+              description,
+              types: needsRefinement ? types?.map(type => type?.toString()) : types,
+              connectivityStatuses: needsRefinement
+                ? connectivityStatuses?.map(status => status?.toString())
+                : connectivityStatuses,
+              tags
+            }
+          : {},
+        {
+          filterType: 'Connector'
+        }
+      ) as ConnectorFilterProperties
+      const sanitizedFilterRequest = removeNullAndEmpty(requestBodyPayload)
+      try {
+        const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
+        /* istanbul ignore else */ if (status === 'SUCCESS') {
+          setFetchedConnectorResponse(data)
+        }
+      } /* istanbul ignore next */ catch (e) {
+        showError(e.data?.message || e.message)
+        setErrorWhileFetchingConnectors(e)
       }
-    ) as ConnectorFilterProperties
-    const sanitizedFilterRequest = removeNullAndEmpty(requestBodyPayload)
-    try {
-      const { status, data } = await fetchConnectors(sanitizedFilterRequest)
-      /* istanbul ignore else */ if (status === 'SUCCESS') {
-        setFetchedConnectorResponse(data)
-      }
-    } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
-      setErrorWhileFetchingConnectors(e)
-    }
-    setIsFetchingConnectors(false)
-  }
+      setIsFetchingConnectors(false)
+    },
+    [fetchConnectors]
+  )
 
-  const fetchConnectorsWithFiltersApplied = (): Promise<void> => refetchConnectorList(appliedFilter?.filterProperties)
+  const fetchConnectorsWithFiltersApplied = (): Promise<void> =>
+    refetchConnectorList(defaultQueryParams, appliedFilter?.filterProperties)
 
   useEffect(() => {
     ;(async () => {
@@ -156,18 +165,18 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     })()
   }, [page])
 
-  const handleConnectorSearchByName = (query: string, filter: ConnectorFilterProperties) => {
-    refetchConnectorList(getAggregatedConnectorFilter(query, filter))
+  const handleConnectorSearch = (query: string) => {
+    refetchConnectorList(Object.assign(defaultQueryParams, { searchTerm: query }, appliedFilter?.filterProperties))
   }
 
-  const handler = useCallback(debounce(handleConnectorSearchByName, 300), [])
+  const handler = useCallback(debounce(handleConnectorSearch, 300), [])
 
   const onSearch = (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault()
     event.stopPropagation()
     const query = (event.target as HTMLInputElement).value
+    handler(encodeURIComponent(query))
     setSearchTerm(query)
-    handler(query, appliedFilter?.filterProperties || {})
   }
 
   /* #endregion */
@@ -218,25 +227,27 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     mock: catalogueMockData
   })
 
-  const { loading: isFetchingConnectorStats, data: metaData } = useGetConnectorStatistics({
-    queryParams: {
-      accountIdentifier: accountId,
-      projectIdentifier,
-      orgIdentifier
-    },
-    mock: statisticsMockData
-  })
+  const { loading: isFetchingConnectorStats, data: metaData, refetch: fetchConnectorStats } = useGetConnectorStatistics(
+    {
+      queryParams: {
+        accountIdentifier: accountId,
+        projectIdentifier,
+        orgIdentifier
+      },
+      mock: statisticsMockData
+    }
+  )
 
   useEffect(() => {
     setIsFetchingStats(isFetchingConnectorStats)
   }, [isFetchingConnectorStats])
 
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: () => {
-      fetchConnectorsWithFiltersApplied()
+    onSuccess: async () => {
+      Promise.all([fetchConnectorsWithFiltersApplied(), fetchConnectorStats()])
     },
-    onClose: () => {
-      fetchConnectorsWithFiltersApplied()
+    onClose: async () => {
+      Promise.all([fetchConnectorsWithFiltersApplied(), fetchConnectorStats()])
     }
   })
 
@@ -279,9 +290,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const ConnectorForm = (): React.ReactElement => {
     return (
       <>
-        <FormInput.Text name={'connectorNames'} label={getString('connectors.name')} key={'connectorNames'} />
-        <FormInput.Text name={'connectorIdentifiers'} label={getString('identifier')} key={'connectorIdentifiers'} />
-        <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
         <FormInput.MultiSelect
           items={getOptionsForMultiSelect(ConnectorStatCategories.TYPE, metaData || {})}
           name="types"
@@ -301,6 +309,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             allowCreatingNewItems: false
           }}
         />
+        <FormInput.Text name={'connectorNames'} label={getString('connectors.name')} key={'connectorNames'} />
+        <FormInput.Text name={'connectorIdentifiers'} label={getString('identifier')} key={'connectorIdentifiers'} />
+        <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
       </>
     )
   }
@@ -374,7 +385,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         await refetchFilterList()
         if (isUpdate) {
           setAppliedFilter(updatedFilter)
-          refetchConnectorList(updatedFilter?.filterProperties)
+          refetchConnectorList(defaultQueryParams, updatedFilter?.filterProperties)
         }
       }
     } /* istanbul ignore next */ catch (e) {
@@ -429,7 +440,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         const filterFromFormData = getValidFilterArguments({ ...formData })
         const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, { ...filterFromFormData })
         setAppliedFilter({ ...unsavedFilter, filterProperties: aggregatedFilter || {} })
-        refetchConnectorList(aggregatedFilter, false)
+        refetchConnectorList(defaultQueryParams, aggregatedFilter, false)
         hideFilterDrawer()
       } else {
         showError(getString('filters.invalidCriteria'))
@@ -504,7 +515,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, selectedFilter?.filterProperties || {})
       const combinedFilter = Object.assign(selectedFilter, { filterProperties: aggregatedFilter })
       setAppliedFilter(combinedFilter)
-      refetchConnectorList(aggregatedFilter, false)
+      refetchConnectorList(defaultQueryParams, aggregatedFilter, false)
     } else {
       reset()
     }
@@ -618,7 +629,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         ) : fetchedConnectorResponse?.content?.length ? (
           <ConnectorsListView
             data={fetchedConnectorResponse}
-            reload={fetchConnectorsWithFiltersApplied}
+            reload={async () => {
+              Promise.all([fetchConnectorsWithFiltersApplied(), fetchConnectorStats()])
+            }}
             openConnectorModal={openConnectorModal}
             gotoPage={pageNumber => setPage(pageNumber)}
           />
