@@ -49,7 +49,8 @@ export const Connectors: ConnectorType = {
   LOCAL: 'Local',
   AWS: 'Aws',
   NEXUS: 'Nexus',
-  ARTIFACTORY: 'Artifactory'
+  ARTIFACTORY: 'Artifactory',
+  CEAWS: 'CEAws'
 }
 
 export const ConnectorInfoText = {

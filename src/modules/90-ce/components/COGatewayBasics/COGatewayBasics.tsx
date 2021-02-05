@@ -3,6 +3,7 @@ import { Formik, FormikForm, Container, Button, Layout, Card, CardBody, Text } f
 import { useParams } from 'react-router-dom'
 import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
+import createConnectorModal from '@ce/components/Connectors/createConnectorModal'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import i18n from './COGatewayBasics.i18n'
@@ -18,6 +19,12 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   const { accountId } = useParams<{
     accountId: string
   }>()
+  const { openConnectorModal } = createConnectorModal({
+    // onSuccess: () => {
+    // },
+    // onClose: () => {
+    // }
+  })
   return (
     <Layout.Vertical spacing="large" padding="large">
       <Container width="40%" style={{ marginLeft: '10%', paddingTop: 200 }}>
@@ -56,7 +63,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
             })}
           ></Formik>
           <Text
-            onClick={() => alert('coming soon')}
+            onClick={() => openConnectorModal(false, 'CEAws')}
             style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
           >
             {['+', i18n.new, props.gatewayDetails.provider.name, i18n.connector].join(' ')}
