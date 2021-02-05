@@ -355,6 +355,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const { mutate: deleteFilter } = useDeleteFilter({
     queryParams: {
       accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
       type: 'Connector'
     }
   })
