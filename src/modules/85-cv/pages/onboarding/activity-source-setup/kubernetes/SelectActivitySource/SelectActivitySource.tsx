@@ -6,6 +6,7 @@ import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard, CVSelectionCardProps } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import i18n from './SelectActivitySource.i18n'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
@@ -84,44 +85,46 @@ export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Elem
       initialValues={data || buildKubernetesActivitySourceInfo()}
       onSubmit={values => onSubmit?.(values)}
       validationSchema={ValidationSchema}
-      enableReinitialize={true}
     >
-      <FormikForm>
-        <Container className={css.main}>
-          <Heading level="3" color={Color.BLACK} font={{ size: 'medium' }} className={css.heading}>
-            {i18n.selectActivitySource}
-          </Heading>
-          <AddDescriptionAndTagsWithIdentifier
-            identifierProps={{ inputLabel: i18n.fieldLabels.nameActivitySource, isIdentifierEditable: !isEditMode }}
+      {formik => (
+        <FormikForm>
+          <Container className={css.main}>
+            <Heading level="3" color={Color.BLACK} font={{ size: 'medium' }} className={css.heading}>
+              {i18n.selectActivitySource}
+            </Heading>
+            <AddDescriptionAndTagsWithIdentifier
+              identifierProps={{ inputLabel: i18n.fieldLabels.nameActivitySource, isIdentifierEditable: !isEditMode }}
+            />
+            <Text color={Color.BLACK} className={css.infraSpecification}>
+              {i18n.infraSpecification}
+            </Text>
+            <Text color={Color.BLACK} className={css.connectorOptionHeading}>
+              {i18n.connectorOptionHeading}
+            </Text>
+            <FormInput.CustomRender
+              name={KubernetesActivitySourceFieldNames.CONNECTOR_TYPE}
+              render={formikProps => (
+                <ActivitySourceConnectorSelection
+                  onCardSelect={formikProps.setFieldValue}
+                  selectedCard={formikProps.values?.[KubernetesActivitySourceFieldNames.CONNECTOR_TYPE]}
+                />
+              )}
+            />
+          </Container>
+          <SubmitAndPreviousButtons
+            onPreviousClick={() =>
+              history.push(
+                routes.toCVAdminSetup({
+                  projectIdentifier: projectIdentifier as string,
+                  orgIdentifier: orgIdentifier as string,
+                  accountId
+                })
+              )
+            }
           />
-          <Text color={Color.BLACK} className={css.infraSpecification}>
-            {i18n.infraSpecification}
-          </Text>
-          <Text color={Color.BLACK} className={css.connectorOptionHeading}>
-            {i18n.connectorOptionHeading}
-          </Text>
-          <FormInput.CustomRender
-            name={KubernetesActivitySourceFieldNames.CONNECTOR_TYPE}
-            render={formikProps => (
-              <ActivitySourceConnectorSelection
-                onCardSelect={formikProps.setFieldValue}
-                selectedCard={formikProps.values?.[KubernetesActivitySourceFieldNames.CONNECTOR_TYPE]}
-              />
-            )}
-          />
-        </Container>
-        <SubmitAndPreviousButtons
-          onPreviousClick={() =>
-            history.push(
-              routes.toCVAdminSetup({
-                projectIdentifier: projectIdentifier as string,
-                orgIdentifier: orgIdentifier as string,
-                accountId
-              })
-            )
-          }
-        />
-      </FormikForm>
+          <SyncStepDataValues values={formik.values} listenToValues={data} onUpdate={formik.setValues} />
+        </FormikForm>
+      )}
     </Formik>
   )
 }

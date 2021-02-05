@@ -205,6 +205,9 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                   </p>
                 </div>
               </div>
+              <div
+                class="StyledProps--font StyledProps--main connectorFormElm"
+              />
             </div>
           </div>
           <div

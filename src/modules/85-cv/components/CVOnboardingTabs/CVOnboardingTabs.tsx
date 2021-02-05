@@ -47,13 +47,20 @@ const CVOnboardingTabs: React.FC<CVTabProps<any>> = props => {
                 className={cx({ [css.editable]: editable })}
                 tagName="span"
                 onChange={ev => {
-                  props.setName(ev.target.value)
+                  const val = ev.target.value.replace(/&nbsp;/g, ' ')
+                  if (val) {
+                    props.setName(val)
+                  }
                 }}
                 onBlur={() => {
                   setEditable(false)
                 }}
                 onKeyPress={event => {
-                  if (event.key === 'Enter') {
+                  if (event.which === 32) {
+                    // space
+                    event.stopPropagation()
+                  } else if (event.which === 13) {
+                    // enter
                     setEditable(false)
                   }
                 }}

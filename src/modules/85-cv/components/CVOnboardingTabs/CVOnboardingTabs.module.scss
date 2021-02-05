@@ -30,10 +30,10 @@
     flex: 1;
   }
   .nameEditIcon {
-    margin-left: var(--spacing-xsmall);
-    margin-bottom: 2px;
+    margin-left: var(--spacing-xsmall) !important;
+    margin-bottom: 2px !important;
   }
   .nameTypeIcon {
-    margin-right: var(--spacing-xsmall);
+    margin-right: var(--spacing-xsmall) !important;
   }
 }

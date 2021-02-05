@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Text, IconName } from '@wings-software/uicore'
-import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { useStrings } from 'framework/exports'
 import css from './ActivitySourceDetails.module.scss'
@@ -30,7 +30,7 @@ const ActivitySourceDetails: React.FC<ActivitySourceDetailsProps> = props => {
         cardLabel={props.iconLabel}
         renderLabelOutsideCard={true}
       />
-      <AddDescriptionAndTagsWithIdentifier
+      <AddDescriptionAndKVTagsWithIdentifier
         identifierProps={{
           inputLabel: getString('cv.activitySources.name'),
           isIdentifierEditable: !props.isEditMode

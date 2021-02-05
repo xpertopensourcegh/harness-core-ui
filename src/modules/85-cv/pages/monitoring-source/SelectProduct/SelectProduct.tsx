@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Layout, Container, FormikForm, Formik, FormInput, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
-import { connect } from 'formik'
-import pickBy from 'lodash-es/pickBy'
-import merge from 'lodash-es/merge'
 import { StringUtils } from '@common/exports'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -16,6 +13,7 @@ import {
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
+import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import css from './SelectProduct.module.scss'
 
 interface SelectProductFieldProps {
@@ -196,17 +194,13 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
               )
             }
           />
-          <SyncStepDataValues values={props?.stepData} />
+          <SyncStepDataValues
+            values={formikProps.values}
+            listenToValues={props?.stepData}
+            onUpdate={formikProps.setValues}
+          />
         </FormikForm>
       )}
     </Formik>
   )
 }
-
-const SyncStepDataValues = connect(({ formik, values }: any) => {
-  useEffect(() => {
-    const update = pickBy(values, value => !!value)
-    formik.setValues(merge(formik.values, update))
-  }, [values])
-  return null
-})

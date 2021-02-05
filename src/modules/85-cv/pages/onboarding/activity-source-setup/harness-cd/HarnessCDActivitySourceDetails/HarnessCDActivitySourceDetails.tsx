@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Formik, FormikForm } from '@wings-software/uicore'
 import * as Yup from 'yup'
-
 import { useHistory, useParams } from 'react-router-dom'
+import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import routes from '@common/RouteDefinitions'
 import { StringUtils } from '@common/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
@@ -22,8 +22,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
   return (
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik
-        enableReinitialize
-        initialValues={{ identifier: '', ...(initialValues || {}) }}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('validation.nameRequired')),
           identifier: Yup.string().when('name', {
@@ -62,6 +61,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
                   formik.submitForm()
                 }}
               />
+              <SyncStepDataValues values={formik.values} listenToValues={initialValues} onUpdate={formik.setValues} />
             </FormikForm>
           )
         }}

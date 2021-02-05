@@ -76,7 +76,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
         )}
         {duration !== undefined && duration !== null && (
           <Text color={Color.GREY_300} font={XSMALL_FONT_SIZE}>
-            {duration}
+            {`${duration} ${i18n.abbreviatedMinute}`}
           </Text>
         )}
       </Container>
