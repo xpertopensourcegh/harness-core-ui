@@ -33,6 +33,7 @@ import Table from '@common/components/Table/Table'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import COGatewayAnalytics from './COGatewayAnalytics'
+import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import { getRelativeTime } from './Utils'
@@ -462,6 +463,9 @@ const COGatewayList: React.FC = () => {
               </>
               <ModalErrorHandler bind={setModalErrorHandler} />
               <Page.Body className={css.pageContainer}>
+                <COGatewayCumulativeAnalytics
+                  services={data?.response ? (data.response as Service[]) : []}
+                ></COGatewayCumulativeAnalytics>
                 <Table<Service>
                   data={data?.response ? data.response : []}
                   className={css.table}
