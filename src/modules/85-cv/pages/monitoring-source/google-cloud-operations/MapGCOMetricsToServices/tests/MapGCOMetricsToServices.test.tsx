@@ -121,28 +121,26 @@ jest.mock('react-monaco-editor', () => (props: any) => (
 
 const MockValidationResponse = {
   metaData: {},
-  data: {
-    sampleData: [
-      {
-        txnName: 'kubernetes.io/container/cpu/core_usage_time',
-        metricName: 'kubernetes.io/container/cpu/core_usage_time',
-        metricValue: 12.151677124512961,
-        timestamp: 1607599860000
-      },
-      {
-        txnName: 'kubernetes.io/container/cpu/core_usage_time',
-        metricName: 'kubernetes.io/container/cpu/core_usage_time',
-        metricValue: 12.149014549984008,
-        timestamp: 1607599920000
-      },
-      {
-        txnName: 'kubernetes.io/container/cpu/core_usage_time',
-        metricName: 'kubernetes.io/container/cpu/core_usage_time',
-        metricValue: 7.050477594430973,
-        timestamp: 1607599980000
-      }
-    ]
-  }
+  data: [
+    {
+      txnName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricValue: 12.151677124512961,
+      timestamp: 1607599860000
+    },
+    {
+      txnName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricValue: 12.149014549984008,
+      timestamp: 1607599920000
+    },
+    {
+      txnName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricValue: 7.050477594430973,
+      timestamp: 1607599980000
+    }
+  ]
 }
 
 describe('Unit tests for MapGCOMetricsToServices', () => {
@@ -197,7 +195,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
     getMetricPackSpy.mockReturnValue({
       data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, any>)
 
     const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
     const mutateMock = jest.fn().mockReturnValue(
@@ -208,9 +206,9 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
 
     sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
       any,
-      unknown,
       any,
-      unknown,
+      any,
+      any,
       any
     >)
     const { container } = render(
@@ -260,9 +258,9 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
 
     sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
       any,
-      unknown,
       any,
-      unknown,
+      any,
+      any,
       any
     >)
     const { container, getByText } = render(
@@ -291,17 +289,17 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
 
   test('Ensure that when validation api throws error or returns no data, correct content is displayed', async () => {
     const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
-    const mutateMock = jest.fn().mockReturnValue(
-      Promise.resolve({
-        data: { errorMessage: 'mock error' }
-      })
-    )
+    const mutateMock = jest.fn().mockRejectedValue({ data: { detailedMessage: 'mock error' } })
+    const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
+    getMetricPackSpy.mockReturnValue({
+      data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
+    } as UseGetReturn<any, unknown, any, unknown>)
 
     sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
       any,
-      unknown,
       any,
-      unknown,
+      any,
+      any,
       any
     >)
     const { container, getByText, rerender } = render(
@@ -324,14 +322,14 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     // no data case
     mutateMock.mockReturnValue(
       Promise.resolve({
-        data: { sampleData: [] }
+        data: { data: [] }
       })
     )
     sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
       any,
-      unknown,
       any,
-      unknown,
+      any,
+      any,
       any
     >)
 

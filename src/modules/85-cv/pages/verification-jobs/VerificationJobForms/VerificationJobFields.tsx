@@ -39,11 +39,6 @@ function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconP
         name: 'service-kubernetes',
         size: 15
       }
-    // case 'OTHER':
-    //   return {
-    //     name: 'config-change',
-    //     size: 15
-    //   }
     default:
       return {} as IconProps
   }
@@ -350,8 +345,8 @@ export const ActivitySource: React.FC<BaseFieldProps & { onChange?: (val: Select
   })
 
   useEffect(() => {
-    if (data?.resource?.content) {
-      const options = data.resource.content.map(item => {
+    if (data?.data?.content) {
+      const options = data.data.content.map(item => {
         return {
           label: item.name,
           value: item.identifier,

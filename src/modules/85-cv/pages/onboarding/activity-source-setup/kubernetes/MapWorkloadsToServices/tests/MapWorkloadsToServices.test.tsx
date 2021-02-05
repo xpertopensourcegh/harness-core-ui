@@ -68,7 +68,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
     useGetWorkloadSpy.mockReturnValue({
       loading: true
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <MapWorkloadsToServices onSubmit={jest.fn()} onPrevious={jest.fn()} data={MockData} />
@@ -83,9 +83,9 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     const refetchMock = jest.fn()
     const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
     useGetWorkloadSpy.mockReturnValue({
-      error: { message: 'error' },
+      error: { data: { message: 'error' } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
@@ -109,9 +109,9 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     const refetchMock = jest.fn()
     const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
     useGetWorkloadSpy.mockReturnValue({
-      data: { resource: { content: [] } },
+      data: { data: { content: [] } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
@@ -133,9 +133,9 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     const refetchMock = jest.fn()
     const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
     useGetWorkloadSpy.mockReturnValue({
-      data: { resource: { content: ['workload1', 'workload2'] } },
+      data: { data: { content: ['workload1', 'workload2'] } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
@@ -205,9 +205,9 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     const refetchMock = jest.fn()
     const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
     useGetWorkloadSpy.mockReturnValue({
-      data: { resource: { content: ['workload1', 'workload2', 'workload3'] } },
+      data: { data: { content: ['workload1', 'workload2', 'workload3'] } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const createEnvMock = jest.fn()
     const useCreateEnvironmentSpy = jest.spyOn(cdService, 'useCreateEnvironment')

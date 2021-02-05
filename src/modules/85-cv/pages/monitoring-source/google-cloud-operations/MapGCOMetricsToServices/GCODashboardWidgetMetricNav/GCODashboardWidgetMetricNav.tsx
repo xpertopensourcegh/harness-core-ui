@@ -5,6 +5,7 @@ import cx from 'classnames'
 import { Classes, ITreeNode, PopoverInteractionKind, Tree } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { String, useStrings } from 'framework/exports'
 import { StackdriverDashboardDetail, StackdriverDashboardDTO, useGetStackdriverDashboardDetail } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -292,16 +293,16 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
     if (selectedDashIndex === -1 || loading) {
       return
     }
-    if (error?.message || (!data?.resource?.length && !isFirstLoad)) {
+    if (error?.data || (!data?.data?.length && !isFirstLoad)) {
       navContent[selectedDashIndex].isExpanded = false
       navContent[selectedDashIndex].childNodes = []
       setNavContent([...navContent])
-      if (error?.message) {
-        showError(error.message, 5000)
+      if (error?.data) {
+        showError(getErrorMessage(error), 5000)
       }
-    } else if (data?.resource?.length) {
+    } else if (data?.data?.length) {
       const { treeNodes, selectedMetricPath: metricPath, selectedMetric: metric } = transformWidgetsToTreeNodes(
-        data.resource,
+        data.data,
         isFirstLoad,
         selectedDashIndex
       )

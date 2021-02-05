@@ -17,12 +17,16 @@ import {
 } from 'services/cv'
 import { useStrings } from 'framework/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { useToaster } from '@common/exports'
+import { PageError } from '@common/components/Page/PageError'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { getConfig } from 'services/config'
+
 import { ValidationCell, ServiceCell } from './MapApplicationsTableCells'
 import AppDApplicationSelector from './AppDApplicationSelector'
 import {
@@ -81,12 +85,13 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   const [serviceOptions, setServiceOptions] = useState<Array<SelectOption>>([])
   const [validationResult, setValidationResult] = useState<TierRecord['validationResult']>()
   const { errors, setError, renderError, hasError } = useValidationErrors()
+  const { showError } = useToaster()
   const haveMPacksChanged = useRef<(name: string, val: any) => boolean>(() => false)
   const [metricPackChanged, setMetricPackChanged] = useState(false)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
 
-  useGetServiceListForProject({
+  const { error: serviceError } = useGetServiceListForProject({
     queryParams: {
       accountId,
       orgIdentifier,
@@ -105,9 +110,9 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     }
   })
 
-  const { data: metricPackss } = useGetMetricPacks({
+  const { data: metricPacks, refetch: refetchMetricPacks, error: metricPackError } = useGetMetricPacks({
     queryParams: {
-      accountId: accountId,
+      accountId,
       orgIdentifier,
       projectIdentifier,
       dataSourceType: 'APP_DYNAMICS'
@@ -137,7 +142,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     return statuses
   }, [state, errors])
 
-  const { data: tiers, loading: loadingTiers, refetch: loadTiers } = useGetAppDynamicsTiers({
+  const { data: tiers, loading: loadingTiers, refetch: loadTiers, error: tiersError } = useGetAppDynamicsTiers({
     resolve: response => {
       if (Number.isInteger(response?.resource?.totalItems)) {
         setState(old => ({
@@ -152,6 +157,12 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     },
     lazy: true
   })
+
+  useEffect(() => {
+    if (serviceError) {
+      showError(serviceError, 5000)
+    }
+  }, [serviceError])
 
   useEffect(() => {
     if (selectedAppName) {
@@ -174,13 +185,15 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     if (state[appName]?.metricPacks?.length) {
       onSetTierData(appName, tierName, { validationStatus: ValidationStatus.IN_PROGRESS })
       const update = await validateTier(state[appName]?.metricPacks as MetricPackArrayRequestBody, {
-        accountId,
-        appName,
-        tierName,
-        connectorIdentifier: stepData?.connectorIdentifier,
-        orgIdentifier: orgIdentifier as string,
-        projectIdentifier: projectIdentifier as string,
-        requestGuid: String(Date.now())
+        queryParams: {
+          accountId,
+          appName,
+          tierName,
+          connectorIdentifier: stepData?.connectorIdentifier,
+          orgIdentifier,
+          projectIdentifier,
+          requestGuid: String(Date.now())
+        }
       })
       if (!haveMPacksChanged.current(appName, state[appName]?.metricPacks)) {
         onSetTierData(appName, tierName, update)
@@ -257,6 +270,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
           setError(`${app?.name}.metricPacks`, getString('cv.monitoringSources.appD.validations.selectMetricPack'))
           return
         }
+
         for (const tier of Object.values(app?.tiers ?? {})) {
           if (!tier.service) {
             setError('selectTier', getString('cv.monitoringSources.appD.validations.selectTier'))
@@ -301,7 +315,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
               {getString('metricPacks')}
             </Text>
             <Container margin={{ bottom: 'small' }}>
-              {metricPackss?.resource?.map(mp => (
+              {metricPacks?.resource?.map(mp => (
                 <Checkbox
                   key={mp.identifier}
                   checked={hasMetricPackSelected(state[selectedAppName], mp.identifier)}
@@ -309,6 +323,9 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                   onChange={e => onSelectMetricPack(mp, e.currentTarget.checked)}
                 />
               ))}
+              {metricPackError?.data && (
+                <PageError message={getErrorMessage(metricPackError)} onClick={() => refetchMetricPacks()} />
+              )}
             </Container>
             {renderError(`${selectedAppName}.metricPacks`)}
           </Container>
@@ -401,20 +418,59 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                 }
               }
             ]}
-            data={tiers?.resource?.content ?? []}
+            data={tiers?.data?.content ?? []}
             pagination={{
-              itemCount: tiers?.resource?.totalItems || 0,
-              pageSize: tiers?.resource?.pageSize || PAGE_SIZE,
-              pageCount: tiers?.resource?.totalPages || 0,
-              pageIndex: tiers?.resource?.pageIndex || 0,
+              itemCount: tiers?.data?.totalItems || 0,
+              pageSize: tiers?.data?.pageSize || PAGE_SIZE,
+              pageCount: tiers?.data?.totalPages || 0,
+              pageIndex: tiers?.data?.pageIndex || 0,
               gotoPage: (page: number) => setPageIndex(page)
             }}
           />
           {renderError(`${selectedAppName}.uniqueService`)}
           {renderError('selectTier')}
-          {!loadingTiers && !tiers?.resource?.content?.length && (
+          {!loadingTiers && !tiersError?.data && !tiers?.data?.content?.length && (
             <Container height={250}>
-              <NoDataCard message={getString('cv.monitoringSources.appD.noTiersMsg')} icon="warning-sign" />
+              <NoDataCard
+                message={getString('cv.monitoringSources.appD.noTiersMsg')}
+                icon="warning-sign"
+                buttonText={getString('retry')}
+                onClick={() =>
+                  loadTiers({
+                    queryParams: {
+                      accountId,
+                      appName: selectedAppName,
+                      connectorIdentifier: stepData?.connectorIdentifier,
+                      orgIdentifier: orgIdentifier,
+                      projectIdentifier: projectIdentifier,
+                      offset: pageIndex,
+                      pageSize: PAGE_SIZE,
+                      filter: textFilter
+                    }
+                  })
+                }
+              />
+            </Container>
+          )}
+          {!loadingTiers && tiersError?.data && (
+            <Container height={250}>
+              <PageError
+                message={getErrorMessage(tiersError)}
+                onClick={() =>
+                  loadTiers({
+                    queryParams: {
+                      accountId,
+                      appName: selectedAppName,
+                      connectorIdentifier: stepData?.connectorIdentifier,
+                      orgIdentifier: orgIdentifier,
+                      projectIdentifier: projectIdentifier,
+                      offset: pageIndex,
+                      pageSize: PAGE_SIZE,
+                      filter: textFilter
+                    }
+                  })
+                }
+              />
             </Container>
           )}
         </Container>

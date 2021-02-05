@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useGetNamespaces } from 'services/cv'
@@ -82,9 +83,8 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
     )
   }
 
-  const { content, pageIndex = 0, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.resource || {}
+  const { content, pageIndex = 0, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.data || {}
   const nameSpaces = generateTableData(content || [], selectedNamespaces)
-
   return (
     <Container>
       <Container className={css.main}>
@@ -151,12 +151,12 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
             gotoPage: newPageIndex => setFilterAndPageOffset({ pageOffset: newPageIndex, filteredNamespace })
           }}
         />
-        {error?.message && (
+        {error?.data && (
           <Container className={css.noDataError}>
-            <PageError message={error.message} onClick={() => refetchNamespaces()} />
+            <PageError message={getErrorMessage(error)} onClick={() => refetchNamespaces()} />
           </Container>
         )}
-        {!error?.message && !content?.length && (
+        {!error?.data && !content?.length && (
           <Container className={css.noDataError}>
             <NoDataCard
               icon="warning-sign"

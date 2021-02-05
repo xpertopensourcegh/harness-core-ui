@@ -12,6 +12,7 @@ import { VerificationJobType } from '@cv/constants'
 import { GetVerificationJobQueryParams, useGetVerificationJob } from 'services/cv'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
 import VerificationJobsDetails from './VerificationJobsDetails/VerificationJobsDetails'
 import TestVerificationJob from './TestVerificationJob/TestVerificationJob'
@@ -139,36 +140,39 @@ const VerificationJobsSetup = (): JSX.Element => {
         } as GetVerificationJobQueryParams
       })
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verificationId])
 
   useEffect(() => {
-    if (verificationJob?.resource) {
+    if (verificationJob?.data) {
       setCurrentData({
-        ...pick(verificationJob.resource, ['identifier', 'type']),
-        dataSource: verificationJob.resource.monitoringSources?.map(source => ({
+        ...pick(verificationJob.data, ['identifier', 'type']),
+        dataSource: verificationJob.data.monitoringSources?.map(source => ({
           label: source,
           value: source
         })),
         sensitivity: getRuntimeValueOrSelectOptionForSensitivity(
-          verificationJob.resource.type as string,
-          (verificationJob.resource as any).sensitivity
+          verificationJob.data.type as string,
+          (verificationJob.data as any).sensitivity
         ),
         trafficSplit: getRuntimeValueOrSelectOptionForTrafficSplit(
-          verificationJob.resource.type as string,
-          (verificationJob.resource as any).trafficSplitPercentage
+          verificationJob.data.type as string,
+          (verificationJob.data as any).trafficSplitPercentage
         ),
-        duration: getRuntimeValueOrSelectOption(verificationJob.resource.duration),
-        name: verificationJob.resource.jobName,
-        service: getRuntimeValueOrSelectOption(verificationJob.resource.serviceIdentifier),
-        environment: getRuntimeValueOrSelectOption(verificationJob.resource.envIdentifier),
-        activitySource: verificationJob.resource.activitySourceIdentifier,
+        duration: getRuntimeValueOrSelectOption(verificationJob.data.duration),
+        name: verificationJob.data.jobName,
+        service: getRuntimeValueOrSelectOption(verificationJob.data.serviceIdentifier),
+        environment: getRuntimeValueOrSelectOption(verificationJob.data.envIdentifier),
+        activitySource: verificationJob.data.activitySourceIdentifier,
         baseline: getRuntimeValueOrSelectOptionForBaseline(
-          verificationJob.resource.type as string,
-          (verificationJob.resource as any).baselineVerificationJobInstanceId
+          verificationJob.data.type as string,
+          (verificationJob.data as any).baselineVerificationJobInstanceId
         )
       } as VerificationJobsData)
     }
-  }, [verificationJob?.resource])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [verificationJob?.data])
   return (
     <Container className={css.pageDimensions}>
       <OnBoardingPageHeader
@@ -188,7 +192,7 @@ const VerificationJobsSetup = (): JSX.Element => {
         <Page.Body
           loading={Boolean(verificationId) && loading}
           key={Boolean(verificationId).toString() && loading?.toString()}
-          error={verificationId ? error?.message : undefined}
+          error={getErrorMessage(error)}
         >
           <CVOnboardingTabs
             iconName={getIconByVerificationType(currentData?.type)}

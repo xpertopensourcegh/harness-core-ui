@@ -17,7 +17,7 @@ const testWrapperProps: TestWrapperProps = {
   }
 }
 const MockData = {
-  resource: {
+  data: {
     content: [
       {
         identifier: '1234_uuid',
@@ -66,7 +66,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     useListKubernetesSourcesSpy.mockReturnValue({
       data: MockData,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
@@ -88,7 +88,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     useListKubernetesSourcesSpy.mockReturnValue({
       data: MockData,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve()) as unknown
     const useDeleteKubernetesSourceSpy = jest.spyOn(cvService, 'useDeleteKubernetesSource')
@@ -131,9 +131,9 @@ describe('CVActivitySourcesPage unit tests', () => {
     const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListActivitySources')
     const refetchMock = jest.fn() as unknown
     useListKubernetesSourcesSpy.mockReturnValue({
-      error: { message: 'mock error' },
+      error: { data: { message: 'mock error' } },
       refetch: refetchMock
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
@@ -158,7 +158,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     useListKubernetesSourcesSpy.mockReturnValue({
       data: MockData,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -174,8 +174,8 @@ describe('CVActivitySourcesPage unit tests', () => {
   test('Ensure that no data card is displayed when api returns no data', async () => {
     const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListActivitySources')
     useListKubernetesSourcesSpy.mockReturnValue({
-      data: { resource: { content: [] } }
-    } as UseGetReturn<any, unknown, any, unknown>)
+      data: { data: { content: [] } }
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { getByText } = render(
       <TestWrapper {...testWrapperProps}>

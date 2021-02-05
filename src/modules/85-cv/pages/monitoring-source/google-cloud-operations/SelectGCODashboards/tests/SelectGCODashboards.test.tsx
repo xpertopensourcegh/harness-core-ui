@@ -21,7 +21,7 @@ const testWrapperProps: TestWrapperProps = {
 
 const MockData = {
   data: {
-    resource: {
+    data: {
       content: [
         { name: 'CapabilityMismatchErrors', path: 'projects/674494598921/dashboards/10677345508806562647' },
         { name: ' Redis stress', path: 'projects/674494598921/dashboards/11281603920045896314' },
@@ -55,7 +55,7 @@ const MockData = {
 
 const MockData2ndPage = {
   data: {
-    resource: {
+    data: {
       content: [
         { name: 'MongoSomoething', path: 'projects/674494598921/dashboards/10677345508806562647' },
         { name: 'Another mongo something', path: 'projects/674494598921/dashboards/11281603920045896314' }
@@ -76,10 +76,10 @@ describe('SelectGCODashboards unit tests', () => {
     const useGetStackdriverDashboardsMock = jest.spyOn(cvService, 'useGetStackdriverDashboards')
     useGetStackdriverDashboardsMock.mockReturnValue({
       loading: false,
-      data: { resource: [] },
+      data: { data: { content: [] } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
-    const { container, getByText } = render(
+    } as UseGetReturn<any, any, any, unknown>)
+    const { container, getAllByText } = render(
       <TestWrapper {...testWrapperProps}>
         <SelectGCODashboards
           data={buildGCOMonitoringSourceInfo(MockParams)}
@@ -90,7 +90,7 @@ describe('SelectGCODashboards unit tests', () => {
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
 
-    fireEvent.click(getByText('+ Manually input query'))
+    fireEvent.click(getAllByText('+ Manually input query')[1])
     await waitFor(() => expect(document.body.querySelector('input[name="metricName"]')).not.toBeNull())
   })
 
@@ -100,9 +100,9 @@ describe('SelectGCODashboards unit tests', () => {
     useGetStackdriverDashboardsMock.mockReturnValue({
       loading: false,
       data: undefined,
-      error: { message: 'mock_error' },
+      error: { data: { message: 'mock_error' } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <SelectGCODashboards
@@ -126,9 +126,9 @@ describe('SelectGCODashboards unit tests', () => {
     const useGetStackdriverDashboardsMock = jest.spyOn(cvService, 'useGetStackdriverDashboards')
     useGetStackdriverDashboardsMock.mockImplementation(({ queryParams }) => {
       if (queryParams?.offset === 0) {
-        return MockData as UseGetReturn<any, unknown, any, unknown>
+        return MockData as UseGetReturn<any, any, any, any>
       } else {
-        return MockData2ndPage as UseGetReturn<any, unknown, any, unknown>
+        return MockData2ndPage as UseGetReturn<any, any, any, unknown>
       }
     })
 

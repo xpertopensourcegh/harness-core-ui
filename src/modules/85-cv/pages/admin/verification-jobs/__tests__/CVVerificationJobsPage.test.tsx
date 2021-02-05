@@ -31,7 +31,7 @@ describe('CVVerificationJobsPage', () => {
       () =>
         ({
           data: {
-            resource: {
+            data: {
               content: [
                 {
                   identifier: 'Job1',

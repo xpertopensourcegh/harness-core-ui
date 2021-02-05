@@ -11,6 +11,7 @@ import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/Tabl
 import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { ManualInputQueryModal } from '../ManualInputQueryModal/ManualInputQueryModal'
 import { buildGCOMetricInfo, GCOMonitoringSourceInfo } from '../GoogleCloudOperationsMonitoringSourceUtils'
 import { getManuallyCreatedQueries } from '../GoogleCloudOperationsMonitoringSourceUtils'
@@ -99,50 +100,15 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
       )
       setTableData(loadingItems)
     } else {
-      setTableData(initializeTableData(selectedDashboards, data?.resource?.content))
+      setTableData(initializeTableData(selectedDashboards, data?.data?.content))
     }
   }, [data, loading])
 
-  if (error?.message) {
-    return <PageError className={css.loadingErrorNoData} message={error.message} onClick={() => refetchDashboards()} />
-  }
-
-  const { content, pageIndex = -1, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.resource || {}
-
-  if (!content?.length && !loading) {
-    return (
-      <Container>
-        <NoDataCard
-          icon="warning-sign"
-          className={css.loadingErrorNoData}
-          message={getString('cv.monitoringSources.gco.selectDashboardsPage.noDataText')}
-          buttonText={getString('cv.monitoringSources.gco.addManualInputQuery')}
-          onClick={() => setIsModalOpen(true)}
-        />
-        {isModalOpen && (
-          <ManualInputQueryModal
-            manuallyInputQueries={getManuallyCreatedQueries(propsData.selectedMetrics)}
-            onSubmit={values => {
-              if (!propsData.selectedMetrics) {
-                propsData.selectedMetrics = new Map()
-              }
-              propsData.selectedMetrics.set(
-                values.metricName,
-                buildGCOMetricInfo({ isManualQuery: true, metricName: values.metricName })
-              )
-              onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })
-            }}
-            closeModal={() => setIsModalOpen(false)}
-          />
-        )}
-      </Container>
-    )
-  }
-
+  const { content, pageIndex = -1, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.data || {}
   return (
     <Container className={css.main}>
       <Table<TableData>
-        data={tableData}
+        data={tableData || []}
         onRowClick={(rowData, index) => {
           const newTableData = [...tableData]
           newTableData[index].selected = !rowData.selected
@@ -221,6 +187,22 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
           }
         ]}
       />
+      {!loading && error?.data && (
+        <PageError
+          className={css.loadingErrorNoData}
+          message={getErrorMessage(error)}
+          onClick={() => refetchDashboards()}
+        />
+      )}
+      {!loading && !error?.data && !content?.length && (
+        <NoDataCard
+          icon="warning-sign"
+          className={css.loadingErrorNoData}
+          message={getString('cv.monitoringSources.gco.selectDashboardsPage.noDataText')}
+          buttonText={getString('cv.monitoringSources.gco.addManualInputQuery')}
+          onClick={() => setIsModalOpen(true)}
+        />
+      )}
       {isModalOpen && (
         <ManualInputQueryModal
           manuallyInputQueries={getManuallyCreatedQueries(propsData.selectedMetrics)}

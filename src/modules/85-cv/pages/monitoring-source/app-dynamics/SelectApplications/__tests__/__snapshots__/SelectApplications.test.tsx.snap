@@ -35,7 +35,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
             >
-              xx
+              APPDYNAMICS APLICATIONS
             </p>
           </div>
           <div
@@ -50,7 +50,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-bold"
               >
-                xx
+                HARNESS ENVIRONMENT
               </p>
               <div
                 class="bp3-input-group ui-search-box ExpandingSearchInput--main "
@@ -322,12 +322,12 @@ exports[`SelectApplications Matches snapshot 1`] = `
               />
             </svg>
           </span>
-          xx
+          Map Dashboards to Harness Services
         </p>
         <p
           class="StyledProps--font StyledProps--main"
         >
-          xx
+          Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
         </p>
       </div>
     </div>

@@ -456,7 +456,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                       class="bp3-label"
                       for="product"
                     >
-                      Select the AppDyanamics Product that you would like to select applications from
+                      Select the AppDynamics Product that you would like to select applications from
                        
                       <span
                         class="bp3-text-muted"

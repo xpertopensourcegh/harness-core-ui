@@ -17,6 +17,7 @@ import { useIndexedDBHook, CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/In
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SETUP_INDEXDB_ID } from '@cv/constants'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
@@ -299,7 +300,7 @@ const VerificatiionContent: React.FC<VerificatiionContentProps> = props => {
                         accountId,
                         projectIdentifier,
                         orgIdentifier,
-                        verificationId: data?.resource?.identifier as string
+                        verificationId: data?.data?.identifier as string
                       })
                     )
                   }}
@@ -319,7 +320,7 @@ const VerificatiionContent: React.FC<VerificatiionContentProps> = props => {
                     style={{ maxWidth: 80, textOverflow: 'ellipsis' }}
                     lineClamp={1}
                   >
-                    {data?.resource?.jobName}
+                    {data?.data?.jobName}
                   </Text>
                 </Layout.Vertical>
                 {props.indexDBData?.verificationJobs?.length
@@ -473,9 +474,9 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
     <Container>
       {loading || isInitializingDB ? (
         <PageSpinner />
-      ) : error ? (
+      ) : error?.data ? (
         <div style={{ height: '100vh' }}>
-          <PageError message={error.message} onClick={() => refetch()} />
+          <PageError message={getErrorMessage(error)} onClick={() => refetch()} />
         </div>
       ) : (
         <Layout.Horizontal height="100vh">

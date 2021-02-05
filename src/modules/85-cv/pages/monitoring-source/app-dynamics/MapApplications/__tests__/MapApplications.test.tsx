@@ -23,7 +23,7 @@ jest.mock('services/cv', () => ({
   useGetAppDynamicsTiers: () => ({
     loading: false,
     data: {
-      resource: {
+      data: {
         content: [
           {
             id: 1,
@@ -65,6 +65,7 @@ jest.mock('services/cd-ng', () => ({
         }
       })
     }, [])
+    return {}
   }
 }))
 

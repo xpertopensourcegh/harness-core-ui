@@ -33,6 +33,7 @@ import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { GCODashboardWidgetMetricNav } from './GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav'
 import { chartsConfig } from './GCOWidgetChartConfig'
 import { MANUAL_INPUT_QUERY } from '../ManualInputQueryModal/ManualInputQueryModal'
@@ -410,12 +411,9 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
           setLoading(true)
           setError(undefined)
           const response = await mutate(JSON.parse(updatedQueryValue))
-          if (response?.data?.errorMessage?.length) {
-            setError(response.data.errorMessage)
-            setSampleData(transformSampleDataIntoHighchartOptions([]))
-          } else {
+          if (response?.data) {
             setError(undefined)
-            setSampleData(transformSampleDataIntoHighchartOptions(response?.data?.sampleData || []))
+            setSampleData(transformSampleDataIntoHighchartOptions(response?.data || []))
           }
           setLoading(false)
         } else {
@@ -426,7 +424,12 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
         if (e.message?.includes('The user aborted a request.')) {
           return
         }
-        if (e.name === 'SyntaxError') onError?.()
+        if (e.name === 'SyntaxError') {
+          onError?.()
+        } else if (e?.data) {
+          setError(getErrorMessage(e))
+          setSampleData(transformSampleDataIntoHighchartOptions([]))
+        }
         setLoading(false)
       }
     },

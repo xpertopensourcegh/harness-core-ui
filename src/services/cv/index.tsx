@@ -282,6 +282,8 @@ export interface ResponseMessage {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
+    | 'GCP_SECRET_OPERATION_ERROR'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -492,6 +494,514 @@ export interface RestResponseActivityStatusDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface CD10RegisterActivityDTO {
+  activityId?: string
+  serviceIdentifier?: string
+  envIdentifier?: string
+}
+
+export interface RestResponseCD10RegisterActivityDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CD10RegisterActivityDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ResponseString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: string
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface Failure {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_KEY'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+    | 'TEMPLATE_NOT_FOUND'
+    | 'AZURE_SERVICE_EXCEPTION'
+    | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
+    | 'NO_AVAILABLE_DELEGATES'
+    | 'NO_INSTALLED_DELEGATES'
+    | 'DUPLICATE_DELEGATE_EXCEPTION'
+    | 'GCP_MARKETPLACE_EXCEPTION'
+    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
+    | 'NG_PIPELINE_CREATE_EXCEPTION'
+    | 'RESOURCE_NOT_FOUND_EXCEPTION'
+    | 'PMS_INITIALIZE_SDK_EXCEPTION'
+    | 'UNEXPECTED_SNIPPET_EXCEPTION'
+    | 'UNEXPECTED_SCHEMA_EXCEPTION'
+    | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
+    | 'GCP_SECRET_OPERATION_ERROR'
+  message?: string
+  correlationId?: string
+  errors?: ValidationError[]
+}
+
+export interface ValidationError {
+  fieldId?: string
+  error?: string
+}
+
+export interface Error {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_KEY'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+    | 'TEMPLATE_NOT_FOUND'
+    | 'AZURE_SERVICE_EXCEPTION'
+    | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
+    | 'NO_AVAILABLE_DELEGATES'
+    | 'NO_INSTALLED_DELEGATES'
+    | 'DUPLICATE_DELEGATE_EXCEPTION'
+    | 'GCP_MARKETPLACE_EXCEPTION'
+    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
+    | 'NG_PIPELINE_CREATE_EXCEPTION'
+    | 'RESOURCE_NOT_FOUND_EXCEPTION'
+    | 'PMS_INITIALIZE_SDK_EXCEPTION'
+    | 'UNEXPECTED_SNIPPET_EXCEPTION'
+    | 'UNEXPECTED_SCHEMA_EXCEPTION'
+    | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
+    | 'GCP_SECRET_OPERATION_ERROR'
+  message?: string
+  correlationId?: string
+  detailedMessage?: string
+}
+
 export interface ActivitySourceDTO {
   uuid?: string
   createdAt?: number
@@ -501,12 +1011,11 @@ export interface ActivitySourceDTO {
   type?: 'KUBERNETES' | 'HARNESS_CD10'
 }
 
-export interface RestResponseActivitySourceDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivitySourceDTO
-  responseMessages?: ResponseMessage[]
+export interface ResponseActivitySourceDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ActivitySourceDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface Page {
@@ -529,12 +1038,18 @@ export interface PageActivitySourceDTO {
   empty?: boolean
 }
 
-export interface RestResponsePageActivitySourceDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageActivitySourceDTO
-  responseMessages?: ResponseMessage[]
+export interface ResponsePageActivitySourceDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageActivitySourceDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseBoolean {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: boolean
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface RestResponseBoolean {
@@ -574,20 +1089,11 @@ export interface PageString {
   empty?: boolean
 }
 
-export interface RestResponsePageString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageString
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
-  responseMessages?: ResponseMessage[]
+export interface ResponsePageString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageString
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface AlertCondition {
@@ -619,6 +1125,14 @@ export interface NotificationMethod {
   slackChannelName?: string
   pagerDutyKey?: string
   emails?: string[]
+}
+
+export interface RestResponseAlertRuleDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertRuleDTO
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RiskNotify {
@@ -656,11 +1170,11 @@ export interface RestResponsePageAlertRuleDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseAlertRuleDTO {
+export interface RestResponseListActivityType {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: AlertRuleDTO
+  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -704,6 +1218,63 @@ export interface RestResponseLearningEngineTask {
   }
   resource?: LearningEngineTask
   responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseVoid {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Void
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Void {
+  [key: string]: any
+}
+
+export interface Cluster {
+  text?: string
+  label?: number
+}
+
+export interface ClusterCoordinates {
+  x?: number
+  y?: number
+  label?: number
+  host?: string
+}
+
+export interface ClusterSummary {
+  label?: number
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  score?: number
+  count?: number
+  testFrequencyData?: number[]
+}
+
+export interface ControlClusterSummary {
+  label?: number
+  controlFrequencyData?: number[]
+}
+
+export interface DeploymentLogAnalysisDTO {
+  clusters?: Cluster[]
+  clusterCoordinates?: ClusterCoordinates[]
+  resultSummary?: ResultSummary
+  hostSummaries?: HostSummary[]
+}
+
+export interface HostSummary {
+  host?: string
+  resultSummary?: ResultSummary
+}
+
+export interface ResultSummary {
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  score?: number
+  controlClusterSummaries?: ControlClusterSummary[]
+  testClusterSummaries?: ClusterSummary[]
 }
 
 export interface LogClusterDTO {
@@ -754,57 +1325,12 @@ export interface RestResponseListLogAnalysisCluster {
   responseMessages?: ResponseMessage[]
 }
 
-export interface Cluster {
-  text?: string
-  label?: number
-}
-
-export interface ClusterCoordinates {
-  x?: number
-  y?: number
-  label?: number
-  host?: string
-}
-
-export interface ClusterSummary {
-  label?: number
-  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
-  score?: number
-  count?: number
-  testFrequencyData?: number[]
-}
-
-export interface ControlClusterSummary {
-  label?: number
-  controlFrequencyData?: number[]
-}
-
-export interface DeploymentLogAnalysisDTO {
-  clusters?: Cluster[]
-  clusterCoordinates?: ClusterCoordinates[]
-  resultSummary?: ResultSummary
-  hostSummaries?: HostSummary[]
-}
-
-export interface HostSummary {
-  host?: string
-  resultSummary?: ResultSummary
-}
-
 export interface RestResponseDeploymentLogAnalysisDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: DeploymentLogAnalysisDTO
   responseMessages?: ResponseMessage[]
-}
-
-export interface ResultSummary {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
-  score?: number
-  controlClusterSummaries?: ControlClusterSummary[]
-  testClusterSummaries?: ClusterSummary[]
 }
 
 export interface AnalysisResult {
@@ -823,38 +1349,6 @@ export interface LogAnalysisDTO {
   analysisMinute?: number
   logClusters?: LogAnalysisCluster[]
   logAnalysisResults?: AnalysisResult[]
-}
-
-export interface RestResponseVoid {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Void
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Void {
-  [key: string]: any
-}
-
-export interface RestResponseListTimeSeriesMetricDefinition {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesMetricDefinition[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeSeriesMetricDefinition {
-  metricName?: string
-  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  metricGroupName?: string
-  actionType?: 'IGNORE' | 'FAIL'
-  comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
-  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
-  occurrenceCount?: number
-  thresholdType?: 'ACT_WHEN_LOWER' | 'ACT_WHEN_HIGHER'
-  value?: number
 }
 
 export interface MetricSum {
@@ -885,6 +1379,26 @@ export interface RestResponseMapStringMapStringListDouble {
     }
   }
   responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListTimeSeriesMetricDefinition {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesMetricDefinition[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface TimeSeriesMetricDefinition {
+  metricName?: string
+  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
+  metricGroupName?: string
+  actionType?: 'IGNORE' | 'FAIL'
+  comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
+  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
+  occurrenceCount?: number
+  thresholdType?: 'ACT_WHEN_LOWER' | 'ACT_WHEN_HIGHER'
+  value?: number
 }
 
 export interface RestResponseListTimeSeriesRecordDTO {
@@ -982,52 +1496,6 @@ export interface TransactionMetricHostData {
   anomalous?: boolean
 }
 
-export interface AppDynamicsApplication {
-  name?: string
-  id?: number
-}
-
-export interface PageAppDynamicsApplication {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: AppDynamicsApplication[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface RestResponsePageAppDynamicsApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageAppDynamicsApplication
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AppDynamicsTier {
-  id?: number
-  name?: string
-}
-
-export interface PageAppDynamicsTier {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: AppDynamicsTier[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface RestResponsePageAppDynamicsTier {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageAppDynamicsTier
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string
   apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
@@ -1041,12 +1509,11 @@ export interface AppdynamicsValidationResponse {
   values?: AppdynamicsMetricValueValidationResponse[]
 }
 
-export interface RestResponseSetAppdynamicsValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppdynamicsValidationResponse[]
-  responseMessages?: ResponseMessage[]
+export interface ResponseSetAppdynamicsValidationResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: AppdynamicsValidationResponse[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface MetricDefinition {
@@ -1092,6 +1559,50 @@ export interface TimeSeriesThresholdCriteria {
   criteria?: string
 }
 
+export interface AppDynamicsApplication {
+  name?: string
+  id?: number
+}
+
+export interface PageAppDynamicsApplication {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AppDynamicsApplication[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageAppDynamicsApplication {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageAppDynamicsApplication
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface AppDynamicsTier {
+  id?: number
+  name?: string
+}
+
+export interface PageAppDynamicsTier {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AppDynamicsTier[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageAppDynamicsTier {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageAppDynamicsTier
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface RestResponseListString {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1118,8 +1629,8 @@ export interface CVConfig {
   identifier: string
   monitoringSourceName: string
   analysisOrchestrationIteration?: number
-  firstTimeDataCollectionTimeRange?: TimeRange
   type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
+  firstTimeDataCollectionTimeRange?: TimeRange
 }
 
 export interface RestResponseCVConfig {
@@ -1166,14 +1677,6 @@ export interface CVNGLogDTO {
   type?: 'API_CALL_LOG' | 'EXECUTION_LOG'
 }
 
-export interface RestResponseListDataSourceType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface CVSetupStatus {
   stepsWhichAreCompleted?: ('ACTIVITY_SOURCE' | 'MONITORING_SOURCE' | 'VERIFICATION_JOBS')[]
   totalNumberOfServices?: number
@@ -1188,6 +1691,14 @@ export interface RestResponseCVSetupStatus {
     [key: string]: { [key: string]: any }
   }
   resource?: CVSetupStatus
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListDataSourceType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1442,8 +1953,8 @@ export interface ArtifactoryAuthCredentials {
 }
 
 export interface ArtifactoryAuthentication {
-  type: 'UsernamePassword'
-  spec: ArtifactoryAuthCredentials
+  type: 'UsernamePassword' | 'Anonymous'
+  spec?: ArtifactoryAuthCredentials
 }
 
 export type ArtifactoryConnector = ConnectorConfigDTO & {
@@ -1625,7 +2136,6 @@ export type DockerUserNamePasswordDTO = DockerAuthCredentialsDTO & {
 
 export type GcpConnector = ConnectorConfigDTO & {
   credential?: GcpConnectorCredential
-  gcrUrl?: string
 }
 
 export interface GcpConnectorCredential {
@@ -1883,8 +2393,8 @@ export interface NexusAuthCredentials {
 }
 
 export interface NexusAuthentication {
-  type: 'UsernamePassword'
-  spec: NexusAuthCredentials
+  type: 'UsernamePassword' | 'Anonymous'
+  spec?: NexusAuthCredentials
 }
 
 export type NexusConnector = ConnectorConfigDTO & {
@@ -1925,9 +2435,22 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   appRoleId?: string
   secretId?: string
   secretEngineVersion?: number
-  accessType?: 'APP_ROLE' | 'TOKEN'
   default?: boolean
   readOnly?: boolean
+  accessType?: 'APP_ROLE' | 'TOKEN'
+}
+
+export interface RestResponseListSplunkSavedSearch {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SplunkSavedSearch[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface SplunkSavedSearch {
+  title?: string
+  searchQuery?: string
 }
 
 export interface Bar {
@@ -1973,19 +2496,6 @@ export interface SplunkValidationResponse {
   queryDurationMillis?: number
 }
 
-export interface RestResponseListSplunkSavedSearch {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SplunkSavedSearch[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SplunkSavedSearch {
-  title?: string
-  searchQuery?: string
-}
-
 export interface PageStackdriverDashboardDTO {
   totalPages?: number
   totalItems?: number
@@ -1996,12 +2506,11 @@ export interface PageStackdriverDashboardDTO {
   empty?: boolean
 }
 
-export interface RestResponsePageStackdriverDashboardDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageStackdriverDashboardDTO
-  responseMessages?: ResponseMessage[]
+export interface ResponsePageStackdriverDashboardDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageStackdriverDashboardDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface StackdriverDashboardDTO {
@@ -2014,12 +2523,11 @@ export interface DataSet {
   metricName?: string
 }
 
-export interface RestResponseListStackdriverDashboardDetail {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StackdriverDashboardDetail[]
-  responseMessages?: ResponseMessage[]
+export interface ResponseListStackdriverDashboardDetail {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: StackdriverDashboardDetail[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface StackdriverDashboardDetail {
@@ -2027,16 +2535,11 @@ export interface StackdriverDashboardDetail {
   dataSetList?: DataSet[]
 }
 
-export interface ResponseStackdriverSampleDataDTO {
+export interface ResponseSetTimeSeriesSampleDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: StackdriverSampleDataDTO
+  data?: TimeSeriesSampleDTO[]
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface StackdriverSampleDataDTO {
-  sampleData?: TimeSeriesSampleDTO[]
-  errorMessage?: string
 }
 
 export interface TimeSeriesSampleDTO {
@@ -2101,6 +2604,22 @@ export interface VersionPackage {
   runtimeInfo?: RuntimeInfo
 }
 
+export interface HeatMapDTO {
+  startTime?: number
+  endTime?: number
+  riskScore?: number
+}
+
+export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: HeatMapDTO[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AnalysisRisk {
   name?: string
   risk?: number
@@ -2131,22 +2650,6 @@ export interface ServiceSummary {
   serviceIdentifier?: string
   risk?: number
   analysisRisks?: AnalysisRisk[]
-}
-
-export interface HeatMapDTO {
-  startTime?: number
-  endTime?: number
-  riskScore?: number
-}
-
-export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: HeatMapDTO[]
-  }
-  responseMessages?: ResponseMessage[]
 }
 
 export interface CategoryRisksDTO {
@@ -2368,6 +2871,13 @@ export interface TestVerificationBaselineExecutionDTO {
   createdAt?: number
 }
 
+export interface ResponseVerificationJobDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: VerificationJobDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface VerificationJobDTO {
   identifier?: string
   jobName?: string
@@ -2386,14 +2896,6 @@ export interface VerificationJobDTO {
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
 }
 
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface PageVerificationJobDTO {
   totalPages?: number
   totalItems?: number
@@ -2404,12 +2906,11 @@ export interface PageVerificationJobDTO {
   empty?: boolean
 }
 
-export interface RestResponsePageVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageVerificationJobDTO
-  responseMessages?: ResponseMessage[]
+export interface ResponsePageVerificationJobDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageVerificationJobDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export type CVConfigArrayRequestBody = CVConfig[]
@@ -2435,7 +2936,7 @@ export interface GetAppDynamicsApplicationsQueryParams {
 }
 
 export type GetAppDynamicsApplicationsProps = Omit<
-  GetProps<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>,
+  GetProps<ResponsePageAppDynamicsApplication, Failure | Error, GetAppDynamicsApplicationsQueryParams, void>,
   'path'
 >
 
@@ -2443,7 +2944,7 @@ export type GetAppDynamicsApplicationsProps = Omit<
  * get all appdynamics applications
  */
 export const GetAppDynamicsApplications = (props: GetAppDynamicsApplicationsProps) => (
-  <Get<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>
+  <Get<ResponsePageAppDynamicsApplication, Failure | Error, GetAppDynamicsApplicationsQueryParams, void>
     path="/appdynamics/applications"
     base={getConfig('cv/api')}
     {...props}
@@ -2451,7 +2952,7 @@ export const GetAppDynamicsApplications = (props: GetAppDynamicsApplicationsProp
 )
 
 export type UseGetAppDynamicsApplicationsProps = Omit<
-  UseGetProps<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>,
+  UseGetProps<ResponsePageAppDynamicsApplication, Failure | Error, GetAppDynamicsApplicationsQueryParams, void>,
   'path'
 >
 
@@ -2459,7 +2960,7 @@ export type UseGetAppDynamicsApplicationsProps = Omit<
  * get all appdynamics applications
  */
 export const useGetAppDynamicsApplications = (props: UseGetAppDynamicsApplicationsProps) =>
-  useGet<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>(
+  useGet<ResponsePageAppDynamicsApplication, Failure | Error, GetAppDynamicsApplicationsQueryParams, void>(
     `/appdynamics/applications`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -2469,14 +2970,14 @@ export const useGetAppDynamicsApplications = (props: UseGetAppDynamicsApplicatio
  */
 export const getAppDynamicsApplicationsPromise = (
   props: GetUsingFetchProps<
-    RestResponsePageAppDynamicsApplication,
-    unknown,
+    ResponsePageAppDynamicsApplication,
+    Failure | Error,
     GetAppDynamicsApplicationsQueryParams,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>(
+  getUsingFetch<ResponsePageAppDynamicsApplication, Failure | Error, GetAppDynamicsApplicationsQueryParams, void>(
     getConfig('cv/api'),
     `/appdynamics/applications`,
     props,
@@ -2495,8 +2996,8 @@ export interface GetAppDynamicsMetricDataQueryParams {
 
 export type GetAppDynamicsMetricDataProps = Omit<
   MutateProps<
-    RestResponseSetAppdynamicsValidationResponse,
-    unknown,
+    ResponseSetAppdynamicsValidationResponse,
+    Failure | Error,
     GetAppDynamicsMetricDataQueryParams,
     MetricPackArrayRequestBody,
     void
@@ -2509,8 +3010,8 @@ export type GetAppDynamicsMetricDataProps = Omit<
  */
 export const GetAppDynamicsMetricData = (props: GetAppDynamicsMetricDataProps) => (
   <Mutate<
-    RestResponseSetAppdynamicsValidationResponse,
-    unknown,
+    ResponseSetAppdynamicsValidationResponse,
+    Failure | Error,
     GetAppDynamicsMetricDataQueryParams,
     MetricPackArrayRequestBody,
     void
@@ -2524,8 +3025,8 @@ export const GetAppDynamicsMetricData = (props: GetAppDynamicsMetricDataProps) =
 
 export type UseGetAppDynamicsMetricDataProps = Omit<
   UseMutateProps<
-    RestResponseSetAppdynamicsValidationResponse,
-    unknown,
+    ResponseSetAppdynamicsValidationResponse,
+    Failure | Error,
     GetAppDynamicsMetricDataQueryParams,
     MetricPackArrayRequestBody,
     void
@@ -2538,8 +3039,8 @@ export type UseGetAppDynamicsMetricDataProps = Omit<
  */
 export const useGetAppDynamicsMetricData = (props: UseGetAppDynamicsMetricDataProps) =>
   useMutate<
-    RestResponseSetAppdynamicsValidationResponse,
-    unknown,
+    ResponseSetAppdynamicsValidationResponse,
+    Failure | Error,
     GetAppDynamicsMetricDataQueryParams,
     MetricPackArrayRequestBody,
     void
@@ -2550,8 +3051,8 @@ export const useGetAppDynamicsMetricData = (props: UseGetAppDynamicsMetricDataPr
  */
 export const getAppDynamicsMetricDataPromise = (
   props: MutateUsingFetchProps<
-    RestResponseSetAppdynamicsValidationResponse,
-    unknown,
+    ResponseSetAppdynamicsValidationResponse,
+    Failure | Error,
     GetAppDynamicsMetricDataQueryParams,
     MetricPackArrayRequestBody,
     void
@@ -2559,8 +3060,8 @@ export const getAppDynamicsMetricDataPromise = (
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    RestResponseSetAppdynamicsValidationResponse,
-    unknown,
+    ResponseSetAppdynamicsValidationResponse,
+    Failure | Error,
     GetAppDynamicsMetricDataQueryParams,
     MetricPackArrayRequestBody,
     void
@@ -2578,7 +3079,7 @@ export interface GetAppDynamicsTiersQueryParams {
 }
 
 export type GetAppDynamicsTiersProps = Omit<
-  GetProps<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
+  GetProps<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>,
   'path'
 >
 
@@ -2586,7 +3087,7 @@ export type GetAppDynamicsTiersProps = Omit<
  * get all appdynamics tiers for an application
  */
 export const GetAppDynamicsTiers = (props: GetAppDynamicsTiersProps) => (
-  <Get<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>
+  <Get<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>
     path="/appdynamics/tiers"
     base={getConfig('cv/api')}
     {...props}
@@ -2594,7 +3095,7 @@ export const GetAppDynamicsTiers = (props: GetAppDynamicsTiersProps) => (
 )
 
 export type UseGetAppDynamicsTiersProps = Omit<
-  UseGetProps<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
+  UseGetProps<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>,
   'path'
 >
 
@@ -2602,7 +3103,7 @@ export type UseGetAppDynamicsTiersProps = Omit<
  * get all appdynamics tiers for an application
  */
 export const useGetAppDynamicsTiers = (props: UseGetAppDynamicsTiersProps) =>
-  useGet<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>(`/appdynamics/tiers`, {
+  useGet<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>(`/appdynamics/tiers`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -2611,10 +3112,10 @@ export const useGetAppDynamicsTiers = (props: UseGetAppDynamicsTiersProps) =>
  * get all appdynamics tiers for an application
  */
 export const getAppDynamicsTiersPromise = (
-  props: GetUsingFetchProps<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>(
+  getUsingFetch<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>(
     getConfig('cv/api'),
     `/appdynamics/tiers`,
     props,
@@ -2681,7 +3182,7 @@ export interface GetDataSourceConfigsQueryParams {
 }
 
 export type GetDataSourceConfigsProps = Omit<
-  GetProps<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>,
+  GetProps<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>,
   'path'
 >
 
@@ -2689,7 +3190,7 @@ export type GetDataSourceConfigsProps = Omit<
  * gets list of data source configs
  */
 export const GetDataSourceConfigs = (props: GetDataSourceConfigsProps) => (
-  <Get<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>
+  <Get<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>
     path="/ds-config"
     base={getConfig('cv/api')}
     {...props}
@@ -2697,7 +3198,7 @@ export const GetDataSourceConfigs = (props: GetDataSourceConfigsProps) => (
 )
 
 export type UseGetDataSourceConfigsProps = Omit<
-  UseGetProps<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>,
+  UseGetProps<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>,
   'path'
 >
 
@@ -2705,7 +3206,7 @@ export type UseGetDataSourceConfigsProps = Omit<
  * gets list of data source configs
  */
 export const useGetDataSourceConfigs = (props: UseGetDataSourceConfigsProps) =>
-  useGet<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>(`/ds-config`, {
+  useGet<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>(`/ds-config`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -2714,10 +3215,10 @@ export const useGetDataSourceConfigs = (props: UseGetDataSourceConfigsProps) =>
  * gets list of data source configs
  */
 export const getDataSourceConfigsPromise = (
-  props: GetUsingFetchProps<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>,
+  props: GetUsingFetchProps<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>(
+  getUsingFetch<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>(
     getConfig('cv/api'),
     `/ds-config`,
     props,
@@ -2728,13 +3229,16 @@ export interface SaveDSConfigQueryParams {
   accountId?: string
 }
 
-export type SaveDSConfigProps = Omit<MutateProps<void, void, SaveDSConfigQueryParams, DSConfig, void>, 'path' | 'verb'>
+export type SaveDSConfigProps = Omit<
+  MutateProps<void, Failure | Error, SaveDSConfigQueryParams, DSConfig, void>,
+  'path' | 'verb'
+>
 
 /**
  * saves a data source config
  */
 export const SaveDSConfig = (props: SaveDSConfigProps) => (
-  <Mutate<void, void, SaveDSConfigQueryParams, DSConfig, void>
+  <Mutate<void, Failure | Error, SaveDSConfigQueryParams, DSConfig, void>
     verb="PUT"
     path="/ds-config"
     base={getConfig('cv/api')}
@@ -2743,7 +3247,7 @@ export const SaveDSConfig = (props: SaveDSConfigProps) => (
 )
 
 export type UseSaveDSConfigProps = Omit<
-  UseMutateProps<void, void, SaveDSConfigQueryParams, DSConfig, void>,
+  UseMutateProps<void, Failure | Error, SaveDSConfigQueryParams, DSConfig, void>,
   'path' | 'verb'
 >
 
@@ -2751,7 +3255,7 @@ export type UseSaveDSConfigProps = Omit<
  * saves a data source config
  */
 export const useSaveDSConfig = (props: UseSaveDSConfigProps) =>
-  useMutate<void, void, SaveDSConfigQueryParams, DSConfig, void>('PUT', `/ds-config`, {
+  useMutate<void, Failure | Error, SaveDSConfigQueryParams, DSConfig, void>('PUT', `/ds-config`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -2760,10 +3264,10 @@ export const useSaveDSConfig = (props: UseSaveDSConfigProps) =>
  * saves a data source config
  */
 export const saveDSConfigPromise = (
-  props: MutateUsingFetchProps<void, void, SaveDSConfigQueryParams, DSConfig, void>,
+  props: MutateUsingFetchProps<void, Failure | Error, SaveDSConfigQueryParams, DSConfig, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<void, void, SaveDSConfigQueryParams, DSConfig, void>(
+  mutateUsingFetch<void, Failure | Error, SaveDSConfigQueryParams, DSConfig, void>(
     'PUT',
     getConfig('cv/api'),
     `/ds-config`,
@@ -2778,13 +3282,16 @@ export interface DeleteDSConfigQueryParams {
   monitoringSourceIdentifier?: string
 }
 
-export type DeleteDSConfigProps = Omit<MutateProps<void, void, DeleteDSConfigQueryParams, void, void>, 'path' | 'verb'>
+export type DeleteDSConfigProps = Omit<
+  MutateProps<void, Failure | Error, DeleteDSConfigQueryParams, void, void>,
+  'path' | 'verb'
+>
 
 /**
  * deletes all data source configs for a group
  */
 export const DeleteDSConfig = (props: DeleteDSConfigProps) => (
-  <Mutate<void, void, DeleteDSConfigQueryParams, void, void>
+  <Mutate<void, Failure | Error, DeleteDSConfigQueryParams, void, void>
     verb="DELETE"
     path="/ds-config"
     base={getConfig('cv/api')}
@@ -2793,7 +3300,7 @@ export const DeleteDSConfig = (props: DeleteDSConfigProps) => (
 )
 
 export type UseDeleteDSConfigProps = Omit<
-  UseMutateProps<void, void, DeleteDSConfigQueryParams, void, void>,
+  UseMutateProps<void, Failure | Error, DeleteDSConfigQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -2801,7 +3308,7 @@ export type UseDeleteDSConfigProps = Omit<
  * deletes all data source configs for a group
  */
 export const useDeleteDSConfig = (props: UseDeleteDSConfigProps) =>
-  useMutate<void, void, DeleteDSConfigQueryParams, void, void>('DELETE', `/ds-config`, {
+  useMutate<void, Failure | Error, DeleteDSConfigQueryParams, void, void>('DELETE', `/ds-config`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -2810,10 +3317,10 @@ export const useDeleteDSConfig = (props: UseDeleteDSConfigProps) =>
  * deletes all data source configs for a group
  */
 export const deleteDSConfigPromise = (
-  props: MutateUsingFetchProps<void, void, DeleteDSConfigQueryParams, void, void>,
+  props: MutateUsingFetchProps<void, Failure | Error, DeleteDSConfigQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<void, void, DeleteDSConfigQueryParams, void, void>(
+  mutateUsingFetch<void, Failure | Error, DeleteDSConfigQueryParams, void, void>(
     'DELETE',
     getConfig('cv/api'),
     `/ds-config`,
@@ -2832,7 +3339,7 @@ export interface GetDSConfigPathParams {
 }
 
 export type GetDSConfigProps = Omit<
-  GetProps<RestResponseDSConfig, unknown, GetDSConfigQueryParams, GetDSConfigPathParams>,
+  GetProps<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>,
   'path'
 > &
   GetDSConfigPathParams
@@ -2841,7 +3348,7 @@ export type GetDSConfigProps = Omit<
  * gets a monitoring sources
  */
 export const GetDSConfig = ({ identifier, ...props }: GetDSConfigProps) => (
-  <Get<RestResponseDSConfig, unknown, GetDSConfigQueryParams, GetDSConfigPathParams>
+  <Get<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>
     path="/ds-config/${identifier}"
     base={getConfig('cv/api')}
     {...props}
@@ -2849,7 +3356,7 @@ export const GetDSConfig = ({ identifier, ...props }: GetDSConfigProps) => (
 )
 
 export type UseGetDSConfigProps = Omit<
-  UseGetProps<RestResponseDSConfig, unknown, GetDSConfigQueryParams, GetDSConfigPathParams>,
+  UseGetProps<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>,
   'path'
 > &
   GetDSConfigPathParams
@@ -2858,7 +3365,7 @@ export type UseGetDSConfigProps = Omit<
  * gets a monitoring sources
  */
 export const useGetDSConfig = ({ identifier, ...props }: UseGetDSConfigProps) =>
-  useGet<RestResponseDSConfig, unknown, GetDSConfigQueryParams, GetDSConfigPathParams>(
+  useGet<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>(
     (paramsInPath: GetDSConfigPathParams) => `/ds-config/${paramsInPath.identifier}`,
     { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
   )
@@ -2870,12 +3377,12 @@ export const getDSConfigPromise = (
   {
     identifier,
     ...props
-  }: GetUsingFetchProps<RestResponseDSConfig, unknown, GetDSConfigQueryParams, GetDSConfigPathParams> & {
+  }: GetUsingFetchProps<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams> & {
     identifier: string
   },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseDSConfig, unknown, GetDSConfigQueryParams, GetDSConfigPathParams>(
+  getUsingFetch<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>(
     getConfig('cv/api'),
     `/ds-config/${identifier}`,
     props,
@@ -2892,7 +3399,7 @@ export interface GetMonitoringSourcesQueryParams {
 }
 
 export type GetMonitoringSourcesProps = Omit<
-  GetProps<ResponsePageMonitoringSource, unknown, GetMonitoringSourcesQueryParams, void>,
+  GetProps<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>,
   'path'
 >
 
@@ -2900,7 +3407,7 @@ export type GetMonitoringSourcesProps = Omit<
  * gets list of monitoring sources
  */
 export const GetMonitoringSources = (props: GetMonitoringSourcesProps) => (
-  <Get<ResponsePageMonitoringSource, unknown, GetMonitoringSourcesQueryParams, void>
+  <Get<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>
     path="/ds-config/listMonitoringSources"
     base={getConfig('cv/api')}
     {...props}
@@ -2908,7 +3415,7 @@ export const GetMonitoringSources = (props: GetMonitoringSourcesProps) => (
 )
 
 export type UseGetMonitoringSourcesProps = Omit<
-  UseGetProps<ResponsePageMonitoringSource, unknown, GetMonitoringSourcesQueryParams, void>,
+  UseGetProps<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>,
   'path'
 >
 
@@ -2916,7 +3423,7 @@ export type UseGetMonitoringSourcesProps = Omit<
  * gets list of monitoring sources
  */
 export const useGetMonitoringSources = (props: UseGetMonitoringSourcesProps) =>
-  useGet<ResponsePageMonitoringSource, unknown, GetMonitoringSourcesQueryParams, void>(
+  useGet<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>(
     `/ds-config/listMonitoringSources`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -2925,12 +3432,62 @@ export const useGetMonitoringSources = (props: UseGetMonitoringSourcesProps) =>
  * gets list of monitoring sources
  */
 export const getMonitoringSourcesPromise = (
-  props: GetUsingFetchProps<ResponsePageMonitoringSource, unknown, GetMonitoringSourcesQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePageMonitoringSource, unknown, GetMonitoringSourcesQueryParams, void>(
+  getUsingFetch<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>(
     getConfig('cv/api'),
     `/ds-config/listMonitoringSources`,
+    props,
+    signal
+  )
+
+export interface GetAvailableMonitoringSourcesQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetAvailableMonitoringSourcesProps = Omit<
+  GetProps<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets a list of available monitoring sources
+ */
+export const GetAvailableMonitoringSources = (props: GetAvailableMonitoringSourcesProps) => (
+  <Get<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>
+    path="/ds-config/available-monitoring-sources"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAvailableMonitoringSourcesProps = Omit<
+  UseGetProps<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets a list of available monitoring sources
+ */
+export const useGetAvailableMonitoringSources = (props: UseGetAvailableMonitoringSourcesProps) =>
+  useGet<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>(
+    `/ds-config/available-monitoring-sources`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * gets a list of available monitoring sources
+ */
+export const getAvailableMonitoringSourcesPromise = (
+  props: GetUsingFetchProps<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>(
+    getConfig('cv/api'),
+    `/ds-config/available-monitoring-sources`,
     props,
     signal
   )
@@ -2942,7 +3499,7 @@ export interface GetServicesQueryParams {
 }
 
 export type GetServicesProps = Omit<
-  GetProps<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>,
+  GetProps<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>,
   'path'
 >
 
@@ -2950,7 +3507,7 @@ export type GetServicesProps = Omit<
  * gets list of env to services mapping for which data sources are configured
  */
 export const GetServices = (props: GetServicesProps) => (
-  <Get<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>
+  <Get<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>
     path="/ds-config/env-to-services"
     base={getConfig('cv/api')}
     {...props}
@@ -2958,7 +3515,7 @@ export const GetServices = (props: GetServicesProps) => (
 )
 
 export type UseGetServicesProps = Omit<
-  UseGetProps<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>,
+  UseGetProps<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>,
   'path'
 >
 
@@ -2966,19 +3523,19 @@ export type UseGetServicesProps = Omit<
  * gets list of env to services mapping for which data sources are configured
  */
 export const useGetServices = (props: UseGetServicesProps) =>
-  useGet<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>(`/ds-config/env-to-services`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
+  useGet<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>(
+    `/ds-config/env-to-services`,
+    { base: getConfig('cv/api'), ...props }
+  )
 
 /**
  * gets list of env to services mapping for which data sources are configured
  */
 export const getServicesPromise = (
-  props: GetUsingFetchProps<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>,
+  props: GetUsingFetchProps<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>(
+  getUsingFetch<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>(
     getConfig('cv/api'),
     `/ds-config/env-to-services`,
     props,
@@ -3525,7 +4082,7 @@ export interface GetVerificationJobQueryParams {
 }
 
 export type GetVerificationJobProps = Omit<
-  GetProps<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>,
+  GetProps<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>,
   'path'
 >
 
@@ -3533,7 +4090,7 @@ export type GetVerificationJobProps = Omit<
  * gets the verification job for an identifier
  */
 export const GetVerificationJob = (props: GetVerificationJobProps) => (
-  <Get<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>
+  <Get<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>
     path="/verification-job"
     base={getConfig('cv/api')}
     {...props}
@@ -3541,7 +4098,7 @@ export const GetVerificationJob = (props: GetVerificationJobProps) => (
 )
 
 export type UseGetVerificationJobProps = Omit<
-  UseGetProps<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>,
+  UseGetProps<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>,
   'path'
 >
 
@@ -3549,7 +4106,7 @@ export type UseGetVerificationJobProps = Omit<
  * gets the verification job for an identifier
  */
 export const useGetVerificationJob = (props: UseGetVerificationJobProps) =>
-  useGet<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>(`/verification-job`, {
+  useGet<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>(`/verification-job`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -3558,10 +4115,10 @@ export const useGetVerificationJob = (props: UseGetVerificationJobProps) =>
  * gets the verification job for an identifier
  */
 export const getVerificationJobPromise = (
-  props: GetUsingFetchProps<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>,
+  props: GetUsingFetchProps<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>(
+  getUsingFetch<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>(
     getConfig('cv/api'),
     `/verification-job`,
     props,
@@ -3573,7 +4130,7 @@ export interface SaveVerificationJobQueryParams {
 }
 
 export type SaveVerificationJobProps = Omit<
-  MutateProps<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  MutateProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
   'path' | 'verb'
 >
 
@@ -3581,7 +4138,7 @@ export type SaveVerificationJobProps = Omit<
  * upserts a verification job for an identifier
  */
 export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
-  <Mutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>
+  <Mutate<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>
     verb="PUT"
     path="/verification-job"
     base={getConfig('cv/api')}
@@ -3590,7 +4147,7 @@ export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
 )
 
 export type UseSaveVerificationJobProps = Omit<
-  UseMutateProps<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  UseMutateProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
   'path' | 'verb'
 >
 
@@ -3598,19 +4155,20 @@ export type UseSaveVerificationJobProps = Omit<
  * upserts a verification job for an identifier
  */
 export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
-  useMutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>('PUT', `/verification-job`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
+  useMutate<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>(
+    'PUT',
+    `/verification-job`,
+    { base: getConfig('cv/api'), ...props }
+  )
 
 /**
  * upserts a verification job for an identifier
  */
 export const saveVerificationJobPromise = (
-  props: MutateUsingFetchProps<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  props: MutateUsingFetchProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>(
+  mutateUsingFetch<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>(
     'PUT',
     getConfig('cv/api'),
     `/verification-job`,
@@ -3626,7 +4184,7 @@ export interface DeleteVerificationJobQueryParams {
 }
 
 export type DeleteVerificationJobProps = Omit<
-  MutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
+  MutateProps<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -3634,7 +4192,7 @@ export type DeleteVerificationJobProps = Omit<
  * deletes a verification job for an identifier
  */
 export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
-  <Mutate<void, void, DeleteVerificationJobQueryParams, void, void>
+  <Mutate<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>
     verb="DELETE"
     path="/verification-job"
     base={getConfig('cv/api')}
@@ -3643,7 +4201,7 @@ export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
 )
 
 export type UseDeleteVerificationJobProps = Omit<
-  UseMutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
+  UseMutateProps<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -3651,7 +4209,7 @@ export type UseDeleteVerificationJobProps = Omit<
  * deletes a verification job for an identifier
  */
 export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =>
-  useMutate<void, void, DeleteVerificationJobQueryParams, void, void>('DELETE', `/verification-job`, {
+  useMutate<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>('DELETE', `/verification-job`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -3660,10 +4218,10 @@ export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =
  * deletes a verification job for an identifier
  */
 export const deleteVerificationJobPromise = (
-  props: MutateUsingFetchProps<void, void, DeleteVerificationJobQueryParams, void, void>,
+  props: MutateUsingFetchProps<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<void, void, DeleteVerificationJobQueryParams, void, void>(
+  mutateUsingFetch<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>(
     'DELETE',
     getConfig('cv/api'),
     `/verification-job`,
@@ -3681,7 +4239,7 @@ export interface GetVerificationJobsQueryParams {
 }
 
 export type GetVerificationJobsProps = Omit<
-  GetProps<RestResponsePageVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>,
+  GetProps<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>,
   'path'
 >
 
@@ -3689,7 +4247,7 @@ export type GetVerificationJobsProps = Omit<
  * lists all verification jobs for an identifier
  */
 export const GetVerificationJobs = (props: GetVerificationJobsProps) => (
-  <Get<RestResponsePageVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>
+  <Get<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>
     path="/verification-job/list"
     base={getConfig('cv/api')}
     {...props}
@@ -3697,7 +4255,7 @@ export const GetVerificationJobs = (props: GetVerificationJobsProps) => (
 )
 
 export type UseGetVerificationJobsProps = Omit<
-  UseGetProps<RestResponsePageVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>,
+  UseGetProps<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>,
   'path'
 >
 
@@ -3705,19 +4263,19 @@ export type UseGetVerificationJobsProps = Omit<
  * lists all verification jobs for an identifier
  */
 export const useGetVerificationJobs = (props: UseGetVerificationJobsProps) =>
-  useGet<RestResponsePageVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>(`/verification-job/list`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
+  useGet<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>(
+    `/verification-job/list`,
+    { base: getConfig('cv/api'), ...props }
+  )
 
 /**
  * lists all verification jobs for an identifier
  */
 export const getVerificationJobsPromise = (
-  props: GetUsingFetchProps<RestResponsePageVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponsePageVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>(
+  getUsingFetch<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>(
     getConfig('cv/api'),
     `/verification-job/list`,
     props,
@@ -5020,13 +5578,16 @@ export interface GetNamespacesQueryParams {
   filter?: string
 }
 
-export type GetNamespacesProps = Omit<GetProps<RestResponsePageString, unknown, GetNamespacesQueryParams, void>, 'path'>
+export type GetNamespacesProps = Omit<
+  GetProps<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>,
+  'path'
+>
 
 /**
  * gets a list of kubernetes namespaces
  */
 export const GetNamespaces = (props: GetNamespacesProps) => (
-  <Get<RestResponsePageString, unknown, GetNamespacesQueryParams, void>
+  <Get<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>
     path="/kubernetes/namespaces"
     base={getConfig('cv/api')}
     {...props}
@@ -5034,7 +5595,7 @@ export const GetNamespaces = (props: GetNamespacesProps) => (
 )
 
 export type UseGetNamespacesProps = Omit<
-  UseGetProps<RestResponsePageString, unknown, GetNamespacesQueryParams, void>,
+  UseGetProps<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>,
   'path'
 >
 
@@ -5042,7 +5603,7 @@ export type UseGetNamespacesProps = Omit<
  * gets a list of kubernetes namespaces
  */
 export const useGetNamespaces = (props: UseGetNamespacesProps) =>
-  useGet<RestResponsePageString, unknown, GetNamespacesQueryParams, void>(`/kubernetes/namespaces`, {
+  useGet<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>(`/kubernetes/namespaces`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -5051,10 +5612,10 @@ export const useGetNamespaces = (props: UseGetNamespacesProps) =>
  * gets a list of kubernetes namespaces
  */
 export const getNamespacesPromise = (
-  props: GetUsingFetchProps<RestResponsePageString, unknown, GetNamespacesQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponsePageString, unknown, GetNamespacesQueryParams, void>(
+  getUsingFetch<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>(
     getConfig('cv/api'),
     `/kubernetes/namespaces`,
     props,
@@ -5072,13 +5633,16 @@ export interface GetWorkloadsQueryParams {
   filter?: string
 }
 
-export type GetWorkloadsProps = Omit<GetProps<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>, 'path'>
+export type GetWorkloadsProps = Omit<
+  GetProps<ResponsePageString, Failure | Error, GetWorkloadsQueryParams, void>,
+  'path'
+>
 
 /**
  * gets a list of kubernetes workloads
  */
 export const GetWorkloads = (props: GetWorkloadsProps) => (
-  <Get<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>
+  <Get<ResponsePageString, Failure | Error, GetWorkloadsQueryParams, void>
     path="/kubernetes/workloads"
     base={getConfig('cv/api')}
     {...props}
@@ -5086,7 +5650,7 @@ export const GetWorkloads = (props: GetWorkloadsProps) => (
 )
 
 export type UseGetWorkloadsProps = Omit<
-  UseGetProps<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>,
+  UseGetProps<ResponsePageString, Failure | Error, GetWorkloadsQueryParams, void>,
   'path'
 >
 
@@ -5094,7 +5658,7 @@ export type UseGetWorkloadsProps = Omit<
  * gets a list of kubernetes workloads
  */
 export const useGetWorkloads = (props: UseGetWorkloadsProps) =>
-  useGet<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>(`/kubernetes/workloads`, {
+  useGet<ResponsePageString, Failure | Error, GetWorkloadsQueryParams, void>(`/kubernetes/workloads`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -5103,10 +5667,10 @@ export const useGetWorkloads = (props: UseGetWorkloadsProps) =>
  * gets a list of kubernetes workloads
  */
 export const getWorkloadsPromise = (
-  props: GetUsingFetchProps<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageString, Failure | Error, GetWorkloadsQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>(
+  getUsingFetch<ResponsePageString, Failure | Error, GetWorkloadsQueryParams, void>(
     getConfig('cv/api'),
     `/kubernetes/workloads`,
     props,
@@ -5435,7 +5999,7 @@ export interface GetStackdriverDashboardsQueryParams {
 }
 
 export type GetStackdriverDashboardsProps = Omit<
-  GetProps<RestResponsePageStackdriverDashboardDTO, unknown, GetStackdriverDashboardsQueryParams, void>,
+  GetProps<ResponsePageStackdriverDashboardDTO, Failure | Error, GetStackdriverDashboardsQueryParams, void>,
   'path'
 >
 
@@ -5443,7 +6007,7 @@ export type GetStackdriverDashboardsProps = Omit<
  * get all stackdriver dashboards
  */
 export const GetStackdriverDashboards = (props: GetStackdriverDashboardsProps) => (
-  <Get<RestResponsePageStackdriverDashboardDTO, unknown, GetStackdriverDashboardsQueryParams, void>
+  <Get<ResponsePageStackdriverDashboardDTO, Failure | Error, GetStackdriverDashboardsQueryParams, void>
     path="/stackdriver/dashboards"
     base={getConfig('cv/api')}
     {...props}
@@ -5451,7 +6015,7 @@ export const GetStackdriverDashboards = (props: GetStackdriverDashboardsProps) =
 )
 
 export type UseGetStackdriverDashboardsProps = Omit<
-  UseGetProps<RestResponsePageStackdriverDashboardDTO, unknown, GetStackdriverDashboardsQueryParams, void>,
+  UseGetProps<ResponsePageStackdriverDashboardDTO, Failure | Error, GetStackdriverDashboardsQueryParams, void>,
   'path'
 >
 
@@ -5459,7 +6023,7 @@ export type UseGetStackdriverDashboardsProps = Omit<
  * get all stackdriver dashboards
  */
 export const useGetStackdriverDashboards = (props: UseGetStackdriverDashboardsProps) =>
-  useGet<RestResponsePageStackdriverDashboardDTO, unknown, GetStackdriverDashboardsQueryParams, void>(
+  useGet<ResponsePageStackdriverDashboardDTO, Failure | Error, GetStackdriverDashboardsQueryParams, void>(
     `/stackdriver/dashboards`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -5469,14 +6033,14 @@ export const useGetStackdriverDashboards = (props: UseGetStackdriverDashboardsPr
  */
 export const getStackdriverDashboardsPromise = (
   props: GetUsingFetchProps<
-    RestResponsePageStackdriverDashboardDTO,
-    unknown,
+    ResponsePageStackdriverDashboardDTO,
+    Failure | Error,
     GetStackdriverDashboardsQueryParams,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponsePageStackdriverDashboardDTO, unknown, GetStackdriverDashboardsQueryParams, void>(
+  getUsingFetch<ResponsePageStackdriverDashboardDTO, Failure | Error, GetStackdriverDashboardsQueryParams, void>(
     getConfig('cv/api'),
     `/stackdriver/dashboards`,
     props,
@@ -5493,7 +6057,7 @@ export interface GetStackdriverDashboardDetailQueryParams {
 }
 
 export type GetStackdriverDashboardDetailProps = Omit<
-  GetProps<RestResponseListStackdriverDashboardDetail, unknown, GetStackdriverDashboardDetailQueryParams, void>,
+  GetProps<ResponseListStackdriverDashboardDetail, Failure | Error, GetStackdriverDashboardDetailQueryParams, void>,
   'path'
 >
 
@@ -5501,7 +6065,7 @@ export type GetStackdriverDashboardDetailProps = Omit<
  * get details about one dashboard
  */
 export const GetStackdriverDashboardDetail = (props: GetStackdriverDashboardDetailProps) => (
-  <Get<RestResponseListStackdriverDashboardDetail, unknown, GetStackdriverDashboardDetailQueryParams, void>
+  <Get<ResponseListStackdriverDashboardDetail, Failure | Error, GetStackdriverDashboardDetailQueryParams, void>
     path="/stackdriver/dashboard-detail"
     base={getConfig('cv/api')}
     {...props}
@@ -5509,7 +6073,7 @@ export const GetStackdriverDashboardDetail = (props: GetStackdriverDashboardDeta
 )
 
 export type UseGetStackdriverDashboardDetailProps = Omit<
-  UseGetProps<RestResponseListStackdriverDashboardDetail, unknown, GetStackdriverDashboardDetailQueryParams, void>,
+  UseGetProps<ResponseListStackdriverDashboardDetail, Failure | Error, GetStackdriverDashboardDetailQueryParams, void>,
   'path'
 >
 
@@ -5517,7 +6081,7 @@ export type UseGetStackdriverDashboardDetailProps = Omit<
  * get details about one dashboard
  */
 export const useGetStackdriverDashboardDetail = (props: UseGetStackdriverDashboardDetailProps) =>
-  useGet<RestResponseListStackdriverDashboardDetail, unknown, GetStackdriverDashboardDetailQueryParams, void>(
+  useGet<ResponseListStackdriverDashboardDetail, Failure | Error, GetStackdriverDashboardDetailQueryParams, void>(
     `/stackdriver/dashboard-detail`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -5527,19 +6091,19 @@ export const useGetStackdriverDashboardDetail = (props: UseGetStackdriverDashboa
  */
 export const getStackdriverDashboardDetailPromise = (
   props: GetUsingFetchProps<
-    RestResponseListStackdriverDashboardDetail,
-    unknown,
+    ResponseListStackdriverDashboardDetail,
+    Failure | Error,
     GetStackdriverDashboardDetailQueryParams,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseListStackdriverDashboardDetail, unknown, GetStackdriverDashboardDetailQueryParams, void>(
-    getConfig('cv/api'),
-    `/stackdriver/dashboard-detail`,
-    props,
-    signal
-  )
+  getUsingFetch<
+    ResponseListStackdriverDashboardDetail,
+    Failure | Error,
+    GetStackdriverDashboardDetailQueryParams,
+    void
+  >(getConfig('cv/api'), `/stackdriver/dashboard-detail`, props, signal)
 
 export interface GetStackdriverSampleDataQueryParams {
   accountId: string
@@ -5555,8 +6119,8 @@ export interface GetStackdriverSampleDataRequestBody {
 
 export type GetStackdriverSampleDataProps = Omit<
   MutateProps<
-    ResponseStackdriverSampleDataDTO,
-    unknown,
+    ResponseSetTimeSeriesSampleDTO,
+    Failure | Error,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
     void
@@ -5569,8 +6133,8 @@ export type GetStackdriverSampleDataProps = Omit<
  */
 export const GetStackdriverSampleData = (props: GetStackdriverSampleDataProps) => (
   <Mutate<
-    ResponseStackdriverSampleDataDTO,
-    unknown,
+    ResponseSetTimeSeriesSampleDTO,
+    Failure | Error,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
     void
@@ -5584,8 +6148,8 @@ export const GetStackdriverSampleData = (props: GetStackdriverSampleDataProps) =
 
 export type UseGetStackdriverSampleDataProps = Omit<
   UseMutateProps<
-    ResponseStackdriverSampleDataDTO,
-    unknown,
+    ResponseSetTimeSeriesSampleDTO,
+    Failure | Error,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
     void
@@ -5598,8 +6162,8 @@ export type UseGetStackdriverSampleDataProps = Omit<
  */
 export const useGetStackdriverSampleData = (props: UseGetStackdriverSampleDataProps) =>
   useMutate<
-    ResponseStackdriverSampleDataDTO,
-    unknown,
+    ResponseSetTimeSeriesSampleDTO,
+    Failure | Error,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
     void
@@ -5610,8 +6174,8 @@ export const useGetStackdriverSampleData = (props: UseGetStackdriverSampleDataPr
  */
 export const getStackdriverSampleDataPromise = (
   props: MutateUsingFetchProps<
-    ResponseStackdriverSampleDataDTO,
-    unknown,
+    ResponseSetTimeSeriesSampleDTO,
+    Failure | Error,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
     void
@@ -5619,8 +6183,8 @@ export const getStackdriverSampleDataPromise = (
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseStackdriverSampleDataDTO,
-    unknown,
+    ResponseSetTimeSeriesSampleDTO,
+    Failure | Error,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
     void
@@ -5634,7 +6198,7 @@ export interface GetActivitySourceQueryParams {
 }
 
 export type GetActivitySourceProps = Omit<
-  GetProps<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>,
+  GetProps<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>,
   'path'
 >
 
@@ -5642,7 +6206,7 @@ export type GetActivitySourceProps = Omit<
  * gets a kubernetes event source by identifier
  */
 export const GetActivitySource = (props: GetActivitySourceProps) => (
-  <Get<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>
+  <Get<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>
     path="/activity-source"
     base={getConfig('cv/api')}
     {...props}
@@ -5650,7 +6214,7 @@ export const GetActivitySource = (props: GetActivitySourceProps) => (
 )
 
 export type UseGetActivitySourceProps = Omit<
-  UseGetProps<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>,
+  UseGetProps<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>,
   'path'
 >
 
@@ -5658,7 +6222,7 @@ export type UseGetActivitySourceProps = Omit<
  * gets a kubernetes event source by identifier
  */
 export const useGetActivitySource = (props: UseGetActivitySourceProps) =>
-  useGet<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>(`/activity-source`, {
+  useGet<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>(`/activity-source`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -5667,10 +6231,10 @@ export const useGetActivitySource = (props: UseGetActivitySourceProps) =>
  * gets a kubernetes event source by identifier
  */
 export const getActivitySourcePromise = (
-  props: GetUsingFetchProps<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>,
+  props: GetUsingFetchProps<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>(
+  getUsingFetch<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>(
     getConfig('cv/api'),
     `/activity-source`,
     props,
@@ -5684,7 +6248,7 @@ export interface RegisterActivitySourceQueryParams {
 }
 
 export type RegisterActivitySourceProps = Omit<
-  MutateProps<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
+  MutateProps<ResponseString, Failure | Error, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
   'path' | 'verb'
 >
 
@@ -5692,7 +6256,7 @@ export type RegisterActivitySourceProps = Omit<
  * register a kubernetes event source
  */
 export const RegisterActivitySource = (props: RegisterActivitySourceProps) => (
-  <Mutate<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>
+  <Mutate<ResponseString, Failure | Error, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>
     verb="POST"
     path="/activity-source"
     base={getConfig('cv/api')}
@@ -5701,7 +6265,7 @@ export const RegisterActivitySource = (props: RegisterActivitySourceProps) => (
 )
 
 export type UseRegisterActivitySourceProps = Omit<
-  UseMutateProps<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
+  UseMutateProps<ResponseString, Failure | Error, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
   'path' | 'verb'
 >
 
@@ -5709,7 +6273,7 @@ export type UseRegisterActivitySourceProps = Omit<
  * register a kubernetes event source
  */
 export const useRegisterActivitySource = (props: UseRegisterActivitySourceProps) =>
-  useMutate<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>(
+  useMutate<ResponseString, Failure | Error, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>(
     'POST',
     `/activity-source`,
     { base: getConfig('cv/api'), ...props }
@@ -5719,10 +6283,16 @@ export const useRegisterActivitySource = (props: UseRegisterActivitySourceProps)
  * register a kubernetes event source
  */
 export const registerActivitySourcePromise = (
-  props: MutateUsingFetchProps<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
+  props: MutateUsingFetchProps<
+    ResponseString,
+    Failure | Error,
+    RegisterActivitySourceQueryParams,
+    ActivitySourceDTO,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>(
+  mutateUsingFetch<ResponseString, Failure | Error, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>(
     'POST',
     getConfig('cv/api'),
     `/activity-source`,
@@ -5737,7 +6307,7 @@ export interface DeleteKubernetesSourceQueryParams {
 }
 
 export type DeleteKubernetesSourceProps = Omit<
-  MutateProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>,
+  MutateProps<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -5745,7 +6315,7 @@ export type DeleteKubernetesSourceProps = Omit<
  * deletes a kubernetes event source
  */
 export const DeleteKubernetesSource = (props: DeleteKubernetesSourceProps) => (
-  <Mutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>
+  <Mutate<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>
     verb="DELETE"
     path="/activity-source"
     base={getConfig('cv/api')}
@@ -5754,7 +6324,7 @@ export const DeleteKubernetesSource = (props: DeleteKubernetesSourceProps) => (
 )
 
 export type UseDeleteKubernetesSourceProps = Omit<
-  UseMutateProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>,
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -5762,7 +6332,7 @@ export type UseDeleteKubernetesSourceProps = Omit<
  * deletes a kubernetes event source
  */
 export const useDeleteKubernetesSource = (props: UseDeleteKubernetesSourceProps) =>
-  useMutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>(
+  useMutate<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>(
     'DELETE',
     `/activity-source`,
     { base: getConfig('cv/api'), ...props }
@@ -5772,10 +6342,10 @@ export const useDeleteKubernetesSource = (props: UseDeleteKubernetesSourceProps)
  * deletes a kubernetes event source
  */
 export const deleteKubernetesSourcePromise = (
-  props: MutateUsingFetchProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>,
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>(
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>(
     'DELETE',
     getConfig('cv/api'),
     `/activity-source`,
@@ -5793,7 +6363,7 @@ export interface ListActivitySourcesQueryParams {
 }
 
 export type ListActivitySourcesProps = Omit<
-  GetProps<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>,
+  GetProps<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>,
   'path'
 >
 
@@ -5801,7 +6371,7 @@ export type ListActivitySourcesProps = Omit<
  * lists all kubernetes event sources
  */
 export const ListActivitySources = (props: ListActivitySourcesProps) => (
-  <Get<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>
+  <Get<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>
     path="/activity-source/list"
     base={getConfig('cv/api')}
     {...props}
@@ -5809,7 +6379,7 @@ export const ListActivitySources = (props: ListActivitySourcesProps) => (
 )
 
 export type UseListActivitySourcesProps = Omit<
-  UseGetProps<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>,
+  UseGetProps<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>,
   'path'
 >
 
@@ -5817,19 +6387,19 @@ export type UseListActivitySourcesProps = Omit<
  * lists all kubernetes event sources
  */
 export const useListActivitySources = (props: UseListActivitySourcesProps) =>
-  useGet<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>(`/activity-source/list`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
+  useGet<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>(
+    `/activity-source/list`,
+    { base: getConfig('cv/api'), ...props }
+  )
 
 /**
  * lists all kubernetes event sources
  */
 export const listActivitySourcesPromise = (
-  props: GetUsingFetchProps<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>(
+  getUsingFetch<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>(
     getConfig('cv/api'),
     `/activity-source/list`,
     props,
@@ -6010,7 +6580,7 @@ export interface GetDefaultHealthVerificationJobQueryParams {
 }
 
 export type GetDefaultHealthVerificationJobProps = Omit<
-  GetProps<RestResponseVerificationJobDTO, unknown, GetDefaultHealthVerificationJobQueryParams, void>,
+  GetProps<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>,
   'path'
 >
 
@@ -6018,7 +6588,7 @@ export type GetDefaultHealthVerificationJobProps = Omit<
  * gets the default health verification job for a project
  */
 export const GetDefaultHealthVerificationJob = (props: GetDefaultHealthVerificationJobProps) => (
-  <Get<RestResponseVerificationJobDTO, unknown, GetDefaultHealthVerificationJobQueryParams, void>
+  <Get<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>
     path="/verification-job/default-health-job"
     base={getConfig('cv/api')}
     {...props}
@@ -6026,7 +6596,7 @@ export const GetDefaultHealthVerificationJob = (props: GetDefaultHealthVerificat
 )
 
 export type UseGetDefaultHealthVerificationJobProps = Omit<
-  UseGetProps<RestResponseVerificationJobDTO, unknown, GetDefaultHealthVerificationJobQueryParams, void>,
+  UseGetProps<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>,
   'path'
 >
 
@@ -6034,7 +6604,7 @@ export type UseGetDefaultHealthVerificationJobProps = Omit<
  * gets the default health verification job for a project
  */
 export const useGetDefaultHealthVerificationJob = (props: UseGetDefaultHealthVerificationJobProps) =>
-  useGet<RestResponseVerificationJobDTO, unknown, GetDefaultHealthVerificationJobQueryParams, void>(
+  useGet<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>(
     `/verification-job/default-health-job`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -6043,14 +6613,17 @@ export const useGetDefaultHealthVerificationJob = (props: UseGetDefaultHealthVer
  * gets the default health verification job for a project
  */
 export const getDefaultHealthVerificationJobPromise = (
-  props: GetUsingFetchProps<RestResponseVerificationJobDTO, unknown, GetDefaultHealthVerificationJobQueryParams, void>,
+  props: GetUsingFetchProps<
+    ResponseVerificationJobDTO,
+    Failure | Error,
+    GetDefaultHealthVerificationJobQueryParams,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseVerificationJobDTO, unknown, GetDefaultHealthVerificationJobQueryParams, void>(
+  getUsingFetch<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>(
     getConfig('cv/api'),
     `/verification-job/default-health-job`,
     props,
     signal
   )
-
-export const useGetAvailableMonitoringSources = (_pros: any) => ({} as any)

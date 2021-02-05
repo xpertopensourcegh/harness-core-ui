@@ -1,9 +1,12 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Container, Color, Text, Icon, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cloneDeep from 'lodash-es/cloneDeep'
 import type { CellProps } from 'react-table'
 import Table from '@common/components/Table/Table'
+import { PageError } from '@common/components/Page/PageError'
+import { useToaster } from '@common/exports'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/exports'
 import { useGetAppDynamicsApplications, AppDynamicsApplication } from 'services/cv'
 import {
@@ -41,24 +44,25 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
   const { getString } = useStrings()
   const [state, setState] = useState<InternalState>(cloneDeep(stepData?.applications || {}))
   const [environmentOptions, setEnvironmentOptions] = useState<Array<SelectOption>>([])
+  const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const [pageIndex, setPageIndex] = useState(0)
   const [textFilter, setTextFilter] = useState('')
   const { setError, renderError } = useValidationErrors()
 
-  const { data, loading } = useGetAppDynamicsApplications({
+  const { data, loading, refetch, error } = useGetAppDynamicsApplications({
     queryParams: {
       accountId,
       connectorIdentifier: stepData?.connectorIdentifier,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string,
+      orgIdentifier,
+      projectIdentifier,
       offset: pageIndex,
       pageSize: PAGE_SIZE,
       filter: textFilter
     }
   })
 
-  useGetEnvironmentListForProject({
+  const { error: environmentError } = useGetEnvironmentListForProject({
     queryParams: {
       accountId,
       orgIdentifier,
@@ -76,6 +80,19 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
       return res
     }
   })
+
+  useEffect(() => {
+    if (environmentError) {
+      showError(environmentError, 5000)
+    }
+  }, [environmentError])
+
+  const { totalItems = 0, totalPages = 0, content = [], pageSize = PAGE_SIZE } = data?.data || {
+    totalItems: 0,
+    totalPages: 0,
+    content: [],
+    pageSize: PAGE_SIZE
+  }
 
   const onNext = () => {
     const apps = Object.values(state).filter(app => !!app)
@@ -179,18 +196,28 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
               }
             }
           ]}
-          data={data?.resource?.content ?? []}
+          data={content}
           pagination={{
-            itemCount: data?.resource?.totalItems || 0,
-            pageSize: data?.resource?.pageSize || PAGE_SIZE,
-            pageCount: data?.resource?.totalPages || 0,
-            pageIndex: data?.resource?.pageIndex || 0,
+            itemCount: totalItems,
+            pageSize: pageSize,
+            pageCount: totalPages,
+            pageIndex: pageIndex,
             gotoPage: (page: number) => setPageIndex(page)
           }}
         />
-        {!loading && !data?.resource?.content?.length && (
+        {!loading && !error?.data && !content?.length && (
           <Container height={250}>
-            <NoDataCard message={getString('cv.monitoringSources.appD.noAppsMsg')} icon="warning-sign" />
+            <NoDataCard
+              message={getString('cv.monitoringSources.appD.noAppsMsg')}
+              icon="warning-sign"
+              onClick={() => refetch()}
+              buttonText={getString('retry')}
+            />
+          </Container>
+        )}
+        {!loading && error?.data && (
+          <Container height={250}>
+            <PageError message={getErrorMessage(error)} onClick={() => refetch()} />
           </Container>
         )}
         {renderError('selectApp')}

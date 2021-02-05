@@ -11,7 +11,7 @@ import VerificationJobsSetup from '../VerificationJobsSetup'
 
 const MockHealthVerificationJobResponse = {
   metaData: {},
-  resource: {
+  data: {
     identifier: 'sdfsfdsf',
     jobName: 'sdfsfdsf',
     serviceIdentifier: 'asdasdadsd',
@@ -30,7 +30,7 @@ const MockHealthVerificationJobResponse = {
 
 const MockBlueGreenVerificationJobResponse = {
   metaData: {},
-  resource: {
+  data: {
     identifier: 'sdfsfdsf',
     jobName: 'sdfsfdsf',
     serviceIdentifier: 'asdasdadsd',
@@ -51,7 +51,7 @@ const MockBlueGreenVerificationJobResponse = {
 
 const MockTestVerificationJobResponse = {
   metaData: {},
-  resource: {
+  data: {
     identifier: 'sdfsfdsf',
     jobName: 'sdfsfdsf',
     serviceIdentifier: 'asdasdadsd',
@@ -72,7 +72,7 @@ const MockTestVerificationJobResponse = {
 
 const MockActivitySourceResponse = {
   metaData: {},
-  resource: {
+  data: {
     totalPages: 1,
     totalItems: 1,
     pageItemCount: 1,
@@ -379,7 +379,7 @@ describe('VerificationJobsSetup', () => {
       refetch: jest.fn() as unknown,
       loading: false,
       data: {
-        resource: {
+        data: {
           identifier: 'sdfsfdsf',
           jobName: 'sdfsfdsf',
           serviceIdentifier: RUNTIME_INPUT_VALUE,
@@ -454,7 +454,7 @@ describe('VerificationJobsSetup', () => {
       refetch: jest.fn() as unknown,
       loading: false,
       data: {
-        resource: {
+        data: {
           identifier: 'sdfsfdsf',
           jobName: 'sdfsfdsf',
           serviceIdentifier: RUNTIME_INPUT_VALUE,
@@ -519,7 +519,7 @@ describe('VerificationJobsSetup', () => {
       refetch: jest.fn() as unknown,
       loading: false,
       data: {
-        resource: {
+        data: {
           identifier: 'sdfsfdsf',
           jobName: 'sdfsfdsf',
           serviceIdentifier: 'asdasdadsd',

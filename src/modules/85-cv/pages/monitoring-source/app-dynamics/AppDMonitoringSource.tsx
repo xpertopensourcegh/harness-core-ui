@@ -5,8 +5,9 @@ import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
 import type { BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { Page } from '@common/exports'
-import { useGetDSConfig, RestResponseDSConfig } from 'services/cv'
+import { useGetDSConfig } from 'services/cv'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import SelectApplications from './SelectApplications/SelectApplications'
 import MapApplications from './MapApplications/MapApplications'
@@ -55,17 +56,19 @@ const AppDMonitoringSource = () => {
   const { accountId, projectIdentifier, orgIdentifier, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
-  const { refetch: fetchDSConfig, loading, error } = useGetDSConfig({
+  const { refetch: fetchDSConfig, loading, data, error } = useGetDSConfig({
     identifier,
-    lazy: true,
-    resolve: (response: RestResponseDSConfig) => {
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (data?.resource) {
       setCurrentData({
         ...currentData,
-        ...transformDSResponse(response.resource)
+        ...transformDSResponse(data.resource)
       })
-      return response
     }
-  })
+  }, [data])
 
   useEffect(() => {
     if (identifier) {
@@ -80,7 +83,12 @@ const AppDMonitoringSource = () => {
   }, [identifier])
 
   return (
-    <Page.Body loading={loading} key={loading.toString()} error={error?.message} retryOnError={() => fetchDSConfig()}>
+    <Page.Body
+      loading={loading}
+      key={loading.toString()}
+      error={getErrorMessage(error)}
+      retryOnError={() => fetchDSConfig()}
+    >
       <CVOnboardingTabs
         iconName="service-appdynamics"
         defaultEntityName={currentData?.name || 'Default Name'}

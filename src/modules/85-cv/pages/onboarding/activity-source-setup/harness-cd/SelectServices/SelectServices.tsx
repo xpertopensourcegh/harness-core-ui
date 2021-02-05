@@ -11,10 +11,11 @@ import {
   Service,
   useGetListServices
 } from 'services/portal'
-import { PageSpinner } from '@common/components'
+import { PageSpinner, useToaster } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/exports'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import {
@@ -73,7 +74,7 @@ const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
   )
 }
 
-export function transformToSavePayload(data: any): CDActivitySourceDTO | undefined {
+export function transformToSavePayload(data: any): CDActivitySourceDTO {
   const envMappings = Object.values(data.environments || {}).map((val: any) => ({
     envId: val.id,
     appId: val.appId,
@@ -84,15 +85,14 @@ export function transformToSavePayload(data: any): CDActivitySourceDTO | undefin
     appId: val.appId,
     serviceIdentifier: val.service?.value
   }))
-  if (envMappings.length && serviceMappings.length) {
-    return {
-      identifier: data.identifier,
-      name: data.name,
-      uuid: data.uuid,
-      type: 'HARNESS_CD10',
-      envMappings,
-      serviceMappings
-    }
+
+  return {
+    identifier: data.identifier,
+    name: data.name,
+    uuid: data.uuid,
+    type: 'HARNESS_CD10',
+    envMappings,
+    serviceMappings
   }
 }
 
@@ -101,6 +101,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   const [tableData, setTableData] = useState<Array<TableData>>()
   const [serviceOptions, setServiceOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { showError, clear } = useToaster()
   const [page, setPage] = useState(0)
   const [filter, setFilter] = useState<string | undefined>()
   const [offset, setOffset] = useState(0)
@@ -223,7 +224,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       props.onSubmit?.({ services })
 
       const savePayload = transformToSavePayload({ ...props.initialValues, services })
-      if (savePayload) {
+      try {
         await mutate(savePayload)
         history.push(
           `${routes.toCVAdminSetup({
@@ -232,6 +233,11 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
             orgIdentifier
           })}?step=1`
         )
+      } catch (e) {
+        if (e?.data) {
+          clear()
+          showError(getErrorMessage(e))
+        }
       }
     }
   }
@@ -241,7 +247,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
         {getString('cv.activitySources.harnessCD.service.infoText')}
       </Text>
-      <Formik
+      <Formik<{ selectedServices: any[] }>
         initialValues={{ selectedServices: props.initialValues.selectedServices || [] }}
         onSubmit={() => {
           onNext()

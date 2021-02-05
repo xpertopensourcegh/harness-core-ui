@@ -7,6 +7,7 @@ import { ActivitySourceDTO, useDeleteKubernetesSource, useListActivitySources } 
 import { Page, useToaster } from '@common/exports'
 import { Table } from '@common/components'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -94,7 +95,7 @@ function TypeTableCell(tableProps: CellProps<TableData>): JSX.Element {
 function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
   const params = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
   const history = useHistory()
   const { mutate } = useDeleteKubernetesSource({
     queryParams: {
@@ -110,7 +111,8 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
         tableProps.onDelete()
       })
       .catch(error => {
-        showError(error?.message, 3500)
+        clear()
+        showError(getErrorMessage(error))
       })
   }
 
@@ -164,8 +166,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
     }
   })
 
-  const { content: activitySources, pageIndex = -1, totalItems = 0, totalPages = 0, pageSize = 0 } =
-    data?.resource || {}
+  const { content: activitySources, pageIndex = -1, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.data || {}
   const tableData = generateTableData(activitySources)
   return (
     <>
@@ -199,7 +200,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
       />
       <Page.Body
         loading={loading}
-        error={error?.message}
+        error={getErrorMessage(error)}
         retryOnError={() => refetchSources()}
         noData={{
           when: () => activitySources?.length === 0,

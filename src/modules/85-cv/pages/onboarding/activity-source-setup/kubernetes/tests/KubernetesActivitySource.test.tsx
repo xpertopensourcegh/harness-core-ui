@@ -177,9 +177,9 @@ describe('Unit tests for KubernetesActivitySource', () => {
     const useGetKubernetesSourceSpy = jest.spyOn(cvService, 'useGetActivitySource')
     const refetchMock = jest.fn()
     useGetKubernetesSourceSpy.mockReturnValue({
-      data: { resource: { content: MockData } },
+      data: { data: { content: MockData } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container } = render(
       <TestWrapper

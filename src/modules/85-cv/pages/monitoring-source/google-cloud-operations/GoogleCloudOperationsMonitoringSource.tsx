@@ -5,6 +5,7 @@ import { useStrings } from 'framework/exports'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import { Page } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useGetDSConfig } from 'services/cv'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import { SelectGCODashboards } from './SelectGCODashboards/SelectGCODashboards'
@@ -106,7 +107,12 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
   }, [params])
 
   return (
-    <Page.Body loading={loading} key={loading.toString()} error={error?.message} retryOnError={() => fetchGCOSource()}>
+    <Page.Body
+      loading={loading}
+      key={loading.toString()}
+      error={getErrorMessage(error)}
+      retryOnError={() => fetchGCOSource()}
+    >
       <CVOnboardingTabs
         iconName="service-stackdriver"
         defaultEntityName={currentData?.name || DefaultValue.name}

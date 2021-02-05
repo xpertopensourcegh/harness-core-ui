@@ -30,7 +30,7 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     const useGetNamespaces = jest.spyOn(cvService, 'useGetNamespaces')
     useGetNamespaces.mockReturnValue({
       loading: true
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
     const { container } = render(
@@ -46,9 +46,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     const useGetNamespaces = jest.spyOn(cvService, 'useGetNamespaces')
     const refetchMock = jest.fn()
     useGetNamespaces.mockReturnValue({
-      error: { message: 'some execption' },
+      error: { data: { message: 'some execption' } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
     const { container, getByText } = render(
@@ -67,9 +67,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     const useGetNamespaces = jest.spyOn(cvService, 'useGetNamespaces')
     const refetchMock = jest.fn()
     useGetNamespaces.mockReturnValue({
-      data: { resource: [] },
+      data: { data: [] },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
     const { container, getByText } = render(
@@ -89,9 +89,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     const refetchMock = jest.fn()
     const mockData = ['kubenamespace1', 'kubenamespace2', 'kubenamespace3', 'kubenamespace4', 'kubenamespace5']
     useGetNamespaces.mockReturnValue({
-      data: { resource: { content: mockData, pageIndex: 0, totalItems: mockData.length, totalPages: 1, pageSize: 8 } },
+      data: { data: { content: mockData, pageIndex: 0, totalItems: mockData.length, totalPages: 1, pageSize: 8 } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
     const { container, getByText } = render(
@@ -131,9 +131,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     const refetchMock = jest.fn()
     const mockData = ['kubenamespace1', 'kubenamespace2', 'kubenamespace3', 'kubenamespace4', 'kubenamespace5']
     useGetNamespaces.mockReturnValue({
-      data: { resource: { content: mockData, pageIndex: 0, totalItems: mockData.length, totalPages: 1, pageSize: 8 } },
+      data: { data: { content: mockData, pageIndex: 0, totalItems: mockData.length, totalPages: 1, pageSize: 8 } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
     const { container } = render(
@@ -149,9 +149,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     }
 
     useGetNamespaces.mockReturnValue({
-      data: { resource: {} },
+      data: { data: {} },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     fireEvent.click(filter)
     await waitFor(() =>

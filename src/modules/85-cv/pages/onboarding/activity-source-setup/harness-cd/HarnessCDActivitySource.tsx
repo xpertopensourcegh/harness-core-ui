@@ -4,15 +4,15 @@ import { useParams } from 'react-router-dom'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
-import { useGetActivitySource, RestResponseActivitySourceDTO } from 'services/cv'
+import { ResponseActivitySourceDTO, useGetActivitySource } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import HarnessCDActivitySourceDetails from './HarnessCDActivitySourceDetails/HarnessCDActivitySourceDetails'
 import SelectApplication from './SelectApplication/SelectApplication'
 import SelectEnvironment from './SelectEnvironment/SelectEnvironment'
 import SelectServices, { CDActivitySourceDTO } from './SelectServices/SelectServices'
 
-function transformPayload(response: RestResponseActivitySourceDTO) {
-  const resource = response.resource as CDActivitySourceDTO
+function transformPayload(response: ResponseActivitySourceDTO) {
+  const resource = response.data as CDActivitySourceDTO
   const apps = new Set()
   resource.envMappings?.forEach(env => apps.add(env.appId))
   resource.serviceMappings?.forEach(service => apps.add(service.appId))

@@ -77,9 +77,9 @@ describe('unit tests for dashboard widget metric', () => {
   test('Ensure content is rendered', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      data: { resource: MockWidgetResponse },
+      data: { data: MockWidgetResponse },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
     const mockMetricSelect = jest.fn()
     const { container, getByText } = render(
       <TestWrapper
@@ -126,9 +126,9 @@ describe('unit tests for dashboard widget metric', () => {
 
     const secondDashboard = container.querySelectorAll(`li.${Classes.TREE_NODE} .bp3-tree-node-content svg`)
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      data: { resource: MockWidgetResponse2 },
+      data: { data: MockWidgetResponse2 },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
     expect(secondDashboard.length).toBe(5)
     fireEvent.click(secondDashboard[4])
 
@@ -138,9 +138,9 @@ describe('unit tests for dashboard widget metric', () => {
   test('Ensure that when error and no data happens, the component handels it correctly', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      error: { message: 'mock error' } as unknown,
+      error: { data: { detailedMessage: 'mock error' } } as unknown,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     const { container, getByText } = render(
       <TestWrapper
@@ -174,7 +174,7 @@ describe('unit tests for dashboard widget metric', () => {
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
       data: {} as unknown,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
 
     await waitFor(() =>
       expect(container.querySelectorAll(`.${Classes.TREE_NODE_LIST}.${Classes.TREE_ROOT} li`).length).toBe(3)
@@ -186,9 +186,9 @@ describe('unit tests for dashboard widget metric', () => {
   test('Ensure that when manual input query is selected and entered, it shows up in the nav', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      data: { resource: MockWidgetResponse },
+      data: { data: MockWidgetResponse },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
     const mockMetricSelect = jest.fn()
     const { container, getByText } = render(
       <TestWrapper
@@ -243,9 +243,9 @@ describe('unit tests for dashboard widget metric', () => {
   test('Ensure that when', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      data: { resource: MockWidgetResponse },
+      data: { data: MockWidgetResponse },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
     const mockMetricSelect = jest.fn()
 
     const { container } = render(
@@ -278,9 +278,9 @@ describe('unit tests for dashboard widget metric', () => {
   test('Ensure that when only manual input query is provided, it is properly selected in the nav', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      data: { resource: MockWidgetResponse },
+      data: { data: MockWidgetResponse },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, unknown, any, unknown>)
+    } as UseGetReturn<any, any, any, unknown>)
     const mockMetricSelect = jest.fn()
     const { container } = render(
       <TestWrapper

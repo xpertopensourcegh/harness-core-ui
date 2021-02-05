@@ -4,7 +4,6 @@ import type {
   DSConfig,
   RestResponseListDSConfig,
   RestResponseListString,
-  RestResponseSetAppdynamicsValidationResponse,
   RestResponseListSplunkSavedSearch
 } from 'services/cv'
 import type { ServiceResponse } from '@common/services/ServiceResponse'
@@ -229,7 +228,7 @@ export async function validateMetricsApi({
   tierId: number
   guid: string
   xhrGroup: string
-}): ServiceResponse<RestResponseSetAppdynamicsValidationResponse> {
+}): ServiceResponse<any> {
   return xhr.post(Endpoints.validateAppDMetrics(accountId, connectorId, orgId, projectId, appId, tierId, guid), {
     group: xhrGroup,
     data: metricPacks

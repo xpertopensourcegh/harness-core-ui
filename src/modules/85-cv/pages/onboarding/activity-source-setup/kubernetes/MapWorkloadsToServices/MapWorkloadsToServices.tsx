@@ -15,8 +15,9 @@ import {
   useGetEnvironmentListForProject,
   useGetServiceListForProject
 } from 'services/cd-ng'
-import { Table } from '@common/components'
+import { Table, useToaster } from '@common/components'
 import { NavItem } from '@cv/pages/onboarding/SetupPageLeftNav/NavItem/NavItem'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useStrings } from 'framework/exports'
@@ -146,6 +147,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
   const queryParams = useParams<ProjectPathProps>()
   const { data: sOptions } = useGetServiceListForProject({ queryParams })
   const [tableData, setTableData] = useState<WorkloadInfo[]>([])
+  const { showError } = useToaster()
   const [{ pageOffset, filteredWorkload }, setFilterAndPageOffset] = useState<{
     pageOffset: number
     filteredWorkload?: string
@@ -162,11 +164,11 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
       namespace: selectedNamespace,
       pageSize: TOTAL_ITEMS_PER_PAGE,
       filter: filteredWorkload,
-      orgIdentifier: queryParams.orgIdentifier as string,
-      projectIdentifier: queryParams.projectIdentifier as string
+      orgIdentifier: queryParams.orgIdentifier,
+      projectIdentifier: queryParams.projectIdentifier
     }
   })
-  const { data: envOptions } = useGetEnvironmentListForProject({ queryParams })
+  const { data: envOptions, error: environmentError } = useGetEnvironmentListForProject({ queryParams })
   const [serviceOptions, setServiceOptions] = useState<SelectOption[]>([{ label: '', value: getString('loading') }])
   const [createdServices, setCreatedServices] = useState<SelectOption[]>([])
   const [environmentOptions, setEnvironmentOptions] = useState<SelectOption[]>([
@@ -182,13 +184,17 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
       )
       setTableData(loadingItems)
     } else {
-      setTableData(initializeTableData(selectedWorkloads, workloads?.resource?.content))
+      setTableData(initializeTableData(selectedWorkloads, workloads?.data?.content))
     }
   }, [workloads, selectedWorkloads, loading])
 
   useEffect(() => {
-    setEnvironmentOptions(generateOptions(envOptions?.data?.content))
-  }, [envOptions])
+    if (environmentError?.message) {
+      showError(environmentError?.message, 5000)
+    } else {
+      setEnvironmentOptions(generateOptions(envOptions?.data?.content))
+    }
+  }, [envOptions, environmentError])
 
   useEffect(() => {
     const generatedOptions = [...generateOptions(sOptions?.data?.content), ...createdServices]
@@ -196,13 +202,13 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
     setServiceOptions(generatedOptions)
   }, [sOptions, selectedNamespace])
 
-  const { pageSize, pageIndex, totalItems, totalPages } = workloads?.resource || {}
+  const { pageSize, pageIndex, totalItems, totalPages } = workloads?.data || {}
 
-  if (error?.message) {
-    return <PageError message={error.message} onClick={() => refetchWorkloads()} />
+  if (error?.data) {
+    return <PageError message={getErrorMessage(error)} onClick={() => refetchWorkloads()} />
   }
 
-  if (!workloads?.resource?.content?.length && !loading) {
+  if (!workloads?.data?.content?.length && !loading) {
     return (
       <NoDataCard
         message={getString('cv.activitySources.kubernetes.noWorkloads')}

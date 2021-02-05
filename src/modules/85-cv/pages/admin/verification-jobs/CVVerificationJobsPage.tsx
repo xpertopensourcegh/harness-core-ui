@@ -4,7 +4,7 @@ import type { CellProps } from 'react-table'
 import { PopoverInteractionKind, Tooltip } from '@blueprintjs/core'
 import { Container, Icon, Text, Color, Button, TextInput } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
-import { Page } from '@common/exports'
+import { Page, useToaster } from '@common/exports'
 import { useStrings, String } from 'framework/exports'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import {
@@ -17,6 +17,7 @@ import Table from '@common/components/Table/Table'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { CopyText } from '@common/components/CopyText/CopyText'
 import ContextMenuActions from '../../../components/ContextMenuActions/ContextMenuActions'
 import styles from './CVVerificationJobsPage.module.scss'
@@ -28,6 +29,7 @@ export default function CVVerificationJobsPage() {
   const { getString } = useStrings()
   const history = useHistory()
   const [page, setPage] = useState(0)
+  const { showError, clear } = useToaster()
   const [textFilter, setTextFilter] = useState('')
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const { data, loading, error, refetch } = useGetVerificationJobs({
@@ -64,18 +66,25 @@ export default function CVVerificationJobsPage() {
     )
 
   const onDelete = async (identifier?: string) => {
-    await deleteVerificationJob('' as any, {
-      queryParams: { accountId, identifier, projectIdentifier, orgIdentifier } as DeleteVerificationJobQueryParams
-    })
-    const { pageItemCount, pageIndex } = (data?.resource ?? {}) as any // TODO - swagger issue, remove when fixed
-    if (pageIndex! > 0 && pageItemCount === 1) {
-      setPage(page - 1)
-    } else {
-      refetch()
+    try {
+      await deleteVerificationJob('' as any, {
+        queryParams: { accountId, identifier, projectIdentifier, orgIdentifier } as DeleteVerificationJobQueryParams
+      })
+      const { pageItemCount, pageIndex } = (data?.data ?? {}) as any // TODO - swagger issue, remove when fixed
+      if (pageIndex! > 0 && pageItemCount === 1) {
+        setPage(page - 1)
+      } else {
+        refetch()
+      }
+    } catch (e) {
+      if (e?.data) {
+        clear()
+        showError(getErrorMessage(e))
+      }
     }
   }
 
-  const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
+  const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
 
   return (
     <>
@@ -108,7 +117,7 @@ export default function CVVerificationJobsPage() {
       />
       <Page.Body
         className={styles.main}
-        error={error?.message}
+        error={getErrorMessage(error)}
         noData={{
           when: () => !loading && !content?.length,
           icon: 'warning-sign',

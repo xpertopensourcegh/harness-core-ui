@@ -1394,7 +1394,7 @@ cv:
       connectToMonitoringSource: 'Connect to your AppDynamics monitoring source'
       firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
       createConnectorText: '+ New AppDynamics Connector'
-      selectProduct: 'Select the AppDyanamics Product that you would like to select applications from'
+      selectProduct: 'Select the AppDynamics Product that you would like to select applications from'
       product:
         applicationMonitoring: 'Application Monitoring'
         businessMonitoring: 'Business Performance Monitoring'
