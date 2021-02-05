@@ -22,7 +22,7 @@ import {
 import { get, isEqual, omit } from 'lodash-es'
 import { Dialog, Divider, Spinner, Tab } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
-import { useOperatorsFromYaml } from '@cf/constants'
+import { IsSingleValued, useOperatorsFromYaml } from '@cf/constants'
 import { Clause, useGetAllTargets, useGetSegment, usePatchSegment } from 'services/cf'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './CFSegmentDetailsPage.module.scss'
@@ -66,6 +66,7 @@ type ClauseEditProps = {
   attribute: string
   values: string[]
   error?: { attribute?: boolean; values?: boolean }
+  isSingleValued: IsSingleValued
   onChange: (data: ClauseMutation) => void
 }
 
@@ -76,17 +77,25 @@ const ClauseEditMode: React.FC<ClauseEditProps> = ({
   attribute,
   values,
   error,
+  isSingleValued,
   onChange
 }) => {
   const valueOpts = (values ?? []).map(toOption)
   const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     onChange({ kind: 'attribute', payload: e.target.value })
-  const handleOperatorChange = (data: SelectOption) => onChange({ kind: 'op', payload: data.value as string })
+  const handleOperatorChange = (data: SelectOption) => {
+    onChange({ kind: 'op', payload: data.value as string })
+    if (isSingleValued(data.value as string)) {
+      onChange({ kind: 'values', payload: [values[0]] })
+    }
+  }
   const handleValuesChange = (data: MultiSelectOption[]) =>
     onChange({
       kind: 'values',
       payload: data.map(x => (x.value as string).trim()).filter(x => x.length)
     })
+  const handleSingleValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    handleValuesChange([toOption(e.target.value)])
 
   const height = '36px'
 
@@ -117,17 +126,26 @@ const ClauseEditMode: React.FC<ClauseEditProps> = ({
         />
       </div>
       <div style={{ flex: '1.5' }}>
-        <MultiSelect
-          fill
-          className={css.valueMultiselect}
-          tagInputProps={{
-            className: css.valueMultiselect,
-            inputProps: { className: css.valueMultiselect, intent: error?.values ? 'danger' : 'none' }
-          }}
-          items={valueOpts}
-          value={valueOpts}
-          onChange={handleValuesChange}
-        />
+        {isSingleValued(operator) ? (
+          <TextInput
+            style={{ height }}
+            id={`value-${index}`}
+            value={valueOpts[0]?.value}
+            onChange={handleSingleValueChange}
+          />
+        ) : (
+          <MultiSelect
+            fill
+            className={css.valueMultiselect}
+            tagInputProps={{
+              className: css.valueMultiselect,
+              inputProps: { className: css.valueMultiselect, intent: error?.values ? 'danger' : 'none' }
+            }}
+            items={valueOpts}
+            value={valueOpts}
+            onChange={handleValuesChange}
+          />
+        )}
       </div>
     </Layout.Horizontal>
   )
@@ -178,7 +196,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
   onSave,
   onCancel
 }) => {
-  const operators = useOperatorsFromYaml()
+  const [operators, isSingleValued] = useOperatorsFromYaml()
 
   const [tempIncluded, setTempIncluded] = useState(included.map(toOption))
   const [openIncluded, hideIncluded] = useModalHook(() => {
@@ -356,6 +374,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
                   operators={operators}
                   values={clause.values}
                   error={errors?.[idx]}
+                  isSingleValued={isSingleValued}
                   onChange={handleClauseChange(idx)}
                 />
               ) : (
@@ -541,9 +560,9 @@ const CFSegmentDetailsPage = () => {
     addedToInc.length > 0 && instructions.push(patch.creators.addToIncludeList(addedToInc))
 
     const removedClauses = (data?.rules || []).filter(c => !tempSegment.rules.find(x => x.id === c.id))
-    const updatedClauses = (data?.rules || []).filter(c => {
-      const updatedClause = tempSegment.rules.find(x => x.id === c.id)
-      return updatedClause && !isEqual(c, updatedClause)
+    const updatedClauses = (tempSegment?.rules || []).filter(c => {
+      const oldClause = data?.rules?.find(x => x.id === c.id)
+      return oldClause && !isEqual(c, oldClause)
     })
     const newClauses = tempSegment.rules.filter(c => c.id === '')
 

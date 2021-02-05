@@ -39,12 +39,17 @@ const TypeCell = withApiKey(({ apiKey }) => {
 const ApiInfoCell = withApiKey(({ apiKey }) => {
   const { isNew, onDelete, getSecret } = useContext(RowContext) ?? defaultContext
   const { getString, getEnvString } = useEnvStrings()
+  const { showSuccess, showError } = useToaster()
   const textRef = useRef<HTMLDivElement>(null)
 
   const showCopy = isNew(apiKey.identifier) || apiKey.type === CLIENT
 
   const handleCopy = () => {
-    Utils.copy(textRef.current?.innerText || '')
+    if (textRef.current) {
+      Utils.copy(textRef.current.innerText)
+        .then(() => showSuccess(getString('clipboardCopySuccess')))
+        .catch(() => showError(getString('clipboardCopyFail')))
+    }
   }
 
   return (
@@ -104,7 +109,6 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
   )
 })
 
-const PlaceholderComp: React.FC<{}> = () => <Text>To be implemented</Text>
 const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ environment }) => {
   const { showSuccess, showError } = useToaster()
   const { getString, getEnvString } = useEnvStrings()
@@ -275,16 +279,16 @@ enum SettingsTabs {
 const EnvironmentSettings: React.FC<{ environment: EnvironmentResponseDTO }> = ({ environment }) => {
   const { getString } = useEnvStrings()
   return (
-    <Nav initialTab={SettingsTabs.Deployments} sharedProps={{ environment }}>
-      <Nav.Option id={SettingsTabs.Deployments} name={getString('deploymentsText')} component={PlaceholderComp} />
-      <Nav.Option id={SettingsTabs.Builds} name={getString('buildsText')} component={PlaceholderComp} />
+    <Nav initialTab={SettingsTabs.FeatureFlags} sharedProps={{ environment }}>
+      {/* <Nav.Option id={SettingsTabs.Deployments} name={getString('deploymentsText')} component={PlaceholderComp} />
+      <Nav.Option id={SettingsTabs.Builds} name={getString('buildsText')} component={PlaceholderComp} /> */}
       <Nav.Option id={SettingsTabs.FeatureFlags} name={getString('featureFlagsText')} component={FeatureFlagsTab} />
-      <Nav.Option id={SettingsTabs.CloudCosts} name={getString('cloudCostsText')} component={PlaceholderComp} />
+      {/* <Nav.Option id={SettingsTabs.CloudCosts} name={getString('cloudCostsText')} component={PlaceholderComp} />
       <Nav.Option
         id={SettingsTabs.ChangeVerification}
         name={getString('changeVerificationText')}
         component={PlaceholderComp}
-      />
+      /> */}
     </Nav>
   )
 }
@@ -295,7 +299,7 @@ const CFEnvironmentDetailsBody: React.FC<{
   return (
     <Container className={css.envTabs}>
       <Tabs id="envDetailsTabs">
-        <Tab id="summary" title="Summary" panel={<Text>To be implemented</Text>} />
+        {/* <Tab id="summary" title="Summary" panel={<Text>To be implemented</Text>} /> */}
         <Tab id="settings" title="Settings" panel={<EnvironmentSettings environment={environment} />} />
       </Tabs>
     </Container>

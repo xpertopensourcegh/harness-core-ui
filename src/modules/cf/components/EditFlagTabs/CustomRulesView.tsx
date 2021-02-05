@@ -21,7 +21,7 @@ import { Dialog, Menu, Spinner } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
-import { extraOperators, useOperatorsFromYaml } from '@cf/constants'
+import { extraOperators, extraOperatorReference, useOperatorsFromYaml } from '@cf/constants'
 import PercentageRollout from './PercentageRollout'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
@@ -75,6 +75,7 @@ const addTargetAvatar = (onAdd: () => void) => ({
 })
 
 const extraOps = extraOperators.customRules
+const matchSegment = extraOperatorReference.customRules.matchSegment
 const useCustomRulesOperators = () => useOperatorsFromYaml(extraOps)
 
 interface ClauseRowProps {
@@ -109,11 +110,14 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
     onAddNewRow,
     onRemoveRow
   } = props
-  const operators = useCustomRulesOperators()
+  const [operators, isSingleValued] = useCustomRulesOperators()
+  const isSingleValuedOperator = isSingleValued(operator.value as string)
   const valueOpts = values.map(toOption)
   const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) => onAttributeChange(e.target.value)
   const handleOperatorChange = (data: SelectOption) => onOperatorChange(data.value as string)
   const handleValuesChange = (data: MultiSelectOption[]) => onValuesChange(data.map(x => x.value as string))
+  const handleSingleValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    handleValuesChange([toOption(e.target.value)])
 
   const actions = [
     <Icon
@@ -153,7 +157,7 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
           style={{ height }}
           id={`attribute-${index}`}
           value={attribute}
-          disabled={operator.value === extraOps.matchSegment}
+          disabled={operator.value === matchSegment.value}
           onChange={handleAttrChange}
         />
       </div>
@@ -161,15 +165,24 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
         <Select inputProps={{ style: { height } }} value={operator} items={operators} onChange={handleOperatorChange} />
       </div>
       <div style={{ flex: '1.5' }}>
-        <MultiSelect
-          fill
-          tagInputProps={{
-            intent: error ? 'danger' : 'none'
-          }}
-          items={valueOpts}
-          value={valueOpts}
-          onChange={handleValuesChange}
-        />
+        {isSingleValuedOperator ? (
+          <TextInput
+            style={{ height }}
+            id={`values-${index}`}
+            value={valueOpts[0]?.value}
+            onChange={handleSingleValueChange}
+          />
+        ) : (
+          <MultiSelect
+            fill
+            tagInputProps={{
+              intent: error ? 'danger' : 'none'
+            }}
+            items={valueOpts}
+            value={valueOpts}
+            onChange={handleValuesChange}
+          />
+        )}
         {error && <Text intent="danger">Required</Text>}
       </div>
       <Layout.Horizontal flex={{ align: 'center-center' }} spacing="small">
@@ -188,16 +201,29 @@ interface RuleEditCardProps {
 }
 
 const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, errors, onDelete, onChange }) => {
-  const operators = useCustomRulesOperators()
+  const [operators, isSingleValue] = useCustomRulesOperators()
   const percentageRollout = { label: 'a rollout percentage', value: 'percentage' }
   const [varOpts, findVariationOpt] = useOptions(variations, x => x.identifier)
   const variationOps = varOpts.concat([percentageRollout])
   const currentServe = rule.serve.distribution ? percentageRollout : findVariationOpt(rule.serve.variation as string)
   const handleClauseChange = (idx: number, field: keyof Clause) => (value: any) => {
-    onChange({
-      ...rule,
-      clauses: assoc(idx, assoc(field, value, rule.clauses[idx]), rule.clauses)
-    })
+    if (field === 'op' && !isSingleValue(rule.clauses[idx].op) && isSingleValue(value)) {
+      const prevClause = rule.clauses[idx]
+      const newClause = {
+        ...prevClause,
+        values: [prevClause.values[0]].filter(Boolean),
+        op: value
+      }
+      onChange({
+        ...rule,
+        clauses: assoc(idx, newClause, rule.clauses)
+      })
+    } else {
+      onChange({
+        ...rule,
+        clauses: assoc(idx, assoc(field, value, rule.clauses[idx]), rule.clauses)
+      })
+    }
   }
 
   const handleServeChange = (data: SelectOption) => {
@@ -333,7 +359,7 @@ const ClauseViewMode: React.FC<{ clause: Clause; operators: { label: string; val
 
 const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
   const isPercentage = Boolean(rule.serve.distribution)
-  const operators = useCustomRulesOperators()
+  const [operators] = useCustomRulesOperators()
   const [firstClause, ...extraClauses] = rule.clauses
 
   let clausesComponent

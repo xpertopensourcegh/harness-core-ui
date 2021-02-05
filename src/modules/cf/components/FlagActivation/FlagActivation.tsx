@@ -28,7 +28,7 @@ import {
   VariationMap,
   WeightedVariation
 } from 'services/cf'
-import { extraOperators } from '@cf/constants'
+import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
@@ -134,7 +134,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
     if (!isEqual(values.customRules, initialValues.customRules)) {
       const toClauseData = (c: Clause): ClauseData => {
-        if (c.op === extraOperators.customRules.matchSegment) {
+        if (c.op === extraOperatorReference.customRules.matchSegment.value) {
           return {
             op: c.op,
             values: c.values
