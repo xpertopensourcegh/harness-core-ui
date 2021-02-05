@@ -9,6 +9,10 @@ orgsText: Organizations
 getStarted: Get Started
 projectLabel: Project
 orgLabel: Organization
+users: Users
+roles: Roles
+userGroups: User Groups
+resourceGroups: Resource Groups
 modules: Modules
 account: 'Account'
 repository: 'Repository'
@@ -87,6 +91,7 @@ abort: Abort
 conditions: Conditions
 gitBranch: Git Branch
 gitTag: Git Tag
+tbd: TBD
 notifications: Notifications
 numberOfServices: 'Number of Services'
 saveAndPublish: Save and Publish
@@ -379,6 +384,11 @@ SSH: 'SSH'
 SSH_KEY: 'SSH Key'
 version: Version
 goToHome: Go To Home
+governance: 'Governance'
+generalSettings: 'General Settings'
+accessControl: 'Access Control'
+gitSync: 'Git Sync'
+templateLibrary: 'Template Library'
 generic_errors:
   INVITE_EXPIRED: This invite link has expired
 
@@ -422,12 +432,6 @@ inputTypes:
   FIXED: Fixed value
   RUNTIME: Runtime input
   EXPRESSION: Expression
-adminSideNavLinks:
-  governance: 'Governance'
-  generalSettings: 'General Settings'
-  accessControl: 'Access Control'
-  gitSync: 'Git Sync'
-  templateLibrary: 'Template Library'
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'
@@ -457,6 +461,8 @@ secret:
   referenceSecret: 'Reference Secret'
   secretCreated: Secret Created
   secretActivity: Secret Activity
+usersPage:
+  search: Search by Name or Email
 instanceFieldOptions:
   percentage: 'percentage'
   instances: 'instances'

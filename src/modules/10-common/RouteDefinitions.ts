@@ -93,8 +93,56 @@ const routes = {
   toOrgGitSyncErrors: withAccountId(
     ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/errors`
   ),
-
-  toOrgProjects: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/projects`),
+  toAccessControl: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      if (module && orgIdentifier && projectIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/access-control`
+      }
+      return '/admin/access-control'
+    }
+  ),
+  toUsers: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      if (module && orgIdentifier && projectIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/users`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/access-control/users`
+      }
+      return '/admin/access-control/users'
+    }
+  ),
+  toUserGroups: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      if (module && orgIdentifier && projectIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/user-groups`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/access-control/user-groups`
+      }
+      return '/admin/access-control/user-groups'
+    }
+  ),
+  toResourceGroups: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      if (module && orgIdentifier && projectIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/resource-groups`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/access-control/resource-groups`
+      }
+      return '/admin/access-control/resource-groups'
+    }
+  ),
+  toRoles: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      if (module && orgIdentifier && projectIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/roles`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/access-control/roles`
+      }
+      return '/admin/access-control/roles'
+    }
+  ),
   toOrganizations: withAccountId(() => `/admin/organizations`),
   toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}`),
   toGovernance: withAccountId(() => '/admin/governance'),

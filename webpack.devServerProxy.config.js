@@ -14,6 +14,10 @@ module.exports = {
     pathRewrite: { '^/notifications/api': '/api' },
     target: targetLocalHost ? 'http://localhost:9005' : `${baseUrl}/notifications/api`
   },
+  '/rbac/api': {
+    pathRewrite: { '^/rbac/api': '/api' },
+    target: targetLocalHost ? 'http://localhost:9006' : `${baseUrl}/rbac/api`
+  },
   '/api': {
     target: targetLocalHost ? 'https://localhost:9090' : baseUrl
   },

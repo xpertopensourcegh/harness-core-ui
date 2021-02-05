@@ -56,6 +56,16 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('notifications/api')")
   },
+  rbac: {
+    output: 'src/services/rbac/index.tsx',
+    url: 'http://localhost:9006/api/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customProps: {
+      base: `{getConfig("rbac/api")}`
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('rbac/api')")
+  },
   ci: {
     output: 'src/services/ci/index.tsx',
     file: 'src/services/ci/swagger.json',

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import secretsRoutes from '@secrets/RouteDestinations'
+import rbacRoutes from '@rbac/RouteDestinations'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
 import connectorRoutes from '@connectors/RouteDestinations'
 import gitSyncRoutes from '@gitsync/RouteDestinations'
@@ -21,6 +22,7 @@ export default function RouteDestinations(): React.ReactElement {
     <Switch>
       {...commonRoutes.props.children}
       {...secretsRoutes.props.children}
+      {...rbacRoutes.props.children}
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
       {...connectorRoutes.props.children}
