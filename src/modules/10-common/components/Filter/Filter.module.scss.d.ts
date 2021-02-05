@@ -10,5 +10,6 @@ declare const styles: {
   readonly layout: string
   readonly titleLayout: string
   readonly loading: string
+  readonly form: string
 }
 export default styles

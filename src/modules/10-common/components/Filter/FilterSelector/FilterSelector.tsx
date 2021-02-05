@@ -40,7 +40,7 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
   const fieldCountInAppliedFilter = getFilterSize(filterWithValidFields)
 
   return (
-    <Layout.Horizontal padding={{ top: 'large' }}>
+    <>
       <Select
         className={css.filterSelector}
         items={
@@ -59,7 +59,7 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
         }}
         noResults={<MenuItem disabled={true} text={getString('filters.noFilterFound')} />}
       />
-      <div className={css.filterBtn}>
+      <div>
         {fieldCountInAppliedFilter ? (
           <Popover
             interactionKind={PopoverInteractionKind.HOVER}
@@ -76,6 +76,6 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
       <Layout.Horizontal>
         {fieldCountInAppliedFilter > 0 ? <span className={css.fieldCount}>{fieldCountInAppliedFilter}</span> : null}
       </Layout.Horizontal>
-    </Layout.Horizontal>
+    </>
   )
 }

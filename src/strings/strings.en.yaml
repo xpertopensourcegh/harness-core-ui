@@ -32,6 +32,7 @@ lastSuccessfulStatusCheckAt: 'Last successful status check at '
 connectorCreated: Connector Created
 fieldRequired: '{{field}} is a required field'
 deploymentText: Deployment
+deploymentTypeText: Deployment Type
 cloudCostsText: Cloud Costs
 changeVerificationText: Change Verifications
 deploymentsText: Deployments
@@ -42,6 +43,8 @@ runPipelineText: Run Pipeline
 noConnectorFound: No Connector Found
 saveConnectorSuccess: Connector saved successfully
 resources: 'Resources'
+kubernetesText: Kubernetes
+kubernetesDirectText: Kubernetes Direct
 connector: Connector
 secrets: 'Secrets'
 secretDetails: 'Secret Details'
@@ -73,6 +76,7 @@ pipelines: Pipelines
 performance: Performance
 quality: quality
 infrastructureText: Infrastructure
+infrastructureTypeText: Infrastructure Type
 update: Update
 visual: VISUAL
 yaml: YAML
@@ -500,7 +504,6 @@ delegate:
     'You can use delegate tags to control if this delegate can be used for executing certain steps in
     a pipeline'
   LastHeartBeat: 'Last HeartBeat'
-  DELEGATE_KUBERNETE_TITLE: 'Kubernetes'
   delegates_4_ways_title: 'Delegates are worker processes that runs on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
   downloadScript: 'Download Script'
   kubernetes:

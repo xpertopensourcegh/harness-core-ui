@@ -140,7 +140,7 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
                         </OverlaySpinner>
                       ) : (
                         <>
-                          <div>
+                          <div className={css.form}>
                             {formFields && React.cloneElement(formFields, { ...formFields.props, formikProps: formik })}
                           </div>
                           <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>

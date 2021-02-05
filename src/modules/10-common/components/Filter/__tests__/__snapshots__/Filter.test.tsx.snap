@@ -43,7 +43,9 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                 <div
                   class="Layout--vertical Layout--layout-spacing-large StyledProps--main layout StyledProps--padding-bottom-large"
                 >
-                  <div />
+                  <div
+                    class="form"
+                  />
                   <div
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
                   >

@@ -12,10 +12,6 @@
   border: 1px solid var(--grey-400) !important;
 }
 
-.filterBtn {
-  padding-right: var(--spacing-xxlarge);
-}
-
 .summaryPopover {
   svg {
     path {
@@ -34,5 +30,5 @@
   color: white;
   text-align: center;
   font-weight: bold;
-  transform: translate(calc(-1 * var(--spacing-xxxlarge)));
+  transform: translate(calc(-1 * var(--spacing-small)));
 }

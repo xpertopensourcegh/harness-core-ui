@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
 import { String } from 'framework/exports'
-import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
-import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
+// import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
+// import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useUpdateQueryParams, useQueryParams } from '@common/hooks'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
@@ -23,7 +23,7 @@ export interface FilterQueryParams {
 }
 
 export default function ExecutionFilter(props: ExecutionFilterProps): React.ReactElement {
-  const { pipelineIdentifier, module } = useParams<Partial<PipelineType<PipelinePathProps>>>()
+  const { module } = useParams<Partial<PipelineType<PipelinePathProps>>>()
   const { updateQueryParams } = useUpdateQueryParams<FilterQueryParams>()
   const queryParams = useQueryParams<FilterQueryParams>()
 
@@ -31,13 +31,13 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
     updateQueryParams({ query })
   }
 
-  function handlePipelineSelect(pipeline: string): void {
-    updateQueryParams({ pipeline })
-  }
+  // function handlePipelineSelect(pipeline: string): void {
+  //   updateQueryParams({ pipeline })
+  // }
 
-  function handleStatusSelect(status: ExecutionStatus | null): void {
-    updateQueryParams({ status })
-  }
+  // function handleStatusSelect(status: ExecutionStatus | null): void {
+  //   updateQueryParams({ status })
+  // }
 
   return (
     <div className={css.main}>
@@ -54,7 +54,8 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
             <Button disabled>My</Button>
           </ButtonGroup>
         </div>
-        {module !== 'ci' && (
+        {/* Hiding quick filters till we get more claity on it's implementation */}
+        {/* {module !== 'ci' && (
           <>
             <div className={css.filterGroup}>
               <String className={css.label} stringID="status" />
@@ -67,7 +68,7 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
               </div>
             )}
           </>
-        )}
+        )} */}
       </div>
       {module !== 'ci' && (
         <div className={css.rhs}>

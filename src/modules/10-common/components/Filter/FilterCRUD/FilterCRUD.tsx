@@ -137,9 +137,11 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
       return
     }
     try {
-      const { status } = await dataSvcConfig?.get('DELETE')?.(matchingFilter?.identifier || '')
-      if (status === 'SUCCESS') {
+      const { status, data } = await dataSvcConfig?.get('DELETE')?.(matchingFilter?.identifier || '')
+      if (status === 'SUCCESS' && data) {
         showSuccess(`${matchingFilter?.name} ${getString('filters.filterDeleted')}`)
+      } else {
+        showError(getString('somethingWentWrong'))
       }
     } /* istanbul ignore next */ catch (e) {
       showError(e.data?.message || e.message)

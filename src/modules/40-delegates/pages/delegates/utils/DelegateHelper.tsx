@@ -7,7 +7,7 @@ export const GetDelegateTitleTextByType = (type: string): string => {
 
   switch (type) {
     case DelegateTypes.KUBERNETES_CLUSTER:
-      return getString('delegate.DELEGATE_KUBERNETE_TITLE')
+      return getString('kubernetesText')
     default:
       /* istanbul ignore next */
       return ''

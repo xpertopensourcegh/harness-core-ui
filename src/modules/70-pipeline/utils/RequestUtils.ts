@@ -1,4 +1,4 @@
-import type { MultiSelectOption } from '@wings-software/uicore'
+import type { MultiSelectOption, SelectOption } from '@wings-software/uicore'
 import { omit, startCase } from 'lodash-es'
 import type { PipelineExecutionFilterProperties, FilterDTO } from 'services/pipeline-ng'
 
@@ -9,7 +9,14 @@ import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-lis
 import type { FilterProperties } from 'services/cd-ng'
 import { isObjectEmpty, removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 
-export interface BuildContext {
+export interface DeploymentTypeContext {
+  deploymentType?: string
+  infrastructureType?: string
+  services?: MultiSelectOption[]
+  environments?: MultiSelectOption[]
+}
+
+export interface BuildTypeContext {
   buildType?: BUILD_TYPE
   repositoryName?: string
   sourceBranch?: string
@@ -21,23 +28,43 @@ export interface BuildContext {
 const exclusionList = ['buildType', 'repositoryName', 'sourceBranch', 'targetBranch', 'tag', 'branch']
 
 export const getValidFilterArguments = (formData: Record<string, any>): PipelineExecutionFilterProperties => {
-  const { status, buildType, repositoryName, sourceBranch, targetBranch, branch, tag } = formData
-  const statusOptions = status?.map((type: MultiSelectOption) => type?.value)
+  const {
+    status,
+    buildType,
+    repositoryName,
+    sourceBranch,
+    targetBranch,
+    branch,
+    tag,
+    services,
+    environments,
+    deploymentType,
+    infrastructureType
+  } = formData
   return Object.assign(omit(formData, ...exclusionList), {
-    status: statusOptions,
-    moduleProperties: getModuleProperties(buildType as BUILD_TYPE, {
-      repositoryName,
-      sourceBranch,
-      targetBranch,
-      branch,
-      tag
-    })
+    status: status?.map((statusOption: MultiSelectOption) => statusOption?.value),
+    moduleProperties: {
+      ci: getCIModuleProperties(buildType as BUILD_TYPE, {
+        repositoryName,
+        sourceBranch,
+        targetBranch,
+        branch,
+        tag
+      }),
+      cd: {
+        serviceDefinitionTypes: deploymentType ? [deploymentType] : undefined,
+        infrastructureType: infrastructureType,
+        serviceIdentifiers: services?.map((service: MultiSelectOption) => service?.value),
+        envIdentifiers: environments?.map((env: MultiSelectOption) => env?.value)
+      }
+    }
   })
 }
 
 export type PipelineExecutionFormType = Omit<PipelineExecutionFilterProperties, 'status'> & {
   status?: MultiSelectOption[]
-} & BuildContext
+} & BuildTypeContext &
+  DeploymentTypeContext
 
 export const createOption = (label: string, value: string, count?: number): MultiSelectOption => {
   const labelWithCount =
@@ -92,32 +119,26 @@ export const createRequestBodyPayload = ({
   }
 }
 
-const getModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildContext): any => {
+const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildTypeContext): any => {
   const { repositoryName, sourceBranch, targetBranch, branch, tag } = contextInfo
   let moduleProperties
   switch (buildType) {
     case BUILD_TYPE.PULL_OR_MERGE_REQUEST:
       moduleProperties = {
-        ci: {
-          ciExecutionInfoDTO: {
-            event: 'pullRequest',
-            pullRequest: { sourceRepo: repositoryName, sourceBranch: sourceBranch, targetBranch: targetBranch }
-          } as CIBuildResponseDTO
-        }
+        ciExecutionInfoDTO: {
+          event: 'pullRequest',
+          pullRequest: { sourceRepo: repositoryName, sourceBranch: sourceBranch, targetBranch: targetBranch }
+        } as CIBuildResponseDTO
       }
       break
     case BUILD_TYPE.BRANCH:
       moduleProperties = {
-        ci: {
-          branch: branch
-        }
+        branch: branch
       }
       break
     case BUILD_TYPE.TAG:
       moduleProperties = {
-        ci: {
-          tag: tag
-        }
+        tag: tag
       }
       break
   }
@@ -159,3 +180,12 @@ export const getBuildType = (moduleProperties: {
     ? BUILD_TYPE.TAG
     : undefined
 }
+
+export const getMultiSelectFormOptions = (values?: any[]): SelectOption[] | undefined => {
+  return values?.map(item => {
+    return { label: item.name ?? item, value: item.identifier ?? item }
+  })
+}
+
+export const getFilterByIdentifier = (identifier: string, filters?: FilterDTO[]): FilterDTO | undefined =>
+  filters?.find((filter: FilterDTO) => filter.identifier?.toLowerCase() === identifier.toLowerCase())

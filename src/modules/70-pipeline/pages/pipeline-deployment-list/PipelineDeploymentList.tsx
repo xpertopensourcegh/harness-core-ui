@@ -16,7 +16,8 @@ import {
   PipelineExecutionFilterProperties,
   GetFilterListQueryParams
 } from 'services/pipeline-ng'
-import { useStrings } from 'framework/exports'
+import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
+import { useAppStore, useStrings } from 'framework/exports'
 import { Page, StringUtils, useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
@@ -28,8 +29,8 @@ import { shouldShowError } from '@common/utils/errorUtils'
 import {
   isObjectEmpty,
   UNSAVED_FILTER,
-  removeNullAndEmpty,
-  flattenObject
+  flattenObject,
+  removeNullAndEmpty
 } from '@common/components/Filter/utils/FilterUtils'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
@@ -41,9 +42,11 @@ import {
   PipelineExecutionFormType,
   getValidFilterArguments,
   getBuildType,
+  getMultiSelectFormOptions,
+  getFilterByIdentifier,
   BUILD_TYPE
 } from '../../utils/RequestUtils'
-import ExecutionsFilterForm from './ExecutionsFilterForm/ExecutionsFilterForm'
+import PipelineFilterForm from './PipelineFilterForm/PipelineFilterForm'
 import css from './PipelineDeploymentList.module.scss'
 
 const pollingIntervalInMilliseconds = 5_000
@@ -67,6 +70,10 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [filters, setFilters] = useState<FilterDTO[]>()
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
+  const { selectedProject } = useAppStore()
+  const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
+  const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
+  const [isFetchingMetaData, setIsFetchingMetaData] = useState<boolean>(false)
 
   const defaultQueryParamsForExecutions: GetListOfExecutionsQueryParams = {
     accountIdentifier: accountId,
@@ -112,17 +119,11 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   )
 
   useEffect(() => {
-    if (appliedFilter !== undefined) {
-      fetchExecutions(defaultQueryParamsForExecutions, appliedFilter?.filterProperties || {})
-    }
-  }, [appliedFilter?.filterProperties])
-
-  useEffect(() => {
     cancel()
     setInitLoading(true)
-    fetchExecutions(defaultQueryParamsForExecutions)
+    fetchExecutions(defaultQueryParamsForExecutions, appliedFilter?.filterProperties)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, accountId, projectIdentifier, orgIdentifier, pipelineIdentifier])
+  }, [page, accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, appliedFilter?.filterProperties])
 
   const hasFilters: boolean = !!queryParams.query || !!queryParams.pipeline || !!queryParams.status
   const isCIModule = module === 'ci'
@@ -153,8 +154,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     setError(null)
   }
 
-  const getFilterByIdentifier = (identifier: string): FilterDTO | undefined =>
-    filters?.find((filter: FilterDTO) => filter.identifier?.toLowerCase() === identifier.toLowerCase())
   /* #region FIlter CRUD operations */
   const defaultQueryParamsForFilters: GetFilterListQueryParams = {
     accountIdentifier: accountId,
@@ -232,11 +231,28 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
   }
 
-  const getMultiSelectFormOptions = (values?: any[]): SelectOption[] | undefined => {
-    return values?.map(item => {
-      return { label: item, value: item }
-    })
-  }
+  const { data: servicesResponse, loading: isFetchingServices, refetch: fetchServices } = useGetServiceListForProject({
+    queryParams: { accountId, orgIdentifier, projectIdentifier },
+    lazy: true
+  })
+
+  const {
+    data: environmentsResponse,
+    loading: isFetchingEnvironments,
+    refetch: fetchEnvironments
+  } = useGetEnvironmentListForProject({
+    queryParams: { accountId, orgIdentifier, projectIdentifier },
+    lazy: true
+  })
+
+  useEffect(() => {
+    fetchServices()
+    fetchEnvironments()
+  }, [projectIdentifier])
+
+  useEffect(() => {
+    setIsFetchingMetaData(isFetchingServices && isFetchingEnvironments)
+  }, [isFetchingServices, isFetchingEnvironments])
 
   const [openFilterDrawer, hideFilterDrawer] = useModalHook(() => {
     const onApply = (inputFormData: FormikProps<PipelineExecutionFormType>['values']) => {
@@ -251,7 +267,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 
     const handleFilterClick = (identifier: string): void => {
       if (identifier !== unsavedFilter.identifier) {
-        const selectedFilter = getFilterByIdentifier(identifier)
+        const selectedFilter = getFilterByIdentifier(identifier, filters)
         setAppliedFilter(selectedFilter)
       }
     }
@@ -259,12 +275,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     const { pipelineName, status, moduleProperties } =
       (appliedFilter?.filterProperties as PipelineExecutionFilterProperties) || {}
     const { name = '', filterVisibility, identifier = '' } = appliedFilter || {}
-    const { branch, tag, ciExecutionInfoDTO } = moduleProperties?.ci || {}
+    const { ci, cd } = moduleProperties || {}
+    const { serviceDefinitionTypes, infrastructureType, serviceIdentifiers, envIdentifiers } = cd || {}
+    const { branch, tag, ciExecutionInfoDTO } = ci || {}
     const { sourceBranch, targetBranch } = ciExecutionInfoDTO?.pullRequest || {}
     // eslint-disable-next-line no-shadow
     const buildType = getBuildType(moduleProperties || {})
 
-    return isFetchingFilters && isRefreshingFilters ? (
+    return isFetchingFilters && isFetchingMetaData ? (
       <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
         <OverlaySpinner show={true} className={css.loading}>
           <></>
@@ -272,7 +290,16 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       </div>
     ) : (
       <Filter<PipelineExecutionFormType, FilterDTO>
-        formFields={<ExecutionsFilterForm />}
+        formFields={
+          <PipelineFilterForm<PipelineExecutionFormType>
+            isCDEnabled={isCDEnabled}
+            isCIEnabled={isCIEnabled}
+            initialValues={{
+              environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
+              services: getMultiSelectFormOptions(servicesResponse?.data?.content)
+            }}
+          />
+        }
         initialFilter={{
           formValues: {
             pipelineName,
@@ -281,12 +308,16 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             tag,
             sourceBranch,
             targetBranch,
-            buildType
+            buildType,
+            deploymentType: serviceDefinitionTypes ? serviceDefinitionTypes[0] : undefined,
+            infrastructureType,
+            services: getMultiSelectFormOptions(serviceIdentifiers),
+            environments: getMultiSelectFormOptions(envIdentifiers)
           },
           metadata: { name, filterVisibility, identifier, filterProperties: {} }
         }}
         filters={filters}
-        isRefreshingFilters={isRefreshingFilters}
+        isRefreshingFilters={isRefreshingFilters || isFetchingMetaData}
         onApply={onApply}
         onClose={() => hideFilterDrawer()}
         onSaveOrUpdate={handleSaveOrUpdate}
@@ -322,7 +353,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         })}
       />
     )
-  }, [isRefreshingFilters, appliedFilter, filters])
+  }, [
+    isRefreshingFilters,
+    appliedFilter,
+    filters,
+    module,
+    environmentsResponse?.data?.content,
+    servicesResponse?.data?.content
+  ])
 
   /* #region Filter Selection */
 
@@ -334,7 +372,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     event?.preventDefault()
     /* istanbul ignore else */
     if (option.value) {
-      const selectedFilter = getFilterByIdentifier(option.value?.toString())
+      const selectedFilter = getFilterByIdentifier(option.value?.toString(), filters)
       const aggregatedFilter = selectedFilter?.filterProperties || {}
       const combinedFilter = Object.assign(selectedFilter, { filterProperties: aggregatedFilter })
       setAppliedFilter(combinedFilter)
@@ -351,24 +389,13 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   fieldToLabelMapping.set('branch', getString('pipelineSteps.deploy.inputSet.branch'))
   fieldToLabelMapping.set('tag', getString('tagLabel'))
   fieldToLabelMapping.set('buildType', getString('filters.executions.buildType'))
+  fieldToLabelMapping.set('serviceDefinitionTypes', getString('deploymentTypeText'))
+  fieldToLabelMapping.set('infrastructureType', getString('deploymentTypeText'))
+  fieldToLabelMapping.set('serviceIdentifiers', getString('services'))
+  fieldToLabelMapping.set('envIdentifiers', getString('environments'))
 
-  const filterWithValidFields = flattenObject(
-    removeNullAndEmpty(
-      pick(
-        appliedFilter?.filterProperties,
-        ...[
-          [
-            'pipelineName',
-            'status',
-            'buildType',
-            'moduleProperties.ci.branch',
-            'moduleProperties.ci.tag',
-            'moduleProperties.ci.ciExecutionInfoDTO.pullRequest.sourceBranch',
-            'moduleProperties.ci.ciExecutionInfoDTO.pullRequest.targetBranch'
-          ]
-        ]
-      ) || {}
-    )
+  const filterWithValidFields = removeNullAndEmpty(
+    pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
   )
 
   const filterWithValidFieldsWithMetaInfo =
@@ -392,14 +419,16 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       <React.Fragment>
         <Layout.Horizontal flex>
           <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
-          <FilterSelector<FilterDTO>
-            appliedFilter={appliedFilter}
-            filters={filters}
-            onFilterBtnClick={openFilterDrawer}
-            onFilterSelect={handleFilterSelection}
-            fieldToLabelMapping={fieldToLabelMapping}
-            filterWithValidFields={filterWithValidFieldsWithMetaInfo}
-          />
+          <Layout.Horizontal padding={{ top: 'large', right: 'xxlarge' }}>
+            <FilterSelector<FilterDTO>
+              appliedFilter={appliedFilter}
+              filters={filters}
+              onFilterBtnClick={openFilterDrawer}
+              onFilterSelect={handleFilterSelection}
+              fieldToLabelMapping={fieldToLabelMapping}
+              filterWithValidFields={filterWithValidFieldsWithMetaInfo}
+            />
+          </Layout.Horizontal>
         </Layout.Horizontal>
         {initLoading ? (
           <OverlaySpinner show={true} className={css.loading}>

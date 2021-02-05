@@ -21,5 +21,6 @@ declare const styles: {
   readonly gridLayout: string
   readonly pageBody: string
   readonly pagination: string
+  readonly loading: string
 }
 export default styles
