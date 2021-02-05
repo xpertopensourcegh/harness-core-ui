@@ -8,7 +8,7 @@ exports[`Connector details step Test for  create  connector step one required fe
     <div
       class="heading"
     >
-      Kubernetes Cluster Overview
+      Overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -262,7 +262,7 @@ exports[`Connector details step Test for going to next step 1`] = `
     <div
       class="heading"
     >
-      Kubernetes Cluster Overview
+      Overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"

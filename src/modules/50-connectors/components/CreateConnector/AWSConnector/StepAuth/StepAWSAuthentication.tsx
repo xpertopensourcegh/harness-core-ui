@@ -138,7 +138,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
   ) : (
     <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.aws.stepTwoName')}
+        {getString('credentials')}
       </Text>
       <Formik
         initialValues={{

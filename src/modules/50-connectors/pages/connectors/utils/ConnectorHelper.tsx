@@ -52,16 +52,6 @@ export const getKubInitialValues = () => {
 
 export const getHeadingByType = (type: string): string => {
   switch (type) {
-    case Connectors.KUBERNETES_CLUSTER:
-      return i18n.k8sClusterDetails
-    case Connectors.GIT:
-      return i18n.gitConnectorDetails
-    case Connectors.GITHUB:
-      return i18n.githubConnectorDetails
-    case Connectors.GITLAB:
-      return i18n.gitlabConnectorDetails
-    case Connectors.BITBUCKET:
-      return i18n.bitbucketConnectorDetails
     case Connectors.VAULT:
       return i18n.hashicorpVaultDetails
     case Connectors.GCP_KMS:
@@ -71,10 +61,6 @@ export const getHeadingByType = (type: string): string => {
       return i18n.appDynamicsDetails
     case Connectors.SPLUNK:
       return i18n.splunkConnectorDetails
-    case Connectors.AWS:
-      return i18n.awsConnectorDetails
-    case Connectors.GCP:
-      return i18n.gcpConnectorDetails
     case 'Gcr':
       return i18n.gcrConnectorDetails
     default:

@@ -32,11 +32,7 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <StepBitbucketAuthentication
-        name={getString('connectors.git.bitbucketStepTwoName')}
-        {...commonProps}
-        onConnectorCreated={props.onSuccess}
-      />
+      <StepBitbucketAuthentication name={getString('details')} {...commonProps} onConnectorCreated={props.onSuccess} />
       <VerifyOutOfClusterDelegate
         type={Connectors.BITBUCKET}
         name={getString('connectors.stepThreeName')}

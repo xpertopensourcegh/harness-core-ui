@@ -338,7 +338,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.k8.stepTwoName')}
+        {getString('details')}
       </Text>
       <Formik
         initialValues={{

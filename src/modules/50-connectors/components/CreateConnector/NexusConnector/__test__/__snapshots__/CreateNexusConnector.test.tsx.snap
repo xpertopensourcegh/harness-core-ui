@@ -75,7 +75,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Nexus Repository Details
+          Details
         </p>
       </div>
       <div
@@ -442,7 +442,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Nexus Repository Details
+          Details
         </p>
       </div>
       <div
@@ -472,7 +472,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Nexus Repository Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -913,7 +913,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Nexus Repository Details
+          Details
         </p>
       </div>
       <div
@@ -1277,7 +1277,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Nexus Repository Details
+          Details
         </p>
       </div>
       <div
@@ -1307,7 +1307,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Nexus Repository Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"

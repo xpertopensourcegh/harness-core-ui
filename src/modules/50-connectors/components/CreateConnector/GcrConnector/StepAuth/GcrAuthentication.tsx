@@ -130,7 +130,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.GCP.stepTwoName')}
+        {getString('connectors.GCR.stepTwoName')}
       </Text>
       <Formik
         initialValues={{

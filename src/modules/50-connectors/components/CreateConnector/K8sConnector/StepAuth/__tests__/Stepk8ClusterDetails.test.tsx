@@ -100,7 +100,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Cluster Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('Details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
   test('render edit mode  service token', async () => {
@@ -134,7 +134,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Cluster Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('Details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
   test('render edit mode oidc update', async () => {
@@ -179,7 +179,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Cluster Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('Details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 
@@ -225,7 +225,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Cluster Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('Details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 })

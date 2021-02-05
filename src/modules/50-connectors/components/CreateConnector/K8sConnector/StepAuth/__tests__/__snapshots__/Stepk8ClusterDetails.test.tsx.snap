@@ -9,7 +9,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Cluster Details
+      Details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -389,7 +389,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Cluster Details
+      Details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -784,7 +784,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Cluster Details
+      Details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -1179,7 +1179,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Cluster Details
+      Details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -1559,7 +1559,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Cluster Details
+      Details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -1847,7 +1847,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Cluster Details
+      Details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -2071,7 +2071,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Cluster Details
+      Details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"

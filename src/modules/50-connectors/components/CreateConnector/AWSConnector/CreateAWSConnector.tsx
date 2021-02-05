@@ -26,7 +26,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
           mock={props.mock}
         />
         <StepAWSAuthentication
-          name={getString('connectors.aws.stepTwoName')}
+          name={getString('credentials')}
           {...commonProps}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}

@@ -83,7 +83,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          GitLab Connection Details
+          Details
         </p>
       </div>
       <div
@@ -112,7 +112,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
         <div
           class="heading"
         >
-          GitLab Connector Overview
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -565,7 +565,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          GitLab Connection Details
+          Details
         </p>
       </div>
       <div
@@ -594,7 +594,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         <div
           class="heading"
         >
-          GitLab Connector Overview
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1057,7 +1057,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          GitLab Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1087,7 +1087,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          GitLab Connection Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1470,7 +1470,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          GitLab Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1499,7 +1499,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
         <div
           class="heading"
         >
-          GitLab Connector Overview
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1962,7 +1962,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          GitLab Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1992,7 +1992,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          GitLab Connection Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2239,7 +2239,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          GitLab Connection Details
+          Details
         </p>
       </div>
       <div
@@ -2269,7 +2269,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          GitLab Connection Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2660,7 +2660,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          GitLab Connection Details
+          Details
         </p>
       </div>
       <div
@@ -2690,7 +2690,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          GitLab Connection Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"

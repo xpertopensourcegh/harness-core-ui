@@ -80,7 +80,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Artifactory Repository Details
+          Details
         </p>
       </div>
       <div
@@ -110,7 +110,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Artifactory Repository Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -475,7 +475,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Artifactory Repository Details
+          Details
         </p>
       </div>
       <div
@@ -829,7 +829,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Artifactory Repository Details
+          Details
         </p>
       </div>
       <div
@@ -859,7 +859,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Artifactory Repository Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"

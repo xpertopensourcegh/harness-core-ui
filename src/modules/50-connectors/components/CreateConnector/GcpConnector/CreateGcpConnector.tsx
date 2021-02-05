@@ -27,7 +27,7 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
           mock={props.mock}
         />
         <GcpAuthentication
-          name={getString('connectors.GCP.stepTwoName')}
+          name={getString('details')}
           {...commonProps}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}

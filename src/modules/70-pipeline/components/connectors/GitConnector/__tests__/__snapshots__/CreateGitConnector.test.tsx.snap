@@ -59,7 +59,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -103,7 +103,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
         <div
           class="heading"
         >
-          Git Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -553,7 +553,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -597,7 +597,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
         <div
           class="heading"
         >
-          Git Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1047,7 +1047,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1091,7 +1091,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
         <div
           class="heading"
         >
-          Git Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1541,7 +1541,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1585,7 +1585,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
         <div
           class="heading"
         >
-          Git Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"

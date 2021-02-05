@@ -32,7 +32,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
         mock={props.mock}
       />
       <Stepk8ClusterDetails
-        name={getString('connectors.k8.stepTwoName')}
+        name={getString('details')}
         onConnectorCreated={props.onSuccess}
         hideModal={props.onClose}
         {...commonProps}

@@ -161,7 +161,7 @@ const StepDockerAuthentication: React.FC<
   ) : (
     <Layout.Vertical height={'inherit'} margin="small">
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.docker.stepTwoName')}
+        {getString('details')}
       </Text>
       <Formik
         initialValues={{

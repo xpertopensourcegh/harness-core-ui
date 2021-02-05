@@ -184,7 +184,7 @@ const CreateGitConnector = (props: CreateGITConnectorProps): JSX.Element => {
           connectorInfo={undefined}
         />
         <StepGitAuthentication
-          name={getString('connectors.git.gitStepTwoName')}
+          name={getString('details')}
           onConnectorCreated={() => {
             // Handle on success
           }}

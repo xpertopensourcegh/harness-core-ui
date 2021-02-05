@@ -140,7 +140,7 @@ const StepArtifactoryAuthentication: React.FC<
   ) : (
     <Layout.Vertical height={'inherit'} margin="small">
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.artifactory.stepTwoName')}
+        {getString('details')}
       </Text>
       <Formik
         initialValues={{

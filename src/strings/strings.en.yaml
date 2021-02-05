@@ -254,6 +254,7 @@ selectProject: 'Select Project'
 mapApplications: 'Map Applications to Harness Services'
 pipelineActivityLabel: 'Executions in last 7 days'
 total: 'Total'
+credentials: Credentials
 cd:
   continuousIntegration: 'Continuous Delivery'
   dashboard:
@@ -1077,7 +1078,6 @@ connectors:
       github: Validating the GitHub authentication and permissions
       git: Validating the Git authentication and permissions
   k8:
-    stepTwoName: 'Cluster Details'
     delegateOutClusterInfo: 'Specify master url and credentials'
     delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
     masterUrlLabel: 'Master URL'
@@ -1102,13 +1102,10 @@ connectors:
   hashiCorpVault:
     stepTwoName: 'HashiCorp Vault Details'
   nexus:
-    stepTwoName: 'Nexus Repository Details'
     nexusServerUrl: 'Nexus Repository URL'
   artifactory:
-    stepTwoName: 'Artifactory Repository Details'
     artifactoryServerUrl: 'Artifactory Repository URL'
   GCP:
-    stepTwoName: 'Google Cloud Provider Details'
     delegateOutClusterInfo: 'Specify credentials here'
     delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
   GCR:
@@ -1118,10 +1115,6 @@ connectors:
     stepTwoName: 'Google Container Registry Details'
     registryHostname: 'GCR Registry URL'
   git:
-    gitStepTwoName: 'Git Connection Details'
-    githubStepTwoName: 'GitHub Connection Details'
-    gitlabStepTwoName: 'GitLab Connection Details'
-    bitbucketStepTwoName: 'Bitbucket Connection Details'
     branchName: 'Branch name'
     urlType: 'URL Type'
     connectionType: 'Connection Type'
@@ -1148,7 +1141,6 @@ connectors:
     applicationId: 'GitHub Application ID'
     privateKey: 'GitHub Private Key'
   docker:
-    stepTwoName: 'Docker Registry Details'
     dockerRegistryURL: 'Docker Registry URL'
     dockerProvideType: 'Provider Type'
     dockerHub: 'DockerHub'
@@ -1156,7 +1148,6 @@ connectors:
     quay: 'Quay'
     other: 'Other (Docker V2 compliant)'
   aws:
-    stepTwoName: AWS Credentials
     awsAccessKey: AWS Access Key
     accessKey: Access Key
     secretKey: Secret Key

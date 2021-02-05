@@ -458,7 +458,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Google Cloud Provider Details
+          Google Container Registry Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1075,7 +1075,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Google Cloud Provider Details
+          Google Container Registry Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"

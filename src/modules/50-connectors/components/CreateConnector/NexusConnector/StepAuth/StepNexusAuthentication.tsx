@@ -145,7 +145,7 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
   ) : (
     <Layout.Vertical height={'inherit'} margin="small">
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.nexus.stepTwoName')}
+        {getString('details')}
       </Text>
       <Formik
         initialValues={{

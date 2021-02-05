@@ -33,7 +33,7 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
           mock={props.mock}
         />
         <StepArtifactoryAuthentication
-          name={getString('connectors.artifactory.stepTwoName')}
+          name={getString('details')}
           {...commonProps}
           onConnectorCreated={props.onSuccess}
         />

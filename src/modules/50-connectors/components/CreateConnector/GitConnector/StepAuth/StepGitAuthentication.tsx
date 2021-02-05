@@ -139,7 +139,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.git.gitStepTwoName')}
+        {getString('details')}
       </Text>
 
       <Formik

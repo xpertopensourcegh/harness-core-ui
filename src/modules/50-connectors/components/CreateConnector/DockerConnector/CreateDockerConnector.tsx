@@ -33,7 +33,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           mock={props.mock}
         />
         <StepDockerAuthentication
-          name={getString('connectors.docker.stepTwoName')}
+          name={getString('details')}
           onConnectorCreated={props.onSuccess}
           isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}

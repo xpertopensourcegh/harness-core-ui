@@ -59,7 +59,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -88,7 +88,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
         <div
           class="heading"
         >
-          Git Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -548,7 +548,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -577,7 +577,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
         <div
           class="heading"
         >
-          Git Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1047,7 +1047,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1077,7 +1077,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Git Connection Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1349,7 +1349,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1378,7 +1378,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
         <div
           class="heading"
         >
-          Git Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1827,7 +1827,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Git Connection Details
+          Details
         </p>
       </div>
       <div
@@ -1857,7 +1857,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Git Connection Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"

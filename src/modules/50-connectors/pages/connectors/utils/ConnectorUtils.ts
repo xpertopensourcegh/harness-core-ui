@@ -839,7 +839,7 @@ export const getConnectorDisplayName = (type: string) => {
     case Connectors.BITBUCKET:
       return 'Bitbucket'
     case Connectors.DOCKER:
-      return 'Docker'
+      return 'Docker Registry'
     case Connectors.GCP:
       return 'GCP'
     case Connectors.APP_DYNAMICS:

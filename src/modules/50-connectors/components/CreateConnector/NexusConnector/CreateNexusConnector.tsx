@@ -32,11 +32,7 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
           connectorInfo={props.connectorInfo}
           mock={props.mock}
         />
-        <StepNexusAuthentication
-          name={getString('connectors.nexus.stepTwoName')}
-          {...commonProps}
-          onConnectorCreated={props.onSuccess}
-        />
+        <StepNexusAuthentication name={getString('details')} {...commonProps} onConnectorCreated={props.onSuccess} />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
           isStep

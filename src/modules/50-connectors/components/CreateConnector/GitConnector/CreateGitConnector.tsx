@@ -32,11 +32,7 @@ const CreateGitConnector = (props: CreateConnectorModalProps): JSX.Element => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <StepGitAuthentication
-        name={getString('connectors.git.gitStepTwoName')}
-        {...commonProps}
-        onConnectorCreated={props.onSuccess}
-      />
+      <StepGitAuthentication name={getString('details')} {...commonProps} onConnectorCreated={props.onSuccess} />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep={true}

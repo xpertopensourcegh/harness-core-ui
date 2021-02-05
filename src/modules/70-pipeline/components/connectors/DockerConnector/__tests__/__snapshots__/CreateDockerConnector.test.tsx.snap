@@ -64,7 +64,7 @@ exports[`Create Docker connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Docker Registry Details
+          Details
         </p>
       </div>
       <div
@@ -415,7 +415,7 @@ exports[`Create Docker connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Docker Registry Details
+          Details
         </p>
       </div>
       <div

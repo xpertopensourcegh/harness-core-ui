@@ -117,7 +117,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Google Cloud Provider Details
+          Details
         </p>
       </div>
       <div
@@ -146,7 +146,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
         <div
           class="heading"
         >
-          Google Cloud Provider Overview
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -526,7 +526,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Google Cloud Provider Details
+          Details
         </p>
       </div>
       <div
@@ -556,7 +556,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Google Cloud Provider Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -835,7 +835,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Google Cloud Provider Details
+          Details
         </p>
       </div>
       <div
@@ -864,7 +864,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         <div
           class="heading"
         >
-          Google Cloud Provider Overview
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1241,7 +1241,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Google Cloud Provider Details
+          Details
         </p>
       </div>
       <div
@@ -1271,7 +1271,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Google Cloud Provider Details
+          Details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
