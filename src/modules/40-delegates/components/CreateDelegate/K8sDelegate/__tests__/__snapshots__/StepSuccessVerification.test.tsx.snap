@@ -42,34 +42,32 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main verificationFieldWrapper"
       >
         <div
-          class="main"
+          class="StyledProps--font StyledProps--main verificationField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
         >
-          <div
-            class="text"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-small"
+            style="margin-right: 24px;"
           >
-            <span>
-              $ kubectl apply -f harness-delegate.yaml
-            </span>
-          </div>
-          <div
-            class="bp3-popover-wrapper btnWrapper"
+            $ kubectl apply -f harness-delegate.yaml
+          </p>
+          <span
+            class="bp3-popover-wrapper"
           >
             <span
               class="bp3-popover-target"
             >
-              <button
-                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+              <div
+                class=""
                 tabindex="0"
-                type="button"
               >
                 <span
-                  class="bp3-icon StyledProps--main"
+                  class="bp3-icon StyledProps--main copyIcon"
                   data-icon="copy"
                 >
                   <svg
-                    height="16"
+                    height="20"
                     viewBox="0 0 14 16"
-                    width="16"
+                    width="20"
                   >
                     <g
                       fill="#22272D"
@@ -85,9 +83,9 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
                     </g>
                   </svg>
                 </span>
-              </button>
+              </div>
             </span>
-          </div>
+          </span>
         </div>
         <button
           class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
@@ -198,34 +196,32 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main verificationFieldWrapper"
       >
         <div
-          class="main"
+          class="StyledProps--font StyledProps--main verificationField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
         >
-          <div
-            class="text"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-small"
+            style="margin-right: 24px;"
           >
-            <span>
-              $ kubectl apply -f harness-delegate.yaml
-            </span>
-          </div>
-          <div
-            class="bp3-popover-wrapper btnWrapper"
+            $ kubectl apply -f harness-delegate.yaml
+          </p>
+          <span
+            class="bp3-popover-wrapper"
           >
             <span
               class="bp3-popover-target"
             >
-              <button
-                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+              <div
+                class=""
                 tabindex="0"
-                type="button"
               >
                 <span
-                  class="bp3-icon StyledProps--main"
+                  class="bp3-icon StyledProps--main copyIcon"
                   data-icon="copy"
                 >
                   <svg
-                    height="16"
+                    height="20"
                     viewBox="0 0 14 16"
-                    width="16"
+                    width="20"
                   >
                     <g
                       fill="#22272D"
@@ -241,9 +237,9 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
                     </g>
                   </svg>
                 </span>
-              </button>
+              </div>
             </span>
-          </div>
+          </span>
         </div>
         <button
           class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"

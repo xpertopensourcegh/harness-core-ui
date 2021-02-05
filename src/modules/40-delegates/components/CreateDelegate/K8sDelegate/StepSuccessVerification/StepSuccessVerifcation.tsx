@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { Button, Layout, StepProps, Heading, Text } from '@wings-software/uicore'
-import { CopyText } from '@common/components/CopyText/CopyText'
+import { Button, Layout, StepProps, Heading, Text, Container } from '@wings-software/uicore'
+
 import { useStrings } from 'framework/exports'
 import type { StepK8Data } from '@delegates/DelegateInterface'
+import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import StepProcessing from '../StepProcessing/StepProcessing'
+
 // import CommonProblems from '@delegates/components/CreateDelegate/K8sDelegate/StepSuccessVerification/CommonProblems/CommonProblems'
 // import addFile from './images/addFile.svg'
 import css from '../CreateK8sDelegate.module.scss'
@@ -48,9 +50,20 @@ const StepSuccessVerification: React.FC<StepProps<StepK8Data> & StepSuccessVerif
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="medium" className={css.verificationFieldWrapper}>
-            <CopyText textToCopy="$ kubectl apply -f harness-delegate.yaml">
-              <span>$ kubectl apply -f harness-delegate.yaml</span>
-            </CopyText>
+            <Container
+              intent="primary"
+              padding="small"
+              font={{
+                align: 'center'
+              }}
+              flex
+              className={css.verificationField}
+            >
+              <Text style={{ marginRight: '24px' }} font="small">
+                {getString('delegate.verifyDelegateYamlCmnd')}
+              </Text>
+              <CopyToClipboard content={getString('delegate.verifyDelegateYamlCmnd')} />
+            </Container>
             {/* <Container
               intent="primary"
               padding="small"
