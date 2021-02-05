@@ -79,6 +79,7 @@ const Wizard: React.FC<WizardProps> = ({
   const initialIndex = defaultTabId ? tabsMap.findIndex(tabsId => defaultTabId === tabsId) : 0
   const [selectedTabId, setSelectedTabId] = React.useState<string>(defaultTabId || defaultWizardTabId)
   const [touchedPanels, setTouchedPanels] = React.useState<number[]>([])
+  const [validateOnChange, setValidateOnChange] = React.useState<boolean>(formikInitialProps.validateOnChange || false)
   const [selectedTabIndex, setSelectedTabIndex] = React.useState<number>(initialIndex)
   const layoutRef = useRef<HTMLDivElement>(null)
   const lastTab = selectedTabIndex === tabsMap.length - 1
@@ -106,6 +107,7 @@ const Wizard: React.FC<WizardProps> = ({
       showError(errorToasterMessage)
     }
   }, [showError, errorToasterMessage])
+
   const title = leftNav ? (
     <div className={css.sideItems}>{leftNav}</div>
   ) : (
@@ -137,7 +139,7 @@ const Wizard: React.FC<WizardProps> = ({
       )}
       <div className={css.headerLine}></div>
       <Layout.Horizontal spacing="large" className={css.tabsContainer}>
-        <Formik {...formikInitialProps}>
+        <Formik {...formikInitialProps} validateOnChange={validateOnChange}>
           {formikProps => (
             <FormikForm>
               <NavigationCheck
@@ -185,6 +187,7 @@ const Wizard: React.FC<WizardProps> = ({
                       setSelectedTabId(tabsMap[upcomingTabIndex])
                       setSelectedTabIndex(upcomingTabIndex)
                       setNewTouchedPanel({ selectedTabIndex, upcomingTabIndex, touchedPanels, setTouchedPanels })
+                      formikProps.validateForm()
                     }}
                   />
                 )}
@@ -198,6 +201,7 @@ const Wizard: React.FC<WizardProps> = ({
                       setSelectedTabId(tabsMap[upcomingTabIndex])
                       setSelectedTabIndex(upcomingTabIndex)
                       setNewTouchedPanel({ selectedTabIndex, upcomingTabIndex, touchedPanels, setTouchedPanels })
+                      formikProps.validateForm()
                     }}
                   />
                 )}
@@ -215,6 +219,7 @@ const Wizard: React.FC<WizardProps> = ({
                             !!element?.current?.firstElementChild?.classList?.contains('bp3-icon-warning-sign')
                         )
                       ) {
+                        setValidateOnChange(true)
                         showError(getString('addressErrorFields'))
                       }
                     }}

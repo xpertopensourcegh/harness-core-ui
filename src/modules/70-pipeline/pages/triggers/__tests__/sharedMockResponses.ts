@@ -208,6 +208,43 @@ export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
     correlationId: 'e1841cfc-9ed5-4f7c-a87b-c9be1eeaae34'
   }
 }
+export const RepoConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      connector: {
+        name: 'repo-github',
+        identifier: 'repogithub',
+        description: '',
+        orgIdentifier: 'default',
+        tags: {},
+        type: 'Github',
+        spec: {
+          url: 'https://github.com',
+          authentication: {
+            type: 'Http',
+            spec: {
+              type: 'UsernamePassword',
+              spec: {
+                username: 'username',
+                usernameRef: null,
+                passwordRef: 'HARNESS_IMAGE_PASSWORD'
+              }
+            }
+          },
+          apiAccess: null,
+          type: 'Repo'
+        }
+      },
+      createdAt: 1602062958274,
+      lastModifiedAt: 1602062958274
+    },
+    correlationId: 'e1841cfc-9ed5-4f7c-a87b-c9be1eeaae34'
+  }
+}
 
 export const GetInputSetsResponse: UseGetReturnData<ResponsePageInputSetSummaryResponse> = {
   loading: false,

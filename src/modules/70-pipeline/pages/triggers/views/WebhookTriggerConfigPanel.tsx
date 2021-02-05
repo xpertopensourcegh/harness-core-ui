@@ -20,6 +20,7 @@ import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { GitSourceProviders, getSourceRepoOptions } from '../utils/TriggersListUtils'
 import { eventTypes } from '../utils/TriggersWizardPageUtils'
+import { ConnectorSection } from './ConnectorSection'
 import css from './WebhookTriggerConfigPanel.module.scss'
 
 export interface WebhookTriggerConfigPanelPropsInterface {
@@ -31,7 +32,16 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
   formikProps,
   isEdit = false
 }) => {
-  const { sourceRepo, actions, anyAction, event, secureToken, originalPipeline } = formikProps.values
+  const {
+    sourceRepo,
+    identifier,
+    actions,
+    anyAction,
+    event,
+    connectorRef,
+    secureToken,
+    originalPipeline
+  } = formikProps.values
   const { data: ResponseSourceRepoToEvent, loading: loadingGetSourceRepoToEvent } = useGetSourceRepoToEvent({})
   const { data: actionsListResponse, refetch: refetchActions } = useGetActionsList({
     queryParams: { sourceRepo, event },
@@ -77,6 +87,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
     if (actionsListResponse?.data) {
       const actionsOptionsKV = actionsListResponse.data.map(item => ({ label: item, value: item }))
       setActionsOptions(actionsOptionsKV)
+      // undefined actions requires user to select value
       if (actionsOptionsKV.length === 0) {
         formikProps.setFieldValue('actions', [])
       } else if (actionsOptionsKV.length && !anyAction && Array.isArray(actions) && actions.length === 0) {
@@ -90,6 +101,23 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
       refetchActions()
     }
   }, [event, sourceRepo])
+
+  useEffect(() => {
+    if (event && identifier && connectorRef) {
+      // handle lack of validating when value present
+      // identifier/connector needed otherwise page crash when event clicked first
+      formikProps.validateForm()
+    }
+    if (
+      Object.keys(formikProps.errors || {})?.includes('connectorRef') &&
+      !Object.keys(formikProps.touched || {})?.includes('connectorRef') &&
+      formikProps.submitCount === 0
+    ) {
+      const newErrors = { ...formikProps.errors }
+      delete newErrors.connectorRef
+      formikProps.setErrors(newErrors)
+    }
+  }, [event, formikProps.errors])
 
   return (
     <Layout.Vertical className={css.webhookConfigurationContainer} padding="xxlarge">
@@ -122,6 +150,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 formikProps.setValues({
                   ...formikProps.values,
                   sourceRepo: e.value,
+                  connectorRef: undefined,
+                  repoName: '',
                   actions: undefined,
                   anyAction: false,
                   secretToken: undefined
@@ -130,6 +160,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 formikProps.setValues({
                   ...formikProps.values,
                   sourceRepo: e.value,
+                  connectorRef: undefined,
+                  repoName: '',
                   actions: undefined,
                   anyAction: false,
                   secretToken: undefined,
@@ -140,7 +172,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           />
           {sourceRepo !== GitSourceProviders.CUSTOM.value ? (
             <>
-              <FormInput.Text name="repoUrl" label={getString('repositoryUrlLabel')} />
+              {sourceRepo && <ConnectorSection formikProps={formikProps} />}
               <FormInput.Select
                 key={event}
                 label={getString('pipeline-triggers.triggerConfigurationPanel.event')}

@@ -5,6 +5,10 @@ import { renderHook } from '@testing-library/react-hooks'
 import type { UseGetReturn } from 'restful-react'
 import { InputTypes, setFieldValue, fillAtForm } from '@common/utils/JestFormHelper'
 import * as pipelineNg from 'services/pipeline-ng'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
+import routes from '@common/RouteDefinitions'
+import { TestWrapper } from '@common/utils/testUtils'
+import { accountPathProps, pipelineModuleParams, triggerPathProps } from '@common/utils/routeUtils'
 import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
 import strings from 'strings/strings.en.yaml'
@@ -15,12 +19,30 @@ import {
   GenerateWebhookTokenResponse
 } from './webhookMockResponses'
 import WebhookTriggerConfigPanel from '../views/WebhookTriggerConfigPanel'
+const useGetActionsList = jest.fn()
+jest.mock('services/pipeline-ng', () => ({
+  useGetSourceRepoToEvent: jest.fn(() => GetSourceRepoToEventResponse),
+  useGetActionsList: jest.fn(args => {
+    useGetActionsList(args)
+    return GetActionsListResponse
+  }),
+  useGenerateWebhookToken: jest.fn(() => GenerateWebhookTokenResponse)
+}))
+const params = {
+  accountId: 'testAcc',
+  orgIdentifier: 'testOrg',
+  projectIdentifier: 'test',
+  pipelineIdentifier: 'pipeline',
+  triggerIdentifier: 'triggerIdentifier',
+  module: 'cd'
+}
 
 const value: AppStoreContextProps = {
   strings,
   featureFlags: {},
   updateAppStore: jest.fn()
 }
+const TEST_PATH = routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })
 
 jest.mock('clipboard-copy', () => jest.fn())
 
@@ -37,9 +59,9 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
     <Formik initialValues={initialValues} onSubmit={() => undefined}>
       {formikProps => (
         <FormikForm>
-          <StringsContext.Provider value={value}>
+          <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
             <WebhookTriggerConfigPanel {...defaultTriggerConfigDefaultProps} formikProps={formikProps} />
-          </StringsContext.Provider>
+          </TestWrapper>
         </FormikForm>
       )}
     </Formik>

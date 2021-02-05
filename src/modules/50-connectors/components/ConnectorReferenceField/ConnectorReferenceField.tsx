@@ -86,7 +86,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
   error?: string
 }
 
-interface ConnectorReferenceDTO extends ConnectorInfoDTO {
+export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
 }
 export function getEditRenderer(

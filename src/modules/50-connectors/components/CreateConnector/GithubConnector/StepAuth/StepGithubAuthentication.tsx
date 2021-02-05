@@ -173,8 +173,7 @@ const StepGithubAuthentication: React.FC<
 > = props => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
-  const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = props
+  const { prevStepData, nextStep, onConnectorCreated, accountId, projectIdentifier, orgIdentifier } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
@@ -199,6 +198,7 @@ const StepGithubAuthentication: React.FC<
       setLoadConnector(true)
       const response = await createConnector(data)
       showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
+      onConnectorCreated?.(data)
       setLoadConnector(false)
       nextStep?.({ ...prevStepData, ...stepData } as StepGithubAuthenticationProps)
       props.onConnectorCreated(response.data)

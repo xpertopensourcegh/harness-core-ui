@@ -2,6 +2,7 @@ import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
 import type { NgPipeline } from 'services/cd-ng'
 import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from 'services/pipeline-ng'
+import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 
@@ -18,6 +19,13 @@ export interface FlatInitialValuesInterface {
   originalPipeline?: NgPipeline
   name?: string
 }
+
+export interface ConnectorRefInterface {
+  identifier: string
+  repoName?: string
+  value?: string
+}
+
 export interface FlatOnEditValuesInterface {
   name: string
   identifier: string
@@ -27,10 +35,15 @@ export interface FlatOnEditValuesInterface {
     [key: string]: string
   }
   pipeline: string
+  connectorRef?: {
+    identifier: string
+    repoName?: string
+  }
+  repoName?: string
   originalPipeline?: NgPipeline
   sourceRepo: GetActionsListQueryParams['sourceRepo']
   triggerType: string
-  repoUrl: string
+  repoUrl?: string
   event: string
   actions: string[]
   anyAction?: boolean // required for onEdit to show checked
@@ -55,9 +68,10 @@ export interface FlatValidFormikValuesInterface {
   pipeline: NgPipeline
   sourceRepo: GetActionsListQueryParams['sourceRepo']
   triggerType: string
-  repoUrl: string
-  event: string
-  actions: string[]
+  repoName?: string
+  connectorRef?: { connector: { spec: { type: string } }; value: string } // get from dto interface when available
+  event?: string
+  actions?: string[]
   secureToken?: string
   sourceBranchOperator?: string
   sourceBranchValue?: string
@@ -138,9 +152,18 @@ const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
 
 const checkValidTriggerConfiguration = (formikValues: FlatValidFormikValuesInterface): boolean => {
   const sourceRepo = formikValues['sourceRepo']
+  const connectorURLType = formikValues.connectorRef?.connector?.spec?.type
 
-  if (sourceRepo !== CUSTOM && (!formikValues['event'] || !formikValues['repoUrl'] || !formikValues['actions'])) {
-    return false
+  if (sourceRepo !== CUSTOM) {
+    if (!formikValues['connectorRef'] || !formikValues['event'] || !formikValues['actions']) return false
+    // onEdit case, waiting for api response
+    else if (formikValues['connectorRef']?.value && !formikValues['connectorRef'].connector) return true
+    else if (
+      !connectorURLType ||
+      !!(connectorURLType === connectorUrlType.ACCOUNT && !formikValues.repoName) ||
+      (connectorURLType === connectorUrlType.REPO && formikValues.repoName)
+    )
+      return false
   }
   return true
 }
@@ -202,6 +225,7 @@ export const getWizardMap = ({
   panels: getPanels(getString)
 })
 
+// requiredFields and checkValidPanel in getPanels() above to render warning icons related to this schema
 export const getValidationSchema = (getString: (key: string) => string): ObjectSchema<object | undefined> =>
   object().shape({
     name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
@@ -213,11 +237,23 @@ export const getValidationSchema = (getString: (key: string) => string): ObjectS
         return this.parent.sourceRepo === CUSTOM || event
       }
     ),
-    repoUrl: string().test(
-      getString('pipeline-triggers.validation.repoUrl'),
-      getString('pipeline-triggers.validation.repoUrl'),
-      function (repoUrl) {
-        return this.parent.sourceRepo === CUSTOM || repoUrl
+    connectorRef: object().test(
+      getString('pipeline-triggers.validation.connector'),
+      getString('pipeline-triggers.validation.connector'),
+      function (connectorRef) {
+        return this.parent.sourceRepo === CUSTOM || connectorRef?.value
+      }
+    ),
+    repoName: string().test(
+      getString('pipeline-triggers.validation.repoName'),
+      getString('pipeline-triggers.validation.repoName'),
+      function (repoName) {
+        const connectorURLType = this.parent.connectorRef?.connector?.spec?.type
+        return (
+          !connectorURLType ||
+          (connectorURLType === connectorUrlType.ACCOUNT && repoName?.trim()) ||
+          connectorURLType === connectorUrlType.REPO
+        )
       }
     ),
     actions: array().test(

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
 import { parse, stringify } from 'yaml'
-import { isEmpty, merge } from 'lodash-es'
+import { isEmpty, isUndefined, merge } from 'lodash-es'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Wizard } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import routes from '@common/RouteDefinitions'
-import type { NgPipeline } from 'services/cd-ng'
+import { NgPipeline, useGetConnector, GetConnectorQueryParams } from 'services/cd-ng'
 import {
   useGetPipeline,
   useGetTemplateFromPipeline,
@@ -21,12 +21,15 @@ import {
 import { useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import { eventTypes } from './utils/TriggersWizardPageUtils'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
 import {
   clearNullUndefined,
+  ConnectorRefInterface,
   FlatInitialValuesInterface,
   FlatOnEditValuesInterface,
   FlatValidFormikValuesInterface,
@@ -70,6 +73,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   })
 
+  const [connectorScopeParams, setConnectorScopeParams] = useState<GetConnectorQueryParams | undefined>(undefined)
+
   const { mutate: createTrigger, error: createTriggerErrorResponse, loading: createTriggerLoading } = useCreateTrigger({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
@@ -85,8 +90,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
   const [onEditInitialValues, setOnEditInitialValues] = useState<
-    FlatOnEditValuesInterface | { pipeline?: string; identifier?: string }
+    | FlatOnEditValuesInterface
+    | { pipeline?: string; identifier?: string; connectorRef?: { identifier?: string; scope?: string } }
   >({})
+
+  const { data: connectorData, refetch: getConnectorDetails } = useGetConnector({
+    identifier: getIdentifierFromValue(onEditInitialValues?.connectorRef?.identifier || '') as string,
+    queryParams: connectorScopeParams,
+    lazy: true
+  })
 
   useEffect(() => {
     setCurrentPipeline(
@@ -95,6 +107,24 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
     )
   }, [template?.data?.inputSetTemplateYaml])
+
+  useEffect(() => {
+    if (onEditInitialValues?.connectorRef?.identifier && !isUndefined(connectorScopeParams)) {
+      getConnectorDetails()
+    }
+  }, [onEditInitialValues?.connectorRef?.identifier, connectorScopeParams])
+
+  useEffect(() => {
+    if (connectorData?.data?.connector?.name && onEditInitialValues?.connectorRef?.identifier) {
+      const { connector } = connectorData.data
+      const connectorRef = {
+        ...onEditInitialValues.connectorRef,
+        label: connector.name,
+        connector
+      }
+      setOnEditInitialValues({ ...onEditInitialValues, connectorRef })
+    }
+  }, [connectorData?.data?.connector?.name, onEditInitialValues?.connectorRef?.identifier])
 
   useEffect(() => {
     if (triggerResponse?.data?.enabled === false) {
@@ -111,6 +141,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (triggerResponse?.data?.yaml && triggerResponse.data.type) {
+      let newOnEditInitialValues: FlatOnEditValuesInterface | undefined
+      let gitRepoSpecCopy
       try {
         const triggerResponseJson = parse(triggerResponse.data.yaml)
         const {
@@ -121,7 +153,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             tags,
             source: {
               spec: {
-                spec: { actions, event, repoUrl, payloadConditions, headerConditions, authToken },
+                spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken },
                 type
               }
             },
@@ -144,9 +176,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           pipelineJson = parse(pipelineYaml)?.pipeline
         } catch (e) {
           // set error
-          setGetTriggerErrorMessage('Cannot parse pipeline input values')
+          setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
         }
-        const newOnEditInitialValues: FlatOnEditValuesInterface = {
+
+        newOnEditInitialValues = {
           name,
           identifier,
           description,
@@ -154,8 +187,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           pipeline: pipelineJson,
           sourceRepo: type,
           triggerType: triggerResponse.data.type,
-          repoUrl,
-          event,
+          event: event,
           targetIdentifier,
           secureToken: authToken?.spec?.value,
           actions: actions?.map((action: string) => ({ label: action, value: action })),
@@ -171,11 +203,42 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
               payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH
           )
         }
-        setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
+        gitRepoSpecCopy = gitRepoSpec
       } catch (e) {
         // set error
-        setGetTriggerErrorMessage('Cannot parse triggers data')
+        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseTriggersData'))
       }
+
+      if (
+        newOnEditInitialValues &&
+        newOnEditInitialValues.sourceRepo !== GitSourceProviders.CUSTOM.value &&
+        gitRepoSpecCopy?.identifier
+      ) {
+        const connectorRef: ConnectorRefInterface = {
+          identifier: gitRepoSpecCopy.identifier,
+          value: gitRepoSpecCopy.identifier
+        }
+        const connectorParams: GetConnectorQueryParams = {
+          accountIdentifier: accountId
+        }
+
+        if (getScopeFromValue(gitRepoSpecCopy.identifier) === Scope.ORG) {
+          connectorParams.orgIdentifier = orgIdentifier
+        } else if (getScopeFromValue(gitRepoSpecCopy.identifier) === Scope.PROJECT) {
+          connectorParams.orgIdentifier = orgIdentifier
+          connectorParams.projectIdentifier = projectIdentifier
+        }
+
+        setConnectorScopeParams(connectorParams)
+
+        newOnEditInitialValues.connectorRef = connectorRef
+
+        if (gitRepoSpecCopy?.repoName) {
+          newOnEditInitialValues.repoName = gitRepoSpecCopy.repoName
+        }
+      }
+
+      setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
     }
   }, [triggerIdentifier, triggerResponse])
 
@@ -208,7 +271,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       pipeline: pipelineRuntimeInput,
       sourceRepo: formikValueSourceRepo,
       triggerType: formikValueTriggerType,
-      repoUrl,
+      repoName,
+      connectorRef,
       event,
       actions,
       targetIdentifier,
@@ -258,7 +322,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         type: (formikValueTriggerType as unknown) as NGTriggerSource['type'],
         spec: {
           type: formikValueSourceRepo,
-          spec: { repoUrl, event, actions: actionsValues }
+          spec: {
+            gitRepoSpec: { identifier: connectorRef?.value, repoName },
+            event,
+            actions: actionsValues
+          }
         }
       }
     }
@@ -388,7 +456,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     )
   }
 
-  return triggerIdentifier && !wizardMap ? (
+  return triggerIdentifier && !getTriggerErrorMessage && !wizardMap ? (
     <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
       <PageSpinner />
     </div>

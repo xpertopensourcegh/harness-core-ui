@@ -89,3 +89,8 @@ export const ActivityStatus: ActivityStatusType = {
   SUCCESS: 'SUCCESS',
   FAILED: 'FAILED'
 }
+
+export const connectorUrlType = {
+  ACCOUNT: 'Account',
+  REPO: 'Repo'
+}
