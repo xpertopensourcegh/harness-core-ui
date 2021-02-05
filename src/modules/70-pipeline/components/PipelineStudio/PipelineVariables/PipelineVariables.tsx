@@ -1,24 +1,20 @@
 import React from 'react'
 import { NestedAccordionProvider, useNestedAccordion, Button } from '@wings-software/uicore'
 import type { ITreeNode } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
-import { stringify, parse } from 'yaml'
-import { get, debounce } from 'lodash-es'
 
-import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
-import { useCreateVariables } from 'services/pipeline-ng'
-import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import { get } from 'lodash-es'
+
+import type { StageElementWrapper } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
-import { shouldShowError } from '@common/utils/errorUtils'
 import { String } from 'framework/exports'
 
 import { PageError } from '@common/components/Page/PageError'
+import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { getPipelineTree } from '../PipelineUtils'
 import StagesTree, { stagesTreeNodeClasses } from '../../StagesThree/StagesTree'
 import PipelineCard from './Cards/PipelineCard'
 import StageCard from './Cards/StageCard'
-import type { PipelineVariablesData } from './types'
 
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './PipelineVariables.module.scss'
@@ -30,53 +26,15 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
     state: { pipeline: originalPipeline, pipelineView },
     updatePipelineView
   } = usePipelineContext()
+  const { variablesPipeline, metadataMap, error, initLoading } = usePipelineVariables()
 
   const { openNestedPath } = useNestedAccordion()
-  const [initLoading, setInitLoading] = React.useState(true)
-  const [error, setError] = React.useState<string | null>(null)
-  const [{ variablesPipeline, metadataMap }, setPipelineVariablesData] = React.useState<PipelineVariablesData>({
-    variablesPipeline: { name: '', identifier: '' },
-    metadataMap: {}
-  })
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelinePathProps>()
 
   const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('Pipeline_Variables')
-  const { mutate: createVariables } = useCreateVariables({
-    requestOptions: {
-      headers: {
-        'content-type': 'application/yaml'
-      }
-    }
-  })
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchVariablesData = React.useCallback(
-    debounce(async (pipeline: NgPipeline): Promise<void> => {
-      try {
-        setError(null)
-        const { data } = await createVariables((stringify({ pipeline }) as unknown) as void, {
-          queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-        })
-
-        setPipelineVariablesData({
-          metadataMap: data?.metadataMap || {},
-          variablesPipeline: parse(data?.yaml || '')?.pipeline || {}
-        })
-        setInitLoading(false)
-      } catch (e) {
-        if (shouldShowError(e)) {
-          setInitLoading(false)
-          setError(e.data?.message || e.message)
-        }
-      }
-    }, 300),
-    [accountId, orgIdentifier, projectIdentifier]
-  )
 
   React.useEffect(() => {
     updateNodes(getPipelineTree(originalPipeline, stagesTreeNodeClasses))
-    fetchVariablesData(originalPipeline)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [originalPipeline])
 
@@ -132,7 +90,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
           />
         </div>
         {error ? (
-          <PageError message={error} />
+          <PageError message={error.message || (error as string)} />
         ) : (
           <div className={css.content}>
             <StagesTree

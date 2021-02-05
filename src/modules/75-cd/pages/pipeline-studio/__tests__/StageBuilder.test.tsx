@@ -17,7 +17,7 @@ import environments from '@pipeline/components/PipelineSteps/Steps/DeployEnvStep
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
-const fetchConnectors = () => Promise.resolve({})
+const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 window.HTMLElement.prototype.scrollTo = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
@@ -38,7 +38,8 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('services/pipeline-ng', () => ({
   getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
-  useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse }))
+  useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
+  useCreateVariables: jest.fn(() => ({ mutate: jest.fn(), loading: false, cancel: jest.fn() }))
 }))
 
 jest.mock('resize-observer-polyfill', () => {

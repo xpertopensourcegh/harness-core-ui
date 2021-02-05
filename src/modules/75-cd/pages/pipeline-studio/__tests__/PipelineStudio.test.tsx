@@ -20,7 +20,11 @@ jest.mock('services/pipeline-ng', () => ({
   getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
   putPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
   createPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
-  useCreateVariables: jest.fn(() => ({ mutate: jest.fn(() => Promise.resolve({ data: { yaml: '' } })) }))
+  useCreateVariables: jest.fn(() => ({
+    mutate: jest.fn(() => Promise.resolve({ data: { yaml: '' } })),
+    loading: false,
+    cancel: jest.fn()
+  }))
 }))
 
 jest.mock('services/cd-ng', () => ({

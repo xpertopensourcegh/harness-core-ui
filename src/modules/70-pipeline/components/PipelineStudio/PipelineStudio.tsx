@@ -7,6 +7,7 @@ import { String } from 'framework/exports'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { RightBar } from './RightBar/RightBar'
 import { PipelineContext } from './PipelineContext/PipelineContext'
+import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
 import css from './PipelineStudio.module.scss'
 
 export interface PipelineStudioProps {
@@ -84,15 +85,17 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
       routePipelineProject
     } = this.props
     return (
-      <div className={cx(css.container, className)}>
-        <PipelineCanvas
-          toPipelineStudio={routePipelineStudio}
-          toPipelineDetail={routePipelineDetail}
-          toPipelineList={routePipelineList}
-          toPipelineProject={routePipelineProject}
-        ></PipelineCanvas>
-        <RightBar />
-      </div>
+      <PipelineVariablesContextProvider>
+        <div className={cx(css.container, className)}>
+          <PipelineCanvas
+            toPipelineStudio={routePipelineStudio}
+            toPipelineDetail={routePipelineDetail}
+            toPipelineList={routePipelineList}
+            toPipelineProject={routePipelineProject}
+          />
+          <RightBar />
+        </div>
+      </PipelineVariablesContextProvider>
     )
   }
 }
