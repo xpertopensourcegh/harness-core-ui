@@ -24,26 +24,26 @@ exports[`Delegates Page render data 1`] = `
             />
           </div>
           <div
-            aria-controls="bp3-tab-panel_delegateTabs_delegate"
+            aria-controls="bp3-tab-panel_delegateTabs_delegates"
             aria-disabled="false"
             aria-expanded="true"
             aria-selected="true"
             class="bp3-tab"
-            data-tab-id="delegate"
-            id="bp3-tab-title_delegateTabs_delegate"
+            data-tab-id="delegates"
+            id="bp3-tab-title_delegateTabs_delegates"
             role="tab"
             tabindex="0"
           >
             Delegates
           </div>
           <div
-            aria-controls="bp3-tab-panel_delegateTabs_delegateConfiguration"
+            aria-controls="bp3-tab-panel_delegateTabs_configurations"
             aria-disabled="false"
             aria-expanded="false"
             aria-selected="false"
             class="bp3-tab"
-            data-tab-id="delegateConfiguration"
-            id="bp3-tab-title_delegateTabs_delegateConfiguration"
+            data-tab-id="configurations"
+            id="bp3-tab-title_delegateTabs_configurations"
             role="tab"
             tabindex="0"
           >
@@ -52,9 +52,9 @@ exports[`Delegates Page render data 1`] = `
         </div>
         <div
           aria-hidden="false"
-          aria-labelledby="bp3-tab-title_delegateTabs_delegate"
+          aria-labelledby="bp3-tab-title_delegateTabs_delegates"
           class="bp3-tab-panel"
-          id="bp3-tab-panel_delegateTabs_delegate"
+          id="bp3-tab-panel_delegateTabs_delegates"
           role="tabpanel"
         >
           <div

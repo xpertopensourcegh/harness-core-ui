@@ -31,7 +31,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
           /
         </span>
         <a
-          href="/account/dummy/admin/resources/delegates?tab=configuration"
+          href="/account/dummy/admin/resources/delegates?tab=configurations"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           Delegates Configurations
@@ -155,7 +155,6 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 profile2
               </p>
             </div>
-             
           </div>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
@@ -185,20 +184,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
               <div
                 class="StyledProps--font StyledProps--main"
                 style="display: inline-flex; flex-wrap: wrap;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
-                >
-                  prod
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
-                >
-                  non-prod
-                </p>
-              </div>
+              />
             </div>
             <div
               class="StyledProps--font StyledProps--main entry"
@@ -212,20 +198,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
               <div
                 class="StyledProps--font StyledProps--main"
                 style="display: inline-flex; flex-wrap: wrap;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
-                >
-                  k8s-prod-app1
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: inline-block; background: rgba(147, 210, 249, 0.43); border-radius: 4px; font-size: 10px;"
-                >
-                  k8s-prod-app2
-                </p>
-              </div>
+              />
             </div>
           </div>
         </div>
@@ -242,7 +215,6 @@ exports[`Delegates Profile Detail initial render 1`] = `
           <textarea
             class="codeEditor"
             disabled=""
-            placeholder="Enter initialization script..."
           >
             test this
           </textarea>

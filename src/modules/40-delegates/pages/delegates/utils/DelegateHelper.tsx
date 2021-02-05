@@ -73,3 +73,8 @@ export const delegateTypeToIcon = (delegateType: string): IconName => {
 
   return icon
 }
+
+export enum DelegateTab {
+  DELEGATES = 'delegates',
+  CONFIGURATIONS = 'configurations'
+}

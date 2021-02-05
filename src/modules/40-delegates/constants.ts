@@ -15,6 +15,19 @@ export enum DelegateStatus {
   DELETED = 'DELETED'
 }
 
+export enum EnvironmentType {
+  PROD = 'PROD',
+  NON_PROD = 'NON_PROD'
+}
+
+export const fullSizeContentStyle: React.CSSProperties = {
+  position: 'fixed',
+  top: '135px',
+  left: '270px',
+  width: 'calc(100% - 270px)',
+  height: 'calc(100% - 135px)'
+}
+
 export enum TroubleShootingTypes {
   VERIFY_PODS_COMEUP = 'VERIFY_PODS_COMEUP',
   VERIFY_EVENTS = 'VERIFY_EVENTS',

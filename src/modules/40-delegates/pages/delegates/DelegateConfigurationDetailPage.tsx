@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
+import { get } from 'lodash-es'
 import { Button, Container, Layout, SimpleTagInput, Text, TextInput, useToggle } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import {
@@ -11,17 +12,15 @@ import { useStrings } from 'framework/exports'
 import { DelegateProfile, useGetDelegateConfigFromId } from 'services/portal'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { fullSizeContentStyle, EnvironmentType } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import { DelegateTab } from './utils/DelegateHelper'
 import { DetailPageTemplate } from '../../components/DetailPageTemplate/DetailPageTemplate'
 import css from './DelegateConfigurationDetailPage.module.scss'
 
-const fullSizeContentStyle: React.CSSProperties = {
-  position: 'fixed',
-  top: '135px',
-  left: '270px',
-  width: 'calc(100% - 270px)',
-  height: 'calc(100% - 135px)'
-}
+// TODO: This field needs to be supported by profile API
+// Place-holder for now until backend supports it
+const ENVIRONMENT_TYPE_FIELD = 'environmentTypes'
 
 export default function DelegateProfileDetails(): JSX.Element {
   const { getString } = useStrings()
@@ -49,19 +48,39 @@ export default function DelegateProfileDetails(): JSX.Element {
       url:
         routes.toResourcesDelegates({
           accountId
-        }) + '?tab=configuration'
+        }) + `?tab=${DelegateTab.CONFIGURATIONS}`
     }
   ]
   const [editMode, toggleEditMode] = useToggle(false)
-  const [formData, setFormData] = useState<DelegateProfile>()
+  const [formData, setFormData] = useState<DelegateProfile>({} as DelegateProfile)
+  const LABEL_PROD = getString('production')
+  const LABEL_NON_PROD = getString('nonProduction')
+  const environmentTags: string[] = useMemo(() => {
+    const types: string[] = get(formData, ENVIRONMENT_TYPE_FIELD, [])
+    return types.map(type => {
+      if (type === EnvironmentType.PROD) {
+        return LABEL_PROD
+      }
+      return LABEL_NON_PROD
+    })
+  }, [formData, LABEL_PROD, LABEL_NON_PROD])
+  const toggleEditModeOrSave = useCallback(() => {
+    if (!editMode) {
+      toggleEditMode()
+    } else {
+      // TODO: Note to Sahithi: Implement data validation and saving
+      // 1. Loop through formData and validate (right now I think only name is required)
+      // 2. Show spinner and save
+      // 3. Show error if the request is not successful
+      // 4. toggle back to view mode if it's successful
+    }
+  }, [editMode, toggleEditMode])
 
   useEffect(() => {
     if (profile) {
       setFormData(profile)
     }
   }, [profile])
-
-  // console.table(formData)
 
   if (loading && !data) {
     return (
@@ -96,7 +115,7 @@ export default function DelegateProfileDetails(): JSX.Element {
             color: 'var(--blue-500)',
             borderColor: 'var(--blue-500)'
           }}
-          onClick={() => toggleEditMode()}
+          onClick={() => toggleEditModeOrSave()}
         />
       }
     >
@@ -105,6 +124,8 @@ export default function DelegateProfileDetails(): JSX.Element {
           <Layout.Vertical spacing="large" width={400}>
             <SectionContainer>
               <SectionContainerTitle>{getString('overview')}</SectionContainerTitle>
+
+              {/* Name */}
               <SectionLabelValuePair
                 label={getString('delegate.CONFIGURATION_NAME')}
                 value={
@@ -121,15 +142,17 @@ export default function DelegateProfileDetails(): JSX.Element {
                   )
                 }
               />
+
+              {/* Description */}
               {!editMode && profile?.description && (
-                <SectionLabelValuePair label={getString('description')} value={profile?.description} />
+                <SectionLabelValuePair label={getString('description')} value={formData.description} />
               )}
               {editMode && (
                 <SectionLabelValuePair
                   label={getString('description')}
                   value={
                     <TextInput
-                      defaultValue={profile?.description}
+                      defaultValue={formData.description}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setFormData({ ...formData, description: e.target.value } as DelegateProfile)
                       }}
@@ -137,13 +160,25 @@ export default function DelegateProfileDetails(): JSX.Element {
                   }
                 />
               )}
-              {/** TODO: Identifier is not yet supported */}
+
+              {/* Identifier */}
               <SectionLabelValuePair
                 label={getString('identifier')}
-                value={editMode ? <TextInput disabled defaultValue={profile?.uuid} /> : profile?.uuid}
-              />{' '}
+                value={
+                  editMode ? (
+                    <TextInput disabled defaultValue={get(profile, 'identifier') || profile?.uuid} />
+                  ) : (
+                    get(profile, 'identifier') || profile?.uuid
+                  )
+                }
+              />
+
+              {/* Tags */}
               {!editMode && profile?.selectors && (
-                <SectionLabelValuePair label={getString('tagsLabel')} value={profile?.selectors} />
+                <SectionLabelValuePair
+                  label={getString('tagsLabel')}
+                  value={<TagsViewer tags={formData.selectors || []} />}
+                />
               )}
               {editMode && (
                 <SectionLabelValuePair
@@ -153,35 +188,17 @@ export default function DelegateProfileDetails(): JSX.Element {
                       fill
                       openOnKeyDown={false}
                       showClearAllButton
-                      showNewlyCreatedItemsInList={false}
+                      showNewlyCreatedItemsInList={true}
                       allowNewTag
-                      placeholder="Enter tags..."
-                      selectedItems={['10488', '10489', '${service.name}']}
+                      placeholder={getString('delegate.enterTags')}
+                      selectedItems={formData.selectors || []}
                       validateNewTag={tag => {
-                        // Allow valid Harness expression
-                        const isValidTag = tag.startsWith('${') && tag.endsWith('}')
-                        if (!isValidTag) {
-                          alert('Tag is not allowed')
-                        }
-                        return isValidTag
+                        return !!tag // TODO: Note to Sahithi: Copy the logic from wingsui to check  for new profile tag
                       }}
-                      items={[
-                        {
-                          label: 'perpetual-tasks',
-                          value: '10488'
-                        },
-                        {
-                          label: 'test-framework',
-                          value: '10489'
-                        },
-                        {
-                          label: 'watcher',
-                          value: '10501'
-                        }
-                      ]}
-                      // onChange={(selectedItems, createdItems, items) => {
-                      //   console.log('onChange', { selectedItems, createdItems, items })
-                      // }}
+                      items={formData.selectors || []}
+                      onChange={(selectedItems, _createdItems, _items) => {
+                        setFormData({ ...formData, selectors: selectedItems as string[] })
+                      }}
                     />
                   }
                 />
@@ -194,6 +211,7 @@ export default function DelegateProfileDetails(): JSX.Element {
                 {getString('delegate.ScopeDescription')}
               </Text>
 
+              {/* TODO: EnvironmentTypes, still needs backend support */}
               <SectionLabelValuePair
                 label={getString('delegate.envTypes')}
                 value={
@@ -201,28 +219,25 @@ export default function DelegateProfileDetails(): JSX.Element {
                     <SimpleTagInput
                       fill
                       showClearAllButton
-                      placeholder="Select environment types..."
-                      selectedItems={['Production']}
-                      items={[
-                        {
-                          label: 'Production',
-                          value: 'Production'
-                        },
-                        {
-                          label: 'Non-Production',
-                          value: 'Non-Production'
-                        }
-                      ]}
-                      // onChange={(selectedItems, createdItems, items) => {
-                      //   console.log('onChange', { selectedItems, createdItems, items })
-                      // }}
+                      placeholder={getString('delegate.selectEnvType')}
+                      selectedItems={environmentTags}
+                      items={[LABEL_PROD, LABEL_NON_PROD]}
+                      onChange={(selectedItems, _createdItems, _items) => {
+                        setFormData({
+                          ...formData,
+                          [ENVIRONMENT_TYPE_FIELD]: selectedItems.map(item =>
+                            item === LABEL_PROD ? EnvironmentType.PROD : EnvironmentType.NON_PROD
+                          )
+                        } as DelegateProfile)
+                      }}
                     />
                   ) : (
-                    <TagsViewer tags={['prod', 'non-prod']} />
+                    <TagsViewer tags={environmentTags} />
                   )
                 }
               />
 
+              {/* TODO: Environments, needs backend support */}
               <SectionLabelValuePair
                 label={getString('environments')}
                 value={
@@ -230,32 +245,15 @@ export default function DelegateProfileDetails(): JSX.Element {
                     <SimpleTagInput
                       fill
                       showClearAllButton
-                      placeholder="Select environment types..."
-                      selectedItems={['k8s-prod-app1', 'k8s-prod-app2']}
-                      items={[
-                        {
-                          label: 'k8s-prod-app1',
-                          value: 'k8s-prod-app1'
-                        },
-                        {
-                          label: 'k8s-prod-app2',
-                          value: 'k8s-prod-app2'
-                        },
-                        {
-                          label: 'k8s-prod-app3',
-                          value: 'k8s-prod-app3'
-                        },
-                        {
-                          label: 'k8s-prod-app4',
-                          value: 'k8s-prod-app4'
-                        }
-                      ]}
+                      placeholder={getString('delegate.selectEnvs')}
+                      selectedItems={[]}
+                      items={[]}
                       // onChange={(selectedItems, createdItems, items) => {
                       //   console.log('onChange', { selectedItems, createdItems, items })
                       // }}
                     />
                   ) : (
-                    <TagsViewer tags={['k8s-prod-app1', 'k8s-prod-app2']} />
+                    <TagsViewer tags={[]} />
                   )
                 }
               />
@@ -265,10 +263,13 @@ export default function DelegateProfileDetails(): JSX.Element {
             <SectionContainerTitle>{getString('delegate.Init_Script')}</SectionContainerTitle>
 
             <textarea
-              placeholder="Enter initialization script..."
+              placeholder={editMode ? getString('delegate.initScriptPlaceholder') : undefined}
               className={css.codeEditor}
               {...(editMode ? undefined : { disabled: true })}
-              value={profile?.startupScript || ''}
+              value={formData?.startupScript || ''}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                setFormData({ ...formData, startupScript: e.target.value } as DelegateProfile)
+              }}
             />
           </SectionContainer>
         </Layout.Horizontal>
