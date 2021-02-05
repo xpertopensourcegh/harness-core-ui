@@ -198,7 +198,7 @@ export interface PortConfig {
   port?: number
   target_port?: number
   server_name?: string
-  action?: 'forward' | 'redirect'
+  action?: string
   redirect_url?: string
   routing_rules?: RoutingRule[]
 }

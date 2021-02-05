@@ -1697,8 +1697,7 @@
           "type": "string"
         },
         "action": {
-          "type": "string",
-          "enum": ["forward", "redirect"]
+          "type": "string"
         },
         "redirect_url": {
           "type": "string"

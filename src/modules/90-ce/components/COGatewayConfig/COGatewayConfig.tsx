@@ -172,6 +172,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             sg?.inbound_rules?.forEach(rule => {
               if (rule.protocol == '-1') {
                 addAllPorts()
+                return
               } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
                 const fromRule = +rule.from
                 const toRule = +(rule.to ? rule.to : 0)
@@ -207,7 +208,13 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     )
   }
   useEffect(() => {
-    if (!selectedInstances.length) return
+    if (!selectedInstances.length) {
+      setRoutingRecords([])
+      return
+    }
+    if (routingRecords.length) {
+      return
+    }
     fetchInstanceSecurityGroups()
   }, [selectedInstances])
   useEffect(() => {
@@ -249,8 +256,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     setRoutingRecords(routes)
   }
   function addAllPorts(): void {
+    const emptyRecords: PortConfig[] = []
     Object.keys(portProtocolMap).forEach(item => {
-      routingRecords.push({
+      emptyRecords.push({
         protocol: portProtocolMap[+item],
         port: +item,
         action: 'forward',
@@ -261,8 +269,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         routing_rules: [] // eslint-disable-line
       })
     })
-    const routes = [...routingRecords]
-    setRoutingRecords(routes)
+    const routes = [...emptyRecords]
+    if (routes.length) setRoutingRecords(routes)
   }
   return (
     <Layout.Vertical className={css.page} style={{ height: '100vh', marginLeft: '230px' }}>

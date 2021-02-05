@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, FormikForm, Container, Button, Layout, Card, CardBody, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { IconName } from '@blueprintjs/core'
@@ -19,6 +19,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   const { accountId } = useParams<{
     accountId: string
   }>()
+  const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
   const { openConnectorModal } = createConnectorModal({
     // onSuccess: () => {
     // },
@@ -52,6 +53,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
                       formik.setFieldValue('cloudAccount', e.identifier)
                       props.gatewayDetails.cloudAccount = { id: e.identifier?.toString(), name: e.name }
                       props.setGatewayDetails(props.gatewayDetails)
+                      setCloudAccountID(e.identifier?.toString())
                       formik.setFieldValue('cloudAccount', e)
                     }}
                   />
@@ -72,7 +74,13 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
       </Container>
       <Layout.Horizontal className={css.footer} spacing="medium">
         <Button text="Previous" icon="chevron-left" onClick={props.previousTab} />
-        <Button intent="primary" text="Next" icon="chevron-right" onClick={props.nextTab} />
+        <Button
+          intent="primary"
+          text="Next"
+          icon="chevron-right"
+          onClick={props.nextTab}
+          disabled={cloudAccountID == ''}
+        />
       </Layout.Horizontal>
     </Layout.Vertical>
   )
