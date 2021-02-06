@@ -9,8 +9,8 @@ export const TestsFailedPopover: React.FC<{ testCase: TestCase }> = ({ testCase 
   const { getString } = useStrings()
   const failed = ['error', 'failed'].includes(testCase.result?.status || '')
   const output = testCase.stdout
-  const message = testCase.result?.message
-  const stacktrace = testCase.stderr // TODO: backend does not fill message now
+  const message = testCase.result?.message || testCase.result?.desc || testCase.result?.type
+  const stacktrace = testCase.stderr
 
   if (failed) {
     return (

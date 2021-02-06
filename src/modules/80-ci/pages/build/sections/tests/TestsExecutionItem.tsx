@@ -186,10 +186,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >
           <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
-          {getString('ci.testsReports.testSuite')}
-          <Text inline className={css.testSuiteName} lineClamp={1}>
-            {' '}
-            {executionSummary.name}
+          <Text className={css.testSuiteName} tooltip={<Container padding="small">{executionSummary.name}</Container>}>
+            {getString('ci.testsReports.testSuite')} {executionSummary.name}
           </Text>
         </Text>
         <Text
@@ -198,7 +196,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           font={{ size: 'small' }}
           padding={{ left: 'small', right: 'small' }}
         >
-          {getString('ci.testsReports.totalTests')}
+          <span style={{ whiteSpace: 'nowrap' }}>{getString('ci.testsReports.totalTests')}</span>
           <span>{executionSummary.total_tests}</span>
         </Text>
         <Text
@@ -207,7 +205,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           font={{ size: 'small' }}
           padding={{ left: 'small', right: 'small' }}
         >
-          {getString('ci.testsReports.failedTests')}
+          <span style={{ whiteSpace: 'nowrap' }}>{getString('ci.testsReports.failedTests')}</span>
           <span>{executionSummary.failed_tests}</span>
         </Text>
         <Text
@@ -216,7 +214,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           font={{ size: 'small' }}
           padding={{ left: 'small', right: 'small' }}
         >
-          {getString('ci.testsReports.failureRate')}
+          <span style={{ whiteSpace: 'nowrap' }}>{getString('ci.testsReports.failureRate')}</span>
           <span>{renderFailureRate(failureRate)}%</span>
         </Text>
         <Layout.Vertical spacing="xsmall" style={{ marginRight: 'var(--spacing-large)' }} flex>

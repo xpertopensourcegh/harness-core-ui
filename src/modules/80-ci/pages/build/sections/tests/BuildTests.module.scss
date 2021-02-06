@@ -39,6 +39,7 @@
       --cell-size: 14px;
       --cell-gap: 2px;
 
+      list-style: none;
       padding: 0 !important;
       margin: 0;
       display: grid;
@@ -131,6 +132,7 @@
       color: var(--black);
       display: block;
       font-size: var(--font-size-normal);
+      padding-top: 2px;
     }
   }
 
@@ -152,7 +154,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: calc(50vw - 600px);
+    width: calc(50vw - 500px);
+    white-space: nowrap !important;
+    flex-grow: 1;
   }
 
   .progressBar {

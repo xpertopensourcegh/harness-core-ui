@@ -34338,19 +34338,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               21
             </span>
@@ -34358,7 +34370,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               1
             </span>
@@ -34366,7 +34382,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               5
               %
@@ -36606,19 +36626,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               15
             </span>
@@ -36626,7 +36658,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               2
             </span>
@@ -36634,7 +36670,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               13
               %
@@ -36714,19 +36754,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.PipelineTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.PipelineTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               3
             </span>
@@ -36734,7 +36786,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -36742,7 +36798,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -36822,19 +36882,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.SSOProviderTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.SSOProviderTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               3
             </span>
@@ -36842,7 +36914,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -36850,7 +36926,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -36930,19 +37010,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               4
             </span>
@@ -36950,7 +37042,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -36958,7 +37054,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37038,19 +37138,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.ConnectionTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.ConnectionTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               2
             </span>
@@ -37058,7 +37170,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37066,7 +37182,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37146,19 +37266,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.ConnectorTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.ConnectorTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               2
             </span>
@@ -37166,7 +37298,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37174,7 +37310,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37254,19 +37394,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               6
             </span>
@@ -37274,7 +37426,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37282,7 +37438,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37362,19 +37522,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.VerificationComponentTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.VerificationComponentTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               1
             </span>
@@ -37382,7 +37554,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               1
             </span>
@@ -37390,7 +37566,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               100
               %
@@ -37470,19 +37650,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               2
             </span>
@@ -37490,7 +37682,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37498,7 +37694,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37578,19 +37778,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.managerclient.VerificationManagerClientHelperTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.managerclient.VerificationManagerClientHelperTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               4
             </span>
@@ -37598,7 +37810,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37606,7 +37822,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37686,19 +37906,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.ChangeSetTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.ChangeSetTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               5
             </span>
@@ -37706,7 +37938,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37714,7 +37950,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37794,19 +38034,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               8
             </span>
@@ -37814,7 +38066,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37822,7 +38078,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -37902,19 +38162,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              io.harness.userGroup.AddAppPermissionTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  io.harness.userGroup.AddAppPermissionTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               1
             </span>
@@ -37922,7 +38194,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               0
             </span>
@@ -37930,7 +38206,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               0
               %
@@ -38010,19 +38290,31 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
             </button>
-            Test Suite:
             <span
-              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
-              style="--text-line-clamp: 1;"
+              class="bp3-popover-wrapper"
             >
-               
-              software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
+              <span
+                class="bp3-popover-target"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main testSuiteName"
+                  tabindex="0"
+                >
+                  Test Suite:
+                   
+                  software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
+                </p>
+              </span>
             </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Total Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Total Tests
+            </span>
             <span>
               20
             </span>
@@ -38030,7 +38322,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failed Tests
+            <span
+              style="white-space: nowrap;"
+            >
+              Failed Tests
+            </span>
             <span>
               4
             </span>
@@ -38038,7 +38334,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
           >
-            Failure Rate
+            <span
+              style="white-space: nowrap;"
+            >
+              Failure Rate
+            </span>
             <span>
               20
               %
