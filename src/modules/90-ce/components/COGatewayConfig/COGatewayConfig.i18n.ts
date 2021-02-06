@@ -1,7 +1,7 @@
 export default {
-  configHeading: 'Gateway Configuration',
+  configHeading: 'Rule Configuration',
   info:
-    'Instances can be added to a gateway through ID or tags. Lightwing will evaluate ID and tags and forward traffic to the matching instance. Just one of these will fetch all other parameters of the instace. Multiple instance can be added to a single Gateway.',
+    'Instances can be added to a rule through ID or tags. Lightwing will evaluate ID and tags and forward traffic to the matching instance. Just one of these will fetch all other parameters of the instace. Multiple instance can be added to a single Rule.',
   addInstanceLabel: 'Add Instance',
   addPortLabel: '+ add port',
   addDependency: '+ add dependency',
@@ -11,7 +11,7 @@ export default {
   disable: 'Disable',
   usePrivateIP: 'Use Private IP',
   healthCheck: 'Health check',
-  name: 'Name your Gateway',
+  name: 'Name your Rule',
   addSchedule: '+ add schedule',
   scheduleDescription:
     'Set an automated schedule for uptime or downtime of all the resources that match your filter criteria.'

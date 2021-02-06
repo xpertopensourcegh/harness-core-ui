@@ -264,7 +264,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             </Layout.Horizontal>
           </Layout.Vertical>
           <Layout.Vertical spacing="large" padding="medium">
-            <Text>Instances managed by the Gateway</Text>
+            <Text>Instances managed by the Rule</Text>
             <Layout.Horizontal spacing="medium">
               <Link href="blahblah blah" target="_blank">
                 2 Instances

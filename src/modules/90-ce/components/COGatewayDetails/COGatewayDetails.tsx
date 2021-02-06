@@ -106,7 +106,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const getNextButtonText = (): string => {
     const tabIndex = tabs.findIndex(t => t == selectedTabId)
     if (tabIndex == tabs.length - 1) {
-      return 'Save Gateway'
+      return 'Save Rule'
     }
     return 'Next'
   }

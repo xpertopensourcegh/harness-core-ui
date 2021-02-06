@@ -391,7 +391,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                 </FormikForm>
               )}
               validationSchema={Yup.object().shape({
-                gatewayName: Yup.string().trim().required('Gateway Name is required field'),
+                gatewayName: Yup.string().trim().required('Rule Name is required field'),
                 idleTime: Yup.number().required('Idle Time is required field'),
                 selectedIcon: Yup.string().required('Instance Type is required field')
               })}

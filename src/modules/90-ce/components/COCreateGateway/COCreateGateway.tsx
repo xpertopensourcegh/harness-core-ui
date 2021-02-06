@@ -104,9 +104,9 @@ export const CECODashboardPage: React.FC = () => {
                 <Layout.Horizontal spacing="large" padding="large">
                   <img src={autostoppingInfo}></img>
                   <Text style={{ fontSize: '13px', lineHeight: '24px', maxWidth: '331px' }}>
-                    AutoStopping Gateways dynamically make sure that your non-production workloads are running (and
-                    costing you) only when you’re using them, and never when they are idle. Additionally, run your
-                    workloads on fully orchestrated spot instances without any worry of spot interruptions.
+                    AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing
+                    you) only when you’re using them, and never when they are idle. Additionally, run your workloads on
+                    fully orchestrated spot instances without any worry of spot interruptions.
                   </Text>
                 </Layout.Horizontal>
               </Container>

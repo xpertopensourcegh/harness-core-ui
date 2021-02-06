@@ -1,7 +1,7 @@
 export default {
-  nameYourGateway: 'Name your Gateway',
+  nameYourGateway: 'Name your Rule',
   selectCloudAccount: 'Select Cloud account',
-  gatewayDetails: 'Gateway Details',
+  gatewayDetails: 'Rule Details',
   configurationDetails: 'ConfigurationDetails',
   idleTime: 'Idle time (mins)',
   instanceType: 'Instance Type',

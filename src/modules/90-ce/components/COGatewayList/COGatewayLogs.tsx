@@ -26,15 +26,13 @@ function getLogs(logs: ServiceLog[] | undefined): LogObject[] {
   logs.map(l => {
     let logLine = ''
     if (l.error) {
-      logLine = `${logColorMap.errored}${l.created_at}  Gateway state changed to: ${l.state} ${
-        l.error ? l.error : ''
-      } ${l.message ? l.message : ''}`
-    } else if (l.state == 'active') {
-      logLine = `${logColorMap.active}${l.created_at}  Gateway state changed to: ${l.state} ${
+      logLine = `${logColorMap.errored}${l.created_at}  Rule state changed to: ${l.state} ${l.error ? l.error : ''} ${
         l.message ? l.message : ''
       }`
+    } else if (l.state == 'active') {
+      logLine = `${logColorMap.active}${l.created_at}  Rule state changed to: ${l.state} ${l.message ? l.message : ''}`
     } else {
-      logLine = `${l.created_at}  Gateway state changed to: ${l.state} ${l.error ? l.error : ''} ${
+      logLine = `${l.created_at}  Rule state changed to: ${l.state} ${l.error ? l.error : ''} ${
         l.message ? l.message : ''
       }`
     }

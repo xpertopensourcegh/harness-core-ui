@@ -62,7 +62,7 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
             <Layout.Horizontal spacing="large" padding="medium">
               <img src={ssh} alt="" aria-hidden />
               <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
-                A description of how SSH is used to access the Gateway securely over an unsecured network.
+                A description of how SSH is used to access the Rule securely over an unsecured network.
               </Text>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="large" padding="medium">
@@ -162,7 +162,7 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
               <Layout.Horizontal spacing="large" padding="medium">
                 <img src={ssh} alt="" aria-hidden />
                 <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
-                  A description of how SSH is used to access the Gateway securely over an unsecured network.
+                  A description of how SSH is used to access the Rule securely over an unsecured network.
                 </Text>
               </Layout.Horizontal>
             </Layout.Vertical>
