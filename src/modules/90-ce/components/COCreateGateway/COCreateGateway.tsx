@@ -62,7 +62,24 @@ export const CECODashboardPage: React.FC = () => {
       icon: 'service-azure'
     },
     selectedInstances: [],
-    accessPointID: ''
+    accessPointID: '',
+    connectionMetadata: {
+      dnsLink: {
+        selected: false
+      },
+      ssh: {
+        selected: false
+      },
+      rdp: {
+        selected: false
+      },
+      backgroundTasks: {
+        selected: false
+      },
+      ipaddress: {
+        selected: false
+      }
+    }
   }
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>(initialGatewayDetails)
   const nextTab = (): void => {

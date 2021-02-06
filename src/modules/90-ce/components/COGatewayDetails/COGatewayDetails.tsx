@@ -47,7 +47,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       kind: 'instance',
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       idle_time_mins: props.gatewayDetails.idleTimeMins, // eslint-disable-line
-      custom_domains: [''], // eslint-disable-line
+      custom_domains: props.gatewayDetails.customDomains ? props.gatewayDetails.customDomains : [], // eslint-disable-line
       // eslint-disable-next-line
       health_check: props.gatewayDetails.healthCheck,
       routing: {

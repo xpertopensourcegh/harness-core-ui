@@ -72,6 +72,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       }) || []
     setAccessPointsList(loaded)
   }, [accessPoints])
+
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [openModal, hideModal] = useModalHook(() => (
     <Dialog onClose={hideModal} {...modalPropsLight}>
@@ -83,18 +84,21 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       />
     </Dialog>
   ))
-
+  useEffect(() => {
+    props.gatewayDetails.accessPointID = accessPoint?.id as string
+    props.setGatewayDetails(props.gatewayDetails)
+  }, [accessPoint])
   return (
     <Layout.Vertical spacing="medium" padding="medium" style={{ backgroundColor: 'var(--grey-100)' }}>
       <Heading level={3}>A DNS Link lets you to connect to the Rule by matching human-readable domain names</Heading>
 
       <Formik
         initialValues={{
-          customURL: '',
-          publicallyAccessible: '',
+          customURL: props.gatewayDetails.customDomains?.join(','),
+          publicallyAccessible: props.gatewayDetails.connectionMetadata.dnsLink.public as string,
           dnsProvider: 'route53',
           route53Account: '',
-          accessPoint: accessPoint?.id
+          accessPoint: props.gatewayDetails.accessPointID
         }}
         onSubmit={values => alert(JSON.stringify(values))}
         render={formik => (
@@ -127,6 +131,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       formik.setFieldValue('publicallyAccessible', e.currentTarget.value)
                       if (e.currentTarget.value == 'yes') props.setHelpTextSection('public-dns')
                       else props.setHelpTextSection('private-dns')
+                      props.gatewayDetails.connectionMetadata.dnsLink.public = e.currentTarget.value
+                      props.setGatewayDetails(props.gatewayDetails)
                     }}
                     selectedValue={formik.values.publicallyAccessible}
                   >

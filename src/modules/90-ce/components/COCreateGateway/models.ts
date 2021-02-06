@@ -55,4 +55,30 @@ export interface GatewayDetails {
   selectedInstances: InstanceDetails[]
   accessPointID: string
   accountID: string
+  connectionMetadata: ConnectionMetadata
+}
+
+interface DNSLink {
+  selected: boolean
+  public?: string
+}
+interface SSH {
+  selected: boolean
+}
+
+interface RDP {
+  selected: boolean
+}
+interface BackgroundTasks {
+  selected: boolean
+}
+interface IpAddress {
+  selected: boolean
+}
+interface ConnectionMetadata {
+  dnsLink: DNSLink
+  ssh: SSH
+  rdp: RDP
+  backgroundTasks: BackgroundTasks
+  ipaddress: IpAddress
 }

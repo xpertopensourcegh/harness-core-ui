@@ -16,11 +16,13 @@ interface COGatewayAccessProps {
   setGatewayDetails: (gw: GatewayDetails) => void
 }
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
-  const [dnsCheck, setDNSCheck] = useState<false | boolean>(false)
-  const [sshCheck, setSSHCheck] = useState<false | boolean>(false)
-  const [ipCheck, setIPCheck] = useState<false | boolean>(false)
-  const [rdpCheck, setRDPCheck] = useState<false | boolean>(false)
-  const [bgCheck, setBGCheck] = useState<false | boolean>(false)
+  const [dnsCheck, setDNSCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.dnsLink.selected)
+  const [sshCheck, setSSHCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.ssh.selected)
+  const [ipCheck, setIPCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.ipaddress.selected)
+  const [rdpCheck, setRDPCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.rdp.selected)
+  const [bgCheck, setBGCheck] = useState<false | boolean>(
+    props.gatewayDetails.connectionMetadata.backgroundTasks.selected
+  )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
   const [selectedHelpTextSection, setSelectedHelpTextSection] = useState<string>('')
@@ -34,6 +36,12 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     } else {
       props.setValidity(false)
     }
+    props.gatewayDetails.connectionMetadata.dnsLink.selected = dnsCheck
+    props.gatewayDetails.connectionMetadata.ssh.selected = sshCheck
+    props.gatewayDetails.connectionMetadata.rdp.selected = rdpCheck
+    props.gatewayDetails.connectionMetadata.backgroundTasks.selected = bgCheck
+    props.gatewayDetails.connectionMetadata.ipaddress.selected = ipCheck
+    props.setGatewayDetails(props.gatewayDetails)
     if (dnsCheck) {
       setSelectedTabId('dns')
       return
