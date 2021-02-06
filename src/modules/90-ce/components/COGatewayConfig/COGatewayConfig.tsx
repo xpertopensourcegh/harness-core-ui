@@ -133,18 +133,20 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         }
       )
       if (result && result.response) {
-        const instances = result.response?.map(item => {
-          return {
-            name: item.name ? item.name : '',
-            id: item.id ? item.id : '',
-            ipAddress: item.ipv4 ? item.ipv4[0] : '',
-            region: item.region ? item.region : '',
-            type: item.type ? item.type : '',
-            tags: '',
-            launchTime: item.launch_time ? item.launch_time : '',
-            status: item.status ? item.status : ''
-          }
-        })
+        const instances = result.response
+          ?.filter(x => x.status != 'terminated')
+          .map(item => {
+            return {
+              name: item.name ? item.name : '',
+              id: item.id ? item.id : '',
+              ipAddress: item.ipv4 ? item.ipv4[0] : '',
+              region: item.region ? item.region : '',
+              type: item.type ? item.type : '',
+              tags: '',
+              launchTime: item.launch_time ? item.launch_time : '',
+              status: item.status ? item.status : ''
+            }
+          })
         setAllInstances(instances)
         setFilteredInstances(instances)
       }
