@@ -1,0 +1,58 @@
+.dashboardCard {
+  width: 300px;
+  box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16);
+  padding: 0px;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 5px 0px var(--blue-400) !important;
+    border: 1px solid var(--blue-400) !important;
+  }
+}
+
+.pageContainer {
+  height: 100%;
+}
+
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding-bottom: 0;
+  &.create {
+    width: 1000px;
+    border-left: none !important;
+  }
+
+  .stepWizard {
+    padding: 0px;
+  }
+  .formContainer {
+    height: 350px;
+  }
+  div[class*='StepWizard--navBar'] {
+    grid-template-columns: 238px 1fr !important;
+  }
+  div[class*='StepWizard--navBarList'] {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 30px !important;
+  }
+  span[class*='StepWizard--number'] {
+    padding: 1px 6px !important;
+  }
+}
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.stepClass {
+  padding: 0px !important;
+}
+
+.button {
+  color: var(--blue-500) !important;
+  border-color: var(--blue-500) !important;
+  margin-bottom: var(--spacing-medium);
+}

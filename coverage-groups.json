@@ -15,7 +15,8 @@
     "GitSync": ["src/modules/60-gitsync/**"],
     "CI": ["src/modules/80-ci/**"],
     "CF": ["src/modules/cf/**"],
-    "SHARED": ["src/modules/10-common/**", "src/navigation/**"]
+    "SHARED": ["src/modules/10-common/**", "src/navigation/**"],
+    "DASHBOARDS": ["src/modules/custom-dashboards/**"]
   },
   "ignore": ["src/**/*.d.ts", "src/**/*.stories.*", "src/**/__tests__/**", "src/**/__test__/**"]
 }

@@ -37,7 +37,8 @@
       "@cf/*": ["modules/cf/*"],
       "@ci-enterprise/*": ["modules/ci-enterprise/*"],
       "@dx/*": ["modules/dx/*"],
-      "@delegates/*": ["modules/40-delegates/*"]
+      "@delegates/*": ["modules/40-delegates/*"],
+      "@dashboards/*": ["modules/custom-dashboards/*"]
     }
   },
   "include": ["src/"],

@@ -713,7 +713,11 @@ const routes = {
   toCECOCreateGateway: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}/create-gateway`
-  )
+  ),
+  /********************************************************************************************************************/
+  toCustomDasboard: withAccountId(() => '/dashboards'),
+  toCustomDasboardHome: withAccountId(() => '/dashboards/home'),
+  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`)
 }
 
 export default routes

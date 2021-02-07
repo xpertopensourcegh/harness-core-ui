@@ -1583,3 +1583,26 @@ pipeline-list:
 customVariables:
   title: Custom Variables
   variableAndType: '{{name}} [Type: {{type}}]'
+
+  # Custom Dashboards
+dashboards:
+  sideNav:
+    byHarness: 'BY HARNESS'
+    custom: 'CUSTOMIZED'
+  homePage:
+    title: 'All Dashboards'
+    addDashboard: 'Create Dashboard'
+  createModal:
+    stepOne: 'About the Dashboard'
+    # name: 'Name'
+    sampleTitle: 'Dashboard Title'
+    sampleDesc: 'Dashboard Description'
+    view: 'view'
+    fav: 'fav'
+    dataSource: 'Data Source'
+    namePlaceholder: 'Name your dashboard'
+    nameValidation: 'Dashboard name is a required field'
+    # description: 'Description'
+    descriptionPlaceholder: 'Provide dashboard purpose'
+    # submit: 'Submit'
+    submitFail: 'Dashboard creation failed, Please try again.'
