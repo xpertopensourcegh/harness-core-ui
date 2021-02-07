@@ -94,8 +94,8 @@ export default function L1Nav(): React.ReactElement {
           </li>
         )}
       </ul>
-      {/* Will be enabled by FF */}
-      {/* <ul className={css.navList}>
+
+      <ul className={css.navList}>
         <li className={css.navItem}>
           <Link className={css.navLink} activeClassName={css.active} to={paths.toCustomDasboard(params)}>
             <Icon name="dashboard" size={30} />
@@ -106,7 +106,7 @@ export default function L1Nav(): React.ReactElement {
             <Icon name="nav-settings" size={30} />
           </Link>
         </li>
-      </ul> */}
+      </ul>
     </nav>
   )
 }
