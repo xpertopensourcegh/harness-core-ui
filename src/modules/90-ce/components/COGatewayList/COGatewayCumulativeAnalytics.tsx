@@ -1,11 +1,13 @@
 import { ProgressBar } from '@blueprintjs/core'
-import { Color, Container, Heading, Intent, Layout, Tag, Text } from '@wings-software/uicore'
+import { Color, Container, Heading, Icon, Intent, Layout, Tag, Text } from '@wings-software/uicore'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
-import type { Service } from 'services/lw'
+import { useParams } from 'react-router-dom'
+import { Service, useCumulativeServiceSavings } from 'services/lw'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
+import { geGaugeChartOptionsWithoutLabel, getDay } from './Utils'
 import css from './COGatewayCumulativeAnalytics.module.scss'
 interface COGatewayCumulativeAnalyticsProps {
   services: Service[]
@@ -17,6 +19,9 @@ function getStackedAreaChartOptions(
   savingsData: number[],
   spendData: number[]
 ): Highcharts.Options {
+  if (categories && categories.length) {
+    categories = categories.map(x => getDay(x, 'YYYY-MM-DDTHH:mm:ssZ'))
+  }
   return {
     chart: {
       type: 'area',
@@ -29,8 +34,9 @@ function getStackedAreaChartOptions(
     xAxis: {
       categories: categories,
       labels: {
-        step: 4
-      }
+        step: 1
+      },
+      units: [['day', [1]]]
     },
     yAxis: {
       min: 0,
@@ -42,8 +48,7 @@ function getStackedAreaChartOptions(
       enabled: false
     },
     tooltip: {
-      headerFormat: '<b>{point.x}</b><br/>',
-      pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      pointFormat: '{series.name}: {point.y}<br/>'
     },
     plotOptions: {
       spline: {
@@ -90,7 +95,21 @@ function getStackedAreaChartOptions(
     ]
   }
 }
+function getSavingsPercentage(totalSavings: number, totalPotentialCost: number): number {
+  if (totalPotentialCost == 0) {
+    return 0
+  }
+  return Math.round((totalSavings / totalPotentialCost) * 100)
+}
 const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> = props => {
+  const { orgIdentifier, projectIdentifier } = useParams<{
+    orgIdentifier: string
+    projectIdentifier: string
+  }>()
+  const { data: graphData, loading: graphLoading } = useCumulativeServiceSavings({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier // eslint-disable-line
+  })
   return (
     <Container padding="small">
       <Layout.Vertical spacing="large">
@@ -144,7 +163,7 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
                 <Text>On-demand (33%)</Text>
               </Layout.Horizontal>
               <Layout.Vertical spacing="small">
-                <Text>300m 55m</Text>
+                <Text>300h 55m</Text>
                 <ProgressBar intent={Intent.PRIMARY} value={0.33} stripes={false} />
               </Layout.Vertical>
             </Layout.Vertical>
@@ -154,7 +173,7 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
                 <Text>Spot (66%)</Text>
               </Layout.Horizontal>
               <Layout.Vertical spacing="small">
-                <Text>975m 36m</Text>
+                <Text>975h 36m</Text>
                 <ProgressBar intent={Intent.PRIMARY} value={0.66} stripes={false} className={css.spotUsage} />
               </Layout.Vertical>
             </Layout.Vertical>
@@ -165,31 +184,67 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
               highchart={Highcharts}
               options={getStackedAreaChartOptions(
                 '',
-                ['17/01/2020', '18/01/2020', '19/01/2020', '21/01/20202', '23/01/2020', '30/01/2020', '31/01/2020'],
+                graphData?.response?.days as string[],
                 '',
-                [500, 1000, 900, 2100, 5000, 1000, 2000],
-                [100, 700, 200, 500, 300, 800, 400]
+                graphData?.response?.savings as number[],
+                graphData?.response?.actual_cost as number[]
               )}
             />
           </Layout.Vertical>
-          <Layout.Vertical spacing="medium">
-            <Layout.Vertical spacing="large" padding="small">
-              <Container padding="medium" background={Color.GREEN_300} style={{ borderRadius: '4px' }}>
+          <Layout.Vertical spacing="small">
+            <Layout.Vertical spacing="medium" padding="small">
+              <Container padding="small" background={Color.GREEN_300} style={{ borderRadius: '4px' }}>
                 <Layout.Vertical spacing="small">
                   <Text color={Color.GREEN_500}>TOTAL SAVINGS TILL DATE</Text>
-                  <Heading level={1} color={Color.GREEN_500}>
-                    $16858.467
-                  </Heading>
+                  {graphLoading ? (
+                    <Icon name="spinner" size={24} color="blue500" />
+                  ) : (
+                    <Heading level={1} color={Color.GREEN_500}>
+                      ${(Math.round(graphData?.response?.total_savings as number) * 100) / 100}
+                    </Heading>
+                  )}
                 </Layout.Vertical>
               </Container>
-              <Container padding="medium" background={Color.RED_300} style={{ borderRadius: '4px' }}>
+              <Container padding="small" background={Color.RED_300} style={{ borderRadius: '4px' }}>
                 <Layout.Vertical spacing="small">
                   <Text color={Color.RED_500}>TOTAL POTENTIAL SPEND</Text>
-                  <Heading level={1} color={Color.RED_500}>
-                    $17586.99
-                  </Heading>
+                  {graphLoading ? (
+                    <Icon name="spinner" size={24} color="blue500" />
+                  ) : (
+                    <Heading level={1} color={Color.RED_500}>
+                      ${(Math.round(graphData?.response?.total_potential as number) * 100) / 100}
+                    </Heading>
+                  )}
                 </Layout.Vertical>
               </Container>
+              <Layout.Horizontal spacing="small" padding="small">
+                <HighchartsReact
+                  highchart={Highcharts}
+                  options={
+                    graphData?.response != null
+                      ? geGaugeChartOptionsWithoutLabel(
+                          getSavingsPercentage(
+                            graphData?.response?.total_savings as number,
+                            graphData?.response?.total_potential as number
+                          )
+                        )
+                      : geGaugeChartOptionsWithoutLabel(0)
+                  }
+                  style={{ alignSelf: 'flex-end' }}
+                />
+                <Layout.Vertical spacing="xsmall">
+                  <Text>SAVINGS PERCENTAGE</Text>
+                  <Heading level={1}>
+                    {graphData?.response != null
+                      ? getSavingsPercentage(
+                          graphData?.response?.total_savings as number,
+                          graphData?.response?.total_potential as number
+                        )
+                      : 0}
+                    %
+                  </Heading>
+                </Layout.Vertical>
+              </Layout.Horizontal>
             </Layout.Vertical>
           </Layout.Vertical>
         </Layout.Horizontal>

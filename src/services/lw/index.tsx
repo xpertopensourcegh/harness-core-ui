@@ -346,6 +346,21 @@ export interface AllCertificatesResponse {
   response?: Certificate[]
 }
 
+export interface CumulativeSavings {
+  days?: string[]
+  potential_cost?: number[]
+  actual_cost?: number[]
+  savings?: number[]
+  total_savings?: number
+  total_potential?: number
+  total_cost?: number
+  savings_percent?: number
+}
+
+export interface CumulativeSavingsResponse {
+  response?: CumulativeSavings
+}
+
 export interface GetServicesPathParams {
   org_id: string
   project_id: string
@@ -1518,4 +1533,46 @@ export const useAllServiceResources = ({ org_id, project_id, service_id, ...prop
     (paramsInPath: AllServiceResourcesPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.service_id}/resources`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
+  )
+
+export interface CumulativeServiceSavingsPathParams {
+  org_id: string
+  project_id: string
+}
+
+export type CumulativeServiceSavingsProps = Omit<
+  GetProps<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>,
+  'path'
+> &
+  CumulativeServiceSavingsPathParams
+
+/**
+ * CumulativeSavings for all services
+ *
+ * CumulativeSavings for all services
+ */
+export const CumulativeServiceSavings = ({ org_id, project_id, ...props }: CumulativeServiceSavingsProps) => (
+  <Get<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/services/savings/cumulative"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseCumulativeServiceSavingsProps = Omit<
+  UseGetProps<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>,
+  'path'
+> &
+  CumulativeServiceSavingsPathParams
+
+/**
+ * CumulativeSavings for all services
+ *
+ * CumulativeSavings for all services
+ */
+export const useCumulativeServiceSavings = ({ org_id, project_id, ...props }: UseCumulativeServiceSavingsProps) =>
+  useGet<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>(
+    (paramsInPath: CumulativeServiceSavingsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/savings/cumulative`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
   )

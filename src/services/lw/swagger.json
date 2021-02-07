@@ -1232,6 +1232,46 @@
           }
         }
       }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/savings/cumulative": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["serviceCumulativeSavings"],
+        "summary": "CumulativeSavings for all services",
+        "description": "CumulativeSavings for all services",
+        "operationId": "CumulativeServiceSavings",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CumulativeSavingsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
 
@@ -2142,6 +2182,71 @@
           "items": {
             "$ref": "#/definitions/Certificate"
           }
+        }
+      }
+    },
+    "CumulativeSavings": {
+      "type": "object",
+      "properties": {
+        "days": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": true
+        },
+        "potential_cost": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "float"
+          },
+          "required": true
+        },
+        "actual_cost": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "float"
+          },
+          "required": true
+        },
+        "savings": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "float"
+          },
+          "required": true
+        },
+        "total_savings": {
+          "type": "number",
+          "format": "float",
+          "required": true
+        },
+        "total_potential": {
+          "type": "number",
+          "format": "float",
+          "required": true
+        },
+        "total_cost": {
+          "type": "number",
+          "format": "float",
+          "required": true
+        },
+        "savings_percent": {
+          "type": "number",
+          "format": "float",
+          "required": true
+        }
+      }
+    },
+    "CumulativeSavingsResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/CumulativeSavings"
         }
       }
     }
