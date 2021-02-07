@@ -1471,3 +1471,51 @@ export const useAllCertificates = ({ org_id, project_id, account_id, ...props }:
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/certificates`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
+
+export interface AllServiceResourcesQueryParams {
+  cloud_account_id: string
+  region: string
+}
+
+export interface AllServiceResourcesPathParams {
+  org_id: string
+  project_id: string
+  service_id: number
+}
+
+export type AllServiceResourcesProps = Omit<
+  GetProps<AllResourcesOfAccountResponse, void, AllServiceResourcesQueryParams, AllServiceResourcesPathParams>,
+  'path'
+> &
+  AllServiceResourcesPathParams
+
+/**
+ * Lists all resources for a service
+ *
+ * Lists all resources for a service
+ */
+export const AllServiceResources = ({ org_id, project_id, service_id, ...props }: AllServiceResourcesProps) => (
+  <Get<AllResourcesOfAccountResponse, void, AllServiceResourcesQueryParams, AllServiceResourcesPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/services/${service_id}/resources"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAllServiceResourcesProps = Omit<
+  UseGetProps<AllResourcesOfAccountResponse, void, AllServiceResourcesQueryParams, AllServiceResourcesPathParams>,
+  'path'
+> &
+  AllServiceResourcesPathParams
+
+/**
+ * Lists all resources for a service
+ *
+ * Lists all resources for a service
+ */
+export const useAllServiceResources = ({ org_id, project_id, service_id, ...props }: UseAllServiceResourcesProps) =>
+  useGet<AllResourcesOfAccountResponse, void, AllServiceResourcesQueryParams, AllServiceResourcesPathParams>(
+    (paramsInPath: AllServiceResourcesPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.service_id}/resources`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
+  )

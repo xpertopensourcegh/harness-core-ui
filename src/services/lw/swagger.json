@@ -1173,6 +1173,65 @@
           }
         }
       }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/{service_id}/resources": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "service_id",
+          "in": "path",
+          "required": true,
+          "type": "number",
+          "format": "int64"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["serviceResources"],
+        "summary": "Lists all resources for a service",
+        "description": "Lists all resources for a service",
+        "operationId": "AllServiceResources",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllResourcesOfAccountResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
 

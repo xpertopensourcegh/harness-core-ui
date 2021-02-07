@@ -147,7 +147,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   </RadioGroup>
                   {formik.values.publicallyAccessible == 'yes' ? (
                     <>
-                      <Layout.Horizontal spacing="small">
+                      {/* <Layout.Horizontal spacing="small">
                         <Heading level={3} font={{ weight: 'light' }}>
                           Select the DNS Provider
                         </Heading>
@@ -192,7 +192,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         </>
                       ) : (
                         <Button intent="primary" text="Verify" />
-                      )}
+                      )} */}
                     </>
                   ) : formik.values.publicallyAccessible == 'no' ? (
                     <>

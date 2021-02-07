@@ -11,21 +11,21 @@ interface COProviderSelectorProps {
 }
 
 const data: Provider[] = [
-  {
-    name: 'Azure',
-    value: 'azure',
-    icon: 'service-azure'
-  },
+  // {
+  //   name: 'Azure',
+  //   value: 'azure',
+  //   icon: 'service-azure'
+  // },
   {
     name: 'AWS',
     value: 'aws',
     icon: 'service-aws'
-  },
-  {
-    name: 'Digital Ocean',
-    value: 'do',
-    icon: 'harness'
   }
+  // {
+  //   name: 'Digital Ocean',
+  //   value: 'do',
+  //   icon: 'harness'
+  // }
 ]
 
 function getProvider(name: string): Provider {
@@ -42,30 +42,40 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
         <Text style={{ fontSize: '11px' }} font={{ weight: 'light' }}>
           {i18n.cloudAccounts}
         </Text>
-
-        <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>
-          <CardSelect
-            data={data}
-            selected={selectedCard}
-            className={css.providersViewGrid}
-            onChange={item => {
-              props.gatewayDetails.provider = item
-              setSelectedCard(item)
-              props.setGatewayDetails(props.gatewayDetails)
-            }}
-            renderItem={item => (
-              <Layout.Vertical spacing="small">
-                <CardBody.Icon icon={item.icon as IconName} iconSize={21}></CardBody.Icon>
-                <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
-                  {item.name}
-                </Text>
-              </Layout.Vertical>
-            )}
-            cornerSelected={true}
-          ></CardSelect>
-        </Layout.Horizontal>
+        <Layout.Vertical spacing="small">
+          <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>
+            <CardSelect
+              data={data}
+              selected={selectedCard}
+              className={css.providersViewGrid}
+              onChange={item => {
+                props.gatewayDetails.provider = item
+                setSelectedCard(item)
+                props.setGatewayDetails(props.gatewayDetails)
+              }}
+              renderItem={item => (
+                <Layout.Vertical spacing="small">
+                  <CardBody.Icon icon={item.icon as IconName} iconSize={21}></CardBody.Icon>
+                </Layout.Vertical>
+              )}
+              cornerSelected={true}
+            ></CardSelect>
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
+            <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
+              AWS
+            </Text>
+          </Layout.Horizontal>
+        </Layout.Vertical>
       </Layout.Vertical>
-      <Button className={css.footer} intent="primary" text="Next" icon="chevron-right" onClick={props.nextTab} />
+      <Button
+        className={css.footer}
+        intent="primary"
+        text="Next"
+        icon="chevron-right"
+        onClick={props.nextTab}
+        disabled={!selectedCard}
+      />
     </Container>
   )
 }

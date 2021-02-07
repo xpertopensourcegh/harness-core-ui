@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { Intent, Switch, Tab } from '@blueprintjs/core'
-import { Layout, Container, Text, Icon, Link, Tag, Tabs, Heading, Avatar } from '@wings-software/uicore'
+import { Switch, Tab } from '@blueprintjs/core'
+import { Layout, Container, Text, Icon, Link, Tabs, Heading } from '@wings-software/uicore'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
-import { Service, ServiceSavings, useSavingsOfService } from 'services/lw'
+import {
+  AllResourcesOfAccountResponse,
+  Service,
+  ServiceSavings,
+  useAllServiceResources,
+  useHealthOfService,
+  useSavingsOfService
+} from 'services/lw'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
-import { getRelativeTime } from './Utils'
+import { getInstancesLink, getRelativeTime, getStateTag } from './Utils'
 import SpotvsODChart from './SpotvsODChart'
 import css from './COGatewayList.module.scss'
 interface COGatewayAnalyticsProps {
@@ -205,6 +212,18 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
       group_by: 'date' // eslint-disable-line
     }
   })
+  const { data: healthData, loading: healthDataLoading } = useHealthOfService({
+    org_id: orgIdentifier, // eslint-disable-line
+    projectID: projectIdentifier, // eslint-disable-line
+    serviceID: props.service.id as number,
+    debounce: 300
+  })
+  const { data: resources, loading: resourcesLoading } = useAllServiceResources({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    service_id: props.service.id as number, // eslint-disable-line
+    debounce: 300
+  })
   useEffect(() => {
     if (graphLoading) {
       return
@@ -240,9 +259,9 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           </Layout.Horizontal>
         </Layout.Horizontal>
         <Text>
-          Created by <Avatar email="john.doe@harnes.io" size={'small'} />
-          {'John Doe '}
-          {getRelativeTime(props.service.created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}
+          {`Created ${getRelativeTime(props.service.created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}`}
+          {/* <Avatar email="john.doe@harnes.io" size={'small'} />
+          {'John Doe '} */}
         </Text>
         <Heading level={3}>DETAILS</Heading>
         <Layout.Horizontal spacing="large" padding="medium">
@@ -266,12 +285,24 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           <Layout.Vertical spacing="large" padding="medium">
             <Text>Instances managed by the Rule</Text>
             <Layout.Horizontal spacing="medium">
-              <Link href="blahblah blah" target="_blank">
-                2 Instances
-              </Link>
-              <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
-                ALL RUNNING
-              </Tag>
+              {!resourcesLoading ? (
+                <Link
+                  href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
+                  target="_blank"
+                  style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                >
+                  {resources?.response?.length} Instances
+                </Link>
+              ) : (
+                <Icon name="spinner" size={12} color="blue500" />
+              )}
+              {healthData?.response?.['state'] != null ? (
+                getStateTag(healthData?.response?.['state'])
+              ) : !healthDataLoading ? (
+                getStateTag('down')
+              ) : (
+                <Icon name="spinner" size={12} color="blue500" />
+              )}
             </Layout.Horizontal>
             <Text>Host name</Text>
             <Link href={`http://${props.service.host_name}`} target="_blank">

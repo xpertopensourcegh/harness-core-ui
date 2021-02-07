@@ -11,18 +11,19 @@ import {
   ModalErrorHandlerBinding,
   Link,
   ExpandingSearchInput,
-  Popover,
-  Tag
+  Popover
 } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Classes, Drawer, Intent, Menu, Position } from '@blueprintjs/core'
+import { Classes, Drawer, Menu, Position } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import {
+  AllResourcesOfAccountResponse,
   Service,
   ServiceSavings,
+  useAllServiceResources,
   useGetServices,
   useHealthOfService,
   useRequestsOfService,
@@ -36,26 +37,9 @@ import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
-import { getRelativeTime } from './Utils'
+import { getInstancesLink, getRelativeTime, getStateTag } from './Utils'
 import landingPageSVG from './images/landingPageGraphic.svg'
 import css from './COGatewayList.module.scss'
-
-const gatewayStateMap: { [key: string]: JSX.Element } = {
-  down: (
-    <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
-      STOPPED
-    </Tag>
-  ),
-  active: (
-    <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
-      RUNNING
-    </Tag>
-  )
-}
-
-function getStateTag(state: string): JSX.Element {
-  return gatewayStateMap[state]
-}
 
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
   return (
@@ -248,7 +232,7 @@ const COGatewayList: React.FC = () => {
     projectIdentifier: string
   }>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [page, setPage] = useState(0)
+  // const [page, setPage] = useState(0)
   const [selectedService, setSelectedService] = useState<Service>()
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   function SavingsCell(tableProps: CellProps<Service>): JSX.Element {
@@ -311,13 +295,28 @@ const COGatewayList: React.FC = () => {
       serviceID: tableProps.row.original.id as number,
       debounce: 300
     })
+    const { data: resources, loading: resourcesLoading } = useAllServiceResources({
+      org_id: orgIdentifier, // eslint-disable-line
+      project_id: projectIdentifier, // eslint-disable-line
+      service_id: tableProps.row.original.id as number, // eslint-disable-line
+      debounce: 300
+    })
     return (
       <Container>
         <Layout.Vertical spacing="large">
           <Layout.Horizontal spacing="large">
-            <Link href="blah" style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              2 Instances
-            </Link>
+            {!resourcesLoading ? (
+              <Link
+                href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
+                target="_blank"
+                style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+              >
+                {resources?.response?.length} Instances
+              </Link>
+            ) : (
+              <Icon name="spinner" size={12} color="blue500" />
+            )}
+
             <Text lineClamp={3} color={Color.GREY_500}>
               Host name:
               <Link
@@ -469,13 +468,13 @@ const COGatewayList: React.FC = () => {
                 <Table<Service>
                   data={data?.response ? data.response : []}
                   className={css.table}
-                  pagination={{
-                    itemCount: 50, //data?.data?.totalItems || 0,
-                    pageSize: 10, //data?.data?.pageSize || 10,
-                    pageCount: 5, //data?.data?.totalPages || 0,
-                    pageIndex: page, //data?.data?.pageIndex || 0,
-                    gotoPage: (pageNumber: number) => setPage(pageNumber)
-                  }}
+                  // pagination={{
+                  //   itemCount: 50, //data?.data?.totalItems || 0,
+                  //   pageSize: 10, //data?.data?.pageSize || 10,
+                  //   pageCount: 5, //data?.data?.totalPages || 0,
+                  //   pageIndex: page, //data?.data?.pageIndex || 0,
+                  //   gotoPage: (pageNumber: number) => setPage(pageNumber)
+                  // }}
                   onRowClick={e => {
                     setSelectedService(e)
                     setIsDrawerOpen(true)
@@ -485,19 +484,22 @@ const COGatewayList: React.FC = () => {
                       accessor: 'name',
                       Header: 'Name'.toUpperCase(),
                       width: '18%',
-                      Cell: NameCell
+                      Cell: NameCell,
+                      disableSortBy: true
                     },
                     {
                       accessor: 'idle_time_mins',
                       Header: 'Idle Time'.toUpperCase(),
                       width: '8%',
-                      Cell: TimeCell
+                      Cell: TimeCell,
+                      disableSortBy: true
                     },
                     {
                       accessor: 'fulfilment',
                       Header: 'Compute Type'.toUpperCase(),
                       width: '12%',
-                      Cell: IconCell
+                      Cell: IconCell,
+                      disableSortBy: true
                     },
                     {
                       Header: 'Resources Managed By The Rule'.toUpperCase(),

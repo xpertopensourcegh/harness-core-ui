@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COGatewayBasics from '@ce/components/COGatewayBasics/COGatewayBasics'
@@ -95,10 +95,10 @@ export const CECODashboardPage: React.FC = () => {
     }
   }
   return (
-    <Container>
+    <Container background={Color.WHITE}>
       {currentTab != 'gatewayConfig' ? (
-        <Container flex id="ce-co-config">
-          <Container width="43%" padding="medium">
+        <Layout.Horizontal id="ce-co-config">
+          <Container width="43%" padding="medium" style={{ paddingTop: 200 }}>
             <Layout.Vertical padding="xlarge" spacing="large">
               <Container style={{ backgroundColor: '#FAFAFC' }}>
                 <Layout.Horizontal spacing="large" padding="large">
@@ -129,7 +129,7 @@ export const CECODashboardPage: React.FC = () => {
               />
             ) : null}
           </Container>
-        </Container>
+        </Layout.Horizontal>
       ) : null}
 
       {currentTab == 'gatewayConfig' ? (

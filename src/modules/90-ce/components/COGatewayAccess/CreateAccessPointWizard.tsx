@@ -280,7 +280,6 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       <Formik
         initialValues={{
           cloudConnector: accessPoint.cloud_account_id, // eslint-disable-line
-          name: '',
           accessPointName: '',
           accessPointRegion: accessPoint.region,
           vpc: accessPoint.vpc,
@@ -308,28 +307,19 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 category={'CLOUD_COST'}
               />
               <FormInput.Text
-                name="name"
-                label={'Enter Access Point name'}
-                placeholder={'Access Point name'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  props.accessPoint.name = e.target.value
-                  setAccessPoint(props.accessPoint)
-                  formik.setFieldValue('name', e.target.value)
-                }}
-              />
-              <FormInput.Text
                 name="accessPointName"
                 label={'Enter Access Point Domain name'}
                 placeholder={'Access Point Domain name'}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   props.accessPoint.host_name = e.target.value // eslint-disable-line
+                  props.accessPoint.name = e.target.value // eslint-disable-line
                   setAccessPoint(props.accessPoint)
                   formik.setFieldValue('accessPointName', e.target.value)
                 }}
               />
               <FormInput.Select
                 name="accessPointRegion"
-                label={'Select region to install Access Point Tunnel'}
+                label={'Select region to install Access Point'}
                 placeholder={'Select region'}
                 items={regionOptions}
                 onChange={e => {
@@ -397,7 +387,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
               />
               <Button
                 intent="primary"
-                text="Create Access Point Tunnel"
+                text="Create Access Point"
                 onClick={formik.submitForm}
                 loading={isLoading()}
                 disabled={isLoading()}
@@ -407,7 +397,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
         )}
         validationSchema={Yup.object().shape({
           cloudConnector: Yup.string().required('Connector is a required field'),
-          accessPointName: Yup.string().required('Name is a required field'),
+          accessPointName: Yup.string().required('Access point Name is a required field'),
           accessPointRegion: Yup.string().required('Region is a required field'),
           vpc: Yup.string().required('VPC is a required field'),
           subnets: Yup.array(Yup.string()).min(2, 'Atleast 2 subnets are mandatory'),
@@ -421,7 +411,7 @@ const CreateAccessPointWizard: React.FC<CreateAccessPointWizardProps> = props =>
   return (
     <StepWizard icon={'service-aws'} iconProps={{ size: 40 }} title={'Create New Access Point'}>
       <CreateTunnelStep
-        name="Create access point tunnel"
+        name="Create access point"
         accessPoint={props.accessPoint}
         closeModal={props.closeModal}
         setAccessPoint={props.setAccessPoint}

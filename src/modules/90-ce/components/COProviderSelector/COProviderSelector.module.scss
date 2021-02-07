@@ -1,14 +1,25 @@
+// .providersViewGrid {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   grid-template-rows: 1fr;
+//   grid-column-gap: var(--spacing-large);
+//   grid-row-gap: 0px;
+//   > .bp3-card {
+//     padding: 0px;
+//     max-width: 50px;
+//     max-height: 50px;
+//   }
+//   > div {
+//     background-color: var(--white) !important;
+//   }
+// }
 .providersViewGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
-  grid-column-gap: var(--spacing-large);
+  grid-column-gap: var(--spacing-xlarge);
   grid-row-gap: 0px;
-  > .bp3-card {
-    padding: 0px;
-    max-width: 50px;
-    max-height: 50px;
-  }
+
   > div {
     background-color: var(--white) !important;
   }
@@ -27,4 +38,12 @@
   padding: 0px;
   max-width: 50px;
   max-height: 50px;
+}
+.instanceTypeNameGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: var(--spacing-xxxlarge);
+  grid-row-gap: 0px;
+  margin-left: var(--spacing-medium) !important;
 }
