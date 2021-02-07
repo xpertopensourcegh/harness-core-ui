@@ -34,6 +34,7 @@ export interface InstanceDetails {
   tags?: string
   launchTime?: string
   status: string
+  metadata?: { [key: string]: any }
 }
 export interface GatewayDetails {
   name: string

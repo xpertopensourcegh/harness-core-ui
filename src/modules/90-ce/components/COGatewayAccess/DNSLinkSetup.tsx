@@ -51,7 +51,13 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       role: '',
       security_groups: [] // eslint-disable-line
     },
-    type: 'aws'
+    type: 'aws',
+    region: props.gatewayDetails.selectedInstances.length ? props.gatewayDetails.selectedInstances[0].region : '',
+    vpc: props.gatewayDetails.selectedInstances.length
+      ? props.gatewayDetails.selectedInstances[0].metadata
+        ? props.gatewayDetails.selectedInstances[0].metadata['VpcID']
+        : ''
+      : ''
   }
 
   const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
