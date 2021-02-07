@@ -14,5 +14,6 @@ declare const styles: {
   readonly fieldCount: string
   readonly summaryPopover: string
   readonly loading: string
+  readonly expandSearch: string
 }
 export default styles

@@ -2,17 +2,15 @@ import React, { useState, useEffect, useCallback } from 'react'
 import {
   Layout,
   Button,
-  TextInput,
   useModalHook,
-  Select,
   SelectOption,
   FormInput,
   MultiSelectOption,
-  OverlaySpinner
+  OverlaySpinner,
+  ExpandingSearchInput
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { omit, debounce, truncate } from 'lodash-es'
-import { Popover, PopoverInteractionKind, Position, MenuItem } from '@blueprintjs/core'
+import { debounce, pick } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import {
   useGetConnectorListV2,
@@ -45,18 +43,18 @@ import {
 import routes from '@common/RouteDefinitions'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import { Filter } from '@common/components/Filter/Filter'
+import { Filter, FilterRef } from '@common/components/Filter/Filter'
 import {
-  getFilterSummary,
   removeNullAndEmpty,
   isObjectEmpty,
   UNSAVED_FILTER,
-  MAX_FILTER_NAME_LENGTH
+  flattenObject
 } from '@common/components/Filter/utils/FilterUtils'
 import { useStrings } from 'framework/exports'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import ConnectorsListView from './views/ConnectorsListView'
 import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
@@ -90,12 +88,13 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const [page, setPage] = useState(0)
   const [filters, setFilters] = useState<FilterDTO[]>()
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
-  const { showSuccess, showError } = useToaster()
+  const { showError } = useToaster()
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = useState<PageConnectorResponse | undefined>()
   const [isFetchingConnectors, setIsFetchingConnectors] = useState<boolean>(false)
   const [errorWhileFetchingConnectors, setErrorWhileFetchingConnectors] = useState<Error>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const [isFetchingStats, setIsFetchingStats] = useState<boolean>(false)
+  const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
   const defaultQueryParams = {
     pageIndex: page,
     pageSize: 10,
@@ -148,7 +147,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           setFetchedConnectorResponse(data)
         }
       } /* istanbul ignore next */ catch (e) {
-        showError(e.data?.message || e.message)
+        if (e.data?.message) {
+          showError(e.data?.message)
+        } else if (e.data) {
+          showError(e.data)
+        }
         setErrorWhileFetchingConnectors(e)
       }
       setIsFetchingConnectors(false)
@@ -171,10 +174,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   const handler = useCallback(debounce(handleConnectorSearch, 300), [])
 
-  const onSearch = (event: React.FormEvent<HTMLElement>) => {
-    event.preventDefault()
-    event.stopPropagation()
-    const query = (event.target as HTMLInputElement).value
+  const onSearch = (query: string) => {
     handler(encodeURIComponent(query))
     setSearchTerm(query)
   }
@@ -316,12 +316,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     )
   }
 
-  const {
-    loading: isFetchingFilters,
-    data: fetchedFilterResponse,
-    error: errorFetchingFilterList,
-    refetch: refetchFilterList
-  } = useGetFilterList({
+  const { loading: isFetchingFilters, data: fetchedFilterResponse, refetch: refetchFilterList } = useGetFilterList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -335,10 +330,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     setFilters(fetchedFilterResponse?.data?.content || [])
     setIsRefreshingFilters(isFetchingFilters)
   }, [fetchedFilterResponse])
-
-  /* istanbul ignore next */ if (errorFetchingFilterList) {
-    showError(errorFetchingFilterList?.message)
-  }
 
   const { mutate: createFilter } = usePostFilter({
     queryParams: {
@@ -378,43 +369,25 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   ): Promise<void> => {
     setIsRefreshingFilters(true)
     const requestBodyPayload = createRequestBodyPayload({ isUpdate, data, projectIdentifier, orgIdentifier })
-    try {
-      const { status, data: updatedFilter } = isUpdate
-        ? await updateFilter(requestBodyPayload)
-        : await createFilter(requestBodyPayload)
-      if (status === 'SUCCESS') {
-        showSuccess(`${requestBodyPayload?.name} ${isUpdate ? 'updated' : 'saved'}.`)
-        await refetchFilterList()
-        if (isUpdate) {
-          setAppliedFilter(updatedFilter)
-          refetchConnectorList(defaultQueryParams, updatedFilter?.filterProperties)
-        }
-      }
-    } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
+    const saveOrUpdateHandler = filterRef.current?.saveOrUpdateFilterHandler
+    if (saveOrUpdateHandler && typeof saveOrUpdateHandler === 'function') {
+      const updatedFilter = await saveOrUpdateHandler(isUpdate, requestBodyPayload)
+      setAppliedFilter(updatedFilter)
     }
+    await refetchFilterList()
     setIsRefreshingFilters(false)
   }
 
   const handleDelete = async (identifier: string): Promise<void> => {
     setIsRefreshingFilters(true)
-    const matchingFilter = getFilterByIdentifier(identifier)
-    if (!matchingFilter?.identifier) {
-      showError(getString('somethingWentWrong'))
-      return
+    const deleteHandler = filterRef.current?.deleteFilterHandler
+    if (deleteHandler && typeof deleteFilter === 'function') {
+      await deleteHandler(identifier)
     }
-    try {
-      const { status } = await deleteFilter(matchingFilter?.identifier || '')
-      if (status === 'SUCCESS') {
-        showSuccess(`${matchingFilter?.name} ${getString('filters.filterDeleted')}`)
-        await refetchFilterList()
-        if (matchingFilter?.identifier === appliedFilter?.identifier) {
-          reset()
-        }
-      }
-    } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
+    if (identifier === appliedFilter?.identifier) {
+      reset()
     }
+    await refetchFilterList()
     setIsRefreshingFilters(false)
   }
 
@@ -455,7 +428,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     return isFetchingStats ? (
       <PageSpinner />
     ) : (
-      <Filter<ConnectorFormType, FilterInterface>
+      <Filter<ConnectorFormType, FilterDTO>
         onApply={onFilterApply}
         onClose={() => {
           hideFilterDrawer()
@@ -474,7 +447,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           metadata: {
             name,
             filterVisibility: filterVisibility,
-            identifier: appliedFilter?.identifier || ''
+            identifier: appliedFilter?.identifier || '',
+            filterProperties: {}
           }
         }}
         onSaveOrUpdate={handleSaveOrUpdate}
@@ -499,8 +473,15 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           }
           return errors
         }}
-        dataSvcConfig={new Map<CrudOperation, Function>([['ADD', createFilter]])}
+        dataSvcConfig={
+          new Map<CrudOperation, Function>([
+            ['ADD', createFilter],
+            ['UPDATE', updateFilter],
+            ['DELETE', deleteFilter]
+          ])
+        }
         onSuccessfulCrudOperation={refetchFilterList}
+        ref={filterRef}
       />
     )
   }, [isRefreshingFilters, filters, appliedFilter, isFetchingStats, searchTerm])
@@ -523,20 +504,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     }
   }
 
-  const filterWithValidFields = removeNullAndEmpty(omit(appliedFilter?.filterProperties, 'filterType') || {})
-  const fieldCountInAppliedFilter = Object.keys(filterWithValidFields || {}).length
-
-  const renderFilterBtn = (): JSX.Element => (
-    <Button
-      id="ngfilterbtn"
-      icon="ng-filter"
-      onClick={openFilterDrawer}
-      className={css.ngFilter}
-      width="32px"
-      height="32px"
-    />
-  )
-
   const fieldToLabelMapping = new Map<string, string>()
   fieldToLabelMapping.set('connectorNames', getString('connectors.name'))
   fieldToLabelMapping.set('connectorIdentifiers', getString('identifier'))
@@ -555,58 +522,34 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   return (
     <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
-      <Layout.Horizontal className={css.header}>
-        <Layout.Horizontal inline width="50%">
-          <Button
-            intent="primary"
-            text={getString('newConnector')}
-            icon="plus"
-            onClick={openDrawer}
-            id="newConnectorBtn"
+      <Layout.Horizontal flex className={css.header}>
+        <Button
+          intent="primary"
+          text={getString('newConnector')}
+          icon="plus"
+          onClick={openDrawer}
+          id="newConnectorBtn"
+        />
+        <Layout.Horizontal margin={{ left: 'small' }}>
+          <div className={css.expandSearch}>
+            <ExpandingSearchInput
+              placeholder={getString('search')}
+              throttle={200}
+              onChange={(text: string) => {
+                onSearch(text)
+              }}
+            />
+          </div>
+          <FilterSelector<FilterDTO>
+            appliedFilter={appliedFilter}
+            filters={filters}
+            onFilterBtnClick={openFilterDrawer}
+            onFilterSelect={handleFilterSelection}
+            fieldToLabelMapping={fieldToLabelMapping}
+            filterWithValidFields={removeNullAndEmpty(
+              pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+            )}
           />
-        </Layout.Horizontal>
-        <Layout.Horizontal spacing="small" width="30%" className={css.view}>
-          <TextInput
-            leftIcon="search"
-            placeholder={getString('search')}
-            value={searchTerm}
-            onChange={onSearch}
-            id="filterConnectorByName"
-          />
-        </Layout.Horizontal>
-        <Layout.Horizontal spacing="small" width="20%" className={css.view}>
-          <Select
-            items={
-              filters?.map((item: FilterDTO) => {
-                return {
-                  label: truncate(item?.name, { length: MAX_FILTER_NAME_LENGTH }),
-                  value: item?.identifier
-                } as SelectOption
-              }) || []
-            }
-            onChange={handleFilterSelection}
-            addClearBtn={true}
-            value={{ label: appliedFilter?.name || '', value: appliedFilter?.identifier || '' }}
-            inputProps={{
-              placeholder: getString('filters.selectFilter')
-            }}
-            noResults={<MenuItem disabled={true} text="No filter found." />}
-          />
-          {fieldCountInAppliedFilter ? (
-            <Popover
-              interactionKind={PopoverInteractionKind.HOVER}
-              position={Position.BOTTOM}
-              content={getFilterSummary(fieldToLabelMapping, filterWithValidFields)}
-              popoverClassName={css.summaryPopover}
-            >
-              {renderFilterBtn()}
-            </Popover>
-          ) : (
-            renderFilterBtn()
-          )}
-        </Layout.Horizontal>
-        <Layout.Horizontal className={css.view}>
-          {fieldCountInAppliedFilter > 0 ? <span className={css.fieldCount}>{fieldCountInAppliedFilter}</span> : null}
         </Layout.Horizontal>
       </Layout.Horizontal>
       <Page.Body className={css.listBody}>

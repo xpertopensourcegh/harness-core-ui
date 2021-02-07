@@ -6,7 +6,7 @@
   padding: 18px 30px !important;
 }
 .header {
-  padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
+  padding: var(--spacing-large) var(--spacing-xlarge) !important;
   border-bottom: 1px solid var(--grey-300);
   height: 72px;
 }
@@ -93,4 +93,19 @@
 .loading {
   margin: auto;
   height: 100vh;
+}
+
+.expandSearch {
+  width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  :global {
+    input[type='search'] {
+      border: 0;
+    }
+    input[type='search']:focus {
+      border: 1px solid var(--grey-400);
+      border-radius: 5px !important;
+    }
+  }
 }
