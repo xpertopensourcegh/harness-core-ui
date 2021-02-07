@@ -19,6 +19,7 @@ const commonLinkProps: Partial<NavLinkProps> = {
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const CUSTOM_DASHBOARD = localStorage.getItem('CUSTOM_DASHBOARD')
 
   return (
     <nav className={css.main}>
@@ -96,11 +97,13 @@ export default function L1Nav(): React.ReactElement {
       </ul>
 
       <ul className={css.navList}>
-        <li className={css.navItem}>
-          <Link className={css.navLink} activeClassName={css.active} to={paths.toCustomDasboard(params)}>
-            <Icon name="dashboard" size={30} />
-          </Link>
-        </li>
+        {CUSTOM_DASHBOARD === 'true' && (
+          <li className={css.navItem}>
+            <Link className={css.navLink} activeClassName={css.active} to={paths.toCustomDasboard(params)}>
+              <Icon name="dashboard" size={30} />
+            </Link>
+          </li>
+        )}
         <li className={css.navItem}>
           <Link className={css.navLink} activeClassName={css.active} to={paths.toAdmin(params)}>
             <Icon name="nav-settings" size={30} />

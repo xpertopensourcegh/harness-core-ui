@@ -344,31 +344,6 @@ exports[`RouteWithLayout basic 1`] = `
         >
           <a
             class="navLink"
-            href="/account/dummy/dashboards"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="dashboard"
-            >
-              <svg
-                height="30"
-                viewBox="0 0 16 16"
-                width="30"
-              >
-                <path
-                  d="M8.656 2H14v4H8.656zm0 12V7.344H14V14zM2 14v-4h5.344v4zm0-5.344V2h5.344v6.656z"
-                  fill="#fff"
-                  opacity="0.691"
-                />
-              </svg>
-            </span>
-          </a>
-        </li>
-        <li
-          class="navItem"
-        >
-          <a
-            class="navLink"
             href="/account/dummy/admin"
           >
             <span
@@ -789,31 +764,6 @@ exports[`RouteWithLayout minimal 1`] = `
       <ul
         class="navList"
       >
-        <li
-          class="navItem"
-        >
-          <a
-            class="navLink"
-            href="/account/dummy/dashboards"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="dashboard"
-            >
-              <svg
-                height="30"
-                viewBox="0 0 16 16"
-                width="30"
-              >
-                <path
-                  d="M8.656 2H14v4H8.656zm0 12V7.344H14V14zM2 14v-4h5.344v4zm0-5.344V2h5.344v6.656z"
-                  fill="#fff"
-                  opacity="0.691"
-                />
-              </svg>
-            </span>
-          </a>
-        </li>
         <li
           class="navItem"
         >
