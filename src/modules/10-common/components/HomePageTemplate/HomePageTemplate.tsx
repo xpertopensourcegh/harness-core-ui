@@ -12,6 +12,7 @@ interface HomePageTemplate {
   bgImageUrl: string
   documentText: string
   documentURL?: string
+  pointerStyle?: React.CSSProperties
 }
 
 export const HomePageTemplate: React.FC<HomePageTemplate> = ({
@@ -19,7 +20,8 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   bgImageUrl,
   subTitle,
   documentText,
-  documentURL = 'https://docs.harness.io/'
+  documentURL = 'https://docs.harness.io/',
+  pointerStyle
 }) => {
   const { accountId } = useParams<{
     accountId: string
@@ -90,7 +92,8 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
           fontSize: '13px',
           lineHeight: '20px',
           fontWeight: 600,
-          color: 'rgba(255, 255, 255, 0.8)'
+          color: 'rgba(255, 255, 255, 0.8)',
+          ...pointerStyle
         }}
       >
         {getString('pickProject')}

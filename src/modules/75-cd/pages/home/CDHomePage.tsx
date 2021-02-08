@@ -1,34 +1,21 @@
 import React from 'react'
-import { Color, Layout, Text } from '@wings-software/uicore'
-import { Link, useParams } from 'react-router-dom'
-import { Page } from '@common/exports'
+import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/exports'
-import routes from '@common/RouteDefinitions'
-import homeIllustration from './images/homeIllustration.svg'
+import bgImageURL from './images/homeIllustration.svg'
 
-const CDHomePage: React.FC = () => {
-  const { accountId } = useParams<{
-    accountId: string
-  }>()
+export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()
 
   return (
-    <Page.Body>
-      <Layout.Vertical padding="large" spacing="medium">
-        <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }}>
-          {getString('cd.continuousIntegration')}
-        </Text>
-        <Text width={340}>{getString('cd.dashboard.subHeading')}</Text>
-        <a style={{ alignSelf: 'flex-start' }} href="https://docs.harness.io/" target="_blank" rel="noreferrer">
-          {getString('cd.dashboard.learnMore')}
-        </a>
-        <Layout.Horizontal spacing="xxlarge">
-          <Link to={routes.toProjects({ accountId })}>{getString('cd.dashboard.createProject')}</Link>
-          <Text> {getString('cd.dashboard.orSelectExisting')}</Text>
-        </Layout.Horizontal>
-        <img src={homeIllustration} alt="" aria-hidden />
-      </Layout.Vertical>
-    </Page.Body>
+    <HomePageTemplate
+      title={getString('cd.continuousIntegration')}
+      bgImageUrl={bgImageURL}
+      subTitle={getString('cd.dashboard.subHeading')}
+      documentText={getString('cd.dashboard.learnMore')}
+      pointerStyle={{
+        top: 10
+      }}
+    />
   )
 }
 
