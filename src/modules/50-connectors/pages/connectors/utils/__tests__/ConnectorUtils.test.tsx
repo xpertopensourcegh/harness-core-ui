@@ -70,7 +70,6 @@ describe('Connector Utils', () => {
           identifier: 'dummy_name',
           tags: {},
           connectionType: 'Ssh',
-          branchName: 'branchName',
           url: 'url',
           urlType: 'Repo',
           connectType: 'Ssh',
@@ -87,7 +86,6 @@ describe('Connector Utils', () => {
           tags: {},
           spec: {
             connectionType: 'Repo',
-            branchName: 'branchName',
             url: 'url',
             type: 'Ssh',
             spec: {

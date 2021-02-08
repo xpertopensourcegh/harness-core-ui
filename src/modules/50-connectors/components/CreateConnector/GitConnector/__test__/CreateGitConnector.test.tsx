@@ -118,7 +118,6 @@ describe('Create Git connector Wizard', () => {
         type: 'Git',
         spec: {
           url: 'dumyGitUrl',
-          branchName: 'master',
           type: 'Http',
           connectionType: 'Account',
           spec: { username: 'dev', passwordRef: 'account.connectorPass' }

@@ -39,7 +39,6 @@ export const connectorsData = {
           type: 'Git',
           spec: {
             url: 'https://github.com/vardanbansal-harness/vscode-yaml.git',
-            branchName: '',
             type: 'Http',
             connectionType: 'Repo',
             spec: { username: 'admin', passwordRef: 'account.sec1' },
@@ -62,7 +61,6 @@ export const connectorsData = {
           type: 'Git',
           spec: {
             url: 'https://github.com/vardanbansal-harness/vscode-yaml.git',
-            branchName: '',
             type: 'Http',
             connectionType: 'Repo',
             spec: { username: 'admin', passwordRef: 'account.sec1' },
@@ -306,7 +304,6 @@ export const GitHttp = {
           type: 'Git',
           tags: { tag1: '' },
           spec: {
-            branchName: 'branch',
             connectionType: 'REPO',
             type: 'Http',
             url: 'url',

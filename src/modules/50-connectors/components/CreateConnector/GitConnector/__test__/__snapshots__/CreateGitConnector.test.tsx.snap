@@ -361,10 +361,9 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio bp3-inline Radio--radio"
                         >
                           <input
-                            disabled=""
                             name="connectionType"
                             type="radio"
                             value="Ssh"
@@ -410,36 +409,6 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                         class="bp3-form-helper-text"
                       >
                         URL is required
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="branchName-4"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="branchName"
-                    >
-                      Branch name
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="branchName"
-                          type="text"
-                          value=""
-                        />
                       </div>
                     </div>
                   </div>
@@ -847,10 +816,9 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio bp3-inline Radio--radio"
                         >
                           <input
-                            disabled=""
                             name="connectionType"
                             type="radio"
                             value="Ssh"
@@ -890,36 +858,6 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           placeholder="https://www.github.com/account/"
                           type="text"
                           value="githubTestUrl"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="branchName-4"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="branchName"
-                    >
-                      Branch name
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="branchName"
-                          type="text"
-                          value=""
                         />
                       </div>
                     </div>
@@ -1627,10 +1565,9 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio bp3-inline Radio--radio"
                         >
                           <input
-                            disabled=""
                             name="connectionType"
                             type="radio"
                             value="Ssh"
@@ -1670,36 +1607,6 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                           placeholder="https://www.github.com/account/"
                           type="text"
                           value="dumyGitUrl"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="branchName-4"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="branchName"
-                    >
-                      Branch name
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="branchName"
-                          type="text"
-                          value="master"
                         />
                       </div>
                     </div>

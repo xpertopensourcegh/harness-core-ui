@@ -158,7 +158,7 @@ describe('Create Gitlab connector Wizard', () => {
           url: 'https://gitlab.com/dev',
           authentication: {
             type: 'Ssh',
-            spec: { spec: { sshKeyRef: 'account.gitlabPassword' } }
+            spec: { sshKeyRef: 'account.gitlabPassword' }
           },
           apiAccess: {
             type: 'Token',

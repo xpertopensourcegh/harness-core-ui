@@ -184,7 +184,7 @@ export const buildGithubPayload = (formData: FormData) => {
         type: formData.connectionType,
         spec:
           formData.connectionType === GitConnectionType.SSH
-            ? { spec: { sshKeyRef: formData.sshKey.referenceString } }
+            ? { sshKeyRef: formData.sshKey.referenceString }
             : {
                 type: formData.authType,
                 spec: getGitAuthSpec(formData)
@@ -227,7 +227,7 @@ export const buildGitlabPayload = (formData: FormData) => {
         type: formData.connectionType,
         spec:
           formData.connectionType === GitConnectionType.SSH
-            ? { spec: { sshKeyRef: formData.sshKey?.referenceString } }
+            ? { sshKeyRef: formData.sshKey?.referenceString }
             : {
                 type: formData.authType,
                 spec: getGitAuthSpec(formData)
@@ -270,7 +270,7 @@ export const buildBitbucketPayload = (formData: FormData) => {
         type: formData.connectionType,
         spec:
           formData.connectionType === GitConnectionType.SSH
-            ? { spec: { sshKeyRef: formData.sshKey.referenceString } }
+            ? { sshKeyRef: formData.sshKey.referenceString }
             : {
                 type: formData.authType,
                 spec: getGitAuthSpec(formData)
@@ -356,7 +356,7 @@ export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accou
 
   const authData = connectorInfo?.spec?.authentication
   const formData = {
-    sshKey: await setSecretField(authData?.spec?.spec?.sshKeyRef, scopeQueryParams),
+    sshKey: await setSecretField(authData?.spec?.sshKeyRef, scopeQueryParams),
     authType: authData?.spec?.type,
     username:
       authData?.spec?.spec?.username || authData?.spec?.spec?.usernameRef
@@ -392,7 +392,7 @@ export const setupBitbucketFormData = async (connectorInfo: ConnectorInfoDTO, ac
 
   const authData = connectorInfo?.spec?.authentication
   const formData = {
-    sshKey: await setSecretField(authData?.spec?.spec?.sshKeyRef, scopeQueryParams),
+    sshKey: await setSecretField(authData?.spec?.sshKeyRef, scopeQueryParams),
     authType: authData?.spec?.type,
     username:
       authData?.spec?.spec?.username || authData?.spec?.spec?.usernameRef
@@ -703,7 +703,6 @@ export const buildGitPayload = (formData: FormData) => {
     type: Connectors.GIT,
     spec: {
       connectionType: formData.urlType,
-      branchName: formData.branchName,
       url: formData.url,
       type: formData.connectionType,
       spec:

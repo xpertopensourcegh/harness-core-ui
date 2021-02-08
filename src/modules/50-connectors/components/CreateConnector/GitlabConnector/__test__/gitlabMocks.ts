@@ -32,7 +32,7 @@ export const sshAuthWithAPIAccessToken = {
   type: 'Gitlab',
   spec: {
     url: 'https://gitlab.com/dev',
-    authentication: { type: 'Ssh', spec: { spec: { sshKeyRef: 'account.gitlabPassword' } } },
+    authentication: { type: 'Ssh', spec: { sshKeyRef: 'account.gitlabPassword' } },
     apiAccess: { type: 'Token', spec: { tokenRef: 'account.gitlabPassword' } },
     type: 'Account'
   }

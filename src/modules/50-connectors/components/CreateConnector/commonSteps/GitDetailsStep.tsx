@@ -50,7 +50,6 @@ interface DetailsStepInterface {
   urlType: string
   connectionType: string
   url: string
-  branchName?: string
 }
 
 const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
@@ -80,8 +79,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
     },
     {
       label: getString('SSH'),
-      value: GitConnectionType.SSH,
-      disabled: Connectors.GIT === props.type // Enable after support is added in BE
+      value: GitConnectionType.SSH
     }
   ]
 
@@ -175,8 +173,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
         connectionType:
           props.type === Connectors.GIT
             ? props.connectorInfo?.spec?.type
-            : props.connectorInfo?.spec?.authentication?.type,
-        branchName: props.connectorInfo?.spec?.branchName
+            : props.connectorInfo?.spec?.authentication?.type
       }
     } else {
       return {
@@ -186,8 +183,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
         tags: {},
         urlType: GitUrlType.ACCOUNT,
         connectionType: GitConnectionType.HTTP,
-        url: '',
-        branchName: ''
+        url: ''
       }
     }
   }
@@ -249,13 +245,6 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                     label={getUrlLabel(props.type, formikProps.values.urlType)}
                     placeholder={getUrlLabelPlaceholder(props.type, formikProps.values.connectionType)}
                   />
-                  {props.type === Connectors.GIT ? (
-                    <FormInput.Text
-                      className={css.formElm}
-                      name="branchName"
-                      label={getString('connectors.git.branchName')}
-                    />
-                  ) : null}
                 </Container>
                 <Layout.Horizontal>
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>

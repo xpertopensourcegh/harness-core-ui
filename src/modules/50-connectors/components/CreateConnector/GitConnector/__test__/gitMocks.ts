@@ -10,7 +10,6 @@ export const usernamePassword = {
   type: 'Git',
   spec: {
     url: 'dumyGitUrl',
-    branchName: 'master',
     type: 'Http',
     connectionType: 'Account',
     spec: { username: 'dev', passwordRef: 'account.connectorPass' },

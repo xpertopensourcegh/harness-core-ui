@@ -1899,10 +1899,9 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                             HTTP
                           </label>
                           <label
-                            class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+                            class="bp3-control bp3-radio bp3-inline Radio--radio"
                           >
                             <input
-                              disabled=""
                               name="connectionType"
                               type="radio"
                               value="Ssh"
@@ -1940,36 +1939,6 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                             class="bp3-input"
                             name="url"
                             placeholder="https://www.github.com/account/"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="bp3-form-group formElm"
-                      data-id="branchName-4"
-                    >
-                      <label
-                        class="bp3-label"
-                        for="branchName"
-                      >
-                        Branch name
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
-                      <div
-                        class="bp3-form-content"
-                      >
-                        <div
-                          class="bp3-input-group"
-                        >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="branchName"
                             type="text"
                             value=""
                           />

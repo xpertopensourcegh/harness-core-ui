@@ -209,7 +209,7 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     },
     {
       label: i18n.Github.sshKey,
-      value: connector?.spec?.authentication?.spec?.spec?.sshKeyRef
+      value: connector?.spec?.authentication?.spec?.sshKeyRef
     },
 
     {
