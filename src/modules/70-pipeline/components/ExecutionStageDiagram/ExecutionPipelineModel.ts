@@ -54,6 +54,8 @@ export interface ExecutionPipelineGroupInfo<T> {
   cssProps?: React.CSSProperties
   icon: IconName
   skipCondition?: string
+  containerCss?: React.CSSProperties
+  textCss?: React.CSSProperties
   verticalStepGroup?: boolean
   showInLabel?: boolean // Default = true
   status: ExecutionPipelineItemStatus

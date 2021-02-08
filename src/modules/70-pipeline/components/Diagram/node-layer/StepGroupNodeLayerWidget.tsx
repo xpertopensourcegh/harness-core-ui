@@ -135,7 +135,8 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           ref={layerRef}
           style={{
             width,
-            height
+            height,
+            ...options.containerCss
           }}
         ></div>
         {options.showRollback && (
@@ -190,6 +191,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         <Text
           icon={options.inComplete ? 'warning-sign' : undefined}
           iconProps={{ color: Color.ORANGE_500 }}
+          style={{ ...options.textCss }}
           lineClamp={1}
           onClick={e => {
             e.stopPropagation()

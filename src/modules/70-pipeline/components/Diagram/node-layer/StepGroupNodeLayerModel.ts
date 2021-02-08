@@ -10,6 +10,8 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   identifier?: string
   showRollback?: boolean
   inComplete?: boolean
+  containerCss?: React.CSSProperties
+  textCss?: React.CSSProperties
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
 }
 
@@ -31,6 +33,8 @@ export class StepGroupNodeLayerModel<
       isSvg: false,
       allowAdd: false,
       depth: 1,
+      containerCss: {},
+      textCss: {},
       inComplete: false,
       transformed: true,
       showRollback: true,

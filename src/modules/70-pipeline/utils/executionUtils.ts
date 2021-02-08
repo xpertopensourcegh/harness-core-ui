@@ -15,6 +15,11 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 
 export const LITE_ENGINE_TASK = 'liteEngineTask'
 export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
+export const RollbackIdentifierArray = ['Rollback', 'Step_Group(Rollback)']
+
+export const RollbackContainerCss: React.CSSProperties = {
+  borderColor: 'var(--red-450)'
+}
 
 export const NonSelectableNodes: string[] = ['NG_SECTION', 'NG_FORK', 'DEPLOYMENT_STAGE_STEP']
 
@@ -362,13 +367,16 @@ const processNodeData = (
           rootNodes
         )
       })
-    } else if (nodeData?.stepType === StepTypes.STEP_GROUP) {
+    } else if (nodeData?.stepType === StepTypes.STEP_GROUP || nodeData?.stepType === StepTypes.NG_SECTION) {
       const icon = factory.getStepIcon(nodeData?.stepType)
       items.push({
         group: {
           name: nodeData.name || /* istanbul ignore next */ '',
           identifier: item,
           data: nodeData,
+          containerCss: {
+            ...(RollbackIdentifierArray.indexOf(nodeData.identifier || '') > -1 ? RollbackContainerCss : {})
+          },
           showInLabel: false,
           status: nodeData.status as ExecutionPipelineItemStatus,
           isOpen: true,
@@ -485,6 +493,9 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 name: nodeData.name || /* istanbul ignore next */ '',
                 identifier: nodeId,
                 data: nodeData,
+                containerCss: {
+                  ...(RollbackIdentifierArray.indexOf(nodeData.identifier || '') > -1 ? RollbackContainerCss : {})
+                },
                 status: nodeData.status as ExecutionPipelineItemStatus,
                 isOpen: true,
                 icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',

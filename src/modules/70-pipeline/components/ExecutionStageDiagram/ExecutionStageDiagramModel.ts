@@ -243,6 +243,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             id: node.group.identifier,
             depth: calculateDepthCount(node.group.items),
             label: node.group.name,
+            containerCss: node.group.containerCss,
+            textCss: node.group.textCss,
             showRollback: false
           })
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
