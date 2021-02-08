@@ -9,7 +9,10 @@ exports[`Create K8s Delegate render data 1`] = `
       class="StyledProps--font StyledProps--main headerContainer"
     >
       <div
-        class="StyledProps--font StyledProps--main headerContent"
+        style="flex-grow: 2;"
+      />
+      <div
+        class="StyledProps--font StyledProps--main headerContent "
       >
         <div
           class="headerSeparator "
@@ -31,7 +34,7 @@ exports[`Create K8s Delegate render data 1`] = `
         </p>
       </div>
       <div
-        class="StyledProps--font StyledProps--main headerContent"
+        class="StyledProps--font StyledProps--main headerContent "
       >
         <div
           class="headerSeparator "
@@ -53,7 +56,7 @@ exports[`Create K8s Delegate render data 1`] = `
         </p>
       </div>
       <div
-        class="StyledProps--font StyledProps--main headerContent"
+        class="StyledProps--font StyledProps--main headerContent lastHeader"
       >
         <div
           class="headerSeparator lastElement"
@@ -71,6 +74,9 @@ exports[`Create K8s Delegate render data 1`] = `
           Verification 
         </p>
       </div>
+      <div
+        style="flex-grow: 2;"
+      />
     </div>
     <div
       class="stepDetails"
@@ -90,8 +96,7 @@ exports[`Create K8s Delegate render data 1`] = `
             >
               <div>
                 <div
-                  class="StyledProps--font StyledProps--main container"
-                  style="min-height: 460px;"
+                  class="StyledProps--font StyledProps--main delegateForm"
                 >
                   <div
                     class="formGroup"
@@ -252,20 +257,21 @@ exports[`Create K8s Delegate render data 1`] = `
                             class="StyledProps--font StyledProps--main cardWrapper"
                           >
                             <div
-                              class="large sizeTag"
+                              class="extraSmall sizeTag"
                             >
                               Extra Small
                             </div>
                             <div
-                              class="StyledProps--font StyledProps--main"
+                              class="Layout--vertical StyledProps--main"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main"
+                                class="StyledProps--font StyledProps--main StyledProps--color"
+                                style="font-size: 16px; text-align: center;"
                               >
                                 500
                               </p>
                               <p
-                                class="StyledProps--font StyledProps--main"
+                                class="StyledProps--font StyledProps--main replicaText"
                               >
                                 Runs upto concurrent tasks Replicas=
                                 1
@@ -275,28 +281,32 @@ exports[`Create K8s Delegate render data 1`] = `
                             <div
                               class="StyledProps--font StyledProps--main footer"
                             >
-                              <div>
+                              <div
+                                class="Layout--vertical StyledProps--main"
+                              >
                                 <p
-                                  class="StyledProps--font StyledProps--main"
+                                  class="StyledProps--font StyledProps--main footerHeader"
                                 >
                                    
                                   Total Mem
                                 </p>
                                 <p
-                                  class="StyledProps--font StyledProps--main"
+                                  class="StyledProps--font StyledProps--main footerContent"
                                 >
                                   50
                                    
                                 </p>
                               </div>
-                              <div>
+                              <div
+                                class="Layout--vertical StyledProps--main"
+                              >
                                 <p
-                                  class="StyledProps--font StyledProps--main"
+                                  class="StyledProps--font StyledProps--main footerHeader"
                                 >
                                   Total CPU
                                 </p>
                                 <p
-                                  class="StyledProps--font StyledProps--main"
+                                  class="StyledProps--font StyledProps--main footerContent"
                                 >
                                   0.5
                                 </p>
@@ -384,69 +394,69 @@ exports[`Create K8s Delegate render data 1`] = `
                     </div>
                   </div>
                   
-                  <div
-                    class="Layout--horizontal StyledProps--main footer"
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main formFooter"
+                >
+                  <button
+                    class="bp3-button StyledProps--font Button--button StyledProps--main backBtn footerBtn StyledProps--margin-right-small"
+                    id="delegateSetupBackBtn"
+                    type="button"
                   >
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
-                      id="stepReviewScriptBackButton"
-                      type="button"
+                    <span
+                      class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                      icon="chevron-left"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-                        icon="chevron-left"
+                      <svg
+                        data-icon="chevron-left"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
                       >
-                        <svg
-                          data-icon="chevron-left"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            chevron-left
-                          </desc>
-                          <path
-                            d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <span
-                        class="bp3-button-text"
-                      >
-                        Back
-                      </span>
-                    </button>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-                      type="submit"
+                        <desc>
+                          chevron-left
+                        </desc>
+                        <path
+                          d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
                     >
-                      <span
-                        class="bp3-button-text"
+                      Back
+                    </span>
+                  </button>
+                  <button
+                    class="bp3-button StyledProps--font Button--button StyledProps--main submitBtn footerBtn StyledProps--intent-primary"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      Continue
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
                       >
-                        Continue
-                      </span>
-                      <span
-                        class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                        icon="chevron-right"
-                      >
-                        <svg
-                          data-icon="chevron-right"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            chevron-right
-                          </desc>
-                          <path
-                            d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                 </div>
               </div>
             </form>

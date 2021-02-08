@@ -19,6 +19,7 @@ const useCreateDelegateModal = (): UseCreateDelegateModalReturn => {
     isOpen: true,
     style: {
       width: 1268,
+      height: 786,
       minHeight: 'auto',
       borderLeft: 0,
       paddingBottom: 0,

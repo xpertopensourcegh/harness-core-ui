@@ -60,11 +60,12 @@ const WizardHeader: React.FC<WizardHeaderInterface> = (props: WizardHeaderInterf
         const separatorClass = getSeparator(panel?.status)
         const icon = getIconClass(panel?.status)
         const lastElementCls = index === panelLength - 1 ? css.lastElement : ''
-
+        const wizardHeaderCls = index === panelLength - 1 ? css.lastHeader : ''
         return (
           <>
+            {index === 0 && <div style={{ flexGrow: 2 }}></div>}
             <Container
-              className={css.headerContent}
+              className={`${css.headerContent} ${wizardHeaderCls}`}
               onClick={() => {
                 props.onClick(panel.id, index)
               }}
@@ -82,6 +83,7 @@ const WizardHeader: React.FC<WizardHeaderInterface> = (props: WizardHeaderInterf
                 {panel.tabTitle}
               </Text>
             </Container>
+            {index === panelLength - 1 && <div style={{ flexGrow: 2 }}></div>}
           </>
         )
       })}

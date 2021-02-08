@@ -6,5 +6,6 @@ declare const styles: {
   readonly detailsSectionRow: string
   readonly prereq: string
   readonly preReqContent: string
+  readonly continueBtn: string
 }
 export default styles

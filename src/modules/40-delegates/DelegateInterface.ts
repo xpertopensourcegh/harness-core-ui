@@ -13,8 +13,8 @@ export interface DelegateInfoDTO {
 }
 
 export interface DelegateYaml {
-  name?: string
-  identifier?: string
+  name: string
+  identifier: string
   description?: string
   delegateConfigurationId?: string
   size?: string

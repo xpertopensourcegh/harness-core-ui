@@ -15,6 +15,7 @@ import {
   Color
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import {
   useGetDelegateProfilesV2,
   DelegateSizesResponse,
@@ -28,6 +29,7 @@ import type { DelegateProfile } from '@delegates/DelegateInterface'
 import { AddDescriptionWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { DelegateYaml, StepK8Data } from '@delegates/DelegateInterface'
 
+import { DelegateSize } from '@delegates/constants'
 import css from './DelegateSetupStep.module.scss'
 
 interface DelegateSetupStepProps {
@@ -134,6 +136,17 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
     }
   }, [defaultProfile, formData])
 
+  const getTagClsName = (size: string) => {
+    if (size === DelegateSize.SMALL) {
+      return css.small
+    } else if (size === DelegateSize.EXTRA_SMALL) {
+      return css.extraSmall
+    } else if (size === DelegateSize.MEDIUM) {
+      return css.medium
+    } else if (size === DelegateSize.LARGE) {
+      return css.large
+    }
+  }
   return (
     <Layout.Vertical padding="xxlarge">
       <Container padding="small">
@@ -149,14 +162,15 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
             delegateConfigurationId: Yup.string().trim().required(getString('delegate.delegateConfigRequired'))
           })}
         >
-          {formikProps => {
+          {(formikProps: FormikProps<DelegateYaml>) => {
             const selectedProfile: any = getProfile(data, formikProps.values.delegateConfigurationId)
             return (
               <FormikForm>
-                <Container style={{ minHeight: 460 }} className={css.container}>
+                <Container className={css.delegateForm}>
                   <div className={css.formGroup}>
                     <AddDescriptionWithIdentifier identifierProps={{ inputName: 'name' }} />
                   </div>
+
                   {delegateSizeMappings && (
                     <Layout.Vertical className={css.delegateSizeField}>
                       <label className={css.delegateSizeLabel}>{getString('delegate.delegateSize')}</label>
@@ -170,33 +184,31 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                           renderItem={item => {
                             const cardData = filterDelegatesize(delegateSizeMappings, item)
 
-                            const tagClsName =
-                              cardData.size === 'small'
-                                ? css.small
-                                : cardData.size === 'medium'
-                                ? css.medium
-                                : css.large
-
+                            const tagClsName = getTagClsName(cardData.size)
                             return (
                               <Container className={`${css.cardWrapper}`}>
                                 <div className={`${tagClsName} ${css.sizeTag}`}>{cardData.label}</div>
-                                <Container>
-                                  <Text>{cardData.ram}</Text>
-                                  <Text>
+                                <Layout.Vertical>
+                                  <Text color="#383946" style={{ fontSize: '16px', textAlign: 'center' }}>
+                                    {cardData.ram}
+                                  </Text>
+
+                                  <Text className={css.replicaText}>
                                     {getString('delegate.replicaText')}
                                     {cardData.replicas}{' '}
                                   </Text>
-                                </Container>
-                                <Container className={css.footer}>
-                                  <div>
-                                    <Text> {getString('delegate.totalMem')}</Text>
-                                    <Text>{cardData.taskLimit} </Text>
-                                  </div>
+                                </Layout.Vertical>
 
-                                  <div>
-                                    <Text>{getString('delegate.totalCpu')}</Text>
-                                    <Text>{cardData.cpu}</Text>
-                                  </div>
+                                <Container className={css.footer}>
+                                  <Layout.Vertical>
+                                    <Text className={css.footerHeader}> {getString('delegate.totalMem')}</Text>
+                                    <Text className={css.footerContent}>{cardData.taskLimit} </Text>
+                                  </Layout.Vertical>
+
+                                  <Layout.Vertical>
+                                    <Text className={css.footerHeader}>{getString('delegate.totalCpu')}</Text>
+                                    <Text className={css.footerContent}>{cardData.cpu}</Text>
+                                  </Layout.Vertical>
                                 </Container>
                               </Container>
                             )
@@ -234,31 +246,32 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                         })}
                     </Container>
                   )}
-
-                  <Layout.Horizontal className={css.footer}>
-                    <Button
-                      id="stepReviewScriptBackButton"
-                      text={getString('back')}
-                      onClick={props.onBack}
-                      icon="chevron-left"
-                      margin={{ right: 'small' }}
-                    />
-                    <Button
-                      type="submit"
-                      text={getString('continue')}
-                      intent="primary"
-                      rightIcon="chevron-right"
-                      // onClick={() => {
-                      //   if (props?.nextStep) {
-                      //     props?.nextStep?.()
-                      //   }
-                      //   // const selectedIdx = selectedTabIndex
-                      //   // setSelectedTabId(panels[selectedIdx + 1].id)
-                      //   // setSelectedTabIndex(selectedIdx + 1)
-                      // }}
-                    />
-                  </Layout.Horizontal>
                 </Container>
+                <Layout.Horizontal className={css.formFooter}>
+                  <Button
+                    id="delegateSetupBackBtn"
+                    className={`${css.backBtn} ${css.footerBtn}`}
+                    text={getString('back')}
+                    onClick={props.onBack}
+                    icon="chevron-left"
+                    margin={{ right: 'small' }}
+                  />
+                  <Button
+                    type="submit"
+                    className={`${css.submitBtn} ${css.footerBtn}`}
+                    text={getString('continue')}
+                    intent="primary"
+                    rightIcon="chevron-right"
+                    // onClick={() => {
+                    //   if (props?.nextStep) {
+                    //     props?.nextStep?.()
+                    //   }
+                    //   // const selectedIdx = selectedTabIndex
+                    //   // setSelectedTabId(panels[selectedIdx + 1].id)
+                    //   // setSelectedTabIndex(selectedIdx + 1)
+                    // }}
+                  />
+                </Layout.Horizontal>
               </FormikForm>
             )
           }}

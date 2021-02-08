@@ -112,6 +112,7 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
               intent="primary"
               text="Continue"
               style={{ fontSize: '14px' }}
+              className={css.continueBtn}
               rightIcon="chevron-right"
               onClick={() => {
                 /* istanbul ignore next */

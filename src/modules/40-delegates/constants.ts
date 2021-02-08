@@ -34,3 +34,10 @@ export enum TroubleShootingTypes {
   VERIFY_HARNESS_SASS = 'VERIFY_HARNESS_SASS',
   CONTACT_HARNESS_SUPPORT = 'CONTACT_HARNESS_SUPPORT'
 }
+
+export enum DelegateSize {
+  EXTRA_SMALL = 'EXTRA_SMALL',
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
+  LARGE = 'LARGE'
+}

@@ -16,6 +16,7 @@ declare const styles: {
   readonly headerSeparator: string
   readonly headerTitle: string
   readonly lastElement: string
+  readonly lastHeader: string
   readonly lastElementHeader: string
   readonly inprogress: string
   readonly progressSeparator: string
