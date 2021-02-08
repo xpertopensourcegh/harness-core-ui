@@ -1,17 +1,18 @@
 import React from 'react'
-import { Color, Layout, Text } from '@wings-software/uicore'
-import { Page } from '@common/exports'
-import i18n from './CFHomePage.i18n'
+import { useStrings } from 'framework/exports'
+import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
+import bgImageURL from './cf-homepage-bg.svg'
 
 const CFHomePage: React.FC = () => {
+  const { getString } = useStrings()
+
   return (
-    <Page.Body>
-      <Layout.Vertical padding="large">
-        <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }}>
-          {i18n.dashboard}
-        </Text>
-      </Layout.Vertical>
-    </Page.Body>
+    <HomePageTemplate
+      title={getString('featureFlagsText')}
+      bgImageUrl={bgImageURL}
+      subTitle={getString('cf.homepage.slogan')}
+      documentText={getString('cf.homepage.learnMore')}
+    />
   )
 }
 

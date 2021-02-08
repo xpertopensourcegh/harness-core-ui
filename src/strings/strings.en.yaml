@@ -269,13 +269,16 @@ mapApplications: 'Map Applications to Harness Services'
 pipelineActivityLabel: 'Executions in last 7 days'
 total: 'Total'
 credentials: Credentials
+createProject: '+ Create Project'
+pickProject: Pick a project and drill down to see your information.
+orSelectExisting: Or select an existing project
 cd:
   continuousIntegration: 'Continuous Delivery'
   dashboard:
     subHeading: Let Harness take your software release process to the next level with Continuous Delivery
     learnMore: Learn more about Continuous Delivery
     createProject: '{{$.ci.dashboard.createProject}}'
-    orSelectExisting: '{{$.ci.dashboard.orSelectExisting}}'
+    orSelectExisting: '{{$.orSelectExisting}}'
 createSecretYAML:
   create: Create
   newSecret: New Secret
@@ -1183,6 +1186,9 @@ connectors:
       crossAccountRoleArn: 'Role ARN is required'
 
 cf:
+  homepage:
+    slogan: 'Take your feature rollout processes to the next level  using our Harness Continuous Features.'
+    learnMore: Learn more about Feature Flags
   clause:
     operators:
       startsWith: 'starts with'
@@ -1545,7 +1551,6 @@ ci:
     subHeading: Take your software build processes to the next level using our Harness Continuous Integration
     learnMore: Learn more about Continuous Integration
     createProject: Create Project
-    orSelectExisting: Or select an existing project
   testsReports:
     totalExecutedTest: Total Executed Tests
     failedTests: Failed Tests
