@@ -70,7 +70,10 @@ const CanaryBlueGreenVerificationJob: React.FC<VerificationJobsDetailsProps> = p
                   </Container>
                 </Layout.Horizontal>
 
-                <SubmitAndPreviousButtons onPreviousClick={props.onPrevious} nextButtonProps={{ loading }} />
+                <SubmitAndPreviousButtons
+                  onPreviousClick={props.onPrevious}
+                  nextButtonProps={{ text: getString('submit'), loading }}
+                />
               </Layout.Vertical>
             </FormikForm>
           )

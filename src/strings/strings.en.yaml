@@ -1368,7 +1368,7 @@ cv:
     selectProductScreen:
       validationText:
         name: 'Name is required.'
-        identifier: 'Identifier is required,'
+        identifier: 'Identifier is required'
         connectorRef: 'Connector Selection is required.'
         validIdRegex: 'Identifier can only contain alphanumerics, _ and $.'
         product: 'Product selection is required.'

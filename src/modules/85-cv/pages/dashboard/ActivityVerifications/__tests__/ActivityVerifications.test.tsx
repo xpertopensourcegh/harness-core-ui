@@ -34,7 +34,7 @@ jest.mock('services/cv', () => ({
 jest.mock('../VerificationItem', () => {
   return jest.fn().mockImplementation(props => (
     <div className="test-verification-item">
-      <div className="triger-navigation" onClick={props.onClick} />
+      <div className="triger-navigation" onClick={() => props.onSelect()} />
     </div>
   ))
 })

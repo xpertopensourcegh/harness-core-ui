@@ -44,7 +44,7 @@ export default function ActivityVerifications(): JSX.Element {
             <VerificationItem
               key={`${tag}-${serviceName}`}
               item={item}
-              onClick={() =>
+              onSelect={phase =>
                 history.push(
                   routes.toCVDeploymentPage({
                     projectIdentifier: projectIdentifier as string,
@@ -52,7 +52,7 @@ export default function ActivityVerifications(): JSX.Element {
                     deploymentTag: encodeURIComponent(tag!),
                     serviceIdentifier: encodeURIComponent(serviceName!),
                     accountId
-                  })
+                  }) + (phase ? `?phase=${phase}` : '')
                 )
               }
             />

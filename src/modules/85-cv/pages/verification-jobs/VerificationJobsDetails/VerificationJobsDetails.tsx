@@ -10,7 +10,11 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import routes from '@common/RouteDefinitions'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { VerificationJobType } from '@cv/constants'
-import { ActivitySource, DataSources } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
+import {
+  ActivitySource,
+  DataSources,
+  iconNameToActivityType
+} from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
 interface VerificationJobsDetailsProps {
   stepData: any
   onNext: (data: any) => void
@@ -58,13 +62,11 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                   <Container width="250px">
                     <ActivitySource
                       onChange={val => {
-                        if (
-                          val &&
-                          (formik.values.type !== VerificationJobType.TEST ||
-                            formik.values.type !== VerificationJobType.HEALTH)
-                        ) {
+                        const activitySourceType = iconNameToActivityType(val?.icon?.name)
+                        if (activitySourceType === 'KUBERNETES' && formik.values.type !== VerificationJobType.HEALTH) {
                           formik.setFieldValue('type', '')
                         }
+                        formik.setFieldValue('activitySourceType', activitySourceType)
                       }}
                     />
                   </Container>
@@ -96,7 +98,7 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                               formik.setValues({ ...currValues })
                             }}
                             cardLabel={getString('test')}
-                            cardProps={{ disabled: formik.values.activitySource?.type === 'KUBERNETES' }}
+                            cardProps={{ disabled: formik.values.activitySourceType === 'KUBERNETES' }}
                           />
                         </Container>
                         <Container>
@@ -118,7 +120,7 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                                 formik.setValues({ ...currValues })
                               }}
                               cardLabel={getString('blueGreen')}
-                              cardProps={{ disabled: !!formik.values.activitySource }}
+                              cardProps={{ disabled: formik.values.activitySourceType === 'KUBERNETES' }}
                             />
                             <CVSelectionCard
                               isSelected={formik.values.type === VerificationJobType.CANARY}
@@ -134,7 +136,7 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                                 formik.setValues({ ...currValues })
                               }}
                               cardLabel={getString('canary')}
-                              cardProps={{ disabled: !!formik.values.activitySource }}
+                              cardProps={{ disabled: formik.values.activitySourceType === 'KUBERNETES' }}
                             />
                           </Layout.Horizontal>
                         </Container>

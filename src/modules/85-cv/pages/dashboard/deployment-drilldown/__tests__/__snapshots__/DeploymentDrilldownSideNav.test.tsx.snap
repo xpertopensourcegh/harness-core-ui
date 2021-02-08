@@ -16,21 +16,21 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-            data-icon="main-caret-down"
+            data-icon="main-caret-right"
           >
             <svg
               height="10"
-              viewBox="0 0 14 9"
+              viewBox="0 0 9 14"
               width="10"
             >
               <path
-                d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                d="M9 7c0-.4-.2-.7-.4-.9L1.8.3C1.6.1 1.4 0 1.1 0 .5 0 0 .5 0 1.2v11.7c0 .6.5 1.1 1.1 1.1.3 0 .5-.1.7-.3l6.8-5.8c.2-.2.4-.5.4-.9z"
                 fill="#4d5969"
               />
             </svg>
           </span>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
+            class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-light"
           >
             Pre Production Tests
           </p>
@@ -44,12 +44,11 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
       >
         <div
           class="bp3-collapse"
-          style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
             aria-hidden="false"
             class="bp3-collapse-body"
-            style="transform: translateY(0); transition: none;"
+            style="transform: translateY(-undefinedpx);"
           />
         </div>
       </div>
@@ -65,21 +64,21 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-            data-icon="main-caret-down"
+            data-icon="main-caret-right"
           >
             <svg
               height="10"
-              viewBox="0 0 14 9"
+              viewBox="0 0 9 14"
               width="10"
             >
               <path
-                d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                d="M9 7c0-.4-.2-.7-.4-.9L1.8.3C1.6.1 1.4 0 1.1 0 .5 0 0 .5 0 1.2v11.7c0 .6.5 1.1 1.1 1.1.3 0 .5-.1.7-.3l6.8-5.8c.2-.2.4-.5.4-.9z"
                 fill="#4d5969"
               />
             </svg>
           </span>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
+            class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-light"
           >
             Production Deployment
           </p>
@@ -93,12 +92,11 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
       >
         <div
           class="bp3-collapse"
-          style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
             aria-hidden="false"
             class="bp3-collapse-body"
-            style="transform: translateY(0); transition: none;"
+            style="transform: translateY(-undefinedpx);"
           />
         </div>
       </div>
@@ -142,15 +140,15 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
       >
         <div
           class="bp3-collapse"
-          style="height: auto; overflow-y: visible; transition: none;"
+          style="height: 0px;"
         >
           <div
             aria-hidden="false"
             class="bp3-collapse-body"
-            style="transform: translateY(0); transition: none;"
+            style="transform: translateY(0);"
           >
             <div
-              class="StyledProps--font StyledProps--main item StyledProps--padding-small"
+              class="StyledProps--font StyledProps--main item StyledProps--background-blue200 StyledProps--padding-small"
             >
               <div
                 class="StyledProps--font StyledProps--main itemHeader"

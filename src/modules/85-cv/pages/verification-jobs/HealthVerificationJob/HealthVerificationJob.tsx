@@ -71,7 +71,10 @@ const HealthVerificationJob: React.FC<VerificationJobsDetailsProps> = props => {
                   </Container>
                 </Layout.Horizontal>
 
-                <SubmitAndPreviousButtons onPreviousClick={props.onPrevious} nextButtonProps={{ loading }} />
+                <SubmitAndPreviousButtons
+                  onPreviousClick={props.onPrevious}
+                  nextButtonProps={{ text: getString('submit'), loading }}
+                />
               </Layout.Vertical>
             </FormikForm>
           )

@@ -10,6 +10,7 @@ import css from './ActivityProgressIndicator.module.scss'
 interface ActivityProgressIndicatorProps {
   data?: ActivityVerificationSummary | null
   className?: string
+  onClick?(e: React.MouseEvent<HTMLElement>): void
 }
 
 const XSMALL_FONT_SIZE: FontProps = {
@@ -63,7 +64,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   }
 
   return (
-    <Container className={props.className}>
+    <Container className={props.className} onClick={props.onClick}>
       <Text color={progress === 100 ? undefined : Color.BLACK} font={XSMALL_FONT_SIZE}>
         {progressDescription}
       </Text>

@@ -65,8 +65,8 @@ export function baselineEnumToLabel(baselineValue: string | number): string {
   switch (baselineValue) {
     case DefaultBaselineOptions[0].value:
       return DefaultBaselineOptions[0].label
-    case DefaultBaselineOptions[1].value:
-      return DefaultBaselineOptions[1].label
+    // case DefaultBaselineOptions[1].value:
+    //   return DefaultBaselineOptions[1].label
     default:
       return new Date(baselineValue || 0).toLocaleString()
   }

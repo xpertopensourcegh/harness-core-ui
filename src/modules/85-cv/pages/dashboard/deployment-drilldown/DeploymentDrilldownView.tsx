@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Button, Text } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -14,6 +14,7 @@ import styles from './DeploymentDrilldownView.module.scss'
 
 export default function DeploymentDrilldownView(): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier } = useParams()
+  const location = useLocation()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
   const [selectedTab, setSelectedTab] = useState<TabIdentifier>(TabIdentifier.METRICS_TAB)
@@ -51,25 +52,24 @@ export default function DeploymentDrilldownView(): JSX.Element {
   }, [activityVerifications?.resource?.deploymentResultSummary])
 
   useEffect(() => {
-    if (activityVerifications?.resource) {
-      let defaultInstance
-      let defaultPhase
-      if (preProduction?.length) {
-        defaultInstance = preProduction[0]
-        defaultPhase = InstancePhase.PRE_PRODUCTION
-      } else if (productionDeployment?.length) {
-        defaultInstance = productionDeployment[0]
-        defaultPhase = InstancePhase.PRODUCTION
-      } else if (postDeployment?.length) {
-        defaultInstance = postDeployment[0]
-        defaultPhase = InstancePhase.POST_DEPLOYMENT
-      }
-      if (defaultInstance) {
-        setVerificationInstance(defaultInstance)
-        setInstancePhase(defaultPhase)
-      }
+    const selectedPhase = new URLSearchParams(location.search).get('phase')
+    const instances = [
+      { values: preProduction, phase: InstancePhase.PRE_PRODUCTION },
+      { values: productionDeployment, phase: InstancePhase.PRODUCTION },
+      { values: postDeployment, phase: InstancePhase.POST_DEPLOYMENT }
+    ]
+    let entry
+    if (selectedPhase) {
+      entry = instances.find(val => val.values?.length && val.phase === selectedPhase)
     }
-  }, [activityVerifications])
+    if (!entry) {
+      entry = instances.find(val => !!val.values?.length)
+    }
+    if (entry) {
+      setVerificationInstance(entry.values![0])
+      setInstancePhase(entry.phase)
+    }
+  }, [preProduction, postDeployment, productionDeployment])
 
   useEffect(() => {
     if (activityVerificationsError) {

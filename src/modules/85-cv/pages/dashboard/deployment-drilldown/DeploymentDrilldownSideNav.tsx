@@ -27,7 +27,6 @@ export default function DeploymentDrilldownSideNav(props: DeploymentDrilldownSid
         <DeploymentGroupList
           key={i}
           name={labels[i]}
-          defaultOpen
           items={instances?.map(item => ({
             name: item.jobName,
             environment: item.environmentName,

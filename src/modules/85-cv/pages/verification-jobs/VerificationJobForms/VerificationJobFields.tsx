@@ -44,6 +44,15 @@ function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconP
   }
 }
 
+export function iconNameToActivityType(icon?: IconProps['name']): ActivitySourceDTO['type'] {
+  switch (icon) {
+    case 'cd-main':
+      return 'HARNESS_CD10'
+    case 'service-kubernetes':
+      return 'KUBERNETES'
+  }
+}
+
 export const VerificationJobNameFieldNames = {}
 
 export function JobName(): JSX.Element {
@@ -64,8 +73,8 @@ export const VerificationSensitivityOptions: SelectOption[] = [
 ]
 
 export const DefaultBaselineOptions: SelectOption[] = [
-  { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' },
-  { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
+  { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' }
+  // { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
 ]
 
 export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {

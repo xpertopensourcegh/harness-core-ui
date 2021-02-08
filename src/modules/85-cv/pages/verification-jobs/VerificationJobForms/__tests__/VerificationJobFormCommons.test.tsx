@@ -61,7 +61,6 @@ describe('VerificationJobFormCommons', () => {
 
   test('Ensure baseline labels are correct', () => {
     expect(baselineEnumToLabel(DefaultBaselineOptions[0].value as string)).toEqual(DefaultBaselineOptions[0].label)
-    expect(baselineEnumToLabel(DefaultBaselineOptions[1].value as string)).toEqual(DefaultBaselineOptions[1].label)
     expect(baselineEnumToLabel(1612376957777))
   })
 

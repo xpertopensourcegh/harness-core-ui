@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Color, Icon, Text, Collapse, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import type { VerificationResult } from 'services/cv'
@@ -47,6 +47,12 @@ export interface DeploymentGroupListProps {
 
 export default function DeploymentGroupList({ name, defaultOpen, items }: DeploymentGroupListProps) {
   const [open, setOpen] = useState(!!defaultOpen)
+
+  useEffect(() => {
+    if (items?.find(i => i.selected) && !open) {
+      setOpen(true)
+    }
+  }, [items])
 
   return (
     <Collapse

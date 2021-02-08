@@ -13,14 +13,15 @@ import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import ActivityType from '../ActivityType/ActivityType'
 import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
 import i18n from './ActivityVerifications.i18n'
+import { InstancePhase } from '../deployment-drilldown/DeploymentDrilldownSideNav'
 import css from './ActivityVerifications.module.scss'
 
 export default function VerificationItem({
   item,
-  onClick
+  onSelect
 }: {
   item: DeploymentActivityVerificationResultDTO
-  onClick?(): void
+  onSelect?(phase?: string): void
 }): React.ReactElement {
   const { serviceName, tag } = item
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
@@ -50,20 +51,41 @@ export default function VerificationItem({
   }
 
   return (
-    <li className={css.dataRow} onClick={onClick}>
+    <li className={css.dataRow} onClick={() => onSelect?.()}>
       <ActivityType buildName={tag!} serviceName={serviceName!} iconProps={{ name: 'cd-main' }} />
       <ItemTooltip
         {...tooltipProps}
         phase="PRE_PROD"
         contentData={tooltipData?.resource?.preProductionDeploymentSummary}
       >
-        <ActivityProgressIndicator data={item.preProductionDeploymentSummary} className={css.dataColumn} />
+        <ActivityProgressIndicator
+          data={item.preProductionDeploymentSummary}
+          className={css.dataColumn}
+          onClick={e => {
+            e.stopPropagation()
+            onSelect?.(InstancePhase.PRE_PRODUCTION)
+          }}
+        />
       </ItemTooltip>
       <ItemTooltip {...tooltipProps} phase="PROD" contentData={tooltipData?.resource?.productionDeploymentSummary}>
-        <ActivityProgressIndicator data={item.productionDeploymentSummary} className={css.dataColumn} />
+        <ActivityProgressIndicator
+          data={item.productionDeploymentSummary}
+          className={css.dataColumn}
+          onClick={e => {
+            e.stopPropagation()
+            onSelect?.(InstancePhase.PRODUCTION)
+          }}
+        />
       </ItemTooltip>
       <ItemTooltip {...tooltipProps} phase="POST_DEPLOY" contentData={tooltipData?.resource?.postDeploymentSummary}>
-        <ActivityProgressIndicator data={item.postDeploymentSummary} className={css.dataColumn} />
+        <ActivityProgressIndicator
+          data={item.postDeploymentSummary}
+          className={css.dataColumn}
+          onClick={e => {
+            e.stopPropagation()
+            onSelect?.(InstancePhase.POST_DEPLOYMENT)
+          }}
+        />
       </ItemTooltip>
     </li>
   )

@@ -19,7 +19,11 @@ describe('DeploymentDrilldownSideNav', () => {
       status: 'VERIFICATION_PASSED'
     }
     const { container } = render(
-      <DeploymentDrilldownSideNav postDeploymentInstances={[mockedItem]} onSelect={onSelect} />
+      <DeploymentDrilldownSideNav
+        selectedInstance={mockedItem}
+        postDeploymentInstances={[mockedItem]}
+        onSelect={onSelect}
+      />
     )
     expect(container).toMatchSnapshot()
     await waitFor(() => container.querySelector('.item'))

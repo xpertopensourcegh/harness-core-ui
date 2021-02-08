@@ -28,7 +28,7 @@ $moreIconWidth: 16px;
     overflow: auto;
     padding: 0;
     .sideNav {
-      flex-basis: 200px;
+      overflow-y: auto;
       border-right: 1px solid var(--grey-300);
       padding-top: var(--spacing-small);
     }

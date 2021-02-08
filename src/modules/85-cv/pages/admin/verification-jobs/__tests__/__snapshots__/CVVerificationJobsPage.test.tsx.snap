@@ -403,8 +403,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main"
-              style="width: 400px;"
+              class="StyledProps--font StyledProps--main webhook"
             >
               <div
                 class="main"
@@ -686,8 +685,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main"
-              style="width: 400px;"
+              class="StyledProps--font StyledProps--main webhook"
             >
               <div
                 class="main"

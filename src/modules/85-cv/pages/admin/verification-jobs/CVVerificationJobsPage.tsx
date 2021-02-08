@@ -48,11 +48,11 @@ export default function CVVerificationJobsPage() {
 
   const onCreateNew = () =>
     history.push(
-      routes.toCVAdminSetup({
+      routes.toCVAdminSetupVerificationJob({
         accountId,
         projectIdentifier,
         orgIdentifier
-      }) + '?step=3'
+      })
     )
 
   const onEdit = (verificationId: string) =>
@@ -277,12 +277,18 @@ function TypeCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
 
 function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): void; onEdit(): void }): JSX.Element {
   const { getString } = useStrings()
+  const transformWebhookUrl = (url: string) => {
+    if (url && url.startsWith('/')) {
+      return location.origin + url
+    } else {
+      return url
+    }
+  }
+  const webhookUrl = transformWebhookUrl(tableProps.row.original.verificationJobUrl!)
   return (
     <Container flex>
-      <Container width={400} onClick={e => e.stopPropagation()}>
-        <CopyText textToCopy={tableProps.row.original.verificationJobUrl!}>
-          {tableProps.row.original.verificationJobUrl}
-        </CopyText>
+      <Container className={styles.webhook} onClick={e => e.stopPropagation()}>
+        <CopyText textToCopy={webhookUrl}>{webhookUrl}</CopyText>
       </Container>
       {!tableProps.row.original?.defaultJob ? (
         <ContextMenuActions

@@ -16,3 +16,7 @@
   }
   margin-right: var(--spacing-small) !important;
 }
+
+.webhook {
+  max-width: calc(100% - var(--spacing-xxxlarge));
+}
