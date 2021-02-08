@@ -14,7 +14,7 @@ import type { FormikProps } from 'formik'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -32,8 +32,9 @@ export const RestoreCacheS3StepBase = (
   formikRef: StepFormikFowardRef<RestoreCacheS3StepData>
 ): JSX.Element => {
   const {
-    state: { pipeline, pipelineView },
-    updatePipelineView
+    state: { pipelineView },
+    updatePipelineView,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
@@ -44,7 +45,7 @@ export const RestoreCacheS3StepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
 
   const archiveFormatOptions = [
     { label: 'tar', value: 'tar' },

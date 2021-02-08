@@ -11,6 +11,7 @@ import {
 } from '@common/utils/routeUtils'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
+import { PipelineContext } from '@pipeline/exports'
 import { EnhancedInputSetForm } from '../InputSetForm'
 import {
   TemplateResponse,
@@ -95,7 +96,16 @@ describe('Render Forms - Snapshot Testing', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <EnhancedInputSetForm />
+        <PipelineContext.Provider
+          value={
+            {
+              state: { pipeline: { name: '', identifier: '' } } as any,
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({ stage: pipeline.stages[0], parent: undefined }))
+            } as any
+          }
+        >
+          <EnhancedInputSetForm />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
 
@@ -153,7 +163,16 @@ describe('Render Forms - Snapshot Testing', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <EnhancedInputSetForm />
+        <PipelineContext.Provider
+          value={
+            {
+              state: { pipeline: { name: '', identifier: '' } } as any,
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({ stage: pipeline.stages[0], parent: undefined }))
+            } as any
+          }
+        >
+          <EnhancedInputSetForm />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     const stagePanel = container.querySelector('[data-testid="Stage.asd-summary"]')

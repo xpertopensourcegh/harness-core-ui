@@ -13,7 +13,12 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 const getContextValue = (): PipelineContextInterface => {
-  return pipelineContextMock as any
+  return {
+    ...pipelineContextMock,
+    getStageFromPipeline: jest.fn(() => {
+      return { stage: pipelineContextMock.state.pipeline.stages[0], parent: undefined }
+    })
+  } as any
 }
 const fetchConnectors = () => Promise.resolve({})
 

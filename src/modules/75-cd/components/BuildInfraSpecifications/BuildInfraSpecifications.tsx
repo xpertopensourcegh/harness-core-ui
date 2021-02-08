@@ -15,12 +15,7 @@ import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
-import {
-  PipelineContext,
-  getStageFromPipeline,
-  getStageIndexFromPipeline,
-  getPrevoiusStageFromIndex
-} from '@pipeline/exports'
+import { PipelineContext, getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import {
   ConnectorReferenceField,
@@ -68,11 +63,11 @@ export default function BuildInfraSpecifications(): JSX.Element {
         splitViewData: { selectedStageId }
       }
     },
-
+    getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const { stage = {} } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
 
   const [currentMode, setCurrentMode] = React.useState(() =>
     stage?.stage?.spec?.infrastructure?.useFromStage ? Modes.Propagate : Modes.NewConfiguration
@@ -80,10 +75,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getPrevoiusStageFromIndex(pipeline)
-  const { stage: propagatedStage = {} } = getStageFromPipeline(
-    pipeline,
-    stage?.stage?.spec?.infrastructure?.useFromStage || ''
-  )
+  const { stage: propagatedStage = {} } = getStageFromPipeline(stage?.stage?.spec?.infrastructure?.useFromStage || '')
 
   const otherBuildStagesWithInfraConfigurationOptions: { label: string; value: string }[] = []
 

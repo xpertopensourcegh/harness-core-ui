@@ -10,7 +10,7 @@ import {
 } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
@@ -27,8 +27,9 @@ import css from '../Steps.module.scss'
 
 export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
-    state: { pipeline, pipelineView },
-    updatePipelineView
+    state: { pipelineView },
+    updatePipelineView,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
@@ -39,7 +40,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

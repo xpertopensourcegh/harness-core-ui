@@ -13,7 +13,11 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 const getContextValue = (): PipelineContextInterface => {
-  return { ...pipelineContextMock, updatePipeline: jest.fn() } as any
+  return {
+    ...pipelineContextMock,
+    getStageFromPipeline: jest.fn(() => ({ stage: pipelineContextMock.state.pipeline.stages[0] })),
+    updatePipeline: jest.fn()
+  } as any
 }
 export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
   loading: false,

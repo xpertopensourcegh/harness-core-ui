@@ -3,7 +3,7 @@ import { Layout, Card, Icon, Text } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { debounce, get, isNil } from 'lodash-es'
 import cx from 'classnames'
-import { StepWidget, StepViewType, PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { StepWidget, StepViewType, PipelineContext } from '@pipeline/exports'
 import type { K8SDirectInfrastructure, NgPipeline, PipelineInfrastructure } from 'services/cd-ng'
 import i18n from './DeployInfraSpecifications.i18n'
 import factory from '../../../70-pipeline/components/PipelineSteps/PipelineStepFactory'
@@ -43,7 +43,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         splitViewData: { selectedStageId }
       }
     },
-    updatePipeline
+    updatePipeline,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
 
   const debounceUpdatePipeline = React.useRef(
@@ -52,7 +53,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     }, 500)
   ).current
 
-  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(selectedStageId || '')
   const infraSpec = get(stage, 'stage.spec.infrastructure', null)
   if (isNil(infraSpec)) {
     const pipelineData = get(stage, 'stage.spec', {})

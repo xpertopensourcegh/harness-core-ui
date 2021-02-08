@@ -34,7 +34,7 @@ import {
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 // import {
 //   getIdentifierFromValue,
@@ -100,7 +100,7 @@ export default function BuildStageSpecifications(): JSX.Element {
         splitViewData: { selectedStageId }
       }
     },
-
+    getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
 
@@ -109,7 +109,7 @@ export default function BuildStageSpecifications(): JSX.Element {
   // const [connectionType, setConnectionType] = React.useState(codebase?.repoName ? 'Account' : '')
   // const [connectorUrl, setConnectorUrl] = React.useState('')
 
-  const { stage = {} } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
 
   // const connectorId = getIdentifierFromValue((codebase?.connectorRef as string) || '')
   // const initialScope = getScopeFromValue((codebase?.connectorRef as string) || '')

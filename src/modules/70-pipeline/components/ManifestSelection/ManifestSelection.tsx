@@ -25,7 +25,6 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
-import { getStageFromPipeline } from '@pipeline/exports'
 import { PipelineContext } from '@pipeline/exports'
 import CreateGitConnector from '@pipeline/components/connectors/GitConnector/CreateGitConnector'
 
@@ -641,10 +640,11 @@ export default function ManifestSelection({
         splitViewData: { selectedStageId }
       }
     },
+    getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(selectedStageId || '')
   const identifier = selectedStageId || 'stage-identifier'
   const getManifestList = React.useCallback(() => {
     if (isPropagating) {

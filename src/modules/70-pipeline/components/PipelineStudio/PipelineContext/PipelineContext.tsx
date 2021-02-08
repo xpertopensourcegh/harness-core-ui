@@ -5,8 +5,10 @@ import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import type {
   NgPipeline,
+  PipelineInfoConfig,
   ResponseNGPipelineResponse,
   StageElementConfig,
+  StageElementWrapper,
   StageElementWrapperConfig
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
@@ -134,6 +136,10 @@ export interface PipelineContextInterface {
   updatePipeline: (pipeline: NgPipeline) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => Promise<void>
+  getStageFromPipeline: (
+    stageId: string,
+    pipeline?: PipelineInfoConfig
+  ) => { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined }
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: NgPipeline) => void
   updateStage: (stage: StageElementConfig) => void
@@ -323,6 +329,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
   updateStage: () => void 0,
+  getStageFromPipeline: () => ({ stage: undefined, parent: undefined }),
   setYamlHandler: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
   pipelineSaved: () => undefined,
@@ -356,6 +363,28 @@ export const PipelineProvider: React.FC<{
   const updatePipelineView = React.useCallback((data: PipelineViewData) => {
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
+  const getStageFromPipeline = React.useCallback(
+    (stageId: string, pipeline?: PipelineInfoConfig) => {
+      let stage: StageElementWrapper | undefined = undefined
+      let parent: StageElementWrapper | undefined = undefined
+      const localPipeline = pipeline || state.pipeline
+      if (localPipeline?.stages) {
+        localPipeline.stages.forEach(item => {
+          if (item.stage && item.stage.identifier === stageId) {
+            stage = item
+          } else if (item.parallel) {
+            stage = getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage
+            if (stage) {
+              parent = item
+            }
+          }
+        })
+      }
+      return { stage, parent }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.pipeline, state.pipeline?.stages]
+  )
 
   const updateStage = React.useCallback(
     (newStage: StageElementConfig) => {
@@ -400,6 +429,7 @@ export const PipelineProvider: React.FC<{
         runPipeline,
         stepsFactory,
         stagesMap,
+        getStageFromPipeline,
         renderPipelineStage,
         fetchPipeline,
         updatePipeline,

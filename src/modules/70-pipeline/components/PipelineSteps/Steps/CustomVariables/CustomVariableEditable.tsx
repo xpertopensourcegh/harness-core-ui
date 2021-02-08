@@ -142,17 +142,6 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 textProps: {
                                   disabled: !initialValues.canAddVariable,
                                   type: variable.type === VariableTypes.Number ? 'number' : 'text'
-                                },
-                                mentionsInfo: {
-                                  data: done =>
-                                    done([
-                                      'app.name',
-                                      'app.description',
-                                      'pipeline.name',
-                                      'pipeline.description',
-                                      'pipeline.identifier',
-                                      'pipeline.stage.qa.displayName'
-                                    ])
                                 }
                               }}
                             />

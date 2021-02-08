@@ -19,7 +19,6 @@ import cx from 'classnames'
 import { debounce, get, set } from 'lodash-es'
 import {
   PipelineContext,
-  getStageFromPipeline,
   getStageIndexFromPipeline,
   getPrevoiusStageFromIndex,
   StepWidget,
@@ -110,7 +109,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         splitViewData: { selectedStageId }
       }
     },
-
+    getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
 
@@ -120,7 +119,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }, 500)
   ).current
 
-  const { stage = {} } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getPrevoiusStageFromIndex(pipeline)
   const [parentStage, setParentStage] = React.useState<{ [key: string]: any }>({})
@@ -210,7 +209,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     if (item && item.value) {
       const stageServiceData = stage?.['stage']?.['spec']['serviceConfig'] || null
 
-      const { stage: { stage: { name } } = {} } = getStageFromPipeline(pipeline, (item.value as string) || '')
+      const { stage: { stage: { name } } = {} } = getStageFromPipeline((item.value as string) || '')
       if (stageServiceData) {
         stageServiceData.useFromStage = { stage: item.value }
         setSelectedPropagatedState({

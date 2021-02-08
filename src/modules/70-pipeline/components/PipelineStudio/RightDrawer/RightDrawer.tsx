@@ -11,7 +11,6 @@ import { StepCommands } from '../StepCommands/StepCommands'
 import { TabTypes } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
-import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
@@ -34,10 +33,11 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     },
     updatePipeline,
     updatePipelineView,
+    getStageFromPipeline,
     stepsFactory
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
-  const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
 
   return (
@@ -112,7 +112,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onSelect={(item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {
-              const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
+              const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
               const newStepData = {
                 step: {
                   type: item.type,
@@ -178,7 +178,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <FailureStrategy
           selectedStage={selectedStage || {}}
           onUpdate={({ failureStrategies }) => {
-            const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
+            const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
             if (pipelineStage && pipelineStage.stage) {
               pipelineStage.stage.failureStrategies = failureStrategies
               updatePipeline(pipeline)
@@ -199,7 +199,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           factory={stepsFactory}
           onUpdate={item => {
             if (data.stepConfig?.addOrEdit === 'add') {
-              const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
+              const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
               const newServiceData = {
                 identifier: item.identifier,
                 name: item.name,

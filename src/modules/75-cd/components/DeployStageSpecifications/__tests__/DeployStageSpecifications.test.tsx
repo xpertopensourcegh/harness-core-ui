@@ -41,6 +41,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
   updatePipeline: jest.fn(),
   updatePipelineView: jest.fn(),
   updateStage: jest.fn(),
+  getStageFromPipeline: jest.fn(() => ({ stage: undefined, parent: undefined })),
   deletePipelineCache: jest.fn(),
   runPipeline: jest.fn(),
   pipelineSaved: jest.fn(),

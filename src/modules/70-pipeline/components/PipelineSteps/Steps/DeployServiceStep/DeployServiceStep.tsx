@@ -21,6 +21,7 @@ import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '../../PipelineStepInterface'
 export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
   serviceRef?: string
@@ -111,6 +112,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   const { data: serviceResponse, error } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier }
   })
+
+  const { expressions } = useVariablesExpression()
 
   const [services, setService] = React.useState<SelectOption[]>([])
   const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, data: { name: '', identifier: '' } })
@@ -223,6 +226,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                     }
                     setFieldValue('service', undefined)
                   },
+                  expressions,
                   selectProps: {
                     addClearBtn: true,
                     items: services

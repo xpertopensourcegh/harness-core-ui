@@ -7,6 +7,7 @@ import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framewo
 import * as pipelineNg from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import strings from 'strings/strings.en.yaml'
+import { PipelineContext } from '@pipeline/exports'
 import {
   GetTemplateFromPipelineResponse,
   GetTemplateFromPipelineResponseEmpty,
@@ -56,7 +57,19 @@ function WrapperComponent(): JSX.Element {
       {formikProps => (
         <FormikForm>
           <StringsContext.Provider value={value}>
-            <WebhookPipelineInputPanel {...defaultTriggerConfigDefaultProps} formikProps={formikProps} />
+            <PipelineContext.Provider
+              value={
+                {
+                  state: { pipeline: { name: '', identifier: '' } } as any,
+                  getStageFromPipeline: jest.fn((_stageId, pipeline) => ({
+                    stage: pipeline.stages[0],
+                    parent: undefined
+                  }))
+                } as any
+              }
+            >
+              <WebhookPipelineInputPanel {...defaultTriggerConfigDefaultProps} formikProps={formikProps} />
+            </PipelineContext.Provider>
           </StringsContext.Provider>
         </FormikForm>
       )}

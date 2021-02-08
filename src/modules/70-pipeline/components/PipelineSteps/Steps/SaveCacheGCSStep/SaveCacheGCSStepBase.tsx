@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
@@ -33,7 +33,8 @@ export const SaveCacheGCSStepBase = (
   formikRef: StepFormikFowardRef<SaveCacheGCSStepData>
 ): JSX.Element => {
   const {
-    state: { pipeline, pipelineView },
+    state: { pipelineView },
+    getStageFromPipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
 
@@ -45,7 +46,7 @@ export const SaveCacheGCSStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
 
   const archiveFormatOptions = [
     { label: 'tar', value: 'tar' },

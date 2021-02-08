@@ -57,7 +57,7 @@ export function PipelineVariablesContextProvider(props: React.PropsWithChildren<
       }
     },
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
-    debounce: 300
+    debounce: 800
   })
 
   React.useEffect(() => {

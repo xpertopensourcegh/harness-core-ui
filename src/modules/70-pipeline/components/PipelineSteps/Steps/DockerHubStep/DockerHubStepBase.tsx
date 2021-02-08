@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
@@ -32,7 +32,8 @@ export const DockerHubStepBase = (
   formikRef: StepFormikFowardRef<DockerHubStepData>
 ): JSX.Element => {
   const {
-    state: { pipeline, pipelineView },
+    state: { pipelineView },
+    getStageFromPipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
 
@@ -44,7 +45,7 @@ export const DockerHubStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

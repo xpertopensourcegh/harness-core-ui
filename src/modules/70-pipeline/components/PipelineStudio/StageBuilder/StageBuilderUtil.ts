@@ -79,28 +79,6 @@ export const getCommonStyles = (isSelected: boolean): React.CSSProperties => ({
   borderWidth: isSelected ? '2px' : '1px'
 })
 
-export const getStageFromPipeline = (
-  data: NgPipeline | StageElementWrapper,
-  identifier: string
-): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } => {
-  let stage: StageElementWrapper | undefined = undefined
-  let parent: StageElementWrapper | undefined = undefined
-  data.stages?.forEach((node: StageElementWrapper) => {
-    if (!stage) {
-      if (node?.stage?.identifier === identifier) {
-        stage = node
-      } else if (node?.parallel) {
-        stage = getStageFromPipeline({ stages: node.parallel }, identifier).stage
-        if (stage) {
-          parent = node
-        }
-      }
-    }
-  })
-
-  return { stage, parent }
-}
-
 export const getStatus = (
   connectorRef: string,
   fetchedConnectorResponse: PageConnectorResponse | undefined,
@@ -161,12 +139,12 @@ export const getPrevoiusStageFromIndex = (
 }
 
 export const removeNodeFromPipeline = (
+  nodeResponse: { stage?: StageElementWrapper; parent?: StageElementWrapper },
   data: NgPipeline | StageElementWrapper,
   stageMap: Map<string, StageState>,
-  identifier: string,
   updateStateMap = true
 ): boolean => {
-  const { stage: node, parent } = getStageFromPipeline(data, identifier)
+  const { stage: node, parent } = nodeResponse
   if (node && data.stages) {
     const index = data.stages.indexOf(node)
     if (index > -1) {
@@ -203,8 +181,7 @@ export const removeNodeFromPipeline = (
   }
   return false
 }
-export const getDependantStages = (pipeline: NgPipeline | StageElementWrapper, identifier: string): string[] => {
-  const { stage: node } = getStageFromPipeline(pipeline, identifier)
+export const getDependantStages = (pipeline: NgPipeline | StageElementWrapper, node: StageElementWrapper): string[] => {
   const dependantStages: string[] = []
   pipeline.stages?.map((currentStage: StageState) => {
     if (currentStage.stage?.spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {

@@ -4,7 +4,7 @@ import { Layout } from '@wings-software/uicore'
 
 import { cloneDeep } from 'lodash-es'
 
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { EditStageView } from '../CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
 
 export default function DeployStageSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -15,9 +15,10 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
         splitViewData: { selectedStageId }
       }
     },
-    updatePipeline
+    updatePipeline,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(selectedStageId || '')
   const cloneOriginalData = cloneDeep(stage)
   const [stageData, updateStageData] = React.useState({ variables: [], ...stage?.stage })
   const StateRef = React.useRef(stageData)

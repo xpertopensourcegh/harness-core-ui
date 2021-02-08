@@ -8,7 +8,7 @@ import {
   getSelectStageOptionsFromPipeline,
   StageSelectOption
 } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
-import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
+import { PipelineContext, ExecutionGraph } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type {
@@ -63,6 +63,7 @@ export default function BuildStageSetupShell(): JSX.Element {
       pipelineView
     },
     stepsFactory,
+    getStageFromPipeline,
     updatePipelineView,
     updatePipeline
   } = React.useContext(PipelineContext)
@@ -86,7 +87,7 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedStageId && isSplitViewOpen) {
-      const { stage } = getStageFromPipeline(pipeline, selectedStageId)
+      const { stage } = getStageFromPipeline(selectedStageId)
       const key = Object.keys(stage || {})[0]
       if (key && stage) {
         setStageData(stage[key])
@@ -107,7 +108,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   ) => {
     event?.stopPropagation()
     const value = selectedStage.value.toString()
-    const { stage } = getStageFromPipeline(pipeline, value)
+    const { stage } = getStageFromPipeline(value)
 
     updatePipelineView({
       ...pipelineView,
@@ -130,7 +131,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   React.useEffect(() => {
-    const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
+    const { stage: data } = getStageFromPipeline(selectedStageId)
     if (data) {
       let shouldUpdate = false
       if (!data?.stage?.spec?.execution?.steps) {
@@ -150,7 +151,7 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
-  const selectedStage = getStageFromPipeline(pipeline, selectedStageId).stage
+  const selectedStage = getStageFromPipeline(selectedStageId).stage
 
   return (
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>

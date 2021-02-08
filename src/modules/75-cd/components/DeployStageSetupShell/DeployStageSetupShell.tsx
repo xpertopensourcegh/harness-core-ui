@@ -13,7 +13,7 @@ import type {
   ExecutionGraphRefObj
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
+import { PipelineContext, ExecutionGraph } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/exports'
@@ -49,6 +49,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     stagesMap,
     stepsFactory,
     updatePipeline,
+    getStageFromPipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
 
@@ -57,7 +58,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedStageId && isSplitViewOpen) {
-      const { stage } = getStageFromPipeline(pipeline, selectedStageId)
+      const { stage } = getStageFromPipeline(selectedStageId)
       const key = Object.keys(stage || {})[0]
       if (key && stage) {
         setStageData(stage[key])
@@ -78,7 +79,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     event?.preventDefault()
     event?.stopPropagation()
     const value = selectedStage.value.toString()
-    const { stage } = getStageFromPipeline(pipeline, value)
+    const { stage } = getStageFromPipeline(value)
 
     updatePipelineView({
       ...pipelineView,
@@ -112,7 +113,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedTabId === i18n.executionLabel) {
-      const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
+      const { stage: data } = getStageFromPipeline(selectedStageId)
       if (data?.stage) {
         if (!data?.stage?.spec?.execution) {
           const openExecutionStrategy = stageType ? stagesMap[stageType].openExecutionStrategy : true
@@ -145,7 +146,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   }, [pipeline, selectedTabId, selectedStageId])
 
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
-  const selectedStage = getStageFromPipeline(pipeline, selectedStageId).stage
+  const selectedStage = getStageFromPipeline(selectedStageId).stage
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>

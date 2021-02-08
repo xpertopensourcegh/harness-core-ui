@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
@@ -33,8 +33,9 @@ export const RunStepBase = (
   formikRef: StepFormikFowardRef<RunStepData>
 ): JSX.Element => {
   const {
-    state: { pipeline, pipelineView },
-    updatePipelineView
+    state: { pipelineView },
+    updatePipelineView,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
@@ -45,7 +46,7 @@ export const RunStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

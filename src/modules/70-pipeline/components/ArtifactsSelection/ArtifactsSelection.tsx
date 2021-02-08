@@ -20,7 +20,7 @@ import set from 'lodash-es/set'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 
 import CreateDockerConnector from '@pipeline/components/connectors/DockerConnector/CreateDockerConnector'
@@ -83,6 +83,7 @@ export default function ArtifactsSelection({
         splitViewData: { selectedStageId }
       }
     },
+    getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
   const { getString } = useStrings()
@@ -116,7 +117,7 @@ export default function ArtifactsSelection({
       .filter((x: { overrideSet: { identifier: string; artifacts: [] } }) => x !== undefined)[0]
   }
 
-  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(selectedStageId || '')
 
   const getArtifactsPath = (): any => {
     if (isForOverrideSets) {

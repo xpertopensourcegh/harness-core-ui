@@ -41,7 +41,6 @@ export {
 }
 export { PipelineContext, PipelineProvider } from './components/PipelineStudio/PipelineContext/PipelineContext'
 export {
-  getStageFromPipeline,
   getStageIndexFromPipeline,
   getPrevoiusStageFromIndex
 } from './components/PipelineStudio/StageBuilder/StageBuilderUtil'

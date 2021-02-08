@@ -14,7 +14,7 @@ import {
 import { isArray, clone } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import i18n from './OverrideSetsInputSelector.i18n'
 import css from './OverrideSetsInputSelector.module.scss'
@@ -76,21 +76,21 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
   const [inputSets, setInputSets] = React.useState<{ identifier: string; name: string }[]>([])
   const {
     state: {
-      pipeline,
       pipelineView: {
         splitViewData: { selectedStageId }
       }
-    }
+    },
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
 
-  const { stage: currentStage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
   React.useEffect(() => {
     const useFromStage = currentStage?.stage?.spec?.serviceConfig?.useFromStage?.stage
     setUseFromStage(useFromStage)
   }, [currentStage?.stage?.spec?.serviceConfig?.stageOverrides?.useFromStage])
 
-  const { stage: useFromStageObj = {} } = getStageFromPipeline(pipeline, useFromStageId || '')
+  const { stage: useFromStageObj = {} } = getStageFromPipeline(useFromStageId || '')
 
   React.useEffect(() => {
     const spec = useFromStageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec

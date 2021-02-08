@@ -19,7 +19,7 @@ import setData from 'lodash-es/set'
 import isEmpty from 'lodash-es/isEmpty'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { PipelineContext, getStageFromPipeline, getPrevoiusStageFromIndex } from '@pipeline/exports'
+import { PipelineContext, getPrevoiusStageFromIndex } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
@@ -50,9 +50,10 @@ export default function OverrideSets({
         splitViewData: { selectedStageId }
       }
     },
-    updatePipeline
+    updatePipeline,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(selectedStageId || '')
   const { stages } = getPrevoiusStageFromIndex(pipeline)
   const serviceDefPath = 'stage.spec.serviceConfig.serviceDefinition.spec'
   const artifactTab = getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')

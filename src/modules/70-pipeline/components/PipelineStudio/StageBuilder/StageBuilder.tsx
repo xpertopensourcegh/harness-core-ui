@@ -25,7 +25,6 @@ import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize, MaximumSpli
 import {
   getNewStageFromType,
   PopoverData,
-  getStageFromPipeline,
   EmptyNodeSeparator,
   StageState,
   resetDiagram,
@@ -133,7 +132,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     stagesMap,
     updatePipeline,
     updatePipelineView,
-    renderPipelineStage
+    renderPipelineStage,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
   const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
@@ -156,11 +156,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
     if (event?.entity && event.entity instanceof DefaultLinkModel) {
       let node = event.entity.getSourcePort().getNode() as DefaultNodeModel
-      let { stage } = getStageFromPipeline(pipeline, node.getIdentifier())
+      let { stage } = getStageFromPipeline(node.getIdentifier())
       let next = 1
       if (!stage) {
         node = event.entity.getTargetPort().getNode() as DefaultNodeModel
-        stage = getStageFromPipeline(pipeline, node.getIdentifier()).stage
+        stage = getStageFromPipeline(node.getIdentifier()).stage
         next = 0
       }
       if (stage) {
@@ -172,12 +172,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         // parallel next parallel case
         let nodeParallel = event.entity.getSourcePort().getNode() as DefaultNodeModel
         let nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[1]
-        stage = getStageFromPipeline(pipeline, nodeId).parent
+        stage = getStageFromPipeline(nodeId).parent
         next = 1
         if (!stage) {
           nodeParallel = event.entity.getTargetPort().getNode() as DefaultNodeModel
           nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[2]
-          stage = getStageFromPipeline(pipeline, nodeId).parent
+          stage = getStageFromPipeline(nodeId).parent
           next = 0
         }
         if (stage) {
@@ -188,7 +188,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         }
       }
     } else if (isParallel && event?.entity && event.entity instanceof DefaultNodeModel) {
-      const { stage, parent } = getStageFromPipeline(pipeline, event.entity.getIdentifier())
+      const { stage, parent } = getStageFromPipeline(event.entity.getIdentifier())
       if (stage) {
         if (parent && parent.parallel && parent.parallel.length > 0) {
           parent.parallel.push(newStage)
@@ -254,7 +254,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     confirmButtonText: getString('confirm'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
-        const isRemove = removeNodeFromPipeline(pipeline, stageMap, tempDependencyData?.selectedStageId as string)
+        const isRemove = removeNodeFromPipeline(
+          getStageFromPipeline(tempDependencyData?.selectedStageId as string),
+          pipeline,
+          stageMap
+        )
         if (isRemove) {
           updatePipeline(pipeline)
           return
@@ -287,7 +291,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             splitViewData: {}
           })
         } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
-          const parent = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).parent
+          const parent = getStageFromPipeline(eventTemp.entity.getIdentifier()).parent
           /* istanbul ignore else */ if (parent?.parallel) {
             dynamicPopoverHandler?.show(
               nodeRender,
@@ -312,7 +316,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             )
           }
         } /* istanbul ignore else */ else if (eventTemp.entity.getType() !== DiagramType.StartNode) {
-          const data = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).stage
+          const data = getStageFromPipeline(eventTemp.entity.getIdentifier()).stage
           if (isSplitViewOpen && data?.stage?.identifier) {
             if (data?.stage?.name === EmptyStageName) {
               dynamicPopoverHandler?.show(
@@ -404,7 +408,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     [Event.RemoveNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       const stageIdToBeRemoved = eventTemp.entity.getIdentifier()
-      const dependantStages = getDependantStages(pipeline, stageIdToBeRemoved)
+      const dependantStages = getDependantStages(pipeline, getStageFromPipeline(stageIdToBeRemoved))
       if (dependantStages.length) {
         setdependantStages({
           ...tempDependencyData,
@@ -415,7 +419,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
         return
       }
-      const isRemove = removeNodeFromPipeline(pipeline, stageMap, stageIdToBeRemoved)
+      const isRemove = removeNodeFromPipeline(getStageFromPipeline(stageIdToBeRemoved), pipeline, stageMap)
       if (isRemove) {
         updatePipeline(pipeline)
       }
@@ -443,11 +447,16 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
       if (event.node?.identifier) {
-        const dropNode = getStageFromPipeline(pipeline, event.node.identifier).stage
-        const current = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier())
+        const dropNode = getStageFromPipeline(event.node.identifier).stage
+        const current = getStageFromPipeline(eventTemp.entity.getIdentifier())
         // Check Drop Node and Current node should not be same
         if (event.node.identifier !== eventTemp.entity.getIdentifier()) {
-          const isRemove = removeNodeFromPipeline(pipeline, stageMap, event.node.identifier, false)
+          const isRemove = removeNodeFromPipeline(
+            getStageFromPipeline(event.node.identifier),
+            pipeline,
+            stageMap,
+            false
+          )
           if (isRemove && dropNode) {
             if (!current.parent && current.stage) {
               const index = pipeline.stages?.indexOf(current.stage) || -1
@@ -496,8 +505,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       const eventTemp = event as DefaultLinkEvent
       eventTemp.stopPropagation()
       if (event.node?.identifier) {
-        const dropNode = getStageFromPipeline(pipeline, event.node.identifier).stage
-        const isRemove = removeNodeFromPipeline(pipeline, stageMap, event.node.identifier, false)
+        const dropNode = getStageFromPipeline(event.node.identifier).stage
+        const isRemove = removeNodeFromPipeline(getStageFromPipeline(event.node.identifier), pipeline, stageMap, false)
         if (isRemove && dropNode) {
           addStage(dropNode, false, event)
         }

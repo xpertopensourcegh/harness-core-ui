@@ -11,7 +11,7 @@ import {
   getPrevoiusStageFromIndex
 } from '@pipeline/exports'
 import type { NGVariable as Variable } from 'services/cd-ng'
-import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import i18n from './WorkflowVariables.i18n'
@@ -40,10 +40,11 @@ export default function WorkflowVariables({
         splitViewData: { selectedStageId }
       }
     },
+    getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(selectedStageId || '')
   const [parentStageData, setParentStageData] = React.useState<{ [key: string]: any }>()
   React.useEffect(() => {
     if (isEmpty(parentStageData) && stage?.stage?.spec?.serviceConfig?.useFromStage?.stage) {

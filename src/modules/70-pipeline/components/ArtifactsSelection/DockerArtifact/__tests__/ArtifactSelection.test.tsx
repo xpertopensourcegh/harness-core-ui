@@ -23,7 +23,12 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const getContextValue = (): PipelineContextInterface => {
-  return pipelineContextMock as any
+  return {
+    ...pipelineContextMock,
+    getStageFromPipeline: jest.fn(() => {
+      return { stage: pipelineContextMock.state.pipeline.stages[0], parent: undefined }
+    })
+  } as any
 }
 
 describe('ArtifactsSelection tests', () => {
