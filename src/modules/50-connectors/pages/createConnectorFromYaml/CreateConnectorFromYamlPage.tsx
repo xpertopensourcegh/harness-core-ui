@@ -28,10 +28,13 @@ import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/exports'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { getInvocationPathsForSecrets } from '../connectors/utils/ConnectorUtils'
-import i18n from './CreateConnectorFromYaml.i18n'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    accountId: string
+    projectIdentifier: string
+    orgIdentifier: string
+  }>()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
@@ -63,7 +66,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       try {
         const { status } = await createConnector(jsonData as any)
         if (status !== 'ERROR') {
-          showSuccess(i18n.successfullyCreated)
+          showSuccess(getString('connectors.successfullyCreated'))
           rerouteBasedOnContext(jsonData.connector?.['identifier'])
         } else {
           showError(getString('somethingWentWrong'))
@@ -175,14 +178,14 @@ const CreateConnectorFromYamlPage: React.FC = () => {
 
   return (
     <>
-      <PageHeader title={i18n.title} />
+      <PageHeader title={getString('connectors.title')} />
       <PageBody>
         <Container padding="xlarge">
           {loading ? (
             <PageSpinner />
           ) : (
             <YAMLBuilder
-              fileName={i18n.newConnector}
+              fileName={getString('newConnector')}
               entityType="Connectors"
               bind={setYamlHandler}
               showIconMenu={true}

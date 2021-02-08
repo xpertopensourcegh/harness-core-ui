@@ -77,13 +77,13 @@
 }
 
 .errorSummary {
-  padding: var(--spacing-large) !important;
+  padding: var(--spacing-medium) var(--spacing-large);
   background-color: var(--black);
   color: var(--white);
 }
 
 .details {
-  padding: var(--spacing-medium) !important;
+  padding: var(--spacing-small) !important;
 }
 
 .summaryPopover {
@@ -97,4 +97,9 @@
 .items {
   padding-bottom: var(--spacing-xsmall);
   font-size: small;
+}
+
+.errorList {
+  padding: 0 var(--spacing-medium);
+  margin: 0;
 }

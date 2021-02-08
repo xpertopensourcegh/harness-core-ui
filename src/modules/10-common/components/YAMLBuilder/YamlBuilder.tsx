@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import MonacoEditor from 'react-monaco-editor'
+import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api'
 import 'monaco-editor'
@@ -107,7 +107,7 @@ const setUpEditor = (theme: Theme): void => {
 const DEFAULT_EDITOR_HEIGHT = '600px'
 const DEFAULT_EDITOR_WIDTH = '800px'
 
-const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
+const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.Element => {
   const {
     height,
     width,
@@ -148,6 +148,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
   const KEY_CODE_FOR_SPACE = 'Space'
+  const KEY_CODE_FOR_CHAR_Z = 'KeyZ'
 
   let expressionCompletionDisposer: { dispose: () => void }
   let runTimeCompletionDisposer: { dispose: () => void }
@@ -155,9 +156,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const { showError } = useToaster()
   const { getString } = useStrings()
 
+  const getEditorCurrentVersion = (): number | undefined => {
+    return editorRef.current?.editor?.getModel()?.getAlternativeVersionId()
+  }
+
   const editorHasUnsavedChanges = (): boolean => {
-    const currentVersionId = editorRef?.current?.editor?.getModel()?.getAlternativeVersionId()
-    return editorVersionRef.current !== currentVersionId
+    return editorVersionRef.current !== getEditorCurrentVersion()
   }
 
   useEffect(() => {
@@ -205,7 +209,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   useEffect(() => {
     if (needEditorReset) {
-      editorRef?.current?.editor?.getModel()?.setValue('')
+      editorRef.current?.editor?.getModel()?.setValue('')
     }
   }, [needEditorReset])
 
@@ -266,10 +270,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   const processYAMLValidationErrors = (currentYaml: string, validationErrors: Diagnostic[]): void => {
-    setYamlValidationErrors(getYAMLPathToValidationErrorMap(currentYaml, validationErrors, editorRef?.current?.editor))
+    setYamlValidationErrors(getYAMLPathToValidationErrorMap(currentYaml, validationErrors, editorRef.current?.editor))
   }
 
-  const editorDidMount = (editor: any) => {
+  const editorDidMount = (editor: any): void => {
     editorVersionRef.current = editor?.getModel()?.getAlternativeVersionId()
     if (!props.isReadOnlyMode) {
       editor?.focus()
@@ -368,9 +372,18 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       openDialog()
     }
     try {
-      const { shiftKey, code, ctrlKey } = event
+      const { shiftKey, code, ctrlKey, metaKey } = event
       //TODO Need to check hotkey for cross browser/cross OS compatibility
-      //TODO Need to debounce this function call for performance optimization
+      if ((ctrlKey || metaKey) && code === KEY_CODE_FOR_CHAR_Z) {
+        if (
+          editorHasUnsavedChanges() &&
+          editorVersionRef.current &&
+          editorVersionRef.current + 1 === getEditorCurrentVersion()
+        ) {
+          event.stopPropagation()
+          event.preventDefault()
+        }
+      }
       if (ctrlKey && code === KEY_CODE_FOR_SPACE) {
         disposePreviousSuggestions()
       }
@@ -400,17 +413,17 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  const getErrorSummary = () => {
+  const getErrorSummary = (): React.ReactElement => {
     const summary: React.ReactElement[] = []
     yamlValidationErrors?.forEach((value, key) => {
       const errorItemSummary = (
-        <ul>
+        <ul className={css.errorList}>
           <li>
             {key !== DEFAULT_YAML_PATH
               ? `${getString('yamlBuilder.yamlPath')} ${key}`
               : getString('yamlBuilder.yamlError')}
           </li>
-          <ul className={css.details}>
+          <ol className={css.details}>
             {Array.isArray(value) ? (
               value?.map(item => (
                 <li key={item} className={css.items}>
@@ -422,7 +435,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
                 {truncate(value, { length: MAX_YAML_PARSING_ERR_MSSG_LENGTH })}
               </div>
             )}
-          </ul>
+          </ol>
         </ul>
       )
       summary.push(errorItemSummary)
@@ -455,7 +468,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
                 >
                   <div>
                     <Icon name="main-issue-filled" size={14} className={css.validationIcon} />
-                    <span className={css.invalidYaml}>Invalid</span>
+                    <span className={css.invalidYaml}>{getString('invalidText')}</span>
                   </div>
                 </Popover>
               ) : null}
@@ -469,16 +482,17 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
               value={currentYaml}
               onChange={onYamlChange}
               editorDidMount={editorDidMount}
-              options={{
-                readOnly: isReadOnlyMode,
-                //@ts-ignore
-                wordBasedSuggestions: false,
-                fontFamily: "'Roboto Mono', monospace",
-                fontSize: 13,
-                minimap: {
-                  enabled: false
-                }
-              }}
+              options={
+                {
+                  readOnly: isReadOnlyMode,
+                  wordBasedSuggestions: false,
+                  fontFamily: "'Roboto Mono', monospace",
+                  fontSize: 13,
+                  minimap: {
+                    enabled: false
+                  }
+                } as MonacoEditorProps['options']
+              }
               ref={editorRef}
             />
           </div>

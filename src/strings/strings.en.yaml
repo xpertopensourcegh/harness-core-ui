@@ -20,6 +20,7 @@ more: '+{{number}} more'
 yes: 'Yes'
 no: 'No'
 restart: 'Restart'
+invalidText: Invalid
 noData: No Data
 members: Members
 wip: Work in progress
@@ -257,7 +258,7 @@ saveAndContinue: 'Save and Continue'
 errorWhileSaving: 'Error occurred saving'
 codebase: 'Codebase'
 addressErrorFields: 'Please address all error fields before submitting.'
-invalidYamlText: 'You have provided an invalid yaml, please provide a valid yaml for the pipeline'
+invalidYamlText: 'You have provided an invalid or empty yaml, please provide a valid yaml for the pipeline'
 metricPacks: 'Metric Packs'
 review: 'Review'
 enabledLabel: 'Enabled'
@@ -1068,6 +1069,8 @@ connectors:
   successfullCreate: 'Connector {{name}} created successfully'
   successfullUpdate: 'Connector {{name}} updated successfully'
   connectorNotFound: Connector not found.
+  title: 'Create Connector from YAML'
+  successfullyCreated: 'Connector created successfully'
   testConnectionStep:
     errorDetails: Click to view error details
     noDelegate: Unable to get delegate information

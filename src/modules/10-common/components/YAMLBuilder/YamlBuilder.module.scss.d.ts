@@ -20,5 +20,6 @@ declare const styles: {
   readonly details: string
   readonly summaryPopover: string
   readonly items: string
+  readonly errorList: string
 }
 export default styles
