@@ -72,7 +72,10 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   }, [selectedTabId])
   return (
     <Container style={{ margin: '0 auto', paddingTop: 10, height: '100vh', marginLeft: '230px' }}>
-      <COFixedDrawer content={<COHelpSidebar pageName={selectedHelpText} sectionName={selectedHelpTextSection} />} />
+      <COFixedDrawer
+        topMargin={95}
+        content={<COHelpSidebar pageName={selectedHelpText} sectionName={selectedHelpTextSection} />}
+      />
       <Layout.Vertical spacing="large" padding="medium" style={{ marginLeft: '10px' }}>
         <Layout.Vertical spacing="small" padding="medium">
           <Layout.Horizontal spacing="small">

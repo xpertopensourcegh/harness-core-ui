@@ -10,5 +10,6 @@ declare const styles: {
   readonly savingsAmount: string
   readonly analyticsHeader: string
   readonly breadCrumb: string
+  readonly fulFilmentIcon: string
 }
 export default styles

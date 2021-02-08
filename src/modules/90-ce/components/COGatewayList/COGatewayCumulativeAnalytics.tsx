@@ -36,12 +36,17 @@ function getStackedAreaChartOptions(
       labels: {
         step: 1
       },
-      units: [['day', [1]]]
+      units: [['day', [1]]],
+      startOnTick: true,
+      tickmarkPlacement: 'on'
     },
     yAxis: {
       min: 0,
       title: {
         text: yAxisText
+      },
+      labels: {
+        format: '${value}'
       }
     },
     credits: {
@@ -52,7 +57,8 @@ function getStackedAreaChartOptions(
     },
     plotOptions: {
       spline: {
-        stacking: 'normal'
+        stacking: 'normal',
+        pointPlacement: 'on'
       }
     },
     series: [
@@ -72,7 +78,8 @@ function getStackedAreaChartOptions(
             [0, 'rgba(66, 171, 69, 0.7)'],
             [1, 'rgba(66, 171, 69, 0)']
           ]
-        }
+        },
+        pointPlacement: 'on'
       },
       {
         name: 'Spend',
@@ -90,7 +97,8 @@ function getStackedAreaChartOptions(
             [0, 'rgba(218, 41, 29, 0.7)'],
             [1, 'rgba(218, 41, 29, 0) 55.59%)']
           ]
-        }
+        },
+        pointPlacement: 'on'
       }
     ]
   }
@@ -122,13 +130,13 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
           SUMMARY OF RULES
         </Heading>
         <Layout.Horizontal
-          spacing="large"
+          spacing="xxlarge"
           background={Color.WHITE}
           style={{
             boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
             borderRadius: '6px',
-            margin: '20px',
-            padding: '30px'
+            margin: 'var(--spacing-medium)',
+            padding: 'var(--spacing-medium)'
           }}
         >
           <Layout.Vertical spacing="large">
@@ -169,7 +177,7 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
             </Layout.Vertical>
             <Layout.Vertical spacing="large" padding="small">
               <Layout.Horizontal spacing="small">
-                <img src={spotIcon} alt="" aria-hidden />
+                <img style={{ width: '20px' }} src={spotIcon} alt="" aria-hidden />
                 <Text>Spot (66%)</Text>
               </Layout.Horizontal>
               <Layout.Vertical spacing="small">
@@ -207,12 +215,12 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
               </Container>
               <Container padding="small" background={Color.RED_300} style={{ borderRadius: '4px' }}>
                 <Layout.Vertical spacing="small">
-                  <Text color={Color.RED_500}>TOTAL POTENTIAL SPEND</Text>
+                  <Text color={Color.RED_500}>TOTAL SPEND TILL DATE</Text>
                   {graphLoading ? (
                     <Icon name="spinner" size={24} color="blue500" />
                   ) : (
                     <Heading level={1} color={Color.RED_500}>
-                      ${(Math.round(graphData?.response?.total_potential as number) * 100) / 100}
+                      ${(Math.round(graphData?.response?.total_cost as number) * 100) / 100}
                     </Heading>
                   )}
                 </Layout.Vertical>

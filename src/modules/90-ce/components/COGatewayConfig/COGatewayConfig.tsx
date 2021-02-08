@@ -397,184 +397,194 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
               })}
             ></Formik>
           </Container>
-          <Label style={{ fontSize: 'var(--font-size-normal)', lineHeight: '20px' }}>Instances</Label>
-          <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '940px' }}>
-            <Text
-              style={{
-                color: 'var(--grey-500)',
-                lineHeight: '24px',
-                fontSize: 'var(--font-size-normal)',
-                maxWidth: '890px'
-              }}
-            >
-              {i18n.info}
-            </Text>
-            {selectedInstances.length ? (
-              <Table<InstanceDetails>
-                data={selectedInstances}
-                bpTableProps={{}}
-                className={css.instanceTable}
-                columns={[
-                  {
-                    accessor: 'name',
-                    Header: 'NAME AND ID',
-                    width: '16.5%',
-                    Cell: NameCell
-                  },
-                  {
-                    accessor: 'ipAddress',
-                    Header: 'IP ADDRESS',
-                    width: '16.5%',
-                    Cell: TableCell,
-                    disableSortBy: true
-                  },
-                  {
-                    accessor: 'region',
-                    Header: 'REGION',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'type',
-                    Header: 'TYPE',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'tags',
-                    Header: 'TAGS',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'launchTime',
-                    Header: 'LAUNCH TIME',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'status',
-                    Header: 'STATUS',
-                    width: '16.5%',
-                    Cell: TableCell
-                  }
-                ]}
-              />
-            ) : null}
-          </Container>
-          <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '947px' }}>
-            <Collapse collapsedIcon="plus" heading={i18n.addInstanceLabel}>
-              <Button style={{ float: 'right' }} onClick={refreshInstances} icon="refresh" />
-              {loadingInstances ? (
-                <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center', marginTop: '10px' }} />
-              ) : (
-                <COInstanceSelector
-                  selectedInstances={selectedInstances}
-                  setSelectedInstances={setSelectedInstances}
-                  setGatewayDetails={props.setGatewayDetails}
-                  instances={filteredInstances}
-                  gatewayDetails={props.gatewayDetails}
-                  search={handleSearch}
-                />
-              )}
-            </Collapse>
-          </Container>
-          <Container style={{ justifyContent: 'center', maxWidth: '947px' }}>
-            <Container className={css.configTab}>
-              <Tabs id="tabsId1">
-                <Tab
-                  id="routing"
-                  title="Routing"
-                  panel={
-                    <Container style={{ backgroundColor: '#FBFBFB' }}>
-                      <Layout.Vertical spacing="large">
-                        {loading ? (
-                          <Icon
-                            name="spinner"
-                            size={24}
-                            color="blue500"
-                            style={{ alignSelf: 'center', marginTop: '10px' }}
-                          />
-                        ) : (
-                          <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
-                        )}
-                        <Container className={css.rowItem}>
-                          <Text
-                            onClick={() => {
-                              addPort()
-                            }}
-                          >
-                            {i18n.addPortLabel}
-                          </Text>
-                        </Container>
-                      </Layout.Vertical>
-                    </Container>
-                  }
-                />
-                <Tab
-                  id="healthcheck"
-                  title="Health check"
-                  panel={
-                    <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
-                      <Layout.Vertical spacing="large" padding="large">
-                        <Switch
-                          label={i18n.healthCheck}
-                          className={css.switchFont}
-                          onChange={e => {
-                            setHealthCheck(e.currentTarget.checked)
-                          }}
-                          checked={healthCheck}
-                        />
-                        {healthCheck ? (
-                          <COHealthCheckTable pattern={healthCheckPattern} updatePattern={setHealthCheckPattern} />
-                        ) : null}
-                      </Layout.Vertical>
-                    </Container>
-                  }
-                />
-                <Tab
-                  id="advanced"
-                  title="Advanced Configuration"
-                  panel={
-                    <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
-                      <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
-                        <Switch
-                          label={i18n.allowTraffic}
-                          width="50%"
-                          className={css.switchFont}
-                          checked={matchSubdomains}
-                          onChange={e => {
-                            props.gatewayDetails.matchAllSubdomains = e.currentTarget.checked
-                            setMatchSubdomains(e.currentTarget.checked)
-                            props.setGatewayDetails(props.gatewayDetails)
-                          }}
-                        />
-                        <Switch
-                          label={i18n.usePrivateIP}
-                          width="50%"
-                          className={css.switchFont}
-                          checked={usePrivateIP}
-                          onChange={e => {
-                            props.gatewayDetails.opts.alwaysUsePrivateIP = e.currentTarget.checked
-                            setUsePrivateIP(e.currentTarget.checked)
-                            props.setGatewayDetails(props.gatewayDetails)
-                          }}
-                        />
-                        <Text>~brief description of what a dependency is~</Text>
-                        <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
-                          {i18n.addDependency}
-                        </Label>
-                        <Text>{i18n.scheduleDescription}</Text>
-                        <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
-                          {i18n.addSchedule}
-                        </Label>
-                      </Layout.Vertical>
-                    </Container>
-                  }
-                />
-              </Tabs>
-            </Container>
-          </Container>
+
+          {fullfilment ? (
+            <>
+              <Label style={{ fontSize: 'var(--font-size-normal)', lineHeight: '20px' }}>Instances</Label>
+              <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '940px' }}>
+                <Text
+                  style={{
+                    color: 'var(--grey-500)',
+                    lineHeight: '24px',
+                    fontSize: 'var(--font-size-normal)',
+                    maxWidth: '890px'
+                  }}
+                >
+                  {i18n.info}
+                </Text>
+                {selectedInstances.length ? (
+                  <Table<InstanceDetails>
+                    data={selectedInstances}
+                    bpTableProps={{}}
+                    className={css.instanceTable}
+                    columns={[
+                      {
+                        accessor: 'name',
+                        Header: 'NAME AND ID',
+                        width: '16.5%',
+                        Cell: NameCell
+                      },
+                      {
+                        accessor: 'ipAddress',
+                        Header: 'IP ADDRESS',
+                        width: '16.5%',
+                        Cell: TableCell,
+                        disableSortBy: true
+                      },
+                      {
+                        accessor: 'region',
+                        Header: 'REGION',
+                        width: '16.5%',
+                        Cell: TableCell
+                      },
+                      {
+                        accessor: 'type',
+                        Header: 'TYPE',
+                        width: '16.5%',
+                        Cell: TableCell
+                      },
+                      {
+                        accessor: 'tags',
+                        Header: 'TAGS',
+                        width: '16.5%',
+                        Cell: TableCell
+                      },
+                      {
+                        accessor: 'launchTime',
+                        Header: 'LAUNCH TIME',
+                        width: '16.5%',
+                        Cell: TableCell
+                      },
+                      {
+                        accessor: 'status',
+                        Header: 'STATUS',
+                        width: '16.5%',
+                        Cell: TableCell
+                      }
+                    ]}
+                  />
+                ) : null}
+              </Container>
+              <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '947px' }}>
+                <Collapse collapsedIcon="plus" heading={i18n.addInstanceLabel}>
+                  <Button style={{ float: 'right' }} onClick={refreshInstances} icon="refresh" />
+                  {loadingInstances ? (
+                    <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center', marginTop: '10px' }} />
+                  ) : (
+                    <COInstanceSelector
+                      selectedInstances={selectedInstances}
+                      setSelectedInstances={setSelectedInstances}
+                      setGatewayDetails={props.setGatewayDetails}
+                      instances={filteredInstances}
+                      gatewayDetails={props.gatewayDetails}
+                      search={handleSearch}
+                    />
+                  )}
+                </Collapse>
+              </Container>
+              {selectedInstances.length ? (
+                <Container style={{ justifyContent: 'center', maxWidth: '947px' }}>
+                  <Container className={css.configTab}>
+                    <Tabs id="tabsId1">
+                      <Tab
+                        id="routing"
+                        title="Routing"
+                        panel={
+                          <Container style={{ backgroundColor: '#FBFBFB' }}>
+                            <Layout.Vertical spacing="large">
+                              {loading ? (
+                                <Icon
+                                  name="spinner"
+                                  size={24}
+                                  color="blue500"
+                                  style={{ alignSelf: 'center', marginTop: '10px' }}
+                                />
+                              ) : (
+                                <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
+                              )}
+                              <Container className={css.rowItem}>
+                                <Text
+                                  onClick={() => {
+                                    addPort()
+                                  }}
+                                >
+                                  {i18n.addPortLabel}
+                                </Text>
+                              </Container>
+                            </Layout.Vertical>
+                          </Container>
+                        }
+                      />
+                      <Tab
+                        id="healthcheck"
+                        title="Health check"
+                        panel={
+                          <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
+                            <Layout.Vertical spacing="large" padding="large">
+                              <Switch
+                                label={i18n.healthCheck}
+                                className={css.switchFont}
+                                onChange={e => {
+                                  setHealthCheck(e.currentTarget.checked)
+                                }}
+                                checked={healthCheck}
+                              />
+                              {healthCheck ? (
+                                <COHealthCheckTable
+                                  pattern={healthCheckPattern}
+                                  updatePattern={setHealthCheckPattern}
+                                />
+                              ) : null}
+                            </Layout.Vertical>
+                          </Container>
+                        }
+                      />
+                      <Tab
+                        id="advanced"
+                        title="Advanced Configuration"
+                        panel={
+                          <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                            <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
+                              <Switch
+                                label={i18n.allowTraffic}
+                                width="50%"
+                                className={css.switchFont}
+                                checked={matchSubdomains}
+                                onChange={e => {
+                                  props.gatewayDetails.matchAllSubdomains = e.currentTarget.checked
+                                  setMatchSubdomains(e.currentTarget.checked)
+                                  props.setGatewayDetails(props.gatewayDetails)
+                                }}
+                              />
+                              <Switch
+                                label={i18n.usePrivateIP}
+                                width="50%"
+                                className={css.switchFont}
+                                checked={usePrivateIP}
+                                onChange={e => {
+                                  props.gatewayDetails.opts.alwaysUsePrivateIP = e.currentTarget.checked
+                                  setUsePrivateIP(e.currentTarget.checked)
+                                  props.setGatewayDetails(props.gatewayDetails)
+                                }}
+                              />
+                              <Text>~brief description of what a dependency is~</Text>
+                              <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
+                                {i18n.addDependency}
+                              </Label>
+                              <Text>{i18n.scheduleDescription}</Text>
+                              <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
+                                {i18n.addSchedule}
+                              </Label>
+                            </Layout.Vertical>
+                          </Container>
+                        }
+                      />
+                    </Tabs>
+                  </Container>
+                </Container>
+              ) : null}
+            </>
+          ) : null}
         </Layout.Vertical>
       </Container>
     </Layout.Vertical>

@@ -1,7 +1,7 @@
 export default {
   configHeading: 'Rule Configuration',
   info:
-    'Instances can be added to a rule through ID or tags. Lightwing will evaluate ID and tags and forward traffic to the matching instance. Just one of these will fetch all other parameters of the instace. Multiple instance can be added to a single Rule.',
+    'From the list below, select the instances that you want this AutoStopping Rule to manage. Multiple instances can be managed by a single Rule.',
   addInstanceLabel: 'Add Instance',
   addPortLabel: '+ add port',
   addDependency: '+ add dependency',

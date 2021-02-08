@@ -23,7 +23,7 @@ const protocols: SelectItem[] = [
 
 const actions: SelectItem[] = [
   {
-    label: 'Redirecrt',
+    label: 'Redirect',
     value: 'redirect'
   },
   {

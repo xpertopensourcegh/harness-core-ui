@@ -43,7 +43,7 @@ import css from './COGatewayList.module.scss'
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
   return (
     <Layout.Horizontal spacing="medium">
-      <img src={tableProps.value == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
+      <img className={css.fulFilmentIcon} src={tableProps.value == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
       <Text lineClamp={3} color={Color.GREY_500}>
         {tableProps.value}
       </Text>
@@ -210,32 +210,23 @@ const COGatewayList: React.FC = () => {
     })
     return (
       <Container>
-        <Layout.Vertical spacing="large">
-          <Layout.Horizontal spacing="large">
+        <Layout.Vertical spacing="medium">
+          <Layout.Horizontal spacing="xxxsmall">
+            <Text style={{ alignSelf: 'center' }}>No. of instances:</Text>
             {!resourcesLoading ? (
               <Link
                 href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
                 target="_blank"
                 style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                onClick={e => {
+                  e.stopPropagation()
+                }}
               >
-                {resources?.response?.length} Instances
+                {resources?.response?.length}
               </Link>
             ) : (
               <Icon name="spinner" size={12} color="blue500" />
             )}
-
-            <Text lineClamp={3} color={Color.GREY_500}>
-              Host name:
-              <Link
-                href={`http://${tableProps.row.original.host_name}`}
-                target="_blank"
-                style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-              >
-                {tableProps.row.original.host_name}
-              </Link>
-            </Text>
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="large">
             {data?.response?.['state'] != null ? (
               getStateTag(data?.response?.['state'])
             ) : !loading ? (
@@ -243,9 +234,27 @@ const COGatewayList: React.FC = () => {
             ) : (
               <Icon name="spinner" size={12} color="blue500" />
             )}
-            <Text lineClamp={3} color={Color.GREY_500}>
-              Custom Domain: {tableProps.row.original.custom_domains?.join(',')}
-            </Text>
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="large">
+            {tableProps.row.original.custom_domains?.length ? (
+              <Text lineClamp={3} color={Color.GREY_500}>
+                Custom Domain:{tableProps.row.original.custom_domains?.join(',')}
+              </Text>
+            ) : (
+              <Text lineClamp={3} color={Color.GREY_500}>
+                Host name:
+                <Link
+                  href={`http://${tableProps.row.original.host_name}`}
+                  target="_blank"
+                  style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  onClick={e => {
+                    e.stopPropagation()
+                  }}
+                >
+                  {tableProps.row.original.host_name}
+                </Link>
+              </Text>
+            )}
           </Layout.Horizontal>
         </Layout.Vertical>
         {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
@@ -283,13 +292,11 @@ const COGatewayList: React.FC = () => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              paddingTop: '220px',
-              marginLeft: '300px',
-              width: '760px'
+              paddingTop: '220px'
             }}
           >
             <img src={landingPageSVG} alt="" width="300px"></img>
-            <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center' }}>
+            <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px' }}>
               AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you)
               only when you’re using them, and never when they are idle. Additionally, run your workloads on fully
               orchestrated spot instances without any worry of spot interruptions. <Link href="/">Learn more</Link>

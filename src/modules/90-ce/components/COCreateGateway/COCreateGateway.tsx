@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import COGatewayBasics from '@ce/components/COGatewayBasics/COGatewayBasics'
+
 import COProviderSelector from '@ce/components/COProviderSelector/COProviderSelector'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
 import type { GatewayDetails } from './models'
-import autostoppingInfo from './images/autostoppingInfo.svg'
-import css from './COCreateGateway.module.scss'
 
 function getString(val: string | undefined): string {
   const stringVal = val?.toString()
@@ -18,8 +15,8 @@ function getString(val: string | undefined): string {
 }
 
 export const CECODashboardPage: React.FC = () => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
-  const gatewayCreationTabs = ['providerSelector', 'gatewayBasics', 'gatewayConfig']
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const gatewayCreationTabs = ['providerSelector', 'gatewayConfig']
   const [currentTab, setCurrentTab] = useState<string | 'providerSelector'>('providerSelector')
   const initialGatewayDetails: GatewayDetails = {
     name: '',
@@ -95,41 +92,9 @@ export const CECODashboardPage: React.FC = () => {
     }
   }
   return (
-    <Container background={Color.WHITE}>
-      {currentTab != 'gatewayConfig' ? (
-        <Layout.Horizontal id="ce-co-config">
-          <Container width="43%" padding="medium" style={{ paddingTop: 200 }}>
-            <Layout.Vertical padding="xlarge" spacing="large">
-              <Container style={{ backgroundColor: '#FAFAFC' }}>
-                <Layout.Horizontal spacing="large" padding="large">
-                  <img src={autostoppingInfo}></img>
-                  <Text style={{ fontSize: '13px', lineHeight: '24px', maxWidth: '331px' }}>
-                    AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing
-                    you) only when you’re using them, and never when they are idle. Additionally, run your workloads on
-                    fully orchestrated spot instances without any worry of spot interruptions.
-                  </Text>
-                </Layout.Horizontal>
-              </Container>
-            </Layout.Vertical>
-          </Container>
-          <Container width="57%" className={css.selectorPanel}>
-            {currentTab == 'providerSelector' ? (
-              <COProviderSelector
-                nextTab={nextTab}
-                setGatewayDetails={setGatewayDetails}
-                gatewayDetails={gatewayDetails}
-              />
-            ) : null}
-            {currentTab == 'gatewayBasics' ? (
-              <COGatewayBasics
-                nextTab={nextTab}
-                previousTab={previousTab}
-                gatewayDetails={gatewayDetails}
-                setGatewayDetails={setGatewayDetails}
-              />
-            ) : null}
-          </Container>
-        </Layout.Horizontal>
+    <Container background={Color.WHITE} height="100vh">
+      {currentTab == 'providerSelector' ? (
+        <COProviderSelector nextTab={nextTab} setGatewayDetails={setGatewayDetails} gatewayDetails={gatewayDetails} />
       ) : null}
 
       {currentTab == 'gatewayConfig' ? (

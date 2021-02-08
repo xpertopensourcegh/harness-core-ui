@@ -42,3 +42,14 @@
     }
   }
 }
+.fixedDrawer {
+  top: '95px';
+  box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px;
+  border-radius: var(--spacing-medium);
+  width: '392px';
+  bottom: 0;
+  right: 0;
+  position: 'fixed';
+  z-index: 20;
+  background-color: var(--white);
+}

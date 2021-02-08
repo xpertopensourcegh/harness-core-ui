@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { CardSelect, Layout, CardBody, Button, Heading, Container, Text } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
+import routes from '@common/RouteDefinitions'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import COGatewayBasics from '../COGatewayBasics/COGatewayBasics'
+import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
+import COHelpSidebar from '../COHelpSidebar/COHelpSidebar'
 import i18n from './COProviderSelector.i18n'
 import css from './COProviderSelector.module.scss'
+
 interface COProviderSelectorProps {
   nextTab: () => void
   setGatewayDetails: (gatewayDetails: GatewayDetails) => void
@@ -34,49 +41,71 @@ function getProvider(name: string): Provider {
 
 const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   const [selectedCard, setSelectedCard] = useState<Provider>(getProvider(props.gatewayDetails.provider.name))
+  const [cloudAccountID, setCloudAccountID] = useState<string>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   return (
-    <Container style={{ margin: '0 auto', paddingTop: 200, paddingLeft: 50 }}>
-      <Layout.Vertical spacing="large" padding="large">
-        <Heading className={css.title}>{i18n.title}</Heading>
-        <Heading level={2}>{i18n.description}</Heading>
-        <Text style={{ fontSize: '11px' }} font={{ weight: 'light' }}>
-          {i18n.cloudAccounts}
-        </Text>
-        <Layout.Vertical spacing="small">
-          <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>
-            <CardSelect
-              data={data}
-              selected={selectedCard}
-              className={css.providersViewGrid}
-              onChange={item => {
-                props.gatewayDetails.provider = item
-                setSelectedCard(item)
-                props.setGatewayDetails(props.gatewayDetails)
-              }}
-              renderItem={item => (
-                <Layout.Vertical spacing="small">
-                  <CardBody.Icon icon={item.icon as IconName} iconSize={21}></CardBody.Icon>
-                </Layout.Vertical>
-              )}
-              cornerSelected={true}
-            ></CardSelect>
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
-            <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
-              AWS
-            </Text>
-          </Layout.Horizontal>
-        </Layout.Vertical>
-      </Layout.Vertical>
-      <Button
-        className={css.footer}
-        intent="primary"
-        text="Next"
-        icon="chevron-right"
-        onClick={props.nextTab}
-        disabled={!selectedCard}
+    <>
+      <Breadcrumbs
+        className={css.breadCrumb}
+        links={[
+          {
+            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
+            label: 'Setup'
+          },
+          {
+            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
+            label: 'Autostopping Rules'
+          }
+        ]}
       />
-    </Container>
+      <COFixedDrawer topMargin={35} content={<COHelpSidebar pageName={'provider-selector'} sectionName={''} />} />
+      <Container style={{ margin: '0 auto', paddingTop: 100, paddingLeft: 50 }}>
+        <Layout.Vertical spacing="large" padding="large">
+          <Heading className={css.title}>{i18n.title}</Heading>
+          <Heading level={2}>{i18n.description}</Heading>
+          <Layout.Vertical spacing="small">
+            <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>
+              <CardSelect
+                data={data}
+                selected={selectedCard}
+                className={css.providersViewGrid}
+                onChange={item => {
+                  props.gatewayDetails.provider = item
+                  setSelectedCard(item)
+                  props.setGatewayDetails(props.gatewayDetails)
+                }}
+                renderItem={item => (
+                  <Layout.Vertical spacing="small">
+                    <CardBody.Icon icon={item.icon as IconName} iconSize={21}></CardBody.Icon>
+                  </Layout.Vertical>
+                )}
+                cornerSelected={true}
+              ></CardSelect>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
+              <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
+                AWS
+              </Text>
+            </Layout.Horizontal>
+          </Layout.Vertical>
+          {selectedCard ? (
+            <COGatewayBasics
+              gatewayDetails={props.gatewayDetails}
+              setGatewayDetails={props.setGatewayDetails}
+              setCloudAccount={setCloudAccountID}
+            ></COGatewayBasics>
+          ) : null}
+        </Layout.Vertical>
+        <Button
+          className={css.footer}
+          intent="primary"
+          text="Next"
+          icon="chevron-right"
+          onClick={props.nextTab}
+          disabled={!(selectedCard && cloudAccountID)}
+        />
+      </Container>
+    </>
   )
 }
 

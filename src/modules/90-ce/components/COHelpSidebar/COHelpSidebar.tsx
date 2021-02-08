@@ -1,4 +1,4 @@
-import { Layout, Container, Text, Icon, Color } from '@wings-software/uicore'
+import { Layout, Container, Text, Icon, Color, Heading } from '@wings-software/uicore'
 import React from 'react'
 import idleTimeIMG from './images/idleTime.svg'
 import spotVSODIMG from './images/spotOD.svg'
@@ -7,6 +7,7 @@ import rdp from './images/rdp.svg'
 import bgTasks from './images/bgTasks.svg'
 import ip from './images/ip.svg'
 import dnsLink from './images/dnsLink.svg'
+import providerSelector from './images/providerSelector.svg'
 
 interface COHelpSidebarProps {
   pageName: string
@@ -183,6 +184,32 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                   </Text>
                 </Layout.Vertical>
               </Layout.Horizontal>
+              <Text
+                style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
+              >
+                Read more...
+              </Text>
+            </Layout.Vertical>
+          </Container>
+        </>
+      ) : null}
+      {props.pageName == 'provider-selector' ? (
+        <>
+          <Container padding="large">
+            <Layout.Vertical padding="medium" spacing="xxlarge">
+              <Heading level={2}>{'Select Cloud Account'}</Heading>
+              <img
+                src={providerSelector}
+                alt=""
+                aria-hidden
+                style={{
+                  width: '50%',
+                  alignSelf: 'center'
+                }}
+              />
+              <Text>
+                Select the cloud provider account in which the workloads you want AutoStopping to manage are running.
+              </Text>
               <Text
                 style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
               >

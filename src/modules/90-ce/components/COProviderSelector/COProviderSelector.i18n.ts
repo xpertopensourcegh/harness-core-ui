@@ -1,5 +1,5 @@
 export default {
   title: 'Let’s get you started',
-  description: 'Select a cloud account',
+  description: 'Select the cloud account type',
   cloudAccounts: 'CLOUD ACCOUNTS'
 }
