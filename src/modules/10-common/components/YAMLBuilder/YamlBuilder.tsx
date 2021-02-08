@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
 import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
-import { languages } from 'monaco-editor/esm/vs/editor/editor.api'
+import { IKeyboardEvent, languages } from 'monaco-editor/esm/vs/editor/editor.api'
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 import 'monaco-editor'
 //@ts-ignore
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
@@ -139,12 +140,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   yamlRef.current = currentYaml
   const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
   yamlValidationErrorsRef.current = yamlValidationErrors
-
   const editorVersionRef = useRef<number>()
 
-  const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
+  const TRIGGER_CHARS_FOR_NEW_EXPR = ['<', '+']
   const TRIGGER_CHAR_FOR_PARTIAL_EXPR = '.'
-  const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
+  const KEY_CODE_FOR_PLUS_SIGN = 'Equal'
+  const ANGULAR_BRACKET_CHAR = '<'
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
   const KEY_CODE_FOR_SPACE = 'Space'
@@ -273,12 +274,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     setYamlValidationErrors(getYAMLPathToValidationErrorMap(currentYaml, validationErrors, editorRef.current?.editor))
   }
 
-  const editorDidMount = (editor: any): void => {
-    editorVersionRef.current = editor?.getModel()?.getAlternativeVersionId()
+  const editorDidMount = (editor: editor.IStandaloneCodeEditor): void => {
+    editorVersionRef.current = editor.getModel()?.getAlternativeVersionId()
     if (!props.isReadOnlyMode) {
       editor?.focus()
     }
-    editor?.onKeyDown((event: KeyboardEvent) => handleEditorKeyDownEvent(event, editor))
+    editor.onKeyDown((event: IKeyboardEvent) => handleEditorKeyDownEvent(event, editor))
   }
 
   const disposePreviousSuggestions = (): void => {
@@ -295,14 +296,22 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   /* #region Custom invocations */
 
   /** Expressions support */
-  const getExpressionFromCurrentLine = (editor: any): string => {
-    const textInCurrentEditorLine = editor.getModel().getLineContent(editor.getPosition().lineNumber)
-    const expression = textInCurrentEditorLine.split(':').map((item: string) => item.trim())?.[1]
+  const getEditorContentInCurrentLine = (editor: editor.IStandaloneCodeEditor): string | undefined => {
+    const currentLineNum = editor.getPosition()?.lineNumber
+    if (currentLineNum) {
+      return editor.getModel()?.getLineContent(currentLineNum)
+    }
+  }
+
+  const getExpressionFromCurrentLine = (editor: editor.IStandaloneCodeEditor): string | undefined => {
+    const expression = getEditorContentInCurrentLine(editor)
+      ?.split(':')
+      .map((item: string) => item.trim())?.[1]
     return expression
   }
 
   function registerCompletionItemProviderForExpressions(
-    editor: any,
+    editor: editor.IStandaloneCodeEditor,
     triggerCharacters: string[],
     matchingPath: string | undefined,
     currentExpression: string | undefined = ''
@@ -325,7 +334,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
 
   /** Run-time Inputs support */
   function registerCompletionItemProviderForRTInputs(
-    editor: any,
+    editor: editor.IStandaloneCodeEditor,
     suggestionsPromise: Promise<CompletionItemInterface[]>
   ): void {
     if (editor) {
@@ -341,7 +350,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     }
   }
 
-  const invokeCallBackForMatchingYAMLPaths = (editor: any, matchingPath: string | undefined): void => {
+  const invokeCallBackForMatchingYAMLPaths = (
+    editor: editor.IStandaloneCodeEditor,
+    matchingPath: string | undefined
+  ): void => {
     if (editor && matchingPath) {
       invocationMap?.forEach((callBackFunc, yamlPath) => {
         if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
@@ -351,6 +363,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
         }
       })
     }
+  }
+
+  const shouldInvokeExpressions = (editor: editor.IStandaloneCodeEditor, event: IKeyboardEvent): boolean => {
+    const lastKeyStrokeCharacter = getEditorContentInCurrentLine(editor)?.substr(-1)
+    const { shiftKey, code } = event
+    return lastKeyStrokeCharacter === ANGULAR_BRACKET_CHAR && shiftKey && code === KEY_CODE_FOR_PLUS_SIGN
   }
 
   /* #endregion */
@@ -367,13 +385,15 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     }
   })
 
-  const handleEditorKeyDownEvent = (event: KeyboardEvent, editor: any): void => {
+  const handleEditorKeyDownEvent = (event: IKeyboardEvent, editor: any): void => {
     if (props.isReadOnlyMode) {
       openDialog()
     }
     try {
       const { shiftKey, code, ctrlKey, metaKey } = event
       //TODO Need to check hotkey for cross browser/cross OS compatibility
+
+      // this is to prevent reset of the editor to empty when there is no undo history
       if ((ctrlKey || metaKey) && code === KEY_CODE_FOR_CHAR_Z) {
         if (
           editorHasUnsavedChanges() &&
@@ -388,16 +408,20 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
         disposePreviousSuggestions()
       }
       if (shiftKey) {
-        if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
+        // this is to invoke expressions callback
+        if (shouldInvokeExpressions(editor, event)) {
           const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
           disposePreviousSuggestions()
-          registerCompletionItemProviderForExpressions(editor, [TRIGGER_CHAR_FOR_NEW_EXPR], yamlPath)
-        } else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap && invocationMap.size > 0) {
+          registerCompletionItemProviderForExpressions(editor, TRIGGER_CHARS_FOR_NEW_EXPR, yamlPath)
+        }
+        // this is to invoke run-time inputs as suggestions
+        else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap && invocationMap.size > 0) {
           const yamlPath = getMetaDataForKeyboardEventProcessing(editor, true)?.parentToCurrentPropertyPath
           disposePreviousSuggestions()
           invokeCallBackForMatchingYAMLPaths(editor, yamlPath)
         }
       }
+      // this is to invoke partial expressions callback e.g. invoke expressions callback on hitting a period(.) after an expression: expr1.expr2. <-
       if (code === KEY_CODE_FOR_PERIOD) {
         const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
         disposePreviousSuggestions()
@@ -418,7 +442,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     yamlValidationErrors?.forEach((value, key) => {
       const errorItemSummary = (
         <ul className={css.errorList}>
-          <li>
+          <li key={key}>
             {key !== DEFAULT_YAML_PATH
               ? `${getString('yamlBuilder.yamlPath')} ${key}`
               : getString('yamlBuilder.yamlError')}

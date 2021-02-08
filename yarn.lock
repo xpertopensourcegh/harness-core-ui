@@ -2756,6 +2756,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-monaco-editor@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@types/react-monaco-editor/-/react-monaco-editor-0.16.0.tgz#12913ab07221f3335eb56d12d38b9d310643db2f"
+  integrity sha512-3YxNIyZ+mlU6WN9UfQ/T66LYjHH3ZWOK4csfefkkXdDmUbHDbuDpfmVSYyJt1W0wlwhcfu4zc7BMwYrimN/GUg==
+  dependencies:
+    react-monaco-editor "*"
+
 "@types/react-router-dom@^5.1.5":
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.5.tgz#7c334a2ea785dbad2b2dcdd83d2cf3d9973da090"
@@ -10286,6 +10293,11 @@ monaco-editor-core@0.15.5:
   resolved "https://registry.yarnpkg.com/monaco-editor-core/-/monaco-editor-core-0.15.5.tgz#145f1953a8e319282d92502252d68ef3486b6875"
   integrity "sha1-FF8ZU6jjGSgtklAiUtaO80hraHU= sha512-kM3KHRjj16cFdK5Z0EppKUu793JVMpsEesBSWlqdgrxcmjyDMXV6xK0oatPcAYp3eOfbbyjPhruxDXj85FKyIg=="
 
+monaco-editor@*:
+  version "0.22.3"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.22.3.tgz#69b42451d3116c6c08d9b8e052007ff891fd85d7"
+  integrity sha512-RM559z2CJbczZ3k2b+ouacMINkAYWwRit4/vs0g2X/lkYefDiu0k2GmgWjAuiIpQi+AqASPOKvXNmYc8KUSvVQ==
+
 monaco-editor@^0.19.2:
   version "0.19.3"
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.19.3.tgz#1c994b3186c00650dbcd034d5370d46bf56c0663"
@@ -12047,6 +12059,14 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity "sha1-TxonOv38jzSIqMUWv9p4+HI1I2I= sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
+
+react-monaco-editor@*:
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/react-monaco-editor/-/react-monaco-editor-0.42.0.tgz#f754842a8c1ac5b14360b46fd8e17eff49882fab"
+  integrity sha512-LMgiY6XU1To7tjPoMg497eST/Od01QOaUYr/tUUan4GRVBBVi5v9K7MvxMjg1FhViOgeNyD8XemsBb1cLzMxBA==
+  dependencies:
+    monaco-editor "*"
+    prop-types "^15.7.2"
 
 react-monaco-editor@^0.34.0:
   version "0.34.0"

@@ -21,6 +21,7 @@
 .snippetIcon {
   display: flex;
   justify-content: center;
+  cursor: pointer;
   padding: var(--spacing-large);
   &:hover {
     background-color: var(--grey-200);

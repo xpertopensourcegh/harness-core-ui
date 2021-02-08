@@ -60,6 +60,7 @@
     "@popperjs/core": "^2.4.2",
     "@projectstorm/react-diagrams-core": "^6.2.0",
     "@types/qs": "^6.9.4",
+    "@types/react-monaco-editor": "^0.16.0",
     "@types/uuid": "^8.3.0",
     "@wings-software/mentions": "^1.2.9",
     "@wings-software/monaco-yaml": "2.4.36",
