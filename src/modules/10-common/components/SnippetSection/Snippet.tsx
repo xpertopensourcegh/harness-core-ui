@@ -22,7 +22,9 @@ const Snippet: React.FC<SnippetInterface> = props => {
   const [isFetching, setIsFetching] = useState<boolean>(false)
 
   useEffect(() => {
-    navigator?.clipboard?.writeText(snippetYaml || '')
+    if (snippetYaml) {
+      navigator?.clipboard?.writeText(snippetYaml)
+    }
   }, [snippetYaml])
 
   const getPopoverContent = (): JSX.Element => {
