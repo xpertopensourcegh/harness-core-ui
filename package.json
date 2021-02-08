@@ -205,6 +205,9 @@
     ],
     "webpack.devServerProxy.config.js": [
       "exit 1"
+    ],
+    "*.i18n.ts": [
+      "exit 1"
     ]
   },
   "husky": {

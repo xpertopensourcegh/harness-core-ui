@@ -56,7 +56,7 @@ jobs:
       - name: Publish to docker
         if: ${{ success() }}
         run: |
-          echo ${{ secrets.DOCKERBOT_JENKINS_PASSWORD }} | docker login -u ${{ secrets.DOCKERBOT_JENKINS_USERNAME }} --password-stdin
+          echo '${{ secrets.DOCKERBOT_JENKINS_PASSWORD }}' | docker login -u '${{ secrets.DOCKERBOT_JENKINS_USERNAME }}' --password-stdin
           yarn docker ${{ env.DOCKER_TAG }}
           docker logout
           rm -rf /home/runner/.docker/config.json
