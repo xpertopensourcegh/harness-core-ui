@@ -19,7 +19,15 @@ import {
 } from '@wings-software/uicore'
 import { Dialog, Menu, Spinner } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
-import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+  DraggableStateSnapshot,
+  DroppableStateSnapshot
+} from 'react-beautiful-dnd'
+import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target, ServingRule } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml } from '@cf/constants'
 import PercentageRollout from './PercentageRollout'
@@ -196,16 +204,30 @@ interface RuleEditCardProps {
   rule: RuleData
   variations: Variation[]
   errors: any
+  index: number
+  dropSnapshot: DroppableStateSnapshot
   onDelete: () => void
   onChange: (rule: RuleData) => void
 }
 
-const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, errors, onDelete, onChange }) => {
+const RuleEditCard: React.FC<RuleEditCardProps> = ({
+  index,
+  dropSnapshot,
+  rule,
+  variations,
+  errors,
+  onDelete,
+  onChange
+}) => {
+  const [hovering, setHovering] = useState(false)
   const [operators, isSingleValue] = useCustomRulesOperators()
   const percentageRollout = { label: 'a rollout percentage', value: 'percentage' }
   const [varOpts, findVariationOpt] = useOptions(variations, x => x.identifier)
   const variationOps = varOpts.concat([percentageRollout])
   const currentServe = rule.serve.distribution ? percentageRollout : findVariationOpt(rule.serve.variation as string)
+
+  const toggleDragHandler = () => setHovering(!hovering)
+
   const handleClauseChange = (idx: number, field: keyof Clause) => (value: any) => {
     if (field === 'op' && !isSingleValue(rule.clauses[idx].op) && isSingleValue(value)) {
       const prevClause = rule.clauses[idx]
@@ -255,7 +277,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, errors, o
   const handleRemove = (idx: number) => () => {
     onChange({
       ...rule,
-      clauses: rule.clauses.filter((_, index) => index !== idx)
+      clauses: rule.clauses.filter((_, _index) => _index !== idx)
     })
   }
 
@@ -267,71 +289,99 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, errors, o
   }
 
   return (
-    <Layout.Horizontal spacing="small">
-      <Card style={{ width: '100%' }}>
-        <Layout.Vertical spacing="medium">
-          {rule.clauses.map((clause, idx) => (
-            <ClauseRow
-              key={idx}
-              index={idx}
-              isLast={idx === rule.clauses.length - 1}
-              isSingleClause={rule.clauses.length === 1}
-              label={idx === 0 ? i18n.tabTargeting.onRequest : i18n.and.toLocaleLowerCase()}
-              attribute={clause?.attribute || ''}
-              operator={operators.find(x => x.value === clause.op) || operators[0]}
-              values={clause.values ?? []}
-              error={Boolean(errors?.[idx])}
-              onOperatorChange={handleClauseChange(idx, 'op')}
-              onAttributeChange={handleClauseChange(idx, 'attribute')}
-              onValuesChange={handleClauseChange(idx, 'values')}
-              onAddNewRow={handleAddNewRow}
-              onRemoveRow={handleRemove(idx)}
-            />
-          ))}
-          <Layout.Horizontal spacing="xsmall">
-            <Text
-              color={Color.GREY_350}
-              font="normal"
-              style={{
-                display: 'flex',
-                height: '36px',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                minWidth: '80px'
-              }}
-            >
-              {i18n.tabTargeting.serve.toLocaleLowerCase()}
-            </Text>
-            <div style={{ flexGrow: 0 }}>
-              <Select
-                value={currentServe}
-                items={variationOps}
-                inputProps={{ style: { height: '36px' } }}
-                onChange={handleServeChange}
+    <Draggable key={`draggable-${index}`} draggableId={`rule-${rule.ruleId || 'new'}-${index}`} index={index}>
+      {(provided, draggableSnap: DraggableStateSnapshot) => {
+        const showBorder = hovering && !dropSnapshot.isDraggingOver
+        const showHandle = draggableSnap.isDragging || showBorder
+        return (
+          <div ref={provided.innerRef} {...provided.draggableProps}>
+            <Layout.Horizontal spacing="small">
+              <Card
+                style={{
+                  width: '100%',
+                  border: showBorder ? `1px solid var(--blue-500)` : 'none',
+                  padding: showBorder ? '19px' : 'var(--spacing-large)'
+                }}
+                onMouseEnter={toggleDragHandler}
+                onMouseLeave={toggleDragHandler}
+              >
+                <Layout.Horizontal>
+                  <div
+                    {...provided.dragHandleProps}
+                    style={{ margin: 'auto', visibility: showHandle ? 'visible' : 'hidden' }}
+                  >
+                    <Icon name="drag-handle-vertical" size={24} />
+                  </div>
+                  <div>
+                    <Layout.Vertical spacing="medium">
+                      {rule.clauses.map((clause, idx) => (
+                        <ClauseRow
+                          key={idx}
+                          index={idx}
+                          isLast={idx === rule.clauses.length - 1}
+                          isSingleClause={rule.clauses.length === 1}
+                          label={idx === 0 ? i18n.tabTargeting.onRequest : i18n.and.toLocaleLowerCase()}
+                          attribute={clause?.attribute || ''}
+                          operator={operators.find(x => x.value === clause.op) || operators[0]}
+                          values={clause.values ?? []}
+                          error={Boolean(errors?.[idx])}
+                          onOperatorChange={handleClauseChange(idx, 'op')}
+                          onAttributeChange={handleClauseChange(idx, 'attribute')}
+                          onValuesChange={handleClauseChange(idx, 'values')}
+                          onAddNewRow={handleAddNewRow}
+                          onRemoveRow={handleRemove(idx)}
+                        />
+                      ))}
+                      <Layout.Horizontal spacing="xsmall">
+                        <Text
+                          color={Color.GREY_350}
+                          font="normal"
+                          style={{
+                            display: 'flex',
+                            height: '36px',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            minWidth: '80px'
+                          }}
+                        >
+                          {i18n.tabTargeting.serve.toLocaleLowerCase()}
+                        </Text>
+                        <div style={{ flexGrow: 0 }}>
+                          <Select
+                            value={currentServe}
+                            items={variationOps}
+                            inputProps={{ style: { height: '36px' } }}
+                            onChange={handleServeChange}
+                          />
+                        </div>
+                      </Layout.Horizontal>
+                      {currentServe?.value === 'percentage' && (
+                        <div style={{ paddingLeft: '94px' }}>
+                          <PercentageRollout
+                            editing={true}
+                            variations={variations}
+                            weightedVariations={rule.serve.distribution?.variations || []}
+                            onSetPercentageValues={handleRolloutChange}
+                          />
+                        </div>
+                      )}
+                    </Layout.Vertical>
+                  </div>
+                </Layout.Horizontal>
+              </Card>
+              <Icon
+                name="trash"
+                margin={{ top: 'xlarge' }}
+                size={24}
+                color={Color.GREY_300}
+                onClick={onDelete}
+                style={{ cursor: 'pointer', height: 'fit-content' }}
               />
-            </div>
-          </Layout.Horizontal>
-          {currentServe?.value === 'percentage' && (
-            <div style={{ paddingLeft: '94px' }}>
-              <PercentageRollout
-                editing={true}
-                variations={variations}
-                weightedVariations={rule.serve.distribution?.variations || []}
-                onSetPercentageValues={handleRolloutChange}
-              />
-            </div>
-          )}
-        </Layout.Vertical>
-      </Card>
-      <Icon
-        name="trash"
-        margin={{ top: 'xlarge' }}
-        size={24}
-        color={Color.GREY_300}
-        onClick={onDelete}
-        style={{ cursor: 'pointer', height: 'fit-content' }}
-      />
-    </Layout.Horizontal>
+            </Layout.Horizontal>
+          </div>
+        )
+      }}
+    </Draggable>
   )
 }
 
@@ -623,8 +673,16 @@ interface CustomRulesViewProps {
   project: string
 }
 
+function arrayMove<T>(arr: T[], from: number, to: number): T[] {
+  if (from < to) {
+    return [...arr.slice(0, from), ...arr.slice(from + 1, to + 1), arr[from], ...arr.slice(to + 1)]
+  } else {
+    return [...arr.slice(0, to), arr[from], ...arr.slice(to, from), ...arr.slice(from + 1)]
+  }
+}
+
 const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, editing, enviroment, project }) => {
-  const tempRules = formikProps.values.customRules
+  const tempRules: ServingRule[] = formikProps.values.customRules
   const setTempRules = (data: RuleData[]) => formikProps.setFieldValue('customRules', data)
   const servings = formikProps.values.variationMap
   const setServings = (data: Serving[]) => formikProps.setFieldValue('variationMap', data)
@@ -659,6 +717,15 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
     setTempRules([...tempRules.slice(0, index), ...tempRules.slice(index + 1)])
   }
 
+  const onDragEnd = (result: DropResult) => {
+    if (result.destination) {
+      const from = result.source.index
+      const to = result.destination.index
+      const reorderedRules = arrayMove(tempRules, from, to)
+      formikProps.setFieldValue('customRules', reorderedRules)
+    }
+  }
+
   return (
     <>
       <Text
@@ -669,7 +736,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
       >
         {i18n.customRules.header}
       </Text>
-      <Layout.Vertical margin="medium">
+      <Layout.Vertical margin="medium" spacing="medium">
         {servings.length > 0 && (
           <Layout.Horizontal spacing="small">
             <ServingCard
@@ -695,23 +762,36 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
             )}
           </Layout.Horizontal>
         )}
-        {tempRules.length > 0 &&
-          tempRules.map((rule: RuleData, idx: number) => (
-            <Layout.Vertical key={idx} spacing="medium">
-              {editing ? (
-                <RuleEditCard
-                  key={idx}
-                  rule={rule}
-                  variations={target.variations}
-                  onDelete={handleDeleteRule(idx)}
-                  onChange={handleRuleChange(idx)}
-                  errors={formikProps.errors?.rules?.[idx] || []}
-                />
-              ) : (
-                <RuleViewCard key={idx} rule={rule} variations={target.variations} />
+
+        {tempRules.length > 0 && (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="customRules">
+              {(provided, dropSnapshot) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  <Layout.Vertical spacing="medium">
+                    {tempRules.map((rule: RuleData, idx: number) => {
+                      return editing ? (
+                        <RuleEditCard
+                          key={idx}
+                          index={idx}
+                          rule={rule}
+                          dropSnapshot={dropSnapshot}
+                          variations={target.variations}
+                          onDelete={handleDeleteRule(idx)}
+                          onChange={handleRuleChange(idx)}
+                          errors={formikProps.errors?.rules?.[idx] || []}
+                        />
+                      ) : (
+                        <RuleViewCard key={idx} rule={rule} variations={target.variations} />
+                      )
+                    })}
+                  </Layout.Vertical>
+                  {provided.placeholder}
+                </div>
               )}
-            </Layout.Vertical>
-          ))}
+            </Droppable>
+          </DragDropContext>
+        )}
       </Layout.Vertical>
       {editing && (
         <>

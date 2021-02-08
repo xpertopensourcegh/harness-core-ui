@@ -71,6 +71,7 @@ export interface AddRuleParams {
   priority: number
   serve: Serve
   clauses: ClauseData[]
+  uuid?: string
 }
 export interface RemoveRuleParams {
   ruleID: string
@@ -259,11 +260,18 @@ const clearVariationTargetMapping: (variation: string) => Instruction<VariationP
   'clearVariationTargetMapping',
   shape<VariationParam>('variation')
 )
-const addRule: (
-  priority: number,
-  serve: Serve,
+const addRule = (addRuleParamData: {
+  uuid?: string
+  priority: number
+  serve: Serve
   clauses: ClauseData[]
-) => Instruction<AddRuleParams> = ternaryInstructionCreator('addRule', shape('priority', 'serve', 'clauses'))
+}): Instruction<AddRuleParams> => {
+  return {
+    kind: 'addRule',
+    parameters: addRuleParamData
+  }
+}
+
 const removeRule: (ruleID: string) => Instruction<RemoveRuleParams> = unaryInstructionCreator(
   'removeRule',
   shape('ruleID')

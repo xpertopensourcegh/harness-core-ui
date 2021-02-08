@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { v4 as uuid } from 'uuid'
 import type { FormikActions } from 'formik'
 import { get, isEqual, isNil } from 'lodash-es'
 import {
@@ -168,14 +169,32 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
           })
       )
 
+      const newRuleIds: string[] = []
+      values.customRules = values.customRules.map(rule => {
+        if (!rule.ruleId) {
+          const newId = uuid()
+          newRuleIds.push(newId)
+          rule.ruleId = newId
+        }
+        return rule
+      })
+      const isNewRule = (id: string) => newRuleIds.includes(id)
+
       patch.feature.addAllInstructions(
         values.customRules
-          .filter(rule => !rule.ruleId)
-          .map(rule => patch.creators.addRule(rule.priority, rule.serve, rule.clauses.map(toClauseData)))
+          .filter(rule => isNewRule(rule.ruleId))
+          .map(rule =>
+            patch.creators.addRule({
+              uuid: rule.ruleId,
+              priority: rule.priority,
+              serve: rule.serve,
+              clauses: rule.clauses.map(toClauseData)
+            })
+          )
       )
 
       values.customRules
-        .filter(rule => rule.ruleId)
+        .filter(rule => !isNewRule(rule.ruleId))
         .map(rule => [initialValues.customRules.find(r => r.ruleId === rule.ruleId), rule])
         .filter(([initial, current]) => !isEqual(initial, current))
         .map(([initial, current]) => {
@@ -220,14 +239,21 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       })
     }
 
+    const prevOrder = initialValues.customRules.map(x => x.ruleId)
+    const newOrder = values.customRules.map(x => x.ruleId)
+    if (!isEqual(prevOrder, newOrder)) {
+      patch.feature.addInstruction(patch.creators.reorderRules(newOrder))
+    }
+
     patch.feature
       .onPatchAvailable(data => {
         patchFeature(data)
           .then(() => {
-            refetchFlag().then(() => {
-              formikActions.resetForm()
-            })
             setEditing(false)
+            return refetchFlag()
+          })
+          .then(() => {
+            formikActions.resetForm()
           })
           .catch(err => {
             showError(get(err, 'data.message', err?.message))

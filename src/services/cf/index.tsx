@@ -4,10 +4,6 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig } from '../config'
-export interface HealthResponse {
-  healthy?: boolean
-}
-
 export type Status = 'SUCCESS' | 'FAILURE' | 'ERROR'
 
 /**
@@ -241,6 +237,10 @@ export interface ObjectSnapshot {
   value?: { [key: string]: any }
 }
 
+export interface ObjectSnapshots {
+  objectsnapshots?: ObjectSnapshot[]
+}
+
 export interface ProjectRequestRequestBody {
   identifier: string
   name: string
@@ -434,27 +434,10 @@ export interface AuditTrailResponseResponse {
  */
 export interface ObjectSnapshotResponseResponse {
   status?: Status
-  data?: ObjectSnapshot
+  data?: ObjectSnapshots
   metaData?: { [key: string]: any }
   correlationId?: string
 }
-
-export type GetHealthStatusProps = Omit<GetProps<HealthResponse, void, void, void>, 'path'>
-
-/**
- * Request basic health status.
- */
-export const GetHealthStatus = (props: GetHealthStatusProps) => (
-  <Get<HealthResponse, void, void, void> path="/health" base={getConfig('cf')} {...props} />
-)
-
-export type UseGetHealthStatusProps = Omit<UseGetProps<HealthResponse, void, void, void>, 'path'>
-
-/**
- * Request basic health status.
- */
-export const useGetHealthStatus = (props: UseGetHealthStatusProps) =>
-  useGet<HealthResponse, void, void, void>(`/health`, { base: getConfig('cf'), ...props })
 
 export interface CreateProjectQueryParams {
   /**
@@ -3117,15 +3100,15 @@ export interface GetAuditByParamsQueryParams {
   /**
    * Environment
    */
-  environment: string
+  environment?: string
   /**
    * Project
    */
-  project: string
+  project?: string
   /**
-   * Object Type (FF Or TS)
+   * Object Type (FeatureActivation Or Segment)
    */
-  objectType: string
+  objectType: 'FeatureActivation' | 'Segment'
   /**
    * Organization Identifier
    */
@@ -3137,11 +3120,11 @@ export interface GetAuditByParamsQueryParams {
   /**
    * Start Time
    */
-  startTime?: string
+  startTime?: number
   /**
    * End Time
    */
-  endTime?: string
+  endTime?: number
   /**
    * PageNumber
    */
@@ -3150,6 +3133,14 @@ export interface GetAuditByParamsQueryParams {
    * PageSize
    */
   pageSize?: number
+  /**
+   * Actor
+   */
+  actor?: string
+  /**
+   * Action
+   */
+  action?: ('FeatureActivationCreated' | 'SegmentCreated' | 'FeatureActivationPatched')[]
 }
 
 export type GetAuditByParamsProps = Omit<
@@ -3205,9 +3196,9 @@ export const useGetAuditByParams = (props: UseGetAuditByParamsProps) =>
 
 export interface GetOSByIdPathParams {
   /**
-   * Unique identifier for the object in the API.
+   * Unique identifiers for the object in the API.
    */
-  identifier: string
+  identifiers: string[]
 }
 
 export type GetOSByIdProps = Omit<
@@ -3226,14 +3217,14 @@ export type GetOSByIdProps = Omit<
  *
  * Used to retrieve the json body of the object from the object snapshot table
  */
-export const GetOSById = ({ identifier, ...props }: GetOSByIdProps) => (
+export const GetOSById = ({ identifiers, ...props }: GetOSByIdProps) => (
   <Get<
     ObjectSnapshotResponseResponse | void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     void,
     GetOSByIdPathParams
   >
-    path="/admin/object/${identifier}"
+    path="/admin/objects/${identifiers}"
     base={getConfig('cf')}
     {...props}
   />
@@ -3255,14 +3246,14 @@ export type UseGetOSByIdProps = Omit<
  *
  * Used to retrieve the json body of the object from the object snapshot table
  */
-export const useGetOSById = ({ identifier, ...props }: UseGetOSByIdProps) =>
+export const useGetOSById = ({ identifiers, ...props }: UseGetOSByIdProps) =>
   useGet<
     ObjectSnapshotResponseResponse | void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     void,
     GetOSByIdPathParams
-  >((paramsInPath: GetOSByIdPathParams) => `/admin/object/${paramsInPath.identifier}`, {
+  >((paramsInPath: GetOSByIdPathParams) => `/admin/objects/${paramsInPath.identifiers}`, {
     base: getConfig('cf'),
-    pathParams: { identifier },
+    pathParams: { identifiers },
     ...props
   })
