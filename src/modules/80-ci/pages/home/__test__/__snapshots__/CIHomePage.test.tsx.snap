@@ -4,7 +4,7 @@ exports[`CIHomePage snapshot test should render properly 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; background-size: 100% auto; background-position-y: center; position: relative; height: calc(100% - 160px);"
+    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: auto; background-position-y: center; height: calc(100% - 160px);"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

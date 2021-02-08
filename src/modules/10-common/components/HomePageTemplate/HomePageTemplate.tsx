@@ -32,9 +32,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
       style={{
         margin: '80px',
         background: `transparent url(${bgImageUrl}) no-repeat`,
-        backgroundSize: '100% auto',
-        backgroundPositionY: 'center',
-        position: 'relative'
+        position: 'relative',
+        backgroundSize: 'auto',
+        backgroundPositionY: 'center'
       }}
     >
       <Layout.Vertical spacing="medium">
