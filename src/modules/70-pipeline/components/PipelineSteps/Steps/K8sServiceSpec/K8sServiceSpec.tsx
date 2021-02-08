@@ -288,6 +288,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         getMultiTypeFromValue(artifacts?.primary?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
           ? artifacts?.primary?.spec?.connectorRef
           : initialValues.artifacts?.primary?.spec?.connectorRef
+      registryHostname = artifacts?.primary?.spec?.registryHostname
     }
     if (connectorType === 'Dockerhub') {
       return !imagePath?.length || !connectorRef?.length
