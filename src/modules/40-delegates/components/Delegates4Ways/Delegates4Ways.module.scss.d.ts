@@ -3,5 +3,8 @@
 declare const styles: {
   readonly cardWrapper: string
   readonly cardBody: string
+  readonly cardContent: string
+  readonly cardHeader: string
+  readonly subTitle: string
 }
 export default styles

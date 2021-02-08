@@ -584,7 +584,6 @@ delegate:
       text: 'Runs Harness Delegate as a workload on your Kubernetes Cluster.'
       value: 'serviceKubernetes'
       icon: 'service-kubernetes'
-      name: '{{DELEGATE_KUBERNETE_TITLE}}'
     amazonECS:
       text: 'Runs Harness Delegate as an Amazon process.'
       value: 'serviceLinux'

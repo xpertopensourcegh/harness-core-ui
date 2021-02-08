@@ -4,5 +4,7 @@ declare const styles: {
   readonly delegateDetailStep: string
   readonly verticalLine: string
   readonly detailsSectionRow: string
+  readonly prereq: string
+  readonly preReqContent: string
 }
 export default styles

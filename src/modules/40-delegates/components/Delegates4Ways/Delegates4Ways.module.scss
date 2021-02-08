@@ -7,8 +7,26 @@
 
   .cardBody {
     display: flex;
-    span {
-      margin-right: 1.7rem;
+    // span {
+    //   margin-right: 1.7rem;
+    // }
+  }
+  .cardContent {
+    margin-left: var(--spacing-medium) !important;
+  }
+
+  .cardHeader {
+    font-weight: 14px !important;
+    font-weight: 600 !important;
+  }
+  .subTitle {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px !important;
+  }
+  :global {
+    .bp3-card:not(:nth-child(2)) {
+      background-color: var(--grey-200);
     }
   }
 }

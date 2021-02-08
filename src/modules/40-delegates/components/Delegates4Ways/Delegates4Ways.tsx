@@ -1,11 +1,13 @@
 import React from 'react'
-import { Color, CardSelect, CardBody, Text, Heading, Layout } from '@wings-software/uicore'
+import { Color, CardSelect, Container, Text, Layout, Icon } from '@wings-software/uicore'
 
-import type { IconName } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import { DelegateTypes } from '@delegates/constants'
 
 import type { CardData } from '../CreateDelegate/commonSteps/DelegateDetailsStep'
+import Docker from './Icons/docker.svg'
+import Ecs from './Icons/ecs.svg'
+import Linux from './Icons/linux.svg'
 import css from './Delegates4Ways.module.scss'
 
 interface Delegates4WaysProps {
@@ -28,7 +30,7 @@ const Delegates4Ways: React.FC<Delegates4WaysProps> = props => {
       text: getString('delegate.cardData.kubernetes.text'),
       value: getString('delegate.cardData.kubernetes.value'),
       icon: getString('delegate.cardData.kubernetes.icon'),
-      name: getString('delegate.cardData.kubernetes.name'),
+      name: getString('kubernetesText'),
       type: DelegateTypes.KUBERNETES_CLUSTER
     },
     {
@@ -47,31 +49,47 @@ const Delegates4Ways: React.FC<Delegates4WaysProps> = props => {
     }
   ]
 
+  const getIcon = (type: string) => {
+    switch (type) {
+      case DelegateTypes.LINUX:
+        return Linux
+
+      case DelegateTypes.ECS:
+        return Ecs
+      case DelegateTypes.DOCKER:
+        return Docker
+    }
+  }
+
   return (
     <CardSelect
       data={selectCardData}
       cornerSelected={true}
       selected={selectCardData[selectCardData.findIndex(card => card.value === selectedCard?.value)]}
       renderItem={item => (
-        <CardBody.Icon icon={item.icon as IconName} iconSize={20} className={css.cardBody}>
-          <Layout.Vertical>
-            <Heading level={3} font={{ weight: 'bold' }} color={Color.GREY_900}>
+        <Container className={css.cardBody} data-type={item.type}>
+          {item.type !== DelegateTypes.KUBERNETES_CLUSTER && <img src={getIcon(item.type)} />}
+          {item.type === DelegateTypes.KUBERNETES_CLUSTER && <Icon name="service-kubernetes" size={20} />}
+          <Layout.Vertical className={css.cardContent}>
+            <Text font={{ weight: 'bold' }} color={Color.GREY_900} className={css.cardHeader}>
               {item.name}
-            </Heading>
+            </Text>
             <Text
-              font={{ size: 'small', align: 'left' }}
               style={{
-                color: Color.GREY_350
+                color: '#6B6D85'
               }}
+              className={css.subTitle}
             >
               {item.text}
             </Text>
           </Layout.Vertical>
-        </CardBody.Icon>
+        </Container>
       )}
       onChange={value => {
-        /* istanbul ignore next */
-        onSelect(value)
+        if (value.type === DelegateTypes.KUBERNETES_CLUSTER) {
+          /* istanbul ignore next */
+          onSelect(value)
+        }
       }}
       className={`grid ${css.cardWrapper}`}
     ></CardSelect>

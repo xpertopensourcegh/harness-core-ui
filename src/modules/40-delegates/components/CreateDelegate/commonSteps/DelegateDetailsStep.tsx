@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, StepProps, Button, Color, Text, Container, Link, Heading } from '@wings-software/uicore'
+import { Layout, StepProps, Button, Color, Text, Container, Link } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import type { DelegateInfoDTO, DelegateConfigDTO } from '@delegates/DelegateInterface'
 import Delegates4Ways from '../../Delegates4Ways/Delegates4Ways'
@@ -45,51 +45,63 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
         </Layout.Vertical>
         <div className={css.verticalLine}></div>
         <Layout.Vertical spacing="large">
-          <Heading level={3} color={Color.BLACK} font={{ weight: 'bold' }} style={{ marginBottom: '18px' }}>
+          <Text color={Color.BLACK} font={{ weight: 'bold' }} style={{ marginBottom: '18px' }} className={css.prereq}>
             {getString('delegate.kubernetes.prerequisites')}
-          </Heading>
-          <Text color={Color.GREY_800} font={{ size: 'normal' }}>
+          </Text>
+          <Text color={Color.GREY_800} font={{ size: 'normal' }} className={css.preReqContent}>
             {getString('delegate.kubernetes.prerequisites_info1')}
           </Text>
           <Container>
-            <Text color={Color.GREY_800} font={{ size: 'normal' }}>
+            <Text color={Color.GREY_800} className={css.preReqContent}>
               {getString('delegate.kubernetes.prerequisites_info2')}
-              <Link color={Color.BLUE_600} font={{ size: 'normal' }} href="https:app.harness.io:443">
+              <Link color={Color.BLUE_600} className={css.preReqContent} href="https:app.harness.io:443">
                 https:app.harness.io:443/
               </Link>
             </Text>
           </Container>
-          <Text color={Color.GREY_800} font={{ size: 'normal' }}>
+          <Text color={Color.GREY_800} className={css.preReqContent}>
             {getString('delegate.kubernetes.prerequisites_info3')}
           </Text>
           <Container>
             <Layout.Horizontal>
-              <Text inline color={Color.GREY_800} font={{ size: 'normal' }} icon="arrow-right" iconProps={{ size: 8 }}>
+              <Text
+                inline
+                color={Color.GREY_800}
+                className={css.preReqContent}
+                icon="arrow-right"
+                iconProps={{ size: 8 }}
+              >
                 {getString('delegate.kubernetes.prerequisites_worload1')}
               </Text>
             </Layout.Horizontal>
             <Layout.Horizontal>
-              <Text inline color={Color.GREY_800} font={{ size: 'normal' }} icon="arrow-right" iconProps={{ size: 8 }}>
+              <Text
+                inline
+                color={Color.GREY_800}
+                className={css.preReqContent}
+                icon="arrow-right"
+                iconProps={{ size: 8 }}
+              >
                 {getString('delegate.kubernetes.prerequisites_worload2')}
               </Text>
             </Layout.Horizontal>
             <Layout.Horizontal>
-              <Text color={Color.GREY_800} font={{ size: 'normal' }} icon="arrow-right" iconProps={{ size: 8 }}>
+              <Text color={Color.GREY_800} className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
                 {getString('delegate.kubernetes.prerequisites_worload3')}
               </Text>
             </Layout.Horizontal>
           </Container>
-          <Text color={Color.GREY_800} font={{ size: 'normal' }}>
+          <Text color={Color.GREY_800} className={css.preReqContent}>
             {getString('delegate.kubernetes.permissions_title')}
           </Text>
           <Container>
             <Layout.Horizontal>
-              <Text color={Color.GREY_800} font={{ size: 'normal' }} icon="arrow-right" iconProps={{ size: 8 }}>
+              <Text color={Color.GREY_800} className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
                 {getString('delegate.kubernetes.permissions_info1')}
               </Text>
             </Layout.Horizontal>
             <Layout.Horizontal>
-              <Text color={Color.GREY_800} font={{ size: 'normal' }} icon="arrow-right" iconProps={{ size: 8 }}>
+              <Text color={Color.GREY_800} className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
                 {getString('delegate.kubernetes.permissions_info2')}
               </Text>
             </Layout.Horizontal>
@@ -99,6 +111,7 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
               id="step1ContinueButton"
               intent="primary"
               text="Continue"
+              style={{ fontSize: '14px' }}
               rightIcon="chevron-right"
               onClick={() => {
                 /* istanbul ignore next */
