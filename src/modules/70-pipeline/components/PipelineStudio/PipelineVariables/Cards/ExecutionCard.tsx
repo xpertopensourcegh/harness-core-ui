@@ -59,7 +59,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
           cards.push({
             type: 'StepRenderData',
             step,
-            originalStep: originalSteps?.[i]?.step || {},
+            originalStep: originalSteps?.[i]?.step || { timeout: '10m' },
             path: `${parentPath}[${i}].step`
           })
         } else if (stepGroup) {

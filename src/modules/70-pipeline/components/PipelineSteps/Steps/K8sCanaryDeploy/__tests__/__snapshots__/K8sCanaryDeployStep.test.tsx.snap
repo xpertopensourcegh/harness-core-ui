@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
+exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -145,7 +145,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
+exports[`Test K8sCanaryDeployStep should render edit view 2`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -346,7 +346,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                 name="timeout"
                 placeholder="Enter w/d/h/m/s/ms"
                 type="text"
-                value=""
+                value="10m"
               />
             </div>
             <span
@@ -453,7 +453,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with all runtime inputs 1`] = `
+exports[`Test K8sCanaryDeployStep should render edit view as edit step with all runtime inputs 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -685,7 +685,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                 name="timeout"
                 placeholder="Enter w/d/h/m/s/ms"
                 type="text"
-                value=""
+                value="10m"
               />
             </div>
             <span
@@ -806,7 +806,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
+exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -1026,7 +1026,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 name="timeout"
                 placeholder="Enter w/d/h/m/s/ms"
                 type="text"
-                value=""
+                value="10m"
               />
             </div>
             <span
@@ -1133,7 +1133,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
+exports[`Test K8sCanaryDeployStep should render variable view 1`] = `
 <div>
   <div
     class="variablesListTable"
@@ -1194,7 +1194,7 @@ exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace type count 1`] = `
+exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace type count 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -1502,7 +1502,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace type percentage 1`] = `
+exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace type percentage 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -1810,7 +1810,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should throw validation error without instances 1`] = `
+exports[`Test K8sCanaryDeployStep should throw validation error without instances 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -1989,7 +1989,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
       class="formGroup"
     >
       <div
-        class="bp3-form-group bp3-intent-danger duration"
+        class="bp3-form-group duration"
       >
         <label
           class="bp3-label"
@@ -2016,7 +2016,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                 name="timeout"
                 placeholder="Enter w/d/h/m/s/ms"
                 type="text"
-                value=""
+                value="10m"
               />
             </div>
             <span
@@ -2046,11 +2046,6 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                 </button>
               </span>
             </span>
-          </div>
-          <div
-            class="bp3-form-helper-text"
-          >
-            Min Timeout is 10 Seconds
           </div>
         </div>
       </div>

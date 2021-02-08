@@ -282,9 +282,9 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   }
   protected defaultValues: K8sCanaryDeployData = {
     identifier: '',
+    timeout: '10m',
     spec: {
       skipDryRun: false,
-      timeout: '10m',
       instanceSelection: {
         type: InstanceTypes.Instances,
         spec: { count: 1 }

@@ -11,7 +11,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
   <div>{children}</div>
 ))
 
-describe('Test K8sBlueGreenDeployStep', () => {
+describe('Test K8sCanaryDeployStep', () => {
   beforeEach(() => {
     factory.registerStep(new K8sCanaryDeployStep())
   })

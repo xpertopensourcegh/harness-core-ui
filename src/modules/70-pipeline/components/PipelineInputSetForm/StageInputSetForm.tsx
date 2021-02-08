@@ -90,9 +90,9 @@ function ExecutionWrapperInputSetForm(props: {
               onUpdate={data => {
                 if (initialValues) {
                   if (!initialValues.step) {
-                    initialValues.step = { identifier: originalStep.step?.identifier || '' }
+                    initialValues.step = { identifier: originalStep.step?.identifier || '', timeout: '10m' }
                   }
-                  initialValues.step = { ...data, identifier: originalStep.step?.identifier || '' }
+                  initialValues.step = { ...data, identifier: originalStep.step?.identifier || '', timeout: '10m' }
                   formik?.setValues(set(formik?.values, `${path}[${index}].step`, initialValues.step))
                 }
               }}
@@ -114,9 +114,9 @@ function ExecutionWrapperInputSetForm(props: {
                   onUpdate={data => {
                     if (initialValues) {
                       if (!initialValues.step) {
-                        initialValues.step = { identifier: originalStep.step?.identifier || '' }
+                        initialValues.step = { identifier: originalStep.step?.identifier || '', timeout: '10m' }
                       }
-                      initialValues.step = { ...data, identifier: originalStep.step?.identifier || '' }
+                      initialValues.step = { ...data, identifier: originalStep.step?.identifier || '', timeout: '10m' }
                       formik?.setValues(
                         set(formik?.values, `${path}[${index}].parallel[${indexp}].step`, initialValues.step)
                       )
