@@ -296,20 +296,31 @@ const HomePage: React.FC = () => {
                       })
                     }}
                   >
-                    <Icon
+                    {/* <Icon
                       name={dashboard?.type === 'SHARED' ? 'harness' : 'dashboard'}
                       size={25}
                       color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.BLUE_500}
-                    />
+                    /> */}
                     <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
                       {dashboard?.title}
                     </Text>
-                    <Text color={Color.GREY_350}>{dashboard?.description}</Text>
+                    {dashboard?.description && <Text color={Color.GREY_350}>{dashboard?.description}</Text>}
                     <Layout.Horizontal
                       spacing="medium"
-                      style={{ borderTop: '1px solid var(--grey-200)', paddingTop: 'var(--spacing-large)' }}
+                      height="160px"
+                      style={{
+                        display: 'flow-root',
+                        overflow: 'hidden'
+                      }}
                     >
-                      <Container
+                      <img
+                        src={
+                          `https://harnesspoc.cloud.looker.com/api/internal/core/3.1/content_thumbnail/dashboard/` +
+                          dashboard?.id
+                        }
+                        width="100%"
+                      />
+                      {/* <Container
                         style={{ width: '50%', borderRadius: '5px' }}
                         padding="small"
                         background={Color.GREY_100}
@@ -334,7 +345,7 @@ const HomePage: React.FC = () => {
                           </Text>
                           &nbsp;{getString('dashboards.createModal.fav')}
                         </Layout.Horizontal>
-                      </Container>
+                      </Container> */}
                     </Layout.Horizontal>
                     <Layout.Vertical spacing="medium">
                       <Text color={Color.GREY_400}>{getString('dashboards.createModal.dataSource')}</Text>
