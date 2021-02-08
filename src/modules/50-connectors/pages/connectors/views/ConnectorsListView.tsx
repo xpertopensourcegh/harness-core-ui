@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uicore'
+import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
@@ -38,15 +38,35 @@ type CustomColumn<T extends object> = Column<T> & {
   reload?: () => Promise<void>
 }
 
-const getConnectorDisplaySummaryLabel = (titleStringId: string, value: string): JSX.Element | string => {
+const stopPropagation = (e: React.MouseEvent<Element, MouseEvent>) => e.stopPropagation()
+
+const linkRenderer = (value: string): JSX.Element =>
+  value ? (
+    <Link margin={{ left: 'xsmall' }} href={value} onClick={stopPropagation} target="_blank">
+      {value}
+    </Link>
+  ) : (
+    <></>
+  )
+
+const textRenderer = (value: string): JSX.Element =>
+  value ? (
+    <Text inline margin={{ left: 'xsmall' }} color={Color.BLACK}>
+      {value}
+    </Text>
+  ) : (
+    <></>
+  )
+
+const getConnectorDisplaySummaryLabel = (titleStringId: string, Element: JSX.Element): JSX.Element | string => {
   return (
-    <div className={css.name} color={Color.BLACK}>
-      {titleStringId ? <String stringID={titleStringId} /> : null}
-      {value ? (
-        <Text inline margin={{ left: 'xsmall' }} color={Color.BLACK}>
-          {`(${value})`}
+    <div className={css.name}>
+      {titleStringId ? (
+        <Text inline color={Color.BLACK}>
+          <String stringID={titleStringId} />:
         </Text>
       ) : null}
+      {Element}
     </div>
   )
 }
@@ -54,18 +74,23 @@ const getConnectorDisplaySummaryLabel = (titleStringId: string, value: string): 
 const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
   switch (connector?.type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.credential?.spec?.masterUrl)
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.credential?.spec?.masterUrl))
     case Connectors.GIT:
     case Connectors.GITHUB:
     case Connectors.GITLAB:
     case Connectors.BITBUCKET:
-      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.url)
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.url))
     case Connectors.DOCKER:
-      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.dockerRegistryUrl)
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.dockerRegistryUrl))
     case Connectors.NEXUS:
-      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.nexusServerUrl)
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.nexusServerUrl))
     case Connectors.ARTIFACTORY:
-      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.artifactoryServerUrl)
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.artifactoryServerUrl))
+    case Connectors.AWS:
+      return getConnectorDisplaySummaryLabel(
+        'connectors.aws.accessKey',
+        textRenderer(connector?.spec?.credential?.spec?.accessKeyRef || connector?.spec?.credential?.spec?.accessKey)
+      )
     default:
       return ''
   }

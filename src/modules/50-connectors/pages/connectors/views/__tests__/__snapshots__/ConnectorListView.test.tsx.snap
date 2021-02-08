@@ -228,7 +228,20 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
         >
           <div
             color="black"
-          />
+          >
+            <div
+              class="name"
+            >
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  Access Key
+                </span>
+                :
+              </span>
+            </div>
+          </div>
           <div
             class="name"
             color="grey400"
@@ -486,16 +499,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -693,16 +719,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -903,16 +942,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -1153,16 +1205,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.docker.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.docker.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.docker.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -1395,16 +1460,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (dbhgj)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="dbhgj"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dbhgj
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -1635,16 +1713,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (sample.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="sample.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  sample.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -2046,7 +2137,20 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
         >
           <div
             color="black"
-          />
+          >
+            <div
+              class="name"
+            >
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  Access Key
+                </span>
+                :
+              </span>
+            </div>
+          </div>
           <div
             class="name"
             color="grey400"
@@ -2311,16 +2415,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -2518,16 +2635,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -2728,16 +2858,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -2978,16 +3121,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.docker.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.docker.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.docker.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -3220,16 +3376,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (dbhgj)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="dbhgj"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dbhgj
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -3460,16 +3629,29 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (sample.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="sample.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  sample.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -3871,7 +4053,20 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
         >
           <div
             color="black"
-          />
+          >
+            <div
+              class="name"
+            >
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  Access Key
+                </span>
+                :
+              </span>
+            </div>
+          </div>
           <div
             class="name"
             color="grey400"
@@ -4129,16 +4324,29 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -4336,16 +4544,29 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -4546,16 +4767,29 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -4796,16 +5030,29 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.docker.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.docker.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.docker.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -5038,16 +5285,29 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (dbhgj)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="dbhgj"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dbhgj
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -5278,16 +5538,29 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (sample.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="sample.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  sample.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -5689,7 +5962,20 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
         >
           <div
             color="black"
-          />
+          >
+            <div
+              class="name"
+            >
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  Access Key
+                </span>
+                :
+              </span>
+            </div>
+          </div>
           <div
             class="name"
             color="grey400"
@@ -5919,16 +6205,29 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -6126,16 +6425,29 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -6336,16 +6648,29 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -6586,16 +6911,29 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.docker.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.docker.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.docker.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -6828,16 +7166,29 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (dbhgj)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="dbhgj"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dbhgj
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -7068,16 +7419,29 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (sample.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="sample.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  sample.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -7479,7 +7843,20 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
         >
           <div
             color="black"
-          />
+          >
+            <div
+              class="name"
+            >
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  Access Key
+                </span>
+                :
+              </span>
+            </div>
+          </div>
           <div
             class="name"
             color="grey400"
@@ -7737,16 +8114,29 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -7944,16 +8334,29 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -8154,16 +8557,29 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -8404,16 +8820,29 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.docker.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.docker.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.docker.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -8646,16 +9075,29 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (dbhgj)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="dbhgj"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dbhgj
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -8886,16 +9328,29 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (sample.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="sample.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  sample.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -9297,7 +9752,20 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
         >
           <div
             color="black"
-          />
+          >
+            <div
+              class="name"
+            >
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  Access Key
+                </span>
+                :
+              </span>
+            </div>
+          </div>
           <div
             class="name"
             color="grey400"
@@ -9562,16 +10030,29 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -9769,16 +10250,29 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -9979,16 +10473,29 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -10229,16 +10736,29 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.docker.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.docker.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.docker.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -10471,16 +10991,29 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (dbhgj)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="dbhgj"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dbhgj
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -10711,16 +11244,29 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (sample.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="sample.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  sample.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -11122,7 +11668,20 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         >
           <div
             color="black"
-          />
+          >
+            <div
+              class="name"
+            >
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  Access Key
+                </span>
+                :
+              </span>
+            </div>
+          </div>
           <div
             class="name"
             color="grey400"
@@ -11347,16 +11906,29 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -11554,16 +12126,29 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="https://github.com/vardanbansal-harness/vscode-yaml.git"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  https://github.com/vardanbansal-harness/vscode-yaml.git
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -11764,16 +12349,29 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -12014,16 +12612,29 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (www.docker.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="www.docker.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  www.docker.com
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -12256,16 +12867,29 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (dbhgj)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="dbhgj"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dbhgj
+                </span>
+              </a>
             </div>
           </div>
           <div
@@ -12496,16 +13120,29 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           >
             <div
               class="name"
-              color="black"
             >
-              <span>
-                URL
-              </span>
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
-                (sample.google.com)
+                <span>
+                  URL
+                </span>
+                :
               </span>
+              <a
+                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                href="sample.google.com"
+                rel="noreferrer noopener"
+                role="button"
+                tabindex="0"
+                target="_blank"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  sample.google.com
+                </span>
+              </a>
             </div>
           </div>
           <div
