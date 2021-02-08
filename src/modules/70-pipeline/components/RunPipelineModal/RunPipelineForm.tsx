@@ -14,7 +14,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty } from 'lodash-es'
+import { pick, merge, isEmpty, isEqual } from 'lodash-es'
 import * as Yup from 'yup'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -29,7 +29,6 @@ import {
   useCreateInputSetForPipeline,
   useGetYamlSchema
 } from 'services/pipeline-ng'
-
 import { useToaster } from '@common/exports'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -49,6 +48,8 @@ import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import css from './RunPipelineModal.module.scss'
+
+export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps> {
   inputSetSelected?: InputSetSelectorProps['value']
@@ -202,6 +203,23 @@ function RunPipelineFormBasic({
     },
     [yamlHandler?.getLatestYaml]
   )
+  React.useEffect(() => {
+    try {
+      if (yamlHandler) {
+        const Interval = window.setInterval(() => {
+          const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
+          if (!isEqual(pipeline, parsedYaml)) {
+            setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })
+          }
+        }, POLL_INTERVAL)
+        return () => {
+          window.clearInterval(Interval)
+        }
+      }
+    } catch (e) {
+      // Ignore Error
+    }
+  }, [yamlHandler])
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
 
   const handleRunPipeline = React.useCallback(

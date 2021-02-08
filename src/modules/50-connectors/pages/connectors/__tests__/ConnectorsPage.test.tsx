@@ -68,8 +68,8 @@ describe('Connectors Page Test', () => {
       expect(findByConnectorText(connector?.connector?.name)).toBeDefined()
     })
   })
-
-  test('Select and apply a filter', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Select and apply a filter', async () => {
     const renderProps = {
       ...Object.assign(props, {
         filtersMockData: {
