@@ -16,7 +16,7 @@ import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '../AbstractSteps/Step'
 import i18n from './PipelineInputSetForm.i18n'
-import { PipelineContext } from '../PipelineStudio/PipelineContext/PipelineContext'
+import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
 import css from './PipelineInputSetForm.module.scss'
 
 export interface PipelineInputSetFormProps {
@@ -91,7 +91,7 @@ function StageForm({
 
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
   const { originalPipeline, template, path = '', readonly } = props
-  const { getStageFromPipeline } = React.useContext(PipelineContext)
+
   return (
     <Layout.Vertical spacing="medium" padding="medium" className={css.container}>
       {(originalPipeline as any)?.variables?.length > 0 && (
@@ -126,7 +126,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
         </div>
         {template?.stages?.map((stageObj, index) => {
           if (stageObj.stage) {
-            const allValues = getStageFromPipeline(stageObj.stage.identifier, originalPipeline).stage
+            const allValues = getStageFromPipeline(stageObj?.stage?.identifier || '', originalPipeline)
             return (
               <Card key={stageObj?.stage?.identifier || index}>
                 <StageForm
@@ -139,7 +139,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
             )
           } else if (stageObj.parallel) {
             return ((stageObj.parallel as unknown) as StageElementWrapperConfig[]).map((stageP, indexp) => {
-              const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline).stage
+              const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
               return (
                 <Card key={stageObj?.stage?.identifier || index}>
                   <StageForm
