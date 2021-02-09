@@ -205,12 +205,12 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
       </Container>
       <Container className={css.cardContainer}>
         {isNumber(overallRiskScore) && (
-          <RiskCardTooltip endTime={endTimeEpoch}>
+          <RiskCardTooltip disabled endTime={endTimeEpoch}>
             <OverallRiskScoreCard overallRiskScore={overallRiskScore} onClick={() => props?.onCardSelect?.()} />
           </RiskCardTooltip>
         )}
         {categoriesAndRisk.map(({ categoryName, riskScore }) => (
-          <RiskCardTooltip key={categoryName} category={categoryName} endTime={endTimeEpoch}>
+          <RiskCardTooltip disabled key={categoryName} category={categoryName} endTime={endTimeEpoch}>
             <CategoryRiskCard
               categoryName={categoryName || ''}
               riskScore={riskScore ?? -1}

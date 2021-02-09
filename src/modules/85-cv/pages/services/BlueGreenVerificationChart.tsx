@@ -3,6 +3,7 @@ import { Text, Container, Color } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
 import classnames from 'classnames'
 import { getRiskColorStyle } from '@common/components/HeatMap/ColorUtils'
+import { useStrings } from 'framework/exports'
 import styles from './BlueGreenVerificationChart.module.scss'
 
 const MAX_SERIE_LENGTH = 16
@@ -19,6 +20,8 @@ export interface BlueGreenVerificationChartProps {
   after: Array<NodeData>
   percentageBefore?: number
   percentageAfter?: number
+  labelBefore?: string
+  labelAfter?: string
   selectedNode?: NodeData
   onSelectNode?(node?: NodeData): void
 }
@@ -28,9 +31,12 @@ export default function BlueGreenVerificationChart({
   after,
   percentageBefore,
   percentageAfter,
+  labelBefore,
+  labelAfter,
   selectedNode,
   onSelectNode
 }: BlueGreenVerificationChartProps) {
+  const { getString } = useStrings()
   const renderSeries = (data: Array<NodeData>, canSelectNodes: boolean) =>
     data.map(
       (cell, i) =>
@@ -67,13 +73,13 @@ export default function BlueGreenVerificationChart({
   return (
     <Container className={styles.chart}>
       <div className={styles.boxWrap}>
-        <Text>PRIMARY</Text>
+        <Text className={styles.boxTitle}>{labelBefore || getString('primary')}</Text>
         <div className={styles.box}>{renderSeries(before, false)}</div>
         {!!percentageBefore && <Text font={{ size: 'small' }}>{`${percentageBefore}% Traffic`}</Text>}
       </div>
       <div className={styles.separator}>{/* <Text>Verification Triggered</Text> */}</div>
       <div className={styles.boxWrap}>
-        <Text>CANARY</Text>
+        <Text className={styles.boxTitle}>{labelAfter || getString('canary')}</Text>
         <div className={styles.boxGroup}>
           <div className={styles.boxWrap}>
             <div className={styles.box}>{renderSeries(after, true)}</div>

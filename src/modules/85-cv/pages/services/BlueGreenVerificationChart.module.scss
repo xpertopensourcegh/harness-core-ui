@@ -28,6 +28,9 @@ $cell-content-size: var(--spacing-small);
     text-align: center;
     margin: var(--spacing-small) 0 !important;
   }
+  .boxTitle {
+    text-transform: uppercase;
+  }
   .boxGroup {
     display: flex;
   }

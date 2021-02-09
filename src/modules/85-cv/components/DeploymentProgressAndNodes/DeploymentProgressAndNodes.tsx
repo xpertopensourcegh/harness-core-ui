@@ -23,13 +23,17 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
       const {
         primary: before = [],
         canary: after = [],
-        trafficSplitPercentage
+        trafficSplitPercentage,
+        primaryInstancesLabel: labelBefore,
+        canaryInstancesLabel: labelAfter
       } = deploymentSummary.additionalInfo as any
       return {
         before,
         after,
         percentageBefore: Math.round(trafficSplitPercentage?.preDeploymentPercentage),
-        percentageAfter: Math.round(trafficSplitPercentage?.postDeploymentPercentage)
+        percentageAfter: Math.round(trafficSplitPercentage?.postDeploymentPercentage),
+        labelBefore,
+        labelAfter
       }
     }
   }, [deploymentSummary])

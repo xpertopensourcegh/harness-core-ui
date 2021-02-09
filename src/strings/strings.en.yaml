@@ -64,6 +64,7 @@ errorTag: Error fetching tags
 please: Please
 clickHere: ' click here '
 blueGreen: BlueGreen
+primary: Primary
 canary: Canary
 changes: 'Changes'
 details: Details

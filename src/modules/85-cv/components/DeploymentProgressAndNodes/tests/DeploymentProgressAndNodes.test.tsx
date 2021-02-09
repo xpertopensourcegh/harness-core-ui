@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import i18n from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView.i18n'
+import { TestWrapper } from '@common/utils/testUtils'
 import { DeploymentProgressAndNodes, DeploymentProgressAndNodesProps } from '../DeploymentProgressAndNodes'
 
 const BaselineDeploymentMockData: DeploymentProgressAndNodesProps = {
@@ -130,24 +131,30 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
 
 describe('Deployment progress and nodes unit tests', () => {
   test('Ensure baseline info is rendered with green bar', async () => {
-    const { container, getByText } = render(<DeploymentProgressAndNodes {...BaselineDeploymentMockData} />)
+    const { container, getByText } = render(
+      <TestWrapper>
+        <DeploymentProgressAndNodes {...BaselineDeploymentMockData} />
+      </TestWrapper>
+    )
     await waitFor(() => getByText(i18n.baselineTest))
 
     expect(container.querySelector('[class*="bp3-intent-success"]'))
     expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 100%;')
   })
   test('Ensure production info for a canary deeployment is rendered with red bar', async () => {
-    const { container, getByText } = render(<DeploymentProgressAndNodes {...CanaryDeploymentMockData} />)
-    await waitFor(() => getByText('CANARY'))
+    const { container, getByText } = render(
+      <TestWrapper>
+        <DeploymentProgressAndNodes {...CanaryDeploymentMockData} />
+      </TestWrapper>
+    )
+    await waitFor(() => getByText('Canary'))
     expect(container.querySelector('[class*="bp3-intent-danger"]'))
     expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 58%;')
-    getByText('PRIMARY')
-    getByText('CANARY')
 
     const deploymentNodes = container.querySelectorAll('[class*="boxWrap"]')
     expect(deploymentNodes.length).toBe(3)
-    expect(deploymentNodes[0].querySelector('[class*="box"]')?.children.length).toBe(12)
-    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('.highRiskColor').length).toBe(4)
-    expect(deploymentNodes[0].querySelector('[class*="box"]')?.querySelectorAll('.noAnalysisColor').length).toBe(6)
+    expect(deploymentNodes[0].querySelector('.box')?.children.length).toBe(12)
+    expect(deploymentNodes[0].querySelector('.box')?.querySelectorAll('.highRiskColor').length).toBe(4)
+    expect(deploymentNodes[0].querySelector('.box')?.querySelectorAll('.noAnalysisColor').length).toBe(6)
   })
 })

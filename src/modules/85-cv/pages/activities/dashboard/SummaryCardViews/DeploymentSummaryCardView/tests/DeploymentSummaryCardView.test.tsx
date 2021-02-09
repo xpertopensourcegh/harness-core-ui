@@ -2,6 +2,7 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Utils } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
+import { TestWrapper } from '@common/utils/testUtils'
 import { DeploymentSummaryCardView } from '../DeploymentSummaryCardView'
 
 const MockActivity = {
@@ -17,7 +18,9 @@ describe('Unit tests for Deployment summary card view', () => {
   test('Ensure deployment summary card view renders', async () => {
     const onCloseMock = jest.fn()
     const { container, getByText } = render(
-      <DeploymentSummaryCardView selectedActivity={MockActivity} onClose={onCloseMock} />
+      <TestWrapper>
+        <DeploymentSummaryCardView selectedActivity={MockActivity} onClose={onCloseMock} />
+      </TestWrapper>
     )
     await waitFor(() => getByText('Build 78'))
     expect(container.querySelector('[class*="activityTypeIcon"]')).not.toBeNull()

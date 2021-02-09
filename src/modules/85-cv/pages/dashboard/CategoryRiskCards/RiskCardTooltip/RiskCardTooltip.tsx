@@ -15,6 +15,7 @@ export interface RiskCardTooltipProps {
   endTime?: number
   children: React.ReactNode
   tooltipProps?: Partial<ITooltipProps>
+  disabled?: boolean
 }
 
 export function getMaxEnvScores(data?: RestResponseRiskSummaryPopoverDTO | null): Record<string, number> {
@@ -61,6 +62,10 @@ export default function RiskCardTooltip(props: RiskCardTooltipProps) {
 
   const maxEnvScores = useMemo(() => getMaxEnvScores(data), [data])
   const shouldCompressScores = (envIdentifier: string) => isRiskLow(maxEnvScores[envIdentifier])
+
+  if (props.disabled) {
+    return React.isValidElement(props.children) ? props.children : null
+  }
 
   let tooltipContent = null
   if (loading) {
