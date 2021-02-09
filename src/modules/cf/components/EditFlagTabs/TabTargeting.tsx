@@ -75,7 +75,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
     (targetData?.envProperties?.variationMap?.length || 0) > 0
 
   return (
-    <Layout.Vertical>
+    <Layout.Vertical padding={{ left: 'large', right: 'large', bottom: 'large' }}>
       <Container style={{ marginLeft: 'auto' }}>
         {!isEditRulesOn && <Button text={i18n.tabTargeting.editRules} icon="edit" onClick={onEditBtnHandler} />}
       </Container>

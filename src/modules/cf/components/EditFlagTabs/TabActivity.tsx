@@ -1,11 +1,15 @@
 import React from 'react'
+import { Container } from '@wings-software/uicore'
+import { AuditLogObjectType } from '@cf/utils/CFUtils'
+import type { Feature } from 'services/cf'
+import { AuditLogs } from '../AuditLogs/AuditLogs'
 
-const TodoActivity: React.FC = (): JSX.Element => {
+const TabActivity: React.FC<{ flagData: Feature }> = ({ flagData }) => {
   return (
-    <div>
-      <p>Hola Activity</p>
-    </div>
+    <Container style={{ marginTop: '-20px', height: 'calc(100vh - 135px)', overflow: 'auto' }}>
+      <AuditLogs flagData={flagData} objectType={AuditLogObjectType.FeatureActivation} />
+    </Container>
   )
 }
 
-export default TodoActivity
+export default TabActivity

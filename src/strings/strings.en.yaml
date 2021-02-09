@@ -1190,7 +1190,7 @@ connectors:
 
 cf:
   homepage:
-    slogan: 'Take your feature rollout processes to the next level  using our Harness Continuous Features.'
+    slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
     learnMore: Learn more about Feature Flags
   clause:
     operators:
@@ -1259,6 +1259,23 @@ cf:
       noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
   auditLogs:
     title: Audit Logs
+    last7days: Last 7 days
+    searchPlaceholder: Search Activity
+    viewEventSummary: View Event Summary
+    timePST: 'TIME (PST)'
+    user: USER
+    action: ACTION
+    moduleFF: 'Module: Feature Flags'
+    flagCreated: Feature activation created
+    segmentCreated: Segment created
+    flagUpdated: Feature activation updated
+    unknown: Unknown activity
+    empty: No activity found during this time.
+    eventSummary: Event Summary
+    createdMessageFF: 'created feature flag'
+    createdMessageFFUpdate: 'updated feature flag'
+    createdMessageSegment: 'created segment'
+    jsonDifference: JSON DIFFERENCE
 cv:
   continuous: 'CONTINUOUS'
   verification: 'VERIFICATION'

@@ -31,6 +31,8 @@ import {
 } from 'services/cf'
 import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
+import { useQueryParams } from '@common/hooks'
+import { FFDetailPageTab } from '@cf/utils/CFUtils'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -338,6 +340,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       </Container>
     </Dialog>
   ))
+  const { tab = FFDetailPageTab.TARGETING } = useQueryParams<{ tab?: string }>()
 
   useEffect(() => {
     if (isNil(environment)) {
@@ -381,9 +384,16 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
           <Container className={css.tabContainer}>
             {flagData && (
               <>
-                <Tabs id="editFlag">
+                <Tabs
+                  id="editFlag"
+                  defaultSelectedTabId={tab}
+                  onChange={tabId => {
+                    const url = `${location.href.split('?')[0]}?tab=${tabId}`
+                    window.history.replaceState(null, document.title, url)
+                  }}
+                >
                   <Tab
-                    id="targeting"
+                    id={FFDetailPageTab.TARGETING}
                     title={i18n.targeting}
                     panel={
                       <TabTargeting
@@ -398,15 +408,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                       />
                     }
                   />
-                  <Tab id="activity" title={i18n.activity} panel={<TabActivity />} />
+                  <Tab
+                    id={FFDetailPageTab.ACTIVITY}
+                    title={i18n.activity}
+                    panel={<TabActivity flagData={flagData} />}
+                  />
                 </Tabs>
-                <Button
-                  icon="code"
-                  minimal
-                  intent="primary"
-                  onClick={openModalTestFlag}
-                  className={css.tabContainerTestFlagBtn}
-                />
+                <Button icon="code" minimal intent="primary" onClick={openModalTestFlag} className={css.btnCode} />
               </>
             )}
           </Container>

@@ -25,18 +25,23 @@
 
 .tab-container {
   position: relative;
-  padding: 0 var(--spacing-xlarge) !important;
   // 74px is height of header
   // 72px is height of footer
   height: calc(100% - 74px - 72px);
   overflow: auto;
   :global(.bp3-tab-list) {
     border-bottom-color: var(--grey-300) !important;
+    padding-left: var(--spacing-xlarge);
+
+    [class='bp3-tab'] {
+      margin-top: var(--spacing-medium);
+    }
   }
-  .tab-container-test-flag-btn {
+
+  .btnCode {
     position: absolute;
     right: 15px;
-    top: 25px;
+    top: 13px;
   }
 }
 

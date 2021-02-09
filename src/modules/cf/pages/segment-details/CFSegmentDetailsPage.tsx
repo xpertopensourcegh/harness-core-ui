@@ -24,7 +24,9 @@ import { Dialog, Divider, Spinner, Tab } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { IsSingleValued, useOperatorsFromYaml } from '@cf/constants'
-import { Clause, useGetAllTargets, useGetSegment, usePatchSegment } from 'services/cf'
+import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
+import { AuditLogObjectType } from '@cf/utils/CFUtils'
+import { Clause, Feature, useGetAllTargets, useGetSegment, usePatchSegment } from 'services/cf'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './CFSegmentDetailsPage.module.scss'
 
@@ -679,7 +681,15 @@ const CFSegmentDetailsPage = () => {
                 />
               }
             />
-            <Tab id="activity" title="Activity Log" panel={<div></div>} />
+            <Tab
+              id="activity"
+              title="Activity Log"
+              panel={
+                <Container style={{ marginTop: '-20px', height: 'calc(100vh - 217px)', overflow: 'auto' }}>
+                  <AuditLogs flagData={{ name: data?.name } as Feature} objectType={AuditLogObjectType.Segment} />
+                </Container>
+              }
+            />
           </Tabs>
         </Container>
       </Layout.Horizontal>

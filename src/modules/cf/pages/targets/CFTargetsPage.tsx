@@ -8,6 +8,7 @@ import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures
 import { useEnvironments } from '@cf/hooks/environment'
 import { Page } from '@common/exports'
 import { useLocalStorage } from '@common/hooks'
+import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV } from '@cf/utils/CFUtils'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import IndividualTargets from './IndividualTargets'
@@ -55,8 +56,6 @@ const HeaderToolbar: React.FC<HeaderToolbar> = ({ label, environment, environmen
   </Layout.Horizontal>
 )
 
-const defaultOption: SelectOption = { label: '', value: '' }
-
 const CFTargetsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
 
@@ -75,7 +74,7 @@ const CFTargetsPage: React.FC = () => {
   const getSharedString = (key: string) => getString(`cf.shared.${key}`)
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
   // const [environment, setEnvironment] = useState<SelectOption>()
-  const [environment, setEnvironment] = useLocalStorage('cf_selected_env', defaultOption)
+  const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
 
   const [targetPage, setTargetPage] = useState(0)
   const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: fetchTargets } = useGetAllTargets({
@@ -180,7 +179,7 @@ const CFTargetsPage: React.FC = () => {
             label={getSharedString('environment').toLocaleUpperCase()}
             environment={environment?.value ? environment : environments[0]}
             environments={environments}
-            onChange={setEnvironment}
+            onChange={({ label, value }) => setEnvironment({ label, value: value as string })}
           />
         }
       />

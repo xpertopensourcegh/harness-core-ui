@@ -8,6 +8,7 @@ import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, useGetFeatureFlag } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { PageError } from '@common/components/Page/PageError'
+import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV } from '@cf/utils/CFUtils'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useLocalStorage } from '@common/hooks'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
@@ -17,7 +18,7 @@ import css from './CFFeatureFlagsDetailPage.module.scss'
 const CFFeatureFlagsDetailPage: React.FC = () => {
   const history = useHistory()
   const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<any>()
-  const [environment, setEnvironment] = useLocalStorage('cf_selected_env', { label: '', value: '' })
+  const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
 
   const { data: environments, error: errorEnvs, loading: envsLoading, refetch: refetchEnvironments } = useEnvironments({
     projectIdentifier,
