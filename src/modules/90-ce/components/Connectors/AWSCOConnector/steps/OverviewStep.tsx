@@ -48,11 +48,11 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
   const { nextStep, permission } = props
   const cePermission = permission === CE_PERMISSION || permission === COCE_PERMISSION
   const coPermission = permission === CO_PERMISSION || permission === COCE_PERMISSION
-  const [billing, setBilling] = useState(cePermission)
-  const [events, setEvents] = useState(cePermission)
+  // const [billing, setBilling] = useState(cePermission)
+  // const [events, setEvents] = useState(cePermission)
   const [optimization, setOptimization] = useState(coPermission)
-  const toggleBilling = (): void => setBilling(!billing)
-  const toggleEvents = (): void => setEvents(!events)
+  // const toggleBilling = (): void => setBilling(!billing)
+  // const toggleEvents = (): void => setEvents(!events)
   const [loading, setLoading] = useState(false)
   const toggleOptimization = (): void => setOptimization(!optimization)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -153,20 +153,6 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
                 <Layout.Vertical spacing="large" padding={{ bottom: 'large' }}>
                   <Text font={{ weight: 'light' }}>{i18n.overview.featureSelection}</Text>
                   <Layout.Horizontal spacing="large">
-                    <PermissionCard
-                      preTitle={i18n.cost}
-                      title={i18n.visibility.title}
-                      description={i18n.visibility.description}
-                      enabled={billing}
-                      onSelect={toggleBilling}
-                    />
-                    <PermissionCard
-                      preTitle={i18n.cost}
-                      title={i18n.event.title}
-                      description={i18n.event.description}
-                      enabled={events}
-                      onSelect={toggleEvents}
-                    />
                     <PermissionCard
                       preTitle={i18n.cost}
                       title={i18n.optimization.title}
