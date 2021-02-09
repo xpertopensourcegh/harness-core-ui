@@ -76,7 +76,7 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
                 }}
                 renderItem={item => (
                   <Layout.Vertical spacing="small">
-                    <CardBody.Icon icon={item.icon as IconName} iconSize={21}></CardBody.Icon>
+                    <CardBody.Icon className={css.card} icon={item.icon as IconName} iconSize={28}></CardBody.Icon>
                   </Layout.Vertical>
                 )}
                 cornerSelected={true}

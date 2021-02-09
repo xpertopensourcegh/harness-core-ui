@@ -5,11 +5,11 @@
   grid-column-gap: var(--spacing-xlarge);
   grid-row-gap: 0px;
   .bp3-card {
-    box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16);
+    box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16) !important;
     border-radius: 5px;
   }
-  > div {
-    background-color: var(--white) !important;
+  div.Card--card {
+    box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16) !important;
   }
 }
 .title {
@@ -23,9 +23,9 @@
   z-index: 1;
 }
 .card {
-  padding: 0px;
-  max-width: 50px;
-  max-height: 50px;
+  svg {
+    margin: 0 !important;
+  }
 }
 .instanceTypeNameGrid {
   display: grid;
