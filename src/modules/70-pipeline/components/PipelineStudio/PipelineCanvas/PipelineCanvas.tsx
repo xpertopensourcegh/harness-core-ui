@@ -13,7 +13,6 @@ import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCh
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useLocalStorage } from '@common/hooks'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -32,7 +31,7 @@ export interface PipelineCanvasProps {
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, toPipelineStudio }): JSX.Element => {
-  const { state, updatePipeline, deletePipelineCache, fetchPipeline } = React.useContext(PipelineContext)
+  const { state, updatePipeline, deletePipelineCache, fetchPipeline, view, setView } = React.useContext(PipelineContext)
 
   const { pipeline, isUpdated, isLoading, isInitialized, originalPipeline, yamlHandler, isBEPipelineUpdated } = state
   // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
@@ -66,7 +65,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
   })
 
   const history = useHistory()
-  const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   const isYaml = view === 'yaml'
   const [isYamlError, setYamlError] = React.useState(false)
 
@@ -210,7 +208,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
         return
       }
     }
-
     setView(newView)
   }
 

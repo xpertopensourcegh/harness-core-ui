@@ -22,6 +22,7 @@ import {
   PutPipelineQueryParams,
   Failure
 } from 'services/pipeline-ng'
+import { useLocalStorage } from '@common/hooks'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -34,6 +35,7 @@ import {
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
+import { PipelineStudioView } from '../PipelineUtils'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -130,6 +132,8 @@ export interface PipelineContextInterface {
   state: PipelineReducerState
   stagesMap: StagesMap
   stepsFactory: AbstractStepFactory
+  view: string
+  setView: (view: PipelineStudioView) => void
   renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
@@ -323,6 +327,8 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
   stepsFactory: {} as AbstractStepFactory,
   stagesMap: {},
+  view: PipelineStudioView.ui,
+  setView: () => void 0,
   runPipeline: () => undefined,
   // eslint-disable-next-line react/display-name
   renderPipelineStage: () => <div />,
@@ -345,6 +351,7 @@ export const PipelineProvider: React.FC<{
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
   const [state, dispatch] = React.useReducer(PipelineReducer, initialState)
+  const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
@@ -426,6 +433,8 @@ export const PipelineProvider: React.FC<{
     <PipelineContext.Provider
       value={{
         state,
+        view,
+        setView,
         runPipeline,
         stepsFactory,
         stagesMap,

@@ -67,6 +67,7 @@ export const RightBar = (): JSX.Element => {
         splitViewData: { type: splitViewType }
       }
     },
+    view,
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
@@ -258,11 +259,12 @@ export const RightBar = (): JSX.Element => {
             }}
           />
         )}
+
       <Button
         className={cx(css.iconButton, css.notificationsIcon, {
           [css.selected]: splitViewType === SplitViewTypes.Notifications
         })}
-        onClick={() =>
+        onClick={() => {
           updatePipelineView({
             ...pipelineView,
             isSplitViewOpen: true,
@@ -270,8 +272,9 @@ export const RightBar = (): JSX.Element => {
             drawerData: { type: DrawerTypes.AddStep },
             splitViewData: { type: SplitViewTypes.Notifications }
           })
-        }
+        }}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
+        disabled={view === 'yaml'}
         icon="yaml-builder-notifications"
         iconProps={{ size: 20 }}
         text={getString('notifications')}

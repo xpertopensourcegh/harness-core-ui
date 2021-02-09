@@ -4,7 +4,7 @@
   height: 100%;
 
   .searchContainer {
-    height: 20px;
+    height: 40px;
     margin-top: var(--spacing-medium);
     margin-left: var(--spacing-medium);
   }
@@ -28,7 +28,8 @@
   }
 
   .table {
-    margin: var(--spacing-xlarge);
+    margin-top: var(--spacing-medium);
+    margin-left: var(--spacing-xlarge);
     margin-bottom: 0;
   }
   .runText {

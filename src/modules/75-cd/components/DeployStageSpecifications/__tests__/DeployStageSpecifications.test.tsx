@@ -45,6 +45,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
   deletePipelineCache: jest.fn(),
   runPipeline: jest.fn(),
   pipelineSaved: jest.fn(),
+  view: 'ui',
+  setView: jest.fn(),
   stepsFactory: factory
 })
 describe('StepWidget tests', () => {
