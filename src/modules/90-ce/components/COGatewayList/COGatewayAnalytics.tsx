@@ -175,24 +175,24 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
         <Layout.Horizontal spacing="large" padding="medium">
           <Layout.Vertical spacing="large" padding="medium">
             <Text>Connector</Text>
-            <Layout.Horizontal spacing="medium">
+            <Layout.Horizontal spacing="xsmall">
               <Icon name="service-aws" />
               <Text>lightwingapp-lightwing</Text>
             </Layout.Horizontal>
             <Text>Idle time</Text>
-            <Layout.Horizontal spacing="medium">
+            <Layout.Horizontal spacing="xsmall">
               <Icon name="deployment-timeout-legacy" />
               <Text>{props.service.idle_time_mins}</Text>
             </Layout.Horizontal>
             <Text>Compute type</Text>
-            <Layout.Horizontal spacing="medium">
+            <Layout.Horizontal spacing="xsmall">
               <img src={props.service.fulfilment == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
               <Text>{props.service.fulfilment}</Text>
             </Layout.Horizontal>
           </Layout.Vertical>
           <Layout.Vertical spacing="large" padding="medium">
             <Text>Instances managed by the Rule</Text>
-            <Layout.Horizontal spacing="medium">
+            <Layout.Horizontal spacing="xsmall">
               {!resourcesLoading ? (
                 <Link
                   href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
@@ -213,13 +213,21 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               )}
             </Layout.Horizontal>
             <Text>Host name</Text>
-            <Link href={`http://${props.service.host_name}`} target="_blank">
-              {props.service.host_name}
-            </Link>
-            <Text>Custom Domain</Text>
-            <Link href={`http://${props.service.custom_domains}?.join('')`} target="_blank">
-              {props.service.custom_domains?.join('')}
-            </Link>
+            <Layout.Horizontal spacing="xsmall">
+              <Link href={`http://${props.service.host_name}`} target="_blank">
+                {props.service.host_name}
+              </Link>
+            </Layout.Horizontal>
+            {props.service.custom_domains?.length ? (
+              <>
+                <Text>Custom Domain</Text>
+                <Layout.Horizontal spacing="xsmall">
+                  <Link href={`http://${props.service.custom_domains}?.join('')`} target="_blank">
+                    {props.service.custom_domains?.join('')}
+                  </Link>
+                </Layout.Horizontal>
+              </>
+            ) : null}
           </Layout.Vertical>
         </Layout.Horizontal>
         <Container padding="medium" style={{ backgroundColor: '#f7fbfe' }}>
@@ -231,21 +239,23 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
                 <Layout.Horizontal spacing="medium">
                   {props.service.fulfilment == 'spot' ? <SpotvsODChart spotPercent={76}></SpotvsODChart> : null}
                   <Layout.Horizontal spacing="medium">
-                    <HighchartsReact
-                      highchart={Highcharts}
-                      options={
-                        data?.response != null
-                          ? getRiskGaugeChartOptions((data?.response as ServiceSavings).savings_percentage as number)
-                          : getRiskGaugeChartOptions(0)
-                      }
-                    />
-                    <Layout.Vertical spacing="medium" padding="large">
-                      <Text>
+                    <div style={{ alignSelf: 'center' }}>
+                      <HighchartsReact
+                        highchart={Highcharts}
+                        options={
+                          data?.response != null
+                            ? getRiskGaugeChartOptions((data?.response as ServiceSavings).savings_percentage as number)
+                            : getRiskGaugeChartOptions(0)
+                        }
+                      />
+                    </div>
+                    <Layout.Vertical spacing="xsmall" padding="large">
+                      <Heading level={2}>
                         $
                         {data?.response != null
                           ? Math.round(((data?.response as ServiceSavings).actual_savings as number) * 100) / 100
                           : 0}
-                      </Text>
+                      </Heading>
                       <Text>Cumulative Savings</Text>
                     </Layout.Vertical>
                   </Layout.Horizontal>
@@ -254,8 +264,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             )}
           </Layout.Horizontal>
         </Container>
-        <Layout.Horizontal spacing="small">
-          Showing data for
+        <Layout.Horizontal spacing="small" style={{ alignSelf: 'center' }}>
+          <Text>Showing data for</Text>
           <Link href="b" target="_blank">
             Last 7 days
           </Link>
