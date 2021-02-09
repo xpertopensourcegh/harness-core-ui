@@ -28,6 +28,7 @@ import {
   DroppableStateSnapshot
 } from 'react-beautiful-dnd'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target, ServingRule } from 'services/cf'
+import { useStrings } from 'framework/exports'
 import { shape } from '@cf/utils/instructions'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml } from '@cf/constants'
 import PercentageRollout from './PercentageRollout'
@@ -488,6 +489,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   onChangeVariation,
   onDelete
 }) => {
+  const { getString } = useStrings()
   const [openMenu, setOpenMenu] = useState(false)
   const [tagOpts] = useOptions(targetAvatars, prop(['name']))
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
@@ -536,10 +538,10 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
           )}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
             <Button intent="primary" onClick={handleSaveTemp}>
-              {i18n.save}
+              {getString('done')}
             </Button>
             <Button minimal onClick={handleClose}>
-              {i18n.cancel}
+              {getString('cancel')}
             </Button>
             <div style={{ marginLeft: 'auto' }}>
               <Text>{`${tempTargets.length} total`}</Text>

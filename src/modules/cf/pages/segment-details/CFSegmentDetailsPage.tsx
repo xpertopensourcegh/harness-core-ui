@@ -22,6 +22,7 @@ import {
 import { get, isEqual, omit } from 'lodash-es'
 import { Dialog, Divider, Spinner, Tab } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
+import { useStrings } from 'framework/exports'
 import { IsSingleValued, useOperatorsFromYaml } from '@cf/constants'
 import { Clause, useGetAllTargets, useGetSegment, usePatchSegment } from 'services/cf'
 import patch, { getDiff } from '../../utils/instructions'
@@ -196,6 +197,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
   onSave,
   onCancel
 }) => {
+  const { getString } = useStrings()
   const [operators, isSingleValued] = useOperatorsFromYaml()
 
   const [tempIncluded, setTempIncluded] = useState(included.map(toOption))
@@ -230,10 +232,10 @@ const RulesTab: React.FC<RulesTabProps> = ({
           )}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
             <Button intent="primary" onClick={handleSaveTempIncluded}>
-              Save
+              {getString('done')}
             </Button>
             <Button minimal onClick={handleCancelIncluded}>
-              Cancel
+              {getString('cancel')}
             </Button>
             <div style={{ marginLeft: 'auto' }}>
               <Text>{`${tempIncluded.length} total`}</Text>
@@ -276,10 +278,10 @@ const RulesTab: React.FC<RulesTabProps> = ({
           )}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
             <Button intent="primary" onClick={handleSaveTempExcluded}>
-              Save
+              {getString('done')}
             </Button>
             <Button minimal onClick={handleCancelExcluded}>
-              Cancel
+              {getString('cancel')}
             </Button>
             <div style={{ marginLeft: 'auto' }}>
               <Text>{`${tempExcluded.length} total`}</Text>
