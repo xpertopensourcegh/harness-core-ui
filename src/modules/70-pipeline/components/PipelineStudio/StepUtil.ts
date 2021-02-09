@@ -339,6 +339,6 @@ export const getErrorsList = memoize((errors: any): string[] => {
       errorCountMap[error] = 1
     }
   })
-  const finalErrors = Object.entries(errorCountMap).map(([key, count]) => `${count} ${key}`)
+  const finalErrors = Object.entries(errorCountMap).map(([key, count]) => `${key}  (${count})`)
   return finalErrors
 })

@@ -204,6 +204,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   stepViewType={StepViewType.InputSet}
                   path={`${path}.serviceConfig`}
                   readonly={readonly}
+                  customStepProps={{ stageIdentifier }}
                 />
               )}
               {deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' && (
@@ -215,6 +216,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   stepViewType={StepViewType.InputSet}
                   path={`${path}.serviceConfig.serviceDefinition.spec`}
                   readonly={readonly}
+                  customStepProps={{ stageIdentifier }}
                   onUpdate={(data: any) => {
                     if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
                       deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data

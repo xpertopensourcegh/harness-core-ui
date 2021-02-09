@@ -2,7 +2,6 @@ import React from 'react'
 import get from 'lodash-es/get'
 import isEmpty from 'lodash-es/isEmpty'
 import set from 'lodash-es/set'
-import parseInt from 'lodash-es/parseInt'
 import produce from 'immer'
 import {
   IconName,
@@ -36,6 +35,7 @@ import {
   useGetBuildDetailsForGcr
 } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { getStageIndexFromPipeline } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
@@ -64,6 +64,7 @@ export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template:
   })
   return JSON.stringify(fields, null, 2)
 }
+const tagExists = (value: any) => typeof value === 'number' || !isEmpty(value)
 export interface LastQueryData {
   path?: string
   imagePath?: string
@@ -78,6 +79,7 @@ interface KubernetesServiceInputFormProps {
   template?: ServiceSpec
   factory?: AbstractStepFactory
   path?: string
+  stageIdentifier: string
 }
 
 const setupMode = {
@@ -131,14 +133,15 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   path,
   factory,
   initialValues,
-  onUpdate
+  onUpdate,
+  stageIdentifier
 }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
-  const [pipeline, setPipeline] = React.useState<NgPipeline>()
+  const [pipeline, setPipeline] = React.useState<NgPipeline | { pipeline: NgPipeline }>()
   const [tagListMap, setTagListMap] = React.useState<{ [key: string]: {}[] | {} }>({ sidecars: [], primary: {} })
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
   const { data: pipelineResponse } = useGetPipeline({
@@ -246,13 +249,15 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       }
     }
   }
-  const stageIndex = parseInt(get(get(path?.match(/stages\[\d\]/g), '[0]', '').match(/\d/), '[0]', ''))
-  const stageIdentifier = get(pipeline, `pipeline.stages[${stageIndex}].stage.identifier`, '')
+
+  const { index: stageIndex = 0 } = getStageIndexFromPipeline(get(pipeline, 'pipeline', {}), stageIdentifier) //eslint-disable-line
+
   const artifacts = get(
     pipeline,
     `pipeline.stages[${stageIndex}].stage.spec.serviceConfig.serviceDefinition.spec.artifacts`,
     {}
   )
+
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
       <Menu.Item
@@ -268,7 +273,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   ))
   const isTagSelectionDisabled = (connectorType: string, index = -1): boolean => {
     let imagePath, connectorRef, registryHostname
-
     if (index > -1) {
       imagePath =
         getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
@@ -371,7 +375,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <FormInput.Text style={{ width: 400 }} name={`${path}.artifacts.primary.spec.imagePath`} />
                   </FormGroup>
                 )}
-                {getMultiTypeFromValue(artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
                   <div
                     onClick={() => {
                       const imagePath =
@@ -502,7 +506,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         <FormInput.Text name={`${path}.artifacts.sidecars[${index}].sidecar.spec.imagePath`} />
                       </FormGroup>
                     )}
-                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
+                    {getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
                       MultiTypeInputType.RUNTIME && (
                       <div
                         onClick={() => {
@@ -674,6 +678,7 @@ export interface K8SDirectServiceStep extends ServiceSpec {
   stageIndex?: number
   setupModeType?: string
   handleTabChange?: (tab: string) => void
+  customStepProps?: {}
 }
 
 export class KubernetesServiceSpec extends Step<ServiceSpec> {
@@ -703,8 +708,9 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     ) {
       set(errors, 'artifacts.primary.spec.imagePath', getString?.('fieldRequired', { field: 'Image Path' }))
     }
+
     if (
-      isEmpty(data?.artifacts?.primary?.spec?.tag) &&
+      !tagExists(data?.artifacts?.primary?.spec?.tag) &&
       getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME
     ) {
       set(errors, 'artifacts.primary.spec.tag', getString?.('fieldRequired', { field: 'Tag' }))
@@ -739,7 +745,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       }
 
       if (
-        isEmpty(sidecar?.sidecar?.spec?.tag) &&
+        !tagExists(sidecar?.sidecar?.spec?.tag) &&
         getMultiTypeFromValue(currentSidecarTemplate?.tag) === MultiTypeInputType.RUNTIME
       ) {
         set(errors, `artifacts.sidecars[${index}].sidecar.spec.tag`, getString?.('fieldRequired', { field: 'Tag' }))
@@ -800,6 +806,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <KubernetesServiceSpecInputForm
+          {...(customStepProps as K8sServiceSpecVariablesFormProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
@@ -812,6 +819,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
 
     return (
       <KubernetesServiceSpecEditable
+        {...(customStepProps as K8sServiceSpecVariablesFormProps)}
         factory={factory}
         initialValues={initialValues}
         onUpdate={onUpdate}

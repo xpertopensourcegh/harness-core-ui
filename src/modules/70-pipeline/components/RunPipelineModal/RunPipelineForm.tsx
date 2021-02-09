@@ -1,5 +1,5 @@
 import React from 'react'
-import { Classes, ITreeNode, Tooltip } from '@blueprintjs/core'
+import { Classes, ITreeNode, Tooltip, Intent } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -9,7 +9,9 @@ import {
   Popover,
   Text,
   NestedAccordionProvider,
-  useNestedAccordion
+  useNestedAccordion,
+  Accordion,
+  Icon
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
@@ -44,7 +46,7 @@ import { useAppStore, useStrings } from 'framework/exports'
 import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
-import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
+import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import css from './RunPipelineModal.module.scss'
@@ -93,6 +95,8 @@ function RunPipelineFormBasic({
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
   const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
+  const [lastYaml, setLastYaml] = React.useState({})
+  const [formErrors, setFormErrors] = React.useState<{}>({})
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
@@ -208,8 +212,10 @@ function RunPipelineFormBasic({
       if (yamlHandler) {
         const Interval = window.setInterval(() => {
           const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
-          if (!isEqual(pipeline, parsedYaml)) {
+
+          if (!isEqual(lastYaml, parsedYaml)) {
             setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })
+            setLastYaml(parsedYaml)
           }
         }, POLL_INTERVAL)
         return () => {
@@ -219,9 +225,36 @@ function RunPipelineFormBasic({
     } catch (e) {
       // Ignore Error
     }
-  }, [yamlHandler])
+  }, [yamlHandler, lastYaml])
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
-
+  const renderErrors = React.useCallback(() => {
+    const errorList = getErrorsList(formErrors)
+    if (!errorList.length) {
+      return null
+    }
+    return (
+      <div className={css.errorHeader}>
+        <Accordion>
+          <Accordion.Panel
+            id="errors"
+            summary={
+              <span>
+                <Icon name="warning-sign" intent={Intent.DANGER} />
+                {`${errorList.length} problems with Input Set`}
+              </span>
+            }
+            details={
+              <ul>
+                {errorList.map((errorMessage, index) => (
+                  <li key={index}>{errorMessage}</li>
+                ))}
+              </ul>
+            }
+          />
+        </Accordion>
+      </div>
+    )
+  }, [formErrors])
   const handleRunPipeline = React.useCallback(
     async (valuesPipeline?: NgPipeline) => {
       try {
@@ -329,6 +362,7 @@ function RunPipelineFormBasic({
               getString
             ) as any
           }
+          setFormErrors(errors)
           return errors
         }}
       >
@@ -349,6 +383,7 @@ function RunPipelineFormBasic({
                       />
                     </div>
                     <div>
+                      {renderErrors()}
                       <FormikForm>
                         {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
                           <PipelineInputSetForm
