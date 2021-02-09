@@ -4,7 +4,14 @@ import { get } from 'lodash-es'
 import cx from 'classnames'
 import { MonacoDiffEditor } from 'react-monaco-editor'
 import { Layout, Container, Text, Color, Button, useToggle } from '@wings-software/uicore'
-import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV, AuditLogAction, formatDate, formatTime } from '@cf/utils/CFUtils'
+import {
+  CF_LOCAL_STORAGE_ENV_KEY,
+  DEFAULT_ENV,
+  AuditLogAction,
+  formatDate,
+  formatTime,
+  ADIT_LOG_EMPTY_ENTRY_ID
+} from '@cf/utils/CFUtils'
 import { useLocalStorage } from '@common/hooks'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -37,9 +44,11 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
   const { selectedProject } = useAppStore()
   let text = getString('cf.auditLogs.createdMessageFF')
   const [showDiff, toggleShowDiff] = useToggle(true)
+  const { objectBefore, objectAfter } = data
+  const isObjectNewlyCreated = objectBefore !== ADIT_LOG_EMPTY_ENTRY_ID
   const { data: diffData, loading, error, refetch } = useGetOSById({
     // identifiers: ['0989203a-61e5-448d-9111-c935ac72f0a2', '8168a910-ba29-489f-9a14-1b46d4aaaf98']
-    identifiers: [data.objectIdentifier, data.objectAfter],
+    identifiers: isObjectNewlyCreated ? [objectBefore, objectAfter] : [objectAfter],
     lazy: !showDiff
   })
 
@@ -97,9 +106,23 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
                     width="670"
                     height="480"
                     language="javascript"
-                    original={JSON.stringify(diffData?.data?.objectsnapshots?.[0]?.value || '', null, 2)}
-                    value={JSON.stringify(diffData?.data?.objectsnapshots?.[1]?.value || '', null, 2)}
-                    options={{ minimap: { enabled: false }, codeLens: false, readOnly: true, renderSideBySide: true }}
+                    value={
+                      isObjectNewlyCreated
+                        ? undefined
+                        : JSON.stringify(diffData?.data?.objectsnapshots?.[0]?.value || '', null, 2)
+                    }
+                    original={JSON.stringify(
+                      diffData?.data?.objectsnapshots?.[isObjectNewlyCreated ? 0 : 1]?.value || '',
+                      null,
+                      2
+                    )}
+                    options={{
+                      ignoreTrimWhitespace: true,
+                      minimap: { enabled: false },
+                      codeLens: false,
+                      readOnly: true,
+                      renderSideBySide: true
+                    }}
                   />
                 )}
 
