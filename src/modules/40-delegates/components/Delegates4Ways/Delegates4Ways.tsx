@@ -69,7 +69,9 @@ const Delegates4Ways: React.FC<Delegates4WaysProps> = props => {
       renderItem={item => (
         <Container className={css.cardBody} data-type={item.type}>
           {item.type !== DelegateTypes.KUBERNETES_CLUSTER && <img src={getIcon(item.type)} />}
-          {item.type === DelegateTypes.KUBERNETES_CLUSTER && <Icon name="service-kubernetes" size={20} />}
+          {item.type === DelegateTypes.KUBERNETES_CLUSTER && (
+            <Icon name="service-kubernetes" size={20} className={css.kubIcon} />
+          )}
           <Layout.Vertical className={css.cardContent}>
             <Text font={{ weight: 'bold' }} color={Color.GREY_900} className={css.cardHeader}>
               {item.name}

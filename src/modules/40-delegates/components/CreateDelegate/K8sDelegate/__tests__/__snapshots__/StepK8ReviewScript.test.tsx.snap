@@ -11,51 +11,8 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
       <div
         class="collapseDiv"
       >
-        <div
-          class="Accordion--accordion yamlAccordion"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="true"
-            data-testid="yamlbuilder-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="yamlbuilder-summary"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class="headerLabel"
-                >
-                  harness-delegate.yaml
-                </div>
-              </div>
-              <div
-                class="Accordion--chevron"
-              />
-            </div>
-            <div
-              class="bp3-collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
-              >
-                <div
-                  class="Accordion--details"
-                  data-testid="yamlbuilder-details"
-                >
-                  <div>
-                    yamlDiv
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          yamlDiv
         </div>
       </div>
       <div
@@ -212,51 +169,8 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
       <div
         class="collapseDiv"
       >
-        <div
-          class="Accordion--accordion yamlAccordion"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="true"
-            data-testid="yamlbuilder-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="yamlbuilder-summary"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class="headerLabel"
-                >
-                  harness-delegate.yaml
-                </div>
-              </div>
-              <div
-                class="Accordion--chevron"
-              />
-            </div>
-            <div
-              class="bp3-collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
-              >
-                <div
-                  class="Accordion--details"
-                  data-testid="yamlbuilder-details"
-                >
-                  <div>
-                    yamlDiv
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          yamlDiv
         </div>
       </div>
       <div
@@ -413,51 +327,8 @@ exports[`Create Step Review Script Delegate render data 1`] = `
       <div
         class="collapseDiv"
       >
-        <div
-          class="Accordion--accordion yamlAccordion"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="true"
-            data-testid="yamlbuilder-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="yamlbuilder-summary"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class="headerLabel"
-                >
-                  harness-delegate.yaml
-                </div>
-              </div>
-              <div
-                class="Accordion--chevron"
-              />
-            </div>
-            <div
-              class="bp3-collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
-              >
-                <div
-                  class="Accordion--details"
-                  data-testid="yamlbuilder-details"
-                >
-                  <div>
-                    yamlDiv
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          yamlDiv
         </div>
       </div>
       <div

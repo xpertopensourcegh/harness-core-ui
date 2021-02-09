@@ -44,7 +44,7 @@ exports[`Render Delegates4Ways render data 1`] = `
         data-type="K8sCluster"
       >
         <span
-          class="bp3-icon StyledProps--main"
+          class="bp3-icon StyledProps--main kubIcon"
           data-icon="service-kubernetes"
         >
           <svg

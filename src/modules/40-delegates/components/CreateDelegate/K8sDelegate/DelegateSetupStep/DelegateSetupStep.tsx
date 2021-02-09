@@ -77,14 +77,17 @@ const getProfile = (data: any, configId: any) => {
 }
 
 const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = props => {
-  const initialValues = {
-    name: '',
-    identifier: '',
-    description: '',
-    delegateConfigurationId: '',
-    size: 'EXTRA_SMALL',
-    sesssionIdentifier: ''
-  }
+  const initialValues = props?.prevStepData?.delegateYaml
+    ? props?.prevStepData?.delegateYaml
+    : {
+        name: '',
+        identifier: '',
+        description: '',
+        delegateConfigurationId: '',
+        size: 'EXTRA_SMALL',
+        sesssionIdentifier: ''
+      }
+
   const { accountId } = useParams()
   const { getString } = useStrings()
 
@@ -94,14 +97,15 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
   const { data: delegateSizes } = useGetDelegateSizes({
     queryParams: { accountId }
   })
+  const defaultProfile = getDefaultDelegateConfiguration(data)
   const delegateSizeMappings: DelegateSizesResponse[] | undefined = delegateSizes?.resource
   const selectCardData = formatDelegateSizeArr(delegateSizeMappings)
   const profileOptions: SelectOption[] = formatProfileList(data)
-  const defaultProfile = getDefaultDelegateConfiguration(data)
+
   const defaultSize: DelegateSizesResponse | undefined = delegateSizeMappings
     ? getDefaultDelegateSize(delegateSizeMappings)
     : undefined
-
+  // const [configurations, setConfigOptions] = React.useState(profileOptions)
   const [selectedCard, setSelectedCard] = React.useState<SelectOption | undefined>()
 
   const [formData, setInitValues] = React.useState<DelegateYaml>(initialValues)
@@ -132,9 +136,9 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
   React.useEffect(() => {
     if (defaultProfile) {
       formData['delegateConfigurationId'] = defaultProfile?.uuid
-      setInitValues(formData)
+      setInitValues({ ...formData })
     }
-  }, [defaultProfile, formData])
+  }, [defaultProfile])
 
   const getTagClsName = (size: string) => {
     if (size === DelegateSize.SMALL) {
@@ -153,6 +157,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
         <Formik
           initialValues={formData}
           onSubmit={values => {
+            setInitValues(values)
             onSubmit(values)
             /** to do here */
           }}

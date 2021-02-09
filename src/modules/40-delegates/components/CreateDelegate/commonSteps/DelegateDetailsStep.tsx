@@ -36,75 +36,75 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
           <img src={harnessDelegate} alt="" aria-hidden />
         </Container>
       </Layout.Horizontal>
-      <Container className={css.delegateDetailStep} padding="xxlarge">
-        <Layout.Vertical spacing="large">
+      <Container className={css.delegateDetailStep}>
+        <Layout.Vertical className={css.section1}>
           <Text color={Color.GREY_800} font={{ size: 'normal', align: 'left' }} className={css.detailsSectionRow}>
             {getString('delegate.delegates_4_ways_title')}
           </Text>
           <Delegates4Ways onSelect={handleOnSelect} selectedCard={selectedCard} />
         </Layout.Vertical>
         <div className={css.verticalLine}></div>
-        <Layout.Vertical spacing="large">
+        <Layout.Vertical spacing="large" className={css.section2}>
           <Text color={Color.BLACK} font={{ weight: 'bold' }} style={{ marginBottom: '18px' }} className={css.prereq}>
             {getString('delegate.kubernetes.prerequisites')}
           </Text>
-          <Text color={Color.GREY_800} font={{ size: 'normal' }} className={css.preReqContent}>
-            {getString('delegate.kubernetes.prerequisites_info1')}
-          </Text>
-          <Container>
-            <Text color={Color.GREY_800} className={css.preReqContent}>
-              {getString('delegate.kubernetes.prerequisites_info2')}
-              <Link color={Color.BLUE_600} className={css.preReqContent} href="https:app.harness.io:443">
-                https:app.harness.io:443/
-              </Link>
+          <Container
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              width: '568px',
+              height: '340px',
+              fontSize: '13px',
+              lineHeight: '20px',
+              /* or 154% */
+
+              letterSpacing: '0.233333px'
+            }}
+          >
+            <Text font={{ size: 'normal' }} className={css.preReqContent}>
+              {getString('delegate.kubernetes.prerequisites_info1')}
             </Text>
-          </Container>
-          <Text color={Color.GREY_800} className={css.preReqContent}>
-            {getString('delegate.kubernetes.prerequisites_info3')}
-          </Text>
-          <Container>
-            <Layout.Horizontal>
-              <Text
-                inline
-                color={Color.GREY_800}
-                className={css.preReqContent}
-                icon="arrow-right"
-                iconProps={{ size: 8 }}
-              >
-                {getString('delegate.kubernetes.prerequisites_worload1')}
+
+            <Container>
+              <Text className={css.preReqContent}>
+                {getString('delegate.kubernetes.prerequisites_info2')}
+                <Link color={Color.BLUE_600} href="https://app.harness.io" target="_blank">
+                  https://app.harness.io
+                </Link>
               </Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal>
-              <Text
-                inline
-                color={Color.GREY_800}
-                className={css.preReqContent}
-                icon="arrow-right"
-                iconProps={{ size: 8 }}
-              >
-                {getString('delegate.kubernetes.prerequisites_worload2')}
-              </Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal>
-              <Text color={Color.GREY_800} className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
-                {getString('delegate.kubernetes.prerequisites_worload3')}
-              </Text>
-            </Layout.Horizontal>
-          </Container>
-          <Text color={Color.GREY_800} className={css.preReqContent}>
-            {getString('delegate.kubernetes.permissions_title')}
-          </Text>
-          <Container>
-            <Layout.Horizontal>
-              <Text color={Color.GREY_800} className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
-                {getString('delegate.kubernetes.permissions_info1')}
-              </Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal>
-              <Text color={Color.GREY_800} className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
-                {getString('delegate.kubernetes.permissions_info2')}
-              </Text>
-            </Layout.Horizontal>
+            </Container>
+            <Text className={css.preReqContent}>{getString('delegate.kubernetes.prerequisites_info3')}</Text>
+            <Container>
+              <Layout.Horizontal>
+                <Text inline className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
+                  {getString('delegate.kubernetes.prerequisites_worload1')}
+                </Text>
+              </Layout.Horizontal>
+              <Layout.Horizontal>
+                <Text inline className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
+                  {getString('delegate.kubernetes.prerequisites_worload2')}
+                </Text>
+              </Layout.Horizontal>
+              <Layout.Horizontal>
+                <Text className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
+                  {getString('delegate.kubernetes.prerequisites_worload3')}
+                </Text>
+              </Layout.Horizontal>
+            </Container>
+            <Text className={css.preReqContent}>{getString('delegate.kubernetes.permissions_title')}</Text>
+            <Container>
+              <Layout.Horizontal>
+                <Text className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
+                  {getString('delegate.kubernetes.permissions_info1')}
+                </Text>
+              </Layout.Horizontal>
+              <Layout.Horizontal>
+                <Text className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
+                  {getString('delegate.kubernetes.permissions_info2')}
+                </Text>
+              </Layout.Horizontal>
+            </Container>
           </Container>
           <Container>
             <Button

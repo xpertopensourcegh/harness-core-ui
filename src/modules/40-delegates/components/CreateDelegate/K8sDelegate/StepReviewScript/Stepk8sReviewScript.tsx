@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Layout, StepProps, Accordion, Heading, Text, Link, Color } from '@wings-software/uicore'
+import { Button, Layout, StepProps, Heading, Text, Link, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { useGenerateKubernetesYaml } from 'services/portal'
@@ -49,24 +49,16 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
       <Layout.Horizontal>
         <Layout.Vertical padding="xlarge" spacing="medium">
           <div className={css.collapseDiv}>
-            <Accordion activeId="yamlbuilder" collapseProps={{ transitionDuration: 0 }} className={css.yamlAccordion}>
-              <Accordion.Panel
-                id="yamlbuilder"
-                summary={<div className={css.headerLabel}>harness-delegate.yaml</div>}
-                details={
-                  <YamlBuilder
-                    entityType="Delegates"
-                    fileName={`harness-delegate.yaml`}
-                    isReadOnlyMode={true}
-                    existingJSON={props?.prevStepData?.delegateYaml}
-                    showSnippetSection={false}
-                    width="568px"
-                    height="462px"
-                    theme="DARK"
-                  />
-                }
-              />
-            </Accordion>
+            <YamlBuilder
+              entityType="Delegates"
+              fileName={`harness-delegate.yaml`}
+              isReadOnlyMode={true}
+              existingJSON={props?.prevStepData?.delegateYaml}
+              showSnippetSection={false}
+              width="568px"
+              height="462px"
+              theme="DARK"
+            />
           </div>
           <Layout.Horizontal padding="small">
             <Button
@@ -84,7 +76,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
               id="stepReviewScriptBackButton"
               text={getString('back')}
               icon="chevron-left"
-              onClick={() => props.previousStep?.()}
+              onClick={() => props.previousStep?.(props?.prevStepData)}
               margin={{ right: 'small' }}
             />
             <Button
