@@ -6,12 +6,13 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export interface Permission {
   identifier?: string
-  displayName?: string
-  resourceType?: string
-  action?: string
-  status: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
+  name?: string
+  status?: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
   scopes?: string[]
-  version?: number
+}
+
+export interface PermissionResponse {
+  permission: Permission
 }
 
 export interface Response {
@@ -21,9 +22,9 @@ export interface Response {
   correlationId?: string
 }
 
-export interface ResponseListPermission {
+export interface ResponseListPermissionResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: Permission[]
+  data?: PermissionResponse[]
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -515,23 +516,6 @@ export interface Error {
   detailedMessage?: string
 }
 
-export interface ResponseRole {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: Role
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface Role {
-  identifier?: string
-  parentIdentifier?: string
-  displayName?: string
-  validScopes?: string[]
-  permissions?: string[]
-  version?: number
-  default?: boolean
-}
-
 export interface Page {
   totalPages?: number
   totalItems?: number
@@ -542,26 +526,86 @@ export interface Page {
   empty?: boolean
 }
 
-export interface PageRole {
+export interface PageRoleAssignmentResponse {
   totalPages?: number
   totalItems?: number
   pageItemCount?: number
   pageSize?: number
-  content?: Role[]
+  content?: RoleAssignmentResponse[]
   pageIndex?: number
   empty?: boolean
 }
 
-export interface ResponsePageRole {
+export interface ResponsePageRoleAssignmentResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageRole
+  data?: PageRoleAssignmentResponse
   metaData?: { [key: string]: any }
   correlationId?: string
 }
 
-export interface ResponseBoolean {
+export interface RoleAssignment {
+  identifier?: string
+  resourceGroupIdentifier?: string
+  roleIdentifier?: string
+  principalIdentifier?: string
+  principalType: 'USER' | 'USER_GROUP' | 'API_KEY'
+}
+
+export interface RoleAssignmentResponse {
+  roleAssignment: RoleAssignment
+  parentIdentifier?: string
+  managed?: boolean
+  disabled?: boolean
+  createdAt?: number
+  lastModifiedAt?: number
+}
+
+export interface ResponseRoleAssignmentResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: boolean
+  data?: RoleAssignmentResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseRoleResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: RoleResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface Role {
+  identifier?: string
+  name?: string
+  scopes?: string[]
+  permissions?: string[]
+  description?: string
+  tags?: {
+    [key: string]: string
+  }
+}
+
+export interface RoleResponse {
+  role: Role
+  parentIdentifier?: string
+  managed?: boolean
+  createdAt?: number
+  lastModifiedAt?: number
+}
+
+export interface PageRoleResponse {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: RoleResponse[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageRoleResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageRoleResponse
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -576,7 +620,7 @@ export interface GetPermissionListQueryParams {
 }
 
 export type GetPermissionListProps = Omit<
-  GetProps<ResponseListPermission, Failure | Error, GetPermissionListQueryParams, void>,
+  GetProps<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>,
   'path'
 >
 
@@ -584,7 +628,7 @@ export type GetPermissionListProps = Omit<
  * Get All Permissions
  */
 export const GetPermissionList = (props: GetPermissionListProps) => (
-  <Get<ResponseListPermission, Failure | Error, GetPermissionListQueryParams, void>
+  <Get<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>
     path="/permissions"
     base={getConfig('rbac/api')}
     {...props}
@@ -592,7 +636,7 @@ export const GetPermissionList = (props: GetPermissionListProps) => (
 )
 
 export type UseGetPermissionListProps = Omit<
-  UseGetProps<ResponseListPermission, Failure | Error, GetPermissionListQueryParams, void>,
+  UseGetProps<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>,
   'path'
 >
 
@@ -600,7 +644,7 @@ export type UseGetPermissionListProps = Omit<
  * Get All Permissions
  */
 export const useGetPermissionList = (props: UseGetPermissionListProps) =>
-  useGet<ResponseListPermission, Failure | Error, GetPermissionListQueryParams, void>(`/permissions`, {
+  useGet<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>(`/permissions`, {
     base: getConfig('rbac/api'),
     ...props
   })
@@ -609,12 +653,195 @@ export const useGetPermissionList = (props: UseGetPermissionListProps) =>
  * Get All Permissions
  */
 export const getPermissionListPromise = (
-  props: GetUsingFetchProps<ResponseListPermission, Failure | Error, GetPermissionListQueryParams, void>,
+  props: GetUsingFetchProps<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListPermission, Failure | Error, GetPermissionListQueryParams, void>(
+  getUsingFetch<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>(
     getConfig('rbac/api'),
     `/permissions`,
+    props,
+    signal
+  )
+
+export interface GetRoleAssignmentListQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  principalIdentifier?: string
+  roleIdentifier?: string
+}
+
+export type GetRoleAssignmentListProps = Omit<
+  GetProps<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Role Assignments
+ */
+export const GetRoleAssignmentList = (props: GetRoleAssignmentListProps) => (
+  <Get<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>
+    path="/roleassignments"
+    base={getConfig('rbac/api')}
+    {...props}
+  />
+)
+
+export type UseGetRoleAssignmentListProps = Omit<
+  UseGetProps<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Role Assignments
+ */
+export const useGetRoleAssignmentList = (props: UseGetRoleAssignmentListProps) =>
+  useGet<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>(
+    `/roleassignments`,
+    { base: getConfig('rbac/api'), ...props }
+  )
+
+/**
+ * Get Role Assignments
+ */
+export const getRoleAssignmentListPromise = (
+  props: GetUsingFetchProps<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetRoleAssignmentListQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>(
+    getConfig('rbac/api'),
+    `/roleassignments`,
+    props,
+    signal
+  )
+
+export interface CreateRoleAssignmentQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type CreateRoleAssignmentProps = Omit<
+  MutateProps<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create Role Assignment
+ */
+export const CreateRoleAssignment = (props: CreateRoleAssignmentProps) => (
+  <Mutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>
+    verb="POST"
+    path="/roleassignments"
+    base={getConfig('rbac/api')}
+    {...props}
+  />
+)
+
+export type UseCreateRoleAssignmentProps = Omit<
+  UseMutateProps<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentQueryParams,
+    RoleAssignment,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create Role Assignment
+ */
+export const useCreateRoleAssignment = (props: UseCreateRoleAssignmentProps) =>
+  useMutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>(
+    'POST',
+    `/roleassignments`,
+    { base: getConfig('rbac/api'), ...props }
+  )
+
+/**
+ * Create Role Assignment
+ */
+export const createRoleAssignmentPromise = (
+  props: MutateUsingFetchProps<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentQueryParams,
+    RoleAssignment,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentQueryParams,
+    RoleAssignment,
+    void
+  >('POST', getConfig('rbac/api'), `/roleassignments`, props, signal)
+
+export interface DeleteRoleAssignmentQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteRoleAssignmentProps = Omit<
+  MutateProps<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Role Assignment
+ */
+export const DeleteRoleAssignment = (props: DeleteRoleAssignmentProps) => (
+  <Mutate<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>
+    verb="DELETE"
+    path="/roleassignments"
+    base={getConfig('rbac/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteRoleAssignmentProps = Omit<
+  UseMutateProps<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Role Assignment
+ */
+export const useDeleteRoleAssignment = (props: UseDeleteRoleAssignmentProps) =>
+  useMutate<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>(
+    'DELETE',
+    `/roleassignments`,
+    { base: getConfig('rbac/api'), ...props }
+  )
+
+/**
+ * Delete Role Assignment
+ */
+export const deleteRoleAssignmentPromise = (
+  props: MutateUsingFetchProps<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    DeleteRoleAssignmentQueryParams,
+    string,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>(
+    'DELETE',
+    getConfig('rbac/api'),
+    `/roleassignments`,
     props,
     signal
   )
@@ -630,7 +857,7 @@ export interface GetRolePathParams {
 }
 
 export type GetRoleProps = Omit<
-  GetProps<ResponseRole, Failure | Error, GetRoleQueryParams, GetRolePathParams>,
+  GetProps<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>,
   'path'
 > &
   GetRolePathParams
@@ -639,7 +866,7 @@ export type GetRoleProps = Omit<
  * Get Role
  */
 export const GetRole = ({ identifier, ...props }: GetRoleProps) => (
-  <Get<ResponseRole, Failure | Error, GetRoleQueryParams, GetRolePathParams>
+  <Get<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>
     path="/roles/${identifier}"
     base={getConfig('rbac/api')}
     {...props}
@@ -647,7 +874,7 @@ export const GetRole = ({ identifier, ...props }: GetRoleProps) => (
 )
 
 export type UseGetRoleProps = Omit<
-  UseGetProps<ResponseRole, Failure | Error, GetRoleQueryParams, GetRolePathParams>,
+  UseGetProps<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>,
   'path'
 > &
   GetRolePathParams
@@ -656,7 +883,7 @@ export type UseGetRoleProps = Omit<
  * Get Role
  */
 export const useGetRole = ({ identifier, ...props }: UseGetRoleProps) =>
-  useGet<ResponseRole, Failure | Error, GetRoleQueryParams, GetRolePathParams>(
+  useGet<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>(
     (paramsInPath: GetRolePathParams) => `/roles/${paramsInPath.identifier}`,
     { base: getConfig('rbac/api'), pathParams: { identifier }, ...props }
   )
@@ -668,10 +895,12 @@ export const getRolePromise = (
   {
     identifier,
     ...props
-  }: GetUsingFetchProps<ResponseRole, Failure | Error, GetRoleQueryParams, GetRolePathParams> & { identifier: string },
+  }: GetUsingFetchProps<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams> & {
+    identifier: string
+  },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseRole, Failure | Error, GetRoleQueryParams, GetRolePathParams>(
+  getUsingFetch<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>(
     getConfig('rbac/api'),
     `/roles/${identifier}`,
     props,
@@ -689,7 +918,7 @@ export interface UpdateRolePathParams {
 }
 
 export type UpdateRoleProps = Omit<
-  MutateProps<ResponseRole, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>,
+  MutateProps<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>,
   'path' | 'verb'
 > &
   UpdateRolePathParams
@@ -698,7 +927,7 @@ export type UpdateRoleProps = Omit<
  * Update Role
  */
 export const UpdateRole = ({ identifier, ...props }: UpdateRoleProps) => (
-  <Mutate<ResponseRole, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>
+  <Mutate<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>
     verb="PUT"
     path="/roles/${identifier}"
     base={getConfig('rbac/api')}
@@ -707,7 +936,7 @@ export const UpdateRole = ({ identifier, ...props }: UpdateRoleProps) => (
 )
 
 export type UseUpdateRoleProps = Omit<
-  UseMutateProps<ResponseRole, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>,
+  UseMutateProps<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>,
   'path' | 'verb'
 > &
   UpdateRolePathParams
@@ -716,7 +945,7 @@ export type UseUpdateRoleProps = Omit<
  * Update Role
  */
 export const useUpdateRole = ({ identifier, ...props }: UseUpdateRoleProps) =>
-  useMutate<ResponseRole, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>(
+  useMutate<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>(
     'PUT',
     (paramsInPath: UpdateRolePathParams) => `/roles/${paramsInPath.identifier}`,
     { base: getConfig('rbac/api'), pathParams: { identifier }, ...props }
@@ -730,7 +959,7 @@ export const updateRolePromise = (
     identifier,
     ...props
   }: MutateUsingFetchProps<
-    ResponseRole,
+    ResponseRoleResponse,
     Failure | Error,
     UpdateRoleQueryParams,
     RoleRequestBody,
@@ -738,7 +967,7 @@ export const updateRolePromise = (
   > & { identifier: string },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseRole, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>(
+  mutateUsingFetch<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>(
     'PUT',
     getConfig('rbac/api'),
     `/roles/${identifier}`,
@@ -753,7 +982,7 @@ export interface DeleteRoleQueryParams {
 }
 
 export type DeleteRoleProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteRoleQueryParams, string, void>,
+  MutateProps<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -761,7 +990,7 @@ export type DeleteRoleProps = Omit<
  * Delete Role
  */
 export const DeleteRole = (props: DeleteRoleProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteRoleQueryParams, string, void>
+  <Mutate<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>
     verb="DELETE"
     path="/roles"
     base={getConfig('rbac/api')}
@@ -770,7 +999,7 @@ export const DeleteRole = (props: DeleteRoleProps) => (
 )
 
 export type UseDeleteRoleProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteRoleQueryParams, string, void>,
+  UseMutateProps<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -778,7 +1007,7 @@ export type UseDeleteRoleProps = Omit<
  * Delete Role
  */
 export const useDeleteRole = (props: UseDeleteRoleProps) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteRoleQueryParams, string, void>('DELETE', `/roles`, {
+  useMutate<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>('DELETE', `/roles`, {
     base: getConfig('rbac/api'),
     ...props
   })
@@ -787,10 +1016,10 @@ export const useDeleteRole = (props: UseDeleteRoleProps) =>
  * Delete Role
  */
 export const deleteRolePromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteRoleQueryParams, string, void>,
+  props: MutateUsingFetchProps<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteRoleQueryParams, string, void>(
+  mutateUsingFetch<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>(
     'DELETE',
     getConfig('rbac/api'),
     `/roles`,
@@ -804,16 +1033,19 @@ export interface GetRoleListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  includeDefault?: boolean
+  includeManaged?: boolean
 }
 
-export type GetRoleListProps = Omit<GetProps<ResponsePageRole, Failure | Error, GetRoleListQueryParams, void>, 'path'>
+export type GetRoleListProps = Omit<
+  GetProps<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>,
+  'path'
+>
 
 /**
  * Get Roles
  */
 export const GetRoleList = (props: GetRoleListProps) => (
-  <Get<ResponsePageRole, Failure | Error, GetRoleListQueryParams, void>
+  <Get<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>
     path="/roles"
     base={getConfig('rbac/api')}
     {...props}
@@ -821,7 +1053,7 @@ export const GetRoleList = (props: GetRoleListProps) => (
 )
 
 export type UseGetRoleListProps = Omit<
-  UseGetProps<ResponsePageRole, Failure | Error, GetRoleListQueryParams, void>,
+  UseGetProps<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>,
   'path'
 >
 
@@ -829,7 +1061,7 @@ export type UseGetRoleListProps = Omit<
  * Get Roles
  */
 export const useGetRoleList = (props: UseGetRoleListProps) =>
-  useGet<ResponsePageRole, Failure | Error, GetRoleListQueryParams, void>(`/roles`, {
+  useGet<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>(`/roles`, {
     base: getConfig('rbac/api'),
     ...props
   })
@@ -838,10 +1070,10 @@ export const useGetRoleList = (props: UseGetRoleListProps) =>
  * Get Roles
  */
 export const getRoleListPromise = (
-  props: GetUsingFetchProps<ResponsePageRole, Failure | Error, GetRoleListQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePageRole, Failure | Error, GetRoleListQueryParams, void>(
+  getUsingFetch<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>(
     getConfig('rbac/api'),
     `/roles`,
     props,
@@ -855,7 +1087,7 @@ export interface CreateRoleQueryParams {
 }
 
 export type CreateRoleProps = Omit<
-  MutateProps<ResponseRole, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>,
+  MutateProps<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -863,7 +1095,7 @@ export type CreateRoleProps = Omit<
  * Create Role
  */
 export const CreateRole = (props: CreateRoleProps) => (
-  <Mutate<ResponseRole, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>
+  <Mutate<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>
     verb="POST"
     path="/roles"
     base={getConfig('rbac/api')}
@@ -872,7 +1104,7 @@ export const CreateRole = (props: CreateRoleProps) => (
 )
 
 export type UseCreateRoleProps = Omit<
-  UseMutateProps<ResponseRole, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>,
+  UseMutateProps<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -880,7 +1112,7 @@ export type UseCreateRoleProps = Omit<
  * Create Role
  */
 export const useCreateRole = (props: UseCreateRoleProps) =>
-  useMutate<ResponseRole, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>('POST', `/roles`, {
+  useMutate<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>('POST', `/roles`, {
     base: getConfig('rbac/api'),
     ...props
   })
@@ -889,10 +1121,10 @@ export const useCreateRole = (props: UseCreateRoleProps) =>
  * Create Role
  */
 export const createRolePromise = (
-  props: MutateUsingFetchProps<ResponseRole, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>,
+  props: MutateUsingFetchProps<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseRole, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>(
+  mutateUsingFetch<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>(
     'POST',
     getConfig('rbac/api'),
     `/roles`,

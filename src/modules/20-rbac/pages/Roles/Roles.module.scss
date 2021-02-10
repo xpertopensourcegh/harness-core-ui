@@ -1,0 +1,18 @@
+.centerContainer {
+  overflow: scroll;
+  height: calc(100%) !important;
+  width: inherit !important;
+}
+
+.masonry {
+  height: calc(100vh - 128px - 64px);
+}
+
+.pagination {
+  padding: 0 var(--spacing-xxxlarge) !important ;
+}
+
+.pageContainer {
+  background: var(--grey-100) !important;
+  height: calc(100vh - 128px);
+}

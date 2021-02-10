@@ -4,7 +4,13 @@ import { Redirect, useParams } from 'react-router-dom'
 import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, modulePathProps, orgPathProps, projectPathProps } from '@common/utils/routeUtils'
+import {
+  accountPathProps,
+  modulePathProps,
+  orgPathProps,
+  projectPathProps,
+  rolePathProps
+} from '@common/utils/routeUtils'
 
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -12,6 +18,7 @@ import UsersPage from '@rbac/pages/Users/UsersPage'
 import UserGroups from '@rbac/pages/UserGroups/UsersGroups'
 import Roles from '@rbac/pages/Roles/Roles'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
+import RoleDetails from './pages/RoleDetails/RoleDetails'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -97,6 +104,20 @@ export default (
       <AccessControlPage>
         <Roles />
       </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toRoleDetails({ ...accountPathProps, ...rolePathProps }),
+        routes.toRoleDetails({ ...orgPathProps, ...rolePathProps }),
+        routes.toRoleDetails({ ...projectPathProps, ...rolePathProps }),
+        // TODO: MOVE MODULE ROUTES INSIDE THE MODULE
+        routes.toRoleDetails({ ...projectPathProps, ...modulePathProps, ...rolePathProps })
+      ]}
+      exact
+    >
+      <RoleDetails />
     </RouteWithLayout>
   </>
 )

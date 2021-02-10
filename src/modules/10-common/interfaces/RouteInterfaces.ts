@@ -40,7 +40,9 @@ export interface VerificationPathProps {
 export interface SecretsPathProps {
   secretId: string
 }
-
+export interface RolePathProps {
+  roleIdentifier: string
+}
 export interface DelegatePathProps {
   delegateId: string
 }

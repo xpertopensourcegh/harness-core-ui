@@ -3,21 +3,24 @@ import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
-import css from './UsersPage.module.scss'
+import { PageHeader } from '@common/components/Page/PageHeader'
 
 const UsersPage: React.FC = () => {
   const { getString } = useStrings()
   return (
     <>
-      <Layout.Horizontal className={css.header}>
-        <Layout.Horizontal width="75%">
-          <Button text="Users" intent="primary" icon="plus" onClick={noop} />
-        </Layout.Horizontal>
-
-        <Layout.Horizontal spacing="small" width="25%">
-          <ExpandingSearchInput placeholder={getString('usersPage.search')} className={css.search} />
-        </Layout.Horizontal>
-      </Layout.Horizontal>
+      <PageHeader
+        title={
+          <Layout.Horizontal padding={{ left: 'large' }}>
+            <Button text={getString('users')} intent="primary" icon="plus" onClick={noop} />
+          </Layout.Horizontal>
+        }
+        toolbar={
+          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
+            <ExpandingSearchInput placeholder={getString('usersPage.search')} />
+          </Layout.Horizontal>
+        }
+      />
     </>
   )
 }

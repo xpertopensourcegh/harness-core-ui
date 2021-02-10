@@ -11,7 +11,9 @@ projectLabel: Project
 orgLabel: Organization
 users: Users
 roles: Roles
+newRole: 'New Role'
 userGroups: User Groups
+created: Created
 resourceGroups: Resource Groups
 modules: Modules
 account: 'Account'
@@ -442,6 +444,8 @@ inputTypes:
   FIXED: Fixed value
   RUNTIME: Runtime input
   EXPRESSION: Expression
+roleForm:
+  createSuccess: Role created succesfully
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'

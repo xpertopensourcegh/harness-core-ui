@@ -1,0 +1,103 @@
+import React, { useState } from 'react'
+import {
+  Button,
+  Color,
+  Container,
+  Formik,
+  FormikForm as Form,
+  Layout,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding,
+  Text
+} from '@wings-software/uicore'
+import * as Yup from 'yup'
+import { useParams } from 'react-router-dom'
+import { pick } from 'lodash-es'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
+import { NameIdDescriptionTags, useToaster } from '@common/components'
+import { Role, useCreateRole } from 'services/rbac'
+import { useStrings } from 'framework/exports'
+import css from '@rbac/modals/RoleModal/useRoleModal.module.scss'
+
+interface RoleModalData {
+  data?: Role
+  onSubmit?: () => void
+}
+
+const RoleForm: React.FC<RoleModalData> = props => {
+  const { data: roleData, onSubmit } = props
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { getString } = useStrings()
+  const { showSuccess } = useToaster()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const { mutate: createRole, loading: saving } = useCreateRole({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
+  const handleSubmit = async (values: Role): Promise<void> => {
+    const dataToSubmit: Role = {
+      ...pick(values, ['name', 'identifier', 'tags', 'description']),
+      scopes: ['account']
+    }
+    try {
+      const created = await createRole(dataToSubmit)
+      if (created) {
+        showSuccess(getString('roleForm.createSuccess'))
+        onSubmit?.()
+      }
+    } catch (e) {
+      /* istanbul ignore next */
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
+    }
+  }
+  return (
+    <Layout.Vertical padding="xxxlarge">
+      <Layout.Vertical spacing="large">
+        <Text color={Color.BLACK} font="medium">
+          {getString('newRole')}
+        </Text>
+        <Formik
+          initialValues={{
+            identifier: '',
+            name: '',
+            description: '',
+            tags: {},
+            ...roleData
+          }}
+          validationSchema={Yup.object().shape({
+            name: Yup.string().trim().required(),
+            identifier: Yup.string().when('name', {
+              is: val => val?.length,
+              then: Yup.string().required().matches(regexIdentifier).notOneOf(illegalIdentifiers)
+            })
+          })}
+          onSubmit={values => {
+            handleSubmit(values)
+          }}
+        >
+          {formikProps => {
+            return (
+              <Form>
+                <Container className={css.roleForm}>
+                  <ModalErrorHandler bind={setModalErrorHandler} />
+                  <NameIdDescriptionTags
+                    formikProps={formikProps}
+                    identifierProps={{ isIdentifierEditable: !roleData }}
+                  />
+                </Container>
+                <Layout.Horizontal>
+                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving} />
+                </Layout.Horizontal>
+              </Form>
+            )
+          }}
+        </Formik>
+      </Layout.Vertical>
+    </Layout.Vertical>
+  )
+}
+
+export default RoleForm
