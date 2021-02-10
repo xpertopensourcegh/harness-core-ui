@@ -13,12 +13,20 @@ import OrganizationsPage from '@projects-orgs/pages/organizations/OrganizationsP
 import OrganizationDetailsPage from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
+import RbacFactory, { ResourceType } from '@rbac/factories/RbacFactory'
+import AddProjectResourceModalBody from '@projects-orgs/components/AddProjectResourceModalBody/AddProjectResourceModalBody'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
   title: 'Settings'
 }
+
+RbacFactory.registerResourceTypeHandler(ResourceType.Project, {
+  icon: 'nav-project',
+  label: 'Projects',
+  addResourceModalBody: <AddProjectResourceModalBody />
+})
 
 export default (
   <>
