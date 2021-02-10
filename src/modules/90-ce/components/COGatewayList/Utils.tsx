@@ -3,6 +3,8 @@ import moment from 'moment'
 import React from 'react'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
 import type { AllResourcesOfAccountResponse } from 'services/lw'
+import odIcon from './images/ondemandIcon.svg'
+import spotIcon from './images/spotIcon.svg'
 
 export function getRelativeTime(t: string, format: string): string {
   return moment(t, format).fromNow()
@@ -217,4 +219,8 @@ export function geGaugeChartOptionsWithoutLabel(riskScore: number) {
 
 export function getDay(t: string, format: string): string {
   return moment(t, format).format('MM/DD')
+}
+
+export function getFulfilmentIcon(fulfilment: string): string {
+  return fulfilment == 'spot' ? spotIcon : odIcon
 }

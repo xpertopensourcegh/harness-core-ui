@@ -25,7 +25,8 @@ function getStackedAreaChartOptions(
   return {
     chart: {
       type: 'area',
-      height: '200px'
+      height: 180,
+      spacing: [5, 20, 5, 5]
     },
     colors: ['#27AE60', '#DA291D'],
     title: {

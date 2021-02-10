@@ -185,7 +185,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 <Text className={css.tabTitle}>3. {i18n.review}</Text>
               </Layout.Horizontal>
             }
-            panel={<COGatewayReview gatewayDetails={props.gatewayDetails} />}
+            panel={<COGatewayReview gatewayDetails={props.gatewayDetails} setSelectedTabId={setSelectedTabId} />}
           />
         </Tabs>
       </Container>
