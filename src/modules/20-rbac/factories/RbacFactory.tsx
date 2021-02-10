@@ -1,10 +1,6 @@
 import type React from 'react'
 import type { IconName } from '@wings-software/uicore'
-
-export enum ResourceType { // TODO: this should come from backend?
-  Secret = 'Secret',
-  Project = 'Project'
-}
+import type { ResourceType } from '@rbac/interfaces/ResourceType'
 
 export interface ResourceHandler {
   icon: IconName

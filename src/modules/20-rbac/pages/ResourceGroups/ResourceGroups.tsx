@@ -3,8 +3,9 @@ import { Layout, Text, Button } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 
-import RbacFactory, { ResourceType } from '@rbac/factories/RbacFactory'
+import RbacFactory from '@rbac/factories/RbacFactory'
 import useAddResourceModal from '@rbac/modals/AddResourceModal/useAddResourceModal'
+import type { ResourceType } from '@rbac/interfaces/ResourceType'
 
 // TODO: we should get this from BE
 interface Resource {
@@ -20,7 +21,11 @@ const ResourceTypeListItem: React.FC<ResourceTypeListItemProps> = ({ resource })
   const resourceHandler = RbacFactory.getResourceTypeHandler(resource.type)
   const { openAddResourceModal } = useAddResourceModal({ onSuccess: noop })
 
-  if (!resourceHandler) return null
+  if (!resourceHandler) {
+    // eslint-disable-next-line no-console
+    __DEV__ && console.warn('[RBAC] No resource handler registered for type: ', resource.type)
+    return null
+  }
 
   return (
     <Layout.Horizontal>
@@ -37,7 +42,7 @@ const ResourceGroups: React.FC = () => {
   // TODO: this will come from BE response
   const resources: Resource[] = [
     {
-      type: ResourceType.Project,
+      type: 'project',
       id: 1
     }
   ]
