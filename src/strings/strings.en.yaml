@@ -1596,6 +1596,7 @@ ci:
     hangTight: Hang tight! Report is being generated...
     nothing: Nothing here!
     notfound: No tests were found to analyze.
+    willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
     learnMore: Learn how to enable Unit test reporting
     resultLabel: TEST CASE EXECUTION RESULT
     sortBy: 'Sort by:'
