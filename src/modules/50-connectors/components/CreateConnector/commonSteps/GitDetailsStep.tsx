@@ -3,6 +3,7 @@ import {
   Layout,
   Button,
   Formik,
+  SelectOption,
   StepProps,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
@@ -61,7 +62,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
   const isEdit = props.isEditMode || prevStepData?.isEdit
   const { getString } = useStrings()
 
-  const urlTypeOptions: IOptionProps[] = [
+  const urlTypeOptions: SelectOption[] = [
     {
       label: getString('account'),
       value: GitUrlType.ACCOUNT
@@ -225,11 +226,10 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                     formikProps={formikProps}
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />
-                  <Text>{getString('connectors.git.urlType')}</Text>
-                  <FormInput.RadioGroup
-                    style={{ fontSize: 'normal' }}
+                  <FormInput.Select
+                    className={css.formElm}
+                    label={getString('connectors.git.urlType')}
                     name="urlType"
-                    radioGroup={{ inline: true }}
                     items={urlTypeOptions}
                   />
                   <Text>{getString('connectors.git.connectionType')}</Text>
