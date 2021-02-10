@@ -17,8 +17,10 @@ import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
-const LOGIN_PAGE_URL = '/#/login'
+// pick current path, but remove `/ng/`
+const LOGIN_PAGE_URL = `${window.location.pathname.replace(/\/ng\//, '/')}#/login`
 setAutoFreeze(false)
+
 interface AppProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   strings: Record<string, any>
