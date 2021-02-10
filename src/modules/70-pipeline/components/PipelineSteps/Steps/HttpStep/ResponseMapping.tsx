@@ -7,12 +7,14 @@ import { v4 as uuid } from 'uuid'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { useStrings } from 'framework/exports'
 
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { HttpStepFormData, HttpStepOutputVariable } from './types'
 import css from './HttpStep.module.scss'
 import stepCss from '../Steps.module.scss'
 
 export default function ResponseMapping(props: { formik: FormikProps<HttpStepFormData> }): React.ReactElement {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   const {
     formik: { values: formValues }
   } = props
@@ -37,7 +39,8 @@ export default function ResponseMapping(props: { formik: FormikProps<HttpStepFor
                         <FormInput.MultiTextInput
                           name={`spec.outputVariables[${i}].value`}
                           multiTextInputProps={{
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                            expressions
                           }}
                           label=""
                         />

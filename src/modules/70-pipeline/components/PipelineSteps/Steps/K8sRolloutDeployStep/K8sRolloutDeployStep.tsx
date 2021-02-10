@@ -26,6 +26,7 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -50,6 +51,7 @@ function K8RolloutDeployWidget(
   formikRef: StepFormikFowardRef<K8RolloutDeployData>
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
+  const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
   return (
     <>
@@ -79,7 +81,7 @@ function K8RolloutDeployWidget(
                   <FormMultiTypeDurationField
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -96,7 +98,11 @@ function K8RolloutDeployWidget(
                   )}
                 </div>
                 <div className={stepCss.formGroup}>
-                  <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
+                  <FormMultiTypeCheckboxField
+                    multiTypeTextbox={{ expressions }}
+                    name="spec.skipDryRun"
+                    label={getString('pipelineSteps.skipDryRun')}
+                  />
                 </div>
               </Layout.Vertical>
               <div className={stepCss.actionsPanel}>

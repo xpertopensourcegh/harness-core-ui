@@ -220,14 +220,14 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <span
-                        class="bp3-popover-wrapper"
+                        class="bp3-popover-wrapper Avatar--avatarPopOver"
                       >
                         <span
                           class="bp3-popover-target"
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                             tabindex="0"
                           >
                             E
@@ -356,14 +356,14 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <span
-                        class="bp3-popover-wrapper"
+                        class="bp3-popover-wrapper Avatar--avatarPopOver"
                       >
                         <span
                           class="bp3-popover-target"
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                             tabindex="0"
                           >
                             E
@@ -492,14 +492,14 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <span
-                        class="bp3-popover-wrapper"
+                        class="bp3-popover-wrapper Avatar--avatarPopOver"
                       >
                         <span
                           class="bp3-popover-target"
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                             tabindex="0"
                           >
                             E
@@ -628,14 +628,14 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <span
-                        class="bp3-popover-wrapper"
+                        class="bp3-popover-wrapper Avatar--avatarPopOver"
                       >
                         <span
                           class="bp3-popover-target"
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                             tabindex="0"
                           >
                             E

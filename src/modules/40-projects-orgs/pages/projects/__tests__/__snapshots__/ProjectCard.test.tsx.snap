@@ -125,30 +125,40 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           >
             <div
               class="AvatarGroup--stack projectAvatarGroup"
+              style="--avatar-over-lap: -13px;"
             >
               <div
                 class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
               >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
-                >
-                  +
-                </div>
-              </div>
-              <div
-                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                uuid="19bYA-ooQZOTZQxf2N-VPA"
-              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="19bYA-ooQZOTZQxf2N-VPA"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -168,30 +178,40 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           >
             <div
               class="AvatarGroup--stack projectAvatarGroup"
+              style="--avatar-over-lap: -13px;"
             >
               <div
                 class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
               >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
-                >
-                  +
-                </div>
-              </div>
-              <div
-                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                uuid="lv0euRhKRCyiXWzS7pOg6g"
-              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="lv0euRhKRCyiXWzS7pOg6g"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -204,14 +224,14 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
                 uuid="0osgWsTZRsSZ8RWfjLRkEg"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -224,14 +244,14 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
                 uuid="ZqXNvYmURnO46PX7HwgEtQ"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -244,14 +264,14 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
                 uuid="nhLgdGgxS_iqa0KP5edC-w"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -264,14 +284,14 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
                 uuid="BnTbQTIJS4SkadzYv0BcbA"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1210,30 +1230,40 @@ exports[`Project Card test Preview is ok 1`] = `
           >
             <div
               class="AvatarGroup--stack projectAvatarGroup"
+              style="--avatar-over-lap: -13px;"
             >
               <div
                 class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
               >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
-                >
-                  +
-                </div>
-              </div>
-              <div
-                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                uuid="19bYA-ooQZOTZQxf2N-VPA"
-              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="19bYA-ooQZOTZQxf2N-VPA"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1253,30 +1283,40 @@ exports[`Project Card test Preview is ok 1`] = `
           >
             <div
               class="AvatarGroup--stack projectAvatarGroup"
+              style="--avatar-over-lap: -13px;"
             >
               <div
                 class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
               >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
-                >
-                  +
-                </div>
-              </div>
-              <div
-                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                uuid="lv0euRhKRCyiXWzS7pOg6g"
-              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="lv0euRhKRCyiXWzS7pOg6g"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1289,14 +1329,14 @@ exports[`Project Card test Preview is ok 1`] = `
                 uuid="0osgWsTZRsSZ8RWfjLRkEg"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1309,14 +1349,14 @@ exports[`Project Card test Preview is ok 1`] = `
                 uuid="ZqXNvYmURnO46PX7HwgEtQ"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1329,14 +1369,14 @@ exports[`Project Card test Preview is ok 1`] = `
                 uuid="nhLgdGgxS_iqa0KP5edC-w"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1349,14 +1389,14 @@ exports[`Project Card test Preview is ok 1`] = `
                 uuid="BnTbQTIJS4SkadzYv0BcbA"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1696,30 +1736,40 @@ exports[`Project Card test initializes ok  1`] = `
           >
             <div
               class="AvatarGroup--stack projectAvatarGroup"
+              style="--avatar-over-lap: -13px;"
             >
               <div
                 class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
               >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
-                >
-                  +
-                </div>
-              </div>
-              <div
-                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                uuid="19bYA-ooQZOTZQxf2N-VPA"
-              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="19bYA-ooQZOTZQxf2N-VPA"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1739,30 +1789,40 @@ exports[`Project Card test initializes ok  1`] = `
           >
             <div
               class="AvatarGroup--stack projectAvatarGroup"
+              style="--avatar-over-lap: -13px;"
             >
               <div
                 class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
               >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
-                >
-                  +
-                </div>
-              </div>
-              <div
-                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                uuid="lv0euRhKRCyiXWzS7pOg6g"
-              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="lv0euRhKRCyiXWzS7pOg6g"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1775,14 +1835,14 @@ exports[`Project Card test initializes ok  1`] = `
                 uuid="0osgWsTZRsSZ8RWfjLRkEg"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1795,14 +1855,14 @@ exports[`Project Card test initializes ok  1`] = `
                 uuid="ZqXNvYmURnO46PX7HwgEtQ"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1815,14 +1875,14 @@ exports[`Project Card test initializes ok  1`] = `
                 uuid="nhLgdGgxS_iqa0KP5edC-w"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E
@@ -1835,14 +1895,14 @@ exports[`Project Card test initializes ok  1`] = `
                 uuid="BnTbQTIJS4SkadzYv0BcbA"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
                 >
                   <span
                     class="bp3-popover-target"
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
                       E

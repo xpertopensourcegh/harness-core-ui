@@ -30,7 +30,7 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -93,7 +93,7 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -182,7 +182,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -245,7 +245,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -308,7 +308,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -371,7 +371,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -434,7 +434,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -523,7 +523,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -586,7 +586,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -649,7 +649,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -712,7 +712,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"
@@ -775,7 +775,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
               >
                 <span
                   class="bp3-popover-target"

@@ -283,16 +283,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -303,16 +313,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -571,16 +591,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -591,16 +621,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -823,16 +863,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -843,16 +893,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1005,16 +1065,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1025,16 +1095,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1224,16 +1304,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1244,16 +1334,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1620,16 +1720,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1640,16 +1750,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1872,16 +1992,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -1892,16 +2022,26 @@ exports[`Project List render 1`] = `
       >
         <div
           class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
           <div
             class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
             >
-              +
-            </div>
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
           </div>
         </div>
       </div>

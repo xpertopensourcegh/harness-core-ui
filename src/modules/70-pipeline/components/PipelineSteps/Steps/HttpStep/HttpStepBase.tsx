@@ -10,6 +10,7 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { HttpStepFormData, HttpStepHeaderConfig } from './types'
 import css from './HttpStep.module.scss'
 import stepCss from '../Steps.module.scss'
@@ -25,6 +26,7 @@ export const httpStepType: SelectOption[] = [
 
 export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormData> }): React.ReactElement {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   const {
     formik: { values: formValues, setFieldValue }
   } = props
@@ -35,7 +37,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
         <FormInput.InputWithIdentifier inputLabel={getString('name')} />
       </div>
       <div className={stepCss.formGroup}>
-        <FormInput.MultiTextInput name="spec.url" label={getString('UrlLabel')} />
+        <FormInput.MultiTextInput name="spec.url" label={getString('UrlLabel')} multiTextInputProps={{ expressions }} />
         {getMultiTypeFromValue(formValues.spec.url) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.url}
@@ -49,7 +51,12 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
         )}
       </div>
       <div className={stepCss.formGroup}>
-        <FormInput.MultiTypeInput selectItems={httpStepType} label={getString('methodLabel')} name="spec.method" />
+        <FormInput.MultiTypeInput
+          selectItems={httpStepType}
+          multiTypeInputProps={{ expressions }}
+          label={getString('methodLabel')}
+          name="spec.method"
+        />
         {getMultiTypeFromValue(formValues.spec.method) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.method as string}
@@ -84,7 +91,8 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
                       <FormInput.MultiTextInput
                         name={`spec.headers[${i}].value`}
                         multiTextInputProps={{
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          expressions
                         }}
                         label=""
                       />
@@ -110,7 +118,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
         <FormMultiTypeTextAreaField
           name="spec.requestBody"
           label={getString('requestBodyLabel')}
-          multiTypeTextArea={{ enableConfigureOptions: false }}
+          multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
         />
         {getMultiTypeFromValue(formValues.spec.requestBody) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -125,7 +133,11 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
         )}
       </div>
       <div className={stepCss.formGroup}>
-        <FormInput.MultiTextInput name="spec.assertion" label={getString('assertionLabel')} />
+        <FormInput.MultiTextInput
+          name="spec.assertion"
+          label={getString('assertionLabel')}
+          multiTextInputProps={{ expressions }}
+        />
         {getMultiTypeFromValue(formValues.spec.assertion) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.assertion}
@@ -142,7 +154,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false }}
+          multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
         />
         {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
