@@ -17,7 +17,7 @@ import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
-import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions } from './Utils'
+import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions, getDay } from './Utils'
 import SpotvsODChart from './SpotvsODChart'
 import css from './COGatewayList.module.scss'
 interface COGatewayAnalyticsProps {
@@ -54,6 +54,9 @@ function getBarChartOptions(
           color: 'gray'
         }
       }
+    },
+    credits: {
+      enabled: false
     },
     legend: {
       align: 'right',
@@ -93,7 +96,6 @@ function getBarChartOptions(
   }
 }
 const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ'
-const GRAPH_CATEGORY_FORMAT = 'DD/MM'
 const today = () => moment()
 const startOfDay = (time: moment.Moment) => time.startOf('day').toDate()
 const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
@@ -141,9 +143,11 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     const newSpends: number[] = []
     const savingsEntries: ServiceSavings[] = graphData?.response ? (graphData.response as ServiceSavings[]) : []
     savingsEntries.forEach(element => {
-      newCategroies.push(moment(element.usage_date).format(GRAPH_CATEGORY_FORMAT))
-      newSavings.push(element.actual_savings as number)
-      newSpends.push((element.potential_cost as number) - (element.actual_savings as number))
+      newCategroies.push(getDay(element.usage_date as string, DATE_FORMAT))
+      newSavings.push(Math.round((element.actual_savings as number) * 100) / 100)
+      newSpends.push(
+        Math.round((element.potential_cost as number) * 100 - (element.actual_savings as number) * 100) / 100
+      )
     })
     setCategories(newCategroies)
     setSavingsSeries(newSavings)
