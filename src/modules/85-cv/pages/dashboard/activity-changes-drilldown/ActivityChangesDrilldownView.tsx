@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import DeploymentDrilldownViewHeader from '../deployment-drilldown/DeploymentDrilldownViewHeader'
-import VerificationInstacePostDeploymentView from '../deployment-drilldown/VerificationInstancePostDeploymentView'
+import { VerificationInstancePostDeploymentView } from '../deployment-drilldown/VerificationInstancePostDeploymentView'
 import styles from './ActivityChangesDrilldownView.module.scss'
 
 export default function ActivityChangesDrilldownView(): React.ReactElement {
@@ -21,7 +21,7 @@ export default function ActivityChangesDrilldownView(): React.ReactElement {
         }
       />
       <Page.Body className={styles.main}>
-        <VerificationInstacePostDeploymentView
+        <VerificationInstancePostDeploymentView
           selectedActivityId={activityId as string}
           environmentIdentifier={activity?.environmentIdentifier ?? ''}
           activityStartTime={activity?.activityStartTime ?? 0}

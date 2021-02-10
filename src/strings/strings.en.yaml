@@ -190,6 +190,12 @@ retry: Retry
 search: Search
 deleted: deleted
 showAll: Show All
+source: Source
+kind: Kind
+reason: Reason
+message: Message
+viewJSON: View JSON
+creationTimestamp: Creation Timestamp
 categories: Categories
 plaintext: Plaintext
 encryptedFile: Encrypted File
@@ -1306,6 +1312,11 @@ cv:
       setup: 'Setup'
       activitySources: 'Change Sources'
       monitoringSources: 'Monitoring Sources'
+  changesPage:
+    changeSourceDetails: 'Change Source Details'
+    changeSummary: 'Change Summary'
+    eventCount: 'Event Count'
+    viewKubernetesEvents: 'View Kubernetes Change Summary'
   admin:
     mapsTo: maps to
     notifications:
@@ -1383,7 +1394,7 @@ cv:
       keepGoing: Want to keep going...
     progress:
       heading: 'Your Progress'
-      mapServices: 'Map the above {{serviceLabel}} to a Monitoring source.'
+      mapServices: 'Map the above {{serviceLabel}} to a Monitoring Source.'
       serviceEnvCount: 'You have {{serviceCount}} {{serviceLabel}} and {{envCount}} {{environmentLabel}}.'
       servicesUsedInActivitySources: '{{serviceCount}} service is used in Change Sources.'
       multiServicesUsedInActivitySources: '{{serviceCount}} services are used in Change Sources.'
@@ -1426,7 +1437,7 @@ cv:
         selectApp: Please select application and its environment
         selectTier: Please select tier and its service
         selectMetricPack: Plese select metric packs
-      connectToMonitoringSource: 'Connect to your AppDynamics monitoring source'
+      connectToMonitoringSource: 'Connect to your AppDynamics Monitoring Source'
       firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
       createConnectorText: '+ New AppDynamics Connector'
       selectProduct: 'Select the AppDynamics Product that you would like to select applications from'

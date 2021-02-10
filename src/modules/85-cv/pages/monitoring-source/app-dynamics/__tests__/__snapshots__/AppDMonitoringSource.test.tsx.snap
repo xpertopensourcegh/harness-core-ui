@@ -335,7 +335,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main"
                       >
-                        Connect to your AppDynamics monitoring source
+                        Connect to your AppDynamics Monitoring Source
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"

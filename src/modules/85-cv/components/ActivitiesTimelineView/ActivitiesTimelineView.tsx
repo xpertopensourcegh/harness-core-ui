@@ -4,6 +4,7 @@ import cx from 'classnames'
 import TimelineView, { TimelineViewProps } from '@common/components/TimelineView/TimelineView'
 import type { ActivityDashboardDTO } from 'services/cv'
 import { PredefinedLabels } from './TimelineViewLabel'
+import { EventDetailsForChange } from '../EventDetailsForChange/EventDetailsForChange'
 import { TimelineTooltip } from './TimelineTooltip'
 import ActivitiesTimelineHeader from './ActivitiesTimelineHeader'
 import EventSvg from './EventSvg'
@@ -96,24 +97,25 @@ export default function ActivitiesTimelineView({
 }: ActivitiesTimelineViewProps) {
   const [selectedEvent, setSelectedEvent] = useState<EventData | undefined>()
   const [zoomRange, setZoomRange] = useState<{ startTime: number; endTime: number } | undefined>()
+  const [selectedActivities, setSelectedActivities] = useState<undefined | EventData[]>(undefined)
 
-  const zoomIn = (items: Array<EventData>) => {
-    let zoomStartTime = items[0].startTime
-    let zoomEndTime = items[items.length - 1].startTime
-    const diff = zoomEndTime - zoomStartTime || 1000 * 60 * 5
-    zoomStartTime = Math.max(zoomStartTime - Math.floor(diff / 2), startTime)
-    zoomEndTime = Math.min(zoomEndTime + Math.floor(diff / 2), endTime)
-    setZoomRange({
-      startTime: zoomStartTime,
-      endTime: zoomEndTime
-    })
-  }
+  // const zoomIn = (items: Array<EventData>) => {
+  //   let zoomStartTime = items[0].startTime
+  //   let zoomEndTime = items[items.length - 1].startTime
+  //   const diff = zoomEndTime - zoomStartTime || 1000 * 60 * 5
+  //   zoomStartTime = Math.max(zoomStartTime - Math.floor(diff / 2), startTime)
+  //   zoomEndTime = Math.min(zoomEndTime + Math.floor(diff / 2), endTime)
+  //   setZoomRange({
+  //     startTime: zoomStartTime,
+  //     endTime: zoomEndTime
+  //   })
+  // }
 
   const zoomOut = () => setZoomRange(undefined)
 
   const renderItem = (item: EventData) => {
     return (
-      <Container className={styles.eventItem}>
+      <Container className={styles.eventItem} /*onClick={() => setSelectedActivities([item])}*/>
         <TimelineTooltip items={[item]}>
           <EventSvg
             selected={item === selectedEvent || item === preselectedEvent}
@@ -145,7 +147,7 @@ export default function ActivitiesTimelineView({
     return (
       <Container className={styles.eventBatch} style={aditionalStyles}>
         <TimelineTooltip items={items}>
-          <Container onClick={() => zoomIn(items)} className={styles.itemsGroup}>
+          <Container /*onClick={() => setSelectedActivities(items)}*/ className={styles.itemsGroup}>
             {itemsToRender.map((item: EventData, index: number) =>
               index + 1 > MAX_STACKED_EVENTS ? null : (
                 <EventSvg
@@ -207,6 +209,12 @@ export default function ActivitiesTimelineView({
         renderBatch={renderBatch}
         {...timelineViewProps}
       />
+      {selectedActivities && (
+        <EventDetailsForChange
+          onCloseCallback={() => setSelectedActivities(undefined)}
+          selectedActivities={selectedActivities}
+        />
+      )}
     </Container>
   )
 }

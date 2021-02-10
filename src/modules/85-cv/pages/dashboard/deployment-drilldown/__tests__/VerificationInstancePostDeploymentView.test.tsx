@@ -5,7 +5,8 @@ import type { UseGetReturn } from 'restful-react'
 import { Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
-import VerificationInstacePostDeploymentView, {
+import {
+  VerificationInstancePostDeploymentView,
   mapMetricsData,
   getSeriesZones
 } from '../VerificationInstancePostDeploymentView'
@@ -192,7 +193,7 @@ describe('VerificationInstancePostDeploymentView', () => {
 
     const { container } = render(
       <TestWrapper>
-        <VerificationInstacePostDeploymentView
+        <VerificationInstancePostDeploymentView
           selectedActivityId="1234_activity_id"
           activityStartTime={(undefined as unknown) as number}
           durationMs={15}
@@ -223,7 +224,7 @@ describe('VerificationInstancePostDeploymentView', () => {
 
     const { container } = render(
       <TestWrapper>
-        <VerificationInstacePostDeploymentView
+        <VerificationInstancePostDeploymentView
           selectedActivityId="1234_activity_id"
           activityStartTime={(undefined as unknown) as number}
           durationMs={15}
@@ -274,7 +275,7 @@ describe('VerificationInstancePostDeploymentView', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <VerificationInstacePostDeploymentView
+        <VerificationInstancePostDeploymentView
           selectedActivityId="1234_activity_id"
           activityStartTime={1609946640000}
           durationMs={15}

@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Tabs, Tab, Text, Link, useModalHook, Icon, Color, Pagination } from '@wings-software/uicore'
+import { Container, Tabs, Tab, Text, Pagination, useModalHook, Color, Icon } from '@wings-software/uicore'
 import classnames from 'classnames'
 import { useParams } from 'react-router-dom'
 import MonacoEditor from 'react-monaco-editor'
+
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
+
 import { ActivitiesFlagBorder } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import ActivitiesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import {
-  useGetActivityDetails,
   useGetActivityMetrics,
   useGetActivityVerificationResult,
-  useGetActivityLogs
+  useGetActivityLogs,
+  useGetActivityDetails
 } from 'services/cv'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
-import VerificationStatusBar from '../activity-changes-drilldown/VerificationStatusBar'
+
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { EventDetailsForChange } from '@cv/components/EventDetailsForChange/EventDetailsForChange'
+import { VerificationActivityRiskCard } from '@cv/components/VerificationActivityRiskCard/VerificationActivityRiskCard'
 import { TabIdentifier } from './VerificationInstanceView'
 import {
   MetricAnalysisFilter,
@@ -32,7 +35,6 @@ import {
 import i18n from './DeploymentDrilldownView.i18n'
 import { ActivityLogAnalysisFrequencyChart } from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisFrequencyChart/LogAnalysisFrequencyChart'
 import styles from './DeploymentDrilldownView.module.scss'
-
 const bpDialogProps: IDialogProps = {
   isOpen: true,
   usePortal: true,
@@ -43,7 +45,6 @@ const bpDialogProps: IDialogProps = {
   title: '',
   style: { width: 900, height: 570 }
 }
-
 export interface VerificationInstacePostDeploymentViewProps {
   selectedActivityId: string
   activityStartTime: number
@@ -104,7 +105,7 @@ function KubernetesEvents({ selectedActivityId }: { selectedActivityId: string }
   )
 }
 
-export default function VerificationInstacePostDeploymentView({
+export function VerificationInstancePostDeploymentView({
   selectedActivityId,
   activityStartTime,
   durationMs,
@@ -114,13 +115,13 @@ export default function VerificationInstacePostDeploymentView({
   const rangeStartTime = activityStartTime - 2 * 60 * 60000
   const rangeEndTime = activityStartTime + durationMs
   const { accountId } = useParams<ProjectPathProps>()
+  const [showEventDetails, setShowEventDetails] = useState(false)
   const { data: activityWithRisks } = useGetActivityVerificationResult({
     activityId: selectedActivityId,
     queryParams: {
       accountId
     }
   })
-
   const [openModal, closeModal] = useModalHook(
     () => (
       <Dialog {...bpDialogProps} isOpen={true} onClose={closeModal} title={activityWithRisks?.resource?.activityName}>
@@ -129,7 +130,6 @@ export default function VerificationInstacePostDeploymentView({
     ),
     [selectedActivityId, activityWithRisks?.resource?.activityName]
   )
-
   useEffect(() => {
     if (activityWithRisks?.resource) {
       onActivityLoaded?.(activityWithRisks.resource)
@@ -138,31 +138,13 @@ export default function VerificationInstacePostDeploymentView({
 
   return (
     <Container className={styles.postDeploymentView}>
-      <Container className={styles.panel}>
-        <CVProgressBar
-          value={activityWithRisks?.resource?.progressPercentage}
-          status={activityWithRisks?.resource?.status}
+      {showEventDetails && (
+        <EventDetailsForChange
+          onCloseCallback={() => setShowEventDetails(false)}
+          selectedActivityId={selectedActivityId}
         />
-        {activityWithRisks && (
-          <VerificationStatusBar
-            status={activityWithRisks?.resource?.status}
-            startTime={activityWithRisks?.resource?.activityStartTime as number}
-            remainingTimeMs={activityWithRisks?.resource?.remainingTimeMs as number}
-            cumulativeRisk={activityWithRisks?.resource?.overallRisk as number}
-            scoresBeforeChanges={activityWithRisks?.resource?.preActivityRisks || []}
-            scoresAfterChanges={activityWithRisks?.resource?.postActivityRisks || []}
-          />
-        )}
-        {activityWithRisks?.resource?.activityType === 'KUBERNETES' && (
-          <Link
-            minimal
-            withoutHref
-            text="View Kubernetes Events"
-            className={styles.kubernetesButton}
-            onClick={() => openModal()}
-          />
-        )}
-      </Container>
+      )}
+      <VerificationActivityRiskCard onClickKubernetesEvent={() => openModal()} activityWithRisks={activityWithRisks} />
       {!!rangeStartTime && !!rangeEndTime && (
         <>
           <Container className={classnames(styles.panel, styles.activitiesTimelineViewPanel)}>

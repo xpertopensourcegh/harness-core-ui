@@ -8,8 +8,6 @@ declare const styles: {
   readonly sideNav: string
   readonly content: string
   readonly subHeader: string
-  readonly panel: string
-  readonly kubernetesButton: string
   readonly filters: string
   readonly timeseriesList: string
   readonly eventsEditor: string
@@ -23,6 +21,7 @@ declare const styles: {
   readonly tableContent: string
   readonly logAnalysisRow: string
   readonly progressBar: string
+  readonly panel: string
   readonly postDeploymentView: string
   readonly activitiesTimelineViewPanel: string
   readonly postDeploymentMetrics: string

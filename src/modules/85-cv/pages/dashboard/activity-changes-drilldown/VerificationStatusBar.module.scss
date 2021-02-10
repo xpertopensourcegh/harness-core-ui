@@ -1,8 +1,8 @@
 .main {
   display: flex;
   margin-top: var(--spacing-small) !important;
+  justify-content: space-between;
   .column {
-    flex: 1;
     &.statusGroup > p {
       margin-bottom: 2px;
     }

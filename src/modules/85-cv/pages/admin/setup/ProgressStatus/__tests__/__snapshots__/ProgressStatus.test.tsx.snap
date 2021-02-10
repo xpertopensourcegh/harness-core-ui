@@ -44,7 +44,7 @@ exports[`ProgressStatus render initial state with services and env 1`] = `
           </span>
         </div>
         <span>
-          Map the above services to a Monitoring source.
+          Map the above services to a Monitoring Source.
         </span>
       </div>
     </div>

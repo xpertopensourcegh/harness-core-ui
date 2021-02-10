@@ -8,7 +8,7 @@ import { useToaster } from '@common/exports'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
 import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
 import VerificationInstanceView, { TabIdentifier } from './VerificationInstanceView'
-import VerificationInstacePostDeploymentView from './VerificationInstancePostDeploymentView'
+import { VerificationInstancePostDeploymentView } from './VerificationInstancePostDeploymentView'
 import VerificationStatusCard from './VerificationStatusCard'
 import styles from './DeploymentDrilldownView.module.scss'
 
@@ -118,7 +118,7 @@ export default function DeploymentDrilldownView(): JSX.Element {
             />
           )}
           {verificationInstance && instancePhase === InstancePhase.POST_DEPLOYMENT && (
-            <VerificationInstacePostDeploymentView
+            <VerificationInstancePostDeploymentView
               selectedActivityId={(verificationInstance as any).activityId}
               environmentIdentifier={verificationInstance.environmentName!}
               activityStartTime={(verificationInstance as any).activityStartTime}
