@@ -19065,6 +19065,100 @@ export const useGetFeatureFlags = ({ accountId, ...props }: UseGetFeatureFlagsPr
     { base: getConfig('api'), pathParams: { accountId }, ...props }
   )
 
+export interface GetV2QueryParams {
+  accountId?: string
+}
+
+export interface GetV2PathParams {
+  delegateProfileId: string
+}
+
+export type GetV2Props = Omit<
+  GetProps<RestResponseDelegateProfileDetails, unknown, GetV2QueryParams, GetV2PathParams>,
+  'path'
+> &
+  GetV2PathParams
+
+export const GetV2 = ({ delegateProfileId, ...props }: GetV2Props) => (
+  <Get<RestResponseDelegateProfileDetails, unknown, GetV2QueryParams, GetV2PathParams>
+    path="/delegate-profiles/v2/${delegateProfileId}"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetV2Props = Omit<
+  UseGetProps<RestResponseDelegateProfileDetails, unknown, GetV2QueryParams, GetV2PathParams>,
+  'path'
+> &
+  GetV2PathParams
+
+export const useGetV2 = ({ delegateProfileId, ...props }: UseGetV2Props) =>
+  useGet<RestResponseDelegateProfileDetails, unknown, GetV2QueryParams, GetV2PathParams>(
+    (paramsInPath: GetV2PathParams) => `/delegate-profiles/v2/${paramsInPath.delegateProfileId}`,
+    { base: getConfig('api'), pathParams: { delegateProfileId }, ...props }
+  )
+
+export interface UpdateV2QueryParams {
+  accountId?: string
+}
+
+export interface UpdateV2PathParams {
+  delegateProfileId: string
+}
+
+export type UpdateV2Props = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetails,
+    unknown,
+    UpdateV2QueryParams,
+    DelegateProfileDetailsRequestBody,
+    UpdateV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateV2PathParams
+
+export const UpdateV2 = ({ delegateProfileId, ...props }: UpdateV2Props) => (
+  <Mutate<
+    RestResponseDelegateProfileDetails,
+    unknown,
+    UpdateV2QueryParams,
+    DelegateProfileDetailsRequestBody,
+    UpdateV2PathParams
+  >
+    verb="PUT"
+    path="/delegate-profiles/v2/${delegateProfileId}"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseUpdateV2Props = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetails,
+    unknown,
+    UpdateV2QueryParams,
+    DelegateProfileDetailsRequestBody,
+    UpdateV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateV2PathParams
+
+export const useUpdateV2 = ({ delegateProfileId, ...props }: UseUpdateV2Props) =>
+  useMutate<
+    RestResponseDelegateProfileDetails,
+    unknown,
+    UpdateV2QueryParams,
+    DelegateProfileDetailsRequestBody,
+    UpdateV2PathParams
+  >('PUT', (paramsInPath: UpdateV2PathParams) => `/delegate-profiles/v2/${paramsInPath.delegateProfileId}`, {
+    base: getConfig('api'),
+    pathParams: { delegateProfileId },
+    ...props
+  })
+
 export interface DeleteDelegateProfileQueryParams {
   accountId?: string
 }

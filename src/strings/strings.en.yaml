@@ -487,6 +487,8 @@ delegate:
   delegateSizeRequired: 'Delegate Size is Required.'
   delegateConfigRequired: 'Delegate Configuration is Required.'
   replicaText: 'Runs upto concurrent tasks Replicas='
+  configNameRequired: 'Delegate Configuration name is Required.'
+  successfullyUpdatedConfig: 'Successfully Updated Delegate Configuration'
   totalMem: 'Total Mem'
   totalCpu: 'Total CPU'
   productionWorkloads: 'For Production Workloads'

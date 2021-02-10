@@ -18,6 +18,7 @@ allowpaths:
   - '/delegate-profiles/v2/{delegateProfileId}.delete'
   - '/setup/delegates/delegate-selectors.get'
   - '/delegate-profiles/{delegateProfileId}.get'
+  - '/delegate-profiles/v2/{delegateProfileId}'
   - '/setup/delegates/delegate-sizes.get'
   - '/setup/delegates/validate-kubernetes-yaml'
   - '/setup/delegates/generate-kubernetes-yaml'
@@ -28,6 +29,7 @@ operationIdOverrides:
   /setup/delegates/status.get: getDelegatesStatus
   /setup/delegates/status2.get: getDelegatesStatusV2
   /setup/delegates/downloadUrl.get: getDelegatesDownloadUrl
+  /delegate-profiles/v2/{delegateProfileId}: updateDelegateConfiguration
   /delegate-profiles.get: getDelegateProfiles
   /delegate-profiles/v2.get: getDelegateProfilesV2
   /setup/delegates/kubernetes-delegates.get: getKubernetesDelegateNames

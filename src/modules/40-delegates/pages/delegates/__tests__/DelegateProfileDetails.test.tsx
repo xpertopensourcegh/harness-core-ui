@@ -9,6 +9,10 @@ jest.mock('services/portal', () => ({
   useGetDelegateConfigFromId: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: ProfileMock, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useUpdateV2: jest.fn().mockImplementation(args => {
+    mockGetCallFunction(args)
+    return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 describe('Delegates Profile Detail', () => {
