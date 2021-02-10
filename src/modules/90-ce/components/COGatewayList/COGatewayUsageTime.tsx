@@ -11,6 +11,35 @@ import css from './COGatewayList.module.scss'
 interface COGatewayUsageTimeProps {
   service: Service
 }
+function convertToDuration(t: number): string {
+  const durationMap = []
+  const cd = 24 * 60 * 60 * 1000,
+    ch = 60 * 60 * 1000
+  let d = Math.floor(t / cd),
+    h = Math.floor((t - d * cd) / ch),
+    m = Math.round((t - d * cd - h * ch) / 60000)
+  const pad = function (n: number) {
+    return n < 10 ? '0' + n : n
+  }
+  if (m === 60) {
+    h++
+    m = 0
+  }
+  if (h === 24) {
+    d++
+    h = 0
+  }
+  if (d > 0) {
+    durationMap.push(`${d} d`)
+  }
+  if (h > 0) {
+    durationMap.push(`${pad(h)} h`)
+  }
+  if (m > 0) {
+    durationMap.push(`${pad(m)} m`)
+  }
+  return durationMap.join(' ')
+}
 const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ'
 const today = () => moment()
 const startOfDay = (time: moment.Moment) => time.startOf('day').toDate()
@@ -19,6 +48,14 @@ function TableCell(tableProps: CellProps<SessionReportRow>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK}>
       {tableProps.value}
+    </Text>
+  )
+}
+function DurationCell(tableProps: CellProps<SessionReportRow>): JSX.Element {
+  const milliseconds = tableProps.value * 60 * 60 * 1000
+  return (
+    <Text lineClamp={3} color={Color.BLACK}>
+      {convertToDuration(milliseconds)}
     </Text>
   )
 }
@@ -59,20 +96,20 @@ const COGatewayUsageTime: React.FC<COGatewayUsageTimeProps> = props => {
           {
             accessor: 'start',
             Header: 'Started At',
-            width: '40%',
+            width: '35%',
             Cell: TableCell
           },
           {
             accessor: 'end',
             Header: 'Ended At',
-            width: '40%',
+            width: '35%',
             Cell: TableCell
           },
           {
             accessor: 'hours',
             Header: 'Duration',
-            width: '20%',
-            Cell: TableCell
+            width: '30%',
+            Cell: DurationCell
           }
         ]}
       />
