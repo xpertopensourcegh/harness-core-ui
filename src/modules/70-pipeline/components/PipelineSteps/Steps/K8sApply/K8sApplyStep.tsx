@@ -126,26 +126,24 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                   </MultiTypeFieldSelector>
                 </div>
                 <div className={stepCss.formGroup}>
-                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                    <FormMultiTypeDurationField
-                      name="timeout"
-                      label={getString('pipelineSteps.timeoutLabel')}
-                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('timeout', value)
+                      }}
                     />
-                    {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={values.timeout as string}
-                        type="String"
-                        variableName="step.timeout"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          setFieldValue('timeout', value)
-                        }}
-                      />
-                    )}
-                  </Layout.Horizontal>
+                  )}
                 </div>
                 <div className={stepCss.formGroup}>
                   <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
