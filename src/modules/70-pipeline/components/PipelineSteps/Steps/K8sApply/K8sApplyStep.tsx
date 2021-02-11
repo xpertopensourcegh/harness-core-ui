@@ -89,6 +89,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                     defaultValueToReset={defaultValueToReset}
                     name={'spec.filePaths'}
                     label={getString('fileFolderPathText')}
+                    disableTypeSelection
                   >
                     <FieldArray
                       name="spec.filePaths"
@@ -104,6 +105,9 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                                 label=""
                                 placeholder={'Enter overrides file path'}
                                 name={`spec.filePaths[${index}]`}
+                                multiTextInputProps={{
+                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                }}
                                 style={{ width: '430px' }}
                               />
 
