@@ -78,6 +78,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
           >
             <input
               class="bp3-input"
+              min="0"
               placeholder="Count"
               type="number"
               value="10"
@@ -271,6 +272,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="0"
@@ -1108,6 +1110,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="0"
@@ -1540,6 +1543,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="10"
@@ -1911,6 +1915,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Percentage"
                 type="number"
                 value="10"
@@ -2287,6 +2292,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="0"

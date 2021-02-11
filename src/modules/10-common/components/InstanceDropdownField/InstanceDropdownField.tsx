@@ -135,7 +135,8 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
           placeholder: isPercentageType
             ? getString('instanceFieldOptions.percentagePlaceHolder')
             : getString('instanceFieldOptions.instanceHolder'),
-          ...textProps
+          ...textProps,
+          min: 0
         }}
         onChange={(val, _valType, typeInput) => {
           if (typeInput === MultiTypeInputType.FIXED && typeof val === 'string') {

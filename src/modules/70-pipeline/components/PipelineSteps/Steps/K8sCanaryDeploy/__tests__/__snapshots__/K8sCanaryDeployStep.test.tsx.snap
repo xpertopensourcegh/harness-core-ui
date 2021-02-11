@@ -49,6 +49,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
           >
             <input
               class="bp3-input"
+              min="0"
               placeholder="Count"
               type="number"
               value="0"
@@ -242,6 +243,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 2`] = `
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="20"
@@ -922,6 +924,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="1"
@@ -1291,6 +1294,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="20"
@@ -1599,6 +1603,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Percentage"
                 type="number"
                 value="20"
@@ -1912,6 +1917,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
             >
               <input
                 class="bp3-input"
+                min="0"
                 placeholder="Count"
                 type="number"
                 value="0"
