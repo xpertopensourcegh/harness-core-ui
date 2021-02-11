@@ -94,9 +94,9 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                       name="spec.filePaths"
                       render={arrayHelpers => (
                         <Layout.Vertical>
-                          {values?.spec?.filePaths?.map((path: string, index: number) => (
+                          {values?.spec?.filePaths?.map((_path: string, index: number) => (
                             <Layout.Horizontal
-                              key={path}
+                              key={index}
                               flex={{ distribution: 'space-between' }}
                               style={{ alignItems: 'end' }}
                             >
