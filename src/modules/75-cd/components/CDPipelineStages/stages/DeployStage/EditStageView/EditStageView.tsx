@@ -12,7 +12,7 @@ import {
   Label,
   Layout,
   Link,
-  TextInput
+  ExpressionInput
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -30,6 +30,7 @@ import {
 
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
 const newStageData = [
@@ -75,6 +76,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
   const { stepsFactory } = usePipelineContext()
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   return (
     <>
@@ -222,11 +224,12 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                 </Label>
               </div>
               <div>
-                <TextInput
+                <ExpressionInput
+                  items={expressions}
                   name="skipCondition"
-                  defaultValue={data?.stage.skipCondition}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    onChange?.({ ...data?.stage, skipCondition: event.target.value } as any)
+                  value={data?.stage.skipCondition}
+                  onChange={str => {
+                    onChange?.({ ...data?.stage, skipCondition: str } as any)
                   }}
                 />
                 <Text font="small" style={{ whiteSpace: 'break-spaces' }}>

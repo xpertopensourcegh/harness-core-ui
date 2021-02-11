@@ -453,17 +453,21 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           </div>
           <div>
             <div
-              class="TextInput--main"
+              class="bp3-popover-wrapper"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-popover-target"
               >
-                <input
-                  class="bp3-input"
-                  name="skipCondition"
-                  type="text"
-                  value=""
-                />
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    class="bp3-input"
+                    name="skipCondition"
+                    type="text"
+                    value=""
+                  />
+                </div>
               </div>
             </div>
             <p

@@ -46,6 +46,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 //   ConnectorReferenceFieldProps
 // } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './BuildStageSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -191,7 +192,7 @@ export default function BuildStageSpecifications(): JSX.Element {
   }
 
   const handleValidate = (values: any): void => {
-    if (stage) {
+    if (stage?.stage) {
       const pipelineData = stage.stage
       const spec = stage.stage.spec
 
@@ -294,6 +295,8 @@ export default function BuildStageSpecifications(): JSX.Element {
     }
     fetchSecrets()
   })
+
+  const { expressions } = useVariablesExpression()
 
   secrets?.forEach(secret => {
     const key = getSecretKey(secret)
@@ -648,7 +651,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                   </Layout.Vertical>
 
                   <FormikForm style={{ width: 300 }}>
-                    <FormInput.Text name="skipCondition" label={getString('skipConditionLabel')} />
+                    <FormInput.ExpressionInput
+                      items={expressions}
+                      name="skipCondition"
+                      label={getString('skipConditionLabel')}
+                    />
                     <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
                       {getString('skipConditionHelpText')}
                       <br />

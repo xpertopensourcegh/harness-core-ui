@@ -41,12 +41,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     setStepDetailsVisibility(!!props.selectedStep)
   }, [props.selectedStep, setStepDetailsVisibility])
   return (
-    <div
-      className={css.main}
-      onClick={() => {
-        props.onStepSelect()
-      }}
-    >
+    <div className={css.main}>
       {!isEmpty(props.selectedStage) && data.items?.length > 0 && (
         <ExecutionStageDiagram
           selectedIdentifier={props.selectedStep}
