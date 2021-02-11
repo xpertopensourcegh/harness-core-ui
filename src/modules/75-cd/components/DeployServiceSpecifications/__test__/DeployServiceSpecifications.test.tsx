@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-disabled-tests */
 import React from 'react'
-import { render, findByText, fireEvent, waitFor, createEvent, act } from '@testing-library/react'
+import { render, findByText, fireEvent, waitFor } from '@testing-library/react'
 import {
   PipelineContextInterface,
   PipelineContext
@@ -36,8 +36,6 @@ jest.mock('services/cd-ng', () => ({
   usePutSecretViaYaml: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetConnectorList: jest.fn(() => ({ data: null }))
 }))
-
-const eventData = { dataTransfer: { setData: jest.fn(), dropEffect: '', getData: () => '1' } }
 
 describe.skip('variable tab testing', () => {
   test(`create variable without crashing`, async () => {
@@ -89,155 +87,5 @@ describe.skip('variable tab testing', () => {
     // fireEvent.click(projectbutton)
     // const selectedSecret = await findByText(document.body, 'New Secret')
     // fireEvent.click(selectedSecret)
-  })
-})
-
-describe.skip('OverrideSet tests', () => {
-  test(`renders without crashing`, () => {
-    const { container } = render(
-      <TestWrapper>
-        <PipelineContext.Provider value={getOverrideContextValue()}>
-          <DeployServiceSpecifications />
-        </PipelineContext.Provider>
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
-
-  test(`renders overrideSets without crashing`, async () => {
-    const { container, getByTestId } = render(
-      <TestWrapper>
-        <PipelineContext.Provider value={getOverrideContextValue()}>
-          <DeployServiceSpecifications />
-        </PipelineContext.Provider>
-      </TestWrapper>
-    )
-    const radioButtons = container.querySelectorAll('input[type="radio"]')
-    fireEvent.click(radioButtons[0])
-
-    const selectStageDropDown = document.body
-      .querySelector(`[class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
-    fireEvent.click(selectStageDropDown as Element)
-    await waitFor(() => document.body.querySelector('.bp3-menu'))
-    const stage1Option = await findByText(document.body, 'Previous Stage st1 [st1]')
-    fireEvent.click(stage1Option)
-    //Enable use of OverrideSet
-    const overrideSetCheckbox = container.querySelector('input[id=overrideSetCheckbox]')
-    expect(overrideSetCheckbox).toBeDefined()
-    fireEvent.click(overrideSetCheckbox as Element)
-    //Add Predefined Set to list
-    await waitFor(() => findByText(container, '+ Add Predefined Set'))
-    let addOverrideSetButton = container.querySelector('button[class*="addOverrideSetButton"]')
-    addOverrideSetButton = await waitFor(() => container.querySelector('button[class*="addOverrideSetButton"]'))
-    expect(addOverrideSetButton).toBeDefined()
-    fireEvent.click(addOverrideSetButton as HTMLElement)
-    await waitFor(() => container.querySelector('input[name="selectedOverrideSets[0]"]'))
-    const overrideSetSelectInput = container
-      .querySelector('input[name="selectedOverrideSets[0]"]')
-      ?.parentNode?.querySelector('[data-icon="caret-down"]')
-    fireEvent.click(overrideSetSelectInput as Element)
-    await waitFor(() => document.body.querySelector('.bp3-menu'))
-    const set1Option = await findByText(document.body, 'Set1')
-    fireEvent.click(set1Option as Element)
-    const primaryArtifactFromPrevStage = await waitFor(() => findByText(container, 'Primary Artifact'))
-    expect(primaryArtifactFromPrevStage).toBeDefined()
-
-    //Remove Predefined Set from list
-    const removeOverrideSetButton = document.getElementById('removeOverrideSet')
-    expect(removeOverrideSetButton).toBeDefined()
-    fireEvent.click(removeOverrideSetButton as Element)
-    const manifestsTab = await findByText(container, 'Manifests')
-    fireEvent.click(manifestsTab)
-    const addManifestButton = await findByText(container, '+ Add Manifest')
-    expect(addManifestButton).toBeDefined()
-    await waitFor(() => findByText(container, '+ Add Predefined Set'))
-    let addManifestOverrideSetButton = container.querySelector('button[class*="addOverrideSetButton"]')
-    addManifestOverrideSetButton = await waitFor(() => container.querySelector('button[class*="addOverrideSetButton"]'))
-    expect(addManifestOverrideSetButton).toBeDefined()
-    fireEvent.click(addManifestOverrideSetButton as HTMLElement)
-    await waitFor(() => container.querySelector('input[name="selectedOverrideSets[0]"]'))
-    const manifestOverrideSetSelectInput = container
-      .querySelector('input[name="selectedOverrideSets[0]"]')
-      ?.parentNode?.querySelector('[data-icon="caret-down"]')
-    fireEvent.click(manifestOverrideSetSelectInput as Element)
-    await waitFor(() => document.body.querySelector('.bp3-menu'))
-    const manifestSetOption = await findByText(document.body, 'manor')
-    fireEvent.click(manifestSetOption as Element)
-    const primaryManifestFromPrevStage = await waitFor(() => findByText(container, 'man1'))
-    expect(primaryManifestFromPrevStage).toBeDefined()
-
-    //Add 2nd set
-    await waitFor(() => findByText(container, '+ Add Predefined Set'))
-    let addManifestOverrideSetButton2 = container.querySelector('button[class*="addOverrideSetButton"]')
-    addManifestOverrideSetButton2 = await waitFor(() =>
-      container.querySelector('button[class*="addOverrideSetButton"]')
-    )
-    expect(addManifestOverrideSetButton2).toBeDefined()
-    fireEvent.click(addManifestOverrideSetButton2 as HTMLElement)
-    await waitFor(() => container.querySelector('input[name="selectedOverrideSets[1]"]'))
-    const manifestOverrideSetSelectInput2 = container
-      .querySelector('input[name="selectedOverrideSets[1]"]')
-      ?.parentNode?.querySelector('[data-icon="caret-down"]')
-    fireEvent.click(manifestOverrideSetSelectInput2 as Element)
-    await waitFor(() => document.body.querySelector('.bp3-menu'))
-    const manifestSetOption2 = await findByText(document.body, 'manor1')
-    fireEvent.click(manifestSetOption2 as Element)
-    const primaryManifestFromPrevStage2 = await waitFor(() => findByText(container, 'man2'))
-    expect(primaryManifestFromPrevStage2).toBeDefined()
-
-    //drag drop manifests
-    const container1 = getByTestId('manor')
-    const container2 = getByTestId('manor1')
-
-    act(() => {
-      const dragStartEvent = Object.assign(createEvent.dragStart(container1), eventData)
-
-      fireEvent(container1, dragStartEvent)
-
-      fireEvent.dragEnd(container)
-
-      fireEvent.dragLeave(container1)
-
-      const dropEffectEvent = Object.assign(createEvent.dragOver(container1), eventData)
-      fireEvent(container2, dropEffectEvent)
-
-      const dropEvent = Object.assign(createEvent.drop(container1), eventData)
-      fireEvent(container2, dropEvent)
-    })
-  })
-
-  test(`toggles overrideSets selection without crashing`, async () => {
-    const { container, unmount } = render(
-      <TestWrapper>
-        <PipelineContext.Provider value={getOverrideContextValue()}>
-          <DeployServiceSpecifications />
-        </PipelineContext.Provider>
-      </TestWrapper>
-    )
-    //this is no longer valid
-    const overrideSetCheckbox = container.querySelector('input[id=overrideSetCheckbox]')
-    expect(overrideSetCheckbox).toBeDefined()
-    fireEvent.click(overrideSetCheckbox as Element)
-    let addOverrideSetButton = container.querySelector('button[class*="addOverrideSetButton"]')
-    expect(addOverrideSetButton).toBeNull()
-    // fireEvent.click(overrideSetCheckbox as Element)
-    addOverrideSetButton = await waitFor(() => container.querySelector('button[class*="addOverrideSetButton"]'))
-    expect(addOverrideSetButton).toBeDefined()
-    unmount()
-  })
-
-  test.skip(`change mode `, () => {
-    const { container } = render(
-      <TestWrapper>
-        <PipelineContext.Provider value={getOverrideContextValue()}>
-          <DeployServiceSpecifications />
-        </PipelineContext.Provider>
-      </TestWrapper>
-    )
-    const propagatebutton = document.getElementById('mode_propagate')
-    expect(propagatebutton).toBeDefined()
-    fireEvent.click(propagatebutton as HTMLElement)
-    expect(container).toMatchSnapshot('change mode')
   })
 })

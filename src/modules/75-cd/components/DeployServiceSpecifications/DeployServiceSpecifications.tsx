@@ -1,18 +1,5 @@
 import React from 'react'
-import {
-  Layout,
-  Button,
-  Card,
-  Icon,
-  Text,
-  Label,
-  Select,
-  SelectOption,
-  Radio,
-  Tabs,
-  Tab,
-  IconName
-} from '@wings-software/uicore'
+import { Layout, Button, Card, Icon, Text, Label, SelectOption, Tabs, Tab, IconName } from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
@@ -97,7 +84,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
   const [isConfigVisible, setConfigVisibility] = React.useState(false)
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
-  const [canUseFromStage, setCanUseFromStage] = React.useState(false)
+  // const [canUseFromStage, setCanUseFromStage] = React.useState(false)
   const handleTabChange = (data: string): void => {
     setSelectedTab(data)
   }
@@ -205,23 +192,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     debounceUpdatePipeline(pipeline)
   }
 
-  const selectPropagatedStep = (item: SelectOption): void => {
-    if (item && item.value) {
-      const stageServiceData = stage?.['stage']?.['spec']['serviceConfig'] || null
-
-      const { stage: { stage: { name } } = {} } = getStageFromPipeline((item.value as string) || '')
-      if (stageServiceData) {
-        stageServiceData.useFromStage = { stage: item.value }
-        setSelectedPropagatedState({
-          label: `Previous Stage ${name} [${item.value as string}]`,
-          value: item.value
-        })
-        delete stage?.stage?.spec.serviceConfig?.serviceDefinition
-        debounceUpdatePipeline(pipeline)
-      }
-    }
-  }
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const _isChecked = (event.target as HTMLInputElement).checked
     const currentSpec = stage?.stage.spec?.serviceConfig
@@ -250,19 +220,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       setConfigVisibility(false)
     }
   }
+
   React.useEffect(() => {
-    if (stage?.stage?.spec) {
-      if (stage.stage?.type === getString('deploymentText')) {
-        let hasDeploymentStages = false
-        for (let index = 0; index < stageIndex; index++) {
-          if (stages[index].stage?.type === getString('deploymentText')) {
-            hasDeploymentStages = true
-          }
-        }
-        setCanUseFromStage(hasDeploymentStages)
-        !hasDeploymentStages && setSetupMode(setupMode.DIFFERENT)
-      }
-    }
     if (
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
       !stage?.stage?.spec.serviceConfig?.useFromStage
@@ -331,70 +290,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stage?.stage?.spec])
 
-  const initWithServiceDefination = () => {
-    setDefaultServiceSchema()
-    setSelectedPropagatedState({ label: '', value: '' })
-    setSetupMode(setupMode.DIFFERENT)
-  }
   return (
     <Layout.Vertical className={css.serviceOverrides}>
-      {stageIndex > 0 && (
-        <div className={css.serviceSection}>
-          <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
-            {getString('pipelineSteps.deploy.serviceSpecifications.useFromStageLabel')}
-          </Layout.Vertical>
-          <Layout.Vertical spacing="medium" style={{ paddingBottom: 'var(--spacing-large)' }}>
-            <Layout.Horizontal
-              spacing="medium"
-              className={css.serviceStageContainer}
-              style={{ alignItems: 'center', justifyContent: 'end' }}
-            >
-              <div className={css.stageSelection}>
-                <section className={cx(css.serviceStageSelection)}>
-                  <Radio
-                    id="mode_propagate"
-                    checked={setupModeType === setupMode.PROPAGATE}
-                    onChange={() => setSetupMode(setupMode.PROPAGATE)}
-                    disabled={!canUseFromStage}
-                  />
-                  <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.propagateFromLabel}</Text>
-                </section>
-
-                <section className={cx(css.serviceStageSelection)}>
-                  <Radio
-                    id="mode_different"
-                    checked={setupModeType === setupMode.DIFFERENT}
-                    onClick={() => initWithServiceDefination()}
-                  />
-                  <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.deployDifferentLabel}</Text>
-                </section>
-              </div>
-              <div>
-                {setupModeType === setupMode.PROPAGATE && (
-                  <Select
-                    className={css.propagatedropdown}
-                    items={previousStageList}
-                    value={selectedPropagatedState}
-                    itemRenderer={(item, { handleClick }) => {
-                      return (
-                        <Text
-                          onClick={e => handleClick(e)}
-                          lineClamp={2}
-                          width={180}
-                          style={{ wordBreak: 'break-all' }}
-                        >
-                          {item.label}
-                        </Text>
-                      )
-                    }}
-                    onChange={(item: SelectOption) => selectPropagatedStep(item)}
-                  />
-                )}
-              </div>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        </div>
-      )}
       {stageIndex > 0 && setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.label && (
         <Layout.Horizontal flex={true} className={cx(css.specTabs, css.tabHeading)}>
           <Button minimal text={i18n.stageOverrideLabel} className={css.selected} />
@@ -465,14 +362,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                       })}
                     />
                   </div>
-                  <div className={css.stageOverridesTab}>
-                    <Button
-                      minimal
-                      disabled={true}
-                      text={i18n.stageOverrideLabel}
-                      onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
-                    />
-                  </div>
+                  <div className={css.stageOverridesTab}></div>
                 </div>
               </div>
               {specSelected === specificationTypes.SPECIFICATION && (

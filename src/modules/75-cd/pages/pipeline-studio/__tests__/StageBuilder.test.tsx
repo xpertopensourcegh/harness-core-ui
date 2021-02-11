@@ -105,7 +105,7 @@ describe('Stage Builder Test', () => {
     const setupStage = getByTextBody(document.body, 'Set Up Stage')
     // Click Setup
     fireEvent.click(setupStage)
-    await waitFor(() => getByTextBody(document.body, 'Propagate from existing service'))
+    await waitFor(() => getByTextBody(document.body, 'Specify your service'))
     let next = getByTextContainer('Next')
     // Click Next to go to Infra
     fireEvent.click(next)
@@ -173,12 +173,7 @@ describe('Stage Builder Test', () => {
     await waitFor(() => getByTextBody(document.body, 'test1'))
     const newStage = getByTextBody(document.body, 'test1')
     fireEvent.click(newStage)
-    await waitFor(() =>
-      getByTextBody(
-        document.body.querySelector('.serviceStageSelection') as HTMLElement,
-        'Propagate from existing service'
-      )
-    )
+
     const stageIncrease = stageBuilder.querySelector('#stageIncrease')
     fireEvent.click(stageIncrease!)
     fireEvent.click(stageIncrease!)
@@ -210,10 +205,7 @@ describe('Stage Builder Test', () => {
     const setupStage = getByTextBody(document.body, 'Set Up Stage')
     // Click Setup
     fireEvent.click(setupStage)
-    await waitFor(() => getByTextContainer('Deploy different service'))
-    const deployService = getByTextContainer('Deploy different service')
-    // Click Next to go to Deploy Service
-    fireEvent.click(deployService)
+    await waitFor(() => getByTextBody(document.body, 'Specify your service'))
     // Click Next to go to Execution Tab
     const executionTab = getByTextContainer('Execution')
     fireEvent.click(executionTab)

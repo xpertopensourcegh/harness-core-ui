@@ -6,8 +6,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
-import { useConfirmationDialog } from '@common/exports'
-import { useStrings, String } from 'framework/exports'
+import { String } from 'framework/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
 import {
   CanvasWidget,
@@ -28,8 +27,7 @@ import {
   EmptyNodeSeparator,
   StageState,
   resetDiagram,
-  removeNodeFromPipeline,
-  getDependantStages
+  removeNodeFromPipeline
 } from './StageBuilderUtil'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
@@ -39,10 +37,7 @@ import css from './StageBuilder.module.scss'
 const PANEL_RESIZE_DELTA = 4
 
 export type StageStateMap = Map<string, StageState>
-interface TempStageData {
-  stages?: string[]
-  selectedStageId?: string | undefined
-}
+
 const initializeStageStateMap = (pipeline: NgPipeline, mapState: StageStateMap): void => {
   /* istanbul ignore else */ if (pipeline.stages) {
     pipeline.stages.forEach((node: StageElementWrapper) => {
@@ -135,7 +130,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     renderPipelineStage,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const { getString } = useStrings()
+
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
@@ -143,7 +138,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
 
   const [stageMap, setStageMap] = React.useState(new Map<string, StageState>())
-  const [tempDependencyData, setdependantStages] = React.useState<TempStageData>({})
+
   const addStage = (
     newStage: StageElementWrapper,
     isParallel = false,
@@ -236,37 +231,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       setStageMap(map)
     }
   }, [isInitialized, pipeline, isSplitViewOpen])
-  const { openDialog } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
-    contentText: (
-      <>
-        {getString('pipelineSteps.build.delete.deleteStageText')}
-        {
-          <ul className={css.stageList}>
-            {tempDependencyData?.stages?.map((stageName: string) => (
-              <li key={stageName}>{stageName}</li>
-            ))}
-          </ul>
-        }
-      </>
-    ),
-    titleText: getString('pipelineSteps.build.delete.confirmDeleteTitle'),
-    confirmButtonText: getString('confirm'),
-    onCloseDialog: isConfirmed => {
-      if (isConfirmed) {
-        const isRemove = removeNodeFromPipeline(
-          getStageFromPipeline(tempDependencyData?.selectedStageId as string),
-          pipeline,
-          stageMap
-        )
-        if (isRemove) {
-          updatePipeline(pipeline)
-          return
-        }
-        setdependantStages({})
-      }
-    }
-  })
+
   const nodeListeners: NodeModelListener = {
     // Can not remove this Any because of React Diagram Issue
     [Event.ClickNode]: (event: any) => {
@@ -408,17 +373,6 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     [Event.RemoveNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       const stageIdToBeRemoved = eventTemp.entity.getIdentifier()
-      const dependantStages = getDependantStages(pipeline, getStageFromPipeline(stageIdToBeRemoved))
-      if (dependantStages.length) {
-        setdependantStages({
-          ...tempDependencyData,
-          stages: dependantStages as [],
-          selectedStageId: stageIdToBeRemoved
-        })
-        openDialog()
-
-        return
-      }
       const isRemove = removeNodeFromPipeline(getStageFromPipeline(stageIdToBeRemoved), pipeline, stageMap)
       if (isRemove) {
         updatePipeline(pipeline)
