@@ -89,7 +89,7 @@ const PipelineYamlView: React.FC = () => {
           showIconMenu={true}
           snippetYaml={snippetYaml}
           yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
-          height={'calc(100vh - 300px)'}
+          height={'calc(100vh - 150px)'}
           invocationMap={stepsFactory.getInvocationMap()}
           showSnippetSection={true}
           schema={pipelineSchema?.data}
