@@ -52,8 +52,8 @@ async function fetchTiersNumber(
     pageSize: 1
   })}`
   const { response }: any = await xhr.get(url)
-  if (response?.resource) {
-    return response?.resource?.totalItems
+  if (response?.data) {
+    return response?.data?.totalItems
   }
 }
 

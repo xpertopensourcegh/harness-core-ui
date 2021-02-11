@@ -1549,6 +1549,7 @@ cv:
       environment: Please select a environment
       duration: Please select duration
       dataSource: Please select a Monitoring Source
+      baseline: Please select a baseline
     details:
       name: Name of your job
       tabName: Select Verification Job Type

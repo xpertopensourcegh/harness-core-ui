@@ -48,18 +48,19 @@ export interface MapApplicationsProps {
 export async function validateTier(metricPacks: MetricPackArrayRequestBody, queryParams: object) {
   const url = `${getConfig('cv/api')}/appdynamics/metric-data?${qs.stringify(queryParams)}`
   const { response }: any = await xhr.post(url, { data: metricPacks })
-  if (response?.resource?.length) {
+  const responseData = response?.data ?? response.resource
+  if (responseData?.length) {
     let status
-    if (response?.resource?.some((val: any) => val.overallStatus === 'FAILED')) {
+    if (responseData?.some((val: any) => val.overallStatus === 'FAILED')) {
       status = ValidationStatus.ERROR
-    } else if (response?.resource?.some((val: any) => val.overallStatus === 'NO_DATA')) {
+    } else if (responseData?.some((val: any) => val.overallStatus === 'NO_DATA')) {
       status = ValidationStatus.NO_DATA
-    } else if (response?.resource?.every((val: any) => val.overallStatus === 'SUCCESS')) {
+    } else if (responseData?.every((val: any) => val.overallStatus === 'SUCCESS')) {
       status = ValidationStatus.SUCCESS
     }
-    return { validationStatus: status, validationResult: response?.resource }
+    return { validationStatus: status, validationResult: responseData }
   }
-  return {}
+  return { validationStatus: undefined }
 }
 
 function hasMetricPackSelected(app?: ApplicationRecord, identifier?: string): boolean {
@@ -144,12 +145,12 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
 
   const { data: tiers, loading: loadingTiers, refetch: loadTiers, error: tiersError } = useGetAppDynamicsTiers({
     resolve: response => {
-      if (Number.isInteger(response?.resource?.totalItems)) {
+      if (Number.isInteger(response?.data?.totalItems)) {
         setState(old => ({
           ...old,
           [selectedAppName]: {
             ...old[selectedAppName]!,
-            totalTiers: response?.resource?.totalItems
+            totalTiers: response?.data?.totalItems
           }
         }))
       }
@@ -185,15 +186,13 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     if (state[appName]?.metricPacks?.length) {
       onSetTierData(appName, tierName, { validationStatus: ValidationStatus.IN_PROGRESS })
       const update = await validateTier(state[appName]?.metricPacks as MetricPackArrayRequestBody, {
-        queryParams: {
-          accountId,
-          appName,
-          tierName,
-          connectorIdentifier: stepData?.connectorIdentifier,
-          orgIdentifier,
-          projectIdentifier,
-          requestGuid: String(Date.now())
-        }
+        accountId,
+        appName,
+        tierName,
+        connectorIdentifier: stepData?.connectorIdentifier,
+        orgIdentifier,
+        projectIdentifier,
+        requestGuid: String(Date.now())
       })
       if (!haveMPacksChanged.current(appName, state[appName]?.metricPacks)) {
         onSetTierData(appName, tierName, update)

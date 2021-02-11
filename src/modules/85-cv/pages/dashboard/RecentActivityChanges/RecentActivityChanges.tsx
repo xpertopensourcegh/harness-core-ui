@@ -247,22 +247,7 @@ export default function ActivityChanges(): JSX.Element {
     return (
       <ul className={css.activityList}>
         <li className={css.headerRow}>{ACTIVITY_COLUMN_NAMES}</li>
-        <NoDataCard
-          icon="warning-sign"
-          iconSize={30}
-          message={i18n.noActivitiesMessaging}
-          className={css.noData}
-          buttonText={i18n.noActivitiesButtonText}
-          onClick={() =>
-            history.push(
-              routes.toCVAdminSetup({
-                projectIdentifier,
-                orgIdentifier,
-                accountId
-              })
-            )
-          }
-        />
+        <NoDataCard icon="warning-sign" iconSize={30} message={i18n.noActivitiesMessaging} className={css.noData} />
       </ul>
     )
   }

@@ -261,9 +261,6 @@ describe('Unit tests for RecentActivityChanges', () => {
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
     expect(getByText(i18n.noActivitiesMessaging)).not.toBeNull()
-    const goToDataSourcesButton = getByText(i18n.noActivitiesButtonText)
-    expect(goToDataSourcesButton).not.toBeNull()
-    goToDataSourcesButton.click()
   })
 
   test('Ensure that when an error happens, error card is displayed', async () => {

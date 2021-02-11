@@ -39,10 +39,10 @@ export default function ActivityVerifications(): JSX.Element {
       <ul className={css.activityList}>
         <li className={css.headerRow}>{RECENT_VERIFICATIONS_COLUMN_NAMES}</li>
         {data?.resource?.map(item => {
-          const { serviceName, tag } = item
+          const { serviceIdentifier, tag } = item
           return (
             <VerificationItem
-              key={`${tag}-${serviceName}`}
+              key={`${tag}-${serviceIdentifier}`}
               item={item}
               onSelect={phase =>
                 history.push(
@@ -50,7 +50,7 @@ export default function ActivityVerifications(): JSX.Element {
                     projectIdentifier: projectIdentifier as string,
                     orgIdentifier: orgIdentifier as string,
                     deploymentTag: encodeURIComponent(tag!),
-                    serviceIdentifier: encodeURIComponent(serviceName!),
+                    serviceIdentifier: encodeURIComponent(serviceIdentifier!),
                     accountId
                   }) + (phase ? `?phase=${phase}` : '')
                 )

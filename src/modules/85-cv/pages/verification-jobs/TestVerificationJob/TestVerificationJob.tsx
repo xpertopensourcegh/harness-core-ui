@@ -32,7 +32,7 @@ const TestVerificationJob: React.FC<VerificationJobsDetailsProps> = props => {
         initialValues={{ ...props.stepData }}
         validationSchema={Yup.object().shape({
           service: Yup.string().trim().required(getString('cv.verificationJobs.validation.service')),
-
+          baseline: Yup.string().trim().required(getString('cv.verificationJobs.validation.baseline')),
           environment: Yup.string().required(getString('cv.verificationJobs.validation.environment')),
           duration: Yup.string().required(getString('cv.verificationJobs.validation.duration'))
         })}

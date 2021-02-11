@@ -261,7 +261,7 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
       label={i18n.fieldLabels.baseline}
       selectItems={baselineOption}
       multiTypeInputProps={{
-        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+        allowableTypes: [MultiTypeInputType.FIXED]
       }}
     />
   )

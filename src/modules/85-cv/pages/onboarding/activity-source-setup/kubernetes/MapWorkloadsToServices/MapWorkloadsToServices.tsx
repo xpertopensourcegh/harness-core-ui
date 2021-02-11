@@ -377,6 +377,7 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
           {getString('cv.activitySources.kubernetes.mapWorkloadsToServices')}
         </Heading>
         <WorkloadsToServicesTable
+          key={selectedNamespace}
           connectorIdentifier={(data.connectorRef?.value as string) || ''}
           selectedWorkloads={selectedWorkloads.get(selectedNamespace) as Map<string, WorkloadInfo>}
           selectedNamespace={selectedNamespace}

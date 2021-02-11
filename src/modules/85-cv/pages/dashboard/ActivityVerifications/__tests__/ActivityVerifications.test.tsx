@@ -20,11 +20,13 @@ jest.mock('services/cv', () => ({
       resource: [
         {
           tag: 'tag1',
-          serviceName: 'service1'
+          serviceName: 'service1',
+          serviceIdentifier: 'service1'
         },
         {
           tag: 'tag2',
-          serviceName: 'service2'
+          serviceName: 'service2',
+          serviceIdentifier: 'service2'
         }
       ]
     }
