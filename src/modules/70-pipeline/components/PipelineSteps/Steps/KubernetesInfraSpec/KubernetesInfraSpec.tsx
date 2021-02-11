@@ -68,10 +68,10 @@ const getConnectorValue = (connector?: ConnectorResponse): string =>
 const getConnectorName = (connector?: ConnectorResponse): string =>
   `${
     connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? connector?.connector?.name
+      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
       : connector?.connector?.orgIdentifier
-      ? `Org -> ${connector?.connector?.name}`
-      : `Account -> ${connector?.connector?.name}`
+      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
+      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
   }` || ''
 
 const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = ({
@@ -331,15 +331,22 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     } catch (err) {
       logger.error('Error while parsing the yaml', err)
     }
-    const { accountId } = params as {
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
       accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
     }
     if (pipelineObj) {
       const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
       if (obj.type === KubernetesDirectType) {
         return getConnectorListV2Promise({
-          queryParams: { accountIdentifier: accountId, includeAllConnectorsAvailableAtScope: true },
-          body: { types: ['K8sCluster'], filterType: 'Connector' }
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            includeAllConnectorsAvailableAtScope: true
+          },
+          body: { types: ['K8sCluster', 'Gcp', 'Aws'], filterType: 'Connector' }
         }).then(response => {
           const data =
             response?.data?.content?.map(connector => ({

@@ -21,6 +21,7 @@ import { parse } from 'yaml'
 import { useParams } from 'react-router-dom'
 import { FormGroup, Tooltip, Menu } from '@blueprintjs/core'
 import memoize from 'lodash-es/memoize'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import { useGetPipeline } from 'services/pipeline-ng'
 import type { PipelineType, InputSetPathProps } from '@common/interfaces/RouteInterfaces'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
@@ -30,25 +31,29 @@ import { StepViewType } from '@pipeline/exports'
 import {
   ServiceSpec,
   NgPipeline,
-  ConnectorInfoDTO,
   useGetBuildDetailsForDocker,
-  useGetBuildDetailsForGcr
+  useGetBuildDetailsForGcr,
+  getConnectorListV2Promise,
+  ConnectorInfoDTO,
+  ConnectorResponse
 } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings, UseStringsReturn, String } from 'framework/exports'
+import { useStrings, String, loggerFor, ModuleName, UseStringsReturn } from 'framework/exports'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
-
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { useToaster } from '@common/exports'
 import { StepType } from '../../PipelineStepInterface'
 import type { CustomVariableInputSetExtraProps } from '../CustomVariables/CustomVariableInputSet'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
+
+const logger = loggerFor(ModuleName.CD)
 
 export const ARTIFACT_TYPE_TO_CONNECTOR_MAP: { [key: string]: string } = {
   Dockerhub: 'DockerRegistry',
@@ -690,6 +695,29 @@ export interface K8SDirectServiceStep extends ServiceSpec {
   customStepProps?: {}
 }
 
+const ManifestConnectorRefRegex = /^.+manifest\.spec\.store\.spec\.connectorRef$/
+const ManifestConnectorRefType = 'Git'
+const ArtifactsSidecarRegex = /^.+.sidecar\.spec\.connectorRef$/
+const ArtifactsPrimaryRegex = /^.+artifacts\.primary\.spec\.connectorRef$/
+const ArtifactConnectorTypes = ['Dockerhub', 'Gcr']
+const getConnectorValue = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? connector?.connector?.identifier
+      : connector?.connector?.orgIdentifier
+      ? `${Scope.ORG}.${connector?.connector?.identifier}`
+      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
+  }` || ''
+
+const getConnectorName = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
+      : connector?.connector?.orgIdentifier
+      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
+      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
+  }` || ''
+
 export class KubernetesServiceSpec extends Step<ServiceSpec> {
   protected type = StepType.K8sServiceSpec
   protected defaultValues: ServiceSpec = {}
@@ -698,6 +726,150 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   protected stepName = 'Deplyment Service'
   protected stepPaletteVisible = false
   protected _hasStepVariables = true
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
+
+  constructor() {
+    super()
+    this.invocationMap.set(ArtifactsPrimaryRegex, this.getArtifactsPrimaryConnectorsListForYaml.bind(this))
+    this.invocationMap.set(ArtifactsSidecarRegex, this.getArtifactsSidecarConnectorsListForYaml.bind(this))
+    this.invocationMap.set(ManifestConnectorRefRegex, this.getManifestConnectorsListForYaml.bind(this))
+  }
+
+  protected getManifestConnectorsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === ManifestConnectorRefType) {
+        return getConnectorListV2Promise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            includeAllConnectorsAvailableAtScope: true
+          },
+          body: { types: ['Git', 'Github', 'Gitlab', 'Bitbucket'], filterType: 'Connector' }
+        }).then(response => {
+          const data =
+            response?.data?.content?.map(connector => ({
+              label: getConnectorName(connector),
+              insertText: getConnectorValue(connector),
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
+
+  protected getArtifactsPrimaryConnectorsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (ArtifactConnectorTypes.includes(obj.type)) {
+        return getConnectorListV2Promise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            includeAllConnectorsAvailableAtScope: true
+          },
+          body: { types: ['DockerRegistry', 'Gcp'], filterType: 'Connector' }
+        }).then(response => {
+          const data =
+            response?.data?.content?.map(connector => ({
+              label: getConnectorName(connector),
+              insertText: getConnectorValue(connector),
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
+
+  protected getArtifactsSidecarConnectorsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (ArtifactConnectorTypes.includes(obj.type)) {
+        return getConnectorListV2Promise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            includeAllConnectorsAvailableAtScope: true
+          },
+          body: { types: ['DockerRegistry', 'Gcp'], filterType: 'Connector' }
+        }).then(response => {
+          const data =
+            response?.data?.content?.map(connector => ({
+              label: getConnectorName(connector),
+              insertText: getConnectorValue(connector),
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
 
   validateInputSet(
     data: K8SDirectServiceStep,
