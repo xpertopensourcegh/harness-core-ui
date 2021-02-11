@@ -22,5 +22,6 @@ declare const styles: {
   readonly pageBody: string
   readonly pagination: string
   readonly loading: string
+  readonly noData: string
 }
 export default styles

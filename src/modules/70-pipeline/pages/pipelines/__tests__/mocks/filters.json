@@ -1,0 +1,50 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 2,
+    "pageItemCount": 2,
+    "pageSize": 100,
+    "content": [
+      {
+        "name": "Giant Filter",
+        "identifier": "Giant_Filter",
+        "orgIdentifier": "Harness",
+        "projectIdentifier": "sampleproject",
+        "filterProperties": {
+          "pipelineTags": [],
+          "name": "Http Golden Pipeline",
+          "moduleProperties": {
+            "ci": { "repoNames": ["https://github.com/sampleproject/"] },
+            "cd": {
+              "deploymentTypes": ["Kubernetes"],
+              "serviceNames": ["nginx service"],
+              "environmentNames": ["Sam env"]
+            }
+          },
+          "tags": {},
+          "filterType": "PipelineSetup"
+        },
+        "filterVisibility": "OnlyCreator"
+      },
+      {
+        "name": "Sample",
+        "identifier": "Sample",
+        "orgIdentifier": "Harness",
+        "projectIdentifier": "samarthrandom",
+        "filterProperties": {
+          "pipelineTags": [],
+          "name": null,
+          "moduleProperties": { "ci": {}, "cd": {} },
+          "tags": {},
+          "filterType": "PipelineSetup"
+        },
+        "filterVisibility": "OnlyCreator"
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "id"
+}

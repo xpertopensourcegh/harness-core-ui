@@ -119,9 +119,9 @@ export const createRequestBodyPayload = ({
   }
 }
 
-const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildTypeContext): any => {
+export const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildTypeContext): any => {
   const { repositoryName, sourceBranch, targetBranch, branch, tag } = contextInfo
-  let moduleProperties
+  let moduleProperties = {}
   switch (buildType) {
     case BUILD_TYPE.PULL_OR_MERGE_REQUEST:
       moduleProperties = {
@@ -143,7 +143,7 @@ const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildTypeCont
       break
   }
 
-  return moduleProperties
+  return Object.assign(moduleProperties, { repoNames: repositoryName ? [repositoryName] : undefined })
 }
 
 export const enum BUILD_TYPE {

@@ -6,12 +6,21 @@ import css from './FilterUtils.module.scss'
 
 type supportedTypes = string | number | boolean | object
 
-const tagSeparator = ' : '
+const tagSeparator = ':'
+
+interface NGTag {
+  key: string
+  value: string
+}
 
 export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | object): string => {
   if (Array.isArray(data)) {
-    return data.join(', ')
+    return data?.map(item => renderItemByType(item)).join(', ')
   } else if (typeof data === 'object') {
+    if (Object.prototype.hasOwnProperty.call(data, 'key') && Object.prototype.hasOwnProperty.call(data, 'value')) {
+      const { key, value } = data as NGTag
+      return key.toString().concat(value ? tagSeparator.concat(value.toString()) : '')
+    }
     return Object.entries(data as object)
       .map(([key, value]) => {
         return key.toString().concat(value ? tagSeparator.concat(value.toString()) : '')

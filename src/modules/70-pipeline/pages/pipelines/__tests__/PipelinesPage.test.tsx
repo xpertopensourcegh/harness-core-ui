@@ -13,7 +13,19 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import CDPipelinesPage from '../PipelinesPage'
-import mocks from './PipelineMocks'
+import filters from './mocks/filters.json'
+import services from './mocks/services.json'
+import environments from './mocks/environments.json'
+import pipelines from './mocks/pipelines.json'
+
+jest.mock('services/cd-ng', () => ({
+  useGetServiceListForProject: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
+  useGetEnvironmentListForProject: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
+}))
 
 const params = {
   accountId: 'testAcc',
@@ -35,9 +47,27 @@ const deletePipeline = (): Promise<{ status: string }> => {
 jest.mock('services/pipeline-ng', () => ({
   useGetPipelineList: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
-    return { mutate: jest.fn(() => Promise.resolve(mocks)), cancel: jest.fn(), loading: false }
+    return { mutate: jest.fn(() => Promise.resolve(pipelines)), cancel: jest.fn(), loading: false }
   }),
-  useSoftDeletePipeline: jest.fn().mockImplementation(() => ({ mutate: deletePipeline, loading: false }))
+  useSoftDeletePipeline: jest.fn().mockImplementation(() => ({ mutate: deletePipeline, loading: false })),
+  useGetFilterList: jest.fn().mockImplementation(() => {
+    return { mutate: jest.fn(() => Promise.resolve(filters)), loading: false }
+  }),
+  usePostFilter: jest.fn(() => ({
+    mutate: jest.fn(),
+    loading: false,
+    cancel: jest.fn()
+  })),
+  useUpdateFilter: jest.fn(() => ({
+    mutate: jest.fn(),
+    loading: false,
+    cancel: jest.fn()
+  })),
+  useDeleteFilter: jest.fn(() => ({
+    mutate: jest.fn(),
+    loading: false,
+    cancel: jest.fn()
+  }))
 }))
 
 jest.mock('@pipeline/components/RunPipelineModal/RunPipelineModal', () => ({

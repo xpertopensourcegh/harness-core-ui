@@ -2,19 +2,20 @@ import React from 'react'
 import type { FormikProps } from 'formik'
 import { FormInput, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
+import type { FilterProperties } from 'services/pipeline-ng'
 import {
   getOptionsForMultiSelect,
   BUILD_TYPE,
   DeploymentTypeContext,
   BuildTypeContext
-} from '../../../utils/RequestUtils'
+} from '../../../utils/PipelineExecutionFilterRequestUtils'
 
 import css from './PipelineFilterForm.module.scss'
 
 export type FormView = 'PIPELINE-META'
 interface PipelineFilterFormProps<T> {
   formikProps?: FormikProps<T>
-  views?: FormView[]
+  type: FilterProperties['filterType']
   isCDEnabled: boolean
   isCIEnabled: boolean
   initialValues: FormikProps<T>['initialValues']
@@ -24,7 +25,7 @@ export default function PipelineFilterForm<T extends { buildType?: BuildTypeCont
   props: PipelineFilterFormProps<T>
 ): React.ReactElement {
   const { getString } = useStrings()
-  const { views, formikProps, isCDEnabled, isCIEnabled, initialValues } = props
+  const { type, formikProps, isCDEnabled, isCIEnabled, initialValues } = props
 
   const getBuildTypeOptions = (): React.ReactElement => {
     let buildTypeField: JSX.Element = <></>
@@ -81,13 +82,14 @@ export default function PipelineFilterForm<T extends { buildType?: BuildTypeCont
           <span className={css.separator} key="buildsSeparator">
             <Text>{getString('buildsText').toUpperCase()}</Text>
           </span>
-          {/* //TODO enable this later on when this field gets populated from backend
-      // <FormInput.Text
-      //   name={'repositoryName'}
-      //   label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-      //   key={'repositoryName'}
-      //   placeholder={getString('enterNamePlaceholder')}
-      // />, */}
+          {type === 'PipelineSetup' ? (
+            <FormInput.Text
+              name={'repositoryName'}
+              label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+              key={'repositoryName'}
+              placeholder={getString('enterNamePlaceholder')}
+            />
+          ) : null}
           <FormInput.Select
             items={[
               { label: getString('filters.executions.pullOrMergeRequest'), value: BUILD_TYPE.PULL_OR_MERGE_REQUEST },
@@ -108,21 +110,9 @@ export default function PipelineFilterForm<T extends { buildType?: BuildTypeCont
     const { environments, services } = initialValues as DeploymentTypeContext
     return (
       <>
-        <>
-          {views?.includes('PIPELINE-META') ? (
-            <>
-              <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
-              <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} key="tags" />
-              <span className={css.separator} key="deploymentSeparator">
-                <Text>{getString('deploymentText').toUpperCase()}</Text>
-              </span>
-            </>
-          ) : (
-            <span className={css.separator} key="deploymentSeparator">
-              <Text>{getString('deploymentsText').toUpperCase()}</Text>
-            </span>
-          )}
-        </>
+        <span className={css.separator} key="deploymentSeparator">
+          <Text>{getString('deploymentsText').toUpperCase()}</Text>
+        </span>
         <FormInput.Select
           items={[{ label: getString('kubernetesText'), value: 'Kubernetes' }]}
           name="deploymentType"
@@ -158,23 +148,32 @@ export default function PipelineFilterForm<T extends { buildType?: BuildTypeCont
   }
 
   const getPipelineFormCommonFields = (): React.ReactElement => {
+    const isPipeSetupType = type === 'PipelineSetup'
     return (
       <>
         <FormInput.Text
-          name={'pipelineName'}
-          label={getString('filters.executions.pipelineName')}
-          key={'pipelineName'}
+          name={isPipeSetupType ? 'name' : 'pipelineName'}
+          label={isPipeSetupType ? getString('name') : getString('filters.executions.pipelineName')}
+          key={isPipeSetupType ? 'name' : 'pipelineName'}
           placeholder={getString('enterNamePlaceholder')}
         />
-        <FormInput.MultiSelect
-          items={getOptionsForMultiSelect()}
-          name="status"
-          label={getString('status')}
-          key="status"
-          multiSelectProps={{
-            allowCreatingNewItems: false
-          }}
-        />
+        {isPipeSetupType ? (
+          <>
+            <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
+            <FormInput.KVTagInput name="pipelineTags" label={getString('tagsLabel')} key="pipelineTags" />
+          </>
+        ) : null}
+        {type === 'PipelineExecution' ? (
+          <FormInput.MultiSelect
+            items={getOptionsForMultiSelect()}
+            name="status"
+            label={getString('status')}
+            key="status"
+            multiSelectProps={{
+              allowCreatingNewItems: false
+            }}
+          />
+        ) : null}
       </>
     )
   }

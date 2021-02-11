@@ -45,7 +45,7 @@ import {
   getMultiSelectFormOptions,
   getFilterByIdentifier,
   BUILD_TYPE
-} from '../../utils/RequestUtils'
+} from '../../utils/PipelineExecutionFilterRequestUtils'
 import PipelineFilterForm from './PipelineFilterForm/PipelineFilterForm'
 import css from './PipelineDeploymentList.module.scss'
 
@@ -115,7 +115,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         }
       }
     },
-    [fetchListOfExecutions, showError, cancel, appliedFilter?.filterProperties]
+    [fetchListOfExecutions, showError, cancel, appliedFilter]
   )
 
   useEffect(() => {
@@ -170,12 +170,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   } = useGetFilterList({
     queryParams: defaultQueryParamsForFilters
   })
-  if (errorFetchingFilters) {
-    if (errorFetchingFilters?.data) {
-      showError(errorFetchingFilters?.data)
-    } else {
-      showError(errorFetchingFilters?.message)
-    }
+  if (errorFetchingFilters && shouldShowError(errorFetchingFilters)) {
+    showError(errorFetchingFilters?.data || errorFetchingFilters?.message)
   }
 
   useEffect(() => {
@@ -202,7 +198,12 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     data: FilterDataInterface<PipelineExecutionFormType, FilterInterface>
   ): Promise<void> => {
     setIsRefreshingFilters(true)
-    const requestBodyPayload = createRequestBodyPayload({ isUpdate, data, projectIdentifier, orgIdentifier })
+    const requestBodyPayload = createRequestBodyPayload({
+      isUpdate,
+      data,
+      projectIdentifier,
+      orgIdentifier
+    })
     const saveOrUpdateHandler = filterRef.current?.saveOrUpdateFilterHandler
     if (saveOrUpdateHandler && typeof saveOrUpdateHandler === 'function') {
       const updatedFilter = await saveOrUpdateHandler(isUpdate, requestBodyPayload)
@@ -298,6 +299,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content)
             }}
+            type="PipelineExecution"
           />
         }
         initialFilter={{
@@ -390,7 +392,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   fieldToLabelMapping.set('tag', getString('tagLabel'))
   fieldToLabelMapping.set('buildType', getString('filters.executions.buildType'))
   fieldToLabelMapping.set('serviceDefinitionTypes', getString('deploymentTypeText'))
-  fieldToLabelMapping.set('infrastructureType', getString('deploymentTypeText'))
+  fieldToLabelMapping.set('infrastructureType', getString('infrastructureTypeText'))
   fieldToLabelMapping.set('serviceIdentifiers', getString('services'))
   fieldToLabelMapping.set('envIdentifiers', getString('environments'))
 

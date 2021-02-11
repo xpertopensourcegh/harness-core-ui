@@ -48,6 +48,7 @@ export type PipelineExecutionFilterProperties = FilterProperties & {
 export type PipelineFilterProperties = FilterProperties & {
   pipelineTags?: NGTag[]
   name?: string
+  description?: string
   moduleProperties?: {
     [key: string]: { [key: string]: any }
   }

@@ -41,13 +41,11 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                   </div>
                 </div>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main layout StyledProps--padding-bottom-large"
+                  class="Layout--vertical StyledProps--main layout StyledProps--padding-top-medium"
                 >
+                  <div />
                   <div
-                    class="form"
-                  />
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-xsmall"
                   >
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"

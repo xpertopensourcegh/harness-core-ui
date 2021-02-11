@@ -133,17 +133,17 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
                     height="100%"
                   >
                     {getDrawerTitle(isUpdate, name)}
-                    <Layout.Vertical spacing="large" className={css.layout} padding={{ bottom: 'large' }}>
+                    <Layout.Vertical className={css.layout} padding={{ top: 'medium' }}>
                       {isRefreshingFilters ? (
                         <OverlaySpinner show={true} className={css.loading}>
                           <></>
                         </OverlaySpinner>
                       ) : (
                         <>
-                          <div className={css.form}>
+                          <div>
                             {formFields && React.cloneElement(formFields, { ...formFields.props, formikProps: formik })}
                           </div>
-                          <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
+                          <Layout.Horizontal spacing={'medium'} padding={{ bottom: 'xsmall' }}>
                             <Button type="submit" intent="primary" text={getString('filters.apply')} />
                             <Button
                               type={'reset'}
