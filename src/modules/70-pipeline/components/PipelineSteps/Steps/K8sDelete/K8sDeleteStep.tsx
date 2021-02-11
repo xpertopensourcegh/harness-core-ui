@@ -125,7 +125,7 @@ function K8sDeleteDeployWidget(
           const values = formikProps.values
           return (
             <>
-              <>
+              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={stepCss.formGroup}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
@@ -264,7 +264,7 @@ function K8sDeleteDeployWidget(
                     )}
                   </Layout.Horizontal>
                 </div>
-              </>
+              </Layout.Vertical>
 
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />

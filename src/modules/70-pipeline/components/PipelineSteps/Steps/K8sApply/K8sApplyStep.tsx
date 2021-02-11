@@ -77,7 +77,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
           setFormikRef(formikRef, formik)
           return (
             <>
-              <>
+              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={stepCss.formGroup}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
@@ -158,7 +158,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                     label={getString('pipelineSteps.skipSteadyStateCheck')}
                   />
                 </div>
-              </>
+              </Layout.Vertical>
 
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />

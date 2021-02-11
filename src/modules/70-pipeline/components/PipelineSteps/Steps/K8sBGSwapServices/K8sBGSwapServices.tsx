@@ -1,5 +1,13 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  IconName,
+  Formik,
+  Layout,
+  FormInput,
+  Button,
+  getMultiTypeFromValue,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 
@@ -70,7 +78,7 @@ function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<S
 
           return (
             <>
-              <>
+              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={stepCss.formGroup}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
@@ -100,7 +108,7 @@ function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<S
                     />
                   )}
                 </div>
-              </>
+              </Layout.Vertical>
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={submitForm} />
               </div>
