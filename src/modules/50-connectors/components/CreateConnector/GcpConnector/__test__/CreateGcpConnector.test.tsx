@@ -3,9 +3,9 @@ import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
-import { mockResponse, mockSecret, encryptedKeyMock } from './mocks'
+import { mockResponse, mockSecret, encryptedKeyMock, backButtonMock } from './mocks'
 import CreateGcpConnector from '../CreateGcpConnector'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -57,12 +57,7 @@ describe('Create GCP connector Wizard', () => {
   test('Should render form for edit authtype encryptedKey', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGcpConnector
-          {...commonProps}
-          isEditMode={true}
-          connectorInfo={encryptedKeyMock as ConnectorInfoDTO}
-          mock={mockResponse}
-        />
+        <CreateGcpConnector {...commonProps} isEditMode={true} connectorInfo={encryptedKeyMock} mock={mockResponse} />
       </TestWrapper>
     )
     // editing connector name
@@ -103,5 +98,15 @@ describe('Create GCP connector Wizard', () => {
         type: 'Gcp'
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGcpConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="gcpBackButton"]',
+    mock: backButtonMock
   })
 })

@@ -1,9 +1,23 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const mockConnector = {
+export const mockConnector: ConnectorInfoDTO = {
   name: 'ArtifactoryTest',
   identifier: 'ArtifactoryTest',
   description: 'connectorDescription',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'Artifactory',
+  spec: {
+    artifactoryServerUrl: 'dummyRespositoryUrl',
+    auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.connectorPass' } }
+  }
+}
+
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy artifactory name',
+  identifier: 'dummyArtifactoryIdentifier',
+  description: 'dummy artifactory description',
   orgIdentifier: '',
   projectIdentifier: '',
   tags: {},

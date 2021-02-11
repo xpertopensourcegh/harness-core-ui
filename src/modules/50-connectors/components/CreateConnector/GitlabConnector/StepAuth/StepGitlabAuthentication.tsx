@@ -341,13 +341,21 @@ const StepGitlabAuthentication: React.FC<
               {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
             </Container>
 
-            <Button
-              type="submit"
-              intent="primary"
-              text={getString('saveAndContinue')}
-              rightIcon="chevron-right"
-              disabled={loadConnector}
-            />
+            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="gitlabBackButton"
+              />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('saveAndContinue')}
+                rightIcon="chevron-right"
+                disabled={loadConnector}
+              />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

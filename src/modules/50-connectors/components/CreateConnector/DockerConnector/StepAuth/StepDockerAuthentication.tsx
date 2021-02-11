@@ -234,13 +234,21 @@ const StepDockerAuthentication: React.FC<
                 </>
               ) : null}
             </Layout.Vertical>
-            <Button
-              type="submit"
-              intent="primary"
-              text={getString('saveAndContinue')}
-              rightIcon="chevron-right"
-              disabled={loadConnector}
-            />
+            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="dockerBackButton"
+              />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('saveAndContinue')}
+                rightIcon="chevron-right"
+                disabled={loadConnector}
+              />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

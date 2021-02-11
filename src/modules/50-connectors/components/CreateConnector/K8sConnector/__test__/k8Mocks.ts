@@ -1,6 +1,6 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ResponseBoolean, ConnectorInfoDTO } from 'services/cd-ng'
 
-export const usernamePassword = {
+export const usernamePassword: ConnectorInfoDTO = {
   name: 'k87',
   identifier: 'k8',
   description: 'k8 descriptipn',
@@ -19,7 +19,7 @@ export const usernamePassword = {
   }
 }
 
-export const serviceAccount = {
+export const serviceAccount: ConnectorInfoDTO = {
   name: 'k8Connector',
   identifier: 'k8',
   description: 'k8 descriptipn',
@@ -38,7 +38,7 @@ export const serviceAccount = {
   }
 }
 
-export const oidcMock = {
+export const oidcMock: ConnectorInfoDTO = {
   name: 'k8Connector',
   identifier: 'k8Connector',
   description: 'k8 descriptipn',
@@ -67,7 +67,7 @@ export const oidcMock = {
   }
 }
 
-export const clientKeyMock = {
+export const clientKeyMock: ConnectorInfoDTO = {
   name: 'k8Connector',
   identifier: 'k8',
   description: 'k8 descriptipn',
@@ -90,6 +90,25 @@ export const clientKeyMock = {
             clientKeyAlgo: null
           }
         }
+      }
+    }
+  }
+}
+
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy k8 name',
+  identifier: 'dummyK8Identifier',
+  description: 'dummy k8 description',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: { k8: '' },
+  type: 'K8sCluster',
+  spec: {
+    credential: {
+      type: 'ManualConfig',
+      spec: {
+        masterUrl: '/url7878',
+        auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.k8serviceToken' } }
       }
     }
   }

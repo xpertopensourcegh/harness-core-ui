@@ -3,9 +3,9 @@ import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import CreateDockerConnector from '../CreateDockerConnector'
-import { mockResponse, dockerMock, mockSecret } from './mocks'
+import { mockResponse, dockerMock, mockSecret, backButtonMock } from './mocks'
+import { backButtonTest } from '../../commonTest'
 
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
@@ -59,7 +59,7 @@ describe('Create Docker Connector  Wizard', () => {
           setIsEditMode={noop}
           onSuccess={noop}
           isEditMode={true}
-          connectorInfo={dockerMock as ConnectorInfoDTO}
+          connectorInfo={dockerMock}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -99,5 +99,22 @@ describe('Create Docker Connector  Wizard', () => {
         type: 'DockerRegistry'
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateDockerConnector
+          onClose={noop}
+          setIsEditMode={noop}
+          onSuccess={noop}
+          isEditMode={true}
+          connectorInfo={backButtonMock}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="dockerBackButton"]',
+    mock: backButtonMock
   })
 })

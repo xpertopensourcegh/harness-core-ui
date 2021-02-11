@@ -5,7 +5,6 @@ import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
 
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import CreateGithubConnector from '../CreateGithubConnector'
 import {
@@ -13,8 +12,10 @@ import {
   mockSecret,
   usernamePassword,
   usernameTokenWithAPIAccessGithubApp,
-  usernameTokenWithAPIAccessToken
+  usernameTokenWithAPIAccessToken,
+  backButtonMock
 } from './githubMocks'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -135,7 +136,7 @@ describe('Create Github connector Wizard', () => {
         <CreateGithubConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={usernamePassword as ConnectorInfoDTO}
+          connectorInfo={usernamePassword}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -156,7 +157,7 @@ describe('Create Github connector Wizard', () => {
         <CreateGithubConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={usernameTokenWithAPIAccessGithubApp as ConnectorInfoDTO}
+          connectorInfo={usernameTokenWithAPIAccessGithubApp}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -209,7 +210,7 @@ describe('Create Github connector Wizard', () => {
         <CreateGithubConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={usernameTokenWithAPIAccessToken as ConnectorInfoDTO}
+          connectorInfo={usernameTokenWithAPIAccessToken}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -250,5 +251,15 @@ describe('Create Github connector Wizard', () => {
         }
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGithubConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="githubBackButton"]',
+    mock: backButtonMock
   })
 })

@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { mockResponse, mockSecret, mockConnector } from './mock'
 import CreateAWSConnector from '../CreateAWSConnector'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -81,7 +82,7 @@ describe('Create AWS connector Wizard', () => {
 
     expect(updateConnector).toBeCalledWith({
       connector: {
-        description: '',
+        description: mockConnector.data.connector.description,
         identifier: 'AWS_test',
         name: 'dummy name',
         orgIdentifier: undefined,
@@ -103,5 +104,20 @@ describe('Create AWS connector Wizard', () => {
         type: 'Aws'
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateAWSConnector
+          {...commonProps}
+          isEditMode={true}
+          connectorInfo={mockConnector.data.connector as any}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="awsBackButton"]',
+    mock: mockConnector.data.connector as any
   })
 })

@@ -1,6 +1,6 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const usernamePassword = {
+export const usernamePassword: ConnectorInfoDTO = {
   name: 'GitlabWorking',
   identifier: 'asasas',
   description: 'connector description',
@@ -22,7 +22,29 @@ export const usernamePassword = {
   }
 }
 
-export const sshAuthWithAPIAccessToken = {
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy gitlab name',
+  identifier: 'dummyGitlabIdentifier',
+  description: 'dummy gitlab description',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'Gitlab',
+  spec: {
+    url: 'https://gitlab.com/dev',
+    authentication: {
+      type: 'Http',
+      spec: {
+        type: 'UsernamePassword',
+        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.gitlabPassword' }
+      }
+    },
+    apiAccess: null,
+    type: 'Account'
+  }
+}
+
+export const sshAuthWithAPIAccessToken: ConnectorInfoDTO = {
   name: 'GitlabWorking',
   identifier: 'asasas',
   description: 'connector description',

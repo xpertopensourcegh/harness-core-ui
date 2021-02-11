@@ -3,9 +3,17 @@ import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import CreateK8sConnector from '../CreateK8sConnector'
-import { mockResponse, mockSecret, usernamePassword, serviceAccount, oidcMock, clientKeyMock } from './k8Mocks'
+import { backButtonTest } from '../../commonTest'
+import {
+  mockResponse,
+  mockSecret,
+  usernamePassword,
+  serviceAccount,
+  oidcMock,
+  clientKeyMock,
+  backButtonMock
+} from './k8Mocks'
 
 const commonProps = {
   accountId: 'dummy',
@@ -57,12 +65,7 @@ describe('Create k8 connector Wizard', () => {
     updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateK8sConnector
-          {...commonProps}
-          isEditMode={true}
-          connectorInfo={usernamePassword as ConnectorInfoDTO}
-          mock={mockResponse}
-        />
+        <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={usernamePassword} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -112,12 +115,7 @@ describe('Create k8 connector Wizard', () => {
     updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateK8sConnector
-          {...commonProps}
-          isEditMode={true}
-          connectorInfo={serviceAccount as ConnectorInfoDTO}
-          mock={mockResponse}
-        />
+        <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={serviceAccount} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -164,12 +162,7 @@ describe('Create k8 connector Wizard', () => {
     updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateK8sConnector
-          {...commonProps}
-          isEditMode={true}
-          connectorInfo={oidcMock as ConnectorInfoDTO}
-          mock={mockResponse}
-        />
+        <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={oidcMock} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -215,18 +208,23 @@ describe('Create k8 connector Wizard', () => {
       }
     })
   })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="k8sBackButton"]',
+    mock: backButtonMock
+  })
 })
 
 test('should form for edit authtype clientKey', async () => {
   updateConnector.mockReset()
   const { container } = render(
     <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-      <CreateK8sConnector
-        {...commonProps}
-        isEditMode={true}
-        connectorInfo={clientKeyMock as ConnectorInfoDTO}
-        mock={mockResponse}
-      />
+      <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={clientKeyMock} mock={mockResponse} />
     </TestWrapper>
   )
 

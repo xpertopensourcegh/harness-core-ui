@@ -5,10 +5,16 @@ import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
 
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import CreateBitbucketConnector from '../CreateBitbucketConnector'
-import { mockResponse, mockSecret, usernamePassword, usernameTokenWithAPIAccess } from './bitbucketMocks'
+import {
+  mockResponse,
+  mockSecret,
+  usernamePassword,
+  usernameTokenWithAPIAccess,
+  backButtonMock
+} from './bitbucketMocks'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -127,7 +133,7 @@ describe('Create Bitbucketconnector Wizard', () => {
         <CreateBitbucketConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={usernamePassword as ConnectorInfoDTO}
+          connectorInfo={usernamePassword}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -173,7 +179,7 @@ describe('Create Bitbucketconnector Wizard', () => {
         <CreateBitbucketConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={usernameTokenWithAPIAccess as ConnectorInfoDTO}
+          connectorInfo={usernameTokenWithAPIAccess}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -217,5 +223,20 @@ describe('Create Bitbucketconnector Wizard', () => {
         type: 'Bitbucket'
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateBitbucketConnector
+          {...commonProps}
+          isEditMode={true}
+          connectorInfo={backButtonMock}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="bitbucketBackButton"]',
+    mock: backButtonMock
   })
 })

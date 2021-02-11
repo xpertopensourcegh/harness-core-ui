@@ -5,10 +5,10 @@ import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, clickSubmit, fillAtForm } from '@common/utils/JestFormHelper'
 
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import CreateGitlabConnector from '../CreateGitlabConnector'
-import { mockResponse, mockSecret, sshAuthWithAPIAccessToken, usernamePassword } from './gitlabMocks'
+import { mockResponse, mockSecret, sshAuthWithAPIAccessToken, usernamePassword, backButtonMock } from './gitlabMocks'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -128,7 +128,7 @@ describe('Create Gitlab connector Wizard', () => {
         <CreateGitlabConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={sshAuthWithAPIAccessToken as ConnectorInfoDTO}
+          connectorInfo={sshAuthWithAPIAccessToken}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -180,7 +180,7 @@ describe('Create Gitlab connector Wizard', () => {
         <CreateGitlabConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={usernamePassword as ConnectorInfoDTO}
+          connectorInfo={usernamePassword}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -217,5 +217,15 @@ describe('Create Gitlab connector Wizard', () => {
         type: 'Gitlab'
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGitlabConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="gitlabBackButton"]',
+    mock: backButtonMock
   })
 })

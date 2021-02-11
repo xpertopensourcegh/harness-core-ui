@@ -1,6 +1,6 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const usernamePassword = {
+export const usernamePassword: ConnectorInfoDTO = {
   name: 'GithubWorking1',
   identifier: 'asasas',
   description: 'connector before demo',
@@ -22,7 +22,29 @@ export const usernamePassword = {
   }
 }
 
-export const usernameTokenWithAPIAccessGithubApp = {
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy github name',
+  identifier: 'dummyGithubIdentifier',
+  description: 'dummy github description',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'Github',
+  spec: {
+    url: 'https://github.com/dev',
+    authentication: {
+      type: 'Http',
+      spec: {
+        type: 'UsernamePassword',
+        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.githubPassword' }
+      }
+    },
+    apiAccess: null,
+    type: 'Account'
+  }
+}
+
+export const usernameTokenWithAPIAccessGithubApp: ConnectorInfoDTO = {
   name: 'GithubWorking1',
   identifier: 'asasas',
   description: 'connector before demo',
@@ -47,7 +69,7 @@ export const usernameTokenWithAPIAccessGithubApp = {
   }
 }
 
-export const usernameTokenWithAPIAccessToken = {
+export const usernameTokenWithAPIAccessToken: ConnectorInfoDTO = {
   name: 'GithubWorking1',
   identifier: 'asasas',
   description: 'connector before demo',

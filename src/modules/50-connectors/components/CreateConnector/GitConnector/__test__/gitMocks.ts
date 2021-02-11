@@ -1,6 +1,6 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const usernamePassword = {
+export const usernamePassword: ConnectorInfoDTO = {
   name: 'dumyGit',
   identifier: 'dumyGit',
   description: '',
@@ -16,6 +16,25 @@ export const usernamePassword = {
     gitSync: { enabled: false, customCommitAttributes: null, syncEnabled: false }
   }
 }
+
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy git name',
+  identifier: 'dummyGitIdentifier',
+  description: 'dummy git description',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'Git',
+  spec: {
+    url: 'dumyGitUrl',
+    branchName: 'master',
+    type: 'Http',
+    connectionType: 'Account',
+    spec: { username: 'dev', passwordRef: 'account.connectorPass' },
+    gitSync: { enabled: false, customCommitAttributes: null, syncEnabled: false }
+  }
+}
+
 export const mockSecret = {
   status: 'SUCCESS',
   data: {

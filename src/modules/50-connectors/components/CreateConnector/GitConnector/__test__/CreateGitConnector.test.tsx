@@ -5,9 +5,9 @@ import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
 
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import CreateGitConnector from '../CreateGitConnector'
-import { mockResponse, mockSecret, usernamePassword } from './gitMocks'
+import { mockResponse, mockSecret, usernamePassword, backButtonMock } from './gitMocks'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -86,12 +86,7 @@ describe('Create Git connector Wizard', () => {
   test('should be able to edit form for http and authtype username', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGitConnector
-          {...commonProps}
-          isEditMode={true}
-          connectorInfo={usernamePassword as ConnectorInfoDTO}
-          mock={mockResponse}
-        />
+        <CreateGitConnector {...commonProps} isEditMode={true} connectorInfo={usernamePassword} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -124,5 +119,15 @@ describe('Create Git connector Wizard', () => {
         }
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGitConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="gitBackButton"]',
+    mock: backButtonMock
   })
 })

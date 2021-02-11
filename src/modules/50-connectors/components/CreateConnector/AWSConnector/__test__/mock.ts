@@ -6,7 +6,7 @@ export const mockConnector = {
     connector: {
       name: 'AWS test',
       identifier: 'AWS_test',
-      description: '',
+      description: 'dummy AWS description',
       orgIdentifier: null,
       projectIdentifier: null,
       tags: {},

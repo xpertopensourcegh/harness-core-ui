@@ -3,9 +3,9 @@ import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
-import { mockResponse, mockSecret, mockConnector } from './mocks'
+import { mockResponse, mockSecret, mockConnector, backButtonMock } from './mocks'
 import CreateArtifactoryConnector from '../CreateArtifactoryConnector'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -60,7 +60,7 @@ describe('Create Artifactory connector Wizard', () => {
         <CreateArtifactoryConnector
           {...commonProps}
           isEditMode={true}
-          connectorInfo={mockConnector as ConnectorInfoDTO}
+          connectorInfo={mockConnector}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -104,5 +104,20 @@ describe('Create Artifactory connector Wizard', () => {
         type: 'Artifactory'
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateArtifactoryConnector
+          {...commonProps}
+          isEditMode={true}
+          connectorInfo={backButtonMock}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="artifactoryBackButton"]',
+    mock: backButtonMock
   })
 })

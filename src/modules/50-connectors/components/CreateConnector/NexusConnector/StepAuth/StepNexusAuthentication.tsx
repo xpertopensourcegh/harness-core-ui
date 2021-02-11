@@ -220,13 +220,21 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
                 </Container>
               ) : null}
             </Layout.Vertical>
-            <Button
-              type="submit"
-              intent="primary"
-              text={getString('saveAndContinue')}
-              rightIcon="chevron-right"
-              disabled={loadConnector}
-            />
+            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="nexusBackButton"
+              />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('saveAndContinue')}
+                rightIcon="chevron-right"
+                disabled={loadConnector}
+              />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

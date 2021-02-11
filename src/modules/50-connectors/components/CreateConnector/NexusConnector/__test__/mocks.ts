@@ -1,9 +1,24 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const mockConnector = {
+export const mockConnector: ConnectorInfoDTO = {
   name: 'NexusTest',
   identifier: 'NexusTest',
   description: 'connectorDescription',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'Nexus',
+  spec: {
+    nexusServerUrl: 'dummyRespositoryUrl',
+    version: '2.x',
+    auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.connectorPass' } }
+  }
+}
+
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy nexus name',
+  identifier: 'dummyNexusIdentifier',
+  description: 'dummy nexus description',
   orgIdentifier: '',
   projectIdentifier: '',
   tags: {},

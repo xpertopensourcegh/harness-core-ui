@@ -190,13 +190,21 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
                 <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
               ) : null}
             </Container>
-            <Button
-              type="submit"
-              intent="primary"
-              text={getString('saveAndContinue')}
-              rightIcon="chevron-right"
-              disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
-            />
+            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="gcpBackButton"
+              />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('saveAndContinue')}
+                rightIcon="chevron-right"
+                disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
+              />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

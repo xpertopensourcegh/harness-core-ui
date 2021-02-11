@@ -423,14 +423,22 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                 </>
               ) : null}
             </Container>
-
-            <Button
-              type="submit"
-              intent="primary"
-              text={getString('saveAndContinue')}
-              rightIcon="chevron-right"
-              disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
-            />
+            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="k8sBackButton"
+              />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('saveAndContinue')}
+                rightIcon="chevron-right"
+                disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
+                margin={{ left: 'medium' }}
+              />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

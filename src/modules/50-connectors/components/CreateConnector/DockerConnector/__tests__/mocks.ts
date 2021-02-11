@@ -1,9 +1,24 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const dockerMock = {
+export const dockerMock: ConnectorInfoDTO = {
   name: 'docker3',
   description: 'devConnector description',
   identifier: 'devConnector',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'DockerRegistry',
+  spec: {
+    dockerRegistryUrl: 'url-v3',
+    providerType: 'DockerHub',
+    auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.b13' } }
+  }
+}
+
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy docker connector',
+  description: 'dummy docker description',
+  identifier: 'dummyDockerIdentifier',
   orgIdentifier: '',
   projectIdentifier: '',
   tags: {},

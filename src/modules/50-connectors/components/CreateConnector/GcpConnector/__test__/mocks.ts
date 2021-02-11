@@ -1,6 +1,6 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const encryptedKeyMock = {
+export const encryptedKeyMock: ConnectorInfoDTO = {
   name: 'devConnector',
   identifier: 'devConnector',
   description: 'devConnector description',
@@ -35,4 +35,15 @@ export const mockResponse: ResponseBoolean = {
   data: true,
   metaData: {},
   correlationId: ''
+}
+
+export const backButtonMock: ConnectorInfoDTO = {
+  name: 'dummy gcp connector',
+  identifier: 'dummyGCPIdentifier',
+  description: 'dummy gcp description',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'Gcp',
+  spec: { credential: { type: 'ManualConfig', spec: { secretKeyRef: 'account.s15656' } } }
 }

@@ -261,8 +261,10 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
             </Layout.Vertical>
             <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
               <Button
-                onClick={() => props.previousStep?.({ ...prevStepData } as StepAWSAuthenticationProps)}
                 text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="awsBackButton"
               />
               <Button
                 type="submit"

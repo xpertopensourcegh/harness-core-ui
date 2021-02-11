@@ -3,9 +3,9 @@ import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
-import { mockResponse, mockSecret, mockConnector } from './mocks'
+import { mockResponse, mockSecret, mockConnector, backButtonMock } from './mocks'
 import CreateNexusConnector from '../CreateNexusConnector'
+import { backButtonTest } from '../../commonTest'
 
 const commonProps = {
   accountId: 'dummy',
@@ -57,12 +57,7 @@ describe('Create Nexus connector Wizard', () => {
   test('Should render form for edit ', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateNexusConnector
-          {...commonProps}
-          isEditMode={true}
-          connectorInfo={mockConnector as ConnectorInfoDTO}
-          mock={mockResponse}
-        />
+        <CreateNexusConnector {...commonProps} isEditMode={true} connectorInfo={mockConnector} mock={mockResponse} />
       </TestWrapper>
     )
     // editing connector name
@@ -106,5 +101,15 @@ describe('Create Nexus connector Wizard', () => {
         type: 'Nexus'
       }
     })
+  })
+
+  backButtonTest({
+    Element: (
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateNexusConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
+      </TestWrapper>
+    ),
+    backButtonSelector: '[data-name="nexusBackButton"]',
+    mock: backButtonMock
   })
 })
