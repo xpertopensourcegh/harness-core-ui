@@ -18,6 +18,8 @@ import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import {
   DurationInputFieldForInputSet,
@@ -56,6 +58,7 @@ function K8sRollingRollbackWidget(
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <Formik<K8sRollingRollbackData>
@@ -82,26 +85,24 @@ function K8sRollingRollbackWidget(
                   />
                 </div>
                 <div className={stepCss.formGroup}>
-                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                    <FormMultiTypeDurationField
-                      name="timeout"
-                      label={getString('pipelineSteps.timeoutLabel')}
-                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('timeout', value)
+                      }}
                     />
-                    {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={values.timeout as string}
-                        type="String"
-                        variableName="step.timeout"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          setFieldValue('timeout', value)
-                        }}
-                      />
-                    )}
-                  </Layout.Horizontal>
+                  )}
                 </div>
               </Layout.Vertical>
               <div className={stepCss.actionsPanel}>

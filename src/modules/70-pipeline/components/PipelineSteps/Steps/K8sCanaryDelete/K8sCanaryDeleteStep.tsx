@@ -11,7 +11,7 @@ import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import {
   DurationInputFieldForInputSet,
@@ -47,7 +47,7 @@ function K8sCanaryDeleteWidget(
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <Formik<StepElementConfig>
@@ -78,7 +78,7 @@ function K8sCanaryDeleteWidget(
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

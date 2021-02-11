@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  FormInput,
-  Button,
-  Layout,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
@@ -18,6 +10,7 @@ import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
@@ -47,7 +40,7 @@ interface K8BGDeployProps {
 function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef<K8sBGDeployData>): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <Formik<K8sBGDeployData>
@@ -73,26 +66,24 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                   />
                 </div>
                 <div className={stepCss.formGroup}>
-                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                    <FormMultiTypeDurationField
-                      name="timeout"
-                      label={getString('pipelineSteps.timeoutLabel')}
-                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('timeout', value)
+                      }}
                     />
-                    {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={values.timeout as string}
-                        type="String"
-                        variableName="step.timeout"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          setFieldValue('timeout', value)
-                        }}
-                      />
-                    )}
-                  </Layout.Horizontal>
+                  )}
                 </div>
                 <div className={stepCss.formGroup}>
                   <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />

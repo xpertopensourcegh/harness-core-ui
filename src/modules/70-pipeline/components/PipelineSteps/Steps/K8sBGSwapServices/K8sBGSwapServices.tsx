@@ -14,6 +14,8 @@ import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import { useStrings, UseStringsReturn } from 'framework/exports'
 
 import {
@@ -48,7 +50,7 @@ export interface K8sBGSwapServicesVariablesStepProps {
 function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<StepElement>): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <Formik<StepElement>
@@ -81,7 +83,7 @@ function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<S
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
