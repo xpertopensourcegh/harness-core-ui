@@ -232,7 +232,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 bind={setYamlHandler}
                 onSnippetCopy={onSnippetCopy}
                 snippetYaml={snippet?.data}
-                schema={secretSchema?.data || ''}
+                schema={secretSchema?.data}
                 isReadOnlyMode={false}
                 snippets={snippetData?.data?.yamlSnippets}
               />

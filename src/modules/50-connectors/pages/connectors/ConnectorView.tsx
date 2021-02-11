@@ -69,16 +69,12 @@ const SelectedView = {
   YAML: 'YAML'
 }
 
-export interface ConnectorContextInterface {
-  setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
-}
-
-const ConnectorContext = React.createContext<ConnectorContextInterface>({
-  setYamlHandler: () => undefined
-})
-
 const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    accountId: string
+    projectIdentifier: string
+    orgIdentifier: string
+  }>()
   const [enableEdit, setEnableEdit] = useState(false)
   const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
   const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
@@ -86,19 +82,17 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     props.response?.connector || ({} as ConnectorInfoDTO)
   )
 
-  const { setYamlHandler: setYamlHandlerContext } = React.useContext(ConnectorContext)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
   const [snippetYaml, setSnippetYaml] = React.useState<string>()
   const [isUpdating, setIsUpdating] = React.useState<boolean>(false)
   const { getString } = useStrings()
   const isHarnessManaged = props.response?.harnessManaged
+  const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
 
-  React.useEffect(() => {
-    if (yamlHandler) {
-      setYamlHandlerContext(yamlHandler)
-    }
-  }, [yamlHandler, setYamlHandlerContext])
+  const onConnectorChange = (isEditorDirty: boolean): void => {
+    setHasConnectorChanged(isEditorDirty)
+  }
 
   const state: ConnectorViewState = {
     enableEdit,
@@ -213,14 +207,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       }
     )
   )
-
-  const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
-    fileName: `${connectorForYaml?.name ?? 'Connector'}.yaml`,
-    entityType: 'Connectors',
-    existingJSON: { connector: connectorForYaml },
-    isReadOnlyMode: true,
-    width: 900
-  }
 
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: data => {
@@ -364,6 +350,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       if (isConfirmed) {
         setEnableEdit(false)
         setConnectorForYaml(props.response?.connector || ({} as ConnectorInfoDTO))
+        setHasConnectorChanged(false)
       }
     }
   })
@@ -372,6 +359,14 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     event.preventDefault()
     event.stopPropagation()
     openDialog()
+  }
+
+  const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
+    fileName: `${connectorForYaml?.name ?? 'Connector'}.yaml`,
+    entityType: 'Connectors',
+    existingJSON: { connector: connectorForYaml },
+    isReadOnlyMode: true,
+    height: 'calc(100vh - 300px)'
   }
 
   return (
@@ -419,7 +414,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
             ) : (
               <div className={css.fullWidth}>
                 <YamlBuilder
-                  {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })}
+                  {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 'calc(100vh - 250px)' })}
                   snippets={snippetMetaData?.data?.yamlSnippets}
                   onSnippetCopy={onSnippetCopy}
                   snippetYaml={snippetYaml}
@@ -427,6 +422,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                   isReadOnlyMode={false}
                   bind={setYamlHandler}
                   invocationMap={invocationMap}
+                  onChange={onConnectorChange}
                 />
                 <Layout.Horizontal spacing="small">
                   <Button
@@ -436,8 +432,11 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                     onClick={handleSaveYaml}
                     margin={{ top: 'large' }}
                     title={isValidYAML ? '' : getString('invalidYaml')}
+                    disabled={!hasConnectorChanged}
                   />
-                  <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+                  {hasConnectorChanged ? (
+                    <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+                  ) : null}
                 </Layout.Horizontal>
               </div>
             )

@@ -3,7 +3,7 @@ import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
-  getYAMLValidationErrorMap: () => Map<string, string[]>
+  getYAMLValidationErrorMap: () => Map<number, string>
 }
 
 export type InvocationMapFunction = (
@@ -28,9 +28,7 @@ export interface YamlBuilderProps {
   invocationMap?: Map<RegExp, InvocationMapFunction>
   isReadOnlyMode?: boolean
   onExpressionTrigger?: (yamlPath: string, currentExpression: string) => Promise<CompletionItemInterface[]>
-  //TODO @vardan Remove "Record<string, string | any>" from type once pipeline schema is migrated to new framework
-  schema?: string | Record<string, string | any>
-  needEditorReset?: boolean
+  schema?: Record<string, string | any>
   onEnableEditMode?: () => void
   theme?: Theme
   yamlSanityConfig?: YamlSanityConfig
@@ -40,6 +38,7 @@ export interface YamlBuilderProps {
   snippets?: YamlSnippetMetaData[]
   onSnippetCopy?: (identifier: string) => Promise<void>
   snippetYaml?: string
+  onChange?: (isEditorDirty: boolean) => void
 }
 
 export interface CompletionItemInterface {

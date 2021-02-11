@@ -2,7 +2,7 @@ import {
   findLeafToParentPath,
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
-  getYAMLPathToValidationErrorMap
+  getYAMLValidationErrors
 } from '../YAMLBuilderUtils'
 import connector from './mocks/connector.json'
 import { parse } from 'yaml'
@@ -75,30 +75,19 @@ describe('YAMLBuilder Utils test', () => {
     expect(currentProperty).toEqual('delegateName17')
   })
 
-  test('Test getYAMLPathToValidationErrorMap method', async () => {
-    const editorContent =
-      'name: K8sConnector\r\nidentifier: SampleK8s\r\ndescription: Sample K8s connectors\r\naccountIdentifier: ACCOUNT_ID\r\ntags:\r\n  - dev-ops\r\n  - env\r\nlastModifiedAt: 123456789\r\ntype: K8s\r\nspec:\r\n  type: InheritFromDelegate\r\n  spec:\r\n    delegateName: delegatek8s'
+  test('Test getYAMLValidationErrors method', async () => {
     const validationErrors = [
       { message: 'Expected number but found string', range: { end: { line: 2 } } } as Diagnostic
     ]
-    let errorMap = getYAMLPathToValidationErrorMap(
-      editorContent,
-      validationErrors,
-      setupMockEditor(editorContent, { lineNumber: 17, column: 19 })
-    )
+    let errorMap = getYAMLValidationErrors(validationErrors)
     expect(errorMap).not.toBeNull()
     expect(errorMap?.size).toEqual(1)
-    expect(errorMap?.get('delegateName3')).toEqual(['Expected number but found string'])
+    expect(errorMap?.get(2)).toEqual('Expected number but found string')
     validationErrors.push({ message: 'Incorrect type', range: { end: { line: 2 } } } as Diagnostic)
-    errorMap = getYAMLPathToValidationErrorMap(
-      editorContent,
-      validationErrors,
-      setupMockEditor(editorContent, { lineNumber: 17, column: 19 })
-    )
+    errorMap = getYAMLValidationErrors(validationErrors)
     expect(errorMap).not.toBeNull()
     expect(errorMap?.size).toEqual(1)
-    const errorMssgs = errorMap?.get('delegateName3')
-    expect(errorMssgs?.length).toEqual(validationErrors.length)
-    expect(errorMssgs).toEqual(['Expected number but found string', 'Incorrect type'])
+    const errorMssgs = errorMap?.get(2)
+    expect(errorMssgs).toEqual('Incorrect type')
   })
 })

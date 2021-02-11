@@ -18,9 +18,13 @@ interface SnippetDetailsProps {
 }
 
 const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
-  const { height, entityType, onSnippetCopy, snippetYaml } = props
+  const { height, entityType, onSnippetCopy, snippetYaml, selectedIcon } = props
   const [snippets, setSnippets] = useState<YamlSnippetMetaData[]>()
   const [searchedSnippet, setSearchedSnippet] = useState('')
+
+  useEffect(() => {
+    setSearchedSnippet('')
+  }, [selectedIcon])
 
   const onSnippetSearch = (query: string): void => {
     const snippetsClone = props.snippets as YamlSnippetMetaData[]

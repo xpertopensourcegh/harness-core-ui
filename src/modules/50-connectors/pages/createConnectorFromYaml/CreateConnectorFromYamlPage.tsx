@@ -40,8 +40,13 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { showSuccess, showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const [snippetYaml, setSnippetYaml] = React.useState<string>()
-  const [needEditorReset, setNeedEditorReset] = React.useState<boolean>(false)
+  const [editorContent, setEditorContent] = React.useState<Record<string, any>>()
   const { getString } = useStrings()
+  const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
+
+  const onConnectorChange = (isEditorDirty: boolean): void => {
+    setHasConnectorChanged(isEditorDirty)
+  }
 
   const rerouteBasedOnContext = (connectorId: string): void => {
     if (projectIdentifier && orgIdentifier) {
@@ -84,7 +89,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     }
   }
 
-  const { data: snippet, refetch } = useGetYamlSnippet({
+  const { data: snippet, refetch, cancel } = useGetYamlSnippet({
     identifier: '',
     requestOptions: { headers: { accept: 'application/json' } },
     lazy: true,
@@ -100,6 +105,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   }, [snippet])
 
   const onSnippetCopy = async (identifier: string): Promise<void> => {
+    cancel()
     await refetch({
       pathParams: {
         identifier
@@ -133,7 +139,8 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     confirmButtonText: getString('confirm'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
-        setNeedEditorReset(true)
+        setEditorContent({ connector: {} })
+        setHasConnectorChanged(false)
       }
     }
   })
@@ -190,11 +197,13 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               bind={setYamlHandler}
               showIconMenu={true}
               snippets={snippetData?.data?.yamlSnippets}
-              schema={connectorSchema?.data || ''}
+              schema={connectorSchema?.data}
               onSnippetCopy={onSnippetCopy}
               snippetYaml={snippetYaml}
-              needEditorReset={needEditorReset}
+              existingJSON={editorContent}
               invocationMap={invocationMap}
+              height="calc(100vh - 200px)"
+              onChange={onConnectorChange}
             />
           )}
           <Layout.Horizontal spacing="small">
@@ -203,8 +212,11 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               intent="primary"
               margin={{ top: 'xlarge' }}
               onClick={handleCreate}
+              disabled={!hasConnectorChanged}
             />
-            <Button text={getString('cancel')} margin={{ top: 'xlarge' }} onClick={resetEditor} />
+            {hasConnectorChanged ? (
+              <Button text={getString('cancel')} margin={{ top: 'xlarge' }} onClick={resetEditor} />
+            ) : null}
           </Layout.Horizontal>
         </Container>
       </PageBody>
