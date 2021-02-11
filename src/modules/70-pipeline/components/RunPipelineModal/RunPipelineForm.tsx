@@ -336,9 +336,7 @@ function RunPipelineFormBasic({
         {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
           <InputSetSelector
             pipelineIdentifier={pipelineIdentifier}
-            onChange={value => {
-              setSelectedInputSets(value)
-            }}
+            onChange={setSelectedInputSets}
             value={selectedInputSets}
           />
         )}
@@ -349,6 +347,7 @@ function RunPipelineFormBasic({
         onSubmit={values => {
           handleRunPipeline(values as any)
         }}
+        validateOnChange={false}
         enableReinitialize
         validate={values => {
           let errors: FormikErrors<InputSetDTO> = {}

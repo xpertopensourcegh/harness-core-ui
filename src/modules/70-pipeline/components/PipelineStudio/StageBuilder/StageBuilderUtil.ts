@@ -38,6 +38,27 @@ export interface PopoverData {
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }
 
+export const getStageIndexByIdentifier = (pipeline: NgPipeline, identifier: string) => {
+  const stageDetails = { stageIndex: -1, parallelStageIndex: -1 }
+  if (pipeline?.stages) {
+    for (const [index, stage] of pipeline.stages.entries()) {
+      if (stage?.stage?.identifier === identifier) {
+        stageDetails.stageIndex = index
+        break
+      }
+      if (stage?.parallel) {
+        const targetStageIndex = stage.parallel.findIndex((pstage: any) => pstage.stage.identifier === identifier)
+        if (targetStageIndex > -1) {
+          stageDetails.stageIndex = index
+          stageDetails.parallelStageIndex = targetStageIndex
+          break
+        }
+      }
+    }
+  }
+  return stageDetails
+}
+
 export const getNewStageFromType = (type: string, clearDefaultValues = false): StageElementWrapper => {
   // TODO: replace string with type
   if (type === 'ci') {

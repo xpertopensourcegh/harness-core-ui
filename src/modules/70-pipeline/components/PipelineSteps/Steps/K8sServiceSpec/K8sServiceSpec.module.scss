@@ -61,3 +61,11 @@
 .nopad-left {
   padding-left: 0 !important;
 }
+
+.select-popover {
+  position: absolute;
+  border: solid 1px #ccc;
+  width: 400px;
+  max-height: 200px;
+  overflow: scroll;
+}

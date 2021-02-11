@@ -12,5 +12,6 @@ declare const styles: {
   readonly inputWidth: string
   readonly nestedAccordions: string
   readonly nopadLeft: string
+  readonly selectPopover: string
 }
 export default styles

@@ -125,6 +125,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
           <String stringID="pipeline-list.listStages" />
         </div>
         {template?.stages?.map((stageObj, index) => {
+          const pathPrefix = !isEmpty(path) ? `${path}.` : ''
           if (stageObj.stage) {
             const allValues = getStageFromPipeline(stageObj?.stage?.identifier || '', originalPipeline)
             return (
@@ -132,7 +133,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                 <StageForm
                   template={stageObj}
                   allValues={allValues}
-                  path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].stage`}
+                  path={`${pathPrefix}stages[${index}].stage`}
                   readonly={readonly}
                 />
               </Card>
@@ -141,11 +142,11 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
             return ((stageObj.parallel as unknown) as StageElementWrapperConfig[]).map((stageP, indexp) => {
               const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
               return (
-                <Card key={stageObj?.stage?.identifier || index}>
+                <Card key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>
                   <StageForm
                     template={stageP}
                     allValues={allValues}
-                    path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].parallel[${indexp}].stage`}
+                    path={`${pathPrefix}stages[${index}].parallel[${indexp}].stage`}
                     readonly={readonly}
                   />
                 </Card>

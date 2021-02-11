@@ -35,7 +35,7 @@ import {
   useGetBuildDetailsForGcr
 } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { getStageIndexFromPipeline } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
@@ -54,6 +54,17 @@ export const ARTIFACT_TYPE_TO_CONNECTOR_MAP: { [key: string]: string } = {
   Dockerhub: 'DockerRegistry',
   Gcr: 'Gcp'
 }
+export const getStagePathByIdentifier = memoize((stageIdentifier = '', pipeline: NgPipeline) => {
+  let finalPath = ''
+  if (pipeline) {
+    const { stageIndex, parallelStageIndex } = getStageIndexByIdentifier(pipeline, stageIdentifier)
+    finalPath =
+      parallelStageIndex > -1 ? `stages[${stageIndex}].parallel[${parallelStageIndex}]` : `stages[${stageIndex}]`
+  }
+
+  return finalPath
+})
+
 export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }) => {
   const fields: { [key: string]: any } = {}
 
@@ -141,7 +152,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
-  const [pipeline, setPipeline] = React.useState<NgPipeline | { pipeline: NgPipeline }>()
+  const [pipeline, setPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
   const [tagListMap, setTagListMap] = React.useState<{ [key: string]: {}[] | {} }>({ sidecars: [], primary: {} })
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
   const { data: pipelineResponse } = useGetPipeline({
@@ -250,13 +261,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     }
   }
 
-  const { index: stageIndex = 0 } = getStageIndexFromPipeline(get(pipeline, 'pipeline', {}), stageIdentifier) //eslint-disable-line
+  const stagePath = pipeline ? getStagePathByIdentifier(stageIdentifier, pipeline?.pipeline) : ''
 
-  const artifacts = get(
-    pipeline,
-    `pipeline.stages[${stageIndex}].stage.spec.serviceConfig.serviceDefinition.spec.artifacts`,
-    {}
-  )
+  const artifacts = get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.serviceDefinition.spec.artifacts`, {})
 
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
@@ -417,7 +424,8 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                         ),
                         itemRenderer: itemRenderer,
-                        allowCreatingNewItems: true
+                        allowCreatingNewItems: true,
+                        popoverClassName: css.selectPopover
                       }}
                       name={`${path}.artifacts.primary.spec.tag`}
                     />
@@ -548,7 +556,8 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                               <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                             ),
                             itemRenderer: itemRenderer,
-                            allowCreatingNewItems: true
+                            allowCreatingNewItems: true,
+                            popoverClassName: css.selectPopover
                           }}
                           name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`}
                         />
