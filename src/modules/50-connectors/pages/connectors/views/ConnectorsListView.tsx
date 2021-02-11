@@ -215,6 +215,8 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
     if (testing) executeStepVerify()
   }, [testing])
 
+  const isStatusSuccess = status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
+
   return (
     <Layout.Horizontal>
       {!testing ? (
@@ -223,20 +225,13 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
             {data.status?.status || errorMessage ? (
               <Text
                 inline
-                icon={
-                  status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
-                    ? 'full-circle'
-                    : 'warning-sign'
-                }
+                icon={isStatusSuccess ? 'full-circle' : 'warning-sign'}
                 iconProps={{
-                  size: status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS ? 6 : 12,
-                  color:
-                    status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
-                      ? Color.GREEN_500
-                      : Color.RED_500
+                  size: isStatusSuccess ? 6 : 12,
+                  color: isStatusSuccess ? Color.GREEN_500 : Color.RED_500
                 }}
                 tooltip={
-                  status !== ConnectorStatus.SUCCESS || data.status?.status !== ConnectorStatus.SUCCESS ? (
+                  !isStatusSuccess ? (
                     errorMessage?.errorSummary || data.status?.errorSummary ? (
                       <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
                         <Text font={{ size: 'small' }} color={Color.WHITE}>
@@ -266,9 +261,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                 }
                 tooltipProps={{ isDark: true, position: 'bottom' }}
               >
-                {status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
-                  ? getString('active').toLowerCase()
-                  : getString('error').toLowerCase()}
+                {isStatusSuccess ? getString('active').toLowerCase() : getString('error').toLowerCase()}
               </Text>
             ) : null}
           </Layout.Horizontal>
@@ -294,7 +287,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
           <Text style={{ margin: 8 }}>{getString('connectors.testInProgress')}</Text>
         </Layout.Horizontal>
       )}
-      {!testing && (status !== 'SUCCESS' || data.status?.status !== 'SUCCESS') ? (
+      {!testing && !isStatusSuccess ? (
         <Button
           font="small"
           className={css.testBtn}

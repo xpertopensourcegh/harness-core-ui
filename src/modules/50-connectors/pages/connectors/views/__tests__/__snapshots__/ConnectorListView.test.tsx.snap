@@ -6027,16 +6027,6 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               dummy date
             </p>
           </div>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              TEST
-            </span>
-          </button>
         </div>
       </div>
       <div
