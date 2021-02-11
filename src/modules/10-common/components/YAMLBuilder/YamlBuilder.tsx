@@ -221,7 +221,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     debounce((updatedYaml: string): void => {
       setCurrentYaml(updatedYaml)
       yamlRef.current = updatedYaml
-      verifyYAML(updatedYaml)
+      //TODO @vardan uncomment this when it's fixed properly. This is a stop gap solution.
+      // verifyYAML(updatedYaml)
       onChange?.(editorVersionRef.current ? editorVersionRef.current + 1 !== getEditorCurrentVersion() : false)
     }, 500)
   ).current
