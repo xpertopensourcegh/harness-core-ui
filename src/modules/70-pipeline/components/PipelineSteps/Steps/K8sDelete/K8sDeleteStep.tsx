@@ -147,9 +147,9 @@ function K8sDeleteDeployWidget(
                       name="spec.spec.resourceNames"
                       render={arrayHelpers => (
                         <Layout.Vertical>
-                          {formikProps.values?.spec?.spec?.resourceNames?.map((path: string, index: number) => (
+                          {formikProps.values?.spec?.spec?.resourceNames?.map((_path: string, index: number) => (
                             <Layout.Horizontal
-                              key={path}
+                              key={index}
                               flex={{ distribution: 'space-between' }}
                               style={{ alignItems: 'end' }}
                             >
@@ -193,12 +193,16 @@ function K8sDeleteDeployWidget(
                 {values?.spec?.deleteResourcesBy === getString('pipelineSteps.releaseNameValue') && (
                   <div className={stepCss.formGroup}>
                     <Layout.Horizontal
-                      spacing="medium"
+                      spacing="small"
                       flex={{ distribution: 'space-between' }}
                       style={{ alignItems: 'center' }}
                       className={css.nameSpace}
                     >
-                      <FormInput.CheckBox name="spec.spec.deleteNamespace" label="Delete namespace" />
+                      <FormInput.CheckBox
+                        name="spec.spec.deleteNamespace"
+                        label="Delete namespace"
+                        style={{ paddingLeft: 'var(--spacing-small)' }}
+                      />
                     </Layout.Horizontal>
                   </div>
                 )}
@@ -210,9 +214,9 @@ function K8sDeleteDeployWidget(
                       render={arrayHelpers => (
                         <Layout.Vertical>
                           {/* istanbul ignore next */}
-                          {formikProps.values?.spec?.spec?.manifestPaths?.map((path: string, index: number) => (
+                          {formikProps.values?.spec?.spec?.manifestPaths?.map((_path: string, index: number) => (
                             <Layout.Horizontal
-                              key={path}
+                              key={index}
                               flex={{ distribution: 'space-between' }}
                               style={{ alignItems: 'end' }}
                             >

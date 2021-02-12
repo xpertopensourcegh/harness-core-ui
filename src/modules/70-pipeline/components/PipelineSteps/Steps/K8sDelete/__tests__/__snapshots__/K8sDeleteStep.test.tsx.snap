@@ -549,7 +549,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
         class="formGroup"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main nameSpace StyledProps--flex StyledProps--flex-distribution-space-between"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main nameSpace StyledProps--flex StyledProps--flex-distribution-space-between"
           style="align-items: center;"
         >
           <div
