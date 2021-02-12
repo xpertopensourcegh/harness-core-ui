@@ -1289,6 +1289,11 @@ cf:
     createdMessageSegment: 'created segment'
     jsonDifference: JSON DIFFERENCE
 cv:
+  continuousVerification: Continuous Verification
+  dashboard:
+    subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
+    learnMore: Learn more about Continuous Verification
+    createProject: '{{$.ci.dashboard.createProject}}'
   continuous: 'CONTINUOUS'
   verification: 'VERIFICATION'
   hostNamePlaceholder: '${host}'

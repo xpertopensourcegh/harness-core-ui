@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
+import CVHomePage from '@cv/pages/home/CVHomePage'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import {
@@ -13,7 +14,6 @@ import {
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
-import CVHomePage from '@cv/pages/cv-home/CVHomePage'
 import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'

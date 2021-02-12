@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CVHomePage snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: auto; background-position-y: center; height: calc(100% - 160px);"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold"
+        style="color: rgb(34, 34, 42); font-size: 30px;"
+      >
+        Continuous Verification
+      </h1>
+      <p
+        class="StyledProps--font StyledProps--main"
+        style="color: rgb(79, 81, 98); line-height: 24px; font-size: 16px; width: 400px;"
+      >
+        Take your software build verification processes to the next level using our Harness Continuous Verifications
+      </p>
+      <a
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        href="https://docs.harness.io/"
+        rel="noreferrer noopener"
+        role="button"
+        style="align-self: flex-start; color: rgb(0, 146, 228); font-size: 14px;"
+        tabindex="0"
+        target="_blank"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Learn more about Continuous Verification
+        </span>
+      </a>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
+      >
+        <a
+          class="createBtn"
+          href="/account/undefined/projects"
+          style="border-radius: 4px; font-size: 14px; font-weight: bold; line-height: 16px; width: 200px; height: 45px; background: rgb(25, 119, 212); display: flex; align-items: center; justify-content: center;"
+        >
+          + Create Project
+        </a>
+        <p
+          class="StyledProps--font StyledProps--main"
+          style="font-size: 16px; color: rgb(79, 81, 98);"
+        >
+          Or select an existing project
+        </p>
+        <span
+          style="flex-grow: 1;"
+        />
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main"
+      style="position: absolute; width: 160px; top: -20px; height: 80px; left: -240px; background: transparent url(test-file-stub) no-repeat; background-position-x: 120px; background-position-y: 0; padding-top: 45px; padding-right: 35px; font-size: 13px; line-height: 20px; font-weight: 600; color: rgba(255, 255, 255, 0.8);"
+    >
+      Pick a project and drill down to see your information.
+    </p>
+  </div>
+</div>
+`;

@@ -20,7 +20,6 @@ export default function CVSideNav(): React.ReactElement {
 
   return (
     <Layout.Vertical spacing="small">
-      <SidebarLink label="Dashboard" to={routes.toCVHome({ accountId })} />
       <ProjectSelector
         moduleFilter={ModuleName.CV}
         onSelect={data => {
