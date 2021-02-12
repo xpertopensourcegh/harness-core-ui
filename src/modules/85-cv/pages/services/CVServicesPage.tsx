@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uicore'
 import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
@@ -93,6 +93,11 @@ export default function CVServicesPage(): JSX.Element {
       return response
     }
   })
+
+  // We need to reset a value to default one every time account ID / project ID / organization ID changes
+  useEffect(() => {
+    setIsServiceEmpty(false)
+  }, [accountId, projectIdentifier, orgIdentifier])
 
   const isTimeRangeMoreThan4Hours = moment(endTime).diff(startTime, 'minutes') > 4 * 60
   return (

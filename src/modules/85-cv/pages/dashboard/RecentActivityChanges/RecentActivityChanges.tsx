@@ -215,7 +215,7 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
   )
 }
 
-export default function ActivityChanges(): JSX.Element {
+export default function RecentActivityChanges(): JSX.Element {
   const history = useHistory()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const { loading, error, data, refetch: refetchActivities } = useGetRecentActivityVerificationResults({
@@ -271,7 +271,7 @@ export default function ActivityChanges(): JSX.Element {
         } = recentActivity || {}
         return (
           <li
-            key={`${recentActivity.activityType}-${recentActivity.activityName}-${recentActivity.serviceIdentifier}`}
+            key={`${recentActivity.activityType}-${recentActivity.activityName}-${recentActivity.serviceIdentifier}-${recentActivity.activityId}`}
             className={cx(css.dataRow, loading ? Classes.SKELETON : undefined)}
             onClick={() =>
               history.push(

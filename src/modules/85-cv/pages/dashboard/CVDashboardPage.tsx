@@ -10,7 +10,7 @@ import ActivityVerifications from './ActivityVerifications/ActivityVerifications
 import RecentActivityChanges from './RecentActivityChanges/RecentActivityChanges'
 import css from './CVDashboardPage.module.scss'
 
-export const CDDashboardPage: React.FC = () => {
+export const CVDashboardPage: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const history = useHistory()
   const { getString } = useStrings()
@@ -38,4 +38,4 @@ export const CDDashboardPage: React.FC = () => {
   )
 }
 
-export default CDDashboardPage
+export default CVDashboardPage
