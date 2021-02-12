@@ -17,6 +17,7 @@ import MonacoEditor from 'react-monaco-editor'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { Drawer, IOptionProps } from '@blueprintjs/core'
+import isEmpty from 'lodash-es/isEmpty'
 import {
   ServiceSelectOrCreate,
   generateOptions as generateServiceOptions
@@ -86,37 +87,53 @@ const DrawerOptions = {
   enforceFocus: true
 }
 
-function ensureFieldsAreFilled(values: GCOMetricInfo): boolean {
-  return Boolean(
-    values?.query?.length &&
-      values.riskCategory &&
-      (values.higherBaselineDeviation || values.lowerBaselineDeviation) &&
-      values.environment &&
-      values.service &&
-      values.metricName?.length &&
-      values.metricTags
-  )
+function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: string) => string): object {
+  const ret: any = {}
+  if (!values?.query?.length) {
+    ret.query = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.query')
+  }
+  if (!values.riskCategory) {
+    ret.riskCategory = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.riskCategory')
+  }
+  if (!(values.higherBaselineDeviation || values.lowerBaselineDeviation)) {
+    ret.higherBaselineDeviation = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')
+  }
+  if (!values?.environment) {
+    ret.environment = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.env')
+  }
+  if (!values.service) {
+    ret.service = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.service')
+  }
+  if (!values.metricName?.length) {
+    ret.metricName = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.metricName')
+  }
+  if (!values.metricTags) {
+    ret.metricTags = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tags')
+  }
+  return ret
 }
 
 function validate(
   values: GCOMetricInfo,
   selectedMetrics: Map<string, GCOMetricInfo>,
-  validationString: string
+  getString: (key: string) => string
 ): { [key: string]: string } | undefined {
-  const errors = { [OVERALL]: '' }
   for (const entry of selectedMetrics) {
     const [, metricInfo] = entry
-    if (ensureFieldsAreFilled(metricInfo)) {
+    if (isEmpty(ensureFieldsAreFilled(metricInfo, getString))) {
       return
     }
   }
 
-  if (ensureFieldsAreFilled(values)) {
+  const errors = ensureFieldsAreFilled(values, getString)
+  if (isEmpty(errors)) {
     return
   }
 
-  errors[OVERALL] = validationString
-  return errors
+  return {
+    [OVERALL]: getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.mainSetupValidation'),
+    ...errors
+  }
 }
 
 function initializeSelectedMetrics(
@@ -448,7 +465,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
           const filteredData = new Map()
           for (const metric of updatedData) {
             const [metricName, metricInfo] = metric
-            if (ensureFieldsAreFilled(metricInfo)) {
+            if (isEmpty(ensureFieldsAreFilled(metricInfo, getString))) {
               filteredData.set(metricName, metricInfo)
             }
           }
@@ -457,11 +474,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
         validateOnChange={false}
         validateOnBlur={false}
         validate={values => {
-          const thing = validate(
-            values,
-            updatedData,
-            getString('cv.monitoringSources.gco.mapMetricsToServicesPage.mainSetupValidation')
-          )
+          const thing = validate(values, updatedData, getString)
           return thing
         }}
       >
@@ -498,7 +511,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                   onQueryChange(metricInfo.query, () =>
                     formikProps.setFieldError(
                       FieldNames.QUERY,
-                      getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                      getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON')
                     )
                   )
                 }}

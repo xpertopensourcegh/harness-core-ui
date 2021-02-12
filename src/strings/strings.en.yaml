@@ -1494,8 +1494,14 @@ cv:
         higherCounts: 'Higher counts = higher risk'
         lowerCounts: 'Lower counts = lower risk'
         enterQueryForValidation: 'Please enter a query.'
-        mainSetupValidation: 'All fields for at least one metric must be filled completely.'
-        validJSON: 'Please provide valid json.'
+        validation:
+          mainSetupValidation: 'All fields for at least one metric must be filled completely.'
+          validJSON: 'Please provide valid json.'
+          riskCategory: Risk Category is required.
+          env: Environment is required.
+          service: Service is required.
+          tags: Tags are required.
+          baseline: One selection is required.
         noDataForQuery: 'No data for provided query.'
       reviewPage:
         mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'

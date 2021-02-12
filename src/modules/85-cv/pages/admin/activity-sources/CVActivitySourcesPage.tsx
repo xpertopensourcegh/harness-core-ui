@@ -251,13 +251,13 @@ export default function CVActivitySourcesPage(): JSX.Element {
                 disableSortBy: true
               },
               {
-                accessor: 'numberOfEnvironments',
+                accessor: 'numberOfServices',
                 Header: getString('numberOfServices'),
                 width: '16.5%',
                 Cell: TableCell
               },
               {
-                accessor: 'numberOfServices',
+                accessor: 'numberOfEnvironments',
                 Header: getString('cv.admin.activitySources.tableColumnNames.environments'),
                 width: '16.5%',
                 Cell: TableCell
