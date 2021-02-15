@@ -92,7 +92,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
             identifier: values.identifier,
             description: values.description,
             // orgIdentifier: orgIdentifier,
-            projectIdentifier: '',
+            // projectIdentifier: '',
             tags: values.tags,
             type: 'CEAws',
             spec: spec
