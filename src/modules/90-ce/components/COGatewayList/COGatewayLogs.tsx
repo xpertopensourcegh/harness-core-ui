@@ -1,4 +1,3 @@
-import { LogViewer } from '@wings-software/uicore'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Service, ServiceLog, useLogsOfService } from 'services/lw'
@@ -48,12 +47,12 @@ const COGatewayLogs: React.FC<COGatewayLogsProps> = props => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const { data, loading } = useLogsOfService({
+  const { data } = useLogsOfService({
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
     serviceID: props.service?.id as number
   })
-  return <LogViewer logs={getLogs(data?.response)} isLoading={loading} defaultOptions={{ LogLimit: 50 }} />
+  return <pre>{JSON.stringify(getLogs(data?.response))}</pre>
 }
 
 export default COGatewayLogs
