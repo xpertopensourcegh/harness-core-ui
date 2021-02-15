@@ -35,10 +35,13 @@ export function LogLine(props: LogLineProps): React.ReactElement {
         {anserJson.map((row, i) => {
           return (
             <span
-              className={cx({
-                [`${row.bg}-bg`]: row.bg,
-                [`${row.fg}-fg`]: row.fg
-              })}
+              className={cx(
+                {
+                  [`${row.bg}-bg`]: row.bg,
+                  [`${row.fg}-fg`]: row.fg
+                },
+                ...(row.decorations || []).map(p => `ansi-decoration-${p}`)
+              )}
               key={`${row.content}_${i}`}
             >
               {row.content}

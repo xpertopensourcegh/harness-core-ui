@@ -6,6 +6,7 @@ import { throttle } from 'lodash-es'
 import { LogLineChunk } from './LogLine'
 import type { LineData } from './types'
 import css from './MultiLogsViewer.module.scss'
+import './ansi-colors.scss'
 
 export interface LogViewerProps {
   data: LineData[][]

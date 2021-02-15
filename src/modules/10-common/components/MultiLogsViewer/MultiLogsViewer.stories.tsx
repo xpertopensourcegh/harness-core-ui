@@ -9,6 +9,23 @@ export default {
   component: MultiLogsViewer
 } as Meta
 
+function log(): string {
+  let i,
+    j,
+    n,
+    str = ''
+
+  for (i = 0; i < 11; i++) {
+    for (j = 0; j < 10; j++) {
+      n = 10 * i + j
+      if (n > 108) break
+      str += `\x1b[${n}m ${`${n}`.padStart(3, ' ')}\x1b[m`
+    }
+    str += '\n'
+  }
+  return str
+}
+
 const data = `Initializing..
 
 [1;97m[40m
@@ -99,7 +116,7 @@ Basic.args = {
   data: [
     {
       title: 'Entry 1',
-      data,
+      data: log(),
       id: 'entry-1',
       status: 'success'
     },

@@ -31,7 +31,7 @@ import { sanitize } from '@common/utils/JSONUtils'
 import { getYAMLFromEditor, getMetaDataForKeyboardEventProcessing, getYAMLValidationErrors } from './YAMLBuilderUtils'
 
 import css from './YamlBuilder.module.scss'
-import './resizer.css'
+import './resizer.scss'
 import {
   DEFAULT_EDITOR_HEIGHT,
   EditorTheme,
