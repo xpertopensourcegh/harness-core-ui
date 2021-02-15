@@ -8,6 +8,8 @@ declare const styles: {
   readonly identifier: string
   readonly wrapper: string
   readonly name: string
+  readonly flex: string
   readonly viewDetails: string
+  readonly link: string
 }
 export default styles

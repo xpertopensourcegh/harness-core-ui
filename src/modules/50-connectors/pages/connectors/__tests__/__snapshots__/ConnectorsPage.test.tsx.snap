@@ -596,7 +596,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name"
+                  class="name flex"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
@@ -608,10 +608,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   </span>
                 </div>
               </div>
-              <div
-                class="name"
-                color="grey400"
-              />
             </div>
           </div>
           <div
@@ -833,7 +829,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name"
+                  class="name flex"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
@@ -844,12 +840,13 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                     href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                     rel="noreferrer noopener"
                     role="button"
                     tabindex="0"
                     target="_blank"
+                    title="https://github.com/vardanbansal-harness/vscode-yaml.git"
                   >
                     <span
                       class="bp3-button-text"
@@ -858,12 +855,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     </span>
                   </a>
                 </div>
-              </div>
-              <div
-                class="name"
-                color="grey400"
-              >
-                To connect to Git
               </div>
             </div>
           </div>
@@ -1053,7 +1044,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name"
+                  class="name flex"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
@@ -1064,12 +1055,13 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                     href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                     rel="noreferrer noopener"
                     role="button"
                     tabindex="0"
                     target="_blank"
+                    title="https://github.com/vardanbansal-harness/vscode-yaml.git"
                   >
                     <span
                       class="bp3-button-text"
@@ -1079,10 +1071,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   </a>
                 </div>
               </div>
-              <div
-                class="name"
-                color="grey400"
-              />
             </div>
           </div>
           <div
@@ -1276,7 +1264,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name"
+                  class="name flex"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
@@ -1287,12 +1275,13 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                     href="www.google.com"
                     rel="noreferrer noopener"
                     role="button"
                     tabindex="0"
                     target="_blank"
+                    title="www.google.com"
                   >
                     <span
                       class="bp3-button-text"
@@ -1302,10 +1291,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   </a>
                 </div>
               </div>
-              <div
-                class="name"
-                color="grey400"
-              />
             </div>
           </div>
           <div
@@ -1539,7 +1524,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name"
+                  class="name flex"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
@@ -1550,12 +1535,13 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                     href="www.docker.com"
                     rel="noreferrer noopener"
                     role="button"
                     tabindex="0"
                     target="_blank"
+                    title="www.docker.com"
                   >
                     <span
                       class="bp3-button-text"
@@ -1565,10 +1551,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   </a>
                 </div>
               </div>
-              <div
-                class="name"
-                color="grey400"
-              />
             </div>
           </div>
           <div
@@ -1794,7 +1776,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name"
+                  class="name flex"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
@@ -1805,12 +1787,13 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                     href="dbhgj"
                     rel="noreferrer noopener"
                     role="button"
                     tabindex="0"
                     target="_blank"
+                    title="dbhgj"
                   >
                     <span
                       class="bp3-button-text"
@@ -1820,10 +1803,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   </a>
                 </div>
               </div>
-              <div
-                class="name"
-                color="grey400"
-              />
             </div>
           </div>
           <div
@@ -2049,7 +2028,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name"
+                  class="name flex"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
@@ -2060,12 +2039,13 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--margin-left-xsmall"
+                    class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                     href="sample.google.com"
                     rel="noreferrer noopener"
                     role="button"
                     tabindex="0"
                     target="_blank"
+                    title="sample.google.com"
                   >
                     <span
                       class="bp3-button-text"
@@ -2075,10 +2055,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   </a>
                 </div>
               </div>
-              <div
-                class="name"
-                color="grey400"
-              />
             </div>
           </div>
           <div

@@ -4,6 +4,7 @@ import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
+import classNames from 'classnames'
 import { String } from 'framework/exports'
 import {
   ConnectorResponse,
@@ -42,7 +43,14 @@ const stopPropagation = (e: React.MouseEvent<Element, MouseEvent>) => e.stopProp
 
 const linkRenderer = (value: string): JSX.Element =>
   value ? (
-    <Link margin={{ left: 'xsmall' }} href={value} onClick={stopPropagation} target="_blank">
+    <Link
+      margin={{ left: 'xsmall' }}
+      className={css.link}
+      href={value}
+      onClick={stopPropagation}
+      target="_blank"
+      title={value}
+    >
       {value}
     </Link>
   ) : (
@@ -60,7 +68,7 @@ const textRenderer = (value: string): JSX.Element =>
 
 const getConnectorDisplaySummaryLabel = (titleStringId: string, Element: JSX.Element): JSX.Element | string => {
   return (
-    <div className={css.name}>
+    <div className={classNames(css.name, css.flex)}>
       {titleStringId ? (
         <Text inline color={Color.BLACK}>
           <String stringID={titleStringId} />:
@@ -122,9 +130,6 @@ const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) =>
   return data.connector ? (
     <div className={css.wrapper}>
       <div color={Color.BLACK}>{getConnectorDisplaySummary(data.connector)}</div>
-      <div className={css.name} color={Color.GREY_400}>
-        {data.connector?.description}
-      </div>
     </div>
   ) : null
 }
