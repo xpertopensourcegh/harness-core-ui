@@ -8,7 +8,8 @@ import { String, useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import LogsContent from '../../ExecutionLogView/LogsContent'
+import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
+import LogsContentOld from '../../ExecutionLogView/LogsContent'
 import css from './ExecutionStepDetails.module.scss'
 
 const DATE_FORMAT = 'MM/DD/YYYY hh:mm:ss a'
@@ -20,21 +21,22 @@ export interface ExecutionStepDetailsTabProps {
 export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabProps): React.ReactElement {
   const { step } = props
 
-  const params = useParams<PipelineType<ExecutionPathParams>>()
+  const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId, module } = useParams<
+    PipelineType<ExecutionPathParams>
+  >()
 
   const { getString } = useStrings()
   const history = useHistory()
-  const redirectToLogView = (): void => {
-    const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId, module } = params
-    const logUrl = routes.toExecutionPipelineView({
-      orgIdentifier,
-      executionIdentifier,
-      pipelineIdentifier,
-      projectIdentifier,
-      accountId,
-      module
-    })
+  const logUrl = routes.toExecutionPipelineView({
+    orgIdentifier,
+    executionIdentifier,
+    pipelineIdentifier,
+    projectIdentifier,
+    accountId,
+    module
+  })
 
+  const redirectToLogView = (): void => {
     history.push(`${logUrl}?view=log`)
   }
 
@@ -66,7 +68,11 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
           </tr>*/}
         </tbody>
       </table>
-      <LogsContent header={getString('execution.stepLogs')} redirectToLogView={redirectToLogView} />
+      {module === 'cd' ? (
+        <LogsContent mode="step-details" toConsoleView={`${logUrl}?view=log`} />
+      ) : (
+        <LogsContentOld header={getString('execution.stepLogs')} redirectToLogView={redirectToLogView} />
+      )}
     </div>
   )
 }

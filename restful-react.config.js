@@ -42,9 +42,9 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, GetUsingFetchProps } from "../config";`,
     customProps: {
-      base: `{getConfig("gateway/log-service")}`
+      base: `{getConfig("log-service")}`
     },
-    customGenerator: arg => customGenerator(arg, "getConfig('pipeline/api')")
+    customGenerator: arg => customGenerator(arg, "getConfig('log-service')")
   },
   notifications: {
     output: 'src/services/notifications/index.tsx',

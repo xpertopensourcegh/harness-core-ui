@@ -1,0 +1,115 @@
+.multiLogViewer {
+  background: #09090b;
+  color: var(--grey-100);
+  font-family: 'Roboto Mono', 'Monaco', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  line-height: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+
+  .logsSection {
+    margin: 15px;
+    overflow: auto;
+    height: calc(100% - 30px);
+    position: relative;
+  }
+}
+
+.logViewerSection {
+  .chevron {
+    display: block;
+    margin-right: 15px !important;
+  }
+
+  .status {
+    display: block;
+    margin-right: 30px !important;
+  }
+
+  .sectionSummary {
+    display: flex;
+    cursor: pointer;
+    height: 35px;
+    background: #09090b;
+    align-items: center;
+    border-radius: 6px;
+    padding: 0 20px 0 5px;
+  }
+
+  .text {
+    flex: 1 1 auto;
+    color: var(--grey-300);
+  }
+
+  &[data-open='true'] {
+    .chevron svg {
+      transform: rotate(90deg);
+    }
+
+    .sectionSummary {
+      position: sticky;
+      top: -1px;
+      z-index: 1;
+      background-color: var(--grey-800);
+    }
+  }
+
+  &:not([data-status]) .sectionSummary {
+    cursor: not-allowed;
+  }
+
+  &[data-status='error'] {
+    .status {
+      color: var(--red-500);
+    }
+  }
+}
+
+.logViewer {
+  & pre {
+    background: transparent !important;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: sticky;
+    top: 35px;
+  }
+
+  & .list {
+    overflow-y: hidden !important;
+  }
+}
+
+.logLine {
+  height: 20px;
+  font-size: 12px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 75px 1fr;
+
+  .line {
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .lineNumber {
+    box-sizing: border-box;
+    display: block;
+    width: 75px;
+    text-align: right;
+    position: sticky;
+    left: 0;
+    top: 20px;
+    background-color: #09090b;
+    padding-right: 30px;
+  }
+
+  &:hover {
+    & > .line,
+    & > .lineNumber {
+      background-color: var(--grey-800);
+    }
+  }
+}

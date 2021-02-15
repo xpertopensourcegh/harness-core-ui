@@ -7,7 +7,7 @@ import { useHandleInterrupt } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { isExecutionComplete, isExecutionInProgress, isExecutionPaused } from '@pipeline/utils/statusHelpers'
+import { isExecutionComplete, isExecutionActive, isExecutionPaused } from '@pipeline/utils/statusHelpers'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import i18n from './ExecutionActions.i18n'
@@ -49,8 +49,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     )
   }
 
-  const canPause = isExecutionInProgress(executionStatus) && !isExecutionPaused(executionStatus)
-  const canAbort = isExecutionInProgress(executionStatus)
+  const canPause = isExecutionActive(executionStatus) && !isExecutionPaused(executionStatus)
+  const canAbort = isExecutionActive(executionStatus)
   const canRerun = isExecutionComplete(executionStatus)
   const canResume = isExecutionPaused(executionStatus)
 

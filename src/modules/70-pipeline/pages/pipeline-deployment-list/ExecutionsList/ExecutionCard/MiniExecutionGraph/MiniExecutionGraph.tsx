@@ -2,14 +2,14 @@ import React from 'react'
 import { Icon, Button, Text } from '@wings-software/uicore'
 import { Popover, ResizeSensor, IPopoverProps } from '@blueprintjs/core'
 import cx from 'classnames'
-import { sortBy, throttle, isEmpty, get } from 'lodash-es'
+import { sortBy, throttle, get } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 
 import { String } from 'framework/exports'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
-import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap } from '@pipeline/utils/executionUtils'
+import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap, getStageType } from '@pipeline/utils/executionUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
@@ -48,11 +48,12 @@ export interface StageNodeProps extends Omit<IPopoverProps, 'content'> {
 }
 
 export function StageNode({ stage, onClick, ...rest }: StageNodeProps): React.ReactElement {
-  const { moduleInfo, module, status } = stage || {}
+  const { moduleInfo, status } = stage || {}
   const statusLower = status?.toLowerCase() || ''
 
-  const HAS_CD = module === 'cd' || !isEmpty(stage?.moduleInfo?.cd)
-  const HAS_CI = module === 'ci' || !isEmpty(stage?.moduleInfo?.ci)
+  const stageType = getStageType(stage)
+  const HAS_CD = stageType === 'cd'
+  const HAS_CI = stageType === 'ci'
 
   return (
     <Popover

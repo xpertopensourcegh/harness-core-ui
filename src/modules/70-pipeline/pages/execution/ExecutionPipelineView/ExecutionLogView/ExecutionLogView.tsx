@@ -1,24 +1,26 @@
 import React from 'react'
-
+import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
+
 import { useStrings } from 'framework/exports'
 import { useUpdateQueryParams } from '@common/hooks'
-
 import { processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { StageSelection, StageSelectOption } from '@pipeline/components/StageSelection/StageSelection'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
-import { PageSpinner } from '@common/components'
+import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
+import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+
+import LogsContentOld from './LogsContent'
 
 import { StepsTree } from './StepsTree/StepsTree'
-import LogsContent from './LogsContent'
 import css from './ExecutionLogView.module.scss'
-import 'xterm/css/xterm.css'
 
 export default function ExecutionLogView(): React.ReactElement {
   const { getString } = useStrings()
-  const { pipelineStagesMap, pipelineExecutionDetail, selectedStageId, selectedStepId, loading } = useExecutionContext()
+  const { pipelineStagesMap, pipelineExecutionDetail, selectedStageId, selectedStepId } = useExecutionContext()
+  const { module } = useParams<PipelineType<ExecutionPathProps>>()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
 
   const tree = React.useMemo(() => processExecutionData(pipelineExecutionDetail?.executionGraph), [
@@ -43,7 +45,6 @@ export default function ExecutionLogView(): React.ReactElement {
 
   return (
     <Container className={css.logsContainer}>
-      {loading ? <PageSpinner /> : null}
       <div className={css.stepsContainer}>
         <StageSelection
           selectOptions={selectOptions}
@@ -59,7 +60,11 @@ export default function ExecutionLogView(): React.ReactElement {
         </div>
       </div>
       <div className={css.logViewer}>
-        <LogsContent header={getString('execution.stepLogs')} key={selectedStepId} />
+        {module === 'cd' ? (
+          <LogsContent mode="console-view" />
+        ) : (
+          <LogsContentOld header={getString('execution.stepLogs')} key={selectedStepId} />
+        )}
       </div>
     </Container>
   )

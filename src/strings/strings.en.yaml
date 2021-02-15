@@ -628,7 +628,8 @@ execution:
   triggerType: # text for trigger types
     MANUAL: Manually
     WEBHOOK: Webhook
-  stepLogs: 'Step Logs'
+  stepLogs: Step Logs
+  consoleLogs: Console Logs
 pipeline-notifications:
   nameOftheRule: Name of the Rule
   notificationName: Give your notification a name

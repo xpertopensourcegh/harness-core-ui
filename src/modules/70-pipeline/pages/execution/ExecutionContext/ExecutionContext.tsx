@@ -25,7 +25,7 @@ const ExecutionContext = createContext<ExecutionContextParams>({
   loading: false,
   queryParams: {},
   logsToken: '',
-  setLogsToken: (_token: string) => undefined
+  setLogsToken: () => void 0
 })
 
 export default ExecutionContext

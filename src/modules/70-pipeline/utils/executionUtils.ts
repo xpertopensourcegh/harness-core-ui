@@ -537,3 +537,12 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
   }
   return items
 }
+
+export function getStageType(node?: GraphLayoutNode): 'ci' | 'cd' | 'unknown' {
+  if (node?.module?.toLowerCase?.() === 'ci' || !isEmpty(node?.moduleInfo?.ci)) {
+    return 'ci'
+  } else if (node?.module?.toLowerCase?.() === 'cd' || !isEmpty(node?.moduleInfo?.cd)) {
+    return 'cd'
+  }
+  return 'unknown'
+}

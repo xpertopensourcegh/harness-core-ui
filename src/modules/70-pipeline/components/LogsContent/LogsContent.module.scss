@@ -1,0 +1,47 @@
+.main {
+  background: #09090b;
+  color: var(--grey-300);
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 32px 1fr;
+  max-height: 100%;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    border-bottom: 1px solid var(--grey-800);
+    font-size: var(--font-size-small);
+  }
+
+  &[data-mode='console-view'] {
+    grid-template-rows: 52px 1fr;
+
+    & .header {
+      font-size: var(--font-size-normal);
+      font-weight: bold;
+    }
+  }
+
+  .toConsoleView {
+    color: var(--grey-300);
+    font-size: var(--font-size-xsmall);
+    border: 1px solid var(--grey-700);
+    border-radius: 2px;
+    display: inline-flex;
+    height: 18px;
+    padding: 0 6px;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .logViewer {
+    overflow: hidden;
+  }
+}

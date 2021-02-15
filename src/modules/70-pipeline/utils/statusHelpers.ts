@@ -80,7 +80,7 @@ export function isExecutionCompletedWithBadState(status?: string): boolean {
   )
 }
 
-export function isExecutionInProgress(status?: string): boolean {
+export function isExecutionActive(status?: string): boolean {
   return (
     isExecutionPaused(status) ||
     isExecutionRunning(status) ||
@@ -88,4 +88,8 @@ export function isExecutionInProgress(status?: string): boolean {
     isExecutionWaiting(status) ||
     isExecutionQueued(status)
   )
+}
+
+export function isExecutionRunningLike(status?: string): boolean {
+  return isExecutionRunning(status) || isExecutionPaused(status)
 }

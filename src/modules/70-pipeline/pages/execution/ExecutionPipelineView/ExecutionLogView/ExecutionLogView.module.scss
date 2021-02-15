@@ -66,8 +66,9 @@
 }
 
 .logViewer {
-  //height: 80vh;
   border: 1px solid var(--black-color-3);
-  font-family: 'Roboto Mono' !important;
-  background: #0b0b0d !important;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  background-color: #09090b;
 }
