@@ -8,7 +8,6 @@ import { Strategy } from './StrategyConfig'
 import css from './StrategySelection.module.scss'
 
 export const strategyIconMap: Record<Strategy, IconName> = {
-  [Strategy.Ignore]: 'delete',
   [Strategy.Abort]: 'ban-circle',
   [Strategy.MarkAsSuccess]: 'tick',
   [Strategy.StageRollback]: 'repeat',

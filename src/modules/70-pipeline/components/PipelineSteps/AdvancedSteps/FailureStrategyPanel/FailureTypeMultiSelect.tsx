@@ -29,10 +29,6 @@ const MultiSelect = BPMultiSelect.ofType<Option>()
 
 const errorTypes: Option[] = [
   {
-    label: 'All Errors',
-    value: ErrorType.All
-  },
-  {
     label: 'Authentication Errors',
     value: ErrorType.Authentication
   },

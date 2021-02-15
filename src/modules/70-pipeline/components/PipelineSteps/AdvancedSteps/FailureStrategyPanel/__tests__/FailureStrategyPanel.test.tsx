@@ -75,27 +75,25 @@ describe('<FailureStratergyPanel /> tests', () => {
     `)
   })
 
-  test.each<[Strategy]>([
-    [Strategy.MarkAsSuccess],
-    [Strategy.Ignore],
-    [Strategy.StageRollback],
-    [Strategy.StepGroupRollback]
-  ])('simple strategy: "%s"', async strategy => {
-    const { container, findByTestId } = render(
-      <Basic data={{ failureStrategies: [{}] }} mode={FailureStrategyPanelMode.STEP_GROUP} />
-    )
+  test.each<[Strategy]>([[Strategy.MarkAsSuccess], [Strategy.StageRollback], [Strategy.StepGroupRollback]])(
+    'simple strategy: "%s"',
+    async strategy => {
+      const { container, findByTestId } = render(
+        <Basic data={{ failureStrategies: [{}] }} mode={FailureStrategyPanelMode.STEP_GROUP} />
+      )
 
-    const selection = await findByTestId(`failure-strategy-${strategy.toLowerCase()}`)
+      const selection = await findByTestId(`failure-strategy-${strategy.toLowerCase()}`)
 
-    await act(() => {
-      fireEvent.click(selection)
-      return Promise.resolve()
-    })
+      await act(() => {
+        fireEvent.click(selection)
+        return Promise.resolve()
+      })
 
-    expect(container).toMatchSnapshot()
+      expect(container).toMatchSnapshot()
 
-    const code = await findByTestId('code-output')
+      const code = await findByTestId('code-output')
 
-    expect(code).toMatchSnapshot('code')
-  })
+      expect(code).toMatchSnapshot('code')
+    }
+  )
 })

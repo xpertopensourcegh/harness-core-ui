@@ -1,5 +1,4 @@
 export enum Strategy {
-  Ignore = 'Ignore',
   Abort = 'Abort',
   StageRollback = 'StageRollback',
   StepGroupRollback = 'StepGroupRollback',
@@ -9,7 +8,6 @@ export enum Strategy {
 }
 
 export enum ErrorType {
-  All = 'All',
   AnyOther = 'AnyOther',
   Authentication = 'Authentication',
   Connectivity = 'Connectivity',
@@ -29,7 +27,6 @@ export const allowedStrategiesAsPerStep: Record<FailureStrategyPanelMode, Strate
   [FailureStrategyPanelMode.STEP]: [
     Strategy.ManualIntervention,
     Strategy.StageRollback,
-    Strategy.Ignore,
     Strategy.Retry,
     Strategy.MarkAsSuccess
   ],
@@ -37,9 +34,8 @@ export const allowedStrategiesAsPerStep: Record<FailureStrategyPanelMode, Strate
     Strategy.ManualIntervention,
     Strategy.StageRollback,
     Strategy.StepGroupRollback,
-    Strategy.Ignore,
     Strategy.Retry,
     Strategy.MarkAsSuccess
   ],
-  [FailureStrategyPanelMode.STAGE]: [Strategy.StageRollback, Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess]
+  [FailureStrategyPanelMode.STAGE]: [Strategy.StageRollback, Strategy.Retry, Strategy.MarkAsSuccess]
 }
