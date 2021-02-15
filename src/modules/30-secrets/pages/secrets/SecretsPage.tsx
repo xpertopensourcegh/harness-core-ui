@@ -57,35 +57,36 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
   return (
     <div className={css.page}>
       <Layout.Horizontal flex className={css.header}>
-        <Popover minimal position={Position.BOTTOM_LEFT}>
-          <Button intent="primary" text={i18n.newSecret.button} icon="plus" rightIcon="chevron-down" />
-          <Menu large>
-            <Menu.Item
-              text={i18n.newSecret.text}
-              labelElement={<Icon name="font" />}
-              onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
-            />
-            <Menu.Item
-              text={i18n.newSecret.file}
-              labelElement={<Icon name="document" />}
-              onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
-            />
-            <Menu.Item
-              text={i18n.newSecret.ssh}
-              labelElement={<Icon name="secret-ssh" />}
-              onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
-            />
-            <Menu.Divider />
-            <Menu.Item
-              text={i18n.newSecret.yaml}
-              onClick={
-                /* istanbul ignore next */ () => {
-                  history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
-                }
+        <Layout.Horizontal spacing="small">
+          <Popover minimal position={Position.BOTTOM_LEFT}>
+            <Button intent="primary" text={i18n.newSecret.button} icon="plus" rightIcon="chevron-down" />
+            <Menu large>
+              <Menu.Item
+                text={i18n.newSecret.text}
+                labelElement={<Icon name="font" />}
+                onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
+              />
+              <Menu.Item
+                text={i18n.newSecret.file}
+                labelElement={<Icon name="document" />}
+                onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
+              />
+              <Menu.Item
+                text={i18n.newSecret.ssh}
+                labelElement={<Icon name="secret-ssh" />}
+                onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
+              />
+            </Menu>
+          </Popover>
+          <Button
+            text={getString('createViaYaml')}
+            onClick={
+              /* istanbul ignore next */ () => {
+                history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
               }
-            />
-          </Menu>
-        </Popover>
+            }
+          />
+        </Layout.Horizontal>
         <Layout.Horizontal spacing="small">
           <TextInput
             leftIcon="search"
