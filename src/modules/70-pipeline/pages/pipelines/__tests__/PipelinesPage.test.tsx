@@ -258,20 +258,14 @@ describe('Pipeline Card View Test Cases', () => {
     await waitFor(() => getByTestId(params.pipelineIdentifier))
   })
 
-  test('should be able to click on Execution Link', async () => {
-    // click on first row
-    const cardName = getAllByTextLib(cardView, 'Executions in last 7 days')[0]
-    fireEvent.click(cardName)
-    await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineDeploymentList(params as any))).toBeTruthy()
-  })
-
   test('should be able to click on card', async () => {
     // click on first row
     const cardName = getAllByTextLib(cardView, 'pipeline1')[0]
     fireEvent.click(cardName)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineStudio(params as any))).toBeTruthy()
+    expect(
+      getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineStudio({ ...(params as any) }))
+    ).toBeTruthy()
   })
 
   test('should be able to open menu and run pipeline', async () => {

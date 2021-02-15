@@ -164,7 +164,7 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
             >
               {data.name}
             </Text>
-            {data.tags && Object.keys(data.tags || {}).length && <TagsPopover tags={data.tags} />}
+            {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
           </Layout.Horizontal>
           <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400}>
             {getString('idLabel', { id: data.identifier })}
@@ -183,22 +183,10 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
 
   return (
     <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-      {deployments ? (
-        <span className={css.activityChart}>
-          <SparkChart
-            data={data.executionSummaryInfo?.deployments || []}
-            data2={data.executionSummaryInfo?.numOfErrors || []}
-          />
-        </span>
-      ) : (
-        <Text font={{ size: 'xsmall' }}>{getString('emptyDeployments')}</Text>
-      )}
-
-      <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
-        {deployments}
-      </Text>
-
-      {deployments ? (
+      <div>
+        <Text color={Color.GREY_400} className={`${deployments ? css.clickable : ''}`} font="small" lineClamp={2}>
+          {getString('executionsText')}
+        </Text>
         <Text
           color={deployments ? Color.BLUE_500 : Color.GREY_400}
           className={`${deployments ? css.clickable : ''}`}
@@ -210,9 +198,26 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
           lineClamp={2}
           style={{ maxWidth: 100 }}
         >
-          {getString('pipelineActivityLabel')}
+          ({getString('lastSevenDays')})
         </Text>
-      ) : null}
+      </div>
+
+      <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
+        {deployments}
+      </Text>
+
+      {deployments ? (
+        <span className={css.activityChart}>
+          <SparkChart
+            data={data.executionSummaryInfo?.deployments || []}
+            data2={data.executionSummaryInfo?.numOfErrors || []}
+            color={Color.GREEN_500}
+            color2={Color.RED_600}
+          />
+        </span>
+      ) : (
+        <Text font={{ size: 'xsmall' }}>{getString('emptyDeployments')}</Text>
+      )}
     </Layout.Horizontal>
   )
 }
@@ -239,7 +244,7 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
   const rowdata = row.original
   return (
     <RunPipelineModal pipelineIdentifier={rowdata.identifier || ''}>
-      <Button style={{ textAlign: 'end' }} intent="primary" icon="run-pipeline" className={css.runPipelineBtn} />
+      <Button style={{ textAlign: 'end' }} intent="primary" icon="run-pipeline" className={css.runPipelineListBtn} />
     </RunPipelineModal>
   )
 }
@@ -257,7 +262,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       {
         Header: getString('pipeline').toUpperCase(),
         accessor: 'name',
-        width: '40%',
+        width: '35%',
         Cell: RenderColumnPipeline
       },
       {
@@ -278,7 +283,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       {
         Header: getString('runPipelineText').toUpperCase(),
         accessor: 'tags',
-        width: '5%',
+        width: '10%',
         Cell: RenderRunPipeline,
         disableSortBy: true,
         refetchPipeline,

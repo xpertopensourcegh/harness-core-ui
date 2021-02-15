@@ -522,7 +522,9 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                         </span>
                         <p
                           class="StyledProps--font StyledProps--main"
-                        />
+                        >
+                          2
+                        </p>
                       </div>
                     </span>
                   </span>

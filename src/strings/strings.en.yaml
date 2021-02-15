@@ -277,7 +277,7 @@ selectProduct: 'Select Product'
 selectApplication: 'Select Application'
 selectProject: 'Select Project'
 mapApplications: 'Map Applications to Harness Services'
-pipelineActivityLabel: 'Executions in last 7 days'
+lastSevenDays: 'last 7 days'
 total: 'Total'
 credentials: Credentials
 createProject: '+ Create Project'

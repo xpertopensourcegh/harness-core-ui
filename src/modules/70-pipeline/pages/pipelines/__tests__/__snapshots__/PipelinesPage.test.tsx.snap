@@ -387,12 +387,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </svg>
                   </span>
                 </span>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                  data-testid="pipeline1"
-                >
-                  pipeline1
-                </p>
                 <div
                   class="Card--cardMenu menu"
                 >
@@ -437,6 +431,25 @@ exports[`CD Pipeline Page List render card view 1`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
               >
+                <div>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                    data-testid="pipeline1"
+                    style="--text-line-clamp: 2;"
+                  >
+                    pipeline1
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
+                  >
+                    ID: 
+                    pipeline1
+                  </p>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+              >
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                   style="--text-line-clamp: 2;"
@@ -445,37 +458,85 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </p>
               </div>
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                  style="display: flex; align-items: center;"
+                  class="StyledProps--font StyledProps--main pipelineName StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                 >
-                  Last Run: 2/9/2021 4:36:36 PM
-                  <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
-                    icon="full-circle"
-                  >
-                    <svg
-                      data-icon="full-circle"
-                      height="8"
-                      viewBox="0 0 16 16"
-                      width="8"
-                    >
-                      <desc>
-                        full-circle
-                      </desc>
-                      <path
-                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
+                  Services
                 </p>
+                <p
+                  class="StyledProps--font StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                >
+                  nginx service
+                </p>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                >
+                  <span>
+                    Last Run: 
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    style="display: flex; align-items: center;"
+                  >
+                    2/9/2021 4:36:36 PM
+                    <span
+                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
+                      icon="full-circle"
+                    >
+                      <svg
+                        data-icon="full-circle"
+                        height="8"
+                        viewBox="0 0 16 16"
+                        width="8"
+                      >
+                        <desc>
+                          full-circle
+                        </desc>
+                        <path
+                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </p>
+                </div>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
                   style="align-items: flex-end;"
                 >
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <div
+                      style="margin-right: 12px;"
+                    >
+                      <p
+                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                        style="--text-line-clamp: 2;"
+                      >
+                        Executions
+                      </p>
+                      <p
+                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                        style="--text-line-clamp: 2;"
+                      >
+                        (
+                        last 7 days
+                        )
+                      </p>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--font-medium"
+                    >
+                      1
+                    </p>
+                  </div>
                   <span
                     class="activityChart"
                   >
@@ -608,21 +669,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </div>
                   </span>
-                  <div
-                    class="Layout--horizontal StyledProps--main"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
-                    >
-                      1
-                    </p>
-                    <p
-                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
-                      style="max-width: 90px; --text-line-clamp: 2;"
-                    >
-                      Executions in last 7 days
-                    </p>
-                  </div>
                 </div>
               </div>
               <div
@@ -630,7 +676,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
               >
                 <div>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -725,12 +771,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </svg>
                   </span>
                 </span>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                  data-testid="First_pipeline"
-                >
-                  First pipeline
-                </p>
                 <div
                   class="Card--cardMenu menu"
                 >
@@ -773,37 +813,104 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+              >
+                <div>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                    data-testid="First_pipeline"
+                    style="--text-line-clamp: 2;"
+                  >
+                    First pipeline
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
+                  >
+                    ID: 
+                    First_pipeline
+                  </p>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                  style="display: flex; align-items: center;"
+                  class="StyledProps--font StyledProps--main pipelineName StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                 >
-                  Last Run: 2/9/2021 10:40:19 AM
-                  <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-green800"
-                    icon="full-circle"
-                  >
-                    <svg
-                      data-icon="full-circle"
-                      height="8"
-                      viewBox="0 0 16 16"
-                      width="8"
-                    >
-                      <desc>
-                        full-circle
-                      </desc>
-                      <path
-                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
+                  Services
                 </p>
+                <p
+                  class="StyledProps--font StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                >
+                  nginx service
+                </p>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                >
+                  <span>
+                    Last Run: 
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    style="display: flex; align-items: center;"
+                  >
+                    2/9/2021 10:40:19 AM
+                    <span
+                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-green800"
+                      icon="full-circle"
+                    >
+                      <svg
+                        data-icon="full-circle"
+                        height="8"
+                        viewBox="0 0 16 16"
+                        width="8"
+                      >
+                        <desc>
+                          full-circle
+                        </desc>
+                        <path
+                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </p>
+                </div>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
                   style="align-items: flex-end;"
                 >
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <div
+                      style="margin-right: 12px;"
+                    >
+                      <p
+                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                        style="--text-line-clamp: 2;"
+                      >
+                        Executions
+                      </p>
+                      <p
+                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                        style="--text-line-clamp: 2;"
+                      >
+                        (
+                        last 7 days
+                        )
+                      </p>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--font-medium"
+                    >
+                      9
+                    </p>
+                  </div>
                   <span
                     class="activityChart"
                   >
@@ -936,21 +1043,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </div>
                   </span>
-                  <div
-                    class="Layout--horizontal StyledProps--main"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
-                    >
-                      9
-                    </p>
-                    <p
-                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
-                      style="max-width: 90px; --text-line-clamp: 2;"
-                    >
-                      Executions in last 7 days
-                    </p>
-                  </div>
                 </div>
               </div>
               <div
@@ -958,7 +1050,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
               >
                 <div>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -1053,12 +1145,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </svg>
                   </span>
                 </span>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                  data-testid="Second_Pipeline"
-                >
-                  Second Pipeline
-                </p>
                 <div
                   class="Card--cardMenu menu"
                 >
@@ -1101,37 +1187,104 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+              >
+                <div>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                    data-testid="Second_Pipeline"
+                    style="--text-line-clamp: 2;"
+                  >
+                    Second Pipeline
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
+                  >
+                    ID: 
+                    Second_Pipeline
+                  </p>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                  style="display: flex; align-items: center;"
+                  class="StyledProps--font StyledProps--main pipelineName StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                 >
-                  Last Run: 2/8/2021 12:39:48 PM
-                  <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
-                    icon="full-circle"
-                  >
-                    <svg
-                      data-icon="full-circle"
-                      height="8"
-                      viewBox="0 0 16 16"
-                      width="8"
-                    >
-                      <desc>
-                        full-circle
-                      </desc>
-                      <path
-                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
+                  Services
                 </p>
+                <p
+                  class="StyledProps--font StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                >
+                  
+                </p>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                >
+                  <span>
+                    Last Run: 
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    style="display: flex; align-items: center;"
+                  >
+                    2/8/2021 12:39:48 PM
+                    <span
+                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
+                      icon="full-circle"
+                    >
+                      <svg
+                        data-icon="full-circle"
+                        height="8"
+                        viewBox="0 0 16 16"
+                        width="8"
+                      >
+                        <desc>
+                          full-circle
+                        </desc>
+                        <path
+                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </p>
+                </div>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
                   style="align-items: flex-end;"
                 >
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <div
+                      style="margin-right: 12px;"
+                    >
+                      <p
+                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                        style="--text-line-clamp: 2;"
+                      >
+                        Executions
+                      </p>
+                      <p
+                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                        style="--text-line-clamp: 2;"
+                      >
+                        (
+                        last 7 days
+                        )
+                      </p>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--font-medium"
+                    >
+                      1
+                    </p>
+                  </div>
                   <span
                     class="activityChart"
                   >
@@ -1264,21 +1417,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </div>
                   </span>
-                  <div
-                    class="Layout--horizontal StyledProps--main"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
-                    >
-                      1
-                    </p>
-                    <p
-                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
-                      style="max-width: 90px; --text-line-clamp: 2;"
-                    >
-                      Executions in last 7 days
-                    </p>
-                  </div>
                 </div>
               </div>
               <div
@@ -1286,7 +1424,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
               >
                 <div>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -1662,7 +1800,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 40%;"
+          style="width: 35%;"
           title="Toggle SortBy"
         >
           PIPELINE
@@ -1706,7 +1844,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 5%;"
+          style="width: 10%;"
         >
           RUN PIPELINE
         </div>
@@ -1726,7 +1864,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 40%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -1827,7 +1965,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </p>
                     </span>
                   </span>
-                  0
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -1847,6 +1984,27 @@ exports[`CD Pipeline Page List render list view 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: center;"
           >
+            <div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                style="--text-line-clamp: 2;"
+              >
+                Executions
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
+                style="max-width: 100px; --text-line-clamp: 2;"
+              >
+                (
+                last 7 days
+                )
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+            >
+              1
+            </p>
             <span
               class="activityChart"
             >
@@ -1979,17 +2137,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </div>
               </div>
             </span>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
-            >
-              1
-            </p>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
-              style="max-width: 100px; --text-line-clamp: 2;"
-            >
-              Executions in last 7 days
-            </p>
           </div>
         </div>
         <div
@@ -2035,11 +2182,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 5%;"
+          style="width: 10%;"
         >
           <div>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineListBtn StyledProps--intent-primary"
               style="text-align: end;"
               type="button"
             >
@@ -2127,7 +2274,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 40%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -2192,7 +2339,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </p>
                     </span>
                   </span>
-                  0
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -2212,6 +2358,27 @@ exports[`CD Pipeline Page List render list view 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: center;"
           >
+            <div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                style="--text-line-clamp: 2;"
+              >
+                Executions
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
+                style="max-width: 100px; --text-line-clamp: 2;"
+              >
+                (
+                last 7 days
+                )
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+            >
+              9
+            </p>
             <span
               class="activityChart"
             >
@@ -2344,17 +2511,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </div>
               </div>
             </span>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
-            >
-              9
-            </p>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
-              style="max-width: 100px; --text-line-clamp: 2;"
-            >
-              Executions in last 7 days
-            </p>
           </div>
         </div>
         <div
@@ -2400,11 +2556,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 5%;"
+          style="width: 10%;"
         >
           <div>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineListBtn StyledProps--intent-primary"
               style="text-align: end;"
               type="button"
             >
@@ -2492,7 +2648,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 40%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -2557,7 +2713,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </p>
                     </span>
                   </span>
-                  0
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -2577,6 +2732,27 @@ exports[`CD Pipeline Page List render list view 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: center;"
           >
+            <div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                style="--text-line-clamp: 2;"
+              >
+                Executions
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
+                style="max-width: 100px; --text-line-clamp: 2;"
+              >
+                (
+                last 7 days
+                )
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+            >
+              1
+            </p>
             <span
               class="activityChart"
             >
@@ -2709,17 +2885,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </div>
               </div>
             </span>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
-            >
-              1
-            </p>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
-              style="max-width: 100px; --text-line-clamp: 2;"
-            >
-              Executions in last 7 days
-            </p>
           </div>
         </div>
         <div
@@ -2765,11 +2930,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 5%;"
+          style="width: 10%;"
         >
           <div>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineListBtn StyledProps--intent-primary"
               style="text-align: end;"
               type="button"
             >

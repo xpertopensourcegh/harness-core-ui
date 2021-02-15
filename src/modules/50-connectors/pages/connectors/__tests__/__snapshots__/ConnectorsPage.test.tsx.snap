@@ -805,7 +805,9 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                         </span>
                         <p
                           class="StyledProps--font StyledProps--main"
-                        />
+                        >
+                          1
+                        </p>
                       </div>
                     </span>
                   </span>
@@ -2019,7 +2021,9 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                         </span>
                         <p
                           class="StyledProps--font StyledProps--main"
-                        />
+                        >
+                          2
+                        </p>
                       </div>
                     </span>
                   </span>

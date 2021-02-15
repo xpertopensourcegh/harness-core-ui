@@ -31,9 +31,25 @@
   }
 }
 
+.pipelineName {
+  margin-right: var(--spacing-medium) !important;
+  margin-bottom: var(--spacing-xsmall) !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.serviceName {
+  margin-left: var(--spacing-medium) !important;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .runPipelineBtn {
+  color: var(--green-500) !important;
+  padding-left: 0px !important;
+}
+.runPipelineListBtn {
   background-color: var(--green-500) !important;
-  border-color: var(--green-500) !important;
+  border: var(--green-500) !important;
 }
 
 .topHeaderFields {

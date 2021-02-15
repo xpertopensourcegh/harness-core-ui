@@ -1,14 +1,17 @@
 import React from 'react'
-import { Card, Text, Color, Container, Button, Layout, SparkChart, CardBody, Tag, Icon } from '@wings-software/uicore'
+import { Card, Text, Color, Container, Button, Layout, SparkChart, CardBody, Icon } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
+import { useHistory } from 'react-router-dom'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/exports'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
+import { TagsPopover } from '@common/components'
+import routes from '@common/RouteDefinitions'
 import { getIconsForPipeline, getStatusColor } from '../../PipelineListUtils'
 import css from '../../PipelinesPage.module.scss'
 
@@ -27,19 +30,25 @@ interface ContextMenuProps {
   goToPipelineStudio: (pipelineIdentifier?: string) => void
   goToPipelineDetail: (pipelineIdentifier?: string) => void
   refetchPipeline: () => void
+  projectIdentifier: string
+  orgIdentifier: string
+  accountIdentifier: string
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = ({
   pipeline,
   goToPipelineStudio,
   refetchPipeline,
-  goToPipelineDetail
+  goToPipelineDetail,
+  projectIdentifier,
+  orgIdentifier,
+  accountIdentifier
 }): JSX.Element => {
   const { showSuccess, showError } = useToaster()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const { mutate: deletePipeline } = useSoftDeletePipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
   })
+
   const { getString } = useStrings()
   const { openDialog: confirmDelete } = useConfirmationDialog({
     contentText: getString('pipeline-list.confirmDelete', { name: pipeline.name }),
@@ -114,6 +123,31 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   goToPipelineStudio,
   refetchPipeline
 }): JSX.Element => {
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
+    PipelineType<{
+      orgIdentifier: string
+      projectIdentifier: string
+      pipelineIdentifier: string
+      accountId: string
+    }>
+  >()
+
+  const history = useHistory()
+  const goToExecutionPipelineView = (executionId: string | undefined): void => {
+    if (executionId) {
+      history.push(
+        routes.toExecutionPipelineView({
+          orgIdentifier,
+          pipelineIdentifier,
+          projectIdentifier,
+          executionIdentifier: executionId,
+          accountId,
+          module
+        })
+      )
+    }
+  }
+
   const { getString } = useStrings()
   const deployments = pipeline.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0) || 0
   return (
@@ -124,9 +158,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             <Icon key={iconObj.icon} name={iconObj.icon} size={iconObj.size} />
           ))}
         </span>
-        <Text font="medium" color={Color.BLACK} data-testid={pipeline.identifier}>
-          {pipeline.name}
-        </Text>
+
         <CardBody.Menu
           menuContent={
             <ContextMenu
@@ -134,6 +166,9 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               goToPipelineStudio={goToPipelineStudio}
               goToPipelineDetail={goToPipelineDetail}
               refetchPipeline={refetchPipeline}
+              projectIdentifier={projectIdentifier}
+              accountIdentifier={accountId}
+              orgIdentifier={orgIdentifier}
             />
           }
           menuPopoverProps={{
@@ -142,6 +177,24 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           className={css.menu}
         />
       </Container>
+      <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'large' }}>
+        <div>
+          <Text
+            lineClamp={2}
+            font="medium"
+            color={Color.BLACK}
+            data-testid={pipeline.identifier}
+            className={css.pipelineName}
+          >
+            {pipeline.name}
+          </Text>
+          <Text font="small" color={Color.GREY_500}>
+            {getString('idLabel')}
+            {pipeline.identifier}
+          </Text>
+        </div>
+        {!isEmpty(pipeline.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
+      </Layout.Horizontal>
 
       {!isEmpty(pipeline.description) ? (
         <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'large' }}>
@@ -150,42 +203,71 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           </Text>
         </Layout.Horizontal>
       ) : null}
-      {!isEmpty(pipeline.tags) && pipeline.tags ? (
-        <div className={css.tagRow}>
-          {Object.keys(pipeline.tags).map(key => {
-            const value = pipeline.tags?.[key]
-            return (
-              <Tag className={css.cardTags} key={key}>
-                {value ? `${key}:${value}` : key}
-              </Tag>
-            )
-          })}
-        </div>
-      ) : null}
+
+      <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'large' }}>
+        <Text font="small" color={Color.GREY_400} className={css.pipelineName}>
+          {getString('services')}
+        </Text>
+        <Text color={Color.GREY_500} className={css.serviceName}>
+          {pipeline.filters?.[module]?.serviceNames.join(', ')}
+        </Text>
+      </Layout.Horizontal>
+
       <Container
         padding={{ left: 'large', right: 'large', top: 'medium', bottom: 'small' }}
         border={{ top: true, color: Color.GREY_300 }}
       >
-        <Text
-          rightIcon={pipeline.executionSummaryInfo?.lastExecutionTs ? 'full-circle' : undefined}
-          rightIconProps={{ color: getStatusColor(pipeline), size: 8, padding: { left: 'medium' } }}
-          color={Color.GREY_400}
-        >
-          {pipeline.executionSummaryInfo?.lastExecutionTs
-            ? `${getString('lastRunAtDate')}${formatDatetoLocale(pipeline.executionSummaryInfo?.lastExecutionTs)}`
-            : getString('lastRunExecutionNever')}
-        </Text>
+        <Layout.Horizontal spacing="xsmall">
+          <String stringID="lastRunAtDate" />
+          <Text
+            rightIcon={pipeline.executionSummaryInfo?.lastExecutionTs ? 'full-circle' : undefined}
+            rightIconProps={{ color: getStatusColor(pipeline), size: 8, padding: { left: 'medium' } }}
+            color={pipeline.executionSummaryInfo?.lastExecutionId ? Color.BLUE_500 : Color.GREY_400}
+            onClick={event => {
+              event.stopPropagation()
+              goToExecutionPipelineView(pipeline.executionSummaryInfo?.lastExecutionId)
+            }}
+          >
+            {pipeline.executionSummaryInfo?.lastExecutionTs
+              ? formatDatetoLocale(pipeline.executionSummaryInfo?.lastExecutionTs)
+              : getString('lastRunExecutionNever')}
+          </Text>
+        </Layout.Horizontal>
         <Layout.Horizontal
           flex={{ distribution: 'space-between' }}
           padding={{ top: 'large', bottom: 'small' }}
           spacing="medium"
           style={{ alignItems: 'flex-end' }}
         >
+          <Layout.Horizontal>
+            <div style={{ marginRight: 12 }}>
+              <Text color={Color.GREY_400} className={`${deployments ? css.clickable : ''}`} font="small" lineClamp={2}>
+                {getString('executionsText')}
+              </Text>
+              <Text color={Color.GREY_400} className={`${deployments ? css.clickable : ''}`} font="small" lineClamp={2}>
+                ({getString('lastSevenDays')})
+              </Text>
+            </div>
+            <Text
+              color={deployments ? Color.BLUE_500 : Color.GREY_400}
+              font="medium"
+              iconProps={{ size: 18 }}
+              onClick={event => {
+                event.stopPropagation()
+                goToPipelineDetail(pipeline.identifier)
+              }}
+            >
+              {deployments}
+            </Text>
+          </Layout.Horizontal>
+
           {deployments ? (
             <span className={css.activityChart}>
               <SparkChart
                 data={pipeline.executionSummaryInfo?.deployments || []}
                 data2={pipeline.executionSummaryInfo?.numOfErrors || []}
+                color={Color.GREEN_500}
+                color2={Color.RED_600}
               />
             </span>
           ) : (
@@ -193,32 +275,14 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               {getString('emptyDeployments')}
             </Text>
           )}
-          <Layout.Horizontal>
-            <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
-              {deployments}
-            </Text>
-
-            <Text
-              color={deployments ? Color.BLUE_500 : Color.GREY_400}
-              className={`${deployments ? css.clickable : ''}`}
-              font="small"
-              lineClamp={2}
-              style={{ maxWidth: 90, paddingLeft: 'var(--spacing-small)' }}
-              onClick={event => {
-                event.stopPropagation()
-                goToPipelineDetail(pipeline.identifier)
-              }}
-            >
-              {getString('pipelineActivityLabel')}
-            </Text>
-          </Layout.Horizontal>
         </Layout.Horizontal>
       </Container>
       <Container padding={{ left: 'large', right: 'large', bottom: 'small' }}>
-        <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
+        <RunPipelineModal pipelineIdentifier={pipeline.identifier || ''}>
           <Button
             data-testid="card-run-pipeline"
             intent="primary"
+            minimal
             icon="run-pipeline"
             className={css.runPipelineBtn}
             text={<String stringID="runPipelineText" />}

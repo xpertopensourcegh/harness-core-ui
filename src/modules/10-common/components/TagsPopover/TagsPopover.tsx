@@ -17,7 +17,7 @@ const TagsPopover: React.FC<ListTagsProps> = props => {
       {target || (
         <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
           <Icon name="main-tags" size={15} />
-          <Text>{tags.length}</Text>
+          <Text>{Object.keys(tags).length}</Text>
         </Layout.Horizontal>
       )}
       <Container padding="small">

@@ -6,7 +6,10 @@ declare const styles: {
   readonly pipelineCard: string
   readonly pipelineTitle: string
   readonly menu: string
+  readonly pipelineName: string
+  readonly serviceName: string
   readonly runPipelineBtn: string
+  readonly runPipelineListBtn: string
   readonly topHeaderFields: string
   readonly sortSelector: string
   readonly tagRow: string

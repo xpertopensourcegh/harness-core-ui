@@ -181,7 +181,9 @@ exports[`Project List render 1`] = `
                     </span>
                     <p
                       class="StyledProps--font StyledProps--main"
-                    />
+                    >
+                      2
+                    </p>
                   </div>
                 </span>
               </span>
@@ -453,7 +455,9 @@ exports[`Project List render 1`] = `
                     </span>
                     <p
                       class="StyledProps--font StyledProps--main"
-                    />
+                    >
+                      2
+                    </p>
                   </div>
                 </span>
               </span>
@@ -761,7 +765,9 @@ exports[`Project List render 1`] = `
                     </span>
                     <p
                       class="StyledProps--font StyledProps--main"
-                    />
+                    >
+                      2
+                    </p>
                   </div>
                 </span>
               </span>
@@ -1235,7 +1241,9 @@ exports[`Project List render 1`] = `
                     </span>
                     <p
                       class="StyledProps--font StyledProps--main"
-                    />
+                    >
+                      2
+                    </p>
                   </div>
                 </span>
               </span>
@@ -1474,7 +1482,9 @@ exports[`Project List render 1`] = `
                     </span>
                     <p
                       class="StyledProps--font StyledProps--main"
-                    />
+                    >
+                      2
+                    </p>
                   </div>
                 </span>
               </span>
@@ -1890,7 +1900,9 @@ exports[`Project List render 1`] = `
                     </span>
                     <p
                       class="StyledProps--font StyledProps--main"
-                    />
+                    >
+                      2
+                    </p>
                   </div>
                 </span>
               </span>
