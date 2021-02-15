@@ -1,5 +1,5 @@
 import { act, fireEvent, queryByText, render } from '@testing-library/react'
-import type { ConnectorInfoDTO } from 'services/cv'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 
 export interface BackButtonTestProps {
   Element: React.ReactElement
