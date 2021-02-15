@@ -2,9 +2,9 @@ import React from 'react'
 import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
+import { timeToDisplayText } from '@wings-software/uicore'
 import type { ExecutionNode } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
-import { DurationI18n, timeDelta } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -20,7 +20,6 @@ export interface ExecutionStepDetailsTabProps {
 export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabProps): React.ReactElement {
   const { step } = props
 
-  const delta = timeDelta(step?.startTs || 0, step?.endTs || 0)
   const params = useParams<PipelineType<ExecutionPathParams>>()
 
   const { getString } = useStrings()
@@ -59,11 +58,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
           </tr>
           <tr>
             <th>Duration:</th>
-            <td>
-              {step?.startTs && step?.endTs
-                ? DurationI18n.humanizeDuration(delta.w, delta.d, delta.h, delta.m, delta.s)
-                : '-'}
-            </td>
+            <td>{step?.startTs && step?.endTs ? timeToDisplayText(step.endTs - step.startTs) : '-'}</td>
           </tr>
           {/*<tr>
             <th>Delegate:</th>
