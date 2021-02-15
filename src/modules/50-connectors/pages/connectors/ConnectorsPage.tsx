@@ -482,6 +482,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         }
         onSuccessfulCrudOperation={refetchFilterList}
         ref={filterRef}
+        onClear={reset}
       />
     )
   }, [isRefreshingFilters, filters, appliedFilter, isFetchingStats, searchTerm])

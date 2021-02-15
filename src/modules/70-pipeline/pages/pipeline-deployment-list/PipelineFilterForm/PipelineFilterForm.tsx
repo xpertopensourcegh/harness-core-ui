@@ -1,6 +1,6 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { FormInput, Text } from '@wings-software/uicore'
+import { FormInput, SelectOption, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import type { FilterProperties } from 'services/pipeline-ng'
 import {
@@ -21,15 +21,26 @@ interface PipelineFilterFormProps<T> {
   initialValues: FormikProps<T>['initialValues']
 }
 
-export default function PipelineFilterForm<T extends { buildType?: BuildTypeContext['buildType'] }>(
-  props: PipelineFilterFormProps<T>
-): React.ReactElement {
+const NO_SELECTION = { label: '', value: '' }
+
+export default function PipelineFilterForm<
+  T extends {
+    buildType?: BuildTypeContext['buildType']
+    deploymentType?: DeploymentTypeContext['deploymentType']
+    infrastructureType?: DeploymentTypeContext['infrastructureType']
+  }
+>(props: PipelineFilterFormProps<T>): React.ReactElement {
   const { getString } = useStrings()
   const { type, formikProps, isCDEnabled, isCIEnabled, initialValues } = props
 
   const getBuildTypeOptions = (): React.ReactElement => {
     let buildTypeField: JSX.Element = <></>
     const buildType = formikProps?.values?.buildType as BuildTypeContext['buildType']
+    const buildTypeOptions = [
+      { label: getString('filters.executions.pullOrMergeRequest'), value: BUILD_TYPE.PULL_OR_MERGE_REQUEST },
+      { label: getString('pipelineSteps.deploy.inputSet.branch'), value: BUILD_TYPE.BRANCH },
+      { label: getString('tagLabel'), value: BUILD_TYPE.TAG }
+    ]
     switch (buildType) {
       case BUILD_TYPE.PULL_OR_MERGE_REQUEST:
         buildTypeField = (
@@ -91,14 +102,13 @@ export default function PipelineFilterForm<T extends { buildType?: BuildTypeCont
             />
           ) : null}
           <FormInput.Select
-            items={[
-              { label: getString('filters.executions.pullOrMergeRequest'), value: BUILD_TYPE.PULL_OR_MERGE_REQUEST },
-              { label: getString('pipelineSteps.deploy.inputSet.branch'), value: BUILD_TYPE.BRANCH },
-              { label: getString('tagLabel'), value: BUILD_TYPE.TAG }
-            ]}
+            items={buildTypeOptions}
             name="buildType"
             label={getString('filters.executions.buildType')}
             key="buildType"
+            value={
+              buildType ? buildTypeOptions.find((option: SelectOption) => option.value === buildType) : NO_SELECTION
+            }
           />
         </>
         {buildTypeField}
@@ -108,22 +118,34 @@ export default function PipelineFilterForm<T extends { buildType?: BuildTypeCont
 
   const getDeploymentTypeOptions = (): React.ReactElement => {
     const { environments, services } = initialValues as DeploymentTypeContext
+    const deploymentTypeLabel = { label: getString('kubernetesText'), value: 'Kubernetes' }
+    const infrastructureTypeLabel = { label: getString('kubernetesDirectText'), value: 'Kubernetes Direct' }
     return (
       <>
         <span className={css.separator} key="deploymentSeparator">
           <Text>{getString('deploymentsText').toUpperCase()}</Text>
         </span>
         <FormInput.Select
-          items={[{ label: getString('kubernetesText'), value: 'Kubernetes' }]}
+          items={[deploymentTypeLabel]}
           name="deploymentType"
           label={getString('deploymentTypeText')}
           key="deploymentType"
+          value={
+            (formikProps?.values?.deploymentType as DeploymentTypeContext['deploymentType'])
+              ? deploymentTypeLabel
+              : NO_SELECTION
+          }
         />
         <FormInput.Select
-          items={[{ label: getString('kubernetesDirectText'), value: 'Kubernetes Direct' }]}
+          items={[infrastructureTypeLabel]}
           name="infrastructureType"
           label={getString('infrastructureTypeText')}
           key="infrastructureType"
+          value={
+            (formikProps?.values?.infrastructureType as DeploymentTypeContext['infrastructureType'])
+              ? infrastructureTypeLabel
+              : NO_SELECTION
+          }
         />
         <FormInput.MultiSelect
           items={services || []}
