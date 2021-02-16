@@ -42,7 +42,7 @@ const ResourceGroups: React.FC = () => {
   // TODO: this will come from BE response
   const resources: Resource[] = [
     {
-      type: 'project',
+      type: 'PROJECT',
       id: 1
     }
   ]

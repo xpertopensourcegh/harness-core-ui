@@ -10,7 +10,6 @@ import type {
 } from 'services/cd-ng'
 import { TestWrapper, UseGetMockData, UseMutateMockData } from '@common/utils/testUtils'
 import { clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { orgMockData } from './OrgMockData'
 import StepProject from '../StepAboutProject'
 import EditProject from '../EditProject'
@@ -134,7 +133,7 @@ describe('About Project test', () => {
         />
       </TestWrapper>
     )
-    expect(queryByText(container, i18n.newProjectWizard.aboutProject.name)).toBeDefined()
+    expect(queryByText(container, 'About the Project')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name' })
@@ -156,7 +155,7 @@ describe('About Project test', () => {
           <EditProject identifier={project.identifier} orgIdentifier={project.accountIdentifier} />
         </TestWrapper>
       )
-      expect(queryByText(container, i18n.newProjectWizard.aboutProject.name)).toBeDefined()
+      expect(queryByText(container, 'Edit Project')).toBeTruthy()
       expect(container).toMatchSnapshot()
 
       await act(async () => {

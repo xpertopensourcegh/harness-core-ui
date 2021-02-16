@@ -1,5 +1,5 @@
-import React from 'react'
-import { Color, Icon, Layout, Text } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
@@ -9,10 +9,15 @@ import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { useGetRole } from 'services/rbac'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { useGetResourceTypes } from 'services/cd-ng'
+import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
+import RbacFactory, { ResourceHandler } from '@rbac/factories/RbacFactory'
+import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier, roleIdentifier } = useParams()
+  const [resource, setResource] = useState<[ResourceType, ResourceHandler]>()
   const { getString } = useStrings()
   const { data, loading, error, refetch } = useGetRole({
     identifier: roleIdentifier,
@@ -21,6 +26,10 @@ const RoleDetails: React.FC = () => {
       orgIdentifier,
       projectIdentifier
     }
+  })
+
+  const { data: resourceGroups } = useGetResourceTypes({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
 
   if (loading) return <PageSpinner />
@@ -63,6 +72,42 @@ const RoleDetails: React.FC = () => {
           </Layout.Horizontal>
         }
       />
+      <Page.Body>
+        <Layout.Horizontal className={css.body}>
+          <Container className={css.resourceList} width="20%">
+            <Layout.Vertical flex spacing="small">
+              {resourceGroups?.data?.resourceTypes.map(resourceType => {
+                const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType)
+                return (
+                  resourceHandler && (
+                    <Card
+                      key={resourceType}
+                      className={css.card}
+                      onClick={() => {
+                        setResource([resourceType, resourceHandler])
+                      }}
+                    >
+                      <Layout.Horizontal flex spacing="small">
+                        <Icon name={resourceHandler.icon} />
+                        <Text color={Color.BLACK}>{resourceHandler.label} </Text>
+                      </Layout.Horizontal>
+                    </Card>
+                  )
+                )
+              })}
+            </Layout.Vertical>
+          </Container>
+          <Container padding="large" width="80%">
+            {resource ? (
+              <PermissionCard resourceType={resource[0]} resourceHandler={resource[1]} isDefault={data.data?.managed} />
+            ) : (
+              <Container flex={{ align: 'center-center' }} height="100%">
+                <Text>{getString('selectResource')}</Text>
+              </Container>
+            )}
+          </Container>
+        </Layout.Horizontal>
+      </Page.Body>
     </>
   )
 }

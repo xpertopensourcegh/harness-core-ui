@@ -22,12 +22,17 @@ const AccountSettingsSideNavProps: SidebarContext = {
   title: 'Settings'
 }
 
-RbacFactory.registerResourceTypeHandler('project', {
+RbacFactory.registerResourceTypeHandler('PROJECT', {
   icon: 'nav-project',
   label: 'Projects',
   addResourceModalBody: <AddProjectResourceModalBody />
 })
 
+RbacFactory.registerResourceTypeHandler('ORGANIZATION', {
+  icon: 'settings',
+  label: 'Organizations',
+  addResourceModalBody: <></>
+})
 export default (
   <>
     <RouteWithLayout

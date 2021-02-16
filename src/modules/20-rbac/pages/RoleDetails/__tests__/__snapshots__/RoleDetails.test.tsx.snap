@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Role Details Page render data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="breadcrumbs"
+      />
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="nav-project-selected"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 22 22"
+            width="40"
+          >
+            <path
+              d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+              fill="#7dc7fb"
+            />
+          </svg>
+        </span>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-medium"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+          >
+            role
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            vfkvnfknvfv
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--flex"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-small StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
+      >
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          Created
+        </p>
+        dummy date
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
+      >
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          Last Updated
+        </p>
+        dummy date
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main body"
+    >
+      <div
+        class="StyledProps--font StyledProps--main resourceList"
+        style="width: 20%;"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+        />
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-large"
+        style="width: 80%;"
+      >
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+          style="height: 100%;"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            Select Resource
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

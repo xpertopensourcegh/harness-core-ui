@@ -1,0 +1,26 @@
+.card {
+  height: var(--spacing-huge);
+  box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid transparent !important;
+  margin: var(--spacing-medium);
+  align-items: center;
+  display: flex !important;
+}
+
+.permissions {
+  display: grid !important;
+  grid-column-gap: var(--spacing-huge);
+  grid-auto-flow: column;
+}
+
+.center {
+  align-items: center;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.checkbox {
+  margin-bottom: 0px !important;
+}
