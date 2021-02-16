@@ -3,7 +3,6 @@ import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { IKeyboardEvent, languages } from 'monaco-editor/esm/vs/editor/editor.api'
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
-import 'monaco-editor'
 //@ts-ignore
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 //@ts-ignore

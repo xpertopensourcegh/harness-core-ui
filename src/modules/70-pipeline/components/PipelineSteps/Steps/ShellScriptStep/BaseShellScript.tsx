@@ -1,24 +1,71 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
+import {
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  SelectOption,
+  ExpressionInput,
+  Button
+} from '@wings-software/uicore'
+import { Dialog, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
-import { FormMultiTypeTextAreaField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import type { ShellScriptFormData } from './shellScriptTypes'
+
 import stepCss from '../Steps.module.scss'
+import css from './ShellScript.module.scss'
 
 export const shellScriptType: SelectOption[] = [
   { label: 'Bash', value: 'Bash' },
   { label: 'PowerShell', value: 'PowerShell' }
 ]
 
+const langMap: Record<string, string> = {
+  Bash: 'shell',
+  PowerShell: 'powershell'
+}
+
 export default function BaseShellScript(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue }
   } = props
+  const [isFullScreen, setFullScreen] = React.useState(false)
 
   const { getString } = useStrings()
+  const scriptType: string = formValues.spec?.shell || 'Bash'
+  const monaco = (
+    <div className={css.monacoWrapper}>
+      {isFullScreen ? null : (
+        <Button
+          className={css.expandBtn}
+          icon="fullscreen"
+          small
+          onClick={() => setFullScreen(true)}
+          iconProps={{ size: 10 }}
+        />
+      )}
+      <MonacoEditor
+        height={isFullScreen ? '70vh' : 300}
+        value={formValues?.spec?.source?.spec?.script || ''}
+        language={langMap[scriptType] as string}
+        options={
+          {
+            fontFamily: "'Roboto Mono', monospace",
+            fontSize: 13,
+            minimap: {
+              enabled: false
+            }
+          } as MonacoEditorProps['options']
+        }
+        onChange={value => setFieldValue('spec.source.spec.script', value)}
+      />
+    </div>
+  )
+
   return (
     <>
       <div className={stepCss.formGroup}>
@@ -34,11 +81,23 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
         />
       </div>
       <div className={stepCss.formGroup}>
-        <FormMultiTypeTextAreaField
+        <MultiTypeFieldSelector
           name="spec.source.spec.script"
           label={getString('script')}
-          multiTypeTextArea={{ enableConfigureOptions: false, textAreaProps: { className: stepCss.code } }}
-        />
+          defaultValueToReset=""
+          allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+          expressionRender={() => {
+            return (
+              <ExpressionInput
+                value={formValues?.spec?.source?.spec?.script || ''}
+                name="spec.source.spec.script"
+                onChange={value => setFieldValue('spec.source.spec.script', value)}
+              />
+            )
+          }}
+        >
+          {isFullScreen ? <div className={css.monacoWrapper} /> : monaco}
+        </MultiTypeFieldSelector>
         {getMultiTypeFromValue(formValues.spec.source?.spec?.script) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.source?.spec?.script as string}
@@ -72,6 +131,17 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
           />
         )}
       </div>
+      <Dialog
+        lazy
+        isOpen={isFullScreen}
+        isCloseButtonShown
+        canOutsideClickClose={false}
+        onClose={() => setFullScreen(false)}
+        title={`${getString('script')} (${scriptType})`}
+        className={css.monacoDialog}
+      >
+        <div className={Classes.DIALOG_BODY}>{monaco}</div>
+      </Dialog>
     </>
   )
 }

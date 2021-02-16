@@ -8,6 +8,7 @@ declare const styles: {
   readonly icon: string
   readonly fixed: string
   readonly runtime: string
+  readonly expression: string
   readonly formGroup: string
   readonly formLabel: string
   readonly menu: string

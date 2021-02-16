@@ -25,6 +25,8 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
   defaultValueToReset?: unknown
   style?: CSSProperties
   disableTypeSelection?: boolean
+  expressionRender?(): React.ReactNode
+  allowedTypes?: MultiTypeInputType[]
 }
 
 export interface ConnectedMultiTypeFieldSelectorProps extends MultiTypeFieldSelectorProps {
@@ -43,11 +45,15 @@ const TypeColor: Record<MultiTypeInputType, string> = {
   EXPRESSION: Color.YELLOW_500
 }
 
-function TypeSelector(props: {
+export interface TypeSelectorProps {
   type: MultiTypeInputType
   onChange: (type: MultiTypeInputType) => void
-}): React.ReactElement {
-  const { type, onChange } = props
+  allowedTypes: MultiTypeInputType[]
+}
+
+function TypeSelector(props: TypeSelectorProps): React.ReactElement {
+  const { type, onChange, allowedTypes } = props
+
   return (
     <Popover
       position="bottom-right"
@@ -63,27 +69,50 @@ function TypeSelector(props: {
         <String className={css.btnText} stringID={`inputTypes.${type}`} />
       </Button>
       <Menu className={css.menu}>
-        <Menu.Item
-          labelElement={<Icon name={TypeIcon.FIXED} color={TypeColor.FIXED} />}
-          text={<String stringID="inputTypes.FIXED" />}
-          active={type === MultiTypeInputType.FIXED}
-          intent="none"
-          onClick={() => onChange(MultiTypeInputType.FIXED)}
-        />
-        <Menu.Item
-          labelElement={<Icon name={TypeIcon.RUNTIME} color={TypeColor.RUNTIME} />}
-          text={<String stringID="inputTypes.RUNTIME" />}
-          active={type === MultiTypeInputType.RUNTIME}
-          intent="none"
-          onClick={() => onChange(MultiTypeInputType.RUNTIME)}
-        />
+        {allowedTypes.includes(MultiTypeInputType.FIXED) ? (
+          <Menu.Item
+            labelElement={<Icon name={TypeIcon.FIXED} color={TypeColor.FIXED} />}
+            text={<String stringID="inputTypes.FIXED" />}
+            active={type === MultiTypeInputType.FIXED}
+            intent="none"
+            onClick={() => onChange(MultiTypeInputType.FIXED)}
+          />
+        ) : null}
+        {allowedTypes.includes(MultiTypeInputType.RUNTIME) ? (
+          <Menu.Item
+            labelElement={<Icon name={TypeIcon.RUNTIME} color={TypeColor.RUNTIME} />}
+            text={<String stringID="inputTypes.RUNTIME" />}
+            active={type === MultiTypeInputType.RUNTIME}
+            intent="none"
+            onClick={() => onChange(MultiTypeInputType.RUNTIME)}
+          />
+        ) : null}
+        {allowedTypes.includes(MultiTypeInputType.EXPRESSION) ? (
+          <Menu.Item
+            labelElement={<Icon name={TypeIcon.EXPRESSION} color={TypeColor.EXPRESSION} />}
+            text={<String stringID="inputTypes.EXPRESSION" />}
+            active={type === MultiTypeInputType.EXPRESSION}
+            intent="none"
+            onClick={() => onChange(MultiTypeInputType.EXPRESSION)}
+          />
+        ) : null}
       </Menu>
     </Popover>
   )
 }
 
 export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorProps): React.ReactElement | null {
-  const { formik, label, name, children, defaultValueToReset, disableTypeSelection, ...restProps } = props
+  const {
+    formik,
+    label,
+    name,
+    children,
+    defaultValueToReset,
+    disableTypeSelection,
+    allowedTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME],
+    expressionRender,
+    ...restProps
+  } = props
   const hasError = errorCheck(name, formik)
 
   const {
@@ -100,23 +129,8 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
   function handleChange(newType: MultiTypeInputType): void {
     setType(newType)
     if (newType === type) return
-    formik.setFieldValue(
-      name,
-      newType === MultiTypeInputType.RUNTIME
-        ? RUNTIME_INPUT_VALUE
-        : defaultValueToReset
-        ? defaultValueToReset
-        : undefined
-    )
+    formik.setFieldValue(name, newType === MultiTypeInputType.RUNTIME ? RUNTIME_INPUT_VALUE : defaultValueToReset)
   }
-
-  React.useEffect(() => {
-    const newType = getMultiTypeFromValue(value)
-
-    if (newType !== type) {
-      setType(newType)
-    }
-  }, [value, type, setType])
 
   if (type === MultiTypeInputType.RUNTIME && getMultiTypeFromValue(value) !== MultiTypeInputType.RUNTIME) return null
 
@@ -137,11 +151,17 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
               {label} <b>{value}</b>
             </span>
           )}
-          {disableTypeSelection ? null : <TypeSelector type={type} onChange={handleChange} />}
+          {disableTypeSelection ? null : (
+            <TypeSelector allowedTypes={allowedTypes} type={type} onChange={handleChange} />
+          )}
         </div>
       }
     >
-      {disableTypeSelection || type === MultiTypeInputType.FIXED ? children : null}
+      {disableTypeSelection || type === MultiTypeInputType.FIXED
+        ? children
+        : type === MultiTypeInputType.EXPRESSION && typeof expressionRender === 'function'
+        ? expressionRender()
+        : null}
     </FormGroup>
   )
 }

@@ -11,6 +11,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-generator-plugin').default
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 const DEV = process.env.NODE_ENV === 'development'
 const CONTEXT = process.cwd()
@@ -188,6 +189,10 @@ const commonPlugins = [
   new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
   new webpack.DefinePlugin({
     __DEV__: DEV
+  }),
+  new MonacoWebpackPlugin({
+    // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
+    languages: ['yaml', 'shell', 'powershell']
   })
 ]
 
