@@ -459,6 +459,9 @@ export default function ArtifactsSelection({
             }}
             hideLightModal={hideConnectorModal}
             context={context}
+            accountId={accountId}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
           />
         )
       case ENABLED_ARTIFACT_TYPES.GCR.type:

@@ -1,5 +1,6 @@
 import React from 'react'
 import { StepWizard, Color } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from '@connectors/constants'
@@ -15,9 +16,14 @@ interface CreateDockerConnectorProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
   const { getString } = useStrings()
+  const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
+
   return (
     <>
       <StepWizard
@@ -34,10 +40,9 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
         />
         <StepDockerAuthentication
           name={getString('details')}
+          {...commonProps}
           onConnectorCreated={props.onSuccess}
-          isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
-          setIsEditMode={props.setIsEditMode}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}

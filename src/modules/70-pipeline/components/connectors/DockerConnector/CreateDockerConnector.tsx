@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { StepWizard, Color, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
@@ -23,10 +24,14 @@ interface CreateDockerConnectorProps {
   isEditMode?: boolean
   connectorInfo?: ConnectorInfoDTO | void
   context?: number
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
   const { getString } = useStrings()
+  const commonProps = pick(props, ['accountId', 'orgIdentifier', 'projectIdentifier'])
 
   const [isEditMode, setIsEditMode] = useState(false)
   return (
@@ -45,8 +50,9 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
       />
       <StepDockerAuthentication
         name={getString('details')}
+        {...commonProps}
         onConnectorCreated={props.onConnectorCreated}
-        isEditMode={isEditMode as boolean}
+        isEditMode={isEditMode}
         connectorInfo={props.connectorInfo}
         setIsEditMode={setIsEditMode}
       />

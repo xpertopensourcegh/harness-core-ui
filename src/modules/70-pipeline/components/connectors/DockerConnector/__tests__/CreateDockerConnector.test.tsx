@@ -12,7 +12,13 @@ describe('Create Docker connector Wizard', () => {
     const { container, getByText } = render(
       <MemoryRouter>
         <TestWrapper>
-          <CreateDockerConnector hideLightModal={noop} handleSubmit={noop} />
+          <CreateDockerConnector
+            hideLightModal={noop}
+            orgIdentifier="testOrg"
+            projectIdentifier="test"
+            accountId="testAcc"
+            handleSubmit={noop}
+          />
         </TestWrapper>
       </MemoryRouter>
     )

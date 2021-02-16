@@ -30,6 +30,9 @@ describe('Create Docker Connector  Wizard', () => {
           onSuccess={noop}
           mock={mockResponse}
           isEditMode={false}
+          orgIdentifier="testOrg"
+          projectIdentifier="test"
+          accountId="testAcc"
         />
       </TestWrapper>
     )
@@ -61,6 +64,9 @@ describe('Create Docker Connector  Wizard', () => {
           isEditMode={true}
           connectorInfo={dockerMock}
           mock={mockResponse}
+          orgIdentifier="testOrg"
+          projectIdentifier="test"
+          accountId="testAcc"
         />
       </TestWrapper>
     )
@@ -88,8 +94,8 @@ describe('Create Docker Connector  Wizard', () => {
         description: 'devConnector description',
         identifier: 'devConnector',
         name: 'dummy name',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: 'testOrg',
+        projectIdentifier: 'test',
         spec: {
           auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.b13' } },
           dockerRegistryUrl: 'url-v3',
@@ -111,6 +117,9 @@ describe('Create Docker Connector  Wizard', () => {
           isEditMode={true}
           connectorInfo={backButtonMock}
           mock={mockResponse}
+          orgIdentifier="testOrg"
+          projectIdentifier="test"
+          accountId="testAcc"
         />
       </TestWrapper>
     ),

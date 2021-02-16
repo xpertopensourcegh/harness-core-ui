@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
 import {
   Layout,
   Button,
@@ -48,6 +47,9 @@ interface DockerAuthenticationProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 interface DockerFormInterface {
@@ -71,8 +73,7 @@ const StepDockerAuthentication: React.FC<
 > = props => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
-  const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { prevStepData, nextStep, accountId, projectIdentifier, orgIdentifier } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
