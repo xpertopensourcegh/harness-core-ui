@@ -126,7 +126,7 @@ exports[`ProjectSelector render with projects 2`] = `
                 </span>
                 <input
                   class="bp3-input"
-                  placeholder="Start typing to search in all  items"
+                  placeholder="Start typing to search"
                   type="text"
                   value=""
                 />
@@ -143,7 +143,20 @@ exports[`ProjectSelector render with projects 2`] = `
                     <div
                       class="bp3-text-overflow-ellipsis bp3-fill"
                     >
-                      TestCiproject
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                        >
+                          TestCiproject
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                        >
+                          default
+                        </p>
+                      </div>
                     </div>
                   </a>
                 </li>
@@ -156,7 +169,20 @@ exports[`ProjectSelector render with projects 2`] = `
                     <div
                       class="bp3-text-overflow-ellipsis bp3-fill"
                     >
-                      test11
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                        >
+                          test11
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                        >
+                          default
+                        </p>
+                      </div>
                     </div>
                   </a>
                 </li>
@@ -169,7 +195,20 @@ exports[`ProjectSelector render with projects 2`] = `
                     <div
                       class="bp3-text-overflow-ellipsis bp3-fill"
                     >
-                      Project 1
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                        >
+                          Project 1
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                        >
+                          default
+                        </p>
+                      </div>
                     </div>
                   </a>
                 </li>
@@ -182,7 +221,20 @@ exports[`ProjectSelector render with projects 2`] = `
                     <div
                       class="bp3-text-overflow-ellipsis bp3-fill"
                     >
-                      fdfder32432
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                        >
+                          fdfder32432
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                        >
+                          default
+                        </p>
+                      </div>
                     </div>
                   </a>
                 </li>

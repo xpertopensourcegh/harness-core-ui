@@ -61,7 +61,8 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 const CFSideNavProps: SidebarContext = {
   navComponent: SideNav,
   subtitle: 'CONTINUOUS',
-  title: 'Features'
+  title: 'Features',
+  icon: 'cf-main'
 }
 
 export default (

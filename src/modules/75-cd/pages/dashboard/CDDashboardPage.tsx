@@ -17,7 +17,7 @@ export const CDDashboardPage: React.FC = () => {
         <Layout.Vertical spacing="large" flex>
           <Heading>{i18n.welcome}</Heading>
           <Text>{i18n.description}</Text>
-          <Icon name="nav-cd" size={200} />
+          <Icon name="cd-main" size={200} />
           <Button
             width={200}
             text={i18n.creatPipeline}

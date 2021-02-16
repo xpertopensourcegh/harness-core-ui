@@ -21,7 +21,8 @@ const RedirectToOrgResourcesHome = (): React.ReactElement => {
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
-  title: 'Settings'
+  title: 'Settings',
+  icon: 'nav-settings'
 }
 
 export default (

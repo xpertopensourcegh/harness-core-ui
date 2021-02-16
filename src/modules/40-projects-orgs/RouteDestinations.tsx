@@ -19,7 +19,8 @@ import AddProjectResourceModalBody from '@projects-orgs/components/AddProjectRes
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
-  title: 'Settings'
+  title: 'Settings',
+  icon: 'nav-settings'
 }
 
 RbacFactory.registerResourceTypeHandler('PROJECT', {

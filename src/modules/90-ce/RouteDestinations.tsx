@@ -33,7 +33,8 @@ const RedirectToCEProject = (): React.ReactElement => {
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
   subtitle: 'CONTINUOUS',
-  title: 'Efficiency'
+  title: 'Efficiency',
+  icon: 'ce-main'
 }
 
 export default (

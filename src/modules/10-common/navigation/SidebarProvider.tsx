@@ -1,8 +1,7 @@
 import React from 'react'
+import type { SideNavProps } from './SideNav/SideNav'
 
-export interface SidebarContext {
-  title?: string
-  subtitle?: string
+export interface SidebarContext extends SideNavProps {
   navComponent: React.ComponentType
 }
 

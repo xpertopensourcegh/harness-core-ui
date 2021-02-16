@@ -13,7 +13,8 @@ import DelegateDetails from 'modules/40-delegates/pages/delegates/DelegateDetail
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
-  title: 'Settings'
+  title: 'Settings',
+  icon: 'nav-settings'
 }
 
 export default (

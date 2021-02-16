@@ -14,7 +14,8 @@ import ResourcesPage from '@common/pages/resources/ResourcesPage'
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
-  title: 'Settings'
+  title: 'Settings',
+  icon: 'nav-settings'
 }
 
 export default (

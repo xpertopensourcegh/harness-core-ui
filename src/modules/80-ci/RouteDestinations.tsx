@@ -86,7 +86,8 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
 const CISideNavProps: SidebarContext = {
   navComponent: CISideNav,
   subtitle: 'CONTINUOUS',
-  title: 'Integration'
+  title: 'Integration',
+  icon: 'ci-main'
 }
 
 const pipelineModuleParams: ModulePathParams = {

@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 import cx from 'classnames'
-import type { IconName } from '@blueprintjs/core'
 import { NavLink as Link, NavLinkProps } from 'react-router-dom'
-import { Text, Layout, Color } from '@wings-software/uicore'
+import { Text, Layout, Color, IconName, Icon } from '@wings-software/uicore'
 import css from './SideNav.module.scss'
 
 export interface SideNavProps {
   subtitle?: string
   title?: string
+  icon?: IconName
 }
 
 export default function SideNav(props: React.PropsWithChildren<SideNavProps>): ReactElement {
@@ -16,9 +16,14 @@ export default function SideNav(props: React.PropsWithChildren<SideNavProps>): R
       <div>{props.children}</div>
       {props.title ? (
         <div className={css.titleContainer}>
+          {props.icon ? (
+            <div className={css.iconContainer}>
+              <Icon className={css.icon} name={props.icon} size={350} />
+            </div>
+          ) : null}
           <Layout.Vertical>
             {props.subtitle ? (
-              <Text font={{ size: 'small' }} color={Color.WHITE}>
+              <Text font={{ size: 'small' }} color={Color.GREY_400}>
                 {props.subtitle}
               </Text>
             ) : null}

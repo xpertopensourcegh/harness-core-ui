@@ -25,7 +25,8 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
-  title: 'Settings'
+  title: 'Settings',
+  icon: 'nav-settings'
 }
 
 const justAccountPath = withAccountId(() => '/')

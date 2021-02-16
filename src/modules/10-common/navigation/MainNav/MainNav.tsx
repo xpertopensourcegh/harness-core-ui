@@ -100,13 +100,13 @@ export default function L1Nav(): React.ReactElement {
         {CUSTOM_DASHBOARD === 'true' && (
           <li className={css.navItem}>
             <Link className={css.navLink} activeClassName={css.active} to={paths.toCustomDasboard(params)}>
-              <Icon name="dashboard" size={30} />
+              <Icon name="dashboard" size={20} />
             </Link>
           </li>
         )}
         <li className={css.navItem}>
           <Link className={css.navLink} activeClassName={css.active} to={paths.toAdmin(params)}>
-            <Icon name="nav-settings" size={30} />
+            <Icon name="nav-settings" size={20} />
           </Link>
         </li>
       </ul>

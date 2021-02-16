@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
 import { Classes, Button, MenuItem, Alignment } from '@blueprintjs/core'
-import { Text } from '@wings-software/uicore'
+import { Text, Layout, Color } from '@wings-software/uicore'
 import { Project, useGetProjectList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
@@ -55,7 +55,17 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
         setSearchTerm(query)
       }}
       itemRenderer={(item, { handleClick }) => (
-        <MenuItem disabled={item.identifier === '$disabled$'} text={item.name} key={item.name} onClick={handleClick} />
+        <MenuItem
+          disabled={item.identifier === '$disabled$'}
+          text={
+            <Layout.Vertical>
+              <Text color={Color.WHITE}>{item.name}</Text>
+              <Text font={{ size: 'small' }}>{item.orgIdentifier}</Text>
+            </Layout.Vertical>
+          }
+          key={item.name}
+          onClick={handleClick}
+        />
       )}
       noResults={<Text padding="small">{getString('noSearchResultsFoundPeriod')}</Text>}
       inputProps={{
@@ -65,7 +75,15 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
       <Button
         minimal
         className={css.projectButton}
-        text={selectedProject?.name || getString('selectProject')}
+        text={
+          selectedProject ? (
+            <Text lineClamp={1} color={Color.WHITE}>
+              {selectedProject?.name}
+            </Text>
+          ) : (
+            getString('selectProject')
+          )
+        }
         rightIcon="caret-down"
         alignText={Alignment.LEFT}
       />

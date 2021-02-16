@@ -420,7 +420,7 @@ fetching: Fetching
 somethingWentWrong: Something went wrong
 saveChanges: Save Changes
 projectSelector:
-  placeholder: 'Start typing to search in all {{number}} items'
+  placeholder: 'Start typing to search'
 script: 'Script'
 inline: 'Inline'
 upload: 'Upload'

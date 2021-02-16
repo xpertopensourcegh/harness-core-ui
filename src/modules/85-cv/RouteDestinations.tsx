@@ -70,7 +70,8 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 const CVSideNavProps: SidebarContext = {
   navComponent: SideNav,
   subtitle: 'CONTINUOUS',
-  title: 'Verification'
+  title: 'Verification',
+  icon: 'cv-main'
 }
 
 export default (

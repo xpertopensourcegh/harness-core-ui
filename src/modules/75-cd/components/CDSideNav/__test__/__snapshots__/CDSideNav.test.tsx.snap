@@ -5,16 +5,6 @@ exports[`Sidenav render 1`] = `
   <div
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
-    <a
-      class="link"
-      href="/account/dummy/cd/home"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        Dashboard
-      </p>
-    </a>
     <div
       class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
     >

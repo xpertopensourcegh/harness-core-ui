@@ -352,9 +352,9 @@ exports[`RouteWithLayout basic 1`] = `
             >
               <svg
                 fill="none"
-                height="30"
+                height="20"
                 viewBox="0 0 18 18"
-                width="30"
+                width="20"
               >
                 <path
                   clip-rule="evenodd"
@@ -389,7 +389,7 @@ exports[`RouteWithLayout basic 1`] = `
           class="Layout--vertical StyledProps--main"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-white"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
           >
             SUBTITLE
           </p>
@@ -777,9 +777,9 @@ exports[`RouteWithLayout minimal 1`] = `
             >
               <svg
                 fill="none"
-                height="30"
+                height="20"
                 viewBox="0 0 18 18"
-                width="30"
+                width="20"
               >
                 <path
                   clip-rule="evenodd"

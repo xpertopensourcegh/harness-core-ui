@@ -6,15 +6,29 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 
   .titleContainer {
     margin-left: var(--spacing-small);
     margin-bottom: var(--spacing-medium);
-    opacity: 0.9;
 
     .title {
       font-size: 18px !important;
       letter-spacing: 1px;
+    }
+  }
+
+  .iconContainer {
+    position: relative;
+    margin-left: -19px;
+    bottom: -80px;
+    overflow: hidden;
+    height: 350px;
+
+    .icon {
+      position: absolute;
+      left: -50px;
+      opacity: 0.08;
     }
   }
 }
