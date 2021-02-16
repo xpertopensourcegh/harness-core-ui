@@ -458,15 +458,16 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </p>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
               >
                 <p
-                  class="StyledProps--font StyledProps--main pipelineName StyledProps--font-small StyledProps--color StyledProps--color-grey400"
+                  class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                 >
                   Services
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                  style="--text-line-clamp: 1;"
                 >
                   nginx service
                 </p>
@@ -832,15 +833,16 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
               >
                 <p
-                  class="StyledProps--font StyledProps--main pipelineName StyledProps--font-small StyledProps--color StyledProps--color-grey400"
+                  class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                 >
                   Services
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                  style="--text-line-clamp: 1;"
                 >
                   nginx service
                 </p>
@@ -1204,20 +1206,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     Second_Pipeline
                   </p>
                 </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main pipelineName StyledProps--font-small StyledProps--color StyledProps--color-grey400"
-                >
-                  Services
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
-                >
-                  
-                </p>
               </div>
               <div
                 class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"

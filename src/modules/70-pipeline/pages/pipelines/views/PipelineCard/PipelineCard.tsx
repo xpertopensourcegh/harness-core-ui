@@ -150,6 +150,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
 
   const { getString } = useStrings()
   const deployments = pipeline.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0) || 0
+
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline.identifier)}>
       <Container padding={{ left: 'large', bottom: 'medium' }} className={css.pipelineTitle}>
@@ -204,14 +205,27 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         </Layout.Horizontal>
       ) : null}
 
-      <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'large' }}>
-        <Text font="small" color={Color.GREY_400} className={css.pipelineName}>
-          {getString('services')}
-        </Text>
-        <Text color={Color.GREY_500} className={css.serviceName}>
-          {pipeline.filters?.[module]?.serviceNames.join(', ')}
-        </Text>
-      </Layout.Horizontal>
+      {pipeline.stageNames?.length ? (
+        <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'medium' }}>
+          <Text font="small" color={Color.GREY_400} className={css.serviceLabel}>
+            {getString('stages')}
+          </Text>
+          <Text color={Color.GREY_500} className={css.serviceName} lineClamp={1}>
+            {pipeline.stageNames?.join(', ')}
+          </Text>
+        </Layout.Horizontal>
+      ) : null}
+
+      {pipeline.filters?.[module]?.serviceNames?.length ? (
+        <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'medium' }}>
+          <Text font="small" color={Color.GREY_400} className={css.serviceLabel}>
+            {getString('services')}
+          </Text>
+          <Text color={Color.GREY_500} className={css.serviceName} lineClamp={1}>
+            {pipeline.filters?.[module]?.serviceNames.join(', ')}
+          </Text>
+        </Layout.Horizontal>
+      ) : null}
 
       <Container
         padding={{ left: 'large', right: 'large', top: 'medium', bottom: 'small' }}

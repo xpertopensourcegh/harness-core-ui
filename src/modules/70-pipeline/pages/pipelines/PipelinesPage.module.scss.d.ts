@@ -7,6 +7,7 @@ declare const styles: {
   readonly pipelineTitle: string
   readonly menu: string
   readonly pipelineName: string
+  readonly serviceLabel: string
   readonly serviceName: string
   readonly runPipelineBtn: string
   readonly runPipelineListBtn: string
