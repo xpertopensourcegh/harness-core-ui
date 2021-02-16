@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import cx from 'classnames'
@@ -45,10 +45,9 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
   let text = getString('cf.auditLogs.createdMessageFF')
   const [showDiff, toggleShowDiff] = useToggle(true)
   const { objectBefore, objectAfter } = data
-  const isObjectNewlyCreated = objectBefore !== ADIT_LOG_EMPTY_ENTRY_ID
+  const isNewObject = objectBefore === ADIT_LOG_EMPTY_ENTRY_ID
   const { data: diffData, loading, error, refetch } = useGetOSById({
-    // identifiers: ['0989203a-61e5-448d-9111-c935ac72f0a2', '8168a910-ba29-489f-9a14-1b46d4aaaf98']
-    identifiers: isObjectNewlyCreated ? [objectBefore, objectAfter] : [objectAfter],
+    identifiers: isNewObject ? [objectAfter] : [objectBefore, objectAfter],
     lazy: !showDiff
   })
 
@@ -61,6 +60,20 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
       break
   }
   const date = `${formatDate(data.executedOn)}, ${formatTime(data.executedOn)} PST`
+  const [valueBefore, setValueBefore] = useState<string | undefined>()
+  const [valueAfter, setValueAfter] = useState<string | undefined>()
+
+  useEffect(() => {
+    const _before = isNewObject ? undefined : get(diffData, 'data.objectsnapshots[0].value')
+    const _after = get(diffData, `data.objectsnapshots[${isNewObject ? 0 : 1}].value`)
+
+    if (_before) {
+      setValueBefore(JSON.stringify(_before, null, 2))
+    }
+    if (_after) {
+      setValueAfter(JSON.stringify(_after, null, 2))
+    }
+  }, [diffData])
 
   return (
     <Drawer
@@ -106,16 +119,8 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
                     width="670"
                     height="480"
                     language="javascript"
-                    value={
-                      isObjectNewlyCreated
-                        ? undefined
-                        : JSON.stringify(diffData?.data?.objectsnapshots?.[0]?.value || '', null, 2)
-                    }
-                    original={JSON.stringify(
-                      diffData?.data?.objectsnapshots?.[isObjectNewlyCreated ? 0 : 1]?.value || '',
-                      null,
-                      2
-                    )}
+                    original={valueBefore}
+                    value={valueAfter}
                     options={{
                       ignoreTrimWhitespace: true,
                       minimap: { enabled: false },

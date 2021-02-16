@@ -32,7 +32,7 @@ import {
 import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
-import { FFDetailPageTab } from '@cf/utils/CFUtils'
+import { FeatureFlagActivationStatus, FFDetailPageTab } from '@cf/utils/CFUtils'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -70,11 +70,6 @@ const fromVariationMapToObj = (variationMap: VariationMap[]) =>
     return acc
   }, {})
 
-export enum envActivation {
-  activeOff = 'off',
-  activeOn = 'on'
-}
-
 const FlagActivation: React.FC<FlagActivationProps> = props => {
   const { flagData, project, environments, environment, isBooleanFlag, refetchFlag } = props
   const { showError } = useToaster()
@@ -93,7 +88,9 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   const onChangeSwitchEnv = (_: string, formikProps: any): void => {
     formikProps.setFieldValue(
       'state',
-      formikProps.values.state === envActivation.activeOff ? envActivation.activeOn : envActivation.activeOff
+      formikProps.values.state === FeatureFlagActivationStatus.OFF
+        ? FeatureFlagActivationStatus.ON
+        : FeatureFlagActivationStatus.OFF
     )
   }
 
@@ -377,7 +374,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 }}
                 alignIndicator="right"
                 className={Classes.LARGE}
-                checked={formikProps.values.state === envActivation.activeOn}
+                checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
               />
             </Layout.Horizontal>
           </Layout.Horizontal>

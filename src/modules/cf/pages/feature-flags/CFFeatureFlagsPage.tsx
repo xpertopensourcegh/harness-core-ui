@@ -6,105 +6,249 @@ import {
   Container,
   Icon,
   Text,
-  ExpandingSearchInput,
+  // ExpandingSearchInput,
   Button,
   FlexExpander,
   Select,
   SelectOption,
-  Heading
+  Heading,
+  Utils,
+  Pagination
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
-import { Drawer, Menu, Position } from '@blueprintjs/core'
+import { /*Drawer,*/ Menu, Position, Switch, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import routes from '@common/RouteDefinitions'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import { useLocalStorage } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
-import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
-import { Page } from '@common/exports'
+import { useGetAllFeatures, Feature, useDeleteFeatureFlag, Features, FeatureState } from 'services/cf'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV } from '@cf/utils/CFUtils'
+import { useStrings } from 'framework/exports'
+import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
+import {
+  CF_LOCAL_STORAGE_ENV_KEY,
+  DEFAULT_ENV,
+  isFeatureFlagOn,
+  CF_DEFAULT_PAGE_SIZE,
+  featureFlagHasCustomRules,
+  FeatureFlagActivationStatus
+} from '../../utils/CFUtils'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
-import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
+// import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
 import { useEnvironments } from '../../hooks/environment'
 import i18n from './CFFeatureFlagsPage.i18n'
 import css from './CFFeatureFlagsPage.module.scss'
 
 type CustomColumn<T extends object> = Column<T>
-const PAGE_SIZE = 15
 
-const RenderColumnFlag: Renderer<CellProps<Feature>> = ({ row }) => {
+interface RenderColumnFlagProps {
+  cell: Cell<Feature>
+  update: (status: boolean) => void
+}
+
+const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, update }) => {
   const data = row.original
+  const [environment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
+  const [status, setStatus] = useState(isFeatureFlagOn(data))
+  const { getString } = useStrings()
+  const { projectIdentifier, orgIdentifier, accountId: accountIdentifier } = useParams<Record<string, string>>()
+  const toggleFeatureFlag = useToggleFeatureFlag({
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    environmentIdentifier: data.envProperties?.environment as string,
+    flagIdentifier: data.identifier
+  })
+  const { showError, clear } = useToaster()
+
+  const switchTooltip = (
+    <Container width={'350px'} padding="xxxlarge">
+      <Heading level={2} style={{ fontWeight: 600, fontSize: '24px', lineHeight: '32px', color: '#22222A' }}>
+        {getString(status ? 'cf.featureFlags.turnOffHeading' : 'cf.featureFlags.turnOnHeading')}
+      </Heading>
+      <Text margin={{ top: 'medium', bottom: 'small' }} style={{ lineHeight: '22px', color: '#383946' }}>
+        <span
+          // This is used to retain simple HTML markup in i18n string like <strong>
+          // to make sure formating is aligned with translations
+          dangerouslySetInnerHTML={{
+            __html: getString(status ? 'cf.featureFlags.turnOffMessage' : 'cf.featureFlags.turnOnMessage', {
+              name: data.name,
+              env: environment?.label
+            })
+          }}
+        />
+      </Text>
+      <Text margin={{ top: 'xsmall', bottom: 'xlarge' }} style={{ lineHeight: '22px', color: '#383946' }}>
+        {(!featureFlagHasCustomRules(data) && (
+          <span
+            // This is used to retain simple HTML markup in i18n string like <strong>
+            // to make sure formating is aligned with translations
+            dangerouslySetInnerHTML={{
+              __html: getString('cf.featureFlags.defaultWillBeServed', {
+                defaultVariation: status ? data.defaultOffVariation : data.defaultOnVariation
+              })
+            }}
+          />
+        )) ||
+          getString('cf.featureFlags.customRuleMessage')}
+      </Text>
+      <Container flex>
+        <Layout.Horizontal spacing="small">
+          <Button
+            intent="primary"
+            text={getString('confirm')}
+            className={Classes.POPOVER_DISMISS}
+            onClick={() => {
+              const toggleFn = status ? toggleFeatureFlag.off() : toggleFeatureFlag.on()
+
+              toggleFn
+                .then(() => {
+                  setStatus(!status)
+                  update(!status)
+                })
+                .catch(error => {
+                  showError(get(error, 'message', get(error, 'data.message', error.toString())), 0)
+                })
+            }}
+          />
+          <Button text={getString('cancel')} className={Classes.POPOVER_DISMISS} />
+        </Layout.Horizontal>
+        <span />
+      </Container>
+    </Container>
+  )
+
+  useEffect(() => {
+    return () => {
+      clear()
+    }
+  }, [clear])
 
   return (
-    <Layout.Horizontal>
-      <Layout.Vertical flex className={css.generalInfo}>
-        <Text
-          color={Color.BLACK}
-          font={{ weight: 'bold', size: 'medium' }}
-          margin={{ right: 'xsmall' }}
-          className={css.name}
-          tooltip={<Text padding="large">{data.name}</Text>}
+    <Container flex>
+      <Container onMouseDown={Utils.stopEvent} onClick={Utils.stopEvent}>
+        <Button
+          noStyling
+          tooltip={switchTooltip}
+          tooltipProps={{ interactionKind: 'click', hasBackdrop: true }}
+          className={css.toggleFlagButton}
         >
-          {data.name}
+          <Switch
+            style={{ alignSelf: 'baseline', marginLeft: '-10px' }}
+            alignIndicator="right"
+            className={Classes.LARGE}
+            checked={status}
+            // Empty onChange() to avoid React warning
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            onChange={() => {}}
+          />
+        </Button>
+      </Container>
+      <Layout.Horizontal spacing="small" style={{ flexGrow: 1, paddingLeft: 'var(--spacing-medium)' }}>
+        <Layout.Vertical flex className={css.generalInfo}>
+          <Text
+            style={{
+              color: '#22222A',
+              fontWeight: 500,
+              fontSize: '13px',
+              lineHeight: '16px'
+            }}
+            margin={{ right: 'xsmall' }}
+            className={css.name}
+            tooltip={<Text padding="large">{data.name}</Text>}
+          >
+            {data.name}
+          </Text>
+          {data.description && (
+            <Text
+              style={{
+                color: '#22222A',
+                fontSize: '12px',
+                lineHeight: '24px'
+              }}
+            >
+              {data.description}
+            </Text>
+          )}
+        </Layout.Vertical>
+        <Text
+          width="100px"
+          flex
+          icon="main-tags"
+          style={{ justifyContent: 'center' }}
+          tooltip={
+            data?.tags?.length ? (
+              <>
+                <Text>{i18n.tags.toUpperCase()}</Text>
+                {data.tags.map((elem, i) => (
+                  <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
+                ))}
+              </>
+            ) : undefined
+          }
+          tooltipProps={{
+            portalClassName: css.tagsPopover,
+            position: Position.RIGHT
+          }}
+        >
+          {data?.tags?.length || 0}
         </Text>
-        <Text>{data.description}</Text>
-        <Text color={Color.GREY_450} font={{ size: 'small' }}>
-          {data.identifier}
-        </Text>
-      </Layout.Vertical>
-      <Text
-        width="100px"
-        flex
-        icon="main-tags"
-        style={{ justifyContent: 'center' }}
-        tooltip={
-          data?.tags?.length ? (
-            <>
-              <Text>{i18n.tags.toUpperCase()}</Text>
-              {data.tags.map((elem, i) => (
-                <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
-              ))}
-            </>
-          ) : undefined
-        }
-        tooltipProps={{
-          portalClassName: css.tagsPopover,
-          position: Position.RIGHT
-        }}
-      >
-        {data?.tags?.length || 0}
-      </Text>
-    </Layout.Horizontal>
+      </Layout.Horizontal>
+    </Container>
   )
 }
 
 const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
+  const { getString } = useStrings()
+  const isOn = isFeatureFlagOn(data)
 
   return (
     <Layout.Vertical>
       <Layout.Horizontal>
         <Text tooltipProps={{ isDark: true }}>
-          {data.kind === FlagTypeVariations.booleanFlag
-            ? i18n.boolean
-            : `${i18n.multivariate} (${data.variations.length} ${i18n.variations})`}
+          {getString(data.kind === FlagTypeVariations.booleanFlag ? 'cf.multivariate' : 'cf.boolean')}
         </Text>
       </Layout.Horizontal>
-      <Text>{data.variations[0].name}</Text>
-      <Text>{data.variations[0].description}</Text>
+      {!featureFlagHasCustomRules(data) && (
+        <Text
+          style={{
+            fontSize: '12px',
+            lineHeight: '24px',
+            color: '#9293AB'
+          }}
+        >
+          <span
+            // This is used to retain simple HTML markup in i18n string like <strong>
+            // to make sure formating is aligned with translations
+            dangerouslySetInnerHTML={{
+              __html: getString(isOn ? 'cf.featureFlags.defaultServedOn' : 'cf.featureFlags.defaultServedOff', {
+                defaultVariation: isOn ? data.defaultOnVariation : data.defaultOffVariation
+              })
+            }}
+          />
+        </Text>
+      )}
     </Layout.Vertical>
   )
 }
 
-const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => (
-  <Text>{row.original.envProperties?.state?.toLocaleUpperCase()}</Text>
-)
+const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => {
+  const { getString } = useStrings()
+  const { archived } = row.original
+  return (
+    <Text inline className={cx(css.status, archived && css.archived)}>
+      {getString(archived ? 'inactive' : 'active').toLocaleUpperCase()}
+    </Text>
+  )
+}
 
 const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
   return row.original?.modifiedAt ? (
@@ -115,10 +259,6 @@ const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
   ) : null
 }
 
-const RenderColumnActive: Renderer<CellProps<Feature>> = ({ row }) => (
-  <Text>{row.original.archived ? i18n.no : i18n.yes}</Text>
-)
-
 interface ColumnMenuProps {
   cell: Cell<Feature>
   environment?: string
@@ -127,11 +267,8 @@ interface ColumnMenuProps {
 const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, environment }) => {
   const data = row.original
   const { showError } = useToaster()
-
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
-
   const history = useHistory()
-
   const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
     queryParams: {
       project: projectIdentifier as string,
@@ -139,7 +276,6 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
       org: orgIdentifier
     }
   })
-
   const { openDialog: openDeleteFlagDialog } = useConfirmationDialog({
     contentText: i18n.deleteDialog.textSubject(data.name),
     titleText: i18n.deleteDialog.textHeader,
@@ -212,8 +348,8 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 }
 
 const CFFeatureFlagsPage: React.FC = () => {
-  const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
-  const [isDrawerOpened, setIsDrawerOpened] = useState(false)
+  // const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
+  // const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
@@ -230,14 +366,15 @@ const CFFeatureFlagsPage: React.FC = () => {
       environment: environment?.value as string,
       account: accountId,
       org: orgIdentifier,
-      pageSize: PAGE_SIZE,
+      pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber
     }
   }, [projectIdentifier, environment?.value, accountId, orgIdentifier, pageNumber])
-  const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
+  const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,
     queryParams
   })
+  const [features, setFeatures] = useState<Features | null>()
 
   useEffect(() => {
     if (environment) {
@@ -255,6 +392,10 @@ const CFFeatureFlagsPage: React.FC = () => {
     }
   }, [environments.length, envsLoading])
 
+  useEffect(() => {
+    setFeatures(data)
+  }, [data])
+
   const error = flagsError || envsError
   const loading = flagsLoading || envsLoading
 
@@ -264,12 +405,35 @@ const CFFeatureFlagsPage: React.FC = () => {
         Header: i18n.featureFlag.toUpperCase(),
         accessor: row => row.name,
         width: '50%',
-        Cell: RenderColumnFlag
+        Cell: function WrapperRenderColumnFlag(cell: Cell<Feature>) {
+          return (
+            <RenderColumnFlag
+              cell={cell}
+              update={status => {
+                // Update last updated column to reflect latest change without having to refetch the whole list
+                // The setTimeout makes sure there's enough time for animation in the switch component before re-rendering
+                // takes place and destroy it
+                setTimeout(() => {
+                  const feature = features?.features?.find(f => f.identifier === cell.row.original.identifier)
+                  if (feature) {
+                    if (feature.envProperties) {
+                      feature.envProperties.state = (status
+                        ? FeatureFlagActivationStatus.ON
+                        : FeatureFlagActivationStatus.OFF) as FeatureState
+                    }
+                    feature.modifiedAt = Date.now()
+                    setFeatures({ ...features } as Features)
+                  }
+                }, 1000)
+              }}
+            />
+          )
+        }
       },
       {
         Header: i18n.details.toUpperCase(),
         accessor: row => row.kind,
-        width: '15%',
+        width: '20%',
         Cell: RenderColumnDetails
       },
       {
@@ -280,24 +444,13 @@ const CFFeatureFlagsPage: React.FC = () => {
       },
       {
         Header: i18n.lastUpdated.toUpperCase(),
-        // TODO: Check for the accessor field
-        accessor: 'prerequisites',
         width: '15%',
         Cell: RenderColumnLastUpdated,
         disableSortBy: true
       },
       {
-        Header: i18n.active.toUpperCase(),
-        accessor: row => row.owner,
-        width: '5%',
-        Cell: RenderColumnActive,
-        disableSortBy: true
-      },
-      {
         Header: '',
         id: 'version',
-        // TODO: Check for the accessor field
-        accessor: (row: Feature) => row.envProperties?.version || undefined,
         width: '5%',
         Cell: function WrapperRenderColumnEdit(cell: Cell<Feature>) {
           return <RenderColumnEdit cell={cell} environment={environment?.value as string} />
@@ -309,38 +462,47 @@ const CFFeatureFlagsPage: React.FC = () => {
     [refetch]
   )
 
-  const onDrawerOpened = (): void => {
-    setIsDrawerOpened(true)
-  }
+  // const onDrawerOpened = (): void => {
+  //   setIsDrawerOpened(true)
+  // }
 
-  const onDrawerClose = (): void => {
-    setIsDrawerOpened(false)
-  }
+  // const onDrawerClose = (): void => {
+  //   setIsDrawerOpened(false)
+  // }
 
   const onEnvChange = (item: SelectOption) => {
     setEnvironment({ label: item?.label, value: item.value as string })
   }
-  const hasFeatureFlags = flagList?.features && flagList?.features?.length > 0
-  const emptyFeatureFlags = flagList?.features && flagList?.features?.length === 0
+  const hasFeatureFlags = features?.features && features?.features?.length > 0
+  const emptyFeatureFlags = features?.features && features?.features?.length === 0
 
   return (
     <>
-      <Page.Header
-        title={
-          <Heading level={2} style={{ fontWeight: 600 }}>
-            {i18n.featureFlag}
-          </Heading>
-        }
-        size="medium"
-      />
+      <Heading
+        level={1}
+        height={80}
+        style={{
+          fontWeight: 'bold',
+          fontSize: '20px',
+          lineHeight: '28px',
+          color: '#22272D',
+          paddingLeft: 'var(--spacing-xxlarge)',
+          display: 'flex',
+          alignItems: 'center',
+          background: 'var(--white)'
+        }}
+      >
+        {i18n.featureFlag}
+      </Heading>
 
-      <Container className={css.ffListContainer}>
+      <Container className={css.content}>
         <Layout.Horizontal className={css.ffPageBtnsHeader}>
           <FlagDialog disabled={loading} environment={environment?.value as string} />
 
           <FlexExpander />
 
-          <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} />
+          {/** TODO: Disable search as backend does not support it yet */}
+          {/* <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} /> */}
 
           <Select
             items={environments}
@@ -350,18 +512,19 @@ const CFFeatureFlagsPage: React.FC = () => {
             value={environment?.value ? environment : environments[0]}
           />
 
-          {/* TODO: Filters length/count should be displayed next to the button, check with BE */}
-          <Button
+          {/** TODO: Disable filter as backend does not fully support it yet */}
+          {/* <Button
             disabled={loading}
             icon="settings"
             iconProps={{ size: 20, color: Color.BLUE_500 }}
             minimal
             intent="primary"
             onClick={onDrawerOpened}
-          />
+          /> */}
         </Layout.Horizontal>
 
-        <Drawer
+        {/** TODO: Disable filter as backend does not fully support it yet */}
+        {/* <Drawer
           isOpen={isDrawerOpened}
           title={isSaveFiltersOn ? i18n.saveFilters : i18n.drawerFilter}
           icon="settings"
@@ -369,37 +532,40 @@ const CFFeatureFlagsPage: React.FC = () => {
           className={css.drawerContainer}
         >
           <FlagDrawerFilter isSaveFiltersOn={isSaveFiltersOn} setIsSaveFiltersOn={setIsSaveFiltersOn} />
-        </Drawer>
+        </Drawer> */}
 
         {hasFeatureFlags && (
-          <Layout.Vertical className={css.ffTableContainer}>
-            {/* TODO: Pagination needs to be communicated with BE */}
-            <Table<Feature>
-              columns={columns}
-              data={flagList?.features || []}
-              onRowClick={feature => {
-                history.push(
-                  routes.toCFFeatureFlagsDetail({
-                    orgIdentifier: orgIdentifier as string,
-                    projectIdentifier: projectIdentifier as string,
-                    environmentIdentifier: environment?.value || (environments[0]?.value as string),
-                    featureFlagIdentifier: feature.identifier,
-                    accountId
-                  })
-                )
-              }}
-              pagination={{
-                itemCount: flagList?.itemCount || 0,
-                pageSize: flagList?.pageSize || 0,
-                pageCount: flagList?.pageCount || 0,
-                pageIndex: pageNumber,
-                gotoPage: index => {
+          <Container className={css.table}>
+            <Container className={css.list}>
+              <Table<Feature>
+                columns={columns}
+                data={features?.features || []}
+                onRowClick={feature => {
+                  history.push(
+                    routes.toCFFeatureFlagsDetail({
+                      orgIdentifier: orgIdentifier as string,
+                      projectIdentifier: projectIdentifier as string,
+                      environmentIdentifier: environment?.value || (environments[0]?.value as string),
+                      featureFlagIdentifier: feature.identifier,
+                      accountId
+                    })
+                  )
+                }}
+              />
+            </Container>
+            <Container className={css.pagination}>
+              <Pagination
+                itemCount={features?.itemCount || 0}
+                pageSize={features?.pageSize || 0}
+                pageCount={features?.pageCount || 0}
+                pageIndex={pageNumber}
+                gotoPage={index => {
                   setPageNumber(index)
                   refetch({ queryParams: { ...queryParams, pageNumber: index } })
-                }
-              }}
-            />
-          </Layout.Vertical>
+                }}
+              />
+            </Container>
+          </Container>
         )}
 
         {emptyFeatureFlags && (

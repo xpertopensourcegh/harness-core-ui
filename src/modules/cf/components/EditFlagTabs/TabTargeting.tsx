@@ -161,7 +161,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
       </Text>
       <Container className={css.defaultRulesContainer}>
         <Layout.Horizontal margin={{ bottom: 'small' }} style={{ alignItems: 'baseline' }}>
-          <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
+          <Text padding={{ right: 'xsmall' }}>{i18n.tabTargeting.flagOn}</Text>
           <Container>
             {editing ? (
               <FormInput.Select
@@ -176,7 +176,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
                 onChange={onDefaultONChange}
               />
             ) : (
-              <Text className={cx(css.textBlack)}>{onLabel}</Text>
+              <Text font={{ weight: 'bold' }}>{onLabel}</Text>
             )}
 
             {percentageView && (
@@ -194,11 +194,11 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
         </Layout.Horizontal>
 
         <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-          <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
+          <Text padding={{ right: 'xsmall' }}>{i18n.tabTargeting.flagOff}</Text>
           {editing ? (
             <FormInput.Select name="offVariation" items={variationItems} onChange={formikProps.handleChange} />
           ) : (
-            <Text className={cx(css.textBlack)}>{offLabel}</Text>
+            <Text font={{ weight: 'bold' }}>{offLabel}</Text>
           )}
         </Layout.Horizontal>
       </Container>

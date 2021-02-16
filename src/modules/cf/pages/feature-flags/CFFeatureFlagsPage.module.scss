@@ -8,12 +8,13 @@
 }
 
 .ff-page-btns-header {
-  padding: var(--spacing-medium) var(--spacing-large) !important;
+  padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
   border: 1px solid var(--grey-300);
   align-items: center;
   background-color: var(--white) !important;
   position: sticky;
   top: 0;
+  z-index: 1;
 
   .ff-page-btns-search {
     margin-right: var(--spacing-small) !important;
@@ -33,7 +34,6 @@
 
 .ff-page-btns-select {
   width: 200px !important;
-  margin-right: var(--spacing-small) !important;
 }
 
 .drawer-container {
@@ -42,14 +42,30 @@
   }
 }
 
-.ff-list-container {
+.content {
   height: calc(100% - 80px);
   overflow: auto;
   background: var(--grey-100) !important;
 }
 
-.ff-table-container {
-  padding: var(--spacing-medium) var(--spacing-large) !important;
+.table {
+  padding: 0 !important;
+  height: calc(100vh - 144px);
+
+  .list {
+    padding: var(--spacing-medium) var(--spacing-xxlarge) 0 !important;
+    height: calc(100% - 50px);
+    overflow: auto;
+  }
+
+  .pagination {
+    height: 50px;
+    padding: 0 var(--spacing-xxlarge) !important;
+
+    > div {
+      border-top: none !important;
+    }
+  }
 }
 
 .tags-popover {
@@ -96,5 +112,40 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+}
+
+.toggleFlagButton,
+.toggleFlagButton:hover,
+.toggleFlagButton:active {
+  border-radius: 10px;
+  padding: 0 !important;
+  border: none !important;
+  background-color: transparent;
+
+  :global {
+    .bp3-control.bp3-switch input:checked ~ .bp3-control-indicator {
+      background-color: #25a6f7;
+    }
+  }
+}
+
+.status {
+  font-weight: 600 !important;
+  font-size: 10px !important;
+  line-height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  text-align: center !important;
+  letter-spacing: -0.00928571px;
+  background: #edf8ff !important;
+  border-radius: 6px !important;
+  color: #8eb0f4 !important;
+  display: inline-block !important;
+  padding: 0 8px !important;
+
+  &.archived {
+    color: #9293ab !important;
+    background: #f3f3fa !important;
   }
 }

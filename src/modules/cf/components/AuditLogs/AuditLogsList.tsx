@@ -37,7 +37,7 @@ const RenderCellAction: Renderer<CellProps<AuditTrail>> = ({ row }) => {
   const { getString } = useStrings()
   const data = row.original
   let text = getString('cf.auditLogs.unknown')
-  let icon: IconName | HarnessIconName = 'tick-circle'
+  let icon: IconName | HarnessIconName = 'audit-log-created'
   let color = 'var(--purple-500)'
 
   switch (data.action) {
@@ -139,6 +139,7 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
       project: projectIdentifier as string,
       environment: environmentIdentifier,
       objectType,
+      identifier: flagData.identifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber,
       startTime: startDate.getTime(),

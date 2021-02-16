@@ -3141,6 +3141,10 @@ export interface GetAuditByParamsQueryParams {
    * Action
    */
   action?: ('FeatureActivationCreated' | 'SegmentCreated' | 'FeatureActivationPatched')[]
+  /**
+   * Identifier of the entity
+   */
+  identifier?: string
 }
 
 export type GetAuditByParamsProps = Omit<

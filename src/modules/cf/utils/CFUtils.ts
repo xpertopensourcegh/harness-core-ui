@@ -1,3 +1,5 @@
+import type { Feature } from 'services/cf'
+
 const LOCALE = 'en'
 
 /**
@@ -36,6 +38,11 @@ export const DEFAULT_ENV = { label: '', value: '' }
 export const CF_DEFAULT_PAGE_SIZE = 15
 export const ADIT_LOG_EMPTY_ENTRY_ID = '00000000-0000-0000-0000-000000000000'
 
+export const FeatureFlagActivationStatus = {
+  ON: 'on',
+  OFF: 'off'
+}
+
 export const AuditLogObjectType = {
   FeatureActivation: 'FeatureActivation' as 'FeatureActivation',
   Segment: 'Segment' as 'Segment'
@@ -45,4 +52,12 @@ export const AuditLogAction = {
   FeatureActivationCreated: 'FeatureActivationCreated',
   SegmentCreated: 'SegmentCreated',
   FeatureActivationPatched: 'FeatureActivationPatched'
+}
+
+export const isFeatureFlagOn = (featureFlag: Feature) => {
+  return featureFlag.envProperties?.state?.toLocaleLowerCase() === FeatureFlagActivationStatus.ON
+}
+
+export const featureFlagHasCustomRules = (featureFlag: Feature) => {
+  return featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length
 }

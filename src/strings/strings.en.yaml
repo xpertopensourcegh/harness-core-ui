@@ -81,6 +81,7 @@ pathStyle: Path Style
 risk: Risk
 error: Error
 active: Active
+inactive: Inactive
 health: Health
 changeSource: Change Source
 monitoringSource: Monitoring Source
@@ -1204,6 +1205,8 @@ connectors:
       crossAccountRoleArn: 'Role ARN is required'
 
 cf:
+  boolean: Boolean
+  multivariate: Multivariate
   homepage:
     slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
     learnMore: Learn more about Feature Flags
@@ -1223,6 +1226,14 @@ cf:
     environment: 'environment'
   featureFlags:
     percentageRollout: 'Percentage Rollout'
+    turnOnHeading: Turn ON Flag
+    turnOffHeading: Turn OFF Flag
+    turnOnMessage: 'Please confirm that you want to turn on <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
+    turnOffMessage: 'Please confirm that you want to turn off <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
+    defaultWillBeServed: '<strong>{{defaultVariation}}</strong> will be served.'
+    customRuleMessage: There are custom rules configured for this flag, please review the rules on detail page.
+    defaultServedOn: '<strong>{{defaultVariation}}</strong> when flag is ON'
+    defaultServedOff: '<strong>{{defaultVariation}}</strong> when flag is OFF'
   targets:
     title: 'Targets'
     ID: 'ID'

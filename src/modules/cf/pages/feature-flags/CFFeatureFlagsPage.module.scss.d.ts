@@ -7,10 +7,15 @@ declare const styles: {
   readonly ffPageBtnsSearch: string
   readonly ffPageBtnsSelect: string
   readonly drawerContainer: string
-  readonly ffListContainer: string
-  readonly ffTableContainer: string
+  readonly content: string
+  readonly table: string
+  readonly list: string
+  readonly pagination: string
   readonly tagsPopover: string
   readonly generalInfo: string
   readonly name: string
+  readonly toggleFlagButton: string
+  readonly status: string
+  readonly archived: string
 }
 export default styles

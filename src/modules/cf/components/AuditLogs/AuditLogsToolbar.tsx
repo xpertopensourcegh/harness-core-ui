@@ -46,7 +46,7 @@ export const AuditLogsToolbar: React.FC<AuditLogsToolbar> = ({
         }}
       />
       <FlexExpander />
-      <Layout.Horizontal spacing="small">
+      <Layout.Horizontal spacing="small" style={{ display: 'none' }}>
         {/* <ExpandingSearchInput name="search" placeholder={getString('cf.auditLogs.searchPlaceholder')} /> */}
         <Button minimal icon="main-search" disabled />
         <Button minimal icon="settings" disabled />

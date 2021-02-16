@@ -686,7 +686,10 @@ const CFSegmentDetailsPage = () => {
               title="Activity Log"
               panel={
                 <Container style={{ marginTop: '-20px', height: 'calc(100vh - 217px)', overflow: 'auto' }}>
-                  <AuditLogs flagData={{ name: data?.name } as Feature} objectType={AuditLogObjectType.Segment} />
+                  <AuditLogs
+                    flagData={{ name: data?.name, identifier: data?.identifier } as Feature}
+                    objectType={AuditLogObjectType.Segment}
+                  />
                 </Container>
               }
             />
