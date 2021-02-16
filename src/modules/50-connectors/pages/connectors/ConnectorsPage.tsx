@@ -55,6 +55,7 @@ import type { FilterInterface, FilterDataInterface } from '@common/components/Fi
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
+import { shouldShowError } from '@common/utils/errorUtils'
 import ConnectorsListView from './views/ConnectorsListView'
 import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
@@ -147,12 +148,10 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           setFetchedConnectorResponse(data)
         }
       } /* istanbul ignore next */ catch (e) {
-        if (e.data?.message) {
-          showError(e.data?.message)
-        } else if (e.data) {
-          showError(e.data)
+        if (shouldShowError(e)) {
+          showError(e.data?.message || e.message)
+          setErrorWhileFetchingConnectors(e)
         }
-        setErrorWhileFetchingConnectors(e)
       }
       setIsFetchingConnectors(false)
     },
