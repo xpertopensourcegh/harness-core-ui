@@ -350,7 +350,10 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 const CFFeatureFlagsPage: React.FC = () => {
   // const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   // const [isDrawerOpened, setIsDrawerOpened] = useState(false)
-  const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
+  const [environment, setEnvironment] = useLocalStorage<typeof DEFAULT_ENV | undefined>(
+    CF_LOCAL_STORAGE_ENV_KEY,
+    DEFAULT_ENV
+  )
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
 
@@ -377,20 +380,22 @@ const CFFeatureFlagsPage: React.FC = () => {
   const [features, setFeatures] = useState<Features | null>()
 
   useEffect(() => {
-    if (environment) {
-      refetch()
-    }
-  }, [environment])
-
-  useEffect(() => {
-    if (!envsLoading && environments?.length > 0 && environment?.label) {
-      if (environments.find(v => v.value === environment.value)) {
-        setEnvironment({ label: environment['label'], value: environment['value'] })
-      } else {
-        setEnvironment({ label: environments[0]['label'], value: environments[0]['value'] as string })
+    if (!envsLoading) {
+      if (environments?.length > 0) {
+        if (environment?.value && environments.find(v => v.value === environment.value)) {
+          setEnvironment({ label: environment.label, value: environment.value })
+          refetch({ queryParams: { ...queryParams, environment: environment.value } })
+        } else {
+          setEnvironment({ label: environments[0].label, value: environments[0].value as string })
+          refetch({ queryParams: { ...queryParams, environment: environments[0].value as string } })
+        }
+      } else if (environments?.length === 0) {
+        setEnvironment(undefined)
+        setFeatures(undefined)
+        // TODO: Show modal to create an environment
       }
     }
-  }, [environments.length, envsLoading])
+  }, [environments?.length, envsLoading])
 
   useEffect(() => {
     setFeatures(data)
@@ -470,8 +475,9 @@ const CFFeatureFlagsPage: React.FC = () => {
   //   setIsDrawerOpened(false)
   // }
 
-  const onEnvChange = (item: SelectOption) => {
+  const onEnvironmentChanged = (item: SelectOption) => {
     setEnvironment({ label: item?.label, value: item.value as string })
+    refetch({ queryParams: { ...queryParams, environment: item.value as string } })
   }
   const hasFeatureFlags = features?.features && features?.features?.length > 0
   const emptyFeatureFlags = features?.features && features?.features?.length === 0
@@ -508,8 +514,9 @@ const CFFeatureFlagsPage: React.FC = () => {
             items={environments}
             className={css.ffPageBtnsSelect}
             inputProps={{ placeholder: i18n.selectEnv }}
-            onChange={onEnvChange}
-            value={environment?.value ? environment : environments[0]}
+            onChange={onEnvironmentChanged}
+            value={environment?.value ? environment : environments[0] || null}
+            disabled={loading}
           />
 
           {/** TODO: Disable filter as backend does not fully support it yet */}
