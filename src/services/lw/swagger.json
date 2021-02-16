@@ -1272,6 +1272,57 @@
           }
         }
       }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/{service_id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "service_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["RouteDetails"],
+        "summary": "Details of a Route",
+        "description": "Get Details of a Route",
+        "operationId": "RouteDetails",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "$ref": "#/definitions/SaveServiceRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
 
@@ -1342,6 +1393,32 @@
         },
         "access_point_id": {
           "type": "string"
+        },
+        "metadata": {
+          "type": "object",
+          "$ref": "#/definitions/ServiceMetadata"
+        }
+      }
+    },
+    "ServiceMetadata": {
+      "type": "object",
+      "properties": {
+        "cloud_provider_details": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          }
+        },
+        "target_group_details": {
+          "type": "object"
+        },
+        "access_details": {
+          "type": "object"
         }
       }
     },

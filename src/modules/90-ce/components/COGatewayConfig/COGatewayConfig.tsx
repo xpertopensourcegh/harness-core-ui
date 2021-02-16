@@ -139,11 +139,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             return {
               name: item.name ? item.name : '',
               id: item.id ? item.id : '',
-              ipAddress: item.ipv4 ? item.ipv4[0] : '',
+              ipv4: item.ipv4 ? item.ipv4[0] : '',
               region: item.region ? item.region : '',
               type: item.type ? item.type : '',
               tags: '',
-              launchTime: item.launch_time ? item.launch_time : '',
+              launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
               status: item.status ? item.status : ''
             }
           })
@@ -166,7 +166,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     const emptyRecords: PortConfig[] = []
     try {
       const result = await getSecurityGroups({
-        text: `id = ['${props.gatewayDetails.selectedInstances[0].id}']\nregions = ['${props.gatewayDetails.selectedInstances[0].region}']`
+        text: `id = ['${
+          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : ''
+        }']\nregions = ['${
+          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : ''
+        }']`
       })
       if (result && result.response) {
         Object.keys(result.response).forEach(instance => {
@@ -237,7 +241,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     }
     const instances: InstanceDetails[] = []
     allInstances.forEach(t => {
-      if (t.name.indexOf(text) >= 0 || t.id.indexOf(text) >= 0) {
+      const r = t as InstanceDetails
+      const name = r.name as string
+      const id = r.id as string
+      if (name.indexOf(text) >= 0 || id.indexOf(text) >= 0) {
         instances.push(t)
       }
     })
@@ -425,7 +432,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         Cell: NameCell
                       },
                       {
-                        accessor: 'ipAddress',
+                        accessor: 'ipv4',
                         Header: 'IP ADDRESS',
                         width: '16.5%',
                         Cell: TableCell,
@@ -450,7 +457,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         Cell: TableCell
                       },
                       {
-                        accessor: 'launchTime',
+                        accessor: 'launch_time',
                         Header: 'LAUNCH TIME',
                         width: '16.5%',
                         Cell: TableCell

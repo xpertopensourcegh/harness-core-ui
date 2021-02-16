@@ -5,7 +5,7 @@ import DNSLinkSetup from './DNSLinkSetup'
 import i18n from './COGatewayAccess.i18n'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
-import type { GatewayDetails } from '../COCreateGateway/models'
+import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
 import COFixedDrawer from './COFixedDrawer'
 import css from './COGatewayAccess.module.scss'
 
@@ -16,12 +16,16 @@ interface COGatewayAccessProps {
   setGatewayDetails: (gw: GatewayDetails) => void
 }
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
-  const [dnsCheck, setDNSCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.dnsLink.selected)
-  const [sshCheck, setSSHCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.ssh.selected)
-  const [ipCheck, setIPCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.ipaddress.selected)
-  const [rdpCheck, setRDPCheck] = useState<false | boolean>(props.gatewayDetails.connectionMetadata.rdp.selected)
-  const [bgCheck, setBGCheck] = useState<false | boolean>(
-    props.gatewayDetails.connectionMetadata.backgroundTasks.selected
+  const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
+    props.gatewayDetails.metadata.access_details // eslint-disable-line
+      ? (props.gatewayDetails.metadata.access_details as ConnectionMetadata) // eslint-disable-line
+      : {
+          dnsLink: { selected: false },
+          ssh: { selected: false },
+          rdp: { selected: false },
+          backgroundTasks: { selected: false },
+          ipaddress: { selected: false }
+        }
   )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
@@ -31,39 +35,41 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   }
 
   useEffect(() => {
-    if (dnsCheck || ipCheck || sshCheck || bgCheck || rdpCheck) {
+    if (
+      accessDetails.dnsLink.selected ||
+      accessDetails.ipaddress.selected ||
+      accessDetails.ssh.selected ||
+      accessDetails.backgroundTasks.selected ||
+      accessDetails.rdp.selected
+    ) {
       props.setValidity(true)
     } else {
       props.setValidity(false)
     }
-    props.gatewayDetails.connectionMetadata.dnsLink.selected = dnsCheck
-    props.gatewayDetails.connectionMetadata.ssh.selected = sshCheck
-    props.gatewayDetails.connectionMetadata.rdp.selected = rdpCheck
-    props.gatewayDetails.connectionMetadata.backgroundTasks.selected = bgCheck
-    props.gatewayDetails.connectionMetadata.ipaddress.selected = ipCheck
+    props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
     props.setGatewayDetails(props.gatewayDetails)
-    if (dnsCheck) {
+    if (accessDetails.dnsLink.selected) {
       setSelectedTabId('dns')
       return
     }
-    if (sshCheck) {
+    if (accessDetails.ssh.selected) {
       setSelectedTabId('ssh')
       return
     }
-    if (ipCheck) {
+    if (accessDetails.ipaddress.selected) {
       setSelectedTabId('ip')
       return
     }
-    if (rdpCheck) {
+    if (accessDetails.rdp.selected) {
       setSelectedTabId('rdp')
       return
     }
-    if (bgCheck) {
+    if (accessDetails.backgroundTasks.selected) {
       setSelectedTabId('bg')
       return
     }
     setSelectedTabId('')
-  }, [dnsCheck, sshCheck, ipCheck, rdpCheck, bgCheck])
+  }, [accessDetails])
 
   useEffect(() => {
     let helpTextBase = 'setup-access'
@@ -99,26 +105,29 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
               <Checkbox
                 label="DNS Link"
                 onChange={val => {
-                  setDNSCheck(val.currentTarget.checked)
+                  accessDetails.dnsLink.selected = val.currentTarget.checked
+                  setAccessDetails(Object.assign({}, accessDetails))
                 }}
                 className={css.checkbox}
-                defaultChecked={dnsCheck}
+                defaultChecked={accessDetails.dnsLink.selected}
               />
               <Checkbox
                 label="RDP"
                 className={css.checkbox}
                 onChange={val => {
-                  setRDPCheck(val.currentTarget.checked)
+                  accessDetails.rdp.selected = val.currentTarget.checked
+                  setAccessDetails(Object.assign({}, accessDetails))
                 }}
-                defaultChecked={rdpCheck}
+                defaultChecked={accessDetails.rdp.selected}
               />
               <Checkbox
                 label="SSH"
                 onChange={val => {
-                  setSSHCheck(val.currentTarget.checked)
+                  accessDetails.ssh.selected = val.currentTarget.checked
+                  setAccessDetails(Object.assign({}, accessDetails))
                 }}
                 className={css.checkbox}
-                defaultChecked={sshCheck}
+                defaultChecked={accessDetails.ssh.selected}
               />
             </Layout.Vertical>
             <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
@@ -126,16 +135,18 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 label="Background Tasks"
                 className={css.checkbox}
                 onChange={val => {
-                  setBGCheck(val.currentTarget.checked)
+                  accessDetails.backgroundTasks.selected = val.currentTarget.checked
+                  setAccessDetails(Object.assign({}, accessDetails))
                 }}
-                defaultChecked={bgCheck}
+                defaultChecked={accessDetails.backgroundTasks.selected}
               />
               <Checkbox
                 label="IP address"
                 className={css.checkbox}
-                defaultChecked={ipCheck}
+                defaultChecked={accessDetails.ipaddress.selected}
                 onChange={val => {
-                  setIPCheck(val.currentTarget.checked)
+                  accessDetails.ipaddress.selected = val.currentTarget.checked
+                  setAccessDetails(Object.assign({}, accessDetails))
                 }}
               />
             </Layout.Vertical>
@@ -143,7 +154,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
         </Layout.Vertical>
         <Container className={css.setupTab}>
           <Tabs id="setupTabs" selectedTabId={selectedTabId} onChange={selectTab}>
-            {dnsCheck ? (
+            {accessDetails.dnsLink.selected ? (
               <Tab
                 id="dns"
                 title={'DNS Link'}
@@ -156,10 +167,12 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 }
               ></Tab>
             ) : null}
-            {sshCheck ? <Tab id="ssh" title={'SSH'} panel={<SSHSetup />}></Tab> : null}
-            {ipCheck ? <Tab id="ip" title={'IP Address'} panel={<IPSetup />}></Tab> : null}
-            {rdpCheck ? <Tab id="rdp" title={'RDP'} panel={<IPSetup />}></Tab> : null}
-            {bgCheck ? <Tab id="bg" title={'Background Tasks'} panel={<IPSetup />}></Tab> : null}
+            {accessDetails.ssh.selected ? <Tab id="ssh" title={'SSH'} panel={<SSHSetup />}></Tab> : null}
+            {accessDetails.ipaddress.selected ? <Tab id="ip" title={'IP Address'} panel={<IPSetup />}></Tab> : null}
+            {accessDetails.rdp.selected ? <Tab id="rdp" title={'RDP'} panel={<IPSetup />}></Tab> : null}
+            {accessDetails.backgroundTasks.selected ? (
+              <Tab id="bg" title={'Background Tasks'} panel={<IPSetup />}></Tab>
+            ) : null}
           </Tabs>
         </Container>
       </Layout.Vertical>

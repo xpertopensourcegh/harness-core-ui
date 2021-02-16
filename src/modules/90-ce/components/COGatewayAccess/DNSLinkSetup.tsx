@@ -16,7 +16,7 @@ import { Dialog, IDialogProps, RadioGroup, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { AccessPoint, useListAccessPoints } from 'services/lw'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
-import type { GatewayDetails } from '../COCreateGateway/models'
+import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
 
 const modalPropsLight: IDialogProps = {
   isOpen: true,
@@ -42,6 +42,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
+  const accessDetails = props.gatewayDetails.metadata.access_details as ConnectionMetadata // eslint-disable-line
   const initialAccessPointDetails: AccessPoint = {
     cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -52,8 +53,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       security_groups: [] // eslint-disable-line
     },
     type: 'aws',
-    region: props.gatewayDetails.selectedInstances.length ? props.gatewayDetails.selectedInstances[0].region : '',
-    vpc: props.gatewayDetails.selectedInstances.length
+    region: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].region : '',
+    vpc: props.gatewayDetails.selectedInstances?.length
       ? props.gatewayDetails.selectedInstances[0].metadata
         ? props.gatewayDetails.selectedInstances[0].metadata['VpcID']
         : ''
@@ -101,7 +102,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       <Formik
         initialValues={{
           customURL: props.gatewayDetails.customDomains?.join(','),
-          publicallyAccessible: props.gatewayDetails.connectionMetadata.dnsLink.public as string,
+          publicallyAccessible: accessDetails.dnsLink.public as string,
           dnsProvider: 'route53',
           route53Account: '',
           accessPoint: props.gatewayDetails.accessPointID
@@ -137,7 +138,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       formik.setFieldValue('publicallyAccessible', e.currentTarget.value)
                       if (e.currentTarget.value == 'yes') props.setHelpTextSection('public-dns')
                       else props.setHelpTextSection('private-dns')
-                      props.gatewayDetails.connectionMetadata.dnsLink.public = e.currentTarget.value
+                      accessDetails.dnsLink.public = e.currentTarget.value
+                      props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
                       props.setGatewayDetails(props.gatewayDetails)
                     }}
                     selectedValue={formik.values.publicallyAccessible}

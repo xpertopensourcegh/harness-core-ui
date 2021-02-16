@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import type { CellProps, Renderer } from 'react-table'
+import type { CellProps } from 'react-table'
 import {
   Text,
   Color,
@@ -63,71 +63,6 @@ function NameCell(tableProps: CellProps<Service>): JSX.Element {
       {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
       {tableProps.value}
     </Text>
-  )
-}
-const RenderColumnMenu: Renderer<CellProps<Service>> = ({ row }) => {
-  const data = row.original.id
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  return (
-    <Layout.Horizontal className={css.layout}>
-      <Popover
-        isOpen={menuOpen}
-        onInteraction={nextOpenState => {
-          setMenuOpen(nextOpenState)
-        }}
-        className={Classes.DARK}
-        position={Position.BOTTOM_RIGHT}
-      >
-        <Button
-          minimal
-          icon="Options"
-          iconProps={{ size: 24 }}
-          onClick={e => {
-            e.stopPropagation()
-            setMenuOpen(true)
-          }}
-          data-testid={`menu-${data}`}
-        />
-        <Menu style={{ minWidth: 'unset' }}>
-          {row.original.disabled ? (
-            <Menu.Item
-              icon="play"
-              text="Enable"
-              onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                e.stopPropagation()
-                alert('you are enabling')
-              }}
-            />
-          ) : (
-            <Menu.Item
-              icon="disable"
-              text="Disable"
-              onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                e.stopPropagation()
-                alert('you are disabling')
-              }}
-            />
-          )}
-          <Menu.Item
-            icon="edit"
-            text="Edit"
-            onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-              e.stopPropagation()
-              alert('you are editing')
-            }}
-          />
-          <Menu.Item
-            icon="trash"
-            text="Delete"
-            onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-              e.stopPropagation()
-              alert('you are deleting')
-            }}
-          />
-        </Menu>
-      </Popover>
-    </Layout.Horizontal>
   )
 }
 
@@ -260,6 +195,82 @@ const COGatewayList: React.FC = () => {
         {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
         {tableProps.value}
       </Container>
+    )
+  }
+  function RenderColumnMenu(tableProps: CellProps<Service>): JSX.Element {
+    const row = tableProps.row
+    const data = row.original.id
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    return (
+      <Layout.Horizontal className={css.layout}>
+        <Popover
+          isOpen={menuOpen}
+          onInteraction={nextOpenState => {
+            setMenuOpen(nextOpenState)
+          }}
+          className={Classes.DARK}
+          position={Position.BOTTOM_RIGHT}
+        >
+          <Button
+            minimal
+            icon="Options"
+            iconProps={{ size: 24 }}
+            onClick={e => {
+              e.stopPropagation()
+              setMenuOpen(true)
+            }}
+            data-testid={`menu-${data}`}
+          />
+          <Menu style={{ minWidth: 'unset' }}>
+            {row.original.disabled ? (
+              <Menu.Item
+                icon="play"
+                text="Enable"
+                onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                  e.stopPropagation()
+                  alert('you are enabling')
+                }}
+              />
+            ) : (
+              <Menu.Item
+                icon="disable"
+                text="Disable"
+                onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                  e.stopPropagation()
+                  alert('you are disabling')
+                }}
+              />
+            )}
+            <Menu.Item
+              icon="edit"
+              text="Edit"
+              onClick={() =>
+                history.push(
+                  routes.toCECOEditGateway({
+                    orgIdentifier: row.original.org_id as string,
+                    projectIdentifier: row.original.project_id as string,
+                    accountId: row.original.account_identifier as string,
+                    gatewayIdentifier: row.original.id?.toString() as string
+                  })
+                )
+              }
+              // onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+              //   e.stopPropagation()
+              //   alert('you are editing')
+              // }}
+            />
+            <Menu.Item
+              icon="trash"
+              text="Delete"
+              onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                e.stopPropagation()
+                alert('you are deleting')
+              }}
+            />
+          </Menu>
+        </Popover>
+      </Layout.Horizontal>
     )
   }
   const { data, error, loading } = useGetServices({

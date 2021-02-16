@@ -1,4 +1,4 @@
-import type { HealthCheck, PortConfig } from 'services/lw'
+import type { HealthCheck, PortConfig, ServiceMetadata } from 'services/lw'
 
 interface Instance {
   filterText: string
@@ -28,15 +28,16 @@ export interface Provider {
 export interface InstanceDetails {
   id: string
   name: string
-  ipAddress?: string
+  ipv4?: string
   region: string
   type: string
   tags?: string
-  launchTime?: string
+  launch_time?: string // eslint-disable-line
   status: string
   metadata?: { [key: string]: any }
 }
 export interface GatewayDetails {
+  id?: number
   name: string
   cloudAccount: CloudAccount
   idleTimeMins: number
@@ -56,7 +57,7 @@ export interface GatewayDetails {
   selectedInstances: InstanceDetails[]
   accessPointID: string
   accountID: string
-  connectionMetadata: ConnectionMetadata
+  metadata: ServiceMetadata
 }
 
 interface DNSLink {
@@ -76,7 +77,7 @@ interface BackgroundTasks {
 interface IpAddress {
   selected: boolean
 }
-interface ConnectionMetadata {
+export interface ConnectionMetadata {
   dnsLink: DNSLink
   ssh: SSH
   rdp: RDP

@@ -23,6 +23,16 @@ export interface Service {
   opts?: Opts
   created_at?: string
   access_point_id?: string
+  metadata?: ServiceMetadata
+}
+
+export interface ServiceMetadata {
+  cloud_provider_details?: {
+    name?: string
+    type?: string
+  }
+  target_group_details?: { [key: string]: any }
+  access_details?: { [key: string]: any }
 }
 
 export interface ServiceDep {
@@ -1575,4 +1585,45 @@ export const useCumulativeServiceSavings = ({ org_id, project_id, ...props }: Us
     (paramsInPath: CumulativeServiceSavingsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/savings/cumulative`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
+  )
+
+export interface RouteDetailsResponse {
+  response?: SaveServiceRequest
+}
+
+export interface RouteDetailsPathParams {
+  org_id: string
+  project_id: string
+  service_id: number
+}
+
+export type RouteDetailsProps = Omit<GetProps<RouteDetailsResponse, void, void, RouteDetailsPathParams>, 'path'> &
+  RouteDetailsPathParams
+
+/**
+ * Details of a Route
+ *
+ * Get Details of a Route
+ */
+export const RouteDetails = ({ org_id, project_id, service_id, ...props }: RouteDetailsProps) => (
+  <Get<RouteDetailsResponse, void, void, RouteDetailsPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/services/${service_id}"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseRouteDetailsProps = Omit<UseGetProps<RouteDetailsResponse, void, void, RouteDetailsPathParams>, 'path'> &
+  RouteDetailsPathParams
+
+/**
+ * Details of a Route
+ *
+ * Get Details of a Route
+ */
+export const useRouteDetails = ({ org_id, project_id, service_id, ...props }: UseRouteDetailsProps) =>
+  useGet<RouteDetailsResponse, void, void, RouteDetailsPathParams>(
+    (paramsInPath: RouteDetailsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.service_id}`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
   )

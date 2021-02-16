@@ -75,7 +75,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
                 Cell: NameCell
               },
               {
-                accessor: 'ipAddress',
+                accessor: 'ipv4',
                 Header: i18n.ipAddress,
                 width: '16.5%',
                 Cell: TableCell,
@@ -100,7 +100,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
                 Cell: TableCell
               },
               {
-                accessor: 'launchTime',
+                accessor: 'launch_time',
                 Header: i18n.launchTime,
                 width: '16.5%',
                 Cell: TableCell

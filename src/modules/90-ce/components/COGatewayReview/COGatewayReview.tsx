@@ -97,7 +97,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
                     Cell: NameCell
                   },
                   {
-                    accessor: 'ipAddress',
+                    accessor: 'ipv4',
                     Header: 'IP ADDRESS',
                     width: '16.5%',
                     Cell: TableCell,
@@ -122,7 +122,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
                     Cell: TableCell
                   },
                   {
-                    accessor: 'launchTime',
+                    accessor: 'launch_time',
                     Header: 'LAUNCH TIME',
                     width: '16.5%',
                     Cell: TableCell

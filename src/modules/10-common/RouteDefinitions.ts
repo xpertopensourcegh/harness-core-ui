@@ -730,6 +730,10 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}/create-gateway`
   ),
+  toCECOEditGateway: withAccountId(
+    ({ orgIdentifier, projectIdentifier, gatewayIdentifier }: ProjectPathProps & { gatewayIdentifier: string }) =>
+      `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}/edit-gateway/${gatewayIdentifier}`
+  ),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/dashboards'),
   toCustomDasboardHome: withAccountId(() => '/dashboards/home'),

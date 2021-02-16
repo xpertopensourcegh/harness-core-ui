@@ -43,6 +43,10 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
                 onChange={e => {
                   formik.setFieldValue('cloudAccount', e.identifier)
                   props.gatewayDetails.cloudAccount = { id: e.identifier?.toString(), name: e.name }
+                  // eslint-disable-next-line
+                  props.gatewayDetails.metadata.cloud_provider_details = {
+                    name: e.name
+                  }
                   props.setGatewayDetails(props.gatewayDetails)
                   formik.setFieldValue('cloudAccount', e)
                   props.setCloudAccount(props.gatewayDetails.cloudAccount.id)

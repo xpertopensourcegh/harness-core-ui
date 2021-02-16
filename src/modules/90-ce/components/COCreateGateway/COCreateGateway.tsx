@@ -60,23 +60,7 @@ export const CECODashboardPage: React.FC = () => {
     },
     selectedInstances: [],
     accessPointID: '',
-    connectionMetadata: {
-      dnsLink: {
-        selected: false
-      },
-      ssh: {
-        selected: false
-      },
-      rdp: {
-        selected: false
-      },
-      backgroundTasks: {
-        selected: false
-      },
-      ipaddress: {
-        selected: false
-      }
-    }
+    metadata: {}
   }
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>(initialGatewayDetails)
   const nextTab = (): void => {

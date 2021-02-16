@@ -61,9 +61,13 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         preserve_private_ip: false, // eslint-disable-line
         always_use_private_ip: false // eslint-disable-line
       },
+      metadata: props.gatewayDetails.metadata,
       disabled: props.gatewayDetails.disabled,
       match_all_subdomains: props.gatewayDetails.matchAllSubdomains, // eslint-disable-line
       access_point_id: props.gatewayDetails.accessPointID // eslint-disable-line
+    }
+    if (props.gatewayDetails.id) {
+      gateway.id = props.gatewayDetails.id
     }
     try {
       const result = await saveGateway({ service: gateway, deps: [], apply_now: false }) // eslint-disable-line
@@ -191,7 +195,12 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       </Container>
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Layout.Horizontal className={css.footer} spacing="medium">
-        <Button text="Previous" icon="chevron-left" onClick={() => previousTab()} />
+        <Button
+          text="Previous"
+          icon="chevron-left"
+          onClick={() => previousTab()}
+          disabled={selectedTabId == tabs[0] && (props.gatewayDetails.id as number) != 0}
+        />
         <Button
           intent="primary"
           text={getNextButtonText()}
