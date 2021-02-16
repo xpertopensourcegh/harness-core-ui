@@ -190,7 +190,6 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         ) as PipelineFilterProperties
         const { status, data } = await reloadPipelines(filter, { queryParams: params })
         if (status === 'SUCCESS') {
-          setInitLoading(false)
           setPipelineList(data)
         }
       } catch (e) {
@@ -199,6 +198,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           setError(e)
         }
       }
+      setInitLoading(false)
     },
     [reloadPipelines, showError, cancel, appliedFilter]
   )

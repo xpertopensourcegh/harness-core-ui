@@ -1,7 +1,7 @@
-const CLIENT_SERVER_ERROR_CODES = [400, 401, 403, 404, 500, 502, 503, 504]
+const HTTP_STATUS_OK = 200
 
 export function shouldShowError(e: any): boolean {
-  if (CLIENT_SERVER_ERROR_CODES.includes(e?.status)) {
+  if (e?.status !== HTTP_STATUS_OK) {
     return false
   }
   if (

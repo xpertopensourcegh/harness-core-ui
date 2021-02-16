@@ -105,7 +105,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         ) as PipelineExecutionFilterProperties
         const { status, data } = await fetchListOfExecutions(filter, { queryParams: params })
         if (status === 'SUCCESS') {
-          setInitLoading(false)
           setPipelineExecutionSummary(data)
         }
       } catch (e) {
@@ -114,6 +113,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           setError(e)
         }
       }
+      setInitLoading(false)
     },
     [fetchListOfExecutions, showError, cancel, appliedFilter]
   )
