@@ -5,7 +5,7 @@ import css from './MultiLogsViewer.module.scss'
 
 export type MultiLogsViewerData = Omit<LogViewerAccordionProps, 'onSectionClick' | 'linesChunkSize'>
 
-export { LogViewerAccordionStatus as LogViewerSectionStatus, LogViewerAccordionProps as LogViewerSectionProps }
+export type { LogViewerAccordionStatus, LogViewerAccordionProps }
 
 export interface MultiLogsViewerProps {
   /**

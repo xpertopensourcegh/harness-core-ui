@@ -9,7 +9,7 @@ import {
   isExecutionRunning,
   isExecutionRunningLike
 } from '@pipeline/utils/statusHelpers'
-import type { MultiLogsViewerData, LogViewerSectionStatus } from '@common/components/MultiLogsViewer/MultiLogsViewer'
+import type { MultiLogsViewerData, LogViewerAccordionStatus } from '@common/components/MultiLogsViewer/MultiLogsViewer'
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 
@@ -56,7 +56,7 @@ export interface State {
 
 const LOG_TYPE_LENGTH = 4
 const TIMESTAMP_LENGTH = 24
-const logViewerStatusMap: Record<string, LogViewerSectionStatus> = {
+const logViewerStatusMap: Record<string, LogViewerAccordionStatus> = {
   failed: 'error',
   failure: 'error',
   success: 'success'

@@ -6,7 +6,7 @@ import { String } from 'framework/exports'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import SessionToken from 'framework/utils/SessionToken'
-import { MultiLogsViewer, LogViewerSectionProps } from '@common/components/MultiLogsViewer/MultiLogsViewer'
+import { MultiLogsViewer, LogViewerAccordionProps } from '@common/components/MultiLogsViewer/MultiLogsViewer'
 import { getStageType } from '@pipeline/utils/executionUtils'
 
 import { useLogsStream } from './useLogsStream'
@@ -136,7 +136,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
   ])
 
-  function handleSectionClick(id: string, _props: LogViewerSectionProps): boolean | void {
+  function handleSectionClick(id: string, _props: LogViewerAccordionProps): boolean | void {
     const currentSection = state.dataMap[id]
 
     if (!currentSection?.data) {
