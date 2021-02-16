@@ -6,9 +6,9 @@ rules:
         - modules/15-notifications/*
         - modules/20-rbac/*
         - modules/30-secrets/*
+        - modules/35-connectors/*
         - modules/40-delegates/*
         - modules/40-projects-orgs/*
-        - modules/50-connectors/*
         - modules/60-gitsync/*
         - modules/70-pipeline/*
         - modules/75-cd/*
@@ -18,9 +18,9 @@ rules:
         - '@notifications/*'
         - '@rbac/*'
         - '@secrets/*'
+        - '@connectors/*'
         - '@delegates/*'
         - '@projects-orgs/*'
-        - '@connectors/*'
         - '@gitsync/*'
         - '@pipeline/*'
         - '@cd/*'

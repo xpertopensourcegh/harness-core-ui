@@ -4,9 +4,9 @@ rules:
     - patterns:
         - lodash.*
         - modules/30-secrets/*
+        - modules/35-connectors/*
         - modules/40-delegates/*
         - modules/40-projects-orgs/*
-        - modules/50-connectors/*
         - modules/60-gitsync/*
         - modules/70-pipeline/*
         - modules/75-cd/*
@@ -14,9 +14,9 @@ rules:
         - modules/85-cv/*
         - modules/90-ce/*
         - '@secrets/*'
+        - '@connectors/*'
         - '@delegates/*'
         - '@projects-orgs/*'
-        - '@connectors/*'
         - '@gitsync/*'
         - '@pipeline/*'
         - '@cd/*'

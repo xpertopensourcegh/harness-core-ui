@@ -27,7 +27,7 @@
       "@rbac/*": ["modules/20-rbac/*"],
       "@secrets/*": ["modules/30-secrets/*"],
       "@projects-orgs/*": ["modules/40-projects-orgs/*"],
-      "@connectors/*": ["modules/50-connectors/*"],
+      "@connectors/*": ["modules/35-connectors/*"],
       "@gitsync/*": ["modules/60-gitsync/*"],
       "@pipeline/*": ["modules/70-pipeline/*"],
       "@cd/*": ["modules/75-cd/*"],
