@@ -246,7 +246,7 @@ describe('Unit tests for RecentActivityChanges', () => {
     await waitFor(() => expect(container.querySelectorAll(`[class*="${Classes.SKELETON}"]`).length).toBe(3))
   })
 
-  test('Ensure that when no data is returned, the no data card is displayed', async () => {
+  test('Ensure that when no data is returned, the placeholder with setup button is rendered', async () => {
     const { container, getByText } = render(
       <TestWrapper
         path={TEST_PATH}
@@ -260,7 +260,7 @@ describe('Unit tests for RecentActivityChanges', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(getByText(i18n.noActivitiesMessaging)).not.toBeNull()
+    expect(getByText('Setup Continuous Verification')).not.toBeNull()
   })
 
   test('Ensure that when an error happens, error card is displayed', async () => {

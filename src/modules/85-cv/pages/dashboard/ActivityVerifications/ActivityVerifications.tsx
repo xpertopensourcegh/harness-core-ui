@@ -1,10 +1,11 @@
 import React from 'react'
-import { Container, Text, Button } from '@wings-software/uicore'
+import { Container, Text, Button, Link } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
+import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import i18n from './ActivityVerifications.i18n'
 import VerificationItem from './VerificationItem'
 import css from './ActivityVerifications.module.scss'
@@ -24,7 +25,7 @@ export default function ActivityVerifications(): JSX.Element {
   const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const { getString } = useStrings()
-  const { data } = useGetRecentDeploymentActivityVerifications({
+  const { data, loading } = useGetRecentDeploymentActivityVerifications({
     queryParams: {
       accountId: accountId as string,
       projectIdentifier: projectIdentifier as string,
@@ -32,6 +33,51 @@ export default function ActivityVerifications(): JSX.Element {
       size: 5
     } as any // Size not supported ?
   })
+
+  if (!loading && !data?.resource?.length) {
+    return (
+      <ul className={css.activityList}>
+        <li className={css.headerRow}>{RECENT_VERIFICATIONS_COLUMN_NAMES}</li>
+        <li className={css.emptyBar}>
+          <div style={{ width: 210 }}>
+            <Link
+              intent="primary"
+              minimal
+              onClick={() => {
+                history.push(
+                  routes.toCVAdminSetup({
+                    accountId,
+                    projectIdentifier,
+                    orgIdentifier
+                  })
+                )
+              }}
+            >
+              {i18n.setup}
+            </Link>
+          </div>
+          <div style={{ width: 295 }}>
+            {i18n.verificationResultText.verificationNotStarted}
+            <div style={{ width: 200 }}>
+              <CVProgressBar value={0} riskScore={0} />
+            </div>
+          </div>
+          <div style={{ width: 295 }}>
+            {i18n.verificationResultText.verificationNotStarted}
+            <div style={{ width: 200 }}>
+              <CVProgressBar value={0} riskScore={0} />
+            </div>
+          </div>
+          <div style={{ width: 300 }}>
+            {i18n.verificationResultText.verificationNotStarted}
+            <div style={{ width: 200 }}>
+              <CVProgressBar value={0} riskScore={0} />
+            </div>
+          </div>
+        </li>
+      </ul>
+    )
+  }
 
   return (
     <Container className={css.main}>

@@ -17,5 +17,6 @@ declare const styles: {
   readonly tooltipItemContent: string
   readonly tooltipDateGroup: string
   readonly tooltipTarget: string
+  readonly emptyBar: string
 }
 export default styles

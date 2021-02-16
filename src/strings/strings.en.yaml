@@ -1315,6 +1315,8 @@ cv:
   harnessEnvironment: 'Harness Environment'
   selectOrCreateEnv: 'Select or create an environment'
   verificationErrored: 'Verification errored'
+  getRiskAssessment: 'Get risk assessment'
+  setup: 'Setup Continuous Verification'
   overviewPage:
     recentChangeVerifications: 'Recent Change Verifications'
   riskCardTooltip:

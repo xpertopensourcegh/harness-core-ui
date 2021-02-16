@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Container, Text, Color, Icon, Layout } from '@wings-software/uicore'
+import { Container, Text, Color, Icon, Layout, Button } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import highchartsMore from 'highcharts/highcharts-more'
@@ -7,8 +7,10 @@ import gauge from 'highcharts/modules/solid-gauge'
 import cx from 'classnames'
 import { isNumber } from 'lodash-es'
 import moment from 'moment'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
+import routes from '@common/RouteDefinitions'
+import { useStrings } from 'framework/exports'
 import { MetricCategoryNames } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import { CategoryRisk, RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -106,11 +108,31 @@ export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
 
 export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
   const { className, overallRiskScore } = props
+  const { orgIdentifier = '', projectIdentifier = '', accountId } = useParams()
+  const history = useHistory()
+  const { getString } = useStrings()
   return overallRiskScore === -1 ? (
-    <Container className={cx(css.overallRiskScoreCard, className)} background={Color.GREY_250}>
+    <Container
+      className={cx(css.overallRiskScoreCard, css.overallRiskScoreCardNoData, className)}
+      background={Color.GREY_250}
+    >
       <Text color={Color.BLACK} className={css.overallRiskScoreNoData}>
-        {i18n.noAnalysisText}
+        {getString('cv.getRiskAssessment')}
       </Text>
+      <Button
+        intent="primary"
+        onClick={() => {
+          history.push(
+            routes.toCVAdminSetup({
+              accountId,
+              projectIdentifier,
+              orgIdentifier
+            })
+          )
+        }}
+      >
+        {getString('cv.setup')}
+      </Button>
     </Container>
   ) : (
     <Container
@@ -197,11 +219,16 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
         <Text color={Color.BLACK} font={{ weight: 'bold' }}>
           {i18n.productionRisk}
         </Text>
-        {new Date(endTimeEpoch).getTime() > 0 && new Date(startTimeEpoch).getTime() > 0 && (
-          <Text font={{ size: 'xsmall' }} color={Color.GREY_350}>{`${i18n.evaluationPeriodText} ${moment(
-            startTimeEpoch
-          ).format('MMM D, YYYY h:mma')} - ${moment(endTimeEpoch).format('h:mma')}`}</Text>
-        )}
+        {isNumber(overallRiskScore) &&
+          overallRiskScore > -1 &&
+          endTimeEpoch &&
+          startTimeEpoch &&
+          new Date(endTimeEpoch).getTime() > 0 &&
+          new Date(startTimeEpoch).getTime() > 0 && (
+            <Text font={{ size: 'xsmall' }} color={Color.GREY_350}>{`${i18n.evaluationPeriodText} ${moment(
+              startTimeEpoch
+            ).format('MMM D, YYYY h:mma')} - ${moment(endTimeEpoch).format('h:mma')}`}</Text>
+          )}
       </Container>
       <Container className={css.cardContainer}>
         {isNumber(overallRiskScore) && (

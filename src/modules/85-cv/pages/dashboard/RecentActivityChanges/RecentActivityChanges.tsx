@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, Container, IconName, Color } from '@wings-software/uicore'
+import { Text, Button, Container, IconName, Color, Link } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -227,6 +227,8 @@ export default function RecentActivityChanges(): JSX.Element {
     }
   })
 
+  const { getString } = useStrings()
+
   if (error?.message) {
     return (
       <ul className={css.activityList}>
@@ -247,7 +249,33 @@ export default function RecentActivityChanges(): JSX.Element {
     return (
       <ul className={css.activityList}>
         <li className={css.headerRow}>{ACTIVITY_COLUMN_NAMES}</li>
-        <NoDataCard icon="warning-sign" iconSize={30} message={i18n.noActivitiesMessaging} className={css.noData} />
+        <li className={css.emptyBar}>
+          <div style={{ width: 205 }}>
+            <Link
+              intent="primary"
+              minimal
+              onClick={() => {
+                history.push(
+                  routes.toCVAdminSetup({
+                    accountId,
+                    projectIdentifier,
+                    orgIdentifier
+                  })
+                )
+              }}
+            >
+              {getString('cv.setup')}
+            </Link>
+          </div>
+          <MetricCategoriesWithRiskScore categoriesWithRiskScores={EmptyCategoryRiskArray} className={css.dataColumn} />
+          <div style={{ width: 290 }}>
+            {i18n.verificationProgressText.initiated}
+            <div style={{ width: 200 }}>
+              <CVProgressBar value={0} riskScore={0} />
+            </div>
+          </div>
+          <MetricCategoriesWithRiskScore categoriesWithRiskScores={EmptyCategoryRiskArray} className={css.dataColumn} />
+        </li>
       </ul>
     )
   }

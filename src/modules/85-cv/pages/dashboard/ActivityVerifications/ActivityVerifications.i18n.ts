@@ -26,5 +26,6 @@ export default {
     statusFailed: 'Failed',
     statusNotStarted: 'Not Started',
     minRemaining: 'min remaining'
-  }
+  },
+  setup: 'Setup Continuous Verification'
 }

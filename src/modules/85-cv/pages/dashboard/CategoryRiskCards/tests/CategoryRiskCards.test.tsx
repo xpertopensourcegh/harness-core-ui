@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import type { RestResponseCategoryRisksDTO } from 'services/cv'
+import { TestWrapper } from '@common/utils/testUtils'
 import { CategoryRiskCards } from '../CategoryRiskCards'
 import i18n from '../CategoryRiskCards.i18n'
 
@@ -22,14 +23,23 @@ const InvalidTimestampMockApiData: RestResponseCategoryRisksDTO = {
 
 describe('Category Risk Cards unit tests', () => {
   test('Ensure that when category risk cards gets an invalid timestamp, it is not rendered.', async () => {
-    const { container, getByText } = render(<CategoryRiskCards data={InvalidTimestampMockApiData} />)
+    const { container, getByText } = render(
+      <TestWrapper>
+        <CategoryRiskCards data={InvalidTimestampMockApiData} />
+      </TestWrapper>
+    )
     await waitFor(() => getByText(i18n.overallText))
     getByText(i18n.productionRisk)
     expect(container.querySelector('[class*="timeRange"]')?.children.length).toBe(1)
   })
 
   test('Ensure that when -1 is sent as a risk value, the card is rendered in no analysis view', async () => {
-    const { container, getByText } = render(<CategoryRiskCards data={InvalidTimestampMockApiData} />)
+    const { container, getByText } = render(
+      <TestWrapper>
+        {' '}
+        <CategoryRiskCards data={InvalidTimestampMockApiData} />
+      </TestWrapper>
+    )
     await waitFor(() => getByText(i18n.overallText))
 
     const categoryRiskCards = container.querySelectorAll('[class*="categoryRiskCard"]')

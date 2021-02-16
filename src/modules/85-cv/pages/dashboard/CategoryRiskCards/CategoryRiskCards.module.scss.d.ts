@@ -12,6 +12,7 @@ declare const styles: {
   readonly riskScoreText: string
   readonly chartContainer: string
   readonly overallRiskScoreCard: string
+  readonly overallRiskScoreCardNoData: string
   readonly overallRiskScoreValue: string
   readonly overallRiskScoreNoData: string
   readonly noData: string

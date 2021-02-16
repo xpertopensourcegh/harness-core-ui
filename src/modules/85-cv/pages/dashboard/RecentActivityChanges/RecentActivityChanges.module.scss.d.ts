@@ -8,5 +8,6 @@ declare const styles: {
   readonly dataRow: string
   readonly columnWrapp: string
   readonly verificationProgress: string
+  readonly emptyBar: string
 }
 export default styles
