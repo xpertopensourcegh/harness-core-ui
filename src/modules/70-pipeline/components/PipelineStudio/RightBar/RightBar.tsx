@@ -340,7 +340,7 @@ export const RightBar = (): JSX.Element => {
                   <FormikForm>
                     <ConnectorReferenceField
                       name="connectorRef"
-                      category={'CODE_REPO'}
+                      type={['Github', 'Gitlab', 'Bitbucket']}
                       selected={values.connectorRef}
                       width={460}
                       error={errors?.connectorRef}

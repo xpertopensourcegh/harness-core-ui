@@ -380,7 +380,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                         <ConnectorReferenceField
                           error={submitCount && errors.connectorRef ? errors.connectorRef : undefined}
                           name="connectorRef"
-                          category={'CODE_REPO'}
+                                              type={['Github', 'Gitlab', 'Bitbucket']}
                           selected={formValues.connectorRef}
                           label={getString('connector')}
                           placeholder={loading ? getString('loading') : getString('select')}
