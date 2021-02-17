@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
-import { RoleResponse, useGetRoleList } from 'services/rbac'
+import { Role, RoleResponse, useGetRoleList } from 'services/rbac'
 import RoleCard from '@rbac/components/RoleCard/RoleCard'
 import { useRoleModal } from '@rbac/modals/RoleModal/useRoleModal'
 import css from './Roles.module.scss'
@@ -25,12 +25,16 @@ const Roles: React.FC = () => {
 
   const { openRoleModal } = useRoleModal({ onSuccess: refetch })
 
+  const editRoleModal = (role: Role): void => {
+    openRoleModal(role)
+  }
+
   return (
     <>
       <PageHeader
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
-            <Button text={getString('newRole')} intent="primary" icon="plus" onClick={openRoleModal} />
+            <Button text={getString('newRole')} intent="primary" icon="plus" onClick={() => openRoleModal()} />
           </Layout.Horizontal>
         }
         toolbar={
@@ -52,7 +56,9 @@ const Roles: React.FC = () => {
             width={900}
             className={css.centerContainer}
             items={data?.data?.content || []}
-            renderItem={(roleResponse: RoleResponse) => <RoleCard data={roleResponse} />}
+            renderItem={(roleResponse: RoleResponse) => (
+              <RoleCard data={roleResponse} reloadRoles={refetch} editRoleModal={editRoleModal} />
+            )}
             keyOf={(roleResponse: RoleResponse) => roleResponse.role.identifier}
           />
         </Container>

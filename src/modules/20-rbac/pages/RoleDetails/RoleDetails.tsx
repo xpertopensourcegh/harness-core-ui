@@ -99,7 +99,11 @@ const RoleDetails: React.FC = () => {
           </Container>
           <Container padding="large" width="80%">
             {resource ? (
-              <PermissionCard resourceType={resource[0]} resourceHandler={resource[1]} isDefault={data.data?.managed} />
+              <PermissionCard
+                resourceType={resource[0]}
+                resourceHandler={resource[1]}
+                isDefault={data.data?.harnessManaged}
+              />
             ) : (
               <Container flex={{ align: 'center-center' }} height="100%">
                 <Text>{getString('selectResource')}</Text>

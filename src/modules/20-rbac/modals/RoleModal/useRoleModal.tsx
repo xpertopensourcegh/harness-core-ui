@@ -13,40 +13,43 @@ export interface UseRoleModalProps {
 }
 
 export interface UseRoleModalReturn {
-  openRoleModal: () => void
+  openRoleModal: (role?: Role) => void
   closeRoleModal: () => void
 }
 
 export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalReturn => {
   const [roleData, setRoleData] = useState<Role>()
-
-  const [showModal, hideModal] = useModalHook(() => (
-    <Dialog
-      isOpen={true}
-      onClose={() => {
-        hideModal()
-      }}
-      className={cx(css.dialog, Classes.DIALOG)}
-    >
-      <RoleForm
-        data={roleData}
-        onSubmit={() => {
-          onSuccess()
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        isOpen={true}
+        onClose={() => {
           hideModal()
         }}
-      />
+        className={cx(css.dialog, Classes.DIALOG)}
+      >
+        <RoleForm
+          data={roleData}
+          isEdit={roleData ? true : false}
+          onSubmit={() => {
+            onSuccess()
+            hideModal()
+          }}
+        />
 
-      <Button
-        minimal
-        icon="cross"
-        iconProps={{ size: 18 }}
-        onClick={() => {
-          hideModal()
-        }}
-        className={css.crossIcon}
-      />
-    </Dialog>
-  ))
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            hideModal()
+          }}
+          className={css.crossIcon}
+        />
+      </Dialog>
+    ),
+    [roleData]
+  )
   const open = useCallback(
     (_role?: Role) => {
       setRoleData(_role)

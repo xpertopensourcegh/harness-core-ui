@@ -1,19 +1,63 @@
-import React from 'react'
-import { Card, Icon, Layout, Text } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { Card, CardBody, Icon, Layout, Text } from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
-import type { RoleResponse } from 'services/rbac'
+import { Classes, Intent, Menu } from '@blueprintjs/core'
+import { Role, RoleResponse, useDeleteRole } from 'services/rbac'
 import routes from '@common/RouteDefinitions'
+import { useConfirmationDialog, useToaster } from '@common/exports'
+import { useStrings } from 'framework/exports'
 import css from './RoleCard.module.scss'
 
 interface RoleCardProps {
   data: RoleResponse
+  reloadRoles?: () => void
+  editRoleModal?: (role: Role) => void
 }
 
-const RoleCard: React.FC<RoleCardProps> = ({ data }) => {
-  const { role } = data
+const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal }) => {
+  const { role, harnessManaged } = data
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const history = useHistory()
+  const { showSuccess, showError } = useToaster()
+  const { getString } = useStrings()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { mutate: deleteRole } = useDeleteRole({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
+
+  const { openDialog } = useConfirmationDialog({
+    contentText: getString('roleCard.confirmDelete', { name: role.name }),
+    titleText: getString('roleCard.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      /* istanbul ignore else */ if (isConfirmed) {
+        try {
+          const deleted = await deleteRole(role.identifier, { headers: { 'content-type': 'application/json' } })
+          if (deleted) {
+            showSuccess(getString('roleCard.successMessage', { name: role.name }))
+            reloadRoles?.()
+          }
+        } catch (err) {
+          showError(err)
+        }
+      }
+    }
+  })
+  const handleEdit = (e: React.MouseEvent): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    editRoleModal?.(role)
+  }
+
+  const handleDelete = async (e: React.MouseEvent): Promise<void> => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    openDialog()
+  }
+
   return (
     <Card
       className={css.card}
@@ -24,7 +68,23 @@ const RoleCard: React.FC<RoleCardProps> = ({ data }) => {
       }}
       interactive
     >
-      <Layout.Vertical flex={{ align: 'center-center' }} spacing="large">
+      <CardBody.Menu
+        menuContent={
+          <Menu>
+            <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={harnessManaged} />
+            <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={harnessManaged} />
+          </Menu>
+        }
+        menuPopoverProps={{
+          className: Classes.DARK,
+          isOpen: menuOpen,
+          onInteraction: nextOpenState => {
+            setMenuOpen(nextOpenState)
+          }
+        }}
+      />
+
+      <Layout.Vertical flex={{ align: 'center-center' }} spacing="large" height="100%">
         {/* TODO: REPLACE WITH ROLE ICON */}
         <Icon name="nav-project-selected" size={40} />
         <Text>{role.name}</Text>

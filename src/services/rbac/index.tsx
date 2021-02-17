@@ -5,10 +5,12 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export interface Permission {
-  identifier?: string
-  name?: string
-  status?: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
-  scopes?: string[]
+  identifier: string
+  name: string
+  status: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
+  allowedScopeLevels: ('org' | 'project' | 'account')[]
+  resourceType?: string
+  action?: string
 }
 
 export interface PermissionResponse {
@@ -247,6 +249,7 @@ export interface Failure {
     | 'SHELL_EXECUTION_EXCEPTION'
     | 'TEMPLATE_NOT_FOUND'
     | 'AZURE_SERVICE_EXCEPTION'
+    | 'AZURE_CLIENT_EXCEPTION'
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
     | 'TIMEOUT_ENGINE_EXCEPTION'
     | 'NO_AVAILABLE_DELEGATES'
@@ -265,6 +268,12 @@ export interface Failure {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
+    | 'GIT_OPERATION_ERROR'
+    | 'TASK_FAILURE_ERROR'
+    | 'INSTANCE_STATS_PROCESS_ERROR'
+    | 'INSTANCE_STATS_MIGRATION_ERROR'
+    | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'INSTANCE_STATS_AGGREGATION_ERROR'
   message?: string
   correlationId?: string
   errors?: ValidationError[]
@@ -493,6 +502,7 @@ export interface Error {
     | 'SHELL_EXECUTION_EXCEPTION'
     | 'TEMPLATE_NOT_FOUND'
     | 'AZURE_SERVICE_EXCEPTION'
+    | 'AZURE_CLIENT_EXCEPTION'
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
     | 'TIMEOUT_ENGINE_EXCEPTION'
     | 'NO_AVAILABLE_DELEGATES'
@@ -511,6 +521,12 @@ export interface Error {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
+    | 'GIT_OPERATION_ERROR'
+    | 'TASK_FAILURE_ERROR'
+    | 'INSTANCE_STATS_PROCESS_ERROR'
+    | 'INSTANCE_STATS_MIGRATION_ERROR'
+    | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'INSTANCE_STATS_AGGREGATION_ERROR'
   message?: string
   correlationId?: string
   detailedMessage?: string
@@ -544,17 +560,17 @@ export interface ResponsePageRoleAssignmentResponse {
 }
 
 export interface RoleAssignment {
-  identifier?: string
-  resourceGroupIdentifier?: string
-  roleIdentifier?: string
-  principalIdentifier?: string
+  identifier: string
+  resourceGroupIdentifier: string
+  roleIdentifier: string
+  principalIdentifier: string
   principalType: 'USER' | 'USER_GROUP' | 'API_KEY'
 }
 
 export interface RoleAssignmentResponse {
   roleAssignment: RoleAssignment
-  parentIdentifier?: string
-  managed?: boolean
+  scope?: string
+  harnessManaged?: boolean
   disabled?: boolean
   createdAt?: number
   lastModifiedAt?: number
@@ -575,10 +591,10 @@ export interface ResponseRoleResponse {
 }
 
 export interface Role {
-  identifier?: string
-  name?: string
-  scopes?: string[]
-  permissions?: string[]
+  identifier: string
+  name: string
+  permissions: string[]
+  allowedScopeLevels?: ('org' | 'project' | 'account')[]
   description?: string
   tags?: {
     [key: string]: string
@@ -587,8 +603,8 @@ export interface Role {
 
 export interface RoleResponse {
   role: Role
-  parentIdentifier?: string
-  managed?: boolean
+  scope?: string
+  harnessManaged?: boolean
   createdAt?: number
   lastModifiedAt?: number
 }
@@ -625,7 +641,7 @@ export type GetPermissionListProps = Omit<
 >
 
 /**
- * Get All Permissions
+ * Get All Permissions in a Scope
  */
 export const GetPermissionList = (props: GetPermissionListProps) => (
   <Get<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>
@@ -641,7 +657,7 @@ export type UseGetPermissionListProps = Omit<
 >
 
 /**
- * Get All Permissions
+ * Get All Permissions in a Scope
  */
 export const useGetPermissionList = (props: UseGetPermissionListProps) =>
   useGet<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>(`/permissions`, {
@@ -650,7 +666,7 @@ export const useGetPermissionList = (props: UseGetPermissionListProps) =>
   })
 
 /**
- * Get All Permissions
+ * Get All Permissions in a Scope
  */
 export const getPermissionListPromise = (
   props: GetUsingFetchProps<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>,
@@ -666,6 +682,7 @@ export const getPermissionListPromise = (
 export interface GetRoleAssignmentListQueryParams {
   pageIndex?: number
   pageSize?: number
+  sortOrders?: string[]
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -1030,6 +1047,7 @@ export const deleteRolePromise = (
 export interface GetRoleListQueryParams {
   pageIndex?: number
   pageSize?: number
+  sortOrders?: string[]
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string

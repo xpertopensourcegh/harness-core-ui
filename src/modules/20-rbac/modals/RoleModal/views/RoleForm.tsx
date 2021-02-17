@@ -15,17 +15,19 @@ import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
-import { Role, useCreateRole } from 'services/rbac'
+import { Role, useCreateRole, useUpdateRole } from 'services/rbac'
 import { useStrings } from 'framework/exports'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from '@rbac/modals/RoleModal/useRoleModal.module.scss'
 
 interface RoleModalData {
   data?: Role
+  isEdit?: boolean
   onSubmit?: () => void
 }
 
 const RoleForm: React.FC<RoleModalData> = props => {
-  const { data: roleData, onSubmit } = props
+  const { data: roleData, onSubmit, isEdit } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -37,16 +39,34 @@ const RoleForm: React.FC<RoleModalData> = props => {
       projectIdentifier
     }
   })
+
+  const { mutate: editRole, loading: updating } = useUpdateRole({
+    identifier: roleData?.identifier || '',
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
+
   const handleSubmit = async (values: Role): Promise<void> => {
     const dataToSubmit: Role = {
-      ...pick(values, ['name', 'identifier', 'tags', 'description']),
-      scopes: ['account']
+      ...pick(values, ['name', 'identifier', 'tags', 'description', 'permissions']),
+      allowedScopeLevels: [getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })]
     }
     try {
-      const created = await createRole(dataToSubmit)
-      if (created) {
-        showSuccess(getString('roleForm.createSuccess'))
-        onSubmit?.()
+      if (isEdit) {
+        const updated = await editRole(dataToSubmit)
+        if (updated) {
+          showSuccess(getString('roleForm.updatedSuccess'))
+          onSubmit?.()
+        }
+      } else {
+        const created = await createRole(dataToSubmit)
+        if (created) {
+          showSuccess(getString('roleForm.createSuccess'))
+          onSubmit?.()
+        }
       }
     } catch (e) {
       /* istanbul ignore next */
@@ -65,6 +85,7 @@ const RoleForm: React.FC<RoleModalData> = props => {
             name: '',
             description: '',
             tags: {},
+            permissions: [],
             ...roleData
           }}
           validationSchema={Yup.object().shape({
@@ -85,11 +106,11 @@ const RoleForm: React.FC<RoleModalData> = props => {
                   <ModalErrorHandler bind={setModalErrorHandler} />
                   <NameIdDescriptionTags
                     formikProps={formikProps}
-                    identifierProps={{ isIdentifierEditable: !roleData }}
+                    identifierProps={{ isIdentifierEditable: !isEdit }}
                   />
                 </Container>
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving} />
+                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving || updating} />
                 </Layout.Horizontal>
               </Form>
             )

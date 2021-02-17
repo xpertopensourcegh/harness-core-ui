@@ -487,6 +487,11 @@ inputTypes:
   EXPRESSION: Expression
 roleForm:
   createSuccess: Role created succesfully
+  editSuccess: Role updated succesfully
+roleCard:
+  confirmDelete: Are you sure you want to delete the Role '{{name}}'?
+  confirmDeleteTitle: 'Delete Role'
+  successMessage: Role '{{name}}' is deleted succesfully
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'
