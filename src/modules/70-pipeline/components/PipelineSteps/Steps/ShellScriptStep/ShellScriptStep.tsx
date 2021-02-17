@@ -1,13 +1,18 @@
 import React from 'react'
 import { IconName, Formik, Button, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
-import { isEmpty, set } from 'lodash-es'
+import { isEmpty, set, get } from 'lodash-es'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { useStrings, UseStringsReturn } from 'framework/exports'
+import { CompletionItemKind } from 'vscode-languageserver-types'
+import { parse } from 'yaml'
+import { useStrings, UseStringsReturn, loggerFor, ModuleName } from 'framework/exports'
 import type { StepProps } from '@pipeline/exports'
+import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/exports'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './ShellScriptStep.i18n'
@@ -19,6 +24,7 @@ import ShellScriptOutput from './ShellScriptOutput'
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
 import ShellScriptInputSetStep from './ShellScriptInputSetStep'
 import stepCss from '../Steps.module.scss'
+const logger = loggerFor(ModuleName.CD)
 
 /**
  * Spec
@@ -106,6 +112,26 @@ function ShellScriptWidget(
 }
 
 const ShellScriptWidgetWithRef = React.forwardRef(ShellScriptWidget)
+
+const ConnectorRefRegex = /^.+step\.spec\.executionTarget\.connectorRef$/
+
+const getConnectorValue = (connector?: SecretResponseWrapper): string =>
+  `${
+    connector?.secret?.orgIdentifier && connector?.secret?.projectIdentifier
+      ? connector?.secret?.identifier
+      : connector?.secret?.orgIdentifier
+      ? `${Scope.ORG}.${connector?.secret?.identifier}`
+      : `${Scope.ACCOUNT}.${connector?.secret?.identifier}`
+  }` || ''
+
+const getConnectorName = (connector?: SecretResponseWrapper): string =>
+  `${
+    connector?.secret?.orgIdentifier && connector?.secret?.projectIdentifier
+      ? `${connector?.secret?.type}: ${connector?.secret?.name}`
+      : connector?.secret?.orgIdentifier
+      ? `${connector?.secret?.type}[Org]: ${connector?.secret?.name}`
+      : `${connector?.secret?.type}[Account]: ${connector?.secret?.name}`
+  }` || ''
 
 export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   renderStep(props: StepProps<ShellScriptData>): JSX.Element {
@@ -199,6 +225,10 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   protected type = StepType.SHELLSCRIPT
   protected stepName = i18n.shellScriptStep
   protected stepIcon: IconName = 'command-shell-script'
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
 
   protected defaultValues: ShellScriptData = {
     identifier: '',
@@ -213,6 +243,56 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         }
       }
     }
+  }
+
+  constructor() {
+    super()
+    this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
+  }
+
+  protected async getSecretsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj) {
+        const listOfSecrets = await listSecretsV2Promise({
+          queryParams: {
+            accountIdentifier: accountId,
+            includeSecretsFromEverySubScope: true,
+            types: ['SecretText', 'SSHKey'],
+            pageIndex: 0,
+            pageSize: 10
+          }
+        }).then(response =>
+          response?.data?.content?.map(connector => {
+            return {
+              label: getConnectorName(connector),
+              insertText: getConnectorValue(connector),
+              kind: CompletionItemKind.Field
+            }
+          })
+        )
+        return listOfSecrets || []
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
   }
 
   private getInitialValues(initialValues: ShellScriptData): ShellScriptFormData {
