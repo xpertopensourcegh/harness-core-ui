@@ -371,6 +371,12 @@ export interface CumulativeSavingsResponse {
   response?: CumulativeSavings
 }
 
+export interface AttachTagByFilterResponse {
+  response?: Resource[]
+}
+
+export type ResourceFilterBodyRequestBody = ResourceFilterBody
+
 export interface GetServicesPathParams {
   org_id: string
   project_id: string
@@ -625,7 +631,7 @@ export type AllResourcesOfAccountProps = Omit<
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBody,
+    ResourceFilterBodyRequestBody,
     AllResourcesOfAccountPathParams
   >,
   'path' | 'verb'
@@ -642,7 +648,7 @@ export const AllResourcesOfAccount = ({ org_id, project_id, account_id, ...props
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBody,
+    ResourceFilterBodyRequestBody,
     AllResourcesOfAccountPathParams
   >
     verb="POST"
@@ -657,7 +663,7 @@ export type UseAllResourcesOfAccountProps = Omit<
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBody,
+    ResourceFilterBodyRequestBody,
     AllResourcesOfAccountPathParams
   >,
   'path' | 'verb'
@@ -674,7 +680,7 @@ export const useAllResourcesOfAccount = ({ org_id, project_id, account_id, ...pr
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBody,
+    ResourceFilterBodyRequestBody,
     AllResourcesOfAccountPathParams
   >(
     'POST',
@@ -1626,4 +1632,73 @@ export const useRouteDetails = ({ org_id, project_id, service_id, ...props }: Us
     (paramsInPath: RouteDetailsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.service_id}`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
+  )
+
+export interface AttachTagsQueryParams {
+  cloud_account_id: string
+  tagKey: string
+  tagValue: string
+}
+
+export interface AttachTagsPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type AttachTagsProps = Omit<
+  MutateProps<
+    AttachTagByFilterResponse,
+    void,
+    AttachTagsQueryParams,
+    ResourceFilterBodyRequestBody,
+    AttachTagsPathParams
+  >,
+  'path' | 'verb'
+> &
+  AttachTagsPathParams
+
+/**
+ * Attach tags to resources satisfying the filter
+ *
+ * Attach tags to resources satisfying the filter
+ */
+export const AttachTags = ({ org_id, project_id, account_id, ...props }: AttachTagsProps) => (
+  <Mutate<AttachTagByFilterResponse, void, AttachTagsQueryParams, ResourceFilterBodyRequestBody, AttachTagsPathParams>
+    verb="POST"
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/tag"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAttachTagsProps = Omit<
+  UseMutateProps<
+    AttachTagByFilterResponse,
+    void,
+    AttachTagsQueryParams,
+    ResourceFilterBodyRequestBody,
+    AttachTagsPathParams
+  >,
+  'path' | 'verb'
+> &
+  AttachTagsPathParams
+
+/**
+ * Attach tags to resources satisfying the filter
+ *
+ * Attach tags to resources satisfying the filter
+ */
+export const useAttachTags = ({ org_id, project_id, account_id, ...props }: UseAttachTagsProps) =>
+  useMutate<
+    AttachTagByFilterResponse,
+    void,
+    AttachTagsQueryParams,
+    ResourceFilterBodyRequestBody,
+    AttachTagsPathParams
+  >(
+    'POST',
+    (paramsInPath: AttachTagsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/tag`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )

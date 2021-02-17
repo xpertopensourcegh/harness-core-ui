@@ -16,7 +16,7 @@ import COGatewayAccess from '@ce/components/COGatewayAccess/COGatewayAccess'
 import COGatewayReview from '@ce/components/COGatewayReview/COGatewayReview'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import routes from '@common/RouteDefinitions'
-import { useSaveService, Service } from 'services/lw'
+import { useSaveService, Service, useAttachTags } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import i18n from './COGatewayDetails.i18n'
 import css from './COGatewayDetails.module.scss'
@@ -32,44 +32,67 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const tabs = ['configuration', 'setupAccess', 'review']
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+    accountId: string
+    orgIdentifier: string
+    projectIdentifier: string
+  }>()
   const { mutate: saveGateway } = useSaveService({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier // eslint-disable-line
   })
-  const onSave = async (): Promise<void> => {
-    const gateway: Service = {
-      name: props.gatewayDetails.name,
-      org_id: orgIdentifier, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      account_identifier: accountId, // eslint-disable-line
-      fulfilment: props.gatewayDetails.fullfilment,
-      kind: 'instance',
+  const randomString = (): string => {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  }
+  const tagKey = 'lightwingRule'
+  const tagValue = randomString()
+  const { mutate: assignFilterTags } = useAttachTags({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      idle_time_mins: props.gatewayDetails.idleTimeMins, // eslint-disable-line
-      custom_domains: props.gatewayDetails.customDomains ? props.gatewayDetails.customDomains : [], // eslint-disable-line
-      // eslint-disable-next-line
-      health_check: props.gatewayDetails.healthCheck,
-      routing: {
-        instance: {
-          filter_text: `id = ['${props.gatewayDetails.selectedInstances[0].id}']` // eslint-disable-line
-        },
-        ports: props.gatewayDetails.routing.ports,
-        lb: undefined
-      },
-      opts: {
-        preserve_private_ip: false, // eslint-disable-line
-        always_use_private_ip: false // eslint-disable-line
-      },
-      metadata: props.gatewayDetails.metadata,
-      disabled: props.gatewayDetails.disabled,
-      match_all_subdomains: props.gatewayDetails.matchAllSubdomains, // eslint-disable-line
-      access_point_id: props.gatewayDetails.accessPointID // eslint-disable-line
+      tagKey,
+      tagValue
     }
-    if (props.gatewayDetails.id) {
-      gateway.id = props.gatewayDetails.id
-    }
+  })
+  const onSave = async (): Promise<void> => {
     try {
+      const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
+      await assignFilterTags({
+        Text: `id = [${instanceIDs}]` // eslint-disable-line
+      })
+      const gateway: Service = {
+        name: props.gatewayDetails.name,
+        org_id: orgIdentifier, // eslint-disable-line
+        project_id: projectIdentifier, // eslint-disable-line
+        account_identifier: accountId, // eslint-disable-line
+        fulfilment: props.gatewayDetails.fullfilment,
+        kind: 'instance',
+        cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+        idle_time_mins: props.gatewayDetails.idleTimeMins, // eslint-disable-line
+        custom_domains: props.gatewayDetails.customDomains ? props.gatewayDetails.customDomains : [], // eslint-disable-line
+        // eslint-disable-next-line
+        health_check: props.gatewayDetails.healthCheck,
+        routing: {
+          instance: {
+            filter_text: `tags = ['${tagKey}':'${tagValue}']` // eslint-disable-line
+          },
+          ports: props.gatewayDetails.routing.ports,
+          lb: undefined
+        },
+        opts: {
+          preserve_private_ip: false, // eslint-disable-line
+          always_use_private_ip: false // eslint-disable-line
+        },
+        metadata: props.gatewayDetails.metadata,
+        disabled: props.gatewayDetails.disabled,
+        match_all_subdomains: props.gatewayDetails.matchAllSubdomains, // eslint-disable-line
+        access_point_id: props.gatewayDetails.accessPointID // eslint-disable-line
+      }
+      if (props.gatewayDetails.id) {
+        gateway.id = props.gatewayDetails.id
+      }
       const result = await saveGateway({ service: gateway, deps: [], apply_now: false }) // eslint-disable-line
       if (result.response) {
         history.push(
