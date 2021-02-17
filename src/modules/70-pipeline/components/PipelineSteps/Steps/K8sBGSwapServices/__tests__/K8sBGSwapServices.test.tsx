@@ -26,7 +26,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           type: 'K8sBGSwapServices',
           name: 'Test A',
-          timeout: RUNTIME_INPUT_VALUE
+          timeout: RUNTIME_INPUT_VALUE,
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE
+          }
         }}
         type={StepType.K8sBGSwapServices}
         stepViewType={StepViewType.Edit}
@@ -43,7 +46,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
         allValues={{
           type: 'K8sBGSwapServices',
           name: 'Test A',
-          timeout: RUNTIME_INPUT_VALUE
+          timeout: RUNTIME_INPUT_VALUE,
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE
+          }
         }}
         type={StepType.K8sBGSwapServices}
         stepViewType={StepViewType.InputSet}
@@ -60,7 +66,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
         allValues={{
           type: 'K8sBGSwapServices',
           name: 'Test A',
-          timeout: '10m'
+          timeout: '10m',
+          spec: {
+            skipDryRun: true
+          }
         }}
         type={StepType.K8sBGSwapServices}
         stepViewType={StepViewType.InputVariable}

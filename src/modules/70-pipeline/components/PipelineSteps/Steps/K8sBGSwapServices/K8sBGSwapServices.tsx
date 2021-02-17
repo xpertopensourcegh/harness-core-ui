@@ -16,7 +16,7 @@ import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElement } from 'services/cd-ng'
+import type { StepElementConfig, K8sBGSwapServicesStepInfo } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -32,37 +32,45 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
+import { FormMultiTypeCheckboxField } from '@common/components'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
+interface K8sBGSwapServicesData extends StepElementConfig {
+  spec: K8sBGSwapServicesStepInfo
+}
+
 interface K8sBGSwapProps {
-  initialValues: StepElement
-  onUpdate?: (data: StepElement) => void
+  initialValues: K8sBGSwapServicesData
+  onUpdate?: (data: K8sBGSwapServicesData) => void
   stepViewType?: StepViewType
   inputSetData?: {
-    template?: StepElement
+    template?: K8sBGSwapServicesData
     path?: string
     readonly?: boolean
   }
 }
 
 export interface K8sBGSwapServicesVariablesStepProps {
-  initialValues: StepElement
+  initialValues: K8sBGSwapServicesData
   stageIdentifier: string
-  onUpdate?(data: StepElement): void
+  onUpdate?(data: K8sBGSwapServicesData): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: StepElement
+  variablesData: K8sBGSwapServicesData
 }
 
-function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<StepElement>): React.ReactElement {
+function K8sBGSwapWidget(
+  props: K8sBGSwapProps,
+  formikRef: StepFormikFowardRef<K8sBGSwapServicesData>
+): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
     <>
-      <Formik<StepElement>
-        onSubmit={(values: StepElement) => {
+      <Formik<K8sBGSwapServicesData>
+        onSubmit={(values: K8sBGSwapServicesData) => {
           /* istanbul ignore next */
           onUpdate?.(values)
         }}
@@ -72,7 +80,7 @@ function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<S
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
-        {(formik: FormikProps<StepElement>) => {
+        {(formik: FormikProps<K8sBGSwapServicesData>) => {
           const { values, setFieldValue, submitForm } = formik
           setFormikRef(formikRef, formik)
 
@@ -107,6 +115,13 @@ function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<S
                       }}
                     />
                   )}
+                </div>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeCheckboxField
+                    multiTypeTextbox={{ expressions }}
+                    name="spec.skipDryRun"
+                    label={getString('pipelineSteps.skipDryRun')}
+                  />
                 </div>
               </Layout.Vertical>
               <div className={stepCss.actionsPanel}>
@@ -144,12 +159,12 @@ const K8sBGSwapServicesVariablesStep: React.FC<K8sBGSwapServicesVariablesStepPro
 }
 
 const K8sBGSwapWidgetWithRef = React.forwardRef(K8sBGSwapWidget)
-export class K8sBGSwapServices extends PipelineStep<StepElement> {
+export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
   constructor() {
     super()
     this._hasStepVariables = true
   }
-  renderStep(props: StepProps<StepElement>): JSX.Element {
+  renderStep(props: StepProps<K8sBGSwapServicesData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -186,7 +201,11 @@ export class K8sBGSwapServices extends PipelineStep<StepElement> {
   protected stepIcon: IconName = 'command-swap'
   /* istanbul ignore next */
 
-  validateInputSet(data: StepElement, template: StepElement, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: K8sBGSwapServicesData,
+    template: K8sBGSwapServicesData,
+    getString?: UseStringsReturn['getString']
+  ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
@@ -208,9 +227,12 @@ export class K8sBGSwapServices extends PipelineStep<StepElement> {
     return errors
   }
 
-  protected defaultValues: StepElement = {
+  protected defaultValues: K8sBGSwapServicesData = {
     name: '',
     identifier: '',
-    timeout: '10m'
+    timeout: '10m',
+    spec: {
+      skipDryRun: false
+    }
   }
 }

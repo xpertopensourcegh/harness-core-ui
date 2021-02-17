@@ -27,6 +27,8 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { FormMultiTypeCheckboxField } from '@common/components'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import css from './K8sDeleteStep.module.scss'
@@ -36,6 +38,7 @@ interface K8sDeleteSpec {
   resourceNames?: string[]
   deleteNamespace?: boolean
   manifestPaths?: string[]
+  skipDryRun?: boolean
 }
 
 interface K8sDeleteSpec {
@@ -90,6 +93,8 @@ function K8sDeleteDeployWidget(
     ]
     return options
   }, [])
+
+  const { expressions } = useVariablesExpression()
 
   return (
     <>
@@ -268,6 +273,13 @@ function K8sDeleteDeployWidget(
                     )}
                   </Layout.Horizontal>
                 </div>
+                <div className={stepCss.formGroup}>
+                  <FormMultiTypeCheckboxField
+                    multiTypeTextbox={{ expressions }}
+                    name="spec.skipDryRun"
+                    label={getString('pipelineSteps.skipDryRun')}
+                  />
+                </div>
               </Layout.Vertical>
 
               <div className={stepCss.actionsPanel}>
@@ -290,6 +302,14 @@ const K8sDeleteInputStep: React.FC<K8sDeleteProps> = ({ inputSetData, readonly }
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
+          disabled={readonly}
+        />
+      )}
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipDryRun')}
           disabled={readonly}
         />
       )}
@@ -377,7 +397,8 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
     timeout: '10m',
     spec: {
       deleteResourcesBy: '',
-      spec: {}
+      spec: {},
+      skipDryRun: false
     }
   }
 }
