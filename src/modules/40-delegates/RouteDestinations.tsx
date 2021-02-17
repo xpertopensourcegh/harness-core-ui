@@ -5,10 +5,10 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps, delegateConfigProps, delegatePathProps } from '@common/utils/routeUtils'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
-import DelegatesPage from 'modules/40-delegates/pages/delegates/DelegatesPage'
+import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
-import DelegateDetails from 'modules/40-delegates/pages/delegates/DelegateDetails'
+import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,

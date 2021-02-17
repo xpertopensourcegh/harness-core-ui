@@ -38,6 +38,7 @@ rules:
   # custom rules
   string-exists-in-yaml: 2
   no-document-body-snapshot: 2
+  aliased-module-imports: 2
 
   # built-in
   no-console: 2

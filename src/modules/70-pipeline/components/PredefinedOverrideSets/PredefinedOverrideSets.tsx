@@ -3,8 +3,10 @@ import { Layout, Text, SelectOption } from '@wings-software/uicore'
 import { isArray } from 'lodash-es'
 import { PipelineContext } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
-import { OverrideSetsInputSelector } from '../../../75-cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
-import type { InputSetSelectorProps } from '../../../75-cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
+// eslint-disable-next-line no-restricted-imports
+import { OverrideSetsInputSelector } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
+// eslint-disable-next-line no-restricted-imports
+import type { InputSetSelectorProps } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
 
 export const PredefinedOverrideSets: React.FC<{ currentStage: StageElementWrapper | undefined; context: string }> = ({
   currentStage,

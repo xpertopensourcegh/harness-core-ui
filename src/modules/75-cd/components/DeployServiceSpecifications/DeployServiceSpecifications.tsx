@@ -17,7 +17,7 @@ import OverrideSets from '@pipeline/components/OverrideSets/OverrideSets'
 import type { K8SDirectServiceStep } from '@pipeline/components/PipelineSteps/Steps/K8sServiceSpec/K8sServiceSpec'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
-import factory from '../../../70-pipeline/components/PipelineSteps/PipelineStepFactory'
+import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import i18n from './DeployServiceSpecifications.i18n'
 import css from './DeployServiceSpecifications.module.scss'
 

@@ -5,7 +5,7 @@ import { parse } from 'yaml'
 import cx from 'classnames'
 import moment from 'moment'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import { useToaster, useConfirmationDialog, StringUtils } from 'modules/10-common/exports'
+import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import {
   ConnectorInfoDTO,
   ConnectorRequestBody,
@@ -20,18 +20,18 @@ import {
   ConnectorConnectivityDetails
 } from 'services/cd-ng'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
+import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
 import type {
   CompletionItemInterface,
   InvocationMapFunction,
   YamlBuilderHandlerBinding,
   YamlBuilderProps
-} from 'modules/10-common/interfaces/YAMLBuilderProps'
+} from '@common/interfaces/YAMLBuilderProps'
 import { getReference } from '@secrets/utils/SSHAuthUtils'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { useGetYamlSchema } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/exports'

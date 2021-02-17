@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
-import ConnectorStats from '../../../../10-common/components/ConnectorStats/ConnectorStats'
+import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
 
 jest.mock('moment', () => {
   return {

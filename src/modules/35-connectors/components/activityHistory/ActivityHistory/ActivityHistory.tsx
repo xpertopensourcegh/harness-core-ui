@@ -12,9 +12,9 @@ import {
   useGetConnectivitySummary,
   ResponseConnectivityCheckSummary
 } from 'services/cd-ng'
-import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 
-import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import ActivityList from '../ActivityList/ActivityList'
 import ActivityGraph from '../ActivityGraph/ActivityGraph'
 

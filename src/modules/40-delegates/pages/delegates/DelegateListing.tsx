@@ -16,7 +16,7 @@ import {
 } from 'services/portal'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import routes from '@common/RouteDefinitions'
-import { Page } from 'modules/10-common/exports'
+import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { DelegateStatus } from '@delegates/constants'

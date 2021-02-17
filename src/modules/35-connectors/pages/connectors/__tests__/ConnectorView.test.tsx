@@ -9,7 +9,7 @@ import * as mockMetaData from './snippets.metadata.json'
 import * as mockSnippetData from './snippet.json'
 import * as mockSecretData from './mocks/secret.json'
 
-jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div />
   return ComponentToMock
 })

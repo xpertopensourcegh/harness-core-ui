@@ -4,7 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import DelegatesListing from '../DelegateListing'
 import Delegatesmock from './Delegatesmock.json'
 
-jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div>yamlDiv</div>
   return ComponentToMock
 })

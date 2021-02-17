@@ -3,7 +3,7 @@ import { fireEvent, render, wait } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import Stepk8ReviewScript from '../StepReviewScript/Stepk8sReviewScript'
 
-jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div>yamlDiv</div>
   return ComponentToMock
 })

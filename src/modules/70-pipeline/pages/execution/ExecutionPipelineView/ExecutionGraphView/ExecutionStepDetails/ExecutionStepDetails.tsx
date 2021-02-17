@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs } from '@blueprintjs/core'
-import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
-import ExecutionLayout from '../../../../../components/ExecutionLayout/ExecutionLayout'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
 import ExecutionStepDetailsTab from './ExecutionStepDetailsTab'
 import ExecutionStepInputOutputTab from './ExecutionStepInputOutputTab'
 

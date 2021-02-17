@@ -8,7 +8,9 @@ import SessionToken from 'framework/utils/SessionToken'
 import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
+// eslint-disable-next-line aliased-module-imports
 import RouteDestinations from 'modules/RouteDestinations'
+// eslint-disable-next-line aliased-module-imports
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 

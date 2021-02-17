@@ -12,7 +12,7 @@ import {
   GetConnectivitySummaryQueryParams,
   ResponsePageActivitySummary
 } from 'services/cd-ng'
-import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
 import type { ActivityGraphDataType } from '../ActivityHistory/ActivityHistory'

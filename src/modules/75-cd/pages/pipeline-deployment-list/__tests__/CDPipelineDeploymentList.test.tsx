@@ -4,9 +4,9 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
+import filters from '@pipeline/pages/pipeline-deployment-list/__tests__/filters.json'
 import CDPipelineDeploymentList from '../CDPipelineDeploymentList'
 import data from './response.json'
-import filters from '../../../../70-pipeline/pages/pipeline-deployment-list/__tests__/filters.json'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>

@@ -6,7 +6,7 @@ import SecretDetails from '../SecretDetails'
 
 import mockData from './secretDetailsMocks.json'
 
-jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div>yamlDiv</div>
   return ComponentToMock
 })

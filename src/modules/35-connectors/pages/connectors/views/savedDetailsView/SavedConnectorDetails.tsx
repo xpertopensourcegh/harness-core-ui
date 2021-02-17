@@ -3,7 +3,7 @@ import { Layout, Tag, Text, Color, Container, Icon, IconName } from '@wings-soft
 import moment from 'moment'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, VaultConnectorDTO } from 'services/cd-ng'
-import { StringUtils } from 'modules/10-common/exports'
+import { StringUtils } from '@common/exports'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'

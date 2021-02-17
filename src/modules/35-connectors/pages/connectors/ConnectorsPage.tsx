@@ -30,9 +30,9 @@ import {
   GetConnectorListV2QueryParams
 } from 'services/cd-ng'
 import type { ConnectorFilterProperties } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
-import { PageError } from 'modules/10-common/components/Page/PageError'
-import { Page, useToaster, StringUtils } from 'modules/10-common/exports'
+import type { UseGetMockData } from '@common/utils/testUtils'
+import { PageError } from '@common/components/Page/PageError'
+import { Page, useToaster, StringUtils } from '@common/exports'
 import { AddDrawer, PageSpinner } from '@common/components'
 import {
   AddDrawerMapInterface,

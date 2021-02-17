@@ -5,11 +5,11 @@ import { Layout, Text, Icon, Color, IconName, Container } from '@wings-software/
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { DateRange } from '@blueprintjs/datetime'
-import Table from 'modules/10-common/components/Table/Table'
+import Table from '@common/components/Table/Table'
 
 import type { ResponsePageActivity, Activity, ResponseConnectivityCheckSummary } from 'services/cd-ng'
 
-import { Page } from 'modules/10-common/exports'
+import { Page } from '@common/exports'
 import { ActivityStatus } from '@connectors/constants'
 
 import i18n from './ActivityList.i18n'

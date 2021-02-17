@@ -5,9 +5,9 @@ import { debounce, get, isNil } from 'lodash-es'
 import cx from 'classnames'
 import { StepWidget, StepViewType, PipelineContext } from '@pipeline/exports'
 import type { K8SDirectInfrastructure, NgPipeline, PipelineInfrastructure } from 'services/cd-ng'
+import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import i18n from './DeployInfraSpecifications.i18n'
-import factory from '../../../70-pipeline/components/PipelineSteps/PipelineStepFactory'
-import { StepType } from '../../../70-pipeline/components/PipelineSteps/PipelineStepInterface'
 import css from './DeployInfraSpecifications.module.scss'
 
 const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [

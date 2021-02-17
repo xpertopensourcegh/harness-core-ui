@@ -2,12 +2,10 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { RestResponseTransactionMetricInfoSummaryPageDTO } from 'services/cv'
+import TimeseriesRow from '@cv/components/TimeseriesRow/TimeseriesRow'
 import DeploymentMetricsTab from '../DeploymentMetricsTab'
-import TimeseriesRow from '../../../../components/TimeseriesRow/TimeseriesRow'
 
-jest.mock('../../../../components/TimeseriesRow/TimeseriesRow', () =>
-  jest.fn().mockImplementation((_props: any) => <div />)
-)
+jest.mock('@cv/components/TimeseriesRow/TimeseriesRow', () => jest.fn().mockImplementation((_props: any) => <div />))
 
 const dataMock: RestResponseTransactionMetricInfoSummaryPageDTO = {
   resource: {

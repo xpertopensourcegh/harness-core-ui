@@ -11,7 +11,7 @@ jest.mock('services/portal', () => ({
   })
 }))
 
-jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div>yamlDiv</div>
   return ComponentToMock
 })
