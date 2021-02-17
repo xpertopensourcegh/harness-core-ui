@@ -1,6 +1,7 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
 import { Formik, FormikForm, Accordion, Button } from '@wings-software/uicore'
+import * as Yup from 'yup'
 
 import { useStrings } from 'framework/exports'
 import {
@@ -15,6 +16,7 @@ import { FailureStrategyPanelMode } from './FailureStrategyPanel/StrategySelecti
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
+import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
 import stepCss from '../Steps/Steps.module.scss'
 
 import css from './AdvancedSteps.module.scss'
@@ -33,6 +35,9 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
       onSubmit={data => {
         onChange({ ...data, tab: TabTypes.Advanced })
       }}
+      validationSchema={Yup.object().shape({
+        failureStrategies: getFailureStrategiesValidationSchema(getString)
+      })}
     >
       {(formikProps: FormikProps<Values>) => {
         setFormikRef(formikRef, formikProps)

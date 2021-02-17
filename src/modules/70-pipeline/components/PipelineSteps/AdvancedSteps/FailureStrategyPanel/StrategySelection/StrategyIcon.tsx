@@ -29,7 +29,7 @@ const getStringID = (strategy: Strategy): string => {
     case Strategy.Abort:
       return 'abort'
     default:
-      return `failureStrategies.${strategy}`
+      return `failureStrategies.strategiesLabel.${strategy}`
   }
 }
 

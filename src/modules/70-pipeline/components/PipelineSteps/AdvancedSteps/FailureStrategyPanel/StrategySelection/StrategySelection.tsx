@@ -19,15 +19,17 @@ export interface BaseStepProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: FormikContext<any>
   name: string
+  specPath: string
   parentStrategy?: Strategy
   allowedStrategies: Strategy[]
 }
 
 export function ManualInterventionStep(props: BaseStepProps): React.ReactElement {
-  const { name, formik, parentStrategy, allowedStrategies } = props
+  const { name, formik, parentStrategy, allowedStrategies, specPath } = props
 
   function handleChange(): void {
     formik.setFieldValue(name, undefined)
+    formik.setFieldValue(specPath, undefined)
   }
 
   const { getString } = useStrings()
@@ -36,13 +38,13 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
     <div className={css.step}>
       <StrategyIcon strategy={Strategy.ManualIntervention} checked onChange={handleChange} />
       <FormMultiTypeDurationField
-        name={`${name}.spec.timeout`}
+        name={`${specPath}.timeout`}
         label="Timeout"
         multiTypeDurationProps={{ enableConfigureOptions: false }}
       />
       <StrategySelection
-        label={getString('onTimeoutLabel')}
-        name={`${name}.spec.onTimeout.action`}
+        label={getString('failureStrategies.onTimeoutLabel')}
+        name={`${specPath}.onTimeout.action`}
         formik={formik}
         parentStrategy={Strategy.ManualIntervention}
         allowedStrategies={difference(allowedStrategies, [
@@ -55,22 +57,27 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
 }
 
 export function RetryStep(props: BaseStepProps): React.ReactElement {
-  const { name, formik, parentStrategy, allowedStrategies } = props
+  const { name, formik, parentStrategy, allowedStrategies, specPath } = props
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
 
   function handleChange(): void {
     formik.setFieldValue(name, undefined)
+    formik.setFieldValue(specPath, undefined)
   }
 
-  const intervals: string[] = get(formik.values, `${name}.spec.retryIntervals`) || []
+  const intervals: string[] = get(formik.values, `${specPath}.retryIntervals`) || []
 
   return (
     <div className={cx(css.step, css.retryStep)}>
       <StrategyIcon strategy={Strategy.Retry} checked onChange={handleChange} />
-      <FormInput.MultiTextInput name={`${name}.spec.retryCount`} label="Retry Count" />
-      <MultiTypeFieldSelector name={`${name}.spec.retryIntervals`} label="Retry Intervals" defaultValueToReset={['1d']}>
-        <FieldArray name={`${name}.spec.retryIntervals`}>
+      <FormInput.MultiTextInput
+        multiTextInputProps={{ textProps: { type: 'number', min: 0 } }}
+        name={`${specPath}.retryCount`}
+        label="Retry Count"
+      />
+      <MultiTypeFieldSelector name={`${specPath}.retryIntervals`} label="Retry Intervals" defaultValueToReset={['1d']}>
+        <FieldArray name={`${specPath}.retryIntervals`}>
           {({ push, remove }) => {
             function handleAdd(): void {
               uids.current.push(uuid())
@@ -96,7 +103,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                     return (
                       <div className={css.row} key={key}>
                         <FormMultiTypeDurationField
-                          name={`${name}.spec.retryIntervals[${i}]`}
+                          name={`${specPath}.retryIntervals[${i}]`}
                           label=""
                           multiTypeDurationProps={{ enableConfigureOptions: false }}
                         />
@@ -114,8 +121,8 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         </FieldArray>
       </MultiTypeFieldSelector>
       <StrategySelection
-        label={getString('onTimeoutLabel')}
-        name={`${name}.spec.onRetryFailure.action`}
+        label={getString('failureStrategies.onRetryFailureLabel')}
+        name={`${specPath}.onRetryFailure.action`}
         formik={formik}
         parentStrategy={Strategy.Retry}
         allowedStrategies={difference(allowedStrategies, [Strategy.Retry, parentStrategy || Strategy.Retry])}
@@ -127,6 +134,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
 export function RollbackStageStep(props: BaseStepProps): React.ReactElement {
   function handleChange(): void {
     props.formik.setFieldValue(props.name, undefined)
+    props.formik.setFieldTouched(props.name, true)
   }
 
   return (
@@ -139,6 +147,7 @@ export function RollbackStageStep(props: BaseStepProps): React.ReactElement {
 export function RollbackStepGroupStep(props: BaseStepProps): React.ReactElement {
   function handleChange(): void {
     props.formik.setFieldValue(props.name, undefined)
+    props.formik.setFieldTouched(props.name, true)
   }
 
   return (
@@ -151,6 +160,7 @@ export function RollbackStepGroupStep(props: BaseStepProps): React.ReactElement 
 export function MarkAsSuccessStep(props: BaseStepProps): React.ReactElement {
   function handleChange(): void {
     props.formik.setFieldValue(props.name, undefined)
+    props.formik.setFieldTouched(props.name, true)
   }
 
   return (
@@ -163,6 +173,7 @@ export function MarkAsSuccessStep(props: BaseStepProps): React.ReactElement {
 export function AbortStep(props: BaseStepProps): React.ReactElement {
   function handleChange(): void {
     props.formik.setFieldValue(props.name, undefined)
+    props.formik.setFieldTouched(props.name, true)
   }
 
   return (
@@ -211,23 +222,25 @@ export interface ConnectedStrategySelectionProps extends StrategySelectionProps 
 export function StrategySelection(props: ConnectedStrategySelectionProps): React.ReactElement {
   const { name, label, formik, allowedStrategies, parentStrategy } = props
 
-  const value = get(formik.values, name) || {}
-  const hasError = errorCheck(name, formik)
+  const fieldName = `${name}.type`
+  const value = get(formik.values, fieldName)
+  const hasError = errorCheck(fieldName, formik)
   const intent = hasError ? Intent.DANGER : Intent.NONE
-  const helperText = hasError ? get(formik?.errors, name) : null
+  const helperText = hasError ? get(formik?.errors, fieldName) : null
 
   return (
     <FormGroup label={label} labelFor={name} helperText={helperText} intent={intent}>
-      {value.type ? (
+      {value ? (
         <SelectedStep
-          strategy={value.type}
-          name={name}
+          strategy={value}
+          name={fieldName}
+          specPath={`${name}.spec`}
           formik={formik}
           parentStrategy={parentStrategy}
           allowedStrategies={allowedStrategies}
         />
       ) : (
-        <StrategyStepsList allowedStrategies={allowedStrategies} name={`${name}.type`} formik={formik} />
+        <StrategyStepsList allowedStrategies={allowedStrategies} name={fieldName} formik={formik} />
       )}
     </FormGroup>
   )
@@ -244,6 +257,7 @@ export function StrategyStepsList(props: StrategyStepsListProps): React.ReactEle
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     formik.setFieldValue(name, e.target.value as Strategy)
+    formik.setFieldTouched(name, true)
   }
 
   return (

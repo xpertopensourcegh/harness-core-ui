@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '@wings-software/uicore'
 import { FormikProps, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
+import { isEmpty, get } from 'lodash-es'
 
 import { String, useStrings } from 'framework/exports'
 import type { Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
@@ -24,7 +25,7 @@ export interface FailureStrategyPanelProps {
 
 export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
   const {
-    formikProps: { values: formValues },
+    formikProps: { values: formValues, submitForm, errors },
     mode
   } = props
   const [selectedStategyNum, setSelectedStategyNum] = React.useState(0)
@@ -32,6 +33,15 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
   const isDefaultStageStrategy = mode === FailureStrategyPanelMode.STAGE && selectedStategyNum === 0
+
+  async function handleTabChange(n: number): Promise<void> {
+    await submitForm()
+
+    // only change tab if current tab has no errors
+    if (isEmpty(get(errors, `failureStrategies[${selectedStategyNum}]`))) {
+      setSelectedStategyNum(n)
+    }
+  }
 
   React.useEffect(() => {
     /* istanbul ignore else */
@@ -74,7 +84,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                             <Button
                               intent={i === selectedStategyNum ? 'primary' : 'none'}
                               data-selected={i === selectedStategyNum}
-                              onClick={() => setSelectedStategyNum(i)}
+                              onClick={() => handleTabChange(i)}
                               className={css.stepListBtn}
                               data-testid={`failure-strategy-step-${i}`}
                             >

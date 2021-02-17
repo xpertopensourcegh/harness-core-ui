@@ -375,12 +375,34 @@ failureStrategy:
 failureTypeSelectLabel: On failure of type
 performAction: Perform Action
 failureStrategies:
-  Ignore: Ignore Failure
-  StageRollback: Rollback Stage
-  StepGroupRollback: Rollback Step Group
-  ManualIntervention: Manual Intervention
-  MarkAsSuccess: Mark As Success
-onTimeoutLabel: Post timeout action
+  strategiesLabel:
+    Ignore: Ignore Failure
+    StageRollback: Rollback Stage
+    StepGroupRollback: Rollback Step Group
+    ManualIntervention: Manual Intervention
+    MarkAsSuccess: Mark As Success
+  errorTypeLabels:
+    Authentication: Authentication Errors
+    Authorization: Autherization Errors
+    Connectivity: Connectivity Errors
+    Timeout: Timeout Errors
+    Verification: Verification Errors
+    DelegateProvisioning: Delegate Provisioning Errors
+    AnyOther: Any Other
+  onTimeoutLabel: Post timeout action
+  onRetryFailureLabel: Post retry failure action
+  validation:
+    errorsRequired: At least one failure type is required
+    errorsMinimum: '{{ $.failureStrategies.validation.errorsRequired }}'
+    actionRequired: Action is required
+    retryCountInteger: Retry Count must be a positive integer
+    retryCountRequired: Retry Count is required
+    retryCountMinimum: Retry Count must be greater or equal to 1
+    retryIntervalRequired: Retry Interval is Required
+    retryIntervalMinimum: At least one retry interval is Required
+    timeoutRequired: Timeout is required
+    onRetryFailureRequired: Retry failure action is required
+    onTimeoutRequired: Timeout failure action is required
 preRequisitesTitle: Pre-requisites
 advancedTitle: Advanced
 responseMapping: Response Mapping
@@ -914,7 +936,6 @@ pipelineSteps:
   skipSteadyStateCheck: 'Skip Steady State Check'
   workload: 'Workload'
   stepNameRequired: 'Step Name is required'
-  timeoutRequired: 'Timeout is required'
   lessThanZero: 'Instance cannot be less than zero.'
   morethanHundred: 'Instance cannot be more than 100.'
   instancesRequired: 'Instance is required.'

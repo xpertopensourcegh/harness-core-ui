@@ -5,6 +5,7 @@ import { connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 
 import { errorCheck } from '@common/utils/formikHelpers'
+import { useStrings } from 'framework/exports'
 
 import { ErrorType } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
@@ -14,54 +15,17 @@ interface Option {
   value: string
 }
 
-const MultiSelect = BPMultiSelect.ofType<Option>()
-
-/**
- * String ALL_ERRORS = "All";
-  String OTHER_ERRORS = "AnyOther";
-  String AUTHENTICATION_ERROR = "Authentication";
-  String CONNECTIVITY_ERROR = "Connectivity";
-  String TIMEOUT_ERROR = "Timeout";
-  String AUTHORIZATION_ERROR = "Authorization";
-  String VERIFICATION_ERROR = "Verification";
-  String DELEGATE_PROVISIONING_ERROR = "DelegateProvisioning";
- */
-
-const errorTypes: Option[] = [
-  {
-    label: 'Authentication Errors',
-    value: ErrorType.Authentication
-  },
-  {
-    label: 'Authorization Errors',
-    value: ErrorType.Authorization
-  },
-  {
-    label: 'Connectivity Errors',
-    value: ErrorType.Connectivity
-  },
-  {
-    label: 'Timeout Errors',
-    value: ErrorType.Timeout
-  },
-  {
-    label: 'Verification Errors',
-    value: ErrorType.Verification
-  },
-  {
-    label: 'Delegate Provisioning Errors',
-    value: ErrorType.DelegateProvisioning
-  },
-  {
-    label: 'Any Other',
-    value: ErrorType.AnyOther
-  }
+const errorTypesOrder: ErrorType[] = [
+  ErrorType.Authentication,
+  ErrorType.Authorization,
+  ErrorType.Connectivity,
+  ErrorType.Timeout,
+  ErrorType.Verification,
+  ErrorType.DelegateProvisioning,
+  ErrorType.AnyOther
 ]
 
-const errorTypesMap: Record<string, Option> = errorTypes.reduce(
-  (acc, option) => ({ ...acc, [option.value]: option }),
-  {}
-)
+const MultiSelect = BPMultiSelect.ofType<Option>()
 
 const itemRenderer: ItemRenderer<Option> = (item, itemProps) => {
   return <Menu.Item key={item.value} onClick={itemProps.handleClick} text={item.label} />
@@ -82,19 +46,26 @@ export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSe
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {
   const { name, label, formik } = props
+  const { getString } = useStrings()
 
   const hasError = errorCheck(name, formik)
   const intent = hasError ? Intent.DANGER : Intent.NONE
   const helperText = hasError ? get(formik?.errors, name) : null
+  const errorTypes: Option[] = React.useMemo(() => {
+    return errorTypesOrder.map(e => ({ value: e, label: getString(`failureStrategies.errorTypeLabels.${e}`) }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const selectedItemsValue = new Set<string>(get(formik.values, name) || [])
+  const selectedItemsValue = new Set<ErrorType>(get(formik.values, name) || [])
 
   function handleItemSelect(item: Option): void {
     if (item.value === ErrorType.AnyOther) {
       formik.setFieldValue(name, [item.value])
+      formik.setFieldTouched(name, true)
       return
     }
     formik.setFieldValue(name, [...selectedItemsValue, item.value])
+    formik.setFieldTouched(name, true)
   }
 
   function itemListPredicate(query: string, items: Option[]): Option[] {
@@ -103,7 +74,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
     }
 
     return items.filter(item => {
-      if (selectedItemsValue.has(item.value)) {
+      if (selectedItemsValue.has(item.value as ErrorType)) {
         return false
       }
 
@@ -115,11 +86,12 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
     })
   }
 
-  const selectedItems = [...selectedItemsValue].map((key: string) => errorTypesMap[key])
+  const selectedItems = [...selectedItemsValue].map((key: ErrorType) => errorTypes[errorTypesOrder.indexOf(key)])
 
   function onRemove(value: string): void {
     const items = selectedItems.filter(item => item.label !== value)
     formik.setFieldValue(name, items)
+    formik.setFieldTouched(name, true)
   }
 
   return (

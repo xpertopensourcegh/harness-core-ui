@@ -2,13 +2,17 @@ import React from 'react'
 import { Classes, H4 } from '@blueprintjs/core'
 import { Formik } from 'formik'
 import { Button } from '@wings-software/uicore'
+import * as Yup from 'yup'
 
 import { useStrings } from 'framework/exports'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
 import {
   ErrorType,
+  Strategy,
   FailureStrategyPanelMode
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+
+import { getFailureStrategiesValidationSchema } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/validation'
 
 export interface FailureStrategyProps {
   selectedStage: any
@@ -25,8 +29,20 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
   return (
     <Formik
       initialValues={{
-        failureStrategies: stage.failureStrategies || [{ onFailure: { errors: [ErrorType.AnyOther] } }]
+        failureStrategies: stage.failureStrategies || [
+          {
+            onFailure: {
+              errors: [ErrorType.AnyOther],
+              action: {
+                type: Strategy.StageRollback
+              }
+            }
+          }
+        ]
       }}
+      validationSchema={Yup.object().shape({
+        failureStrategies: getFailureStrategiesValidationSchema(getString)
+      })}
       onSubmit={onUpdate}
     >
       {formik => {
