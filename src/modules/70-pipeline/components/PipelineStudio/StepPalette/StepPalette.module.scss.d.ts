@@ -8,6 +8,7 @@ declare const styles: {
   readonly title: string
   readonly subTitle: string
   readonly paletteIcon: string
+  readonly library: string
   readonly paletteCard: string
   readonly stepPalette: string
   readonly stepsRenderer: string
@@ -19,7 +20,6 @@ declare const styles: {
   readonly stepName: string
   readonly subCategory: string
   readonly categoriesRenderer: string
-  readonly library: string
   readonly libraryHeader: string
   readonly headerContainer: string
   readonly showAllBtn: string

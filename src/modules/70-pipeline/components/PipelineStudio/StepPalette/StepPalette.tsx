@@ -261,7 +261,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
           <section className={css.headerContainer}>
             <Layout.Horizontal flex>
               <Container flex className={css.libraryHeader}>
-                {/* <img src={Library} alt="" aria-hidden /> */}
+                <Icon size={14} name="library" className={`${css.paletteIcon} ${css.library}`} />
                 <Text color={Color.WHITE} style={{ fontSize: 14 }}>
                   {getString('stepPalette.library')}
                 </Text>
@@ -316,8 +316,11 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name="service-kubernetes" className={css.paletteIcon} />
-                      {/* {category.name === 'Utilities' && <img src={Utility} />} */}
+                      <Icon
+                        size={14}
+                        name={iconMapByName[category.name || /* istanbul ignore next */ '']}
+                        className={css.paletteIcon}
+                      />
                       {category.name}({subCategory.length})
                     </section>
                   )
