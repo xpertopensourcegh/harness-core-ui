@@ -194,6 +194,51 @@ jobs:
 
       - name: Run tests and coverage
         run: npx jest --coverage --silent --coverageReporters text --coverageReporters text-summary --changedSince=origin/master --passWithNoTests
+  standards:
+    name: Standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '13.8'
+
+      - name: Set up GitHub Package Registry token
+        run: |
+          echo @wings-software:registry=https://npm.pkg.github.com > .npmrc
+          echo "//npm.pkg.github.com/:_authToken="$GIT_BOT_TOKEN >> .npmrc
+          echo always-auth=true >> .npmrc
+        env:
+          GIT_BOT_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Install Packages
+        run: yarn
+
+      - name: Run Standard Checks
+        run: |
+          ./scripts/generate-eslint-config-for-imports && npx prettier --write src/modules/*/.eslintrc.yml
+
+          changed=$(git diff --name-only)
+          if [ -n "$changed" ]; then
+            echo "scripts/generate-eslint-config-for-imports has not been run.\n"
+            echo "The following files have some issue:"
+            git diff --name-only
+            exit 1
+          fi
+
+          git checkout .
+
+          ./scripts/check-module-structures
 
   strings:
     name: Strings
