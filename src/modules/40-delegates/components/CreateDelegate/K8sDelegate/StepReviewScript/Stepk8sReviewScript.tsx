@@ -2,6 +2,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, StepProps, Heading, Text, Link, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
+import type { KubDelegateYaml } from 'services/portal'
+import { useToaster } from '@common/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { useGenerateKubernetesYaml } from 'services/portal'
 import type { StepK8Data } from '@delegates/DelegateInterface'
@@ -10,38 +12,38 @@ import css from '../CreateK8sDelegate.module.scss'
 const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams()
-  const { mutate: downloadYaml } = useGenerateKubernetesYaml({ queryParams: { accountId } })
+  const { showError } = useToaster()
+  const { mutate: downloadYaml } = useGenerateKubernetesYaml({ queryParams: { accountId, fileFormat: 'text/plain' } })
   const linkRef = React.useRef<HTMLAnchorElement>(null)
-  const onDownload = (data: any) => {
-    // const downloadLink = document.createElement('a')
-    downloadYaml(data)
+  const [generatedYaml, setGeneratedYaml] = React.useState({})
+
+  const onGenYaml = async () => {
+    const data = props?.prevStepData?.delegateYaml
+    const response = await downloadYaml(data as KubDelegateYaml)
+    setGeneratedYaml(response)
+  }
+
+  React.useEffect(() => {
+    onGenYaml()
+  }, [])
+
+  const onDownload = (data: KubDelegateYaml | undefined) => {
+    downloadYaml(data as KubDelegateYaml)
       .then(response => {
-        return new Response(response.body as Blob)
+        return new Response(response)
       })
       .then(response => response.blob())
       .then(blob => {
         if (linkRef?.current) {
-          linkRef.current.href = window.URL.createObjectURL(blob)
-          linkRef.current.download = `harness-delegate-kubernetes.tar.gz`
+          const content = new Blob([blob], { type: 'data:text/plain;charset=utf-8' })
+          linkRef.current.href = window.URL.createObjectURL(content)
+          linkRef.current.download = `harness-delegate.yaml`
         }
-        // let href = linkRef?.current?.href
-        // let download = linkRef?.current?.download
-        // href = window.URL.createObjectURL(blob)
-        // download = `harness-delegate-kubernetes.tar.gz`
-
-        // document.body.appendChild(downloadLink)
-
-        // downloadLink.dispatchEvent(
-        //   new MouseEvent('click', {
-        //     bubbles: true,
-        //     cancelable: true,
-        //     view: window
-        //   })
-        // )
         linkRef?.current?.click()
       })
-      .then(() => {
-        // document.body.removeChild(downloadLink)
+      .catch(err => {
+        showError(err.message)
+        throw err
       })
   }
   return (
@@ -53,7 +55,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
               entityType="Delegates"
               fileName={`harness-delegate.yaml`}
               isReadOnlyMode={true}
-              existingJSON={props?.prevStepData?.delegateYaml}
+              existingJSON={generatedYaml}
               showSnippetSection={false}
               width="568px"
               height="462px"

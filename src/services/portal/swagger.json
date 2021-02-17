@@ -12278,6 +12278,20 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "fileFormat",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/KubDelegateYaml"
+            }
           }
         ],
         "responses": {
@@ -67089,12 +67103,7 @@
       }
     },
     "RestResponseKubDownload": {
-      "type": "object",
-      "properties": {
-        "body": {
-          "type": "object"
-        }
-      }
+      "type": "string"
     },
     "TaskSelectorMap": {
       "type": "object",

@@ -25,7 +25,7 @@ import {
 
 import { useStrings } from 'framework/exports'
 import type { DelegateProfile } from '@delegates/DelegateInterface'
-
+import { useToaster } from '@common/exports'
 import { AddDescriptionWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { DelegateYaml, StepK8Data } from '@delegates/DelegateInterface'
 
@@ -101,7 +101,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
   const delegateSizeMappings: DelegateSizesResponse[] | undefined = delegateSizes?.resource
   const selectCardData = formatDelegateSizeArr(delegateSizeMappings)
   const profileOptions: SelectOption[] = formatProfileList(data)
-
+  const { showError } = useToaster()
   const defaultSize: DelegateSizesResponse | undefined = delegateSizeMappings
     ? getDefaultDelegateSize(delegateSizeMappings)
     : undefined
@@ -112,16 +112,22 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
 
   const onSubmit = async (values: DelegateYaml) => {
     const response = await createKubernetesYaml(values)
-    const delegateYaml = response.resource
-    if (delegateSizeMappings) {
-      const delegateSize: DelegateSizesResponse =
-        delegateSizeMappings.find((item: DelegateSizesResponse) => item.size === values.size) || delegateSizeMappings[0]
-      if (delegateSize) {
-        const stepPrevData = {
-          delegateYaml,
-          replicas: delegateSize?.replicas
+    if ((response as any)?.responseMessages.length) {
+      const err = (response as any)?.responseMessages?.[0]?.message
+      showError(err)
+    } else {
+      const delegateYaml = response.resource
+      if (delegateSizeMappings) {
+        const delegateSize: DelegateSizesResponse =
+          delegateSizeMappings.find((item: DelegateSizesResponse) => item.size === values.size) ||
+          delegateSizeMappings[0]
+        if (delegateSize) {
+          const stepPrevData = {
+            delegateYaml,
+            replicas: delegateSize?.replicas
+          }
+          props?.nextStep?.(stepPrevData)
         }
-        props?.nextStep?.(stepPrevData)
       }
     }
   }
