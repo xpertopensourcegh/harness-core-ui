@@ -237,6 +237,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   protected stepName = 'K8s Canary Deploy'
 
   protected stepIcon: IconName = 'canary'
+  protected isHarnessSpecific = true
   validateInputSet(
     data: K8sCanaryDeployData,
     template: K8sCanaryDeployData,

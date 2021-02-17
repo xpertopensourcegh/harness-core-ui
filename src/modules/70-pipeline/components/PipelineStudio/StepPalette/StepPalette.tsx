@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button } from '@wings-software/uicore'
+import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, Color, Container } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy } from 'lodash-es'
-
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { getConfig } from 'services/config'
@@ -15,9 +14,9 @@ import {
   useGetSteps,
   UseGetStepsProps
 } from 'services/pipeline-ng'
+import { useStrings } from 'framework/exports'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
-import i18n from './StepPalette.18n'
 import { iconMap, iconMapByName } from './iconMap'
 // TODO: Mock API
 import buildStageSteps from './mock/buildStageSteps.json'
@@ -71,7 +70,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const serviceDefinitionType = get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
 
   const { data: stepsData } = dataSourceFactory(stageType)({ queryParams: { category: serviceDefinitionType, module } })
-
+  const { getString } = useStrings()
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
     /* istanbul ignore else */ if (stepsCategories) {
@@ -79,6 +78,10 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
       setOriginalCategories(stepsCategories)
     }
   }, [stepsData?.data?.stepCategories])
+
+  const renderIcon = () => {
+    return <Icon size={8} name="harness" className={css.stepHarnessLogo} />
+  }
 
   const filterSteps = (stepName: string, context = FilterContext.NAV): void => {
     const filteredData: StepCategory[] = []
@@ -127,12 +130,14 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
       <div className={css.stepInside}>
         <section className={css.stepsRenderer}>
           <Layout.Vertical padding="large" spacing="large">
-            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-              <Text style={{ color: 'var(--grey-700)', fontSize: 16 }}>{i18n.title}</Text>
+            <Layout.Horizontal spacing="medium" className={css.paletteCardHeader}>
+              <Layout.Vertical>
+                <Text className={css.title}>{getString('stepPalette.title')}</Text>
+                <Text className={css.subTitle}>{getString('stepPalette.subTitle')}</Text>
+              </Layout.Vertical>
+
               <div className={css.expandSearch}>
                 <ExpandingSearchInput
-                  autoFocus
-                  placeholder={i18n.searchPlaceholder}
                   throttle={200}
                   onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
                 />
@@ -140,7 +145,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
             </Layout.Horizontal>
             {stepCategories && stepCategories.length === 0 && (
               <section style={{ paddingTop: '50%', justifyContent: 'center', textAlign: 'center' }}>
-                {i18n.noSearchResultsFound}
+                {getString('stepPalette.noSearchResultsFound')}
               </section>
             )}
             {stepCategories?.map((stepCategory: StepCategory) => {
@@ -162,8 +167,13 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       }}
                     >
                       {stepsFactory.getStep(stepData.type || /* istanbul ignore next */ '') ? (
-                        <Card interactive={true} elevation={0} selected={false}>
-                          <Icon name={stepsFactory.getStepIcon(stepData.type || /* istanbul ignore next */ '')} />
+                        <Card interactive={true} elevation={0} selected={false} className={css.paletteCard}>
+                          {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && renderIcon()}
+                          <Icon
+                            name={stepsFactory.getStepIcon(stepData.type || /* istanbul ignore next */ '')}
+                            className={css.paletteIcon}
+                            size={25}
+                          />
                         </Card>
                       ) : (
                         <Card
@@ -171,9 +181,15 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                           elevation={0}
                           selected={false}
                           disabled
+                          className={css.paletteCard}
                           onClick={e => e.stopPropagation()}
                         >
-                          <Icon name={iconMap[stepData.name || /* istanbul ignore next */ '']} />
+                          {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && renderIcon()}
+                          <Icon
+                            name={iconMap[stepData.name || /* istanbul ignore next */ '']}
+                            className={css.paletteIcon}
+                            size={25}
+                          />
                         </Card>
                       )}
                       <section className={css.stepName}>{stepData.name}</section>
@@ -200,8 +216,13 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                         }}
                       >
                         {stepsFactory.getStep(step.type || /* istanbul ignore next */ '') ? (
-                          <Card interactive={true} elevation={0} selected={false}>
-                            <Icon name={stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')} />
+                          <Card interactive={true} elevation={0} selected={false} className={css.paletteCard}>
+                            {stepsFactory.getStepIsHarnessSpecific(step.type || '') && renderIcon()}
+                            <Icon
+                              name={stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')}
+                              className={css.paletteIcon}
+                              size={25}
+                            />
                           </Card>
                         ) : (
                           <Card
@@ -210,8 +231,14 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                             selected={false}
                             disabled
                             onClick={e => e.stopPropagation()}
+                            className={css.paletteCard}
                           >
-                            <Icon name={iconMap[step.name || /* istanbul ignore next */ '']} />
+                            {stepsFactory.getStepIsHarnessSpecific(step.type || '') && renderIcon()}
+                            <Icon
+                              name={iconMap[step.name || /* istanbul ignore next */ '']}
+                              className={css.paletteIcon}
+                              size={25}
+                            />
                           </Card>
                         )}
                         <section className={css.stepName}>{step.name}</section>
@@ -231,23 +258,33 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
           </Layout.Vertical>
         </section>
         <section className={css.categoriesRenderer}>
-          <Layout.Horizontal padding="medium" style={{ justifyContent: 'flex-end', marginTop: 'var(--spacing-small)' }}>
-            <Button intent="primary" minimal icon="cross" onClick={onClose} />
-          </Layout.Horizontal>
-          <section className={css.primaryCategories}>
+          <section className={css.headerContainer}>
+            <Layout.Horizontal flex>
+              <Container flex className={css.libraryHeader}>
+                {/* <img src={Library} alt="" aria-hidden /> */}
+                <Text color={Color.WHITE} style={{ fontSize: 14 }}>
+                  {getString('stepPalette.library')}
+                </Text>
+              </Container>
+
+              <Button intent="primary" minimal icon="cross" onClick={onClose} color={Color.WHITE} />
+            </Layout.Horizontal>
+
             <section
-              className={cx(selectedCategory === primaryTypes.SHOW_ALL ? css.active : /* istanbul ignore next */ '')}
               onClick={() => {
                 filterSteps(primaryTypes.SHOW_ALL)
               }}
               key={primaryTypes.SHOW_ALL}
+              className={css.showAllBtn}
             >
-              {i18n.categories.primary.showAll} ({originalData?.length})
+              <Text color={Color.WHITE} style={{ fontSize: 11, fontWeight: 'bold' }}>
+                {getString('stepPalette.showAllSteps')} ({originalData?.length})
+              </Text>
             </section>
-            <section>{i18n.categories.primary.recentlyUsed} (0)</section>
           </section>
+          <hr className={css.separator} />
+
           <section className={css.secCategories}>
-            <section className={css.title}>{i18n.secCategoriesTitle}</section>
             <Layout.Vertical>
               {originalData?.map((category: StepCategory) => {
                 const stepRenderer = []
@@ -260,7 +297,11 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name || /* istanbul ignore next */ '']} />{' '}
+                      <Icon
+                        size={14}
+                        name={iconMapByName[category.name || /* istanbul ignore next */ '']}
+                        className={css.paletteIcon}
+                      />
                       {category.name} ({category.stepsData?.length})
                     </section>
                   )
@@ -275,14 +316,20 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name || /* istanbul ignore next */ '']} />{' '}
-                      {category.name}
+                      <Icon size={14} name="service-kubernetes" className={css.paletteIcon} />
+                      {/* {category.name === 'Utilities' && <img src={Utility} />} */}
+                      {category.name}({subCategory.length})
                     </section>
                   )
                   subCategory.forEach((subCat: StepCategory) =>
                     stepRenderer.push(
                       <section
-                        className={cx(css.category, css.offset, selectedCategory === subCat.name && css.active)}
+                        className={cx(
+                          css.category,
+                          css.subCategory,
+                          css.offset,
+                          selectedCategory === subCat.name && css.active
+                        )}
                         onClick={() => {
                           filterSteps(subCat.name || /* istanbul ignore next */ '')
                         }}

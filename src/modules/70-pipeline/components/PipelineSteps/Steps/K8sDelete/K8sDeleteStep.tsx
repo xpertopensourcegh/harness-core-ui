@@ -370,6 +370,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
   protected type = StepType.K8sDelete
   protected stepName = 'K8s Delete'
   protected stepIcon: IconName = 'delete'
+  protected isHarnessSpecific = true
 
   protected defaultValues: K8sDeleteData = {
     identifier: '',

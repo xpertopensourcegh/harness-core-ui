@@ -44,5 +44,5 @@ export const iconMapByName: iconMapOptions = {
   'Issue Tracking': 'error',
   Notification: 'notifications',
   'Flow Control': 'flow-branch',
-  Utilites: 'briefcase'
+  Utilites: 'service-kubernetes'
 }

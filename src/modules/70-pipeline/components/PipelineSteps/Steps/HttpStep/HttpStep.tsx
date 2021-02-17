@@ -174,6 +174,8 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     }
   }
 
+  protected isHarnessSpecific = true
+
   private processInitialValues(initialValues: HttpStepData): HttpStepFormData {
     return {
       ...initialValues,

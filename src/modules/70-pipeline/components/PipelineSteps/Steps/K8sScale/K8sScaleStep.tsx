@@ -265,6 +265,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   protected stepName = 'K8s Scale'
 
   protected stepIcon: IconName = 'swap-vertical'
+  protected isHarnessSpecific = true
   /* istanbul ignore next */
   validateInputSet(data: K8sScaleData, template: K8sScaleData, getString?: UseStringsReturn['getString']): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

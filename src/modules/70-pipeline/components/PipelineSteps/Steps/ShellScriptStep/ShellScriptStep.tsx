@@ -225,6 +225,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   protected type = StepType.SHELLSCRIPT
   protected stepName = i18n.shellScriptStep
   protected stepIcon: IconName = 'command-shell-script'
+  protected isHarnessSpecific = true
   protected invocationMap: Map<
     RegExp,
     (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>

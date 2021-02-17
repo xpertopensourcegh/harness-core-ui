@@ -285,6 +285,16 @@ credentials: Credentials
 createProject: '+ Create Project'
 pickProject: Pick a project and drill down to see your information.
 orSelectExisting: Or select an existing project
+stepPalette:
+  title: 'Step Library'
+  subTitle: 'All Steps'
+  noSearchResultsFound: 'No results found. Please try another step name.'
+  selectStep: 'Select a Step'
+  library: 'Library'
+  others: 'Others'
+  infrastructureProvisioners: 'Infrastructure Provisioners'
+  showAllSteps: 'Show All Steps'
+  searchPlaceholder: 'Search Step'
 cd:
   continuousIntegration: 'Continuous Delivery'
   dashboard:
@@ -466,6 +476,7 @@ projectCard:
   ciRendererText: 'Builds in last 7 days'
   cfRendererText: 'Feature Flags in last 7 days'
   ceRendererText: 'Cost Savings in last 7 days'
+
 collaborators:
   roleLabel: 'Role :'
 ssh:

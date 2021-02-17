@@ -74,6 +74,10 @@ export abstract class AbstractStepFactory {
     return this.stepBank.get(type)?.getIconName() || 'disable'
   }
 
+  getStepIsHarnessSpecific(type: string): boolean {
+    return this.stepBank.get(type)?.getIsHarnessSpecific() || false
+  }
+
   getStepData(type: string): StepData | undefined {
     return this.stepIconMap.get(type)
   }

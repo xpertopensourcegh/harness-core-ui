@@ -52,6 +52,7 @@ export abstract class Step<T> {
   protected abstract stepIcon: IconName
   protected abstract stepName: string
   protected _hasStepVariables = false
+  protected isHarnessSpecific = false
   protected invocationMap?: Map<
     RegExp,
     (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
@@ -66,6 +67,10 @@ export abstract class Step<T> {
 
   getDefaultValues(initialValues: T, _stepViewType: StepViewType): T {
     return { ...this.defaultValues, ...initialValues }
+  }
+
+  getIsHarnessSpecific(): boolean {
+    return this.isHarnessSpecific
   }
 
   getIconName(): IconName {
