@@ -3,10 +3,10 @@ import React from 'react'
 import type { Meta, Story } from '@storybook/react'
 
 import { MultiLogsViewer, MultiLogsViewerProps } from './MultiLogsViewer'
+import { SimpleLogViewer, SimpleLogViewerProps } from './SimpleLogViewer'
 
 export default {
-  title: 'Components / MultiLogsViewer',
-  component: MultiLogsViewer
+  title: 'Common / Logs Viewer'
 } as Meta
 
 function log(): string {
@@ -106,13 +106,20 @@ deployment.apps/todolist-deployment configured (dry run)
 
 Done.`
 
-export const Basic: Story<MultiLogsViewerProps> = args => (
+export const Simple: Story<SimpleLogViewerProps> = args => <SimpleLogViewer {...args} />
+
+Simple.args = {
+  data: log(),
+  loading: false
+}
+
+export const Multi: Story<MultiLogsViewerProps> = args => (
   <div style={{ height: '600px' }}>
     <MultiLogsViewer {...args} onSectionClick={(id, status) => console.log({ id, status })} />
   </div>
 )
 
-Basic.args = {
+Multi.args = {
   data: [
     {
       title: 'Entry 1',

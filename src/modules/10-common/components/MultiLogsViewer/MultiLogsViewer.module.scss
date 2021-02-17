@@ -1,9 +1,7 @@
+$background: #09090b;
+
 .multiLogViewer {
-  background: #09090b;
-  color: var(--grey-100);
-  font-family: 'Roboto Mono', 'Monaco', 'Ubuntu Mono', monospace;
-  font-size: 12px;
-  line-height: 20px;
+  background: $background;
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;
@@ -67,6 +65,13 @@
 }
 
 .logViewer {
+  background: $background;
+  color: var(--grey-100);
+  font-family: 'Roboto Mono', 'Monaco', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  line-height: 20px;
+  padding: var(--spacing-small) 0;
+
   & pre {
     background: transparent !important;
     padding: 0;
@@ -102,7 +107,7 @@
     position: sticky;
     left: 0;
     top: 20px;
-    background-color: #09090b;
+    background-color: $background;
     padding-right: 30px;
   }
 
@@ -112,4 +117,13 @@
       background-color: var(--grey-800);
     }
   }
+
+  a {
+    color: var(--grey-100);
+    text-decoration: underline;
+  }
+}
+
+.multiLogViewer .logViewer {
+  padding: 0;
 }

@@ -1,15 +1,10 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Service, ServiceLog, useLogsOfService } from 'services/lw'
+import { SimpleLogViewer } from '@common/components/MultiLogsViewer/SimpleLogViewer'
 
 interface COGatewayLogsProps {
   service: Service | undefined
-}
-
-interface LogObject {
-  logLevel?: string
-  createdAt?: number
-  logLine: string
 }
 
 const logColorMap = {
@@ -17,42 +12,44 @@ const logColorMap = {
   active: '\u001b[32m'
 }
 
-function getLogs(logs: ServiceLog[] | undefined): LogObject[] {
+function getLogs(logs: ServiceLog[] | undefined): string {
   if (!logs) {
-    return []
+    return ''
   }
-  const logObjects: LogObject[] = []
+  let logLine = ''
+
   logs.map(l => {
-    let logLine = ''
     if (l.error) {
-      logLine = `${logColorMap.errored}${l.created_at}  Rule state changed to: ${l.state} ${l.error ? l.error : ''} ${
+      logLine += `${logColorMap.errored}${l.created_at}  Rule state changed to: ${l.state} ${l.error ? l.error : ''} ${
         l.message ? l.message : ''
-      }`
+      }\n`
     } else if (l.state == 'active') {
-      logLine = `${logColorMap.active}${l.created_at}  Rule state changed to: ${l.state} ${l.message ? l.message : ''}`
-    } else {
-      logLine = `${l.created_at}  Rule state changed to: ${l.state} ${l.error ? l.error : ''} ${
+      logLine += `${logColorMap.active}${l.created_at}  Rule state changed to: ${l.state} ${
         l.message ? l.message : ''
-      }`
+      }\n`
+    } else {
+      logLine += `${l.created_at}  Rule state changed to: ${l.state} ${l.error ? l.error : ''} ${
+        l.message ? l.message : ''
+      }\n`
     }
-    logObjects.push({
-      logLine: logLine
-    })
   })
-  return logObjects
+
+  return logLine
 }
+
 const COGatewayLogs: React.FC<COGatewayLogsProps> = props => {
   const { orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const { data } = useLogsOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
+  const { data, loading } = useLogsOfService({
+    org_id: orgIdentifier, // eslint-disable-line @typescript-eslint/camelcase
+    projectID: projectIdentifier,
     serviceID: props.service?.id as number
   })
-  return <pre>{JSON.stringify(getLogs(data?.response))}</pre>
+
+  return <SimpleLogViewer data={getLogs(data?.response)} loading={loading} />
 }
 
 export default COGatewayLogs

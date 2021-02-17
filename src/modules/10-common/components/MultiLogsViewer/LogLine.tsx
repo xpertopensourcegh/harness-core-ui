@@ -1,18 +1,53 @@
 import React from 'react'
 import cx from 'classnames'
+import { ansiToJson } from 'anser'
+import { memoize } from 'lodash-es'
 
 import type { LineData } from './types'
 import css from './MultiLogsViewer.module.scss'
+
+// eslint-disable-next-line @typescript-eslint/camelcase
+export const memoizedAnsiToJson = memoize((str: string) => ansiToJson(str, { use_classes: true }))
 
 export interface LogLineChunkProps {
   data: LineData[]
   chunkNumber: number
   linesChunkSize: number
-  style: React.CSSProperties
+  style?: React.CSSProperties
 }
 
-// https://github.com/nteract/ansi-to-react/blob/master/src/index.ts
-// https://github.com/bvaughn/highlight-words-core/blob/master/src/utils.js
+// adopted from https://github.com/nteract/ansi-to-react/blob/master/src/index.ts
+function linkifyText(content: string): React.ReactNode[] {
+  const nodes: React.ReactNode[] = []
+  const LINK_REGEX = /(\s+|^)(https?:\/\/(?:www\.|(?!www))[^\s.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/g
+
+  let index = 0
+  let match: RegExpExecArray | null
+
+  while ((match = LINK_REGEX.exec(content)) !== null) {
+    const [, pre, url] = match
+
+    const startIndex = match.index + pre.length
+
+    if (startIndex > index) {
+      nodes.push(content.substring(index, startIndex))
+    }
+
+    nodes.push(
+      <a key={index} href={url} target="_blank" rel="noreferrer noopener">
+        {url}
+      </a>
+    )
+
+    index = LINK_REGEX.lastIndex
+  }
+
+  if (index < content.length) {
+    nodes.push(content.substring(index))
+  }
+
+  return nodes
+}
 
 export interface LogLineProps {
   data: LineData
@@ -44,7 +79,7 @@ export function LogLine(props: LogLineProps): React.ReactElement {
               )}
               key={`${row.content}_${i}`}
             >
-              {row.content}
+              {linkifyText(row.content)}
             </span>
           )
         })}

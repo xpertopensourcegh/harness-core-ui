@@ -1,14 +1,11 @@
 import React from 'react'
 import { Icon, IconName } from '@wings-software/uicore'
-import { ansiToJson } from 'anser'
-import { chunk, memoize } from 'lodash-es'
+import { chunk } from 'lodash-es'
 
 import type { LineData } from './types'
-import { LogViewer } from './LogViewer'
+import { LogViewerWithVirtualList } from './LogViewerWithVirtualList'
+import { memoizedAnsiToJson } from './LogLine'
 import css from './MultiLogsViewer.module.scss'
-
-// eslint-disable-next-line @typescript-eslint/camelcase
-const memoizedAnsiToJson = memoize((str: string) => ansiToJson(str, { use_classes: true }))
 
 export type LogViewerAccordionStatus = 'success' | 'error' | 'loading'
 
@@ -123,7 +120,13 @@ export function LogViewerAccordion(props: LogViewerAccordionProps): React.ReactE
         <div className={css.text}>{title}</div>
       </div>
       {open ? (
-        <LogViewer data={linesData} height={height} id={id} totalLines={totalLines} linesChunkSize={linesChunkSize} />
+        <LogViewerWithVirtualList
+          data={linesData}
+          height={height}
+          id={id}
+          totalLines={totalLines}
+          linesChunkSize={linesChunkSize}
+        />
       ) : (
         <div />
       )}

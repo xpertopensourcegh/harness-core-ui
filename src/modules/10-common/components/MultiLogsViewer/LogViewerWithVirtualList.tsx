@@ -8,7 +8,7 @@ import type { LineData } from './types'
 import css from './MultiLogsViewer.module.scss'
 import './ansi-colors.scss'
 
-export interface LogViewerProps {
+export interface LogViewerWithVirtualListProps {
   data: LineData[][]
   height: number
   id: string
@@ -21,7 +21,7 @@ const LINE_HEIGHT = 20
 /**
  * Component which renders the logs inside a virtual list
  */
-export function LogViewer(props: LogViewerProps): React.ReactElement {
+export function LogViewerWithVirtualList(props: LogViewerWithVirtualListProps): React.ReactElement {
   const { data, height, totalLines, linesChunkSize } = props
   const [node, setNode] = React.useState<HTMLDivElement | null>(null)
   const [preNode, setPreNode] = React.useState<HTMLPreElement | null>(null)
