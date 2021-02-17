@@ -5,6 +5,7 @@ import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepGitlabAuthentication from './StepAuth/StepGitlabAuthentication'
 
@@ -25,14 +26,21 @@ const CreateGitlabConnector = (props: CreateConnectorModalProps): JSX.Element =>
       iconProps={{ size: 37 }}
       title={getConnectorTitleTextByType(Connectors.GITLAB)}
     >
-      <GitDetailsStep
+      <ConnectorDetailsStep
         type={Connectors.GITLAB}
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <StepGitlabAuthentication name={getString('details')} {...commonProps} onConnectorCreated={props.onSuccess} />
+      <GitDetailsStep
+        type={Connectors.GITLAB}
+        name={getString('details')}
+        isEditMode={props.isEditMode}
+        connectorInfo={props.connectorInfo}
+        mock={props.mock}
+      />
+      <StepGitlabAuthentication name={getString('credentials')} {...commonProps} onConnectorCreated={props.onSuccess} />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep={true}

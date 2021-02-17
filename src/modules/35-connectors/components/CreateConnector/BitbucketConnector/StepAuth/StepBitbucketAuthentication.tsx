@@ -195,7 +195,7 @@ const StepBitbucketAuthentication: React.FC<
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('details')}
+        {getString('credentials')}
       </Text>
 
       <Formik

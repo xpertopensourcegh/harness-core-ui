@@ -62,6 +62,10 @@ describe('Create Git connector Wizard', () => {
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
 
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     fillAtForm([
       {
         container,
@@ -92,7 +96,10 @@ describe('Create Git connector Wizard', () => {
 
     expect(container).toMatchSnapshot()
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
+    })
+    await act(async () => {
+      clickSubmit(container)
     })
     // step 2
     expect(container).toMatchSnapshot()
@@ -127,7 +134,7 @@ describe('Create Git connector Wizard', () => {
         <CreateGitConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
       </TestWrapper>
     ),
-    backButtonSelector: '[data-name="gitBackButton"]',
+    backButtonSelector: '[data-name="commonGitBackButton"]',
     mock: backButtonMock
   })
 })

@@ -14,10 +14,8 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
-import { pick } from 'lodash-es'
 import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
-import { StringUtils } from '@common/exports'
 import {
   ConnectorConfigDTO,
   ConnectorInfoDTO,
@@ -28,10 +26,7 @@ import {
 import { String, useStrings } from 'framework/exports'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { Connectors } from '@connectors/constants'
-import { NameIdDescriptionTags } from '@common/components'
-import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
-export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
 
 interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   type: ConnectorInfoDTO['type']
@@ -44,10 +39,6 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
 }
 
 interface DetailsStepInterface {
-  name: string
-  description?: string
-  identifier: string
-  tags?: Record<string, string>
   urlType: string
   connectionType: string
   url: string
@@ -167,7 +158,6 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
   const getInitialValues = (): DetailsStepInterface => {
     if (isEdit && props.connectorInfo) {
       return {
-        ...pick(props.connectorInfo, ['name', 'identifier', 'description', 'tags']),
         urlType:
           props.type === Connectors.GIT ? props.connectorInfo?.spec?.connectionType : props.connectorInfo?.spec?.type,
         url: props.connectorInfo?.spec?.url,
@@ -178,10 +168,6 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
       }
     } else {
       return {
-        name: '',
-        description: '',
-        identifier: '',
-        tags: {},
         urlType: GitUrlType.ACCOUNT,
         connectionType: GitConnectionType.HTTP,
         url: ''
@@ -191,28 +177,19 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getHeadingByType(props.type)}</div>
+      <div className={css.heading}>{getString('details')}</div>
       <ModalErrorHandler bind={setModalErrorHandler} />
 
       <Container padding="small" className={css.connectorForm}>
-        <Formik<DetailsForm>
+        <Formik
           onSubmit={formData => {
             handleSubmit(formData)
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required(getString('validation.nameRequired')),
-            url: Yup.string().trim().required(getString('validation.UrlRequired')),
-            identifier: Yup.string().when('name', {
-              is: val => val?.length,
-              then: Yup.string()
-                .trim()
-                .required(getString('validation.identifierRequired'))
-                .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-                .notOneOf(StringUtils.illegalIdentifiers)
-            })
+            url: Yup.string().trim().required(getString('validation.UrlRequired'))
           })}
           initialValues={{
-            ...(getInitialValues() as DetailsForm),
+            ...getInitialValues(),
             ...prevStepData,
             ...props.formData
           }}
@@ -221,11 +198,6 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
-                  <NameIdDescriptionTags
-                    className={css.formElm}
-                    formikProps={formikProps}
-                    identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
-                  />
                   <FormInput.Select
                     className={css.formElm}
                     label={getString('connectors.git.urlType')}
@@ -246,7 +218,13 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                     placeholder={getUrlLabelPlaceholder(props.type, formikProps.values.connectionType)}
                   />
                 </Container>
-                <Layout.Horizontal>
+                <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                  <Button
+                    text={getString('back')}
+                    icon="chevron-left"
+                    onClick={() => props?.previousStep?.(props?.prevStepData)}
+                    data-name="commonGitBackButton"
+                  />
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
                     <String stringID="saveAndContinue" />
                   </Button>

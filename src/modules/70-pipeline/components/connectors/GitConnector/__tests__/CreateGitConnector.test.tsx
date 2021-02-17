@@ -80,8 +80,11 @@ describe('CreateGitConnector tests', () => {
       </TestWrapper>
     )
     const inputName = container.querySelector("input[name='name'")
-    expect(inputName).toBeDefined()
+    expect(inputName).toBeTruthy()
     expect(container).toMatchSnapshot('step 1')
+    await act(async () => {
+      fireEvent.click(document.querySelector("button[type='submit']")!)
+    })
     await act(async () => {
       fireEvent.change(inputName!, {
         target: { value: 'dummy name' }

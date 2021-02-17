@@ -98,6 +98,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -212,7 +227,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            Name is a required field
+                            Connector name is a required field
                           </div>
                         </div>
                       </div>
@@ -311,148 +326,6 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                             style="transform: translateY(-undefinedpx);"
                           />
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="urlType-1"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="urlType"
-                    >
-                      URL Type
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="urlType"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="Account"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
-                              >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Connection Type
-                  </p>
-                  <div
-                    class="bp3-form-group"
-                    data-id="connectionType-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group bp3-intent-danger formElm"
-                    data-id="url-3"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="url"
-                    >
-                      GitLab Account URL
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group bp3-intent-danger"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="url"
-                          placeholder="https://www.gitlab.com/account/"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        URL is required
                       </div>
                     </div>
                   </div>
@@ -559,12 +432,30 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         GitLab Connector
       </span>
       <div
-        class="StepWizard--navStep StepWizard--activeStep"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard--number"
+          class="StepWizard--completedIcon"
         >
-          1
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -574,7 +465,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         </p>
       </div>
       <div
-        class="StepWizard--navStep"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
           class="StepWizard--number"
@@ -600,6 +491,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -614,7 +520,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         <div
           class="heading"
         >
-          Overview
+          Details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -631,191 +537,8 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   style="min-height: 460px;"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main main formElm"
-                  >
-                    <div
-                      class="InputWithIdentifier--txtNameContainer"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ID
-                          :
-                        </p>
-                        <span
-                          class="bp3-popover-wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <div
-                              class="bp3-editable-text InputWithIdentifier--idValue"
-                              tabindex="0"
-                            >
-                              <span
-                                class="bp3-editable-text-content"
-                                style="height: 1px; line-height: 1px; min-width: 0;"
-                              >
-                                dummy_name
-                              </span>
-                            </div>
-                          </span>
-                        </span>
-                        <span
-                          class="bp3-icon bp3-icon-edit StyledProps--main"
-                          icon="edit"
-                          style="vertical-align: middle;"
-                        >
-                          <svg
-                            data-icon="edit"
-                            height="12"
-                            viewBox="0 0 16 16"
-                            width="12"
-                          >
-                            <desc>
-                              edit
-                            </desc>
-                            <path
-                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <div
-                        class="bp3-form-group"
-                        data-id="name-0"
-                      >
-                        <label
-                          class="bp3-label"
-                          for="name"
-                        >
-                          Name
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="name"
-                              type="text"
-                              value="dummy name"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="Collapse--main"
-                    >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
-                      >
-                        <div
-                          class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                            data-icon="main-chevron-right"
-                          >
-                            <svg
-                              height="10"
-                              viewBox="0 0 8 14"
-                              width="10"
-                            >
-                              <path
-                                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                                fill="#4d5969"
-                              />
-                            </svg>
-                          </span>
-                          <p
-                            class="StyledProps--font StyledProps--main CollapseHeader--title"
-                          >
-                            Description
-                          </p>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                        />
-                      </div>
-                      <div
-                        class="Collapse--collapse"
-                      >
-                        <div
-                          class="bp3-collapse collapse"
-                        >
-                          <div
-                            aria-hidden="false"
-                            class="bp3-collapse-body"
-                            style="transform: translateY(-undefinedpx);"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="Collapse--main"
-                    >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
-                      >
-                        <div
-                          class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                            data-icon="main-chevron-right"
-                          >
-                            <svg
-                              height="10"
-                              viewBox="0 0 8 14"
-                              width="10"
-                            >
-                              <path
-                                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                                fill="#4d5969"
-                              />
-                            </svg>
-                          </span>
-                          <p
-                            class="StyledProps--font StyledProps--main CollapseHeader--title"
-                          >
-                            Tags
-                          </p>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                        />
-                      </div>
-                      <div
-                        class="Collapse--collapse"
-                      >
-                        <div
-                          class="bp3-collapse collapse"
-                        >
-                          <div
-                            aria-hidden="false"
-                            class="bp3-collapse-body"
-                            style="transform: translateY(-undefinedpx);"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
                     class="bp3-form-group formElm"
-                    data-id="urlType-1"
+                    data-id="urlType-0"
                   >
                     <label
                       class="bp3-label"
@@ -883,7 +606,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   </p>
                   <div
                     class="bp3-form-group"
-                    data-id="connectionType-2"
+                    data-id="connectionType-1"
                   >
                     <div
                       class="bp3-form-content"
@@ -921,7 +644,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   </div>
                   <div
                     class="bp3-form-group formElm"
-                    data-id="url-3"
+                    data-id="url-2"
                   >
                     <label
                       class="bp3-label"
@@ -952,8 +675,38 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal StyledProps--main"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
+                  <button
+                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    data-name="commonGitBackButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                      icon="chevron-left"
+                    >
+                      <svg
+                        data-icon="chevron-left"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-left
+                        </desc>
+                        <path
+                          d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      Back
+                    </span>
+                  </button>
                   <button
                     class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     type="submit"
@@ -1086,12 +839,30 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         </p>
       </div>
       <div
-        class="StepWizard--navStep StepWizard--activeStep"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard--number"
+          class="StepWizard--completedIcon"
         >
-          2
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1101,12 +872,27 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         </p>
       </div>
       <div
-        class="StepWizard--navStep"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1127,7 +913,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          Credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1518,12 +1304,30 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
         GitLab Connector
       </span>
       <div
-        class="StepWizard--navStep StepWizard--activeStep"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard--number"
+          class="StepWizard--completedIcon"
         >
-          1
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1533,7 +1337,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
         </p>
       </div>
       <div
-        class="StepWizard--navStep"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
           class="StepWizard--number"
@@ -1559,6 +1363,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1573,7 +1392,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
         <div
           class="heading"
         >
-          Overview
+          Details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1590,191 +1409,8 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   style="min-height: 460px;"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main main formElm"
-                  >
-                    <div
-                      class="InputWithIdentifier--txtNameContainer"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ID
-                          :
-                        </p>
-                        <span
-                          class="bp3-popover-wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <div
-                              class="bp3-editable-text InputWithIdentifier--idValue"
-                              tabindex="0"
-                            >
-                              <span
-                                class="bp3-editable-text-content"
-                                style="height: 1px; line-height: 1px; min-width: 0;"
-                              >
-                                dummy_name
-                              </span>
-                            </div>
-                          </span>
-                        </span>
-                        <span
-                          class="bp3-icon bp3-icon-edit StyledProps--main"
-                          icon="edit"
-                          style="vertical-align: middle;"
-                        >
-                          <svg
-                            data-icon="edit"
-                            height="12"
-                            viewBox="0 0 16 16"
-                            width="12"
-                          >
-                            <desc>
-                              edit
-                            </desc>
-                            <path
-                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <div
-                        class="bp3-form-group"
-                        data-id="name-0"
-                      >
-                        <label
-                          class="bp3-label"
-                          for="name"
-                        >
-                          Name
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="name"
-                              type="text"
-                              value="dummy name"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="Collapse--main"
-                    >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
-                      >
-                        <div
-                          class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                            data-icon="main-chevron-right"
-                          >
-                            <svg
-                              height="10"
-                              viewBox="0 0 8 14"
-                              width="10"
-                            >
-                              <path
-                                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                                fill="#4d5969"
-                              />
-                            </svg>
-                          </span>
-                          <p
-                            class="StyledProps--font StyledProps--main CollapseHeader--title"
-                          >
-                            Description
-                          </p>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                        />
-                      </div>
-                      <div
-                        class="Collapse--collapse"
-                      >
-                        <div
-                          class="bp3-collapse collapse"
-                        >
-                          <div
-                            aria-hidden="false"
-                            class="bp3-collapse-body"
-                            style="transform: translateY(-undefinedpx);"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="Collapse--main"
-                    >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
-                      >
-                        <div
-                          class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                            data-icon="main-chevron-right"
-                          >
-                            <svg
-                              height="10"
-                              viewBox="0 0 8 14"
-                              width="10"
-                            >
-                              <path
-                                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                                fill="#4d5969"
-                              />
-                            </svg>
-                          </span>
-                          <p
-                            class="StyledProps--font StyledProps--main CollapseHeader--title"
-                          >
-                            Tags
-                          </p>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                        />
-                      </div>
-                      <div
-                        class="Collapse--collapse"
-                      >
-                        <div
-                          class="bp3-collapse collapse"
-                        >
-                          <div
-                            aria-hidden="false"
-                            class="bp3-collapse-body"
-                            style="transform: translateY(-undefinedpx);"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
                     class="bp3-form-group formElm"
-                    data-id="urlType-1"
+                    data-id="urlType-0"
                   >
                     <label
                       class="bp3-label"
@@ -1842,7 +1478,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   </p>
                   <div
                     class="bp3-form-group"
-                    data-id="connectionType-2"
+                    data-id="connectionType-1"
                   >
                     <div
                       class="bp3-form-content"
@@ -1880,7 +1516,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   </div>
                   <div
                     class="bp3-form-group formElm"
-                    data-id="url-3"
+                    data-id="url-2"
                   >
                     <label
                       class="bp3-label"
@@ -1911,8 +1547,38 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal StyledProps--main"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
+                  <button
+                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    data-name="commonGitBackButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                      icon="chevron-left"
+                    >
+                      <svg
+                        data-icon="chevron-left"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-left
+                        </desc>
+                        <path
+                          d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      Back
+                    </span>
+                  </button>
                   <button
                     class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     type="submit"
@@ -2045,12 +1711,30 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
         </p>
       </div>
       <div
-        class="StepWizard--navStep StepWizard--activeStep"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard--number"
+          class="StepWizard--completedIcon"
         >
-          2
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2060,12 +1744,27 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
         </p>
       </div>
       <div
-        class="StepWizard--navStep"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2086,7 +1785,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          Credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2356,12 +2055,30 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
         </p>
       </div>
       <div
-        class="StepWizard--navStep StepWizard--activeStep"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard--number"
+          class="StepWizard--completedIcon"
         >
-          2
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2371,12 +2088,27 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
         </p>
       </div>
       <div
-        class="StepWizard--navStep"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2397,7 +2129,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          Credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2811,12 +2543,30 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
         </p>
       </div>
       <div
-        class="StepWizard--navStep StepWizard--activeStep"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard--number"
+          class="StepWizard--completedIcon"
         >
-          2
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2826,12 +2576,27 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
         </p>
       </div>
       <div
-        class="StepWizard--navStep"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2852,7 +2617,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          Credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"

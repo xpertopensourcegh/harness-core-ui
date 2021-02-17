@@ -74,7 +74,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          Credentials
         </p>
       </div>
       <div
@@ -84,6 +84,21 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -297,143 +312,6 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                             style="transform: translateY(-undefinedpx);"
                           />
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="urlType-1"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="urlType"
-                    >
-                      URL Type
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="urlType"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="Account"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
-                              >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Connection Type
-                  </p>
-                  <div
-                    class="bp3-form-group"
-                    data-id="connectionType-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="url-3"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="url"
-                    >
-                      Git Account URL
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="url"
-                          placeholder="https://www.github.com/account/"
-                          type="text"
-                          value=""
-                        />
                       </div>
                     </div>
                   </div>
@@ -557,7 +435,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          Credentials
         </p>
       </div>
       <div
@@ -567,6 +445,21 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -780,143 +673,6 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                             style="transform: translateY(-undefinedpx);"
                           />
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="urlType-1"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="urlType"
-                    >
-                      URL Type
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="urlType"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="Account"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
-                              >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Connection Type
-                  </p>
-                  <div
-                    class="bp3-form-group"
-                    data-id="connectionType-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="url-3"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="url"
-                    >
-                      Git Account URL
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="url"
-                          placeholder="https://www.github.com/account/"
-                          type="text"
-                          value=""
-                        />
                       </div>
                     </div>
                   </div>
@@ -1040,7 +796,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          Credentials
         </p>
       </div>
       <div
@@ -1050,6 +806,21 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1266,143 +1037,6 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="urlType-1"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="urlType"
-                    >
-                      URL Type
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="urlType"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="Account"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
-                              >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Connection Type
-                  </p>
-                  <div
-                    class="bp3-form-group"
-                    data-id="connectionType-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="url-3"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="url"
-                    >
-                      Git Account URL
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="url"
-                          placeholder="https://www.github.com/account/"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1523,7 +1157,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          Credentials
         </p>
       </div>
       <div
@@ -1533,6 +1167,21 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1748,148 +1397,6 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
                             style="transform: translateY(-undefinedpx);"
                           />
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="urlType-1"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="urlType"
-                    >
-                      URL Type
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="urlType"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="Account"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
-                              >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Connection Type
-                  </p>
-                  <div
-                    class="bp3-form-group"
-                    data-id="connectionType-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group bp3-intent-danger formElm"
-                    data-id="url-3"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="url"
-                    >
-                      Git Account URL
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group bp3-intent-danger"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="url"
-                          placeholder="https://www.github.com/account/"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        URL is required
                       </div>
                     </div>
                   </div>

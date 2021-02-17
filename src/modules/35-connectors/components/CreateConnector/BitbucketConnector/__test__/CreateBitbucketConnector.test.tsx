@@ -65,6 +65,9 @@ describe('Create Bitbucketconnector Wizard', () => {
     const nameInput = queryByAttribute('name', container, 'name')
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+    await act(async () => {
+      clickSubmit(container)
+    })
 
     fillAtForm([
       {
@@ -98,6 +101,9 @@ describe('Create Bitbucketconnector Wizard', () => {
     const nameInput = queryByAttribute('name', container, 'name')
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+    await act(async () => {
+      clickSubmit(container)
+    })
 
     fillAtForm([
       {
@@ -141,8 +147,11 @@ describe('Create Bitbucketconnector Wizard', () => {
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
+    await act(async () => {
+      clickSubmit(container)
+    })
     // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
+    expect(queryByText(container, 'Enable API access')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -185,15 +194,18 @@ describe('Create Bitbucketconnector Wizard', () => {
       </TestWrapper>
     )
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
+    })
+    await act(async () => {
+      clickSubmit(container)
     })
     // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
+    expect(queryByText(container, 'Enable API access')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
 
     expect(updateConnector).toBeCalledTimes(1)
@@ -236,7 +248,7 @@ describe('Create Bitbucketconnector Wizard', () => {
         />
       </TestWrapper>
     ),
-    backButtonSelector: '[data-name="bitbucketBackButton"]',
+    backButtonSelector: '[data-name="commonGitBackButton"]',
     mock: backButtonMock
   })
 })

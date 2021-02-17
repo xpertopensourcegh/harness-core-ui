@@ -61,6 +61,10 @@ describe('Create Gitlab connector Wizard', () => {
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
 
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     fillAtForm([
       {
         container,
@@ -93,6 +97,10 @@ describe('Create Gitlab connector Wizard', () => {
     const nameInput = queryByAttribute('name', container, 'name')
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+
+    await act(async () => {
+      clickSubmit(container)
+    })
 
     fillAtForm([
       {
@@ -134,15 +142,20 @@ describe('Create Gitlab connector Wizard', () => {
       </TestWrapper>
     )
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
-    // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    // step 3
+    expect(queryByText(container, 'Enable API access')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
 
     expect(updateConnector).toBeCalledTimes(1)
@@ -186,15 +199,18 @@ describe('Create Gitlab connector Wizard', () => {
       </TestWrapper>
     )
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
+    })
+    await act(async () => {
+      clickSubmit(container)
     })
     // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
+    expect(queryByText(container, 'Enable API access')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
 
     expect(updateConnector).toBeCalledTimes(1)
@@ -225,7 +241,7 @@ describe('Create Gitlab connector Wizard', () => {
         <CreateGitlabConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
       </TestWrapper>
     ),
-    backButtonSelector: '[data-name="gitlabBackButton"]',
+    backButtonSelector: '[data-name="commonGitBackButton"]',
     mock: backButtonMock
   })
 })

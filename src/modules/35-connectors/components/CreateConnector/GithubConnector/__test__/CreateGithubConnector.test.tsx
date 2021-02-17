@@ -69,6 +69,9 @@ describe('Create Github connector Wizard', () => {
     const nameInput = queryByAttribute('name', container, 'name')
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+    await act(async () => {
+      clickSubmit(container)
+    })
 
     fillAtForm([
       {
@@ -83,7 +86,7 @@ describe('Create Github connector Wizard', () => {
     await act(async () => {
       clickSubmit(container)
     })
-    //step 2
+    //step 3
     await act(async () => {
       clickSubmit(container)
     })
@@ -102,6 +105,9 @@ describe('Create Github connector Wizard', () => {
     const nameInput = queryByAttribute('name', container, 'name')
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+    await act(async () => {
+      clickSubmit(container)
+    })
 
     fillAtForm([
       {
@@ -122,7 +128,7 @@ describe('Create Github connector Wizard', () => {
     await act(async () => {
       clickSubmit(container)
     })
-    //step 2
+    //step 3
     await act(async () => {
       clickSubmit(container)
     })
@@ -144,10 +150,14 @@ describe('Create Github connector Wizard', () => {
 
     expect(container).toMatchSnapshot()
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
-    // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+    // step 3
+    expect(queryByText(container, 'Enable API access')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
@@ -163,10 +173,13 @@ describe('Create Github connector Wizard', () => {
       </TestWrapper>
     )
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
-    // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
+    await act(async () => {
+      clickSubmit(container)
+    })
+    // step 3
+    expect(queryByText(container, 'Enable API access')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -216,14 +229,17 @@ describe('Create Github connector Wizard', () => {
       </TestWrapper>
     )
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
-    // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
+    await act(async () => {
+      clickSubmit(container)
+    })
+    // step 3
+    expect(queryByText(container, 'Enable API access')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
     expect(updateConnector).toBeCalledWith({
       connector: {
@@ -259,7 +275,7 @@ describe('Create Github connector Wizard', () => {
         <CreateGithubConnector {...commonProps} isEditMode={true} connectorInfo={backButtonMock} mock={mockResponse} />
       </TestWrapper>
     ),
-    backButtonSelector: '[data-name="githubBackButton"]',
+    backButtonSelector: '[data-name="commonGitBackButton"]',
     mock: backButtonMock
   })
 })

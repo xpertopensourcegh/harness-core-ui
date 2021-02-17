@@ -5,6 +5,7 @@ import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepBitbucketAuthentication from './StepAuth/StepBitbucketAuthentication'
 
@@ -25,14 +26,25 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
       iconProps={{ size: 50 }}
       title={getConnectorTitleTextByType(Connectors.BITBUCKET)}
     >
-      <GitDetailsStep
+      <ConnectorDetailsStep
         type={Connectors.BITBUCKET}
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <StepBitbucketAuthentication name={getString('details')} {...commonProps} onConnectorCreated={props.onSuccess} />
+      <GitDetailsStep
+        type={Connectors.BITBUCKET}
+        name={getString('details')}
+        isEditMode={props.isEditMode}
+        connectorInfo={props.connectorInfo}
+        mock={props.mock}
+      />
+      <StepBitbucketAuthentication
+        name={getString('credentials')}
+        {...commonProps}
+        onConnectorCreated={props.onSuccess}
+      />
       <VerifyOutOfClusterDelegate
         type={Connectors.BITBUCKET}
         name={getString('connectors.stepThreeName')}

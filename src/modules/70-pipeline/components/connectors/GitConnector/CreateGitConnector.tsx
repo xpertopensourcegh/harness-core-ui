@@ -18,6 +18,7 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 
 import type { StageElementWrapper } from 'services/cd-ng'
 import customi18n from '@pipeline/components/ManifestSelection/ManifestWizardSteps/ManifestWizard.i18n'
+import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -177,14 +178,20 @@ const CreateGitConnector = (props: CreateGITConnectorProps): JSX.Element => {
         iconProps={{ size: 50 }}
         title={getConnectorTitleTextByType(Connectors.GIT)}
       >
-        <GitDetailsStep
+        <ConnectorDetailsStep
           type={Connectors.GIT}
           name={getString('overview')}
           isEditMode={isEditMode}
           connectorInfo={undefined}
         />
-        <StepGitAuthentication
+        <GitDetailsStep
+          type={Connectors.GIT}
           name={getString('details')}
+          isEditMode={isEditMode}
+          connectorInfo={undefined}
+        />
+        <StepGitAuthentication
+          name={getString('credentials')}
           onConnectorCreated={() => {
             // Handle on success
           }}
