@@ -708,8 +708,40 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`
   ),
+  toProjectResources: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources`
+  ),
+  toProjectResourcesConnectors: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/connectors`
+  ),
+  toProjectResourcesConnectorDetails: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/connectors/:connectorId`
+  ),
+  toProjectResourcesSecrets: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/secrets`
+  ),
+  toProjectResourcesSecretDetails: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/secrets/:secretId`
+  ),
+  toProjectResourcesDelegates: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegates`
+  ),
+  toProjectResourcesDelegatesDetails: withAccountId(
+    ({ projectIdentifier, orgIdentifier, delegateId }: ProjectPathProps & DelegatePathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegates/${delegateId}`
+  ),
+  toProjectResourcesDelegateConfigsDetails: withAccountId(
+    ({ projectIdentifier, orgIdentifier, delegateConfigId }: ProjectPathProps & DelegateConfigProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegateconfigs/${delegateConfigId}`
+  ),
   toProjects: withAccountId(() => '/projects'),
-  toProjectsGetStarted: withAccountId(() => '/projects/getstarted'),
+  toProjectsGetStarted: withAccountId(() => '/projects/get-started'),
   /********************************************************************************************************************/
   toCE: withAccountId(() => '/ce'),
   toCEDashboard: withAccountId(() => `/ce`),

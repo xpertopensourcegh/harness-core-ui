@@ -14,27 +14,25 @@ export default function SideNav(props: React.PropsWithChildren<SideNavProps>): R
   return (
     <div className={css.main}>
       <div>{props.children}</div>
-      {props.title ? (
-        <div className={css.titleContainer}>
-          {props.icon ? (
-            <div className={css.iconContainer}>
-              <Icon className={css.icon} name={props.icon} size={350} />
-            </div>
+      <div className={css.titleContainer}>
+        {props.icon ? (
+          <div className={css.iconContainer}>
+            <Icon className={css.icon} name={props.icon} size={350} />
+          </div>
+        ) : null}
+        <Layout.Vertical>
+          {props.subtitle ? (
+            <Text font={{ size: 'small' }} color={Color.GREY_400}>
+              {props.subtitle}
+            </Text>
           ) : null}
-          <Layout.Vertical>
-            {props.subtitle ? (
-              <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {props.subtitle}
-              </Text>
-            ) : null}
-            {props.title ? (
-              <Text color={Color.WHITE} className={css.title}>
-                {props.title}
-              </Text>
-            ) : null}
-          </Layout.Vertical>
-        </div>
-      ) : null}
+          {props.title ? (
+            <Text color={Color.WHITE} className={css.title}>
+              {props.title}
+            </Text>
+          ) : null}
+        </Layout.Vertical>
+      </div>
     </div>
   )
 }

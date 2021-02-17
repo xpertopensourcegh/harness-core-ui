@@ -1,20 +1,23 @@
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uicore'
+
+import { useStrings } from 'framework/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 
-import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { accountId, orgIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { CDNG_ENABLED } = useFeatureFlags()
+  const { getString } = useStrings()
+
   return (
     <>
       <Page.Header
-        title={i18n.title}
+        title={getString('resources')}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
@@ -22,27 +25,31 @@ const ResourcesPage: React.FC = ({ children }) => {
                 className={css.tags}
                 activeClassName={css.activeTag}
                 to={
-                  orgIdentifier
+                  orgIdentifier && projectIdentifier
+                    ? routes.toProjectResourcesConnectors({ accountId, orgIdentifier, projectIdentifier })
+                    : orgIdentifier
                     ? routes.toOrgResourcesConnectors({ accountId, orgIdentifier })
                     : routes.toResourcesConnectors({ accountId })
                 }
               >
-                {i18n.connectors}
+                {getString('connectors.label')}
               </NavLink>
 
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
                 to={
-                  orgIdentifier
+                  orgIdentifier && projectIdentifier
+                    ? routes.toProjectResourcesSecrets({ accountId, orgIdentifier, projectIdentifier })
+                    : orgIdentifier
                     ? routes.toOrgResourcesSecretsListing({ accountId, orgIdentifier })
                     : routes.toResourcesSecretsListing({ accountId })
                 }
               >
-                {i18n.secrets}
+                {getString('secrets')}
               </NavLink>
 
-              {CDNG_ENABLED && (
+              {CDNG_ENABLED && !(projectIdentifier || orgIdentifier) ? (
                 <NavLink
                   className={css.tags}
                   activeClassName={css.activeTag}
@@ -52,9 +59,9 @@ const ResourcesPage: React.FC = ({ children }) => {
                       : routes.toResourcesDelegates({ accountId })
                   }
                 >
-                  {i18n.delegates}
+                  {getString('delegate.delegates')}
                 </NavLink>
-              )}
+              ) : null}
               {/* TODO: ENABLE IT WHEN IMPLEMENTED */}
               {/* <NavLink className={css.tags} to="#TBD">
                 {i18n.templates}

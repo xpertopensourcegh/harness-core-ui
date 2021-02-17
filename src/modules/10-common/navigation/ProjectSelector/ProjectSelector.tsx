@@ -10,7 +10,7 @@ import css from './ProjectSelector.module.scss'
 
 export interface ProjectSelectorProps {
   onSelect: (project: Project) => void
-  moduleFilter: Required<Project>['modules'][0]
+  moduleFilter?: Required<Project>['modules'][0]
 }
 
 const ProjectSelect = Select.ofType<Project>()
@@ -40,7 +40,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
   }
 
   useEffect(() => {
-    if (!selectedProject?.modules?.includes(moduleFilter)) {
+    if (moduleFilter && !selectedProject?.modules?.includes(moduleFilter)) {
       updateAppStore({ selectedProject: undefined })
     }
   }, [moduleFilter])
