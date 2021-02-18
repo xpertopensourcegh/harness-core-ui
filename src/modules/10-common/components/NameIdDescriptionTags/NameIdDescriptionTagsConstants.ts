@@ -1,4 +1,4 @@
-import type { IconName, TagInputProps } from '@wings-software/uicore'
+import type { TagInputProps } from '@wings-software/uicore'
 import type { ITagInputProps } from '@blueprintjs/core'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import type { FormikProps } from 'formik'
@@ -6,13 +6,6 @@ import type { tagsType } from '@common/utils/types'
 
 export interface DescriptionProps {
   placeholder?: string
-}
-
-export const defaultCollapseProps = {
-  collapsedIcon: 'main-chevron-right' as IconName,
-  expandedIcon: 'main-chevron-down' as IconName,
-  isRemovable: false,
-  className: 'collapse'
 }
 
 export interface FormikForNameIdDescriptionTags {

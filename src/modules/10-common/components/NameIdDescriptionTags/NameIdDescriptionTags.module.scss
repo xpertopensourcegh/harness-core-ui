@@ -28,4 +28,15 @@
     min-height: 50px;
     resize: vertical;
   }
+
+  .editOpen {
+    cursor: pointer;
+    margin-left: 8px !important;
+    position: relative;
+    top: -2px;
+
+    &:hover {
+      color: var(--blue-500) !important;
+    }
+  }
 }

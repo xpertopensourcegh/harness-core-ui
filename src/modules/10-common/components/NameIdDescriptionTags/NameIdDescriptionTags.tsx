@@ -1,13 +1,12 @@
-import React from 'react'
-import { Container, FormInput, Collapse } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { Container, FormInput, Icon, Label, Color } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
 import type { ITagInputProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
-import {
-  defaultCollapseProps,
+import type {
   DescriptionComponentProps,
   DescriptionProps,
   FormikForNameIdDescriptionTags,
@@ -40,54 +39,104 @@ const NameId = (props: NameIdProps): JSX.Element => {
 const Description = (props: DescriptionComponentProps): JSX.Element => {
   const { descriptionProps, hasValue } = props
   const { getString } = useStrings()
+  const [isDescriptionOpen, setDescriptionOpen] = useState<boolean>(hasValue || false)
+  const [isDescriptionFocus, setDescriptionFocus] = useState<boolean>(false)
+
   return (
-    <Collapse
-      heading={getString('description')}
-      isOpen={hasValue ? true : false}
-      {...Object.assign(defaultCollapseProps)}
-    >
-      <FormInput.TextArea name="description" {...descriptionProps} />
-    </Collapse>
+    <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
+      <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+        {getString('description')}
+        {!isDescriptionOpen && (
+          <Icon
+            className={css.editOpen}
+            data-name="edit"
+            size={12}
+            name="edit"
+            color={Color.GREY_500}
+            onClick={() => {
+              setDescriptionOpen(true)
+              setDescriptionFocus(true)
+            }}
+          />
+        )}
+      </Label>
+      {isDescriptionOpen && (
+        <FormInput.TextArea
+          data-name="description"
+          autoFocus={isDescriptionFocus}
+          name="description"
+          {...descriptionProps}
+        />
+      )}
+    </Container>
   )
 }
 
 const Tags = (props: TagsComponentProps): JSX.Element => {
   const { tagsProps, hasValue } = props
   const { getString } = useStrings()
+  const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)
+
   return (
-    <Collapse
-      heading={getString('tagsLabel')}
-      isOpen={hasValue ? true : false}
-      {...Object.assign(defaultCollapseProps)}
-    >
-      <FormInput.KVTagInput name="tags" tagsProps={tagsProps} />
-    </Collapse>
+    <Container>
+      <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+        {getString('tagsLabel')}
+        {!isTagsOpen && (
+          <Icon
+            className={css.editOpen}
+            data-name="edit"
+            size={12}
+            color={Color.GREY_500}
+            name="edit"
+            onClick={() => {
+              setTagsOpen(true)
+            }}
+          />
+        )}
+      </Label>
+      {isTagsOpen && <FormInput.KVTagInput name="tags" tagsProps={tagsProps} />}
+    </Container>
   )
 }
 
 function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
   const { hasValue } = props
   const { getString } = useStrings()
+  const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)
+
   return (
-    <Collapse
-      heading={getString('tagsLabel')}
-      isOpen={hasValue ? true : false}
-      {...Object.assign(defaultCollapseProps)}
-    >
-      <FormInput.TagInput
-        name="tags"
-        labelFor={name => (typeof name === 'string' ? name : '')}
-        itemFromNewTag={newTag => newTag}
-        items={[]}
-        tagInputProps={{
-          noInputBorder: true,
-          openOnKeyDown: false,
-          showAddTagButton: true,
-          showClearAllButton: true,
-          allowNewTag: true
-        }}
-      />
-    </Collapse>
+    <Container>
+      <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+        {getString('tagsLabel')}
+        {!isTagsOpen && (
+          <Icon
+            className={css.editOpen}
+            data-name="edit"
+            size={12}
+            color={Color.GREY_500}
+            name="edit"
+            onClick={() => {
+              setTagsOpen(true)
+            }}
+          />
+        )}
+      </Label>
+      {isTagsOpen && (
+        <FormInput.TagInput
+          name="tags"
+          labelFor={name => (typeof name === 'string' ? name : '')}
+          itemFromNewTag={newTag => newTag}
+          items={[]}
+          tagInputProps={{
+            noInputBorder: true,
+            openOnKeyDown: false,
+            showAddTagButton: true,
+            showClearAllButton: true,
+            allowNewTag: true
+          }}
+        />
+      )}
+    </Container>
   )
 }
 

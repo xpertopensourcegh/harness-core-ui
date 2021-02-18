@@ -115,118 +115,61 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                     </div>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
+                    style="margin-bottom: 0px;"
                   >
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
+                    >
+                      Description
+                    </label>
                     <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                      class="bp3-form-group"
+                      data-id="description-1"
                     >
                       <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                        class="bp3-form-content"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-down"
+                        <textarea
+                          autocomplete="off"
+                          class="bp3-input bp3-fill"
+                          name="description"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 14 8"
-                            width="10"
-                          >
-                            <path
-                              d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Description
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                        style="height: auto; overflow-y: visible; transition: none;"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(0); transition: none;"
-                        >
-                          <div
-                            class="bp3-form-group"
-                            data-id="description-1"
-                          >
-                            <div
-                              class="bp3-form-content"
-                            >
-                              <textarea
-                                autocomplete="off"
-                                class="bp3-input bp3-fill"
-                                name="description"
-                              >
-                                desc
-                              </textarea>
-                            </div>
-                          </div>
-                        </div>
+                          desc
+                        </textarea>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
                     >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      Tags
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        icon="edit"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-right"
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 8 14"
-                            width="10"
-                          >
-                            <path
-                              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Tags
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -499,100 +442,64 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                     </div>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
                     >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      Description
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        icon="edit"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-right"
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 8 14"
-                            width="10"
-                          >
-                            <path
-                              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Description
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
                     >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      Tags
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        icon="edit"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-right"
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 8 14"
-                            width="10"
-                          >
-                            <path
-                              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Tags
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -865,100 +772,64 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                     </div>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
                     >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      Description
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        icon="edit"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-right"
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 8 14"
-                            width="10"
-                          >
-                            <path
-                              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Description
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
                     >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      Tags
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        icon="edit"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-right"
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 8 14"
-                            width="10"
-                          >
-                            <path
-                              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Tags
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -1231,118 +1102,61 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                     </div>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
+                    style="margin-bottom: 0px;"
                   >
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
+                    >
+                      Description
+                    </label>
                     <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                      class="bp3-form-group"
+                      data-id="description-1"
                     >
                       <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                        class="bp3-form-content"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-down"
+                        <textarea
+                          autocomplete="off"
+                          class="bp3-input bp3-fill"
+                          name="description"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 14 8"
-                            width="10"
-                          >
-                            <path
-                              d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Description
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                        style="height: auto; overflow-y: visible; transition: none;"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(0); transition: none;"
-                        >
-                          <div
-                            class="bp3-form-group"
-                            data-id="description-1"
-                          >
-                            <div
-                              class="bp3-form-content"
-                            >
-                              <textarea
-                                autocomplete="off"
-                                class="bp3-input bp3-fill"
-                                name="description"
-                              >
-                                desc
-                              </textarea>
-                            </div>
-                          </div>
-                        </div>
+                          desc
+                        </textarea>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="Collapse--main"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px;"
                     >
-                      <div
-                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      Tags
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        icon="edit"
                       >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          data-icon="main-chevron-right"
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
                         >
-                          <svg
-                            height="10"
-                            viewBox="0 0 8 14"
-                            width="10"
-                          >
-                            <path
-                              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                              fill="#4d5969"
-                            />
-                          </svg>
-                        </span>
-                        <p
-                          class="StyledProps--font StyledProps--main CollapseHeader--title"
-                        >
-                          Tags
-                        </p>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      />
-                    </div>
-                    <div
-                      class="Collapse--collapse"
-                    >
-                      <div
-                        class="bp3-collapse collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>
