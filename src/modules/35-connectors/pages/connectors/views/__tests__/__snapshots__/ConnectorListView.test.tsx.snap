@@ -230,16 +230,19 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             color="black"
           >
             <div
-              class="name flex"
+              class="name"
             >
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
                 <span>
-                  Access Key
+                  Delegate Tags
                 </span>
                 :
               </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+              />
             </div>
           </div>
         </div>
@@ -2119,16 +2122,19 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             color="black"
           >
             <div
-              class="name flex"
+              class="name"
             >
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
                 <span>
-                  Access Key
+                  Delegate Tags
                 </span>
                 :
               </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+              />
             </div>
           </div>
         </div>
@@ -4015,16 +4021,19 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             color="black"
           >
             <div
-              class="name flex"
+              class="name"
             >
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
                 <span>
-                  Access Key
+                  Delegate Tags
                 </span>
                 :
               </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+              />
             </div>
           </div>
         </div>
@@ -5904,16 +5913,19 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             color="black"
           >
             <div
-              class="name flex"
+              class="name"
             >
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
                 <span>
-                  Access Key
+                  Delegate Tags
                 </span>
                 :
               </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+              />
             </div>
           </div>
         </div>
@@ -7755,16 +7767,19 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             color="black"
           >
             <div
-              class="name flex"
+              class="name"
             >
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
                 <span>
-                  Access Key
+                  Delegate Tags
                 </span>
                 :
               </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+              />
             </div>
           </div>
         </div>
@@ -9644,16 +9659,19 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             color="black"
           >
             <div
-              class="name flex"
+              class="name"
             >
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
                 <span>
-                  Access Key
+                  Delegate Tags
                 </span>
                 :
               </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+              />
             </div>
           </div>
         </div>
@@ -11540,16 +11558,19 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             color="black"
           >
             <div
-              class="name flex"
+              class="name"
             >
               <span
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
               >
                 <span>
-                  Access Key
+                  Delegate Tags
                 </span>
                 :
               </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+              />
             </div>
           </div>
         </div>

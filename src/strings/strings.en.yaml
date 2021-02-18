@@ -533,6 +533,7 @@ instanceFieldOptions:
   instanceHolder: 'Count'
 delegate:
   hostName: 'Hostname'
+  useExistingSelectors: 'Use existing delegate selectors'
   verifyDelegateYamlCmnd: '$ kubectl apply -f harness-delegate.yaml'
   delegateNameRequired: 'Delegate Name is Required.'
   delegateSizeRequired: 'Delegate Size is Required.'

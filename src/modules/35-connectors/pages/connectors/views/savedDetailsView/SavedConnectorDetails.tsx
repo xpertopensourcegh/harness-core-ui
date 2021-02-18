@@ -81,8 +81,11 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
           : i18n.k8sCluster.delegateOutCluster
     },
     {
-      label: i18n.k8sCluster.delegateName,
-      value: connector.spec?.credential?.spec?.delegateName
+      label: i18n.delegateTags,
+      value:
+        connector.spec.credential.spec?.delegateSelectors?.length > 0
+          ? connector.spec.credential.spec?.delegateSelectors.join(', ')
+          : ''
     },
     {
       label: i18n.k8sCluster.masterUrl,
@@ -289,8 +292,11 @@ const getGCPSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
       value: connector?.spec?.credential?.type
     },
     {
-      label: i18n.delegateName,
-      value: connector.spec?.credential?.spec?.delegateName || connector.spec?.credential?.spec?.delegateSelector
+      label: i18n.delegateTags,
+      value:
+        connector.spec.credential.spec?.delegateSelectors?.length > 0
+          ? connector.spec.credential.spec?.delegateSelectors.join(', ')
+          : ''
     },
     {
       label: i18n.password,
@@ -306,8 +312,11 @@ const getAWSSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
       value: connector?.spec?.credential?.type
     },
     {
-      label: i18n.delegateName,
-      value: connector.spec?.credential?.spec?.delegateName || connector.spec?.credential?.spec?.delegateSelector
+      label: i18n.delegateTags,
+      value:
+        connector.spec.credential.spec?.delegateSelectors?.length > 0
+          ? connector.spec.credential.spec?.delegateSelectors.join(', ')
+          : ''
     },
     {
       label: i18n.password,

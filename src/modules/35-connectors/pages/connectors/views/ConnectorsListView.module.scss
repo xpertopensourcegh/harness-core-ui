@@ -38,6 +38,9 @@
   .flex {
     display: flex;
   }
+  span {
+    white-space: nowrap !important;
+  }
 }
 
 .viewDetails {

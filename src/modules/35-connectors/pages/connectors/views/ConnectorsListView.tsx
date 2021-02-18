@@ -25,7 +25,7 @@ import { ConnectorStatus, Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
-import { getIconByType, GetTestConnectionValidationTextByType } from '../utils/ConnectorUtils'
+import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
 interface ConnectorListViewProps {
@@ -79,10 +79,47 @@ const getConnectorDisplaySummaryLabel = (titleStringId: string, Element: JSX.Ele
   )
 }
 
+const displayDelegatesTagsSummary = (delegateSelectors: []): JSX.Element => {
+  return (
+    <div className={classNames(css.name)}>
+      <Text inline color={Color.BLACK}>
+        <String stringID={'delegate.delegateTags'} />:
+      </Text>
+      <Text inline margin={{ left: 'xsmall' }} color={Color.GREY_400}>
+        {delegateSelectors?.join?.(', ')}
+      </Text>
+    </div>
+  )
+}
+
+const getAWSDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
+  return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
+    ? displayDelegatesTagsSummary(connector.spec.credential.spec?.delegateSelectors)
+    : getConnectorDisplaySummaryLabel(
+        'connectors.aws.accessKey',
+        textRenderer(connector?.spec?.credential?.spec?.accessKeyRef || connector?.spec?.credential?.spec?.accessKey)
+      )
+}
+
+const getGCPDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
+  return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
+    ? displayDelegatesTagsSummary(connector.spec.credential.spec?.delegateSelectors)
+    : getConnectorDisplaySummaryLabel(
+        'encryptedKeyLabel',
+        textRenderer(connector?.spec?.credential?.spec?.secretKeyRef)
+      )
+}
+
+const getK8DisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
+  return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
+    ? displayDelegatesTagsSummary(connector.spec.credential.spec?.delegateSelectors)
+    : getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.credential?.spec?.masterUrl))
+}
+
 const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
   switch (connector?.type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.credential?.spec?.masterUrl))
+      return getK8DisplaySummary(connector)
     case Connectors.GIT:
     case Connectors.GITHUB:
     case Connectors.GITLAB:
@@ -95,10 +132,9 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
     case Connectors.ARTIFACTORY:
       return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.artifactoryServerUrl))
     case Connectors.AWS:
-      return getConnectorDisplaySummaryLabel(
-        'connectors.aws.accessKey',
-        textRenderer(connector?.spec?.credential?.spec?.accessKeyRef || connector?.spec?.credential?.spec?.accessKey)
-      )
+      return getAWSDisplaySummary(connector)
+    case Connectors.GCP:
+      return getGCPDisplaySummary(connector)
     default:
       return ''
   }

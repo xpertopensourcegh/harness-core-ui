@@ -7,7 +7,7 @@
   }
 
   .clusterWrapper {
-    padding: 2px;
+    padding: var(--spacing-xsmall) !important;
     min-height: 480px;
     overflow: auto;
 
@@ -44,8 +44,11 @@
       }
     }
 
+    .delegateSelectors {
+      width: 60%;
+    }
+
     :global {
-      .bp3-input,
       .bp3-button,
       .bp3-checkbox {
         width: 42%;

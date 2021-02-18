@@ -8,5 +8,6 @@ declare const styles: {
   readonly card: string
   readonly textInfo: string
   readonly selectedCard: string
+  readonly delegateSelectors: string
 }
 export default styles

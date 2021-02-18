@@ -596,16 +596,19 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 color="black"
               >
                 <div
-                  class="name flex"
+                  class="name"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                   >
                     <span>
-                      Access Key
+                      Delegate Tags
                     </span>
                     :
                   </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
+                  />
                 </div>
               </div>
             </div>

@@ -8,7 +8,7 @@ describe('Connector Utils', () => {
         description: '',
         identifier: 'dummyaws',
         tags: {},
-        credential: 'ManualConfig',
+        delegateType: 'ManualConfig',
         username: 'usename',
         secretKeyRef: { name: 'mysecretappd', identifier: 'mysecretappd', referenceString: 'account.mysecretappd' },
         crossAccountAccess: false,

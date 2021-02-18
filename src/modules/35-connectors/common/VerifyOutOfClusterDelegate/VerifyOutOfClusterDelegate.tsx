@@ -10,7 +10,8 @@ import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import {
   GetTestConnectionValidationTextByType,
-  removeErrorCode
+  removeErrorCode,
+  DelegateTypes
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
@@ -301,7 +302,9 @@ const VerifyOutOfClusterDelegate: React.FC<
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
           {getString('connectors.stepThreeName')}
         </Text>
-        <RenderUrlInfo type={props.type} prevStepData={prevStepData} url={props.url} />
+        {prevStepData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? null : (
+          <RenderUrlInfo type={props.type} prevStepData={prevStepData} url={props.url} />
+        )}
         <Container className={cx(css.content, { [css.contentMinHeight]: props.isStep })} padding={{ top: 'xxlarge' }}>
           <StepsProgress
             steps={[getStepOne()]}

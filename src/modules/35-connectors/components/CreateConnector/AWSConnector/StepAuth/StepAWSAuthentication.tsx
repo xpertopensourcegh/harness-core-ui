@@ -20,7 +20,7 @@ import {
   SecretReferenceInterface,
   setupAWSFormData
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { PageSpinner } from '@common/components'
+import { PageSpinner, DelegateSelectors } from '@common/components'
 import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
@@ -49,21 +49,23 @@ interface AWSAuthenticationProps {
 }
 
 interface AWSFormInterface {
-  credential: AwsCredential['type']
+  delegateType: AwsCredential['type']
   accessKey: TextReferenceInterface | void
   secretKeyRef: SecretReferenceInterface | void
   crossAccountAccess: boolean
   crossAccountRoleArn: string
   externalId: string
+  delegateSelectors: Array<string>
 }
 
 const defaultInitialFormData: AWSFormInterface = {
-  credential: DelegateTypes.DELEGATE_OUT_CLUSTER,
+  delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
   accessKey: undefined,
   secretKeyRef: undefined,
   crossAccountAccess: false,
   crossAccountRoleArn: '',
-  externalId: ''
+  externalId: '',
+  delegateSelectors: []
 }
 
 const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AWSAuthenticationProps> = props => {
@@ -76,10 +78,9 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
-  //Todo: const [inclusterDelegate, setInClusterDelegate] = useState(DelegateInClusterType.useExistingDelegate)
+  const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 
-  // const { data: delagteTags } = useGetDelegateTags({ queryParams: { accountId } })
   const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
       modalErrorHandler?.hide()
@@ -111,19 +112,13 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
     }
   }
 
-  // Todo:  const formatDelegateTagList = (listData: string[] | undefined) => {
-  //     return listData?.map((item: string) => ({ label: item || '', value: item || '' }))
-  //   }
-
-  //   const listData = delagteTags?.resource
-  //  const delegateTagListFiltered = formatDelegateTagList(listData) || [{ label: '', value: '' }]
-
   useEffect(() => {
     if (loadingConnectorSecrets) {
       if (props.isEditMode) {
         if (props.connectorInfo) {
           setupAWSFormData(props.connectorInfo as any, accountId).then(data => {
             setInitialValues(data as AWSFormInterface)
+            setDelegateSelectors(data.delegateSelectors)
             setLoadingConnectorSecrets(false)
           })
         } else {
@@ -146,19 +141,19 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          // Enable when delegate support is available
-          // delegateSelector: Yup.string().when('credential', {
+          // Enable when delegateSelector adds form validation
+          // delegateSelector: Yup.string().when('delegateType', {
           //   is: DelegateTypes.DELEGATE_IN_CLUSTER,
           //   then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
           // }),
 
           accessKey: Yup.string()
             .nullable()
-            .when('credential', {
+            .when('delegateType', {
               is: DelegateTypes.DELEGATE_OUT_CLUSTER,
               then: Yup.string().trim().required(getString('connectors.aws.validation.accessKey'))
             }),
-          secretKeyRef: Yup.object().when('credential', {
+          secretKeyRef: Yup.object().when('delegateType', {
             is: DelegateTypes.DELEGATE_OUT_CLUSTER,
             then: Yup.object().required(getString('connectors.aws.validation.secretKeyRef'))
           }),
@@ -172,6 +167,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
           const connectorData = {
             ...prevStepData,
             ...stepData,
+            delegateSelectors,
             projectIdentifier: projectIdentifier,
             orgIdentifier: orgIdentifier
           }
@@ -190,49 +186,18 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
 
             <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formDataAws}>
               <FormInput.RadioGroup
-                name="credential"
+                name="delegateType"
                 items={[
                   { label: getString('connectors.aws.awsAccessKey'), value: DelegateTypes.DELEGATE_OUT_CLUSTER },
                   {
                     label: getString('connectors.aws.assumeIAMRole'),
-                    value: DelegateTypes.DELEGATE_IN_CLUSTER,
-                    disabled: true
+                    value: DelegateTypes.DELEGATE_IN_CLUSTER
                   }
                 ]}
                 className={css.radioGroup}
               />
-              {/* Enable when delegate support is available
-               {formikProps.values?.credential === DelegateTypes.DELEGATE_IN_CLUSTER ? (
-                <div className={css.incluster}>
-                  <div
-                    className={css.radioOption}
-                    onClick={() => {
-                      setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
-                    }}
-                  >
-                    <input type="radio" checked={inclusterDelegate === DelegateInClusterType.useExistingDelegate} />
-                    <Text margin={{ left: 'large' }}>{i18n.STEP.TWO.useExistingDelegateSelector}</Text>
-                  </div>
-                  {inclusterDelegate === DelegateInClusterType.useExistingDelegate ? (
-                    <FormInput.Select
-                      name="delegateSelector"
-                      label={i18n.STEP.TWO.delegateSelector}
-                      items={delegateTagListFiltered}
-                    />
-                  ) : null}
-                  <div
-                    className={cx(css.radioOption, css.cursorDisabled)}
-                    onClick={() => {
-                      setInClusterDelegate(DelegateInClusterType.addNewDelegate)
-                    }}
-                  >
-                    <input type="radio" checked={inclusterDelegate === DelegateInClusterType.addNewDelegate} disabled />
-                    <Text margin={{ left: 'large' }}>{i18n.STEP.TWO.addNewDelegate}</Text>
-                  </div>
-                </div>
-              ) : null} */}
-              {formikProps.values.credential === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
-                <Layout.Vertical width={'52%'}>
+              {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
+                <Layout.Vertical width={'56%'}>
                   <Text color={Color.BLACK} padding={{ top: 'small', bottom: 'large' }}>
                     {getString('connectors.authTitle')}
                   </Text>
@@ -243,7 +208,20 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                   />
                   <SecretInput name="secretKeyRef" label={getString('connectors.aws.secretKey')} />
                 </Layout.Vertical>
-              ) : null}
+              ) : (
+                <>
+                  <Text margin={{ bottom: 'xsmall' }}>{getString('delegate.useExistingSelectors')}</Text>
+                  <DelegateSelectors
+                    className={css.formInput}
+                    fill
+                    allowNewTag={false}
+                    selectedItems={delegateSelectors}
+                    onChange={data => {
+                      setDelegateSelectors(data as Array<string>)
+                    }}
+                  ></DelegateSelectors>
+                </>
+              )}
 
               <Layout.Vertical spacing="small">
                 <FormInput.CheckBox
@@ -253,8 +231,16 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                 />
                 {formikProps.values?.crossAccountAccess ? (
                   <>
-                    <FormInput.Text name="crossAccountRoleArn" label={getString('connectors.aws.crossAccURN')} />
-                    <FormInput.Text name="externalId" label={getString('connectors.aws.externalId')} />
+                    <FormInput.Text
+                      className={css.formInput}
+                      name="crossAccountRoleArn"
+                      label={getString('connectors.aws.crossAccURN')}
+                    />
+                    <FormInput.Text
+                      className={css.formInput}
+                      name="externalId"
+                      label={getString('connectors.aws.externalId')}
+                    />
                   </>
                 ) : null}
               </Layout.Vertical>
@@ -270,7 +256,11 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                 type="submit"
                 intent={'primary'}
                 text={getString('saveAndContinue')}
-                disabled={loadConnector}
+                disabled={
+                  (DelegateTypes.DELEGATE_IN_CLUSTER === formikProps.values.delegateType &&
+                    delegateSelectors.length === 0) ||
+                  loadConnector
+                }
                 rightIcon="chevron-right"
               />
             </Layout.Horizontal>

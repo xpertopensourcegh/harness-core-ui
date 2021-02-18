@@ -37,6 +37,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
+import { DelegateSelectors } from '@common/components'
 import css from './Stepk8ClusterDetails.module.scss'
 
 interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
@@ -71,6 +72,7 @@ interface KubeFormInterface {
   clientKeyCertificate: SecretReferenceInterface | void
   clientKeyAlgo: string
   clientKeyCACertificate: SecretReferenceInterface | void
+  delegateSelectors: Array<string>
   skipDefaultValidation: boolean
 }
 
@@ -91,6 +93,7 @@ const defaultInitialFormData: KubeFormInterface = {
   clientKeyPassphrase: undefined,
   clientKeyAlgo: '',
   clientKeyCACertificate: undefined,
+  delegateSelectors: [],
   skipDefaultValidation: false
 }
 
@@ -180,6 +183,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
+  const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
   const { getString } = useStrings()
 
   const DelegateCards: DelegateCardInterface[] = [
@@ -187,11 +191,9 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
       type: DelegateTypes.DELEGATE_OUT_CLUSTER,
       info: getString('connectors.k8.delegateOutClusterInfo')
     },
-    // TODO: Enable after Delegate dependency is resolved
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
-      info: getString('connectors.k8.delegateInClusterInfo'),
-      disabled: true
+      info: getString('connectors.k8.delegateInClusterInfo')
     }
   ]
 
@@ -215,8 +217,20 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   ]
 
   const validationSchema = Yup.object().shape({
-    masterUrl: Yup.string().trim().required(getString('validation.masterUrl')),
-    authType: Yup.string().trim().required(getString('validation.authType')),
+    //todo: add validation for delegate
+
+    masterUrl: Yup.string()
+      .nullable()
+      .when('delegateType', {
+        is: delegateType => delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER,
+        then: Yup.string().required(getString('validation.masterUrl'))
+      }),
+    authType: Yup.string()
+      .nullable()
+      .when('delegateType', {
+        is: delegateType => delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER,
+        then: Yup.string().required(getString('validation.authType'))
+      }),
     username: Yup.string()
       .nullable()
       .when('authType', {
@@ -324,6 +338,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
         if (props.connectorInfo) {
           setupKubFormData(props.connectorInfo, accountId).then(data => {
             setInitialValues(data as KubeFormInterface)
+            setDelegateSelectors(data.delegateSelectors)
             setLoadingConnectorSecrets(false)
           })
         } else {
@@ -350,6 +365,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
           const connectorData = {
             ...props.prevStepData,
             ...formData,
+            delegateSelectors,
             projectIdentifier: projectIdentifier,
             orgIdentifier: orgIdentifier
           }
@@ -371,8 +387,11 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
-                  DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType &&
-                    formikProps?.setFieldValue('delegateType', item.type)
+                  formikProps?.setFieldValue('delegateType', item.type)
+                  formikProps?.setFieldValue(
+                    'authType',
+                    item.type === DelegateTypes.DELEGATE_OUT_CLUSTER ? AuthTypes.USER_PASSWORD : ''
+                  )
                 }}
                 data={DelegateCards}
                 className={css.cardRow}
@@ -421,7 +440,20 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                     padding={{ left: 'xxlarge' }}
                   />
                 </>
-              ) : null}
+              ) : (
+                <>
+                  <Text margin={{ bottom: 'xsmall' }}>{getString('delegate.useExistingSelectors')}</Text>
+                  <DelegateSelectors
+                    className={css.delegateSelectors}
+                    fill
+                    allowNewTag={false}
+                    selectedItems={delegateSelectors}
+                    onChange={data => {
+                      setDelegateSelectors(data as Array<string>)
+                    }}
+                  ></DelegateSelectors>
+                </>
+              )}
             </Container>
             <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
               <Button
@@ -435,7 +467,11 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                 intent="primary"
                 text={getString('saveAndContinue')}
                 rightIcon="chevron-right"
-                disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
+                disabled={
+                  (DelegateTypes.DELEGATE_IN_CLUSTER === formikProps.values.delegateType &&
+                    delegateSelectors.length === 0) ||
+                  loadConnector
+                }
                 margin={{ left: 'medium' }}
               />
             </Layout.Horizontal>

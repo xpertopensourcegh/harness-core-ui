@@ -7,8 +7,8 @@ export const mockConnector = {
       name: 'AWS test',
       identifier: 'AWS_test',
       description: 'dummy AWS description',
-      orgIdentifier: null,
-      projectIdentifier: null,
+      orgIdentifier: undefined,
+      projectIdentifier: undefined,
       tags: {},
       type: 'Aws',
       spec: {
@@ -26,6 +26,44 @@ export const mockConnector = {
   },
   metaData: null,
   correlationId: '0b7963ac-ae8c-40fa-9af8-dce37bbfdd6e'
+}
+
+export const awsWithDelegate = {
+  status: 'SUCCESS',
+  data: {
+    connector: {
+      name: 'asasasa1212',
+      identifier: 'asasasa1212',
+      description: '',
+      orgIdentifier: undefined,
+      projectIdentifier: undefined,
+      tags: {},
+      type: 'Aws',
+      spec: {
+        credential: { crossAccountAccess: null, type: 'InheritFromDelegate', spec: { delegateSelectors: ['primary'] } }
+      }
+    },
+    createdAt: 1613481338947,
+    lastModifiedAt: 1613481372391,
+    status: {
+      status: 'FAILURE',
+      errorSummary: 'Unexpected Error',
+      errors: [
+        {
+          reason: 'Unexpected Error',
+          message: 'Something went wrong on our end. Please contact Harness Support.',
+          code: 450
+        }
+      ],
+      testedAt: 1613481372602,
+      lastTestedAt: 0,
+      lastConnectedAt: 0
+    },
+    activityDetails: { lastActivityTime: 1613481372398 },
+    harnessManaged: false
+  },
+  metaData: null,
+  correlationId: '7895e879-0a6b-4e48-9ad9-d27b01721ada'
 }
 
 export const mockSecret = {

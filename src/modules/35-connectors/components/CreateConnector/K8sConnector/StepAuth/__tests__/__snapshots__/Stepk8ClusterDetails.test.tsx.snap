@@ -59,8 +59,9 @@ exports[`Stepk8ClusterDetails render  1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                 data-index="1"
+                tabindex="0"
               >
                 <div
                   class="StyledProps--font StyledProps--main card"
@@ -473,8 +474,9 @@ exports[`Stepk8ClusterDetails render  2`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                 data-index="1"
+                tabindex="0"
               >
                 <div
                   class="StyledProps--font StyledProps--main card"
@@ -902,8 +904,9 @@ exports[`Stepk8ClusterDetails render  3`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                 data-index="1"
+                tabindex="0"
               >
                 <div
                   class="StyledProps--font StyledProps--main card"
@@ -1331,8 +1334,9 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                 data-index="1"
+                tabindex="0"
               >
                 <div
                   class="StyledProps--font StyledProps--main card"
@@ -1745,8 +1749,9 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                 data-index="1"
+                tabindex="0"
               >
                 <div
                   class="StyledProps--font StyledProps--main card"
@@ -2067,8 +2072,9 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                 data-index="1"
+                tabindex="0"
               >
                 <div
                   class="StyledProps--font StyledProps--main card"
@@ -2325,8 +2331,9 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                 data-index="1"
+                tabindex="0"
               >
                 <div
                   class="StyledProps--font StyledProps--main card"

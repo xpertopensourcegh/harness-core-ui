@@ -606,8 +606,9 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                     data-index="1"
+                    tabindex="0"
                   >
                     <div
                       class="StyledProps--font StyledProps--main card"
@@ -1355,8 +1356,9 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                     </div>
                   </div>
                   <div
-                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
                     data-index="1"
+                    tabindex="0"
                   >
                     <div
                       class="StyledProps--font StyledProps--main card"

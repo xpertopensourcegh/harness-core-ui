@@ -109,6 +109,7 @@ export default {
   },
   credType: 'Credential Type',
   delegateName: 'Delegate Name',
+  delegateTags: 'Delegate Tags',
   username: 'Username',
   password: 'Password'
 }

@@ -112,7 +112,7 @@ export const getSpecForDelegateType = (formData: FormData) => {
   const type = formData?.delegateType
   if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
     return {
-      delegateName: formData?.delegateName
+      delegateSelectors: formData?.delegateSelectors
     }
   } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
     return {
@@ -427,31 +427,32 @@ export const getK8AuthFormFields = async (connectorInfo: ConnectorInfoDTO, accou
   const authdata = connectorInfo.spec.credential?.spec?.auth?.spec
   return {
     username:
-      authdata.username || authdata.usernameRef
+      authdata?.username || authdata?.usernameRef
         ? {
             value: authdata.username || authdata.usernameRef,
             type: authdata.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
           }
         : undefined,
-    password: await setSecretField(authdata.passwordRef, scopeQueryParams),
-    serviceAccountToken: await setSecretField(authdata.serviceAccountTokenRef, scopeQueryParams),
-    oidcIssuerUrl: authdata.oidcIssuerUrl,
+    password: await setSecretField(authdata?.passwordRef, scopeQueryParams),
+    serviceAccountToken: await setSecretField(authdata?.serviceAccountTokenRef, scopeQueryParams),
+    oidcIssuerUrl: authdata?.oidcIssuerUrl,
     oidcUsername:
-      authdata.oidcUsername || authdata.oidcUsernameRef
+      authdata?.oidcUsername || authdata?.oidcUsernameRef
         ? {
             value: authdata.oidcUsername || authdata.oidcUsernameRef,
             type: authdata.oidcUsernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
           }
         : undefined,
-    oidcPassword: await setSecretField(authdata.oidcPasswordRef, scopeQueryParams),
-    oidcCleintId: await setSecretField(authdata.oidcClientIdRef, scopeQueryParams),
-    oidcCleintSecret: await setSecretField(authdata.oidcSecretRef, scopeQueryParams),
-    oidcScopes: authdata.oidcScopes,
-    clientKey: await setSecretField(authdata.clientKeyRef, scopeQueryParams),
-    clientKeyCertificate: await setSecretField(authdata.clientCertRef, scopeQueryParams),
-    clientKeyPassphrase: await setSecretField(authdata.clientKeyPassphraseRef, scopeQueryParams),
-    clientKeyCACertificate: await setSecretField(authdata.caCertRef, scopeQueryParams),
-    clientKeyAlgo: authdata.clientKeyAlgo
+    oidcPassword: await setSecretField(authdata?.oidcPasswordRef, scopeQueryParams),
+    oidcCleintId: await setSecretField(authdata?.oidcClientIdRef, scopeQueryParams),
+    oidcCleintSecret: await setSecretField(authdata?.oidcSecretRef, scopeQueryParams),
+    oidcScopes: authdata?.oidcScopes,
+    clientKey: await setSecretField(authdata?.clientKeyRef, scopeQueryParams),
+    clientKeyCertificate: await setSecretField(authdata?.clientCertRef, scopeQueryParams),
+    clientKeyPassphrase: await setSecretField(authdata?.clientKeyPassphraseRef, scopeQueryParams),
+    clientKeyCACertificate: await setSecretField(authdata?.caCertRef, scopeQueryParams),
+    clientKeyAlgo: authdata?.clientKeyAlgo,
+    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || []
   }
 }
 
@@ -464,6 +465,7 @@ export const setupKubFormData = async (connectorInfo: ConnectorInfoDTO, accountI
     masterUrl: connectorInfo.spec.credential?.spec?.masterUrl || '',
     authType: connectorInfo.spec.credential?.spec?.auth?.type || '',
     skipDefaultValidation: false,
+
     ...authData
   }
 
@@ -479,7 +481,7 @@ export const setupGCPFormData = async (connectorInfo: ConnectorInfoDTO, accountI
 
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
-    delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',
+    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || [],
     password: await setSecretField(connectorInfo.spec.credential?.spec?.secretKeyRef, scopeQueryParams)
   }
 
@@ -494,17 +496,18 @@ export const setupAWSFormData = async (connectorInfo: ConnectorInfoDTO, accountI
   }
 
   const formData = {
-    credential: connectorInfo.spec.credential.type,
+    delegateType: connectorInfo.spec.credential.type,
+    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || [],
     accessKey:
-      connectorInfo.spec.credential.spec.accessKey || connectorInfo.spec.credential.spec.accessKeyRef
+      connectorInfo.spec.credential.spec?.accessKey || connectorInfo.spec.credential.spec?.accessKeyRef
         ? {
             value: connectorInfo.spec.credential.spec.accessKey || connectorInfo.spec.credential.spec.accessKeyRef,
             type: connectorInfo.spec.credential.spec.accessKeyRef ? ValueType.ENCRYPTED : ValueType.TEXT
           }
         : undefined,
 
-    secretKeyRef: await setSecretField(connectorInfo.spec.credential.spec.secretKeyRef, scopeQueryParams),
-    crossAccountAccess: !!connectorInfo.spec.credential.crossAccountAccess,
+    secretKeyRef: await setSecretField(connectorInfo.spec.credential.spec?.secretKeyRef, scopeQueryParams),
+    crossAccountAccess: !!connectorInfo.spec.credential?.crossAccountAccess,
     crossAccountRoleArn: connectorInfo.spec.credential.crossAccountAccess?.crossAccountRoleArn,
     externalId: connectorInfo.spec.credential.crossAccountAccess?.externalId
   }
@@ -611,11 +614,11 @@ export const buildAWSPayload = (formData: FormData) => {
     type: Connectors.AWS,
     spec: {
       credential: {
-        type: formData.credential,
+        type: formData.delegateType,
         spec:
-          formData.credential === DelegateTypes.DELEGATE_IN_CLUSTER
+          formData.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
             ? {
-                delegateSelector: formData.delegateSelector
+                delegateSelectors: formData.delegateSelectors
               }
             : {
                 accessKey: formData.accessKey.type === ValueType.TEXT ? formData.accessKey.value : undefined,
@@ -680,7 +683,7 @@ export const buildGcpPayload = (formData: FormData) => {
         spec:
           formData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
             ? {
-                delegateSelector: formData.delegateName
+                delegateSelectors: formData.delegateSelectors
               }
             : {
                 secretKeyRef: formData.password.referenceString

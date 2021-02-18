@@ -83,6 +83,10 @@
       }
     }
 
+    .delegateSelectors {
+      width: 60%;
+    }
+
     .formRow {
       display: flex;
       :global {

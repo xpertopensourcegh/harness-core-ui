@@ -29,6 +29,7 @@ import { useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { useStrings } from 'framework/exports'
+import { DelegateSelectors } from '@common/components'
 import css from '../CreateGcpConnector.module.scss'
 
 interface GcpAuthenticationProps {
@@ -50,6 +51,7 @@ interface StepConfigureProps {
 interface GCPFormInterface {
   delegateType: string
   password: SecretReferenceInterface | void
+  delegateSelectors?: Array<string>
 }
 const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
@@ -59,11 +61,13 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
+  const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
   const { getString } = useStrings()
 
   const defaultInitialFormData: GCPFormInterface = {
     delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
-    password: undefined
+    password: undefined,
+    delegateSelectors: []
   }
 
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
@@ -76,8 +80,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     },
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
-      info: getString('connectors.GCP.delegateInClusterInfo'),
-      disabled: true
+      info: getString('connectors.GCP.delegateInClusterInfo')
     }
   ]
 
@@ -87,6 +90,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
         if (props.connectorInfo) {
           setupGCPFormData(props.connectorInfo, accountId).then(data => {
             setInitialValues(data as GCPFormInterface)
+            setDelegateSelectors(data.delegateSelectors)
             setLoadingConnectorSecrets(false)
           })
         } else {
@@ -140,12 +144,16 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
           ...props.prevStepData
         }}
         validationSchema={Yup.object().shape({
-          password: Yup.object().required(getString('validation.encryptedKey'))
+          password: Yup.object().when('delegateType', {
+            is: DelegateTypes.DELEGATE_OUT_CLUSTER,
+            then: Yup.object().required(getString('validation.encryptedKey'))
+          })
         })}
         onSubmit={formData => {
           const connectorData = {
             ...prevStepData,
             ...formData,
+            delegateSelectors,
             projectIdentifier: projectIdentifier,
             orgIdentifier: orgIdentifier
           }
@@ -164,8 +172,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
               <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
-                  DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType &&
-                    formikProps?.setFieldValue('delegateType', item.type)
+                  formikProps?.setFieldValue('delegateType', item.type)
                 }}
                 data={DelegateCards}
                 className={css.cardRow}
@@ -188,7 +195,20 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
 
               {DelegateTypes.DELEGATE_OUT_CLUSTER === formikProps.values.delegateType ? (
                 <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
-              ) : null}
+              ) : (
+                <>
+                  <Text margin={{ bottom: 'xsmall' }}>{getString('delegate.useExistingSelectors')}</Text>
+                  <DelegateSelectors
+                    className={css.delegateSelectors}
+                    fill
+                    allowNewTag={false}
+                    selectedItems={delegateSelectors}
+                    onChange={data => {
+                      setDelegateSelectors(data as Array<string>)
+                    }}
+                  ></DelegateSelectors>
+                </>
+              )}
             </Container>
             <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
               <Button
@@ -202,7 +222,11 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
                 intent="primary"
                 text={getString('saveAndContinue')}
                 rightIcon="chevron-right"
-                disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
+                disabled={
+                  (DelegateTypes.DELEGATE_IN_CLUSTER === formikProps.values.delegateType &&
+                    delegateSelectors.length === 0) ||
+                  loadConnector
+                }
               />
             </Layout.Horizontal>
           </Form>

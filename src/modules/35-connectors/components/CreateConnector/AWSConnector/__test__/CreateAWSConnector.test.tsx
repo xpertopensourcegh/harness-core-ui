@@ -3,7 +3,7 @@ import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import { mockResponse, mockSecret, mockConnector } from './mock'
+import { mockResponse, mockSecret, mockConnector, awsWithDelegate } from './mock'
 import CreateAWSConnector from '../CreateAWSConnector'
 import { backButtonTest } from '../../commonTest'
 
@@ -18,12 +18,17 @@ const commonProps = {
 
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
+const getDelegateSelectors = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
   getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
+}))
+
+jest.mock('services/portal', () => ({
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: getDelegateSelectors }))
 }))
 
 describe('Create AWS connector Wizard', () => {
@@ -62,6 +67,7 @@ describe('Create AWS connector Wizard', () => {
       </TestWrapper>
     )
     // editing connector name
+    const updatedName = 'dummy name'
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="name"]')!, {
         target: { value: 'dummy name' }
@@ -82,26 +88,8 @@ describe('Create AWS connector Wizard', () => {
 
     expect(updateConnector).toBeCalledWith({
       connector: {
-        description: mockConnector.data.connector.description,
-        identifier: 'AWS_test',
-        name: 'dummy name',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
-        spec: {
-          credential: {
-            crossAccountAccess: {
-              crossAccountRoleArn: 'mock URN',
-              externalId: 'externalId'
-            },
-            spec: {
-              accessKey: 'mockAccessKey',
-              secretKeyRef: 'account.mnfbjfjsecretKey'
-            },
-            type: 'ManualConfig'
-          }
-        },
-        tags: {},
-        type: 'Aws'
+        ...mockConnector.data.connector,
+        name: updatedName
       }
     })
   })
@@ -119,5 +107,44 @@ describe('Create AWS connector Wizard', () => {
     ),
     backButtonSelector: '[data-name="awsBackButton"]',
     mock: mockConnector.data.connector as any
+  })
+
+  test('Should edit a connector with delegates', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateAWSConnector
+          {...commonProps}
+          isEditMode={true}
+          connectorInfo={awsWithDelegate.data.connector as any}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    )
+    // editing connector name
+    const updatedName = 'connector with delegate'
+    await act(async () => {
+      fireEvent.change(container.querySelector('input[name="name"]')!, {
+        target: { value: updatedName }
+      })
+    })
+    expect(container).toMatchSnapshot()
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    // step 2
+    const tagElm = queryByText(container, 'primary')
+    expect(tagElm).toBeTruthy()
+
+    //updating connector
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    expect(updateConnector).toBeCalledWith({
+      connector: {
+        ...awsWithDelegate.data.connector,
+        name: updatedName
+      }
+    })
   })
 })

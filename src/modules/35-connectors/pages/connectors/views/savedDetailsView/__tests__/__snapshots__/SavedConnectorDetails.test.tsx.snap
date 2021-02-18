@@ -139,24 +139,6 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Delegate Name
-        </p>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
-        >
-          <span
-            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
-          >
-            primary
-          </span>
-        </div>
-      </div>
-      <div
-        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-        >
           STS Role enabled
         </p>
         <div
@@ -922,24 +904,6 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
             class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Harness Delegate running In-Cluster
-          </span>
-        </div>
-      </div>
-      <div
-        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-        >
-          Delegate Name
-        </p>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
-        >
-          <span
-            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
-          >
-            kubernetes
           </span>
         </div>
       </div>
