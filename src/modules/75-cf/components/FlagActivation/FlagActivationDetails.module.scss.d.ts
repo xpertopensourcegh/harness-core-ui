@@ -11,5 +11,6 @@ declare const styles: {
   readonly collapseFeaturesPrerequisites: string
   readonly variationsList: string
   readonly variationItem: string
+  readonly module: string
 }
 export default styles

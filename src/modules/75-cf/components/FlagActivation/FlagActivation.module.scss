@@ -29,9 +29,10 @@
   // 72px is height of footer
   height: calc(100% - 74px - 72px);
   overflow: auto;
+
   :global(.bp3-tab-list) {
-    border-bottom-color: var(--grey-300) !important;
-    padding-left: var(--spacing-xlarge);
+    border-bottom: 1px solid #e4e4eb !important;
+    padding-left: var(--spacing-huge);
 
     [class='bp3-tab'] {
       margin-top: var(--spacing-medium);
@@ -54,5 +55,17 @@
     border: 1px solid var(--grey-300);
     padding: var(--spacing-large) 0 !important;
     background-color: var(--white);
+  }
+}
+
+.contentHeading {
+  .switch {
+    margin-bottom: 0 !important;
+  }
+
+  :global {
+    .bp3-control.bp3-switch input:checked ~ .bp3-control-indicator {
+      background-color: #25a6f7;
+    }
   }
 }

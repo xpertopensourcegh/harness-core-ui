@@ -173,6 +173,7 @@ overview: Overview
 reinstall: Reinstall
 edit: Edit
 delete: Delete
+archive: Archive
 select: Select
 selectStage: Select a stage
 verify: Verify
@@ -1272,6 +1273,10 @@ cf:
     customRuleMessage: There are custom rules configured for this flag, please review the rules on detail page.
     defaultServedOn: '<strong>{{defaultVariation}}</strong> when flag is ON'
     defaultServedOff: '<strong>{{defaultVariation}}</strong> when flag is OFF'
+    createdDate: 'Created: {{date}}'
+    modifiedDate: 'Modified: {{date}}'
+    prerequisites: Prerequisites
+    prerequisitesDesc: '(what’s required before enabling flags)'
   targets:
     title: 'Targets'
     ID: 'ID'

@@ -59,3 +59,18 @@ export const extraOperators: Record<string, OperatorOption[]> = Object.entries(e
   },
   {} as Record<string, OperatorOption[]>
 )
+
+export const CFVariationColors = [
+  '#4065A0',
+  '#65DEF2',
+  '#E3B14F',
+  '#42AB45',
+  '#D9DAE5',
+  '#00ADE4',
+  '#f78383',
+  '#e59c0b',
+  '#7c8d9f',
+  '#8c78ed',
+  '#ff8f3f',
+  '#ed61b5'
+]

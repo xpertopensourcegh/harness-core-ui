@@ -37,18 +37,24 @@
 
 .collapse-features {
   margin: var(--spacing-medium) 0 !important;
+  padding: var(--spacing-xsmall) var(--spacing-small) !important;
+
   & > div {
     border: 0 !important;
-    box-shadow: 0 0 10px var(--grey-300);
     padding: var(--spacing-small) !important;
   }
+
   [class*='CollapseHeader---leftSection'] {
     span {
       color: var(--blue-500) !important;
     }
   }
+
+  [class*='Collapse--main'] [class*='Collapse--header'] {
+    padding-top: var(--spacing-xsmall) !important;
+  }
+
   .collapse-features-prerequisites {
-    box-shadow: 0 0 10px var(--grey-300);
     padding: var(--spacing-xsmall) !important;
     border: 1px solid var(--grey-200);
     & > button {
@@ -60,14 +66,16 @@
 
 .variationsList {
   .variationItem {
-    padding: var(--spacing-small) 0 !important;
-
-    &:not(:last-of-type) {
-      border-bottom: 1px solid var(--grey-300) !important;
-    }
+    padding-top: var(--spacing-medium) !important;
 
     &:last-of-type {
-      padding-bottom: 0 !important;
+      margin-top: 0 !important;
     }
   }
+}
+
+.module {
+  background: var(--white) !important;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  border-radius: 4px;
 }

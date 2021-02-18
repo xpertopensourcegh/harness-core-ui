@@ -46,8 +46,6 @@ import { useEnvironments } from '../../hooks/environment'
 import i18n from './CFFeatureFlagsPage.i18n'
 import css from './CFFeatureFlagsPage.module.scss'
 
-type CustomColumn<T extends object> = Column<T>
-
 interface RenderColumnFlagProps {
   cell: Cell<Feature>
   update: (status: boolean) => void
@@ -213,9 +211,7 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   return (
     <Layout.Vertical>
       <Layout.Horizontal>
-        <Text tooltipProps={{ isDark: true }}>
-          {getString(data.kind === FlagTypeVariations.booleanFlag ? 'cf.multivariate' : 'cf.boolean')}
-        </Text>
+        <Text>{getString(data.kind === FlagTypeVariations.booleanFlag ? 'cf.boolean' : 'cf.multivariate')}</Text>
       </Layout.Horizontal>
       {!featureFlagHasCustomRules(data) && (
         <Text
@@ -404,7 +400,7 @@ const CFFeatureFlagsPage: React.FC = () => {
   const error = flagsError || envsError
   const loading = flagsLoading || envsLoading
 
-  const columns: CustomColumn<Feature>[] = useMemo(
+  const columns: Column<Feature>[] = useMemo(
     () => [
       {
         Header: i18n.featureFlag.toUpperCase(),

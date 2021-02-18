@@ -95,7 +95,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   return (
     <Container flex height="100%">
-      <Layout.Horizontal className={css.flagContainer}>
+      <Layout.Horizontal width={450} className={css.flagContainer}>
         <Layout.Vertical width="100%">
           {featureFlag && (
             <FlagActivationDetails featureFlag={featureFlag} featureList={featureList} refetchFlag={refetch} />
@@ -103,7 +103,11 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
         </Layout.Vertical>
       </Layout.Horizontal>
 
-      <Layout.Horizontal width="70%" height="100%">
+      <Layout.Horizontal
+        width="calc(100% - 450px + 20px)"
+        height="100%"
+        style={{ transform: 'translateX(-20px)', background: 'var(--white)' }}
+      >
         <Layout.Vertical width="100%">
           {featureFlag && (
             <FlagActivation

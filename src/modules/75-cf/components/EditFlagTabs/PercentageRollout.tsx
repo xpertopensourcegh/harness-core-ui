@@ -2,22 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Color, Layout, Text, Container, TextInput } from '@wings-software/uicore'
 import { sumBy, clamp } from 'lodash-es'
 import type { Distribution, WeightedVariation, Variation } from 'services/cf'
+import { CFVariationColors } from '@cf/constants'
 import css from './TabTargeting.module.scss'
-
-const Colors = [
-  '#4065A0',
-  '#65DEF2',
-  '#E3B14F',
-  '#42AB45',
-  '#D9DAE5',
-  '#00ADE4',
-  '#f78383',
-  '#e59c0b',
-  '#7c8d9f',
-  '#8c78ed',
-  '#ff8f3f',
-  '#ed61b5'
-]
 
 interface PercentageValues {
   id: string
@@ -51,7 +37,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
       id: elem.identifier,
       displayName: elem.name || elem.value,
       value: weightedVariation?.weight || Math.floor(100 / (variations?.length ?? 1)),
-      color: Colors[i % Colors.length]
+      color: CFVariationColors[i % CFVariationColors.length]
     }
   })
 

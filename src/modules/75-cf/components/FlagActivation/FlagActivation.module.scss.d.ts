@@ -8,5 +8,7 @@ declare const styles: {
   readonly btnCode: string
   readonly editContainer: string
   readonly editBtnsGroup: string
+  readonly contentHeading: string
+  readonly switch: string
 }
 export default styles

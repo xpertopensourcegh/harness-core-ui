@@ -5,7 +5,6 @@ import type { FormikActions } from 'formik'
 import { get, isEqual, isNil } from 'lodash-es'
 import {
   Layout,
-  Color,
   Container,
   Text,
   Tabs,
@@ -19,6 +18,7 @@ import {
   FormikForm as Form
 } from '@wings-software/uicore'
 import { Switch, Classes, Dialog } from '@blueprintjs/core'
+import cx from 'classnames'
 import {
   Feature,
   FeatureState,
@@ -355,8 +355,17 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     >
       {formikProps => (
         <Form>
-          <Layout.Horizontal flex background={Color.BLUE_300} padding="large">
-            <Text margin={{ right: 'medium' }} font={{ weight: 'bold' }}>
+          <Layout.Horizontal
+            flex
+            padding="large"
+            style={{
+              backgroundColor: '#F4F6FF',
+              mixBlendMode: 'normal',
+              boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
+              paddingLeft: 'var(--spacing-huge)'
+            }}
+          >
+            <Text margin={{ right: 'medium' }} font={{ weight: 'bold' }} style={{ color: '#1C1C28', fontSize: '14px' }}>
               {i18n.env.toUpperCase()}
             </Text>
             <Select
@@ -366,14 +375,18 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               onChange={props.onEnvChange}
             />
             <FlexExpander />
-            <Layout.Horizontal>
-              <Text>{(formikProps.values.state || 'off') === 'off' ? i18n.flagOff : i18n.flagOn}</Text>
+            <Layout.Horizontal style={{ alignItems: 'center' }} className={css.contentHeading}>
+              <Text style={{ fontSize: '12px', color: '#6B6D85' }}>
+                {(formikProps.values.state || FeatureFlagActivationStatus.OFF) === FeatureFlagActivationStatus.OFF
+                  ? i18n.flagOff
+                  : i18n.flagOn}
+              </Text>
               <Switch
                 onChange={event => {
                   onChangeSwitchEnv(event.currentTarget.value, formikProps)
                 }}
                 alignIndicator="right"
-                className={Classes.LARGE}
+                className={cx(Classes.LARGE, css.switch)}
                 checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
               />
             </Layout.Horizontal>

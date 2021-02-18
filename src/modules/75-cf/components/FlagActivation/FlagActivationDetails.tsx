@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { get, isEqual, zip, flatMap, cloneDeep, orderBy } from 'lodash-es'
+import { Link } from 'react-router-dom'
 import {
   Color,
   Layout,
@@ -8,7 +9,6 @@ import {
   FlexExpander,
   Button,
   Container,
-  Popover,
   Icon,
   Heading,
   Collapse,
@@ -20,9 +20,14 @@ import {
 } from '@wings-software/uicore'
 import moment from 'moment'
 import { FieldArray } from 'formik'
-import { Menu, Dialog, Classes } from '@blueprintjs/core'
+import cx from 'classnames'
+import { Menu, Dialog } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
+import routes from '@common/RouteDefinitions'
+import { useStrings } from 'framework/exports'
+import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { CFVariationColors } from '@cf/constants'
 import { Feature, Features, Prerequisite, usePatchFeature, Variation } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from '../CreateFlagWizard/common/InputDescOptional'
@@ -49,14 +54,52 @@ interface PrerequisiteEntry {
   variation: string
 }
 
-const VariationItem: React.FC<{ variation: Variation }> = ({ variation }) => {
+const VariationItem: React.FC<{ variation: Variation; index: number }> = ({ variation, index }) => {
   const { name, value, description } = variation
 
   return (
-    <Container className={css.variationItem}>
-      <Text margin={{ bottom: 'xsmall' }}>{name || value}</Text>
+    <Layout.Horizontal className={css.variationItem} spacing="xsmall" style={{ alignItems: 'center' }}>
+      <span
+        style={{
+          borderRadius: '50%',
+          width: 12,
+          height: 12,
+          backgroundColor: CFVariationColors[index % CFVariationColors.length],
+          display: 'inline-block'
+        }}
+      ></span>
+      <Text inline margin={{ bottom: 'xsmall' }} style={{ marginBottom: 0 }}>
+        {name || value}
+      </Text>
       {description && <Text font={{ size: 'small' }}>{description}</Text>}
-    </Container>
+    </Layout.Horizontal>
+  )
+}
+
+const VariationIcons = ({ style }: { style?: React.CSSProperties }) => {
+  return (
+    <span style={{ display: 'inline-block', ...style }}>
+      <span
+        style={{
+          borderRadius: '50%',
+          width: 12,
+          height: 12,
+          backgroundColor: CFVariationColors[0],
+          display: 'inline-block'
+        }}
+      ></span>
+      <span
+        style={{
+          borderRadius: '50%',
+          width: 12,
+          height: 12,
+          backgroundColor: CFVariationColors[1],
+          display: 'inline-block',
+          transform: 'translateX(-4px)',
+          marginRight: '2px'
+        }}
+      ></span>
+    </span>
   )
 }
 
@@ -68,13 +111,13 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
   const { variations } = featureFlag
 
   return (
-    <Layout.Vertical padding="large" margin={{ top: 'large' }} style={{ boxShadow: '0 0 10px #ccc' }}>
+    <Layout.Vertical padding="large" margin={{ top: 'large' }} className={css.module}>
       <Layout.Horizontal flex={{ align: 'center-center' }} margin={{ bottom: 'medium' }}>
-        <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
+        <Text style={{ color: '#1C1C28', fontWeight: 600, fontSize: '14px', lineHeight: '22px' }}>
           {i18n.variations}
         </Text>
         <FlexExpander />
-        <Button minimal intent="primary" icon="edit" onClick={onEditVariations} />
+        <Button minimal intent="primary" icon="edit" onClick={onEditVariations} style={{}} />
       </Layout.Horizontal>
 
       <Layout.Vertical className={css.variationsList}>
@@ -83,11 +126,13 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
           padding={{ bottom: 'small' }}
           style={{ fontSize: '14px', lineHeight: '20px' }}
         >
+          <VariationIcons style={{ transform: 'translateY(1px)' }} />
           {isFlagTypeBoolean ? i18n.boolean : i18n.multivariate} ({variations.length}{' '}
           {i18n.variations.toLocaleLowerCase()})
         </Text>
-        {featureFlag.variations.map(variation => (
-          <VariationItem key={variation.identifier} variation={variation} />
+
+        {featureFlag.variations.map((variation, index) => (
+          <VariationItem key={variation.identifier} variation={variation} index={index} />
         ))}
       </Layout.Vertical>
     </Layout.Vertical>
@@ -97,8 +142,8 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
 const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const { featureList, featureFlag, refetchFlag } = props
   const { showError } = useToaster()
-  const [editOpenedMenu, setEditOpenedMenu] = useState(false)
-  const { orgIdentifier, accountId } = useParams<Record<string, string>>()
+  const { getString } = useStrings()
+  const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
   const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
   const [isEditingPrerequisites, setEditingPrerequisites] = useState<boolean>(false)
 
@@ -111,8 +156,6 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       org: orgIdentifier
     }
   })
-
-  const history = useHistory()
 
   const isBooleanFlag = featureFlag?.kind === FlagTypeVariations.booleanFlag
 
@@ -601,91 +644,108 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       </Dialog>
     )
   })
+  const tbd = () => alert('To be implemented...')
+  const renderTime = (time: number) => (
+    <Text
+      style={{
+        fontWeight: 500,
+        lineHeight: '14px',
+        fontSize: '10px',
+        color: '#555770',
+        letterSpacing: '0.2px'
+      }}
+    >
+      {getString('cf.featureFlags.createdDate', {
+        date: moment(time).format('MMMM D, YYYY hh:mm A')
+      })}
+    </Text>
+  )
+  const prerequisitesTitle = (
+    <Text
+      style={{
+        fontSize: '14px',
+        color: '#22222A',
+        fontWeight: 600,
+        lineHeight: '20px',
+        paddingLeft: 'var(--spacing-small)'
+      }}
+    >
+      {getString('cf.featureFlags.prerequisites')}
+      <span style={{ fontSize: '12px', fontWeight: 400, display: 'inline-block', marginLeft: 'var(--spacing-xsmall)' }}>
+        {getString('cf.featureFlags.prerequisitesDesc')}
+      </span>
+    </Text>
+  )
 
   return (
     <>
-      <Layout.Horizontal>
-        <Text color={Color.BLUE_500} onClick={() => history.goBack()} style={{ cursor: 'pointer' }}>
-          {i18n.flag} /
-        </Text>
-        <FlexExpander />
-        <span>
-          <Icon name="pin" />
-        </span>
-        <Popover
-          isOpen={editOpenedMenu}
-          onInteraction={nextOpenState => {
-            setEditOpenedMenu(nextOpenState)
-          }}
-          className={Classes.DARK}
+      <Layout.Horizontal style={{ marginBottom: '-10px' }}>
+        <Link
+          style={{ color: '#0092E4', fontSize: '12px' }}
+          to={routes.toCFFeatureFlags({
+            projectIdentifier: projectIdentifier,
+            orgIdentifier: orgIdentifier,
+            accountId
+          })}
         >
-          <Button
-            minimal
-            icon="more"
-            onClick={e => {
-              e.stopPropagation()
-              setEditOpenedMenu(true)
-            }}
-          />
-          <Menu style={{ minWidth: 'unset' }}>
-            <Menu.Item icon="edit" text={i18n.edit} onClick={openEditDetailsModal} />
-            <Menu.Divider />
-            <Menu.Item icon="archive" text={i18n.archive} onClick={() => alert('To be implemented...')} />
-          </Menu>
-        </Popover>
+          {i18n.flag}
+        </Link>
+        <span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}>/</span>
+        <FlexExpander />
+        <Button
+          minimal
+          icon="Options"
+          iconProps={{ size: 24 }}
+          tooltip={
+            <Menu style={{ minWidth: 'unset' }}>
+              <Menu.Item icon="edit" text={getString('edit')} onClick={openEditDetailsModal} />
+              <Menu.Item icon="archive" text={getString('archive')} onClick={tbd} />
+              <Menu.Divider />
+              <Menu.Item icon="trash" text={getString('delete')} onClick={tbd} />
+            </Menu>
+          }
+          tooltipProps={{ isDark: true, interactionKind: 'click' }}
+          style={{ transform: 'translate(12px, -10px)' }}
+        />
       </Layout.Horizontal>
 
       <Container>
-        <Heading color={Color.BLACK} margin={{ bottom: 'medium' }}>
+        <Heading style={{ fontWeight: 600, fontSize: '16px', lineHeight: '22px', color: '#1C1C28' }}>
           {featureFlag?.name}
         </Heading>
-        <Text margin={{ bottom: 'medium' }}>{featureFlag?.description}</Text>
-        <Text font={{ size: 'small' }}>
-          <span style={{ backgroundColor: 'var(--blue-300)', padding: 'var(--spacing-xsmall)', borderRadius: '7px' }}>
-            {featureFlag?.identifier}
-          </span>
+        {featureFlag?.description && (
+          <Text
+            margin={{ top: 'small', bottom: 'medium' }}
+            style={{ fontSize: '13px', lineHeight: '20px', color: '#22222A' }}
+          >
+            {featureFlag.description}
+          </Text>
+        )}
+        <Text
+          inline
+          style={{
+            backgroundColor: '#CDF4FE',
+            padding: 'var(--spacing-xsmall) var(--spacing-small)',
+            borderRadius: '2px',
+            fontSize: '12px',
+            lineHeight: '15px',
+            color: '#22222A'
+          }}
+        >
+          {featureFlag?.identifier}
         </Text>
+
         <Container className={css.tagsFlagActivationDetails}>
-          {featureFlag?.tags?.map((elem, i) => (
-            <Text
-              key={`flagDetails-${i}`}
-              background={Color.GREY_300}
-              color={Color.GREY_800}
-              margin={{ right: 'xsmall' }}
-              padding={{ top: 'small', bottom: 'small', left: 'xsmall', right: 'xsmall' }}
-            >
-              {elem.value}
-            </Text>
-          ))}
+          <TagsViewer
+            tags={featureFlag?.tags?.map(({ value }) => value as string)}
+            style={{ backgroundColor: '#D9DAE6', fontSize: '12px', lineHeight: '16px', color: '#22222A' }}
+          />
         </Container>
 
-        <Layout.Horizontal flex margin={{ top: 'medium' }}>
-          <Layout.Vertical>
-            <Layout.Horizontal flex>
-              <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'xsmall' }}>
-                {i18n.created}
-              </Text>
-              <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {moment(featureFlag?.createdAt).format('MMMM D, YYYY hh:mm A')}
-              </Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal flex>
-              <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'xsmall' }}>
-                {i18n.modified}
-              </Text>
-              <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {moment(featureFlag?.modifiedAt).format('MMMM D, YYYY hh:mm A')}
-              </Text>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-          <FlexExpander />
-          <Layout.Vertical>
-            <Layout.Horizontal>
-              <Icon name="user" />
-              <Icon name="plus" />
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        </Layout.Horizontal>
+        <Layout.Vertical margin={{ top: 'medium', bottom: 'xlarge' }}>
+          {renderTime(featureFlag?.createdAt)}
+          {renderTime(featureFlag?.modifiedAt)}
+        </Layout.Vertical>
 
         <VariationsList
           featureFlag={featureFlag}
@@ -695,12 +755,14 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           }}
         />
 
-        <Container className={css.collapseFeatures}>
-          <Collapse {...editCardCollapsedProps} heading={i18n.prerequisitesWithDesc}>
-            <Layout.Horizontal flex margin={{ bottom: 'xsmall' }}>
-              <Text width="50%">{i18n.flag}</Text>
-              <Text width="50%">{i18n.variation}</Text>
-            </Layout.Horizontal>
+        <Container className={cx(css.collapseFeatures, css.module)}>
+          <Collapse {...editCardCollapsedProps} heading={prerequisitesTitle}>
+            {!!featureFlag.prerequisites?.length && (
+              <Layout.Horizontal flex margin={{ bottom: 'xsmall' }}>
+                <Text width="50%">{i18n.flag}</Text>
+                <Text width="50%">{i18n.variation}</Text>
+              </Layout.Horizontal>
+            )}
             <Layout.Vertical className={css.collapseFeaturesPrerequisites}>
               {Boolean(featureFlag.prerequisites?.length) &&
                 featureFlag.prerequisites?.map((elem, i) => (
@@ -741,12 +803,6 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 }}
               />
             </Layout.Vertical>
-          </Collapse>
-        </Container>
-
-        <Container className={css.collapseFeatures}>
-          <Collapse {...editCardCollapsedProps} heading={i18n.workflowsWithDesc}>
-            <Text>To be implemented...</Text>
           </Collapse>
         </Container>
       </Container>

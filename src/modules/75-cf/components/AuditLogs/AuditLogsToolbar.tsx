@@ -25,7 +25,12 @@ export const AuditLogsToolbar: React.FC<AuditLogsToolbar> = ({
   const { getString } = useStrings()
 
   return (
-    <Container flex padding="medium" style={{ borderBottom: '1px solid var(--grey-250)' }} {...props}>
+    <Container
+      flex
+      padding="medium"
+      style={{ borderBottom: '1px solid var(--grey-250)', paddingLeft: 'var(--spacing-large)' }}
+      {...props}
+    >
       <DateRangePickerButton
         initialButtonText={getString('cf.auditLogs.last7days')}
         rightIcon={undefined}
