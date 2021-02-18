@@ -3,6 +3,8 @@ import { FieldArray, FormikProps } from 'formik'
 import { Button, FormInput, MultiTypeInputType, Text, SelectOption } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import { useStrings } from 'framework/exports'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import type { ShellScriptFormData, ShellScriptOutputStepVariable } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
@@ -14,7 +16,7 @@ export default function ShellScriptOutput(props: { formik: FormikProps<ShellScri
     formik: { values: formValues }
   } = props
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <div className={css.stepDesc}>
@@ -42,7 +44,8 @@ export default function ShellScriptOutput(props: { formik: FormikProps<ShellScri
                     <FormInput.MultiTextInput
                       name={`spec.outputVariables[${i}].value`}
                       multiTextInputProps={{
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                        expressions
                       }}
                       label=""
                     />

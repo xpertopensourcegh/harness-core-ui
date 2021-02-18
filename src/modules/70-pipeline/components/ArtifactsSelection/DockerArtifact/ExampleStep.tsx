@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './DockerArtifact.module.scss'
 
@@ -24,7 +25,7 @@ export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props =>
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
-
+  const { expressions } = useVariablesExpression()
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{i18n.specifyArtifactServer}</div>
@@ -47,6 +48,7 @@ export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props =>
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={410}
+                  multiTypeProps={{ expressions }}
                   isNewConnectorLabelVisible={false}
                   type={'DockerRegistry'}
                   enableConfigureOptions={false}

@@ -17,6 +17,8 @@ import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import {
   K8SDirectInfrastructure,
   useGetConnector,
@@ -84,7 +86,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     accountId: string
   }>()
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
-
+  const { expressions } = useVariablesExpression()
   return (
     <Layout.Vertical spacing="medium">
       <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{i18n.stepName}</Text>
@@ -114,6 +116,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   placeholder={i18n.k8ConnectorDropDownPlaceholder}
                   // disabled={loading}
                   accountIdentifier={accountId}
+                  multiTypeProps={{ expressions }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={450}
@@ -145,6 +148,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   className={css.inputWidth}
                   label={i18n.nameSpaceLabel}
                   placeholder={i18n.nameSpacePlaceholder}
+                  multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -166,6 +170,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   className={css.inputWidth}
                   label={i18n.releaseName}
                   placeholder={i18n.releaseNamePlaceholder}
+                  multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions

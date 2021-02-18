@@ -101,7 +101,7 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
     </Popover>
   )
 }
-interface MultiTypeReferenceInputProps<T extends MinimalObject>
+export interface MultiTypeReferenceInputProps<T extends MinimalObject>
   extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
   referenceSelectProps: Omit<ReferenceSelectProps<T>, 'onChange'>
 }

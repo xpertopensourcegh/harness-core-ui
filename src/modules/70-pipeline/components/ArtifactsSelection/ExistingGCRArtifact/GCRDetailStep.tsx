@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './GCRArtifact.module.scss'
 
@@ -25,7 +26,7 @@ export const GCRDetailStep: React.FC<StepProps<any> & GCRDetailStepProps> = prop
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
-
+  const { expressions } = useVariablesExpression()
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{i18n.specifyArtifactServer}</div>
@@ -48,6 +49,7 @@ export const GCRDetailStep: React.FC<StepProps<any> & GCRDetailStepProps> = prop
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={410}
+                  multiTypeProps={{ expressions }}
                   isNewConnectorLabelVisible={false}
                   type={'Gcp'}
                   enableConfigureOptions={false}

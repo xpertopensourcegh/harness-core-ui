@@ -14,6 +14,7 @@ import type { YamlProperties } from 'services/pipeline-ng'
 import { toVariableStr } from '@common/utils/StringUtils'
 import { CopyText } from '@common/components/CopyText/CopyText'
 
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
 import i18n from './CustomVariables.i18n'
@@ -63,6 +64,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
       index: -1
     })
   }
+  const { expressions } = useVariablesExpression()
 
   return (
     <Formik initialValues={initialValues} onSubmit={data => onUpdate?.(data)} validate={debouncedUpdate}>
@@ -139,6 +141,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               label=""
                               multiTextInputProps={{
                                 defaultValueToReset: '',
+                                expressions,
                                 textProps: {
                                   disabled: !initialValues.canAddVariable,
                                   type: variable.type === VariableTypes.Number ? 'number' : 'text'

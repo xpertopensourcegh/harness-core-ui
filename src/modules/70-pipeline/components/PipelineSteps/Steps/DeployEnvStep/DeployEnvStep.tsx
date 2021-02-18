@@ -23,6 +23,8 @@ import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import { errorCheck } from '@common/utils/formikHelpers'
 import { StepType } from '../../PipelineStepInterface'
 import css from './DeployEnvStep.module.scss'
@@ -44,6 +46,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   onCreateOrUpdate
 }): JSX.Element => {
   const { getString } = useStrings()
+
   const typeList: { text: string; value: EnvironmentYaml['type'] }[] = [
     {
       text: getString('production'),
@@ -218,6 +221,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
   if (error?.message) {
     showError(error.message)
   }
+
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <Formik<DeployEnvData>
@@ -274,7 +279,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
                   selectProps: {
                     addClearBtn: true,
                     items: environments
-                  }
+                  },
+                  expressions
                 }}
                 selectItems={environments}
               />

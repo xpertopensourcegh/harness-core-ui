@@ -20,7 +20,11 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import { MultiTypeReferenceInput, ReferenceSelectProps } from '@common/components/ReferenceSelect/ReferenceSelect'
+import {
+  MultiTypeReferenceInput,
+  MultiTypeReferenceInputProps,
+  ReferenceSelectProps
+} from '@common/components/ReferenceSelect/ReferenceSelect'
 import {
   ConnectorReferenceFieldProps,
   getReferenceFieldProps,
@@ -35,6 +39,7 @@ export interface MultiTypeConnectorFieldConfigureOptionsProps
 export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange'> {
   onChange?: ExpressionAndRuntimeTypeProps['onChange']
   formik?: FormikContext<any>
+  multiTypeProps?: Omit<MultiTypeReferenceInputProps<ConnectorReferenceDTO>, 'name' | 'referenceSelectProps'>
   isNewConnectorLabelVisible?: boolean
   configureOptionsProps?: MultiTypeConnectorFieldConfigureOptionsProps
   enableConfigureOptions?: boolean
@@ -62,6 +67,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     configureOptionsProps,
     enableConfigureOptions = true,
     style,
+    multiTypeProps = {},
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
@@ -71,13 +77,13 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     disabled,
     ...rest
   } = restProps
-
   const selected = get(formik?.values, name, '')
 
   const [selectedValue, setSelectedValue] = React.useState(selected)
 
   const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
   const selectedRef = typeof selected === 'string' && getIdentifierFromValue(selected || '')
+  const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
   const { data: connectorData, loading, refetch } = useGetConnector({
     identifier: selectedRef as string,
     queryParams: {
@@ -91,6 +97,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   React.useEffect(() => {
     if (
       typeof selected == 'string' &&
+      multiType === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
       selected.length > 0
     ) {
@@ -233,9 +240,11 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           } else {
             formik?.setFieldValue(name, val)
           }
+          setMultiType(type1)
           onChange?.(val, valueType, type1)
         }}
         value={selected}
+        {...multiTypeProps}
       />
     </FormGroup>
   )

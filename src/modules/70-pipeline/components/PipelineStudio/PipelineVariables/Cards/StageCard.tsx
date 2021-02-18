@@ -67,7 +67,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   domId: `Stage.${originalStage.identifier}.Variables-panel`,
                   className: css.customVariables,
                   heading: <b>{getString('customVariables.title')}</b>,
-                  yamlProperties: (stage as DeploymentStage).variables?.map(
+                  yamlProperties: (stage as DeploymentStage).variables?.map?.(
                     variable => metadataMap[variable.value || '']?.yamlProperties || {}
                   )
                 }}

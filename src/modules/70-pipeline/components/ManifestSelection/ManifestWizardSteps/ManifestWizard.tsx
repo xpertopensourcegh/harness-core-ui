@@ -24,6 +24,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { String, useStrings } from 'framework/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import i18n from './ManifestWizard.i18n'
 import css from './ManifestWizard.module.scss'
 
@@ -64,7 +65,7 @@ const FirstStep = (props: any): JSX.Element => {
   const { setFormData, handleViewChange } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-
+  const { expressions } = useVariablesExpression()
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{i18n.STEP_TWO.name}</Text>
@@ -89,6 +90,7 @@ const FirstStep = (props: any): JSX.Element => {
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
                 width={400}
+                multiTypeProps={{ expressions }}
                 isNewConnectorLabelVisible={false}
                 category={'CODE_REPO'}
                 enableConfigureOptions={false}

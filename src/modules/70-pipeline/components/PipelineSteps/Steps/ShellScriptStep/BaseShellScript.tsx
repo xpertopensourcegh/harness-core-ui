@@ -13,6 +13,8 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import type { ShellScriptFormData } from './shellScriptTypes'
 
@@ -36,6 +38,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
   const [isFullScreen, setFullScreen] = React.useState(false)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   const scriptType: string = formValues.spec?.shell || 'Bash'
   const monaco = (
     <div className={css.monacoWrapper}>
@@ -114,7 +117,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false }}
+          multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
           className={stepCss.duration}
         />
         {getMultiTypeFromValue(formValues?.timeout) === MultiTypeInputType.RUNTIME && (

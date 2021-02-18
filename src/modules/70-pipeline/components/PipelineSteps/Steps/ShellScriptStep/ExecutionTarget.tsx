@@ -5,7 +5,9 @@ import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { ShellScriptFormData } from './shellScriptTypes'
+
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
 
@@ -18,6 +20,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
 
   const { getString } = useStrings()
 
+  const { expressions } = useVariablesExpression()
   const targetTypeOptions: IOptionProps[] = [
     {
       label: 'Specify Target Host',
@@ -49,6 +52,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
               name="spec.executionTarget.host"
               label={getString('targetHost')}
               style={{ marginTop: 'var(--spacing-small)' }}
+              multiTextInputProps={{ expressions }}
             />
             {getMultiTypeFromValue(formValues.spec.executionTarget.host) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions
@@ -93,6 +97,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
               name="spec.executionTarget.workingDirectory"
               label={getString('workingDirectory')}
               style={{ marginTop: 'var(--spacing-medium)' }}
+              multiTextInputProps={{ expressions }}
             />
             {getMultiTypeFromValue(formValues.spec.executionTarget.workingDirectory) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions

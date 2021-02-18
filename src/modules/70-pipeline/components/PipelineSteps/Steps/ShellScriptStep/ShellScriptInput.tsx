@@ -5,7 +5,9 @@ import { Button, FormInput, MultiTypeInputType, SelectOption } from '@wings-soft
 import { v4 as uuid } from 'uuid'
 import { isNumber } from 'lodash-es'
 import { useStrings } from 'framework/exports'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { ShellScriptFormData, ShellScriptStepVariable } from './shellScriptTypes'
+
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
 
@@ -19,7 +21,7 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
     formik: { values: formValues, setFieldValue }
   } = props
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   const updateInputFieldValue = (value: string | number, index: number, path: string): void => {
     if (formValues.spec.environmentVariables && formValues.spec.environmentVariables[index].type === 'Number') {
       value = parseInt(value as any)
@@ -56,7 +58,8 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
                   <FormInput.MultiTextInput
                     name={`spec.environmentVariables[${i}].value`}
                     multiTextInputProps={{
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                      expressions
                     }}
                     label=""
                     onChange={value =>
