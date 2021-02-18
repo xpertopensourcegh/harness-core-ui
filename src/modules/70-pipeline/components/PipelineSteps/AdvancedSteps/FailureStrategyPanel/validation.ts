@@ -25,108 +25,106 @@ function getManualInterventionBaseFields(getString: (str: string) => string): Re
   }
 }
 
-export function getFailureStrategiesValidationSchema(getString: (str: string) => string): Yup.ArraySchema<unknown> {
-  return Yup.array()
-    .of(
-      Yup.object()
-        .shape({
-          onFailure: Yup.object()
-            .shape({
-              errors: Yup.array()
-                .of(Yup.mixed().oneOf(Object.values(ErrorType)).required())
-                .min(1, getString('failureStrategies.validation.errorsMinimum'))
-                .required(getString('failureStrategies.validation.errorsRequired')),
-              action: Yup.object()
-                .shape({
-                  type: Yup.mixed()
-                    .oneOf(Object.values(Strategy))
-                    .required(getString('failureStrategies.validation.actionRequired')),
-                  spec: Yup.mixed()
-                    .when('type', {
-                      is: Strategy.Retry,
-                      then: Yup.object()
-                        .shape({
-                          ...getRetryActionBaseFields(getString),
-                          onRetryFailure: Yup.object()
-                            .shape({
-                              action: Yup.object().shape({
-                                type: Yup.mixed()
-                                  .oneOf(Object.values(omit(Strategy, [Strategy.Retry])))
-                                  .required(getString('failureStrategies.validation.onRetryFailureRequired')),
-                                spec: Yup.mixed().when('type', {
-                                  is: Strategy.ManualIntervention,
-                                  then: Yup.object().shape({
-                                    ...getManualInterventionBaseFields(getString),
-                                    onTimeout: Yup.object().shape({
-                                      action: Yup.object()
-                                        .shape({
-                                          type: Yup.mixed()
-                                            .oneOf(
-                                              Object.values(
-                                                omit(Strategy, [Strategy.ManualIntervention, Strategy.Retry])
-                                              )
-                                            )
-                                            .required(getString('failureStrategies.validation.onTimeoutRequired'))
-                                        })
-                                        .required(getString('failureStrategies.validation.onTimeoutRequired'))
-                                        .required(getString('failureStrategies.validation.onTimeoutRequired'))
-                                    })
+export function getFailureStrategiesValidationSchema(
+  getString: (str: string) => string
+): Yup.NotRequiredArraySchema<unknown> {
+  return Yup.array().of(
+    Yup.object()
+      .shape({
+        onFailure: Yup.object()
+          .shape({
+            errors: Yup.array()
+              .of(Yup.mixed().oneOf(Object.values(ErrorType)).required())
+              .min(1, getString('failureStrategies.validation.errorsMinimum'))
+              .required(getString('failureStrategies.validation.errorsRequired')),
+            action: Yup.object()
+              .shape({
+                type: Yup.mixed()
+                  .oneOf(Object.values(Strategy))
+                  .required(getString('failureStrategies.validation.actionRequired')),
+                spec: Yup.mixed()
+                  .when('type', {
+                    is: Strategy.Retry,
+                    then: Yup.object()
+                      .shape({
+                        ...getRetryActionBaseFields(getString),
+                        onRetryFailure: Yup.object()
+                          .shape({
+                            action: Yup.object().shape({
+                              type: Yup.mixed()
+                                .oneOf(Object.values(omit(Strategy, [Strategy.Retry])))
+                                .required(getString('failureStrategies.validation.onRetryFailureRequired')),
+                              spec: Yup.mixed().when('type', {
+                                is: Strategy.ManualIntervention,
+                                then: Yup.object().shape({
+                                  ...getManualInterventionBaseFields(getString),
+                                  onTimeout: Yup.object().shape({
+                                    action: Yup.object()
+                                      .shape({
+                                        type: Yup.mixed()
+                                          .oneOf(
+                                            Object.values(omit(Strategy, [Strategy.ManualIntervention, Strategy.Retry]))
+                                          )
+                                          .required(getString('failureStrategies.validation.onTimeoutRequired'))
+                                      })
+                                      .required(getString('failureStrategies.validation.onTimeoutRequired'))
+                                      .required(getString('failureStrategies.validation.onTimeoutRequired'))
                                   })
                                 })
                               })
                             })
-                            .required(getString('failureStrategies.validation.onRetryFailureRequired'))
-                        })
-                        .required()
-                    })
-                    .when('type', {
-                      is: Strategy.ManualIntervention,
-                      then: Yup.object()
-                        .shape({
-                          ...getManualInterventionBaseFields(getString),
-                          onTimeout: Yup.object().shape({
-                            action: Yup.object()
-                              .shape({
-                                type: Yup.mixed()
-                                  .oneOf(Object.values(omit(Strategy, [Strategy.ManualIntervention])))
-                                  .required(getString('failureStrategies.validation.onTimeoutRequired')),
-                                spec: Yup.mixed().when('type', {
-                                  is: Strategy.Retry,
-                                  then: Yup.object()
-                                    .shape({
-                                      ...getRetryActionBaseFields(getString),
-                                      onRetryFailure: Yup.object()
-                                        .shape({
-                                          action: Yup.object()
-                                            .shape({
-                                              type: Yup.mixed()
-                                                .oneOf(
-                                                  Object.values(
-                                                    omit(Strategy, [Strategy.Retry, Strategy.ManualIntervention])
-                                                  )
-                                                )
-                                                .required(
-                                                  getString('failureStrategies.validation.onRetryFailureRequired')
-                                                )
-                                            })
-                                            .required(getString('failureStrategies.validation.onRetryFailureRequired'))
-                                        })
-                                        .required(getString('failureStrategies.validation.onRetryFailureRequired'))
-                                    })
-                                    .required(getString('failureStrategies.validation.onRetryFailureRequired'))
-                                })
-                              })
-                              .required(getString('failureStrategies.validation.onTimeoutRequired'))
                           })
+                          .required(getString('failureStrategies.validation.onRetryFailureRequired'))
+                      })
+                      .required()
+                  })
+                  .when('type', {
+                    is: Strategy.ManualIntervention,
+                    then: Yup.object()
+                      .shape({
+                        ...getManualInterventionBaseFields(getString),
+                        onTimeout: Yup.object().shape({
+                          action: Yup.object()
+                            .shape({
+                              type: Yup.mixed()
+                                .oneOf(Object.values(omit(Strategy, [Strategy.ManualIntervention])))
+                                .required(getString('failureStrategies.validation.onTimeoutRequired')),
+                              spec: Yup.mixed().when('type', {
+                                is: Strategy.Retry,
+                                then: Yup.object()
+                                  .shape({
+                                    ...getRetryActionBaseFields(getString),
+                                    onRetryFailure: Yup.object()
+                                      .shape({
+                                        action: Yup.object()
+                                          .shape({
+                                            type: Yup.mixed()
+                                              .oneOf(
+                                                Object.values(
+                                                  omit(Strategy, [Strategy.Retry, Strategy.ManualIntervention])
+                                                )
+                                              )
+                                              .required(
+                                                getString('failureStrategies.validation.onRetryFailureRequired')
+                                              )
+                                          })
+                                          .required(getString('failureStrategies.validation.onRetryFailureRequired'))
+                                      })
+                                      .required(getString('failureStrategies.validation.onRetryFailureRequired'))
+                                  })
+                                  .required(getString('failureStrategies.validation.onRetryFailureRequired'))
+                              })
+                            })
+                            .required(getString('failureStrategies.validation.onTimeoutRequired'))
                         })
-                        .required()
-                    })
-                })
-                .required(getString('failureStrategies.validation.actionRequired'))
-            })
-            .required()
-        })
-        .required()
-    )
-    .required()
+                      })
+                      .required()
+                  })
+              })
+              .required(getString('failureStrategies.validation.actionRequired'))
+          })
+          .required()
+      })
+      .required()
+  )
 }

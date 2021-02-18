@@ -41,7 +41,7 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
         ]
       }}
       validationSchema={Yup.object().shape({
-        failureStrategies: getFailureStrategiesValidationSchema(getString)
+        failureStrategies: getFailureStrategiesValidationSchema(getString).required().min(1)
       })}
       onSubmit={onUpdate}
     >
