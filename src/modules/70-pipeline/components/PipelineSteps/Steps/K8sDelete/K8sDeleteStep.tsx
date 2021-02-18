@@ -27,7 +27,6 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { FormMultiTypeCheckboxField } from '@common/components'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
@@ -41,12 +40,13 @@ interface K8sDeleteSpec {
   skipDryRun?: boolean
 }
 
-interface K8sDeleteSpec {
-  deleteResourcesBy?: string
-  spec?: K8sDeleteSpec
-}
 export interface K8sDeleteData extends StepElementConfig {
-  spec: K8sDeleteSpec
+  spec: {
+    deleteResources: {
+      type?: string
+      spec: K8sDeleteSpec
+    }
+  }
 }
 
 export interface K8sDeleteVariableStepProps {
@@ -104,18 +104,18 @@ function K8sDeleteDeployWidget(
 
           const data = values
           /* making sure to remove other entities */
-          if (data.spec?.deleteResourcesBy === getString('pipelineSteps.resourceNameValue')) {
+          if (data.spec?.deleteResources?.type === getString('pipelineSteps.resourceNameValue')) {
             /* istanbul ignore next */
-            delete data.spec?.spec?.deleteNamespace
-            delete data.spec?.spec?.manifestPaths
-          } else if (data.spec?.deleteResourcesBy === getString('pipelineSteps.releaseNameValue')) {
+            delete data.spec?.deleteResources?.spec?.deleteNamespace
+            delete data.spec?.deleteResources?.spec?.manifestPaths
+          } else if (data.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue')) {
             /* istanbul ignore next */
-            delete data.spec?.spec?.resourceNames
-            delete data.spec?.spec?.manifestPaths
-          } else if (data.spec?.deleteResourcesBy === getString('pipelineSteps.manifestPathValue')) {
+            delete data.spec?.deleteResources?.spec?.resourceNames
+            delete data.spec?.deleteResources?.spec?.manifestPaths
+          } else if (data.spec?.deleteResources?.type === getString('pipelineSteps.manifestPathValue')) {
             /* istanbul ignore next */
-            delete data.spec?.spec?.resourceNames
-            delete data.spec?.spec?.deleteNamespace
+            delete data.spec?.deleteResources?.spec?.resourceNames
+            delete data.spec?.deleteResources?.spec?.deleteNamespace
           }
           onUpdate?.(data)
         }}
@@ -140,44 +140,47 @@ function K8sDeleteDeployWidget(
                 <div className={stepCss.formGroup}>
                   <FormInput.RadioGroup
                     label={getString('pipelineSteps.deleteResourcesBy')}
-                    name="spec.deleteResourcesBy"
+                    name="spec.deleteResources.type"
                     items={accessTypeOptions}
                     radioGroup={{ inline: true }}
                   />
                 </div>
 
-                {values?.spec?.deleteResourcesBy === getString('pipelineSteps.resourceNameValue') && (
+                {values?.spec?.deleteResources?.type === getString('pipelineSteps.resourceNameValue') && (
                   <div className={stepCss.formGroup}>
                     <FieldArray
-                      name="spec.spec.resourceNames"
+                      name="spec.deleteResources.spec.resourceNames"
                       render={arrayHelpers => (
                         <Layout.Vertical>
-                          {formikProps.values?.spec?.spec?.resourceNames?.map((_path: string, index: number) => (
-                            <Layout.Horizontal
-                              key={index}
-                              flex={{ distribution: 'space-between' }}
-                              style={{ alignItems: 'end' }}
-                            >
-                              <FormInput.MultiTextInput
-                                label=""
-                                placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
-                                name={`spec.spec.resourceNames[${index}]`}
-                                style={{ width: '430px' }}
-                              />
-                              {/* istanbul ignore next */}
-                              {formikProps.values?.spec?.spec?.resourceNames &&
-                                formikProps.values?.spec?.spec?.resourceNames.length > 1 && (
-                                  <Button
-                                    minimal
-                                    icon="minus"
-                                    onClick={() => {
-                                      /* istanbul ignore next */
-                                      arrayHelpers.remove(index)
-                                    }}
-                                  />
-                                )}
-                            </Layout.Horizontal>
-                          ))}
+                          {formikProps.values?.spec?.deleteResources?.spec.resourceNames?.map(
+                            (_path: string, index: number) => (
+                              <Layout.Horizontal
+                                key={index}
+                                flex={{ distribution: 'space-between' }}
+                                style={{ alignItems: 'end' }}
+                              >
+                                <FormInput.MultiTextInput
+                                  label=""
+                                  placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
+                                  name={`spec.deleteResources.spec.resourceNames[${index}]`}
+                                  style={{ width: '430px' }}
+                                  multiTextInputProps={{ expressions }}
+                                />
+                                {/* istanbul ignore next */}
+                                {formikProps.values?.spec?.deleteResources?.spec?.resourceNames &&
+                                  formikProps.values?.spec?.deleteResources?.spec?.resourceNames.length > 1 && (
+                                    <Button
+                                      minimal
+                                      icon="minus"
+                                      onClick={() => {
+                                        /* istanbul ignore next */
+                                        arrayHelpers.remove(index)
+                                      }}
+                                    />
+                                  )}
+                              </Layout.Horizontal>
+                            )
+                          )}
                           <span>
                             <Button
                               minimal
@@ -195,7 +198,7 @@ function K8sDeleteDeployWidget(
                   </div>
                 )}
 
-                {values?.spec?.deleteResourcesBy === getString('pipelineSteps.releaseNameValue') && (
+                {values?.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue') && (
                   <div className={stepCss.formGroup}>
                     <Layout.Horizontal
                       spacing="small"
@@ -204,7 +207,7 @@ function K8sDeleteDeployWidget(
                       className={css.nameSpace}
                     >
                       <FormInput.CheckBox
-                        name="spec.spec.deleteNamespace"
+                        name="spec.deleteResources.spec.deleteNamespace"
                         label="Delete namespace"
                         style={{ paddingLeft: 'var(--spacing-small)' }}
                       />
@@ -212,32 +215,35 @@ function K8sDeleteDeployWidget(
                   </div>
                 )}
 
-                {values?.spec?.deleteResourcesBy === getString('pipelineSteps.manifestPathValue') && (
+                {values?.spec?.deleteResources?.type === getString('pipelineSteps.manifestPathValue') && (
                   <div className={stepCss.formGroup}>
                     <FieldArray
-                      name="spec.spec.manifestPaths"
+                      name="spec.deleteResources.spec.manifestPaths"
                       render={arrayHelpers => (
                         <Layout.Vertical>
                           {/* istanbul ignore next */}
-                          {formikProps.values?.spec?.spec?.manifestPaths?.map((_path: string, index: number) => (
-                            <Layout.Horizontal
-                              key={index}
-                              flex={{ distribution: 'space-between' }}
-                              style={{ alignItems: 'end' }}
-                            >
-                              <FormInput.MultiTextInput
-                                label=""
-                                placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
-                                name={`spec.spec.manifestPaths[${index}]`}
-                                style={{ width: '430px' }}
-                              />
-                              {/* istanbul ignore next */}
-                              {formikProps.values?.spec?.spec?.manifestPaths &&
-                                formikProps.values?.spec?.spec?.manifestPaths.length > 1 && (
-                                  <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
-                                )}
-                            </Layout.Horizontal>
-                          ))}
+                          {formikProps.values?.spec?.deleteResources?.spec?.manifestPaths?.map(
+                            (_path: string, index: number) => (
+                              <Layout.Horizontal
+                                key={index}
+                                flex={{ distribution: 'space-between' }}
+                                style={{ alignItems: 'end' }}
+                              >
+                                <FormInput.MultiTextInput
+                                  label=""
+                                  placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
+                                  name={`spec.deleteResources.spec.manifestPaths[${index}]`}
+                                  style={{ width: '430px' }}
+                                  multiTextInputProps={{ expressions }}
+                                />
+                                {/* istanbul ignore next */}
+                                {formikProps.values?.spec?.deleteResources?.spec?.manifestPaths &&
+                                  formikProps.values?.spec?.deleteResources?.spec?.manifestPaths.length > 1 && (
+                                    <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                                  )}
+                              </Layout.Horizontal>
+                            )
+                          )}
                           <span>
                             <Button
                               minimal
@@ -256,7 +262,7 @@ function K8sDeleteDeployWidget(
                     <FormMultiTypeDurationField
                       name="timeout"
                       label={getString('pipelineSteps.timeoutLabel')}
-                      multiTypeDurationProps={{ enableConfigureOptions: false }}
+                      multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
                     />
                     {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
@@ -272,13 +278,6 @@ function K8sDeleteDeployWidget(
                       />
                     )}
                   </Layout.Horizontal>
-                </div>
-                <div className={stepCss.formGroup}>
-                  <FormMultiTypeCheckboxField
-                    multiTypeTextbox={{ expressions }}
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                  />
                 </div>
               </Layout.Vertical>
 
@@ -302,14 +301,6 @@ const K8sDeleteInputStep: React.FC<K8sDeleteProps> = ({ inputSetData, readonly }
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
-          disabled={readonly}
-        />
-      )}
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipDryRun')}
           disabled={readonly}
         />
       )}
@@ -396,9 +387,10 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
     identifier: '',
     timeout: '10m',
     spec: {
-      deleteResourcesBy: '',
-      spec: {},
-      skipDryRun: false
+      deleteResources: {
+        type: '',
+        spec: {}
+      }
     }
   }
 }

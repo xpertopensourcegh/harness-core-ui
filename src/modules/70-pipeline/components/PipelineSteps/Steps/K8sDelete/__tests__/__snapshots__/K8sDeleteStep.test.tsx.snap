@@ -81,7 +81,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
         >
           <label
             class="bp3-label"
-            for="spec.deleteResourcesBy"
+            for="spec.deleteResources.type"
           >
             Delete resources by
              
@@ -97,7 +97,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ResourceName"
                 />
@@ -110,7 +110,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
                 />
@@ -123,8 +123,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  checked=""
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ManifestPath"
                 />
@@ -135,188 +134,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
               </label>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        class="formGroup"
-      >
-        <div
-          class="Layout--vertical StyledProps--main"
-        >
-          <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
-            style="align-items: end;"
-          >
-            <div
-              class="bp3-form-group"
-              style="width: 430px;"
-            >
-              
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                >
-                  <div
-                    class="bp3-input-group MultiTypeInput--input"
-                  >
-                    <input
-                      class="bp3-input"
-                      name="spec.spec.manifestPaths[0]"
-                      placeholder="Specify resources to be delete"
-                      type="text"
-                      value="testA"
-                    />
-                  </div>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                          data-icon="fixed-input"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 9 9"
-                            width="12"
-                          >
-                            <path
-                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                              fill="#009dff"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-minus StyledProps--main"
-                icon="minus"
-              >
-                <svg
-                  data-icon="minus"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    minus
-                  </desc>
-                  <path
-                    d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-          <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
-            style="align-items: end;"
-          >
-            <div
-              class="bp3-form-group"
-              style="width: 430px;"
-            >
-              
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                >
-                  <div
-                    class="bp3-input-group MultiTypeInput--input"
-                  >
-                    <input
-                      class="bp3-input"
-                      name="spec.spec.manifestPaths[1]"
-                      placeholder="Specify resources to be delete"
-                      type="text"
-                      value="testB"
-                    />
-                  </div>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                          data-icon="fixed-input"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 9 9"
-                            width="12"
-                          >
-                            <path
-                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                              fill="#009dff"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-minus StyledProps--main"
-                icon="minus"
-              >
-                <svg
-                  data-icon="minus"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    minus
-                  </desc>
-                  <path
-                    d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-          <span>
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                + Add
-              </span>
-            </button>
-          </span>
         </div>
       </div>
       <div
@@ -385,61 +202,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                   </span>
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-            >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
-              >
-                <input
-                  name="spec.skipDryRun"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                Skip Dry Run
-              </label>
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                      data-icon="fixed-input"
-                    >
-                      <svg
-                        height="12"
-                        viewBox="0 0 9 9"
-                        width="12"
-                      >
-                        <path
-                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
             </div>
           </div>
         </div>
@@ -544,7 +306,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
         >
           <label
             class="bp3-label"
-            for="spec.deleteResourcesBy"
+            for="spec.deleteResources.type"
           >
             Delete resources by
              
@@ -560,7 +322,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ResourceName"
                 />
@@ -573,8 +335,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  checked=""
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
                 />
@@ -587,7 +348,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ManifestPath"
                 />
@@ -595,36 +356,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                   class="bp3-control-indicator"
                 />
                 Manifest Path
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="formGroup"
-      >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main nameSpace StyledProps--flex StyledProps--flex-distribution-space-between"
-          style="align-items: center;"
-        >
-          <div
-            class="bp3-form-group"
-          >
-            <div
-              class="bp3-form-content"
-            >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
-              >
-                <input
-                  checked=""
-                  name="spec.spec.deleteNamespace"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                Delete namespace
               </label>
             </div>
           </div>
@@ -696,61 +427,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                   </span>
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-            >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
-              >
-                <input
-                  name="spec.skipDryRun"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                Skip Dry Run
-              </label>
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                      data-icon="fixed-input"
-                    >
-                      <svg
-                        height="12"
-                        viewBox="0 0 9 9"
-                        width="12"
-                      >
-                        <path
-                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
             </div>
           </div>
         </div>
@@ -855,7 +531,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
         >
           <label
             class="bp3-label"
-            for="spec.deleteResourcesBy"
+            for="spec.deleteResources.type"
           >
             Delete resources by
              
@@ -871,8 +547,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  checked=""
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ResourceName"
                 />
@@ -885,7 +560,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
                 />
@@ -898,7 +573,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ManifestPath"
                 />
@@ -909,188 +584,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
               </label>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        class="formGroup"
-      >
-        <div
-          class="Layout--vertical StyledProps--main"
-        >
-          <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
-            style="align-items: end;"
-          >
-            <div
-              class="bp3-form-group"
-              style="width: 430px;"
-            >
-              
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                >
-                  <div
-                    class="bp3-input-group MultiTypeInput--input"
-                  >
-                    <input
-                      class="bp3-input"
-                      name="spec.spec.resourceNames[0]"
-                      placeholder="Specify resources to be delete"
-                      type="text"
-                      value="testABC"
-                    />
-                  </div>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                          data-icon="fixed-input"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 9 9"
-                            width="12"
-                          >
-                            <path
-                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                              fill="#009dff"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-minus StyledProps--main"
-                icon="minus"
-              >
-                <svg
-                  data-icon="minus"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    minus
-                  </desc>
-                  <path
-                    d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-          <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
-            style="align-items: end;"
-          >
-            <div
-              class="bp3-form-group"
-              style="width: 430px;"
-            >
-              
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                >
-                  <div
-                    class="bp3-input-group MultiTypeInput--input"
-                  >
-                    <input
-                      class="bp3-input"
-                      name="spec.spec.resourceNames[1]"
-                      placeholder="Specify resources to be delete"
-                      type="text"
-                      value="test123"
-                    />
-                  </div>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                          data-icon="fixed-input"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 9 9"
-                            width="12"
-                          >
-                            <path
-                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                              fill="#009dff"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-minus StyledProps--main"
-                icon="minus"
-              >
-                <svg
-                  data-icon="minus"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    minus
-                  </desc>
-                  <path
-                    d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-          <span>
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                + Add File
-              </span>
-            </button>
-          </span>
         </div>
       </div>
       <div
@@ -1159,61 +652,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                   </span>
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-            >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
-              >
-                <input
-                  name="spec.skipDryRun"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                Skip Dry Run
-              </label>
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                      data-icon="fixed-input"
-                    >
-                      <svg
-                        height="12"
-                        viewBox="0 0 9 9"
-                        width="12"
-                      >
-                        <path
-                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
             </div>
           </div>
         </div>
@@ -1337,7 +775,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
         >
           <label
             class="bp3-label"
-            for="spec.deleteResourcesBy"
+            for="spec.deleteResources.type"
           >
             Delete resources by
              
@@ -1353,7 +791,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ResourceName"
                 />
@@ -1366,7 +804,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
                 />
@@ -1379,7 +817,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
-                  name="spec.deleteResourcesBy"
+                  name="spec.deleteResources.type"
                   type="radio"
                   value="ManifestPath"
                 />
@@ -1458,61 +896,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                   </span>
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-            >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
-              >
-                <input
-                  name="spec.skipDryRun"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                Skip Dry Run
-              </label>
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                      data-icon="fixed-input"
-                    >
-                      <svg
-                        height="12"
-                        viewBox="0 0 9 9"
-                        width="12"
-                      >
-                        <path
-                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
             </div>
           </div>
         </div>
