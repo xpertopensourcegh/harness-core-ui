@@ -7,14 +7,14 @@
     "Pipeline": ["src/modules/70-pipeline/**"],
     "CV": [
       "src/modules/85-cv/**",
-      "src/modules/50-connectors/components/CreateConnector/AppDynamicsConnector/**",
-      "src/modules/50-connectors/components/CreateConnector/SplunkConnector/**"
+      "src/modules/35-connectors/components/CreateConnector/AppDynamicsConnector/**",
+      "src/modules/35-connectors/components/CreateConnector/SplunkConnector/**"
     ],
-    "Connectors": ["src/modules/50-connectors/**", "src/modules/10-common/components/YAMLBuilder/**"],
+    "Connectors": ["src/modules/35-connectors/**", "src/modules/10-common/components/YAMLBuilder/**"],
     "Delegates": ["src/modules/40-delegates/**"],
     "GitSync": ["src/modules/60-gitsync/**"],
     "CI": ["src/modules/80-ci/**"],
-    "CF": ["src/modules/cf/**"],
+    "CF": ["src/modules/75-cf/**"],
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"],
     "DASHBOARDS": ["src/modules/custom-dashboards/**"]
   },

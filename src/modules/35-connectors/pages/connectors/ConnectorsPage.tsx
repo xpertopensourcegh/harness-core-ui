@@ -165,7 +165,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     ;(async () => {
       await fetchConnectorsWithFiltersApplied()
     })()
-  }, [page])
+  }, [page, projectIdentifier, orgIdentifier])
 
   const handleConnectorSearch = (query: string) => {
     refetchConnectorList(Object.assign(defaultQueryParams, { searchTerm: query }, appliedFilter?.filterProperties))
