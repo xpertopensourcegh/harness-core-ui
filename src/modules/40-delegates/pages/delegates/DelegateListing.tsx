@@ -14,6 +14,7 @@ import {
   useGetDelegatesStatusV2,
   DelegateInner
 } from 'services/portal'
+import { useConfirmationDialog } from '@common/exports'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
@@ -22,7 +23,6 @@ import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { DelegateStatus } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { delegateTypeToIcon } from './utils/DelegateHelper'
-import { useDeleteDelegateModal } from '../../modals/DeleteDelegateModal/useDeleteDelegateModal'
 
 import css from './DelegatesPage.module.scss'
 
@@ -80,14 +80,18 @@ const RenderTagsColumn: Renderer<CellProps<DelegateInner>> = ({ row }) => {
 
 const RenderColumnMenu: Renderer<CellProps<Required<DelegateInner>>> = ({ row, column }) => {
   const data = row.original.uuid
+  const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<Record<string, string>>()
   const { mutate: deleteDelegate } = useDeleteDelegate({
     queryParams: { accountId: accountId }
   })
-  const { openDialog } = useDeleteDelegateModal({
-    delegateName: row.original.delegateName,
+  const { openDialog } = useConfirmationDialog({
+    contentText: `${getString('delegate.questionDeleteDelegate')} ${row.original.delegateName}`,
+    titleText: getString('delegate.deleteDelegate'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
@@ -103,7 +107,6 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateInner>>> = ({ row, c
       }
     }
   })
-  const { getString } = useStrings()
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)

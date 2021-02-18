@@ -17,7 +17,8 @@ jest.mock('services/portal', () => ({
 }))
 
 jest.mock('@common/exports', () => ({
-  TimeAgo: jest.fn().mockImplementation(() => <div />)
+  TimeAgo: jest.fn().mockImplementation(() => <div />),
+  useConfirmationDialog: jest.fn().mockImplementation(() => <div />)
 }))
 
 describe('Delegates Configurations Page', () => {

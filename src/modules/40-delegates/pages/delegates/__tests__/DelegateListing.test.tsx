@@ -19,10 +19,6 @@ jest.mock('services/portal', () => ({
   })
 }))
 
-jest.mock('../../../modals/DeleteDelegateModal/useDeleteDelegateModal', () => ({
-  useDeleteDelegateModal: () => ({ openDialog: jest.fn() })
-}))
-
 describe('Delegates Listing', () => {
   test('render data', () => {
     const { container } = render(

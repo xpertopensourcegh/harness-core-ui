@@ -2,6 +2,8 @@ import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Classes, Menu } from '@blueprintjs/core'
 import { Card, Text, Layout, Container, Button, FlexExpander, Color, Heading, Utils } from '@wings-software/uicore'
+import { useConfirmationDialog } from '@common/exports'
+
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { DelegateProfileDetails, EmbeddedUser, useGetDelegateProfilesV2 } from 'services/portal'
@@ -11,7 +13,6 @@ import { TimeAgo } from '@common/exports'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import useDeleteDelegateConfigModal from '../../modals/DelegateModal/useDeleteDelegateConfigModal'
 import css from './DelegatesPage.module.scss'
 
 const formatProfileList = (data: any) => {
@@ -37,29 +38,109 @@ export default function DelegateConfigurations(): JSX.Element {
   const { mutate: deleteDelegateProfile } = useDeleteDelegateProfile({
     queryParams: { accountId: accountId }
   })
-  const { openDialog } = useDeleteDelegateConfigModal({
-    delegateConfigName: 'profiles.name',
-    onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
-        try {
-          const deleted = await deleteDelegateProfile('profiles.accountId')
 
-          if (deleted) {
-            showSuccess(getString('delegate.deleteDelegateConfigurationSuccess'))
-            ;(profiles as any).reload?.()
+  const DelegateConfigItem = (profile: DelegateProfileDetails) => {
+    const { openDialog } = useConfirmationDialog({
+      contentText: `${getString('delegate.deleteDelegateConfigurationQuestion')} ${profile.name}`,
+      titleText: getString('delegate.deleteDelegateConfiguration'),
+      confirmButtonText: getString('delete'),
+      cancelButtonText: getString('cancel'),
+      onCloseDialog: async (isConfirmed: boolean) => {
+        if (isConfirmed && profile && profile.uuid) {
+          try {
+            const deleted = await deleteDelegateProfile(profile?.uuid)
+
+            if (deleted) {
+              showSuccess(getString('delegate.deleteDelegateConfigurationSuccess'))
+              ;(profiles as any).reload?.()
+              refetch()
+            }
+          } catch (e) {
+            showError(e.message)
           }
-        } catch (e) {
-          showError(e.message)
         }
       }
+    })
+    const gotoDetailPage = (): void => {
+      history.push(
+        routes.toResourcesDelegateConfigsDetails({
+          accountId,
+          delegateConfigId: profile.uuid as string
+        })
+      )
     }
-  })
-  const gotoDetailPage = (profile: DelegateProfileDetails): void => {
-    history.push(
-      routes.toResourcesDelegateConfigsDetails({
-        accountId,
-        delegateConfigId: profile.uuid as string
-      })
+
+    return (
+      <Card elevation={2} interactive={true} onClick={() => gotoDetailPage()}>
+        <Container width={250} style={{ borderRadius: '5px', margin: '-20px' }} padding="large">
+          <Layout.Horizontal>
+            <Heading
+              level={2}
+              style={{ fontSize: '16px', fontWeight: 500, color: '#22222A' }}
+              padding={{ bottom: 'medium' }}
+            >
+              {profile.name}
+            </Heading>
+            <FlexExpander />
+            <Container style={{ transform: 'translate(12px, -10px)' }} onClick={Utils.stopEvent}>
+              <Button
+                minimal
+                icon="more"
+                tooltip={
+                  <Menu style={{ minWidth: 'unset' }}>
+                    <Menu.Item icon="edit" text={getString('edit')} onClick={() => gotoDetailPage()} />
+                    <Menu.Item
+                      icon="cross"
+                      text={getString('delete')}
+                      onClick={() => {
+                        openDialog()
+                      }}
+                      className={Classes.POPOVER_DISMISS}
+                    />
+                  </Menu>
+                }
+                tooltipProps={{ isDark: true, interactionKind: 'click' }}
+                style={{ color: 'var(--grey-400)', transform: 'rotate(90deg)' }}
+              />
+            </Container>
+          </Layout.Horizontal>
+          <Layout.Vertical spacing="small" style={{ marginBottom: '100px' }}>
+            {profile.description && <Text>{profile.description}</Text>}
+            <TagsViewer tags={profile.selectors} style={{ background: '#CDF4FE' }} />
+          </Layout.Vertical>
+          <Container
+            flex
+            style={{
+              margin: '-20px',
+              borderTop: '1px solid #D9DAE6',
+              padding: 'var(--spacing-large) var(--spacing-xlarge) var(--spacing-large)'
+            }}
+          >
+            <FlexExpander />
+            <Container>
+              <Text
+                style={{ fontSize: '8px', color: '#6B6D85', letterSpacing: '0.285714px', fontWeight: 500 }}
+                margin={{ bottom: 'small' }}
+              >
+                {getString('lastUpdated').toUpperCase()}
+              </Text>
+              <Container flex={{ align: 'center-center' }}>
+                <Text
+                  icon="person"
+                  tooltip={(profile as { lastUpdatedBy: EmbeddedUser })?.lastUpdatedBy?.name}
+                  iconProps={{ size: 16 }}
+                />
+                {/** TODO: Backend currently does not send back lastUpdated */}
+                <TimeAgo
+                  icon={undefined}
+                  time={Date.now()}
+                  style={{ color: '#9293AB', fontSize: '10px', letterSpacing: '0.375px', paddingLeft: '3px' }}
+                />
+              </Container>
+            </Container>
+          </Container>
+        </Container>
+      </Card>
     )
   }
 
@@ -99,76 +180,7 @@ export default function DelegateConfigurations(): JSX.Element {
           padding="xsmall"
           gutter={25}
           items={((data?.resource as unknown) as { response: DelegateProfileDetails[] })?.response || []}
-          renderItem={(profile: DelegateProfileDetails) => (
-            <Card elevation={2} interactive={true} onClick={() => gotoDetailPage(profile)}>
-              <Container width={250} style={{ borderRadius: '5px', margin: '-20px' }} padding="large">
-                <Layout.Horizontal>
-                  <Heading
-                    level={2}
-                    style={{ fontSize: '16px', fontWeight: 500, color: '#22222A' }}
-                    padding={{ bottom: 'medium' }}
-                  >
-                    {profile.name}
-                  </Heading>
-                  <FlexExpander />
-                  <Container style={{ transform: 'translate(12px, -10px)' }} onClick={Utils.stopEvent}>
-                    <Button
-                      minimal
-                      icon="more"
-                      tooltip={
-                        <Menu style={{ minWidth: 'unset' }}>
-                          <Menu.Item icon="edit" text={getString('edit')} onClick={() => gotoDetailPage(profile)} />
-                          <Menu.Item
-                            icon="cross"
-                            text={getString('delete')}
-                            onClick={openDialog}
-                            className={Classes.POPOVER_DISMISS}
-                          />
-                        </Menu>
-                      }
-                      tooltipProps={{ isDark: true, interactionKind: 'click' }}
-                      style={{ color: 'var(--grey-400)', transform: 'rotate(90deg)' }}
-                    />
-                  </Container>
-                </Layout.Horizontal>
-                <Layout.Vertical spacing="small" style={{ marginBottom: '100px' }}>
-                  {profile.description && <Text>{profile.description}</Text>}
-                  <TagsViewer tags={profile.selectors} style={{ background: '#CDF4FE' }} />
-                </Layout.Vertical>
-                <Container
-                  flex
-                  style={{
-                    margin: '-20px',
-                    borderTop: '1px solid #D9DAE6',
-                    padding: 'var(--spacing-large) var(--spacing-xlarge) var(--spacing-large)'
-                  }}
-                >
-                  <FlexExpander />
-                  <Container>
-                    <Text
-                      style={{ fontSize: '8px', color: '#6B6D85', letterSpacing: '0.285714px', fontWeight: 500 }}
-                      margin={{ bottom: 'small' }}
-                    >
-                      {getString('lastUpdated').toUpperCase()}
-                    </Text>
-                    <Container flex={{ align: 'center-center' }}>
-                      <Text
-                        icon="person"
-                        tooltip={(profile as { lastUpdatedBy: EmbeddedUser })?.lastUpdatedBy?.name}
-                        iconProps={{ size: 16 }}
-                      />
-                      {/** TODO: Backend currently does not send back lastUpdated */}
-                      <TimeAgo
-                        icon={undefined}
-                        time={Date.now()}
-                        style={{ color: '#9293AB', fontSize: '10px', letterSpacing: '0.375px', paddingLeft: '3px' }}
-                      />
-                    </Container>
-                  </Container>
-                </Container>
-              </Container>
-            </Card>
-          )}
+          renderItem={(profile: DelegateProfileDetails) => DelegateConfigItem(profile)}
           keyOf={(profile: DelegateProfileDetails) => profile.uuid}
         />
       </Container>
