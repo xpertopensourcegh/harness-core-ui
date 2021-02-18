@@ -46,6 +46,7 @@ import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/E
 import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage/ExecutionLandingPage'
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
+import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
 import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
@@ -260,6 +261,13 @@ export default (
       <PipelineDetails>
         <TriggersPage />
       </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+    >
+      <TriggersDetailPage />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CISideNavProps}
