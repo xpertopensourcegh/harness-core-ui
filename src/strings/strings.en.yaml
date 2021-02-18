@@ -47,6 +47,7 @@ dockerRegistry: 'Docker Registry'
 executionText: Execution
 executionsText: Executions
 runPipelineText: Run Pipeline
+
 noConnectorFound: No Connector Found
 saveConnectorSuccess: Connector saved successfully
 resources: 'Resources'
@@ -1690,6 +1691,7 @@ orgs:
 pipeline-list:
   aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
   listStages: '{{ $.stages }}'
+  createPipeline: '+ Create Pipeline'
   confirmDeleteTitle: Delete Pipeline
   pipelineDeleted: Pipeline {{name}} deleted
   confirmDelete: Are you sure want to delete pipeline {{name}}

@@ -578,7 +578,12 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
               <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
                 {getString('pipeline-list.aboutPipeline')}
               </Text>
-              <Button intent="primary" onClick={goToPipeline} text={getString('runPipelineText')}></Button>
+
+              <Button
+                intent="primary"
+                onClick={() => goToPipeline()}
+                text={getString('pipeline-list.createPipeline')}
+              ></Button>
             </div>
           )
         ) : view === Views.GRID ? (
