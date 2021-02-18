@@ -1,59 +1,65 @@
-import React from 'react'
-import { Layout, Text, Button } from '@wings-software/uicore'
-import { noop } from 'lodash-es'
+import React, { useState } from 'react'
+import { Layout, Button, ExpandingSearchInput, Container } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
-
-import RbacFactory from '@rbac/factories/RbacFactory'
-import useAddResourceModal from '@rbac/modals/AddResourceModal/useAddResourceModal'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
-
-// TODO: we should get this from BE
-interface Resource {
-  type: ResourceType
-  id: number
-}
-
-interface ResourceTypeListItemProps {
-  resource: Resource
-}
-
-const ResourceTypeListItem: React.FC<ResourceTypeListItemProps> = ({ resource }) => {
-  const resourceHandler = RbacFactory.getResourceTypeHandler(resource.type)
-  const { openAddResourceModal } = useAddResourceModal({ onSuccess: noop })
-
-  if (!resourceHandler) {
-    // eslint-disable-next-line no-console
-    __DEV__ && console.warn('[RBAC] No resource handler registered for type: ', resource.type)
-    return null
-  }
-
-  return (
-    <Layout.Horizontal>
-      <Text icon={resourceHandler.icon}>{resourceHandler.label}</Text>
-      <Button icon="plus" onClick={() => openAddResourceModal(resourceHandler)}>
-        Add {resourceHandler.label}
-      </Button>
-    </Layout.Horizontal>
-  )
-}
+import { PageHeader } from '@common/components/Page/PageHeader'
+import { PageBody } from '@common/components/Page/PageBody'
+import { useResourceGroupModal } from '@rbac/modals/ResourceGroupModal/useResourceGroupModal'
+import { useGetResourceGroupList } from 'services/cd-ng'
+import ResourceGroupListView from '@rbac/components/ResourceGroupList/ResourceGroupListView'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 const ResourceGroups: React.FC = () => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  // TODO: this will come from BE response
-  const resources: Resource[] = [
-    {
-      type: 'PROJECT',
-      id: 1
+  // TODO: search functionality to be done
+  const [searchTerm] = useState('')
+  const [page, setPage] = useState(0)
+  const defaultQueryParams = {
+    pageIndex: page,
+    pageSize: 10,
+    projectIdentifier,
+    orgIdentifier,
+    searchTerm,
+    accountIdentifier: accountId
+  }
+  const { data, loading, error, refetch } = useGetResourceGroupList({
+    queryParams: {
+      ...defaultQueryParams
     }
-  ]
+  })
+  const { openResourceGroupModal } = useResourceGroupModal({ onSuccess: refetch })
 
   return (
-    <Layout.Vertical flex>
-      <Text>{getString('tbd')}</Text>
-      {resources.map(resource => (
-        <ResourceTypeListItem key={resource.id} resource={resource} />
-      ))}
-    </Layout.Vertical>
+    <>
+      <PageHeader
+        title={
+          <Layout.Horizontal padding={{ left: 'large' }}>
+            <Button
+              text={getString('resourceGroup.newResourceGroup')}
+              intent="primary"
+              icon="plus"
+              onClick={() => openResourceGroupModal()}
+            />
+          </Layout.Horizontal>
+        }
+        toolbar={
+          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
+            <ExpandingSearchInput placeholder={getString('usersPage.search')} />
+          </Layout.Horizontal>
+        }
+      />
+      <PageBody loading={loading} retryOnError={() => refetch()} error={(error?.data as Error)?.message}>
+        <Container padding="xlarge">
+          <ResourceGroupListView
+            data={data?.data}
+            reload={refetch}
+            openResourceGroupModal={openResourceGroupModal}
+            goToPage={(pageNumber: number) => setPage(pageNumber)}
+          />
+        </Container>
+      </PageBody>
+    </>
   )
 }
 

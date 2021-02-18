@@ -1,0 +1,93 @@
+import { Classes, Menu, Position } from '@blueprintjs/core'
+import { Button, Popover } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import type { Cell, CellValue, ColumnInstance, Renderer, Row, TableInstance } from 'react-table'
+import { useStrings } from 'framework/exports'
+import { ResourceGroupDTO, ResourceGroupResponse, useDeleteResourceGroup } from 'services/cd-ng'
+import { useConfirmationDialog, useToaster } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+
+export type CellPropsResourceGroupColumn<D extends object, V = any> = TableInstance<D> & {
+  column: ColumnInstance<D> & {
+    reload?: () => Promise<void>
+    openResourceGroupModal?: (resourceGroup: ResourceGroupDTO) => void
+  }
+  row: Row<D>
+  cell: Cell<D, V>
+  value: CellValue<V>
+}
+const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGroupResponse>> = ({ row, column }) => {
+  const data = row.original
+  const isHarnessManaged = data?.resourceGroup?.harnessManaged
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { showSuccess, showError } = useToaster()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
+  const { mutate: deleteResourceGroup } = useDeleteResourceGroup({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  })
+
+  const { openDialog } = useConfirmationDialog({
+    contentText: `${getString('resourceGroup.confirmDelete', { name: data.resourceGroup?.name })}`,
+    titleText: getString('resourceGroup.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteResourceGroup(data.resourceGroup?.identifier || '', {
+            headers: { 'content-type': 'application/json' }
+          })
+          if (deleted) showSuccess(getString('resourceGroup.deletedMessage', { name: data.resourceGroup?.name }))
+          column.reload?.()
+        } catch (err) {
+          showError(err?.data?.message || err?.message)
+        }
+      }
+    }
+  })
+
+  const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    if (!data?.resourceGroup?.identifier) return
+    openDialog()
+  }
+
+  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    if (!row.original?.resourceGroup?.identifier) {
+      return
+    }
+    column.openResourceGroupModal?.(row.original.resourceGroup)
+  }
+  return (
+    !isHarnessManaged && (
+      <Popover
+        isOpen={menuOpen}
+        onInteraction={nextOpenState => {
+          setMenuOpen(nextOpenState)
+        }}
+        className={Classes.DARK}
+        position={Position.RIGHT_TOP}
+      >
+        <Button
+          minimal
+          icon="Options"
+          iconProps={{ size: 20 }}
+          onClick={e => {
+            e.stopPropagation()
+            setMenuOpen(true)
+          }}
+        />
+        <Menu style={{ minWidth: 'unset' }}>
+          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
+          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+        </Menu>
+      </Popover>
+    )
+  )
+}
+export default ResourceGroupColumnMenu
