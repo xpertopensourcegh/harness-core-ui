@@ -4,16 +4,47 @@ const path = require('path')
 const yaml = require('yaml')
 
 ;(async () => {
+  const MODULE_REGEX = /^(\d{2,3})-/
   const modules = path.resolve(__dirname, '../src/modules')
 
   const dirs = await fs.promises.readdir(modules, { withFileTypes: true })
 
-  const numberedDirs = dirs.filter(dir => dir.isDirectory() && /^\d{2,3}-/.test(dir.name)).map(dir => dir.name)
+  const numberedDirs = dirs.filter(dir => dir.isDirectory() && MODULE_REGEX.test(dir.name)).map(dir => dir.name)
 
   numberedDirs.sort()
 
+  const layers = []
+
+  numberedDirs.forEach(dir => {
+    const match = dir.match(MODULE_REGEX)
+
+    if (!match) return
+
+    const layer = parseInt(match[1])
+
+    if (Number.isNaN(layer)) return
+
+    if (!Array.isArray(layers[layer])) {
+      layers[layer] = []
+    }
+
+    layers[layer].push(dir)
+  })
+
   const tasks = numberedDirs.map((dir, i) => {
-    const restDirs = numberedDirs.slice(i + 1)
+    const match = dir.match(MODULE_REGEX)
+
+    if (!match) return
+
+    const layer = parseInt(match[1])
+
+    if (Number.isNaN(layer)) return
+
+    const restDirs = layers
+      .slice(layer)
+      .filter(row => Boolean(row))
+      .flatMap(item => item)
+      .filter(item => item !== dir)
 
     const config = {
       rules: {

@@ -226,7 +226,7 @@ jobs:
 
       - name: Run Standard Checks
         run: |
-          ./scripts/generate-eslint-config-for-imports && npx prettier --write src/modules/*/.eslintrc.yml
+          ./scripts/generate-eslint-config-for-imports && npx prettier --write src/modules/*/.eslintrc.yml --loglevel error
 
           changed=$(git diff --name-only)
           if [ -n "$changed" ]; then

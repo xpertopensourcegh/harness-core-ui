@@ -5,11 +5,13 @@ rules:
         - lodash.*
         - modules/70-pipeline/*
         - modules/75-cd/*
+        - modules/75-cf/*
         - modules/80-ci/*
         - modules/85-cv/*
         - modules/90-ce/*
         - '@pipeline/*'
         - '@cd/*'
+        - '@cf/*'
         - '@ci/*'
         - '@cv/*'
         - '@ce/*'

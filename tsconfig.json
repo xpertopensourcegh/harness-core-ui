@@ -34,7 +34,7 @@
       "@ci/*": ["modules/80-ci/*"],
       "@cv/*": ["modules/85-cv/*"],
       "@ce/*": ["modules/90-ce/*"],
-      "@cf/*": ["modules/cf/*"],
+      "@cf/*": ["modules/75-cf/*"],
       "@ci-enterprise/*": ["modules/ci-enterprise/*"],
       "@dx/*": ["modules/dx/*"],
       "@delegates/*": ["modules/40-delegates/*"],
