@@ -1,34 +1,38 @@
 .main {
   width: 180px;
-  padding-left: var(--spacing-small);
-  padding-top: var(--spacing-small);
   background: #07182b;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
 
-  .titleContainer {
-    margin-left: var(--spacing-small);
-    margin-bottom: var(--spacing-medium);
-
-    .title {
-      font-size: 18px !important;
-      letter-spacing: 1px;
-    }
-  }
-
-  .iconContainer {
+  .bottomContainer {
     position: relative;
-    margin-left: -19px;
-    bottom: -80px;
-    overflow: hidden;
-    height: 350px;
 
-    .icon {
+    .titleContainer {
+      margin-left: var(--spacing-small);
+      margin-bottom: var(--spacing-medium);
+
+      .title {
+        font-size: 18px !important;
+        letter-spacing: 1px;
+      }
+    }
+
+    .iconContainer {
       position: absolute;
-      left: -50px;
-      opacity: 0.08;
+      bottom: 0;
+      right: 0;
+      overflow: hidden;
+      height: 350px;
+      width: 180px;
+
+      .icon {
+        position: absolute;
+        left: -50px;
+        bottom: -80px;
+        opacity: 0.08;
+      }
     }
   }
 }
@@ -36,7 +40,11 @@
 .link {
   display: block;
   padding: var(--spacing-small);
-  border-radius: 5px 0 0 5px;
+  margin-left: var(--spacing-medium);
+
+  &:first-child {
+    margin-top: var(--spacing-medium) !important;
+  }
 
   &:hover {
     text-decoration: none;

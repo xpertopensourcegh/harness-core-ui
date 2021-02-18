@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Classes, Button, MenuItem, PopoverPosition } from '@blueprintjs/core'
+import { useParams, useHistory } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
-import { Classes, Button, MenuItem, Alignment } from '@blueprintjs/core'
+import cx from 'classnames'
+
 import { Text, Layout, Color } from '@wings-software/uicore'
+import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
+
+import pointerImage from './pointer.svg'
 import css from './ProjectSelector.module.scss'
 
 export interface ProjectSelectorProps {
@@ -19,6 +24,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
   const { accountId } = useParams()
   const { selectedProject, updateAppStore } = useAppStore()
   const { getString } = useStrings()
+  const history = useHistory()
   const [searchTerm, setSearchTerm] = useState<string>()
   const { data } = useGetProjectList({
     queryParams: {
@@ -40,53 +46,89 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
   }
 
   useEffect(() => {
+    // deselect current project if user switches module
+    // and the new module isn't added on selected project
     if (moduleFilter && !selectedProject?.modules?.includes(moduleFilter)) {
       updateAppStore({ selectedProject: undefined })
     }
   }, [moduleFilter])
 
   return (
-    <ProjectSelect
-      items={projects || []}
-      className={css.projectSelect}
-      popoverProps={{ minimal: true, className: Classes.DARK, fill: true, usePortal: false }}
-      onItemSelect={onSelect}
-      onQueryChange={query => {
-        setSearchTerm(query)
-      }}
-      itemRenderer={(item, { handleClick }) => (
-        <MenuItem
-          disabled={item.identifier === '$disabled$'}
+    <>
+      <div className={css.projectSelector}>
+        <Button
+          minimal
+          className={cx(css.button, css.projectButton)}
+          disabled={!selectedProject}
           text={
-            <Layout.Vertical>
-              <Text color={Color.WHITE}>{item.name}</Text>
-              <Text font={{ size: 'small' }}>{item.orgIdentifier}</Text>
+            <Layout.Vertical spacing="xsmall">
+              <Text font={{ size: 'small' }}>{getString('projectLabel')}</Text>
+              <Text
+                lineClamp={1}
+                width={100}
+                color={selectedProject ? Color.WHITE : Color.GREY_400}
+                font={{ size: 'normal' }}
+              >
+                {selectedProject ? selectedProject.name : getString('selectProject')}
+              </Text>
             </Layout.Vertical>
           }
-          key={item.name}
-          onClick={handleClick}
+          onClick={() => {
+            selectedProject &&
+              history.push(
+                routes.toProjectDetails({
+                  accountId,
+                  orgIdentifier: selectedProject.orgIdentifier as string,
+                  projectIdentifier: selectedProject.identifier
+                })
+              )
+          }}
         />
+        <ProjectSelect
+          items={projects || []}
+          className={css.projectSelect}
+          popoverProps={{
+            minimal: true,
+            className: Classes.DARK,
+            fill: true,
+            usePortal: false,
+            position: PopoverPosition.RIGHT_TOP
+          }}
+          onItemSelect={onSelect}
+          onQueryChange={query => {
+            setSearchTerm(query)
+          }}
+          itemRenderer={(item, { handleClick }) => (
+            <MenuItem
+              disabled={item.identifier === '$disabled$'}
+              text={
+                <Layout.Vertical>
+                  <Text color={Color.WHITE}>{item.name}</Text>
+                  {item.orgIdentifier === 'default' ? null : <Text font={{ size: 'small' }}>{item.orgIdentifier}</Text>}
+                </Layout.Vertical>
+              }
+              key={item.name}
+              onClick={handleClick}
+            />
+          )}
+          noResults={<Text padding="small">{getString('noSearchResultsFoundPeriod')}</Text>}
+          inputProps={{
+            placeholder: getString('projectSelector.placeholder', { number: data?.data?.totalItems })
+          }}
+        >
+          <Button
+            minimal
+            className={cx(css.button, css.selectButton)}
+            icon={'caret-right'}
+            data-testid={'project-select-dropdown'}
+          />
+        </ProjectSelect>
+      </div>
+      {selectedProject ? null : (
+        <div style={{ backgroundImage: `url(${pointerImage})` }} className={css.pickProjectHelp}>
+          {getString('pickProject')}
+        </div>
       )}
-      noResults={<Text padding="small">{getString('noSearchResultsFoundPeriod')}</Text>}
-      inputProps={{
-        placeholder: getString('projectSelector.placeholder', { number: data?.data?.totalItems })
-      }}
-    >
-      <Button
-        minimal
-        className={css.projectButton}
-        text={
-          selectedProject ? (
-            <Text lineClamp={1} color={Color.WHITE}>
-              {selectedProject?.name}
-            </Text>
-          ) : (
-            getString('selectProject')
-          )
-        }
-        rightIcon="caret-down"
-        alignText={Alignment.LEFT}
-      />
-    </ProjectSelect>
+    </>
   )
 }

@@ -3,7 +3,6 @@ import { Heading, Layout, Text, Link as ExternalLink, FlexExpander, Container } 
 import { Link, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
-import pointerImage from './pointer.svg'
 import css from './HomePageTemplate.module.scss'
 
 interface HomePageTemplate {
@@ -12,7 +11,6 @@ interface HomePageTemplate {
   bgImageUrl: string
   documentText: string
   documentURL?: string
-  pointerStyle?: React.CSSProperties
 }
 
 export const HomePageTemplate: React.FC<HomePageTemplate> = ({
@@ -20,8 +18,7 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   bgImageUrl,
   subTitle,
   documentText,
-  documentURL = 'https://docs.harness.io/',
-  pointerStyle
+  documentURL = 'https://docs.harness.io/'
 }) => {
   const { accountId } = useParams<{
     accountId: string
@@ -77,27 +74,6 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
           <FlexExpander />
         </Layout.Horizontal>
       </Layout.Vertical>
-      <Text
-        style={{
-          position: 'absolute',
-          width: '160px',
-          top: '-20px',
-          height: '80px',
-          left: '-240px',
-          background: `transparent url(${pointerImage}) no-repeat`,
-          backgroundPositionX: '120px',
-          backgroundPositionY: 0,
-          paddingTop: '45px',
-          paddingRight: '35px',
-          fontSize: '13px',
-          lineHeight: '20px',
-          fontWeight: 600,
-          color: 'rgba(255, 255, 255, 0.8)',
-          ...pointerStyle
-        }}
-      >
-        {getString('pickProject')}
-      </Text>
     </Container>
   )
 }

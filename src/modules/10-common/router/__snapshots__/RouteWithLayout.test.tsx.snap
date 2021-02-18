@@ -383,21 +383,25 @@ exports[`RouteWithLayout basic 1`] = `
         </div>
       </div>
       <div
-        class="titleContainer"
+        class="StyledProps--font StyledProps--main bottomContainer"
       >
         <div
-          class="Layout--vertical StyledProps--main"
+          class="titleContainer"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
+          <div
+            class="Layout--vertical StyledProps--main"
           >
-            SUBTITLE
-          </p>
-          <p
-            class="StyledProps--font StyledProps--main title StyledProps--color StyledProps--color-white"
-          >
-            TITLE
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
+            >
+              SUBTITLE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main title StyledProps--color StyledProps--color-white"
+            >
+              TITLE
+            </p>
+          </div>
         </div>
       </div>
     </div>

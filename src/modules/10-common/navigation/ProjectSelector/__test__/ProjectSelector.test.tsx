@@ -15,7 +15,7 @@ describe('ProjectSelector', () => {
   test('render with projects', () => {
     const handleSelect = jest.fn()
 
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestWrapper path="/account/:accountId/cd/home" pathParams={{ accountId: 'dummy' }} projects={projects as any}>
         <ProjectSelector onSelect={handleSelect} moduleFilter="CD" />
       </TestWrapper>
@@ -24,7 +24,7 @@ describe('ProjectSelector', () => {
     expect(container).toMatchSnapshot()
 
     act(() => {
-      fireEvent.click(getByText('Select Project'))
+      fireEvent.click(getByTestId('project-select-dropdown'))
     })
 
     expect(container).toMatchSnapshot()

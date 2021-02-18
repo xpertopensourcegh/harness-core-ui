@@ -57,12 +57,6 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
         />
       </div>
     </div>
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="position: absolute; width: 160px; top: -20px; height: 80px; left: -240px; background: transparent url(test-file-stub) no-repeat; background-position-x: 120px; background-position-y: 0; padding-top: 45px; padding-right: 35px; font-size: 13px; line-height: 20px; font-weight: 600; color: rgba(255, 255, 255, 0.8);"
-    >
-      Pick a project and drill down to see your information.
-    </p>
   </div>
 </div>
 `;

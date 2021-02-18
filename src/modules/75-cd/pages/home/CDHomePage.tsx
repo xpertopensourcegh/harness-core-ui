@@ -12,9 +12,6 @@ export const CDHomePage: React.FC = () => {
       bgImageUrl={bgImageURL}
       subTitle={getString('cd.dashboard.subHeading')}
       documentText={getString('cd.dashboard.learnMore')}
-      pointerStyle={{
-        top: 10
-      }}
     />
   )
 }

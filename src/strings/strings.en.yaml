@@ -276,7 +276,7 @@ enabledLabel: 'Enabled'
 activity: 'Activity'
 selectProduct: 'Select Product'
 selectApplication: 'Select Application'
-selectProject: 'Select Project'
+selectProject: 'Select a Project'
 selectResource: Select Resource
 mapApplications: 'Map Applications to Harness Services'
 lastSevenDays: 'last 7 days'

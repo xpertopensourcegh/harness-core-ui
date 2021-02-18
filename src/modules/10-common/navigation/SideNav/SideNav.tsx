@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import cx from 'classnames'
 import { NavLink as Link, NavLinkProps } from 'react-router-dom'
-import { Text, Layout, Color, IconName, Icon } from '@wings-software/uicore'
+import { Text, Layout, Color, IconName, Icon, Container } from '@wings-software/uicore'
 import css from './SideNav.module.scss'
 
 export interface SideNavProps {
@@ -14,25 +14,27 @@ export default function SideNav(props: React.PropsWithChildren<SideNavProps>): R
   return (
     <div className={css.main}>
       <div>{props.children}</div>
-      <div className={css.titleContainer}>
+      <Container className={css.bottomContainer}>
         {props.icon ? (
           <div className={css.iconContainer}>
             <Icon className={css.icon} name={props.icon} size={350} />
           </div>
         ) : null}
-        <Layout.Vertical>
-          {props.subtitle ? (
-            <Text font={{ size: 'small' }} color={Color.GREY_400}>
-              {props.subtitle}
-            </Text>
-          ) : null}
-          {props.title ? (
-            <Text color={Color.WHITE} className={css.title}>
-              {props.title}
-            </Text>
-          ) : null}
-        </Layout.Vertical>
-      </div>
+        <div className={css.titleContainer}>
+          <Layout.Vertical>
+            {props.subtitle ? (
+              <Text font={{ size: 'small' }} color={Color.GREY_400}>
+                {props.subtitle}
+              </Text>
+            ) : null}
+            {props.title ? (
+              <Text color={Color.WHITE} className={css.title}>
+                {props.title}
+              </Text>
+            ) : null}
+          </Layout.Vertical>
+        </div>
+      </Container>
     </div>
   )
 }

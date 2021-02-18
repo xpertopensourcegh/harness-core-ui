@@ -3,45 +3,77 @@
 exports[`ProjectSelector render with projects 1`] = `
 <div>
   <div
-    class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+    class="projectSelector"
   >
+    <button
+      class="bp3-button bp3-disabled bp3-minimal button projectButton"
+      disabled=""
+      tabindex="-1"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          >
+            Project
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
+            style="--text-line-clamp: 1; width: 100px;"
+          >
+            Select a Project
+          </p>
+        </div>
+      </span>
+    </button>
     <div
-      class="bp3-popover-target"
+      class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
     >
       <div
-        class=""
+        class="bp3-popover-target"
       >
-        <button
-          class="bp3-button bp3-minimal bp3-align-left projectButton"
-          type="button"
+        <div
+          class=""
         >
-          <span
-            class="bp3-button-text"
+          <button
+            class="bp3-button bp3-minimal button selectButton"
+            data-testid="project-select-dropdown"
+            type="button"
           >
-            Select Project
-          </span>
-          <span
-            class="bp3-icon bp3-icon-caret-down"
-            icon="caret-down"
-          >
-            <svg
-              data-icon="caret-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <span
+              class="bp3-icon bp3-icon-caret-right"
+              icon="caret-right"
             >
-              <desc>
-                caret-down
-              </desc>
-              <path
-                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="caret-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-right
+                </desc>
+                <path
+                  d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
+  </div>
+  <div
+    class="pickProjectHelp"
+    style="background-image: url(test-file-stub);"
+  >
+    Pick a project and drill down to see your information.
   </div>
 </div>
 `;
@@ -49,201 +81,213 @@ exports[`ProjectSelector render with projects 1`] = `
 exports[`ProjectSelector render with projects 2`] = `
 <div>
   <div
-    class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+    class="projectSelector"
   >
-    <div
-      class="bp3-popover-target bp3-popover-open"
+    <button
+      class="bp3-button bp3-disabled bp3-minimal button projectButton"
+      disabled=""
+      tabindex="-1"
+      type="button"
     >
-      <div
-        class=""
-      >
-        <button
-          class="bp3-button bp3-minimal bp3-align-left projectButton"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            Select Project
-          </span>
-          <span
-            class="bp3-icon bp3-icon-caret-down"
-            icon="caret-down"
-          >
-            <svg
-              data-icon="caret-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                caret-down
-              </desc>
-              <path
-                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-    </div>
-    <div
-      class="bp3-overlay bp3-overlay-open bp3-overlay-inline"
-    >
-      <div
-        class="bp3-transition-container bp3-popover-appear bp3-popover-appear-active"
-        style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
+      <span
+        class="bp3-button-text"
       >
         <div
-          class="bp3-popover bp3-minimal bp3-select-popover"
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          >
+            Project
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
+            style="--text-line-clamp: 1; width: 100px;"
+          >
+            Select a Project
+          </p>
+        </div>
+      </span>
+    </button>
+    <div
+      class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+    >
+      <div
+        class="bp3-popover-target bp3-popover-open"
+      >
+        <div
+          class=""
+        >
+          <button
+            class="bp3-button bp3-minimal button selectButton"
+            data-testid="project-select-dropdown"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-caret-right"
+              icon="caret-right"
+            >
+              <svg
+                data-icon="caret-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-right
+                </desc>
+                <path
+                  d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="bp3-overlay bp3-overlay-open bp3-overlay-inline"
+      >
+        <div
+          class="bp3-transition-container bp3-popover-appear bp3-popover-appear-active"
+          style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
         >
           <div
-            class="bp3-popover-content"
+            class="bp3-popover bp3-minimal bp3-select-popover"
           >
-            <div>
-              <div
-                class="bp3-input-group"
-              >
-                <span
-                  class="bp3-icon bp3-icon-search"
-                  icon="search"
+            <div
+              class="bp3-popover-content"
+            >
+              <div>
+                <div
+                  class="bp3-input-group"
                 >
-                  <svg
-                    data-icon="search"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
+                  <span
+                    class="bp3-icon bp3-icon-search"
+                    icon="search"
                   >
-                    <desc>
-                      search
-                    </desc>
-                    <path
-                      d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <input
-                  class="bp3-input"
-                  placeholder="Start typing to search"
-                  type="text"
-                  value=""
-                />
+                    <svg
+                      data-icon="search"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        search
+                      </desc>
+                      <path
+                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    class="bp3-input"
+                    placeholder="Start typing to search"
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <ul
+                  class="bp3-menu"
+                >
+                  <li
+                    class=""
+                  >
+                    <a
+                      class="bp3-menu-item bp3-popover-dismiss"
+                    >
+                      <div
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                          >
+                            TestCiproject
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li
+                    class=""
+                  >
+                    <a
+                      class="bp3-menu-item bp3-popover-dismiss"
+                    >
+                      <div
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                          >
+                            test11
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li
+                    class=""
+                  >
+                    <a
+                      class="bp3-menu-item bp3-popover-dismiss"
+                    >
+                      <div
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                          >
+                            Project 1
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li
+                    class=""
+                  >
+                    <a
+                      class="bp3-menu-item bp3-popover-dismiss"
+                    >
+                      <div
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                          >
+                            fdfder32432
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <ul
-                class="bp3-menu"
-              >
-                <li
-                  class=""
-                >
-                  <a
-                    class="bp3-menu-item bp3-popover-dismiss"
-                  >
-                    <div
-                      class="bp3-text-overflow-ellipsis bp3-fill"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
-                        >
-                          TestCiproject
-                        </p>
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-                        >
-                          default
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li
-                  class=""
-                >
-                  <a
-                    class="bp3-menu-item bp3-popover-dismiss"
-                  >
-                    <div
-                      class="bp3-text-overflow-ellipsis bp3-fill"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
-                        >
-                          test11
-                        </p>
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-                        >
-                          default
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li
-                  class=""
-                >
-                  <a
-                    class="bp3-menu-item bp3-popover-dismiss"
-                  >
-                    <div
-                      class="bp3-text-overflow-ellipsis bp3-fill"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
-                        >
-                          Project 1
-                        </p>
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-                        >
-                          default
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li
-                  class=""
-                >
-                  <a
-                    class="bp3-menu-item bp3-popover-dismiss"
-                  >
-                    <div
-                      class="bp3-text-overflow-ellipsis bp3-fill"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
-                        >
-                          fdfder32432
-                        </p>
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-                        >
-                          default
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div
+    class="pickProjectHelp"
+    style="background-image: url(test-file-stub);"
+  >
+    Pick a project and drill down to see your information.
   </div>
 </div>
 `;

@@ -1,16 +1,41 @@
-.projectButton {
-  width: calc(100% - var(--spacing-small)) !important;
-  border: 1px solid rgba(204, 204, 204, 0.3) !important;
-  color: #fff;
-  list-style: none;
-  overflow-wrap: anywhere;
-}
+.projectSelector {
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  margin-bottom: var(--spacing-small);
 
-.projectSelect {
-  :global {
-    .bp3-menu {
-      max-height: 400px;
-      overflow-y: auto;
+  .button {
+    border: none !important;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.3) !important;
+    border-radius: 0 !important;
+    height: 90px;
+    color: #fff;
+  }
+
+  .projectButton {
+    border-right: 1px solid rgba(204, 204, 204, 0.3) !important;
+    justify-content: start !important;
+    padding: var(--spacing-large) !important;
+  }
+
+  .selectButton {
+    width: 100%;
+  }
+
+  .projectSelect {
+    :global {
+      .bp3-menu {
+        max-height: 400px;
+        overflow-y: auto;
+      }
     }
   }
+}
+
+.pickProjectHelp {
+  padding: 40px 20px;
+  background-position: 136px 0;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  color: var(--grey-450);
+  line-height: 20px;
 }

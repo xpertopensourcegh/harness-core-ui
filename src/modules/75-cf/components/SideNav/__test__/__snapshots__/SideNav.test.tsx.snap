@@ -6,45 +6,77 @@ exports[`Sidenav render 1`] = `
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+      class="projectSelector"
     >
+      <button
+        class="bp3-button bp3-disabled bp3-minimal button projectButton"
+        disabled=""
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+            >
+              Project
+            </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
+              style="--text-line-clamp: 1; width: 100px;"
+            >
+              Select a Project
+            </p>
+          </div>
+        </span>
+      </button>
       <div
-        class="bp3-popover-target"
+        class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
       >
         <div
-          class=""
+          class="bp3-popover-target"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-align-left projectButton"
-            type="button"
+          <div
+            class=""
           >
-            <span
-              class="bp3-button-text"
+            <button
+              class="bp3-button bp3-minimal button selectButton"
+              data-testid="project-select-dropdown"
+              type="button"
             >
-              Select Project
-            </span>
-            <span
-              class="bp3-icon bp3-icon-caret-down"
-              icon="caret-down"
-            >
-              <svg
-                data-icon="caret-down"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
+              <span
+                class="bp3-icon bp3-icon-caret-right"
+                icon="caret-right"
               >
-                <desc>
-                  caret-down
-                </desc>
-                <path
-                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+                <svg
+                  data-icon="caret-right"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    caret-right
+                  </desc>
+                  <path
+                    d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
+    </div>
+    <div
+      class="pickProjectHelp"
+      style="background-image: url(test-file-stub);"
+    >
+      Pick a project and drill down to see your information.
     </div>
     <a
       class="link"
