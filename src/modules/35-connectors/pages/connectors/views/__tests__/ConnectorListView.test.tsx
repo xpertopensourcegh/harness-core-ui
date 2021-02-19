@@ -55,6 +55,14 @@ const reloadTestConnectionFailedAPI = () => {
   return undefined
 }
 
+const getEditButton = () => document.body.querySelector('.bp3-menu span[icon="edit"]')
+const getDeleteButton = () => document.body.querySelector('.bp3-menu span[icon="trash"]')
+const getMenuIcon = (row: Element) => {
+  const columns = row.querySelectorAll('[role="cell"]')
+  const lastColumn = columns[columns.length - 1]
+  return lastColumn.querySelector('[data-icon="Options"]')
+}
+
 jest.mock('services/cd-ng', () => ({
   useGetConnectorStatistics: jest.fn().mockImplementation(() => Promise.resolve(statisticsMockData)),
   useGetConnectorCatalogue: jest.fn().mockImplementation(() => Promise.resolve(catalogueData)),
@@ -77,10 +85,10 @@ describe('Connectors List Test', () => {
     gotoPage: jest.fn()
   }
 
-  const setup = () =>
+  const setup = (customProps = {}) =>
     render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <ConnectorsListView {...props} />
+        <ConnectorsListView {...{ ...props, ...customProps }} />
       </TestWrapper>
     )
 
@@ -153,5 +161,62 @@ describe('Connectors List Test', () => {
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
 
     expect(container).toMatchSnapshot()
+  })
+
+  test('Context menu should be present on each connector row', async () => {
+    const { container } = setup()
+    const tableRows = Array.from(container.querySelectorAll('div[role="row"]'))
+    tableRows.shift() // remove header row
+
+    const testRow = async (row: Element) => {
+      const menuIcon = getMenuIcon(row)
+      // assert that menu icon exists in the last column
+      expect(menuIcon).toBeTruthy()
+      const checkForMenuState = async (shouldExist = false) => {
+        if (shouldExist) {
+          await waitFor(() => expect(getEditButton()).toBeTruthy())
+          await waitFor(() => expect(getDeleteButton()).toBeTruthy())
+        } else {
+          await waitFor(() => expect(getEditButton()).not.toBeTruthy())
+          await waitFor(() => expect(getDeleteButton()).not.toBeTruthy())
+        }
+      }
+      // menu should not be open by default
+      await checkForMenuState()
+      act(() => {
+        fireEvent.click(menuIcon!)
+      })
+      // menu should open on clicking the options icon
+      await checkForMenuState(true)
+
+      act(() => {
+        fireEvent.mouseDown(document)
+      })
+    }
+    for (const tableRow of tableRows) {
+      await testRow(tableRow)
+    }
+  })
+
+  test('Edit and delete methods should be called with correct data', async () => {
+    const openConnectorModal = jest.fn()
+    const { container } = setup({ openConnectorModal })
+    const currentConnector = connectorsData.data.content[0].connector
+    const deleteText = `Are you sure you want to delete the Connector `
+    const menuIcon = getMenuIcon(container.querySelectorAll('div[role="row"]')[1])
+    act(() => {
+      fireEvent.click(menuIcon!)
+    })
+    act(() => {
+      fireEvent.click(getDeleteButton()!)
+    })
+    await waitFor(() => expect(queryByText(document.body, `${deleteText}${currentConnector.name}`)).toBeTruthy())
+    act(() => {
+      fireEvent.click(queryByText(document.body.querySelector('.bp3-dialog')! as HTMLElement, 'Cancel')!)
+    })
+    act(() => {
+      fireEvent.click(getEditButton()!)
+    })
+    expect(openConnectorModal).toBeCalledWith(true, currentConnector.type, currentConnector)
   })
 })
