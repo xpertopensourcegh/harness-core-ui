@@ -32,6 +32,18 @@ const drawerStates: IDrawerProps = {
   className: css.container
 }
 
+const DIFF_VIEWER_OPTIONS = {
+  ignoreTrimWhitespace: true,
+  minimap: { enabled: false },
+  codeLens: false,
+  readOnly: true,
+  renderSideBySide: false,
+  lineNumbers: 'off' as 'off',
+  inDiffEditor: true,
+  scrollBeyondLastLine: false,
+  smartSelect: false
+}
+
 export interface EventSummaryProps {
   flagData: Feature
   data: AuditTrail
@@ -80,11 +92,7 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
       className={css.container}
       {...drawerStates}
       onClose={onClose}
-      title={
-        <header>
-          {getString('cf.auditLogs.eventSummary')} <span className={css.subHeader}>({data.objectIdentifier})</span>
-        </header>
-      }
+      title={<header>{getString('cf.auditLogs.eventSummary')}</header>}
     >
       <Container className={cx(Classes.DRAWER_BODY, css.body)} padding="xlarge">
         <Container className={css.eventSection} padding="large">
@@ -121,13 +129,7 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
                     language="javascript"
                     original={valueBefore}
                     value={valueAfter}
-                    options={{
-                      ignoreTrimWhitespace: true,
-                      minimap: { enabled: false },
-                      codeLens: false,
-                      readOnly: true,
-                      renderSideBySide: true
-                    }}
+                    options={DIFF_VIEWER_OPTIONS}
                   />
                 )}
 

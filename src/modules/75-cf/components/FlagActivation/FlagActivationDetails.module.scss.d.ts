@@ -12,5 +12,6 @@ declare const styles: {
   readonly variationsList: string
   readonly variationItem: string
   readonly module: string
+  readonly breadcrumb: string
 }
 export default styles

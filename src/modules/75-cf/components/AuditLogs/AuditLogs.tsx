@@ -12,9 +12,9 @@ export interface AuditLogsProps {
 }
 
 const SEVEN_DAYS_IN_MILLIS = 7 * 24 * 60 * 60 * 1000
-const now = Date.now()
 
 export const AuditLogs: React.FC<AuditLogsProps> = ({ className, flagData, objectType }) => {
+  const now = Date.now()
   const [startDate, setStartDate] = useState<Date>(new Date(now - SEVEN_DAYS_IN_MILLIS))
   const [endDate, setEndDate] = useState<Date>(new Date(now))
 

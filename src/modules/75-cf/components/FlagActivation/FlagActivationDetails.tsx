@@ -27,10 +27,10 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import { CFVariationColors } from '@cf/constants'
 import { Feature, Features, Prerequisite, usePatchFeature, Variation } from 'services/cf'
+import { CFVariationColors } from '@cf/constants'
+import InputDescOptional from '@cf/components/CreateFlagWizard/common/InputDescOptional'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
-import InputDescOptional from '../CreateFlagWizard/common/InputDescOptional'
 import patch from '../../utils/instructions'
 import i18n from './FlagActivationDetails.i18n'
 import css from './FlagActivationDetails.module.scss'
@@ -679,7 +679,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
   return (
     <>
-      <Layout.Horizontal style={{ marginBottom: '-10px' }}>
+      <Layout.Horizontal className={css.breadcrumb}>
         <Link
           style={{ color: '#0092E4', fontSize: '12px' }}
           to={routes.toCFFeatureFlags({
@@ -705,19 +705,23 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             </Menu>
           }
           tooltipProps={{ isDark: true, interactionKind: 'click' }}
-          style={{ transform: 'translate(12px, -10px)' }}
         />
       </Layout.Horizontal>
 
       <Container>
-        <Heading style={{ fontWeight: 600, fontSize: '16px', lineHeight: '22px', color: '#1C1C28' }}>
+        <Heading
+          style={{
+            fontWeight: 600,
+            fontSize: '16px',
+            lineHeight: '22px',
+            color: '#1C1C28',
+            marginBottom: 'var(--spacing-small)'
+          }}
+        >
           {featureFlag?.name}
         </Heading>
         {featureFlag?.description && (
-          <Text
-            margin={{ top: 'small', bottom: 'medium' }}
-            style={{ fontSize: '13px', lineHeight: '20px', color: '#22222A' }}
-          >
+          <Text margin={{ bottom: 'small' }} style={{ fontSize: '13px', lineHeight: '20px', color: '#22222A' }}>
             {featureFlag.description}
           </Text>
         )}
@@ -725,6 +729,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           inline
           style={{
             backgroundColor: '#CDF4FE',
+            marginBottom: 'var(--spacing-small)',
             padding: 'var(--spacing-xsmall) var(--spacing-small)',
             borderRadius: '2px',
             fontSize: '12px',
@@ -735,12 +740,14 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           {featureFlag?.identifier}
         </Text>
 
-        <Container className={css.tagsFlagActivationDetails}>
-          <TagsViewer
-            tags={featureFlag?.tags?.map(({ value }) => value as string)}
-            style={{ backgroundColor: '#D9DAE6', fontSize: '12px', lineHeight: '16px', color: '#22222A' }}
-          />
-        </Container>
+        {!!featureFlag?.tags?.length && (
+          <Container className={css.tagsFlagActivationDetails}>
+            <TagsViewer
+              tags={featureFlag?.tags?.map(({ value }) => value as string)}
+              style={{ backgroundColor: '#D9DAE6', fontSize: '12px', lineHeight: '16px', color: '#22222A' }}
+            />
+          </Container>
+        )}
 
         <Layout.Vertical margin={{ top: 'medium', bottom: 'xlarge' }}>
           {renderTime(featureFlag?.createdAt)}
