@@ -48,7 +48,11 @@ function generateEventsToPlot(items: EventData[], selected?: EventData): EventDa
       failedEvents.push(item)
     } else if (item.verificationResult === 'VERIFICATION_PASSED') {
       passedEvents.push(item)
-    } else if (item.verificationResult === 'IN_PROGRESS' || item.verificationResult === 'NOT_STARTED') {
+    } else if (
+      item.verificationResult === 'IN_PROGRESS' ||
+      item.verificationResult === 'NOT_STARTED' ||
+      item.verificationResult === 'IGNORED'
+    ) {
       inProgressEvents.push(item)
     }
   }
@@ -79,6 +83,7 @@ function generateEventsToPlot(items: EventData[], selected?: EventData): EventDa
       currentBucketIndex = (currentBucketIndex + 1) % buckets.length
     }
   }
+
   result.sort((a, b) => a.startTime - b.startTime)
   return result
 }

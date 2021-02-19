@@ -297,7 +297,7 @@ function ActivitiesList(props: ActivitiesListProps): JSX.Element {
       )}
       {activities?.map(activity => {
         const { name, activityId, verificationResult } = activity || {}
-        if (!name || !activityId || !verificationResult || (verificationResult as string) === 'IGNORED') return null
+        if (!name || !activityId || !verificationResult) return null
         return (
           <Container
             key={`${name}-${activityId}`}
@@ -324,22 +324,21 @@ function ActivitiesList(props: ActivitiesListProps): JSX.Element {
 
 export function EventDetailsForChange(props: EventDetailsForChangeProps): JSX.Element {
   const { onCloseCallback, selectedActivityInfo, selectedActivities } = props
-  const nonIgnoredEvents = selectedActivities?.filter(activity => activity?.verificationResult !== 'IGNORED')
   const [selectedActivityId, setSelectedActivityId] = useState(
-    selectedActivityInfo?.selectedActivityId || nonIgnoredEvents?.[0]?.activityId
+    selectedActivityInfo?.selectedActivityId || selectedActivities?.[0]?.activityId
   )
   const [displayJSON, setDisplayJSON] = useState(false)
   const { getString } = useStrings()
-  const activityType = selectedActivityInfo?.selectedActivityType || nonIgnoredEvents?.[0]?.activityType
+  const activityType = selectedActivityInfo?.selectedActivityType || selectedActivities?.[0]?.activityType
 
   return (
     <Drawer {...DrawerProps} isOpen={true} onClose={onCloseCallback} className={css.main}>
       <Text color={Color.BLACK} className={css.drawerHeading}>
-        {getDrawerHeading(getString, nonIgnoredEvents)}
+        {getDrawerHeading(getString, selectedActivities)}
       </Text>
       <Container className={css.mainContent}>
         <ActivitiesList
-          activities={nonIgnoredEvents || []}
+          activities={selectedActivities || []}
           onSelectActivity={updatedActivityId => setSelectedActivityId(updatedActivityId)}
           selectedActivityId={selectedActivityId}
           onBackToChangesClick={displayJSON ? () => setDisplayJSON(false) : undefined}

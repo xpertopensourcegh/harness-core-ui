@@ -47,9 +47,6 @@
           fill: var(--grey-300) !important;
         }
 
-        &[data-verification-result='IGNORED'] svg path {
-          fill: transparent !important;
-        }
         &[data-verification-result='VERIFICATION_PASSED'] svg path {
           fill: var(--green-500) !important;
         }
@@ -60,6 +57,8 @@
         &[data-verification-result='WARNING'] svg path {
           fill: var(--yellow-500) !important;
         }
+
+        &[data-verification-result='IGNORED'] svg path,
         &[data-verification-result='IN_PROGRESS'] svg path {
           fill: var(--blue-500) !important;
         }

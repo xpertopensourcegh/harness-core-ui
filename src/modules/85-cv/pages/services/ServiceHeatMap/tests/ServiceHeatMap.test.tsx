@@ -186,7 +186,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
       data: MockData,
       refetch: refetchMock as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper
         path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
@@ -222,6 +222,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
     }
 
     fireEvent.click(resetButton)
+    fireEvent.click(getByText('Errors'))
     await waitFor(() => expect(document.body.querySelector('[class*="heatmapTooltip"]')).toBeNull())
 
     // click on another square with time range in the same day

@@ -170,7 +170,7 @@ export function HeatMapCell({
   onClick,
   isSelected
 }: HeatMapCellProps): JSX.Element {
-  const [isOpen, setIsOpen] = useState(isSelected ? true : undefined)
+  const [isOpen, setIsOpen] = useState<boolean | undefined>(isSelected ? true : undefined)
   useEffect(() => {
     if (isSelected && !isOpen) {
       setIsOpen(true)
@@ -184,9 +184,14 @@ export function HeatMapCell({
         className={cx(styles.cellContentWrapper, Classes.DARK)}
         disabled={popoverDisabled}
         content={popoverContent || <Container />}
-        interactionKind={isOpen ? undefined : PopoverInteractionKind.HOVER}
+        interactionKind={isOpen !== undefined ? undefined : PopoverInteractionKind.HOVER}
         modifiers={PopoverModifies}
         isOpen={isOpen}
+        onInteraction={() => {
+          if (isSelected === false) {
+            setIsOpen(undefined)
+          }
+        }}
         lazy
         boundary="window"
       >
