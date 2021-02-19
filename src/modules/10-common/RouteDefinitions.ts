@@ -51,6 +51,9 @@ const routes = {
   toResourcesDelegateConfigsDetails: withAccountId(
     ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}`
   ),
+  toResourcesEditDelegateConfigsDetails: withAccountId(
+    ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}/edit`
+  ),
   // org resources
   toOrgResources: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources`),
   toOrgResourcesConnectors: withAccountId(

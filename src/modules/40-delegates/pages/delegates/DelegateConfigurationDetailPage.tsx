@@ -31,6 +31,7 @@ export default function DelegateProfileDetails(): JSX.Element {
     delegateProfileId: delegateConfigId,
     queryParams: { accountId }
   })
+
   const { showError, showSuccess } = useToaster()
   const profile = data?.resource
   const breadcrumbs = [
@@ -128,6 +129,14 @@ export default function DelegateProfileDetails(): JSX.Element {
       setFormData(profile)
     }
   }, [profile])
+
+  useEffect(() => {
+    const url = window.location.href
+
+    if (url.includes('edit')) {
+      toggleEditMode()
+    }
+  }, [])
 
   if (loading && !data) {
     return (

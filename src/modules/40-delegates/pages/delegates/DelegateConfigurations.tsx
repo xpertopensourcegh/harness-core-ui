@@ -61,6 +61,15 @@ export default function DelegateConfigurations(): JSX.Element {
         }
       }
     })
+    const gotoEditDetailPage = (): void => {
+      history.push(
+        routes.toResourcesEditDelegateConfigsDetails({
+          accountId,
+          delegateConfigId: profile.uuid as string
+        })
+      )
+    }
+
     const gotoDetailPage = (): void => {
       history.push(
         routes.toResourcesDelegateConfigsDetails({
@@ -88,7 +97,7 @@ export default function DelegateConfigurations(): JSX.Element {
                 icon="more"
                 tooltip={
                   <Menu style={{ minWidth: 'unset' }}>
-                    <Menu.Item icon="edit" text={getString('edit')} onClick={() => gotoDetailPage()} />
+                    <Menu.Item icon="edit" text={getString('edit')} onClick={() => gotoEditDetailPage()} />
                     <Menu.Item
                       icon="cross"
                       text={getString('delete')}
