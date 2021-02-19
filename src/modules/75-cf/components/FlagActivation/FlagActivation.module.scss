@@ -23,12 +23,14 @@
   }
 }
 
-.tab-container {
+.tabContainer {
   position: relative;
-  // 74px is height of header
-  // 72px is height of footer
-  height: calc(100% - 74px - 72px);
+  height: calc(100% - 74px - 82px);
   overflow: auto;
+
+  &.noEdit {
+    height: calc(100% - 74px);
+  }
 
   :global(.bp3-tab-list) {
     border-bottom: 1px solid #e4e4eb !important;
@@ -67,5 +69,22 @@
     .bp3-control.bp3-switch input:checked ~ .bp3-control-indicator {
       background-color: #25a6f7;
     }
+  }
+}
+
+.formContainer {
+  position: relative;
+  height: 100vh;
+
+  .actionButtons {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100% !important;
+    border-top: 1px solid #e4e4eb;
+    padding-left: var(--spacing-huge) !important;
+    padding-top: 22px !important;
+    height: 80px;
+    background-color: var(--white) !important;
   }
 }

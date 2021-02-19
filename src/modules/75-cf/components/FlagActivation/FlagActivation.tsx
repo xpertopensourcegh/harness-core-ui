@@ -338,6 +338,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     </Dialog>
   ))
   const { tab = FFDetailPageTab.TARGETING } = useQueryParams<{ tab?: string }>()
+  const [activeTabId, setActiveTabId] = useState(tab)
 
   useEffect(() => {
     if (isNil(environment)) {
@@ -355,97 +356,107 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     >
       {formikProps => (
         <Form>
-          <Layout.Horizontal
-            flex
-            padding="large"
-            style={{
-              backgroundColor: '#F4F6FF',
-              mixBlendMode: 'normal',
-              boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
-              paddingLeft: 'var(--spacing-huge)'
-            }}
-          >
-            <Text margin={{ right: 'medium' }} font={{ weight: 'bold' }} style={{ color: '#1C1C28', fontSize: '14px' }}>
-              {i18n.env.toUpperCase()}
-            </Text>
-            <Select
-              items={environments}
-              className={css.envSelect}
-              value={environment ?? environments[0]}
-              onChange={props.onEnvChange}
-            />
-            <FlexExpander />
-            <Layout.Horizontal style={{ alignItems: 'center' }} className={css.contentHeading}>
-              <Text style={{ fontSize: '12px', color: '#6B6D85' }}>
-                {(formikProps.values.state || FeatureFlagActivationStatus.OFF) === FeatureFlagActivationStatus.OFF
-                  ? i18n.flagOff
-                  : i18n.flagOn}
+          <Container className={css.formContainer}>
+            <Layout.Horizontal
+              flex
+              padding="large"
+              style={{
+                backgroundColor: '#F4F6FF',
+                mixBlendMode: 'normal',
+                boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
+                paddingLeft: 'var(--spacing-huge)'
+              }}
+            >
+              <Text
+                margin={{ right: 'medium' }}
+                font={{ weight: 'bold' }}
+                style={{ color: '#1C1C28', fontSize: '14px' }}
+              >
+                {i18n.env.toUpperCase()}
               </Text>
-              <Switch
-                onChange={event => {
-                  onChangeSwitchEnv(event.currentTarget.value, formikProps)
-                }}
-                alignIndicator="right"
-                className={cx(Classes.LARGE, css.switch)}
-                checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
+              <Select
+                items={environments}
+                className={css.envSelect}
+                value={environment ?? environments[0]}
+                onChange={props.onEnvChange}
               />
-            </Layout.Horizontal>
-          </Layout.Horizontal>
-          <Container className={css.tabContainer}>
-            {flagData && (
-              <>
-                <Tabs
-                  id="editFlag"
-                  defaultSelectedTabId={tab}
-                  onChange={tabId => {
-                    const url = `${location.href.split('?')[0]}?tab=${tabId}`
-                    window.history.replaceState(null, document.title, url)
+              <FlexExpander />
+              <Layout.Horizontal style={{ alignItems: 'center' }} className={css.contentHeading}>
+                <Text style={{ fontSize: '12px', color: '#6B6D85' }}>
+                  {(formikProps.values.state || FeatureFlagActivationStatus.OFF) === FeatureFlagActivationStatus.OFF
+                    ? i18n.flagOff
+                    : i18n.flagOn}
+                </Text>
+                <Switch
+                  onChange={event => {
+                    onChangeSwitchEnv(event.currentTarget.value, formikProps)
                   }}
-                >
-                  <Tab
-                    id={FFDetailPageTab.TARGETING}
-                    title={i18n.targeting}
-                    panel={
-                      <TabTargeting
-                        formikProps={formikProps}
-                        editing={editing}
-                        refetch={refetchFlag}
-                        targetData={flagData}
-                        isBooleanTypeFlag={isBooleanFlag}
-                        projectIdentifier={project}
-                        environmentIdentifier={environment?.value as string}
-                        setEditing={setEditing}
-                      />
-                    }
-                  />
-                  <Tab
-                    id={FFDetailPageTab.ACTIVITY}
-                    title={i18n.activity}
-                    panel={<TabActivity flagData={flagData} />}
-                  />
-                </Tabs>
-                <Button icon="code" minimal intent="primary" onClick={openModalTestFlag} className={css.btnCode} />
-              </>
-            )}
-          </Container>
-          {(editing || formikProps.values.state !== flagData.envProperties?.state) && (
-            <Layout.Horizontal className={css.editBtnsGroup} padding="medium">
-              <Button
-                intent="primary"
-                text={i18n.saveChange}
-                margin={{ right: 'small' }}
-                onClick={formikProps.submitForm}
-              />
-              <Button
-                minimal
-                text={i18n.cancel}
-                onClick={() => {
-                  onCancelEditHandler()
-                  formikProps.handleReset()
-                }}
-              />
+                  alignIndicator="right"
+                  className={cx(Classes.LARGE, css.switch)}
+                  checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
+                />
+              </Layout.Horizontal>
             </Layout.Horizontal>
-          )}
+            <Container
+              className={cx(css.tabContainer, (!editing || activeTabId !== FFDetailPageTab.TARGETING) && css.noEdit)}
+            >
+              {flagData && (
+                <>
+                  <Tabs
+                    id="editFlag"
+                    defaultSelectedTabId={activeTabId}
+                    onChange={tabId => {
+                      const url = `${location.href.split('?')[0]}?tab=${tabId}`
+                      window.history.replaceState(null, document.title, url)
+                      setActiveTabId(tabId as FFDetailPageTab)
+                    }}
+                  >
+                    <Tab
+                      id={FFDetailPageTab.TARGETING}
+                      title={i18n.targeting}
+                      panel={
+                        <TabTargeting
+                          formikProps={formikProps}
+                          editing={editing}
+                          refetch={refetchFlag}
+                          targetData={flagData}
+                          isBooleanTypeFlag={isBooleanFlag}
+                          projectIdentifier={project}
+                          environmentIdentifier={environment?.value as string}
+                          setEditing={setEditing}
+                        />
+                      }
+                    />
+                    <Tab
+                      id={FFDetailPageTab.ACTIVITY}
+                      title={i18n.activity}
+                      panel={<TabActivity flagData={flagData} />}
+                    />
+                  </Tabs>
+                  <Button icon="code" minimal intent="primary" onClick={openModalTestFlag} className={css.btnCode} />
+                </>
+              )}
+            </Container>
+            {(editing || formikProps.values.state !== flagData.envProperties?.state) &&
+              activeTabId === FFDetailPageTab.TARGETING && (
+                <Layout.Horizontal className={css.actionButtons} padding="medium">
+                  <Button
+                    intent="primary"
+                    text={i18n.saveChange}
+                    margin={{ right: 'small' }}
+                    onClick={formikProps.submitForm}
+                  />
+                  <Button
+                    minimal
+                    text={i18n.cancel}
+                    onClick={() => {
+                      onCancelEditHandler()
+                      formikProps.handleReset()
+                    }}
+                  />
+                </Layout.Horizontal>
+              )}
+          </Container>
         </Form>
       )}
     </Formik>
