@@ -4,10 +4,9 @@ import moment from 'moment'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, VaultConnectorDTO } from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
-import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
+import { useStrings } from 'framework/exports'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
-import i18n from './SavedConnectorDetails.i18n'
 import css from './SavedConnectorDetails.module.scss'
 
 interface SavedConnectorDetailsProps {
@@ -16,9 +15,9 @@ interface SavedConnectorDetailsProps {
 
 interface ActivityDetailsRowInterface {
   label: string
-  value: string | TagsInterface | number | null | undefined
+  value: string | TagsInterface | number | boolean | null | undefined
   iconData?: {
-    text: string
+    textId: string
     icon: IconName
     color?: string
   }
@@ -40,110 +39,116 @@ interface ActivityDetailsData {
 const getLabelByType = (type: string): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return i18n.NAME_LABEL.Kubernetes
+      return 'connectors.name_labels.Kubernetes'
     case Connectors.GIT:
-      return i18n.NAME_LABEL.GIT
+      return 'connectors.name_labels.Git'
     case Connectors.GITHUB:
-      return i18n.NAME_LABEL.Github
+      return 'connectors.name_labels.Github'
     case Connectors.GITLAB:
-      return i18n.NAME_LABEL.Gitlab
+      return 'connectors.name_labels.Gitlab'
     case Connectors.BITBUCKET:
-      return i18n.NAME_LABEL.Bitbucket
+      return 'connectors.name_labels.Bitbucket'
     case Connectors.DOCKER:
-      return i18n.NAME_LABEL.Docker
+      return 'connectors.name_labels.Docker'
     case Connectors.GCP:
-      return i18n.NAME_LABEL.GCP
+      return 'connectors.name_labels.GCP'
     case Connectors.AWS:
-      return i18n.NAME_LABEL.AWS
+      return 'connectors.name_labels.AWS'
     case Connectors.NEXUS:
-      return i18n.NAME_LABEL.Nexus
+      return 'connectors.name_labels.Nexus'
     case Connectors.ARTIFACTORY:
-      return i18n.NAME_LABEL.Artifactory
+      return 'connectors.name_labels.Artifactory'
     case Connectors.APP_DYNAMICS:
-      return i18n.NAME_LABEL.AppDynamics
+      return 'connectors.name_labels.AppDynamics'
     case Connectors.SPLUNK:
-      return i18n.NAME_LABEL.Splunk
+      return 'connectors.name_labels.Splunk'
     case Connectors.VAULT:
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:
-      return i18n.NAME_LABEL.SecretManager
+      return 'connectors.name_labels.SecretManager'
     default:
-      return ''
+      return 'connector'
   }
 }
 const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.k8sCluster.connectionMode,
-      value:
-        connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
-          ? i18n.k8sCluster.delegateInCluster
-          : i18n.k8sCluster.delegateOutCluster
+      label: 'connectionMode',
+      value: connector?.spec?.credential?.type
     },
     {
-      label: i18n.delegateTags,
+      label: 'delegate.delegateTags',
       value:
         connector.spec.credential.spec?.delegateSelectors?.length > 0
           ? connector.spec.credential.spec?.delegateSelectors.join(', ')
           : ''
     },
     {
-      label: i18n.k8sCluster.masterUrl,
+      label: 'connectors.k8.masterUrlLabel',
       value: connector?.spec?.credential?.spec?.masterUrl
     },
     {
-      label: i18n.k8sCluster.credType,
+      label: 'credType',
       value: getLabelForAuthType(connector?.spec?.credential?.spec?.auth?.type)
     },
     {
-      label: i18n.k8sCluster.identityProviderUrl,
-      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcIssuerUrl
-    },
-    {
-      label: i18n.k8sCluster.username,
+      label: 'username',
       value:
         connector?.spec?.credential?.spec?.auth?.spec?.username ||
-        connector?.spec?.credential?.spec?.auth?.spec?.usernameRef ||
-        connector?.spec?.credential?.spec?.auth?.spec?.oidcUsername
+        connector?.spec?.credential?.spec?.auth?.spec?.usernameRef
     },
     {
-      label: i18n.k8sCluster.password,
-      value:
-        connector?.spec?.credential?.spec?.auth?.spec?.passwordRef ||
-        connector?.spec?.credential?.spec?.auth?.spec?.oidcPasswordRef
+      label: 'password',
+      value: connector?.spec?.credential?.spec?.auth?.spec?.passwordRef
     },
     {
-      label: i18n.k8sCluster.serviceAccountToken,
+      label: 'connectors.k8.serviceAccountToken',
       value: connector?.spec?.credential?.spec?.auth?.spec?.serviceAccountTokenRef
     },
     {
-      label: i18n.k8sCluster.oidcClientId,
+      label: 'connectors.k8.OIDCUsername',
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcUsername
+    },
+    {
+      label: 'connectors.k8.OIDCPassword',
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcPasswordRef
+    },
+    {
+      label: 'connectors.k8.OIDCIssuerUrl',
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcIssuerUrl
+    },
+    {
+      label: 'connectors.k8.OIDCClientId',
       value: connector?.spec?.credential?.spec?.auth?.spec?.oidcClientIdRef
     },
     {
-      label: i18n.k8sCluster.clientSecret,
+      label: 'connectors.k8.OIDCSecret',
       value: connector?.spec?.credential?.spec?.auth?.spec?.oidcSecretRef
     },
     {
-      label: i18n.k8sCluster.oidcScopes,
+      label: 'connectors.k8.OIDCScopes',
       value: connector?.spec?.credential?.spec?.auth?.spec?.oidcScopes
     },
 
     {
-      label: i18n.k8sCluster.clientKey,
+      label: 'connectors.k8.clientKey',
       value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyRef
     },
     {
-      label: i18n.k8sCluster.clientCert,
+      label: 'connectors.k8.clientCertificate',
       value: connector?.spec?.credential?.spec?.auth?.spec?.clientCertRef
     },
     {
-      label: i18n.k8sCluster.clientKeyPassphrase,
+      label: 'connectors.k8.clientKey.clientKeyPassphrase',
       value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyPassphraseRef
     },
     {
-      label: i18n.k8sCluster.clientAlgo,
+      label: 'connectors.k8.clientKeyAlgorithm',
       value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyAlgo
+    },
+    {
+      label: 'connectors.k8.clientKey.clientKeyCACertificate',
+      value: connector?.spec?.credential?.spec?.auth?.spec?.caCertRef
     }
   ]
 }
@@ -151,28 +156,27 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
 const getGitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.GIT.configure,
+      label: 'connectors.git.urlType',
       value: connector?.spec?.connectionType
     },
     {
-      label: i18n.GIT.connection,
-      value: connector.spec?.type === 'Http' ? i18n.GIT.HTTP : i18n.GIT.SSH
+      label: 'connectors.git.connectionType',
+      value: connector.spec?.type?.toUpperCase?.()
     },
     {
-      label: i18n.GIT.url,
+      label: 'UrlLabel',
       value: connector?.spec?.url
     },
-
     {
-      label: i18n.GIT.username,
+      label: 'username',
       value: connector?.spec?.spec?.username || connector?.spec?.spec?.usernameRef
     },
     {
-      label: i18n.GIT.password,
+      label: 'password',
       value: connector?.spec?.spec?.passwordRef
     },
     {
-      label: i18n.GIT.sshKey,
+      label: 'SSH_KEY',
       value: connector?.spec?.spec?.sshKeyRef
     }
   ]
@@ -181,50 +185,49 @@ const getGitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
 const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.Github.configure,
+      label: 'connectors.git.urlType',
       value: connector?.spec?.type
     },
     {
-      label: i18n.Github.connection,
+      label: 'connectors.git.connectionType',
       value: connector?.spec?.authentication?.type?.toUpperCase?.()
     },
     {
-      label: i18n.Github.url,
+      label: 'UrlLabel',
       value: connector?.spec?.url
     },
     {
-      label: i18n.Github.authType,
+      label: 'connectors.authTitle',
       value: connector?.spec?.authentication?.spec?.type
     },
     {
-      label: i18n.Github.username,
+      label: 'username',
       value:
         connector?.spec?.authentication?.spec?.spec?.username ||
         connector?.spec?.authentication?.spec?.spec?.usernameRef
     },
     {
-      label: i18n.Github.password,
+      label: 'password',
       value: connector?.spec?.authentication?.spec?.spec?.passwordRef
     },
     {
-      label: i18n.Github.accessToken,
+      label: 'connectors.git.accessToken',
       value: connector?.spec?.authentication?.spec?.spec?.tokenRef || connector?.spec?.apiAccess?.spec?.tokenRef
     },
     {
-      label: i18n.Github.sshKey,
+      label: 'SSH_KEY',
       value: connector?.spec?.authentication?.spec?.sshKeyRef
     },
-
     {
-      label: i18n.Github.apiAccessAuthType,
+      label: 'connectors.git.APIAuthentication',
       value: connector?.spec?.apiAccess?.type
     },
     {
-      label: i18n.Github.installationId,
+      label: 'connectors.git.installationId',
       value: connector?.spec?.apiAccess?.spec?.installationId
     },
     {
-      label: i18n.Github.applicationId,
+      label: 'connectors.git.applicationId',
       value: connector?.spec?.apiAccess?.spec?.applicationId
     }
   ]
@@ -233,23 +236,23 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
 const getDockerSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.Docker.providerType,
+      label: 'connectors.docker.dockerProvideType',
       value: connector?.spec?.providerType
     },
     {
-      label: i18n.Docker.dockerRegistryURL,
+      label: 'connectors.docker.dockerRegistryURL',
       value: connector?.spec?.dockerRegistryUrl
     },
     {
-      label: i18n.k8sCluster.credType,
+      label: 'credType',
       value: getLabelForAuthType(connector?.spec?.auth?.type)
     },
     {
-      label: i18n.Docker.username,
+      label: 'username',
       value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.usernameRef
     },
     {
-      label: i18n.Docker.password,
+      label: 'password',
       value: connector?.spec?.auth?.spec?.passwordRef
     }
   ]
@@ -259,28 +262,28 @@ const getVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
   const data = connector.spec as VaultConnectorDTO
   return [
     {
-      label: i18n.Vault.vaultUrl,
+      label: 'connectors.hashiCorpVault.vaultUrl',
       value: data.vaultUrl
     },
     {
-      label: i18n.Vault.engineName,
+      label: 'connectors.hashiCorpVault.engineName',
       value: data.secretEngineName
     },
     {
-      label: i18n.Vault.engineVersion,
+      label: 'connectors.hashiCorpVault.engineVersion',
       value: data.secretEngineVersion
     },
     {
-      label: i18n.Vault.renewal,
+      label: 'connectors.hashiCorpVault.renewal',
       value: data.renewalIntervalMinutes
     },
     {
-      label: i18n.Vault.readOnly,
-      value: data.readOnly ? i18n.Vault.yes : i18n.Vault.no
+      label: 'connectors.hashiCorpVault.readOnly',
+      value: data.readOnly
     },
     {
-      label: i18n.Vault.default,
-      value: data.default ? i18n.Vault.yes : i18n.Vault.no
+      label: 'connectors.hashiCorpVault.default',
+      value: data.default
     }
   ]
 }
@@ -288,18 +291,18 @@ const getVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
 const getGCPSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.credType,
+      label: 'credType',
       value: connector?.spec?.credential?.type
     },
     {
-      label: i18n.delegateTags,
+      label: 'delegate.delegateTags',
       value:
         connector.spec.credential.spec?.delegateSelectors?.length > 0
           ? connector.spec.credential.spec?.delegateSelectors.join(', ')
           : ''
     },
     {
-      label: i18n.password,
+      label: 'encryptedKeyLabel',
       value: connector?.spec?.credential?.spec?.secretKeyRef
     }
   ]
@@ -308,34 +311,30 @@ const getGCPSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
 const getAWSSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.credType,
+      label: 'credType',
       value: connector?.spec?.credential?.type
     },
     {
-      label: i18n.delegateTags,
+      label: 'delegate.delegateTags',
       value:
         connector.spec.credential.spec?.delegateSelectors?.length > 0
           ? connector.spec.credential.spec?.delegateSelectors.join(', ')
           : ''
     },
     {
-      label: i18n.password,
+      label: 'password',
       value: connector?.spec?.credential?.spec?.secretKeyRef
     },
     {
-      label: i18n.AWS.accessKey,
+      label: 'connectors.aws.accessKey',
       value: connector?.spec?.credential?.spec?.accessKey || connector?.spec?.credential?.spec?.accessKeyRef
     },
     {
-      label: i18n.AWS.STSEnabled,
-      value: connector?.spec?.credential?.crossAccountAccess?.crossAccountRoleArn ? 'true' : 'false'
-    },
-    {
-      label: i18n.AWS.roleARN,
+      label: 'connectors.aws.crossAccURN',
       value: connector?.spec?.credential?.crossAccountAccess?.crossAccountRoleArn
     },
     {
-      label: i18n.AWS.externalId,
+      label: 'connectors.aws.externalId',
       value: connector?.spec?.credential?.crossAccountAccess?.externalId
     }
   ]
@@ -344,23 +343,23 @@ const getAWSSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
 const getNexusSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.Nexus.serverUrl,
+      label: 'connectors.nexus.nexusServerUrl',
       value: connector.spec?.nexusServerUrl
     },
     {
-      label: i18n.Nexus.version,
+      label: 'version',
       value: connector.spec?.version
     },
     {
-      label: i18n.credType,
+      label: 'credType',
       value: getLabelForAuthType(connector.spec?.auth?.type)
     },
     {
-      label: i18n.username,
+      label: 'username',
       value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.usernameRef
     },
     {
-      label: i18n.password,
+      label: 'password',
       value: connector?.spec?.auth?.spec?.passwordRef
     }
   ]
@@ -369,23 +368,19 @@ const getNexusSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
 const getArtifactorySchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: i18n.Artifactory.serverUrl,
+      label: 'connectors.artifactory.artifactoryServerUrl',
       value: connector.spec?.artifactoryServerUrl
     },
     {
-      label: i18n.Artifactory.version,
-      value: connector.spec?.version
-    },
-    {
-      label: i18n.credType,
+      label: 'credType',
       value: getLabelForAuthType(connector.spec?.auth?.type)
     },
     {
-      label: i18n.username,
+      label: 'username',
       value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.usernameRef
     },
     {
-      label: i18n.password,
+      label: 'password',
       value: connector?.spec?.auth?.spec?.passwordRef
     }
   ]
@@ -428,15 +423,15 @@ const getSchema = (props: SavedConnectorDetailsProps): Array<ActivityDetailsRowI
       value: connector?.name
     },
     {
-      label: i18n.description,
+      label: 'description',
       value: connector?.description
     },
     {
-      label: i18n.identifier,
+      label: 'identifier',
       value: connector?.identifier
     },
     {
-      label: i18n.tags,
+      label: 'tagsLabel',
       value: connector?.tags
     }
   ]
@@ -464,37 +459,37 @@ const getDate = (value?: number): string | null => {
 export const getActivityDetails = (data: ActivityDetailsData): Array<ActivityDetailsRowInterface> => {
   const activityDetails: Array<ActivityDetailsRowInterface> = [
     {
-      label: i18n.created,
+      label: 'connectorCreated',
       value: getDate(data?.createdAt)
     },
     {
-      label: i18n.lastUpdated,
+      label: 'lastUpdated',
       value: getDate(data?.lastUpdated)
     }
   ]
 
   if (data.status === 'FAILURE') {
     activityDetails.push({
-      label: i18n.lastTested,
+      label: 'lastTested',
       value: getDate(data?.lastTested),
       iconData: {
         icon: 'warning-sign',
-        text: i18n.failed,
+        textId: 'failed',
         color: Color.RED_500
       }
     })
   } else {
     activityDetails.push({
-      label: i18n.lastTested,
+      label: 'lastTested',
       value: getDate(data?.lastConnectionSuccess),
       iconData: {
         icon: 'deployment-success-new',
-        text: i18n.success,
+        textId: 'success',
         color: Color.GREEN_500
       }
     })
     activityDetails.push({
-      label: i18n.lastConnectionSuccess,
+      label: 'lastConnectionSuccess',
       value: getDate(data?.lastConnectionSuccess)
     })
   }
@@ -503,13 +498,14 @@ export const getActivityDetails = (data: ActivityDetailsData): Array<ActivityDet
 }
 
 export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props => {
+  const { getString } = useStrings()
   return (
     <Container className={css.detailsSection}>
       <Text font={{ weight: 'bold', size: 'medium' }} color={Color.GREY_700} padding={{ bottom: '10px' }}>
         {props.title}
       </Text>
       {props.data.map((item, index) => {
-        if (item.value && (item.label === i18n.tags ? Object.keys(item.value as TagsInterface).length : true)) {
+        if (item.value && (item.label === 'tagsLabel' ? Object.keys(item.value as TagsInterface).length : true)) {
           return (
             <Layout.Vertical
               className={css.detailsSectionRowWrapper}
@@ -517,8 +513,8 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
               padding={{ top: 'medium', bottom: 'medium' }}
               key={`${item.value}${index}`}
             >
-              <Text font={{ size: 'small' }}>{item.label}</Text>
-              {item.label === i18n.tags && typeof item.value === 'object' ? (
+              <Text font={{ size: 'small' }}>{getString(item.label)}</Text>
+              {item.label === 'tagsLabel' && typeof item.value === 'object' ? (
                 renderTags(item.value)
               ) : (
                 <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>
@@ -536,9 +532,9 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
                         name={item.iconData.icon}
                         size={14}
                         color={item.iconData.color}
-                        title={item.iconData.text}
+                        title={getString(item.iconData.textId)}
                       />
-                      <Text inline>{item.iconData.text}</Text>
+                      <Text inline>{getString(item.iconData.textId)}</Text>
                     </Layout.Horizontal>
                   ) : null}
                 </Layout.Horizontal>
@@ -552,13 +548,14 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
 }
 
 const SavedConnectorDetails: React.FC<SavedConnectorDetailsProps> = props => {
+  const { getString } = useStrings()
   const connectorDetailsSchema = getSchema(props)
   const credenatislsDetailsSchema = getSchemaByType(props.connector, props.connector?.type)
 
   return (
     <Layout.Horizontal className={css.detailsSectionContainer}>
-      <RenderDetailsSection title={i18n.overview} data={connectorDetailsSchema} />
-      <RenderDetailsSection title={i18n.credentials} data={credenatislsDetailsSchema} />
+      <RenderDetailsSection title={getString('overview')} data={connectorDetailsSchema} />
+      <RenderDetailsSection title={getString('credentials')} data={credenatislsDetailsSchema} />
     </Layout.Horizontal>
   )
 }

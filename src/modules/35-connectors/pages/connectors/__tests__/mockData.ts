@@ -252,42 +252,40 @@ export const ManualK8s = {
   correlationId: 'correlationId'
 }
 
-export const InlineK8s = {
-  status: 'SUCCESS' as const,
+export const K8WithInheritFromDelegate = {
+  status: 'SUCCESS',
   data: {
-    currentPage: 1,
-    empty: false,
-    content: [
-      {
-        connector: {
-          description: 'This description is for K8s',
-          identifier: 'k8sId',
-          name: 'K8sName',
-          type: 'K8sCluster',
-          tags: { tag1: '' },
-          spec: {
-            credential: {
-              type: 'InheritFromDelegate',
-              spec: {
-                delegateName: 'kubernetes'
-              }
-            }
-          }
-        },
-        status: {
-          errorMessage: 'Unable to connect to the server',
-          lastConnectedAt: 0,
-          lastTestedAt: 1601199008081,
-          status: 'FAILURE'
-        },
-        createdAt: 1601198999531,
-        lastModifiedAt: 1601199008088
-      }
-    ],
-    total: 1
+    connector: {
+      name: 'k8 With Tags',
+      identifier: 'k8WithTags',
+      description: 'asasas',
+      orgIdentifier: undefined,
+      projectIdentifier: undefined,
+      tags: { connectot: 'dx' },
+      type: 'K8sCluster',
+      spec: { credential: { type: 'InheritFromDelegate', spec: { delegateSelectors: ['primary'] } } }
+    },
+    createdAt: 1612855114667,
+    lastModifiedAt: 1613484012059,
+    status: {
+      status: 'FAILURE',
+      errorSummary: 'Unexpected Error',
+      errors: [
+        {
+          reason: 'Unexpected Error',
+          message: 'Something went wrong on our end. Please contact Harness Support.',
+          code: 450
+        }
+      ],
+      testedAt: 1613484012267,
+      lastTestedAt: 0,
+      lastConnectedAt: 0
+    },
+    activityDetails: { lastActivityTime: 1613484012084 },
+    harnessManaged: false
   },
   metaData: null,
-  correlationId: 'correlationId'
+  correlationId: '1db0858d-fac0-43d7-9d0a-0e4fcaa785e5'
 }
 
 export const GitHttp = {
@@ -340,7 +338,7 @@ export const Docker = {
           description: 'This description is for Docker',
           identifier: 'DockerId',
           name: 'DockerName',
-          type: '"DockerRegistry"',
+          type: 'DockerRegistry',
           tags: { tag1: '' },
           spec: {
             dockerRegistryUrl: 'docker Registry url',
@@ -419,7 +417,7 @@ export const Vault = {
           description: 'This description is for Vault',
           identifier: 'VaultId',
           name: 'VaultName',
-          type: '"Vault"',
+          type: 'Vault',
           tags: { tag1: '' },
           spec: {
             default: false

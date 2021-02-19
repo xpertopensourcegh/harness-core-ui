@@ -139,25 +139,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          STS Role enabled
-        </p>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
-        >
-          <span
-            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
-          >
-            true
-          </span>
-        </div>
-      </div>
-      <div
-        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-        >
-          Role ARN
+          Cross account role URN
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -175,7 +157,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          External Id
+          External Id (Optional)
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -256,7 +238,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Artifactory Server Url
+          Artifactory Repository URL
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -346,7 +328,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          
+          Docker Connector Name
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -429,6 +411,78 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
       >
         Credentials
       </p>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          Docker Registry URL
+        </p>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
+        >
+          <span
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
+          >
+            docker Registry url
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          Credential Type
+        </p>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
+        >
+          <span
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
+          >
+            Username and Password
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          Username
+        </p>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
+        >
+          <span
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
+          >
+            user name
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          Password
+        </p>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
+        >
+          <span
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
+          >
+            account.secretname
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -573,7 +627,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Password
+          Encrypted Key
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -698,7 +752,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Configured
+          URL Type
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -814,7 +868,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           <span
             class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            K8sName
+            k8 With Tags
           </span>
         </div>
       </div>
@@ -832,7 +886,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           <span
             class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            This description is for K8s
+            asasas
           </span>
         </div>
       </div>
@@ -850,7 +904,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           <span
             class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            k8sId
+            k8WithTags
           </span>
         </div>
       </div>
@@ -874,7 +928,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                tag1
+                connectot
               </span>
             </span>
           </span>
@@ -903,7 +957,25 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           <span
             class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            Harness Delegate running In-Cluster
+            InheritFromDelegate
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          Delegate Tags
+        </p>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
+        >
+          <span
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
+          >
+            primary
           </span>
         </div>
       </div>
@@ -1002,7 +1074,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           <span
             class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            Harness Delegate running Out-of-Cluster
+            ManualConfig
           </span>
         </div>
       </div>
@@ -1165,7 +1237,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Nexus Server Url
+          Nexus Repository URL
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1273,7 +1345,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          
+          Secret Manager Name
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"

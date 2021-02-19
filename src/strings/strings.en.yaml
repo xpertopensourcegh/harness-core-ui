@@ -31,7 +31,9 @@ tagRegex: Tag Regex
 parallelSteps: Parallel Steps
 stepGroup: Step Group
 changeHistory: Change History
+lastTested: Last Tested
 lastUpdated: Last Updated
+lastConnectionSuccess: Last time connection is successful
 lastActivity: last activity
 noDetails: No details found
 connectivityStatus: Connectivity Status
@@ -55,6 +57,8 @@ resources: 'Resources'
 kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
 connector: Connector
+connectionMode: Connection Mode
+credType: Credential Type
 secrets: 'Secrets'
 secretDetails: 'Secret Details'
 noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
@@ -1132,6 +1136,20 @@ connectors:
   connectorNotFound: Connector not found.
   title: 'Create Connector from YAML'
   successfullyCreated: 'Connector created successfully'
+  name_labels:
+    Kubernetes: 'Kubernetes Connector Name'
+    Git: 'Git Connector Name'
+    Github: 'GitHub Connector Name'
+    Gitlab: 'GitLab Connector Name'
+    Bitbucket: 'Bitbucket Connector Name'
+    Docker: 'Docker Connector Name'
+    GCP: 'GCP Connector Name'
+    AWS: 'AWS Connector Name'
+    Nexus: 'Nexus Connector Name'
+    Artifactory: 'Artifactory Connector Name'
+    SecretManager: 'Secret Manager Name'
+    AppDynamics: 'AppDynamics Connector Name'
+    Splunk: 'Splunk Connector Name'
   testConnectionStep:
     errorDetails: Click to view error details
     noDelegate: Unable to get delegate information
@@ -1189,6 +1207,12 @@ connectors:
       clientKeyCertificate: 'Client Key Certificate'
   hashiCorpVault:
     stepTwoName: 'HashiCorp Vault Details'
+    vaultUrl: 'Vault URL'
+    engineName: 'Secret Engine Name'
+    engineVersion: 'Secret Engine Version'
+    renewal: 'Renewal Interval (minutes)'
+    readOnly: 'Read Only'
+    default: 'Default'
   nexus:
     nexusServerUrl: 'Nexus Repository URL'
   artifactory:
