@@ -26,7 +26,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const { openDialog } = useConfirmationDialog({
+  const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('roleCard.confirmDelete', { name: role.name }),
     titleText: getString('roleCard.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
@@ -39,6 +39,8 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
           if (deleted) {
             showSuccess(getString('roleCard.successMessage', { name: role.name }))
             reloadRoles?.()
+          } else {
+            showError(getString('deleteError'))
           }
         } catch (err) {
           showError(err)
@@ -55,12 +57,13 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
   const handleDelete = async (e: React.MouseEvent): Promise<void> => {
     e.stopPropagation()
     setMenuOpen(false)
-    openDialog()
+    openDeleteDialog()
   }
 
   return (
     <Card
       className={css.card}
+      data-testid={`role-card-${role.identifier}`}
       onClick={() => {
         history.push(
           routes.toRoleDetails({ roleIdentifier: role.identifier || '', accountId, orgIdentifier, projectIdentifier })
@@ -87,7 +90,9 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
       <Layout.Vertical flex={{ align: 'center-center' }} spacing="large" height="100%">
         {/* TODO: REPLACE WITH ROLE ICON */}
         <Icon name="nav-project-selected" size={40} />
-        <Text>{role.name}</Text>
+        <Text className={css.name} lineClamp={2}>
+          {role.name}
+        </Text>
       </Layout.Vertical>
     </Card>
   )

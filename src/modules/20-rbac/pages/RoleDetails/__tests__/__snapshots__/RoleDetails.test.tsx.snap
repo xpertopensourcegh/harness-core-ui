@@ -78,7 +78,6 @@ exports[`Role Details Page render data 1`] = `
     >
       <div
         class="StyledProps--font StyledProps--main resourceList"
-        style="width: 20%;"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex"
@@ -86,17 +85,27 @@ exports[`Role Details Page render data 1`] = `
       </div>
       <div
         class="StyledProps--font StyledProps--main StyledProps--padding-large"
-        style="width: 80%;"
       >
         <div
-          class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-          style="height: 100%;"
+          class="Layout--vertical StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--padding-medium"
           >
-            Select Resource
-          </p>
+            <button
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Apply Changes
+              </span>
+            </button>
+          </div>
+          <div />
+          <div />
+          <div />
         </div>
       </div>
     </div>

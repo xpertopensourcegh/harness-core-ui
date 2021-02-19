@@ -30,7 +30,7 @@ export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalRetu
       >
         <RoleForm
           data={roleData}
-          isEdit={roleData ? true : false}
+          isEdit={!!roleData}
           onSubmit={() => {
             onSuccess()
             hideModal()

@@ -1,24 +1,29 @@
-import React, { useState } from 'react'
-import { Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import React, { useEffect, useState } from 'react'
+import { Button, Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
+import produce from 'immer'
 import { useStrings } from 'framework/exports'
-import { Page } from '@common/exports'
+import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
-import { useGetRole } from 'services/rbac'
+import { Permission, useGetPermissionList, useGetRole, useUpdateRole } from 'services/rbac'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useGetResourceTypes } from 'services/cd-ng'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
-import RbacFactory, { ResourceHandler } from '@rbac/factories/RbacFactory'
+import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import { getPermissionMap } from '@rbac/pages/RoleDetails/utils.tsx'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier, roleIdentifier } = useParams()
-  const [resource, setResource] = useState<[ResourceType, ResourceHandler]>()
+  const [resource, setResource] = useState<ResourceType>()
   const { getString } = useStrings()
+  const { showSuccess, showError } = useToaster()
+  const [permissions, setPermissions] = useState<string[]>([])
+  const listRef: Map<ResourceType, HTMLDivElement | null> = new Map()
   const { data, loading, error, refetch } = useGetRole({
     identifier: roleIdentifier,
     queryParams: {
@@ -31,6 +36,62 @@ const RoleDetails: React.FC = () => {
   const { data: resourceGroups } = useGetResourceTypes({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
+
+  const { mutate: addPermissions } = useUpdateRole({
+    identifier: roleIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
+
+  const { data: permissionList } = useGetPermissionList({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
+
+  useEffect(() => {
+    setPermissions(data?.data?.role.permissions || [])
+  }, [data?.data])
+
+  const permissionsMap: Map<ResourceType, Permission[]> = getPermissionMap(permissionList?.data)
+
+  const isPermissionEnabled = (_permission: string): boolean => {
+    if (data?.data?.role.permissions?.includes(_permission)) return true
+    return false
+  }
+
+  const onChangePermission = async (permission: string, isAdd: boolean): Promise<void> => {
+    if (isAdd) setPermissions(_permissions => [...permissions, permission])
+    else {
+      setPermissions(_permissions =>
+        produce(_permissions, draft => {
+          return draft?.splice(permissions.indexOf(permission), 1)
+        })
+      )
+    }
+  }
+
+  const submitChanges = async (): Promise<void> => {
+    const role = data?.data?.role
+
+    if (role) {
+      role['permissions'] = permissions
+      try {
+        const updated = await addPermissions(role)
+        if (updated) {
+          showSuccess(getString('roleDetails.permissionUpdatedSuccess'))
+          refetch()
+        }
+      } catch (e) {
+        showError(e.data?.message || e.message)
+      }
+    }
+  }
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
@@ -74,17 +135,20 @@ const RoleDetails: React.FC = () => {
       />
       <Page.Body>
         <Layout.Horizontal className={css.body}>
-          <Container className={css.resourceList} width="20%">
+          <Container className={css.resourceList}>
             <Layout.Vertical flex spacing="small">
               {resourceGroups?.data?.resourceTypes.map(resourceType => {
                 const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType)
                 return (
                   resourceHandler && (
                     <Card
+                      interactive
                       key={resourceType}
                       className={css.card}
                       onClick={() => {
-                        setResource([resourceType, resourceHandler])
+                        setResource(resourceType)
+                        const elem = listRef.get(resourceType)
+                        elem?.scrollIntoView()
                       }}
                     >
                       <Layout.Horizontal flex spacing="small">
@@ -97,18 +161,31 @@ const RoleDetails: React.FC = () => {
               })}
             </Layout.Vertical>
           </Container>
-          <Container padding="large" width="80%">
-            {resource ? (
-              <PermissionCard
-                resourceType={resource[0]}
-                resourceHandler={resource[1]}
-                isDefault={data.data?.harnessManaged}
-              />
-            ) : (
-              <Container flex={{ align: 'center-center' }} height="100%">
-                <Text>{getString('selectResource')}</Text>
-              </Container>
-            )}
+          <Container padding="large">
+            <Layout.Vertical>
+              <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} padding="medium">
+                <Button onClick={submitChanges} text={getString('applyChanges')} />
+              </Layout.Horizontal>
+              {resourceGroups?.data?.resourceTypes.map(resourceType => {
+                return (
+                  <div
+                    key={resourceType}
+                    ref={input => {
+                      listRef.set(resourceType, input)
+                    }}
+                  >
+                    <PermissionCard
+                      selected={resourceType === resource}
+                      permissions={permissionsMap.get(resourceType)}
+                      resourceType={resourceType}
+                      isDefault={data.data?.harnessManaged}
+                      onChangePermission={onChangePermission}
+                      isPermissionEnabled={isPermissionEnabled}
+                    />
+                  </div>
+                )
+              })}
+            </Layout.Vertical>
           </Container>
         </Layout.Horizontal>
       </Page.Body>

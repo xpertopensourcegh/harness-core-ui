@@ -11,7 +11,8 @@ projectLabel: Project
 orgLabel: Organization
 users: Users
 roles: Roles
-newRole: 'New Role'
+newRole: New Role
+editRole: Edit Role
 userGroups: User Groups
 created: Created
 resourceGroups: Resource Groups
@@ -64,6 +65,7 @@ errorTitle: Something went wrong...
 errorSubtitle: This error has been reported and we are looking into it with high priority.
 errorHelp: to continue, this will remove all unsaved changes.
 errorTag: Error fetching tags
+deleteError: This resource could not be deleted
 please: Please
 clickHere: ' click here '
 blueGreen: BlueGreen
@@ -103,6 +105,7 @@ conditions: Conditions
 gitBranch: Git Branch
 gitTag: Git Tag
 tbd: TBD
+applyChanges: Apply Changes
 createViaYaml: Create via YAML Builder
 notifications: Notifications
 numberOfServices: 'Number of Services'
@@ -490,6 +493,8 @@ inputTypes:
 roleForm:
   createSuccess: Role created succesfully
   editSuccess: Role updated succesfully
+roleDetails:
+  permissionUpdatedSuccess: Permissions updated succesfully
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'

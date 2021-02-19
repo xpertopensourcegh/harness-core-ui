@@ -1,16 +1,28 @@
 .card {
   height: var(--spacing-huge);
-  box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
   border: 1px solid transparent !important;
   margin: var(--spacing-medium);
   align-items: center;
   display: flex !important;
 }
 
-.permissions {
+.selectedCard {
+  border: 1px solid var(--blue-400) !important;
+}
+
+.permissionRow {
   display: grid !important;
   grid-column-gap: var(--spacing-huge);
   grid-auto-flow: column;
+  grid-template-columns: 30% 1fr;
+}
+
+.permissionList {
+  display: grid;
+  grid-column-gap: var(--spacing-small);
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
 .center {

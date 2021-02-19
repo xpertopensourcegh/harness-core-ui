@@ -8,7 +8,7 @@ export interface Permission {
   identifier: string
   name: string
   status: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
-  allowedScopeLevels: ('org' | 'project' | 'account')[]
+  allowedScopeLevels: ('organization' | 'project' | 'account')[]
   resourceType?: string
   action?: string
 }
@@ -593,8 +593,8 @@ export interface ResponseRoleResponse {
 export interface Role {
   identifier: string
   name: string
-  permissions: string[]
-  allowedScopeLevels?: ('org' | 'project' | 'account')[]
+  permissions?: string[]
+  allowedScopeLevels?: ('organization' | 'project' | 'account')[]
   description?: string
   tags?: {
     [key: string]: string

@@ -17,7 +17,6 @@ import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { Role, useCreateRole, useUpdateRole } from 'services/rbac'
 import { useStrings } from 'framework/exports'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from '@rbac/modals/RoleModal/useRoleModal.module.scss'
 
 interface RoleModalData {
@@ -51,19 +50,19 @@ const RoleForm: React.FC<RoleModalData> = props => {
 
   const handleSubmit = async (values: Role): Promise<void> => {
     const dataToSubmit: Role = {
-      ...pick(values, ['name', 'identifier', 'tags', 'description', 'permissions']),
-      allowedScopeLevels: [getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })]
+      ...pick(values, ['name', 'identifier', 'tags', 'description'])
     }
+
     try {
       if (isEdit) {
         const updated = await editRole(dataToSubmit)
-        if (updated) {
+        /* istanbul ignore else */ if (updated) {
           showSuccess(getString('roleForm.updatedSuccess'))
           onSubmit?.()
         }
       } else {
         const created = await createRole(dataToSubmit)
-        if (created) {
+        /* istanbul ignore else */ if (created) {
           showSuccess(getString('roleForm.createSuccess'))
           onSubmit?.()
         }
@@ -77,7 +76,7 @@ const RoleForm: React.FC<RoleModalData> = props => {
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical spacing="large">
         <Text color={Color.BLACK} font="medium">
-          {getString('newRole')}
+          {isEdit ? getString('editRole') : getString('newRole')}
         </Text>
         <Formik
           initialValues={{
@@ -85,7 +84,6 @@ const RoleForm: React.FC<RoleModalData> = props => {
             name: '',
             description: '',
             tags: {},
-            permissions: [],
             ...roleData
           }}
           validationSchema={Yup.object().shape({

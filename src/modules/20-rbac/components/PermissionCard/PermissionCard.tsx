@@ -1,54 +1,57 @@
 import React from 'react'
-import { Card, Icon, Layout, Text } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useParams } from 'react-router-dom'
+import { Card, Icon, Layout, Text } from '@wings-software/uicore'
 import { Checkbox } from '@blueprintjs/core'
-import { useGetPermissionList } from 'services/rbac'
-import type { ResourceHandler } from '@rbac/factories/RbacFactory'
-import { PageSpinner } from '@common/components'
-import { PageError } from '@common/components/Page/PageError'
+import type { Permission } from 'services/rbac'
+import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './PermissionCard.module.scss'
 
 interface PermissionCardProps {
   resourceType: ResourceType
-  resourceHandler: ResourceHandler
+  permissions?: Permission[]
+  selected?: boolean
   isDefault?: boolean
+  onChangePermission: (permission: string, isAdd: boolean) => void
+  isPermissionEnabled: (_permission: string) => boolean
 }
 
-const PermissionCard: React.FC<PermissionCardProps> = ({ resourceHandler, resourceType, isDefault }) => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
-
-  const { data, loading, error, refetch } = useGetPermissionList({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier,
-      resourceType: resourceType
-    }
-  })
-  if (loading) return <PageSpinner />
-  if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
-
-  return (
-    <Card className={css.card}>
-      <Layout.Horizontal padding="large" width="100%" className={css.permissions}>
+const PermissionCard: React.FC<PermissionCardProps> = ({
+  resourceType,
+  selected,
+  isDefault,
+  permissions,
+  onChangePermission,
+  isPermissionEnabled
+}) => {
+  const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType)
+  return resourceHandler ? (
+    <Card className={cx(css.card, { [css.selectedCard]: selected })}>
+      <Layout.Horizontal padding="large" width="100%" className={css.permissionRow}>
         <Layout.Horizontal spacing="medium" className={css.center}>
           <Icon name={resourceHandler.icon} size={20} />
           <Text>{resourceHandler.label}</Text>
         </Layout.Horizontal>
 
-        <Layout.Horizontal spacing="small" className={cx(css.end, css.center)} padding={{ right: 'large' }}>
-          {data?.data?.map(response => {
-            const permission = response.permission
+        <div className={css.permissionList}>
+          {permissions?.map(permission => {
             return (
-              <Checkbox label={permission.name} key={permission.name} disabled={isDefault} className={css.checkbox} />
+              <Checkbox
+                label={permission.action}
+                key={permission.name}
+                disabled={isDefault}
+                defaultChecked={isPermissionEnabled(permission.identifier)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                  onChangePermission(permission.identifier, event.currentTarget.checked)
+                }}
+                className={css.checkbox}
+              />
             )
           })}
-        </Layout.Horizontal>
+        </div>
       </Layout.Horizontal>
     </Card>
-  )
+  ) : null
 }
 
 export default PermissionCard

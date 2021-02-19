@@ -2,7 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly card: string
-  readonly permissions: string
+  readonly selectedCard: string
+  readonly permissionRow: string
+  readonly permissionList: string
   readonly center: string
   readonly end: string
   readonly checkbox: string

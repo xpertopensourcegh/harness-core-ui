@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import RoleDetails from '../RoleDetails'
-import { resourceTypesMockData, roleMockData } from './mock'
+import { permissionListMockData, resourceTypesMockData, roleMockData } from './mock'
 
 jest.useFakeTimers()
 
@@ -16,6 +16,10 @@ jest.mock('services/cd-ng', () => ({
 jest.mock('services/rbac', () => ({
   useGetRole: jest.fn().mockImplementation(() => {
     return { data: roleMockData, refetch: jest.fn(), error: null }
+  }),
+  useUpdateRole: jest.fn().mockImplementation(() => jest.fn()),
+  useGetPermissionList: jest.fn().mockImplementation(() => {
+    return { data: permissionListMockData, refetch: jest.fn(), error: null }
   })
 }))
 
