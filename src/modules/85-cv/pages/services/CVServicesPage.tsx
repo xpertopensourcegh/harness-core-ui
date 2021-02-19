@@ -158,6 +158,7 @@ export default function CVServicesPage(): JSX.Element {
                 startTime={heatMapAndTimeSeriesInput.startTime}
                 endTime={heatMapAndTimeSeriesInput.endTime}
                 environmentIdentifier={selectedService?.environmentIdentifier}
+                serviceIdentifier={selectedService?.serviceIdentifier}
                 className={styles.serviceActivityTimeline}
                 timelineViewProps={TimelineViewProps}
               />

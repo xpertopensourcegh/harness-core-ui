@@ -3,7 +3,11 @@ import { Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
+import {
+  ListActivitiesForDashboardQueryParams,
+  RestResponseListActivityDashboardDTO,
+  useListActivitiesForDashboard
+} from 'services/cv'
 import ActivitiesTimelineView, { ActivitiesTimelineViewProps, EventData } from './ActivitiesTimelineView'
 import i18n from './ActivitiesTimelineView.i18n'
 import css from './ActivitiesTimelineView.module.scss'
@@ -12,6 +16,7 @@ export interface ActivitesTimelineViewSectionProps {
   startTime: number
   endTime: number
   environmentIdentifier?: string
+  serviceIdentifier?: string
   timelineViewProps?: ActivitiesTimelineViewProps['timelineViewProps']
   selectedActivityId?: string
   className?: string
@@ -21,6 +26,7 @@ export default function ActivitesTimelineViewSection({
   startTime,
   endTime,
   environmentIdentifier,
+  serviceIdentifier,
   timelineViewProps,
   selectedActivityId,
   className
@@ -82,12 +88,13 @@ export default function ActivitesTimelineViewSection({
           orgIdentifier,
           projectIdentifier,
           environmentIdentifier,
+          serviceIdentifier,
           startTime: startTime,
           endTime: endTime
-        }
+        } as ListActivitiesForDashboardQueryParams
       })
     }
-  }, [startTime, endTime, environmentIdentifier])
+  }, [startTime, endTime, environmentIdentifier, serviceIdentifier])
 
   if (error?.message) {
     return (
