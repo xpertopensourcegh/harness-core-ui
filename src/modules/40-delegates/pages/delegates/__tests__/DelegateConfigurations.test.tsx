@@ -5,12 +5,12 @@ import DelegateConfigurations from '../DelegateConfigurations'
 import ProfileMock from './ProfilesMock.json'
 
 const mockGetCallFunction = jest.fn()
-jest.mock('services/portal', () => ({
-  useGetDelegateProfilesV2: jest.fn().mockImplementation(args => {
+jest.mock('services/cd-ng', () => ({
+  useListDelegateProfilesNg: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: ProfileMock, refetch: jest.fn(), error: null, loading: false }
   }),
-  useDeleteDelegateProfile: jest.fn().mockImplementation(args => {
+  useDeleteDelegateProfileNg: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })

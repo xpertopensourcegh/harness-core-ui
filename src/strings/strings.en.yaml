@@ -673,7 +673,7 @@ delegate:
   questionDeleteDelegate: 'Are you sure you want to delete this Delegate?'
   deleteDelegateConfiguration: 'Delete Delegate Configuration'
   deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration '
-  deleteDelegateConfigurationSuccess: 'Delegate Configuration {profiles.name} deleted'
+  deleteDelegateConfigurationSuccess: 'Delegate Configuration {{ profileName }} deleted'
 execution:
   pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
   pipelineIdentifierTextCD: '(Execution ID: {{runSequence}})' # Text for Pipeline Identifier

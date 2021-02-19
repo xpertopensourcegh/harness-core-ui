@@ -66468,6 +66468,7 @@
         }
       }
     },
+
     "RestResponseDelegateProfileDetails": {
       "type": "object",
       "properties": {
@@ -66488,6 +66489,7 @@
         }
       }
     },
+
     "ScopingRuleDetails": {
       "type": "object",
       "properties": {

@@ -10,7 +10,8 @@ import {
 } from '@delegates/components/SectionContainer/SectionContainer'
 import { useStrings } from 'framework/exports'
 import { PageSpinner } from '@common/components'
-import { DelegateProfile, useGetDelegateConfigFromId, useUpdateV2 } from 'services/portal'
+import { DelegateProfile, useGetDelegateConfigFromId } from 'services/portal'
+import { useUpdateDelegateProfileNg } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { fullSizeContentStyle, EnvironmentType } from '@delegates/constants'
@@ -70,14 +71,14 @@ export default function DelegateProfileDetails(): JSX.Element {
     })
   }, [formData, LABEL_PROD, LABEL_NON_PROD])
 
-  const { mutate: updateConfiguration } = useUpdateV2({
+  const { mutate: updateConfiguration } = useUpdateDelegateProfileNg({
     queryParams: { accountId },
     delegateProfileId: delegateConfigId
   })
 
   const onEdit = async (profileData: DelegateProfile) => {
     setShowSpinner(true)
-    const { uuid, name, description, primary, approvalRequired, startupScript, scopingRules, selectors } = profileData
+    const { uuid, name, description, primary, approvalRequired, startupScript, selectors } = profileData
     const response = await updateConfiguration({
       uuid,
       name,
@@ -86,7 +87,7 @@ export default function DelegateProfileDetails(): JSX.Element {
       primary,
       approvalRequired,
       startupScript,
-      scopingRules,
+      scopingRules: [],
       selectors
     })
     setShowSpinner(false)

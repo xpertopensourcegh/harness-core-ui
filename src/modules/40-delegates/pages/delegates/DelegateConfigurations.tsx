@@ -6,8 +6,8 @@ import { useConfirmationDialog } from '@common/exports'
 
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { DelegateProfileDetails, EmbeddedUser, useGetDelegateProfilesV2 } from 'services/portal'
-import { useDeleteDelegateProfile } from 'services/portal/index'
+import type { DelegateProfileDetails, EmbeddedUser } from 'services/portal'
+import { useListDelegateProfilesNg, useDeleteDelegateProfileNg } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { TimeAgo } from '@common/exports'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -32,10 +32,10 @@ export default function DelegateConfigurations(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId } = useParams<Record<string, string>>()
-  const { data, loading, error, refetch } = useGetDelegateProfilesV2({ queryParams: { accountId } })
+  const { data, loading, error, refetch } = useListDelegateProfilesNg({ queryParams: { accountId } })
   const { showSuccess, showError } = useToaster()
   const profiles: Array<DelegateProfileDetails> = formatProfileList(data)
-  const { mutate: deleteDelegateProfile } = useDeleteDelegateProfile({
+  const { mutate: deleteDelegateProfile } = useDeleteDelegateProfileNg({
     queryParams: { accountId: accountId }
   })
 
@@ -51,7 +51,11 @@ export default function DelegateConfigurations(): JSX.Element {
             const deleted = await deleteDelegateProfile(profile?.uuid)
 
             if (deleted) {
-              showSuccess(getString('delegate.deleteDelegateConfigurationSuccess'))
+              showSuccess(
+                `${getString('delegate.deleteDelegateConfigurationSuccess', {
+                  profileName: profile.name
+                })}`
+              )
               ;(profiles as any).reload?.()
               refetch()
             }
@@ -98,14 +102,16 @@ export default function DelegateConfigurations(): JSX.Element {
                 tooltip={
                   <Menu style={{ minWidth: 'unset' }}>
                     <Menu.Item icon="edit" text={getString('edit')} onClick={() => gotoEditDetailPage()} />
-                    <Menu.Item
-                      icon="cross"
-                      text={getString('delete')}
-                      onClick={() => {
-                        openDialog()
-                      }}
-                      className={Classes.POPOVER_DISMISS}
-                    />
+                    {!profile.primary && (
+                      <Menu.Item
+                        icon="cross"
+                        text={getString('delete')}
+                        onClick={() => {
+                          openDialog()
+                        }}
+                        className={Classes.POPOVER_DISMISS}
+                      />
+                    )}
                   </Menu>
                 }
                 tooltipProps={{ isDark: true, interactionKind: 'click' }}
