@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
+import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useGetYamlSchema } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
@@ -13,6 +13,7 @@ import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './PipelineYamlView.module.scss'
 
 const PipelineYamlView: React.FC = () => {
+  const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
     PipelineType<{
       orgIdentifier: string
@@ -37,17 +38,19 @@ const PipelineYamlView: React.FC = () => {
     requestOptions: { headers: { accept: 'application/json' } }
   })
 
-  const { data: snippet, refetch } = useGetYamlSnippet({
-    identifier: '',
-    requestOptions: { headers: { accept: 'application/json' } },
-    lazy: true,
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+  const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
+    {
+      identifier: '',
+      requestOptions: { headers: { accept: 'application/json' } },
+      lazy: true,
+      queryParams: {
+        projectIdentifier,
+        orgIdentifier,
+        scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+      }
     }
-  })
-  const [snippetYaml, setSnippetYaml] = React.useState<string>()
+  )
+
   React.useEffect(() => {
     if (yamlHandler) {
       setYamlHandlerContext(yamlHandler)
@@ -55,10 +58,15 @@ const PipelineYamlView: React.FC = () => {
   }, [yamlHandler, setYamlHandlerContext])
 
   React.useEffect(() => {
-    setSnippetYaml(snippet?.data)
-  }, [snippet])
+    setSnippetFetchResponse({
+      snippet: snippet?.data || '',
+      loading: isFetchingSnippet,
+      error: errorFetchingSnippet
+    })
+  }, [isFetchingSnippet])
 
   const onSnippetCopy = async (identifier: string): Promise<void> => {
+    cancel()
     await refetch({
       pathParams: {
         identifier
@@ -87,7 +95,7 @@ const PipelineYamlView: React.FC = () => {
           bind={setYamlHandler}
           onSnippetCopy={onSnippetCopy}
           showIconMenu={true}
-          snippetYaml={snippetYaml}
+          snippetFetchResponse={snippetFetchResponse}
           yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
           height={'calc(100vh - 150px)'}
           invocationMap={stepsFactory.getInvocationMap()}

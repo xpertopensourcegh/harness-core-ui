@@ -7,31 +7,42 @@ import { Icon, IconName } from '@wings-software/uicore'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
 import type { YamlSnippetMetaData } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import type { SnippetFetchResponse } from '@common/interfaces/YAMLBuilderProps'
+import { shouldShowError, HTTP_STATUS_OK } from '@common/utils/errorUtils'
 
 import css from './Snippet.module.scss'
 
 type SnippetInterface = YamlSnippetMetaData & {
   onSnippetCopy?: (identifier: string) => Promise<void>
-  snippetYaml?: string
+  snippetFetchResponse?: SnippetFetchResponse
 }
 
 const Snippet: React.FC<SnippetInterface> = props => {
   const { getString } = useStrings()
-  const { name, description, version, identifier, iconTag, onSnippetCopy, snippetYaml } = props
+  const { name, description, version, identifier, iconTag, onSnippetCopy, snippetFetchResponse } = props
   const [tooltipLabel, setTooltipLabel] = useState(getString('snippets.copyToClipboard'))
   const [isFetching, setIsFetching] = useState<boolean>(false)
 
   useEffect(() => {
-    if (snippetYaml) {
-      navigator?.clipboard?.writeText(snippetYaml)
+    const { snippet = '', loading, error } = snippetFetchResponse || {}
+    if (!loading) {
+      if (error && error?.status !== HTTP_STATUS_OK) {
+        shouldShowError(error?.message)
+          ? setTooltipLabel(error?.message || '')
+          : setTooltipLabel(getString('somethingWentWrong'))
+      } else {
+        navigator?.clipboard?.writeText(snippet)
+        setTooltipLabel(getString('snippets.copied'))
+      }
+      setIsFetching(false)
     }
-  }, [snippetYaml])
+  }, [snippetFetchResponse])
 
   const getPopoverContent = (): JSX.Element => {
     return (
       <div className={css.popoverContent}>
-        <span className={css.tooltipLabel}>{tooltipLabel} </span>
-        {isFetching ? <Spinner size={Spinner.SIZE_SMALL} intent={Intent.PRIMARY} /> : null}
+        <span className={css.tooltipLabel}>{tooltipLabel}</span>
+        {isFetching ? <Spinner size={Spinner.SIZE_SMALL} intent={Intent.PRIMARY} className={css.loader} /> : null}
       </div>
     )
   }
@@ -55,7 +66,10 @@ const Snippet: React.FC<SnippetInterface> = props => {
         position={Position.BOTTOM}
         interactionKind={PopoverInteractionKind.HOVER}
         content={getPopoverContent()}
-        onOpening={() => setTooltipLabel(getString('snippets.copyToClipboard'))}
+        onOpening={() => {
+          setIsFetching(false)
+          setTooltipLabel(getString('snippets.copyToClipboard'))
+        }}
       >
         <div className={css.copy}>
           <Icon
@@ -70,8 +84,6 @@ const Snippet: React.FC<SnippetInterface> = props => {
               if (identifier) {
                 await onSnippetCopy?.(identifier)
               }
-              setTooltipLabel(getString('snippets.copied'))
-              setIsFetching(false)
             }}
           />
         </div>

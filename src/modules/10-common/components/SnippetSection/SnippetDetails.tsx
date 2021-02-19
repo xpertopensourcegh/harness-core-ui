@@ -3,6 +3,7 @@ import cx from 'classnames'
 
 import { Icon } from '@wings-software/uicore'
 import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
+import type { SnippetFetchResponse } from '@common/interfaces/YAMLBuilderProps'
 import i18n from './SnippetDetails.i18n'
 import Snippet from './Snippet'
 
@@ -12,13 +13,12 @@ interface SnippetDetailsProps {
   entityType: GetYamlSchemaQueryParams['entityType']
   selectedIcon?: string
   snippets?: YamlSnippetMetaData[]
-  height?: React.CSSProperties['height']
   onSnippetCopy?: (identifier: string) => Promise<void>
-  snippetYaml?: string
+  snippetFetchResponse?: SnippetFetchResponse
 }
 
 const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
-  const { height, entityType, onSnippetCopy, snippetYaml, selectedIcon } = props
+  const { entityType, onSnippetCopy, snippetFetchResponse, selectedIcon } = props
   const [snippets, setSnippets] = useState<YamlSnippetMetaData[]>()
   const [searchedSnippet, setSearchedSnippet] = useState('')
 
@@ -74,9 +74,14 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
         ) : null}
       </div>
       {snippets && snippets?.length > 0 ? (
-        <div className={css.snippets} style={{ height, overflow: 'auto' }}>
+        <div className={css.snippets}>
           {snippets?.map(snippet => (
-            <Snippet key={snippet.name} {...snippet} onSnippetCopy={onSnippetCopy} snippetYaml={snippetYaml} />
+            <Snippet
+              key={snippet.name}
+              {...snippet}
+              onSnippetCopy={onSnippetCopy}
+              snippetFetchResponse={snippetFetchResponse}
+            />
           ))}
         </div>
       ) : (

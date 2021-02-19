@@ -47,7 +47,6 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
     </div>
     <div
       class="snippets"
-      style="overflow: auto;"
     >
       <div
         class="flexCenter snippet"
@@ -935,7 +934,6 @@ exports[`Snippet Test Search a snippet 1`] = `
     </div>
     <div
       class="noSnippets fillSpace"
-      style=""
     >
       No snippets found.
     </div>

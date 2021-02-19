@@ -1117,6 +1117,8 @@ yamlBuilder:
   enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
   lineNumberLabel: On line number
   yamlError: Invalid or malformed yaml. Please fix the yaml and try again.
+  snippets:
+    noSnippetsFound: No snippets found.
 activityHistory:
   successfulActivity: Successful Activity
   failedActivity: Failed Activity

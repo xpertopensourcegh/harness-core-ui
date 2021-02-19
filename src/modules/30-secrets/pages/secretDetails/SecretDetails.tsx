@@ -22,7 +22,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
+import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 
@@ -72,6 +72,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
   const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'createdAt', 'updatedAt'])
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
+  const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const { loading, data, refetch, error } = useGetSecretV2({
     identifier: secretId,
     queryParams: { accountIdentifier: accountId, projectIdentifier: projectIdentifier, orgIdentifier: orgIdentifier },
@@ -126,12 +127,27 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   useEffect(() => {
     setSecretData(data?.data)
   }, [data?.data])
-  const { data: snippet, refetch: refetchSnippet } = useGetYamlSnippet({
+  const {
+    data: snippet,
+    refetch: refetchSnippet,
+    cancel,
+    loading: isFetchingSnippet,
+    error: errorFetchingSnippet
+  } = useGetYamlSnippet({
     identifier: '',
     lazy: true
   })
 
+  useEffect(() => {
+    setSnippetFetchResponse({
+      snippet: snippet?.data || '',
+      loading: isFetchingSnippet,
+      error: errorFetchingSnippet
+    })
+  }, [isFetchingSnippet])
+
   const onSnippetCopy = async (identifier: string): Promise<void> => {
+    cancel()
     await refetchSnippet({
       pathParams: {
         identifier
@@ -231,7 +247,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 bind={setYamlHandler}
                 onSnippetCopy={onSnippetCopy}
-                snippetYaml={snippet?.data}
+                snippetFetchResponse={snippetFetchResponse}
                 schema={secretSchema?.data}
                 isReadOnlyMode={false}
                 snippets={snippetData?.data?.yamlSnippets}

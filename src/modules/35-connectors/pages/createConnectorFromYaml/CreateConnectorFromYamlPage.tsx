@@ -11,7 +11,8 @@ import type {
   CompletionItemInterface,
   InvocationMapFunction,
   YamlBuilderHandlerBinding,
-  YamlBuilderProps
+  YamlBuilderProps,
+  SnippetFetchResponse
 } from '@common/interfaces/YAMLBuilderProps'
 import {
   useCreateConnector,
@@ -39,7 +40,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [snippetYaml, setSnippetYaml] = React.useState<string>()
+  const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const [editorContent, setEditorContent] = React.useState<Record<string, any>>()
   const { getString } = useStrings()
   const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
@@ -89,20 +90,26 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     }
   }
 
-  const { data: snippet, refetch, cancel } = useGetYamlSnippet({
-    identifier: '',
-    requestOptions: { headers: { accept: 'application/json' } },
-    lazy: true,
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+  const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
+    {
+      identifier: '',
+      requestOptions: { headers: { accept: 'application/json' } },
+      lazy: true,
+      queryParams: {
+        projectIdentifier,
+        orgIdentifier,
+        scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+      }
     }
-  })
+  )
 
   useEffect(() => {
-    setSnippetYaml(snippet?.data)
-  }, [snippet])
+    setSnippetFetchResponse({
+      snippet: snippet?.data || '',
+      loading: isFetchingSnippet,
+      error: errorFetchingSnippet
+    })
+  }, [isFetchingSnippet])
 
   const onSnippetCopy = async (identifier: string): Promise<void> => {
     cancel()
@@ -199,7 +206,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               snippets={snippetData?.data?.yamlSnippets}
               schema={connectorSchema?.data}
               onSnippetCopy={onSnippetCopy}
-              snippetYaml={snippetYaml}
+              snippetFetchResponse={snippetFetchResponse}
               existingJSON={editorContent}
               invocationMap={invocationMap}
               height="calc(100vh - 200px)"

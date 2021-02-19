@@ -61,7 +61,6 @@
 
 .tooltipLabel {
   color: white;
-  padding-right: var(--spacing-small);
 }
 
 .popoverContent {
@@ -69,4 +68,8 @@
   background-color: black;
   border-radius: 5px;
   padding: var(--spacing-xsmall) var(--spacing-small);
+}
+
+.loader {
+  margin-left: var(--spacing-small);
 }

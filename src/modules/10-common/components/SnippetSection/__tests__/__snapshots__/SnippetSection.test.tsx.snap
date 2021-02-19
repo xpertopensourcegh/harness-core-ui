@@ -156,7 +156,6 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
         </div>
         <div
           class="snippets"
-          style="overflow: auto;"
         >
           <div
             class="flexCenter snippet"

@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { useStrings } from 'framework/exports'
-import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
+import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import {
   usePostSecretViaYaml,
   useGetYamlSchema,
@@ -21,12 +21,17 @@ import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    accountId: string
+    projectIdentifier: string
+    orgIdentifier: string
+  }>()
   const { getString } = useStrings()
   useDocumentTitle(getString('createSecretYAML.createSecret'))
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
+  const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const { mutate: createSecret } = usePostSecretViaYaml({
     queryParams: { accountIdentifier: accountId },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
@@ -77,13 +82,24 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
       arrayFormat: 'repeat'
     }
   })
-  const { data: snippet, refetch: refetchSnippet } = useGetYamlSnippet({
-    identifier: '',
-    lazy: true
-  })
+  const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
+    {
+      identifier: '',
+      lazy: true
+    }
+  )
+
+  React.useEffect(() => {
+    setSnippetFetchResponse({
+      snippet: snippet?.data || '',
+      loading: isFetchingSnippet,
+      error: errorFetchingSnippet
+    })
+  }, [isFetchingSnippet])
 
   const onSnippetCopy = async (identifier: string): Promise<void> => {
-    await refetchSnippet({
+    cancel()
+    await refetch({
       pathParams: {
         identifier
       }
@@ -97,10 +113,10 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           fileName={getString('createSecretYAML.newSecret')}
           entityType={'Secrets'}
           bind={setYamlHandler}
-          height={400}
+          height="calc(100vh - 200px)"
           schema={secretSchema?.data}
           onSnippetCopy={onSnippetCopy}
-          snippetYaml={snippet?.data}
+          snippetFetchResponse={snippetFetchResponse}
           snippets={snippetData?.data?.yamlSnippets}
         />
         <Button

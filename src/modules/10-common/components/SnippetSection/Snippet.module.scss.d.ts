@@ -13,5 +13,6 @@ declare const styles: {
   readonly snippetIcon: string
   readonly tooltipLabel: string
   readonly popoverContent: string
+  readonly loader: string
 }
 export default styles

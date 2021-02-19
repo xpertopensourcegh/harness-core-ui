@@ -3,7 +3,9 @@ import { Icon, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
+import type { SnippetFetchResponse } from '@common/interfaces/YAMLBuilderProps'
 import SnippetDetails from './SnippetDetails'
 
 import css from './SnippetSection.module.scss'
@@ -11,17 +13,17 @@ import css from './SnippetSection.module.scss'
 export interface SnippetSectionProps {
   entityType: GetYamlSchemaQueryParams['entityType']
   showIconMenu?: boolean
-  height?: React.CSSProperties['height']
   width?: React.CSSProperties['width']
   snippets?: YamlSnippetMetaData[]
   onSnippetCopy?: (identifier: string) => Promise<void>
-  snippetYaml?: string
+  snippetFetchResponse?: SnippetFetchResponse
 }
 
 const SnippetSection: React.FC<SnippetSectionProps> = props => {
-  const { showIconMenu, entityType, height, snippets, onSnippetCopy, snippetYaml } = props
+  const { showIconMenu, entityType, snippets, onSnippetCopy, snippetFetchResponse } = props
   const [selectedIcon, setSelectedIcon] = useState<string | undefined>('')
   const [snippetList, setSnippetList] = useState<YamlSnippetMetaData[]>()
+  const { getString } = useStrings()
 
   useEffect(() => {
     setSnippetList(snippets)
@@ -72,13 +74,12 @@ const SnippetSection: React.FC<SnippetSectionProps> = props => {
             entityType={entityType}
             selectedIcon={selectedIcon}
             snippets={snippetList}
-            height={height}
             onSnippetCopy={onSnippetCopy}
-            snippetYaml={snippetYaml}
+            snippetFetchResponse={snippetFetchResponse}
           />
         </div>
       ) : (
-        <div className={cx(css.noSnippets, css.fillSpace)}>No snippets found.</div>
+        <div className={cx(css.noSnippets, css.fillSpace)}>{getString('yamlBuilder.snippets.noSnippetsFound')}</div>
       )}
     </div>
   )

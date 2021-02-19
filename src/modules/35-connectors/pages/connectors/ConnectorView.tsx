@@ -25,6 +25,7 @@ import TestConnection from '@connectors/components/TestConnection/TestConnection
 import type {
   CompletionItemInterface,
   InvocationMapFunction,
+  SnippetFetchResponse,
   YamlBuilderHandlerBinding,
   YamlBuilderProps
 } from '@common/interfaces/YAMLBuilderProps'
@@ -84,7 +85,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
 
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
-  const [snippetYaml, setSnippetYaml] = React.useState<string>()
+  const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const [isUpdating, setIsUpdating] = React.useState<boolean>(false)
   const { getString } = useStrings()
   const isHarnessManaged = props.response?.harnessManaged
@@ -227,23 +228,30 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }, [props.response])
 
-  const { data: snippet, refetch } = useGetYamlSnippet({
-    identifier: '',
-    requestOptions: { headers: { accept: 'application/json' } },
-    lazy: true,
-    mock: props.mockSnippetData,
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+  const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
+    {
+      identifier: '',
+      requestOptions: { headers: { accept: 'application/json' } },
+      lazy: true,
+      mock: props.mockSnippetData,
+      queryParams: {
+        projectIdentifier,
+        orgIdentifier,
+        scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+      }
     }
-  })
+  )
 
   useEffect(() => {
-    setSnippetYaml(snippet?.data)
-  }, [snippet])
+    setSnippetFetchResponse({
+      snippet: snippet?.data || '',
+      loading: isFetchingSnippet,
+      error: errorFetchingSnippet
+    })
+  }, [isFetchingSnippet])
 
   const onSnippetCopy = async (identifier: string): Promise<void> => {
+    cancel()
     await refetch({
       pathParams: {
         identifier
@@ -417,7 +425,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                   {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 'calc(100vh - 250px)' })}
                   snippets={snippetMetaData?.data?.yamlSnippets}
                   onSnippetCopy={onSnippetCopy}
-                  snippetYaml={snippetYaml}
+                  snippetFetchResponse={snippetFetchResponse}
                   schema={connectorSchema?.data}
                   isReadOnlyMode={false}
                   bind={setYamlHandler}

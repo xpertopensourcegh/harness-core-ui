@@ -1,5 +1,6 @@
 import type { CompletionItemKind } from 'vscode-languageserver-types'
-import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
+import type { GetDataError } from 'restful-react'
+import type { YamlSnippetMetaData, GetYamlSchemaQueryParams, Failure } from 'services/cd-ng'
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
@@ -37,7 +38,7 @@ export interface YamlBuilderProps {
   showIconMenu?: boolean
   snippets?: YamlSnippetMetaData[]
   onSnippetCopy?: (identifier: string) => Promise<void>
-  snippetYaml?: string
+  snippetFetchResponse?: SnippetFetchResponse
   onChange?: (isEditorDirty: boolean) => void
 }
 
@@ -60,3 +61,9 @@ export interface LanguageSettingInterface {
 }
 
 export type Theme = 'LIGHT' | 'DARK'
+
+export interface SnippetFetchResponse {
+  snippet: string
+  error?: GetDataError<Failure | Error> | null
+  loading: boolean
+}

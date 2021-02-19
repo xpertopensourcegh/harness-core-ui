@@ -106,7 +106,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     onExpressionTrigger,
     snippets,
     onSnippetCopy,
-    snippetYaml,
+    snippetFetchResponse,
     schema,
     onEnableEditMode,
     theme = 'LIGHT',
@@ -430,9 +430,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
         showIconMenu={showIconMenu}
         entityType={entityType}
         snippets={snippets}
-        height={height ?? DEFAULT_EDITOR_HEIGHT}
         onSnippetCopy={onSnippetCopy}
-        snippetYaml={snippetYaml}
+        snippetFetchResponse={snippetFetchResponse}
       />
     )
   }
