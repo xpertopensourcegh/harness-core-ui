@@ -12,6 +12,7 @@ import { TabTypes } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
+import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
@@ -39,7 +40,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
-
   return (
     <Drawer
       onClose={() => {
@@ -174,6 +174,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.PipelineVariables && <PipelineVariables />}
       {type === DrawerTypes.Templates && <PipelineTemplates />}
       {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
+      {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
       {type === DrawerTypes.FailureStrategy && selectedStageId ? (
         <FailureStrategy
           selectedStage={selectedStage || {}}

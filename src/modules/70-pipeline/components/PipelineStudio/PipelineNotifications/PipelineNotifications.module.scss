@@ -1,22 +1,21 @@
 .pipeline-notifications {
-  display: grid;
-  grid-template-rows: 52px 1fr;
-  height: 100%;
-
   .header {
-    height: 45px;
-    padding: var(--spacing-small) var(--spacing-large);
-    border-bottom: 2px solid var(--grey-200);
-    background: var(--white);
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
+    height: 72px;
+    padding: var(--spacing-small) var(--spacing-large) !important;
+    border-bottom: var(--grey-200) !important;
+    background: var(--white) !important;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%) !important;
+
+    display: flex;
+    align-items: center;
+    /* identical to box height, or 133% */
   }
 
-  .content {
-    overflow: hidden;
-    background-color: var(--white);
-    padding: var(--spacing-large);
-    & > div {
-      overflow: auto;
-    }
+  .notificationHeaderText {
+    font-weight: 600 !important;
+    font-size: 24px !important;
+    line-height: 32px !important;
+
+    color: #22272d !important;
   }
 }

@@ -94,7 +94,7 @@ describe('Notification Table test', () => {
       })
     }),
     test('New Notfication', async () => {
-      const addNotification = getByText('+ Add Notification')
+      const addNotification = getByText('Notifications')
       await act(async () => {
         fireEvent.click(addNotification!)
       })

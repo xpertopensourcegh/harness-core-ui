@@ -154,6 +154,7 @@ lastRunAtDate: '{{$.lastExecutionTs}}: '
 lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
 emptyDeployments: _ _ _ _ _ _
 recentActivity: Recent Activity
+allNotificationFormat: All Notification Format
 lastUpdatedSort: '{{$.lastUpdated}}'
 AZ09: A - Z, 0 - 9
 ZA90: Z - A, 9 - 0

@@ -3,6 +3,6 @@
 declare const styles: {
   readonly pipelineNotifications: string
   readonly header: string
-  readonly content: string
+  readonly notificationHeaderText: string
 }
 export default styles

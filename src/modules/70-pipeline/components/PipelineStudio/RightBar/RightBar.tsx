@@ -35,7 +35,7 @@ import {
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { DrawerTypes, SplitViewTypes } from '../PipelineContext/PipelineActions'
+import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './RightBar.module.scss'
 
 interface CodebaseValues {
@@ -63,8 +63,7 @@ export const RightBar = (): JSX.Element => {
       pipeline,
       pipelineView,
       pipelineView: {
-        drawerData: { type },
-        splitViewData: { type: splitViewType }
+        drawerData: { type }
       }
     },
     view,
@@ -262,15 +261,15 @@ export const RightBar = (): JSX.Element => {
 
       <Button
         className={cx(css.iconButton, css.notificationsIcon, {
-          [css.selected]: splitViewType === SplitViewTypes.Notifications
+          [css.selected]: type === DrawerTypes.PipelineVariables
         })}
         onClick={() => {
           updatePipelineView({
             ...pipelineView,
-            isSplitViewOpen: true,
-            isDrawerOpened: false,
-            drawerData: { type: DrawerTypes.AddStep },
-            splitViewData: { type: SplitViewTypes.Notifications }
+            isDrawerOpened: true,
+            drawerData: { type: DrawerTypes.PipelineNotifications },
+            isSplitViewOpen: false,
+            splitViewData: {}
           })
         }}
         font={{ weight: 'semi-bold', size: 'xsmall' }}

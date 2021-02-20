@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Color, Button, Popover, Switch, Pagination, Container, Icon } from '@wings-software/uicore'
+import { Text, Layout, Color, Button, Popover, Switch, Container, Icon, Select } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Menu, PopoverInteractionKind, Position, Tag } from '@blueprintjs/core'
 import { startCase } from 'lodash-es'
@@ -12,6 +12,7 @@ import type { NotificationType } from '@notifications/interfaces/Notifications'
 import { useNotificationModal } from './useNotificationModal'
 import { PipelineEventType } from './Steps/PipelineEvents'
 import { Actions } from './NotificationUtils'
+import css from './NotificationTable.module.scss'
 
 export interface NotificationTableProps {
   data: NotificationRules[]
@@ -156,7 +157,7 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRules>> = ({ row, column 
 }
 
 const NotificationTable: React.FC<NotificationTableProps> = props => {
-  const { data, gotoPage, onUpdate, totalItems = 0, pageSize = 5, totalPages = 1, pageIndex = 0 } = props
+  const { data, onUpdate } = props
   const { getString } = useStrings()
   const { openNotificationModal, closeNotificationModal } = useNotificationModal({
     onCreateOrUpdate: (_data?: NotificationRules, _index?: number, _action?: Actions) => {
@@ -213,21 +214,34 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
     [onUpdate, openNotificationModal]
   )
   return (
-    <>
-      <Container padding={{ bottom: 'huge' }}>
-        <Table<NotificationRules> columns={columns} data={data} />
-        <Button minimal onClick={() => openNotificationModal()}>
-          {getString('addNotification')}
-        </Button>
+    <Container>
+      <Layout.Horizontal flex className={css.headerActions}>
+        <Button
+          intent="primary"
+          text={getString('notifications')}
+          icon="plus"
+          id="newNotificationBtn"
+          onClick={() => openNotificationModal()}
+        />
+
+        <Select
+          value={{
+            label: getString('allNotificationFormat'),
+            value: getString('allNotificationFormat')
+          }}
+          items={[
+            {
+              label: getString('allNotificationFormat'),
+              value: getString('allNotificationFormat')
+            }
+          ]}
+          className={css.filterDropdown}
+        />
+      </Layout.Horizontal>
+      <Container padding={{ bottom: 'huge' }} className={css.content}>
+        <Table<NotificationRules> columns={columns} data={data} className={css.notificationTable} />
       </Container>
-      <Pagination
-        itemCount={totalItems}
-        pageSize={pageSize}
-        pageCount={totalPages}
-        pageIndex={pageIndex}
-        gotoPage={gotoPage}
-      />
-    </>
+    </Container>
   )
 }
 

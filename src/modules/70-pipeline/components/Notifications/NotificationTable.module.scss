@@ -1,0 +1,24 @@
+.filterDropdown {
+  width: 30% !important;
+}
+
+.headerActions {
+  padding: var(--spacing-medium) !important;
+  border-bottom: 2px solid var(--grey-200) !important;
+  padding: var(--spacing-large) var(--spacing-xlarge) !important;
+  height: 72px;
+}
+.notificationTable {
+  padding: var(--spacing-medium)  var(--spacing-xlarge);
+}
+
+.content {
+  overflow: hidden;
+
+  & > div {
+    overflow: auto;
+  }
+  margin-top: var(--spacing-large) !important;
+  background-color: var(--grey-100) !important;
+  padding: var(--spacing-large) !important;
+}

@@ -27,7 +27,8 @@ export enum DrawerTypes {
   ExecutionStrategy = 'ExecutionStrategy',
   AddService = 'AddService',
   ConfigureService = 'ConfigureService',
-  FailureStrategy = 'FailureStrategy'
+  FailureStrategy = 'FailureStrategy',
+  PipelineNotifications = 'PipelineNotifications'
 }
 
 export const DrawerSizes: { [key: string]: number } = {
@@ -38,7 +39,8 @@ export const DrawerSizes: { [key: string]: number } = {
   ExecutionStrategy: 1000,
   AddService: 485,
   ConfigureService: 600,
-  FailureStrategy: 600
+  FailureStrategy: 600,
+  PipelineNotifications: 1500
 }
 
 export enum SplitViewTypes {
