@@ -49,8 +49,8 @@
   }
 }
 .selectBtn {
-  position: absolute;
-  bottom: var(--spacing-huge);
+  position: absolute !important;
+  bottom: var(--spacing-huge) !important;
 }
 
 .preview {

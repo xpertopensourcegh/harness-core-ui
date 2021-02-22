@@ -141,13 +141,24 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
             intent="primary"
             text={getString('filters.apply')}
             className={css.selectBtn}
-            onClick={() =>
-              updatePipelineView({
-                ...pipelineView,
-                isDrawerOpened: false,
-                drawerData: { type: DrawerTypes.ExecutionStrategy }
+            onClick={() => {
+              return updateStage(
+                produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
+                  const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
+                  if (draft.stage && draft.stage.spec) {
+                    draft.stage.failureStrategies = jsonFromYaml.failureStrategies
+                    ;(draft.stage.spec as DeploymentStageConfig).execution =
+                      (jsonFromYaml.spec as DeploymentStageConfig)?.execution || {}
+                  }
+                }).stage as StageElementConfig
+              ).then(() => {
+                updatePipelineView({
+                  ...pipelineView,
+                  isDrawerOpened: false,
+                  drawerData: { type: DrawerTypes.ExecutionStrategy }
+                })
               })
-            }
+            }}
             disabled={isSubmitDisabled}
           />
         </Layout.Vertical>

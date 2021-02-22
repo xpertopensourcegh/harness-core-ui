@@ -146,7 +146,7 @@ export interface PipelineContextInterface {
   ) => { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined }
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: NgPipeline) => void
-  updateStage: (stage: StageElementConfig) => void
+  updateStage: (stage: StageElementConfig) => Promise<void>
 }
 
 interface PipelinePayload {
@@ -334,7 +334,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   renderPipelineStage: () => <div />,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
-  updateStage: () => void 0,
+  updateStage: () => new Promise<void>(() => undefined),
   getStageFromPipeline: () => ({ stage: undefined, parent: undefined }),
   setYamlHandler: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
@@ -396,7 +396,7 @@ export const PipelineProvider: React.FC<{
   )
 
   const updateStage = React.useCallback(
-    (newStage: StageElementConfig) => {
+    async (newStage: StageElementConfig) => {
       function _updateStages(stages: StageElementWrapperConfig[]): StageElementWrapperConfig[] {
         return stages.map(node => {
           if (node.stage?.identifier === newStage.identifier) {
@@ -412,7 +412,7 @@ export const PipelineProvider: React.FC<{
         })
       }
 
-      updatePipeline({
+      return updatePipeline({
         ...state.pipeline,
         stages: _updateStages(state.pipeline.stages || [])
       })
