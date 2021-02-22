@@ -95,8 +95,9 @@ describe('Unit tests for CV service page', () => {
             orgIdentifier: 'harness_test',
             projectIdentifier: 'praveenproject',
             envIdentifier: 'Prod',
+            envName: 'Production',
             risk: null,
-            serviceRisks: [{ serviceIdentifier: 'manager', risk: -1 }]
+            serviceRisks: [{ serviceIdentifier: 'manager', serviceName: 'Manager3', risk: -1 }]
           }
         ]
       },
@@ -115,7 +116,7 @@ describe('Unit tests for CV service page', () => {
     )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
 
-    const envOption = getByText('Environment: Prod')
+    const envOption = getByText('Environment: Production')
     expect(useGetEnvServiceRiskSpy).toHaveBeenCalledTimes(1)
     expect(useGetCategoryRiskMapSpy).toHaveBeenCalledTimes(1)
     await waitFor(() => fireEvent.click(envOption))
