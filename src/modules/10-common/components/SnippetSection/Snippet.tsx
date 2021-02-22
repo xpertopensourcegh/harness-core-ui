@@ -8,7 +8,7 @@ import { getIconNameForTag } from '@common/utils/SnippetUtils'
 import type { YamlSnippetMetaData } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import type { SnippetFetchResponse } from '@common/interfaces/YAMLBuilderProps'
-import { shouldShowError, HTTP_STATUS_OK } from '@common/utils/errorUtils'
+import { shouldShowError } from '@common/utils/errorUtils'
 
 import css from './Snippet.module.scss'
 
@@ -26,9 +26,9 @@ const Snippet: React.FC<SnippetInterface> = props => {
   useEffect(() => {
     const { snippet = '', loading, error } = snippetFetchResponse || {}
     if (!loading) {
-      if (error && error?.status !== HTTP_STATUS_OK) {
-        shouldShowError(error?.message)
-          ? setTooltipLabel(error?.message || '')
+      if (error) {
+        shouldShowError(error)
+          ? setTooltipLabel(error.data?.message || error?.message)
           : setTooltipLabel(getString('somethingWentWrong'))
       } else {
         navigator?.clipboard?.writeText(snippet)

@@ -1,4 +1,4 @@
-export const HTTP_STATUS_OK = 200
+const HTTP_STATUS_OK = 200
 
 export function shouldShowError(e: any): boolean {
   if (e?.status !== HTTP_STATUS_OK) {

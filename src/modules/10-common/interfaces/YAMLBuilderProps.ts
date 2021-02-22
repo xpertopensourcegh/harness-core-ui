@@ -1,6 +1,5 @@
 import type { CompletionItemKind } from 'vscode-languageserver-types'
-import type { GetDataError } from 'restful-react'
-import type { YamlSnippetMetaData, GetYamlSchemaQueryParams, Failure } from 'services/cd-ng'
+import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
@@ -64,6 +63,6 @@ export type Theme = 'LIGHT' | 'DARK'
 
 export interface SnippetFetchResponse {
   snippet: string
-  error?: GetDataError<Failure | Error> | null
+  error?: any
   loading: boolean
 }
