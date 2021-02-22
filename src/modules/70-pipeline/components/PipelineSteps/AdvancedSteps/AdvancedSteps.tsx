@@ -11,14 +11,13 @@ import {
 } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { FailureStrategyPanelMode } from './FailureStrategyPanel/StrategySelection/StrategyConfig'
 
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
+import { Modes } from './common'
 import stepCss from '../Steps/Steps.module.scss'
-
 import css from './AdvancedSteps.module.scss'
 
 export interface AdvancedStepsProps extends StepCommandsProps {
@@ -66,9 +65,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                     summary={getString('failureStrategy.title')}
                     details={
                       <FailureStrategyPanel
-                        mode={
-                          hasStepGroupAncestor ? FailureStrategyPanelMode.STEP_GROUP : FailureStrategyPanelMode.STEP
-                        }
+                        mode={hasStepGroupAncestor ? Modes.STEP_GROUP : Modes.STEP}
                         formikProps={formikProps}
                       />
                     }

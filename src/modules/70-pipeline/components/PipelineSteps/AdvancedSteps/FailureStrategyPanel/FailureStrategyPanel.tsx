@@ -8,8 +8,9 @@ import { String, useStrings } from 'framework/exports'
 import type { Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
-import { allowedStrategiesAsPerStep, FailureStrategyPanelMode } from './StrategySelection/StrategyConfig'
+import { allowedStrategiesAsPerStep } from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
+import { Modes } from '../common'
 import css from './FailureStrategyPanel.module.scss'
 
 /**
@@ -20,7 +21,7 @@ import css from './FailureStrategyPanel.module.scss'
 
 export interface FailureStrategyPanelProps {
   formikProps: FormikProps<Values>
-  mode: FailureStrategyPanelMode
+  mode: Modes
 }
 
 export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
@@ -32,7 +33,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
-  const isDefaultStageStrategy = mode === FailureStrategyPanelMode.STAGE && selectedStategyNum === 0
+  const isDefaultStageStrategy = mode === Modes.STAGE && selectedStategyNum === 0
 
   async function handleTabChange(n: number): Promise<void> {
     await submitForm()

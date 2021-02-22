@@ -18,6 +18,7 @@ import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
+import SkipCondition from '../SkipCondition/SkipCondition'
 
 import css from './RightDrawer.module.scss'
 
@@ -182,6 +183,25 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
             if (pipelineStage && pipelineStage.stage) {
               pipelineStage.stage.failureStrategies = failureStrategies
+              updatePipeline(pipeline)
+            }
+
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: { type: DrawerTypes.ConfigureService }
+            })
+          }}
+        />
+      ) : null}
+
+      {type === DrawerTypes.SkipCondition && selectedStageId ? (
+        <SkipCondition
+          selectedStage={selectedStage || {}}
+          onUpdate={({ skipCondition }) => {
+            const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
+            if (pipelineStage && pipelineStage.stage) {
+              pipelineStage.stage.skipCondition = skipCondition?.trim()
               updatePipeline(pipeline)
             }
 

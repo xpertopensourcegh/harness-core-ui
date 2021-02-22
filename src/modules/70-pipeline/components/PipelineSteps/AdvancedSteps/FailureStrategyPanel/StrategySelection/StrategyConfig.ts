@@ -1,3 +1,5 @@
+import { Modes } from '../../common'
+
 export enum Strategy {
   Abort = 'Abort',
   StageRollback = 'StageRollback',
@@ -17,25 +19,14 @@ export enum ErrorType {
   DelegateProvisioning = 'DelegateProvisioning'
 }
 
-export enum FailureStrategyPanelMode {
-  STAGE = 'STAGE',
-  STEP_GROUP = 'STEP_GROUP',
-  STEP = 'STEP'
-}
-
-export const allowedStrategiesAsPerStep: Record<FailureStrategyPanelMode, Strategy[]> = {
-  [FailureStrategyPanelMode.STEP]: [
-    Strategy.ManualIntervention,
-    Strategy.StageRollback,
-    Strategy.Retry,
-    Strategy.MarkAsSuccess
-  ],
-  [FailureStrategyPanelMode.STEP_GROUP]: [
+export const allowedStrategiesAsPerStep: Record<Modes, Strategy[]> = {
+  [Modes.STEP]: [Strategy.ManualIntervention, Strategy.StageRollback, Strategy.Retry, Strategy.MarkAsSuccess],
+  [Modes.STEP_GROUP]: [
     Strategy.ManualIntervention,
     Strategy.StageRollback,
     Strategy.StepGroupRollback,
     Strategy.Retry,
     Strategy.MarkAsSuccess
   ],
-  [FailureStrategyPanelMode.STAGE]: [Strategy.StageRollback, Strategy.Retry, Strategy.MarkAsSuccess]
+  [Modes.STAGE]: [Strategy.StageRollback, Strategy.Retry, Strategy.MarkAsSuccess]
 }

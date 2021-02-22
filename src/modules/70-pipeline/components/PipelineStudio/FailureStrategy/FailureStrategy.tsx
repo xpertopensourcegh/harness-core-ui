@@ -8,11 +8,11 @@ import { useStrings } from 'framework/exports'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
 import {
   ErrorType,
-  Strategy,
-  FailureStrategyPanelMode
+  Strategy
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 
 import { getFailureStrategiesValidationSchema } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/validation'
+import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 
 export interface FailureStrategyProps {
   selectedStage: any
@@ -55,7 +55,7 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
             </div>
             <div className={Classes.DRAWER_BODY}>
               <div className={Classes.DIALOG_BODY}>
-                <FailureStrategyPanel mode={FailureStrategyPanelMode.STAGE} formikProps={formik} />
+                <FailureStrategyPanel mode={Modes.STAGE} formikProps={formik} />
               </div>
             </div>
             <div className={Classes.DRAWER_FOOTER}>

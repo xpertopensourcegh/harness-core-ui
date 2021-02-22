@@ -201,7 +201,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --rulesdir ./scripts/eslint-rules",
+      "eslint --rulesdir ./scripts/eslint-rules --resolve-plugins-relative-to",
       "sh scripts/typecheck-staged.sh",
       "prettier --check"
     ],

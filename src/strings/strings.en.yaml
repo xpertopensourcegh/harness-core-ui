@@ -360,12 +360,14 @@ endedAt: 'Ended at:'
 duration: 'Duration:'
 skipped: 'Step has been skipped.'
 skipCondition: 'Skip condition:'
+skipConditionValidation: 'Skip condition is required.'
 learnMore: Learn more
 clipboardCopySuccess: Successfully copied to clipboard
 clipboardCopyFail: Copy to clipboard has failed
 skipConditionsTitle: Skip Conditions
 skipConditionTitle: Skip Condition
 skipConditionLabel: If the JEXL condition evaluates to true, skip this step
+skipConditionStageLabel: If the JEXL condition evaluates to true, skip this stage
 skipConditionHelpText: |
   In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
 

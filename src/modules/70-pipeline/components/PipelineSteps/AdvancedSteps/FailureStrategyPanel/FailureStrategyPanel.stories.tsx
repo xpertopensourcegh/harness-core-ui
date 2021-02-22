@@ -6,7 +6,7 @@ import { Card, H3 } from '@blueprintjs/core'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import FailureStrategyPanel from './FailureStrategyPanel'
-import type { FailureStrategyPanelMode } from './StrategySelection/StrategyConfig'
+import type { Modes } from '../common'
 
 export default {
   title: 'Pipelines / Pipeline Steps / Failure Strategies',
@@ -17,7 +17,7 @@ interface BasicArgs {
   data: {
     failureStrategies: any[]
   }
-  mode: FailureStrategyPanelMode
+  mode: Modes
 }
 
 export const Basic: Story<BasicArgs> = args => {

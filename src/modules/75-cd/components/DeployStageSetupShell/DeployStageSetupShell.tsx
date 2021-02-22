@@ -102,6 +102,16 @@ export default function DeployStageSetupShell(): JSX.Element {
     })
   }
 
+  function openSkipConditionPanel(): void {
+    updatePipelineView({
+      ...pipelineView,
+      isDrawerOpened: true,
+      drawerData: {
+        type: DrawerTypes.SkipCondition
+      }
+    })
+  }
+
   React.useEffect(() => {
     if (layoutRef.current) {
       const parent = layoutRef.current.parentElement
@@ -329,20 +339,28 @@ export default function DeployStageSetupShell(): JSX.Element {
               />
             }
           />
-          {selectedTabId === i18n.executionLabel ? (
-            <React.Fragment>
-              <div className={css.spacer} />
-              <Button
-                minimal
-                intent="primary"
-                className={css.failureStrategy}
-                onClick={openFailureStrategyPanel}
-                rightIcon="cog"
-              >
-                {getString('failureStrategy.title')}
-              </Button>
-            </React.Fragment>
-          ) : null}
+          <React.Fragment>
+            <div className={css.spacer} />
+            <Button
+              minimal
+              intent="primary"
+              className={css.failureStrategy}
+              onClick={openFailureStrategyPanel}
+              rightIcon="cog"
+            >
+              {getString('failureStrategy.title')}
+            </Button>
+
+            <Button
+              minimal
+              intent="primary"
+              className={css.failureStrategy}
+              onClick={openSkipConditionPanel}
+              rightIcon="conditional-skip"
+            >
+              {getString('skipConditionTitle')}
+            </Button>
+          </React.Fragment>
         </Tabs>
       </Layout.Horizontal>
     </section>

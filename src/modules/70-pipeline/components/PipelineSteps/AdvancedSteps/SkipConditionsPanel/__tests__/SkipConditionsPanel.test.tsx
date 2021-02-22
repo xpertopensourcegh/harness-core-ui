@@ -1,0 +1,21 @@
+import React from 'react'
+import { render } from '@testing-library/react'
+import { Formik } from 'formik'
+import { TestWrapper } from '@common/utils/testUtils'
+import SkipConditionsPanel from '../SkipConditionsPanel'
+
+describe('Skip Conditions Panel tests', () => {
+  test('Step level conditions render', () => {
+    const { queryByText } = render(
+      <TestWrapper>
+        <Formik initialValues={{}} onSubmit={() => void 0}>
+          {() => {
+            return <SkipConditionsPanel />
+          }}
+        </Formik>
+      </TestWrapper>
+    )
+
+    expect(queryByText('If the JEXL condition evaluates to true, skip this step')).toBeTruthy()
+  })
+})

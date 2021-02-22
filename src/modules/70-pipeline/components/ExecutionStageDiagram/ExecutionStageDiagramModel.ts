@@ -13,7 +13,8 @@ import {
   getStatusProps,
   getArrowsColor,
   GroupState,
-  calculateDepthCount
+  calculateDepthCount,
+  getIconStyleBasedOnStatus
 } from './ExecutionStageDiagramUtils'
 import * as Diagram from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
@@ -90,9 +91,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         ),
         width: nodeStyle.width,
         height: nodeStyle.height,
-        iconStyle: {
-          color: isSelected && stage.status !== ExecutionPipelineItemStatus.NOT_STARTED ? 'var(--white)' : undefined
-        },
+        iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
         icon: stage.icon,
         skipCondition: stage?.skipCondition,
         status: stage.status

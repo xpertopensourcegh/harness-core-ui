@@ -150,6 +150,20 @@ export const getStatusProps = (
   return { secondaryIconStyle, secondaryIcon: secondaryIcon, secondaryIconProps }
 }
 
+export const getIconStyleBasedOnStatus = (
+  status: ExecutionPipelineItemStatus,
+  isSelected: boolean
+): React.CSSProperties => {
+  let toReturn: React.CSSProperties = {}
+  if (status === ExecutionPipelineItemStatus.SKIPPED) {
+    toReturn = { color: 'var(--grey-500)' }
+  }
+  if (isSelected && status !== ExecutionPipelineItemStatus.NOT_STARTED) {
+    toReturn = { color: 'var(--white)' }
+  }
+  return toReturn
+}
+
 export const getStageFromExecutionPipeline = <T>(
   data: ExecutionPipeline<T>,
   identifier = '-1'

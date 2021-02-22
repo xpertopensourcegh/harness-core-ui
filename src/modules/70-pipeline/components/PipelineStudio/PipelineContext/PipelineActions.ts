@@ -28,7 +28,8 @@ export enum DrawerTypes {
   AddService = 'AddService',
   ConfigureService = 'ConfigureService',
   FailureStrategy = 'FailureStrategy',
-  PipelineNotifications = 'PipelineNotifications'
+  PipelineNotifications = 'PipelineNotifications',
+  SkipCondition = 'SkipCondition'
 }
 
 export const DrawerSizes: { [key: string]: React.CSSProperties['width'] } = {
@@ -40,7 +41,8 @@ export const DrawerSizes: { [key: string]: React.CSSProperties['width'] } = {
   AddService: 485,
   ConfigureService: 600,
   FailureStrategy: 600,
-  PipelineNotifications: '100%'
+  PipelineNotifications: '100%',
+  SkipCondition: 600
 }
 
 export enum SplitViewTypes {
