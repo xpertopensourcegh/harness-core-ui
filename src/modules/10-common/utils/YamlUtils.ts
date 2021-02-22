@@ -14,6 +14,8 @@ const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
  * @returns exactly matching json path in the tree
  */
 const findLeafToParentPath = (jsonObj: object, leafNode: string, delimiter = '.'): string | undefined => {
+  // to remove all leading non-characters
+  const leaf = leafNode.replace(/^[^a-zA-Z]+/, '')
   const matchingPath: string[] = []
   function findPath(currJSONObj: object, currentDepth: number, previous?: string) {
     Object.keys(currJSONObj).forEach((key: string) => {
@@ -22,12 +24,12 @@ const findLeafToParentPath = (jsonObj: object, leafNode: string, delimiter = '.'
       const isObject = type === '[object Object]' || type === '[object Array]'
       const newKey = previous ? previous + delimiter + key : key
       if (isObject && Object.keys(value).length) {
-        if (key.match(leafNode)) {
+        if (key.match(leaf)) {
           matchingPath.push(newKey)
         }
         return findPath(value, currentDepth + 1, newKey)
       }
-      if (newKey.match(leafNode)) {
+      if (newKey.match(leaf)) {
         matchingPath.push(newKey)
       }
     })
