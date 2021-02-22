@@ -3,7 +3,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat,
   Types
-} from '../StepsTransformValuesUtils'
+} from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 
 jest.mock('uuid', () => ({
   v4: jest.fn(() => 'id'),

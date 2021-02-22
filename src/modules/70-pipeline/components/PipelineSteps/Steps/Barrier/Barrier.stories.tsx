@@ -5,7 +5,7 @@ import { stringify } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
-import { factory, TestStepWidget } from '../__tests__/StepTestUtil'
+import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { BarrierStep } from './Barrier'
 factory.registerStep(new BarrierStep())
 

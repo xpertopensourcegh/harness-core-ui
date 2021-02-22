@@ -25,9 +25,9 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { StepType } from '../../PipelineStepInterface'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep, StepProps } from '../../PipelineStep'
-import stepCss from '../Steps.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 type BarrierData = StepElementConfig
 

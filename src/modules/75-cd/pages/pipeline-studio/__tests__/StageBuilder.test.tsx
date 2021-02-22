@@ -12,8 +12,12 @@ import {
   YamlResponse
 } from '@pipeline/components/PipelineStudio/__tests__/PipelineStudioMocks'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
-import services from '@pipeline/components/PipelineSteps/Steps/DeployServiceStep/__tests__/serviceMock.ts'
-import environments from '@pipeline/components/PipelineSteps/Steps/DeployEnvStep/__tests__/mock.json'
+import services from '@cd/components/PipelineSteps/DeployServiceStep/__tests__/serviceMock.ts'
+import environments from '@cd/components/PipelineSteps/DeployEnvStep/__tests__/mock.json'
+// eslint-disable-next-line no-restricted-imports
+import '@cd/components/PipelineSteps'
+// eslint-disable-next-line no-restricted-imports
+import '@ci/components/PipelineSteps'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))

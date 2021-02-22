@@ -1,0 +1,29 @@
+import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+
+import { RunStep } from './RunStep/RunStep'
+import { PluginStep } from './PluginStep/PluginStep'
+import { GCRStep } from './GCRStep/GCRStep'
+import { ECRStep } from './ECRStep/ECRStep'
+import { SaveCacheGCSStep } from './SaveCacheGCSStep/SaveCacheGCSStep'
+import { RestoreCacheGCSStep } from './RestoreCacheGCSStep/RestoreCacheGCSStep'
+import { SaveCacheS3Step } from './SaveCacheS3Step/SaveCacheS3Step'
+import { RestoreCacheS3Step } from './RestoreCacheS3Step/RestoreCacheS3Step'
+import { DockerHubStep } from './DockerHubStep/DockerHubStep'
+import { GCSStep } from './GCSStep/GCSStep'
+import { S3Step } from './S3Step/S3Step'
+import { JFrogArtifactoryStep } from './JFrogArtifactoryStep/JFrogArtifactoryStep'
+import { Dependency } from './Dependency/Dependency'
+
+factory.registerStep(new RunStep())
+factory.registerStep(new PluginStep())
+factory.registerStep(new GCRStep())
+factory.registerStep(new ECRStep())
+factory.registerStep(new SaveCacheGCSStep())
+factory.registerStep(new RestoreCacheGCSStep())
+factory.registerStep(new SaveCacheS3Step())
+factory.registerStep(new RestoreCacheS3Step())
+factory.registerStep(new DockerHubStep())
+factory.registerStep(new GCSStep())
+factory.registerStep(new S3Step())
+factory.registerStep(new JFrogArtifactoryStep())
+factory.registerStep(new Dependency())

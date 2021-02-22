@@ -7,7 +7,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 
-import { factory, TestStepWidget } from '../__tests__/StepTestUtil'
+import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { CustomVariables } from './CustomVariables'
 
 factory.registerStep(new CustomVariables())

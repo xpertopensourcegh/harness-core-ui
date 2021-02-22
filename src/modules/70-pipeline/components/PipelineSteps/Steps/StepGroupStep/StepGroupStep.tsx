@@ -7,10 +7,10 @@ import type { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepGroupElement } from 'services/cd-ng'
-import { StepType } from '../../PipelineStepInterface'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import i18n from './StepGroupStep.i18n'
-import { PipelineStep } from '../../PipelineStep'
-import stepCss from '../Steps.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface StepGroupWidgetProps {
   initialValues: StepGroupElement

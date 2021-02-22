@@ -21,6 +21,10 @@ import type {
 import type { UseStringsReturn } from 'framework/exports'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
+// eslint-disable-next-line no-restricted-imports
+import '@cd/components/PipelineSteps'
+// eslint-disable-next-line no-restricted-imports
+import '@ci/components/PipelineSteps'
 
 export const clearRuntimeInput = (template: NgPipeline): NgPipeline => {
   return JSON.parse(

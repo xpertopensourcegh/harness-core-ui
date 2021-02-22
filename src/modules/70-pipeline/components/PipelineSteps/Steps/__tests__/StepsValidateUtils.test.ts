@@ -1,7 +1,7 @@
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { render } from 'mustache'
-import { validate, validateInputSet, Types } from '../StepsValidateUtils'
+import { validate, validateInputSet, Types } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 
 const strings = {
   fieldRequired: '{{field}} is a required field',

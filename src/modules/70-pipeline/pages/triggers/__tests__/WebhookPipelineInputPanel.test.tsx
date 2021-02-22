@@ -1,13 +1,11 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, queryByAttribute } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
-import { renderHook } from '@testing-library/react-hooks'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import * as pipelineNg from 'services/pipeline-ng'
-import { useStrings } from 'framework/exports'
 import strings from 'strings/strings.en.yaml'
 import { PipelineContext } from '@pipeline/exports'
+import { TestWrapper } from '@common/utils/testUtils'
 import {
   GetTemplateFromPipelineResponse,
   GetTemplateFromPipelineResponseEmpty,
@@ -20,43 +18,26 @@ import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
-const value: AppStoreContextProps = {
-  strings,
-  featureFlags: {},
-  updateAppStore: jest.fn()
-}
 
-const mockRedirecToWizard = jest.fn()
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse)
-}))
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn(() => {
-    return {
-      projectIdentifier: 'projectIdentifier',
-      orgIdentifier: 'orgIdentifier',
-      accountId: 'accountId'
-    }
-  }),
-  useHistory: jest.fn(() => {
-    mockRedirecToWizard()
-    return { push: jest.fn() }
-  })
 }))
 
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
-)
-const { result } = renderHook(() => useStrings(), { wrapper })
-
 function WrapperComponent(): JSX.Element {
   return (
-    <Formik initialValues={pipelineInputInitialValues} onSubmit={() => undefined}>
-      {formikProps => (
-        <FormikForm>
-          <StringsContext.Provider value={value}>
+    <TestWrapper
+      path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+      pathParams={{
+        projectIdentifier: 'projectIdentifier',
+        orgIdentifier: 'orgIdentifier',
+        accountId: 'accountId'
+      }}
+    >
+      <Formik initialValues={pipelineInputInitialValues} onSubmit={() => undefined}>
+        {formikProps => (
+          <FormikForm>
             <PipelineContext.Provider
               value={
                 {
@@ -70,10 +51,10 @@ function WrapperComponent(): JSX.Element {
             >
               <WebhookPipelineInputPanel {...defaultTriggerConfigDefaultProps} formikProps={formikProps} />
             </PipelineContext.Provider>
-          </StringsContext.Provider>
-        </FormikForm>
-      )}
-    </Formik>
+          </FormikForm>
+        )}
+      </Formik>
+    </TestWrapper>
   )
 }
 
@@ -93,8 +74,7 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
 
       const { container } = render(<WrapperComponent />)
-      expect(result.current.getString('pipeline-triggers.pipelineInputLabel')).not.toBeNull()
-      await waitFor(() => expect('stage-1').not.toBeNull())
+      await waitFor(() => expect(strings['pipeline-triggers'].pipelineInputLabel).toBeTruthy())
       expect(container).toMatchSnapshot()
     })
 
@@ -112,8 +92,8 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
 
       const { container } = render(<WrapperComponent />)
-      expect(result.current.getString('pipeline-triggers.pipelineInputLabel')).not.toBeNull()
-      await waitFor(() => expect('stage-1').not.toBeNull())
+      await waitFor(() => expect(strings['pipeline-triggers'].pipelineInputLabel).toBeTruthy())
+      await waitFor(() => queryByAttribute('placeholder', container, 'Specify a namespace'))
       expect(container).toMatchSnapshot()
     })
   })

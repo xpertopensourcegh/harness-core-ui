@@ -59,6 +59,8 @@ import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
+import './components/PipelineSteps'
+
 const RedirectToCDHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
   return <Redirect to={routes.toCDHome(params)} />
