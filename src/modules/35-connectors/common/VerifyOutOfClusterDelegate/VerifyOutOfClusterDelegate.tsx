@@ -135,20 +135,26 @@ const VerifyOutOfClusterDelegate: React.FC<
   const getPermissionsLink = (): string => {
     switch (props.type) {
       case Connectors.KUBERNETES_CLUSTER:
-        return 'https://docs.harness.io/article/l68rujg6mp-add-kubernetes-cluster-cloud-provider#review_permissions_required'
+        return 'https://ngdocs.harness.io/article/sjjik49xww-kubernetes-cluster-connector-settings-reference'
       case Connectors.DOCKER:
-        return 'https://docs.harness.io/article/tdj2ghkqb0-add-docker-registry-artifact-servers#review_docker_registry_permissions'
+        return 'https://ngdocs.harness.io/article/u9bsd77g5a-docker-registry-connector-settings-reference'
       case Connectors.AWS:
-        return 'https://docs.harness.io/article/wt1gnigme7-add-amazon-web-services-cloud-provider#review_aws_permissions'
+        return 'https://ngdocs.harness.io/article/m5vkql35ca-aws-connector-settings-reference'
       case Connectors.NEXUS:
-        return 'https://docs.harness.io/article/6y6b8pkm12-add-nexus-artifact-servers#review_nexus_permissions'
+        return 'https://ngdocs.harness.io/article/faor0dc98d-nexus-connector-settings-reference'
       case Connectors.ARTIFACTORY:
-        return 'https://docs.harness.io/article/nj3p1t7v3x-add-artifactory-servers#review_artifactory_permissions'
+        return 'https://ngdocs.harness.io/article/euueiiai4m-artifactory-connector-settings-reference'
       case Connectors.GCP:
-        return 'https://docs.harness.io/article/6x52zvqsta-add-google-cloud-platform-cloud-provider#review_gcp_permissions_required'
       case Connectors.GCR:
-        return 'https://docs.harness.io/article/6x52zvqsta-add-google-cloud-platform-cloud-provider#review_gcp_permissions_required'
-
+        return 'https://ngdocs.harness.io/article/yykfduond6-gcs-connector-settings-reference'
+      case Connectors.GIT:
+        return 'https://ngdocs.harness.io/category/xyexvcc206-ref-source-repo-provider'
+      case Connectors.GITHUB:
+        return 'https://ngdocs.harness.io/article/v9sigwjlgo-git-hub-connector-settings-reference'
+      case Connectors.GITLAB:
+        return 'https://ngdocs.harness.io/article/5abnoghjgo-git-lab-connector-settings-reference'
+      case Connectors.BITBUCKET:
+        return 'https://ngdocs.harness.io/article/iz5tucdwyu-bitbucket-connector-settings-reference'
       default:
         return ''
     }
