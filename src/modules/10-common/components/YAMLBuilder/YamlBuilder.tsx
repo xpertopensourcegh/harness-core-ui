@@ -25,7 +25,7 @@ import type {
 } from '@common/interfaces/YAMLBuilderProps'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
-import { validateYAMLWithSchema } from '@common/utils/YamlUtils'
+import { validateYAMLWithSchema, getSchemaWithLanguageSettings } from '@common/utils/YamlUtils'
 import { sanitize } from '@common/utils/JSONUtils'
 import { getYAMLFromEditor, getMetaDataForKeyboardEventProcessing, getYAMLValidationErrors } from './YAMLBuilderUtils'
 
@@ -190,22 +190,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     }
   }, [schema])
 
-  const getSchemaWithLanguageSettings = (schema: string | Record<string, any>): string | Record<string, any> => {
-    const schemaObj = typeof schema === 'string' ? JSON.parse(schema) : schema
-    return {
-      validate: true,
-      enableSchemaRequest: true,
-      hover: true,
-      completion: true,
-      schemas: [
-        {
-          fileMatch: ['*'],
-          schema: schemaObj
-        }
-      ]
-    }
-  }
-
   const setUpYAMLBuilderWithLanguageSettings = (languageSettings: string | Record<string, any>): void => {
     //@ts-ignore
     const { yaml } = languages || {}
@@ -216,15 +200,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
 
   /* #region Handle various interactions with the editor */
 
-  const onYamlChange = React.useRef(
-    debounce((updatedYaml: string): void => {
-      setCurrentYaml(updatedYaml)
-      yamlRef.current = updatedYaml
-      //TODO @vardan uncomment this when it's fixed properly. This is a stop gap solution.
-      // verifyYAML(updatedYaml)
-      onChange?.(editorVersionRef.current ? editorVersionRef.current + 1 !== getEditorCurrentVersion() : false)
-    }, 500)
-  ).current
+  const onYamlChange = debounce((updatedYaml: string): void => {
+    setCurrentYaml(updatedYaml)
+    yamlRef.current = updatedYaml
+    verifyYAML(updatedYaml)
+    onChange?.(editorVersionRef.current ? editorVersionRef.current + 1 !== getEditorCurrentVersion() : false)
+  }, 500)
 
   const verifyYAML = (updatedYaml: string): void => {
     if (schema) {
@@ -436,53 +417,57 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     )
   }
 
-  const renderEditor = useCallback(
+  const renderHeader = useCallback(
     (): JSX.Element => (
-      <div className={cx(css.editor, { [css.darkBg]: theme === 'DARK' })}>
-        <div className={cx(css.header)}>
-          <div className={css.flexCenter}>
-            <span className={cx(css.filePath, css.flexCenter, { [css.lightBg]: theme === 'DARK' })}>{fileName}</span>
-            {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
-          </div>
-          <div className={cx(css.flexCenter, css.validationStatus)}>
-            {yamlValidationErrors && yamlValidationErrors.size > 0 ? (
-              <Popover
-                interactionKind={PopoverInteractionKind.HOVER}
-                position={Position.TOP}
-                content={getErrorSummary(yamlValidationErrors)}
-                popoverClassName={css.summaryPopover}
-              >
-                <div>
-                  <Icon name="main-issue-filled" size={14} className={css.validationIcon} />
-                  <span className={css.invalidYaml}>{getString('invalidText')}</span>
-                </div>
-              </Popover>
-            ) : null}
-          </div>
+      <div className={cx(css.header)}>
+        <div className={css.flexCenter}>
+          <span className={cx(css.filePath, css.flexCenter, { [css.lightBg]: theme === 'DARK' })}>{fileName}</span>
+          {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
         </div>
-        <MonacoEditor
-          width={dynamicWidth ?? 2 * MIN_SNIPPET_SECTION_WIDTH}
-          height={height ?? DEFAULT_EDITOR_HEIGHT}
-          language="yaml"
-          value={currentYaml}
-          onChange={onYamlChange}
-          editorDidMount={editorDidMount}
-          options={
-            {
-              readOnly: isReadOnlyMode,
-              wordBasedSuggestions: false,
-              fontFamily: "'Roboto Mono', monospace",
-              fontSize: 13,
-              minimap: {
-                enabled: false
-              }
-            } as MonacoEditorProps['options']
-          }
-          ref={editorRef}
-        />
+        <div className={cx(css.flexCenter, css.validationStatus)}>
+          {yamlValidationErrors && yamlValidationErrors.size > 0 ? (
+            <Popover
+              interactionKind={PopoverInteractionKind.HOVER}
+              position={Position.TOP}
+              content={getErrorSummary(yamlValidationErrors)}
+              popoverClassName={css.summaryPopover}
+            >
+              <div>
+                <Icon name="main-issue-filled" size={14} className={css.validationIcon} />
+                <span className={css.invalidYaml}>{getString('invalidText')}</span>
+              </div>
+            </Popover>
+          ) : null}
+        </div>
       </div>
     ),
-    [dynamicWidth, height, currentYaml, onYamlChange, yamlValidationErrors]
+    [yamlValidationErrors, fileName, entityType, theme]
+  )
+
+  const renderEditor = useCallback(
+    (): JSX.Element => (
+      <MonacoEditor
+        width={dynamicWidth ?? 2 * MIN_SNIPPET_SECTION_WIDTH}
+        height={height ?? DEFAULT_EDITOR_HEIGHT}
+        language="yaml"
+        value={currentYaml}
+        onChange={onYamlChange}
+        editorDidMount={editorDidMount}
+        options={
+          {
+            readOnly: isReadOnlyMode,
+            wordBasedSuggestions: false,
+            fontFamily: "'Roboto Mono', monospace",
+            fontSize: 13,
+            minimap: {
+              enabled: false
+            }
+          } as MonacoEditorProps['options']
+        }
+        ref={editorRef}
+      />
+    ),
+    [dynamicWidth, height, currentYaml, onYamlChange]
   )
 
   useEffect(() => {
@@ -492,7 +477,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   }, [])
 
   return (
-    <div className={css.main}>
+    <div className={cx(css.main, { [css.darkBg]: theme === 'DARK' })}>
       {showSnippetSection ? (
         <SplitPane
           split="vertical"
@@ -503,11 +488,19 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
           maxSize={-1 * MIN_SNIPPET_SECTION_WIDTH}
           style={{ height: height ?? DEFAULT_EDITOR_HEIGHT }}
         >
-          {renderEditor()}
+          <div className={css.editor}>
+            {renderHeader()}
+            {renderEditor()}
+          </div>
           {showSnippetSection ? renderSnippetSection() : null}
         </SplitPane>
       ) : (
-        renderEditor()
+        <>
+          <div className={css.editor}>
+            {renderHeader()}
+            {renderEditor()}
+          </div>
+        </>
       )}
     </div>
   )

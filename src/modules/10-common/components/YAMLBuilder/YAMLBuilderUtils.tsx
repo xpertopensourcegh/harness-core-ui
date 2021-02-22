@@ -1,41 +1,9 @@
-import type { IconName } from '@wings-software/uicore'
+import React from 'react'
+import type { DetailedReactHTMLElement } from 'react'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
-import { Connectors } from '@connectors/constants'
-import type { DetailedReactHTMLElement } from 'react'
-import React from 'react'
 
-export const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
-
-/**
- * @description Find json path(s) of a given node in json from it's nearest parent
- * @param jsonObj json equivalent of yaml
- * @param leafNode leaf node whose path(s) from the nearest parent needs to be known
- * @param delimiter delimiter to be used in node path(s) from parent
- * @returns exactly matching json path in the tree
- */
-const findLeafToParentPath = (jsonObj: Record<string, any>, leafNode: string, delimiter = '.'): string | undefined => {
-  let matchingPath: string[] = []
-  function findPath(currJSONObj: any, currentDepth: number, previous?: string) {
-    Object.keys(currJSONObj).forEach((key: string) => {
-      const value = currJSONObj[key]
-      const type = Object.prototype.toString.call(value)
-      const isObject = type === '[object Object]' || type === '[object Array]'
-      const newKey = previous ? previous + delimiter + key : key
-      if (isObject && Object.keys(value).length) {
-        if (key.match(leafNode)) {
-          matchingPath.push(newKey)
-        }
-        return findPath(value, currentDepth + 1, newKey)
-      }
-      if (newKey.match(leafNode)) {
-        matchingPath.push(newKey)
-      }
-    })
-  }
-  findPath(jsonObj, 1)
-  return matchingPath.length > 0 ? matchingPath.slice(-1).pop() : DEFAULT_YAML_PATH
-}
+import { findLeafToParentPath } from '../../utils/YamlUtils'
 
 /**
  * Get YAML from editor with placeholder added at current position in editor
@@ -107,19 +75,6 @@ const getYAMLValidationErrors = (validationErrors: Diagnostic[]): Map<number, st
   return errorMap
 }
 
-const pickIconForEntity = (entity: string): IconName => {
-  switch (entity) {
-    case Connectors.KUBERNETES_CLUSTER:
-      return 'service-kubernetes' as IconName
-    case Connectors.GIT:
-      return 'service-github' as IconName
-    case Connectors.DOCKER:
-      return 'service-dockerhub' as IconName
-    default:
-      return 'main-code-yaml' as IconName
-  }
-}
-
 /**
  * Get formatted HTML of list items
  * @param errorMap yaml path to validation error map
@@ -143,10 +98,8 @@ const getValidationErrorMessagesForToaster = (
 }
 
 export {
-  findLeafToParentPath,
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
   getYAMLValidationErrors,
-  pickIconForEntity,
   getValidationErrorMessagesForToaster
 }

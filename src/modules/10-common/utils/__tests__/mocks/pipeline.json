@@ -1,0 +1,10 @@
+{
+  "pipeline": {
+    "name": 123,
+    "identifier": "identifier",
+    "description": null,
+    "tags": {},
+    "projectIdentifier": "projectIdentifier",
+    "orgIdentifier": "Harness"
+  }
+}
