@@ -30,3 +30,8 @@
 .labelNormal {
   font-size: var(--font-size-normal) !important;
 }
+.page {
+  overflow: scroll;
+  height: calc(100vh - 160px);
+  margin-left: var(--spacing-xlarge) !important;
+}

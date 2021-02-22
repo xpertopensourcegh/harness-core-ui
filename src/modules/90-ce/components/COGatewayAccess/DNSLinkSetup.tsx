@@ -14,9 +14,9 @@ import {
 } from '@wings-software/uicore'
 import { Dialog, IDialogProps, RadioGroup, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { AccessPoint, useListAccessPoints } from 'services/lw'
+import { AccessPoint, useAllHostedZones, useListAccessPoints } from 'services/lw'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
-import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
+import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 
 const modalPropsLight: IDialogProps = {
   isOpen: true,
@@ -43,6 +43,17 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     projectIdentifier: string
   }>()
   const accessDetails = props.gatewayDetails.metadata.access_details as ConnectionMetadata // eslint-disable-line
+  const customDomainProviderDetails = props.gatewayDetails.metadata.custom_domain_providers as CustomDomainDetails // eslint-disable-line
+  const { data: hostedZones, loading: hostedZonesLoading, refetch: loadHostedZones } = useAllHostedZones({
+    org_id: orgIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      region: 'us-east-1'
+    },
+    lazy: true
+  })
   const initialAccessPointDetails: AccessPoint = {
     cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -62,6 +73,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }
 
   const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
+  const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
+  const [dnsProvider, setDNSProvider] = useState<string>()
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier // eslint-disable-line
@@ -79,6 +92,25 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       }) || []
     setAccessPointsList(loaded)
   }, [accessPoints])
+
+  useEffect(() => {
+    if (hostedZonesLoading) return
+    if (hostedZones?.response?.length == 0) {
+      return
+    }
+    const loadedhostedZones: SelectOption[] =
+      hostedZones?.response?.map(r => {
+        return {
+          label: r.name as string,
+          value: r.id as string
+        }
+      }) || []
+    setHostedZonesList(loadedhostedZones)
+  }, [hostedZones, hostedZonesLoading])
+
+  useEffect(() => {
+    if (dnsProvider == 'route53') loadHostedZones()
+  }, [dnsProvider])
 
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [openModal, hideModal] = useModalHook(() => (
@@ -103,7 +135,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         initialValues={{
           customURL: props.gatewayDetails.customDomains?.join(','),
           publicallyAccessible: accessDetails.dnsLink.public as string,
-          dnsProvider: 'route53',
+          dnsProvider: customDomainProviderDetails && customDomainProviderDetails.route53 ? 'route53' : 'others',
           route53Account: '',
           accessPoint: props.gatewayDetails.accessPointID
         }}
@@ -128,97 +160,104 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   props.setGatewayDetails(props.gatewayDetails)
                 }}
               />
-              {formik.values.customURL ? (
-                <>
-                  <RadioGroup
-                    inline={true}
-                    label="Is the URL publicly accessible?"
-                    name="publicallyAccessible"
+
+              <>
+                <RadioGroup
+                  inline={true}
+                  label="Is the URL publicly accessible?"
+                  name="publicallyAccessible"
+                  onChange={e => {
+                    formik.setFieldValue('publicallyAccessible', e.currentTarget.value)
+                    if (e.currentTarget.value == 'yes') props.setHelpTextSection('public-dns')
+                    else props.setHelpTextSection('private-dns')
+                    accessDetails.dnsLink.public = e.currentTarget.value
+                    props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
+                    props.setGatewayDetails(props.gatewayDetails)
+                  }}
+                  selectedValue={formik.values.publicallyAccessible}
+                >
+                  <Radio label="Yes" value="yes" />
+                  <Radio label="No" value="no" />
+                </RadioGroup>
+                <Layout.Vertical spacing="xsmall">
+                  <FormInput.Select
+                    name="accessPoint"
+                    label={'Select Access Point'}
+                    placeholder={'Select account'}
+                    items={accessPointsList}
                     onChange={e => {
-                      formik.setFieldValue('publicallyAccessible', e.currentTarget.value)
-                      if (e.currentTarget.value == 'yes') props.setHelpTextSection('public-dns')
-                      else props.setHelpTextSection('private-dns')
-                      accessDetails.dnsLink.public = e.currentTarget.value
-                      props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
+                      formik.setFieldValue('accessPoint', e.value)
+                      props.gatewayDetails.accessPointID = e.value as string
                       props.setGatewayDetails(props.gatewayDetails)
                     }}
-                    selectedValue={formik.values.publicallyAccessible}
-                  >
-                    <Radio label="Yes" value="yes" />
-                    <Radio label="No" value="no" />
-                  </RadioGroup>
-                  {formik.values.publicallyAccessible == 'yes' ? (
-                    <>
-                      {/* <Layout.Horizontal spacing="small">
-                        <Heading level={3} font={{ weight: 'light' }}>
-                          Select the DNS Provider
-                        </Heading>
-                        <Icon name="info"></Icon>
-                      </Layout.Horizontal>
-                      <RadioGroup
-                        inline={true}
-                        label=""
-                        name="dnsProvider"
-                        onChange={e => {
-                          formik.setFieldValue('dnsProvider', e.currentTarget.value)
-                        }}
-                        selectedValue={formik.values.dnsProvider}
-                      >
-                        <Radio label="Route53" value="route53" />
-                        <Radio label="Others" value="others" />
-                      </RadioGroup>
-                      {formik.values.dnsProvider == 'route53' ? (
-                        <>
-                          <Layout.Horizontal spacing="medium" padding="medium">
-                            <FormInput.Select
-                              name="route53Account"
-                              label={'Select Route53 account'}
-                              placeholder={'Select account'}
-                              items={[]}
-                              onChange={e => {
-                                formik.setFieldValue('route53Account', e.value)
-                              }}
-                            />
-                            <Button
-                              icon={'run-pipeline'}
-                              style={{
-                                borderRadius: '8px',
-                                padding: '12px',
-                                border: '1px solid var(--blue-700)',
-                                marginTop: '23px',
-                                color: 'var(--blue-700)'
-                              }}
-                              text="Verify"
-                            />
-                          </Layout.Horizontal>
-                        </>
-                      ) : (
-                        <Button intent="primary" text="Verify" />
-                      )} */}
-                    </>
-                  ) : formik.values.publicallyAccessible == 'no' ? (
-                    <>
-                      <FormInput.Select
-                        name="accessPoint"
-                        label={'Select Access Point'}
-                        placeholder={'Select account'}
-                        items={accessPointsList}
-                        onChange={e => {
-                          formik.setFieldValue('accessPoint', e.value)
-                          props.gatewayDetails.accessPointID = e.value as string
-                          props.setGatewayDetails(props.gatewayDetails)
-                        }}
-                        disabled={accessPointsLoading}
-                      />
-                      <Layout.Horizontal padding="small">
-                        <Button minimal onClick={openModal} style={{ width: '100%', justifyContent: 'flex-start' }}>
-                          <Text color={Color.BLUE_500}>+ Create a New Access point</Text>
-                        </Button>
-                      </Layout.Horizontal>
-                    </>
-                  ) : null}
-                </>
-              ) : null}
+                    disabled={accessPointsLoading}
+                  />
+                  <Button minimal onClick={openModal} style={{ width: '100%', justifyContent: 'flex-start' }}>
+                    <Text color={Color.BLUE_500}>+ Create a New Access point</Text>
+                  </Button>
+                </Layout.Vertical>
+                {formik.values.publicallyAccessible == 'yes' && formik.values.customURL ? (
+                  <>
+                    <Layout.Horizontal spacing="small">
+                      <Heading level={3} font={{ weight: 'light' }}>
+                        Select the DNS Provider
+                      </Heading>
+                      <Icon name="info"></Icon>
+                    </Layout.Horizontal>
+                    <RadioGroup
+                      inline={true}
+                      label=""
+                      name="dnsProvider"
+                      onChange={e => {
+                        formik.setFieldValue('dnsProvider', e.currentTarget.value)
+                        setDNSProvider(e.currentTarget.value)
+                      }}
+                      selectedValue={formik.values.dnsProvider}
+                    >
+                      <Radio label="Route53" value="route53" />
+                      <Radio label="Others" value="others" />
+                    </RadioGroup>
+                    {formik.values.dnsProvider == 'route53' ? (
+                      <>
+                        <FormInput.Select
+                          name="route53Account"
+                          label={'Select Route53 account'}
+                          placeholder={'Select account'}
+                          items={hostedZonesList}
+                          onChange={e => {
+                            formik.setFieldValue('route53Account', e.value)
+                            //eslint-disable-next-line
+                            props.gatewayDetails.metadata.custom_domain_providers = {
+                              route53: { hosted_zone_id: e.value as string } // eslint-disable-line
+                            }
+                            props.setGatewayDetails(props.gatewayDetails)
+                          }}
+                        />
+                      </>
+                    ) : null}
+                  </>
+                ) : formik.values.publicallyAccessible == 'no' ? (
+                  <>
+                    {/* <FormInput.Select
+                      name="accessPoint"
+                      label={'Select Access Point'}
+                      placeholder={'Select account'}
+                      items={accessPointsList}
+                      onChange={e => {
+                        formik.setFieldValue('accessPoint', e.value)
+                        props.gatewayDetails.accessPointID = e.value as string
+                        props.setGatewayDetails(props.gatewayDetails)
+                      }}
+                      disabled={accessPointsLoading}
+                    />
+                    <Layout.Horizontal padding="small">
+                      <Button minimal onClick={openModal} style={{ width: '100%', justifyContent: 'flex-start' }}>
+                        <Text color={Color.BLUE_500}>+ Create a New Access point</Text>
+                      </Button>
+                    </Layout.Horizontal> */}
+                  </>
+                ) : null}
+              </>
             </Layout.Vertical>
           </FormikForm>
         )}

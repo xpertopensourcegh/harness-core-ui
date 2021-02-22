@@ -16,7 +16,6 @@ export default function CESideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   return (
     <Layout.Vertical spacing="small">
-      <SidebarLink label="Dashboard" to={routes.toCEHome({ accountId })} />
       <ProjectSelector
         moduleFilter={ModuleName.CE}
         onSelect={data => {

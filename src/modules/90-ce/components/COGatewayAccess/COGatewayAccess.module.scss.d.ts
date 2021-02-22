@@ -5,5 +5,6 @@ declare const styles: {
   readonly checkbox: string
   readonly setupTab: string
   readonly fixedDrawer: string
+  readonly page: string
 }
 export default styles

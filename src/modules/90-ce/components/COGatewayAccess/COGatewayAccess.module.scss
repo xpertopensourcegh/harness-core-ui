@@ -53,3 +53,8 @@
   z-index: 20;
   background-color: var(--white);
 }
+.page {
+  overflow: scroll;
+  height: calc(100vh - 160px);
+  margin-left: var(--spacing-xlarge) !important;
+}

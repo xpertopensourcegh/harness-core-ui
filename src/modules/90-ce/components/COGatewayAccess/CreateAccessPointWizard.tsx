@@ -10,8 +10,12 @@ import {
   FormInput,
   Heading,
   StepProps,
-  SelectOption
+  SelectOption,
+  Icon,
+  Color,
+  Text
 } from '@wings-software/uicore'
+import { Radio, RadioGroup } from '@blueprintjs/core'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
@@ -20,11 +24,13 @@ import {
   AccessPoint,
   useAllCertificates,
   useAllExecutionRoles,
+  useAllHostedZones,
   useAllRegions,
   useAllSecurityGroups,
   useAllVPCs,
   useCreateAccessPoint,
-  useGetAccessPoint
+  useGetAccessPoint,
+  useMapToDNS
 } from 'services/lw'
 import { useToaster } from '@common/exports'
 
@@ -41,69 +47,143 @@ interface CreateAccessPointWizardProps {
   setAccessPoint: (ap: AccessPoint) => void
   refreshAccessPoints: () => void
 }
-// const MapToProvider: React.FC<StepProps<Props>> = props => {
-//   return (
-//     <Layout.Vertical style={{ minHeight: '640px', width: '55%' }} padding="large" spacing="medium">
-//       <Heading level={2}>{props.name}</Heading>
-//       <Formik
-//         initialValues={{
-//           customURL: '',
-//           publicallyAccessible: 'no',
-//           dnsProvider: 'route53',
-//           route53Account: '',
-//           accessPoint: ''
-//         }}
-//         onSubmit={values => alert(JSON.stringify(values))}
-//         render={formik => (
-//           <FormikForm>
-//             <Layout.Vertical spacing="medium">
-//               <FormInput.RadioGroup
-//                 name="dnsProvider"
-//                 label={
-//                   <Layout.Horizontal spacing="small">
-//                     <Heading level={3} font={{ weight: 'light' }}>
-//                       Select the DNS Provider
-//                     </Heading>
-//                     <Icon name="info"></Icon>
-//                   </Layout.Horizontal>
-//                 }
-//                 items={[
-//                   { label: 'Route53', value: 'route53' },
-//                   { label: 'Others', value: 'others' }
-//                 ]}
-//               />
-//               {formik.values.dnsProvider == 'route53' ? (
-//                 <>
-//                   <Layout.Horizontal spacing="medium">
-//                     <FormInput.Select
-//                       name="route53Account"
-//                       label={'Select Route53 account'}
-//                       placeholder={'Select account'}
-//                       items={[]}
-//                       onChange={e => {
-//                         formik.setFieldValue('route53Account', e.value)
-//                       }}
-//                     />
-//                     <Button intent="primary" text="Verify" />
-//                   </Layout.Horizontal>
-//                 </>
-//               ) : (
-//                 <Button intent="primary" text="Verify" />
-//               )}
-//               <Button
-//                 intent="primary"
-//                 text="Finish"
-//                 onClick={() => {
-//                   props.nextStep?.()
-//                 }}
-//               ></Button>
-//             </Layout.Vertical>
-//           </FormikForm>
-//         )}
-//       ></Formik>
-//     </Layout.Vertical>
-//   )
-// }
+
+interface MapToProviderProps {
+  accessPointID: string
+}
+const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+    accountId: string
+    orgIdentifier: string
+    projectIdentifier: string
+  }>()
+  const { data: hostedZones, loading: hostedZonesLoading, refetch: loadHostedZones } = useAllHostedZones({
+    org_id: orgIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      cloud_account_id: props.accessPoint.cloud_account_id as string, // eslint-disable-line
+      region: 'us-east-1'
+    },
+    lazy: true
+  })
+  const { prevStepData } = props
+  const mapToDNSProps = prevStepData as MapToProviderProps
+  const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
+  const [dnsProvider, setDNSProvider] = useState<string>()
+  const [mappedToDNS, setMappedToDNS] = useState<boolean>(false)
+
+  const { showError } = useToaster()
+  const { mutate: mapToDNS, loading: maptoDNSLoading } = useMapToDNS({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    access_point_id: mapToDNSProps.accessPointID // eslint-disable-line
+  })
+  const onMapToDNS = async (selectedZone: string): Promise<void> => {
+    try {
+      await mapToDNS({
+        dns_provider: dnsProvider, // eslint-disable-line
+        details: {
+          hosted_zone_id: selectedZone // eslint-disable-line
+        }
+      })
+      setMappedToDNS(true)
+    } catch (e) {
+      setMappedToDNS(false)
+      showError(e.data?.message || e.message)
+    }
+  }
+  useEffect(() => {
+    if (hostedZonesLoading) return
+    if (hostedZones?.response?.length == 0) {
+      return
+    }
+    const loadedhostedZones: SelectOption[] =
+      hostedZones?.response?.map(r => {
+        return {
+          label: r.name as string,
+          value: r.id as string
+        }
+      }) || []
+    setHostedZonesList(loadedhostedZones)
+  }, [hostedZones, hostedZonesLoading])
+  useEffect(() => {
+    if (dnsProvider == 'route53') loadHostedZones()
+  }, [dnsProvider])
+  return (
+    <Layout.Vertical style={{ minHeight: '640px', width: '55%' }} padding="large" spacing="large">
+      <Heading level={2}>{props.name}</Heading>
+      <Formik
+        initialValues={{
+          customURL: '',
+          publicallyAccessible: 'no',
+          dnsProvider: 'route53',
+          route53Account: '',
+          accessPoint: ''
+        }}
+        onSubmit={values => {
+          onMapToDNS(values.route53Account)
+        }}
+        render={formik => (
+          <FormikForm>
+            <Layout.Vertical spacing="medium">
+              <RadioGroup
+                inline={true}
+                name="dnsProvider"
+                label={'Select the DNS Provider'}
+                onChange={e => {
+                  formik.setFieldValue('dnsProvider', e.currentTarget.value)
+                  setDNSProvider(e.currentTarget.value)
+                }}
+                selectedValue={formik.values.dnsProvider}
+              >
+                <Radio label="Route53" value="route53" />
+                <Radio label="Others" value="others" />
+              </RadioGroup>
+              {formik.values.dnsProvider == 'route53' ? (
+                <Layout.Horizontal spacing="medium">
+                  <FormInput.Select
+                    name="route53Account"
+                    label={'Select Route53 hosted zone'}
+                    placeholder={'Select route 53 hosted zone'}
+                    items={hostedZonesList}
+                    onChange={e => {
+                      formik.setFieldValue('route53Account', e.value)
+                    }}
+                    style={{ width: '80%' }}
+                  />
+                  {mappedToDNS ? (
+                    <Layout.Horizontal spacing="small" style={{ alignSelf: 'center' }}>
+                      <Icon name="tick" color={Color.GREEN_500} />
+                      <Text color={Color.GREEN_500}>Verified</Text>
+                    </Layout.Horizontal>
+                  ) : (
+                    <Button
+                      intent="primary"
+                      text="Verify"
+                      style={{ alignSelf: 'center' }}
+                      onClick={formik.submitForm}
+                      loading={maptoDNSLoading}
+                      disabled={maptoDNSLoading}
+                    />
+                  )}
+                </Layout.Horizontal>
+              ) : null}
+            </Layout.Vertical>
+          </FormikForm>
+        )}
+      ></Formik>
+      <Button
+        intent="primary"
+        text="Finish"
+        onClick={() => {
+          props.closeModal()
+        }}
+        style={{ position: 'absolute', bottom: 'var(--spacing-medium)', width: '10%' }}
+      ></Button>
+    </Layout.Vertical>
+  )
+}
 const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   const { showSuccess, showError } = useToaster()
 
@@ -128,6 +208,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     access_point_id: accessPoint.id as string, //eslint-disable-line
     lazy: true
   })
+  const { nextStep } = props
   useEffect(() => {
     if (!accessPointStatusLoading && accessPoint.id) {
       if (accessPointData?.response?.status == 'errored') {
@@ -135,9 +216,10 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       } else if (accessPointData?.response?.status == 'created') {
         props.setAccessPoint(accessPointData?.response as AccessPoint)
         showSuccess('Access Point Created Succesfully')
-        props.closeModal()
         props.refreshAccessPoints()
-        // TODO: props.nextStep?.()
+        nextStep?.({
+          accessPointID: accessPointData?.response.id as string
+        })
       } else {
         const timerId = window.setTimeout(() => {
           refetch()
@@ -299,7 +381,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 onChange={record => {
                   props.accessPoint.cloud_account_id = record?.identifier // eslint-disable-line
                   setAccessPoint(props.accessPoint)
-                  setSelectedCloudAccount(props.accessPoint.cloud_account_id) // eslint-disable-line
+                  setSelectedCloudAccount(props.accessPoint.cloud_account_id as string) // eslint-disable-line
                   formik.setFieldValue('cloudConnector', record?.identifier)
                 }}
                 accountIdentifier={accountId}
@@ -417,8 +499,13 @@ const CreateAccessPointWizard: React.FC<CreateAccessPointWizardProps> = props =>
         setAccessPoint={props.setAccessPoint}
         refreshAccessPoints={props.refreshAccessPoints}
       />
-
-      {/* <MapToProvider name="Map to DNS Provider" /> */}
+      <MapToProvider
+        name="Map the domain"
+        accessPoint={props.accessPoint}
+        closeModal={props.closeModal}
+        setAccessPoint={props.setAccessPoint}
+        refreshAccessPoints={props.refreshAccessPoints}
+      />
     </StepWizard>
   )
 }

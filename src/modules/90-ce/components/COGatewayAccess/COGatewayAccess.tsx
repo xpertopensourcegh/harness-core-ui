@@ -77,9 +77,9 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     setSelectedHelpText(helpTextBase)
   }, [selectedTabId])
   return (
-    <Container style={{ margin: '0 auto', paddingTop: 10, height: '100vh', marginLeft: '230px' }}>
+    <Container className={css.page}>
       <COFixedDrawer
-        topMargin={95}
+        topMargin={86}
         content={<COHelpSidebar pageName={selectedHelpText} sectionName={selectedHelpTextSection} />}
       />
       <Layout.Vertical spacing="large" padding="medium" style={{ marginLeft: '10px' }}>

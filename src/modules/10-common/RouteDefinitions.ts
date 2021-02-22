@@ -759,15 +759,15 @@ const routes = {
   ),
   toCECODashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
   ),
   toCECOCreateGateway: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}/create-gateway`
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules/create`
   ),
   toCECOEditGateway: withAccountId(
     ({ orgIdentifier, projectIdentifier, gatewayIdentifier }: ProjectPathProps & { gatewayIdentifier: string }) =>
-      `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}/edit-gateway/${gatewayIdentifier}`
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules/edit/${gatewayIdentifier}`
   ),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/dashboards'),

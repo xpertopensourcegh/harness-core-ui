@@ -33,6 +33,7 @@ export interface ServiceMetadata {
   }
   target_group_details?: { [key: string]: any }
   access_details?: { [key: string]: any }
+  custom_domain_providers?: { [key: string]: any }
 }
 
 export interface ServiceDep {
@@ -356,6 +357,10 @@ export interface AllCertificatesResponse {
   response?: Certificate[]
 }
 
+export interface AllHostedZonesResponse {
+  response?: HostedZone[]
+}
+
 export interface CumulativeSavings {
   days?: string[]
   potential_cost?: number[]
@@ -373,6 +378,16 @@ export interface CumulativeSavingsResponse {
 
 export interface AttachTagByFilterResponse {
   response?: Resource[]
+}
+
+export interface HostedZone {
+  id?: string
+  name?: string
+}
+
+export interface MaptoDNSBody {
+  dns_provider?: string
+  details?: { [key: string]: any }
 }
 
 export type ResourceFilterBodyRequestBody = ResourceFilterBody
@@ -1701,4 +1716,94 @@ export const useAttachTags = ({ org_id, project_id, account_id, ...props }: UseA
     (paramsInPath: AttachTagsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/tag`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
+export interface AllHostedZonesQueryParams {
+  cloud_account_id: string
+  region: string
+}
+
+export interface AllHostedZonesPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type AllHostedZonesProps = Omit<
+  GetProps<AllHostedZonesResponse, void, AllHostedZonesQueryParams, AllHostedZonesPathParams>,
+  'path'
+> &
+  AllHostedZonesPathParams
+
+/**
+ * Lists all hostedZones for a cloud account
+ *
+ * Returns all hostedZones for a cloud account
+ */
+export const AllHostedZones = ({ org_id, project_id, account_id, ...props }: AllHostedZonesProps) => (
+  <Get<AllHostedZonesResponse, void, AllHostedZonesQueryParams, AllHostedZonesPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/hosted_zones"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAllHostedZonesProps = Omit<
+  UseGetProps<AllHostedZonesResponse, void, AllHostedZonesQueryParams, AllHostedZonesPathParams>,
+  'path'
+> &
+  AllHostedZonesPathParams
+
+/**
+ * Lists all hostedZones for a cloud account
+ *
+ * Returns all hostedZones for a cloud account
+ */
+export const useAllHostedZones = ({ org_id, project_id, account_id, ...props }: UseAllHostedZonesProps) =>
+  useGet<AllHostedZonesResponse, void, AllHostedZonesQueryParams, AllHostedZonesPathParams>(
+    (paramsInPath: AllHostedZonesPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/hosted_zones`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
+export interface MapToDNSPathParams {
+  org_id: string
+  project_id: string
+  access_point_id: string
+}
+
+export type MapToDNSProps = Omit<MutateProps<void, void, void, MaptoDNSBody, MapToDNSPathParams>, 'path' | 'verb'> &
+  MapToDNSPathParams
+
+/**
+ * map access point to dns
+ *
+ * map access point to dns
+ */
+export const MapToDNS = ({ org_id, project_id, access_point_id, ...props }: MapToDNSProps) => (
+  <Mutate<void, void, void, MaptoDNSBody, MapToDNSPathParams>
+    verb="POST"
+    path="/orgs/${org_id}/projects/${project_id}/services/access_points/${access_point_id}/map_dns"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseMapToDNSProps = Omit<
+  UseMutateProps<void, void, void, MaptoDNSBody, MapToDNSPathParams>,
+  'path' | 'verb'
+> &
+  MapToDNSPathParams
+
+/**
+ * map access point to dns
+ *
+ * map access point to dns
+ */
+export const useMapToDNS = ({ org_id, project_id, access_point_id, ...props }: UseMapToDNSProps) =>
+  useMutate<void, void, void, MaptoDNSBody, MapToDNSPathParams>(
+    'POST',
+    (paramsInPath: MapToDNSPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points/${paramsInPath.access_point_id}/map_dns`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, access_point_id }, ...props }
   )

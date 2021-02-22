@@ -76,7 +76,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         health_check: props.gatewayDetails.healthCheck,
         routing: {
           instance: {
-            filter_text: `tags = ['${tagKey}':'${tagValue}']` // eslint-disable-line
+            filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
           },
           ports: props.gatewayDetails.routing.ports,
           lb: undefined
@@ -222,7 +222,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           text="Previous"
           icon="chevron-left"
           onClick={() => previousTab()}
-          disabled={selectedTabId == tabs[0] && (props.gatewayDetails.id as number) != 0}
+          disabled={selectedTabId == tabs[0] && (props.gatewayDetails.id as number) != undefined}
         />
         <Button
           intent="primary"

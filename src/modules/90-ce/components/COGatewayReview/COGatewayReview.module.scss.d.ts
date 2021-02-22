@@ -5,5 +5,6 @@ declare const styles: {
   readonly instanceTable: string
   readonly fulFilmentIcon: string
   readonly labelNormal: string
+  readonly page: string
 }
 export default styles

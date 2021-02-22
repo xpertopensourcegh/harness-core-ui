@@ -16,14 +16,13 @@ import {
   Tab,
   Collapse,
   Button,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding,
   Switch,
   Icon
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
+import { useToaster } from '@common/exports'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
@@ -67,7 +66,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [healthCheck, setHealthCheck] = useState<boolean>(props.gatewayDetails.healthCheck ? true : false)
   const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck>(props.gatewayDetails.healthCheck)
   const [gatewayName, setGatewayName] = useState<string>(props.gatewayDetails.name)
@@ -80,10 +78,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.gatewayDetails.opts.alwaysUsePrivateIP ? props.gatewayDetails.opts.alwaysUsePrivateIP : false
   )
   const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(!props.gatewayDetails.fullfilment)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-
+  const { showError } = useToaster()
   function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
     return (
       <Text lineClamp={3} color={Color.BLACK}>
@@ -151,7 +149,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         setFilteredInstances(instances)
       }
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
+      showError(e.data?.message || e.message)
     }
   }
   const { mutate: getSecurityGroups, loading } = useSecurityGroupsOfInstances({
@@ -200,7 +198,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         })
       }
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
+      showError(e.data?.message || e.message)
     }
   }
 
@@ -282,8 +280,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     if (routes.length) setRoutingRecords(routes)
   }
   return (
-    <Layout.Vertical className={css.page} style={{ height: '100vh', marginLeft: '230px' }}>
-      <ModalErrorHandler bind={setModalErrorHandler} />
+    <Layout.Vertical className={css.page}>
       <Drawer
         autoFocus={true}
         enforceFocus={true}
@@ -297,9 +294,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         }}
         size="392px"
         style={{
-          top: '95px',
+          top: '86px',
           boxShadow: '0px 2px 8px rgba(40, 41, 61, 0.04), 0px 16px 24px rgba(96, 97, 112, 0.16)',
-          borderRadius: '8px'
+          height: 'calc(100vh - 86px)',
+          overflowY: 'scroll'
         }}
       >
         <Container style={{ textAlign: 'right' }}>

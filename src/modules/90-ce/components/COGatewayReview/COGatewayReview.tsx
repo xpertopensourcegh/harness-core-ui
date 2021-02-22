@@ -34,7 +34,7 @@ function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
 }
 const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
   return (
-    <Layout.Horizontal spacing="large" padding="large" style={{ height: '100vh', marginLeft: '230px' }}>
+    <Layout.Horizontal spacing="large" padding="large" className={css.page}>
       <Container width="20%">
         <Layout.Vertical spacing="large">
           <Heading level={2} style={{ paddingTop: 'var(--spacing-small)', paddingBottom: 'var(--spacing-xmall)' }}>

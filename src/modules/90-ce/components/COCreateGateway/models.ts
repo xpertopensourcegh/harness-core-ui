@@ -84,3 +84,9 @@ export interface ConnectionMetadata {
   backgroundTasks: BackgroundTasks
   ipaddress: IpAddress
 }
+
+export interface CustomDomainDetails {
+  route53?: {
+    hosted_zone_id: string
+  }
+}

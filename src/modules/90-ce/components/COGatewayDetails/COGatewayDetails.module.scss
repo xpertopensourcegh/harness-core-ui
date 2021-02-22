@@ -1,8 +1,11 @@
 .footer {
   position: fixed;
-  bottom: 20px;
+  bottom: 5px;
   z-index: 1;
-  margin-left: var(--spacing-large) !important;
+  padding: var(--spacing-large) !important;
+  background-color: var(--white) !important;
+  width: 100% !important;
+  border: 1px solid var(--grey-200);
 }
 .tabTitle {
   font-weight: 500;
@@ -41,6 +44,7 @@
   cursor: auto;
 }
 .detailsTab {
+  padding-left: var(--spacing-large) !important;
   .bp3-tab-panel {
     margin: 0;
   }

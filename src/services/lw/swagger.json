@@ -1395,6 +1395,115 @@
           }
         }
       }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/hosted_zones": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["hostedZones"],
+        "summary": "Lists all hostedZones for a cloud account",
+        "description": "Returns all hostedZones for a cloud account",
+        "operationId": "AllHostedZones",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllHostedZonesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/access_points/{access_point_id}/map_dns": {
+      "post": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access_point_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MaptoDNSBody"
+            }
+          }
+        ],
+        "tags": ["mapToDNS"],
+        "summary": "map access point to dns",
+        "description": "map access point to dns",
+        "operationId": "MapToDNS",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1489,6 +1598,9 @@
           "type": "object"
         },
         "access_details": {
+          "type": "object"
+        },
+        "custom_domain_providers": {
           "type": "object"
         }
       }
@@ -2333,6 +2445,16 @@
         }
       }
     },
+    "AllHostedZonesResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostedZone"
+          }
+        }
+      }
+    },
     "CumulativeSavings": {
       "type": "object",
       "properties": {
@@ -2405,6 +2527,30 @@
           "items": {
             "$ref": "#/definitions/Resource"
           }
+        }
+      }
+    },
+    "HostedZone": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "MaptoDNSBody": {
+      "type": "object",
+      "properties": {
+        "dns_provider": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object"
         }
       }
     }
