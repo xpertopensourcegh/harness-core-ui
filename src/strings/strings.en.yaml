@@ -1520,7 +1520,7 @@ cv:
     mapMetricsToServices: 'Map Metrics to Harness Services'
     appD:
       envDescription: An Environment is the representation of your production or non-production infrastructure.
-      appDApplications: APPDYNAMICS APLICATIONS
+      appDApplications: APPDYNAMICS APPLICATIONS
       appDTier: APPDYNAMICS TIER
       harnessEnv: HARNESS ENVIRONMENT
       validationMsg: Services should be mapped uniquely to application services

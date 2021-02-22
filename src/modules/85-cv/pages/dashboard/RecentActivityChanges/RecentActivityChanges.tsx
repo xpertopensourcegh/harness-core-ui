@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, Container, IconName, Color, Link } from '@wings-software/uicore'
+import { Text, Container, IconName, Color, Link } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -337,26 +337,6 @@ export default function RecentActivityChanges(): JSX.Element {
           </li>
         )
       })}
-      <Button
-        style={{
-          margin: '0 auto',
-          display: 'block',
-          fontSize: 'var(--font-size-small)'
-        }}
-        minimal
-        intent="primary"
-        onClick={() =>
-          history.push(
-            routes.toCVActivityDashboard({
-              accountId,
-              projectIdentifier,
-              orgIdentifier
-            })
-          )
-        }
-      >
-        {i18n.viewAllActivities}
-      </Button>
     </ul>
   )
 }

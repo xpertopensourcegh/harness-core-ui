@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Button, Link } from '@wings-software/uicore'
+import { Container, Text, Link } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
@@ -104,26 +104,6 @@ export default function ActivityVerifications(): JSX.Element {
             />
           )
         })}
-        <Button
-          style={{
-            margin: '0 auto',
-            display: 'block',
-            fontSize: 'var(--font-size-small)'
-          }}
-          minimal
-          intent="primary"
-          onClick={() =>
-            history.push(
-              routes.toCVActivityDashboard({
-                accountId,
-                projectIdentifier,
-                orgIdentifier
-              })
-            )
-          }
-        >
-          {i18n.viewAllActivities}
-        </Button>
       </ul>
     </Container>
   )

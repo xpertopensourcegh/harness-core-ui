@@ -288,6 +288,8 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     }
   }
 
+  const tableData = useMemo(() => tiers?.data?.content?.filter(tierInfo => Boolean(tierInfo)) || [], [tiers])
+
   return (
     <Container className={styles.tabWrapper}>
       <Container className={styles.main}>
@@ -417,7 +419,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                 }
               }
             ]}
-            data={tiers?.data?.content ?? []}
+            data={tableData ?? []}
             pagination={{
               itemCount: tiers?.data?.totalItems || 0,
               pageSize: tiers?.data?.pageSize || PAGE_SIZE,
@@ -428,7 +430,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
           />
           {renderError(`${selectedAppName}.uniqueService`)}
           {renderError('selectTier')}
-          {!loadingTiers && !tiersError?.data && !tiers?.data?.content?.length && (
+          {!loadingTiers && !tiersError?.data && !tableData?.length && (
             <Container height={250}>
               <NoDataCard
                 message={getString('cv.monitoringSources.appD.noTiersMsg')}

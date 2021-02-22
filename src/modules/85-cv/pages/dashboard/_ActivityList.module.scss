@@ -6,6 +6,7 @@
 .activityList {
   list-style: none;
   padding-left: 0;
+  margin: var(--spacing-large) auto !important;
   width: 100%;
 
   .noData {
