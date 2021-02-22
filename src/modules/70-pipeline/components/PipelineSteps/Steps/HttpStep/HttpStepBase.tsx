@@ -3,6 +3,7 @@ import { SelectOption, FormInput, getMultiTypeFromValue, MultiTypeInputType, But
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
+import cx from 'classnames'
 
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -33,7 +34,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
 
   return (
     <div className={stepCss.stepPanel}>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.InputWithIdentifier inputLabel={getString('name')} />
       </div>
       <div className={stepCss.formGroup}>
@@ -50,7 +51,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
           />
         )}
       </div>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormInput.MultiTypeInput
           selectItems={httpStepType}
           multiTypeInputProps={{ expressions }}
@@ -150,7 +151,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormDa
           />
         )}
       </div>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}

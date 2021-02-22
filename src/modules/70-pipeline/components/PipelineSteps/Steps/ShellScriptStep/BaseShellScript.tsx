@@ -1,6 +1,7 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
 import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
+import cx from 'classnames'
 import {
   FormInput,
   getMultiTypeFromValue,
@@ -71,10 +72,10 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
 
   return (
     <>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.InputWithIdentifier inputLabel={getString('pipelineSteps.stepNameLabel')} />
       </div>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormInput.Select
           items={shellScriptType}
           name="spec.shell"
@@ -113,7 +114,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
           />
         )}
       </div>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}

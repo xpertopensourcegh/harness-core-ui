@@ -43,7 +43,7 @@ exports[`Http Step edit mode works 1`] = `
                 class="stepPanel"
               >
                 <div
-                  class="formGroup"
+                  class="formGroup md"
                 >
                   <div
                     class="InputWithIdentifier--txtNameContainer"
@@ -223,7 +223,7 @@ exports[`Http Step edit mode works 1`] = `
                   </button>
                 </div>
                 <div
-                  class="formGroup"
+                  class="formGroup sm"
                 >
                   <div
                     class="bp3-form-group"
@@ -681,7 +681,7 @@ exports[`Http Step edit mode works 1`] = `
                   </button>
                 </div>
                 <div
-                  class="formGroup"
+                  class="formGroup sm"
                 >
                   <div
                     class="bp3-form-group"
@@ -1038,7 +1038,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                 class="stepPanel"
               >
                 <div
-                  class="formGroup"
+                  class="formGroup md"
                 >
                   <div
                     class="InputWithIdentifier--txtNameContainer"
@@ -1218,7 +1218,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                   </button>
                 </div>
                 <div
-                  class="formGroup"
+                  class="formGroup sm"
                 >
                   <div
                     class="bp3-form-group"
@@ -1673,7 +1673,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                   </button>
                 </div>
                 <div
-                  class="formGroup"
+                  class="formGroup sm"
                 >
                   <div
                     class="bp3-form-group"
@@ -1832,7 +1832,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                 class="stepPanel"
               >
                 <div
-                  class="formGroup"
+                  class="formGroup md"
                 >
                   <div
                     class="InputWithIdentifier--txtNameContainer"
@@ -1979,7 +1979,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                   </div>
                 </div>
                 <div
-                  class="formGroup"
+                  class="formGroup sm"
                 >
                   <div
                     class="bp3-form-group"
@@ -2369,7 +2369,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                   </div>
                 </div>
                 <div
-                  class="formGroup"
+                  class="formGroup sm"
                 >
                   <div
                     class="bp3-form-group"

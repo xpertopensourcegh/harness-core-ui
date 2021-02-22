@@ -7,6 +7,8 @@ declare const styles: {
   readonly accordion: string
   readonly stepPanel: string
   readonly formGroup: string
+  readonly sm: string
+  readonly md: string
   readonly code: string
   readonly fieldsSection: string
   readonly fieldsGroup: string

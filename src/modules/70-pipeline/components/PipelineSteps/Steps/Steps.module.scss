@@ -30,6 +30,15 @@
   display: grid;
   grid-template-columns: 1fr 30px;
   align-items: center;
+  width: 100%;
+
+  &.sm {
+    width: 35%;
+  }
+
+  &.md {
+    width: 55%;
+  }
 
   textarea.code {
     min-height: 200px;

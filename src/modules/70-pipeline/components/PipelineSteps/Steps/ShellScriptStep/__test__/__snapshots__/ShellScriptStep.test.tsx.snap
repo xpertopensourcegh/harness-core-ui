@@ -335,7 +335,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
               data-testid="step-1-details"
             >
               <div
-                class="formGroup"
+                class="formGroup md"
               >
                 <div
                   class="InputWithIdentifier--txtNameContainer"
@@ -421,7 +421,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group bp3-disabled"
@@ -582,7 +582,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group duration"
@@ -793,7 +793,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
               data-testid="step-1-details"
             >
               <div
-                class="formGroup"
+                class="formGroup md"
               >
                 <div
                   class="InputWithIdentifier--txtNameContainer"
@@ -879,7 +879,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group bp3-disabled"
@@ -1042,7 +1042,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group duration"
@@ -1253,7 +1253,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
               data-testid="step-1-details"
             >
               <div
-                class="formGroup"
+                class="formGroup md"
               >
                 <div
                   class="InputWithIdentifier--txtNameContainer"
@@ -1339,7 +1339,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group bp3-disabled"
@@ -1502,7 +1502,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group duration"
@@ -1713,7 +1713,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
               data-testid="step-1-details"
             >
               <div
-                class="formGroup"
+                class="formGroup md"
               >
                 <div
                   class="InputWithIdentifier--txtNameContainer"
@@ -1799,7 +1799,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group bp3-disabled"
@@ -1960,7 +1960,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group duration"
@@ -2171,7 +2171,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
               data-testid="step-1-details"
             >
               <div
-                class="formGroup"
+                class="formGroup md"
               >
                 <div
                   class="InputWithIdentifier--txtNameContainer"
@@ -2255,7 +2255,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group bp3-disabled"
@@ -2416,7 +2416,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup sm"
               >
                 <div
                   class="bp3-form-group duration"
