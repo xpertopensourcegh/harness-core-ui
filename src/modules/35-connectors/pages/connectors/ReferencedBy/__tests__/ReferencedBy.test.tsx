@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { TestWrapper } from '@common/utils/testUtils'
 import ReferencedBy from '../ReferencedBy'
 import referencedData from './referenced-entities-data.json'
 
@@ -9,7 +9,10 @@ jest.mock('react-timeago', () => () => 'dummy date')
 describe('Referenced By', () => {
   test('render for no data', async () => {
     const { container } = render(
-      <MemoryRouter>
+      <TestWrapper
+        path="/account/:accountId/resources/connectors/:connectorId"
+        pathParams={{ accountId: 'dummy', connectorId: 'connectorId' }}
+      >
         <ReferencedBy
           accountId="accountId"
           entityIdentifier="entityIdentifier"
@@ -19,14 +22,17 @@ describe('Referenced By', () => {
             loading: false
           }}
         />
-      </MemoryRouter>
+      </TestWrapper>
     )
     await waitFor(() => queryByText(container, 'There are no references of this Connector.'))
     expect(container).toMatchSnapshot()
   })
   test('render for data', async () => {
     const { container, getByText } = render(
-      <MemoryRouter>
+      <TestWrapper
+        path="/account/:accountId/resources/connectors/:connectorId"
+        pathParams={{ accountId: 'dummy', connectorId: 'connectorId' }}
+      >
         <ReferencedBy
           accountId="accountId"
           entityIdentifier="entityIdentifier"
@@ -36,7 +42,7 @@ describe('Referenced By', () => {
             loading: false
           }}
         />
-      </MemoryRouter>
+      </TestWrapper>
     )
     expect(getByText('ENTITY')).toBeDefined()
     expect(container).toMatchSnapshot()

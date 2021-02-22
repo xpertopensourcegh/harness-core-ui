@@ -13,8 +13,8 @@ import {
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Page } from '@common/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { useStrings } from 'framework/exports'
 import { getIconByEntityType, getReferredEntityLabelByType } from '../utils/ConnectorUtils'
-import i18n from './ReferencedBy.i18n'
 import css from './ReferencedBy.module.scss'
 
 interface ReferencedByProps {
@@ -58,6 +58,7 @@ const RenderColumnActivity: Renderer<CellProps<EntitySetupUsageDTO>> = ({ row })
 
 const ReferencedBy: React.FC<ReferencedByProps> = props => {
   const [page, setPage] = useState(0)
+  const { getString } = useStrings()
   const { data, loading, refetch } = useListReferredByEntities({
     queryParams: {
       accountIdentifier: props.accountId,
@@ -74,13 +75,13 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
   const columns: Column<EntitySetupUsageDTO>[] = useMemo(
     () => [
       {
-        Header: i18n.ENTITY,
+        Header: getString('entity').toUpperCase(),
         accessor: 'referredByEntity',
         width: '33%',
         Cell: RenderColumnEntity
       },
       {
-        Header: i18n.ACTIVITY,
+        Header: getString('lastActivity').toUpperCase(),
         accessor: 'createdAt',
         width: '66%',
         Cell: RenderColumnActivity
@@ -117,15 +118,15 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
             columns={columns}
             data={data.data.content || []}
             pagination={{
-              itemCount: data.data.numberOfElements || 0,
-              pageSize: data.data.size || 10,
-              pageCount: data.data.totalPages || -1,
-              pageIndex: data.data.pageable?.pageNumber || 0,
+              itemCount: data.data?.totalElements || 0,
+              pageSize: data.data?.size || 10,
+              pageCount: data.data?.totalPages || -1,
+              pageIndex: data.data?.pageable?.pageNumber || 0,
               gotoPage: pageNumber => setPage(pageNumber)
             }}
           />
         ) : (
-          <Page.NoDataCard icon="nav-dashboard" message={i18n.noData} />
+          <Page.NoDataCard icon="nav-dashboard" message={getString('noReferencesData')} />
         )
       ) : (
         <PageSpinner />

@@ -47,7 +47,7 @@ exports[`Referenced By render for data 1`] = `
           style="width: 66%;"
           title="Toggle SortBy"
         >
-           LAST ACTIVITY
+          LAST ACTIVITY
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -242,13 +242,120 @@ exports[`Referenced By render for data 1`] = `
         >
           Showing 
           <strong>
+            1
+          </strong>
+           -
+           
+          <strong>
             10
           </strong>
            of 
           <strong>
-            10
+            144
           </strong>
         </span>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        >
+          <button
+            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              1
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              2
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              3
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              4
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              5
+            </span>
+          </button>
+          <div
+            class="bp3-popover-wrapper Select--main bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class=""
+              >
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-more StyledProps--main"
+                    icon="more"
+                  >
+                    <svg
+                      data-icon="more"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        more
+                      </desc>
+                      <path
+                        d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              15
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

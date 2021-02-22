@@ -31,6 +31,7 @@ tagRegex: Tag Regex
 parallelSteps: Parallel Steps
 stepGroup: Step Group
 changeHistory: Change History
+entity: Entity
 lastTested: Last Tested
 lastUpdated: Last Updated
 lastConnectionSuccess: Last time connection is successful
@@ -39,6 +40,7 @@ noDetails: No details found
 connectivityStatus: Connectivity Status
 lastStatusCheckAt: 'Last status check at '
 lastSuccessfulStatusCheckAt: 'Last successful status check at '
+noReferencesData: 'There are no references of this Connector.'
 connectorCreated: Connector Created
 fieldRequired: '{{field}} is a required field'
 deploymentText: Deployment
