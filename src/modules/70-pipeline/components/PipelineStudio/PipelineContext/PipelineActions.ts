@@ -31,7 +31,7 @@ export enum DrawerTypes {
   PipelineNotifications = 'PipelineNotifications'
 }
 
-export const DrawerSizes: { [key: string]: number } = {
+export const DrawerSizes: { [key: string]: React.CSSProperties['width'] } = {
   StepConfig: 600,
   AddCommand: 700,
   PipelineVariables: 450,
@@ -40,7 +40,7 @@ export const DrawerSizes: { [key: string]: number } = {
   AddService: 485,
   ConfigureService: 600,
   FailureStrategy: 600,
-  PipelineNotifications: 1500
+  PipelineNotifications: '100%'
 }
 
 export enum SplitViewTypes {
