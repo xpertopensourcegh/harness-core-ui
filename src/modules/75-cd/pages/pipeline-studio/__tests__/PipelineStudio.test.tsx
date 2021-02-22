@@ -17,6 +17,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('services/pipeline-ng', () => ({
+  useGetYamlSchema: jest.fn().mockImplementation(() => ({ loading: false, data: null, refetch: jest.fn() })),
   getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
   putPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
   createPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),

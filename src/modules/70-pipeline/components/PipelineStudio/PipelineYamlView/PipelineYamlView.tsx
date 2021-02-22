@@ -2,7 +2,6 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { useGetYamlSchema } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetYamlSnippet, useGetYamlSnippetMetadata } from 'services/cd-ng'
@@ -10,6 +9,8 @@ import { getSnippetTags } from '@common/utils/SnippetUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 
+import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
+import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineYamlView.module.scss'
 
 const PipelineYamlView: React.FC = () => {
@@ -27,6 +28,7 @@ const PipelineYamlView: React.FC = () => {
     stepsFactory,
     setYamlHandler: setYamlHandlerContext
   } = React.useContext(PipelineContext)
+  const { pipelineSchema } = usePipelineSchema()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { data: snippetMetaData, loading: isFetchingSnippets } = useGetYamlSnippetMetadata({
     queryParams: {
@@ -37,7 +39,7 @@ const PipelineYamlView: React.FC = () => {
     },
     requestOptions: { headers: { accept: 'application/json' } }
   })
-
+  const { expressions } = useVariablesExpression()
   const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
     {
       identifier: '',
@@ -74,18 +76,9 @@ const PipelineYamlView: React.FC = () => {
     })
   }
 
-  const { loading, data: pipelineSchema } = useGetYamlSchema({
-    queryParams: {
-      entityType: 'Pipelines',
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    }
-  })
-
   return (
     <div className={css.yamlBuilder}>
-      {loading || isFetchingSnippets ? (
+      {isFetchingSnippets ? (
         <PageSpinner />
       ) : (
         <YAMLBuilder
@@ -94,6 +87,9 @@ const PipelineYamlView: React.FC = () => {
           existingJSON={{ pipeline }}
           bind={setYamlHandler}
           onSnippetCopy={onSnippetCopy}
+          onExpressionTrigger={() => {
+            return Promise.resolve(expressions.map(item => ({ label: item, insertText: `${item}>`, kind: 1 })))
+          }}
           showIconMenu={true}
           snippetFetchResponse={snippetFetchResponse}
           yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}

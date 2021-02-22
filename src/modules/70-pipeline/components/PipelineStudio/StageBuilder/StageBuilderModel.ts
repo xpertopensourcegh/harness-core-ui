@@ -69,7 +69,7 @@ export class StageBuilderModel extends DiagramModel {
             skipCondition: node.stage.skipCondition,
             allowAdd: allowAdd === true,
             height: 50,
-            iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
+            iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
             icon: type.icon
           })
 

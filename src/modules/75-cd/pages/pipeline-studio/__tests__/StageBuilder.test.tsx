@@ -37,6 +37,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 jest.mock('services/pipeline-ng', () => ({
+  useGetYamlSchema: jest.fn().mockImplementation(() => ({ loading: false, data: null, refetch: jest.fn() })),
   getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
   useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
   useCreateVariables: jest.fn(() => ({ mutate: jest.fn(), loading: false, cancel: jest.fn() }))

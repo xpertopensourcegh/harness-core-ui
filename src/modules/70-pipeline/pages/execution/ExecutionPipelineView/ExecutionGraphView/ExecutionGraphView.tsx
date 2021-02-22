@@ -48,7 +48,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   function handleStageSelection(stage: string): void {
     const selectedStage = pipelineStagesMap.get(stage)
 
-    if (isExecutionNotStarted(selectedStage?.status)) {
+    if (isExecutionNotStarted(selectedStage?.status) || isExecutionSkipped(selectedStage?.status)) {
       return
     }
 
