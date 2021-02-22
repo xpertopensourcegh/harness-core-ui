@@ -139,7 +139,7 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
       value: connector?.spec?.credential?.spec?.auth?.spec?.clientCertRef
     },
     {
-      label: 'connectors.k8.clientKey.clientKeyPassphrase',
+      label: 'connectors.k8.clientKeyPassphrase',
       value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyPassphraseRef
     },
     {
@@ -147,7 +147,7 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
       value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyAlgo
     },
     {
-      label: 'connectors.k8.clientKey.clientKeyCACertificate',
+      label: 'connectors.k8.clientKeyCACertificate',
       value: connector?.spec?.credential?.spec?.auth?.spec?.caCertRef
     }
   ]
