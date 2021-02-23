@@ -28,7 +28,7 @@ export function isExecutionRunning(status?: string): boolean {
 }
 
 export function isExecutionFailed(status?: string): boolean {
-  return changeCase(status) === 'Failed'
+  return changeCase(status) === 'Failed' || changeCase(status) === 'Failure'
 }
 
 export function isExecutionExpired(status?: string): boolean {

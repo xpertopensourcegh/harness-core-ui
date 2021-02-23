@@ -2,6 +2,8 @@ import React from 'react'
 import { Icon, IconName } from '@wings-software/uicore'
 import { chunk } from 'lodash-es'
 
+import { Duration } from '@common/components'
+
 import type { LineData } from './types'
 import { LogViewerWithVirtualList } from './LogViewerWithVirtualList'
 import { memoizedAnsiToJson } from './LogLine'
@@ -12,6 +14,8 @@ export type LogViewerAccordionStatus = 'success' | 'error' | 'loading'
 export interface LogViewerAccordionProps {
   title: React.ReactNode
   data: string
+  startTime?: number
+  endTime?: number
   id: string
   status?: LogViewerAccordionStatus
   isOpen?: boolean
@@ -29,7 +33,7 @@ const statusIconMap: Record<string, IconName> = {
  * Component which renders a section of a log
  */
 export function LogViewerAccordion(props: LogViewerAccordionProps): React.ReactElement {
-  const { title, data, isOpen, status, id, onSectionClick, isLoading, linesChunkSize } = props
+  const { title, data, isOpen, status, id, onSectionClick, isLoading, linesChunkSize, startTime, endTime } = props
   const [node, setNode] = React.useState<HTMLElement | null>(null)
   const [open, setOpen] = React.useState(!!isOpen)
   const [height, setHeight] = React.useState(0)
@@ -117,7 +121,12 @@ export function LogViewerAccordion(props: LogViewerAccordionProps): React.ReactE
           name={status && status in statusIconMap ? statusIconMap[status] : 'circle'}
           size={12}
         />
-        <div className={css.text}>{title}</div>
+        <div className={css.text}>
+          <div>{title}</div>
+          {startTime ? (
+            <Duration className={css.duration} durationText=" " startTime={startTime} endTime={endTime} />
+          ) : null}
+        </div>
       </div>
       {open ? (
         <LogViewerWithVirtualList

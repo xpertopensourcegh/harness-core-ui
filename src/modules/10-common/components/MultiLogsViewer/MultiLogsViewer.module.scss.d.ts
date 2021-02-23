@@ -8,6 +8,7 @@ declare const styles: {
   readonly status: string
   readonly sectionSummary: string
   readonly text: string
+  readonly duration: string
   readonly logViewer: string
   readonly list: string
   readonly logLine: string

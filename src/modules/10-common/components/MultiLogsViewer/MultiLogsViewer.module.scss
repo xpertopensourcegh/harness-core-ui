@@ -38,6 +38,13 @@ $background: #09090b;
   .text {
     flex: 1 1 auto;
     color: var(--grey-300);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .duration {
+    font-size: var(--font-size-small) !important;
   }
 
   &[data-open='true'] {

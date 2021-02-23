@@ -1,19 +1,22 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 
-import { useGetToken, useLogBlob } from 'services/logs'
+import { useGetToken, logBlobPromise } from 'services/logs'
 import { String } from 'framework/exports'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import SessionToken from 'framework/utils/SessionToken'
 import { MultiLogsViewer, LogViewerAccordionProps } from '@common/components/MultiLogsViewer/MultiLogsViewer'
 import { getStageType } from '@pipeline/utils/executionUtils'
+import { isExecutionComplete, isExecutionRunningLike } from '@pipeline/utils/statusHelpers'
+import { PQueue } from '@common/utils/PQueue'
 
 import { useLogsStream } from './useLogsStream'
 import { reducer, ActionType } from './LogsState'
 import css from './LogsContent.module.scss'
 
 const logsCache = new Map()
+export const requestQueue = new PQueue()
 
 export interface LogsContentProps {
   mode: 'step-details' | 'console-view'
@@ -25,7 +28,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { accountId, pipelineIdentifier, projectIdentifier, executionIdentifier, orgIdentifier } = useParams<
     ExecutionPathProps
   >()
-  const [state, dispatch] = React.useReducer(reducer, { units: [], dataMap: {}, key: null, selectedStep: '' })
+  const [state, dispatch] = React.useReducer(reducer, { units: [], dataMap: {}, selectedStep: '' })
   const {
     pipelineStagesMap,
     selectedStageId,
@@ -36,8 +39,40 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     pipelineExecutionDetail
   } = useExecutionContext()
   const { data: tokenData } = useGetToken({ queryParams: { accountID: accountId }, lazy: !!logsToken })
-  const { data: logBlobData, refetch: fetchBlob, cancel } = useLogBlob({ lazy: true, localErrorOnly: true })
-  const { log: streamData, startStream, closeStream } = useLogsStream()
+  const { log: streamData, startStream, closeStream, logKey: streamKey } = useLogsStream()
+
+  const getBlobData = React.useCallback(
+    (id: string, key: string) => {
+      requestQueue.add(async (signal: AbortSignal) => {
+        if (logsCache.has(key)) {
+          dispatch({ type: ActionType.UpdateSectionData, payload: { data: logsCache.get(key), id } })
+          return
+        }
+
+        dispatch({ type: ActionType.FetchSectionData, payload: id })
+
+        const data = ((await logBlobPromise(
+          {
+            queryParams: {
+              accountID: accountId,
+              'X-Harness-Token': '',
+              key
+            },
+            requestOptions: {
+              headers: {
+                'X-Harness-Token': logsToken
+              }
+            }
+          },
+          signal
+        )) as unknown) as string
+
+        logsCache.set(key, data)
+        dispatch({ type: ActionType.UpdateSectionData, payload: { id, data } })
+      })
+    },
+    [accountId, logsToken]
+  )
 
   React.useEffect(() => {
     if (tokenData) {
@@ -46,62 +81,34 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenData])
 
+  // This fetches data for sections that are opened initially
   React.useEffect(() => {
-    if (logBlobData && state.key) {
-      const key = state.dataMap[state.key].logKey
-      logsCache.set(key, logBlobData)
-      dispatch({ type: ActionType.UpdateSectionData, payload: logBlobData })
-    }
-  }, [logBlobData, state.key, state.selectedStep])
+    state.units.forEach(unit => {
+      const section = state.dataMap[unit]
 
+      if (section && section.isLoading) {
+        getBlobData(unit, section.logKey)
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.selectedStep])
+
+  // fetch data for stream
   React.useEffect(() => {
     if (streamData) {
-      dispatch({ type: ActionType.UpdateSectionData, payload: streamData })
+      dispatch({ type: ActionType.UpdateSectionData, payload: { data: streamData, id: streamKey } })
     }
-  }, [streamData, state.key, state.selectedStep])
+  }, [streamData, streamKey, state.selectedStep])
 
+  // on unmount
   React.useEffect(() => {
-    if (logsToken && state.key) {
-      const dataSource = state.dataMap[state.key]?.dataSource
-      const key = state.dataMap[state.key].logKey
-      if (dataSource === 'blob') {
-        if (logsCache.has(key)) {
-          dispatch({ type: ActionType.UpdateSectionData, payload: logsCache.get(key) })
-          return
-        }
-        fetchBlob({
-          queryParams: {
-            accountID: accountId,
-            'X-Harness-Token': '',
-            key
-          },
-          requestOptions: {
-            headers: {
-              'X-Harness-Token': logsToken
-            }
-          }
-        })
-      } else if (dataSource === 'stream') {
-        startStream({
-          queryParams: {
-            accountId,
-            key: state.dataMap[state.key].logKey
-          },
-          headers: {
-            'X-Harness-Token': logsToken,
-            Authorization: SessionToken.getToken()
-          }
-        })
-      }
-    }
-
     return () => {
+      requestQueue.cancel()
       closeStream()
-      cancel()
       logsCache.clear()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.key, logsToken, accountId, state.key ? state.dataMap[state.key]?.dataSource : null, state.selectedStep])
+  }, [])
 
   React.useEffect(() => {
     const selectedStep = allNodeMap[selectedStepId]
@@ -139,8 +146,30 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   function handleSectionClick(id: string, _props: LogViewerAccordionProps): boolean | void {
     const currentSection = state.dataMap[id]
 
+    if (
+      (!isExecutionComplete(currentSection.originalStatus) && !isExecutionRunningLike(currentSection.originalStatus)) ||
+      currentSection.isLoading
+    ) {
+      return false
+    }
+
+    const key = currentSection.logKey
+
     if (!currentSection?.data) {
-      dispatch({ type: ActionType.FetchSectionData, payload: id })
+      if (currentSection.dataSource === 'blob') {
+        getBlobData(id, key)
+      } else if (currentSection.data === 'stream') {
+        startStream({
+          queryParams: {
+            accountId,
+            key
+          },
+          headers: {
+            'X-Harness-Token': logsToken,
+            Authorization: SessionToken.getToken()
+          }
+        })
+      }
     } else {
       dispatch({ type: ActionType.ToggleSection, payload: id })
     }

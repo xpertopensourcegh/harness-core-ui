@@ -1,7 +1,7 @@
 import produce from 'immer'
 import { set, findLast } from 'lodash-es'
 
-import type { ExecutionNode } from 'services/cd-ng'
+import type { ExecutionNode, UnitProgress } from 'services/cd-ng'
 import {
   isExecutionComplete,
   isExecutionSuccess,
@@ -13,6 +13,8 @@ import type { MultiLogsViewerData, LogViewerAccordionStatus } from '@common/comp
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 
+export type ProgressMapValue = Pick<UnitProgress, 'status' | 'startTime' | 'endTime'>
+
 export enum ActionType {
   CreateSections = 'CreateSections',
   FetchSectionData = 'FetchSectionData',
@@ -22,6 +24,7 @@ export enum ActionType {
 
 export interface LogSectionData extends MultiLogsViewerData {
   logKey: string
+  originalStatus: ProgressMapValue['status']
   dataSource: 'blob' | 'stream'
 }
 
@@ -41,14 +44,13 @@ export interface Action<T extends ActionType> {
     : T extends ActionType.FetchSectionData
     ? string
     : T extends ActionType.UpdateSectionData
-    ? string
+    ? { id: string; data: string }
     : T extends ActionType.ToggleSection
     ? string
     : never
 }
 
 export interface State {
-  key: null | string
   units: string[]
   dataMap: Record<string, LogSectionData>
   selectedStep: string
@@ -98,13 +100,16 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
           data: isSameStep ? state.dataMap?.Logs?.data || '' : '',
           dataSource,
           isOpen: isSameStep ? state.dataMap?.Logs?.isOpen : dataSource === 'stream',
+          isLoading: isSameStep ? state.dataMap?.Logs?.isLoading : true,
+          status: isSameStep ? state.dataMap?.Logs?.status : 'loading',
+          originalStatus: 'UNKNOWN',
           logKey:
             node.stepType === LITE_ENGINE_TASK
               ? ((node.executableResponses || []).find(item => item.task)?.task as any)?.logKeys?.[0]
               : `${accountId}/${orgIdentifier}/${projectIdentifier}/${pipelineIdentifier}/${runSequence}/${stageIdentifier}/${node?.identifier}`
         }
 
-        return { units, dataMap: { [units[0]]: sectionData }, key: units[0], selectedStep }
+        return { units, dataMap: { [units[0]]: sectionData }, selectedStep }
       } else if (module === 'cd') {
         /**
          * task object must always be picked from the first entry
@@ -114,42 +119,66 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
          */
         const task = node?.executableResponses?.[0]?.taskChain || node?.executableResponses?.[0]?.task
 
-        /**
-         * taskId to use to pick the progress data
-         * NOTE: second element for progress
-         */
-        const taskId =
-          node?.executableResponses?.[1]?.taskChain?.taskId || node?.executableResponses?.[0]?.task?.taskId || ''
-
         const { units = [], logKeys = [] } = task || ({} as any)
-
-        /**
-         * `taskIdToProgressDataMap` is an array with statuses for all the units.
-         * It may have multiple entries for a given unit.
-         * We must use the latest one always.
-         *
-         * Hence we loop over the entries nand create a map out of it.
-         */
-        const progressMap = new Map<string, string>()
-
-        ;(node?.taskIdToProgressDataMap?.[taskId] || []).forEach(row => {
-          if (row.commandUnitName && row.commandExecutionStatus) {
-            progressMap.set(row.commandUnitName, row.commandExecutionStatus)
-          }
-        }, {})
-
+        const progressMap = new Map<string, ProgressMapValue>()
         const isStepComplete = isExecutionComplete(node.status)
+        let useUnitProgresses = true
 
-        const getStatusforUnit = (unit: string): string => {
-          return (isStepComplete ? node.status : progressMap.get(unit)) || node.status || ''
+        if (Array.isArray(node.unitProgresses)) {
+          node.unitProgresses.forEach(row => {
+            if (row.unitName) {
+              progressMap.set(row.unitName, {
+                status: row.status,
+                startTime: row.startTime,
+                endTime: row.endTime
+              })
+            }
+          })
+        } else {
+          // This section is meant for backward compatability, Should be removed after some time
+          useUnitProgresses = false
+          /**
+           * taskId to use to pick the progress data
+           * NOTE: second element for progress
+           */
+          const taskId =
+            node?.executableResponses?.[1]?.taskChain?.taskId || node?.executableResponses?.[0]?.task?.taskId || ''
+
+          /**
+           * `taskIdToProgressDataMap` is an array with statuses for all the units.
+           * It may have multiple entries for a given unit.
+           * We must use the latest one always.
+           *
+           * Hence we loop over the entries nand create a map out of it.
+           */
+          ;(node?.taskIdToProgressDataMap?.[taskId] || []).forEach(row => {
+            if (row.commandUnitName) {
+              progressMap.set(row.commandUnitName, {
+                status: row.commandExecutionStatus,
+                startTime: 0,
+                endTime: 0
+              })
+            }
+          }, {})
+        }
+
+        const getStatusforUnitLegacy = (unit: string): ProgressMapValue['status'] => {
+          const unitProgress = progressMap.get(unit)
+
+          if (isStepComplete && isExecutionRunning(unitProgress?.status)) {
+            return node.status as ProgressMapValue['status']
+          }
+
+          return unitProgress?.status || 'UNKNOWN'
         }
 
         const dataMap = units.reduce((acc: Record<string, LogSectionData>, unit: string, i: number) => {
           /**
            * progressMap must have a status for this unit.
-           * In case it doesn't, fallback to the step status.
+           * In case it doesn't, fallback to the 'UNKNOWN' status.
            */
-          const unitStatus = getStatusforUnit(unit)
+          const unitProgress = progressMap.get(unit)
+          const unitStatus = (useUnitProgresses ? unitProgress?.status : getStatusforUnitLegacy(unit)) || 'UNKNOWN'
 
           acc[unit] = {
             title: unit,
@@ -159,7 +188,10 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             logKey: logKeys[i],
             isOpen: isSameStep ? state.dataMap[unit]?.isOpen : false,
             status: logViewerStatusMap[unitStatus.toLowerCase()],
-            dataSource: isStepComplete ? 'blob' : 'stream'
+            startTime: unitProgress?.startTime,
+            endTime: unitProgress?.endTime,
+            originalStatus: unitStatus,
+            dataSource: isExecutionComplete(unitStatus) ? 'blob' : 'stream'
           }
 
           return acc
@@ -176,23 +208,21 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             key = units[0]
           } else {
             // find and open the first failed section
-            const failedUnit = units.find((unit: string) => isExecutionFailed(getStatusforUnit(unit)))
+            const failedUnit = units.find((unit: string) => isExecutionFailed(getStatusforUnitLegacy(unit)))
             key = failedUnit || null
           }
-
-          // if we are openening a section the set it to loading for better UX
-          if (key) set(dataMap[key], 'isLoading', true)
         } else {
           // open the running section
-          const runningUnit = findLast([...progressMap.keys()], unit => isExecutionRunning(getStatusforUnit(unit)))
+          const runningUnit = findLast([...progressMap.keys()], unit =>
+            isExecutionRunning(getStatusforUnitLegacy(unit))
+          )
           key = runningUnit || null
         }
 
-        if (!key) {
-          key = selectedStep === state.selectedStep ? state.key : null
-        }
+        // if we are openening a section the set it to loading for better UX
+        if (key) set(dataMap[key], 'isLoading', true)
 
-        return { units, dataMap, key, selectedStep }
+        return { units, dataMap, selectedStep }
       }
 
       return state
@@ -200,21 +230,19 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
     // Action for fetching the section data
     case ActionType.FetchSectionData: {
       const payload = (action as Action<ActionType.FetchSectionData>).payload
+
       return produce(state, draft => {
         set(draft.dataMap[payload], 'isLoading', true)
-        draft.key = payload
       })
     }
-    // Action for upodating the section data
+    // Action for updating the section data
     case ActionType.UpdateSectionData: {
-      // TODO: handle streaming payload
       const payload = (action as Action<ActionType.UpdateSectionData>).payload
-      const key = state.key
 
-      if (!key || state.dataMap[key].data === payload) return state
+      if (state.dataMap[payload.id].data === payload.data) return state
 
       return produce(state, draft => {
-        const data = payload.split('\n').reduce((str, line) => {
+        const data = payload.data.split('\n').reduce((str, line) => {
           if (line.length > 0) {
             let lineStr = line
 
@@ -245,12 +273,9 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
 
           return str
         }, '')
-        set(draft.dataMap[key], 'isLoading', false)
-        set(draft.dataMap[key], 'isOpen', true)
-        set(draft.dataMap[key], 'data', data.trim())
-        if (draft.dataMap[key]?.dataSource === 'blob') {
-          draft.key = null
-        }
+        set(draft.dataMap[payload.id], 'isLoading', false)
+        set(draft.dataMap[payload.id], 'isOpen', true)
+        set(draft.dataMap[payload.id], 'data', data.trim())
       })
     }
     // Action for toggling a section
