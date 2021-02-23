@@ -136,7 +136,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
   const { prevStepData } = props
   const mapToDNSProps = prevStepData as MapToProviderProps
   const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
-  const [dnsProvider, setDNSProvider] = useState<string>()
+  const [dnsProvider, setDNSProvider] = useState<string>('route53')
   const [mappedToDNS, setMappedToDNS] = useState<boolean>(false)
 
   const { showError } = useToaster()

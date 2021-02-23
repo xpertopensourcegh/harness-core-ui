@@ -978,7 +978,9 @@
             "description": "Invalid status value"
           }
         }
-      },
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points": {
       "get": {
         "parameters": [
           {
@@ -994,8 +996,8 @@
             "type": "string"
           },
           {
-            "name": "Token",
-            "in": "header",
+            "name": "account_id",
+            "in": "path",
             "required": true,
             "type": "string"
           }

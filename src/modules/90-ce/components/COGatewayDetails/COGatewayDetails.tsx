@@ -96,7 +96,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       const result = await saveGateway({ service: gateway, deps: [], apply_now: false }) // eslint-disable-line
       if (result.response) {
         history.push(
-          routes.toCECODashboard({
+          routes.toCECORules({
             orgIdentifier: orgIdentifier as string,
             projectIdentifier: projectIdentifier as string,
             accountId

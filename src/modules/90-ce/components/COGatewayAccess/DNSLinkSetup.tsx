@@ -77,7 +77,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const [dnsProvider, setDNSProvider] = useState<string>()
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId // eslint-disable-line
   })
   useEffect(() => {
     if (accessPoints?.response?.length == 0) {

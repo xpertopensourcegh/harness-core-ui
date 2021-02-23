@@ -1349,6 +1349,7 @@ export const useCreateAccessPoint = ({ org_id, project_id, ...props }: UseCreate
 export interface ListAccessPointsPathParams {
   org_id: string
   project_id: string
+  account_id: string
 }
 
 export type ListAccessPointsProps = Omit<
@@ -1362,9 +1363,9 @@ export type ListAccessPointsProps = Omit<
  *
  * List all AccessPoints
  */
-export const ListAccessPoints = ({ org_id, project_id, ...props }: ListAccessPointsProps) => (
+export const ListAccessPoints = ({ org_id, project_id, account_id, ...props }: ListAccessPointsProps) => (
   <Get<ListAccessPointResponse, void, void, ListAccessPointsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/access_points"
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points"
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1381,11 +1382,11 @@ export type UseListAccessPointsProps = Omit<
  *
  * List all AccessPoints
  */
-export const useListAccessPoints = ({ org_id, project_id, ...props }: UseListAccessPointsProps) =>
+export const useListAccessPoints = ({ org_id, project_id, account_id, ...props }: UseListAccessPointsProps) =>
   useGet<ListAccessPointResponse, void, void, ListAccessPointsPathParams>(
     (paramsInPath: ListAccessPointsPathParams) =>
-      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points`,
-    { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
 export interface GetAccessPointPathParams {
