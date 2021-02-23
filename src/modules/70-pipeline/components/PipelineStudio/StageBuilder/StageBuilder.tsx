@@ -5,8 +5,10 @@ import { debounce } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
+import { useToaster } from '@common/components/Toaster/useToaster'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
+import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
 import {
   CanvasWidget,
@@ -129,10 +131,33 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     renderPipelineStage,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-
+  const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
+
+  // const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
+  const [deleteId, setDeleteId] = React.useState<string | undefined>(undefined)
+  const { showSuccess, showError } = useToaster()
+  const { openDialog } = useConfirmationDialog({
+    contentText: `${getString('stageConfirmationText', {
+      name: deleteId
+    })} `,
+    titleText: getString('deletePipelineStage'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (deleteId && isConfirmed) {
+        const isRemove = removeNodeFromPipeline(getStageFromPipeline(deleteId), pipeline, stageMap)
+        if (isRemove) {
+          updatePipeline(pipeline)
+          showSuccess(getString('deleteStageSuccess'))
+        } else {
+          showError(getString('deleteStageFailure'))
+        }
+      }
+    }
+  })
 
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
 
@@ -231,6 +256,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
   }, [isInitialized, pipeline, isSplitViewOpen])
 
+  React.useEffect(() => {
+    setDeleteId(deleteId)
+  }, [deleteId])
   const nodeListeners: NodeModelListener = {
     // Can not remove this Any because of React Diagram Issue
     [Event.ClickNode]: (event: any) => {
@@ -372,10 +400,14 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     [Event.RemoveNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       const stageIdToBeRemoved = eventTemp.entity.getIdentifier()
-      const isRemove = removeNodeFromPipeline(getStageFromPipeline(stageIdToBeRemoved), pipeline, stageMap)
-      if (isRemove) {
-        updatePipeline(pipeline)
-      }
+
+      setDeleteId(stageIdToBeRemoved)
+
+      openDialog()
+      // const isRemove = removeNodeFromPipeline(getStageFromPipeline(stageIdToBeRemoved), pipeline, stageMap)
+      // if (isRemove) {
+      //   updatePipeline(pipeline)
+      // }
     },
     [Event.AddParallelNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
