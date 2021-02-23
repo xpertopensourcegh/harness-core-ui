@@ -196,7 +196,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
                           {propagatedStage?.stage?.spec?.infrastructure?.spec?.connectorRef && (
                             <>
                               <Text font="small" margin={{ top: 'large', bottom: 'xsmall' }}>
-                                {getString('pipelineSteps.build.infraSpecifications.propagateConnectorLabel')}
+                                {getString('connectors.title.k8sCluster')}
                               </Text>
                               <Text font="normal" color="black" margin={{ bottom: 'medium' }}>
                                 {propagatedStage?.stage?.spec?.infrastructure?.spec?.connectorRef}

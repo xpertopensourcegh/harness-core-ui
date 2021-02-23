@@ -4,7 +4,7 @@ import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import StepNexusAuthentication from './StepAuth/StepNexusAuthentication'
 
@@ -23,7 +23,7 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
       <StepWizard
         icon={getConnectorIconByType(Connectors.NEXUS)}
         iconProps={{ size: 40 }}
-        title={getConnectorTitleTextByType(Connectors.NEXUS)}
+        title={getString(getConnectorTitleIdByType(Connectors.NEXUS))}
       >
         <ConnectorDetailsStep
           type={Connectors.NEXUS}

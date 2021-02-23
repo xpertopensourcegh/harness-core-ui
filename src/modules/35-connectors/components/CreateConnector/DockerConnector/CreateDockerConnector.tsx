@@ -4,7 +4,7 @@ import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from '@connectors/constants'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import StepDockerAuthentication from './StepAuth/StepDockerAuthentication'
@@ -29,7 +29,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
       <StepWizard
         icon={getConnectorIconByType(Connectors.DOCKER)}
         iconProps={{ size: 37, color: Color.WHITE }}
-        title={getConnectorTitleTextByType(Connectors.DOCKER)}
+        title={getString(getConnectorTitleIdByType(Connectors.DOCKER))}
       >
         <ConnectorDetailsStep
           type={Connectors.DOCKER}

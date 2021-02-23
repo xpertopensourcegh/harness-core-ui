@@ -912,7 +912,7 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.artifactory')
     case Connectors.GCP:
       return getString('connectors.testConnectionStep.validationText.gcp')
-    case Connectors.GCR:
+    case 'Gcr':
       return getString('connectors.testConnectionStep.validationText.gcr')
     case Connectors.APP_DYNAMICS:
       return getString('connectors.testConnectionStep.validationText.appD')

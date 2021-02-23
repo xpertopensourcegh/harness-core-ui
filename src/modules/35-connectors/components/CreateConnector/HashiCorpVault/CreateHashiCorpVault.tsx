@@ -1,7 +1,7 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
@@ -29,7 +29,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
     <StepWizard<StepSecretManagerProps>
       icon={getConnectorIconByType(Connectors.VAULT)}
       iconProps={{ size: 37 }}
-      title={getConnectorTitleTextByType(Connectors.VAULT)}
+      title={getString(getConnectorTitleIdByType(Connectors.VAULT))}
     >
       <ConnectorDetailsStep
         type={Connectors.VAULT}

@@ -59,6 +59,9 @@ resources: 'Resources'
 kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
 connector: Connector
+connection: Connection
+refrencedBy: Referenced by
+activityHistoryLabel: Activity History
 connectionMode: Connection Mode
 credType: Credential Type
 secrets: 'Secrets'
@@ -1021,7 +1024,6 @@ pipelineSteps:
       propagate: 'Propagate from an existing stage'
       newConfiguration: 'New Configuration'
       newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
-      propagateConnectorLabel: 'Kubernetes Cluster'
       namespace: 'Namespace'
   deploy:
     errors:
@@ -1138,8 +1140,27 @@ connectors:
   successfullCreate: 'Connector {{name}} created successfully'
   successfullUpdate: 'Connector {{name}} updated successfully'
   connectorNotFound: Connector not found.
-  title: 'Create Connector from YAML'
+  createFromYaml: 'Create Connector from YAML'
   successfullyCreated: 'Connector created successfully'
+  secretManagerDetails: 'Secret Manager Details'
+  gcrConnectorDetails: 'Google Container Registry Overview'
+  hashicorpVaultDetails: 'HashiCorp Vault Overview'
+  appDynamicsDetails: 'AppDynamics Connector Details'
+  splunkConnectorDetails: 'Splunk Connector Details'
+  title:
+    k8sCluster: 'Kubernetes Cluster'
+    gcpConnector: 'Google Cloud Provider'
+    gitConnector: 'Git Connector'
+    githubConnector: 'GitHub Connector'
+    gitlabConnector: 'GitLab Connector'
+    bitbucketConnector: 'Bitbucket Connector'
+    hashicorpVault: 'HashiCorp Vault'
+    secretManager: 'Secret Manager'
+    appdynamics: 'AppDynamics connector'
+    splunk: 'Splunk connector'
+    aws: 'AWS Cloud Provider'
+    nexus: 'Nexus Repository'
+    artifactory: 'Artifactory Repository'
   name_labels:
     Kubernetes: 'Kubernetes Connector Name'
     Git: 'Git Connector Name'

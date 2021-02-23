@@ -1,6 +1,6 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import { GCRDetailStep } from './GCRDetailStep'
 import { ImagePath } from './ImagePath'
@@ -31,7 +31,7 @@ export default function ExistingDockerArtifact({
         className={css.existingDocker}
         icon={getConnectorIconByType('Gcr')}
         iconProps={{ size: 37 }}
-        title={getConnectorTitleTextByType('Gcr')}
+        title={getString(getConnectorTitleIdByType('Gcr'))}
       >
         <GCRDetailStep name={getString('overview')} handleViewChange={handleViewChange} initialValues={initialValues} />
         <ImagePath

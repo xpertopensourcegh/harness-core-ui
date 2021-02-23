@@ -12,18 +12,11 @@ import ActivityHistory from '@connectors/components/activityHistory/ActivityHist
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
-import i18n from './ConnectorDetailsPage.i18n'
 import { getIconByType } from './utils/ConnectorUtils'
 import css from './ConnectorDetailsPage.module.scss'
 
 interface Categories {
   [key: string]: string
-}
-
-const categories: Categories = {
-  connection: i18n.connection,
-  refrencedBy: i18n.refrencedBy,
-  activityHistory: i18n.activityHistory
 }
 
 const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
@@ -47,6 +40,12 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     ...(connectorName ? [connectorName] : [])
   ]
   useDocumentTitle(titleStrings)
+
+  const categories: Categories = {
+    connection: getString('connection'),
+    refrencedBy: getString('refrencedBy'),
+    activityHistory: getString('activityHistoryLabel')
+  }
 
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
 

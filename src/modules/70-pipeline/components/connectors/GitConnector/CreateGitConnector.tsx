@@ -21,7 +21,7 @@ import customi18n from '@pipeline/components/ManifestSelection/ManifestWizardSte
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import css from './CreateGitConnector.module.scss'
 
@@ -176,7 +176,7 @@ const CreateGitConnector = (props: CreateGITConnectorProps): JSX.Element => {
         className={css.wrapper}
         icon={getConnectorIconByType(Connectors.GIT)}
         iconProps={{ size: 50 }}
-        title={getConnectorTitleTextByType(Connectors.GIT)}
+        title={getString(getConnectorTitleIdByType(Connectors.GIT))}
       >
         <ConnectorDetailsStep
           type={Connectors.GIT}

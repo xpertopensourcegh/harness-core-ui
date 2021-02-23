@@ -8,7 +8,7 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { Connectors } from '@connectors/constants'
 import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
 import { useStrings } from 'framework/exports'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { ImagePath } from '@pipeline/components/ArtifactsSelection/DockerArtifact/ImagePath'
 import css from './DockerConnector.module.scss'
 interface CreateDockerConnectorProps {
@@ -38,7 +38,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
     <StepWizard
       icon={getConnectorIconByType(Connectors.DOCKER)}
       iconProps={{ size: 37, color: Color.WHITE }}
-      title={getConnectorTitleTextByType(Connectors.DOCKER)}
+      title={getString(getConnectorTitleIdByType(Connectors.DOCKER))}
       className={css.wrapper}
     >
       <ConnectorDetailsStep

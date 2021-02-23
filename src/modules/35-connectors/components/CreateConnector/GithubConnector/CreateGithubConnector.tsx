@@ -4,7 +4,7 @@ import { pick } from 'lodash-es'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepGithubAuthentication from './StepAuth/StepGithubAuthentication'
@@ -24,7 +24,7 @@ const CreateGithubConnector = (props: CreateConnectorModalProps): JSX.Element =>
     <StepWizard
       icon={getConnectorIconByType(Connectors.GITHUB)}
       iconProps={{ size: 37, color: Color.BLACK }}
-      title={getConnectorTitleTextByType(Connectors.GITHUB)}
+      title={getString(getConnectorTitleIdByType(Connectors.GITHUB))}
     >
       <ConnectorDetailsStep
         type={Connectors.GITHUB}

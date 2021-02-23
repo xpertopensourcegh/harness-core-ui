@@ -192,7 +192,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
 
   return (
     <>
-      <PageHeader title={getString('connectors.title')} />
+      <PageHeader title={getString('connectors.createFromYaml')} />
       <PageBody>
         <Container padding="xlarge">
           {loading ? (

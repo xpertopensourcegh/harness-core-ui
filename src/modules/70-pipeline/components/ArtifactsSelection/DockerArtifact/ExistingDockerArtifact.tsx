@@ -1,7 +1,7 @@
 import React from 'react'
 import { Color, StepWizard } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import { ImagePath } from './ImagePath'
 import { ExampleStep } from './ExampleStep'
@@ -32,7 +32,7 @@ export default function ExistingDockerArtifact({
         className={css.existingDocker}
         icon={getConnectorIconByType(Connectors.DOCKER)}
         iconProps={{ size: 37, color: Color.WHITE }}
-        title={getConnectorTitleTextByType(Connectors.DOCKER)}
+        title={getString(getConnectorTitleIdByType(Connectors.DOCKER))}
       >
         <ExampleStep name={getString('overview')} handleViewChange={handleViewChange} initialValues={initialValues} />
         <ImagePath

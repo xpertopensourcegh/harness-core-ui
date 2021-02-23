@@ -20,9 +20,9 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 import { NameIdDescriptionTags } from '@common/components'
-import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
+import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
@@ -44,6 +44,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loading, setLoading] = useState(false)
   const isEdit = props.isEditMode || prevStepData?.isEdit
+  const { getString } = useStrings()
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
     mounted.current = true
@@ -97,7 +98,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getHeadingByType(props.type)}</div>
+      <div className={css.heading}>{getString(getHeadingIdByType(props.type))}</div>
       <ModalErrorHandler bind={setModalErrorHandler} />
 
       <Container padding="small" className={css.connectorForm}>

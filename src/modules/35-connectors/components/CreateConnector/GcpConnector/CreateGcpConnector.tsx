@@ -4,7 +4,7 @@ import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import GcpAuthentication from './StepAuth/GcpAuthentication'
 
@@ -17,7 +17,7 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
       <StepWizard
         icon={getConnectorIconByType(Connectors.GCP)}
         iconProps={{ size: 37 }}
-        title={getConnectorTitleTextByType(Connectors.GCP)}
+        title={getString(getConnectorTitleIdByType(Connectors.GCP))}
       >
         <ConnectorDetailsStep
           type={Connectors.GCP}

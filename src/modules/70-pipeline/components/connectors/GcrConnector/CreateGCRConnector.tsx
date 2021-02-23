@@ -6,7 +6,7 @@ import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'serv
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnector/StepAuth/GcrAuthentication'
 import { useStrings } from 'framework/exports'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { ImagePath } from '@pipeline/components/ArtifactsSelection/DockerArtifact/ImagePath'
 import css from './GCRConnector.module.scss'
 interface CreateGCRConnectorProps {
@@ -32,7 +32,7 @@ const CreateGCRConnector: React.FC<CreateGCRConnectorProps> = props => {
     <StepWizard
       icon={getConnectorIconByType('Gcr')}
       iconProps={{ size: 37 }}
-      title={getConnectorTitleTextByType('Gcr')}
+      title={getString(getConnectorTitleIdByType('Gcr'))}
       className={css.wrapper}
     >
       <ConnectorDetailsStep

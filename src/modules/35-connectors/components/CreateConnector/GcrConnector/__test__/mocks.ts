@@ -7,7 +7,7 @@ export const encryptedKeyMock = {
   orgIdentifier: '',
   projectIdentifier: '',
   tags: {},
-  type: 'Gcp',
+  type: 'Gcr',
   spec: { credential: { type: 'ManualConfig', spec: { secretKeyRef: 'account.s15656' } } }
 }
 

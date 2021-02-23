@@ -5,7 +5,7 @@ import { useStrings } from 'framework/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import StepAWSAuthentication from './StepAuth/StepAWSAuthentication'
 
 const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
@@ -16,7 +16,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
       <StepWizard
         icon={getConnectorIconByType(Connectors.AWS)}
         iconProps={{ size: 37 }}
-        title={getConnectorTitleTextByType(Connectors.AWS)}
+        title={getString(getConnectorTitleIdByType(Connectors.AWS))}
       >
         <ConnectorDetailsStep
           type={Connectors.AWS}

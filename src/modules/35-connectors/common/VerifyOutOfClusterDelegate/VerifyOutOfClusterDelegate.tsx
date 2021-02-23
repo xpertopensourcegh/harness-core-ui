@@ -62,7 +62,7 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
 
       case Connectors.VAULT:
         return getString('connectors.testConnectionStep.url.vault')
-      case Connectors.GCR:
+      case 'Gcr':
         return getString('connectors.testConnectionStep.url.gcr')
       case Connectors.BITBUCKET:
       case Connectors.GITLAB:
@@ -145,7 +145,7 @@ const VerifyOutOfClusterDelegate: React.FC<
       case Connectors.ARTIFACTORY:
         return 'https://ngdocs.harness.io/article/euueiiai4m-artifactory-connector-settings-reference'
       case Connectors.GCP:
-      case Connectors.GCR:
+      case 'Gcr':
         return 'https://ngdocs.harness.io/article/yykfduond6-gcs-connector-settings-reference'
       case Connectors.GIT:
         return 'https://ngdocs.harness.io/category/xyexvcc206-ref-source-repo-provider'

@@ -3,7 +3,7 @@ import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
-import { getConnectorTitleTextByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import Stepk8ClusterDetails from './StepAuth/Stepk8ClusterDetails'
@@ -22,7 +22,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
     <StepWizard
       icon={getConnectorIconByType(Connectors.KUBERNETES_CLUSTER)}
       iconProps={{ size: 50 }}
-      title={getConnectorTitleTextByType(Connectors.KUBERNETES_CLUSTER)}
+      title={getString(getConnectorTitleIdByType(Connectors.KUBERNETES_CLUSTER))}
     >
       <ConnectorDetailsStep
         type={Connectors.KUBERNETES_CLUSTER}

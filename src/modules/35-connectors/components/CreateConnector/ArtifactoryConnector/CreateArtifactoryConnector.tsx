@@ -4,7 +4,7 @@ import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import StepArtifactoryAuthentication from './StepAuth/StepArtifactoryAuthentication'
 
@@ -23,7 +23,7 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
       <StepWizard
         icon={getConnectorIconByType(Connectors.ARTIFACTORY)}
         iconProps={{ size: 45 }}
-        title={getConnectorTitleTextByType(Connectors.ARTIFACTORY)}
+        title={getString(getConnectorTitleIdByType(Connectors.ARTIFACTORY))}
       >
         <ConnectorDetailsStep
           type={Connectors.ARTIFACTORY}

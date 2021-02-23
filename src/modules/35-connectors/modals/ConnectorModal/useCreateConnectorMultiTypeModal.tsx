@@ -2,7 +2,8 @@ import React from 'react'
 import { useModalHook, Button, Text, Card, Icon, Layout } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { useStrings } from 'framework/exports'
 import useCreateConnectorModal, { UseCreateConnectorModalProps } from './useCreateConnectorModal'
 import wizardCss from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 import css from './useCreateConnectorMultiTypeModal.module.scss'
@@ -34,6 +35,7 @@ const modalProps: IDialogProps = {
 const useCreateConnectorMultiTypeModal = (
   props: UseCreateConnectorMultiTypeModalProps
 ): UseCreateConnectorMultiTypeModalReturn => {
+  const { getString } = useStrings()
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: props.onSuccess
   })
@@ -64,7 +66,7 @@ const useCreateConnectorMultiTypeModal = (
                 <Icon name={getConnectorIconByType(type)} size={20} />
               </Card>
               <Text lineClamp={3} color="white" margin={{ top: 'small' }} style={{ textAlign: 'center', width: 80 }}>
-                {getConnectorTitleTextByType(type)}
+                {getString(getConnectorTitleIdByType(type))}
               </Text>
             </div>
           ))}

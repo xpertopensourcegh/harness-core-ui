@@ -1,7 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
-import i18n from './ConnectorHelper.i18n'
 
 export const AuthTypes = {
   CLIENT_KEY_CERT: 'ClientKeyCert',
@@ -50,59 +49,59 @@ export const getKubInitialValues = () => {
   }
 }
 
-export const getHeadingByType = (type: string): string => {
+export const getHeadingIdByType = (type: string): string => {
   switch (type) {
     case Connectors.VAULT:
-      return i18n.hashicorpVaultDetails
+      return 'connectors.hashicorpVaultDetails'
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:
-      return i18n.secretManagerDetails
+      return 'connectors.secretManagerDetails'
     case Connectors.APP_DYNAMICS:
-      return i18n.appDynamicsDetails
+      return 'connectors.appDynamicsDetails'
     case Connectors.SPLUNK:
-      return i18n.splunkConnectorDetails
+      return 'connectors.splunkConnectorDetails'
     case 'Gcr':
-      return i18n.gcrConnectorDetails
+      return 'connectors.gcrConnectorDetails'
     default:
-      return i18n.default
+      return 'overview'
   }
 }
 
-export const getConnectorTitleTextByType = (type: string): string => {
+export const getConnectorTitleIdByType = (type: string): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return i18n.LABEL.k8sCluster
+      return 'connectors.title.k8sCluster'
     case Connectors.GIT:
-      return i18n.LABEL.gitConnector
+      return 'connectors.title.gitConnector'
     case Connectors.GITHUB:
-      return i18n.LABEL.githubConnector
+      return 'connectors.title.githubConnector'
     case Connectors.GITLAB:
-      return i18n.LABEL.gitlabConnector
+      return 'connectors.title.gitlabConnector'
     case Connectors.BITBUCKET:
-      return i18n.LABEL.bitbucketConnector
+      return 'connectors.title.bitbucketConnector'
     case Connectors.VAULT:
-      return i18n.LABEL.hashicorpVault
+      return 'connectors.title.hashicorpVault'
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:
-      return i18n.LABEL.secretManager
+      return 'connectors.title.secretManager'
     case Connectors.APP_DYNAMICS:
-      return i18n.LABEL.appdynamics
+      return 'connectors.title.appdynamics'
     case Connectors.SPLUNK:
-      return i18n.LABEL.splunk
+      return 'connectors.title.splunk'
     case Connectors.DOCKER:
-      return i18n.LABEL.docker
+      return 'dockerRegistry'
     case Connectors.AWS:
-      return i18n.LABEL.aws
+      return 'connectors.title.aws'
     case Connectors.NEXUS:
-      return i18n.LABEL.nexus
+      return 'connectors.title.nexus'
     case Connectors.ARTIFACTORY:
-      return i18n.LABEL.artifactory
+      return 'connectors.title.artifactory'
     case Connectors.GCP:
-      return i18n.LABEL.gcpConnector
+      return 'connectors.title.gcpConnector'
     case 'Gcr':
-      return i18n.LABEL.gcrConnector
+      return 'connectors.GCR.fullName'
     default:
-      return ''
+      return 'connector'
   }
 }
 
