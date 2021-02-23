@@ -32,7 +32,7 @@ export default function CESideNav(): React.ReactElement {
             )
           } else {
             history.push(
-              routes.toCECODashboard({
+              routes.toCECORules({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId

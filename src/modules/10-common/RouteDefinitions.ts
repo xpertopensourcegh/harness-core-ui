@@ -746,7 +746,10 @@ const routes = {
   toProjects: withAccountId(() => '/projects'),
   toProjectsGetStarted: withAccountId(() => '/projects/get-started'),
   /********************************************************************************************************************/
-  toCE: withAccountId(() => '/ce'),
+  toCE: (params: Partial<ProjectPathProps>) =>
+    params.orgIdentifier && params.projectIdentifier
+      ? routes.toCECORules(params as ProjectPathProps)
+      : routes.toCEDashboard(params as AccountPathProps),
   toCEDashboard: withAccountId(() => `/ce`),
   toCEHome: withAccountId(() => '/ce/home'),
   toCEProject: withAccountId(

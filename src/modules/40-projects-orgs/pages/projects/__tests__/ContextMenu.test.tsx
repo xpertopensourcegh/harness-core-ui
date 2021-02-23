@@ -68,7 +68,7 @@ describe('Context Menu test', () => {
     }),
     test('Go to CE ', async () => {
       fireEvent.click(getByText('Go to Continuous Efficiency'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCEHome(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCECORules(routeParams))).toBeTruthy()
     }),
     test('Go to CI ', async () => {
       fireEvent.click(getByText('Go to Continuous Integration'))

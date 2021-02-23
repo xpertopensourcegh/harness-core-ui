@@ -87,7 +87,9 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCEHome({
+      routes.toCECORules({
+        projectIdentifier: project.identifier,
+        orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
       })
     )
