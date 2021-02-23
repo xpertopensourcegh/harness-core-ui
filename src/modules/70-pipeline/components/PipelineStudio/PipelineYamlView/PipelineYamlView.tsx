@@ -1,5 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { isEqual, isEqualWith } from 'lodash-es'
+import { parse } from 'yaml'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { PageSpinner } from '@common/components'
@@ -8,11 +10,20 @@ import { useGetYamlSnippet, useGetYamlSnippetMetadata } from 'services/cd-ng'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-
 import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineYamlView.module.scss'
 
+export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
+const YamlBuilderMemo = React.memo(YAMLBuilder, (prevProps, nextProps) => {
+  return !isEqualWith(nextProps, prevProps, (_arg1, _arg2, key) => {
+    if (key === 'existingJSON') {
+      return true
+    }
+  })
+})
+
+let Interval: number | undefined
 const PipelineYamlView: React.FC = () => {
   const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
@@ -26,6 +37,7 @@ const PipelineYamlView: React.FC = () => {
   const {
     state: { pipeline },
     stepsFactory,
+    updatePipeline,
     setYamlHandler: setYamlHandlerContext
   } = React.useContext(PipelineContext)
   const { pipelineSchema } = usePipelineSchema()
@@ -40,6 +52,25 @@ const PipelineYamlView: React.FC = () => {
     requestOptions: { headers: { accept: 'application/json' } }
   })
   const { expressions } = useVariablesExpression()
+  // setup polling
+  React.useEffect(() => {
+    try {
+      if (yamlHandler) {
+        Interval = window.setInterval(() => {
+          const pipelineFromYaml = parse(yamlHandler.getLatestYaml())?.pipeline
+          if (!isEqual(pipeline, pipelineFromYaml)) {
+            updatePipeline(pipelineFromYaml)
+          }
+        }, POLL_INTERVAL)
+        return () => {
+          window.clearInterval(Interval)
+        }
+      }
+    } catch (e) {
+      // Ignore Error
+    }
+  }, [yamlHandler, pipeline])
+
   const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
     {
       identifier: '',
@@ -81,7 +112,7 @@ const PipelineYamlView: React.FC = () => {
       {isFetchingSnippets ? (
         <PageSpinner />
       ) : (
-        <YAMLBuilder
+        <YamlBuilderMemo
           fileName="Pipeline.yaml"
           entityType="Pipelines"
           existingJSON={{ pipeline }}
