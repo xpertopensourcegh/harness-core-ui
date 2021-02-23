@@ -1768,3 +1768,8 @@ resourceGroup:
   confirmDelete: 'Are you sure you want to delete {{name}} Resource Group'
   confirmDeleteTitle: 'Delete Resource Group'
   deletedMessage: 'Resource Group {{name}} deleted'
+ce:
+  headingText: 'Continuous Efficiency'
+  homepage:
+    slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
+    learnMore: 'Learn more about Continuous Efficiency'
