@@ -265,7 +265,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                     id="Stage.stage1-panel"
                   >
                     <div
-                      class="Accordion--summary nopadLeft"
+                      class="Accordion--summary nopadLeft accordionSummary"
                       data-testid="Stage.stage1-summary"
                     >
                       <div
@@ -273,7 +273,9 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                       >
                         <div
                           class="stagesTreeBulletSquare"
-                        />
+                        >
+                          <span />
+                        </div>
                       </div>
                       <div
                         class="Accordion--chevron"
@@ -289,7 +291,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                         style="transform: translateY(0);"
                       >
                         <div
-                          class="Accordion--details nopadLeft"
+                          class="Accordion--details"
                           data-testid="Stage.stage1-details"
                         >
                           <div
@@ -299,7 +301,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                             id="Stage.stage1.Infrastructure-panel"
                           >
                             <div
-                              class="Accordion--summary nopadLeft"
+                              class="Accordion--summary nopadLeft accordionSummary"
                               data-testid="Stage.stage1.Infrastructure-summary"
                             >
                               <div

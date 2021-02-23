@@ -10,13 +10,16 @@
   &::before {
     content: '';
     position: absolute;
-    left: 20px;
-    top: 32px;
+    left: 10px;
+    top: 12px;
     width: 13px;
     height: 13px;
     background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
     opacity: 0.6;
     border-radius: 3px;
+  }
+  span {
+    margin-left: var(--spacing-small);
   }
 }
 
@@ -25,12 +28,15 @@
   &::before {
     content: '';
     position: absolute;
-    left: 0px;
+    left: 10px;
     width: 13px;
     height: 13px;
     background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
     opacity: 0.6;
     border-radius: 100px;
+  }
+  span {
+    margin-left: var(--spacing-small);
   }
 }
 
@@ -39,4 +45,9 @@
 }
 .nopad-left {
   padding-left: 0 !important;
+}
+
+.accordionSummary {
+  border-bottom: 1px solid var(--grey-250);
+  background: var(--white);
 }

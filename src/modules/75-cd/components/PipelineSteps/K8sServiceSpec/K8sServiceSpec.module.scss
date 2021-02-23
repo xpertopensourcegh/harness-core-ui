@@ -28,12 +28,15 @@
   &::before {
     content: '';
     position: absolute;
-    left: 0px;
+    left: 10px;
     width: 13px;
     height: 13px;
     background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
     opacity: 0.6;
     border-radius: 100px;
+  }
+  span {
+    margin-left: var(--spacing-small);
   }
 }
 .artifactHeader {
@@ -68,4 +71,9 @@
   width: 400px;
   max-height: 200px;
   overflow: scroll;
+}
+
+.accordionSummary {
+  border-bottom: 1px solid var(--grey-250);
+  background: var(--white);
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Label, NestedAccordionPanel, FormInput } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import List from '@common/components/List/List'
 import { StepViewType, StepWidget } from '@pipeline/exports'
 import type {
@@ -186,8 +187,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           addDomId
           id={`Stage.${stageIdentifier}.Service`}
           panelClassName={css.nestedAccordions}
-          summaryClassName={css.nopadLeft}
-          detailsClassName={css.nopadLeft}
+          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="service" />
@@ -236,7 +236,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           addDomId
           id={`Stage.${stageIdentifier}.Infrastructure`}
           panelClassName={css.nestedAccordions}
-          summaryClassName={css.nopadLeft}
+          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="infrastructureText" />
@@ -292,7 +292,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           addDomId
           id={`Stage.${stageIdentifier}.SharedPaths`}
           panelClassName={css.nestedAccordions}
-          summaryClassName={css.nopadLeft}
+          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="pipelineSteps.build.stageSpecifications.sharedPaths" />
@@ -307,7 +307,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           addDomId
           id={`Stage.${stageIdentifier}.Variables`}
           panelClassName={css.nestedAccordions}
-          summaryClassName={css.nopadLeft}
+          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="variablesText" />
@@ -322,7 +322,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           addDomId
           id={`Stage.${stageIdentifier}.Execution`}
           panelClassName={css.nestedAccordions}
-          summaryClassName={css.nopadLeft}
+          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
           summary={
             <div className={css.stagesTreeBulletCircle}>
               <String stringID="executionText" />

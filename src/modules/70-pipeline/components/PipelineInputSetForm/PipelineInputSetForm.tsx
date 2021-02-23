@@ -1,8 +1,9 @@
 import React from 'react'
 import { Layout, Card, NestedAccordionPanel, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import { String, useStrings } from 'framework/exports'
+import { String } from 'framework/exports'
 import { CollapseForm } from './CollapseForm'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
@@ -37,16 +38,18 @@ function StageForm({
   path: string
   readonly?: boolean
 }): JSX.Element {
-  const { getString } = useStrings()
   return (
     <NestedAccordionPanel
       isDefaultOpen
       addDomId
       id={`Stage.${allValues?.stage?.identifier}`}
-      summaryClassName={css.nopadLeft}
+      summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
       panelClassName={css.nestedAccordions}
-      summary={<div className={css.stagesTreeBulletSquare}>{allValues?.stage?.name || ''}</div>}
-      detailsClassName={css.nopadLeft}
+      summary={
+        <div className={css.stagesTreeBulletSquare}>
+          <span>{allValues?.stage?.name || ''}</span>
+        </div>
+      }
       details={
         <>
           {template?.stage?.variables && (
@@ -54,8 +57,12 @@ function StageForm({
               isDefaultOpen
               addDomId
               id={`Stage.${allValues?.stage?.identifier}.Variables`}
-              summary={<div className={css.stagesTreeBulletCircle}>{getString('variablesText')}</div>}
-              summaryClassName={css.nopadLeft}
+              summary={
+                <div className={css.stagesTreeBulletCircle}>
+                  <String stringID="variablesText" />
+                </div>
+              }
+              summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
               panelClassName={css.nestedAccordions}
               details={
                 <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>

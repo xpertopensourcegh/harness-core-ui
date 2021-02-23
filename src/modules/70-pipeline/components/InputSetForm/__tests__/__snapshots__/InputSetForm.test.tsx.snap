@@ -560,7 +560,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                           id="Stage.asd-panel"
                         >
                           <div
-                            class="Accordion--summary nopadLeft"
+                            class="Accordion--summary nopadLeft accordionSummary"
                             data-testid="Stage.asd-summary"
                           >
                             <div
@@ -569,7 +569,9 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               <div
                                 class="stagesTreeBulletSquare"
                               >
-                                asd
+                                <span>
+                                  asd
+                                </span>
                               </div>
                             </div>
                             <div
@@ -586,7 +588,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               style="transform: translateY(0);"
                             >
                               <div
-                                class="Accordion--details nopadLeft"
+                                class="Accordion--details"
                                 data-testid="Stage.asd-details"
                               >
                                 <div
@@ -596,7 +598,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                   id="Stage.asd.Infrastructure-panel"
                                 >
                                   <div
-                                    class="Accordion--summary nopadLeft"
+                                    class="Accordion--summary nopadLeft accordionSummary"
                                     data-testid="Stage.asd.Infrastructure-summary"
                                   >
                                     <div
@@ -1944,7 +1946,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                           id="Stage.asd-panel"
                         >
                           <div
-                            class="Accordion--summary nopadLeft"
+                            class="Accordion--summary nopadLeft accordionSummary"
                             data-testid="Stage.asd-summary"
                           >
                             <div
@@ -1953,7 +1955,9 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                               <div
                                 class="stagesTreeBulletSquare"
                               >
-                                asd
+                                <span>
+                                  asd
+                                </span>
                               </div>
                             </div>
                             <div
@@ -1970,7 +1974,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                               style="transform: translateY(0); transition: none;"
                             >
                               <div
-                                class="Accordion--details nopadLeft"
+                                class="Accordion--details"
                                 data-testid="Stage.asd-details"
                               >
                                 <div
@@ -1980,7 +1984,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                   id="Stage.asd.Infrastructure-panel"
                                 >
                                   <div
-                                    class="Accordion--summary nopadLeft"
+                                    class="Accordion--summary nopadLeft accordionSummary"
                                     data-testid="Stage.asd.Infrastructure-summary"
                                   >
                                     <div

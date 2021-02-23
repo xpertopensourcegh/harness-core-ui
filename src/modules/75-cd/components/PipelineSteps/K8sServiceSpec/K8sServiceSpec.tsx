@@ -18,6 +18,7 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import { parse } from 'yaml'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { FormGroup, Tooltip, Menu } from '@blueprintjs/core'
 import memoize from 'lodash-es/memoize'
@@ -316,7 +317,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     <Layout.Vertical spacing="medium">
       <NestedAccordionPanel
         panelClassName={css.nestedAccordions}
-        summaryClassName={css.nopadLeft}
+        summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
         isDefaultOpen
         addDomId
         id={`Stage.${stageIdentifier}.Service.Artifacts`}
@@ -587,7 +588,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Service.Manifests`}
-          summaryClassName={css.nopadLeft}
+          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
           panelClassName={css.nestedAccordions}
           summary={
             <div className={css.stagesTreeBulletCircle}>
@@ -654,7 +655,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Service.Variables`}
-          summaryClassName={css.nopadLeft}
+          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
           panelClassName={css.nestedAccordions}
           summary={
             <div className={css.stagesTreeBulletCircle}>
