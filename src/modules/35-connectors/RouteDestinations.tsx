@@ -11,6 +11,7 @@ import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsP
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import RbacFactory from '@rbac/factories/RbacFactory'
 
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
   const params = useParams<OrgPathProps>()
@@ -24,6 +25,12 @@ const AccountSettingsSideNavProps: SidebarContext = {
   title: 'Settings',
   icon: 'nav-settings'
 }
+
+RbacFactory.registerResourceTypeHandler('SECRET_MANAGER', {
+  icon: 'lock',
+  label: 'Secret Manager',
+  addResourceModalBody: <></>
+})
 
 export default (
   <>

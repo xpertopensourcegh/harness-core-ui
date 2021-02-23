@@ -317,6 +317,11 @@ cd:
     learnMore: Learn more about Continuous Delivery
     createProject: '{{$.ci.dashboard.createProject}}'
     orSelectExisting: '{{$.orSelectExisting}}'
+orgDetails:
+  accessControlDescription: Manage users, create user groups and assign roles to your team. Fine tune your permissions with custom roles.
+  governanceDescription: Precision control over all your Harness resources.
+  resourcesDescription: Manage connectors, secrets, delegates, templates here. Setup account level Git Experience here.
+  gitSyncDescription: Connect to your Git repository and track your changes
 createSecretYAML:
   create: Create
   newSecret: New Secret
@@ -443,6 +448,7 @@ inputSetsText: 'Input Sets'
 projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
 addProject: '+ Add Project'
 noProjects: 'No Projects Found'
+noRoles: No Roles Found
 string: 'String'
 number: 'Number'
 secretType: 'Secret'
@@ -507,6 +513,8 @@ roleForm:
   editSuccess: Role updated succesfully
 roleDetails:
   permissionUpdatedSuccess: Permissions updated succesfully
+  noDataText: You have no Roles. Click the button below to create a new one.
+
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'

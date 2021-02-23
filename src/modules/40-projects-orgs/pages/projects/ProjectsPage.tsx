@@ -171,7 +171,7 @@ const ProjectsListPage: React.FC = () => {
         <Page.Body
           loading={loading}
           retryOnError={() => refetch()}
-          error={(error?.data as Error)?.message}
+          error={(error?.data as Error)?.message || error?.message}
           noData={
             !searchParam && openProjectModal
               ? {

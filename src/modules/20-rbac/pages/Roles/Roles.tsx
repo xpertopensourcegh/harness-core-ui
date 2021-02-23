@@ -14,12 +14,14 @@ const Roles: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
+  const [searchTerm, setSearchTerm] = useState<string>()
   const { data, loading, error, refetch } = useGetRoleList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      pageIndex: page
+      pageIndex: page,
+      pageSize: 10
     }
   })
 
@@ -39,21 +41,40 @@ const Roles: React.FC = () => {
         }
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-            <ExpandingSearchInput placeholder={getString('usersPage.search')} />
+            <ExpandingSearchInput
+              placeholder={getString('usersPage.search')}
+              onChange={text => {
+                setSearchTerm(text.trim())
+              }}
+            />
           </Layout.Horizontal>
         }
       />
       <PageBody
         loading={loading}
+        error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
-        error={(error?.data as Error)?.message}
+        noData={
+          !searchTerm
+            ? {
+                when: () => !data?.data?.content?.length,
+                icon: 'nav-project',
+                message: getString('roleDetails.noDataText'),
+                buttonText: getString('newRole'),
+                onClick: () => openRoleModal()
+              }
+            : {
+                when: () => !data?.data?.content?.length,
+                icon: 'nav-project',
+                message: getString('noRoles')
+              }
+        }
         className={css.pageContainer}
       >
         <Container className={css.masonry}>
           <Layout.Masonry
             center
-            gutter={25}
-            width={900}
+            gutter={40}
             className={css.centerContainer}
             items={data?.data?.content || []}
             renderItem={(roleResponse: RoleResponse) => (
