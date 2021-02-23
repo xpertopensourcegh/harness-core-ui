@@ -10,6 +10,7 @@ import {
 } from '@wings-software/uicore'
 import { FieldArray, FormikProps, yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
+import { v4 as uuid } from 'uuid'
 import type {} from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
@@ -29,6 +30,8 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -40,9 +43,21 @@ export interface K8sApplyData extends StepElementConfig {
 export interface K8sApplyVariableStepProps {
   initialValues: K8sApplyData
   stageIdentifier: string
-  onUpdate?(data: K8sApplyData): void
+  onUpdate?(data: K8sApplyFormData): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: K8sApplyData
+}
+
+interface FilePathConfig {
+  value: string
+  id: string
+}
+interface K8sApplyFormData extends StepElementConfig {
+  spec: {
+    skipDryRun: boolean
+    skipSteadyStateCheck?: boolean
+    filePaths?: FilePathConfig[]
+  }
 }
 
 interface K8sApplyProps {
@@ -56,23 +71,50 @@ interface K8sApplyProps {
   readonly?: boolean
 }
 
+const formatData = (data: K8sApplyFormData): K8sApplyData => {
+  return {
+    ...data,
+    spec: {
+      skipDryRun: data?.spec?.skipDryRun,
+      skipSteadyStateCheck: data?.spec?.skipSteadyStateCheck,
+      filePaths: (data?.spec?.filePaths || [])?.map((item: FilePathConfig) => item.value)
+    }
+  }
+}
+const setInitialValues = (data: K8sApplyData): K8sApplyFormData => {
+  return {
+    ...data,
+    spec: {
+      skipDryRun: data?.spec?.skipDryRun,
+      skipSteadyStateCheck: data?.spec?.skipSteadyStateCheck,
+      filePaths: (data?.spec?.filePaths || [])?.map((item: string) => ({
+        value: item,
+        id: uuid()
+      }))
+    }
+  }
+}
+
 function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardRef<K8sApplyData>): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   const defaultValueToReset = ['']
+  const { expressions } = useVariablesExpression()
+
   return (
     <>
-      <Formik<K8sApplyData>
-        onSubmit={(values: K8sApplyData) => {
-          onUpdate?.(values)
+      <Formik<K8sApplyFormData>
+        onSubmit={(values: K8sApplyFormData) => {
+          const payload = formatData(values)
+          onUpdate?.(payload)
         }}
-        initialValues={initialValues}
+        initialValues={setInitialValues(initialValues)}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
-        {(formik: FormikProps<K8sApplyData>) => {
+        {(formik: FormikProps<K8sApplyFormData>) => {
           const { values, setFieldValue, submitForm } = formik
           setFormikRef(formikRef, formik)
           return (
@@ -95,18 +137,19 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                       name="spec.filePaths"
                       render={arrayHelpers => (
                         <Layout.Vertical>
-                          {values?.spec?.filePaths?.map((_path: string, index: number) => (
+                          {values?.spec?.filePaths?.map((path: FilePathConfig, index: number) => (
                             <Layout.Horizontal
-                              key={index}
+                              key={path.id}
                               flex={{ distribution: 'space-between' }}
                               style={{ alignItems: 'end' }}
                             >
                               <FormInput.MultiTextInput
                                 label=""
                                 placeholder={'Enter overrides file path'}
-                                name={`spec.filePaths[${index}]`}
+                                name={`spec.filePaths[${index}].value`}
                                 multiTextInputProps={{
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                  expressions
                                 }}
                                 style={{ width: '430px' }}
                               />
@@ -121,7 +164,9 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                               minimal
                               text={getString('addFileText')}
                               intent="primary"
-                              onClick={() => arrayHelpers.push('')}
+                              onClick={() => {
+                                arrayHelpers.push({ value: '', id: uuid() })
+                              }}
                             />
                           </span>
                         </Layout.Vertical>
@@ -228,7 +273,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
         <K8sApplyVariableStep
           {...(customStepProps as K8sApplyVariableStepProps)}
           initialValues={initialValues}
-          onUpdate={onUpdate}
+          onUpdate={data => onUpdate?.(formatData(data))}
         />
       )
     }

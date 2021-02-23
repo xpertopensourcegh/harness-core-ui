@@ -167,7 +167,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                       >
                         <input
                           class="bp3-input"
-                          name="spec.filePaths[0]"
+                          name="spec.filePaths[0].value"
                           placeholder="Enter overrides file path"
                           type="text"
                           value="test-1"
@@ -248,7 +248,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                       >
                         <input
                           class="bp3-input"
-                          name="spec.filePaths[1]"
+                          name="spec.filePaths[1].value"
                           placeholder="Enter overrides file path"
                           type="text"
                           value="test-2"
