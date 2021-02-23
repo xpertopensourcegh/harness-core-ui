@@ -110,6 +110,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
+                  checked=""
                   name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
@@ -131,6 +132,35 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                   class="bp3-control-indicator"
                 />
                 Manifest Path
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="formGroup"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main nameSpace StyledProps--flex StyledProps--flex-distribution-space-between"
+          style="align-items: center;"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+              >
+                <input
+                  name="spec.deleteResources.spec.deleteNamespace"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                Delete namespace
               </label>
             </div>
           </div>
@@ -335,6 +365,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
+                  checked=""
                   name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
@@ -356,6 +387,35 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                   class="bp3-control-indicator"
                 />
                 Manifest Path
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="formGroup"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main nameSpace StyledProps--flex StyledProps--flex-distribution-space-between"
+          style="align-items: center;"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+              >
+                <input
+                  name="spec.deleteResources.spec.deleteNamespace"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                Delete namespace
               </label>
             </div>
           </div>
@@ -560,6 +620,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
+                  checked=""
                   name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
@@ -581,6 +642,35 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                   class="bp3-control-indicator"
                 />
                 Manifest Path
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="formGroup"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main nameSpace StyledProps--flex StyledProps--flex-distribution-space-between"
+          style="align-items: center;"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+              >
+                <input
+                  name="spec.deleteResources.spec.deleteNamespace"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                Delete namespace
               </label>
             </div>
           </div>
@@ -804,6 +894,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
               >
                 <input
+                  checked=""
                   name="spec.deleteResources.type"
                   type="radio"
                   value="ReleaseName"
@@ -825,6 +916,35 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                   class="bp3-control-indicator"
                 />
                 Manifest Path
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="formGroup"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main nameSpace StyledProps--flex StyledProps--flex-distribution-space-between"
+          style="align-items: center;"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+              >
+                <input
+                  name="spec.deleteResources.spec.deleteNamespace"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                Delete namespace
               </label>
             </div>
           </div>
