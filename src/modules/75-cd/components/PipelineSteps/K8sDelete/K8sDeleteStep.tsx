@@ -152,7 +152,7 @@ function K8sDeleteDeployWidget(
                       name="spec.deleteResources.spec.resourceNames"
                       render={arrayHelpers => (
                         <Layout.Vertical>
-                          {formikProps.values?.spec?.deleteResources?.spec.resourceNames?.map(
+                          {formikProps.values?.spec?.deleteResources?.spec?.resourceNames?.map(
                             (_path: string, index: number) => (
                               <Layout.Horizontal
                                 key={index}
@@ -209,7 +209,7 @@ function K8sDeleteDeployWidget(
                       <FormInput.CheckBox
                         name="spec.deleteResources.spec.deleteNamespace"
                         label="Delete namespace"
-                        style={{ paddingLeft: 'var(--spacing-small)' }}
+                        style={{ paddingLeft: 'var(--spacing-small)', fontSize: 'var(--font-size-small)' }}
                       />
                     </Layout.Horizontal>
                   </div>
