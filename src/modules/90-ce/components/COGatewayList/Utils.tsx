@@ -218,7 +218,11 @@ export function geGaugeChartOptionsWithoutLabel(riskScore: number) {
 }
 
 export function getDay(t: string, format: string): string {
-  return moment(t, format).format('MM/DD')
+  return moment(t, format).format('DD-MMM-YYYY')
+}
+
+export function getTimestamp(t: string, format: string): string {
+  return moment(t, format).format('DD-MMM-YYYY HH:mm:ss')
 }
 
 export function getFulfilmentIcon(fulfilment: string): string {

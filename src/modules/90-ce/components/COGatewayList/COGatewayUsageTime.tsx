@@ -6,6 +6,7 @@ import type { CellProps } from 'react-table'
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Service, SessionReportRow, useGatewaySessionReport } from 'services/lw'
+import { getTimestamp } from './Utils'
 import css from './COGatewayList.module.scss'
 
 interface COGatewayUsageTimeProps {
@@ -47,7 +48,7 @@ const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
 function TableCell(tableProps: CellProps<SessionReportRow>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK}>
-      {tableProps.value}
+      {getTimestamp(tableProps.value, DATE_FORMAT)}
     </Text>
   )
 }

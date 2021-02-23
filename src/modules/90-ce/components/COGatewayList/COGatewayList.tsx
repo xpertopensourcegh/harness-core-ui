@@ -173,7 +173,17 @@ const COGatewayList: React.FC = () => {
           <Layout.Horizontal spacing="large">
             {tableProps.row.original.custom_domains?.length ? (
               <Text lineClamp={3} color={Color.GREY_500}>
-                Custom Domain:{tableProps.row.original.custom_domains?.join(',')}
+                Custom Domain:
+                <Link
+                  href={`http://${tableProps.row.original.custom_domains[0]}`}
+                  target="_blank"
+                  style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  onClick={e => {
+                    e.stopPropagation()
+                  }}
+                >
+                  {tableProps.row.original.custom_domains?.join(',')}
+                </Link>
               </Text>
             ) : (
               <Text lineClamp={3} color={Color.GREY_500}>

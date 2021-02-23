@@ -35,7 +35,7 @@ function getBarChartOptions(
     chart: {
       type: 'column'
     },
-    colors: ['#27AE60', '#DA291D'],
+    colors: ['rgba(71, 213, 223)', 'rgba(124, 77, 211)'],
     title: {
       text: title
     },
@@ -225,11 +225,15 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             {props.service.custom_domains?.length ? (
               <>
                 <Text>Custom Domain</Text>
-                <Layout.Horizontal spacing="xsmall">
-                  <Link href={`http://${props.service.custom_domains}?.join('')`} target="_blank">
-                    {props.service.custom_domains?.join('')}
-                  </Link>
-                </Layout.Horizontal>
+                {props.service.custom_domains.map((d, i) => {
+                  return (
+                    <Layout.Horizontal spacing="xsmall" key={`custom_domain${i}`}>
+                      <Link key={`custom_domain${i}`} href={`http://${d}`} target="_blank">
+                        {d}
+                      </Link>
+                    </Layout.Horizontal>
+                  )
+                })}
               </>
             ) : null}
           </Layout.Vertical>

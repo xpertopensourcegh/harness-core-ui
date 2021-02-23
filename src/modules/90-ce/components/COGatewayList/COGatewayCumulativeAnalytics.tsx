@@ -19,8 +19,10 @@ function getStackedAreaChartOptions(
   savingsData: number[],
   spendData: number[]
 ): Highcharts.Options {
+  let step = 1
   if (categories && categories.length) {
     categories = categories.map(x => getDay(x, 'YYYY-MM-DDTHH:mm:ssZ'))
+    step = Math.ceil(categories.length * 0.25)
   }
   return {
     chart: {
@@ -28,14 +30,14 @@ function getStackedAreaChartOptions(
       height: 180,
       spacing: [5, 20, 5, 5]
     },
-    colors: ['#27AE60', '#DA291D'],
+    colors: ['rgba(71, 213, 223)', 'rgba(124, 77, 211,0.05)'],
     title: {
       text: title
     },
     xAxis: {
       categories: categories,
       labels: {
-        step: 1
+        step: step
       },
       units: [['day', [1]]],
       startOnTick: true,
@@ -76,8 +78,8 @@ function getStackedAreaChartOptions(
             y2: 1
           },
           stops: [
-            [0, 'rgba(66, 171, 69, 0.7)'],
-            [1, 'rgba(66, 171, 69, 0)']
+            [0, 'rgba(71, 213, 223, 0.7)'],
+            [1, 'rgba(71, 213, 223, 0)']
           ]
         },
         pointPlacement: 'on'
@@ -95,8 +97,8 @@ function getStackedAreaChartOptions(
             y2: 1
           },
           stops: [
-            [0, 'rgba(218, 41, 29, 0.7)'],
-            [1, 'rgba(218, 41, 29, 0) 55.59%)']
+            [0, 'rgba(124, 77, 211, 0.7)'],
+            [1, 'rgba(124, 77, 211, 0) 55.59%)']
           ]
         },
         pointPlacement: 'on'
@@ -148,17 +150,17 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
             </Layout.Horizontal>
             <Heading level={2}>INSTANCES MANAGED</Heading>
             <Layout.Horizontal spacing="small">
-              <Heading level={1}>684</Heading>
+              <Heading level={1}>{props.services.length}</Heading>
               <Text style={{ alignSelf: 'center' }}>Instances</Text>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="small">
-              <Text style={{ alignSelf: 'center' }}>204</Text>
+              <Text style={{ alignSelf: 'center' }}>{props.services.length % 2}</Text>
               <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
                 RUNNING
               </Tag>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="small">
-              <Text style={{ alignSelf: 'center' }}>478</Text>
+              <Text style={{ alignSelf: 'center' }}>{props.services.length - (props.services.length % 2)}</Text>
               <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
                 STOPPED
               </Tag>
@@ -202,25 +204,25 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
           </Layout.Vertical>
           <Layout.Vertical spacing="small">
             <Layout.Vertical spacing="medium" padding="small">
-              <Container padding="small" background={Color.GREEN_300} style={{ borderRadius: '4px' }}>
+              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
                 <Layout.Vertical spacing="small">
-                  <Text color={Color.GREEN_500}>TOTAL SAVINGS TILL DATE</Text>
+                  <Text style={{ color: '#05AAB6' }}>TOTAL SAVINGS TILL DATE</Text>
                   {graphLoading ? (
                     <Icon name="spinner" size={24} color="blue500" />
                   ) : (
-                    <Heading level={1} color={Color.GREEN_500}>
+                    <Heading level={1} style={{ color: '#05AAB6' }}>
                       ${(Math.round(graphData?.response?.total_savings as number) * 100) / 100}
                     </Heading>
                   )}
                 </Layout.Vertical>
               </Container>
-              <Container padding="small" background={Color.RED_300} style={{ borderRadius: '4px' }}>
+              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(124, 77, 211,0.05)' }}>
                 <Layout.Vertical spacing="small">
-                  <Text color={Color.RED_500}>TOTAL SPEND TILL DATE</Text>
+                  <Text style={{ color: '#592BAA' }}>TOTAL SPEND TILL DATE</Text>
                   {graphLoading ? (
                     <Icon name="spinner" size={24} color="blue500" />
                   ) : (
-                    <Heading level={1} color={Color.RED_500}>
+                    <Heading level={1} style={{ color: '#592BAA' }}>
                       ${(Math.round(graphData?.response?.total_cost as number) * 100) / 100}
                     </Heading>
                   )}
