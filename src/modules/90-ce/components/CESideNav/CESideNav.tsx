@@ -44,8 +44,12 @@ export default function CESideNav(): React.ReactElement {
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
           <SidebarLink
-            label="Cost Optimization"
-            to={routes.toCECODashboard({ accountId, projectIdentifier, orgIdentifier })}
+            label="AutoStopping Rules"
+            to={routes.toCECORules({ accountId, projectIdentifier, orgIdentifier })}
+          />
+          <SidebarLink
+            label="Access Points"
+            to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
           />
         </React.Fragment>
       ) : null}

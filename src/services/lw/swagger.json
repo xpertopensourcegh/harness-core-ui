@@ -1504,6 +1504,138 @@
           }
         }
       }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points/all": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["allAccessPoints"],
+        "summary": "Lists all AccessPoints for an account",
+        "description": "Returns all AccessPoints for an account",
+        "operationId": "AllAccessPoints",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points/{access_point_id}/rules": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_point_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["accessPointRules"],
+        "summary": "Lists all Rules for an access point",
+        "description": "Lists all Rules for an access point",
+        "operationId": "AccessPointRules",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServicesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points/{access_point_id}/last_active_at": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "access_point_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["accessPointActivity"],
+        "summary": "get lastest activity for an access point",
+        "description": "get lastest activity for an access point",
+        "operationId": "AccessPointActivity",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AccessPointActivityResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1892,6 +2024,9 @@
         },
         "idle_time_mins": {
           "type": "number"
+        },
+        "created_at": {
+          "type": "string"
         }
       }
     },
@@ -2551,6 +2686,14 @@
         },
         "details": {
           "type": "object"
+        }
+      }
+    },
+    "AccessPointActivityResponse": {
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/ServiceUsageRecord"
         }
       }
     }

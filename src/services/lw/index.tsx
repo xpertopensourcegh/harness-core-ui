@@ -145,6 +145,7 @@ export interface ServiceUsageRecord {
   path?: string
   session_id?: string
   idle_time_mins?: number
+  created_at?: string
 }
 
 export interface Account {
@@ -388,6 +389,10 @@ export interface HostedZone {
 export interface MaptoDNSBody {
   dns_provider?: string
   details?: { [key: string]: any }
+}
+
+export interface AccessPointActivityResponse {
+  response?: ServiceUsageRecord
 }
 
 export type ResourceFilterBodyRequestBody = ResourceFilterBody
@@ -1806,4 +1811,156 @@ export const useMapToDNS = ({ org_id, project_id, access_point_id, ...props }: U
     (paramsInPath: MapToDNSPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points/${paramsInPath.access_point_id}/map_dns`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, access_point_id }, ...props }
+  )
+
+export interface AllAccessPointsPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type AllAccessPointsProps = Omit<
+  GetProps<ListAccessPointResponse, void, void, AllAccessPointsPathParams>,
+  'path'
+> &
+  AllAccessPointsPathParams
+
+/**
+ * Lists all AccessPoints for an account
+ *
+ * Returns all AccessPoints for an account
+ */
+export const AllAccessPoints = ({ org_id, project_id, account_id, ...props }: AllAccessPointsProps) => (
+  <Get<ListAccessPointResponse, void, void, AllAccessPointsPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/all"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAllAccessPointsProps = Omit<
+  UseGetProps<ListAccessPointResponse, void, void, AllAccessPointsPathParams>,
+  'path'
+> &
+  AllAccessPointsPathParams
+
+/**
+ * Lists all AccessPoints for an account
+ *
+ * Returns all AccessPoints for an account
+ */
+export const useAllAccessPoints = ({ org_id, project_id, account_id, ...props }: UseAllAccessPointsProps) =>
+  useGet<ListAccessPointResponse, void, void, AllAccessPointsPathParams>(
+    (paramsInPath: AllAccessPointsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points/all`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
+export interface AccessPointRulesPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+  access_point_id: string
+}
+
+export type AccessPointRulesProps = Omit<GetProps<ServicesResponse, void, void, AccessPointRulesPathParams>, 'path'> &
+  AccessPointRulesPathParams
+
+/**
+ * Lists all Rules for an access point
+ *
+ * Lists all Rules for an access point
+ */
+export const AccessPointRules = ({
+  org_id,
+  project_id,
+  account_id,
+  access_point_id,
+  ...props
+}: AccessPointRulesProps) => (
+  <Get<ServicesResponse, void, void, AccessPointRulesPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/${access_point_id}/rules"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAccessPointRulesProps = Omit<
+  UseGetProps<ServicesResponse, void, void, AccessPointRulesPathParams>,
+  'path'
+> &
+  AccessPointRulesPathParams
+
+/**
+ * Lists all Rules for an access point
+ *
+ * Lists all Rules for an access point
+ */
+export const useAccessPointRules = ({
+  org_id,
+  project_id,
+  account_id,
+  access_point_id,
+  ...props
+}: UseAccessPointRulesProps) =>
+  useGet<ServicesResponse, void, void, AccessPointRulesPathParams>(
+    (paramsInPath: AccessPointRulesPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points/${paramsInPath.access_point_id}/rules`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, access_point_id }, ...props }
+  )
+
+export interface AccessPointActivityPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+  access_point_id: string
+}
+
+export type AccessPointActivityProps = Omit<
+  GetProps<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>,
+  'path'
+> &
+  AccessPointActivityPathParams
+
+/**
+ * get lastest activity for an access point
+ *
+ * get lastest activity for an access point
+ */
+export const AccessPointActivity = ({
+  org_id,
+  project_id,
+  account_id,
+  access_point_id,
+  ...props
+}: AccessPointActivityProps) => (
+  <Get<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/${access_point_id}/last_active_at"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAccessPointActivityProps = Omit<
+  UseGetProps<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>,
+  'path'
+> &
+  AccessPointActivityPathParams
+
+/**
+ * get lastest activity for an access point
+ *
+ * get lastest activity for an access point
+ */
+export const useAccessPointActivity = ({
+  org_id,
+  project_id,
+  account_id,
+  access_point_id,
+  ...props
+}: UseAccessPointActivityProps) =>
+  useGet<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>(
+    (paramsInPath: AccessPointActivityPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points/${paramsInPath.access_point_id}/last_active_at`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, access_point_id }, ...props }
   )

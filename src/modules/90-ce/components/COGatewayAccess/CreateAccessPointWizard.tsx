@@ -33,6 +33,7 @@ import {
   useMapToDNS
 } from 'services/lw'
 import { useToaster } from '@common/exports'
+import { Scope } from '@common/interfaces/SecretsInterface'
 
 interface Props extends StepProps<any> {
   name: string
@@ -40,13 +41,78 @@ interface Props extends StepProps<any> {
   closeModal: () => void
   setAccessPoint: (ap: AccessPoint) => void
   refreshAccessPoints: () => void
+  isEditMod?: boolean
 }
 interface CreateAccessPointWizardProps {
   accessPoint: AccessPoint
   closeModal: () => void
   setAccessPoint: (ap: AccessPoint) => void
   refreshAccessPoints: () => void
+  isEditMod?: boolean
 }
+// const MapToProvider: React.FC<StepProps<Props>> = props => {
+//   return (
+//     <Layout.Vertical style={{ minHeight: '640px', width: '55%' }} padding="large" spacing="medium">
+//       <Heading level={2}>{props.name}</Heading>
+//       <Formik
+//         initialValues={{
+//           customURL: '',
+//           publicallyAccessible: 'no',
+//           dnsProvider: 'route53',
+//           route53Account: '',
+//           accessPoint: ''
+//         }}
+//         onSubmit={values => alert(JSON.stringify(values))}
+//         render={formik => (
+//           <FormikForm>
+//             <Layout.Vertical spacing="medium">
+//               <FormInput.RadioGroup
+//                 name="dnsProvider"
+//                 label={
+//                   <Layout.Horizontal spacing="small">
+//                     <Heading level={3} font={{ weight: 'light' }}>
+//                       Select the DNS Provider
+//                     </Heading>
+//                     <Icon name="info"></Icon>
+//                   </Layout.Horizontal>
+//                 }
+//                 items={[
+//                   { label: 'Route53', value: 'route53' },
+//                   { label: 'Others', value: 'others' }
+//                 ]}
+//               />
+//               {formik.values.dnsProvider == 'route53' ? (
+//                 <>
+//                   <Layout.Horizontal spacing="medium">
+//                     <FormInput.Select
+//                       name="route53Account"
+//                       label={'Select Route53 account'}
+//                       placeholder={'Select account'}
+//                       items={[]}
+//                       onChange={e => {
+//                         formik.setFieldValue('route53Account', e.value)
+//                       }}
+//                     />
+//                     <Button intent="primary" text="Verify" />
+//                   </Layout.Horizontal>
+//                 </>
+//               ) : (
+//                 <Button intent="primary" text="Verify" />
+//               )}
+//               <Button
+//                 intent="primary"
+//                 text="Finish"
+//                 // onClick={() => {
+//                 //   props.nextStep?.()
+//                 // }}
+//               ></Button>
+//             </Layout.Vertical>
+//           </FormikForm>
+//         )}
+//       ></Formik>
+//     </Layout.Vertical>
+//   )
+// }
 
 interface MapToProviderProps {
   accessPointID: string
@@ -210,6 +276,9 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   })
   const { nextStep } = props
   useEffect(() => {
+    if (props.isEditMod) {
+      return
+    }
     if (!accessPointStatusLoading && accessPoint.id) {
       if (accessPointData?.response?.status == 'errored') {
         showError('could not create access point')
@@ -361,12 +430,21 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       <Heading level={2}>{props.name}</Heading>
       <Formik
         initialValues={{
-          cloudConnector: accessPoint.cloud_account_id, // eslint-disable-line
-          accessPointName: '',
+          cloudConnector: {
+            label: '',
+            value: accessPoint.cloud_account_id // eslint-disable-line
+          },
+          accessPointName: accessPoint.host_name,
           accessPointRegion: accessPoint.region,
           vpc: accessPoint.vpc,
           role: accessPoint.metadata?.role,
-          securityGroups: accessPoint.metadata?.security_groups // eslint-disable-line
+          securityGroups: accessPoint.metadata?.security_groups?.map(x => {
+            return {
+              value: x,
+              label: x
+            }
+          }), // eslint-disable-line
+          certificate: accessPoint.metadata?.certificate_id // eslint-disable-line
         }}
         onSubmit={_ => {
           onSave()
@@ -378,15 +456,20 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 name="cloudConnector"
                 placeholder={'Select Cloud Account'}
                 selected={accessPoint.cloud_account_id as ConnectorReferenceFieldProps['selected']} // eslint-disable-line
-                onChange={record => {
+                onChange={(record, scope) => {
                   props.accessPoint.cloud_account_id = record?.identifier // eslint-disable-line
                   setAccessPoint(props.accessPoint)
                   setSelectedCloudAccount(props.accessPoint.cloud_account_id as string) // eslint-disable-line
-                  formik.setFieldValue('cloudConnector', record?.identifier)
+                  formik.setFieldValue('cloudConnector', {
+                    label: record.name || '',
+                    value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${record.identifier}`,
+                    scope: scope
+                  })
                 }}
                 accountIdentifier={accountId}
                 label="Select Cloud Connector"
                 category={'CLOUD_COST'}
+                disabled={props.isEditMod}
               />
               <FormInput.Text
                 name="accessPointName"
@@ -398,6 +481,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                   setAccessPoint(props.accessPoint)
                   formik.setFieldValue('accessPointName', e.target.value)
                 }}
+                disabled={props.isEditMod}
               />
               <FormInput.Select
                 name="accessPointRegion"
@@ -410,7 +494,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                   setSelectedRegion(props.accessPoint.region)
                   formik.setFieldValue('accessPointRegion', e.value)
                 }}
-                disabled={regionsLoading || regionOptions.length == 0}
+                disabled={regionsLoading || regionOptions.length == 0 || props.isEditMod}
               />
               <FormInput.Select
                 name="certificate"
@@ -434,7 +518,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                   if (props.accessPoint.metadata) props.accessPoint.metadata.role = e.value as string
                   setAccessPoint(props.accessPoint)
                 }}
-                disabled={rolesLoading || roleOptions.length == 0}
+                disabled={rolesLoading || roleOptions.length == 0 || props.isEditMod}
               />
               <FormInput.Select
                 name="vpc"
@@ -447,7 +531,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                   setAccessPoint(props.accessPoint)
                   setSelectedVpc(props.accessPoint.vpc)
                 }}
-                disabled={vpcsLoading || vpcOptions.length == 0}
+                disabled={vpcsLoading || vpcOptions.length == 0 || props.isEditMod}
               />
               <FormInput.MultiSelect
                 name="securityGroups"
@@ -498,6 +582,7 @@ const CreateAccessPointWizard: React.FC<CreateAccessPointWizardProps> = props =>
         closeModal={props.closeModal}
         setAccessPoint={props.setAccessPoint}
         refreshAccessPoints={props.refreshAccessPoints}
+        isEditMod={props.isEditMod}
       />
       <MapToProvider
         name="Map the domain"

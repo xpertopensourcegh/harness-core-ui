@@ -14,6 +14,7 @@ import CEDashboardPage from './pages/dashboard/CEDashboardPage'
 import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
 import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPage'
 import CECOEditGatewayPage from './pages/co-edit-gateway/CECOEditGatewayPage'
+import CECOAccessPointsPage from './pages/co-access-points/CECOAccessPointsPage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -61,6 +62,13 @@ export default (
       path={routes.toCECODashboard({ ...accountPathProps, ...projectPathProps })}
       exact
     >
+      <CEHomePage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toCECORules({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
       <CECODashboardPage />
     </RouteWithLayout>
     <RouteWithLayout
@@ -80,6 +88,13 @@ export default (
       exact
     >
       <CECOEditGatewayPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toCECOAccessPoints({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CECOAccessPointsPage />
     </RouteWithLayout>
   </>
 )

@@ -759,7 +759,7 @@ const routes = {
   ),
   toCECODashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCECOCreateGateway: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
@@ -768,6 +768,14 @@ const routes = {
   toCECOEditGateway: withAccountId(
     ({ orgIdentifier, projectIdentifier, gatewayIdentifier }: ProjectPathProps & { gatewayIdentifier: string }) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules/edit/${gatewayIdentifier}`
+  ),
+  toCECOAccessPoints: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/access-points`
+  ),
+  toCECORules: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
   ),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/dashboards'),
