@@ -2,16 +2,17 @@
   color: var(--black);
 }
 
-.default-rules-heading-mt {
-  margin-top: var(--spacing-xxlarge) !important;
-}
-
-.default-rules-container {
-  padding: var(--spacing-large) !important;
+.rulesContainer {
+  padding: var(--spacing-xlarge) !important;
   margin-bottom: var(--spacing-xxlarge) !important;
   border: 1px solid var(--grey-200);
-  border-radius: 10px;
-  box-shadow: 0px 1px 5px -4px var(--black);
+  background: var(--white);
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  border-radius: 6px;
+
+  &.custom {
+    margin-bottom: var(--spacing-small) !important;
+  }
 }
 
 .edit-container {
@@ -111,4 +112,34 @@
 .value-multiselect {
   font-size: var(--font-size-normal);
   margin: 0;
+}
+
+.ruleTitle {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  line-height: 17px !important;
+  letter-spacing: 0.216667px !important;
+  color: #111111 !important;
+  margin-bottom: var(--spacing-medium) !important;
+
+  &.custom {
+    margin-top: var(--spacing-medium) !important;
+  }
+}
+
+.defaultServe {
+  :global {
+    .bp3-form-group {
+      margin-bottom: 0;
+      margin-left: var(--spacing-small);
+
+      .bp3-input-left-container {
+        padding-top: 2px;
+      }
+    }
+  }
+
+  &.editing {
+    padding-left: 6px !important;
+  }
 }

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Color, Layout, Text, Container, TextInput } from '@wings-software/uicore'
+import React, { useState, useEffect, useMemo } from 'react'
+import { Color, Layout, Text, Container, Select } from '@wings-software/uicore'
 import { sumBy, clamp } from 'lodash-es'
 import type { Distribution, WeightedVariation, Variation } from 'services/cf'
+import { useStrings } from 'framework/exports'
+import { FeatureFlagBucketBy } from '@cf/utils/CFUtils'
 import { CFVariationColors } from '@cf/constants'
 import css from './TabTargeting.module.scss'
 
@@ -30,6 +32,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
   const [bucketByValue, setBucketByValue] = useState<string>(bucketBy || 'identifier')
   const [percentageValues, setPercentageValues] = useState<PercentageValues[]>([])
   const [percentageError, setPercentageError] = useState(false)
+  const { getString } = useStrings()
 
   const variationsToPercentage = variations?.map((elem, i) => {
     const weightedVariation = weightedVariations.find(wvElem => wvElem.variation === elem.identifier)
@@ -71,26 +74,59 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
       }))
     })
   }, [bucketByValue, percentageValues])
+  const bucketByItems = useMemo(
+    () => [
+      {
+        label: getString('identifier'),
+        value: FeatureFlagBucketBy.IDENTIFIER
+      },
+      {
+        label: getString('name'),
+        value: FeatureFlagBucketBy.NAME
+      }
+    ],
+    [getString]
+  )
+  const bucketBySelectValue = useMemo(() => {
+    return bucketByItems.find(item => item.value === bucketByValue)
+  }, [bucketByItems, bucketByValue])
+  const bucketByDisplayName = useMemo(() => {
+    return bucketByItems.find(item => item.value === bucketByValue)?.label
+  }, [bucketByItems, bucketByValue])
 
   return (
-    <Container>
-      <Layout.Horizontal margin={{ bottom: editing ? 'small' : 'medium' }} style={{ alignItems: 'baseline' }}>
-        <Text margin={{ right: 'small' }}>Bucket by</Text>
-        {editing ? (
-          <TextInput
-            defaultValue={bucketByValue}
-            onChange={(ev: React.ChangeEvent<HTMLInputElement>) => setBucketByValue(ev.target.value)}
+    <Container margin={{ left: editing ? 'small' : 'xsmall' }}>
+      <Layout.Horizontal
+        margin={{ bottom: 'small' }}
+        style={{ alignItems: 'baseline', marginTop: editing ? 'var(--spacing-small)' : 0 }}
+      >
+        <Text
+          margin={{ right: 'small' }}
+          style={{ fontSize: '14px', lineHeight: '24px' }}
+          width={editing ? 100 : undefined}
+        >
+          <span
+            dangerouslySetInnerHTML={{
+              __html: getString('cf.featureFlags.bucketBy', { targetField: editing ? undefined : bucketByDisplayName })
+            }}
           />
-        ) : (
-          <Text>{bucketByValue}</Text>
+        </Text>
+        {editing && (
+          <Select
+            name="bucketBy"
+            value={bucketBySelectValue}
+            items={bucketByItems}
+            onChange={({ value }) => {
+              setBucketByValue(value as string)
+            }}
+          />
         )}
       </Layout.Horizontal>
       <div
         style={{
           borderRadius: '10px',
-          border: '1px solid #ccc',
           width: '300px',
-          height: '15px',
+          height: '11px',
           display: 'flex',
           overflow: 'hidden'
         }}
@@ -102,21 +138,25 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
               width: `${elem.value}%`,
               backgroundColor: elem.color,
               display: 'inline-block',
-              height: '13px'
+              height: '11px'
             }}
           />
         ))}
       </div>
-      <Container margin={{ top: 'small' }}>
+      <Container margin={{ top: 'medium' }}>
         {percentageValues?.length &&
           percentageValues?.map((elem, i) => (
-            <Layout.Horizontal key={`${elem.id}-${i}`} margin={{ bottom: 'small' }} style={{ alignItems: 'baseline' }}>
+            <Layout.Horizontal key={`${elem.id}-${i}`} margin={{ bottom: 'medium' }} style={{ alignItems: 'baseline' }}>
               <span
                 className={css.circle}
-                style={{ backgroundColor: percentageValues[i].color, marginRight: '10px' }}
+                style={{
+                  backgroundColor: percentageValues[i].color,
+                  marginRight: '10px',
+                  transform: 'translateY(1px)'
+                }}
               ></span>
               <Text margin={{ right: 'medium' }} width={100}>
-                {elem.id}
+                {elem.displayName}
               </Text>
               {editing ? (
                 <input
@@ -131,10 +171,10 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
                 <Text>{elem.value}</Text>
               )}
 
-              <Text icon="percentage" iconProps={{ color: Color.GREY_300 }} />
+              <Text icon="percentage" style={{ alignSelf: 'center' }} iconProps={{ color: Color.GREY_500, size: 12 }} />
             </Layout.Horizontal>
           ))}
-        {percentageError && <Text intent="danger">Cannot set above 100%</Text>}
+        {percentageError && <Text intent="danger">{getString('cf.featureFlags.bucketOverflow')}</Text>}
       </Container>
     </Container>
   )

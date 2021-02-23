@@ -38,6 +38,7 @@
 
     [class='bp3-tab'] {
       margin-top: var(--spacing-medium);
+      margin-right: var(--spacing-medium) !important;
     }
   }
 
@@ -87,4 +88,17 @@
     height: 80px;
     background-color: var(--white) !important;
   }
+}
+
+.tabTitle {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 19px !important;
+  color: #333333 !important;
+  padding: var(--spacing-small) var(--spacing-xsmall) var(--spacing-xsmall) !important;
+}
+
+[aria-selected='true'] > .tabTitle {
+  font-weight: 600 !important;
+  color: #22272d !important;
 }

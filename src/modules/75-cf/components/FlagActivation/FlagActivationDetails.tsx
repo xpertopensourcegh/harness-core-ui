@@ -30,6 +30,7 @@ import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { Feature, Features, Prerequisite, usePatchFeature, Variation } from 'services/cf'
 import { CFVariationColors } from '@cf/constants'
 import InputDescOptional from '@cf/components/CreateFlagWizard/common/InputDescOptional'
+import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import i18n from './FlagActivationDetails.i18n'
@@ -55,28 +56,14 @@ interface PrerequisiteEntry {
 }
 
 const VariationItem: React.FC<{ variation: Variation; index: number }> = ({ variation, index }) => {
-  const { name, value, description } = variation
-
   return (
     <Layout.Horizontal className={css.variationItem} spacing="xsmall" style={{ alignItems: 'center' }}>
-      <span
-        style={{
-          borderRadius: '50%',
-          width: 12,
-          height: 12,
-          backgroundColor: CFVariationColors[index % CFVariationColors.length],
-          display: 'inline-block'
-        }}
-      ></span>
-      <Text inline margin={{ bottom: 'xsmall' }} style={{ marginBottom: 0 }}>
-        {name || value}
-      </Text>
-      {description && <Text font={{ size: 'small' }}>{description}</Text>}
+      <VariationWithIcon variation={variation} index={index} />
     </Layout.Horizontal>
   )
 }
 
-const VariationIcons = ({ style }: { style?: React.CSSProperties }) => {
+const VariationIcons = ({ style, multivariate }: { style?: React.CSSProperties; multivariate: boolean }) => {
   return (
     <span style={{ display: 'inline-block', ...style }}>
       <span
@@ -99,6 +86,33 @@ const VariationIcons = ({ style }: { style?: React.CSSProperties }) => {
           marginRight: '2px'
         }}
       ></span>
+      {multivariate && (
+        <>
+          <span
+            style={{
+              borderRadius: '50%',
+              width: 12,
+              height: 12,
+              backgroundColor: CFVariationColors[2],
+              display: 'inline-block',
+              transform: 'translateX(-10px)',
+              marginRight: '-4px'
+            }}
+          ></span>
+          <span
+            style={{
+              borderRadius: '50%',
+              width: 12,
+              height: 12,
+              backgroundColor: 'var(--white)',
+              transform: 'translateX(-10px)',
+              marginRight: '-4px',
+              display: 'inline-block',
+              border: '1px solid #ccc'
+            }}
+          ></span>
+        </>
+      )}
     </span>
   )
 }
@@ -126,7 +140,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
           padding={{ bottom: 'small' }}
           style={{ fontSize: '14px', lineHeight: '20px' }}
         >
-          <VariationIcons style={{ transform: 'translateY(1px)' }} />
+          <VariationIcons style={{ transform: 'translateY(1px)' }} multivariate={!isFlagTypeBoolean} />
           {isFlagTypeBoolean ? i18n.boolean : i18n.multivariate} ({variations.length}{' '}
           {i18n.variations.toLocaleLowerCase()})
         </Text>
@@ -645,14 +659,15 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     )
   })
   const tbd = () => alert('To be implemented...')
-  const renderTime = (time: number) => (
+  const renderTime = (time: number, style?: React.CSSProperties) => (
     <Text
       style={{
         fontWeight: 500,
         lineHeight: '14px',
         fontSize: '10px',
         color: '#555770',
-        letterSpacing: '0.2px'
+        letterSpacing: '0.2px',
+        ...style
       }}
     >
       {getString('cf.featureFlags.createdDate', {
@@ -751,7 +766,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
         <Layout.Vertical margin={{ top: 'medium', bottom: 'xlarge' }}>
           {renderTime(featureFlag?.createdAt)}
-          {renderTime(featureFlag?.modifiedAt)}
+          {renderTime(featureFlag?.modifiedAt, { paddingTop: 'var(--spacing-xsmall)' })}
         </Layout.Vertical>
 
         <VariationsList

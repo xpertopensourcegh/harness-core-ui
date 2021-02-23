@@ -1332,6 +1332,10 @@ cf:
     modifiedDate: 'Modified: {{date}}'
     prerequisites: Prerequisites
     prerequisitesDesc: '(what’s required before enabling flags)'
+    ifFlagOnServe: 'If the flag is <strong>ON</strong>, serve '
+    ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '
+    bucketBy: <strong>Bucket</strong> by <strong>{{targetField}}</strong>
+    bucketOverflow: Cannot set above 100%
   targets:
     title: 'Targets'
     ID: 'ID'

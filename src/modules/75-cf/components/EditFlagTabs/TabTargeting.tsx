@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Color,
   Layout,
   Button,
   Text,
@@ -8,19 +7,13 @@ import {
   Formik,
   FormikForm as Form,
   FormInput,
-  useModalHook,
-  SelectOption
+  useModalHook
 } from '@wings-software/uicore'
-import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
-import type { Distribution, WeightedVariation, Feature, Variation } from 'services/cf'
-import PercentageRollout from './PercentageRollout'
+import type { Feature } from 'services/cf'
 import CustomRulesView from './CustomRulesView'
 import i18n from './Tabs.i18n'
-import css from './TabTargeting.module.scss'
-
-const ROLLOUT_PERCENTAGE_VALUE = 'percentage'
+import { DefaultRulesView } from './DefaultRulesView'
 
 interface TabTargetingProps {
   formikProps: any
@@ -77,7 +70,14 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'large', bottom: 'large' }}>
       <Container style={{ marginLeft: 'auto' }}>
-        {!isEditRulesOn && <Button text={i18n.tabTargeting.editRules} icon="edit" onClick={onEditBtnHandler} />}
+        <Button
+          text={i18n.tabTargeting.editRules}
+          icon="edit"
+          onClick={onEditBtnHandler}
+          style={{
+            visibility: isEditRulesOn ? 'hidden' : undefined
+          }}
+        />
       </Container>
       <Layout.Vertical>
         <DefaultRulesView
@@ -105,103 +105,3 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
 }
 
 export default TodoTargeting
-
-interface DefaultRulesProps {
-  editing: boolean
-  bucketBy?: string
-  defaultOnVariation: string
-  variations: Variation[]
-  weightedVariations?: WeightedVariation[]
-  formikProps: any
-}
-
-const DefaultRulesView: React.FC<DefaultRulesProps> = ({
-  editing,
-  bucketBy,
-  variations,
-  weightedVariations,
-  formikProps
-}) => {
-  const [percentageView, setPercentageView] = useState<boolean>(false)
-  const { getString } = useStrings()
-
-  const variationItems = variations.map<SelectOption>(elem => ({
-    label: elem.name as string,
-    value: elem.identifier as string
-  }))
-
-  const onDefaultONChange = (item: SelectOption) => {
-    if (item.value === 'percentage') {
-      setPercentageView(true)
-    } else {
-      setPercentageView(false)
-    }
-  }
-
-  useEffect(() => {
-    setPercentageView(formikProps.values.onVariation === 'percentage')
-  }, [formikProps.values.onVariation])
-
-  const onLabel =
-    variations.find(variation => formikProps.values.onVariation === variation.identifier)?.name ||
-    formikProps.values.onVariation
-  const offLabel =
-    variations.find(variation => formikProps.values.offVariation === variation.identifier)?.name ||
-    formikProps.values.offVariation
-
-  return (
-    <>
-      <Text
-        font={{ weight: 'bold' }}
-        color={Color.BLACK}
-        margin={{ bottom: 'medium' }}
-        className={cx(editing && css.defaultRulesHeadingMt)}
-      >
-        {i18n.defaultRules}
-      </Text>
-      <Container className={css.defaultRulesContainer}>
-        <Layout.Horizontal margin={{ bottom: 'small' }} style={{ alignItems: 'baseline' }}>
-          <Text padding={{ right: 'xsmall' }}>{i18n.tabTargeting.flagOn}</Text>
-          <Container>
-            {editing ? (
-              <FormInput.Select
-                name="onVariation"
-                items={[
-                  ...variationItems,
-                  {
-                    label: getString('cf.featureFlags.percentageRollout'),
-                    value: ROLLOUT_PERCENTAGE_VALUE
-                  }
-                ]}
-                onChange={onDefaultONChange}
-              />
-            ) : (
-              <Text font={{ weight: 'bold' }}>{onLabel}</Text>
-            )}
-
-            {percentageView && (
-              <PercentageRollout
-                editing={editing}
-                bucketBy={bucketBy}
-                variations={variations}
-                weightedVariations={weightedVariations || []}
-                onSetPercentageValues={(value: Distribution) => {
-                  formikProps.setFieldValue('defaultServe', { distribution: value })
-                }}
-              />
-            )}
-          </Container>
-        </Layout.Horizontal>
-
-        <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-          <Text padding={{ right: 'xsmall' }}>{i18n.tabTargeting.flagOff}</Text>
-          {editing ? (
-            <FormInput.Select name="offVariation" items={variationItems} onChange={formikProps.handleChange} />
-          ) : (
-            <Text font={{ weight: 'bold' }}>{offLabel}</Text>
-          )}
-        </Layout.Horizontal>
-      </Container>
-    </>
-  )
-}

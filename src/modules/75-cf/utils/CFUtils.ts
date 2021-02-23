@@ -61,3 +61,8 @@ export const isFeatureFlagOn = (featureFlag: Feature) => {
 export const featureFlagHasCustomRules = (featureFlag: Feature) => {
   return featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length
 }
+
+export enum FeatureFlagBucketBy {
+  IDENTIFIER = 'identifier',
+  NAME = 'name'
+}

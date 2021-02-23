@@ -13,5 +13,6 @@ declare const styles: {
   readonly switch: string
   readonly formContainer: string
   readonly actionButtons: string
+  readonly tabTitle: string
 }
 export default styles

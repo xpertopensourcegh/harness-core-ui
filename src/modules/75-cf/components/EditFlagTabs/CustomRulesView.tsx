@@ -15,10 +15,12 @@ import {
   useModalHook,
   Button,
   Popover,
-  SimpleTagInput
+  SimpleTagInput,
+  Container
 } from '@wings-software/uicore'
 import { Dialog, Menu, Spinner } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
+import cx from 'classnames'
 import {
   DragDropContext,
   Droppable,
@@ -301,7 +303,8 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                 style={{
                   width: '100%',
                   border: showBorder ? `1px solid var(--blue-500)` : 'none',
-                  padding: showBorder ? '19px' : 'var(--spacing-large)'
+                  padding: showBorder ? '19px' : 'var(--spacing-large)',
+                  marginBottom: 'var(--spacing-small)'
                 }}
                 onMouseEnter={toggleDragHandler}
                 onMouseLeave={toggleDragHandler}
@@ -449,7 +452,7 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
   }
 
   return (
-    <Card style={{ width: '100%' }}>
+    <Container className={cx(css.rulesContainer, css.custom)} style={{ width: '100%' }}>
       <Layout.Vertical spacing="small">
         {clausesComponent}
         {isPercentage && (
@@ -460,7 +463,7 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
           />
         )}
       </Layout.Vertical>
-    </Card>
+    </Container>
   )
 }
 
@@ -634,7 +637,7 @@ const ServingCard: React.FC<ServingCardProps> = ({
   const moreAvaiable = servings.length < variations.length
 
   return (
-    <Card style={{ width: '100%' }}>
+    <Container className={cx(css.rulesContainer, css.custom)} width="100%">
       <Layout.Vertical spacing="medium">
         {servings.map(({ variation, targets }, idx) => {
           const targetAvatars = targets?.map(shape<{ name: string }>('name'))
@@ -663,7 +666,7 @@ const ServingCard: React.FC<ServingCardProps> = ({
           </Text>
         )}
       </Layout.Vertical>
-    </Card>
+    </Container>
   )
 }
 
@@ -730,15 +733,8 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
 
   return (
     <>
-      <Text
-        font={{ weight: 'bold' }}
-        color={Color.BLACK}
-        margin={{ bottom: 'medium' }}
-        className={css.defaultRulesHeadingMt}
-      >
-        {i18n.customRules.header}
-      </Text>
-      <Layout.Vertical margin="medium" spacing="medium">
+      <Text className={cx(css.ruleTitle, css.custom)}>{i18n.customRules.header}</Text>
+      <Layout.Vertical>
         {servings.length > 0 && (
           <Layout.Horizontal spacing="small">
             <ServingCard
@@ -770,7 +766,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
             <Droppable droppableId="customRules">
               {(provided, dropSnapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <Layout.Vertical spacing="medium">
+                  <Layout.Vertical>
                     {tempRules.map((rule: RuleData, idx: number) => {
                       return editing ? (
                         <RuleEditCard

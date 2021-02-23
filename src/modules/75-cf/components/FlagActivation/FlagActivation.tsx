@@ -413,7 +413,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                   >
                     <Tab
                       id={FFDetailPageTab.TARGETING}
-                      title={i18n.targeting}
+                      title={<Text className={css.tabTitle}>{i18n.targeting}</Text>}
                       panel={
                         <TabTargeting
                           formikProps={formikProps}
@@ -429,7 +429,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                     />
                     <Tab
                       id={FFDetailPageTab.ACTIVITY}
-                      title={i18n.activity}
+                      title={<Text className={css.tabTitle}>{i18n.activity}</Text>}
                       panel={<TabActivity flagData={flagData} />}
                     />
                   </Tabs>
