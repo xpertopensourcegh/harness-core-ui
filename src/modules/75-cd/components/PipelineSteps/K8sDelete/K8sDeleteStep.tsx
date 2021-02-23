@@ -20,7 +20,7 @@ import type { StepElementConfig } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-
+import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import {
@@ -31,7 +31,6 @@ import {
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import css from './K8sDeleteStep.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface K8sDeleteFormSpec {
@@ -308,18 +307,12 @@ function K8sDeleteDeployWidget(
 
                 {values?.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue') && (
                   <div className={stepCss.formGroup}>
-                    <Layout.Horizontal
-                      spacing="small"
-                      flex={{ distribution: 'space-between' }}
-                      style={{ alignItems: 'center' }}
-                      className={css.nameSpace}
-                    >
-                      <FormInput.CheckBox
-                        name="spec.deleteResources.spec.deleteNamespace"
-                        label="Delete namespace"
-                        style={{ paddingLeft: 'var(--spacing-small)', fontSize: 'var(--font-size-small)' }}
-                      />
-                    </Layout.Horizontal>
+                    <FormMultiTypeCheckboxField
+                      name="spec.deleteResources.spec.deleteNamespace"
+                      label={getString('pipelineSteps.deleteNamespace')}
+                      style={{ paddingLeft: 'var(--spacing-small)', fontSize: 'var(--font-size-small)' }}
+                      multiTypeTextbox={{ expressions }}
+                    />
                   </div>
                 )}
 
@@ -344,6 +337,7 @@ function K8sDeleteDeployWidget(
                                   style={{ width: '430px' }}
                                   multiTextInputProps={{ expressions }}
                                 />
+
                                 {/* istanbul ignore next */}
                                 {formikProps.values?.spec?.deleteResources?.spec?.manifestPaths && (
                                   <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />

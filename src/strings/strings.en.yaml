@@ -853,6 +853,7 @@ pipelineSteps:
     selectService: '- Select Service -'
     newService: + New Service
     serviceIsRequired: Service is a required field
+  deleteNamespace: 'Delete namespace'
   stepNameLabel: '{{ $.name }}'
   connectorLabel: 'Container Registry'
   connectorInfo: 'Container Registry to use to download the image use to run commands on'
