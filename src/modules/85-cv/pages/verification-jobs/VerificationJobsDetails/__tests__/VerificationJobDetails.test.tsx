@@ -35,16 +35,16 @@ const MockDataSources = {
 }
 const MockActivitySource = {
   metaData: {},
-  resource: {
+  data: {
     totalPages: 1,
     totalItems: 1,
     pageItemCount: 1,
     pageSize: 100,
     content: [
       {
-        uuid: 'z7QvwlxOQMyi-Dm9Wdzkbw',
-        identifier: 'sdfasfd',
-        name: 'sdfasfd',
+        uuid: '5678_id',
+        identifier: 'kubernetesSource',
+        name: 'kubernetesSource',
         createdAt: 1610678165195,
         lastUpdatedAt: 1610678170312,
         connectorIdentifier: 'somethingThatWorks',
@@ -72,6 +72,24 @@ const MockActivitySource = {
           }
         ],
         type: 'KUBERNETES'
+      },
+      {
+        uuid: '1234_id',
+        identifier: 'cdSource',
+        name: 'cdSource',
+        createdAt: 1610678165195,
+        lastUpdatedAt: 1610678170312,
+        connectorIdentifier: 'somethingThatWorks',
+        activitySourceConfigs: [
+          {
+            serviceIdentifier: 'verification',
+            envIdentifier: 'Prod',
+            namespace: 'harness',
+            workloadName: 'command-library-svc',
+            namespaceRegex: null
+          }
+        ],
+        type: 'HARNESS_CD10'
       }
     ],
     pageIndex: 0,
@@ -196,6 +214,16 @@ describe('VerificationJobsDetails', () => {
     fireEvent.click(menuItems[1])
     await waitFor(() => expect(container.querySelector('[class*="bp3-tag-remove"]')).not.toBeNull())
 
+    // select a change source
+    await fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'activitySource',
+        value: 'cdSource'
+      }
+    ])
+
     // select verification job
     fireEvent.click(getByText('BlueGreen'))
     await waitFor(() => expect(container.querySelector('div[class*="cardIconSelected"]')))
@@ -209,6 +237,8 @@ describe('VerificationJobsDetails', () => {
 
     await waitFor(() =>
       expect(submitFuncMock).toHaveBeenCalledWith({
+        activitySource: 'cdSource',
+        activitySourceType: 'HARNESS_CD10',
         dataSource: [
           {
             label: 'appD - app_dynamics',
@@ -259,6 +289,7 @@ describe('VerificationJobsDetails', () => {
           onNext={submitFuncMock}
           stepData={{
             dataSource: [{ label: 'All', value: 'All' }],
+            activitySource: [{ label: 'cdSource', value: 'cdSource' }],
             identifier: 'sdfsfsdf',
             serviceIdentifier: '1234_service',
             environentIdentifier: '1234_environentIdentifier',
@@ -282,6 +313,12 @@ describe('VerificationJobsDetails', () => {
 
     await waitFor(() =>
       expect(submitFuncMock).toHaveBeenCalledWith({
+        activitySource: [
+          {
+            label: 'cdSource',
+            value: 'cdSource'
+          }
+        ],
         dataSource: [
           {
             label: 'All',
@@ -335,6 +372,7 @@ describe('VerificationJobsDetails', () => {
           onNext={submitFuncMock}
           stepData={{
             dataSource: [{ label: 'All', value: 'All' }],
+            activitySource: [{ label: 'cdSource', value: 'cdSource' }],
             identifier: 'sdfsfsdf',
             serviceIdentifier: '1234_service',
             environentIdentifier: '1234_environentIdentifier',
@@ -358,6 +396,12 @@ describe('VerificationJobsDetails', () => {
 
     await waitFor(() =>
       expect(submitFuncMock).toHaveBeenCalledWith({
+        activitySource: [
+          {
+            label: 'cdSource',
+            value: 'cdSource'
+          }
+        ],
         dataSource: [
           {
             label: 'All',
@@ -415,6 +459,7 @@ describe('VerificationJobsDetails', () => {
           onNext={submitFuncMock}
           stepData={{
             dataSource: [{ label: 'All', value: 'All' }],
+            activitySource: [{ label: 'cdSource', value: 'cdSource' }],
             identifier: 'sdfsfsdf',
             serviceIdentifier: '1234_service',
             environentIdentifier: '1234_environentIdentifier',
@@ -438,6 +483,12 @@ describe('VerificationJobsDetails', () => {
 
     await waitFor(() =>
       expect(submitFuncMock).toHaveBeenCalledWith({
+        activitySource: [
+          {
+            label: 'cdSource',
+            value: 'cdSource'
+          }
+        ],
         dataSource: [
           {
             label: 'All',
@@ -495,6 +546,7 @@ describe('VerificationJobsDetails', () => {
           onNext={submitFuncMock}
           stepData={{
             dataSource: [{ label: 'All', value: 'All' }],
+            activitySource: [{ label: 'cdSource', value: 'cdSource' }],
             identifier: 'sdfsfsdf',
             serviceIdentifier: '1234_service',
             environentIdentifier: '1234_environentIdentifier',
@@ -516,6 +568,12 @@ describe('VerificationJobsDetails', () => {
 
     await waitFor(() =>
       expect(submitFuncMock).toHaveBeenCalledWith({
+        activitySource: [
+          {
+            label: 'cdSource',
+            value: 'cdSource'
+          }
+        ],
         dataSource: [
           {
             label: 'All',

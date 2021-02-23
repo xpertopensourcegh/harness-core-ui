@@ -337,12 +337,14 @@ export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }
   )
 }
 
-export const ActivitySource: React.FC<BaseFieldProps & { onChange?: (val: SelectOption) => void }> = props => {
+export const ActivitySource: React.FC<
+  BaseFieldProps & { onChange?: (val: SelectOption) => void; getOptions?: (options: SelectOption[]) => void }
+> = props => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
   const [activityOptions, setActivityOptions] = useState<SelectOption[]>([{ label: getString('loading'), value: '' }])
-  const { zIndex, onChange } = props
+  const { zIndex, onChange, getOptions } = props
   const { data, error } = useListActivitySources({
     queryParams: {
       accountId,
@@ -363,6 +365,7 @@ export const ActivitySource: React.FC<BaseFieldProps & { onChange?: (val: Select
         }
       })
       setActivityOptions(options as any)
+      getOptions?.(options)
     } else if (error?.message) {
       setActivityOptions([])
       showError(error.message, 7000)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Formik, FormikForm, Layout, Text, Color, FormInput } from '@wings-software/uicore'
+import { Container, Formik, FormikForm, Layout, Text, Color, FormInput, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
@@ -39,7 +39,8 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
               .notOneOf(StringUtils.illegalIdentifiers)
           }),
           type: Yup.string().required(getString('cv.verificationJobs.validation.type')),
-          dataSource: Yup.string().required(getString('cv.verificationJobs.validation.dataSource'))
+          dataSource: Yup.string().required(getString('cv.verificationJobs.validation.dataSource')),
+          activitySource: Yup.string().required(getString('cv.verificationJobs.validation.changeSource'))
         })}
         onSubmit={data => {
           props.onNext(data)
@@ -67,6 +68,14 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                           formik.setFieldValue('type', '')
                         }
                         formik.setFieldValue('activitySourceType', activitySourceType)
+                      }}
+                      getOptions={(activitySourceOptions: SelectOption[]) => {
+                        const selectedOption = activitySourceOptions?.find(
+                          option => option.value === formik.values.activitySource
+                        )
+                        if (selectedOption) {
+                          formik.setFieldValue('activitySourceType', iconNameToActivityType(selectedOption?.icon?.name))
+                        }
                       }}
                     />
                   </Container>

@@ -18,7 +18,7 @@ const MockHealthVerificationJobResponse = {
     envIdentifier: 'test',
     projectIdentifier: 'raghu_p',
     orgIdentifier: 'harness_test',
-    activitySourceIdentifier: null,
+    activitySourceIdentifier: 'k8',
     dataSources: null,
     monitoringSources: ['appdtest'],
     duration: '15m',
@@ -37,7 +37,7 @@ const MockBlueGreenVerificationJobResponse = {
     envIdentifier: 'test',
     projectIdentifier: 'raghu_p',
     orgIdentifier: 'harness_test',
-    activitySourceIdentifier: null,
+    activitySourceIdentifier: 'cdSource',
     dataSources: null,
     monitoringSources: ['appdtest'],
     duration: '15m',
@@ -58,7 +58,7 @@ const MockTestVerificationJobResponse = {
     envIdentifier: 'test',
     projectIdentifier: 'raghu_p',
     orgIdentifier: 'harness_test',
-    activitySourceIdentifier: null,
+    activitySourceIdentifier: 'cdSource',
     dataSources: null,
     monitoringSources: ['appdtest'],
     duration: '15m',
@@ -79,7 +79,7 @@ const MockActivitySourceResponse = {
     pageSize: 100,
     content: [
       {
-        uuid: 'UQZ-NrOVR7i16ihyGJOBsw',
+        uuid: '12323_ddsf',
         identifier: 'k8',
         name: 'k8',
         createdAt: 1609952915403,
@@ -95,6 +95,24 @@ const MockActivitySourceResponse = {
           }
         ],
         type: 'KUBERNETES'
+      },
+      {
+        uuid: '1234_activityId',
+        identifier: 'cdSource',
+        name: 'cdSource',
+        createdAt: 1609952915403,
+        lastUpdatedAt: 1609952927353,
+        connectorIdentifier: 'org.harness_test_ban',
+        activitySourceConfigs: [
+          {
+            serviceIdentifier: 'todolist',
+            envIdentifier: 'Prod',
+            namespace: 'raghu',
+            workloadName: 'harness-example-prod-deployment',
+            namespaceRegex: null
+          }
+        ],
+        type: 'HARNESS_CD10'
       }
     ],
     pageIndex: 0,
@@ -257,7 +275,9 @@ describe('VerificationJobsSetup', () => {
       loading: false
     } as UseGetReturn<any, any, any, any>)
 
-    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(cvService, 'useListActivitySources')
+      .mockReturnValue({ data: MockActivitySourceResponse } as UseGetReturn<any, any, any, any>)
     jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
 
     jest.spyOn(cdService, 'useGetEnvironmentListForProject').mockReturnValue({
@@ -299,7 +319,9 @@ describe('VerificationJobsSetup', () => {
       loading: false
     } as UseGetReturn<any, any, any, any>)
 
-    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(cvService, 'useListActivitySources')
+      .mockReturnValue({ data: MockActivitySourceResponse } as UseGetReturn<any, any, any, any>)
     jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
 
     jest.spyOn(cdService, 'useGetEnvironmentListForProject').mockReturnValue({
@@ -386,7 +408,7 @@ describe('VerificationJobsSetup', () => {
           envIdentifier: RUNTIME_INPUT_VALUE,
           projectIdentifier: 'raghu_p',
           orgIdentifier: 'harness_test',
-          activitySourceIdentifier: null,
+          activitySourceIdentifier: 'mmm',
           dataSources: null,
           monitoringSources: ['appdtest'],
           duration: RUNTIME_INPUT_VALUE,
@@ -404,7 +426,9 @@ describe('VerificationJobsSetup', () => {
       loading: false
     } as UseGetReturn<any, any, any, any>)
 
-    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(cvService, 'useListActivitySources')
+      .mockReturnValue({ data: MockActivitySourceResponse } as UseGetReturn<any, any, any, any>)
     jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
 
     jest.spyOn(cdService, 'useGetEnvironmentListForProject').mockReturnValue({
@@ -461,7 +485,7 @@ describe('VerificationJobsSetup', () => {
           envIdentifier: RUNTIME_INPUT_VALUE,
           projectIdentifier: 'raghu_p',
           orgIdentifier: 'harness_test',
-          activitySourceIdentifier: null,
+          activitySourceIdentifier: 'mmm',
           dataSources: null,
           monitoringSources: ['appdtest'],
           duration: RUNTIME_INPUT_VALUE,
@@ -479,7 +503,9 @@ describe('VerificationJobsSetup', () => {
       loading: false
     } as UseGetReturn<any, any, any, any>)
 
-    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(cvService, 'useListActivitySources')
+      .mockReturnValue({ data: MockActivitySourceResponse } as UseGetReturn<any, any, any, any>)
     jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
 
     jest.spyOn(cdService, 'useGetEnvironmentListForProject').mockReturnValue({
@@ -526,8 +552,8 @@ describe('VerificationJobsSetup', () => {
           envIdentifier: 'test',
           projectIdentifier: 'raghu_p',
           orgIdentifier: 'harness_test',
-          activitySourceIdentifier: null,
           dataSources: null,
+          activitySourceIdentifier: 'mmm',
           monitoringSources: ['appdtest'],
           duration: '15m',
           sensitivity: RUNTIME_INPUT_VALUE,
@@ -544,7 +570,9 @@ describe('VerificationJobsSetup', () => {
       loading: false
     } as UseGetReturn<any, any, any, any>)
 
-    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(cvService, 'useListActivitySources')
+      .mockReturnValue({ data: MockActivitySourceResponse } as UseGetReturn<any, any, any, any>)
     jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({} as UseGetReturn<any, any, any, any>)
 
     jest.spyOn(cdService, 'useGetEnvironmentListForProject').mockReturnValue({
