@@ -2,11 +2,6 @@
 
 exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Save Cache to GCS
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -1123,11 +1118,6 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
 
 exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Save Cache to GCS
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -2293,11 +2283,6 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
 
 exports[`Save Cache GCS Step Edit View should render properly 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Save Cache to GCS
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >

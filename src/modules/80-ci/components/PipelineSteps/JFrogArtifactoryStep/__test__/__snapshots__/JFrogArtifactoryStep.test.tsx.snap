@@ -2,11 +2,6 @@
 
 exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Upload Artifacts to JFrog Artifactory
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -788,11 +783,6 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
 
 exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Upload Artifacts to JFrog Artifactory
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -1712,11 +1702,6 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
 
 exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Upload Artifacts to JFrog Artifactory
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >

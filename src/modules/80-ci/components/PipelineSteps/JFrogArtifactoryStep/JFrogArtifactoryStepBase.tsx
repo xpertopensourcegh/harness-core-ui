@@ -70,114 +70,109 @@ export const JFrogArtifactoryStepBase = (
   }
 
   return (
-    <>
-      <Text className={css.boldLabel} font={{ size: 'medium' }}>
-        {getString('pipelineSteps.jFrogArtifactory.title')}
-      </Text>
-      <Formik
-        initialValues={getInitialValuesInCorrectFormat<JFrogArtifactoryStepData, JFrogArtifactoryStepDataUI>(
+    <Formik
+      initialValues={getInitialValuesInCorrectFormat<JFrogArtifactoryStepData, JFrogArtifactoryStepDataUI>(
+        initialValues,
+        transformValuesFieldsConfig
+      )}
+      validate={valuesToValidate => {
+        return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
+          steps: currentStage?.stage?.spec?.execution?.steps || {},
+          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+          getString
+        })
+      }}
+      onSubmit={(_values: JFrogArtifactoryStepDataUI) => {
+        const schemaValues = getFormValuesInCorrectFormat<JFrogArtifactoryStepDataUI, JFrogArtifactoryStepData>(
+          _values,
           transformValuesFieldsConfig
-        )}
-        validate={valuesToValidate => {
-          return validate(valuesToValidate, editViewValidateFieldsConfig, {
-            initialValues,
-            steps: currentStage?.stage?.spec?.execution?.steps || {},
-            serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
-            getString
-          })
-        }}
-        onSubmit={(_values: JFrogArtifactoryStepDataUI) => {
-          const schemaValues = getFormValuesInCorrectFormat<JFrogArtifactoryStepDataUI, JFrogArtifactoryStepData>(
-            _values,
-            transformValuesFieldsConfig
-          )
-          onUpdate?.(schemaValues)
-        }}
-      >
-        {(formik: FormikProps<JFrogArtifactoryStepData>) => {
-          // This is required
-          setFormikRef?.(formikRef, formik)
+        )
+        onUpdate?.(schemaValues)
+      }}
+    >
+      {(formik: FormikProps<JFrogArtifactoryStepData>) => {
+        // This is required
+        setFormikRef?.(formikRef, formik)
 
-          return (
-            <FormikForm>
-              <div className={css.fieldsSection}>
-                <FormInput.InputWithIdentifier
-                  inputName="name"
-                  idName="identifier"
-                  isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  inputLabel={getString('pipelineSteps.stepNameLabel')}
-                />
-                <FormMultiTypeTextAreaField
-                  className={css.removeBpLabelMargin}
-                  name="description"
-                  label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
-                />
-                <FormMultiTypeConnectorField
-                  label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>}
-                  type={'Artifactory'}
-                  width={
-                    getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
-                  }
-                  name="spec.connectorRef"
-                  placeholder={getString('select')}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  style={{ marginBottom: 'var(--spacing-small)' }}
-                />
-                <MultiTypeTextField
-                  name="spec.target"
-                  label={
-                    <Text>
-                      {getString('pipelineSteps.targetLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.jFrogArtifactoryTargetInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
-                  style={{ marginBottom: 'var(--spacing-small)' }}
-                />
-                <MultiTypeTextField
-                  name="spec.sourcePath"
-                  label={
-                    <Text>
-                      {getString('pipelineSteps.sourcePathLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.sourcePathInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
-                  style={{ marginBottom: 0 }}
-                />
-              </div>
-              <div className={css.fieldsSection}>
-                <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                  {getString('pipelineSteps.optionalConfiguration')}
-                </Text>
-                <StepCommonFields />
-              </div>
-              <div className={css.buttonsWrapper}>
-                <Button
-                  intent="primary"
-                  type="submit"
-                  text={getString('save')}
-                  margin={{ right: 'xxlarge' }}
-                  data-testid={'submit'}
-                />
-                <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
-              </div>
-            </FormikForm>
-          )
-        }}
-      </Formik>
-    </>
+        return (
+          <FormikForm>
+            <div className={css.fieldsSection}>
+              <FormInput.InputWithIdentifier
+                inputName="name"
+                idName="identifier"
+                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                inputLabel={getString('pipelineSteps.stepNameLabel')}
+              />
+              <FormMultiTypeTextAreaField
+                className={css.removeBpLabelMargin}
+                name="description"
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+              />
+              <FormMultiTypeConnectorField
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>}
+                type={'Artifactory'}
+                width={
+                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+                }
+                name="spec.connectorRef"
+                placeholder={getString('select')}
+                accountIdentifier={accountId}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeTextField
+                name="spec.target"
+                label={
+                  <Text>
+                    {getString('pipelineSteps.targetLabel')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipelineSteps.jFrogArtifactoryTargetInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeTextField
+                name="spec.sourcePath"
+                label={
+                  <Text>
+                    {getString('pipelineSteps.sourcePathLabel')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipelineSteps.sourcePathInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+                style={{ marginBottom: 0 }}
+              />
+            </div>
+            <div className={css.fieldsSection}>
+              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
+                {getString('pipelineSteps.optionalConfiguration')}
+              </Text>
+              <StepCommonFields />
+            </div>
+            <div className={css.buttonsWrapper}>
+              <Button
+                intent="primary"
+                type="submit"
+                text={getString('save')}
+                margin={{ right: 'xxlarge' }}
+                data-testid={'submit'}
+              />
+              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
+            </div>
+          </FormikForm>
+        )
+      }}
+    </Formik>
   )
 }
 

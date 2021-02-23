@@ -56,7 +56,7 @@ function generateSchemaForIdentifier({
     .matches(validIdRegex, getString('validation.validStepIdRegex'))
     .notOneOf(StringUtils.illegalIdentifiers, getString('validation.illegalIdentifier'))
     .test('isStepIdUnique', getString('validation.uniqueStepAndServiceDependenciesId'), identifier => {
-      if (isEmpty(initialValues) || isEmpty(steps) || isEmpty(serviceDependencies)) return true
+      if (isEmpty(initialValues) || (isEmpty(steps) && isEmpty(serviceDependencies))) return true
 
       const stepsAndDependencies: StepElementConfig[] = [...serviceDependencies]
 

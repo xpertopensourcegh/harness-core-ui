@@ -2,11 +2,6 @@
 
 exports[`Restore Cache S3 Step Edit View edit mode works 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Restore Cache From S3
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -1169,11 +1164,6 @@ exports[`Restore Cache S3 Step Edit View edit mode works 1`] = `
 
 exports[`Restore Cache S3 Step Edit View renders runtime inputs 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Restore Cache From S3
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -2522,11 +2512,6 @@ exports[`Restore Cache S3 Step Edit View renders runtime inputs 1`] = `
 
 exports[`Restore Cache S3 Step Edit View should render properly 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Restore Cache From S3
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >

@@ -2,11 +2,6 @@
 
 exports[`DockerHub Step Edit View edit mode works 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Build and Push an image to Docker Registry
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -2202,11 +2197,6 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
 
 exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Build and Push an image to Docker Registry
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
@@ -3689,11 +3679,6 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
 
 exports[`DockerHub Step Edit View should render properly 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
-  >
-    Build and Push an image to Docker Registry
-  </p>
   <div
     class="OverlaySpinner--overlaySpinner"
   >

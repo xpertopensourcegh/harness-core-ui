@@ -13,6 +13,7 @@ import { GCSStep } from './GCSStep/GCSStep'
 import { S3Step } from './S3Step/S3Step'
 import { JFrogArtifactoryStep } from './JFrogArtifactoryStep/JFrogArtifactoryStep'
 import { Dependency } from './Dependency/Dependency'
+import { RunTestsStep } from './RunTestsStep/RunTestsStep'
 
 factory.registerStep(new RunStep())
 factory.registerStep(new PluginStep())
@@ -27,3 +28,4 @@ factory.registerStep(new GCSStep())
 factory.registerStep(new S3Step())
 factory.registerStep(new JFrogArtifactoryStep())
 factory.registerStep(new Dependency())
+factory.registerStep(new RunTestsStep())

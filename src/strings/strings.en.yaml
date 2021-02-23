@@ -83,6 +83,16 @@ events: Events
 details: Details
 test: Test
 enable: Enable
+runTestsArgsInfo: The arguments to be passed to the buildTool. For maven, it will be a goal
+packagesLabel: Packages
+packagesInfo: 'List of source code package prefixes separated by comma. E.g. com.company., io.company., migrations.'
+testAnnotationsLabel: Test Annotations
+testAnnotationsInfo: 'List of test annotations used in unit testing. They should be separated by comma. Any method annotated with this will be treated as test method. The defaults are: org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test'
+runOnlySelectedTestsLabel: Run only selected tests
+buildToolLabel: Build Tool
+buildToolInfo: Build automation tool
+languageLabel: Language
+languageInfo: The programming language of the source code to build
 reset: Reset
 archiveFormat: Archive Format
 archiveFormatInfo: Select archive format. Default is tar
@@ -975,30 +985,6 @@ pipelineSteps:
   methodIsRequired: Method is required
   keyInfo: The key the cache will be identified by. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
   restoreCacheKeyInfo: The key that can be used to restore this cache. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
-  gcr:
-    title: 'Build and Push to GCR'
-  ecr:
-    title: 'Build and Push to ECR'
-  saveCacheGCS:
-    title: 'Save Cache to GCS'
-  restoreCacheGCS:
-    title: 'Restore Cache From GCS'
-  saveCacheS3:
-    title: 'Save Cache to S3'
-  restoreCacheS3:
-    title: 'Restore Cache From S3'
-  dockerHub:
-    title: 'Build and Push an image to Docker Registry'
-  gcs:
-    title: 'Upload Artifacts to GCS'
-  s3:
-    title: 'Upload Artifacts to S3'
-  jFrogArtifactory:
-    title: 'Upload Artifacts to JFrog Artifactory'
-  run:
-    title: 'Configure Run Step'
-  plugin:
-    title: 'Configure Plugin Step'
   build:
     delete:
       confirmDeleteTitle: 'Are you sure you want to remove this stage '

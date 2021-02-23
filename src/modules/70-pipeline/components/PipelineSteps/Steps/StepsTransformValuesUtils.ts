@@ -1,6 +1,6 @@
 import type { SelectOption } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { get, set, isEmpty, isObjectLike, isPlainObject } from 'lodash-es'
+import { get, set, isEmpty, isObjectLike, isPlainObject, isBoolean } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type {
   MapType,
@@ -16,6 +16,8 @@ export enum Types {
   List,
   ArchiveFormat,
   Pull,
+  BuildTool,
+  Language,
   ConnectorRef,
   ReportPaths,
   LimitMemory,
@@ -31,7 +33,8 @@ type Dependencies = { [key: string]: any }
 
 export function removeEmptyKeys<T>(object: { [key: string]: any }): T {
   Object.keys(object).forEach(key => {
-    if ((isObjectLike(object[key]) && isEmpty(object[key])) || !object[key]) {
+    // We should skip this check for boolean in order not to remove a key with a value "false"
+    if (((isObjectLike(object[key]) && isEmpty(object[key])) || !object[key]) && !isBoolean(object[key])) {
       delete object[key]
       return
     }
@@ -51,7 +54,7 @@ export function removeEmptyKeys<T>(object: { [key: string]: any }): T {
 export function getInitialValuesInCorrectFormat<T, U>(
   initialValues: T,
   fields: Field[],
-  { archiveFormatOptions, pullOptions }: Dependencies = {}
+  { archiveFormatOptions, pullOptions, buildToolOptions, languageOptions }: Dependencies = {}
 ): U {
   const values = {}
 
@@ -113,6 +116,24 @@ export function getInitialValuesInCorrectFormat<T, U>(
           : value
 
       set(values, name, pull)
+    }
+
+    if (type === Types.BuildTool) {
+      const buildTool =
+        getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
+          ? buildToolOptions?.find((option: SelectOption) => option.value === value) || buildToolOptions[0]
+          : value
+
+      set(values, name, buildTool)
+    }
+
+    if (type === Types.Language) {
+      const language =
+        getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
+          ? languageOptions?.find((option: SelectOption) => option.value === value) || languageOptions[0]
+          : value
+
+      set(values, name, language)
     }
 
     if (type === Types.LimitMemory) {
@@ -189,7 +210,7 @@ export function getFormValuesInCorrectFormat<T, U>(formValues: T, fields: Field[
       set(values, name, connectorRef)
     }
 
-    if (type === Types.ArchiveFormat || type === Types.Pull) {
+    if (type === Types.ArchiveFormat || type === Types.Pull || type === Types.BuildTool || type === Types.Language) {
       const value = get(formValues, name) as MultiTypeSelectOption
 
       const pull = typeof value === 'string' ? value : value?.value

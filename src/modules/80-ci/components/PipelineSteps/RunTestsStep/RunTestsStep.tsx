@@ -7,50 +7,53 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type {
-  MultiTypeMapType,
-  MultiTypeMapUIType,
+  MultiTypeSelectOption,
+  MultiTypePullOption,
+  MultiTypeConnectorRef,
   MultiTypeListType,
   MultiTypeListUIType,
-  MultiTypeConnectorRef,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import { RunStepBaseWithRef } from './RunStepBase'
-import { RunStepInputSet } from './RunStepInputSet'
-import { RunStepVariables, RunStepVariablesProps } from './RunStepVariables'
-import { inputSetViewValidateFieldsConfig } from './RunStepFunctionConfigs'
+import { RunTestsStepBaseWithRef } from './RunTestsStepBase'
+import { RunTestsStepInputSet } from './RunTestsStepInputSet'
+import { RunTestsStepVariables, RunTestsStepVariablesProps } from './RunTestsStepVariables'
+import { inputSetViewValidateFieldsConfig } from './RunTestsStepFunctionConfigs'
 
-export interface RunStepSpec {
+export interface RunTestsStepSpec {
   connectorRef: string
   image: string
-  command: string
+  args: string
+  buildTool: MultiTypePullOption
+  language: MultiTypePullOption
+  packages: string
+  testAnnotations?: string
+  runOnlySelectedTests?: boolean
   reports?: {
     type: 'JUnit'
     spec: {
       paths: MultiTypeListType
     }
   }
-  envVariables?: MultiTypeMapType
-  outputVariables?: MultiTypeListType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
 }
 
-export interface RunStepData {
+export interface RunTestsStepData {
   identifier: string
   name?: string
   description?: string
   type: string
   timeout?: string
-  spec: RunStepSpec
+  spec: RunTestsStepSpec
 }
 
-export interface RunStepSpecUI
-  extends Omit<RunStepSpec, 'connectorRef' | 'reports' | 'envVariables' | 'outputVariables' | 'pull' | 'resources'> {
+export interface RunTestsStepSpecUI
+  extends Omit<RunTestsStepSpec, 'connectorRef' | 'buildTool' | 'language' | 'reports' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
+  buildTool: MultiTypeSelectOption
+  language: MultiTypeSelectOption
   reportPaths?: MultiTypeListUIType
-  envVariables?: MultiTypeMapUIType
-  outputVariables?: MultiTypeListUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
   limitMemory?: string
@@ -58,41 +61,49 @@ export interface RunStepSpecUI
 }
 
 // Interface for the form
-export interface RunStepDataUI extends Omit<RunStepData, 'spec'> {
-  spec: RunStepSpecUI
+export interface RunTestsStepDataUI extends Omit<RunTestsStepData, 'spec'> {
+  spec: RunTestsStepSpecUI
 }
 
-export interface RunStepProps {
-  initialValues: RunStepData
-  template?: RunStepData
+export interface RunTestsStepProps {
+  initialValues: RunTestsStepData
+  template?: RunTestsStepData
   path?: string
   readonly?: boolean
   stepViewType?: StepViewType
-  onUpdate?: (data: RunStepData) => void
+  onUpdate?: (data: RunTestsStepData) => void
 }
 
-export class RunStep extends PipelineStep<RunStepData> {
+export class RunTestsStep extends PipelineStep<RunTestsStepData> {
   constructor() {
     super()
     this._hasStepVariables = true
   }
 
-  protected type = StepType.Run
-  protected stepName = 'Configure Run Step'
-  protected stepIcon: IconName = 'run-step'
+  protected type = StepType.RunTests
+  protected stepName = 'Configure Run Tests Step'
+  protected stepIcon: IconName = 'run-tests-step'
   protected stepPaletteVisible = false
 
-  protected defaultValues: RunStepData = {
+  protected defaultValues: RunTestsStepData = {
     identifier: '',
-    type: StepType.Run as string,
+    type: StepType.RunTests as string,
     spec: {
       connectorRef: '',
       image: '',
-      command: ''
+      args: '',
+      buildTool: 'maven',
+      language: 'java',
+      packages: '',
+      runOnlySelectedTests: true
     }
   }
 
-  validateInputSet(data: RunStepData, template?: RunStepData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: RunTestsStepData,
+    template?: RunTestsStepData,
+    getString?: UseStringsReturn['getString']
+  ): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -100,12 +111,12 @@ export class RunStep extends PipelineStep<RunStepData> {
     return {}
   }
 
-  renderStep(props: StepProps<RunStepData>): JSX.Element {
+  renderStep(props: StepProps<RunTestsStepData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <RunStepInputSet
+        <RunTestsStepInputSet
           initialValues={initialValues}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
@@ -116,8 +127,8 @@ export class RunStep extends PipelineStep<RunStepData> {
       )
     } else if (stepViewType === StepViewType.InputVariable) {
       return (
-        <RunStepVariables
-          {...(customStepProps as RunStepVariablesProps)}
+        <RunTestsStepVariables
+          {...(customStepProps as RunTestsStepVariablesProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}
         />
@@ -125,7 +136,7 @@ export class RunStep extends PipelineStep<RunStepData> {
     }
 
     return (
-      <RunStepBaseWithRef
+      <RunTestsStepBaseWithRef
         initialValues={initialValues}
         stepViewType={stepViewType}
         onUpdate={onUpdate}

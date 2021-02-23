@@ -12,28 +12,29 @@ import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
+import { FormMultiTypeCheckboxField } from '@common/components'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
-import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
-import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
+import type { RunTestsStepProps, RunTestsStepData, RunTestsStepDataUI } from './RunTestsStep'
+import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunTestsStepFunctionConfigs'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const RunStepBase = (
-  { initialValues, onUpdate }: RunStepProps,
-  formikRef: StepFormikFowardRef<RunStepData>
+export const RunTestsStepBase = (
+  { initialValues, onUpdate }: RunTestsStepProps,
+  formikRef: StepFormikFowardRef<RunTestsStepData>
 ): JSX.Element => {
   const {
     state: { pipelineView },
@@ -51,11 +52,17 @@ export const RunStepBase = (
 
   const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
 
+  const buildToolOptions = [
+    { label: 'Maven', value: 'maven' },
+    { label: 'Gradle', value: 'gradle' }
+  ]
+  const languageOptions = [{ label: 'Java', value: 'java' }]
+
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(initialValues, transformValuesFieldsConfig, {
+  // const values = getInitialValuesInCorrectFormat<RunTestsStepData, RunTestsStepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
   const handleCancelClick = (): void => {
@@ -68,9 +75,10 @@ export const RunStepBase = (
 
   return (
     <Formik
-      initialValues={getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(
+      initialValues={getInitialValuesInCorrectFormat<RunTestsStepData, RunTestsStepDataUI>(
         initialValues,
-        transformValuesFieldsConfig
+        transformValuesFieldsConfig,
+        { buildToolOptions, languageOptions }
       )}
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
@@ -80,15 +88,15 @@ export const RunStepBase = (
           getString
         })
       }}
-      onSubmit={(_values: RunStepDataUI) => {
-        const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(
+      onSubmit={(_values: RunTestsStepDataUI) => {
+        const schemaValues = getFormValuesInCorrectFormat<RunTestsStepDataUI, RunTestsStepData>(
           _values,
           transformValuesFieldsConfig
         )
         onUpdate?.(schemaValues)
       }}
     >
-      {(formik: FormikProps<RunStepData>) => {
+      {(formik: FormikProps<RunTestsStepData>) => {
         // This is required
         setFormikRef?.(formikRef, formik)
 
@@ -141,23 +149,73 @@ export const RunStepBase = (
                   placeholder: getString('imagePlaceholder')
                 }}
               />
-              <FormMultiTypeTextAreaField
-                className={css.removeBpLabelMargin}
-                name="spec.command"
+              <MultiTypeTextField
+                name="spec.args"
                 label={
-                  <Text margin={{ top: 'small' }} style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('commandLabel')}
-                    <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
+                  <Text margin={{ top: 'small' }}>
+                    {getString('argsLabel')}
+                    <Button icon="question" minimal tooltip={getString('runTestsArgsInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 }
-                placeholder={getString('commandPlaceholder')}
-                style={{ marginBottom: 0 }}
+              />
+              <MultiTypeSelectField
+                name="spec.buildTool"
+                label={
+                  <Text margin={{ top: 'small' }}>
+                    {getString('buildToolLabel')}
+                    <Button icon="question" minimal tooltip={getString('buildToolInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                }
+                multiTypeInputProps={{
+                  selectItems: buildToolOptions
+                }}
+              />
+              <MultiTypeSelectField
+                name="spec.language"
+                label={
+                  <Text margin={{ top: 'small' }}>
+                    {getString('languageLabel')}
+                    <Button icon="question" minimal tooltip={getString('languageInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                }
+                multiTypeInputProps={{
+                  selectItems: languageOptions
+                }}
+              />
+              <MultiTypeTextField
+                name="spec.packages"
+                label={
+                  <Text margin={{ top: 'small' }}>
+                    {getString('packagesLabel')}
+                    <Button icon="question" minimal tooltip={getString('packagesInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                }
               />
             </div>
             <div className={css.fieldsSection}>
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
+              <MultiTypeTextField
+                name="spec.testAnnotations"
+                label={
+                  <Text>
+                    {getString('testAnnotationsLabel')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('testAnnotationsInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+                style={{ marginBottom: 'var(--spacing-medium)' }}
+              />
+              <FormMultiTypeCheckboxField
+                name="spec.runOnlySelectedTests"
+                label={getString('runOnlySelectedTestsLabel')}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
               <MultiTypeList
                 name="spec.reportPaths"
                 placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
@@ -175,39 +233,6 @@ export const RunStepBase = (
                   )
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeMap
-                name="spec.envVariables"
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('environmentVariables')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('environmentVariablesInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeList
-                name="spec.outputVariables"
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.outputVariablesLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
               />
               <StepCommonFields />
             </div>
@@ -228,4 +253,4 @@ export const RunStepBase = (
   )
 }
 
-export const RunStepBaseWithRef = React.forwardRef(RunStepBase)
+export const RunTestsStepBaseWithRef = React.forwardRef(RunTestsStepBase)

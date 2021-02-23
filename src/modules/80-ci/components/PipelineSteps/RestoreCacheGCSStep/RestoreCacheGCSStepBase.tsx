@@ -68,142 +68,132 @@ export const RestoreCacheGCSStepBase = (
   }
 
   return (
-    <>
-      <Text className={css.boldLabel} font={{ size: 'medium' }}>
-        {getString('pipelineSteps.restoreCacheGCS.title')}
-      </Text>
-      <Formik
-        initialValues={getInitialValuesInCorrectFormat<RestoreCacheGCSStepData, RestoreCacheGCSStepDataUI>(
+    <Formik
+      initialValues={getInitialValuesInCorrectFormat<RestoreCacheGCSStepData, RestoreCacheGCSStepDataUI>(
+        initialValues,
+        transformValuesFieldsConfig,
+        { archiveFormatOptions }
+      )}
+      validate={valuesToValidate => {
+        return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
-          transformValuesFieldsConfig,
-          { archiveFormatOptions }
-        )}
-        validate={valuesToValidate => {
-          return validate(valuesToValidate, editViewValidateFieldsConfig, {
-            initialValues,
-            steps: currentStage?.stage?.spec?.execution?.steps || {},
-            serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
-            getString
-          })
-        }}
-        onSubmit={(_values: RestoreCacheGCSStepDataUI) => {
-          const schemaValues = getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
-            _values,
-            transformValuesFieldsConfig
-          )
-          onUpdate?.(schemaValues)
-        }}
-      >
-        {(formik: FormikProps<RestoreCacheGCSStepData>) => {
-          // This is required
-          setFormikRef?.(formikRef, formik)
+          steps: currentStage?.stage?.spec?.execution?.steps || {},
+          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+          getString
+        })
+      }}
+      onSubmit={(_values: RestoreCacheGCSStepDataUI) => {
+        const schemaValues = getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
+          _values,
+          transformValuesFieldsConfig
+        )
+        onUpdate?.(schemaValues)
+      }}
+    >
+      {(formik: FormikProps<RestoreCacheGCSStepData>) => {
+        // This is required
+        setFormikRef?.(formikRef, formik)
 
-          return (
-            <FormikForm>
-              <div className={css.fieldsSection}>
-                <FormInput.InputWithIdentifier
-                  inputName="name"
-                  idName="identifier"
-                  isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  inputLabel={getString('pipelineSteps.stepNameLabel')}
-                />
-                <FormMultiTypeConnectorField
-                  label={
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.gcpConnectorLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.restoreCacheGcpConnectorInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
-                  type={'Gcp'}
-                  width={
-                    getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
-                  }
-                  name="spec.connectorRef"
-                  placeholder={getString('select')}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  style={{ marginBottom: 'var(--spacing-small)' }}
-                />
-                <MultiTypeTextField
-                  name="spec.bucket"
-                  label={
-                    <Text>
-                      {getString('pipelineSteps.bucketLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
-                  style={{ marginBottom: 'var(--spacing-small)' }}
-                />
-                <MultiTypeTextField
-                  name="spec.key"
-                  label={
-                    <Text>
-                      {getString('keyLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.restoreCacheKeyInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
-                />
-              </div>
-              <div className={css.fieldsSection}>
-                <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                  {getString('pipelineSteps.optionalConfiguration')}
-                </Text>
-                <MultiTypeSelectField
-                  name="spec.archiveFormat"
-                  label={
-                    <Text margin={{ top: 'small' }}>
-                      {getString('archiveFormat')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('archiveFormatInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
-                  multiTypeInputProps={{
-                    selectItems: archiveFormatOptions
-                  }}
-                  style={{ marginBottom: 'var(--spacing-medium)' }}
-                />
-                <FormMultiTypeCheckboxField
-                  name="spec.failIfKeyNotFound"
-                  label={getString('failIfKeyNotFound')}
-                  style={{ marginBottom: 'var(--spacing-small)' }}
-                />
-                <StepCommonFields />
-              </div>
-              <div className={css.buttonsWrapper}>
-                <Button
-                  intent="primary"
-                  type="submit"
-                  text={getString('save')}
-                  margin={{ right: 'xxlarge' }}
-                  data-testid={'submit'}
-                />
-                <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
-              </div>
-            </FormikForm>
-          )
-        }}
-      </Formik>
-    </>
+        return (
+          <FormikForm>
+            <div className={css.fieldsSection}>
+              <FormInput.InputWithIdentifier
+                inputName="name"
+                idName="identifier"
+                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                inputLabel={getString('pipelineSteps.stepNameLabel')}
+              />
+              <FormMultiTypeConnectorField
+                label={
+                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                    {getString('pipelineSteps.gcpConnectorLabel')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipelineSteps.restoreCacheGcpConnectorInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+                type={'Gcp'}
+                width={
+                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+                }
+                name="spec.connectorRef"
+                placeholder={getString('select')}
+                accountIdentifier={accountId}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeTextField
+                name="spec.bucket"
+                label={
+                  <Text>
+                    {getString('pipelineSteps.bucketLabel')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipelineSteps.GCSBucketInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeTextField
+                name="spec.key"
+                label={
+                  <Text>
+                    {getString('keyLabel')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipelineSteps.restoreCacheKeyInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+              />
+            </div>
+            <div className={css.fieldsSection}>
+              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
+                {getString('pipelineSteps.optionalConfiguration')}
+              </Text>
+              <MultiTypeSelectField
+                name="spec.archiveFormat"
+                label={
+                  <Text margin={{ top: 'small' }}>
+                    {getString('archiveFormat')}
+                    <Button icon="question" minimal tooltip={getString('archiveFormatInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                }
+                multiTypeInputProps={{
+                  selectItems: archiveFormatOptions
+                }}
+                style={{ marginBottom: 'var(--spacing-medium)' }}
+              />
+              <FormMultiTypeCheckboxField
+                name="spec.failIfKeyNotFound"
+                label={getString('failIfKeyNotFound')}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <StepCommonFields />
+            </div>
+            <div className={css.buttonsWrapper}>
+              <Button
+                intent="primary"
+                type="submit"
+                text={getString('save')}
+                margin={{ right: 'xxlarge' }}
+                data-testid={'submit'}
+              />
+              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
+            </div>
+          </FormikForm>
+        )
+      }}
+    </Formik>
   )
 }
 
