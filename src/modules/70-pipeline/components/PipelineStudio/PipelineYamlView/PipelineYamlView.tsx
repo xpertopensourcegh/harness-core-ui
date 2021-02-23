@@ -15,9 +15,9 @@ import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineYamlView.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
-const YamlBuilderMemo = React.memo(YAMLBuilder, (prevProps, nextProps) => {
-  return !isEqualWith(nextProps, prevProps, (_arg1, _arg2, key) => {
-    if (key === 'existingJSON') {
+export const YamlBuilderMemo = React.memo(YAMLBuilder, (prevProps, nextProps) => {
+  return isEqualWith(nextProps, prevProps, (_arg1, _arg2, key) => {
+    if (['existingJSON', 'onExpressionTrigger', 'onSnippetCopy', 'schema'].indexOf(key as string) > -1) {
       return true
     }
   })

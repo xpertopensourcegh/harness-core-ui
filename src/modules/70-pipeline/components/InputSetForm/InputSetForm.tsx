@@ -36,7 +36,6 @@ import {
 
 import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
@@ -51,6 +50,8 @@ import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineS
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
 import i18n from './InputSetForm.18n'
+import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
+import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import css from './InputSetForm.module.scss'
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
@@ -429,10 +430,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                       {loading ? (
                         <PageSpinner />
                       ) : (
-                        <YAMLBuilder
+                        <YamlBuilderMemo
                           {...yamlBuilderReadOnlyModeProps}
                           existingJSON={{ inputSet: omit(formikProps?.values, 'inputSetReferences') }}
                           bind={setYamlHandler}
+                          invocationMap={factory.getInvocationMap()}
                           schema={pipelineSchema?.data}
                           height="calc(100vh - 230px)"
                           width="calc(100vw - 300px)"

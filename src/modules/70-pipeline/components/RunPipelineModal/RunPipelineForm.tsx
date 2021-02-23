@@ -32,7 +32,6 @@ import {
   useGetYamlSchema
 } from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
-import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
@@ -49,6 +48,8 @@ import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/Inp
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
+import factory from '../PipelineSteps/PipelineStepFactory'
+import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
@@ -404,10 +405,11 @@ function RunPipelineFormBasic({
                     {loading ? (
                       <PageSpinner />
                     ) : (
-                      <YAMLBuilder
+                      <YamlBuilderMemo
                         {...yamlBuilderReadOnlyModeProps}
                         existingJSON={{ pipeline: values }}
                         bind={setYamlHandler}
+                        invocationMap={factory.getInvocationMap()}
                         schema={pipelineSchema?.data}
                         height="calc(100vh - 330px)"
                         width="calc(100vw - 300px)"
