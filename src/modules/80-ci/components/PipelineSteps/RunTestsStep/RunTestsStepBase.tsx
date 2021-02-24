@@ -53,8 +53,9 @@ export const RunTestsStepBase = (
   const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
 
   const buildToolOptions = [
-    { label: 'Maven', value: 'maven' },
-    { label: 'Gradle', value: 'gradle' }
+    { label: 'Bazel', value: 'bazel' },
+    { label: 'Gradle', value: 'gradle' },
+    { label: 'Maven', value: 'maven' }
   ]
   const languageOptions = [{ label: 'Java', value: 'java' }]
 
