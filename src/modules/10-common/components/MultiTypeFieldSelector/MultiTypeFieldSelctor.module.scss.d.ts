@@ -11,6 +11,6 @@ declare const styles: {
   readonly expression: string
   readonly formGroup: string
   readonly formLabel: string
-  readonly menu: string
+  readonly popover: string
 }
 export default styles

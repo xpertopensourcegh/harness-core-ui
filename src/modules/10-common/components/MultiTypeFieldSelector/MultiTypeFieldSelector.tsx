@@ -2,13 +2,14 @@ import React, { CSSProperties, ReactChild } from 'react'
 import {
   MultiTypeInputType,
   Button,
-  IconName,
   Icon,
-  Color,
+  MultiTypeIcon as TypeIcon,
+  MultiTypeIconSize as TypeIconSize,
   getMultiTypeFromValue,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  MultiTypeInputMenu
 } from '@wings-software/uicore'
-import { Popover, Menu, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
+import { Popover, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FormikContext, connect } from 'formik'
 import { get } from 'lodash-es'
@@ -33,18 +34,6 @@ export interface ConnectedMultiTypeFieldSelectorProps extends MultiTypeFieldSele
   formik: FormikContext<any>
 }
 
-const TypeIcon: Record<MultiTypeInputType, IconName> = {
-  FIXED: 'fixed-input',
-  RUNTIME: 'runtime-input',
-  EXPRESSION: 'expression-input'
-}
-
-const TypeColor: Record<MultiTypeInputType, string> = {
-  FIXED: Color.BLUE_500,
-  RUNTIME: Color.PURPLE_500,
-  EXPRESSION: Color.YELLOW_500
-}
-
 export interface TypeSelectorProps {
   type: MultiTypeInputType
   onChange: (type: MultiTypeInputType) => void
@@ -63,40 +52,17 @@ function TypeSelector(props: TypeSelectorProps): React.ReactElement {
       targetTagName="div"
       className={css.typeSelectorWrapper}
       targetClassName={css.typeSelector}
+      popoverClassName={css.popover}
     >
       <Button minimal className={css.btn}>
-        <Icon className={cx(css.icon, (css as any)[type.toLowerCase()])} size={10} name={TypeIcon[type]} />
+        <Icon
+          className={cx(css.icon, (css as any)[type.toLowerCase()])}
+          size={TypeIconSize[type]}
+          name={TypeIcon[type]}
+        />
         <String className={css.btnText} stringID={`inputTypes.${type}`} />
       </Button>
-      <Menu className={css.menu}>
-        {allowedTypes.includes(MultiTypeInputType.FIXED) ? (
-          <Menu.Item
-            labelElement={<Icon name={TypeIcon.FIXED} color={TypeColor.FIXED} />}
-            text={<String stringID="inputTypes.FIXED" />}
-            active={type === MultiTypeInputType.FIXED}
-            intent="none"
-            onClick={() => onChange(MultiTypeInputType.FIXED)}
-          />
-        ) : null}
-        {allowedTypes.includes(MultiTypeInputType.RUNTIME) ? (
-          <Menu.Item
-            labelElement={<Icon name={TypeIcon.RUNTIME} color={TypeColor.RUNTIME} />}
-            text={<String stringID="inputTypes.RUNTIME" />}
-            active={type === MultiTypeInputType.RUNTIME}
-            intent="none"
-            onClick={() => onChange(MultiTypeInputType.RUNTIME)}
-          />
-        ) : null}
-        {allowedTypes.includes(MultiTypeInputType.EXPRESSION) ? (
-          <Menu.Item
-            labelElement={<Icon name={TypeIcon.EXPRESSION} color={TypeColor.EXPRESSION} />}
-            text={<String stringID="inputTypes.EXPRESSION" />}
-            active={type === MultiTypeInputType.EXPRESSION}
-            intent="none"
-            onClick={() => onChange(MultiTypeInputType.EXPRESSION)}
-          />
-        ) : null}
-      </Menu>
+      <MultiTypeInputMenu allowedTypes={allowedTypes} onTypeSelect={onChange} />
     </Popover>
   )
 }

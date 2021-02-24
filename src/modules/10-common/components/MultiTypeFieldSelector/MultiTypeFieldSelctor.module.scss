@@ -1,5 +1,8 @@
 .typeSelectorWrapper {
   margin-top: 0 !important;
+  background-color: var(--grey-250);
+  border: 1px solid var(--grey-250);
+  border-radius: 4px;
 }
 
 .typeSelector {
@@ -13,70 +16,45 @@
     :global(.bp3-button-text) {
       display: inline-flex;
       align-items: center;
+      flex-flow: row-reverse;
       height: 100%;
-      width: 125px;
-      height: 26px;
-      position: relative;
     }
 
     .btnText {
+      display: inline-flex;
       align-items: center;
-      display: flex;
       justify-content: center;
-      border: 1px solid var(--grey-400);
       border-radius: 4px;
-      padding: var(--spacing-small);
+      padding: 0;
       height: 100%;
       background: var(--white);
-      min-width: 105px !important;
-      position: absolute;
-      left: 0;
-      top: 0;
+      width: 105px;
     }
 
     .icon {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      padding: var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-small) !important;
+      justify-content: center;
+      padding: 0 var(--spacing-xsmall) !important;
       height: 100%;
-      border-radius: 0 4px 4px 0 !important;
-      color: var(--white) !important;
-      position: absolute;
-      right: 0;
-      top: 0;
+      background-color: var(--grey-250);
 
       &.fixed {
-        background-color: var(--blue-500) !important;
+        color: var(--blue-500) !important;
       }
 
       &.runtime {
-        background-color: var(--purple-500) !important;
+        color: var(--purple-500) !important;
       }
 
       &.expression {
-        background-color: var(--yellow-500) !important;
+        color: var(--yellow-500) !important;
       }
     }
 
     &:hover,
     &:global(.bp3-active) {
       background-color: transparent !important;
-
-      .icon {
-        color: var(--white) !important;
-
-        &.fixed {
-          background-color: var(--blue-500) !important;
-        }
-
-        &.runtime {
-          background-color: var(--purple-500) !important;
-        }
-
-        &.expression {
-          background-color: var(--yellow-500) !important;
-        }
-      }
     }
   }
 }
@@ -95,9 +73,6 @@
   align-items: center;
 }
 
-.menu {
-  :global(.bp3-active) {
-    background-color: var(--blue-300) !important;
-    color: var(--grey-800) !important;
-  }
+.popover {
+  box-shadow: none;
 }
