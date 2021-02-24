@@ -26,7 +26,7 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
     <div className={css.main}>
       <div className={css.text}>{props.children}</div>
       <Button
-        icon="copy"
+        icon="copy-alt"
         minimal
         intent="primary"
         small
