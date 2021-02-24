@@ -313,7 +313,7 @@ credentials: Credentials
 createProject: '+ Create Project'
 pickProject: Pick a project and drill down to see your information.
 orSelectExisting: Or select an existing project
-stageConfirmationText: 'Are you sure you want to delete Pipeline Stage {{ name }}?'
+stageConfirmationText: 'Are you sure you want to delete stage "{{ name }} [Id: {{id}}]"?'
 deletePipelineStage: 'Delete Pipeline Stage.'
 deleteStageSuccess: 'Pipeline Stage Successfully removed.'
 deleteStageFailure: 'Pipeline Stage cannot be removed.'

@@ -136,12 +136,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
 
-  // const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
   const [deleteId, setDeleteId] = React.useState<string | undefined>(undefined)
   const { showSuccess, showError } = useToaster()
-  const { openDialog } = useConfirmationDialog({
+  const { openDialog: confirmDeleteStage } = useConfirmationDialog({
     contentText: `${getString('stageConfirmationText', {
-      name: deleteId
+      name: getStageFromPipeline(deleteId || '').stage?.stage?.name || deleteId,
+      id: deleteId
     })} `,
     titleText: getString('deletePipelineStage'),
     confirmButtonText: getString('delete'),
@@ -400,14 +400,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     [Event.RemoveNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       const stageIdToBeRemoved = eventTemp.entity.getIdentifier()
-
       setDeleteId(stageIdToBeRemoved)
-
-      openDialog()
-      // const isRemove = removeNodeFromPipeline(getStageFromPipeline(stageIdToBeRemoved), pipeline, stageMap)
-      // if (isRemove) {
-      //   updatePipeline(pipeline)
-      // }
+      confirmDeleteStage()
     },
     [Event.AddParallelNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
