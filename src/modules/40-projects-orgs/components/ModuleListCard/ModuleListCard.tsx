@@ -46,7 +46,7 @@ const getModuleLinks = (
           <Link to={routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}>
             <String stringID="moduleRenderer.setupChanges" />
           </Link>
-          <Link to={routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier, step: 2 })}>
+          <Link to={`${routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}?step=2`}>
             <String stringID="moduleRenderer.monitoringSources" />
           </Link>
         </Layout.Vertical>

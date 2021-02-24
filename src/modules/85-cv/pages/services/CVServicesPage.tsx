@@ -112,9 +112,9 @@ export default function CVServicesPage(): JSX.Element {
               pathname: routes.toCVAdminSetup({
                 projectIdentifier,
                 orgIdentifier,
-                accountId,
-                step: 2
-              })
+                accountId
+              }),
+              search: `?step=2`
             })
           },
           icon: 'error'

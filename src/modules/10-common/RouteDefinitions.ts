@@ -649,8 +649,8 @@ const routes = {
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
   ),
   toCVAdminSetup: withAccountId(
-    ({ projectIdentifier, orgIdentifier, step }: ProjectPathProps & { step?: number }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup${step ? `?step=${step}` : ''}`
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup`
   ),
   toCVAdminSetupMonitoringSource: withAccountId(
     ({ projectIdentifier, orgIdentifier, monitoringSource }: ProjectPathProps & { monitoringSource: string }) =>
