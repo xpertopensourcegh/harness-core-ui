@@ -106,35 +106,39 @@
     }
   }
 
-  .eventsList {
-    list-style: none;
-    padding-left: 0 !important;
-    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  .kubernetesContent {
+    overflow-y: scroll;
+    height: 100%;
+    .eventsList {
+      list-style: none;
+      padding-left: 0 !important;
+      box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
 
-    .listItem {
-      p {
-        color: var(--black) !important;
-        margin-right: var(--spacing-xsmall) !important;
+      .listItem {
+        p {
+          color: var(--black) !important;
+          margin-right: var(--spacing-xsmall) !important;
+        }
+        padding: var(--spacing-medium) !important;
+        display: flex;
+        border-bottom: 1px solid var(--grey-300);
       }
-      padding: var(--spacing-medium) !important;
-      display: flex;
-      border-bottom: 1px solid var(--grey-300);
-    }
-    .listHeader > p {
-      font-weight: bold;
-    }
+      .listHeader > p {
+        font-weight: bold;
+      }
 
-    .creationDate {
-      flex-basis: 20%;
-    }
-    .type {
-      flex-basis: 10%;
-    }
-    .reason {
-      flex-basis: 10%;
-    }
-    .message {
-      flex-basis: 60%;
+      .creationDate {
+        flex-basis: 20%;
+      }
+      .type {
+        flex-basis: 10%;
+      }
+      .reason {
+        flex-basis: 10%;
+      }
+      .message {
+        flex-basis: 60%;
+      }
     }
   }
 

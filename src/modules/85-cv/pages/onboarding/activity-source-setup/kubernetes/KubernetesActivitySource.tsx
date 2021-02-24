@@ -130,6 +130,7 @@ export function KubernetesActivitySource(): JSX.Element {
                   onNext({ data: { ...currentData, ...submittedInfo } })
                 }}
                 onPrevious={tabInfo.onPrevious}
+                isEditMode={Boolean(params.activitySourceId)}
               />
             )
           },

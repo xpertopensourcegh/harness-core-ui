@@ -39,8 +39,8 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
               .notOneOf(StringUtils.illegalIdentifiers)
           }),
           type: Yup.string().required(getString('cv.verificationJobs.validation.type')),
-          dataSource: Yup.string().required(getString('cv.verificationJobs.validation.dataSource')),
-          activitySource: Yup.string().required(getString('cv.verificationJobs.validation.changeSource'))
+          dataSource: Yup.string().nullable().required(getString('cv.verificationJobs.validation.dataSource')),
+          activitySource: Yup.string().nullable().required(getString('cv.verificationJobs.validation.changeSource'))
         })}
         onSubmit={data => {
           props.onNext(data)

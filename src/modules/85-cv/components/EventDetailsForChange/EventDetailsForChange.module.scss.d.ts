@@ -18,6 +18,7 @@ declare const styles: {
   readonly summaryRow: string
   readonly keyValPair: string
   readonly key: string
+  readonly kubernetesContent: string
   readonly eventsList: string
   readonly listItem: string
   readonly listHeader: string

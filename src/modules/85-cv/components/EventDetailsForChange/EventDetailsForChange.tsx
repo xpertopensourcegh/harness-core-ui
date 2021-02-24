@@ -222,7 +222,7 @@ function KubernetesContent(props: KubernetesContentProps): JSX.Element {
   }
 
   return (
-    <Container>
+    <Container className={css.kubernetesContent}>
       <VerificationActivityRiskCardWithApi
         selectedActivityId={selectedActivityId}
         navigateToURLOnCardClick={

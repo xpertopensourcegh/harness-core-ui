@@ -17,6 +17,7 @@ interface SelectKubernetesConnectorProps {
   onSubmit: (data: KubernetesActivitySourceInfo) => void
   onPrevious: () => void
   data?: KubernetesActivitySourceInfo
+  isEditMode?: boolean
 }
 
 const ValidationSchema = yupObject().shape({
@@ -24,7 +25,7 @@ const ValidationSchema = yupObject().shape({
 })
 
 export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
-  const { onPrevious, onSubmit, data } = props
+  const { onPrevious, onSubmit, data, isEditMode } = props
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
@@ -52,6 +53,7 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
               value={formikProps.values.connectorRef}
               createConnectorText={i18n.createConnectorText}
               firstTimeSetupText={i18n.firstTimeSetupText}
+              disableConnector={isEditMode}
               connectToMonitoringSourceText={i18n.kubernetesConnectionText}
               onSuccess={connectorInfo => {
                 formikProps.setFieldValue(

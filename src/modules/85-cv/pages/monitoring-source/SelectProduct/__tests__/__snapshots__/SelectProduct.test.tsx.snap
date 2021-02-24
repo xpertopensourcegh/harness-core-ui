@@ -10,7 +10,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
     >
       <div>
         <div
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main main"
           style="margin: auto; width: 50%;"
         >
           <div

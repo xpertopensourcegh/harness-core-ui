@@ -1,5 +1,15 @@
 import React, { useEffect } from 'react'
-import { Container, Link, Text, Layout, Color, IconName, TextInput, SelectOption } from '@wings-software/uicore'
+import {
+  Container,
+  Link,
+  Text,
+  Layout,
+  Color,
+  IconName,
+  TextInput,
+  SelectOption,
+  FormInput
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
@@ -17,6 +27,7 @@ import css from './SelectOrCreateConnector.module.scss'
 export interface ConnectorSelectionProps {
   connectorType: ConnectorInfoDTO['type']
   value?: SelectOption
+  disableConnector?: boolean
   createConnectorText: string
   connectToMonitoringSourceText: string
   firstTimeSetupText: string
@@ -42,7 +53,8 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
     connectorType,
     createConnectorText,
     onSuccess,
-    value
+    value,
+    disableConnector
   } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { openConnectorModal } = useCreateConnectorModal({ onSuccess })
@@ -70,30 +82,37 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
-    <Layout.Vertical spacing="xsmall">
-      <Text>{connectToMonitoringSourceText}</Text>
-      <Text color={Color.GREY_350} font={{ size: 'small' }}>
-        {firstTimeSetupText}
-      </Text>
-      <Layout.Horizontal spacing="medium">
-        {loading ? (
-          <TextInput value={getString('loading')} className={css.loadingText} />
-        ) : (
-          <FormMultiTypeConnectorField
-            name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
-            label=""
-            placeholder={i18n.selectConnector}
-            accountIdentifier={accountId}
-            projectIdentifier={projectIdentifier}
-            orgIdentifier={orgIdentifier}
-            width={300}
-            isNewConnectorLabelVisible={false}
-            type={connectorType}
-            className={css.connectorReference}
-            enableConfigureOptions={false}
-          />
-        )}
+  const renderContent = () => {
+    if (loading) {
+      return <TextInput value={getString('loading')} className={css.loadingText} />
+    }
+
+    if (disableConnector) {
+      return (
+        <FormInput.Text
+          name={`${SelectOrCreateConnectorFieldNames.CONNECTOR_REF}.label`}
+          label=""
+          disabled
+          className={css.disabledConnector}
+        />
+      )
+    }
+
+    return (
+      <>
+        <FormMultiTypeConnectorField
+          name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
+          label=""
+          placeholder={i18n.selectConnector}
+          accountIdentifier={accountId}
+          projectIdentifier={projectIdentifier}
+          orgIdentifier={orgIdentifier}
+          width={300}
+          isNewConnectorLabelVisible={false}
+          type={connectorType}
+          className={css.connectorReference}
+          enableConfigureOptions={false}
+        />
         <Link
           withoutHref
           onClick={() => openConnectorModal(false, connectorType || ('' as ConnectorInfoDTO['type']), undefined)}
@@ -101,7 +120,17 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
         >
           {createConnectorText}
         </Link>
-      </Layout.Horizontal>
+      </>
+    )
+  }
+
+  return (
+    <Layout.Vertical spacing="xsmall">
+      <Text>{connectToMonitoringSourceText}</Text>
+      <Text color={Color.GREY_350} font={{ size: 'small' }}>
+        {firstTimeSetupText}
+      </Text>
+      <Layout.Horizontal spacing="medium">{renderContent()}</Layout.Horizontal>
     </Layout.Vertical>
   )
 }

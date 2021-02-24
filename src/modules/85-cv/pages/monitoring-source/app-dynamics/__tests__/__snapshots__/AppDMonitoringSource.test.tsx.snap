@@ -147,7 +147,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
             >
               <div>
                 <div
-                  class="StyledProps--font StyledProps--main"
+                  class="StyledProps--font StyledProps--main main"
                   style="margin: auto; width: 50%;"
                 >
                   <div

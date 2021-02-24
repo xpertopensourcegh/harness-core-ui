@@ -93,4 +93,31 @@ describe('Unit tests for SelectorCreateConnector', () => {
     await waitFor(() => expect(container.querySelector('[class*="wrapperForm"]')).not.toBeNull())
     expect(container.querySelector('input[value="Loading..."]')).not.toBeNull()
   })
+
+  test('Ensure that when connectorDisabled prop is passed, the connector selection is disabled', async () => {
+    const refetchMock = jest.fn()
+    const useGetConnectorSpy = jest.spyOn(cdService, 'useGetConnector')
+    useGetConnectorSpy.mockReturnValue({
+      loading: false,
+      data: { data: { connector: { name: 'solo', identifier: 'solo' } } },
+      refetch: refetchMock as any
+    } as UseGetReturn<any, any, any, any>)
+    const onSuccessMockFn = jest.fn()
+    const { container } = render(
+      <WrapperComponent
+        connectorType="K8sCluster"
+        value={{ label: 'solo', value: 'solo' }}
+        iconName="service-kubernetes"
+        iconLabel="sdosds"
+        createConnectorText="something"
+        connectToMonitoringSourceText="solo-dolo"
+        disableConnector={true}
+        firstTimeSetupText="+ something"
+        onSuccess={onSuccessMockFn}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="wrapperForm"]')).not.toBeNull())
+    expect(container.querySelector('[class*="disabledConnector"] input')?.getAttribute('disabled')).toEqual('')
+  })
 })

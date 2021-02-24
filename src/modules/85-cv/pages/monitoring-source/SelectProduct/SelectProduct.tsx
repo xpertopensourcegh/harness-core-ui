@@ -117,7 +117,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
   const monitoringSource = getInfoSchemaByType(type, getString)
 
   return (
-    <Container width="50%" style={{ margin: 'auto' }}>
+    <Container width="50%" style={{ margin: 'auto' }} className={css.main}>
       <SelectOrCreateConnector
         iconName={monitoringSource.iconName}
         iconLabel={monitoringSource.iconLabel}
@@ -126,6 +126,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
         firstTimeSetupText={monitoringSource.firstTimeSetupText}
         connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
         identifierDisabled={props.isEditMode}
+        disableConnector={props.isEditMode}
         value={props.connectorValue}
         onSuccess={data => onConnectorCreate?.(data)}
       />
