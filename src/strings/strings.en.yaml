@@ -59,6 +59,12 @@ resources: 'Resources'
 kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
 connector: Connector
+cloudProviders: Cloud Providers
+artifactRepositories: Artifact Repositories
+codeRepositories: Code Repositories
+ticketingSystems: Ticketing Systems
+monitoringAndLoggingSystems: Monitoring and Logging Systems
+secretManagers: Secret Managers
 connection: Connection
 refrencedBy: Referenced by
 activityHistoryLabel: Activity History

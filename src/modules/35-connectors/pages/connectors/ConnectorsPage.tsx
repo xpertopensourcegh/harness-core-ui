@@ -7,7 +7,8 @@ import {
   FormInput,
   MultiSelectOption,
   OverlaySpinner,
-  ExpandingSearchInput
+  ExpandingSearchInput,
+  Container
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { debounce, pick } from 'lodash-es'
@@ -57,7 +58,6 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { shouldShowError } from '@common/utils/errorUtils'
 import ConnectorsListView from './views/ConnectorsListView'
-import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import {
   createRequestBodyPayload,
@@ -106,6 +106,25 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   }
   const history = useHistory()
   useDocumentTitle([getString('resources'), getString('connectors.label')])
+
+  const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
+  // This list will control which categories will be displayed in UI and its order
+  const connectorCatalogueOrder: Array<ConnectorCatalogueItem['category']> = [
+    'CLOUD_PROVIDER',
+    'ARTIFACTORY',
+    'CODE_REPO',
+    'TICKETING',
+    'MONITORING',
+    'SECRET_MANAGER'
+  ]
+
+  ConnectorCatalogueNames.set('CLOUD_PROVIDER', getString('cloudProviders'))
+  ConnectorCatalogueNames.set('ARTIFACTORY', getString('artifactRepositories'))
+  ConnectorCatalogueNames.set('CODE_REPO', getString('codeRepositories'))
+  ConnectorCatalogueNames.set('TICKETING', getString('ticketingSystems'))
+  ConnectorCatalogueNames.set('MONITORING', getString('monitoringAndLoggingSystems'))
+  ConnectorCatalogueNames.set('SECRET_MANAGER', getString('secretManagers'))
+  ConnectorCatalogueNames.set('CLOUD_COST', getString('cloudCostsText'))
 
   /* #region Connector CRUD section */
 
@@ -187,26 +206,26 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     originalData.map(value => {
       value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault']) : null
     })
-    const catalogueWithYAMLBuilderOption:
-      | ConnectorCatalogueItem[]
-      | { category: string; connectors: string[] } = originalData.slice()
-    const createViaYAMLBuilderOption = { category: 'CREATE_VIA_YAML_BUILDER' as any, connectors: ['YAML'] as any }
-    /* istanbul ignore else */
-    if (catalogueWithYAMLBuilderOption.length === originalData.length) {
-      catalogueWithYAMLBuilderOption.push(createViaYAMLBuilderOption)
-    }
+    const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
+    connectorCatalogueOrder.forEach(catalogueItem => {
+      const catalogueEntry = originalData.find(item => item['category'] === catalogueItem)
+      if (catalogueEntry) {
+        orderedCatalogue.push(catalogueEntry)
+      }
+    })
+
     return Object.assign(
       {},
       {
         drawerLabel: 'Connectors',
         categories:
-          catalogueWithYAMLBuilderOption
-            .filter(item => item.category !== 'CLOUD_COST')
-            .map((item: ConnectorCatalogueItem) => {
-              const obj: CategoryInterface = {
-                categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
-                items:
-                  item.connectors?.map(entry => {
+          orderedCatalogue.map((item: ConnectorCatalogueItem) => {
+            const obj: CategoryInterface = {
+              categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
+              items:
+                item.connectors
+                  ?.sort((a, b) => (getConnectorDisplayName(a) < getConnectorDisplayName(b) ? -1 : 1))
+                  .map(entry => {
                     const name = entry.valueOf() || ''
                     return {
                       itemLabel: getConnectorDisplayName(entry) || name,
@@ -214,9 +233,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
                       value: name
                     }
                   }) || []
-              }
-              return obj
-            }) || []
+            }
+            return obj
+          }) || []
       }
     )
   }
@@ -262,9 +281,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
     const onSelect = (val: ItemInterface): void => {
-      if (val.value === 'YAML') {
-        rerouteBasedOnContext()
-      }
       openConnectorModal(false, val?.value as ConnectorInfoDTO['type'], undefined)
       hideDrawer()
     }
@@ -523,13 +539,24 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   return (
     <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
       <Layout.Horizontal flex className={css.header}>
-        <Button
-          intent="primary"
-          text={getString('newConnector')}
-          icon="plus"
-          onClick={openDrawer}
-          id="newConnectorBtn"
-        />
+        <Container>
+          <Button
+            intent="primary"
+            text={getString('newConnector')}
+            icon="plus"
+            onClick={openDrawer}
+            id="newConnectorBtn"
+          />
+          <Button
+            margin={{ left: 'small' }}
+            intent="primary"
+            text={getString('createViaYaml')}
+            icon="plus"
+            onClick={rerouteBasedOnContext}
+            id="newYamlConnectorBtn"
+          />
+        </Container>
+
         <Layout.Horizontal margin={{ left: 'small' }}>
           <div className={css.expandSearch}>
             <ExpandingSearchInput
