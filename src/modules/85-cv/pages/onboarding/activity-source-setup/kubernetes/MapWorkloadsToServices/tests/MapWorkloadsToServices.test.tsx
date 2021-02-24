@@ -323,4 +323,29 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     }
     expect(menu2.children[1]?.innerHTML).toEqual('solo-dolo-5')
   })
+
+  test('Ensure that validation message is displayed when no workloads are selected', async () => {
+    const refetchMock = jest.fn()
+    const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
+    useGetWorkloadSpy.mockReturnValue({
+      data: { data: { content: ['workload1', 'workload2'] } },
+      refetch: refetchMock as unknown
+    } as UseGetReturn<any, any, any, unknown>)
+
+    const { container, getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <MapWorkloadsToServices
+          onSubmit={jest.fn()}
+          onPrevious={jest.fn()}
+          data={{
+            ...MockData
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')).not.toBeNull())
+    fireEvent.click(getByText('Next'))
+    await waitFor(() => expect(getByText('Please add at least one workload mapping')).not.toBeNull())
+  })
 })

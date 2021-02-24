@@ -353,8 +353,9 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
     initializeSelectedWorkloads(data.selectedWorkloads, data.selectedNamespaces)
   )
   const [selectedNamespace, setSelectedNamespace] = useState<string>(data.selectedNamespaces[0])
-
+  const [validationErrorMessage, setValidationErrorMessage] = useState<string>()
   const { getString } = useStrings()
+
   return (
     <Container className={css.main}>
       <Container className={css.namespaceNav}>
@@ -391,11 +392,17 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
             }
           }}
         />
+        {validationErrorMessage && <Text intent="danger">{validationErrorMessage}</Text>}
       </Container>
       <SubmitAndPreviousButtons
         onPreviousClick={onPrevious}
         onNextClick={() => {
-          onSubmit({ ...data, selectedWorkloads: removeWorkloadsWithoutAllColumnsSelected(selectedWorkloads) })
+          const filteredWorkloads = removeWorkloadsWithoutAllColumnsSelected(selectedWorkloads)
+          if (!filteredWorkloads?.size || Array.from(filteredWorkloads.values()).every(workload => !workload.size)) {
+            setValidationErrorMessage(getString('cv.activitySources.kubernetes.missingWorkloadMapping'))
+            return
+          }
+          onSubmit({ ...data, selectedWorkloads: filteredWorkloads })
         }}
       />
     </Container>

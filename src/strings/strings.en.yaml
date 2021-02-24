@@ -1699,6 +1699,7 @@ cv:
         - 'Map Workloads to Services'
       mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
       noWorkloads: 'No workloads found.'
+      missingWorkloadMapping: Please add at least one workload mapping
       workloadToServiceTableColumns:
         workload: 'Kubernetes Workload'
         mapToService: 'Map to Harness Service'
