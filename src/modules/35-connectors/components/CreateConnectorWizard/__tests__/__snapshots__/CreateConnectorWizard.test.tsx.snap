@@ -52,6 +52,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
           >
             Overview
           </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
+          </p>
         </div>
         <div
           class="StepWizard--navStep"
@@ -367,6 +373,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
             style="--text-line-clamp: 2; width: 240px;"
           >
             Overview
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
           </p>
         </div>
         <div
@@ -686,6 +698,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
             style="--text-line-clamp: 2; width: 240px;"
           >
             Overview
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
           </p>
         </div>
         <div
@@ -1044,6 +1062,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
           >
             Overview
           </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
+          </p>
         </div>
         <div
           class="StepWizard--navStep"
@@ -1342,6 +1366,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
             style="--text-line-clamp: 2; width: 240px;"
           >
             Overview
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
           </p>
         </div>
         <div
@@ -1655,6 +1685,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
             style="--text-line-clamp: 2; width: 240px;"
           >
             Overview
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
           </p>
         </div>
         <div
@@ -1994,6 +2030,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
           >
             Overview
           </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
+          </p>
         </div>
         <div
           class="StepWizard--navStep"
@@ -2324,6 +2366,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
           >
             Overview
           </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
+          </p>
         </div>
         <div
           class="StepWizard--navStep"
@@ -2623,6 +2671,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
             style="--text-line-clamp: 2; width: 240px;"
           >
             Overview
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
           </p>
         </div>
         <div
@@ -2932,6 +2986,12 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
             style="--text-line-clamp: 2; width: 240px;"
           >
             Overview
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
           </p>
         </div>
         <div

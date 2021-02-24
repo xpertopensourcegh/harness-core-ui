@@ -45,6 +45,12 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep"
@@ -376,6 +382,12 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -725,6 +737,12 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -1199,6 +1217,12 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -1548,6 +1572,12 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1848,6 +1878,12 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -2153,6 +2189,12 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -2616,6 +2658,12 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -3280,6 +3328,12 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div

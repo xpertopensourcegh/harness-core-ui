@@ -46,6 +46,12 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep"
@@ -370,6 +376,12 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -696,6 +708,12 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep"
@@ -1020,6 +1038,12 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div

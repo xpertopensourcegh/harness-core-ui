@@ -67,6 +67,12 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -496,6 +502,12 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep"
@@ -813,6 +825,12 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div

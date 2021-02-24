@@ -25,6 +25,12 @@ const TEST_PATH = routes.toTriggersDetailPage({ ...accountPathProps, ...triggerP
 
 describe('Test Trigger Details Page Test', () => {
   test('should test snapshot view', () => {
+    const datespy = jest.spyOn(Date.prototype, 'toLocaleDateString')
+    const timespy = jest.spyOn(Date.prototype, 'toLocaleTimeString')
+
+    datespy.mockImplementation(() => 'MOCK_DATE')
+    timespy.mockImplementation(() => 'MOCK_TIME')
+
     const { container } = render(
       <TestWrapper
         path={TEST_PATH}
@@ -42,5 +48,8 @@ describe('Test Trigger Details Page Test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+
+    datespy.mockRestore()
+    timespy.mockRestore()
   })
 })

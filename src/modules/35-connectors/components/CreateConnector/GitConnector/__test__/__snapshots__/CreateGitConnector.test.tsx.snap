@@ -46,6 +46,12 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep"
@@ -378,6 +384,12 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -728,6 +740,12 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -1098,6 +1116,12 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep"
@@ -1406,6 +1430,12 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div

@@ -329,7 +329,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Last execution at: 12/23/2020 5:07:21 AM
+              Last execution at: MOCK_DATE MOCK_TIME
             </p>
           </div>
           <hr />

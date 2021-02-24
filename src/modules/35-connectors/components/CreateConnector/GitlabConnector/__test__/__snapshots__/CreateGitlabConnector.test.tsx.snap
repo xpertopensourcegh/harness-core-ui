@@ -70,6 +70,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep"
@@ -426,6 +432,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -800,6 +812,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -1299,6 +1317,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -1673,6 +1697,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
         >
           Overview
         </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
       </div>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2016,6 +2046,12 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div
@@ -2504,6 +2540,12 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
         </p>
       </div>
       <div

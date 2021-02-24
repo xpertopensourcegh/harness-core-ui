@@ -85,7 +85,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
             />
           </div>
           <span
-            class="bp3-popover-wrapper"
+            class="bp3-popover-wrapper MultiTypeInput--wrapper"
           >
             <span
               class="bp3-popover-target"
@@ -94,7 +94,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
                 class="MultiTypeInput--btn MultiTypeInput--FIXED"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                  class="bp3-icon StyledProps--main"
                   data-icon="fixed-input"
                 >
                   <svg
@@ -104,7 +104,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
                   >
                     <path
                       d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                      fill="#009dff"
+                      fill="currentColor"
                     />
                   </svg>
                 </span>
@@ -282,7 +282,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -291,7 +291,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -301,7 +301,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -382,7 +382,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -391,7 +391,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -401,7 +401,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -447,7 +447,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -456,7 +456,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -466,7 +466,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -502,7 +502,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                 Skip Dry Run
               </label>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -511,7 +511,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -521,7 +521,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -663,7 +663,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                 </div>
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -672,7 +672,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                     class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="runtime-input"
                     >
                       <svg
@@ -682,7 +682,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                       >
                         <path
                           d="M8.14 4L8 3.72a2.53 2.53 0 01-.12-.3l-.16-.35c-.11-.25-.22-.38-.32-.38s-.28.15-.37.44C7 3.1 7 3.07 7 3a.73.73 0 01.24-.46.66.66 0 01.42-.26c.25 0 .5.35.76 1.05l.07.17.07-.12c.47-.73.86-1.1 1.18-1.1a.71.71 0 01.29.07l-.4.42h-.11c-.24 0-.52.28-.86.83l-.09.16.07.2c.29.79.53 1.18.71 1.18s.31-.12.4-.36q.09.06.09.12t-.27.39a.74.74 0 01-.45.23c-.25 0-.51-.36-.77-1.07l-.12-.25-.1.17c-.44.76-.87 1.14-1.28 1.14a.65.65 0 01-.39-.12L6.84 5a.32.32 0 00.23.1c.25 0 .53-.25.83-.74l.17-.28zm-4-.32L1.7.59h2.47S5 .52 5.35 1a3.28 3.28 0 01.42 1.14h.31L5.94 0H0v.31l3.06 3.74L0 7.62V8h6.08l.38-2.36-.31-.07a2.43 2.43 0 01-.52 1c-.42.48-2 .41-2 .41H1.39z"
-                          fill="#9d7cff"
+                          fill="current-color"
                         />
                       </svg>
                     </span>
@@ -794,7 +794,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                 </div>
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -803,7 +803,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                     class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="runtime-input"
                     >
                       <svg
@@ -813,7 +813,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                       >
                         <path
                           d="M8.14 4L8 3.72a2.53 2.53 0 01-.12-.3l-.16-.35c-.11-.25-.22-.38-.32-.38s-.28.15-.37.44C7 3.1 7 3.07 7 3a.73.73 0 01.24-.46.66.66 0 01.42-.26c.25 0 .5.35.76 1.05l.07.17.07-.12c.47-.73.86-1.1 1.18-1.1a.71.71 0 01.29.07l-.4.42h-.11c-.24 0-.52.28-.86.83l-.09.16.07.2c.29.79.53 1.18.71 1.18s.31-.12.4-.36q.09.06.09.12t-.27.39a.74.74 0 01-.45.23c-.25 0-.51-.36-.77-1.07l-.12-.25-.1.17c-.44.76-.87 1.14-1.28 1.14a.65.65 0 01-.39-.12L6.84 5a.32.32 0 00.23.1c.25 0 .53-.25.83-.74l.17-.28zm-4-.32L1.7.59h2.47S5 .52 5.35 1a3.28 3.28 0 01.42 1.14h.31L5.94 0H0v.31l3.06 3.74L0 7.62V8h6.08l.38-2.36-.31-.07a2.43 2.43 0 01-.52 1c-.42.48-2 .41-2 .41H1.39z"
-                          fill="#9d7cff"
+                          fill="current-color"
                         />
                       </svg>
                     </span>
@@ -884,7 +884,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -893,7 +893,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -903,7 +903,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -953,7 +953,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                 </div>
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -962,7 +962,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                     class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="runtime-input"
                     >
                       <svg
@@ -972,7 +972,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                       >
                         <path
                           d="M8.14 4L8 3.72a2.53 2.53 0 01-.12-.3l-.16-.35c-.11-.25-.22-.38-.32-.38s-.28.15-.37.44C7 3.1 7 3.07 7 3a.73.73 0 01.24-.46.66.66 0 01.42-.26c.25 0 .5.35.76 1.05l.07.17.07-.12c.47-.73.86-1.1 1.18-1.1a.71.71 0 01.29.07l-.4.42h-.11c-.24 0-.52.28-.86.83l-.09.16.07.2c.29.79.53 1.18.71 1.18s.31-.12.4-.36q.09.06.09.12t-.27.39a.74.74 0 01-.45.23c-.25 0-.51-.36-.77-1.07l-.12-.25-.1.17c-.44.76-.87 1.14-1.28 1.14a.65.65 0 01-.39-.12L6.84 5a.32.32 0 00.23.1c.25 0 .53-.25.83-.74l.17-.28zm-4-.32L1.7.59h2.47S5 .52 5.35 1a3.28 3.28 0 01.42 1.14h.31L5.94 0H0v.31l3.06 3.74L0 7.62V8h6.08l.38-2.36-.31-.07a2.43 2.43 0 01-.52 1c-.42.48-2 .41-2 .41H1.39z"
-                          fill="#9d7cff"
+                          fill="current-color"
                         />
                       </svg>
                     </span>
@@ -1128,7 +1128,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1137,7 +1137,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1147,7 +1147,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1228,7 +1228,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1237,7 +1237,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1247,7 +1247,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1293,7 +1293,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1302,7 +1302,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1312,7 +1312,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1348,7 +1348,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 Skip Dry Run
               </label>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1357,7 +1357,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1367,7 +1367,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1565,7 +1565,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1574,7 +1574,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1584,7 +1584,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1665,7 +1665,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1674,7 +1674,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1684,7 +1684,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1730,7 +1730,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1739,7 +1739,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1749,7 +1749,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1785,7 +1785,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 Skip Dry Run
               </label>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1794,7 +1794,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1804,7 +1804,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -1941,7 +1941,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -1950,7 +1950,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -1960,7 +1960,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -2041,7 +2041,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -2050,7 +2050,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -2060,7 +2060,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -2106,7 +2106,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -2115,7 +2115,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -2125,7 +2125,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -2161,7 +2161,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                 Skip Dry Run
               </label>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -2170,7 +2170,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -2180,7 +2180,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -2322,7 +2322,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -2331,7 +2331,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -2341,7 +2341,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -2422,7 +2422,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -2431,7 +2431,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -2441,7 +2441,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -2487,7 +2487,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                 />
               </div>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -2496,7 +2496,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -2506,7 +2506,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>
@@ -2542,7 +2542,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                 Skip Dry Run
               </label>
               <span
-                class="bp3-popover-wrapper"
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
               >
                 <span
                   class="bp3-popover-target"
@@ -2551,7 +2551,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                     class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-icon StyledProps--main"
                       data-icon="fixed-input"
                     >
                       <svg
@@ -2561,7 +2561,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                       >
                         <path
                           d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="#009dff"
+                          fill="currentColor"
                         />
                       </svg>
                     </span>

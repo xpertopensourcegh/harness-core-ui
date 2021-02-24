@@ -27,6 +27,10 @@ jest.mock('services/cd-ng', () => ({
     .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
 }))
 
+jest.mock('@common/utils/dateUtils', () => ({
+  formatDatetoLocale: (x: number) => x
+}))
+
 const params = {
   accountId: 'testAcc',
   orgIdentifier: 'testOrg',
