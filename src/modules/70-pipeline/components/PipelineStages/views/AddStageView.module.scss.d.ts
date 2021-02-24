@@ -5,7 +5,8 @@ declare const styles: {
   readonly parallel: string
   readonly createNewCards: string
   readonly cardNew: string
-  readonly disabled: string
+  readonly cardTitle: string
   readonly createNewMessage: string
+  readonly stageTitle: string
 }
 export default styles

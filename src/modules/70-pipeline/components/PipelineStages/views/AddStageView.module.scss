@@ -1,7 +1,8 @@
 .create-new-content {
-  max-width: 315px;
-  padding: var(--spacing-small);
-
+  max-width: 490px;
+  background: #fff;
+  display: grid;
+  grid-template-columns: 320px 1fr;
   &.parallel {
     max-width: 235px;
 
@@ -12,36 +13,38 @@
 
   .create-new-cards {
     display: grid;
-    grid-template-columns: 66px 66px 66px 66px;
-    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px 12px;
+    padding: var(--spacing-xxlarge);
 
     .card-new {
-      width: 66px;
-      height: 62px;
-      padding: var(--spacing-xsmall);
+      width: 72px;
+      height: 72px;
+      padding: var(--spacing-large);
       cursor: pointer;
-      background-color: var(--pipeline-blue-bc);
+      display: grid;
+      justify-content: center;
 
-      &.disabled {
-        background-color: var(--pipeline-blue-bc) !important;
-      }
       & > div {
         text-align: center;
       }
-
-      & > span {
-        padding: var(--spacing-xsmall) 18px var(--spacing-xsmall);
-      }
-
-      &:hover {
-        background-color: rgba($color: #000000, $alpha: 0.2);
-        color: var(--white);
-      }
+    }
+    .cardTitle {
+      justify-content: center;
+      display: grid;
+      padding: 8px;
     }
   }
 
   .create-new-message {
-    font-size: var(--font-size-small);
-    padding-top: var(--spacing-large);
+    font-size: var(--font-size-medium);
+    border-left: dashed 1px #ccc;
+    padding: var(--spacing-xlarge);
+    .stageTitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black-color-1);
+      margin-bottom: 12px;
+    }
   }
 }

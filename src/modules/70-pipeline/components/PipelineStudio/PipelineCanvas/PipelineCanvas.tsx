@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Button, useModalHook, Tag, Text } from '@wings-software/uicore'
+import { Button, useModalHook, Text, Icon } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEqual } from 'lodash-es'
@@ -136,7 +136,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog style={{ width: '385px', paddingBottom: 0 }} isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
         <CreatePipelines afterSave={onSubmit} initialValues={pipeline} closeModal={onCloseCreate} />
       </Dialog>
     ),
@@ -278,6 +278,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
           <div className={css.breadcrumbsMenu}>
             <div className={css.pipelineNameContainer}>
               <div>
+                <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
                 <Text className={css.pipelineName}>{pipeline?.name}</Text>
                 <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
               </div>
@@ -302,11 +303,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
           </div>
           <div>
             <div className={css.savePublishContainer}>
-              {isUpdated && (
-                <Tag intent="primary" className={css.tagRender} minimal>
-                  {getString('unsavedChanges')}
-                </Tag>
-              )}
+              {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
               <div>
                 <Button
                   minimal
@@ -314,6 +311,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
                   text={getString('save')}
                   onClick={saveAndPublish}
                   className={css.savePublishBtn}
+                  icon="send-data"
                 />
                 <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
                   <Button

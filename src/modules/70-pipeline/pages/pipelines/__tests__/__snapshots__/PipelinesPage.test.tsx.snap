@@ -715,7 +715,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Run Pipeline
+                        Run
                       </span>
                     </span>
                   </button>
@@ -1090,7 +1090,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Run Pipeline
+                        Run
                       </span>
                     </span>
                   </button>
@@ -1450,7 +1450,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Run Pipeline
+                        Run
                       </span>
                     </span>
                   </button>
@@ -1834,7 +1834,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          RUN PIPELINE
+          RUN
         </div>
         <div
           class="cell"

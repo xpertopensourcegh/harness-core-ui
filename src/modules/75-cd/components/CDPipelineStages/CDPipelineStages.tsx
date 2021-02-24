@@ -3,6 +3,7 @@ import type { IconName } from '@wings-software/uicore'
 import { PipelineStages, PipelineStagesProps } from '@pipeline/exports'
 import type { StagesMap } from '@pipeline/exports'
 import { BuildStage } from '@cd/components/CDPipelineStages/stages/BuildStage/BuildStage'
+import type { UseStringsReturn } from 'framework/exports'
 import { DeployStage } from './stages/DeployStage/DeployStage'
 import i18n from './CDPipelineStages.i18n'
 import { PipelineStage } from './stages/PipelineStage'
@@ -18,8 +19,8 @@ export enum StageTypes {
 }
 
 export const MapStepTypeToIcon: { [key in StageTypes]: IconName } = {
-  Deployment: 'pipeline-deploy',
-  CI: 'pipeline-build',
+  Deployment: 'cd-main',
+  CI: 'ci-main',
   Approval: 'pipeline-approval',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
@@ -78,48 +79,61 @@ export const stagesMap: StagesMap = {
 
 export const getCDPipelineStages: (
   args: Omit<PipelineStagesProps, 'children'>,
+  getString: UseStringsReturn['getString'],
   isCIEnabled?: boolean,
   isCDEnabled?: boolean
-) => React.ReactElement<PipelineStagesProps> = (args, isCIEnabled = false, isCDEnabled = false) => (
-  <PipelineStages {...args}>
-    <DeployStage
-      icon={MapStepTypeToIcon[StageTypes.DEPLOY]}
-      iconsStyle={{ color: 'var(--pipeline-deploy-stage-color)' }}
-      name={i18n.deploy}
-      type={StageTypes.DEPLOY}
-      isHidden={!isCDEnabled}
-      isDisabled={false}
-      isApproval={false}
-    />
-    <BuildStage
-      icon={MapStepTypeToIcon[StageTypes.BUILD]}
-      iconsStyle={{ color: 'var(--pipeline-build-stage-color)' }}
-      name={i18n.build}
-      type={StageTypes.BUILD}
-      isDisabled={false}
-      isHidden={!isCIEnabled}
-      isApproval={false}
-    />
-    <PipelineStage
-      icon={MapStepTypeToIcon[StageTypes.PIPELINE]}
-      name={i18n.pipeline}
-      type={StageTypes.PIPELINE}
-      isDisabled={true}
-      isApproval={false}
-    />
-    <ApprovalStage
-      icon={MapStepTypeToIcon[StageTypes.APPROVAL]}
-      name={i18n.approval}
-      type={StageTypes.APPROVAL}
-      isDisabled={true}
-      isApproval={true}
-    />
-    <CustomStage
-      icon={MapStepTypeToIcon[StageTypes.CUSTOM]}
-      name={i18n.custom}
-      type={StageTypes.CUSTOM}
-      isDisabled={true}
-      isApproval={false}
-    />
-  </PipelineStages>
-)
+) => React.ReactElement<PipelineStagesProps> = (args, getString, isCIEnabled = false, isCDEnabled = false) => {
+  return (
+    <PipelineStages {...args}>
+      <DeployStage
+        icon={MapStepTypeToIcon[StageTypes.DEPLOY]}
+        iconsStyle={{ color: 'var(--pipeline-deploy-stage-color)' }}
+        name={i18n.deploy}
+        type={StageTypes.DEPLOY}
+        title={getString('pipelineSteps.deploy.create.deployStageName')}
+        description={getString('pipelineSteps.deploy.create.deployStageDescription')}
+        isHidden={!isCDEnabled}
+        isDisabled={false}
+        isApproval={false}
+      />
+      <BuildStage
+        icon={MapStepTypeToIcon[StageTypes.BUILD]}
+        iconsStyle={{ color: 'var(--pipeline-build-stage-color)' }}
+        name={i18n.build}
+        type={StageTypes.BUILD}
+        title={getString('pipelineSteps.build.create.buildStageName')}
+        description={getString('pipelineSteps.build.create.buildStageDescription')}
+        isDisabled={false}
+        isHidden={!isCIEnabled}
+        isApproval={false}
+      />
+      <PipelineStage
+        icon={MapStepTypeToIcon[StageTypes.PIPELINE]}
+        name={i18n.pipeline}
+        title=""
+        description=""
+        type={StageTypes.PIPELINE}
+        isDisabled={true}
+        isApproval={false}
+      />
+      <ApprovalStage
+        icon={MapStepTypeToIcon[StageTypes.APPROVAL]}
+        name={i18n.approval}
+        title=""
+        description=""
+        type={StageTypes.APPROVAL}
+        isDisabled={true}
+        isApproval={true}
+      />
+      <CustomStage
+        icon={MapStepTypeToIcon[StageTypes.CUSTOM]}
+        name={i18n.custom}
+        title=""
+        description=""
+        type={StageTypes.CUSTOM}
+        isDisabled={true}
+        isApproval={false}
+      />
+    </PipelineStages>
+  )
+}

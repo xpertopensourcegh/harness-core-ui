@@ -5,8 +5,6 @@ import set from 'lodash-es/set'
 import produce from 'immer'
 import {
   IconName,
-  Tabs,
-  Tab,
   Layout,
   Text,
   Color,
@@ -15,7 +13,8 @@ import {
   FormInput,
   Icon,
   NestedAccordionPanel,
-  SelectOption
+  SelectOption,
+  Accordion
 } from '@wings-software/uicore'
 
 import { parse } from 'yaml'
@@ -105,44 +104,60 @@ const setupMode = {
   DIFFERENT: 'DIFFRENT'
 }
 const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
-  initialValues: { stageIndex = 0, setupModeType, handleTabChange },
+  initialValues: { stageIndex = 0, setupModeType },
   factory
 }) => {
   const { getString } = useStrings()
   return (
-    <Tabs id="serviceSpecifications" onChange={handleTabChange}>
-      <Tab
-        id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
-        title={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
-        panel={
-          <ArtifactsSelection
-            isForOverrideSets={false}
-            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-          />
-        }
-      />
-      <Tab
-        id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-        title={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-        panel={
-          <ManifestSelection
-            isForOverrideSets={false}
-            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-          />
-        }
-      />
-      <Tab
-        id={getString('variablesText')}
-        title={getString('variablesText')}
-        panel={
-          <WorkflowVariables
-            factory={factory as any}
-            isForOverrideSets={false}
-            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-          />
-        }
-      />
-    </Tabs>
+    <div className={css.serviceDefinition}>
+      <Accordion
+        className={css.cardSection}
+        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+      >
+        <Accordion.Panel
+          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+          addDomId={true}
+          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+          details={
+            <ArtifactsSelection
+              isForOverrideSets={false}
+              isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
+            />
+          }
+        />
+      </Accordion>
+
+      <Accordion
+        className={css.cardSection}
+        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+      >
+        <Accordion.Panel
+          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          addDomId={true}
+          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          details={
+            <ManifestSelection
+              isForOverrideSets={false}
+              isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
+            />
+          }
+        />
+      </Accordion>
+      <Accordion className={css.cardSection} activeId={getString('variablesText')}>
+        <Accordion.Panel
+          id={getString('variablesText')}
+          addDomId={true}
+          summary={getString('variablesText')}
+          details={
+            <WorkflowVariables
+              factory={factory as any}
+              isForOverrideSets={false}
+              isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
+            />
+          }
+        />
+      </Accordion>
+    </div>
   )
 }
 

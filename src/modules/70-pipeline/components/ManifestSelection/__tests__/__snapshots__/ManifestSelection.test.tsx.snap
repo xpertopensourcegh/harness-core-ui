@@ -9,12 +9,31 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main rowItem"
+        class="manifestList listHeader"
+      >
+        <span>
+          ID
+        </span>
+        <span>
+          MANIFEST FORMAT
+        </span>
+        <span>
+          STORE
+        </span>
+        <span>
+          LOCATION
+        </span>
+        <span />
+      </div>
+      <div
+        class="rowItem"
       >
         <p
           class="StyledProps--font StyledProps--main"
         >
-          + Add Manifest
+          <span>
+            + Add Manifest/Config File
+          </span>
         </p>
       </div>
       <div

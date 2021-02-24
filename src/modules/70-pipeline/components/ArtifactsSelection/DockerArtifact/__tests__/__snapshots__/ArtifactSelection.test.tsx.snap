@@ -3,36 +3,54 @@
 exports[`ArtifactsSelection tests renders artifact with override without crashing: renders artifact with override without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-none"
+    class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        class="artifactList listHeader"
+      >
+        <span />
+        <span>
+          ARTIFACT REPOSITORY
+        </span>
+        <span>
+           
+          LOCATION
+        </span>
+        <span />
+        <span />
+      </div>
+      <div
+        class="Layout--vertical StyledProps--main"
       >
         <section />
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main rowItem"
+        class="rowItem"
       >
         <p
           class="StyledProps--font StyledProps--main"
         >
-          + Add Primary Artifact
+          <span>
+            + Add Primary Artifact
+          </span>
         </p>
       </div>
       <div
-        class="StyledProps--font StyledProps--main rowItem"
+        class="rowItem"
       >
         <p
           class="StyledProps--font StyledProps--main"
         >
-          + Add Sidecar
+          <span>
+            + Add Sidecar
+          </span>
         </p>
       </div>
     </div>
@@ -45,56 +63,44 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="line-height: 24px;"
-    >
-      Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
-    </p>
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main"
+        class="artifactList listHeader"
       >
-        <section
-          class="thead"
-        >
-          <span>
-            Type
-          </span>
-          <span>
-            Repository Type
-          </span>
-          <span />
-          <span>
-            Artifact Source Configuration
-          </span>
-          <span>
-            Image Path
-          </span>
-          <span />
-        </section>
+        <span />
+        <span>
+          ARTIFACT REPOSITORY
+        </span>
+        <span>
+           
+          LOCATION
+        </span>
+        <span />
+        <span />
       </div>
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        class="Layout--vertical StyledProps--main"
       >
         <section>
           <section
-            class="thead rowItem"
+            class="artifactList rowItem"
           >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main type"
-              style="--text-line-clamp: 1; width: 200px;"
-            >
-              Primary Artifact
-            </p>
-            <span
+            <div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1; width: 200px;"
+              >
+                Primary
+              </p>
+            </div>
+            <div
               class="server"
             >
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -118,11 +124,9 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                 </span>
                 Dockerhub
               </span>
-            </span>
-            <span>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="display: inline-flex; align-items: center; width: 200px;"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center; width: 200px;"
               >
                 <span
                   class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
@@ -143,67 +147,96 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                     />
                   </svg>
                 </span>
-                
-              </span>
-            </span>
-            <span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1; width: 470px;"
-              >
-                &lt;+input&gt;
               </p>
-            </span>
-            <span>
+            </div>
+            <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 110px;"
               >
                 &lt;+input&gt;
               </p>
-            </span>
+            </div>
+            <div />
             <span>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
               >
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps--main"
-                  icon="edit"
-                  style="cursor: pointer;"
+                  class="bp3-icon StyledProps--main"
+                  data-icon="Edit"
                 >
                   <svg
-                    data-icon="edit"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                    height="16"
+                    viewBox="0 0 12 12"
+                    width="16"
                   >
-                    <desc>
-                      edit
-                    </desc>
-                    <path
-                      d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    <g
+                      fill="none"
                       fill-rule="evenodd"
-                    />
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                        stroke="#555770"
+                      />
+                      <path
+                        d="M6.583 5.146l2.063-2.063"
+                        opacity="0.3"
+                        stroke="#606170"
+                      />
+                    </g>
                   </svg>
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-delete StyledProps--main"
-                  icon="delete"
-                  style="cursor: pointer;"
+                  class="bp3-icon StyledProps--main"
+                  data-icon="bin-main"
                 >
                   <svg
-                    data-icon="delete"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                    fill="none"
+                    height="25"
+                    viewBox="0 0 22 22"
+                    width="25"
                   >
-                    <desc>
-                      delete
-                    </desc>
-                    <path
-                      d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
-                      fill-rule="evenodd"
-                    />
+                    <g
+                      opacity="0.6"
+                    >
+                      <mask
+                        fill="#fff"
+                        id="bin-main_svg__a"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M8.666 4.583a.5.5 0 01.5-.5h3.667a.5.5 0 01.5.5V5h2.25a.5.5 0 01.5.5v1.833a.5.5 0 01-.5.5H6.417a.5.5 0 01-.5-.5V5.5a.5.5 0 01.5-.5h2.25v-.417zm1 .5V5.5a.5.5 0 01-.5.5h-2.25v.833h8.167V6h-2.25a.5.5 0 01-.5-.5v-.417H9.666zm-3.75 4.083a.5.5 0 01.5-.5h9.167a.5.5 0 01.5.5v8.25a.5.5 0 01-.5.5H6.417a.5.5 0 01-.5-.5v-8.25zm1 .5v7.25h8.167v-7.25H6.916z"
+                          fill-rule="evenodd"
+                        />
+                      </mask>
+                      <path
+                        d="M13.333 5h-1a1 1 0 001 1V5zM8.666 5v1a1 1 0 001-1h-1zm1 .083v-1a1 1 0 00-1 1h1zM6.916 6V5a1 1 0 00-1 1h1zm0 .833h-1a1 1 0 001 1v-1zm8.167 0v1a1 1 0 001-1h-1zm0-.833h1a1 1 0 00-1-1v1zm-2.75-.917h1a1 1 0 00-1-1v1zM6.916 16.916h-1a1 1 0 001 1v-1zm0-7.25v-1a1 1 0 00-1 1h1zm8.167 7.25v1a1 1 0 001-1h-1zm0-7.25h1a1 1 0 00-1-1v1zM9.166 3.083a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm3.667 0H9.166v2h3.667v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 .417v-.417h-2V5h2zm1.25-1h-2.25v2h2.25V4zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 1.833V5.5h-2v1.833h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-9.166 0h9.166v-2H6.417v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-1.833v1.833h2V5.5h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5V4zm2.25 0h-2.25v2h2.25V4zm-1 .583V5h2v-.417h-2zm3 .917v-.417h-2V5.5h2zM9.166 7a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-2.25 0h2.25V5h-2.25v2zm1-.167V6h-2v.833h2zm7.166-1H6.917v2h8.166v-2zm-1 .167v.833h2V6h-2zm-1.25 1h2.25V5h-2.25v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5V5a.5.5 0 01.5.5h-2zm0-.417V5.5h2v-.417h-2zm-1.667 1h2.667v-2H9.666v2zm-3.25 1.583a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm9.167 0H6.416v2h9.167v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 8.25v-8.25h-2v8.25h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-9.166 0h9.166v-2H6.417v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-8.25v8.25h2v-8.25h-2zm3 7.75v-7.25h-2v7.25h2zm7.166-1H6.917v2h8.166v-2zm-1-6.25v7.25h2v-7.25h-2zm-7.167 1h8.167v-2H6.916v2z"
+                        fill="currentColor"
+                        mask="url(#bin-main_svg__a)"
+                      />
+                      <g
+                        opacity="0.3"
+                      >
+                        <mask
+                          fill="#fff"
+                          id="bin-main_svg__b"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M9.625 10.755a.5.5 0 01.5.5v4.062a.5.5 0 01-1 0v-4.062a.5.5 0 01.5-.5zm2.75 0a.5.5 0 01.5.5v4.062a.5.5 0 01-1 0v-4.062a.5.5 0 01.5-.5z"
+                            fill-rule="evenodd"
+                          />
+                        </mask>
+                        <path
+                          d="M11.125 11.255a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 4.062v-4.062h-2v4.062h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-4.062v4.062h2v-4.062h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm4.25 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 4.062v-4.062h-2v4.062h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-4.062v4.062h2v-4.062h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2z"
+                          fill="currentColor"
+                          mask="url(#bin-main_svg__b)"
+                        />
+                      </g>
+                    </g>
                   </svg>
                 </span>
               </div>
@@ -213,15 +246,17 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main rowItem"
+        class="rowItem"
       >
         <p
           class="StyledProps--font StyledProps--main"
         >
-          + Add Sidecar
+          <span>
+            + Add Sidecar
+          </span>
         </p>
       </div>
     </div>
@@ -234,56 +269,44 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="line-height: 24px;"
-    >
-      Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
-    </p>
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main"
+        class="artifactList listHeader"
       >
-        <section
-          class="thead"
-        >
-          <span>
-            Type
-          </span>
-          <span>
-            Repository Type
-          </span>
-          <span />
-          <span>
-            Artifact Source Configuration
-          </span>
-          <span>
-            Image Path
-          </span>
-          <span />
-        </section>
+        <span />
+        <span>
+          ARTIFACT REPOSITORY
+        </span>
+        <span>
+           
+          LOCATION
+        </span>
+        <span />
+        <span />
       </div>
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        class="Layout--vertical StyledProps--main"
       >
         <section>
           <section
-            class="thead rowItem"
+            class="artifactList rowItem"
           >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main type"
-              style="--text-line-clamp: 1; width: 200px;"
-            >
-              Primary Artifact
-            </p>
-            <span
+            <div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1; width: 200px;"
+              >
+                Primary
+              </p>
+            </div>
+            <div
               class="server"
             >
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -307,11 +330,9 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                 </span>
                 Dockerhub
               </span>
-            </span>
-            <span>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="display: inline-flex; align-items: center; width: 200px;"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center; width: 200px;"
               >
                 <span
                   class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
@@ -332,67 +353,96 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                     />
                   </svg>
                 </span>
-                
-              </span>
-            </span>
-            <span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1; width: 470px;"
-              >
-                &lt;+input&gt;
               </p>
-            </span>
-            <span>
+            </div>
+            <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 110px;"
               >
                 &lt;+input&gt;
               </p>
-            </span>
+            </div>
+            <div />
             <span>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
               >
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps--main"
-                  icon="edit"
-                  style="cursor: pointer;"
+                  class="bp3-icon StyledProps--main"
+                  data-icon="Edit"
                 >
                   <svg
-                    data-icon="edit"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                    height="16"
+                    viewBox="0 0 12 12"
+                    width="16"
                   >
-                    <desc>
-                      edit
-                    </desc>
-                    <path
-                      d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    <g
+                      fill="none"
                       fill-rule="evenodd"
-                    />
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                        stroke="#555770"
+                      />
+                      <path
+                        d="M6.583 5.146l2.063-2.063"
+                        opacity="0.3"
+                        stroke="#606170"
+                      />
+                    </g>
                   </svg>
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-delete StyledProps--main"
-                  icon="delete"
-                  style="cursor: pointer;"
+                  class="bp3-icon StyledProps--main"
+                  data-icon="bin-main"
                 >
                   <svg
-                    data-icon="delete"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                    fill="none"
+                    height="25"
+                    viewBox="0 0 22 22"
+                    width="25"
                   >
-                    <desc>
-                      delete
-                    </desc>
-                    <path
-                      d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
-                      fill-rule="evenodd"
-                    />
+                    <g
+                      opacity="0.6"
+                    >
+                      <mask
+                        fill="#fff"
+                        id="bin-main_svg__a"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M8.666 4.583a.5.5 0 01.5-.5h3.667a.5.5 0 01.5.5V5h2.25a.5.5 0 01.5.5v1.833a.5.5 0 01-.5.5H6.417a.5.5 0 01-.5-.5V5.5a.5.5 0 01.5-.5h2.25v-.417zm1 .5V5.5a.5.5 0 01-.5.5h-2.25v.833h8.167V6h-2.25a.5.5 0 01-.5-.5v-.417H9.666zm-3.75 4.083a.5.5 0 01.5-.5h9.167a.5.5 0 01.5.5v8.25a.5.5 0 01-.5.5H6.417a.5.5 0 01-.5-.5v-8.25zm1 .5v7.25h8.167v-7.25H6.916z"
+                          fill-rule="evenodd"
+                        />
+                      </mask>
+                      <path
+                        d="M13.333 5h-1a1 1 0 001 1V5zM8.666 5v1a1 1 0 001-1h-1zm1 .083v-1a1 1 0 00-1 1h1zM6.916 6V5a1 1 0 00-1 1h1zm0 .833h-1a1 1 0 001 1v-1zm8.167 0v1a1 1 0 001-1h-1zm0-.833h1a1 1 0 00-1-1v1zm-2.75-.917h1a1 1 0 00-1-1v1zM6.916 16.916h-1a1 1 0 001 1v-1zm0-7.25v-1a1 1 0 00-1 1h1zm8.167 7.25v1a1 1 0 001-1h-1zm0-7.25h1a1 1 0 00-1-1v1zM9.166 3.083a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm3.667 0H9.166v2h3.667v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 .417v-.417h-2V5h2zm1.25-1h-2.25v2h2.25V4zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 1.833V5.5h-2v1.833h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-9.166 0h9.166v-2H6.417v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-1.833v1.833h2V5.5h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5V4zm2.25 0h-2.25v2h2.25V4zm-1 .583V5h2v-.417h-2zm3 .917v-.417h-2V5.5h2zM9.166 7a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-2.25 0h2.25V5h-2.25v2zm1-.167V6h-2v.833h2zm7.166-1H6.917v2h8.166v-2zm-1 .167v.833h2V6h-2zm-1.25 1h2.25V5h-2.25v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5V5a.5.5 0 01.5.5h-2zm0-.417V5.5h2v-.417h-2zm-1.667 1h2.667v-2H9.666v2zm-3.25 1.583a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm9.167 0H6.416v2h9.167v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 8.25v-8.25h-2v8.25h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-9.166 0h9.166v-2H6.417v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-8.25v8.25h2v-8.25h-2zm3 7.75v-7.25h-2v7.25h2zm7.166-1H6.917v2h8.166v-2zm-1-6.25v7.25h2v-7.25h-2zm-7.167 1h8.167v-2H6.916v2z"
+                        fill="currentColor"
+                        mask="url(#bin-main_svg__a)"
+                      />
+                      <g
+                        opacity="0.3"
+                      >
+                        <mask
+                          fill="#fff"
+                          id="bin-main_svg__b"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M9.625 10.755a.5.5 0 01.5.5v4.062a.5.5 0 01-1 0v-4.062a.5.5 0 01.5-.5zm2.75 0a.5.5 0 01.5.5v4.062a.5.5 0 01-1 0v-4.062a.5.5 0 01.5-.5z"
+                            fill-rule="evenodd"
+                          />
+                        </mask>
+                        <path
+                          d="M11.125 11.255a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 4.062v-4.062h-2v4.062h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-4.062v4.062h2v-4.062h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm4.25 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 4.062v-4.062h-2v4.062h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-4.062v4.062h2v-4.062h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2z"
+                          fill="currentColor"
+                          mask="url(#bin-main_svg__b)"
+                        />
+                      </g>
+                    </g>
                   </svg>
                 </span>
               </div>
@@ -402,15 +452,17 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main rowItem"
+        class="rowItem"
       >
         <p
           class="StyledProps--font StyledProps--main"
         >
-          + Add Sidecar
+          <span>
+            + Add Sidecar
+          </span>
         </p>
       </div>
     </div>
@@ -423,56 +475,44 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="line-height: 24px;"
-    >
-      Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
-    </p>
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main"
+        class="artifactList listHeader"
       >
-        <section
-          class="thead"
-        >
-          <span>
-            Type
-          </span>
-          <span>
-            Repository Type
-          </span>
-          <span />
-          <span>
-            Artifact Source Configuration
-          </span>
-          <span>
-            Image Path
-          </span>
-          <span />
-        </section>
+        <span />
+        <span>
+          ARTIFACT REPOSITORY
+        </span>
+        <span>
+           
+          LOCATION
+        </span>
+        <span />
+        <span />
       </div>
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        class="Layout--vertical StyledProps--main"
       >
         <section>
           <section
-            class="thead rowItem"
+            class="artifactList rowItem"
           >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main type"
-              style="--text-line-clamp: 1; width: 200px;"
-            >
-              Primary Artifact
-            </p>
-            <span
+            <div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1; width: 200px;"
+              >
+                Primary
+              </p>
+            </div>
+            <div
               class="server"
             >
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -496,11 +536,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 </span>
                 Dockerhub
               </span>
-            </span>
-            <span>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="display: inline-flex; align-items: center; width: 200px;"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center; width: 200px;"
               >
                 <span
                   class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
@@ -521,67 +559,96 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     />
                   </svg>
                 </span>
-                
-              </span>
-            </span>
-            <span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1; width: 470px;"
-              >
-                &lt;+input&gt;
               </p>
-            </span>
-            <span>
+            </div>
+            <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 110px;"
               >
                 &lt;+input&gt;
               </p>
-            </span>
+            </div>
+            <div />
             <span>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
               >
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps--main"
-                  icon="edit"
-                  style="cursor: pointer;"
+                  class="bp3-icon StyledProps--main"
+                  data-icon="Edit"
                 >
                   <svg
-                    data-icon="edit"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                    height="16"
+                    viewBox="0 0 12 12"
+                    width="16"
                   >
-                    <desc>
-                      edit
-                    </desc>
-                    <path
-                      d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    <g
+                      fill="none"
                       fill-rule="evenodd"
-                    />
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                        stroke="#555770"
+                      />
+                      <path
+                        d="M6.583 5.146l2.063-2.063"
+                        opacity="0.3"
+                        stroke="#606170"
+                      />
+                    </g>
                   </svg>
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-delete StyledProps--main"
-                  icon="delete"
-                  style="cursor: pointer;"
+                  class="bp3-icon StyledProps--main"
+                  data-icon="bin-main"
                 >
                   <svg
-                    data-icon="delete"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                    fill="none"
+                    height="25"
+                    viewBox="0 0 22 22"
+                    width="25"
                   >
-                    <desc>
-                      delete
-                    </desc>
-                    <path
-                      d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
-                      fill-rule="evenodd"
-                    />
+                    <g
+                      opacity="0.6"
+                    >
+                      <mask
+                        fill="#fff"
+                        id="bin-main_svg__a"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M8.666 4.583a.5.5 0 01.5-.5h3.667a.5.5 0 01.5.5V5h2.25a.5.5 0 01.5.5v1.833a.5.5 0 01-.5.5H6.417a.5.5 0 01-.5-.5V5.5a.5.5 0 01.5-.5h2.25v-.417zm1 .5V5.5a.5.5 0 01-.5.5h-2.25v.833h8.167V6h-2.25a.5.5 0 01-.5-.5v-.417H9.666zm-3.75 4.083a.5.5 0 01.5-.5h9.167a.5.5 0 01.5.5v8.25a.5.5 0 01-.5.5H6.417a.5.5 0 01-.5-.5v-8.25zm1 .5v7.25h8.167v-7.25H6.916z"
+                          fill-rule="evenodd"
+                        />
+                      </mask>
+                      <path
+                        d="M13.333 5h-1a1 1 0 001 1V5zM8.666 5v1a1 1 0 001-1h-1zm1 .083v-1a1 1 0 00-1 1h1zM6.916 6V5a1 1 0 00-1 1h1zm0 .833h-1a1 1 0 001 1v-1zm8.167 0v1a1 1 0 001-1h-1zm0-.833h1a1 1 0 00-1-1v1zm-2.75-.917h1a1 1 0 00-1-1v1zM6.916 16.916h-1a1 1 0 001 1v-1zm0-7.25v-1a1 1 0 00-1 1h1zm8.167 7.25v1a1 1 0 001-1h-1zm0-7.25h1a1 1 0 00-1-1v1zM9.166 3.083a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm3.667 0H9.166v2h3.667v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 .417v-.417h-2V5h2zm1.25-1h-2.25v2h2.25V4zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 1.833V5.5h-2v1.833h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-9.166 0h9.166v-2H6.417v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-1.833v1.833h2V5.5h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5V4zm2.25 0h-2.25v2h2.25V4zm-1 .583V5h2v-.417h-2zm3 .917v-.417h-2V5.5h2zM9.166 7a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-2.25 0h2.25V5h-2.25v2zm1-.167V6h-2v.833h2zm7.166-1H6.917v2h8.166v-2zm-1 .167v.833h2V6h-2zm-1.25 1h2.25V5h-2.25v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5V5a.5.5 0 01.5.5h-2zm0-.417V5.5h2v-.417h-2zm-1.667 1h2.667v-2H9.666v2zm-3.25 1.583a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm9.167 0H6.416v2h9.167v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 8.25v-8.25h-2v8.25h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-9.166 0h9.166v-2H6.417v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-8.25v8.25h2v-8.25h-2zm3 7.75v-7.25h-2v7.25h2zm7.166-1H6.917v2h8.166v-2zm-1-6.25v7.25h2v-7.25h-2zm-7.167 1h8.167v-2H6.916v2z"
+                        fill="currentColor"
+                        mask="url(#bin-main_svg__a)"
+                      />
+                      <g
+                        opacity="0.3"
+                      >
+                        <mask
+                          fill="#fff"
+                          id="bin-main_svg__b"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M9.625 10.755a.5.5 0 01.5.5v4.062a.5.5 0 01-1 0v-4.062a.5.5 0 01.5-.5zm2.75 0a.5.5 0 01.5.5v4.062a.5.5 0 01-1 0v-4.062a.5.5 0 01.5-.5z"
+                            fill-rule="evenodd"
+                          />
+                        </mask>
+                        <path
+                          d="M11.125 11.255a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 4.062v-4.062h-2v4.062h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-4.062v4.062h2v-4.062h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm4.25 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm0 4.062v-4.062h-2v4.062h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm0-4.062v4.062h2v-4.062h-2zm1.5-1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2z"
+                          fill="currentColor"
+                          mask="url(#bin-main_svg__b)"
+                        />
+                      </g>
+                    </g>
                   </svg>
                 </span>
               </div>
@@ -591,15 +658,17 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main rowItem"
+        class="rowItem"
       >
         <p
           class="StyledProps--font StyledProps--main"
         >
-          + Add Sidecar
+          <span>
+            + Add Sidecar
+          </span>
         </p>
       </div>
     </div>

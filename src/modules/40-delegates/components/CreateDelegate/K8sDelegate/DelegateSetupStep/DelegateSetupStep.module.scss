@@ -18,7 +18,7 @@
   :global {
     .bp3-label {
       letter-spacing: 0.2px;
-      color: #8f90a6 !important;
+      color: var(--pipeline-color-dark-grey) !important;
       font-size: 12px !important;
     }
   }
@@ -27,7 +27,7 @@
 .delegateSizeLabel {
   margin-bottom: var(--spacing-small);
   letter-spacing: 0.2px;
-  color: #8f90a6 !important;
+  color: var(--pipeline-color-dark-grey) !important;
   font-size: 12px !important;
 }
 

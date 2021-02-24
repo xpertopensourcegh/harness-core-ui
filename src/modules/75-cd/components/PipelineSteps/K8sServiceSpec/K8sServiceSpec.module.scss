@@ -73,6 +73,16 @@
   overflow: scroll;
 }
 
+.card-section {
+  width: 1024px;
+  margin-bottom: 20px;
+}
+
+.serviceDefinition {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .accordionSummary {
   border-bottom: 1px solid var(--grey-250);
   background: var(--white);

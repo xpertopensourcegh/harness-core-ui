@@ -18,7 +18,7 @@ import get from 'lodash-es/get'
 import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings, String } from 'framework/exports'
 import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -39,16 +39,6 @@ import CreateGCRConnector from '../connectors/GcrConnector/CreateGCRConnector'
 
 import i18n from './ArtifactsSelection.i18n'
 import css from './ArtifactsSelection.module.scss'
-interface ArtifactTable {
-  [key: string]: string
-}
-
-const artifactListHeaders: ArtifactTable = {
-  type: i18n.artifactTable.type,
-  server: i18n.artifactTable.server,
-  source: i18n.artifactTable.artifactSource,
-  imagePath: i18n.artifactTable.imagePath
-}
 
 enum TagTypes {
   Value = 'value',
@@ -623,75 +613,63 @@ export default function ArtifactsSelection({
     updatePipeline(pipeline)
   }
 
-  const { status, color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
+  const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
 
   return (
-    <Layout.Vertical
-      padding={!isForOverrideSets ? 'large' : 'none'}
-      style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
-    >
+    <Layout.Vertical padding={'large'}>
       {isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={stage} />}
-      {overrideSetIdentifier.length === 0 && !isForOverrideSets && (
-        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
-      )}
 
       <Layout.Vertical spacing="small">
-        {(primaryArtifact || (sideCarArtifact && sideCarArtifact.length > 0)) && (
-          <Container>
-            <section className={css.thead}>
-              <span>{artifactListHeaders.type}</span>
-              <span>{artifactListHeaders.server}</span>
-              <span></span>
-              <span>{artifactListHeaders.source}</span>
-              <span>{artifactListHeaders.imagePath}</span>
-              <span></span>
-            </section>
-          </Container>
-        )}
-        <Layout.Vertical spacing="medium">
+        <div className={cx(css.artifactList, css.listHeader)}>
+          <span></span>
+          <span>{getString('artifactRepository')}</span>
+          <span> {getString('location')}</span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <Layout.Vertical>
           <section>
             {primaryArtifact && (
-              <section className={cx(css.thead, css.rowItem)} key={primaryArtifactType}>
-                <Text width={200} className={css.type} lineClamp={1}>
-                  {i18n.primaryLabel}
-                </Text>
-                <span className={css.server}>
+              <section className={cx(css.artifactList, css.rowItem)} key={primaryArtifactType}>
+                <div>
+                  <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
+                    Primary
+                  </Text>
+                </div>
+
+                <div className={css.server}>
                   <Text
                     inline
                     icon={getConnectorIconByType(primaryArtifact.type)}
                     iconProps={{ size: 18 }}
-                    width={200}
+                    width={180}
                     lineClamp={1}
                     style={{ color: Color.BLACK, fontWeight: 900 }}
                   >
                     {primaryArtifact.type}
                   </Text>
-                </span>
-                <span>
-                  <Text width={200} inline icon="full-circle" iconProps={{ size: 10, color }}>
-                    {status}
-                  </Text>
-                </span>
-                <span>
-                  <Text width={470} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    {primaryArtifact?.spec?.connectorRef}
-                  </Text>
-                </span>
-                <span>
+
+                  <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
+                </div>
+                <div>
                   <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
                     {primaryArtifact?.spec?.imagePath}
                   </Text>
-                </span>
+                </div>
+                <div>{/* WIP artifact validation */}</div>
                 {overrideSetIdentifier.length === 0 && (
                   <span>
-                    <Layout.Horizontal spacing="medium">
-                      <Icon
-                        name="edit"
-                        size={14}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => editPrimary(primaryArtifact.type)}
-                      />
-                      <Icon name="delete" size={14} style={{ cursor: 'pointer' }} onClick={removePrimary} />
+                    <Layout.Horizontal spacing="medium" className={css.actionGrid}>
+                      <Icon name="Edit" size={16} onClick={() => editPrimary(primaryArtifact.type)} />
+                      {/* <Icon
+                            name="main-clone"
+                            size={16}
+                            style={{ cursor: 'pointer' }}
+                            className={css.cloneIcon}
+                            // onClick={() => cloneArtifact(manifest)}
+                          /> */}
+                      <Icon name="bin-main" size={25} onClick={removePrimary} />
                     </Layout.Horizontal>
                   </span>
                 )}
@@ -715,68 +693,59 @@ export default function ArtifactsSelection({
                   index: number
                 ) => {
                   const { sidecar } = data
-                  const { status: sideCarConnectionStatus, color: sideCarConnectionColor } = getStatus(
+                  const { color: sideCarConnectionColor } = getStatus(
                     sidecar?.spec?.connectorRef,
                     fetchedConnectorResponse,
                     accountId
                   )
                   return (
-                    <section className={cx(css.thead, css.rowItem)} key={sidecar?.identifier + index}>
-                      <Text width={200} lineClamp={1} className={css.type}>
-                        {i18n.sidecarLabel}
-                      </Text>
-                      <span className={css.server}>
+                    <section className={cx(css.artifactList, css.rowItem)} key={sidecar?.identifier + index}>
+                      <div>
+                        <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
+                          {getString('sidecar')}
+                          <Text lineClamp={1} className={css.artifactId}>
+                            ({getString('cf.targets.ID')}: {sidecar.identifier})
+                          </Text>
+                        </Text>
+                      </div>
+                      <div className={css.server}>
                         <Text
                           inline
                           icon={getConnectorIconByType(sidecar.type)}
                           iconProps={{ size: 18 }}
-                          width={470}
+                          width={180}
                           lineClamp={1}
                           style={{ color: Color.BLACK, fontWeight: 900 }}
                         >
                           {sidecar.type}
                         </Text>
-                      </span>
-                      <span>
-                        <Text
-                          width={200}
-                          inline
-                          icon="full-circle"
-                          iconProps={{ size: 10, color: sideCarConnectionColor }}
-                        >
-                          {sideCarConnectionStatus}
-                        </Text>
-                      </span>
-                      <span>
-                        <Text width={480} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {sidecar.spec.connectorRef}
-                        </Text>
-                      </span>
 
-                      <span>
+                        <Text width={200} icon="full-circle" iconProps={{ size: 10, color: sideCarConnectionColor }} />
+                      </div>
+                      <div>
                         <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {sidecar.spec.imagePath}
+                          {sidecar?.spec?.imagePath}
                         </Text>
-                      </span>
+                      </div>
+                      <div>{/* WIP artifact validation */}</div>
                       {overrideSetIdentifier.length === 0 && (
                         <span>
-                          <Layout.Horizontal spacing="medium">
+                          <Layout.Horizontal spacing="medium" className={css.actionGrid}>
                             <Icon
-                              name="edit"
-                              size={14}
-                              style={{ cursor: 'pointer' }}
+                              name="Edit"
+                              size={16}
                               onClick={() => {
                                 editSidecar(index, sidecar.type as CreationType)
                               }}
                             />
-                            <Icon
-                              name="delete"
-                              size={14}
-                              style={{ cursor: 'pointer' }}
-                              onClick={() => {
-                                removeSidecar(index)
-                              }}
-                            />
+                            {/* <Icon
+                                  name="main-clone"
+                                  size={16}
+                                  style={{ cursor: 'pointer' }}
+                                  className={css.cloneIcon}
+                                  // onClick={() => cloneArtifact(manifest)}
+                                /> */}
+                            <Icon name="bin-main" size={25} onClick={() => removeSidecar(index)} />
                           </Layout.Horizontal>
                         </span>
                       )}
@@ -787,22 +756,28 @@ export default function ArtifactsSelection({
             </section>
           )}
           {sideCarArtifact && sideCarArtifact.length > 0 && overrideSetIdentifier.length === 0 && (
-            <Text intent="primary" style={{ cursor: 'pointer' }} onClick={addSideCarArtifact}>
-              {i18n.addSideCarLable}
-            </Text>
+            <div className={css.paddingVertical}>
+              <Text intent="primary" style={{ cursor: 'pointer' }} onClick={addSideCarArtifact}>
+                <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
+              </Text>
+            </div>
           )}
         </Layout.Vertical>
       </Layout.Vertical>
-      <Layout.Vertical spacing="medium">
+      <Layout.Vertical>
         {!primaryArtifact && overrideSetIdentifier.length === 0 && (
-          <Container className={css.rowItem}>
-            <Text onClick={addPrimaryArtifact}>{i18n.addPrimarySourceLable}</Text>
-          </Container>
+          <div className={css.rowItem}>
+            <Text onClick={addPrimaryArtifact}>
+              <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
+            </Text>
+          </div>
         )}
         {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier.length === 0 && (
-          <Container className={css.rowItem}>
-            <Text onClick={addSideCarArtifact}>{i18n.addSideCarLable}</Text>
-          </Container>
+          <div className={css.rowItem}>
+            <Text onClick={addSideCarArtifact}>
+              <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
+            </Text>
+          </div>
         )}
       </Layout.Vertical>
     </Layout.Vertical>

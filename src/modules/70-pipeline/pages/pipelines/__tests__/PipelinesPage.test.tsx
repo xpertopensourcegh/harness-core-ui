@@ -208,8 +208,8 @@ describe('Pipeline List View Test cases', () => {
     const menu = listView.querySelectorAll("[icon='more']")[0]
     fireEvent.click(menu)
     const menuContent = findPopoverContainer()
-    await waitFor(() => getByText(menuContent as HTMLElement, 'Run Pipeline'))
-    const runPipelineBtn = getByText(menuContent as HTMLElement, 'Run Pipeline')
+    await waitFor(() => getByText(menuContent as HTMLElement, 'Run'))
+    const runPipelineBtn = getByText(menuContent as HTMLElement, 'Run')
     onRunPipelineClick.mockReset()
     fireEvent.click(runPipelineBtn)
     expect(onRunPipelineClick).toHaveBeenCalled()
@@ -277,8 +277,8 @@ describe('Pipeline Card View Test Cases', () => {
     const menu = cardView.querySelectorAll("[icon='more']")[0]
     fireEvent.click(menu)
     const menuContent = findPopoverContainer()
-    await waitFor(() => getByText(menuContent as HTMLElement, 'Run Pipeline'))
-    const runPipelineBtn = getByText(menuContent as HTMLElement, 'Run Pipeline')
+    await waitFor(() => getByText(menuContent as HTMLElement, 'Run'))
+    const runPipelineBtn = getByText(menuContent as HTMLElement, 'Run')
     onRunPipelineClick.mockReset()
     fireEvent.click(runPipelineBtn)
     expect(onRunPipelineClick).toHaveBeenCalled()

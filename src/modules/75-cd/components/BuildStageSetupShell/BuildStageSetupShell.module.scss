@@ -6,6 +6,10 @@
   background: var(--white);
   .tabsContainer {
     background: white;
+    & > :global(.bp3-tabs > .bp3-tab-panel) {
+      height: calc(100%);
+      overflow-y: auto;
+    }
     &.tab-execution {
       :global(.bp3-tab-panel) {
         $bg-color: #f6fcff;
@@ -28,6 +32,7 @@
         padding: 0 var(--spacing-medium);
         text-align: center;
       }
+
       .bp3-tab-list {
         background: white;
         position: fixed;

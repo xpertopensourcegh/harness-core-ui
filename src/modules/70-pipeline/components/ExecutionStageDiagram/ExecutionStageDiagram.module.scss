@@ -1,6 +1,6 @@
 .main {
   --execution-pipeline-color-blue: #25a6f7;
-  --execution-pipeline-color-arrow-complete: #0092e4;
+  --execution-pipeline-color-arrow-complete: var(--pipeline-select-blue);
   --execution-pipeline-color-arrow-not-started: #d9dae6;
   --execution-pipeline-color-grey: #b0b1c4;
   --execution-pipeline-color-dark-grey: #8f90a6;

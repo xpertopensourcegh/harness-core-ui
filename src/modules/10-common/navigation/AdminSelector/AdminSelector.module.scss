@@ -44,7 +44,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #8f90a6;
+    color: var(--pipeline-color-dark-grey);
 
     &:hover {
       text-decoration: none;

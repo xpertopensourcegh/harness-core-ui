@@ -12,7 +12,8 @@ import {
   Formik,
   FormInput,
   FormikForm as Form,
-  MultiTypeInputType
+  MultiTypeInputType,
+  IconName
 } from '@wings-software/uicore'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 
@@ -41,29 +42,20 @@ import {
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
 import css from './ManifestSelection.module.scss'
-interface ManifestTable {
-  [key: string]: string
-}
-
 export type CreationType = 'KUBERNETES' | 'VALUES'
 
-const artifactListHeaders: ManifestTable = {
-  type: i18n.manifestTable.type,
-  server: i18n.manifestTable.server,
-  location: i18n.manifestTable.location,
-  branch: i18n.manifestTable.branch,
-  commit: i18n.manifestTable.commit,
-  id: i18n.manifestTable.id
-}
-
 const manifestTypeLabels: Record<string, string> = {
-  K8sManifest: 'Kubernetes Manifest',
+  K8sManifest: 'Manifest',
   Values: 'Values Overrides'
 }
 
 const manifestTypeLabel: { [key: string]: string } = {
   KUBERNETES: 'K8s Manifest',
   VALUES: 'Values Override'
+}
+const manifestTypeIcons: Record<string, IconName> = {
+  K8sManifest: 'file',
+  Values: 'config-file'
 }
 
 export interface ManifestCreationType {
@@ -488,31 +480,25 @@ function ManifestListView({
 
   return (
     <Layout.Vertical spacing="small">
+      <div className={cx(css.manifestList, css.listHeader)}>
+        <span>{getString('cf.targets.ID')}</span>
+        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestFormat')}</span>
+        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
+        <span>{getString('location')}</span>
+
+        <span></span>
+      </div>
       {(!manifestList || manifestList.length === 0) && !overrideSetIdentifier && (
-        <Container className={css.rowItem}>
+        <div className={css.rowItem}>
           <Text
             onClick={() => {
               setView(ModalView.OPTIONS)
               showConnectorModal()
             }}
           >
-            {i18n.addPrimarySourceLable}
+            <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
           </Text>
-        </Container>
-      )}
-      {listOfManifests && manifestList && manifestList.length > 0 && (
-        <Container>
-          <section className={cx(css.thead, isForOverrideSets && css.overrideSetRow)}>
-            <span>{artifactListHeaders.type}</span>
-            <span>{artifactListHeaders.server}</span>
-            <span></span>
-            <span>{artifactListHeaders.branch + '/' + artifactListHeaders.commit}</span>
-            <span>{artifactListHeaders.location}</span>
-            <span>{artifactListHeaders.id}</span>
-
-            <span></span>
-          </section>
-        </Container>
+        </div>
       )}
       <Layout.Vertical spacing="medium">
         <section>
@@ -541,35 +527,32 @@ function ManifestListView({
               ) => {
                 const manifest = data['manifest']
 
-                const { status, color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
+                const { color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
 
                 return (
-                  <section
-                    className={cx(css.thead, css.rowItem, isForOverrideSets && css.overrideSetRow)}
-                    key={manifest.identifier + index}
-                  >
-                    <span className={css.type}>{manifestTypeLabels[manifest.type]}</span>
-                    <span className={css.server}>
+                  <section className={cx(css.manifestList, css.rowItem)} key={manifest.identifier + index}>
+                    <div className={css.columnId}>
+                      <Icon inline name={manifestTypeIcons[manifest.type]} size={20} />
+                      <Text inline width={150} className={css.type} color={Color.BLACK} lineClamp={1}>
+                        {manifest.identifier}
+                      </Text>
+                    </div>
+                    <div>{manifestTypeLabels[manifest.type]}</div>
+                    <div className={css.server}>
                       <Text
                         inline
                         icon={'service-github'}
                         iconProps={{ size: 18 }}
-                        width={200}
+                        width={130}
+                        lineClamp={1}
                         style={{ color: Color.BLACK, fontWeight: 900 }}
                       >
                         {manifest.spec.store.type}
                       </Text>
-                    </span>
-                    <span>
-                      <Text inline icon="full-circle" iconProps={{ size: 10, color }}>
-                        {status}
-                      </Text>
-                    </span>
-                    <span>
-                      <Text style={{ color: Color.GREY_500 }}>
-                        {manifest.spec.store.spec.branch || manifest.spec.store.spec.commitId}
-                      </Text>
-                    </span>
+
+                      <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
+                    </div>
+
                     <span>
                       <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {typeof manifest.spec.store.spec.paths === 'string'
@@ -577,26 +560,19 @@ function ManifestListView({
                           : manifest.spec.store.spec.paths[0]}
                       </Text>
                     </span>
-                    <span>
-                      <Text width={140} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                        {manifest.identifier}
-                      </Text>
-                    </span>
+
                     {!overrideSetIdentifier?.length && (
-                      <span>
-                        <Layout.Horizontal spacing="medium">
-                          <Icon
-                            name="edit"
-                            size={14}
+                      <span className={css.lastColumn}>
+                        <Layout.Horizontal spacing="medium" className={css.actionGrid}>
+                          <Icon name="Edit" size={16} onClick={() => editManifest(manifest)} />
+                          {/* <Icon
+                            name="main-clone"
+                            size={16}
                             style={{ cursor: 'pointer' }}
-                            onClick={() => editManifest(manifest)}
-                          />
-                          <Icon
-                            name="delete"
-                            size={14}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => removeManifestConfig(index)}
-                          />
+                            className={css.cloneIcon}
+                            // onClick={() => editManifest(manifest)}
+                          /> */}
+                          <Icon name="bin-main" size={25} onClick={() => removeManifestConfig(index)} />
                         </Layout.Horizontal>
                       </span>
                     )}
@@ -728,10 +704,7 @@ export default function ManifestSelection({
   }, [listOfManifests])
 
   return (
-    <Layout.Vertical
-      padding={!isForOverrideSets ? 'large' : 'none'}
-      style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
-    >
+    <Layout.Vertical padding={!isForOverrideSets ? 'large' : 'none'}>
       {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />}
       {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
         <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>

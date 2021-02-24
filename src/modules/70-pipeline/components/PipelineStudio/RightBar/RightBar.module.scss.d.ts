@@ -5,6 +5,7 @@ declare const styles: {
   readonly iconButton: string
   readonly selected: string
   readonly notificationsIcon: string
+  readonly flowControlIcon: string
   readonly variablesIcon: string
   readonly codebaseConfiguration: string
   readonly notConfigured: string

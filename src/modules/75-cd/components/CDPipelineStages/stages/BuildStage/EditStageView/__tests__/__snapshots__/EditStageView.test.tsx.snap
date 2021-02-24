@@ -21,20 +21,38 @@ exports[`EditStageView snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                data-icon="pipeline-build"
+                data-icon="ci-main"
               >
                 <svg
                   fill="none"
                   height="16"
-                  viewBox="0 0 32 28"
+                  viewBox="0 0 20 20"
                   width="16"
                 >
                   <path
                     clip-rule="evenodd"
-                    d="M5.327.544h26.057v26.913H5.327V.544zM3.4.544H.617v26.913H3.4V.544zm19.398 10.318c-.943-.872.384-2.307 1.327-1.435l4.17 3.856a.979.979 0 010 1.435l-4.17 3.855c-.943.873-2.27-.562-1.327-1.434L26.193 14l-3.395-3.138zM20.09 7.404c.499-1.186 2.302-.426 1.803.76L16.62 20.597a.978.978 0 01-1.802-.76L20.09 7.404zm-7.505 2.023c.944-.872 2.27.563 1.327 1.435L10.517 14l3.395 3.139c.944.872-.383 2.308-1.327 1.434l-4.17-3.855a.98.98 0 010-1.435l4.17-3.856z"
-                    fill="currentColor"
+                    d="M12.005 10.97a2.9 2.9 0 01-3.003-2.96 2.9 2.9 0 013.002-3.008 2.927 2.927 0 012.994 3.007 2.882 2.882 0 01-2.993 2.989v-.027zM6 .9a9.987 9.987 0 014.203-.9C15.56-.053 19.945 4.258 20 9.63v.144A9.928 9.928 0 0119.103 14l-3.092-3.102a5.15 5.15 0 00.762-2.697 4.743 4.743 0 00-4.93-4.937 5.013 5.013 0 00-2.688.765L6 .899zM3.991 2.2l-.099.09L7.36 5.734a5.16 5.16 0 00-.766 2.762c-.081 2.635 1.977 4.838 4.597 4.921.116.003.232.002.349-.002a5.116 5.116 0 002.774-.77L17.8 16.13A9.792 9.792 0 019.91 20c-5.393.08-9.829-4.25-9.908-9.673L0 10.153A9.645 9.645 0 013.99 2.2z"
+                    fill="url(#ci-main_svg__paint0_linear)"
                     fill-rule="evenodd"
                   />
+                  <defs>
+                    <lineargradient
+                      gradientUnits="userSpaceOnUse"
+                      id="ci-main_svg__paint0_linear"
+                      x1="-6.46"
+                      x2="6.46"
+                      y1="6.46"
+                      y2="26.46"
+                    >
+                      <stop
+                        stop-color="#73DFE7"
+                      />
+                      <stop
+                        offset="1"
+                        stop-color="#0095F7"
+                      />
+                    </lineargradient>
+                  </defs>
                 </svg>
               </span>
               About Your Stage
@@ -271,20 +289,38 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                data-icon="pipeline-build"
+                data-icon="ci-main"
               >
                 <svg
                   fill="none"
                   height="16"
-                  viewBox="0 0 32 28"
+                  viewBox="0 0 20 20"
                   width="16"
                 >
                   <path
                     clip-rule="evenodd"
-                    d="M5.327.544h26.057v26.913H5.327V.544zM3.4.544H.617v26.913H3.4V.544zm19.398 10.318c-.943-.872.384-2.307 1.327-1.435l4.17 3.856a.979.979 0 010 1.435l-4.17 3.855c-.943.873-2.27-.562-1.327-1.434L26.193 14l-3.395-3.138zM20.09 7.404c.499-1.186 2.302-.426 1.803.76L16.62 20.597a.978.978 0 01-1.802-.76L20.09 7.404zm-7.505 2.023c.944-.872 2.27.563 1.327 1.435L10.517 14l3.395 3.139c.944.872-.383 2.308-1.327 1.434l-4.17-3.855a.98.98 0 010-1.435l4.17-3.856z"
-                    fill="currentColor"
+                    d="M12.005 10.97a2.9 2.9 0 01-3.003-2.96 2.9 2.9 0 013.002-3.008 2.927 2.927 0 012.994 3.007 2.882 2.882 0 01-2.993 2.989v-.027zM6 .9a9.987 9.987 0 014.203-.9C15.56-.053 19.945 4.258 20 9.63v.144A9.928 9.928 0 0119.103 14l-3.092-3.102a5.15 5.15 0 00.762-2.697 4.743 4.743 0 00-4.93-4.937 5.013 5.013 0 00-2.688.765L6 .899zM3.991 2.2l-.099.09L7.36 5.734a5.16 5.16 0 00-.766 2.762c-.081 2.635 1.977 4.838 4.597 4.921.116.003.232.002.349-.002a5.116 5.116 0 002.774-.77L17.8 16.13A9.792 9.792 0 019.91 20c-5.393.08-9.829-4.25-9.908-9.673L0 10.153A9.645 9.645 0 013.99 2.2z"
+                    fill="url(#ci-main_svg__paint0_linear)"
                     fill-rule="evenodd"
                   />
+                  <defs>
+                    <lineargradient
+                      gradientUnits="userSpaceOnUse"
+                      id="ci-main_svg__paint0_linear"
+                      x1="-6.46"
+                      x2="6.46"
+                      y1="6.46"
+                      y2="26.46"
+                    >
+                      <stop
+                        stop-color="#73DFE7"
+                      />
+                      <stop
+                        offset="1"
+                        stop-color="#0095F7"
+                      />
+                    </lineargradient>
+                  </defs>
                 </svg>
               </span>
               About Your Stage

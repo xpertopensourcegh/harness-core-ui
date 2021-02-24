@@ -95,7 +95,7 @@ export interface Listeners {
 export const EmptyNodeSeparator = '$node$'
 
 export const getCommonStyles = (isSelected: boolean): React.CSSProperties => ({
-  backgroundColor: isSelected ? 'var(--pipeline-selected-node)' : 'var(--white)',
+  background: isSelected ? 'var(--pipeline-selected-node)' : 'var(--white)',
   borderColor: isSelected ? 'var(--diagram-selected)' : 'var(--pipeline-grey-border)',
   borderWidth: isSelected ? '2px' : '1px'
 })

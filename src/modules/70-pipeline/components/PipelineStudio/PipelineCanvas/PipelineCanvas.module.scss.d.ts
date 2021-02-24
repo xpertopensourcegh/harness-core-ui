@@ -6,7 +6,6 @@ declare const styles: {
   readonly topButtons: string
   readonly selected: string
   readonly savePublishBtn: string
-  readonly tagRender: string
   readonly dialog: string
   readonly titleBar: string
   readonly breadcrumbsMenu: string
@@ -16,9 +15,11 @@ declare const styles: {
   readonly optionBtns: string
   readonly item: string
   readonly savePublishContainer: string
+  readonly tagRender: string
   readonly runPipelineBtn: string
   readonly rightSideBottom: string
   readonly pipelineNameContainer: string
   readonly pipelineName: string
+  readonly pipelineIcon: string
 }
 export default styles

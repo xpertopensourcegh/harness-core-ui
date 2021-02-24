@@ -1,32 +1,47 @@
 .rowItem {
-  padding: var(--spacing-large) !important;
+  padding: var(--spacing-medium) 0;
   background: white !important;
-  box-shadow: 0px 1px 5px 1px var(--grey-250);
-  border-radius: 8px;
-  margin-bottom: var(--spacing-large);
-  span.type,
-  span.server {
+  border-bottom: solid 1px #d9dae5;
+  span.type {
     color: var(--grey-900) !important;
     font-weight: 900;
+    display: grid;
+    grid-template-columns: 1fr 10px;
   }
   font-size: 14px !important;
   > p {
     cursor: pointer;
     color: var(--blue-500) !important;
   }
+  .actionGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    .cloneIcon {
+      -webkit-transform: scaleX(-1) !important;
+      transform: scaleX(-1) !important;
+    }
+    span {
+      color: #000;
+      cursor: pointer;
+    }
+  }
 }
-
-.thead {
+.artifactId {
+  color: var(--pipeline-color-dark-grey);
+}
+.paddingVertical {
+  padding: var(--spacing-medium) 0;
+}
+div.server {
   display: grid;
-  grid-template-rows: auto;
-  align-items: center;
-  padding: var(--spacing-large);
-  padding-bottom: 0;
-  grid-template-columns: 150px 140px 95px 280px 248px 40px;
-  color: var(--grey-500);
-  font-size: 12px;
+  grid-template-columns: 150px 50px;
+  text-align: left;
+  p {
+    display: block !important;
+  }
 }
-
 .sideCarBtn {
   width: 150px;
 }
@@ -75,4 +90,15 @@
 .editForm {
   margin-top: -50px !important;
   width: calc(100% - 35px) !important;
+}
+.artifactList {
+  display: grid;
+  grid-template-columns: 230px 200px repeat(3, 1fr);
+  &.list-header {
+    border-bottom: solid 1px #d9dae5;
+    padding-bottom: var(--spacing-medium);
+  }
+  &:first-child {
+    padding-left: var(--spacing-small);
+  }
 }

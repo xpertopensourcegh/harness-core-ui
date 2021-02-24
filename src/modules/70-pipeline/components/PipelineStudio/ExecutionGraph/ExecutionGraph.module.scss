@@ -3,9 +3,18 @@
   width: 100%;
 }
 
+$bg-color: #f6fcff;
+$dot-color: #bbc1c4;
+
+$dot-size: 1px;
+$dot-space: 10px;
+
 .canvas {
   height: 100%;
   width: 100%;
+  background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
+  background-size: $dot-space $dot-space;
 
   > div {
     cursor: default;

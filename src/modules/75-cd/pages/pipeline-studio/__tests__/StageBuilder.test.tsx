@@ -1,5 +1,12 @@
 import React from 'react'
-import { render, waitFor, getByText as getByTextBody, fireEvent, RenderResult } from '@testing-library/react'
+import {
+  render,
+  waitFor,
+  getByText as getByTextBody,
+  fireEvent,
+  RenderResult,
+  getByTestId
+} from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
@@ -98,10 +105,10 @@ describe('Stage Builder Test', () => {
     // Click Create New Stage
     const createNewBtn = stageBuilder.querySelector('.defaultCard.createNew')
     fireEvent.click(createNewBtn as HTMLElement)
-    await waitFor(() => getByTextBody(document.body, 'Deploy'))
-    const deployBtn = getByTextBody(document.body, 'Deploy')
+    const deployBtn = await waitFor(() => getByTestId(document.body, 'stage-Deployment'))
+
     // Select Deploy
-    fireEvent.click(deployBtn)
+    fireEvent.click(deployBtn as Element)
     await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name
@@ -190,10 +197,9 @@ describe('Stage Builder Test', () => {
     // Click Create New Stage
     const createNewBtn = stageBuilder.querySelector('.defaultCard.createNew')
     fireEvent.click(createNewBtn as HTMLElement)
-    await waitFor(() => getByTextBody(document.body, 'Deploy'))
-    const deployBtn = getByTextBody(document.body, 'Deploy')
+    const deployBtn = await waitFor(() => getByTestId(document.body, 'stage-Deployment'))
     // Select Deploy
-    fireEvent.click(deployBtn)
+    fireEvent.click(deployBtn as Element)
     await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name

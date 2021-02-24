@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Card, Icon, Text } from '@wings-software/uicore'
+import { Layout, Card, Icon, Text, Accordion } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { debounce, get, isNil } from 'lodash-es'
 import cx from 'classnames'
@@ -7,6 +7,7 @@ import { StepWidget, StepViewType, PipelineContext } from '@pipeline/exports'
 import type { K8SDirectInfrastructure, NgPipeline, PipelineInfrastructure } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import Timeline from '@common/components/Timeline/Timeline'
 import i18n from './DeployInfraSpecifications.i18n'
 import css from './DeployInfraSpecifications.module.scss'
 
@@ -33,9 +34,27 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
   }
 ]
 
+const TimelineNodes = [
+  {
+    label: 'Environment',
+    id: 'environment'
+  },
+  {
+    label: 'Infrastructure definition',
+    id: 'infrastructureDefinition',
+    childItems: [
+      {
+        label: 'Cluster details',
+        id: 'clusterDetails-panel'
+      }
+    ]
+  }
+]
+
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const [initialValues, setInitialValues] = React.useState<{}>()
   const [updateKey, setUpdateKey] = React.useState(0)
+
   const {
     state: {
       pipeline,
@@ -95,13 +114,77 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       debounceUpdatePipeline(pipeline)
     }
   }
-
+  const onTimelineItemClick = (id: string) => {
+    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+  const renderInfraSelection = (): JSX.Element => {
+    const k8sInfra = supportedDeploymentTypes[0]
+    return (
+      <div className={css.infraSelection}>
+        <div>
+          <div className={css.connectionType}>Direct Connection</div>
+          <div key={k8sInfra.name} className={css.squareCardContainer}>
+            <Card
+              disabled={!k8sInfra.enabled}
+              interactive={true}
+              selected={k8sInfra.name === i18n.deploymentTypes.kubernetes}
+              cornerSelected={k8sInfra.name === i18n.deploymentTypes.kubernetes}
+              className={cx({ [css.disabled]: !k8sInfra.enabled }, css.squareCard)}
+            >
+              <Icon name={k8sInfra.icon as IconName} size={26} height={26} />
+            </Card>
+            <Text
+              style={{
+                fontSize: '12px',
+                color: k8sInfra.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                textAlign: 'center'
+              }}
+            >
+              {k8sInfra.name}
+            </Text>
+          </div>
+        </div>
+        <div>
+          <div className={css.connectionType}>Via Cloud Provider</div>
+          <Layout.Horizontal>
+            {supportedDeploymentTypes.map(
+              (type: { name: string; icon: IconName; enabled: boolean }) =>
+                type.name !== i18n.deploymentTypes.kubernetes && (
+                  <div key={type.name} className={css.squareCardContainer}>
+                    <Card
+                      disabled={!type.enabled}
+                      interactive={true}
+                      selected={type.name === i18n.deploymentTypes.kubernetes}
+                      cornerSelected={type.name === i18n.deploymentTypes.kubernetes}
+                      className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                    >
+                      <Icon name={type.icon as IconName} size={26} height={26} />
+                    </Card>
+                    <Text
+                      style={{
+                        fontSize: '12px',
+                        color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                        textAlign: 'center'
+                      }}
+                    >
+                      {type.name}
+                    </Text>
+                  </div>
+                )
+            )}
+          </Layout.Horizontal>
+        </div>
+      </div>
+    )
+  }
   return (
-    <Layout.Vertical className={css.serviceOverrides}>
-      <Layout.Vertical spacing="large">
-        <div className={cx(css.serviceSection, css.noPadTop)}>
-          <Layout.Vertical className={cx(css.specTabs, css.tabHeading)}>{i18n.infraDetailsLabel}</Layout.Vertical>
-          <Layout.Horizontal spacing="medium">
+    <div className={css.serviceOverrides}>
+      <Timeline onNodeClick={onTimelineItemClick} nodes={TimelineNodes} />
+
+      <div className={css.contentSection}>
+        <Layout.Vertical>
+          <div className={css.tabHeading}>Environment</div>
+          <Card className={cx(css.sectionCard, css.shadow)} id="environment">
             <StepWidget
               type={StepType.DeployEnvironment}
               initialValues={get(stage, 'stage.spec.infrastructure', {})}
@@ -119,51 +202,34 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
               factory={factory}
               stepViewType={StepViewType.Edit}
             />
-          </Layout.Horizontal>
-        </div>
-      </Layout.Vertical>
-      <div className={css.serviceSection}>
-        <Layout.Vertical className={cx(css.specTabs, css.tabHeading)}>{i18n.infraSpecificationLabel}</Layout.Vertical>
-        <div>
+          </Card>
+        </Layout.Vertical>
+        <div className={css.tabHeading}>Infrastructure definition</div>
+        <Card className={cx(css.sectionCard, css.shadow)}>
           <div className={css.stepContainer}>
-            <div className={css.serviceCards}>
-              <Layout.Horizontal>
-                {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
-                  <div key={type.name} className={css.squareCardContainer}>
-                    <Card
-                      disabled={!type.enabled}
-                      interactive={true}
-                      selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                      cornerSelected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                      className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
-                    >
-                      <Icon name={type.icon as IconName} size={26} height={26} />
-                    </Card>
-                    <Text
-                      style={{
-                        fontSize: '12px',
-                        color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {type.name}
-                    </Text>
-                  </div>
-                ))}
-              </Layout.Horizontal>
-            </div>
-            <StepWidget<K8SDirectInfrastructure>
-              factory={factory}
-              key={updateKey}
-              initialValues={initialValues || {}}
-              type={StepType.KubernetesDirect}
-              stepViewType={StepViewType.Edit}
-              onUpdate={value => onUpdateDefinition(value)}
-            />
+            <div className={css.subheading}>Select the best method for Harness to reach your Kubernetes Cluster.</div>
+            {renderInfraSelection()}
           </div>
-        </div>
+        </Card>
+        <Accordion className={css.sectionCard} activeId="clusterDetails">
+          <Accordion.Panel
+            id="clusterDetails"
+            addDomId={true}
+            summary={'Cluster details'}
+            details={
+              <StepWidget<K8SDirectInfrastructure>
+                factory={factory}
+                key={updateKey}
+                initialValues={initialValues || {}}
+                type={StepType.KubernetesDirect}
+                stepViewType={StepViewType.Edit}
+                onUpdate={value => onUpdateDefinition(value)}
+              />
+            }
+          />
+        </Accordion>
+        {props.children}
       </div>
-      {props.children}
-    </Layout.Vertical>
+    </div>
   )
 }

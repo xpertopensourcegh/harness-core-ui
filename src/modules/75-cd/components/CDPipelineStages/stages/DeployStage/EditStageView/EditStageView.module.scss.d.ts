@@ -30,5 +30,16 @@ declare const styles: {
   readonly fixed: string
   readonly icon: string
   readonly toggleDesc: string
+  readonly timelineSidebar: string
+  readonly sidebarToggle: string
+  readonly sidebarToggleContent: string
+  readonly hidden: string
+  readonly createStageGrid: string
+  readonly editStageGrid: string
+  readonly contentSection: string
+  readonly sectionCard: string
+  readonly shadow: string
+  readonly notwide: string
+  readonly nopadleft: string
 }
 export default styles

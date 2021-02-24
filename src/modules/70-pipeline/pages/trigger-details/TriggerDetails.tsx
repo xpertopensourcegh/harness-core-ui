@@ -96,7 +96,7 @@ const GetTriggerRightNav = (): JSX.Element => {
             module
           })}
         >
-          {getString('studioText')}
+          {getString('pipelineStudio')}
         </NavLink>
         <NavLink
           className={css.tags}

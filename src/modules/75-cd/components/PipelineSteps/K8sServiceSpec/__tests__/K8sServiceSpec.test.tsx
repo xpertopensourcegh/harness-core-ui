@@ -178,27 +178,8 @@ describe('StepWidget tests', () => {
     expect(manifests).toBeDefined()
   })
 
-  test(`can switch  deployment type tabs`, async () => {
-    const { container } = render(
-      <TestWrapper>
-        <StepWidget<K8SDirectServiceStep>
-          factory={factory}
-          initialValues={serviceTabInitialValues}
-          type={StepType.K8sServiceSpec}
-          stepViewType={StepViewType.Edit}
-        />
-      </TestWrapper>
-    )
-
-    const manifests = await findByText(container, 'Manifests')
-    expect(manifests).toBeDefined()
-
-    fireEvent.click(manifests)
-    expect(manifests.getAttribute('aria-selected')).toEqual('true')
-  })
-
   test(`shows add manifests modal`, async () => {
-    const { container } = render(
+    render(
       <TestWrapper
         path="account/:accountId/cd/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/P1/ui/"
         pathParams={{
@@ -216,13 +197,8 @@ describe('StepWidget tests', () => {
         />
       </TestWrapper>
     )
-    const manifests = await findByText(container, 'Manifests')
-    expect(manifests).toBeDefined()
-
-    fireEvent.click(manifests)
-    expect(manifests.getAttribute('aria-selected')).toEqual('true')
     //create manifests
-    const addManifestButton = await findByText(container, '+ Add Manifest')
+    const addManifestButton = await findByText(document.body, '+ Add Manifest/Config File')
     expect(addManifestButton).toBeDefined()
     fireEvent.click(addManifestButton)
     const portal = document.getElementsByClassName('bp3-dialog')[0]

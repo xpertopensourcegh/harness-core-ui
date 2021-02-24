@@ -6,7 +6,7 @@ import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
 
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useAppStore } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = (): JSX.Element => {
@@ -27,14 +27,19 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
     )
   }
   const { selectedProject } = useAppStore()
-
+  const { getString } = useStrings()
   return (
     <PipelineProvider
       stagesMap={stagesMap}
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }}
       pipelineIdentifier={pipelineIdentifier}
       renderPipelineStage={args =>
-        getCDPipelineStages(args, selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1, true)
+        getCDPipelineStages(
+          args,
+          getString,
+          selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1,
+          true
+        )
       }
       stepsFactory={factory}
       runPipeline={handleRunPipeline}

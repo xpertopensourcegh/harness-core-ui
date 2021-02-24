@@ -2,7 +2,7 @@
   background-color: var(--grey-100);
   border-left: 1px solid var(--grey-300);
   display: grid;
-  grid-template-rows: 1fr 60px 60px 60px 1fr;
+  grid-template-rows: 60px auto 60px 60px 60px 1fr;
   z-index: 2;
   .icon-button {
     padding: 0px !important;
@@ -19,6 +19,17 @@
     &.notificationsIcon {
       :global(.bp3-icon) {
         color: var(--blue-500) !important;
+      }
+    }
+    &.flowControlIcon {
+      &.selected {
+        color: var(--yellow-color-1) !important;
+      }
+      &:hover {
+        color: var(--yellow-color-1) !important;
+      }
+      :global(.bp3-icon) {
+        color: var(--yellow-color-1) !important;
       }
     }
 

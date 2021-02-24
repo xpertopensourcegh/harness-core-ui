@@ -183,7 +183,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
             <FormikForm>
               <Text
                 font={{ size: 'medium', weight: 'semi-bold' }}
-                icon="pipeline-build"
+                icon="ci-main"
                 iconProps={{ size: 16 }}
                 margin={{ bottom: 'medium' }}
               >

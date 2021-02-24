@@ -544,7 +544,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   )
 
   return (
-    <Layout.Horizontal className={cx(css.canvasContainer, { [css.canvasStageView]: isSplitViewOpen })} padding="medium">
+    <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
       <div className={css.pipelineStudioTitle}>
         <div className={css.rectangle}>
           <String stringID="pipelineStudio" />
@@ -565,7 +565,6 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
               style={{
                 width: '100%',
                 height: '100%',
-                overflow: 'auto',
                 background: 'white'
               }}
             >

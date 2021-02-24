@@ -3,9 +3,14 @@
 declare const styles: {
   readonly rowItem: string
   readonly type: string
+  readonly columnId: string
+  readonly lastColumn: string
+  readonly actionGrid: string
+  readonly cloneIcon: string
+  readonly artifactId: string
   readonly server: string
+  readonly paddingVertical: string
   readonly gitFetchTypeDropdwn: string
-  readonly thead: string
   readonly sideCarBtn: string
   readonly overrideSetRow: string
   readonly crossIcon: string
@@ -20,5 +25,7 @@ declare const styles: {
   readonly dragOver: string
   readonly fileHelpText: string
   readonly addFileButton: string
+  readonly manifestList: string
+  readonly listHeader: string
 }
 export default styles

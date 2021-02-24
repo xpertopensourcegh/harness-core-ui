@@ -39,14 +39,6 @@
       border-radius: 4px;
     }
   }
-
-  .tagRender {
-    background-color: var(--pipeline-tag-bc) !important;
-    border-radius: 4px;
-    & > span {
-      color: var(--pipeline-tag-color);
-    }
-  }
 }
 .dialog {
   width: 910px;
@@ -107,7 +99,6 @@
 
   .optionBtns {
     display: inline-block;
-    background-color: var(--grey-200);
     border-radius: 10px;
     margin: 12px 0;
     font-size: var(--font-size-xsmall);
@@ -119,15 +110,19 @@
 
     .item {
       display: inline-block;
-      padding: var(--spacing-xsmall) var(--spacing-medium);
+      padding: 4px 8px;
       border-radius: 10px;
       margin: 2px;
       cursor: pointer;
+      border: solid 1px var(--blue-900);
+      color: var(--blue-900);
+      background: #fff;
+      width: 55px;
     }
 
     .selected {
       font-weight: bold;
-      background-color: var(--grey-400);
+      background-color: var(--blue-900);
       color: var(--white);
       cursor: default;
     }
@@ -141,11 +136,16 @@
   justify-content: flex-end;
 
   .tagRender {
-    margin: 0 20px;
-    background-color: #fafbfc !important;
-    border-radius: 4px;
-    & > span {
-      color: #ff7020;
+    color: var(--orange-color-1);
+    margin-right: var(--spacing-xlarge);
+    &::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background: var(--orange-color-1);
+      display: inline-block;
+      margin: 0 4px;
     }
   }
 
@@ -182,6 +182,9 @@
   .pipelineName {
     display: inline-flex;
     font-size: var(--font-size-medium) !important;
+  }
+  .pipelineIcon {
+    vertical-align: middle;
   }
 
   button {

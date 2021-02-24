@@ -1,15 +1,11 @@
 .container {
-  height: 534px;
   position: relative;
-  padding: 0 48px !important;
+  padding: var(--spacing-xlarge) !important;
+  padding-bottom: 0 !important;
   .close-modal {
     position: absolute;
     top: 10px;
     right: 10px;
-  }
-
-  .heading {
-    padding: 33px 0 !important;
   }
 
   .helpText {
@@ -18,27 +14,11 @@
 
   .layout {
     display: grid;
-    grid-template-columns: 322px 1fr;
+    grid-template-rows: 1fr auto auto auto;
     gap: 20px;
-
+    padding: 0 var(--spacing-xlarge) 0 var(--spacing-xlarge) !important;
     .formInput {
-      height: 337px;
-    }
-
-    .helpImages {
-      height: 340px;
-      width: 458px;
-      border: 1px solid var(--grey-200);
-
-      & img {
-        width: inherit;
-
-        & + div {
-          position: absolute;
-          padding: var(--spacing-small);
-          bottom: 0;
-        }
-      }
+      width: 288px;
     }
 
     .startBtn {
@@ -50,4 +30,11 @@
     border-top: none;
     padding: 0;
   }
+}
+.heading {
+  padding: var(--spacing-xlarge) var(--spacing-xlarge) var(--spacing-small) var(--spacing-xlarge) !important;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  color: var(--black);
 }

@@ -9,6 +9,8 @@ orgsText: Organizations
 getStarted: Get Started
 projectLabel: Project
 orgLabel: Organization
+editPipeline: Edit Pipeline
+craetePipelineSubtitle: Let’s get you started by giving your pipeline a name
 users: Users
 roles: Roles
 newRole: New Role
@@ -19,6 +21,8 @@ resourceGroups: Resource Groups
 modules: Modules
 account: 'Account'
 repository: 'Repository'
+location: LOCATION
+artifactRepository: ARTIFACT REPOSITORY
 more: '+{{number}} more'
 yes: 'Yes'
 no: 'No'
@@ -51,7 +55,8 @@ deploymentsText: Deployments
 dockerRegistry: 'Docker Registry'
 executionText: Execution
 executionsText: Executions
-runPipelineText: Run Pipeline
+executionHeaderText: Execution History
+runPipelineText: Run
 
 noConnectorFound: No Connector Found
 saveConnectorSuccess: Connector saved successfully
@@ -117,6 +122,7 @@ changeSource: Change Source
 monitoringSource: Monitoring Source
 sensitivity: Sensitivity
 pipelines: Pipelines
+pipelineBreadcrumb: '{{$.pipelines}}: Pipeline Studio'
 performance: Performance
 quality: quality
 infrastructureText: Infrastructure
@@ -135,10 +141,10 @@ tbd: TBD
 applyChanges: Apply Changes
 createViaYaml: Create via YAML Builder
 notifications: Notifications
+flowControl: Flow Control
 numberOfServices: 'Number of Services'
 saveAndPublish: Save and Publish
-unsavedChanges: unsaved changes
-studioText: Studio
+unsavedChanges: Unsaved changes
 status: Status
 filePaths: File Paths
 submit: Submit
@@ -165,7 +171,8 @@ primaryArtifactText: Primary Artifact
 artifactDisplay: '{{image}} (tag: #{{tag}})'
 noArtifact: No Artifact
 sidecarArtifactText: Sidecar Artifact
-sidecarsText: Sidecars
+sidecar: Sidecar
+sidecarsText: '{{$.sidecar}}s'
 manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
@@ -865,6 +872,14 @@ pipelineSteps:
     selectService: '- Select Service -'
     newService: + New Service
     serviceIsRequired: Service is a required field
+    aboutYourService: About the Service
+    artifactList:
+      addSidecar: + Add Sidecar
+      addPrimary: + Add Primary Artifact
+    manifestList:
+      manifestFormat: MANIFEST FORMAT
+      manifestStore: STORE
+      addManifest: + Add Manifest/Config File
   deleteNamespace: 'Delete namespace'
   stepNameLabel: '{{ $.name }}'
   connectorLabel: 'Container Registry'
@@ -1019,6 +1034,8 @@ pipelineSteps:
       repositoryUrlWrongUrlError: 'Please enter valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'
+      buildStageName: Build / Test
+      buildStageDescription: Build your applications with blazing fast pipelines.
 
     stageSpecifications:
       stageNamePlaceholder: 'Enter your stage name'
@@ -1043,6 +1060,8 @@ pipelineSteps:
       notags: No tags found with given Image Path
     create:
       multipleServices: Multiple Services
+      deployStageName: Deploy
+      deployStageDescription: Use this stage to deploy services, functions or execute workloads
     inputSet:
       imagePath: 'Image Path'
       artifactServer: 'Artifact Server'

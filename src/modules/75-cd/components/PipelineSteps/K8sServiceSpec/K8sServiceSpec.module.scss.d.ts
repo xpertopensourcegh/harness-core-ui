@@ -13,6 +13,8 @@ declare const styles: {
   readonly nestedAccordions: string
   readonly nopadLeft: string
   readonly selectPopover: string
+  readonly cardSection: string
+  readonly serviceDefinition: string
   readonly accordionSummary: string
 }
 export default styles

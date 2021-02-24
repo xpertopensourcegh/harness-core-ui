@@ -2,7 +2,6 @@ import React from 'react'
 import { Card, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { PipelineStageProps } from '../PipelineStage'
-import i18n from './AddStageView.i18n'
 import css from './AddStageView.module.scss'
 
 export interface AddStageViewProps {
@@ -11,31 +10,46 @@ export interface AddStageViewProps {
   isParallel?: boolean
 }
 
-export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel = false, stages }) => (
-  <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
-    <div className={css.createNewCards}>
-      {stages.map(stage => (
-        <React.Fragment key={stage.type}>
-          {stage.isHidden !== true && (!stage.isApproval || !isParallel) ? (
-            <Card
-              interactive={true}
-              disabled={stage.isDisabled}
-              className={cx(css.cardNew, { [css.disabled]: stage.isDisabled })}
-              onClick={e => {
-                if (stage.isDisabled) {
-                  e.stopPropagation()
-                } else {
-                  callback(stage.type)
-                }
-              }}
-            >
-              <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
-              <div>{stage.name}</div>
-            </Card>
-          ) : null}
-        </React.Fragment>
-      ))}
+export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel = false, stages }) => {
+  const [selectedType, setSelectedType] = React.useState(stages[0])
+  React.useEffect(() => {
+    if (stages.length) {
+      setSelectedType(stages[0])
+    }
+  }, [stages, stages.length])
+  return (
+    <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
+      <div className={css.createNewCards}>
+        {stages.map(stage => (
+          <React.Fragment key={stage.type}>
+            <div>
+              {stage.isHidden !== true && (!stage.isApproval || !isParallel) ? (
+                <Card
+                  data-testid={`stage-${stage.type}`}
+                  onMouseOver={() => !stage.isDisabled && selectedType?.type !== stage.type && setSelectedType(stage)}
+                  interactive={true}
+                  disabled={stage.isDisabled}
+                  className={cx(css.cardNew)}
+                  onClick={e => {
+                    if (stage.isDisabled) {
+                      e.stopPropagation()
+                    } else {
+                      callback(stage.type)
+                    }
+                  }}
+                >
+                  <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
+                </Card>
+              ) : null}
+              <div className={css.cardTitle}>{stage.name}</div>
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+      <div className={css.createNewMessage}>
+        <div className={css.stageTitle}>{selectedType?.title}</div>
+        {selectedType?.description}
+      </div>
     </div>
-    <div className={css.createNewMessage}>{i18n.newContentMessage}</div>
-  </div>
-)
+  )
+}

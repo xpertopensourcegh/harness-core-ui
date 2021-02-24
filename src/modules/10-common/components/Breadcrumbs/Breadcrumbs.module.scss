@@ -4,11 +4,11 @@
   }
 
   .breadcrumb {
-    color: #0092e4;
+    color: var(--pipeline-select-blue);
     text-decoration: none;
     &:hover {
       text-decoration: none;
-      color: #0092e4;
+      color: var(--pipeline-select-blue);
     }
   }
   .lastBreadcrumb {

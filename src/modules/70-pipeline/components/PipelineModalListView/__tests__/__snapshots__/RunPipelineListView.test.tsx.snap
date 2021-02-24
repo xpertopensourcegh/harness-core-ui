@@ -9,7 +9,7 @@ exports[`PipelineModal List View render list view 1`] = `
       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-medium"
     >
       <span>
-        Run Pipeline
+        Run
       </span>
     </p>
     <div
@@ -170,7 +170,7 @@ exports[`PipelineModal List View render list view 1`] = `
               class="bp3-button-text"
             >
               <span>
-                Run Pipeline
+                Run
               </span>
             </span>
           </button>
@@ -264,7 +264,7 @@ exports[`PipelineModal List View render list view 1`] = `
               class="bp3-button-text"
             >
               <span>
-                Run Pipeline
+                Run
               </span>
             </span>
           </button>

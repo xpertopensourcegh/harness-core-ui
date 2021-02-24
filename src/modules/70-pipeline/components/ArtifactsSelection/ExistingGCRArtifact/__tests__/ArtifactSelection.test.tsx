@@ -75,10 +75,10 @@ describe('ArtifactsSelection tests', () => {
       )
       const primaryArtifactContainer = await findByText(container, 'Dockerhub')
       expect(primaryArtifactContainer).toBeDefined()
-      const editButton = container.querySelector('svg[data-icon="edit"]')
+      const editButton = container.querySelector('span[data-icon="Edit"]')
       expect(editButton).toBeDefined()
       fireEvent.click(editButton as HTMLElement)
-      const artifactEditModalTitle = await waitFor(() => findByText(document.body, 'Repository Type'))
+      const artifactEditModalTitle = await waitFor(() => findByText(container, 'ARTIFACT REPOSITORY'))
       expect(artifactEditModalTitle).toBeDefined()
 
       expect(container).toMatchSnapshot('Edit Modal')

@@ -117,105 +117,233 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
 exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
 <div>
   <div
-    class="bp3-tabs Tabs--main"
+    class="serviceDefinition"
   >
     <div
-      class="bp3-tab-list"
-      role="tablist"
+      class="Accordion--accordion cardSection"
     >
       <div
-        class="bp3-tab-indicator-wrapper"
-        style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        class="Accordion--panel"
+        data-open="true"
+        data-testid="Artifacts-panel"
+        id="Artifacts-panel"
       >
         <div
-          class="bp3-tab-indicator"
-        />
-      </div>
-      <div
-        aria-controls="bp3-tab-panel_serviceSpecifications_Artifacts"
-        aria-disabled="false"
-        aria-expanded="true"
-        aria-selected="true"
-        class="bp3-tab"
-        data-tab-id="Artifacts"
-        id="bp3-tab-title_serviceSpecifications_Artifacts"
-        role="tab"
-        tabindex="0"
-      >
-        Artifacts
-      </div>
-      <div
-        aria-controls="bp3-tab-panel_serviceSpecifications_Manifests"
-        aria-disabled="false"
-        aria-expanded="false"
-        aria-selected="false"
-        class="bp3-tab"
-        data-tab-id="Manifests"
-        id="bp3-tab-title_serviceSpecifications_Manifests"
-        role="tab"
-        tabindex="0"
-      >
-        Manifests
-      </div>
-      <div
-        aria-controls="bp3-tab-panel_serviceSpecifications_Variables"
-        aria-disabled="false"
-        aria-expanded="false"
-        aria-selected="false"
-        class="bp3-tab"
-        data-tab-id="Variables"
-        id="bp3-tab-title_serviceSpecifications_Variables"
-        role="tab"
-        tabindex="0"
-      >
-        Variables
+          class="Accordion--summary"
+          data-testid="Artifacts-summary"
+        >
+          <div
+            class="Accordion--label"
+          >
+            Artifacts
+          </div>
+          <div
+            class="Accordion--chevron"
+          />
+        </div>
+        <div
+          class="bp3-collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
+          >
+            <div
+              class="Accordion--details"
+              data-testid="Artifacts-details"
+            >
+              <div
+                class="Layout--vertical StyledProps--main StyledProps--padding-large"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <div
+                    class="artifactList listHeader"
+                  >
+                    <span />
+                    <span>
+                      ARTIFACT REPOSITORY
+                    </span>
+                    <span>
+                       
+                      LOCATION
+                    </span>
+                    <span />
+                    <span />
+                  </div>
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <section />
+                  </div>
+                </div>
+                <div
+                  class="Layout--vertical StyledProps--main"
+                >
+                  <div
+                    class="rowItem"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <span>
+                        + Add Primary Artifact
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="rowItem"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <span>
+                        + Add Sidecar
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
-      aria-hidden="false"
-      aria-labelledby="bp3-tab-title_serviceSpecifications_Artifacts"
-      class="bp3-tab-panel"
-      id="bp3-tab-panel_serviceSpecifications_Artifacts"
-      role="tabpanel"
+      class="Accordion--accordion cardSection"
     >
       <div
-        class="Layout--vertical StyledProps--main StyledProps--padding-large"
+        class="Accordion--panel"
+        data-open="true"
+        data-testid="Manifests-panel"
+        id="Manifests-panel"
       >
-        <p
-          class="StyledProps--font StyledProps--main"
-          style="line-height: 24px;"
-        >
-          Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
-        </p>
         <div
-          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+          class="Accordion--summary"
+          data-testid="Manifests-summary"
         >
           <div
-            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+            class="Accordion--label"
           >
-            <section />
+            Manifests
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
-          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+          class="bp3-collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
-            class="StyledProps--font StyledProps--main rowItem"
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
+            <div
+              class="Accordion--details"
+              data-testid="Manifests-details"
             >
-              + Add Primary Artifact
-            </p>
+              <div
+                class="Layout--vertical StyledProps--main StyledProps--padding-large"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <div
+                    class="manifestList listHeader"
+                  >
+                    <span>
+                      ID
+                    </span>
+                    <span>
+                      MANIFEST FORMAT
+                    </span>
+                    <span>
+                      STORE
+                    </span>
+                    <span>
+                      LOCATION
+                    </span>
+                    <span />
+                  </div>
+                  <div
+                    class="rowItem"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <span>
+                        + Add Manifest/Config File
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                  >
+                    <section />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Accordion--accordion cardSection"
+    >
+      <div
+        class="Accordion--panel"
+        data-open="true"
+        data-testid="Variables-panel"
+        id="Variables-panel"
+      >
+        <div
+          class="Accordion--summary"
+          data-testid="Variables-summary"
+        >
+          <div
+            class="Accordion--label"
+          >
+            Variables
           </div>
           <div
-            class="StyledProps--font StyledProps--main rowItem"
+            class="Accordion--chevron"
+          />
+        </div>
+        <div
+          class="bp3-collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
+            <div
+              class="Accordion--details"
+              data-testid="Variables-details"
             >
-              + Add Sidecar
-            </p>
+              <div
+                class="Layout--vertical StyledProps--main StyledProps--padding-large"
+                style="border-radius: 5px;"
+              >
+                <section
+                  class="variablesList"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="line-height: 24px;"
+                  >
+                    Specify additional overrides for any existing variables or define new variables.
+                  </p>
+                </section>
+              </div>
+            </div>
           </div>
         </div>
       </div>

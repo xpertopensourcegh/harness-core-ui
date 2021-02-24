@@ -76,7 +76,7 @@ describe('Test Pipeline Studio', () => {
         <CDPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText(document.body, 'Welcome to the Pipeline Studio')).toBeTruthy())
+    await waitFor(() => expect(getByText(document.body, 'Create New Pipeline')).toBeTruthy())
   })
   test('should render edit pipeline studio', async () => {
     const { container } = render(
@@ -114,7 +114,7 @@ describe('Test Pipeline Studio', () => {
         <CDPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(document.body, 'Welcome to the Pipeline Studio'))
+    await waitFor(() => getByText(document.body, 'Create New Pipeline'))
     const dialog = findDialogContainer()
     const input = dialog?.querySelector('[name="name"]') as HTMLElement
     fireEvent.change(input, { target: { value: 'test' } })

@@ -29,7 +29,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
             class="breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
-            Pipelines
+            Pipelines: Pipeline Studio
           </a>
           <span
             class="separator"
@@ -56,13 +56,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
           class="tags"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/"
         >
-          Studio
-        </a>
-        <a
-          class="tags"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
-        >
-          Executions
+          Pipeline Studio
         </a>
         <a
           class="tags"
@@ -75,6 +69,12 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
         >
           Triggers
+        </a>
+        <a
+          class="tags"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
+        >
+          Execution History
         </a>
       </div>
     </div>

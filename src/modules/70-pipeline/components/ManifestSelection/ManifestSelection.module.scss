@@ -1,34 +1,63 @@
 .rowItem {
-  padding: var(--spacing-large) !important;
+  padding: var(--spacing-medium) 0;
   background: white !important;
-  box-shadow: 0px 2px 5px 0px var(--grey-250);
-  margin-bottom: var(--spacing-large) !important;
-  border-radius: 8px;
-  span.type,
-  span.server {
+  border-bottom: solid 1px #d9dae5;
+  span.type {
     color: var(--grey-900) !important;
     font-weight: 900;
+    display: grid;
+    grid-template-columns: 1fr 10px;
   }
   font-size: 14px !important;
   > p {
     cursor: pointer;
     color: var(--blue-500) !important;
   }
+  .columnId {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: var(--spacing-small);
+    align-items: end;
+    padding-left: var(--spacing-xsmall);
+  }
+  .lastColumn {
+    justify-content: end;
+    display: grid;
+    padding: 0 var(--spacing-large);
+  }
+
+  .actionGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    .cloneIcon {
+      -webkit-transform: scaleX(-1) !important;
+      transform: scaleX(-1) !important;
+    }
+    span {
+      color: #000;
+      cursor: pointer;
+    }
+  }
+}
+.artifactId {
+  color: var(--pipeline-color-dark-grey);
 }
 
+div.server {
+  display: grid;
+  grid-template-columns: 85px 15px;
+  text-align: left;
+  p {
+    display: block !important;
+  }
+}
+.paddingVertical {
+  padding: var(--spacing-medium) 0;
+}
 .gitFetchTypeDropdwn {
   margin-top: var(--spacing-medium) !important;
-}
-
-.thead {
-  display: grid;
-  grid-template-rows: auto;
-  align-items: center;
-  padding: var(--spacing-large);
-  padding-bottom: 0;
-  grid-template-columns: 180px 70px 90px 180px 230px 156px 30px;
-  color: var(--grey-500);
-  font-size: 12px;
 }
 
 .sideCarBtn {
@@ -107,4 +136,13 @@
 
 .addFileButton {
   margin-bottom: var(--spacing-large) !important;
+}
+
+.manifestList {
+  display: grid;
+  grid-template-columns: 200px 150px 150px 150px 1fr;
+  &.list-header {
+    border-bottom: solid 1px #d9dae5;
+    padding-bottom: var(--spacing-medium);
+  }
 }

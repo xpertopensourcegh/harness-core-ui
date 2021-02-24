@@ -2,6 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly serviceOverrides: string
+  readonly contentSection: string
+  readonly tabHeading: string
+  readonly sectionCard: string
   readonly nopadleft: string
   readonly serviceStageContainer: string
   readonly serviceStageSelection: string
@@ -16,7 +19,6 @@ declare const styles: {
   readonly artifactType: string
   readonly overrideAlignCenter: string
   readonly serviceSection: string
-  readonly tabHeading: string
   readonly noPadVertical: string
   readonly disabled: string
   readonly serviceSpecType: string

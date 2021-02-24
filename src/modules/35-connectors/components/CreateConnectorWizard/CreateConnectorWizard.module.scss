@@ -217,7 +217,7 @@
       margin-top: 15px;
       > label {
         margin-bottom: 10px;
-        color: #8f90a6;
+        color: var(--pipeline-color-dark-grey);
         font-family: Nunito;
         font-size: 12px;
         letter-spacing: 0.2px;
@@ -228,7 +228,7 @@
   .selectDelegateText {
     margin-top: 15px;
     margin-bottom: 10px;
-    color: #8f90a6;
+    color: var(--pipeline-color-dark-grey);
     font-family: Nunito;
     font-size: 12px;
     letter-spacing: 0.2px;

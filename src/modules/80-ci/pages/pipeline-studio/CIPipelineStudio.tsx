@@ -5,13 +5,14 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { DefaultNewPipelineId, PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useAppStore } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import css from './CIPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
+  const { getString } = useStrings()
   const { selectedProject } = useAppStore()
   const history = useHistory()
   const handleRunPipeline = (): void => {
@@ -31,7 +32,12 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }}
       pipelineIdentifier={pipelineIdentifier}
       renderPipelineStage={args =>
-        getCDPipelineStages(args, true, selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1)
+        getCDPipelineStages(
+          args,
+          getString,
+          true,
+          selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1
+        )
       }
       stepsFactory={factory}
       runPipeline={handleRunPipeline}

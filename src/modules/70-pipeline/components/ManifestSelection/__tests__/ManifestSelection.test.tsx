@@ -28,7 +28,7 @@ describe('ManifestSelection tests', () => {
         <ManifestSelection isForOverrideSets={false} isForPredefinedSets={false} />
       </TestWrapper>
     )
-    const addFileButton = await findByText(container, '+ Add Manifest')
+    const addFileButton = await findByText(container, '+ Add Manifest/Config File')
     expect(addFileButton).toBeDefined()
     fireEvent.click(addFileButton)
     const createFileModal = findByText(document.body, 'Specify your manifest file repository type')

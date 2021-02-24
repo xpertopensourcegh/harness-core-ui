@@ -7,6 +7,8 @@ export interface PipelineStageProps<T = {}> {
   type: string
   icon: IconName
   isDisabled: boolean
+  title: string
+  description: string
   isHidden?: boolean
   isApproval: boolean
   stageProps?: T

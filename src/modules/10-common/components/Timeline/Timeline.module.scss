@@ -1,0 +1,100 @@
+.timeline {
+  ul {
+    margin: 20px 0;
+    padding: 0 var(--spacing-small);
+    display: inline-block;
+
+    .timeline-item {
+      list-style: none;
+      margin: auto;
+      padding: 0 0 42px var(--spacing-medium);
+      position: relative;
+      font-size: var(--font-size-normal);
+      margin-bottom: var(--spacing-medium);
+      &.childItem {
+        padding-left: var(--spacing-xlarge);
+      }
+      &.active {
+        p {
+          font-size: 14px !important;
+          color: var(--black-color-2);
+          cursor: pointer;
+        }
+      }
+      &::before {
+        position: absolute;
+        left: -4px;
+        top: -5px;
+        content: ' ';
+        border: var(--spacing-xsmall) solid var(--pipeline-select-blue);
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      p {
+        cursor: pointer;
+        position: relative;
+        top: -8px;
+      }
+      &::after {
+        height: 50px;
+        padding: var(--spacing-medium) 0;
+        margin-top: var(--spacing-medium);
+        position: absolute;
+        left: 0px;
+        top: -5px;
+        content: ' ';
+        border-left: 1px solid var(--pipeline-select-blue);
+      }
+    }
+  }
+
+  &.timeline-sidebar-main {
+    padding-left: 22px;
+    transition: width 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
+    overflow-x: hidden;
+    width: 100%;
+  }
+  ul li:last-child::after {
+    border: none;
+  }
+}
+
+.timeline-sidebar {
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: auto 18px;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+
+  .sidebar-toggle {
+    cursor: pointer;
+    position: relative;
+
+    font-size: 20px;
+    color: var(--pipeline-select-blue);
+    padding: 0 4px;
+    &:hover {
+      opacity: 0.5;
+    }
+    span {
+      display: inline-block;
+    }
+    .sidebar-toggle-content {
+      padding-top: 150px;
+    }
+  }
+  :global {
+    .timeline-sidebar-main {
+      padding-left: 22px;
+      transition: width 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
+      overflow-x: hidden;
+      width: 220px;
+    }
+  }
+  &.hidden {
+    :global {
+      .timeline-sidebar-main {
+        width: 40px;
+      }
+    }
+  }
+}

@@ -278,6 +278,17 @@ export const RightBar = (): JSX.Element => {
         iconProps={{ size: 20 }}
         text={getString('notifications')}
       />
+      <Button
+        className={cx(css.iconButton, css.flowControlIcon, {
+          [css.selected]: type === DrawerTypes.PipelineVariables
+        })}
+        onClick={() => {}} //eslint-disable-line
+        font={{ weight: 'semi-bold', size: 'xsmall' }}
+        disabled={view === 'yaml'}
+        icon="settings"
+        iconProps={{ size: 20 }}
+        text={getString('flowControl')}
+      />
 
       <Button
         className={cx(css.iconButton, css.variablesIcon, { [css.selected]: type === DrawerTypes.PipelineVariables })}
