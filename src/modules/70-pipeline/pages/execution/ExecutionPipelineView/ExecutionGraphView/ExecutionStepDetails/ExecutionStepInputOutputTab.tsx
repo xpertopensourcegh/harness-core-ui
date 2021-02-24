@@ -47,6 +47,17 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
             </Collapse>
           )
         } else if (Array.isArray(value)) {
+          if (value.every(e => typeof e === 'string')) {
+            return (
+              <div className={css.ioRow} key={key}>
+                <div className={css.key}>
+                  <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
+                </div>
+                <div className={css.value}>{value.join(', ')}</div>
+              </div>
+            )
+          }
+
           return (
             <Collapse key={key} title={startCase(key)}>
               {value.map((item, index) => {

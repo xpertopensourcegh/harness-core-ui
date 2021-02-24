@@ -14,7 +14,8 @@
       "namespace": "ng-testing",
       "releaseName": "release-pipeline-1",
       "kind": "KubernetesDirect",
-      "_pms_class": "io.harness.cdng.infra.beans.K8sDirectInfrastructureOutcome"
+      "_pms_class": "io.harness.cdng.infra.beans.K8sDirectInfrastructureOutcome",
+      "path": ["path1", "path2"]
     }
   ],
   "stepParameters": {

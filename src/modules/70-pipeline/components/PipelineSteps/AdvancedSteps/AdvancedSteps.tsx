@@ -25,7 +25,7 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 }
 
 export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
-  const { step, onChange, hiddenPanels = [], hasStepGroupAncestor } = props
+  const { step, onChange, hiddenPanels = [], hasStepGroupAncestor, isStepGroup } = props
   const { getString } = useStrings()
 
   return (
@@ -65,7 +65,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                     summary={getString('failureStrategy.title')}
                     details={
                       <FailureStrategyPanel
-                        mode={hasStepGroupAncestor ? Modes.STEP_GROUP : Modes.STEP}
+                        mode={hasStepGroupAncestor || isStepGroup ? Modes.STEP_GROUP : Modes.STEP}
                         formikProps={formikProps}
                       />
                     }

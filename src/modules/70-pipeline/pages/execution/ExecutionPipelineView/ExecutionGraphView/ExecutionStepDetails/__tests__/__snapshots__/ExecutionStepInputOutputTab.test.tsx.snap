@@ -1,0 +1,560 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ExecutionStepInputOutputTab /> tests snapshot test 1`] = `
+<div>
+  <div
+    class="ioTab"
+  >
+    <div
+      class="ioRow header"
+    >
+      <div>
+        Output Name
+      </div>
+      <div>
+        Output Value
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Type
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        environmentOutcome
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Name
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        env1
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Identifier
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        env
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Environment Type
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        Production
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Type
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        KubernetesDirect
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Connector Ref
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        account.KubernetesConnectorForAutomationTestasd
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Namespace
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        ng-testing
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Release Name
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        release-pipeline-1
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Kind
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        KubernetesDirect
+      </div>
+    </div>
+    <div
+      class="ioRow"
+    >
+      <div
+        class="key"
+      >
+        <div
+          class="main"
+        >
+          <div
+            class="text"
+          >
+            Path
+          </div>
+          <div
+            class="bp3-popover-wrapper btnWrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="copy-alt"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 8 9"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="value"
+      >
+        path1, path2
+      </div>
+    </div>
+  </div>
+</div>
+`;
