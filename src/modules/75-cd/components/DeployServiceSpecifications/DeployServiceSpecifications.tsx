@@ -7,7 +7,7 @@ import { debounce, get, set } from 'lodash-es'
 import {
   PipelineContext,
   getStageIndexFromPipeline,
-  getPrevoiusStageFromIndex,
+  getFlattenedStages,
   StepWidget,
   StepViewType
 } from '@pipeline/exports'
@@ -108,7 +108,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   const { stage = {} } = getStageFromPipeline(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
-  const { stages } = getPrevoiusStageFromIndex(pipeline)
+  const { stages } = getFlattenedStages(pipeline)
   const [parentStage, setParentStage] = React.useState<{ [key: string]: any }>({})
 
   React.useEffect(() => {

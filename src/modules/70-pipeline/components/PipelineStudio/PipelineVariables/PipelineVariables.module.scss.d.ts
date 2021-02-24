@@ -9,6 +9,8 @@ declare const styles: {
   readonly stagesTree: string
   readonly variableList: string
   readonly stageTitle: string
+  readonly stageSummary: string
+  readonly stageDetails: string
   readonly title: string
   readonly variableListHeader: string
   readonly customVariables: string

@@ -18,6 +18,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
 import i18n from './CustomVariables.i18n'
+import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 
 export interface CustomVariablesData {
@@ -39,12 +40,6 @@ export interface CustomVariableEditableProps extends CustomVariableEditableExtra
   initialValues: CustomVariablesData
   onUpdate?: (data: CustomVariablesData) => void
   stepViewType?: StepViewType
-}
-
-const VariableTypes = {
-  String: 'String',
-  Secret: 'Secret',
-  Number: 'Number'
 }
 
 export function CustomVariableEditable(props: CustomVariableEditableProps): React.ReactElement {
@@ -132,7 +127,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                       )}
                       <div className={css.valueRow}>
                         <div>
-                          {variable.type === VariableTypes.Secret ? (
+                          {variable.type === VariableType.Secret ? (
                             <MultiTypeSecretInput name={`variables[${index}].value`} label="" />
                           ) : (
                             <FormInput.MultiTextInput
@@ -144,7 +139,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 expressions,
                                 textProps: {
                                   disabled: !initialValues.canAddVariable,
-                                  type: variable.type === VariableTypes.Number ? 'number' : 'text'
+                                  type: variable.type === VariableType.Number ? 'number' : 'text'
                                 }
                               }}
                             />

@@ -36,7 +36,7 @@ import { getIdentifierFromValue, getScopeFromValue } from '@common/components/En
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import {
   getStageIndexFromPipeline,
-  getPrevoiusStageFromIndex,
+  getFlattenedStages,
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
@@ -210,7 +210,7 @@ function ManifestListView({
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const { stages } = getFlattenedStages(pipeline)
       const overrideSets = get(
         stages[index],
         'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets',

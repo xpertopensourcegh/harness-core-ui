@@ -4,7 +4,9 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import { Button, Formik, FormikForm, FormInput } from '@wings-software/uicore'
 
 import type { NGVariable } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 
+import { getVaribaleTypeOptions } from './CustomVariableUtils'
 import i18n from './CustomVariables.i18n'
 
 export interface VariableState {
@@ -19,20 +21,9 @@ export interface AddEditCustomVariableProps {
   updateVariable(index: number, variable: NGVariable): void
 }
 
-export enum VariableTypes {
-  String = 'String',
-  Secret = 'Secret',
-  Number = 'Number'
-}
-
-const typeOptions = [
-  { label: 'String', value: VariableTypes.String },
-  { label: 'Secret', value: VariableTypes.Secret },
-  { label: 'Number', value: VariableTypes.Number }
-]
-
 export default function AddEditCustomVariable(props: AddEditCustomVariableProps): React.ReactElement {
   const { selectedVariable, setSelectedVariable, addNewVariable, updateVariable } = props
+  const { getString } = useStrings()
 
   function closeModal(): void {
     setSelectedVariable(null)
@@ -62,7 +53,12 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
             <div className={Classes.DIALOG_BODY}>
               <FormikForm>
                 <FormInput.Text name="name" label={i18n.variableName} placeholder={i18n.variableName} />
-                <FormInput.Select name="type" items={typeOptions} label={i18n.type} placeholder={i18n.type} />
+                <FormInput.Select
+                  name="type"
+                  items={getVaribaleTypeOptions(getString)}
+                  label={i18n.type}
+                  placeholder={i18n.type}
+                />
               </FormikForm>
             </div>
             <div className={Classes.DIALOG_FOOTER}>

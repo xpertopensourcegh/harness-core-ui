@@ -126,22 +126,13 @@ export const getStatus = (
 export const getStageIndexFromPipeline = (data: StageElementWrapper, identifier: string): { index: number } => {
   let _index = 0
 
-  let stages = []
-  stages = flatMap(data.stages, (n: StageElementWrapper) => {
-    const k = []
-    if (n.parallel) {
-      k.push(...n['parallel'])
-    } else {
-      k.push(n)
-    }
-    return k
-  })
+  const { stages } = getFlattenedStages(data)
 
   _index = findIndex(stages, o => o.stage.identifier === identifier)
   return { index: _index }
 }
 
-export const getPrevoiusStageFromIndex = (
+export const getFlattenedStages = (
   data: StageElementWrapper
 ): {
   stages: StageElementWrapper[]
@@ -217,6 +208,6 @@ export const resetDiagram = (engine: DiagramEngine): void => {
   engine.repaintCanvas()
 }
 
-export const isDuplicateStageId = (id: string, stages: StageElementWrapper[]) => {
+export const isDuplicateStageId = (id: string, stages: StageElementWrapper[]): boolean => {
   return stages?.some(({ stage }) => stage.identifier === id)
 }

@@ -15,8 +15,8 @@ import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
-import { PipelineContext, getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '@pipeline/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { PipelineContext, getStageIndexFromPipeline, getFlattenedStages } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import {
@@ -77,7 +77,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
   )
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
-  const { stages } = getPrevoiusStageFromIndex(pipeline)
+  const { stages } = getFlattenedStages(pipeline)
   const { stage: propagatedStage = {} } = getStageFromPipeline(stage?.stage?.spec?.infrastructure?.useFromStage || '')
 
   const otherBuildStagesWithInfraConfigurationOptions: { label: string; value: string }[] = []

@@ -31,7 +31,7 @@ import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
 import ExistingGCRArtifact from './ExistingGCRArtifact/ExistingGCRArtifact'
 import {
   getStageIndexFromPipeline,
-  getPrevoiusStageFromIndex,
+  getFlattenedStages,
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
@@ -126,7 +126,7 @@ export default function ArtifactsSelection({
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const { stages } = getFlattenedStages(pipeline)
       const overrideSets = get(
         stages[index],
         'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
@@ -148,7 +148,7 @@ export default function ArtifactsSelection({
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const { stages } = getFlattenedStages(pipeline)
       const overrideSets = get(
         stages[index],
         'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
@@ -174,7 +174,7 @@ export default function ArtifactsSelection({
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const { stages } = getFlattenedStages(pipeline)
       const overrideSets = get(
         stages[index],
         'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',

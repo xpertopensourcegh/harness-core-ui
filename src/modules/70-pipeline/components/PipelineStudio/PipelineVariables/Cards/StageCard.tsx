@@ -45,6 +45,8 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
           {originalStage.name}
         </Text>
       }
+      summaryClassName={css.stageSummary}
+      detailsClassName={css.stageDetails}
       details={
         <div className={css.variableCard}>
           <VariablesListTable data={stage} originalData={originalStage} metadataMap={metadataMap} />

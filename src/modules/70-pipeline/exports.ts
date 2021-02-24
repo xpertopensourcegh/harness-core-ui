@@ -42,7 +42,7 @@ export {
 export { PipelineContext, PipelineProvider } from './components/PipelineStudio/PipelineContext/PipelineContext'
 export {
   getStageIndexFromPipeline,
-  getPrevoiusStageFromIndex
+  getFlattenedStages
 } from './components/PipelineStudio/StageBuilder/StageBuilderUtil'
 export { PipelineStudio } from './components/PipelineStudio/PipelineStudio'
 export { DefaultNewPipelineId } from './components/PipelineStudio/PipelineContext/PipelineActions'

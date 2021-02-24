@@ -58,7 +58,7 @@
         }
 
         :global(.Accordion--panel) {
-          background-color: var(--white);
+          background-color: transparent;
         }
 
         :global(.Accordion--panel + .Accordion--panel) {
@@ -74,6 +74,11 @@
         }
       }
     }
+  }
+
+  .stageSummary,
+  .stageDetails {
+    background-color: var(--white);
   }
 
   .title {
