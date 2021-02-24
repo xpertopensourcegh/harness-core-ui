@@ -73,6 +73,7 @@
     justify-content: center;
     color: var(--blue-500) !important;
     border-radius: var(--spacing-xsmall);
+    pointer-events: none;
 
     svg path {
       stroke: currentColor;
