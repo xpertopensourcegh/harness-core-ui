@@ -238,114 +238,106 @@ exports[`About Project test create project  1`] = `
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-plus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-plus"
+                      <svg
+                        data-icon="small-plus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-plus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-plus
-                          </desc>
-                          <path
-                            d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Description
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-plus
+                        </desc>
+                        <path
+                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Description
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                    >
-                      <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
-                      />
-                    </div>
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(-undefinedpx);"
+                    />
                   </div>
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-plus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-plus"
+                      <svg
+                        data-icon="small-plus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-plus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-plus
-                          </desc>
-                          <path
-                            d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Tags
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-plus
+                        </desc>
+                        <path
+                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Tags
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                    >
-                      <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
-                      />
-                    </div>
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(-undefinedpx);"
+                    />
                   </div>
                 </div>
               </div>
@@ -913,72 +905,68 @@ exports[`About Project test create project  2`] = `
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-minus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-minus"
+                      <svg
+                        data-icon="small-minus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-minus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-minus
-                          </desc>
-                          <path
-                            d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Description
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-minus
+                        </desc>
+                        <path
+                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Description
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
+                    style="height: 0px;"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                      style="height: 0px;"
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(0);"
                     >
                       <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(0);"
+                        class="bp3-form-group desc"
                       >
                         <div
-                          class="bp3-form-group desc"
+                          class="bp3-form-content"
                         >
-                          <div
-                            class="bp3-form-content"
+                          <textarea
+                            autocomplete="off"
+                            class="bp3-input bp3-fill"
+                            name="description"
                           >
-                            <textarea
-                              autocomplete="off"
-                              class="bp3-input bp3-fill"
-                              name="description"
-                            >
-                               This is new description
-                            </textarea>
-                          </div>
+                             This is new description
+                          </textarea>
                         </div>
                       </div>
                     </div>
@@ -986,77 +974,73 @@ exports[`About Project test create project  2`] = `
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-minus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-minus"
+                      <svg
+                        data-icon="small-minus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-minus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-minus
-                          </desc>
-                          <path
-                            d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Tags
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-minus
+                        </desc>
+                        <path
+                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Tags
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
+                    style="height: 0px;"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                      style="height: 0px;"
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(0);"
                     >
                       <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(0);"
+                        class="bp3-form-group"
                       >
                         <div
-                          class="bp3-form-group"
+                          class="bp3-form-content"
                         >
                           <div
-                            class="bp3-form-content"
+                            class="bp3-input bp3-tag-input"
                           >
                             <div
-                              class="bp3-input bp3-tag-input"
+                              class="bp3-tag-input-values"
                             >
-                              <div
-                                class="bp3-tag-input-values"
-                              >
-                                <input
-                                  class="bp3-input-ghost"
-                                  data-mentions="kv-tag-input-tags}"
-                                  placeholder="Type and press enter to create a tag"
-                                  value=""
-                                />
-                              </div>
+                              <input
+                                class="bp3-input-ghost"
+                                data-mentions="kv-tag-input-tags}"
+                                placeholder="Type and press enter to create a tag"
+                                value=""
+                              />
                             </div>
                           </div>
                         </div>
@@ -1615,73 +1599,69 @@ exports[`About Project test edit project  1`] = `
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-minus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-minus"
+                      <svg
+                        data-icon="small-minus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-minus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-minus
-                          </desc>
-                          <path
-                            d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Description
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-minus
+                        </desc>
+                        <path
+                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Description
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
+                    style="height: auto; overflow-y: visible; transition: none;"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                      style="height: auto; overflow-y: visible; transition: none;"
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(0); transition: none;"
                     >
                       <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(0); transition: none;"
+                        class="bp3-form-group desc"
+                        data-id="description-3"
                       >
                         <div
-                          class="bp3-form-group desc"
-                          data-id="description-3"
+                          class="bp3-form-content"
                         >
-                          <div
-                            class="bp3-form-content"
+                          <textarea
+                            autocomplete="off"
+                            class="bp3-input bp3-fill"
+                            name="description"
                           >
-                            <textarea
-                              autocomplete="off"
-                              class="bp3-input bp3-fill"
-                              name="description"
-                            >
-                              refetch returns new data
-                            </textarea>
-                          </div>
+                            refetch returns new data
+                          </textarea>
                         </div>
                       </div>
                     </div>
@@ -1689,58 +1669,54 @@ exports[`About Project test edit project  1`] = `
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-plus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-plus"
+                      <svg
+                        data-icon="small-plus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-plus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-plus
-                          </desc>
-                          <path
-                            d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Tags
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-plus
+                        </desc>
+                        <path
+                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Tags
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                    >
-                      <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
-                      />
-                    </div>
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(-undefinedpx);"
+                    />
                   </div>
                 </div>
               </div>
@@ -1987,73 +1963,69 @@ exports[`About Project test edit project  2`] = `
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-minus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-minus"
+                      <svg
+                        data-icon="small-minus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-minus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-minus
-                          </desc>
-                          <path
-                            d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Description
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-minus
+                        </desc>
+                        <path
+                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Description
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
+                    style="height: auto; overflow-y: visible; transition: none;"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                      style="height: auto; overflow-y: visible; transition: none;"
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(0); transition: none;"
                     >
                       <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(0); transition: none;"
+                        class="bp3-form-group desc"
+                        data-id="description-3"
                       >
                         <div
-                          class="bp3-form-group desc"
-                          data-id="description-3"
+                          class="bp3-form-content"
                         >
-                          <div
-                            class="bp3-form-content"
+                          <textarea
+                            autocomplete="off"
+                            class="bp3-input bp3-fill"
+                            name="description"
                           >
-                            <textarea
-                              autocomplete="off"
-                              class="bp3-input bp3-fill"
-                              name="description"
-                            >
-                              refetch returns new data
-                            </textarea>
-                          </div>
+                            refetch returns new data
+                          </textarea>
                         </div>
                       </div>
                     </div>
@@ -2061,58 +2033,54 @@ exports[`About Project test edit project  2`] = `
                 </div>
               </div>
               <div
-                class="collapseDiv"
+                class="Collapse--main collapseDiv"
               >
                 <div
-                  class="Collapse--main"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
-                    <div
-                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                    <span
+                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="small-plus"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                        icon="small-plus"
+                      <svg
+                        data-icon="small-plus"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
                       >
-                        <svg
-                          data-icon="small-plus"
-                          height="10"
-                          viewBox="0 0 16 16"
-                          width="10"
-                        >
-                          <desc>
-                            small-plus
-                          </desc>
-                          <path
-                            d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main CollapseHeader--title"
-                      >
-                        Tags
-                      </p>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    />
+                        <desc>
+                          small-plus
+                        </desc>
+                        <path
+                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
+                    >
+                      Tags
+                    </p>
                   </div>
                   <div
-                    class="Collapse--collapse"
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="Collapse--collapse"
+                >
+                  <div
+                    class="bp3-collapse collapse"
                   >
                     <div
-                      class="bp3-collapse collapse"
-                    >
-                      <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
-                      />
-                    </div>
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(-undefinedpx);"
+                    />
                   </div>
                 </div>
               </div>

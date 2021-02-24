@@ -33,9 +33,9 @@
   vertical-align: top;
 }
 
-.collapseDiv div {
-  border-top: none;
-  padding: 0;
+.collapseDiv {
+  border-top: none !important;
+  padding: 0 !important;
 }
 
 .button {

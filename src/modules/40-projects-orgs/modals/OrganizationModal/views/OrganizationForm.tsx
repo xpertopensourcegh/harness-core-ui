@@ -6,10 +6,7 @@ import {
   Container,
   Formik,
   FormikForm as Form,
-  FormInput,
-  Collapse,
   Heading,
-  IconName,
   Layout,
   ModalErrorHandlerBinding,
   ModalErrorHandler
@@ -18,18 +15,9 @@ import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/St
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import type { Organization } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import { NameIdDescriptionTags } from '@common/components'
 import i18n from './StepAboutOrganization.i18n'
 import css from './Steps.module.scss'
-
-const collapseProps = {
-  collapsedIcon: 'small-plus' as IconName,
-  expandedIcon: 'small-minus' as IconName,
-  isRemovable: false,
-  className: 'collapse'
-}
-
-const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18n.form.description })
-const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.form.tags })
 
 interface OrganizationFormData {
   data?: Organization
@@ -86,20 +74,10 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
                 <Heading level={2} color={Color.GREY_800} margin={{ bottom: 'xxlarge' }}>
                   {title}
                 </Heading>
-                <FormInput.InputWithIdentifier inputLabel={i18n.form.name} isIdentifierEditable={enableEdit} />
-                <div className={css.collapseDiv}>
-                  <Collapse isOpen={formikProps.values.description === '' ? false : true} {...descriptionCollapseProps}>
-                    <FormInput.TextArea name="description" className={css.desc} />
-                  </Collapse>
-                </div>
-                <div className={css.collapseDiv}>
-                  <Collapse
-                    isOpen={formikProps.values.tags && Object.keys(formikProps.values.tags).length ? true : false}
-                    {...tagCollapseProps}
-                  >
-                    <FormInput.KVTagInput name="tags" className={css.desc} />
-                  </Collapse>
-                </div>
+                <NameIdDescriptionTags
+                  formikProps={formikProps}
+                  identifierProps={{ isIdentifierEditable: enableEdit }}
+                />
               </Container>
               <Layout.Horizontal spacing="xsmall">
                 <Button type="submit" intent="primary" text={submitTitle} disabled={disableSubmit} />

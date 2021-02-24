@@ -116,22 +116,20 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                       disabled={disableSelect}
                     />
                   </Layout.Horizontal>
-                  <div className={css.collapseDiv}>
-                    <Collapse
-                      isOpen={formikProps.values.description === '' ? false : true}
-                      {...descriptionCollapseProps}
-                    >
-                      <FormInput.TextArea name="description" className={css.desc} />
-                    </Collapse>
-                  </div>
-                  <div className={css.collapseDiv}>
-                    <Collapse
-                      isOpen={formikProps.values.tags && Object.keys(formikProps.values.tags).length ? true : false}
-                      {...tagCollapseProps}
-                    >
-                      <FormInput.KVTagInput name="tags" />
-                    </Collapse>
-                  </div>
+                  <Collapse
+                    isOpen={formikProps.values.description === '' ? false : true}
+                    {...descriptionCollapseProps}
+                    collapseClassName={css.collapseDiv}
+                  >
+                    <FormInput.TextArea name="description" className={css.desc} />
+                  </Collapse>
+                  <Collapse
+                    isOpen={formikProps.values.tags && Object.keys(formikProps.values.tags).length ? true : false}
+                    {...tagCollapseProps}
+                    collapseClassName={css.collapseDiv}
+                  >
+                    <FormInput.KVTagInput name="tags" />
+                  </Collapse>
                 </Container>
                 <Layout.Horizontal>
                   <Button
