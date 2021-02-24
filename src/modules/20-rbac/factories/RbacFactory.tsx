@@ -2,10 +2,16 @@ import type React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 
+export interface RbacResourceModalProps {
+  searchTerm: string
+  selectedData: string[]
+  onSelectChange: (items: string[]) => void
+}
+
 export interface ResourceHandler {
   icon: IconName
   label: string
-  addResourceModalBody: React.ReactElement
+  addResourceModalBody: (props: RbacResourceModalProps) => React.ReactElement
 }
 
 class RbacFactory {

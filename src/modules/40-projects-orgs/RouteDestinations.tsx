@@ -39,13 +39,15 @@ const ProjectDetailsSideNavProps: SidebarContext = {
 RbacFactory.registerResourceTypeHandler('PROJECT', {
   icon: 'nav-project',
   label: 'Projects',
-  addResourceModalBody: <AddProjectResourceModalBody />
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <AddProjectResourceModalBody {...props} />
 })
 
 RbacFactory.registerResourceTypeHandler('ORGANIZATION', {
   icon: 'settings',
   label: 'Organizations',
-  addResourceModalBody: <></>
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: () => <></>
 })
 
 const RedirectToResourcesHome = (): React.ReactElement => {

@@ -536,6 +536,8 @@ roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'
   successMessage: Role '{{name}}' is deleted succesfully
+addResourceModal:
+  selectedText: Selected {{name}} ({{number}})
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'

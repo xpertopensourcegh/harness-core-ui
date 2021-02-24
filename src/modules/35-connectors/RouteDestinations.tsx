@@ -28,8 +28,9 @@ const AccountSettingsSideNavProps: SidebarContext = {
 
 RbacFactory.registerResourceTypeHandler('SECRET_MANAGER', {
   icon: 'lock',
-  label: 'Secret Manager',
-  addResourceModalBody: <></>
+  label: 'Secret Managers',
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: () => <></>
 })
 
 export default (

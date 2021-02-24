@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
-import { useModalHook, Button, Text, Color } from '@wings-software/uicore'
-import { Dialog } from '@blueprintjs/core'
-import type { ResourceHandler } from '@rbac/factories/RbacFactory'
+import cx from 'classnames'
+import { useModalHook, Button } from '@wings-software/uicore'
+import { Classes, Dialog } from '@blueprintjs/core'
+import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import AddResourceModal from './views/AddResourceModal'
+import css from './useAddResourceModal.module.scss'
 
 export interface UseAddResourceModalProps {
-  onSuccess?: () => void
+  onSuccess: () => void
 }
 
 export interface UseAddResourceModalReturn {
-  openAddResourceModal: (resourceHandler: ResourceHandler) => void
+  openAddResourceModal: (resource: ResourceType) => void
   closeAddResourceModal: () => void
 }
 
-const useAddResourceModal = (_props: UseAddResourceModalProps): UseAddResourceModalReturn => {
-  const [resourceHandler, setResourceHandler] = useState<ResourceHandler>()
-
+const useAddResourceModal = (props: UseAddResourceModalProps): UseAddResourceModalReturn => {
+  const [resource, setResource] = useState<ResourceType>()
+  const { onSuccess } = props
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -22,20 +25,18 @@ const useAddResourceModal = (_props: UseAddResourceModalProps): UseAddResourceMo
         onClose={() => {
           hideModal()
         }}
+        className={cx(css.dialog, Classes.DIALOG)}
       >
-        <Text font={{ size: 'medium' }} color={Color.BLACK} margin={{ bottom: 'large' }}>
-          Add {resourceHandler?.label}
-        </Text>
-
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} />
+        {resource && <AddResourceModal resource={resource} onSuccess={onSuccess} onClose={hideModal} />}
+        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    [resourceHandler]
+    [resource]
   )
 
   return {
-    openAddResourceModal: (_resourceHandler: ResourceHandler) => {
-      setResourceHandler(_resourceHandler)
+    openAddResourceModal: (_resource: ResourceType) => {
+      setResource(_resource)
       showModal()
     },
     closeAddResourceModal: hideModal
