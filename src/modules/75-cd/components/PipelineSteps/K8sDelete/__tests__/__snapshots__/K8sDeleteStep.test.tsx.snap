@@ -9,7 +9,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -193,7 +193,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -290,7 +290,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -474,7 +474,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -571,7 +571,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -755,7 +755,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -852,7 +852,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -1055,7 +1055,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"

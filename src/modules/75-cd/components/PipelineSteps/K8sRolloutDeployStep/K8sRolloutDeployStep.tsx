@@ -8,6 +8,7 @@ import {
   MultiTypeInputType,
   Layout
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import * as Yup from 'yup'
 
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -72,13 +73,13 @@ function K8RolloutDeployWidget(
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isEmpty(initialValues.identifier)}
                   />
                 </div>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeDurationField
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
@@ -98,7 +99,7 @@ function K8RolloutDeployWidget(
                     />
                   )}
                 </div>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeCheckboxField
                     multiTypeTextbox={{ expressions }}
                     name="spec.skipDryRun"

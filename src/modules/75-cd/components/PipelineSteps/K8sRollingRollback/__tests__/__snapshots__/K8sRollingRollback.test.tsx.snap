@@ -15,7 +15,7 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
           class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
         >
           <div
-            class="formGroup"
+            class="formGroup md"
           >
             <div
               class="InputWithIdentifier--txtNameContainer"
@@ -80,7 +80,7 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
             </div>
           </div>
           <div
-            class="formGroup"
+            class="formGroup sm"
           >
             <div
               class="bp3-form-group"
@@ -145,7 +145,7 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
             </div>
           </div>
           <div
-            class="formGroup"
+            class="formGroup sm"
           >
             <div
               class="bp3-form-group"

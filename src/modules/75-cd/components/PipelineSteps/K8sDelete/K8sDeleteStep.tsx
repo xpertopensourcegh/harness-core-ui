@@ -8,6 +8,7 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import { FieldArray, FormikProps, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import type { IOptionProps } from '@blueprintjs/core'
@@ -239,7 +240,7 @@ function K8sDeleteDeployWidget(
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isEmpty(initialValues.identifier)}
@@ -358,7 +359,7 @@ function K8sDeleteDeployWidget(
                     />
                   </div>
                 )}
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                     <FormMultiTypeDurationField
                       name="timeout"

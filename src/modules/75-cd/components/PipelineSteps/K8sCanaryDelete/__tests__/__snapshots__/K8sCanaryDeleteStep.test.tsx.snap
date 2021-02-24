@@ -9,7 +9,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -93,7 +93,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -188,7 +188,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
         </button>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -270,7 +270,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -354,7 +354,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -419,7 +419,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"

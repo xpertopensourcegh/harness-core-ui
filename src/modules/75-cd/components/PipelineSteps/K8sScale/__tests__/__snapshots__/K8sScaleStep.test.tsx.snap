@@ -184,7 +184,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -249,7 +249,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -350,7 +350,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -413,7 +413,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -478,7 +478,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -560,7 +560,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -625,7 +625,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -756,7 +756,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
         </button>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -850,7 +850,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
         </button>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -915,7 +915,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1011,7 +1011,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -1095,7 +1095,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -1196,7 +1196,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1259,7 +1259,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -1324,7 +1324,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1467,7 +1467,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -1532,7 +1532,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -1633,7 +1633,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1696,7 +1696,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -1761,7 +1761,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1843,7 +1843,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -1908,7 +1908,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -2009,7 +2009,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -2072,7 +2072,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -2137,7 +2137,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -2219,7 +2219,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -2289,7 +2289,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -2390,7 +2390,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -2453,7 +2453,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -2518,7 +2518,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"

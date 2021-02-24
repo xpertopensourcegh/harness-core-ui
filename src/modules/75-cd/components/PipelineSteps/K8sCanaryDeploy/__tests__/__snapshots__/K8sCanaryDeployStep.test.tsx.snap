@@ -155,7 +155,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 2`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -220,7 +220,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 2`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -321,7 +321,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 2`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -386,7 +386,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 2`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -468,7 +468,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -533,7 +533,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -664,7 +664,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
         </button>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -729,7 +729,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -825,7 +825,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -909,7 +909,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -1010,7 +1010,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -1075,7 +1075,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1218,7 +1218,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -1283,7 +1283,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -1384,7 +1384,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -1449,7 +1449,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1531,7 +1531,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -1596,7 +1596,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -1697,7 +1697,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -1762,7 +1762,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -1844,7 +1844,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="InputWithIdentifier--txtNameContainer"
@@ -1914,7 +1914,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group formGroup"
@@ -2015,7 +2015,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup sm"
       >
         <div
           class="bp3-form-group duration"
@@ -2080,7 +2080,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
