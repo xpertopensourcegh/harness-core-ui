@@ -9,7 +9,6 @@ declare const styles: {
   readonly rectangle: string
   readonly canvasWrapper: string
   readonly renderPopover: string
-  readonly resizers: string
   readonly stageList: string
 }
 export default styles

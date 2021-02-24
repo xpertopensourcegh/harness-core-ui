@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Button } from '@wings-software/uicore'
+import { Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
@@ -551,34 +551,6 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         </div>
       </div>
       <div className={css.canvasWrapper}>
-        {isSplitViewOpen ? (
-          <div
-            className={css.resizers}
-            ref={resizerRef}
-            style={{ transform: `translateY(${splitPaneSize + PANEL_RESIZE_DELTA}px)` }}
-          >
-            <Button
-              icon="up"
-              minimal
-              small
-              iconProps={{ size: 12 }}
-              onClick={() => {
-                setSplitPaneSize(MinimumSplitPaneSize)
-              }}
-              id="stageIncrease"
-            />
-            <Button
-              icon="down"
-              minimal
-              small
-              id="stageDecrease"
-              iconProps={{ size: 12 }}
-              onClick={() => {
-                setSplitPaneSize(prev => (prev < MaximumSplitPaneSize ? prev + 100 : prev))
-              }}
-            />
-          </div>
-        ) : null}
         {isSplitViewOpen ? (
           <SplitPane
             size={splitPaneSize}

@@ -343,22 +343,21 @@ export default function DeployStageSetupShell(): JSX.Element {
             <div className={css.spacer} />
             <Button
               minimal
-              intent="primary"
-              className={css.failureStrategy}
-              onClick={openFailureStrategyPanel}
-              rightIcon="cog"
-            >
-              {getString('failureStrategy.title')}
-            </Button>
-
-            <Button
-              minimal
-              intent="primary"
-              className={css.failureStrategy}
               onClick={openSkipConditionPanel}
-              rightIcon="conditional-skip"
+              iconProps={{ margin: 'xsmall' }}
+              className={css.failureStrategy}
+              icon="conditional-skip"
             >
               {getString('skipConditionTitle')}
+            </Button>
+            <Button
+              minimal
+              iconProps={{ size: 40 }}
+              className={css.failureStrategy}
+              onClick={openFailureStrategyPanel}
+              icon="failure-strategy"
+            >
+              {getString('failureStrategy.title')}
             </Button>
           </React.Fragment>
         </Tabs>
