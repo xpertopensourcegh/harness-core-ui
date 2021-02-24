@@ -29,6 +29,7 @@ import {
   VariationMap,
   WeightedVariation
 } from 'services/cf'
+import { useStrings } from 'framework/exports'
 import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
@@ -339,6 +340,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   ))
   const { tab = FFDetailPageTab.TARGETING } = useQueryParams<{ tab?: string }>()
   const [activeTabId, setActiveTabId] = useState(tab)
+  const { getString } = useStrings()
 
   useEffect(() => {
     if (isNil(environment)) {
@@ -442,13 +444,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 <Layout.Horizontal className={css.actionButtons} padding="medium">
                   <Button
                     intent="primary"
-                    text={i18n.saveChange}
+                    text={getString('save')}
                     margin={{ right: 'small' }}
                     onClick={formikProps.submitForm}
                   />
                   <Button
                     minimal
-                    text={i18n.cancel}
+                    text={getString('cancel')}
                     onClick={() => {
                       onCancelEditHandler()
                       formikProps.handleReset()

@@ -6,7 +6,6 @@ import {
   Layout,
   Text,
   SelectOption,
-  Card,
   Select,
   MultiSelect,
   MultiSelectOption,
@@ -14,7 +13,6 @@ import {
   Icon,
   useModalHook,
   Button,
-  Popover,
   SimpleTagInput,
   Container
 } from '@wings-software/uicore'
@@ -32,7 +30,8 @@ import {
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target, ServingRule } from 'services/cf'
 import { useStrings } from 'framework/exports'
 import { shape } from '@cf/utils/instructions'
-import { extraOperators, extraOperatorReference, useOperatorsFromYaml } from '@cf/constants'
+import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
+import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'
 import PercentageRollout from './PercentageRollout'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
@@ -296,93 +295,106 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
       {(provided, draggableSnap: DraggableStateSnapshot) => {
         const showBorder = hovering && !dropSnapshot.isDraggingOver
         const showHandle = draggableSnap.isDragging || showBorder
+
         return (
-          <div ref={provided.innerRef} {...provided.draggableProps}>
-            <Layout.Horizontal spacing="small">
-              <Card
-                style={{
-                  width: '100%',
-                  border: showBorder ? `1px solid var(--blue-500)` : 'none',
-                  padding: showBorder ? '19px' : 'var(--spacing-large)',
-                  marginBottom: 'var(--spacing-small)'
-                }}
-                onMouseEnter={toggleDragHandler}
-                onMouseLeave={toggleDragHandler}
-              >
-                <Layout.Horizontal>
-                  <div
-                    {...provided.dragHandleProps}
-                    style={{ margin: 'auto', visibility: showHandle ? 'visible' : 'hidden' }}
-                  >
-                    <Icon name="drag-handle-vertical" size={24} />
-                  </div>
-                  <div>
-                    <Layout.Vertical spacing="medium">
-                      {rule.clauses.map((clause, idx) => (
-                        <ClauseRow
-                          key={idx}
-                          index={idx}
-                          isLast={idx === rule.clauses.length - 1}
-                          isSingleClause={rule.clauses.length === 1}
-                          label={idx === 0 ? i18n.tabTargeting.onRequest : i18n.and.toLocaleLowerCase()}
-                          attribute={clause?.attribute || ''}
-                          operator={operators.find(x => x.value === clause.op) || operators[0]}
-                          values={clause.values ?? []}
-                          error={Boolean(errors?.[idx])}
-                          onOperatorChange={handleClauseChange(idx, 'op')}
-                          onAttributeChange={handleClauseChange(idx, 'attribute')}
-                          onValuesChange={handleClauseChange(idx, 'values')}
-                          onAddNewRow={handleAddNewRow}
-                          onRemoveRow={handleRemove(idx)}
+          <Layout.Horizontal
+            className={css.onRequestRuleContainer}
+            spacing="small"
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+          >
+            <Container
+              className={cx(css.rulesContainer, css.byAttributes)}
+              onMouseEnter={toggleDragHandler}
+              onMouseLeave={toggleDragHandler}
+              style={{
+                flexGrow: 1,
+                transform: draggableSnap.isDragging ? 'translate(-700px, -10px)' : 'none',
+                background: 'var(--white)'
+              }}
+            >
+              <Layout.Horizontal>
+                <Container
+                  {...provided.dragHandleProps}
+                  style={{
+                    visibility: showHandle ? 'visible' : 'hidden',
+                    marginLeft: '-13px',
+                    display: 'grid',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Icon name="drag-handle-vertical" size={24} color={Color.GREY_300} />
+                </Container>
+                <Container>
+                  <Layout.Vertical spacing="medium">
+                    {rule.clauses.map((clause, idx) => (
+                      <ClauseRow
+                        key={idx}
+                        index={idx}
+                        isLast={idx === rule.clauses.length - 1}
+                        isSingleClause={rule.clauses.length === 1}
+                        label={idx === 0 ? i18n.tabTargeting.onRequest : i18n.and.toLocaleLowerCase()}
+                        attribute={clause?.attribute || ''}
+                        operator={operators.find(x => x.value === clause.op) || operators[0]}
+                        values={clause.values ?? []}
+                        error={Boolean(errors?.[idx])}
+                        onOperatorChange={handleClauseChange(idx, 'op')}
+                        onAttributeChange={handleClauseChange(idx, 'attribute')}
+                        onValuesChange={handleClauseChange(idx, 'values')}
+                        onAddNewRow={handleAddNewRow}
+                        onRemoveRow={handleRemove(idx)}
+                      />
+                    ))}
+                    <Layout.Horizontal spacing="xsmall">
+                      <Text
+                        color={Color.GREY_350}
+                        font="normal"
+                        style={{
+                          display: 'flex',
+                          height: '36px',
+                          alignItems: 'center',
+                          justifyContent: 'flex-end',
+                          minWidth: '80px'
+                        }}
+                      >
+                        {i18n.tabTargeting.serve.toLocaleLowerCase()}
+                      </Text>
+                      <div style={{ flexGrow: 0 }}>
+                        <Select
+                          value={currentServe}
+                          items={variationOps}
+                          inputProps={{ style: { height: '36px' } }}
+                          onChange={handleServeChange}
                         />
-                      ))}
-                      <Layout.Horizontal spacing="xsmall">
-                        <Text
-                          color={Color.GREY_350}
-                          font="normal"
-                          style={{
-                            display: 'flex',
-                            height: '36px',
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                            minWidth: '80px'
-                          }}
-                        >
-                          {i18n.tabTargeting.serve.toLocaleLowerCase()}
-                        </Text>
-                        <div style={{ flexGrow: 0 }}>
-                          <Select
-                            value={currentServe}
-                            items={variationOps}
-                            inputProps={{ style: { height: '36px' } }}
-                            onChange={handleServeChange}
-                          />
-                        </div>
-                      </Layout.Horizontal>
-                      {currentServe?.value === 'percentage' && (
-                        <div style={{ paddingLeft: '94px' }}>
-                          <PercentageRollout
-                            editing={true}
-                            variations={variations}
-                            weightedVariations={rule.serve.distribution?.variations || []}
-                            onSetPercentageValues={handleRolloutChange}
-                          />
-                        </div>
-                      )}
-                    </Layout.Vertical>
-                  </div>
-                </Layout.Horizontal>
-              </Card>
-              <Icon
-                name="trash"
-                margin={{ top: 'xlarge' }}
-                size={24}
-                color={Color.GREY_300}
-                onClick={onDelete}
-                style={{ cursor: 'pointer', height: 'fit-content' }}
-              />
-            </Layout.Horizontal>
-          </div>
+                      </div>
+                    </Layout.Horizontal>
+                    {currentServe?.value === 'percentage' && (
+                      <div style={{ paddingLeft: '94px' }}>
+                        <PercentageRollout
+                          editing={true}
+                          variations={variations}
+                          weightedVariations={rule.serve.distribution?.variations || []}
+                          onSetPercentageValues={handleRolloutChange}
+                        />
+                      </div>
+                    )}
+                  </Layout.Vertical>
+                </Container>
+              </Layout.Horizontal>
+            </Container>
+            <Icon
+              name="trash"
+              size={16}
+              color={Color.GREY_300}
+              style={{
+                cursor: 'pointer',
+                height: 'fit-content',
+                alignSelf: 'center',
+                transform: 'translateY(-10px)'
+              }}
+              onClick={onDelete}
+            />
+          </Layout.Horizontal>
         )
       }}
     </Draggable>
@@ -468,6 +480,8 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
 }
 
 interface ServingCardRowProps {
+  variations: Variation[]
+  index: number
   variation: string
   variationOps: Option<string>[]
   editing: boolean
@@ -483,6 +497,8 @@ interface ServingCardRowProps {
 const ServingCardRow: React.FC<ServingCardRowProps> = ({
   editing,
   variationOps,
+  variations,
+  index,
   variation,
   targetAvatars,
   environment,
@@ -493,7 +509,6 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   onDelete
 }) => {
   const { getString } = useStrings()
-  const [openMenu, setOpenMenu] = useState(false)
   const [tagOpts] = useOptions(targetAvatars, prop(['name']))
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { data, loading } = useGetAllTargets({
@@ -561,7 +576,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   const component = (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
       <Text>{i18n.serveVariation.serve}</Text>
-      <div style={{ maxWidth: '210px', margin: '0px 10px' }}>
+      <div style={{ maxWidth: '210px', margin: `0 var(--spacing-${editing ? 'small' : 'xsmall'})` }}>
         {editing ? (
           <Select
             value={selectValue}
@@ -570,22 +585,35 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
             inputProps={{ intent: error?.variation ? 'danger' : 'none' }}
           />
         ) : (
-          <Text>{variation}</Text>
+          <VariationWithIcon
+            variation={variations[index]}
+            index={index}
+            iconStyle={{
+              marginRight: 'var(--spacing-xsmall)',
+              transform: 'translateY(1px)',
+              marginLeft: '1px'
+            }}
+          />
         )}
       </div>
-      <Text>{i18n.serveVariation.toTarget}</Text>
+      <Text>{getString('cf.featureFlags.toTarget')}</Text>
       <AvatarGroup overlap avatars={avatars} />
-      <Text>{targetAvatars.length} total</Text>
+      <Text>({targetAvatars.length})</Text>
       {editing && (
-        <div style={{ marginLeft: 'auto', marginRight: '0', cursor: 'pointer' }}>
-          <Popover isOpen={openMenu} onInteraction={setOpenMenu}>
-            <Icon size={24} name="Options" />
-            <Menu>
-              <Menu.Item icon="edit" text="Edit" onClick={openEditModal} />
-              <Menu.Item icon="cross" text="Delete" onClick={onDelete} />
-            </Menu>
-          </Popover>
-        </div>
+        <Container style={{ marginLeft: 'auto' }}>
+          <Button
+            minimal
+            icon="Options"
+            iconProps={{ size: 24 }}
+            tooltip={
+              <Menu style={{ minWidth: 'unset' }}>
+                <Menu.Item icon="edit" text={getString('edit')} onClick={openEditModal} />
+                <Menu.Item icon="trash" text={getString('delete')} onClick={onDelete} />
+              </Menu>
+            }
+            tooltipProps={{ isDark: true, interactionKind: 'click' }}
+          />
+        </Container>
       )}
     </div>
   )
@@ -598,7 +626,9 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
 
   return editing ? (
     <>
-      <Card>{component}</Card>
+      <Container className={css.serveCard} padding="medium">
+        {component}
+      </Container>
       {hasError && <Text intent="danger">{errorMsg}</Text>}
     </>
   ) : (
@@ -629,16 +659,22 @@ const ServingCard: React.FC<ServingCardProps> = ({
   onUpdate,
   onRemove
 }) => {
+  const { getString } = useStrings()
   const toVariationOp = (variation: Variation) => ({
     label: variation.name || variation.identifier,
-    value: variation.identifier
+    value: variation.identifier,
+    icon: {
+      name: 'full-circle',
+      style: { color: CFVariationColors[variations.findIndex(v => v.identifier === variation.identifier)] }
+    }
   })
   const handleUpdate = (idx: number, attr: 'targets' | 'variation') => (data: any) => onUpdate(idx, attr, data)
   const moreAvaiable = servings.length < variations.length
 
   return (
     <Container className={cx(css.rulesContainer, css.custom)} width="100%">
-      <Layout.Vertical spacing="medium">
+      <Layout.Vertical spacing="small">
+        <Text className={css.serveLabel}>{getString('cf.featureFlags.serveVariationToTargetLabel')}</Text>
         {servings.map(({ variation, targets }, idx) => {
           const targetAvatars = targets?.map(shape<{ name: string }>('name'))
           const variationOps = variations
@@ -647,6 +683,8 @@ const ServingCard: React.FC<ServingCardProps> = ({
           return (
             <ServingCardRow
               key={idx}
+              variations={variations}
+              index={variations.findIndex(v => v.value === variation)}
               variation={variation}
               variationOps={variationOps}
               targetAvatars={targetAvatars ?? []}
@@ -661,9 +699,7 @@ const ServingCard: React.FC<ServingCardProps> = ({
           )
         })}
         {editing && moreAvaiable && (
-          <Text color={Color.AQUA_500} onClick={onAdd} style={{ cursor: 'pointer', width: 'fit-content' }}>
-            + {i18n.serveVariation.add}
-          </Text>
+          <Button intent="primary" minimal onClick={onAdd} className={css.addBtn} text={getString('plusAdd')} />
         )}
       </Layout.Vertical>
     </Container>
@@ -687,6 +723,7 @@ function arrayMove<T>(arr: T[], from: number, to: number): T[] {
 }
 
 const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, editing, enviroment, project }) => {
+  const { getString } = useStrings()
   const tempRules: ServingRule[] = formikProps.values.customRules
   const setTempRules = (data: RuleData[]) => formikProps.setFieldValue('customRules', data)
   const servings = formikProps.values.variationMap
@@ -751,62 +788,73 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
             {editing && (
               <Icon
                 name="trash"
-                margin={{ top: 'xlarge' }}
-                size={24}
+                size={16}
                 color={Color.GREY_300}
-                style={{ cursor: 'pointer', height: 'fit-content' }}
+                style={{
+                  cursor: 'pointer',
+                  height: 'fit-content',
+                  alignSelf: 'center'
+                }}
                 onClick={handleClearServings}
               />
             )}
           </Layout.Horizontal>
         )}
 
+        {editing && servings.length === 0 && (
+          <Container>
+            <Button
+              intent="primary"
+              minimal
+              text={getString('cf.featureFlags.serveVariationToTarget')}
+              onClick={handleAddServing}
+            />
+          </Container>
+        )}
+
         {tempRules.length > 0 && (
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="customRules">
-              {(provided, dropSnapshot) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <Layout.Vertical>
-                    {tempRules.map((rule: RuleData, idx: number) => {
-                      return editing ? (
-                        <RuleEditCard
-                          key={idx}
-                          index={idx}
-                          rule={rule}
-                          dropSnapshot={dropSnapshot}
-                          variations={target.variations}
-                          onDelete={handleDeleteRule(idx)}
-                          onChange={handleRuleChange(idx)}
-                          errors={formikProps.errors?.rules?.[idx] || []}
-                        />
-                      ) : (
-                        <RuleViewCard key={idx} rule={rule} variations={target.variations} />
-                      )
-                    })}
-                  </Layout.Vertical>
-                  {provided.placeholder}
-                </div>
-              )}
+              {(provided, dropSnapshot) => {
+                return (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    <Layout.Vertical>
+                      {tempRules.map((rule: RuleData, idx: number) => {
+                        return editing ? (
+                          <RuleEditCard
+                            key={idx}
+                            index={idx}
+                            rule={rule}
+                            dropSnapshot={dropSnapshot}
+                            variations={target.variations}
+                            onDelete={handleDeleteRule(idx)}
+                            onChange={handleRuleChange(idx)}
+                            errors={formikProps.errors?.rules?.[idx] || []}
+                          />
+                        ) : (
+                          <RuleViewCard key={idx} rule={rule} variations={target.variations} />
+                        )
+                      })}
+                    </Layout.Vertical>
+                    {provided.placeholder}
+                  </div>
+                )
+              }}
             </Droppable>
           </DragDropContext>
         )}
       </Layout.Vertical>
+
       {editing && (
-        <>
-          {servings.length === 0 && (
-            <Text
-              margin={{ bottom: 'medium' }}
-              color={Color.AQUA_500}
-              onClick={handleAddServing}
-              style={{ cursor: 'pointer' }}
-            >
-              + {i18n.customRules.serveVartiation}
-            </Text>
-          )}
-          <Text color={Color.AQUA_500} onClick={handleOnRequest} style={{ cursor: 'pointer' }}>
-            + {i18n.customRules.onRequest}
-          </Text>
-        </>
+        <Container>
+          <Button
+            intent="primary"
+            minimal
+            onClick={handleOnRequest}
+            text={getString('cf.featureFlags.customRuleOnRequest')}
+            style={{ marginTop: 'xsmall' }}
+          />
+        </Container>
       )}
     </>
   )

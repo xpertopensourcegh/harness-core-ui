@@ -28,11 +28,11 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { Feature, Features, Prerequisite, usePatchFeature, Variation } from 'services/cf'
-import { CFVariationColors } from '@cf/constants'
 import InputDescOptional from '@cf/components/CreateFlagWizard/common/InputDescOptional'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
+import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
 import i18n from './FlagActivationDetails.i18n'
 import css from './FlagActivationDetails.module.scss'
 
@@ -63,60 +63,6 @@ const VariationItem: React.FC<{ variation: Variation; index: number }> = ({ vari
   )
 }
 
-const VariationIcons = ({ style, multivariate }: { style?: React.CSSProperties; multivariate: boolean }) => {
-  return (
-    <span style={{ display: 'inline-block', ...style }}>
-      <span
-        style={{
-          borderRadius: '50%',
-          width: 12,
-          height: 12,
-          backgroundColor: CFVariationColors[0],
-          display: 'inline-block'
-        }}
-      ></span>
-      <span
-        style={{
-          borderRadius: '50%',
-          width: 12,
-          height: 12,
-          backgroundColor: CFVariationColors[1],
-          display: 'inline-block',
-          transform: 'translateX(-4px)',
-          marginRight: '2px'
-        }}
-      ></span>
-      {multivariate && (
-        <>
-          <span
-            style={{
-              borderRadius: '50%',
-              width: 12,
-              height: 12,
-              backgroundColor: CFVariationColors[2],
-              display: 'inline-block',
-              transform: 'translateX(-10px)',
-              marginRight: '-4px'
-            }}
-          ></span>
-          <span
-            style={{
-              borderRadius: '50%',
-              width: 12,
-              height: 12,
-              backgroundColor: 'var(--white)',
-              transform: 'translateX(-10px)',
-              marginRight: '-4px',
-              display: 'inline-block',
-              border: '1px solid #ccc'
-            }}
-          ></span>
-        </>
-      )}
-    </span>
-  )
-}
-
 const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => void }> = ({
   featureFlag,
   onEditVariations
@@ -140,7 +86,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
           padding={{ bottom: 'small' }}
           style={{ fontSize: '14px', lineHeight: '20px' }}
         >
-          <VariationIcons style={{ transform: 'translateY(1px)' }} multivariate={!isFlagTypeBoolean} />
+          <VariationTypeIcon style={{ transform: 'translateY(1px)' }} multivariate={!isFlagTypeBoolean} />
           {isFlagTypeBoolean ? i18n.boolean : i18n.multivariate} ({variations.length}{' '}
           {i18n.variations.toLocaleLowerCase()})
         </Text>

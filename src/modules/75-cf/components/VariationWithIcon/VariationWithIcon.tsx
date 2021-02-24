@@ -3,7 +3,21 @@ import React from 'react'
 import type { Variation } from 'services/cf'
 import { CFVariationColors } from '@cf/constants'
 
-export const VariationWithIcon: React.FC<{ variation: Variation; index: number }> = ({ variation = {}, index = 0 }) => {
+interface VariationWithIconProps {
+  variation: Variation
+  index: number
+  iconStyle?: React.CSSProperties
+  textElement?: React.ReactElement | string
+  textStyle?: React.CSSProperties
+}
+
+export const VariationWithIcon: React.FC<VariationWithIconProps> = ({
+  variation = {},
+  index = 0,
+  iconStyle,
+  textElement,
+  textStyle
+}) => {
   const { name, value } = variation
 
   return (
@@ -14,11 +28,12 @@ export const VariationWithIcon: React.FC<{ variation: Variation; index: number }
           width: 12,
           height: 12,
           backgroundColor: CFVariationColors[index % CFVariationColors.length],
-          display: 'inline-block'
+          display: 'inline-block',
+          ...iconStyle
         }}
       ></span>
-      <Text inline margin={{ bottom: 'xsmall' }} style={{ marginBottom: 0 }}>
-        {name || value}
+      <Text inline margin={{ bottom: 'xsmall' }} style={{ marginBottom: 0, ...textStyle }}>
+        {textElement || name || value}
       </Text>
     </>
   )

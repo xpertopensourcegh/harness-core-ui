@@ -4,6 +4,7 @@ declare const styles: {
   readonly textBlack: string
   readonly rulesContainer: string
   readonly custom: string
+  readonly byAttributes: string
   readonly editContainer: string
   readonly editBtnsGroup: string
   readonly editTargetContainer: string
@@ -19,5 +20,9 @@ declare const styles: {
   readonly ruleTitle: string
   readonly defaultServe: string
   readonly editing: string
+  readonly serveLabel: string
+  readonly addBtn: string
+  readonly serveCard: string
+  readonly onRequestRuleContainer: string
 }
 export default styles

@@ -31,6 +31,8 @@ import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useStrings } from 'framework/exports'
 import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
+import { VariationTypeIcon } from '@cf/components/VariationTypeIcon/VariationTypeIcon'
+import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
   DEFAULT_ENV,
@@ -135,7 +137,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
         <Button
           noStyling
           tooltip={switchTooltip}
-          tooltipProps={{ interactionKind: 'click', hasBackdrop: true }}
+          tooltipProps={{ interactionKind: 'click', hasBackdrop: true, position: Position.TOP_LEFT }}
           className={css.toggleFlagButton}
         >
           <Switch
@@ -207,30 +209,35 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
   const { getString } = useStrings()
   const isOn = isFeatureFlagOn(data)
+  const hasCustomRules = featureFlagHasCustomRules(data)
+  const index = data.variations.findIndex(
+    d => d.identifier === (isOn ? data.defaultOnVariation : data.defaultOffVariation)
+  )
 
   return (
     <Layout.Vertical>
       <Layout.Horizontal>
-        <Text>{getString(data.kind === FlagTypeVariations.booleanFlag ? 'cf.boolean' : 'cf.multivariate')}</Text>
-      </Layout.Horizontal>
-      {!featureFlagHasCustomRules(data) && (
-        <Text
-          style={{
-            fontSize: '12px',
-            lineHeight: '24px',
-            color: '#9293AB'
-          }}
-        >
-          <span
-            // This is used to retain simple HTML markup in i18n string like <strong>
-            // to make sure formating is aligned with translations
-            dangerouslySetInnerHTML={{
-              __html: getString(isOn ? 'cf.featureFlags.defaultServedOn' : 'cf.featureFlags.defaultServedOff', {
-                defaultVariation: isOn ? data.defaultOnVariation : data.defaultOffVariation
-              })
-            }}
-          />
+        <Text>
+          <VariationTypeIcon multivariate={data.kind !== FlagTypeVariations.booleanFlag} />
+          {getString(data.kind === FlagTypeVariations.booleanFlag ? 'cf.boolean' : 'cf.multivariate')}
         </Text>
+      </Layout.Horizontal>
+      {!hasCustomRules && (
+        <Container style={{ display: 'flex', alignItems: 'center' }}>
+          <VariationWithIcon
+            variation={data.variations[index]}
+            index={index}
+            textStyle={{
+              fontSize: '12px',
+              lineHeight: '24px',
+              color: '#9293AB',
+              paddingLeft: 'var(--spacing-xsmall)'
+            }}
+            textElement={getString(isOn ? 'cf.featureFlags.defaultServedOn' : 'cf.featureFlags.defaultServedOff', {
+              defaultVariation: data.variations[index].name || data.variations[index].value
+            })}
+          />
+        </Container>
       )}
     </Layout.Vertical>
   )

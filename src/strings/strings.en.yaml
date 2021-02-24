@@ -1358,8 +1358,8 @@ cf:
     turnOffMessage: 'Please confirm that you want to turn off <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
     defaultWillBeServed: '<strong>{{defaultVariation}}</strong> will be served.'
     customRuleMessage: There are custom rules configured for this flag, please review the rules on detail page.
-    defaultServedOn: '<strong>{{defaultVariation}}</strong> when flag is ON'
-    defaultServedOff: '<strong>{{defaultVariation}}</strong> when flag is OFF'
+    defaultServedOn: '{{defaultVariation}} when flag is ON'
+    defaultServedOff: '{{defaultVariation}} when flag is OFF'
     createdDate: 'Created: {{date}}'
     modifiedDate: 'Modified: {{date}}'
     prerequisites: Prerequisites
@@ -1368,6 +1368,10 @@ cf:
     ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '
     bucketBy: <strong>Bucket</strong> by <strong>{{targetField}}</strong>
     bucketOverflow: Cannot set above 100%
+    serveVariationToTarget: '+ Serve variation to Target'
+    serveVariationToTargetLabel: Serve Variation to Target
+    customRuleOnRequest: '+ On Request, check for condition and serve variation'
+    toTarget: to target
   targets:
     title: 'Targets'
     ID: 'ID'
