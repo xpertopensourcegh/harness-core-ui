@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
-import { setAutoFreeze } from 'immer'
+import { setAutoFreeze, enableMapSet } from 'immer'
 import SessionToken from 'framework/utils/SessionToken'
 import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
@@ -13,6 +13,7 @@ import RouteDestinations from 'modules/RouteDestinations'
 // eslint-disable-next-line aliased-module-imports
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
+import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 
 import '@common/services'
 import './App.scss'
@@ -21,7 +22,10 @@ FocusStyleManager.onlyShowFocusOnTabs()
 
 // pick current path, but remove `/ng/`
 const LOGIN_PAGE_URL = `${window.location.pathname.replace(/\/ng\//, '/')}#/login`
+
+// set up Immer
 setAutoFreeze(false)
+enableMapSet()
 
 interface AppProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,7 +69,9 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
     >
       <AppStoreProvider strings={props.strings}>
         <AppErrorBoundary>
-          <RouteDestinations />
+          <PermissionsProvider>
+            <RouteDestinations />
+          </PermissionsProvider>
         </AppErrorBoundary>
       </AppStoreProvider>
     </RestfulProvider>

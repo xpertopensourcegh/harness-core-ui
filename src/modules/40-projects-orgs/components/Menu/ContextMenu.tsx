@@ -19,6 +19,19 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
+
+  // const [canEdit, canDelete] = usePermission(
+  //   {
+  //     accountIdentifier: accountId,
+  //     projectIdentifier: project.identifier,
+  //     orgIdentifier: project.orgIdentifier,
+  //     resourceIdentifier: project.identifier,
+  //     resourceType: ResourceType.PROJECT,
+  //     actions: ['edit', 'delete']
+  //   },
+  //   [project]
+  // )
+
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
@@ -152,12 +165,22 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCE}
         />
       ) : null}
-      <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
+      <Menu.Item
+        icon="edit"
+        text={getString('edit')}
+        onClick={handleEdit}
+        // disabled={!canEdit}
+      />
       <Menu.Item icon="new-person" text={getString('projectContextMenuRenderer.invite')} onClick={handleCollaborate} />
 
       <>
         <Menu.Divider />
-        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+        <Menu.Item
+          icon="trash"
+          text={getString('delete')}
+          onClick={handleDelete}
+          // disabled={!canDelete}
+        />
       </>
     </Menu>
   )

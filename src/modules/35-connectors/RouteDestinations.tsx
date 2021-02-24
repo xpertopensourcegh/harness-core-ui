@@ -12,6 +12,7 @@ import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYa
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacFactory from '@rbac/factories/RbacFactory'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
   const params = useParams<OrgPathProps>()
@@ -26,7 +27,7 @@ const AccountSettingsSideNavProps: SidebarContext = {
   icon: 'nav-settings'
 }
 
-RbacFactory.registerResourceTypeHandler('SECRET_MANAGER', {
+RbacFactory.registerResourceTypeHandler(ResourceType.SECRET_MANAGER, {
   icon: 'lock',
   label: 'Secret Managers',
   // eslint-disable-next-line react/display-name

@@ -5,6 +5,8 @@ import { fromPairs } from 'lodash-es'
 import { Project, useGetProject } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import type { Permission } from 'services/rbac'
+// import { useGetPermissionList } from 'services/rbac'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type StringsMap = Record<string, any>
@@ -25,12 +27,16 @@ export interface AppStoreContextProps {
   /** strings for i18n */
   readonly strings: StringsMap
 
+  /** all permission names */
+  readonly permissions: Permission[]
+
   updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void
 }
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
   strings: {},
   featureFlags: {},
+  permissions: [],
   updateAppStore: () => void 0
 })
 
@@ -41,7 +47,8 @@ export function useAppStore(): AppStoreContextProps {
 export function AppStoreProvider(props: React.PropsWithChildren<{ strings: StringsMap }>): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
-    featureFlags: {}
+    featureFlags: {},
+    permissions: []
   })
 
   const { data: featureFlags, loading: featureFlagsLoading } = useGetFeatureFlags({
@@ -57,6 +64,20 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
     },
     lazy: true
   })
+
+  // TODO: add flag to fetch all permissions, not just account scope, once BE supports it
+  // TODO: enable this when we actually start using permissions
+  // const { data: permissionsResponse } = useGetPermissionList({
+  //   queryParams: { accountIdentifier: accountId }
+  // })
+
+  // populate permissions
+  // useEffect(() => {
+  //   setState(prevState => ({
+  //     ...prevState,
+  //     permissions: permissionsResponse?.data?.map(perm => perm.permission) || []
+  //   }))
+  // }, [permissionsResponse])
 
   React.useEffect(() => {
     setState(prevState => ({

@@ -2,9 +2,9 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { ModalProvider } from '@wings-software/uicore'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
-import strings from 'strings/strings.en.yaml'
+import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { GetTriggerResponse } from './webhookMockResponses'
 import { GetPipelineResponse, GetTriggerListForTargetResponse } from './sharedMockResponses'
 import TriggersPage from '../TriggersPage'
@@ -41,20 +41,14 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('react-timeago', () => () => 'dummy date')
 
-const value: AppStoreContextProps = {
-  strings,
-  featureFlags: {},
-  updateAppStore: jest.fn()
-}
-
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
+  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(): JSX.Element {
   return (
-    <StringsContext.Provider value={value}>
+    <StringsContext.Provider value={defaultAppStoreTestData}>
       <TriggersPage />
     </StringsContext.Provider>
   )
@@ -134,7 +128,7 @@ describe('TriggersPage Triggers tests', () => {
 
     test('Add a trigger redirects to Trigger Wizard', async () => {
       const { container } = render(
-        <StringsContext.Provider value={value}>
+        <StringsContext.Provider value={defaultAppStoreTestData}>
           <ModalProvider>
             <TriggersPage />
           </ModalProvider>

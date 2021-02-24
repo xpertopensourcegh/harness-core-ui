@@ -104,6 +104,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
       value={{
         strings,
         featureFlags: {},
+        permissions: [],
         updateAppStore: () => void 0,
         ...defaultAppStoreValues
       }}

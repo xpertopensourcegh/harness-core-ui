@@ -1,1 +1,6 @@
-export type ResourceType = string
+export enum ResourceType {
+  PROJECT = 'PROJECT',
+  SECRET = 'SECRET',
+  ORGANIZATION = 'ORGANIZATION',
+  SECRET_MANAGER = 'SECRET_MANAGER'
+}

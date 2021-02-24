@@ -4,17 +4,31 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export interface Permission {
-  identifier: string
-  name: string
-  status: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
-  allowedScopeLevels: ('organization' | 'project' | 'account')[]
-  resourceType?: string
-  action?: string
+export interface AccessCheckResponseDTO {
+  principal?: Principal
+  accessControlList?: AccessControlDTO[]
 }
 
-export interface PermissionResponse {
-  permission: Permission
+export interface AccessControlDTO {
+  [key: string]: any
+}
+
+export type HAccessControlDTO = AccessControlDTO & {
+  permission?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  resourceIdentifier?: string
+  hasAccess?: boolean
+}
+
+export type HPrincipal = Principal & {
+  principalIdentifier?: string
+  principalType?: 'USER' | 'USER_GROUP' | 'API_KEY'
+}
+
+export interface Principal {
+  [key: string]: any
 }
 
 export interface Response {
@@ -24,9 +38,9 @@ export interface Response {
   correlationId?: string
 }
 
-export interface ResponseListPermissionResponse {
+export interface ResponseAccessCheckResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PermissionResponse[]
+  data?: AccessCheckResponseDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -532,6 +546,40 @@ export interface Error {
   detailedMessage?: string
 }
 
+export interface AccessCheckRequestDTO {
+  permissions?: PermissionCheck[]
+  principal: Principal
+}
+
+export interface PermissionCheck {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  resourceType?: string
+  resourceIdentifier?: string
+  permission?: string
+}
+
+export interface Permission {
+  identifier: string
+  name: string
+  status: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
+  allowedScopeLevels: ('organization' | 'project' | 'account')[]
+  resourceType?: string
+  action?: string
+}
+
+export interface PermissionResponse {
+  permission: Permission
+}
+
+export interface ResponseListPermissionResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PermissionResponse[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface Page {
   totalPages?: number
   totalItems?: number
@@ -627,6 +675,52 @@ export interface ResponsePageRoleResponse {
 }
 
 export type RoleRequestBody = Role
+
+export type GetAccessControlListProps = Omit<
+  MutateProps<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Check for access to resources
+ */
+export const GetAccessControlList = (props: GetAccessControlListProps) => (
+  <Mutate<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>
+    verb="POST"
+    path="/acl"
+    base={getConfig('rbac/api')}
+    {...props}
+  />
+)
+
+export type UseGetAccessControlListProps = Omit<
+  UseMutateProps<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Check for access to resources
+ */
+export const useGetAccessControlList = (props: UseGetAccessControlListProps) =>
+  useMutate<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>('POST', `/acl`, {
+    base: getConfig('rbac/api'),
+    ...props
+  })
+
+/**
+ * Check for access to resources
+ */
+export const getAccessControlListPromise = (
+  props: MutateUsingFetchProps<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>(
+    'POST',
+    getConfig('rbac/api'),
+    `/acl`,
+    props,
+    signal
+  )
 
 export interface GetPermissionListQueryParams {
   accountIdentifier?: string

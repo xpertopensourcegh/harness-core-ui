@@ -9,9 +9,9 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, pipelineModuleParams, triggerPathProps } from '@common/utils/routeUtils'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
-import strings from 'strings/strings.en.yaml'
+import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
 import {
   GetSourceRepoToEventResponse,
@@ -37,11 +37,6 @@ const params = {
   module: 'cd'
 }
 
-const value: AppStoreContextProps = {
-  strings,
-  featureFlags: {},
-  updateAppStore: jest.fn()
-}
 const TEST_PATH = routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })
 
 jest.mock('clipboard-copy', () => jest.fn())
@@ -49,7 +44,7 @@ jest.mock('clipboard-copy', () => jest.fn())
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
+  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 

@@ -138,7 +138,7 @@ const RoleDetails: React.FC = () => {
           <Container className={css.resourceList}>
             <Layout.Vertical flex spacing="small">
               {resourceGroups?.data?.resourceTypes.map(resourceType => {
-                const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType)
+                const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType as ResourceType)
                 return (
                   resourceHandler && (
                     <Card
@@ -146,8 +146,8 @@ const RoleDetails: React.FC = () => {
                       key={resourceType}
                       className={css.card}
                       onClick={() => {
-                        setResource(resourceType)
-                        const elem = listRef.get(resourceType)
+                        setResource(resourceType as ResourceType)
+                        const elem = listRef.get(resourceType as ResourceType)
                         elem?.scrollIntoView()
                       }}
                     >
@@ -171,13 +171,13 @@ const RoleDetails: React.FC = () => {
                   <div
                     key={resourceType}
                     ref={input => {
-                      listRef.set(resourceType, input)
+                      listRef.set(resourceType as ResourceType, input)
                     }}
                   >
                     <PermissionCard
-                      selected={resourceType === resource}
-                      permissions={permissionsMap.get(resourceType)}
-                      resourceType={resourceType}
+                      selected={(resourceType as ResourceType) === resource}
+                      permissions={permissionsMap.get(resourceType as ResourceType)}
+                      resourceType={resourceType as ResourceType}
                       isDefault={data.data?.harnessManaged}
                       onChangePermission={onChangePermission}
                       isPermissionEnabled={isPermissionEnabled}

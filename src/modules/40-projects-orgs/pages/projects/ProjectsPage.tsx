@@ -39,6 +39,12 @@ const ProjectsListPage: React.FC = () => {
   const history = useHistory()
   let orgFilter = allOrgsSelectOption
 
+  // const [canCreate] = usePermission({
+  //   actions: ['create'],
+  //   accountIdentifier: accountId,
+  //   resourceType: ResourceType.PROJECT
+  // })
+
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
       accountIdentifier: accountId
@@ -113,7 +119,13 @@ const ProjectsListPage: React.FC = () => {
       <>
         <Layout.Horizontal className={css.header}>
           <Layout.Horizontal width="55%">
-            <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
+            <Button
+              intent="primary"
+              text={i18n.newProject}
+              icon="plus"
+              onClick={() => openProjectModal()}
+              // disabled={!canCreate}
+            />
           </Layout.Horizontal>
 
           <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>

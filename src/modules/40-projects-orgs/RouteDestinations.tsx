@@ -23,6 +23,7 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -36,14 +37,14 @@ const ProjectDetailsSideNavProps: SidebarContext = {
   icon: 'harness'
 }
 
-RbacFactory.registerResourceTypeHandler('PROJECT', {
+RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
   icon: 'nav-project',
   label: 'Projects',
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <AddProjectResourceModalBody {...props} />
 })
 
-RbacFactory.registerResourceTypeHandler('ORGANIZATION', {
+RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'settings',
   label: 'Organizations',
   // eslint-disable-next-line react/display-name

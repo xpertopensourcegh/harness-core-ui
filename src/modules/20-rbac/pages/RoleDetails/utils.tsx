@@ -5,9 +5,9 @@ export const getPermissionMap = (permissionList?: PermissionResponse[]): Map<Res
   const permissionsMap: Map<ResourceType, Permission[]> = new Map()
   permissionList?.map(response => {
     if (response.permission.resourceType) {
-      if (permissionsMap.has(response.permission.resourceType)) {
-        permissionsMap.get(response.permission.resourceType)?.push(response.permission)
-      } else permissionsMap.set(response.permission.resourceType, [response.permission])
+      if (permissionsMap.has(response.permission.resourceType as ResourceType)) {
+        permissionsMap.get(response.permission.resourceType as ResourceType)?.push(response.permission)
+      } else permissionsMap.set(response.permission.resourceType as ResourceType, [response.permission])
     }
   })
   return permissionsMap

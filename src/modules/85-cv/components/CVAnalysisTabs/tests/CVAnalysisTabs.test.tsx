@@ -6,18 +6,13 @@ import { renderHook } from '@testing-library/react-hooks'
 import { waitFor, render, fireEvent } from '@testing-library/react'
 import * as cvService from 'services/cv'
 import { useStrings } from 'framework/exports'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
-import strings from 'strings/strings.en.yaml'
+import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { TestWrapper } from '@common/utils/testUtils'
+import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { CVAnalysisTabs } from '../CVAnalysisTabs'
 
-const value: AppStoreContextProps = {
-  strings,
-  featureFlags: {},
-  updateAppStore: jest.fn()
-}
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
+  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 

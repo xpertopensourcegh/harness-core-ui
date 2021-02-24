@@ -2,27 +2,22 @@ import React from 'react'
 import { render, waitFor, fireEvent, queryByText } from '@testing-library/react'
 import { ModalProvider, useModalHook, Container } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
-import strings from 'strings/strings.en.yaml'
+import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { getTriggerListDefaultProps } from './mockConstants'
 import AddDrawer from '../AddDrawer'
 
-const value: AppStoreContextProps = {
-  strings,
-  featureFlags: {},
-  updateAppStore: jest.fn()
-}
 const defaultAddDrawerTriggersProps = getTriggerListDefaultProps()
 
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
+  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(): JSX.Element {
   const [openDrawer, hideDrawer] = useModalHook(() => (
-    <StringsContext.Provider value={value}>
+    <StringsContext.Provider value={defaultAppStoreTestData}>
       <AddDrawer {...defaultAddDrawerTriggersProps} />
     </StringsContext.Provider>
   ))

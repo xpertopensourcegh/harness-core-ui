@@ -2,25 +2,19 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { Formik, FormikForm, Button } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
-import strings from 'strings/strings.en.yaml'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
+import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
 import { getValidationSchema } from '../utils/TriggersWizardPageUtils'
 import WebhookConditionsPanel from '../views/WebhookConditionsPanel'
 
-const value: AppStoreContextProps = {
-  strings,
-  featureFlags: {},
-  updateAppStore: jest.fn()
-}
-
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
+  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
@@ -88,21 +82,21 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(addButton)
       expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(1))
 
       const addButton2 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton2) {
         throw Error('no add button')
       }
       fireEvent.click(addButton2)
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(2))
 
       const addButton3 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton3) {
         throw Error('no add button')
       }
       fireEvent.click(addButton3)
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(3))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(3))
       const firstAttributeInput = document.body.querySelector('[name="payloadConditions.0.key"]')
       const thirdAttributeInput = document.body.querySelector('[name="payloadConditions.2.key"]')
       if (!firstAttributeInput || !thirdAttributeInput) {
@@ -121,7 +115,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(firstDeleteButton)
 
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(2))
       expect('attribute2').not.toBeNull()
       expect('attribute3').not.toBeNull()
     })
@@ -137,21 +131,21 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(addButton)
       expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(1))
 
       const addButton2 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton2) {
         throw Error('no add button')
       }
       fireEvent.click(addButton2)
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(2))
 
       const addButton3 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
       if (!addButton3) {
         throw Error('no add button')
       }
       fireEvent.click(addButton3)
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(3))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(3))
       const firstAttributeInput = document.body.querySelector('[name="payloadConditions.0.key"]')
       const thirdAttributeInput = document.body.querySelector('[name="payloadConditions.2.key"]')
       if (!firstAttributeInput || !thirdAttributeInput) {
@@ -170,7 +164,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(middleDeleteButton)
 
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(2))
       expect('attribute1').not.toBeNull()
       expect('attribute3').not.toBeNull()
     })
@@ -232,7 +226,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('no add button')
       }
       fireEvent.click(addButton2)
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(1))
 
       const sourceBranchValue = container.querySelector('[name="sourceBranchValue"]')
       if (!sourceBranchValue) {
@@ -292,21 +286,21 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(addButton)
       expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(1))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(1))
 
       const addButton2 = document.body.querySelector('[data-name="headerConditions"] [data-name="plusAdd"]')
       if (!addButton2) {
         throw Error('no add button')
       }
       fireEvent.click(addButton2)
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(2))
 
       const addButton3 = document.body.querySelector('[data-name="headerConditions"] [data-name="plusAdd"]')
       if (!addButton3) {
         throw Error('no add button')
       }
       fireEvent.click(addButton3)
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(3))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(3))
       const firstAttributeInput = document.body.querySelector('[name="headerConditions.0.key"]')
       const thirdAttributeInput = document.body.querySelector('[name="headerConditions.2.key"]')
       if (!firstAttributeInput || !thirdAttributeInput) {
@@ -325,7 +319,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(lastDeleteButton)
 
-      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"').length).toEqual(2))
+      await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(2))
       expect('attribute1').not.toBeNull()
       expect('attribute2').not.toBeNull()
     })

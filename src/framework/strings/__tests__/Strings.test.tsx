@@ -13,6 +13,7 @@ const value: AppStoreContextProps = {
     test: '{{ $.a.b }}'
   },
   featureFlags: {},
+  permissions: [],
   updateAppStore: jest.fn()
 }
 describe('String tests', () => {

@@ -5,17 +5,12 @@ import { renderHook } from '@testing-library/react-hooks'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import { useStrings } from 'framework/exports'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
-import strings from 'strings/strings.en.yaml'
+import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
+import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import LogAnalysisView from '../LogAnalysisView'
 
-const value: AppStoreContextProps = {
-  strings,
-  featureFlags: {},
-  updateAppStore: jest.fn()
-}
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
+  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
