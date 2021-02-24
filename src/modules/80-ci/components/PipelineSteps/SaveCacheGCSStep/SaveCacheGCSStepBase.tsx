@@ -19,6 +19,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
@@ -42,6 +43,7 @@ export const SaveCacheGCSStepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -121,6 +123,7 @@ export const SaveCacheGCSStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -136,6 +139,9 @@ export const SaveCacheGCSStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -151,10 +157,14 @@ export const SaveCacheGCSStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeList
                 name="spec.sourcePaths"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -183,13 +193,15 @@ export const SaveCacheGCSStepBase = (
                   </Text>
                 }
                 multiTypeInputProps={{
-                  selectItems: archiveFormatOptions
+                  selectItems: archiveFormatOptions,
+                  multiTypeInputProps: { expressions }
                 }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
               />
               <FormMultiTypeCheckboxField
                 name="spec.override"
                 label={getString('override')}
+                multiTypeTextbox={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
               />
               <StepCommonFields />

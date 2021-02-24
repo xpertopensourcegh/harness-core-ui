@@ -267,6 +267,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                         >
                           <div
                             class="bp3-form-group"
+                            data-id="sharedPaths[0].value-1"
                             style="flex-grow: 1;"
                           >
                             
@@ -740,6 +741,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                         >
                           <div
                             class="bp3-form-group"
+                            data-id="sharedPaths[0].value-1"
                             style="flex-grow: 1;"
                           >
                             

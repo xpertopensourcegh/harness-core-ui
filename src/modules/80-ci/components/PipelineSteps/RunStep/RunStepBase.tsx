@@ -22,6 +22,7 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -42,6 +43,7 @@ export const RunStepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -105,6 +107,7 @@ export const RunStepBase = (
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+                multiTypeTextArea={{ expressions }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -127,6 +130,7 @@ export const RunStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 0, marginTop: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -152,6 +156,7 @@ export const RunStepBase = (
                 }
                 placeholder={getString('commandPlaceholder')}
                 style={{ marginBottom: 0 }}
+                multiTypeTextArea={{ expressions }}
               />
             </div>
             <div className={css.fieldsSection}>
@@ -161,6 +166,7 @@ export const RunStepBase = (
               <MultiTypeList
                 name="spec.reportPaths"
                 placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -178,6 +184,7 @@ export const RunStepBase = (
               />
               <MultiTypeMap
                 name="spec.envVariables"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -195,6 +202,7 @@ export const RunStepBase = (
               />
               <MultiTypeList
                 name="spec.outputVariables"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>

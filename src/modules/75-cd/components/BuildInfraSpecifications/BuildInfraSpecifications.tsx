@@ -16,7 +16,9 @@ import { useStrings } from 'framework/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
 import { PipelineContext, getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '@pipeline/exports'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
@@ -49,6 +51,7 @@ enum Modes {
 
 export default function BuildInfraSpecifications(): JSX.Element {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -307,7 +310,14 @@ export default function BuildInfraSpecifications(): JSX.Element {
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}
                         </Text>
                         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                          <FormInput.MultiTextInput label="" name={'namespace'} style={{ width: 300 }} />
+                          <MultiTypeTextField
+                            label=""
+                            name={'namespace'}
+                            style={{ width: 300 }}
+                            multiTextInputProps={{
+                              multiTextInputProps: { expressions }
+                            }}
+                          />
                           {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (
                             <ConfigureOptions
                               value={formValues.namespace as string}

@@ -5,6 +5,7 @@ import { connect } from 'formik'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 // import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { PullOption } from '../PipelineSteps/Steps/StepsTypes'
 import css from '../PipelineSteps/Steps/Steps.module.scss'
@@ -27,6 +28,7 @@ interface StepCommonFieldsProps {
 const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Element => {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   // const pullOptions = usePullOptions()
   return (
     <>
@@ -60,7 +62,8 @@ const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Elemen
           name="spec.limitMemory"
           label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitMemoryLabel')}</Text>}
           multiTextInputProps={{
-            placeholder: getString('pipelineSteps.limitMemoryPlaceholder')
+            placeholder: getString('pipelineSteps.limitMemoryPlaceholder'),
+            multiTextInputProps: { expressions }
           }}
           configureOptionsProps={{ variableName: 'spec.limit.memory' }}
           style={{ flexGrow: 1, flexBasis: '50%' }}
@@ -69,7 +72,8 @@ const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Elemen
           name="spec.limitCPU"
           label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitCPULabel')}</Text>}
           multiTextInputProps={{
-            placeholder: getString('pipelineSteps.limitCPUPlaceholder')
+            placeholder: getString('pipelineSteps.limitCPUPlaceholder'),
+            multiTextInputProps: { expressions }
           }}
           configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
           style={{ flexGrow: 1, flexBasis: '50%' }}
@@ -79,6 +83,7 @@ const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Elemen
         <FormMultiTypeDurationField
           className={css.removeBpLabelMargin}
           name="timeout"
+          multiTypeDurationProps={{ expressions }}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.timeoutLabel')}

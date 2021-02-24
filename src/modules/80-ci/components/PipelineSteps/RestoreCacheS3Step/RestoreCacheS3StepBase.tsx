@@ -21,6 +21,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -41,6 +42,7 @@ export const RestoreCacheS3StepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -120,6 +122,7 @@ export const RestoreCacheS3StepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -136,7 +139,8 @@ export const RestoreCacheS3StepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.regionPlaceholder')
+                  placeholder: getString('pipelineSteps.regionPlaceholder'),
+                  multiTextInputProps: { expressions }
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -153,6 +157,9 @@ export const RestoreCacheS3StepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -168,6 +175,9 @@ export const RestoreCacheS3StepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
             </div>
             <div className={css.fieldsSection}>
@@ -188,7 +198,8 @@ export const RestoreCacheS3StepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.endpointPlaceholder')
+                  placeholder: getString('pipelineSteps.endpointPlaceholder'),
+                  multiTextInputProps: { expressions }
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -201,18 +212,21 @@ export const RestoreCacheS3StepBase = (
                   </Text>
                 }
                 multiTypeInputProps={{
-                  selectItems: archiveFormatOptions
+                  selectItems: archiveFormatOptions,
+                  multiTypeInputProps: { expressions }
                 }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
               />
               <FormMultiTypeCheckboxField
                 name="spec.pathStyle"
                 label={getString('pathStyle')}
+                multiTypeTextbox={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
               />
               <FormMultiTypeCheckboxField
                 name="spec.failIfKeyNotFound"
                 label={getString('failIfKeyNotFound')}
+                multiTypeTextbox={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <StepCommonFields />

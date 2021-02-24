@@ -20,6 +20,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -44,6 +45,7 @@ export const JFrogArtifactoryStepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -108,6 +110,7 @@ export const JFrogArtifactoryStepBase = (
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+                multiTypeTextArea={{ expressions }}
               />
               <FormMultiTypeConnectorField
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>}
@@ -120,6 +123,7 @@ export const JFrogArtifactoryStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -135,6 +139,9 @@ export const JFrogArtifactoryStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -150,6 +157,9 @@ export const JFrogArtifactoryStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
                 style={{ marginBottom: 0 }}
               />
             </div>

@@ -21,6 +21,7 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -41,6 +42,7 @@ export const DockerHubStepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -122,6 +124,7 @@ export const DockerHubStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 0 }}
               />
               <MultiTypeTextField
@@ -137,9 +140,13 @@ export const DockerHubStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeList
                 name="spec.tags"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -168,6 +175,9 @@ export const DockerHubStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeTextField
                 name="spec.context"
@@ -182,9 +192,13 @@ export const DockerHubStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeMap
                 name="spec.labels"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -202,6 +216,7 @@ export const DockerHubStepBase = (
               />
               <MultiTypeMap
                 name="spec.buildArgs"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -229,6 +244,9 @@ export const DockerHubStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <StepCommonFields />
             </div>

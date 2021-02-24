@@ -21,6 +21,7 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -41,6 +42,7 @@ export const ECRStepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -122,6 +124,7 @@ export const ECRStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 0 }}
               />
               <MultiTypeTextField
@@ -138,7 +141,8 @@ export const ECRStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.regionPlaceholder')
+                  placeholder: getString('pipelineSteps.regionPlaceholder'),
+                  multiTextInputProps: { expressions }
                 }}
               />
               <MultiTypeTextField
@@ -154,6 +158,9 @@ export const ECRStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeTextField
                 name="spec.imageName"
@@ -163,9 +170,13 @@ export const ECRStepBase = (
                     <Button icon="question" minimal tooltip={getString('imageNameInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeList
                 name="spec.tags"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -194,6 +205,9 @@ export const ECRStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeTextField
                 name="spec.context"
@@ -208,9 +222,13 @@ export const ECRStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeMap
                 name="spec.labels"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -228,6 +246,7 @@ export const ECRStepBase = (
               />
               <MultiTypeMap
                 name="spec.buildArgs"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -255,6 +274,9 @@ export const ECRStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <StepCommonFields />
             </div>

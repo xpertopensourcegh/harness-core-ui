@@ -1,7 +1,14 @@
 import React from 'react'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import cx from 'classnames'
-import { FormInput, Card, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  FormInput,
+  Card,
+  Button,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  MultiTextInputProps
+} from '@wings-software/uicore'
 import { FieldArray, connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -23,6 +30,7 @@ export interface MultiTypeListProps {
   name: string
   placeholder?: string
   multiTypeFieldSelectorProps: Omit<MultiTypeFieldSelectorProps, 'name' | 'defaultValueToReset' | 'children'>
+  multiTextInputProps?: Omit<MultiTextInputProps, 'name'>
   enableConfigureOptions?: boolean
   configureOptionsProps?: MultiTypeListConfigureOptionsProps
   formik?: FormikContext<any>
@@ -34,6 +42,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
     name,
     placeholder,
     multiTypeFieldSelectorProps,
+    multiTextInputProps = {},
     enableConfigureOptions = true,
     configureOptionsProps,
     formik,
@@ -63,7 +72,8 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                       name={`${name}[${index}].value`}
                       placeholder={placeholder}
                       multiTextInputProps={{
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                        ...multiTextInputProps
                       }}
                       style={{ flexGrow: 1 }}
                     />

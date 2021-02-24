@@ -21,7 +21,7 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { FieldArray } from 'formik'
-import { isEqual, debounce } from 'lodash-es'
+import { isEqual, debounce, cloneDeep } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import {
@@ -193,16 +193,17 @@ export default function BuildStageSpecifications(): JSX.Element {
 
   const handleValidate = (values: any): void => {
     if (stage?.stage) {
-      const pipelineData = stage.stage
+      const prevStageData = cloneDeep(stage.stage)
+      const stageData = stage.stage
       const spec = stage.stage.spec
 
-      pipelineData.identifier = values.identifier
-      pipelineData.name = values.name
+      stageData.identifier = values.identifier
+      stageData.name = values.name
 
       if (values.description) {
-        pipelineData.description = values.description
+        stageData.description = values.description
       } else {
-        delete pipelineData.description
+        delete stageData.description
       }
 
       spec.cloneCodebase = values.cloneCodebase
@@ -217,15 +218,15 @@ export default function BuildStageSpecifications(): JSX.Element {
       }
 
       if (values.variables && values.variables.length > 0) {
-        pipelineData.variables = values.variables
+        stageData.variables = values.variables
       } else {
-        delete pipelineData.variables
+        delete stageData.variables
       }
 
       if (values.skipCondition) {
-        pipelineData.skipCondition = values.skipCondition
+        stageData.skipCondition = values.skipCondition
       } else {
-        delete pipelineData.skipCondition
+        delete stageData.skipCondition
       }
 
       // if (values.connectorRef) {
@@ -247,7 +248,9 @@ export default function BuildStageSpecifications(): JSX.Element {
       //   delete spec.connectorRef
       // }
 
-      updatePipeline(pipeline)
+      if (!isEqual(prevStageData, stageData)) {
+        updatePipeline(pipeline)
+      }
     }
   }
 
@@ -309,7 +312,6 @@ export default function BuildStageSpecifications(): JSX.Element {
       <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
         <Layout.Vertical width="100%" spacing="large">
           <Formik
-            enableReinitialize
             initialValues={getInitialValues()}
             validationSchema={validationSchema}
             validate={debounceHandleValidate}
@@ -438,6 +440,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                   <FormikForm className={css.fields}>
                     <MultiTypeList
                       name="sharedPaths"
+                      multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
                           <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -511,6 +514,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                             onChange={newValue => {
                                               setFieldValue(`variables[${index}].value`, newValue)
                                             }}
+                                            expressions={expressions}
                                           />
                                         </div>
                                       )}
@@ -521,6 +525,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                             label=""
                                             name={`variables[${index}].value`}
                                             style={{ flexGrow: 1 }}
+                                            multiTextInputProps={{ expressions }}
                                           />
                                         </>
                                       )}

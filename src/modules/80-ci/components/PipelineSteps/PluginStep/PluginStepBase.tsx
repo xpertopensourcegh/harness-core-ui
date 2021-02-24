@@ -21,6 +21,7 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -41,6 +42,7 @@ export const PluginStepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -102,6 +104,7 @@ export const PluginStepBase = (
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
               <FormMultiTypeTextAreaField
+                multiTypeTextArea={{ expressions }}
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
@@ -127,6 +130,7 @@ export const PluginStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 0 }}
               />
               <MultiTypeTextField
@@ -138,7 +142,8 @@ export const PluginStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  placeholder: getString('pluginImagePlaceholder')
+                  placeholder: getString('pluginImagePlaceholder'),
+                  multiTextInputProps: { expressions }
                 }}
               />
             </div>
@@ -148,6 +153,7 @@ export const PluginStepBase = (
               </Text>
               <MultiTypeMap
                 name="spec.settings"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
