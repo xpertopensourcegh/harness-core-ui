@@ -4,6 +4,8 @@ export const getIconBySourceType = (type: string) => {
       return 'service-kubernetes'
     case 'AppDynamics':
       return 'service-appdynamics'
+    case 'HarnessCD_1.0':
+      return 'cd-main'
     case 'STACKDRIVER':
       return 'service-stackdriver'
     case 'HEALTH':

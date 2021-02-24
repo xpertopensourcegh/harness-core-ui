@@ -191,7 +191,9 @@ describe('Select Services', () => {
               value: 'bvhj'
             }
           }
-        }
+        },
+        sourceType: 'CHANGE_SOURCE',
+        type: 'HarnessCD_1.0'
       })
     )
   })

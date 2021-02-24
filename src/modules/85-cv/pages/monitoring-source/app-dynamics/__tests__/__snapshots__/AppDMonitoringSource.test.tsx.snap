@@ -246,13 +246,15 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                                   class="bp3-popover-target"
                                 >
                                   <div
-                                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                    class="bp3-editable-text InputWithIdentifier--idValue"
                                     tabindex="0"
                                   >
                                     <span
                                       class="bp3-editable-text-content"
                                       style="height: 1px; line-height: 1px; min-width: 0;"
-                                    />
+                                    >
+                                      Default_Name
+                                    </span>
                                   </div>
                                 </span>
                               </span>
@@ -302,7 +304,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                                     class="bp3-input"
                                     name="name"
                                     type="text"
-                                    value=""
+                                    value="Default Name"
                                   />
                                 </div>
                               </div>

@@ -28,6 +28,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { useRegisterActivitySource, ActivitySourceDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
+import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import css from './SelectServices.module.scss'
 
 export interface SelectServicesProps {
@@ -221,7 +222,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
     }, {})
 
     if (Object.keys(services).length) {
-      props.onSubmit?.({ services })
+      props.onSubmit?.({ services, type: 'HarnessCD_1.0', sourceType: ONBOARDING_ENTITIES.CHANGE_SOURCE })
 
       const savePayload = transformToSavePayload({ ...props.initialValues, services })
       try {

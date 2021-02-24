@@ -57,8 +57,7 @@ describe('SelectProduct', () => {
     await waitFor(() => expect(document.body.querySelector('[class*="StepWizard"]')).toBeNull())
 
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(container.querySelectorAll(`[class*="${Classes.FORM_HELPER_TEXT}"]`).length).toBe(3))
-    getByText('Name is required.')
+    await waitFor(() => expect(container.querySelectorAll(`[class*="${Classes.FORM_HELPER_TEXT}"]`).length).toBe(2))
     getByText('Connector Selection is required.')
     getByText('Product is required.')
   })

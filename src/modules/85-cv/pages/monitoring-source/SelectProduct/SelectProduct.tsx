@@ -39,9 +39,9 @@ interface MonitoringSourceInfo extends SelectOrCreateConnectorProps {
 }
 
 export const InitialValues = {
-  name: '',
+  name: 'Default Name',
   description: '',
-  identifier: '',
+  identifier: 'Default_Name',
   connectorRef: undefined,
   tags: []
 }
