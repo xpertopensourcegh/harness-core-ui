@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
 import { Text, Icon, Layout, Button, Card, IconName } from '@wings-software/uicore'
-import { get } from 'lodash-es'
+import { get, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import {
@@ -18,8 +18,7 @@ import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import BlueGreen from './images/BlueGreen.png'
 import Rolling from './images/Rolling.png'
 import Canary from './images/Canary.png'
-import BlankCanvas from './images/BlankCanvas.png'
-import i18n from './ExecutionStrategy.i18n'
+import Default from './images/BlankCanvas.png'
 import css from './ExecutionStrategy.module.scss'
 
 export interface ExecutionStrategyProps {
@@ -30,25 +29,14 @@ const iconMap: { [key: string]: IconName } = {
   Rolling: 'rolling',
   Canary: 'canary',
   BlueGreen: 'bluegreen',
-  BlankCanvas: 'step-group'
-}
-
-const infoByType: { [key: string]: string } = {
-  BlueGreen:
-    'With Blue/Green Deployment, two identical environments called blue (staging) and green (production) run simultaneously with different versions or service/artifact. QA and UAT are typically done on the blue environment. When satisfied, traffic is flipped (via a load balancer) from the green environment (current version) to the blue environment (new version). You can then decommission the old environment once deployment is successful.',
-  Rolling:
-    'In a Rolling Deployment Strategy, the deployed artifact will be spun up incrementally until the desired count is met. As new ones spin up, the older version gets terminated.',
-  Canary:
-    'In a Canary Deployment, the new artifact is deployed in the target environment and is incrementally updated based on the testing and verification in each phase.',
-  BlankCanvas:
-    'With a blank canvas, you get to orchestrate your deployment with any combination of steps from the palette. It allows maximum flexibility - only recommended for advanced users.'
+  Default: 'step-group'
 }
 
 const imageByType: { [key: string]: string } = {
   BlueGreen,
   Rolling,
   Canary,
-  BlankCanvas
+  Default
 }
 
 type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'BlankCanvas'
@@ -68,6 +56,13 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     'stage.spec.serviceConfig.serviceDefinition.type',
     'Kubernetes'
   )
+
+  const infoByType: { [key: string]: string } = {
+    BlueGreen: getString('executionStrategy.strategies.blueGreen'),
+    Rolling: getString('executionStrategy.strategies.rolling'),
+    Canary: getString('executionStrategy.strategies.canary'),
+    Default: getString('executionStrategy.strategies.default')
+  }
 
   const { data: strategies } = useGetExecutionStrategyList({})
 
@@ -119,7 +114,6 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
       <Layout.Horizontal>
         <Layout.Vertical width={500}>
           <section className={css.patterns}>
-            <Text style={{ color: 'var(--grey-600)' }}>{i18n.commonPatterns}</Text>
             <section className={css.strategies}>
               {strategiesByDeploymentType.map((v: StrategyType) => (
                 // <div>{v}</div>
@@ -131,8 +125,10 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
                   onClick={() => setSelectedStrategy(v)}
                 >
                   <Icon name={iconMap[v] as IconName} size={24} />
-                  <section className={css.strategyName}>{v.replace(/([a-z])([A-Z])/g, '$1 $2')}</section>
-                  <section className={css.strategyType}>{i18n.strategyType}</section>
+                  <section className={css.strategyName}>{startCase(v)}</section>
+                  <section className={css.strategyType}>
+                    {v !== 'Default' ? startCase(serviceDefinitionType) : getString(`executionStrategy.strategyType`)}
+                  </section>
                 </Card>
               ))}
             </section>
@@ -164,7 +160,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
         </Layout.Vertical>
         <Layout.Vertical width={500}>
           <section className={css.preview}>
-            <Text style={{ color: 'var(--grey-600)' }}>{i18n.preview}</Text>
+            <Text style={{ color: 'var(--grey-600)' }}>{getString('executionStrategy.preview')}</Text>
             <section className={css.previewContainer}>
               <Layout.Horizontal padding="xlarge" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
                 <Text font={{ size: 'medium' }} style={{ color: 'var(--grey-700)' }}>

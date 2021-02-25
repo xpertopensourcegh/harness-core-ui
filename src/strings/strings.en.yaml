@@ -314,6 +314,14 @@ metricPacks: 'Metric Packs'
 review: 'Review'
 enabledLabel: 'Enabled'
 activity: 'Activity'
+executionStrategy:
+  strategies:
+    blueGreen: With Blue/Green Deployment, two identical environments called blue (staging) and green (production) run simultaneously with different versions or service/artifact. QA and UAT are typically done on the blue environment. When satisfied, traffic is flipped (via a load balancer) from the green environment (current version) to the blue environment (new version). You can then decommission the old environment once deployment is successful.
+    rolling: In a Rolling Deployment Strategy, the deployed artifact will be spun up incrementally until the desired count is met. As new ones spin up, the older version gets terminated.
+    canary: In a Canary Deployment, the new artifact is deployed in the target environment and is incrementally updated based on the testing and verification in each phase.
+    default: With a blank canvas, you get to orchestrate your deployment with any combination of steps from the palette. It allows maximum flexibility - only recommended for advanced users.
+  preview: 'Preview'
+  strategyType: 'Common'
 selectProduct: 'Select Product'
 selectApplication: 'Select Application'
 selectProject: 'Select a Project'
