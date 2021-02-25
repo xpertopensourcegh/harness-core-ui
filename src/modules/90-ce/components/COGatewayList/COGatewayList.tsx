@@ -345,7 +345,7 @@ const COGatewayList: React.FC = () => {
 
   return (
     <Container background={Color.WHITE} height="100vh">
-      {!loading ? (
+      {!loading && !data?.response ? (
         <>
           <Breadcrumbs
             className={css.breadCrumb}
