@@ -1,0 +1,108 @@
+.text-input-with-copy-btn {
+  display: flex;
+  align-items: flex-start;
+  background-color: var(--grey-250);
+  border-radius: 4px;
+  position: relative;
+  height: 32px !important;
+
+  .input {
+    width: 100%;
+
+    input[type='text'] {
+      box-shadow: none;
+      border: 1px solid var(--grey-250);
+      padding-right: 32px;
+      height: 32px !important;
+
+      &:focus {
+        border-color: var(--blue-500);
+      }
+    }
+  }
+
+  .popoverWrapper {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      right: 100%;
+      top: 0;
+      height: 30px;
+    }
+
+    &::before {
+      background-color: var(--grey-250);
+      width: 4px;
+    }
+
+    &::after {
+      background-color: var(--white);
+      width: 8px;
+      border-radius: 4px;
+      clip-path: polygon(48% 0, 100% 0, 100% 100%, 48% 100%);
+    }
+  }
+
+  .btn {
+    background-color: var(--grey-250) !important;
+    border: none !important;
+    padding: 0 !important;
+    height: 30px !important;
+    min-height: unset !important;
+    color: var(--blue-500) !important;
+    border-radius: 0 2px 2px 0 !important;
+  }
+}
+
+.menu {
+  box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), 0px 8px 16px rgba(96, 97, 112, 0.16);
+  border-radius: 8px;
+  padding: 12px 0;
+
+  .menuItem {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-xsmall) var(--spacing-medium);
+
+    & .menuItemLabel {
+      color: var(--blue-500) !important;
+
+      & :global(.bp3-icon) {
+        color: currentColor !important;
+      }
+    }
+    &:hover {
+      background-color: var(--blue-500);
+      color: var(--white);
+
+      & .menuItemLabel {
+        color: var(--white) !important;
+      }
+    }
+  }
+}
+
+.popover {
+  box-shadow: none;
+}
+
+.name-item {
+  min-width: 100px;
+  text-align: right;
+
+  .main-text {
+    font-size: var(--font-size-small);
+  }
+
+  .secondary-text {
+    font-size: var(--font-size-xsmall);
+    opacity: 0.65;
+  }
+}

@@ -567,15 +567,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                             className={css.addVariable}
                             intent="primary"
                             minimal
-                            text={getString('pipelineSteps.build.stageSpecifications.addVariable')}
+                            text={getString('common.addVariable')}
                             onClick={() => openDialog()}
                           />
                           {isDialogOpen && (
-                            <Dialog
-                              isOpen={true}
-                              title={getString('pipelineSteps.build.stageSpecifications.addVariableDialogTitle')}
-                              onClose={closeDialog}
-                            >
+                            <Dialog isOpen={true} title={getString('common.addVariable')} onClose={closeDialog}>
                               <Formik
                                 initialValues={selectedVariable}
                                 validationSchema={yup.object().shape({

@@ -10,5 +10,10 @@ declare const styles: {
   readonly secretContainer: string
   readonly fixed: string
   readonly icon: string
+  readonly customVariablesStage: string
+  readonly tableRow: string
+  readonly valueString: string
+  readonly valueColumn: string
+  readonly tooltip: string
 }
 export default styles

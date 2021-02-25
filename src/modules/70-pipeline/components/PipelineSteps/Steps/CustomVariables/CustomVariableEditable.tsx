@@ -17,12 +17,11 @@ import { CopyText } from '@common/components/CopyText/CopyText'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
-import i18n from './CustomVariables.i18n'
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 
 export interface CustomVariablesData {
-  variables: NGVariable[]
+  variables: Array<NGVariable & { new?: boolean }>
   isPropagating?: boolean
   canAddVariable?: boolean
 }
@@ -91,7 +90,9 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                 {values.canAddVariable ? (
                   <div className={css.headerRow}>
                     {heading ? heading : <div />}
-                    <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={addNew} />
+                    <Button minimal intent="primary" icon="plus" onClick={addNew}>
+                      <String stringID="common.addVariable" />
+                    </Button>
                   </div>
                 ) : /* istanbul ignore next */ null}
                 {props.showHeaders && values.variables.length > 0 ? (
@@ -160,7 +161,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                             <section className={css.actionButtons}>
                               <Button
                                 icon="edit"
-                                tooltip={i18n.editVariable}
+                                tooltip={<String stringID="common.editVariable" />}
                                 data-testid={`edit-variable-${index}`}
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
@@ -169,7 +170,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               <Button
                                 icon="trash"
                                 data-testid={`delete-variable-${index}`}
-                                tooltip={i18n.removeThisVariable}
+                                tooltip={<String stringID="common.removeThisVariable" />}
                                 onClick={() => handleRemove(index)}
                               />
                             </section>

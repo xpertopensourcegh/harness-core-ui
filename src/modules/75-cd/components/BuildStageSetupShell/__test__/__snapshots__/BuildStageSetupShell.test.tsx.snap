@@ -645,7 +645,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                           <span
                             class="bp3-button-text"
                           >
-                            + Add Variable
+                            Add Variable
                           </span>
                         </button>
                       </div>

@@ -381,7 +381,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                   <span
                     class="bp3-button-text"
                   >
-                    + Add Variable
+                    Add Variable
                   </span>
                 </button>
               </div>
@@ -855,7 +855,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    + Add Variable
+                    Add Variable
                   </span>
                 </button>
               </div>

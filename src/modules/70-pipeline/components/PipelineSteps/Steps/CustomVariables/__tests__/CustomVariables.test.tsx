@@ -109,7 +109,7 @@ describe('Custom Variables', () => {
       />
     )
 
-    expect(container.querySelectorAll('.variableListTable').length).toBe(3)
+    expect(container.querySelectorAll('.tableRow:not(.headerRow)').length).toBe(3)
     expect(container).toMatchSnapshot('Before Delete')
 
     const del = await findByTestId('delete-variable-2')
@@ -118,7 +118,7 @@ describe('Custom Variables', () => {
       fireEvent.click(del)
     })
 
-    expect(container.querySelectorAll('.variableListTable').length).toBe(2)
+    expect(container.querySelectorAll('.tableRow:not(.headerRow)').length).toBe(2)
     expect(container).toMatchSnapshot('After Delete')
   })
 })

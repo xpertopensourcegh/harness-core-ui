@@ -7,7 +7,6 @@ import type { NGVariable } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 
 import { getVaribaleTypeOptions } from './CustomVariableUtils'
-import i18n from './CustomVariables.i18n'
 
 export interface VariableState {
   variable: NGVariable
@@ -30,12 +29,14 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
   }
 
   return (
-    <Dialog isOpen={!!selectedVariable} title={i18n.addVariable} onClose={closeModal}>
+    <Dialog isOpen={!!selectedVariable} title={getString('common.addVariable')} onClose={closeModal}>
       <Formik
         initialValues={selectedVariable?.variable}
         enableReinitialize
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.validation.name)
+          name: Yup.string()
+            .trim()
+            .required(getString('fieldRequired', { name: getString('name') }))
         })}
         onSubmit={data => {
           if (data && selectedVariable) {
@@ -52,18 +53,22 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
           <>
             <div className={Classes.DIALOG_BODY}>
               <FormikForm>
-                <FormInput.Text name="name" label={i18n.variableName} placeholder={i18n.variableName} />
+                <FormInput.Text
+                  name="name"
+                  label={getString('variableNameLabel')}
+                  placeholder={getString('variableNameLabel')}
+                />
                 <FormInput.Select
                   name="type"
                   items={getVaribaleTypeOptions(getString)}
-                  label={i18n.type}
-                  placeholder={i18n.type}
+                  label={getString('typeLabel')}
+                  placeholder={getString('typeLabel')}
                 />
               </FormikForm>
             </div>
             <div className={Classes.DIALOG_FOOTER}>
-              <Button intent="primary" text={i18n.save} onClick={submitForm} /> &nbsp; &nbsp;
-              <Button text={i18n.cancel} onClick={() => closeModal()} />
+              <Button intent="primary" text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;
+              <Button text={getString('cancel')} onClick={() => closeModal()} />
             </div>
           </>
         )}

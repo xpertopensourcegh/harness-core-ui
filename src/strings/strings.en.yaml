@@ -1,4 +1,9 @@
 ---
+common:
+  addVariable: Add Variable
+  editVariable: Edit variable
+  editVariableType: Edit variable type
+  removeThisVariable: Remove This Variable
 harness: Harness # Name of the company
 featureFlagsText: Feature Flags
 featureNA: This feature is not available as of now
@@ -1055,8 +1060,6 @@ pipelineSteps:
       addTags: 'tags'
       variablesCell: 'VARIABLES'
       valueCell: 'VALUE'
-      addVariable: '+ Add Variable'
-      addVariableDialogTitle: 'Add Variable'
     infraSpecifications:
       whereToRun: Where do you want the builds to run?
       propagate: 'Propagate from an existing stage'
@@ -1809,6 +1812,9 @@ pipeline-list:
   pipelineDeleted: Pipeline {{name}} deleted
   confirmDelete: Are you sure want to delete pipeline {{name}}
   readyToRun: Ready To Run
+variables:
+  copyVariableName: copy variable name
+  copyFqn: copy fully qualified name
 customVariables:
   title: Custom Variables
   variableAndType: '{{name}} [Type: {{type}}]'

@@ -2,12 +2,12 @@ import React from 'react'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
 import cx from 'classnames'
 
+import { String } from 'framework/exports'
 import type { NGVariable } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/exports'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 
 import { VariableType } from './CustomVariableUtils'
-import i18n from './CustomVariables.i18n'
 import css from './CustomVariables.module.scss'
 
 export interface CustomVariablesData {
@@ -36,9 +36,9 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
     <div className={cx(css.customVariables, 'customVariables')} id={domId}>
       {stepViewType === StepViewType.StageVariable && initialValues.variables.length > 0 && (
         <section className={css.subHeader}>
-          <span>{i18n.variablesTableHeaders.name}</span>
-          <span>{i18n.variablesTableHeaders.type}</span>
-          <span>{i18n.variablesTableHeaders.value}</span>
+          <String stringID="name" />
+          <String stringID="typeLabel" />
+          <String stringID="valueLabel" />
         </section>
       )}
       {template?.variables?.map?.((variable, index) => {

@@ -15,9 +15,10 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { CustomVariableEditable, CustomVariableEditableExtraProps } from './CustomVariableEditable'
 import { CustomVariableInputSet, CustomVariableInputSetExtraProps } from './CustomVariableInputSet'
+import { CustomVariablesEditableStage } from './CustomVariablesEditableStage'
 import type { CustomVariablesData } from './CustomVariableEditable'
 import type { StepProps } from '../../PipelineStep'
-import i18n from './CustomVariables.i18n'
+
 const logger = loggerFor(ModuleName.COMMON)
 
 const getConnectorValue = (connector?: SecretResponseWrapper): string =>
@@ -45,14 +46,29 @@ export class CustomVariables extends Step<CustomVariablesData> {
   ): JSX.Element {
     const { initialValues, onUpdate, stepViewType, customStepProps } = props
 
-    return stepViewType === StepViewType.InputSet ? (
-      <CustomVariableInputSet
-        initialValues={initialValues}
-        onUpdate={data => onUpdate?.(this.processData(data))}
-        stepViewType={stepViewType}
-        {...customStepProps}
-      />
-    ) : (
+    if (stepViewType === StepViewType.InputSet) {
+      return (
+        <CustomVariableInputSet
+          initialValues={initialValues}
+          onUpdate={data => onUpdate?.(this.processData(data))}
+          stepViewType={stepViewType}
+          {...customStepProps}
+        />
+      )
+    }
+
+    if (stepViewType === StepViewType.StageVariable) {
+      return (
+        <CustomVariablesEditableStage
+          initialValues={initialValues}
+          onUpdate={data => onUpdate?.(this.processData(data))}
+          stepViewType={stepViewType}
+          {...customStepProps}
+        />
+      )
+    }
+
+    return (
       <CustomVariableEditable
         initialValues={initialValues}
         onUpdate={data => onUpdate?.(this.processData(data))}
@@ -132,7 +148,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
   }
 
   protected type = StepType.CustomVariable
-  protected stepName = i18n.customVariables
+  protected stepName = 'Custom Variables'
   protected stepIcon: IconName = 'variable'
   protected stepPaletteVisible = false
   protected _hasStepVariables = true
@@ -146,7 +162,8 @@ export class CustomVariables extends Step<CustomVariablesData> {
     return {
       ...data,
       variables: data.variables.map(row => ({
-        ...row,
+        name: row.name,
+        type: row.type,
         value:
           row.type === 'Number' && getMultiTypeFromValue(row.value) === MultiTypeInputType.FIXED && row.value
             ? parseFloat(row.value)

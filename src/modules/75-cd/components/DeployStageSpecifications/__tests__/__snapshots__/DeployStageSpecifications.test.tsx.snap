@@ -466,7 +466,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             type="button"
                           >
                             <span
-                              class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
+                              class="bp3-icon bp3-icon-plus StyledProps--main"
                               icon="plus"
                             >
                               <svg
@@ -487,7 +487,9 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             <span
                               class="bp3-button-text"
                             >
-                              Add Variable
+                              <span>
+                                Add Variable
+                              </span>
                             </span>
                           </button>
                         </div>
