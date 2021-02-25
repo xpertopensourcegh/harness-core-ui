@@ -5,5 +5,6 @@ declare const styles: {
   readonly header: string
   readonly toConsoleView: string
   readonly logViewer: string
+  readonly noLogs: string
 }
 export default styles

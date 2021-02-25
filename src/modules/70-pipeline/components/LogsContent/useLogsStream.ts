@@ -10,12 +10,13 @@ export interface UseLogsStreamProps {
     accountId: string
   }
   headers: {}
+  unitId: string
   throttleTime?: number
 }
 
 export interface UseLogsStreamReturn {
   log: string
-  logKey: string
+  unitId: string
   startStream(props: UseLogsStreamProps): void
   closeStream(): void
 }
@@ -23,7 +24,7 @@ export interface UseLogsStreamReturn {
 export function useLogsStream(): UseLogsStreamReturn {
   const eventSource = React.useRef<null | EventSource>(null)
   const [log, setLog] = React.useState('')
-  const [logKey, setLogKey] = React.useState('')
+  const [unitId, setUnitId] = React.useState('')
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttledSetLog = React.useCallback(throttle(setLog, 2000), [setLog])
 
@@ -36,7 +37,7 @@ export function useLogsStream(): UseLogsStreamReturn {
 
       let cache = ''
 
-      setLogKey(props.queryParams.key)
+      setUnitId(props.unitId)
 
       const currentEventSource: EventSource = new EventSourcePolyfill(
         `${STREAM_ENDPOINT}?accountID=${props.queryParams.accountId}&key=${props.queryParams.key}`,
@@ -71,5 +72,5 @@ export function useLogsStream(): UseLogsStreamReturn {
     eventSource.current = null
   }, [throttledSetLog])
 
-  return { log, startStream, closeStream, logKey }
+  return { log, startStream, closeStream, unitId }
 }

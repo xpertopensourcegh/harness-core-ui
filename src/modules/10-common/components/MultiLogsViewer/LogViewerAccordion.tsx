@@ -9,7 +9,7 @@ import { LogViewerWithVirtualList } from './LogViewerWithVirtualList'
 import { memoizedAnsiToJson } from './LogLine'
 import css from './MultiLogsViewer.module.scss'
 
-export type LogViewerAccordionStatus = 'success' | 'error' | 'loading'
+export type LogViewerAccordionStatus = 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'NOT_STARTED' | 'LOADING' | 'QUEUED'
 
 export interface LogViewerAccordionProps {
   title: React.ReactNode
@@ -17,23 +17,26 @@ export interface LogViewerAccordionProps {
   startTime?: number
   endTime?: number
   id: string
-  status?: LogViewerAccordionStatus
+  status: LogViewerAccordionStatus
   isOpen?: boolean
-  isLoading?: boolean
   linesChunkSize: number
   onSectionClick?(id: string, props: LogViewerAccordionProps): boolean | void
 }
 
-const statusIconMap: Record<string, IconName> = {
-  success: 'tick-circle',
-  error: 'circle-cross'
+const statusIconMap: Record<LogViewerAccordionStatus, IconName> = {
+  SUCCESS: 'tick-circle',
+  FAILURE: 'circle-cross',
+  RUNNING: 'spinner',
+  QUEUED: 'spinner',
+  NOT_STARTED: 'circle',
+  LOADING: 'circle'
 }
 
 /**
  * Component which renders a section of a log
  */
 export function LogViewerAccordion(props: LogViewerAccordionProps): React.ReactElement {
-  const { title, data, isOpen, status, id, onSectionClick, isLoading, linesChunkSize, startTime, endTime } = props
+  const { title, data, isOpen, status, id, onSectionClick, linesChunkSize, startTime, endTime } = props
   const [node, setNode] = React.useState<HTMLElement | null>(null)
   const [open, setOpen] = React.useState(!!isOpen)
   const [height, setHeight] = React.useState(0)
@@ -112,8 +115,10 @@ export function LogViewerAccordion(props: LogViewerAccordionProps): React.ReactE
     }
   }
 
+  const isLoading = status === 'LOADING'
+
   return (
-    <div className={css.logViewerSection} data-open={open} data-status={status}>
+    <div className={css.logViewerSection} data-open={open} data-status={status?.toLowerCase()}>
       <div className={css.sectionSummary} ref={setNode} onClick={toggleStatus}>
         <Icon className={css.chevron} name={isLoading ? 'spinner' : 'chevron-right'} />
         <Icon

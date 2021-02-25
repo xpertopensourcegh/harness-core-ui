@@ -1868,3 +1868,5 @@ ce:
     learnMore: 'Learn more about Continuous Efficiency'
   co:
     noData: 'No data available. Please check after sometime'
+logs:
+  noLogsText: 'No logs found'

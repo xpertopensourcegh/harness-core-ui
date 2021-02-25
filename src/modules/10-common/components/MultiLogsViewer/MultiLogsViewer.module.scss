@@ -60,11 +60,18 @@ $background: #09090b;
     }
   }
 
-  &:not([data-status]) .sectionSummary {
-    cursor: not-allowed;
+  &:not([data-status]),
+  &[data-status='not_started'] {
+    .chevron {
+      opacity: 0;
+    }
+
+    .sectionSummary {
+      cursor: not-allowed;
+    }
   }
 
-  &[data-status='error'] {
+  &[data-status='failure'] {
     .status {
       color: var(--red-500);
     }
@@ -84,6 +91,7 @@ $background: #09090b;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: inherit;
     position: sticky;
     top: 35px;
   }

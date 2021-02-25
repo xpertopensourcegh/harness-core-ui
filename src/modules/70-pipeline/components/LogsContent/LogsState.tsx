@@ -1,5 +1,5 @@
 import produce from 'immer'
-import { set, findLast } from 'lodash-es'
+import { set, findLast, snakeCase } from 'lodash-es'
 
 import type { ExecutionNode, UnitProgress } from 'services/cd-ng'
 import {
@@ -13,19 +13,22 @@ import type { MultiLogsViewerData, LogViewerAccordionStatus } from '@common/comp
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 
-export type ProgressMapValue = Pick<UnitProgress, 'status' | 'startTime' | 'endTime'>
+export interface ProgressMapValue extends Pick<UnitProgress, 'startTime' | 'endTime'> {
+  status: LogViewerAccordionStatus
+}
 
 export enum ActionType {
   CreateSections = 'CreateSections',
   FetchSectionData = 'FetchSectionData',
+  FetchingSectionData = 'FetchingSectionData',
   UpdateSectionData = 'UpdateSectionData',
   ToggleSection = 'ToggleSection'
 }
 
 export interface LogSectionData extends MultiLogsViewerData {
   logKey: string
-  originalStatus: ProgressMapValue['status']
   dataSource: 'blob' | 'stream'
+  unitStatus: LogViewerAccordionStatus
 }
 
 export interface CreateSectionsPayload extends ExecutionPathProps {
@@ -43,6 +46,8 @@ export interface Action<T extends ActionType> {
     ? CreateSectionsPayload
     : T extends ActionType.FetchSectionData
     ? string
+    : T extends ActionType.FetchingSectionData
+    ? string
     : T extends ActionType.UpdateSectionData
     ? { id: string; data: string }
     : T extends ActionType.ToggleSection
@@ -58,11 +63,6 @@ export interface State {
 
 const LOG_TYPE_LENGTH = 4
 const TIMESTAMP_LENGTH = 24
-const logViewerStatusMap: Record<string, LogViewerAccordionStatus> = {
-  failed: 'error',
-  failure: 'error',
-  success: 'success'
-}
 
 export function reducer<T extends ActionType>(state: State, action: Action<T>): State {
   switch (action.type) {
@@ -100,9 +100,8 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
           data: isSameStep ? state.dataMap?.Logs?.data || '' : '',
           dataSource,
           isOpen: isSameStep ? state.dataMap?.Logs?.isOpen : dataSource === 'stream',
-          isLoading: isSameStep ? state.dataMap?.Logs?.isLoading : true,
-          status: isSameStep ? state.dataMap?.Logs?.status : 'loading',
-          originalStatus: 'UNKNOWN',
+          status: isSameStep ? state.dataMap?.Logs?.status : 'NOT_STARTED',
+          unitStatus: isSameStep ? state.dataMap?.Logs?.unitStatus : 'NOT_STARTED',
           logKey:
             node.stepType === LITE_ENGINE_TASK
               ? ((node.executableResponses || []).find(item => item.task)?.task as any)?.logKeys?.[0]
@@ -128,7 +127,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
           node.unitProgresses.forEach(row => {
             if (row.unitName) {
               progressMap.set(row.unitName, {
-                status: row.status,
+                status: row.status as LogViewerAccordionStatus,
                 startTime: row.startTime,
                 endTime: row.endTime
               })
@@ -162,14 +161,14 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
           }, {})
         }
 
-        const getStatusforUnitLegacy = (unit: string): ProgressMapValue['status'] => {
+        const getStatusforUnitLegacy = (unit: string, index: number): ProgressMapValue['status'] => {
           const unitProgress = progressMap.get(unit)
 
-          if (isStepComplete && isExecutionRunning(unitProgress?.status)) {
-            return node.status as ProgressMapValue['status']
+          if (isStepComplete && (isExecutionRunning(unitProgress?.status) || logKeys[index])) {
+            return snakeCase(node.status).toUpperCase() as ProgressMapValue['status']
           }
 
-          return unitProgress?.status || 'UNKNOWN'
+          return unitProgress?.status || 'NOT_STARTED'
         }
 
         const dataMap = units.reduce((acc: Record<string, LogSectionData>, unit: string, i: number) => {
@@ -178,20 +177,21 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
            * In case it doesn't, fallback to the 'UNKNOWN' status.
            */
           const unitProgress = progressMap.get(unit)
-          const unitStatus = (useUnitProgresses ? unitProgress?.status : getStatusforUnitLegacy(unit)) || 'UNKNOWN'
+          const unitStatus: LogViewerAccordionStatus = useUnitProgresses
+            ? unitProgress?.status || 'NOT_STARTED'
+            : getStatusforUnitLegacy(unit, i)
 
           acc[unit] = {
             title: unit,
             id: unit,
             data: isSameStep ? state.dataMap[unit]?.data || '' : '',
-            isLoading: false,
             logKey: logKeys[i],
             isOpen: isSameStep ? state.dataMap[unit]?.isOpen : false,
-            status: logViewerStatusMap[unitStatus.toLowerCase()],
+            status: isSameStep ? state.dataMap[unit]?.status : unitStatus,
+            unitStatus,
             startTime: unitProgress?.startTime,
             endTime: unitProgress?.endTime,
-            originalStatus: unitStatus,
-            dataSource: isExecutionComplete(unitStatus) ? 'blob' : 'stream'
+            dataSource: isExecutionRunning(unitStatus) ? 'stream' : 'blob'
           }
 
           return acc
@@ -208,31 +208,39 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             key = units[0]
           } else {
             // find and open the first failed section
-            const failedUnit = units.find((unit: string) => isExecutionFailed(getStatusforUnitLegacy(unit)))
+            const failedUnit = units.find((unit: string) => isExecutionFailed(dataMap[unit].unitStatus))
             key = failedUnit || null
           }
         } else {
           // open the running section
-          const runningUnit = findLast([...progressMap.keys()], unit =>
-            isExecutionRunning(getStatusforUnitLegacy(unit))
-          )
+          const runningUnit = findLast([...progressMap.keys()], unit => isExecutionRunning(dataMap[unit].unitStatus))
           key = runningUnit || null
         }
 
-        // if we are openening a section the set it to loading for better UX
-        if (key) set(dataMap[key], 'isLoading', true)
+        // if we are openening a section the set it to loading
+        if (key && dataMap[key].status !== 'QUEUED') {
+          set(dataMap[key], 'status', 'LOADING')
+        }
 
         return { units, dataMap, selectedStep }
       }
 
       return state
     }
-    // Action for fetching the section data
+    // Action to fetch the section data
     case ActionType.FetchSectionData: {
       const payload = (action as Action<ActionType.FetchSectionData>).payload
 
       return produce(state, draft => {
-        set(draft.dataMap[payload], 'isLoading', true)
+        set(draft.dataMap[payload], 'status', 'LOADING')
+      })
+    }
+    // Action for fetching the section data
+    case ActionType.FetchingSectionData: {
+      const payload = (action as Action<ActionType.FetchingSectionData>).payload
+
+      return produce(state, draft => {
+        set(draft.dataMap[payload], 'status', 'QUEUED')
       })
     }
     // Action for updating the section data
@@ -242,6 +250,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
       if (state.dataMap[payload.id].data === payload.data) return state
 
       return produce(state, draft => {
+        const unit = state.dataMap[payload.id]
         const data = payload.data.split('\n').reduce((str, line) => {
           if (line.length > 0) {
             let lineStr = line
@@ -273,7 +282,12 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
 
           return str
         }, '')
-        set(draft.dataMap[payload.id], 'isLoading', false)
+
+        // update status only for blob data
+        if (unit.dataSource === 'blob') {
+          set(draft.dataMap[payload.id], 'status', unit.unitStatus)
+        }
+
         set(draft.dataMap[payload.id], 'isOpen', true)
         set(draft.dataMap[payload.id], 'data', data.trim())
       })

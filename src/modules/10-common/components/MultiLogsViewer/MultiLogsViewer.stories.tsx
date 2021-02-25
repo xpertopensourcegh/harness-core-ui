@@ -125,24 +125,25 @@ Multi.args = {
       title: 'Entry 1',
       data: log(),
       id: 'entry-1',
-      status: 'success'
+      status: 'SUCCESS'
     },
     {
       title: 'Entry 2',
       data,
       id: 'entry-2',
-      status: 'error'
+      status: 'FAILURE'
     },
     {
       title: 'Entry 3',
       data,
       id: 'entry-3',
-      status: 'loading'
+      status: 'NOT_STARTED'
     },
     {
       title: 'Entry 4',
       data,
-      id: 'entry-4'
+      id: 'entry-4',
+      status: 'RUNNING'
     }
   ]
 }
