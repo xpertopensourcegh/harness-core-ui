@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
-import { HealthCheck, PortConfig, Service, ServiceMetadata, useAllServiceResources, useRouteDetails } from 'services/lw'
+import {
+  HealthCheck,
+  PortConfig,
+  Service,
+  ServiceDep,
+  ServiceMetadata,
+  useAllServiceResources,
+  useRouteDetails
+} from 'services/lw'
 
 export const CECOEditGatewayPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams()
@@ -21,6 +29,7 @@ export const CECOEditGatewayPage: React.FC = () => {
   useEffect(() => {
     if (loading || resourcesLoading) return
     const service = data?.response?.service as Service
+    const deps = data?.response?.deps as ServiceDep[]
     const selectedResources = resources?.response ? resources?.response : []
     const selectedInstances = selectedResources.map(item => {
       return {
@@ -69,7 +78,8 @@ export const CECOEditGatewayPage: React.FC = () => {
         name: service.metadata?.cloud_provider_details?.name as string
       },
       metadata: service.metadata as ServiceMetadata,
-      customDomains: service.custom_domains
+      customDomains: service.custom_domains,
+      deps: deps
     }
     setGatewayDetails(gwDetails)
   }, [data, resources])

@@ -226,15 +226,7 @@ const COAccessPointList: React.FC = () => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-            label: projectIdentifier
-          },
-          {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-            label: 'Cost Optimization'
-          },
-          {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
+            url: routes.toCECOAccessPoints({ orgIdentifier, projectIdentifier, accountId }),
             label: 'Access points'
           }
         ]}

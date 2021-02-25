@@ -351,11 +351,7 @@ const COGatewayList: React.FC = () => {
             className={css.breadCrumb}
             links={[
               {
-                url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-                label: 'Cost Optimization'
-              },
-              {
-                url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
+                url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
                 label: 'Autostopping Rules'
               }
             ]}

@@ -14,6 +14,7 @@ declare const styles: {
   readonly switchFont: string
   readonly helpSidebar: string
   readonly routingTable: string
+  readonly dependencyTable: string
   readonly selectCell: string
   readonly configTab: string
   readonly gatewayConfigForm: string

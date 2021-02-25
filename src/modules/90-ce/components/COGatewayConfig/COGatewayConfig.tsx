@@ -26,12 +26,21 @@ import { useToaster } from '@common/exports'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
-import { HealthCheck, PortConfig, useAllResourcesOfAccount, useSecurityGroupsOfInstances } from 'services/lw'
+import {
+  HealthCheck,
+  PortConfig,
+  Service,
+  ServiceDep,
+  useAllResourcesOfAccount,
+  useGetServices,
+  useSecurityGroupsOfInstances
+} from 'services/lw'
 import CORoutingTable from './CORoutingTable'
 import COHealthCheckTable from './COHealthCheckTable'
 import i18n from './COGatewayConfig.i18n'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
+import CORuleDendencySelector from './CORuleDependencySelector'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigProps {
@@ -78,6 +87,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.gatewayDetails.opts.alwaysUsePrivateIP ? props.gatewayDetails.opts.alwaysUsePrivateIP : false
   )
   const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
+  const [serviceDependencies, setServiceDependencies] = useState<ServiceDep[]>(props.gatewayDetails.deps || [])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(!props.gatewayDetails.fullfilment)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
@@ -106,10 +116,22 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       type: 'instance'
     }
   })
+  const { data, error } = useGetServices({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    debounce: 300
+  })
+  if (error) {
+    showError('Faield to fetch services')
+  }
   useEffect(() => {
     props.gatewayDetails.routing.ports = routingRecords
     props.setGatewayDetails(props.gatewayDetails)
   }, [routingRecords])
+  useEffect(() => {
+    props.gatewayDetails.deps = serviceDependencies
+    props.setGatewayDetails(props.gatewayDetails)
+  }, [serviceDependencies])
   useEffect(() => {
     if (healthCheck) {
       props.gatewayDetails.healthCheck = healthCheckPattern
@@ -278,6 +300,13 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     })
     const routes = [...emptyRecords]
     if (routes.length) setRoutingRecords(routes)
+  }
+  function addDependency(): void {
+    serviceDependencies.push({
+      delay_secs: 5 // eslint-disable-line
+    })
+    const deps = [...serviceDependencies]
+    setServiceDependencies(deps)
   }
   return (
     <Layout.Vertical className={css.page}>
@@ -572,14 +601,24 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                   props.setGatewayDetails(props.gatewayDetails)
                                 }}
                               />
-                              <Text>~brief description of what a dependency is~</Text>
-                              <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
-                                {i18n.addDependency}
-                              </Label>
-                              <Text>{i18n.scheduleDescription}</Text>
-                              <Label style={{ color: ' #0092E4', fontSize: '12px', cursor: 'pointer' }}>
-                                {i18n.addSchedule}
-                              </Label>
+                              {serviceDependencies && serviceDependencies.length ? (
+                                <CORuleDendencySelector
+                                  deps={serviceDependencies}
+                                  setDeps={setServiceDependencies}
+                                  service_id={props.gatewayDetails.id}
+                                  allServices={data?.response as Service[]}
+                                ></CORuleDendencySelector>
+                              ) : null}
+                              <Container>
+                                <Text
+                                  onClick={() => {
+                                    addDependency()
+                                  }}
+                                  style={{ color: 'var(--blue-500)', cursor: 'pointer' }}
+                                >
+                                  {'+ add dependency'}
+                                </Text>
+                              </Container>
                             </Layout.Vertical>
                           </Container>
                         }

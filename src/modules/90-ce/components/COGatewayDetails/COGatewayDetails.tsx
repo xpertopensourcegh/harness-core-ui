@@ -1,16 +1,7 @@
 import React, { useState } from 'react'
-import {
-  Layout,
-  Tabs,
-  Tab,
-  Button,
-  Container,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding,
-  Icon,
-  Text
-} from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Container, Icon, Text } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
+import { useToaster } from '@common/exports'
 import COGatewayConfig from '@ce/components/COGatewayConfig/COGatewayConfig'
 import COGatewayAccess from '@ce/components/COGatewayAccess/COGatewayAccess'
 import COGatewayReview from '@ce/components/COGatewayReview/COGatewayReview'
@@ -27,10 +18,10 @@ interface COGatewayDetailsProps {
 }
 const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const history = useHistory()
+  const { showError } = useToaster()
   const [selectedTabId, setSelectedTabId] = useState<string>('configuration')
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const tabs = ['configuration', 'setupAccess', 'review']
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
@@ -93,7 +84,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       if (props.gatewayDetails.id) {
         gateway.id = props.gatewayDetails.id
       }
-      const result = await saveGateway({ service: gateway, deps: [], apply_now: false }) // eslint-disable-line
+      const result = await saveGateway({ service: gateway, deps: props.gatewayDetails.deps, apply_now: false }) // eslint-disable-line
       if (result.response) {
         history.push(
           routes.toCECORules({
@@ -104,7 +95,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         )
       }
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
+      showError(e.data?.message || e.message)
     }
   }
   const nextTab = (): void => {
@@ -216,7 +207,6 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           />
         </Tabs>
       </Container>
-      <ModalErrorHandler bind={setModalErrorHandler} />
       <Layout.Horizontal className={css.footer} spacing="medium">
         <Button
           text="Previous"

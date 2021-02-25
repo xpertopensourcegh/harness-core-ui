@@ -60,7 +60,8 @@ export const CECODashboardPage: React.FC = () => {
     },
     selectedInstances: [],
     accessPointID: '',
-    metadata: {}
+    metadata: {},
+    deps: []
   }
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>(initialGatewayDetails)
   const nextTab = (): void => {

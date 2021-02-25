@@ -1,4 +1,4 @@
-import type { HealthCheck, PortConfig, ServiceMetadata } from 'services/lw'
+import type { HealthCheck, PortConfig, ServiceDep, ServiceMetadata } from 'services/lw'
 
 interface Instance {
   filterText: string
@@ -58,6 +58,7 @@ export interface GatewayDetails {
   accessPointID: string
   accountID: string
   metadata: ServiceMetadata
+  deps: ServiceDep[]
 }
 
 interface DNSLink {
