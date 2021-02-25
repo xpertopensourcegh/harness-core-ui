@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+import { useStrings } from 'framework/exports'
 import type { Feature } from 'services/cf'
 
 const LOCALE = 'en'
@@ -66,3 +68,28 @@ export enum FeatureFlagBucketBy {
   IDENTIFIER = 'identifier',
   NAME = 'name'
 }
+
+export const useBucketByItems = () => {
+  const { getString } = useStrings()
+  const bucketByItems = useMemo(
+    () => [
+      {
+        label: getString('identifier'),
+        value: FeatureFlagBucketBy.IDENTIFIER
+      },
+      {
+        label: getString('name'),
+        value: FeatureFlagBucketBy.NAME
+      }
+    ],
+    [getString]
+  )
+
+  return bucketByItems
+}
+
+// This util unescape <strong/> sequences in i18n output to support bold text
+// Note: To avoid XSS vulnerability, call replace() with full
+// escaped sequences and not single character like `<', '>', etc...
+export const unescapeI18nSupportedTags = (str: string) =>
+  str.replace(/&lt;strong&gt;/g, '<strong>').replace(/&lt;&#x2F;strong&gt;/g, '</strong>')

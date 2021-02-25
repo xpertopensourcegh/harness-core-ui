@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   AvatarGroup,
@@ -30,6 +30,7 @@ import {
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target, ServingRule } from 'services/cf'
 import { useStrings } from 'framework/exports'
 import { shape } from '@cf/utils/instructions'
+import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
 import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'
 import PercentageRollout from './PercentageRollout'
@@ -52,7 +53,10 @@ interface Option<T> {
 
 type Finder<T> = (value: T) => Option<T> | undefined
 
-const toOption = (x: string): Option<string> => ({ label: x, value: x })
+const toOption = (x: string): Option<string> => ({
+  label: x,
+  value: x
+})
 function useOptions<T>(as: T[], mapper: (a: T) => string): [Option<string>[], Finder<string>] {
   const opts = as.map(mapper).map(toOption)
   return [opts, (val: string) => opts.find(o => o.value === val)]
@@ -123,30 +127,34 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   const [operators, isSingleValued] = useCustomRulesOperators()
   const isSingleValuedOperator = isSingleValued(operator.value as string)
   const valueOpts = values.map(toOption)
-  const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) => onAttributeChange(e.target.value)
   const handleOperatorChange = (data: SelectOption) => onOperatorChange(data.value as string)
   const handleValuesChange = (data: MultiSelectOption[]) => onValuesChange(data.map(x => x.value as string))
   const handleSingleValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     handleValuesChange([toOption(e.target.value)])
+  const bucketByItems = useBucketByItems()
+  const bucketBySelectValue = useMemo(() => {
+    return bucketByItems.find(item => item.value === attribute)
+  }, [bucketByItems, attribute])
 
   const actions = [
     <Icon
-      key="delete-icon-0"
+      key="delete"
       name="delete"
       style={{ visibility: isSingleClause ? 'hidden' : 'visible' }}
-      size={24}
+      size={18}
       color={Color.ORANGE_500}
       onClick={onRemoveRow}
     />,
     <Icon
-      key="add-icon-1"
+      key="add"
       name="add"
       style={{ visibility: isSingleClause || isLast ? 'visible' : 'hidden' }}
-      size={24}
+      size={18}
       color={Color.BLUE_500}
       onClick={onAddNewRow}
     />
   ]
+
   if (isSingleClause) {
     actions.reverse()
   }
@@ -154,51 +162,60 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   const height = '36px'
 
   return (
-    <Layout.Horizontal spacing="xsmall">
-      <Text
-        color={Color.GREY_350}
-        font="normal"
-        style={{ display: 'flex', height, alignItems: 'center', justifyContent: 'flex-end', minWidth: '80px' }}
-      >
-        {label}
-      </Text>
-      <div style={{ flex: '1' }}>
-        <TextInput
-          style={{ height }}
-          id={`attribute-${index}`}
-          value={attribute}
-          disabled={operator.value === matchSegment.value}
-          onChange={handleAttrChange}
-        />
-      </div>
-      <div style={{ flex: '0.8' }}>
-        <Select inputProps={{ style: { height } }} value={operator} items={operators} onChange={handleOperatorChange} />
-      </div>
-      <div style={{ flex: '1.5' }}>
-        {isSingleValuedOperator ? (
-          <TextInput
-            style={{ height }}
-            id={`values-${index}`}
-            value={valueOpts[0]?.value}
-            onChange={handleSingleValueChange}
-          />
-        ) : (
-          <MultiSelect
-            fill
-            tagInputProps={{
-              intent: error ? 'danger' : 'none'
+    <Container>
+      <Layout.Horizontal spacing="small">
+        <Text
+          font="normal"
+          style={{ display: 'flex', height, alignItems: 'center', justifyContent: 'flex-end', minWidth: '80px' }}
+        >
+          {label}
+        </Text>
+        <div style={{ flex: '1' }}>
+          <Select
+            name="bucketBy"
+            value={bucketBySelectValue}
+            inputProps={{ style: { height } }}
+            items={bucketByItems}
+            disabled={operator.value === matchSegment.value}
+            onChange={({ value }) => {
+              onAttributeChange(value as string)
             }}
-            items={valueOpts}
-            value={valueOpts}
-            onChange={handleValuesChange}
           />
-        )}
-        {error && <Text intent="danger">Required</Text>}
-      </div>
-      <Layout.Horizontal flex={{ align: 'center-center' }} spacing="small">
-        {actions}
+        </div>
+        <div style={{ flex: '0.8' }}>
+          <Select
+            inputProps={{ style: { height } }}
+            value={operator}
+            items={operators}
+            onChange={handleOperatorChange}
+          />
+        </div>
+        <div style={{ flex: '1.5' }}>
+          {isSingleValuedOperator ? (
+            <TextInput
+              style={{ height }}
+              id={`values-${index}`}
+              value={valueOpts[0]?.value}
+              onChange={handleSingleValueChange}
+            />
+          ) : (
+            <MultiSelect
+              fill
+              tagInputProps={{
+                intent: error ? 'danger' : 'none'
+              }}
+              items={valueOpts}
+              value={valueOpts}
+              onChange={handleValuesChange}
+            />
+          )}
+          {error && <Text intent="danger">Required</Text>}
+        </div>
+        <Layout.Horizontal flex={{ align: 'center-center' }} spacing="small">
+          {actions}
+        </Layout.Horizontal>
       </Layout.Horizontal>
-    </Layout.Horizontal>
+    </Container>
   )
 }
 
@@ -222,11 +239,23 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
   onChange
 }) => {
   const [hovering, setHovering] = useState(false)
+  const { getString } = useStrings()
   const [operators, isSingleValue] = useCustomRulesOperators()
-  const percentageRollout = { label: 'a rollout percentage', value: 'percentage' }
-  const [varOpts, findVariationOpt] = useOptions(variations, x => x.identifier)
-  const variationOps = varOpts.concat([percentageRollout])
-  const currentServe = rule.serve.distribution ? percentageRollout : findVariationOpt(rule.serve.variation as string)
+  const percentageRollout = {
+    label: getString('cf.featureFlags.percentageRollout'),
+    value: 'percentage',
+    icon: { name: 'percentage' }
+  }
+  const variationItems = variations
+    .map<SelectOption>((elem, _index) => ({
+      label: elem.name as string,
+      value: elem.identifier as string,
+      icon: { name: 'full-circle', style: { color: CFVariationColors[_index] } }
+    }))
+    .concat([percentageRollout] as SelectOption[])
+  const currentServe = rule.serve.distribution
+    ? percentageRollout
+    : variationItems.find(item => item.value === (rule.serve.variation as string))
 
   const toggleDragHandler = () => setHovering(!hovering)
 
@@ -326,7 +355,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                   <Icon name="drag-handle-vertical" size={24} color={Color.GREY_300} />
                 </Container>
                 <Container>
-                  <Layout.Vertical spacing="medium">
+                  <Layout.Vertical spacing="small">
                     {rule.clauses.map((clause, idx) => (
                       <ClauseRow
                         key={idx}
@@ -345,38 +374,44 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                         onRemoveRow={handleRemove(idx)}
                       />
                     ))}
-                    <Layout.Horizontal spacing="xsmall">
-                      <Text
-                        color={Color.GREY_350}
-                        font="normal"
-                        style={{
-                          display: 'flex',
-                          height: '36px',
-                          alignItems: 'center',
-                          justifyContent: 'flex-end',
-                          minWidth: '80px'
-                        }}
-                      >
-                        {i18n.tabTargeting.serve.toLocaleLowerCase()}
-                      </Text>
-                      <div style={{ flexGrow: 0 }}>
-                        <Select
-                          value={currentServe}
-                          items={variationOps}
-                          inputProps={{ style: { height: '36px' } }}
-                          onChange={handleServeChange}
-                        />
-                      </div>
-                    </Layout.Horizontal>
+                    <Container>
+                      <Layout.Horizontal spacing="small">
+                        <Text
+                          font="normal"
+                          style={{
+                            display: 'flex',
+                            height: '36px',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            minWidth: '80px'
+                          }}
+                        >
+                          {i18n.tabTargeting.serve.toLocaleLowerCase()}
+                        </Text>
+                        <div style={{ flexGrow: 0 }}>
+                          <Select
+                            value={currentServe as SelectOption}
+                            items={variationItems}
+                            inputProps={{ style: { height: '36px' } }}
+                            onChange={handleServeChange}
+                          />
+                        </div>
+                      </Layout.Horizontal>
+                    </Container>
                     {currentServe?.value === 'percentage' && (
-                      <div style={{ paddingLeft: '94px' }}>
+                      <Container
+                        style={
+                          { paddingLeft: '75px', paddingRight: '56px', '--layout-spacing': 0 } as React.CSSProperties
+                        }
+                      >
                         <PercentageRollout
                           editing={true}
                           variations={variations}
                           weightedVariations={rule.serve.distribution?.variations || []}
                           onSetPercentageValues={handleRolloutChange}
+                          style={{ marginLeft: 'var(--spacing-small)' }}
                         />
-                      </div>
+                      </Container>
                     )}
                   </Layout.Vertical>
                 </Container>
@@ -406,60 +441,98 @@ interface RuleViewCardProps {
   variations: Variation[]
 }
 
-const InlineBold: React.FC<{}> = ({ children }) => <span style={{ fontWeight: 'bold' }}>{children}</span>
-
-const safeJoin = (data: any[], separator: string) => data?.join(separator) || `[${data}]`
-
-const ClauseViewMode: React.FC<{ clause: Clause; operators: { label: string; value: string }[] }> = ({
-  clause,
-  operators
-}) => {
-  return (
-    <>
-      <InlineBold>{` ${clause.attribute} `} </InlineBold>{' '}
-      {operators.find(op => op.value === clause.op)?.label || 'NO_OP'}{' '}
-      <InlineBold>{` ${safeJoin(clause.values, ', ')}`}</InlineBold>
-    </>
-  )
-}
-
 const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
+  const { getString } = useStrings()
   const isPercentage = Boolean(rule.serve.distribution)
   const [operators] = useCustomRulesOperators()
   const [firstClause, ...extraClauses] = rule.clauses
+  const variationIndex = variations.findIndex(v => v.identifier === rule.serve.variation)
+  const bucketBy = rule?.serve?.distribution?.bucketBy
 
   let clausesComponent
   if (extraClauses.length > 0) {
     clausesComponent = (
-      <>
-        <div>
-          {`${i18n.if} `}
-          <ClauseViewMode clause={firstClause} operators={operators} />
-        </div>
+      <Layout.Vertical spacing="xsmall">
+        <Text style={{ fontSize: '14px', lineHeight: '24px' }}>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: unescapeI18nSupportedTags(
+                getString('cf.featureFlags.ifClause', {
+                  attribute: firstClause.attribute,
+                  operator: operators.find(op => op.value === firstClause.op)?.label,
+                  values: firstClause.values
+                    .map(val => `<strong>${val}</strong>`)
+                    .join(getString('cf.featureFlags.commaSeparator'))
+                })
+              )
+            }}
+          />
+        </Text>
         {extraClauses.map((clause, idx) => {
           return (
-            <li key={idx}>
-              {`${i18n.and.toLocaleLowerCase()} `}
-              <ClauseViewMode clause={clause} operators={operators} />
-            </li>
+            <Container key={idx}>
+              <Text key={idx} style={{ fontSize: '14px', lineHeight: '24px' }}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: unescapeI18nSupportedTags(
+                      getString('cf.featureFlags.andClause', {
+                        attribute: clause.attribute,
+                        operator: operators.find(op => op.value === clause.op)?.label,
+                        values: clause.values
+                          .map(val => `<strong>${val}</strong>`)
+                          .join(getString('cf.featureFlags.commaSeparator'))
+                      })
+                    )
+                  }}
+                />
+              </Text>
+            </Container>
           )
         })}
-        <div>
-          {`${i18n.serveVariation.serve.toLocaleLowerCase()} `}{' '}
-          {isPercentage ? <InlineBold>{i18n.serveVariation.percentageRollout}</InlineBold> : rule.serve.variation}
-        </div>
-      </>
+        <Text style={{ fontSize: '14px', lineHeight: '24px' }}>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: getString(`cf.featureFlags.${isPercentage ? 'servePercentageRollout' : 'serve'}`)
+            }}
+          />
+          {!isPercentage && (
+            <VariationWithIcon
+              variation={variations[variationIndex]}
+              index={variationIndex}
+              iconStyle={{ transform: 'translateY(1px)', margin: '0 var(--spacing-xsmall)' }}
+              textStyle={{ fontWeight: 600 }}
+            />
+          )}
+        </Text>
+      </Layout.Vertical>
     )
   } else {
     clausesComponent = (
-      <>
-        <div>
-          {`${i18n.if} `}
-          <ClauseViewMode clause={firstClause} operators={operators} />,
-          {` ${i18n.serveVariation.serve.toLocaleLowerCase()} `}
-          {isPercentage ? <InlineBold>{i18n.serveVariation.percentageRollout}</InlineBold> : rule.serve.variation}
-        </div>
-      </>
+      <Layout.Horizontal spacing="xsmall">
+        <Text style={{ fontSize: '14px', lineHeight: '24px' }}>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: unescapeI18nSupportedTags(
+                getString(`cf.featureFlags.${isPercentage ? 'ifClauseServePercentageRollout' : 'ifClauseServe'}`, {
+                  attribute: firstClause.attribute,
+                  operator: operators.find(op => op.value === firstClause.op)?.label,
+                  values: firstClause.values
+                    .map(val => `<strong>${val}</strong>`)
+                    .join(getString('cf.featureFlags.commaSeparator'))
+                })
+              )
+            }}
+          />
+          {!isPercentage && (
+            <VariationWithIcon
+              variation={variations[variationIndex]}
+              index={variationIndex}
+              iconStyle={{ transform: 'translateY(1px)', margin: '0 var(--spacing-xsmall)' }}
+              textStyle={{ fontWeight: 600 }}
+            />
+          )}
+        </Text>
+      </Layout.Horizontal>
     )
   }
 
@@ -470,8 +543,10 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
         {isPercentage && (
           <PercentageRollout
             editing={false}
+            bucketBy={bucketBy as string}
             variations={variations}
             weightedVariations={rule.serve.distribution?.variations || []}
+            style={{ marginLeft: 'var(--spacing-small)' }}
           />
         )}
       </Layout.Vertical>
@@ -593,6 +668,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
               transform: 'translateY(1px)',
               marginLeft: '1px'
             }}
+            textStyle={{ fontWeight: 600 }}
           />
         )}
       </div>

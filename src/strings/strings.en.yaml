@@ -1342,8 +1342,8 @@ cf:
       endsWith: 'ends with'
       match: 'match'
       contains: 'contains'
-      equal: 'equal'
-      equalSensitive: 'equal (sensitive)'
+      equal: 'equals'
+      equalSensitive: 'equals (sensitive)'
       in: 'in'
       matchSegment: 'Match Segment'
   shared:
@@ -1366,12 +1366,19 @@ cf:
     prerequisitesDesc: '(what’s required before enabling flags)'
     ifFlagOnServe: 'If the flag is <strong>ON</strong>, serve '
     ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '
-    bucketBy: <strong>Bucket</strong> by <strong>{{targetField}}</strong>
+    bucketBy: Bucket by <strong>{{targetField}}</strong>
     bucketOverflow: Cannot set above 100%
     serveVariationToTarget: '+ Serve variation to Target'
     serveVariationToTargetLabel: Serve Variation to Target
     customRuleOnRequest: '+ On Request, check for condition and serve variation'
     toTarget: to target
+    ifClause: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}'
+    ifClauseServe: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve'
+    ifClauseServePercentageRollout: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve <strong>percentage rollout</strong>'
+    andClause: '- and <strong>{{attribute}}</strong> {{operator}} {{values}}'
+    commaSeparator: ', '
+    serve: serve
+    servePercentageRollout: serve <strong>percentage rollout</strong>
   targets:
     title: 'Targets'
     ID: 'ID'

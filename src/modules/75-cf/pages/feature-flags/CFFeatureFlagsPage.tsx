@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   Color,
@@ -67,6 +67,8 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
     flagIdentifier: data.identifier
   })
   const { showError, clear } = useToaster()
+  const [size, setSize] = useState(300)
+  const ref = useRef<HTMLDivElement>(null)
 
   const switchTooltip = (
     <Container width={'350px'} padding="xxxlarge">
@@ -131,6 +133,21 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
     }
   }, [clear])
 
+  const onResize = () => {
+    if (ref.current) {
+      setSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)?.offsetWidth - 174)
+    }
+  }
+
+  useEffect(() => {
+    onResize()
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
   return (
     <Container flex>
       <Container onMouseDown={Utils.stopEvent} onClick={Utils.stopEvent}>
@@ -152,7 +169,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
         </Button>
       </Container>
       <Layout.Horizontal spacing="small" style={{ flexGrow: 1, paddingLeft: 'var(--spacing-medium)' }}>
-        <Layout.Vertical flex className={css.generalInfo}>
+        <Layout.Vertical flex className={css.generalInfo} ref={ref}>
           <Text
             style={{
               color: '#22222A',
@@ -161,8 +178,8 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
               lineHeight: '16px'
             }}
             margin={{ right: 'xsmall' }}
-            className={css.name}
-            tooltip={<Text padding="large">{data.name}</Text>}
+            width={size}
+            lineClamp={2}
           >
             {data.name}
           </Text>
@@ -324,7 +341,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
         minimal
         icon="Options"
         iconProps={{ size: 24 }}
-        tooltipProps={{ isDark: true, interactionKind: 'click' }}
+        tooltipProps={{ isDark: true, interactionKind: 'click', hasBackdrop: true }}
         tooltip={
           <Menu style={{ minWidth: 'unset' }}>
             <Menu.Item
@@ -452,9 +469,9 @@ const CFFeatureFlagsPage: React.FC = () => {
       },
       {
         Header: i18n.lastUpdated.toUpperCase(),
+        accessor: row => row.modifiedAt,
         width: '15%',
-        Cell: RenderColumnLastUpdated,
-        disableSortBy: true
+        Cell: RenderColumnLastUpdated
       },
       {
         Header: '',

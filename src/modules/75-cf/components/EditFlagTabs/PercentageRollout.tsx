@@ -3,7 +3,7 @@ import { Color, Layout, Text, Container, Select } from '@wings-software/uicore'
 import { sumBy, clamp } from 'lodash-es'
 import type { Distribution, WeightedVariation, Variation } from 'services/cf'
 import { useStrings } from 'framework/exports'
-import { FeatureFlagBucketBy } from '@cf/utils/CFUtils'
+import { useBucketByItems } from '@cf/utils/CFUtils'
 import { CFVariationColors } from '@cf/constants'
 import css from './TabTargeting.module.scss'
 
@@ -20,6 +20,7 @@ interface PercentageRolloutProps {
   variations: Variation[]
   weightedVariations: WeightedVariation[]
   onSetPercentageValues?(value: Distribution): void
+  style?: React.CSSProperties
 }
 
 const PercentageRollout: React.FC<PercentageRolloutProps> = ({
@@ -27,7 +28,8 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
   bucketBy,
   weightedVariations,
   variations,
-  onSetPercentageValues
+  onSetPercentageValues,
+  style
 }) => {
   const [bucketByValue, setBucketByValue] = useState<string>(bucketBy || 'identifier')
   const [percentageValues, setPercentageValues] = useState<PercentageValues[]>([])
@@ -74,19 +76,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
       }))
     })
   }, [bucketByValue, percentageValues])
-  const bucketByItems = useMemo(
-    () => [
-      {
-        label: getString('identifier'),
-        value: FeatureFlagBucketBy.IDENTIFIER
-      },
-      {
-        label: getString('name'),
-        value: FeatureFlagBucketBy.NAME
-      }
-    ],
-    [getString]
-  )
+  const bucketByItems = useBucketByItems()
   const bucketBySelectValue = useMemo(() => {
     return bucketByItems.find(item => item.value === bucketByValue)
   }, [bucketByItems, bucketByValue])
@@ -95,7 +85,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
   }, [bucketByItems, bucketByValue])
 
   return (
-    <Container margin={{ left: editing ? 'small' : 'xsmall' }}>
+    <Container margin={{ left: editing ? 'small' : 'xsmall' }} style={style}>
       <Layout.Horizontal
         margin={{ bottom: 'small' }}
         style={{ alignItems: 'baseline', marginTop: editing ? 'var(--spacing-small)' : 0 }}

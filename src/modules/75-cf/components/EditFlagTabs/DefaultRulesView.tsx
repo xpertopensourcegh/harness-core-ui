@@ -86,7 +86,11 @@ export const DefaultRulesView: React.FC<DefaultRulesProps> = ({
                   spacing="xsmall"
                   style={{ marginLeft: 'var(--spacing-xsmall)', alignItems: 'center' }}
                 >
-                  <VariationWithIcon variation={variations[onVariationIndex]} index={onVariationIndex} />
+                  <VariationWithIcon
+                    variation={variations[onVariationIndex]}
+                    index={onVariationIndex}
+                    textStyle={{ fontWeight: 600 }}
+                  />
                 </Layout.Horizontal>
               )
             )}
@@ -114,7 +118,11 @@ export const DefaultRulesView: React.FC<DefaultRulesProps> = ({
               <FormInput.Select name="offVariation" items={variationItems} onChange={formikProps.handleChange} />
             ) : (
               <Layout.Horizontal spacing="xsmall" style={{ marginLeft: 'var(--spacing-xsmall)', alignItems: 'center' }}>
-                <VariationWithIcon variation={variations[offVariationIndex]} index={offVariationIndex} />
+                <VariationWithIcon
+                  variation={variations[offVariationIndex]}
+                  index={offVariationIndex}
+                  textStyle={{ fontWeight: 600 }}
+                />
               </Layout.Horizontal>
             )}
           </Container>

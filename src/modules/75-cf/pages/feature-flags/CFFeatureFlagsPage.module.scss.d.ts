@@ -13,7 +13,6 @@ declare const styles: {
   readonly pagination: string
   readonly tagsPopover: string
   readonly generalInfo: string
-  readonly name: string
   readonly toggleFlagButton: string
   readonly status: string
   readonly archived: string
