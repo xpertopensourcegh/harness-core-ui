@@ -157,6 +157,18 @@ export function RollbackStepGroupStep(props: BaseStepProps): React.ReactElement 
   )
 }
 
+export function IgnoreFailureStep(props: BaseStepProps): React.ReactElement {
+  function handleChange(): void {
+    props.formik.setFieldValue(props.name, undefined)
+  }
+
+  return (
+    <div className={css.step}>
+      <StrategyIcon strategy={Strategy.Ignore} checked onChange={handleChange} />
+    </div>
+  )
+}
+
 export function MarkAsSuccessStep(props: BaseStepProps): React.ReactElement {
   function handleChange(): void {
     props.formik.setFieldValue(props.name, undefined)
