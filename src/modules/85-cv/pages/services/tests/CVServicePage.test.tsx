@@ -44,7 +44,16 @@ describe('Unit tests for CV service page', () => {
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
     useGetCategoryRiskMapSpy.mockReturnValue({
-      data: { resource: [] },
+      data: {
+        metaData: {},
+        resource: {
+          startTimeEpoch: 1614136800000,
+          endTimeEpoch: 1614137100000,
+          hasConfigsSetup: false,
+          categoryRisks: null
+        },
+        responseMessages: []
+      },
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
@@ -54,7 +63,7 @@ describe('Unit tests for CV service page', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
-    expect(getByText('No category based risk assessment')).not.toBeNull()
+    expect(getByText('Get risk assessment')).not.toBeNull()
   })
 
   test('Ensure that when an error is encountered the error message is displayed', async () => {
@@ -68,7 +77,7 @@ describe('Unit tests for CV service page', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
     const refetchMock = jest.fn()
     useGetCategoryRiskMapSpy.mockReturnValue({
-      data: { resource: undefined },
+      data: undefined,
       error: { message: 'mock error' } as unknown,
       refetch: refetchMock as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
@@ -105,23 +114,35 @@ describe('Unit tests for CV service page', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     useGetCategoryRiskMapSpy.mockReturnValue({
-      data: { resource: [] },
+      data: {
+        startTimeEpoch: 1614136800000,
+        endTimeEpoch: 1614137100000,
+        hasConfigsSetup: true,
+        categoryRisks: [
+          { category: 'Errors', risk: -1 },
+          { category: 'Performance', risk: -1 },
+          { category: 'Infrastructure', risk: -1 }
+        ]
+      },
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
-    const { container, getByText } = render(
+    const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
         <CVServicesPage />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
 
-    const envOption = getByText('Environment: Production')
+    const envOption = container.querySelector('[class*="environmentRow"] p')
+    if (!envOption) {
+      throw Error('env option was not rendered.')
+    }
     expect(useGetEnvServiceRiskSpy).toHaveBeenCalledTimes(1)
     expect(useGetCategoryRiskMapSpy).toHaveBeenCalledTimes(1)
-    await waitFor(() => fireEvent.click(envOption))
-    expect(useGetEnvServiceRiskSpy).toHaveBeenCalledTimes(3)
-    expect(useGetCategoryRiskMapSpy).toHaveBeenCalledTimes(3)
+    fireEvent.click(envOption)
+    await waitFor(() => expect(useGetEnvServiceRiskSpy).toHaveBeenCalledTimes(2))
+    expect(useGetCategoryRiskMapSpy).toHaveBeenCalledTimes(2)
   })
 
   test('Ensure that when time range drop down values are selected, and a heatmap cell is clicked the timeseries is rendered', async () => {

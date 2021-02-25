@@ -1465,6 +1465,7 @@ cv:
     subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
     learnMore: Learn more about Continuous Verification
     createProject: '{{$.ci.dashboard.createProject}}'
+    notStarted: Not started
   continuous: 'CONTINUOUS'
   verification: 'VERIFICATION'
   hostNamePlaceholder: '${host}'

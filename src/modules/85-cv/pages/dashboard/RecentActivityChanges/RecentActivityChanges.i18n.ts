@@ -16,7 +16,7 @@ export default {
     riskScore: 'Risk score',
     remainingTime: 'minutes remaining',
     inProgress: 'in progress',
-    initiated: 'initiated',
+    initiated: 'Initiated',
     startedOn: 'started on'
   }
 }

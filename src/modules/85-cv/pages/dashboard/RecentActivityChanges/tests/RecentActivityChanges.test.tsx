@@ -174,7 +174,7 @@ jest.mock('services/cv', () => ({
       return { error: { message: 'mocked error' }, refetch: refetchFunc }
     } else if (accountId === 'no data') {
       return { data: { resources: [] } }
-    } else if (accountId === 'initiated') {
+    } else if (accountId === 'Initiated') {
       const mockDataWithInitiatedState = cloneDeep(MockData)
       mockDataWithInitiatedState[0].progressPercentage = 0
       mockDataWithInitiatedState[0].status = 'NOT_STARTED'

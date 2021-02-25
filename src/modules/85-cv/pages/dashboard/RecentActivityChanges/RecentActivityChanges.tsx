@@ -269,7 +269,7 @@ export default function RecentActivityChanges(): JSX.Element {
           </div>
           <MetricCategoriesWithRiskScore categoriesWithRiskScores={EmptyCategoryRiskArray} className={css.dataColumn} />
           <div style={{ width: 290 }}>
-            {i18n.verificationProgressText.initiated}
+            {getString('cv.dashboard.notStarted')}
             <div style={{ width: 200 }}>
               <CVProgressBar value={0} riskScore={0} />
             </div>
