@@ -230,6 +230,7 @@
 
 .create-stage-grid {
   display: grid;
+  padding: var(--spacing-xlarge);
   grid-template-columns: 1fr;
 }
 
