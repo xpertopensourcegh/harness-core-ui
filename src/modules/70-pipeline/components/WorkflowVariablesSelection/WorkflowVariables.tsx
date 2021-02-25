@@ -163,7 +163,7 @@ export default function WorkflowVariables({
   }
 
   return (
-    <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)', borderRadius: '5px' }}>
+    <Layout.Vertical style={{ borderRadius: '5px' }}>
       {isForPredefinedSets && <PredefinedOverrideSets context="VARIABLES" currentStage={stage} />}
 
       <section className={css.variablesList}>

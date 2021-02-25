@@ -238,7 +238,7 @@ export const EditStageView: React.FC<EditStageView> = ({
           </div>
         </div>
         {context && (
-          <Accordion className={css.sectionCard} activeId="variables">
+          <Accordion className={cx(css.sectionCard, css.shadow)} activeId="variables">
             <Accordion.Panel
               id="variables"
               summary={'Variables'}
@@ -267,14 +267,13 @@ export const EditStageView: React.FC<EditStageView> = ({
           </Accordion>
         )}
         {context && (
-          <Accordion activeId="skipCondition" className={css.sectionCard}>
+          <Accordion activeId="skipCondition" className={cx(css.sectionCard, css.shadow)}>
             <Accordion.Panel
-              summary="Skip Conditions"
+              summary={getString('skipConditionsTitle')}
               id="skipCondition"
               addDomId={true}
               details={
                 <div className={css.stageSection}>
-                  <Layout.Vertical className={css.tabHeading}>{getString('skipConditionsTitle')}</Layout.Vertical>
                   <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
                     <Layout.Vertical>
                       <div className={css.labelBold}>

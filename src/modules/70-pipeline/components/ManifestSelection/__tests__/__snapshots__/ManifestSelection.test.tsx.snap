@@ -3,7 +3,7 @@
 exports[`ManifestSelection tests renders without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-large"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"

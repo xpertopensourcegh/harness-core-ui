@@ -3,7 +3,7 @@
 exports[`ArtifactsSelection tests renders artifact with override without crashing: renders artifact with override without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-large"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -61,7 +61,7 @@ exports[`ArtifactsSelection tests renders artifact with override without crashin
 exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-large"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -267,7 +267,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
 exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Modal 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-large"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -473,7 +473,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
 exports[`ArtifactsSelection tests renders without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-large"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"

@@ -616,7 +616,7 @@ export default function ArtifactsSelection({
   const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
 
   return (
-    <Layout.Vertical padding={'large'}>
+    <Layout.Vertical>
       {isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={stage} />}
 
       <Layout.Vertical spacing="small">

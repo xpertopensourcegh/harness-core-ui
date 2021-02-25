@@ -704,7 +704,7 @@ export default function ManifestSelection({
   }, [listOfManifests])
 
   return (
-    <Layout.Vertical padding={!isForOverrideSets ? 'large' : 'none'}>
+    <Layout.Vertical>
       {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />}
       {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
         <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>

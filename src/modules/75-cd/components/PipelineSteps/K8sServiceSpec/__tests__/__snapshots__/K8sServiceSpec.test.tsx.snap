@@ -155,7 +155,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
               data-testid="Artifacts-details"
             >
               <div
-                class="Layout--vertical StyledProps--main StyledProps--padding-large"
+                class="Layout--vertical StyledProps--main"
               >
                 <div
                   class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -248,7 +248,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
               data-testid="Manifests-details"
             >
               <div
-                class="Layout--vertical StyledProps--main StyledProps--padding-large"
+                class="Layout--vertical StyledProps--main"
               >
                 <div
                   class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -329,7 +329,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
               data-testid="Variables-details"
             >
               <div
-                class="Layout--vertical StyledProps--main StyledProps--padding-large"
+                class="Layout--vertical StyledProps--main"
                 style="border-radius: 5px;"
               >
                 <section

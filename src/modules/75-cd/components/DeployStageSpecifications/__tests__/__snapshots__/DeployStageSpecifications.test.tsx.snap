@@ -414,7 +414,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           </div>
         </div>
         <div
-          class="Accordion--accordion sectionCard"
+          class="Accordion--accordion sectionCard shadow"
         >
           <div
             class="Accordion--panel"
@@ -502,7 +502,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           </div>
         </div>
         <div
-          class="Accordion--accordion sectionCard"
+          class="Accordion--accordion sectionCard shadow"
         >
           <div
             class="Accordion--panel"
@@ -539,11 +539,6 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                   <div
                     class="stageSection"
                   >
-                    <div
-                      class="Layout--vertical StyledProps--main tabHeading"
-                    >
-                      Skip Conditions
-                    </div>
                     <div
                       class="stageCreate stageDetails"
                     >
