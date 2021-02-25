@@ -4,6 +4,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useStrings } from 'framework/exports'
 import { Service, useCumulativeServiceSavings } from 'services/lw'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
@@ -117,6 +118,7 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
     orgIdentifier: string
     projectIdentifier: string
   }>()
+  const { getString } = useStrings()
   const { data: graphData, loading: graphLoading } = useCumulativeServiceSavings({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier // eslint-disable-line
@@ -189,18 +191,26 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
               </Layout.Vertical>
             </Layout.Vertical>
           </Layout.Vertical>
-          <Layout.Vertical spacing="large" width="50%">
+          <Layout.Vertical spacing="large" width="50%" style={{ textAlign: 'center' }}>
             <Heading level={2}>TOTAL SPEND VS SAVINGS</Heading>
-            <HighchartsReact
-              highchart={Highcharts}
-              options={getStackedAreaChartOptions(
-                '',
-                graphData?.response?.days as string[],
-                '',
-                graphData?.response?.savings as number[],
-                graphData?.response?.actual_cost as number[]
-              )}
-            />
+            {graphData && graphData.response?.days && graphData.response?.days.length ? (
+              <HighchartsReact
+                highchart={Highcharts}
+                options={getStackedAreaChartOptions(
+                  '',
+                  graphData?.response?.days as string[],
+                  '',
+                  graphData?.response?.savings as number[],
+                  graphData?.response?.actual_cost as number[]
+                )}
+              />
+            ) : graphLoading ? (
+              <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} />
+            ) : (
+              <Text style={{ marginTop: 'var(--spacing-xxlarge)', fontSize: 'var(--font-size-medium)' }}>
+                {getString('ce.co.noData')}
+              </Text>
+            )}
           </Layout.Vertical>
           <Layout.Vertical spacing="small">
             <Layout.Vertical spacing="medium" padding="small">

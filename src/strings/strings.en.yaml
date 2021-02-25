@@ -1866,3 +1866,5 @@ ce:
   homepage:
     slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
     learnMore: 'Learn more about Continuous Efficiency'
+  co:
+    noData: 'No data available. Please check after sometime'

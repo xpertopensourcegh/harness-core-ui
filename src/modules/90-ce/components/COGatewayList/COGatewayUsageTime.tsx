@@ -48,7 +48,7 @@ const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
 function TableCell(tableProps: CellProps<SessionReportRow>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK}>
-      {getTimestamp(tableProps.value, DATE_FORMAT)}
+      {getTimestamp(tableProps.value, 'DD-MM-YYYY HH:mm:ss')}
     </Text>
   )
 }

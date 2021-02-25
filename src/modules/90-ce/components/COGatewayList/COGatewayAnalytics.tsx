@@ -13,6 +13,7 @@ import {
   useHealthOfService,
   useSavingsOfService
 } from 'services/lw'
+import { useStrings } from 'framework/exports'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
@@ -104,6 +105,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
+  const { getString } = useStrings()
   const [categories, setCategories] = useState<string[]>([])
   const [savingsSeries, setSavingsSeries] = useState<number[]>([])
   const [spendSeries, setSpendSeries] = useState<number[]>([])
@@ -181,7 +183,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             <Text>Connector</Text>
             <Layout.Horizontal spacing="xsmall">
               <Icon name="service-aws" />
-              <Text>lightwingapp-lightwing</Text>
+              <Text>{props.service.metadata?.cloud_provider_details?.name}</Text>
             </Layout.Horizontal>
             <Text>Idle time</Text>
             <Layout.Horizontal spacing="xsmall">
@@ -273,19 +275,18 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           </Layout.Horizontal>
         </Container>
         <Layout.Horizontal spacing="small" style={{ alignSelf: 'center' }}>
-          <Text>Showing data for</Text>
-          <Link href="b" target="_blank">
-            Last 7 days
-          </Link>
+          <Text>Showing data for Last 7 days</Text>
         </Layout.Horizontal>
         <Heading level={3}>SPEND VS SAVINGS</Heading>
         {graphLoading ? (
-          <Icon name="spinner" size={24} color="blue500" />
-        ) : (
+          <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} />
+        ) : categories.length ? (
           <HighchartsReact
             highchart={Highcharts}
             options={getBarChartOptions('', categories, '', savingsSeries, spendSeries)}
           />
+        ) : (
+          <Text style={{ alignSelf: 'center', fontSize: 'var(--font-size-medium)' }}>{getString('ce.co.noData')}</Text>
         )}
         <Heading level={3}>LOGS AND USAGE TIME</Heading>
         <Tabs id="logsAndUsage">
