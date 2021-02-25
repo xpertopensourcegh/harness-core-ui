@@ -87,7 +87,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
       )
     }
 
-    const newPipelineId = latestPipeline.identifier
+    const newPipelineId = latestPipeline?.identifier
 
     if (response && response.status === 'SUCCESS') {
       if (pipelineIdentifier === DefaultNewPipelineId) {
@@ -140,7 +140,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
         <CreatePipelines afterSave={onSubmit} initialValues={pipeline} closeModal={onCloseCreate} />
       </Dialog>
     ),
-    [pipeline.identifier, pipeline]
+    [pipeline?.identifier, pipeline]
   )
 
   React.useEffect(() => {
@@ -153,7 +153,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
 
   React.useEffect(() => {
     if (isInitialized) {
-      if (pipeline.identifier === DefaultNewPipelineId) {
+      if (pipeline?.identifier === DefaultNewPipelineId) {
         showModal()
       }
       if (isBEPipelineUpdated && !discardBEUpdateDialog) {
@@ -161,7 +161,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
       }
     }
   }, [
-    pipeline.identifier,
+    pipeline?.identifier,
     showModal,
     isInitialized,
     isBEPipelineUpdated,
@@ -170,11 +170,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
   ])
 
   const onCloseCreate = React.useCallback(() => {
-    if (pipeline.identifier === DefaultNewPipelineId) {
+    if (pipeline?.identifier === DefaultNewPipelineId) {
       history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
     }
     hideModal()
-  }, [accountId, hideModal, history, module, orgIdentifier, pipeline.identifier, projectIdentifier, toPipelineList])
+  }, [accountId, hideModal, history, module, orgIdentifier, pipeline?.identifier, projectIdentifier, toPipelineList])
 
   const onSubmit = React.useCallback(
     (data: NgPipeline) => {
@@ -313,7 +313,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
                   className={css.savePublishBtn}
                   icon="send-data"
                 />
-                <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
+                <RunPipelineModal pipelineIdentifier={pipeline?.identifier || /* istanbul ignore next */ ''}>
                   <Button
                     data-testid="card-run-pipeline"
                     intent="primary"
