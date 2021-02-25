@@ -24,7 +24,8 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
-    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js'
+    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
+    pathinfo: false
   },
   devtool: DEV ? 'cheap-module-source-map' : 'none',
   devServer: {

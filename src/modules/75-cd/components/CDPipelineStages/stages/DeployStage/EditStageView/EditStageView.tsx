@@ -18,7 +18,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
-import type { StageElementWrapper } from 'services/cd-ng'
+import type { StageElementWrapper, StageElementConfig, NGVariable } from 'services/cd-ng'
 import { useStrings, String } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
@@ -33,6 +33,7 @@ import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import Timeline from '@common/components/Timeline/Timeline'
+import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
 const newStageData = [
@@ -82,11 +83,12 @@ export const EditStageView: React.FC<EditStageView> = ({
     }
   } = React.useContext(PipelineContext)
 
-  const { stepsFactory } = usePipelineContext()
+  const { stepsFactory, getStageFromPipeline } = usePipelineContext()
+  const { variablesPipeline, metadataMap } = usePipelineVariables()
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const onTimelineItemClick = (id: string) => {
+  const onTimelineItemClick = (id: string): void => {
     document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
   const getTimelineNodes = React.useCallback(
@@ -250,13 +252,19 @@ export const EditStageView: React.FC<EditStageView> = ({
                       <StepWidget<CustomVariablesData>
                         factory={stepsFactory}
                         initialValues={{
-                          variables: (data?.stage as any)?.variables || [],
+                          variables: (data?.stage as StageElementConfig)?.variables || [],
                           canAddVariable: true
                         }}
                         type={StepType.CustomVariable}
-                        stepViewType={StepViewType.InputVariable}
+                        stepViewType={StepViewType.StageVariable}
                         onUpdate={({ variables }: CustomVariablesData) => {
-                          onChange?.({ ...data?.stage, variables } as any)
+                          onChange?.({ ...data?.stage, variables } as StageElementConfig)
+                        }}
+                        customStepProps={{
+                          yamlProperties:
+                            getStageFromPipeline(data?.stage?.identifier, variablesPipeline)?.stage?.variables?.map?.(
+                              (variable: NGVariable) => metadataMap[variable.value || '']?.yamlProperties || {}
+                            ) || []
                         }}
                       />
                     ) : null}
