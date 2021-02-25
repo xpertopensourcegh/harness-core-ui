@@ -269,6 +269,52 @@ exports[`SelectEnvironment render 1`] = `
                     5
                   </span>
                 </button>
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class=""
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-more StyledProps--main"
+                          icon="more"
+                        >
+                          <svg
+                            data-icon="more"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              more
+                            </desc>
+                            <path
+                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    9
+                  </span>
+                </button>
               </div>
             </div>
           </div>

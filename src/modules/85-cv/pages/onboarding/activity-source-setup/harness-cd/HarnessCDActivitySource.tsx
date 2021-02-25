@@ -9,27 +9,23 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import HarnessCDActivitySourceDetails from './HarnessCDActivitySourceDetails/HarnessCDActivitySourceDetails'
 import SelectApplication from './SelectApplication/SelectApplication'
 import SelectEnvironment from './SelectEnvironment/SelectEnvironment'
-import SelectServices, { CDActivitySourceDTO } from './SelectServices/SelectServices'
+import SelectServices from './SelectServices/SelectServices'
 
 function transformPayload(response: ResponseActivitySourceDTO) {
-  const resource = response.data as CDActivitySourceDTO
-  const apps = new Set()
-  resource.envMappings?.forEach(env => apps.add(env.appId))
-  resource.serviceMappings?.forEach(service => apps.add(service.appId))
-
+  const resource = response.data as any
+  const apps: { [key: string]: string } = {}
+  resource.envMappings?.forEach((env: any) => (apps[env.appId] = env.appName))
+  resource.serviceMappings?.forEach((service: any) => (apps[service.appId] = service.appName))
   return {
     identifier: resource.identifier,
     name: resource.name,
     uuid: resource.uuid,
-    applications: Array.from(apps).reduce((acc: any, curr: any) => {
-      acc[curr] = {}
-      return acc
-    }, {}),
-    environments: resource.envMappings?.reduce((acc: any, curr) => {
+    applications: apps,
+    environments: resource.envMappings?.reduce((acc: any, curr: any) => {
       acc[curr.envId] = { environment: { label: curr.envIdentifier, value: curr.envIdentifier } }
       return acc
     }, {}),
-    services: resource.serviceMappings?.reduce((acc: any, curr) => {
+    services: resource.serviceMappings?.reduce((acc: any, curr: any) => {
       acc[curr.serviceId] = {
         service: { label: curr.serviceIdentifier, value: curr.serviceIdentifier }
       }

@@ -31,6 +31,8 @@ import routes from '@common/RouteDefinitions'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import css from './SelectServices.module.scss'
 
+const PAGE_LIMIT = 6
+
 export interface SelectServicesProps {
   initialValues?: any
   onSubmit?: (data: any) => void
@@ -79,11 +81,13 @@ export function transformToSavePayload(data: any): CDActivitySourceDTO {
   const envMappings = Object.values(data.environments || {}).map((val: any) => ({
     envId: val.id,
     appId: val.appId,
+    appName: val.appName,
     envIdentifier: val.environment?.value
   }))
   const serviceMappings = Object.values(data.services || {}).map((val: any) => ({
     serviceId: val.id,
     appId: val.appId,
+    appName: val.appName,
     serviceIdentifier: val.service?.value
   }))
 
@@ -112,7 +116,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
     queryParams: {
       appId: appIds,
       offset: String(offset),
-      limit: '7',
+      limit: PAGE_LIMIT.toString(),
       'search[0]': filter ? [{ field: 'keywords' }, { op: 'CONTAINS' }, { value: filter }] : undefined
     } as GetListServicesQueryParams,
     queryParamStringifyOptions: { arrayFormat: 'repeat' }
@@ -153,7 +157,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
         return {
           name: item.name,
           id: item.uuid,
-          appName: props.initialValues.applications[String(item.appId)].name,
+          appName: props.initialValues.applications[String(item.appId)],
           appId: item.appId,
           selected: !!services[String(item.uuid)],
           service: services[String(item.uuid)]?.service ?? ''
@@ -329,13 +333,13 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                 data={tableData || []}
                 pagination={{
                   itemCount: (data?.resource as any)?.total || 0,
-                  pageSize: (data?.resource as any)?.pageSize || 10,
-                  pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
+                  pageSize: (data?.resource as any)?.pageSize || PAGE_LIMIT,
+                  pageCount: Math.ceil((data?.resource as any)?.total / PAGE_LIMIT) || -1,
                   pageIndex: page || 0,
                   gotoPage: pageNumber => {
                     setPage(pageNumber)
                     if (pageNumber) {
-                      setOffset(pageNumber * 10 + 1)
+                      setOffset(pageNumber * PAGE_LIMIT + 1)
                     } else {
                       setOffset(0)
                     }

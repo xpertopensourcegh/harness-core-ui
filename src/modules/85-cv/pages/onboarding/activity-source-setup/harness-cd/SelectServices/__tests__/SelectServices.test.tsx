@@ -51,7 +51,7 @@ describe('Select Services', () => {
     const { container } = render(
       <MemoryRouter>
         <TestWrapper>
-          <SelectServices initialValues={{ applications: { appId: { name: 'appName' } } }} onPrevious={jest.fn()} />
+          <SelectServices initialValues={{ applications: { '1234_appId': 'appName' } }} onPrevious={jest.fn()} />
         </TestWrapper>
       </MemoryRouter>
     )
@@ -76,7 +76,7 @@ describe('Select Services', () => {
     const { container } = render(
       <MemoryRouter>
         <TestWrapper>
-          <SelectServices initialValues={{ applications: { appId: { name: 'appName' } } }} onPrevious={jest.fn()} />
+          <SelectServices initialValues={{ applications: { '1234_appId': 'appName' } }} onPrevious={jest.fn()} />
         </TestWrapper>
       </MemoryRouter>
     )
@@ -94,8 +94,8 @@ describe('Select Services', () => {
         arrayFormat: 'repeat'
       },
       queryParams: {
-        appId: ['appId'],
-        limit: '7',
+        appId: ['1234_appId'],
+        limit: '6',
         offset: '0',
         'search[0]': [
           {
@@ -131,7 +131,7 @@ describe('Select Services', () => {
       <MemoryRouter>
         <TestWrapper>
           <SelectServices
-            initialValues={{ applications: { appId: { name: 'appName' } } }}
+            initialValues={{ applications: { appId: 'someApp' } }}
             onPrevious={jest.fn()}
             onSubmit={onSubmitMock}
           />
@@ -183,7 +183,7 @@ describe('Select Services', () => {
         services: {
           uuid1: {
             appId: 'appId',
-            appName: 'appName',
+            appName: 'someApp',
             id: 'uuid1',
             name: 'Archive',
             service: {
@@ -221,7 +221,7 @@ describe('Select Services', () => {
       <MemoryRouter>
         <TestWrapper>
           <SelectServices
-            initialValues={{ applications: { appId: { name: 'appName' } } }}
+            initialValues={{ applications: { '1234_appId': 'appName' } }}
             onPrevious={jest.fn()}
             onSubmit={onSubmitMock}
           />

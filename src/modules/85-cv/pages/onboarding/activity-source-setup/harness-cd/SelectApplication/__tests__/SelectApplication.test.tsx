@@ -792,7 +792,7 @@ describe('SelectApplication', () => {
           <SelectApplication
             onPrevious={jest.fn()}
             mockData={{ data: mockData as any, loading: false }}
-            stepData={{ applications: { appId: { name: 'appName' } } }}
+            stepData={{ applications: { '1324_appId': 'appName' } }}
           />
         </TestWrapper>
       </MemoryRouter>
@@ -813,7 +813,7 @@ describe('SelectApplication', () => {
           <SelectApplication
             onPrevious={jest.fn()}
             mockData={{ data: mockData as any, loading: false }}
-            stepData={{ applications: { appId: { name: 'appName' } } }}
+            stepData={{ applications: { '1324_appId': 'appName' } }}
           />
         </TestWrapper>
       </MemoryRouter>
@@ -835,7 +835,7 @@ describe('SelectApplication', () => {
           <SelectApplication
             onPrevious={jest.fn()}
             mockData={{ data: mockData as any, loading: false }}
-            stepData={{ applications: { appId: { name: 'appName' } } }}
+            stepData={{ applications: { '1324_appId': 'appName' } }}
           />
         </TestWrapper>
       </MemoryRouter>
@@ -856,7 +856,7 @@ describe('SelectApplication', () => {
           <SelectApplication
             onPrevious={jest.fn()}
             mockData={{ data: mockData as any, loading: false }}
-            stepData={{ applications: { appId: { name: 'appName' } } }}
+            stepData={{ applications: { '1324_appId': 'appName' } }}
           />
         </TestWrapper>
       </MemoryRouter>
@@ -869,7 +869,7 @@ describe('SelectApplication', () => {
     }
 
     fireEvent.click(filterComponent)
-    await waitFor(() => expect(useGetListApplicationsSpy).toHaveBeenCalledTimes(4))
+    await waitFor(() => expect(useGetListApplicationsSpy).toHaveBeenCalledTimes(3))
   })
 
   test('Ensure that click on a row selects the row and clicking on second page makes api call', async () => {
@@ -886,7 +886,7 @@ describe('SelectApplication', () => {
             onPrevious={jest.fn()}
             onSubmit={onSubmitMock}
             mockData={{ data: mockData as any, loading: false }}
-            stepData={{ applications: { appId: { name: 'appName' } } }}
+            stepData={{ applications: { '1324_appId': 'appName' } }}
           />
         </TestWrapper>
       </MemoryRouter>
@@ -900,7 +900,7 @@ describe('SelectApplication', () => {
     }
 
     fireEvent.click(secondButton[1])
-    await waitFor(() => expect(useGetListApplicationsSpy).toHaveBeenCalledTimes(4))
+    await waitFor(() => expect(useGetListApplicationsSpy).toHaveBeenCalledTimes(3))
 
     const tableRows = container.querySelectorAll('[role="row"]')
     expect(tableRows.length).toBe(10)
@@ -912,11 +912,8 @@ describe('SelectApplication', () => {
     await waitFor(() =>
       expect(onSubmitMock).toHaveBeenCalledWith({
         applications: {
-          '1234_appId': {
-            id: '1234_appId',
-            name: 'Nemanja App',
-            serviceCount: 1
-          }
+          '1234_appId': 'Nemanja App',
+          '1324_appId': 'appName'
         }
       })
     )

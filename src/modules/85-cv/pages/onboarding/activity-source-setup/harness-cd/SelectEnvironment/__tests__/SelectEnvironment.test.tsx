@@ -55,7 +55,7 @@ describe('SelectEnvironment', () => {
     const { container } = render(
       <MemoryRouter>
         <TestWrapper>
-          <SelectEnvironment initialValues={{ applications: { appId: { name: 'appName' } } }} onPrevious={jest.fn()} />
+          <SelectEnvironment initialValues={{ applications: { appId: 'appName' } }} onPrevious={jest.fn()} />
         </TestWrapper>
       </MemoryRouter>
     )
@@ -88,7 +88,7 @@ describe('SelectEnvironment', () => {
     const { container } = render(
       <MemoryRouter>
         <TestWrapper>
-          <SelectEnvironment initialValues={{ applications: { appId: { name: 'appName' } } }} onPrevious={jest.fn()} />
+          <SelectEnvironment initialValues={{ applications: { appId: 'appName' } }} onPrevious={jest.fn()} />
         </TestWrapper>
       </MemoryRouter>
     )
@@ -108,7 +108,7 @@ describe('SelectEnvironment', () => {
       },
       queryParams: {
         appId: ['appId'],
-        limit: '10',
+        limit: '6',
         offset: '0',
         'search[0]': [
           {
@@ -152,7 +152,7 @@ describe('SelectEnvironment', () => {
       <MemoryRouter>
         <TestWrapper>
           <SelectEnvironment
-            initialValues={{ applications: { appId: { name: 'appName' } } }}
+            initialValues={{ applications: { appId: 'appName' } }}
             onPrevious={jest.fn()}
             onSubmit={onSubmitMock}
           />

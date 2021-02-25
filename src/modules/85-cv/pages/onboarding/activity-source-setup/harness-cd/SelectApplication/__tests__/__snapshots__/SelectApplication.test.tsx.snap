@@ -56,7 +56,6 @@ exports[`SelectApplication render 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <input
-                    checked=""
                     style="cursor: pointer;"
                     type="checkbox"
                   />

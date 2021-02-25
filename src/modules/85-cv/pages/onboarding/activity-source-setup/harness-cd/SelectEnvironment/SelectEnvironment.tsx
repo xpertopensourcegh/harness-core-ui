@@ -22,6 +22,7 @@ import {
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import css from './SelectEnvironment.module.scss'
 
+const PAGE_LIMIT = 6
 export interface SelectEnvironmentProps {
   initialValues?: any
   onSubmit?: (data: any) => void
@@ -82,7 +83,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
       queryParams: {
         appId: appIds,
         offset: String(offset),
-        limit: '10',
+        limit: PAGE_LIMIT.toString(),
         'search[0]': filter ? [{ field: 'keywords' }, { op: 'CONTAINS' }, { value: filter }] : undefined
       } as GetListEnvironmentsQueryParams,
       queryParamStringifyOptions: { arrayFormat: 'repeat' }
@@ -96,7 +97,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
         return {
           name: item.name,
           id: item.uuid,
-          appName: props.initialValues.applications[String(item.appId)].name,
+          appName: props.initialValues.applications[String(item.appId)],
           appId: item.appId,
           selected: !!env[String(item.uuid)],
           environment: env[String(item.uuid)]?.environment ?? {}
@@ -254,13 +255,13 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                 data={tableData || []}
                 pagination={{
                   itemCount: (data?.resource as any)?.total || 0,
-                  pageSize: (data?.resource as any)?.pageSize || 10,
-                  pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
+                  pageSize: (data?.resource as any)?.pageSize || PAGE_LIMIT,
+                  pageCount: Math.ceil((data?.resource as any)?.total / PAGE_LIMIT) || -1,
                   pageIndex: page || 0,
                   gotoPage: pageNumber => {
                     setPage(pageNumber)
                     if (pageNumber) {
-                      setOffset(pageNumber * 10 + 1)
+                      setOffset(pageNumber * PAGE_LIMIT + 1)
                     } else {
                       setOffset(0)
                     }

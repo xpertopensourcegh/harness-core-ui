@@ -25,6 +25,30 @@ export interface VerificationJobRuntimeDetails {
   }
 }
 
+export interface ActivityVerificationSummary {
+  total?: number
+  passed?: number
+  failed?: number
+  errors?: number
+  progress?: number
+  notStarted?: number
+  remainingTimeMs?: number
+  progressPercentage?: number
+  startTime?: number
+  durationMs?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  aggregatedStatus?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+}
+
+export interface DeploymentActivityVerificationResultDTO {
+  tag?: string
+  serviceName?: string
+  serviceIdentifier?: string
+  preProductionDeploymentSummary?: ActivityVerificationSummary
+  productionDeploymentSummary?: ActivityVerificationSummary
+  postDeploymentSummary?: ActivityVerificationSummary
+}
+
 export interface ResponseMessage {
   code?:
     | 'DEFAULT_ERROR_CODE'
@@ -280,11 +304,11 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseString {
+export interface RestResponseListDeploymentActivityVerificationResultDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: string
+  resource?: DeploymentActivityVerificationResultDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -302,64 +326,6 @@ export interface Throwable {
   message?: string
   localizedMessage?: string
   suppressed?: Throwable[]
-}
-
-export interface ActivityDashboardDTO {
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
-  activityId?: string
-  activityName?: string
-  activityStartTime?: number
-  environmentIdentifier?: string
-  environmentName?: string
-  serviceIdentifier?: string
-  verificationStatus?:
-    | 'IGNORED'
-    | 'NOT_STARTED'
-    | 'VERIFICATION_PASSED'
-    | 'VERIFICATION_FAILED'
-    | 'ERROR'
-    | 'IN_PROGRESS'
-  activityVerificationSummary?: ActivityVerificationSummary
-}
-
-export interface ActivityVerificationSummary {
-  total?: number
-  passed?: number
-  failed?: number
-  errors?: number
-  progress?: number
-  notStarted?: number
-  remainingTimeMs?: number
-  progressPercentage?: number
-  startTime?: number
-  durationMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
-  aggregatedStatus?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-}
-
-export interface RestResponseListActivityDashboardDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivityDashboardDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DeploymentActivityVerificationResultDTO {
-  tag?: string
-  serviceName?: string
-  serviceIdentifier?: string
-  preProductionDeploymentSummary?: ActivityVerificationSummary
-  productionDeploymentSummary?: ActivityVerificationSummary
-  postDeploymentSummary?: ActivityVerificationSummary
-}
-
-export interface RestResponseListDeploymentActivityVerificationResultDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentActivityVerificationResultDTO[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface AdditionalInfo {
@@ -478,17 +444,37 @@ export interface RestResponseDeploymentVerificationJobInstanceSummary {
   responseMessages?: ResponseMessage[]
 }
 
-export interface CD10RegisterActivityDTO {
-  activityId?: string
-  serviceIdentifier?: string
-  envIdentifier?: string
-}
-
-export interface RestResponseCD10RegisterActivityDTO {
+export interface RestResponseString {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: CD10RegisterActivityDTO
+  resource?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ActivityDashboardDTO {
+  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityId?: string
+  activityName?: string
+  activityStartTime?: number
+  environmentIdentifier?: string
+  environmentName?: string
+  serviceIdentifier?: string
+  verificationStatus?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'IN_PROGRESS'
+  activityVerificationSummary?: ActivityVerificationSummary
+}
+
+export interface RestResponseListActivityDashboardDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ActivityDashboardDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -504,6 +490,20 @@ export interface RestResponseActivityStatusDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: ActivityStatusDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface CD10RegisterActivityDTO {
+  activityId?: string
+  serviceIdentifier?: string
+  envIdentifier?: string
+}
+
+export interface RestResponseCD10RegisterActivityDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CD10RegisterActivityDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -1074,52 +1074,6 @@ export interface ResponseBoolean {
   correlationId?: string
 }
 
-export interface PageString {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: string[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface ResponsePageString {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageString
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface KubernetesActivitySourceConfig {
-  serviceIdentifier: string
-  envIdentifier: string
-  namespace: string
-  workloadName: string
-  namespaceRegex?: string
-}
-
-export interface KubernetesActivitySourceDTO {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  identifier: string
-  name: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  connectorIdentifier: string
-  activitySourceConfigs: KubernetesActivitySourceConfig[]
-  type?: 'KUBERNETES' | 'HARNESS_CD10'
-}
-
-export interface RestResponseKubernetesActivitySourceDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: KubernetesActivitySourceDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseBoolean {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1174,6 +1128,52 @@ export interface ResponseKubernetesActivityDetailsDTO {
   correlationId?: string
 }
 
+export interface PageString {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: string[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageString
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface KubernetesActivitySourceConfig {
+  serviceIdentifier: string
+  envIdentifier: string
+  namespace: string
+  workloadName: string
+  namespaceRegex?: string
+}
+
+export interface KubernetesActivitySourceDTO {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  activitySourceConfigs: KubernetesActivitySourceConfig[]
+  type?: 'KUBERNETES' | 'HARNESS_CD10'
+}
+
+export interface RestResponseKubernetesActivitySourceDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: KubernetesActivitySourceDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AlertCondition {
   services?: string[]
   environments?: string[]
@@ -1205,6 +1205,33 @@ export interface NotificationMethod {
   emails?: string[]
 }
 
+export interface RestResponseAlertRuleDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertRuleDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RiskNotify {
+  threshold?: number
+}
+
+export interface VerificationsNotify {
+  activityTypes?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
+  allActivityTpe?: boolean
+  allVerificationStatuses?: boolean
+}
+
+export interface RestResponseListActivityType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface PageAlertRuleDTO {
   totalPages?: number
   totalItems?: number
@@ -1220,39 +1247,6 @@ export interface RestResponsePageAlertRuleDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RiskNotify {
-  threshold?: number
-}
-
-export interface VerificationsNotify {
-  activityTypes?: (
-    | 'PRE_DEPLOYMENT'
-    | 'DURING_DEPLOYMENT'
-    | 'POST_DEPLOYMENT'
-    | 'INFRASTRUCTURE_CHANGE'
-    | 'CONFIG_CHANGE'
-  )[]
-  verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
-  allVerificationStatuses?: boolean
-  allActivityTpe?: boolean
-}
-
-export interface RestResponseAlertRuleDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1298,12 +1292,6 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
-export interface AnalysisResult {
-  label?: number
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
-}
-
 export interface Frequency {
   count?: number
   timestamp?: number
@@ -1327,28 +1315,12 @@ export interface LogAnalysisCluster {
   evicted?: boolean
 }
 
-export interface LogAnalysisDTO {
-  verificationTaskId?: string
-  analysisStartTime?: number
-  analysisEndTime?: number
-  accountId?: string
-  analysisSummaryMessage?: string
-  score?: number
-  analysisMinute?: number
-  logClusters?: LogAnalysisCluster[]
-  logAnalysisResults?: AnalysisResult[]
-}
-
-export interface RestResponseVoid {
+export interface RestResponseListLogAnalysisCluster {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Void
+  resource?: LogAnalysisCluster[]
   responseMessages?: ResponseMessage[]
-}
-
-export interface Void {
-  [key: string]: any
 }
 
 export interface Cluster {
@@ -1389,6 +1361,14 @@ export interface HostSummary {
   resultSummary?: ResultSummary
 }
 
+export interface RestResponseDeploymentLogAnalysisDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentLogAnalysisDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface ResultSummary {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
@@ -1413,20 +1393,84 @@ export interface RestResponseListLogClusterDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListLogAnalysisCluster {
+export interface AnalysisResult {
+  label?: number
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
+export interface LogAnalysisDTO {
+  verificationTaskId?: string
+  analysisStartTime?: number
+  analysisEndTime?: number
+  accountId?: string
+  analysisSummaryMessage?: string
+  score?: number
+  analysisMinute?: number
+  logClusters?: LogAnalysisCluster[]
+  logAnalysisResults?: AnalysisResult[]
+}
+
+export interface RestResponseVoid {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LogAnalysisCluster[]
+  resource?: Void
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseDeploymentLogAnalysisDTO {
+export interface Void {
+  [key: string]: any
+}
+
+export interface MetricSum {
+  metricName?: string
+  risk?: number
+  data?: number
+}
+
+export interface RestResponseMapStringMapStringListMetricSum {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: DeploymentLogAnalysisDTO
+  resource?: {
+    [key: string]: {
+      [key: string]: MetricSum[]
+    }
+  }
   responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapStringMapStringListDouble {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: {
+      [key: string]: number[]
+    }
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListTimeSeriesMetricDefinition {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesMetricDefinition[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface TimeSeriesMetricDefinition {
+  metricName?: string
+  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
+  metricGroupName?: string
+  actionType?: 'IGNORE' | 'FAIL'
+  comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
+  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
+  occurrenceCount?: number
+  thresholdType?: 'ACT_WHEN_LOWER' | 'ACT_WHEN_HIGHER'
+  value?: number
 }
 
 export interface RestResponseListTimeSeriesRecordDTO {
@@ -1463,12 +1507,6 @@ export interface TimeSeriesAnomalies {
   metricName?: string
   testData?: number[]
   anomalousTimestamps?: number[]
-}
-
-export interface MetricSum {
-  metricName?: string
-  risk?: number
-  data?: number
 }
 
 export interface ServiceGuardTimeSeriesAnalysisDTO {
@@ -1528,50 +1566,6 @@ export interface TransactionMetricHostData {
   score?: number
   hostData?: HostData[]
   anomalous?: boolean
-}
-
-export interface RestResponseMapStringMapStringListMetricSum {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: {
-      [key: string]: MetricSum[]
-    }
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseMapStringMapStringListDouble {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: {
-      [key: string]: number[]
-    }
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListTimeSeriesMetricDefinition {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesMetricDefinition[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeSeriesMetricDefinition {
-  metricName?: string
-  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  metricGroupName?: string
-  actionType?: 'IGNORE' | 'FAIL'
-  comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
-  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
-  occurrenceCount?: number
-  thresholdType?: 'ACT_WHEN_LOWER' | 'ACT_WHEN_HIGHER'
-  value?: number
 }
 
 export interface AppdynamicsMetricValueValidationResponse {
@@ -1681,6 +1675,14 @@ export interface ResponsePageAppDynamicsTier {
   correlationId?: string
 }
 
+export interface RestResponseListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface CVConfig {
   uuid?: string
   dataCollectionTaskIteration?: number
@@ -1725,14 +1727,6 @@ export interface RestResponseListCVConfig {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface DatasourceTypeDTO {
   dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   verificationType?: 'TIME_SERIES' | 'LOG'
@@ -1756,6 +1750,14 @@ export interface CVNGLogDTO {
   type?: 'API_CALL_LOG' | 'EXECUTION_LOG'
 }
 
+export interface RestResponseListDataSourceType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface CVSetupStatus {
   stepsWhichAreCompleted?: ('ACTIVITY_SOURCE' | 'MONITORING_SOURCE' | 'VERIFICATION_JOBS')[]
   totalNumberOfServices?: number
@@ -1773,14 +1775,6 @@ export interface RestResponseCVSetupStatus {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListDataSourceType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface DSConfig {
   accountId?: string
   orgIdentifier?: string
@@ -1790,6 +1784,50 @@ export interface DSConfig {
   identifier?: string
   monitoringSourceName?: string
   type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
+}
+
+export interface RestResponseDSConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DSConfig
+  responseMessages?: ResponseMessage[]
+}
+
+export interface MonitoringSource {
+  monitoringSourceIdentifier?: string
+  monitoringSourceName?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
+  numberOfServices?: number
+  importedAt?: number
+}
+
+export interface PageMonitoringSource {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: MonitoringSource[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageMonitoringSource {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageMonitoringSource
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface MonitoringSourceImportStatus {
+  [key: string]: any
+}
+
+export interface ResponseMonitoringSourceImportStatus {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: MonitoringSourceImportStatus
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface RestResponseListDSConfig {
@@ -1842,50 +1880,6 @@ export interface ServiceResponseDTO {
   version?: number
 }
 
-export interface RestResponseDSConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DSConfig
-  responseMessages?: ResponseMessage[]
-}
-
-export interface MonitoringSource {
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
-  numberOfServices?: number
-  importedAt?: number
-}
-
-export interface PageMonitoringSource {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: MonitoringSource[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface ResponsePageMonitoringSource {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageMonitoringSource
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface MonitoringSourceImportStatus {
-  [key: string]: any
-}
-
-export interface ResponseMonitoringSourceImportStatus {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: MonitoringSourceImportStatus
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface TimeSeriesDataCollectionRecord {
   accountId?: string
   cvConfigId?: string
@@ -1921,14 +1915,6 @@ export interface DataCollectionTaskDTO {
   endTime?: number
 }
 
-export interface RestResponseListDataCollectionTaskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DataCollectionTaskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseOptionalDataCollectionTaskDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1942,6 +1928,14 @@ export interface DataCollectionTaskResult {
   status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
   exception?: string
   stacktrace?: string
+}
+
+export interface RestResponseListDataCollectionTaskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DataCollectionTaskDTO[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface HostRecordDTO {
@@ -2075,7 +2069,7 @@ export interface AwsCurAttributes {
 }
 
 export type AwsInheritFromDelegateSpec = AwsCredentialSpec & {
-  delegateSelector: string
+  delegateSelectors: string[]
 }
 
 export type AwsManualConfigSpec = AwsCredentialSpec & {
@@ -2153,6 +2147,10 @@ export type CEAzureConnector = ConnectorConfigDTO & {
   billingExportSpec?: BillingExportSpec
 }
 
+export type CEKubernetesClusterConfig = ConnectorConfigDTO & {
+  connectorRef: string
+}
+
 export interface ConnectorConfigDTO {
   [key: string]: any
 }
@@ -2185,6 +2183,7 @@ export interface ConnectorInfoDTO {
     | 'Bitbucket'
     | 'CEAws'
     | 'CEAzure'
+    | 'CEK8sCluster'
   spec: ConnectorConfigDTO
 }
 
@@ -2209,8 +2208,8 @@ export interface DataCollectionRequest {
     | 'STACKDRIVER_SAMPLE_DATA'
     | 'APPDYNAMICS_FETCH_APPS'
     | 'APPDYNAMICS_FETCH_TIERS'
-  baseUrl?: string
   connectorConfigDTO?: ConnectorConfigDTO
+  baseUrl?: string
   dsl?: string
 }
 
@@ -2249,7 +2248,7 @@ export interface GcpCredentialSpec {
 }
 
 export type GcpDelegateDetails = GcpCredentialSpec & {
-  delegateSelector?: string
+  delegateSelectors: string[]
 }
 
 export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
@@ -2454,7 +2453,7 @@ export interface KubernetesCredentialSpecDTO {
 }
 
 export type KubernetesDelegateDetailsDTO = KubernetesCredentialSpecDTO & {
-  delegateName: string
+  delegateSelectors: string[]
 }
 
 export type KubernetesOpenIdConnectDTO = KubernetesAuthCredentialDTO & {
@@ -2528,9 +2527,9 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   appRoleId?: string
   secretId?: string
   secretEngineVersion?: number
-  accessType?: 'APP_ROLE' | 'TOKEN'
   default?: boolean
   readOnly?: boolean
+  accessType?: 'APP_ROLE' | 'TOKEN'
 }
 
 export interface RestResponseListSplunkSavedSearch {
@@ -2697,10 +2696,59 @@ export interface VersionPackage {
   runtimeInfo?: RuntimeInfo
 }
 
+export interface AnalysisRisk {
+  name?: string
+  risk?: number
+}
+
+export interface EnvSummary {
+  riskScore?: number
+  envName?: string
+  envIdentifier?: string
+  serviceSummaries?: ServiceSummary[]
+}
+
+export interface RestResponseRiskSummaryPopoverDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: RiskSummaryPopoverDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RiskSummaryPopoverDTO {
+  category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
+  envSummaries?: EnvSummary[]
+}
+
+export interface ServiceSummary {
+  serviceName?: string
+  serviceIdentifier?: string
+  risk?: number
+  analysisRisks?: AnalysisRisk[]
+}
+
+export interface HeatMapDTO {
+  startTime?: number
+  endTime?: number
+  riskScore?: number
+}
+
+export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: HeatMapDTO[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
 export interface CategoryRisksDTO {
   startTimeEpoch?: number
   endTimeEpoch?: number
   categoryRisks?: CategoryRisk[]
+  hasConfigsSetup?: boolean
 }
 
 export interface RestResponseCategoryRisksDTO {
@@ -2732,54 +2780,6 @@ export interface ServiceRisk {
   serviceName?: string
   serviceIdentifier?: string
   risk?: number
-}
-
-export interface HeatMapDTO {
-  startTime?: number
-  endTime?: number
-  riskScore?: number
-}
-
-export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: HeatMapDTO[]
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AnalysisRisk {
-  name?: string
-  risk?: number
-}
-
-export interface EnvSummary {
-  riskScore?: number
-  envName?: string
-  envIdentifier?: string
-  serviceSummaries?: ServiceSummary[]
-}
-
-export interface RestResponseRiskSummaryPopoverDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: RiskSummaryPopoverDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RiskSummaryPopoverDTO {
-  category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
-  envSummaries?: EnvSummary[]
-}
-
-export interface ServiceSummary {
-  serviceName?: string
-  serviceIdentifier?: string
-  risk?: number
-  analysisRisks?: AnalysisRisk[]
 }
 
 export interface AnalyzedLogDataDTO {
@@ -2964,6 +2964,13 @@ export interface TestVerificationBaselineExecutionDTO {
   createdAt?: number
 }
 
+export interface ResponseVerificationJobDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: VerificationJobDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface VerificationJobDTO {
   identifier?: string
   jobName?: string
@@ -2978,23 +2985,8 @@ export interface VerificationJobDTO {
   monitoringSources?: string[]
   verificationJobUrl?: string
   duration?: string
-  defaultJob?: boolean
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-}
-
-export interface ResponseVerificationJobDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: VerificationJobDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
-  responseMessages?: ResponseMessage[]
+  defaultJob?: boolean
 }
 
 export interface PageVerificationJobDTO {
@@ -3014,9 +3006,19 @@ export interface ResponsePageVerificationJobDTO {
   correlationId?: string
 }
 
+export interface RestResponseVerificationJobDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationJobDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export type CVConfigArrayRequestBody = CVConfig[]
 
 export type ActivitySourceDTORequestBody = ActivitySourceDTO
+
+export type VerificationJobDTORequestBody = VerificationJobDTO
 
 export type DSConfigRequestBody = DSConfig
 
@@ -4370,12 +4372,69 @@ export const getVerificationJobPromise = (
     signal
   )
 
+export interface CreateVerificationJobQueryParams {
+  accountId?: string
+}
+
+export type CreateVerificationJobProps = Omit<
+  MutateProps<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * create a verification job
+ */
+export const CreateVerificationJob = (props: CreateVerificationJobProps) => (
+  <Mutate<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>
+    verb="POST"
+    path="/verification-job"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseCreateVerificationJobProps = Omit<
+  UseMutateProps<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * create a verification job
+ */
+export const useCreateVerificationJob = (props: UseCreateVerificationJobProps) =>
+  useMutate<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>(
+    'POST',
+    `/verification-job`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * create a verification job
+ */
+export const createVerificationJobPromise = (
+  props: MutateUsingFetchProps<
+    void,
+    Failure | Error,
+    CreateVerificationJobQueryParams,
+    VerificationJobDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/verification-job`,
+    props,
+    signal
+  )
+
 export interface SaveVerificationJobQueryParams {
   accountId?: string
 }
 
 export type SaveVerificationJobProps = Omit<
-  MutateProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  MutateProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -4383,7 +4442,7 @@ export type SaveVerificationJobProps = Omit<
  * upserts a verification job for an identifier
  */
 export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
-  <Mutate<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>
+  <Mutate<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTORequestBody, void>
     verb="PUT"
     path="/verification-job"
     base={getConfig('cv/api')}
@@ -4392,7 +4451,7 @@ export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
 )
 
 export type UseSaveVerificationJobProps = Omit<
-  UseMutateProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  UseMutateProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -4400,7 +4459,7 @@ export type UseSaveVerificationJobProps = Omit<
  * upserts a verification job for an identifier
  */
 export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
-  useMutate<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>(
+  useMutate<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTORequestBody, void>(
     'PUT',
     `/verification-job`,
     { base: getConfig('cv/api'), ...props }
@@ -4410,10 +4469,16 @@ export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
  * upserts a verification job for an identifier
  */
 export const saveVerificationJobPromise = (
-  props: MutateUsingFetchProps<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  props: MutateUsingFetchProps<
+    void,
+    Failure | Error,
+    SaveVerificationJobQueryParams,
+    VerificationJobDTORequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTO, void>(
+  mutateUsingFetch<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTORequestBody, void>(
     'PUT',
     getConfig('cv/api'),
     `/verification-job`,
@@ -5798,6 +5863,7 @@ export interface ListActivitiesForDashboardQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   environmentIdentifier?: string
+  serviceIdentifier?: string
   startTime: number
   endTime: number
 }

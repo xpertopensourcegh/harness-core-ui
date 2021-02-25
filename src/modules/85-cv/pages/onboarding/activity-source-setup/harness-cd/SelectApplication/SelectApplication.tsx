@@ -35,6 +35,19 @@ interface TableData {
   selected: boolean
 }
 
+function initializeSelectedApplications(applications: { [key: string]: string }): Map<string, string> {
+  if (!applications) {
+    return new Map()
+  }
+
+  const apps = new Map<string, string>()
+  for (const appId of Object.keys(applications)) {
+    apps.set(appId, applications[appId])
+  }
+
+  return apps
+}
+
 const RenderColumnServicesCount: Renderer<CellProps<TableData>> = ({ row }) => {
   const data = row.original
   return <Container className={css.serviceCol}>{data.serviceCount}</Container>
@@ -45,59 +58,51 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
   const [page, setPage] = useState(0)
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<string | undefined>()
-  const [disable, setDisable] = useState<boolean>(true)
-  const [tableData, setTableData] = useState<Array<TableData>>()
+  const [tableData, setTableData] = useState<TableData[]>([])
+  const [selectedApps, setSelectedApps] = useState<Map<string, string>>(
+    initializeSelectedApplications(props.stepData.applications)
+  )
   const { data, loading, error, refetch } = useGetListApplications({
     queryParams: {
       accountId,
       offset: String(offset),
-      limit: '9',
+      limit: '8',
       search: filter ? [{ field: 'keywords', op: 'CONTAINS', value: filter }] : undefined
     } as GetListApplicationsQueryParams,
     mock: props.mockData
   })
 
-  const onUpdateData = (index: number, value: object) => {
-    setTableData(old =>
-      old?.map((row, i) => {
-        if (index === i) {
-          return {
-            ...row,
-            ...value
-          }
-        } else {
-          return row
-        }
-      })
-    )
+  const onUpdateData = (value: TableData): void => {
+    setSelectedApps(old => {
+      const newMap = new Map(old || [])
+      const hasItem = newMap.has(value.id)
+      if (value.selected && !hasItem) {
+        newMap.set(value.id, value.name)
+      } else if (!value.selected && hasItem) {
+        newMap.delete(value.id)
+      }
+
+      return newMap
+    })
   }
   useEffect(() => {
-    if ((data?.resource as any)?.response) {
-      const apps = props.stepData.applications ?? {}
+    if (!(data?.resource as any)?.response) return
+    const alreadySelectedApps = props.stepData.applications ?? {}
+    const formatData = []
 
-      const formatData = (data?.resource as any)?.response?.map((item: Application) => {
-        return {
-          name: item.name,
-          id: item.uuid,
-          selected: !!apps[String(item.uuid)],
-          serviceCount: item.services?.length
-        }
-      })
-
-      setTableData(formatData)
-    }
-  }, [(data?.resource as any)?.response])
-
-  useEffect(() => {
-    let visited = false
-    tableData?.forEach(item => {
-      if (!visited && item.selected) {
-        visited = true
-        setDisable(false)
+    for (const app of (data?.resource as any)?.response) {
+      if (app?.name && app.uuid) {
+        formatData.push({
+          name: app.name,
+          id: app.uuid,
+          selected: !!alreadySelectedApps[String(app.uuid)],
+          serviceCount: app.services?.length
+        })
       }
-    })
-    if (!visited) setDisable(true)
-  }, [tableData])
+    }
+
+    setTableData(formatData)
+  }, [(data?.resource as any)?.response])
 
   if (loading) {
     return (
@@ -129,22 +134,16 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
   }
 
   const onNext = () => {
-    const applications = tableData.reduce((acc: any, curr) => {
-      if (curr.selected) {
-        acc[curr.id] = {
-          id: curr.id,
-          name: curr.name,
-          serviceCount: curr.serviceCount
-        }
+    if (selectedApps.size) {
+      const newlySelectedApplications: { [key: string]: string } = {}
+      for (const app of selectedApps) {
+        newlySelectedApplications[app[0]] = app[1]
       }
-      return acc
-    }, {})
-    if (Object.keys(applications).length) {
-      props.onSubmit?.({ applications })
+      props.onSubmit?.({ ...props.stepData, applications: newlySelectedApplications })
     }
   }
 
-  const totalpages = Math.ceil((data?.resource as any)?.total / 10)
+  const totalpages = Math.ceil((data?.resource as any)?.total / 8)
 
   return (
     <Container className={css.main}>
@@ -161,7 +160,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
           return (
             <FormikForm>
               <Table<TableData>
-                onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
+                onRowClick={rowData => onUpdateData({ ...rowData, selected: !rowData.selected })}
                 columns={[
                   {
                     Header: getString('cv.activitySources.harnessCD.harnessApps') || '',
@@ -170,15 +169,14 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                     width: '40%',
                     Cell: function RenderApplications(tableProps) {
                       const rowData: TableData = tableProps.row?.original
-
                       return (
                         <Layout.Horizontal spacing="small">
                           <input
                             style={{ cursor: 'pointer' }}
                             type="checkbox"
-                            checked={rowData.selected}
+                            checked={selectedApps.has(rowData.id)}
                             onChange={e => {
-                              onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                              onUpdateData({ ...rowData, selected: e.target.checked })
                             }}
                           />
                           <Icon name="cd-main" />
@@ -209,13 +207,13 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                 data={tableData}
                 pagination={{
                   itemCount: (data?.resource as any)?.total || 0,
-                  pageSize: (data?.resource as any)?.pageSize || 10,
+                  pageSize: (data?.resource as any)?.pageSize || 8,
                   pageCount: totalpages || -1,
                   pageIndex: page || 0,
                   gotoPage: pageNumber => {
                     setPage(pageNumber)
                     if (pageNumber) {
-                      setOffset(pageNumber * 10 + 1)
+                      setOffset(pageNumber * 8 + 1)
                     } else {
                       setOffset(0)
                     }
@@ -223,7 +221,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                 }}
               />
               <SubmitAndPreviousButtons
-                nextButtonProps={{ disabled: disable }}
+                nextButtonProps={{ disabled: !selectedApps.size }}
                 onPreviousClick={props.onPrevious}
                 onNextClick={() => {
                   formik.submitForm()
