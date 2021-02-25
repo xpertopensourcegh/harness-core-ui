@@ -16,7 +16,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty, isEqual } from 'lodash-es'
+import { pick, merge, isEmpty, isEqual, debounce } from 'lodash-es'
 import * as Yup from 'yup'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -53,7 +53,7 @@ import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYaml
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
-
+const debouncedValidatePipeline = debounce(validatePipeline, 300)
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps> {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
@@ -127,11 +127,14 @@ function RunPipelineFormBasic({
       }
     }
   })
-  React.useEffect(() => {
-    setCurrentPipeline(
-      merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
-    )
+
+  const yamlTemplate = React.useMemo(() => {
+    return parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
   }, [template?.data?.inputSetTemplateYaml])
+
+  React.useEffect(() => {
+    setCurrentPipeline(merge(yamlTemplate, currentPipeline || {}) as { pipeline: NgPipeline })
+  }, [yamlTemplate])
 
   React.useEffect(() => {
     setSelectedInputSets(inputSetSelected)
@@ -348,19 +351,13 @@ function RunPipelineFormBasic({
         onSubmit={values => {
           handleRunPipeline(values as any)
         }}
-        validateOnChange={false}
         enableReinitialize
         validate={values => {
           let errors: FormikErrors<InputSetDTO> = {}
 
           setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
-          if (values && template?.data?.inputSetTemplateYaml && pipeline) {
-            errors = validatePipeline(
-              values as NgPipeline,
-              parse(template.data.inputSetTemplateYaml).pipeline,
-              pipeline,
-              getString
-            ) as any
+          if (values && yamlTemplate && pipeline) {
+            errors = debouncedValidatePipeline(values as NgPipeline, yamlTemplate, pipeline, getString) as any
           }
           setFormErrors(errors)
           return errors

@@ -435,12 +435,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       }
                       selectProps={{
                         usePortal: true,
-                        defaultSelectedItem: initialValues?.artifacts?.primary?.spec?.tag
-                          ? {
-                              label: initialValues?.artifacts?.primary?.spec?.tag,
-                              value: initialValues?.artifacts?.primary?.spec?.tag
-                            }
-                          : undefined,
                         addClearBtn: true,
                         noResults: (
                           <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
@@ -449,6 +443,14 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         allowCreatingNewItems: true,
                         popoverClassName: css.selectPopover
                       }}
+                      value={
+                        initialValues?.artifacts?.primary?.spec?.tag
+                          ? {
+                              label: initialValues?.artifacts?.primary?.spec?.tag,
+                              value: initialValues?.artifacts?.primary?.spec?.tag
+                            }
+                          : { label: '', value: '' }
+                      }
                       name={`${path}.artifacts.primary.spec.tag`}
                     />
                   </div>
@@ -571,9 +573,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           selectProps={{
                             usePortal: true,
                             addClearBtn: true,
-                            defaultSelectedItem: currentSidecarSpec?.tag
-                              ? { label: currentSidecarSpec.tag, value: currentSidecarSpec?.tag }
-                              : undefined,
                             noResults: (
                               <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                             ),
@@ -581,6 +580,11 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             allowCreatingNewItems: true,
                             popoverClassName: css.selectPopover
                           }}
+                          value={
+                            currentSidecarSpec?.tag
+                              ? { label: currentSidecarSpec.tag, value: currentSidecarSpec?.tag }
+                              : { label: '', value: '' }
+                          }
                           name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`}
                         />
                       </div>
