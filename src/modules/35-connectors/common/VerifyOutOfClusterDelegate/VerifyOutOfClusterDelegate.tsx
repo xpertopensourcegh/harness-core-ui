@@ -13,7 +13,6 @@ import {
   removeErrorCode,
   DelegateTypes
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface RenderUrlInfo {
@@ -213,7 +212,7 @@ const VerifyOutOfClusterDelegate: React.FC<
         <Layout.Horizontal spacing="small">
           {props.isStep ? (
             <Button
-              text={i18n.EDIT_CREDS}
+              text={getString('editCredentials')}
               onClick={() => {
                 props.previousStep?.({ ...prevStepData })
                 props.setIsEditMode?.(true) // Remove after all usages
@@ -345,7 +344,7 @@ const VerifyOutOfClusterDelegate: React.FC<
               onClick={() => {
                 nextStep?.({ ...prevStepData })
               }}
-              text={i18n.CONTINUE}
+              text={getString('continue')}
             />
           </Layout.Horizontal>
         )

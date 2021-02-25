@@ -549,9 +549,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           />
           <Button
             margin={{ left: 'small' }}
-            intent="primary"
             text={getString('createViaYaml')}
-            icon="plus"
             onClick={rerouteBasedOnContext}
             id="newYamlConnectorBtn"
           />

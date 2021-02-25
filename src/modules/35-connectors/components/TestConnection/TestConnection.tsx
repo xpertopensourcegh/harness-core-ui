@@ -4,7 +4,7 @@ import { Layout, Button } from '@wings-software/uicore'
 import type { ResponseConnectorValidationResult, ConnectorInfoDTO } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useTestConnectionModal from '@connectors/common/useTestConnectionModal/useTestConnectionModal'
-import i18n from './TestConnection.i18n'
+import { useStrings } from 'framework/exports'
 import css from './TestConnection.module.scss'
 
 interface TestConnectionProps {
@@ -20,11 +20,12 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
       props.refetchConnector()
     }
   })
+  const { getString } = useStrings()
   return (
     <Layout.Vertical>
       <Button
         className={css.testButton}
-        text={i18n.TEST_CONNECTION}
+        text={getString('connectors.stepThreeName')}
         onClick={() => {
           openErrorModal(props.connectorIdentifier, props.connectorType, props.url)
         }}
