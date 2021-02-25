@@ -1,0 +1,12 @@
+.headerContainer {
+  background-color: var(--blue-200) !important;
+}
+.resourceTypeListContainer {
+  background-color: var(--white) !important;
+}
+.pageContainer {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 4fr;
+  height: 100%;
+}

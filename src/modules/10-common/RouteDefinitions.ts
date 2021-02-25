@@ -19,7 +19,8 @@ import type {
   InputSetPathProps,
   TargetPathProps,
   ModulePathParams,
-  RolePathProps
+  RolePathProps,
+  ResourceGroupPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -160,6 +161,21 @@ const routes = {
         return `/admin/organizations/${orgIdentifier}/access-control/roles/${roleIdentifier}`
       }
       return `/admin/access-control/roles/${roleIdentifier}`
+    }
+  ),
+  toResourceGroupDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      resourceGroupIdentifier
+    }: Partial<ProjectPathProps & ModulePathParams & ResourceGroupPathProps>) => {
+      if (module && orgIdentifier && projectIdentifier && resourceGroupIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/resource-groups/${resourceGroupIdentifier}`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/access-control/resource-groups/${resourceGroupIdentifier}`
+      }
+      return `/admin/access-control/resource-groups/${resourceGroupIdentifier}`
     }
   ),
   toOrganizations: withAccountId(() => `/admin/organizations`),

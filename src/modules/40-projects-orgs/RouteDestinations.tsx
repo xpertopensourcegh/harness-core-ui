@@ -50,7 +50,6 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   // eslint-disable-next-line react/display-name
   addResourceModalBody: () => <></>
 })
-
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
   return <Redirect to={routes.toProjectResourcesConnectors(params)} />

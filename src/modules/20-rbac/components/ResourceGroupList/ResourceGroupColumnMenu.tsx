@@ -8,6 +8,7 @@ import { ResourceGroupDTO, ResourceGroupResponse, useDeleteResourceGroup } from 
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
+import css from './ResourceGroupList.module.scss'
 export type CellPropsResourceGroupColumn<D extends object, V = any> = TableInstance<D> & {
   column: ColumnInstance<D> & {
     reload?: () => Promise<void>
@@ -63,31 +64,31 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
     }
     column.openResourceGroupModal?.(row.original.resourceGroup)
   }
-  return (
-    !isHarnessManaged && (
-      <Popover
-        isOpen={menuOpen}
-        onInteraction={nextOpenState => {
-          setMenuOpen(nextOpenState)
+  return !isHarnessManaged ? (
+    <Popover
+      isOpen={menuOpen}
+      onInteraction={nextOpenState => {
+        setMenuOpen(nextOpenState)
+      }}
+      className={Classes.DARK}
+      position={Position.RIGHT_TOP}
+    >
+      <Button
+        minimal
+        icon="Options"
+        iconProps={{ size: 20 }}
+        onClick={e => {
+          e.stopPropagation()
+          setMenuOpen(true)
         }}
-        className={Classes.DARK}
-        position={Position.RIGHT_TOP}
-      >
-        <Button
-          minimal
-          icon="Options"
-          iconProps={{ size: 20 }}
-          onClick={e => {
-            e.stopPropagation()
-            setMenuOpen(true)
-          }}
-        />
-        <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
-        </Menu>
-      </Popover>
-    )
+      />
+      <Menu style={{ minWidth: 'unset' }}>
+        <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
+        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+      </Menu>
+    </Popover>
+  ) : (
+    <div className={css.placeHolderDiv}></div>
   )
 }
 export default ResourceGroupColumnMenu

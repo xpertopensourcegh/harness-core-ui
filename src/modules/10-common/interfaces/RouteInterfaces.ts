@@ -43,6 +43,9 @@ export interface SecretsPathProps {
 export interface RolePathProps {
   roleIdentifier: string
 }
+export interface ResourceGroupPathProps {
+  resourceGroupIdentifier: string
+}
 export interface DelegatePathProps {
   delegateId: string
 }
@@ -79,3 +82,7 @@ export interface ModulePathParams {
 export type PipelineType<T> = T & ModulePathParams
 
 export type PathFn<T> = (props: AccountPathProps & T) => string
+
+export interface ResourceGroupDetailsPathProps extends ProjectPathProps {
+  resourceGroupIdentifier: string
+}

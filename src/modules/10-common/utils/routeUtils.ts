@@ -19,7 +19,8 @@ import type {
   VerificationPathProps,
   TargetPathProps,
   ModulePathParams,
-  RolePathProps
+  RolePathProps,
+  ResourceGroupPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -70,7 +71,9 @@ export const secretPathProps: SecretsPathProps = {
 export const rolePathProps: RolePathProps = {
   roleIdentifier: ':roleIdentifier'
 }
-
+export const resourceGroupPathProps: ResourceGroupPathProps = {
+  resourceGroupIdentifier: ':resourceGroupIdentifier'
+}
 export const delegatePathProps: DelegatePathProps = {
   delegateId: ':delegateId'
 }

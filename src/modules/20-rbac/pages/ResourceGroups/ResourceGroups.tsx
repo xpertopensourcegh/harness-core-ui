@@ -28,6 +28,7 @@ const ResourceGroups: React.FC = () => {
       ...defaultQueryParams
     }
   })
+
   const { openResourceGroupModal } = useResourceGroupModal({ onSuccess: refetch })
 
   return (

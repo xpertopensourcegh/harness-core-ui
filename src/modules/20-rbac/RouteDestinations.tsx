@@ -9,7 +9,8 @@ import {
   modulePathProps,
   orgPathProps,
   projectPathProps,
-  rolePathProps
+  rolePathProps,
+  resourceGroupPathProps
 } from '@common/utils/routeUtils'
 
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
@@ -19,6 +20,7 @@ import UserGroups from '@rbac/pages/UserGroups/UsersGroups'
 import Roles from '@rbac/pages/Roles/Roles'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
 import RoleDetails from './pages/RoleDetails/RoleDetails'
+import ResourceGroupDetails from './pages/ResourceGroupDetails/ResourceGroupDetails'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -118,6 +120,18 @@ export default (
       exact
     >
       <RoleDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toResourceGroupDetails({ ...accountPathProps, ...resourceGroupPathProps }),
+        routes.toResourceGroupDetails({ ...orgPathProps, ...resourceGroupPathProps }),
+        routes.toResourceGroupDetails({ ...projectPathProps, ...resourceGroupPathProps }),
+        routes.toResourceGroupDetails({ ...projectPathProps, ...modulePathProps, ...resourceGroupPathProps })
+      ]}
+      exact
+    >
+      <ResourceGroupDetails />
     </RouteWithLayout>
   </>
 )

@@ -22,6 +22,7 @@ import {
 } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { DEFAULT_COLOR } from '@common/constants/Utils'
 
 interface ResourceGroupModalData {
   data?: ResourceGroupDTO
@@ -85,7 +86,14 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical spacing="large">
         <Formik
-          initialValues={{ identifier: '', name: '', description: '', tags: {}, color: '', ...(editMode && data) }}
+          initialValues={{
+            identifier: '',
+            name: '',
+            description: '',
+            tags: {},
+            color: DEFAULT_COLOR,
+            ...(editMode && data)
+          }}
           validationSchema={Yup.object().shape({
             name: Yup.string().trim().required(),
             identifier: Yup.string().when('name', {

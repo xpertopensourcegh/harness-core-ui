@@ -1838,6 +1838,14 @@ resourceGroup:
   confirmDelete: 'Are you sure you want to delete {{name}} Resource Group'
   confirmDeleteTitle: 'Delete Resource Group'
   deletedMessage: 'Resource Group {{name}} deleted'
+  limitAccess: 'To limit access to specific set of {{name}} add to this list'
+  selectResourceGroup: 'Select Resource Group'
+  add: '+ Add {{name}}'
+  all: 'All {{name}}'
+  noResourceGroupTypes: 'No Resource Group types available'
+  builtInResourceGroup: 'Built in resource-group'
+  noResourceGroup: 'No Resource Group available'
+  noResourceGroupFound: 'No Resource Group Found'
 ce:
   headingText: 'Continuous Efficiency'
   homepage:

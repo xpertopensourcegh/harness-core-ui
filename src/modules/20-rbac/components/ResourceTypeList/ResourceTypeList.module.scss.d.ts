@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly resourceGroupColor: string
-  readonly placeHolderDiv: string
+  readonly resourceTypeCard: string
 }
 export default styles

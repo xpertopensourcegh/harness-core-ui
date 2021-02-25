@@ -1,0 +1,26 @@
+.resourceName {
+  border-left: solid black 1px;
+}
+.selectedResourceGroupCardDetails {
+  width: 100%;
+  box-shadow: var(--card-box-shadow);
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 3fr 1fr;
+  align-items: center;
+  column-gap: var(--spacing-xxlarge);
+}
+// since uicore radio button adds margin-left with negative value
+.radioBtn > span {
+  margin-left: 0px !important;
+}
+.radioBtn {
+  padding-left: var(--spacing-large) !important;
+  border-left: 1px solid var(--grey-400);
+}
+.limitAccessCell {
+  justify-self: end;
+}
+// making text alignt to left of button
+.addResourceBtn {
+  justify-content: flex-start !important;
+}

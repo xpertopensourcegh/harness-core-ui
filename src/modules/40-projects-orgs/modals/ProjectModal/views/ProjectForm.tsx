@@ -20,6 +20,7 @@ import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
+import { DEFAULT_COLOR } from '@common/constants/Utils'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
@@ -66,7 +67,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
   return (
     <Formik
       initialValues={{
-        color: '#0063f7',
+        color: DEFAULT_COLOR,
         identifier: '',
         name: '',
         orgIdentifier: initialOrgIdentifier,
