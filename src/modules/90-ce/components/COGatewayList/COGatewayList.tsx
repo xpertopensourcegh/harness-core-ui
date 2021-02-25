@@ -37,8 +37,25 @@ import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions } from './Utils'
-import landingPageSVG from './images/landingPageGraphic.svg'
+// import landingPageSVG from './images/landingPageGraphic.svg'
+import landingPageBannerImage1 from './images/landingPage/1.svg'
+import landingPageBannerImage2 from './images/landingPage/2.svg'
+import landingPageBannerImage3 from './images/landingPage/3.svg'
+import landingPageBannerImage4 from './images/landingPage/4.svg'
+import landingPageBannerImage5 from './images/landingPage/5.svg'
+import landingPageBannerImage6 from './images/landingPage/6.svg'
+import landingPageBannerImage7 from './images/landingPage/7.svg'
+import landingPageBannerImage8 from './images/landingPage/8.svg'
+import landingPageBannerImage9 from './images/landingPage/9.svg'
+import landingPageBannerImage10 from './images/landingPage/10.svg'
+import landingPageBannerImage11 from './images/landingPage/11.svg'
+import landingPageBannerImage12 from './images/landingPage/12.svg'
+import landingPageBannerImage13 from './images/landingPage/13.svg'
 import css from './COGatewayList.module.scss'
+
+interface AnimatedGraphicContainerProps {
+  imgList: Array<string>
+}
 
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
   return (
@@ -63,6 +80,40 @@ function NameCell(tableProps: CellProps<Service>): JSX.Element {
       {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
       {tableProps.value}
     </Text>
+  )
+}
+
+const landingPageGraphicsImages: Array<string> = [
+  landingPageBannerImage1,
+  landingPageBannerImage2,
+  landingPageBannerImage3,
+  landingPageBannerImage4,
+  landingPageBannerImage5,
+  landingPageBannerImage6,
+  landingPageBannerImage7,
+  landingPageBannerImage8,
+  landingPageBannerImage9,
+  landingPageBannerImage10,
+  landingPageBannerImage11,
+  landingPageBannerImage12,
+  landingPageBannerImage13
+]
+
+const AnimatedGraphicContainer: React.FC<AnimatedGraphicContainerProps> = props => {
+  const [currImgPos, setCurrImgPos] = React.useState<number>(0)
+  React.useEffect(() => {
+    const animationIntervalId = setInterval(() => {
+      setCurrImgPos(prevImgPos => (prevImgPos === 12 ? 0 : prevImgPos + 1))
+    }, 1000)
+    return () => {
+      clearInterval(animationIntervalId)
+    }
+  }, [])
+
+  return (
+    <>
+      <img src={props?.imgList?.[currImgPos]} height={'224px'} width={'603px'} />
+    </>
   )
 }
 
@@ -291,9 +342,10 @@ const COGatewayList: React.FC = () => {
   if (error) {
     modalErrorHandler?.showDanger(error.data || error.message)
   }
+
   return (
     <Container background={Color.WHITE} height="100vh">
-      {!loading && !data?.response ? (
+      {!loading ? (
         <>
           <Breadcrumbs
             className={css.breadCrumb}
@@ -316,8 +368,9 @@ const COGatewayList: React.FC = () => {
               paddingTop: '220px'
             }}
           >
-            <img src={landingPageSVG} alt="" width="300px"></img>
-            <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px' }}>
+            {/* <img src={landingPageSVG} alt="" width="300px"></img> */}
+            <AnimatedGraphicContainer imgList={landingPageGraphicsImages} />
+            <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
               AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you)
               only when you’re using them, and never when they are idle. Additionally, run your workloads on fully
               orchestrated spot instances without any worry of spot interruptions. <Link href="/">Learn more</Link>
