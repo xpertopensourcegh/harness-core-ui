@@ -255,20 +255,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step 1`] = 
         </div>
       </div>
     </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
-    </div>
   </div>
 </div>
 `;
@@ -485,20 +471,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
     </div>
   </div>
 </div>

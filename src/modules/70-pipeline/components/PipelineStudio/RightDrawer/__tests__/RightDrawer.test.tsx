@@ -58,7 +58,8 @@ describe('Right Drawer tests', () => {
     React.useContext = useContextMock
   })
 
-  test('Basic snapshot - Skip Condition drawer', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Basic snapshot - Skip Condition drawer', async () => {
     const { queryByText, container, getByText } = render(
       <TestWrapper>
         <RightDrawer />

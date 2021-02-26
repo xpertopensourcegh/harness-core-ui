@@ -478,20 +478,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
         </div>
       </div>
     </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
-    </div>
   </div>
 </div>
 `;
@@ -860,20 +846,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
         </div>
       </div>
     </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
-    </div>
   </div>
 </div>
 `;
@@ -1199,20 +1171,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
     </div>
   </div>
 </div>
@@ -1577,20 +1535,6 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
     </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
-    </div>
   </div>
 </div>
 `;
@@ -1897,20 +1841,6 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
     </div>
   </div>
 </div>
@@ -2223,20 +2153,6 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
     </div>
   </div>
 </div>

@@ -545,11 +545,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
   return (
     <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
-      <div className={css.pipelineStudioTitle}>
-        <div className={css.rectangle}>
-          <String stringID="pipelineStudio" />
-        </div>
-      </div>
+      <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
       <div className={css.canvasWrapper}>
         {isSplitViewOpen ? (
           <SplitPane

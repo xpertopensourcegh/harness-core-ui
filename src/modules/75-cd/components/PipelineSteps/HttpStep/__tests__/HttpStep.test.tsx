@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, queryByAttribute, fireEvent, act, waitFor } from '@testing-library/react'
+import { render, queryByAttribute, fireEvent, act } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { HttpStep } from '../HttpStep'
@@ -78,8 +78,15 @@ describe('Http Step', () => {
 
   test('form produces correct data for fixed inputs', async () => {
     const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
     const { container, getByTestId, getByText } = render(
-      <TestStepWidget initialValues={{}} type={StepType.HTTP} stepViewType={StepViewType.Edit} onUpdate={onUpdate} />
+      <TestStepWidget
+        initialValues={{}}
+        type={StepType.HTTP}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+        ref={ref}
+      />
     )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -105,10 +112,7 @@ describe('Http Step', () => {
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'myVar' } })
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, { target: { value: 'response.message' } })
 
-    fireEvent.click(getByText('Submit').closest('button')!)
-
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
+    await act(() => ref.current?.submitForm())
 
     expect(onUpdate).toHaveBeenCalledWith({
       identifier: 'My_Http_Step',

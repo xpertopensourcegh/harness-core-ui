@@ -145,20 +145,6 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="actionsPanel"
-        >
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Submit
-            </span>
-          </button>
-        </div>
       </div>
     </div>
     <div

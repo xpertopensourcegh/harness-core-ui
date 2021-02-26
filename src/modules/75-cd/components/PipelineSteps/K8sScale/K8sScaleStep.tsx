@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  Layout,
-  FormInput,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -85,7 +77,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
         })}
       >
         {(formik: FormikProps<K8sScaleData>) => {
-          const { submitForm, values, setFieldValue } = formik
+          const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
             <>
@@ -165,9 +157,6 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   )}
                 </div>
               </Layout.Vertical>
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-              </div>
             </>
           )
         }}

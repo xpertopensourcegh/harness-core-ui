@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  Layout,
-  FormInput,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -81,7 +73,7 @@ function K8sBGSwapWidget(
         })}
       >
         {(formik: FormikProps<K8sBGSwapServicesData>) => {
-          const { values, setFieldValue, submitForm } = formik
+          const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
 
           return (
@@ -117,9 +109,6 @@ function K8sBGSwapWidget(
                   )}
                 </div>
               </Layout.Vertical>
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-              </div>
             </>
           )
         }}

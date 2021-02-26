@@ -15,50 +15,37 @@ $dot-space: 10px;
   position: relative;
 
   .pipelineStudioTitle {
-    display: grid;
-    justify-content: center;
     position: absolute;
     z-index: 1;
-    left: 0;
-    right: 0;
+    left: 50%;
     top: 2px;
+    transform: translate(-50%);
+    width: 210px;
+    height: 30px;
+    background: var(--blue-300);
+    text-align: center;
+    line-height: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--blue-800);
+    clip-path: polygon(0 0, 100% 0, calc(100% - var(--spacing-xlarge)) 100%, var(--spacing-xlarge) 100%);
+    letter-spacing: 2px;
 
-    .rectangle {
-      width: 210px;
-      height: 30px;
-      background: #f4f6ff;
-      position: relative;
-      text-align: center;
-
-      span {
-        line-height: 30px;
-        text-transform: uppercase;
-        font-weight: bold;
-        color: #004ba4;
-      }
-    }
-    .rectangle:after {
+    &::before {
       content: '';
+      display: block;
       position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 0 var(--spacing-xxlarge) var(--spacing-xlarge);
-      border-color: transparent transparent #fff transparent;
-    }
-
-    .rectangle::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 var(--spacing-xlarge) var(--spacing-xxlarge) 0;
-      border-color: transparent transparent #fff transparent;
+      width: 100%;
+      height: 100%;
+      background-color: var(--blue-100);
+      color: inherit;
+      z-index: -1;
+      clip-path: polygon(
+        1px 0,
+        calc(100% - 1px) 0,
+        calc(100% - var(--spacing-xlarge) - 1px) calc(100% - 1px),
+        calc(var(--spacing-xlarge) + 1px) calc(100% - 1px)
+      );
     }
   }
 
@@ -76,7 +63,7 @@ $dot-space: 10px;
     height: 100%;
     width: 100%;
     position: relative;
-    border-top: 2px solid var(--blue-350);
+    border-top: 2px solid var(--grey-200);
 
     background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
       linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;

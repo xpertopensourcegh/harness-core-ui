@@ -20,9 +20,11 @@ export interface InputSetData<T> {
   readonly?: boolean
 }
 
+export type StepFormikRef<T> = Pick<FormikProps<T>, 'submitForm' | 'errors'>
+
 export type StepFormikFowardRef<T = unknown> =
-  | ((instance: FormikProps<T> | null) => void)
-  | React.MutableRefObject<FormikProps<T> | null>
+  | ((instance: StepFormikRef<T> | null) => void)
+  | React.MutableRefObject<StepFormikRef<T> | null>
   | null
 
 export interface StepProps<T, U = unknown> {

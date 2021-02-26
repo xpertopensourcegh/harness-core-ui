@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { ShellScriptStep } from '../ShellScriptStep'
@@ -223,12 +223,14 @@ describe('Test Shell Script Step', () => {
 
   test('form produces correct data for fixed inputs', async () => {
     const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
     const { container, getByText } = render(
       <TestStepWidget
         initialValues={{}}
         type={StepType.SHELLSCRIPT}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
 
@@ -272,7 +274,7 @@ describe('Test Shell Script Step', () => {
         target: { value: 'response.message' }
       })
 
-      await fireEvent.click(getByText('Submit').closest('button')!)
+      await ref.current?.submitForm()
     })
 
     expect(onUpdate).toHaveBeenCalledWith({
@@ -321,12 +323,14 @@ describe('Test Shell Script Step', () => {
 
   test('form produces correct data for fixed inputs for delegate as false', async () => {
     const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
     const { container, getByText } = render(
       <TestStepWidget
         initialValues={{}}
         type={StepType.SHELLSCRIPT}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
 
@@ -384,7 +388,7 @@ describe('Test Shell Script Step', () => {
         target: { value: 'response.message' }
       })
 
-      await fireEvent.click(getByText('Submit').closest('button')!)
+      await ref.current?.submitForm()
     })
 
     expect(onUpdate).toHaveBeenCalledWith({

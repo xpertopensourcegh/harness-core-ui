@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  FormInput,
-  Layout,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -81,73 +73,66 @@ function K8CanaryDeployWidget(
         })}
       >
         {(formik: FormikProps<K8sCanaryDeployData>) => {
-          const { submitForm, values, setFieldValue } = formik
+          const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
-            <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInstanceDropdown
-                    name={'spec.instanceSelection'}
-                    label={getString('pipelineSteps.instanceLabel')}
-                  />
-                  {(getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.count) ===
-                    MultiTypeInputType.RUNTIME ||
-                    getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
-                      MultiTypeInputType.RUNTIME) && (
-                    <ConfigureOptions
-                      value={
-                        (values?.spec?.instanceSelection?.spec?.count as string) ||
-                        (values?.spec?.instanceSelection?.spec?.percentage as string)
-                      }
-                      type="String"
-                      variableName={getString('instanceFieldOptions.instances')}
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('instances', value)
-                      }}
-                    />
-                  )}
-                </div>
-
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false }}
-                  />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('timeout', value)
-                      }}
-                    />
-                  )}
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
-                </div>
-              </Layout.Vertical>
-
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
+            <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormInput.InputWithIdentifier
+                  inputLabel={getString('name')}
+                  isIdentifierEditable={isEmpty(initialValues.identifier)}
+                />
               </div>
-            </>
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormInstanceDropdown
+                  name={'spec.instanceSelection'}
+                  label={getString('pipelineSteps.instanceLabel')}
+                />
+                {(getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
+                  getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
+                    MultiTypeInputType.RUNTIME) && (
+                  <ConfigureOptions
+                    value={
+                      (values?.spec?.instanceSelection?.spec?.count as string) ||
+                      (values?.spec?.instanceSelection?.spec?.percentage as string)
+                    }
+                    type="String"
+                    variableName={getString('instanceFieldOptions.instances')}
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('instances', value)
+                    }}
+                  />
+                )}
+              </div>
+
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  className={stepCss.duration}
+                  multiTypeDurationProps={{ enableConfigureOptions: false }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('timeout', value)
+                    }}
+                  />
+                )}
+              </div>
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
+              </div>
+            </Layout.Vertical>
           )
         }}
       </Formik>

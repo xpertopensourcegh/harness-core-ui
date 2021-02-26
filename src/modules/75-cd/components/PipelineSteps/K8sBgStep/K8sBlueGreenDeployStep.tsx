@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  Layout,
-  FormInput,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -63,7 +55,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
         })}
       >
         {(formik: FormikProps<K8sBGDeployData>) => {
-          const { submitForm, values, setFieldValue } = formik
+          const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
             <>
@@ -98,10 +90,6 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                   <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
                 </div>
               </Layout.Vertical>
-
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-              </div>
             </>
           )
         }}

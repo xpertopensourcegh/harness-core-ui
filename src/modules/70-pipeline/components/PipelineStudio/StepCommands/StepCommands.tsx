@@ -11,19 +11,24 @@ import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/Advance
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
+export type StepFormikRef<T = unknown> = {
+  isDirty(): FormikProps<T>['dirty'] | undefined
+  submitForm: FormikProps<T>['submitForm']
+  getErrors(): FormikProps<T>['errors']
+}
+
+export type StepCommandsRef<T = unknown> =
+  | ((instance: StepFormikRef<T> | null) => void)
+  | React.MutableRefObject<StepFormikRef<T> | null>
+  | null
+
 enum StepCommandTabs {
   StepConfiguration = 'StepConfiguration',
   Advanced = 'Advanced'
 }
 
-export const StepCommands: React.FC<StepCommandsProps> = ({
-  step,
-  onChange,
-  isStepGroup,
-  stepsFactory,
-  hiddenPanels,
-  hasStepGroupAncestor
-}) => {
+export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): React.ReactElement {
+  const { step, onChange, isStepGroup, stepsFactory, hiddenPanels, hasStepGroupAncestor } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
@@ -31,9 +36,6 @@ export const StepCommands: React.FC<StepCommandsProps> = ({
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
-      // we use this value as a flag for not closing the drawer
-      stepRef.current.setFieldValue('shouldKeepOpen', true)
-
       // please do not remove the await below.
       // This is required for errors to be populated correctly
       await stepRef.current.submitForm()
@@ -41,13 +43,7 @@ export const StepCommands: React.FC<StepCommandsProps> = ({
       if (isEmpty(stepRef.current.errors)) {
         setActiveTab(newTab)
       }
-
-      // reset the flag
-      stepRef.current.setFieldValue('shouldKeepOpen', false)
     } else if (prevTab === StepCommandTabs.Advanced && advancedConfRef.current) {
-      // we use this value as a flag for not closing the drawer
-      advancedConfRef.current.setFieldValue('shouldKeepOpen', true)
-
       // please do not remove the await below.
       // This is required for errors to be populated correctly
       await advancedConfRef.current.submitForm()
@@ -55,11 +51,36 @@ export const StepCommands: React.FC<StepCommandsProps> = ({
       if (isEmpty(advancedConfRef.current.errors)) {
         setActiveTab(newTab)
       }
-
-      // reset the flag
-      advancedConfRef.current.setFieldValue('shouldKeepOpen', true)
     }
   }
+
+  React.useImperativeHandle(ref, () => ({
+    isDirty() {
+      if (activeTab === StepCommandTabs.StepConfiguration && stepRef.current) {
+        return stepRef.current.dirty
+      }
+
+      if (activeTab === StepCommandTabs.Advanced && advancedConfRef.current) {
+        return advancedConfRef.current.dirty
+      }
+    },
+    submitForm() {
+      if (activeTab === StepCommandTabs.StepConfiguration && stepRef.current) {
+        return stepRef.current.submitForm()
+      }
+
+      if (activeTab === StepCommandTabs.Advanced && advancedConfRef.current) {
+        return advancedConfRef.current.submitForm()
+      }
+    },
+    getErrors() {
+      return activeTab === StepCommandTabs.StepConfiguration && stepRef.current
+        ? stepRef.current.errors
+        : activeTab === StepCommandTabs.Advanced && advancedConfRef.current
+        ? advancedConfRef.current.errors
+        : {}
+    }
+  }))
 
   return (
     <div className={css.stepCommand}>
@@ -98,3 +119,5 @@ export const StepCommands: React.FC<StepCommandsProps> = ({
     </div>
   )
 }
+
+export const StepCommandsWithRef = React.forwardRef(StepCommands)

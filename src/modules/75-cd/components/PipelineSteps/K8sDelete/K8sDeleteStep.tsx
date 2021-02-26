@@ -116,9 +116,10 @@ function K8sDeleteDeployWidget(
       }
     ]
     return options
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onChange = (values: any, value: any) => {
+  const onChange = (values: K8sDeleteData, value: string): K8sDeleteData => {
     let obj = values
     if (value === getString('pipelineSteps.manifestPathValue')) {
       obj = {
@@ -440,9 +441,6 @@ function K8sDeleteDeployWidget(
                 </div>
               </Layout.Vertical>
 
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
-              </div>
               {formikProps?.values?.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue') &&
                 formikProps?.values?.spec?.deleteResources?.spec?.deleteNamespace && (
                   <Container

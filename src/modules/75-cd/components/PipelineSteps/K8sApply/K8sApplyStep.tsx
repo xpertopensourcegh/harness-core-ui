@@ -116,7 +116,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
         })}
       >
         {(formik: FormikProps<K8sApplyFormData>) => {
-          const { values, setFieldValue, submitForm } = formik
+          const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
             <>
@@ -205,10 +205,6 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                   />
                 </div>
               </Layout.Vertical>
-
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-              </div>
             </>
           )
         }}

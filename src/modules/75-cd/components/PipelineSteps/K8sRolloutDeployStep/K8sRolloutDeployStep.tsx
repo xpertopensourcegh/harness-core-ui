@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  FormInput,
-  Button,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Layout
-} from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 
@@ -69,48 +61,43 @@ function K8RolloutDeployWidget(
       >
         {(formik: FormikProps<K8RolloutDeployData>) => {
           setFormikRef(formikRef, formik)
-          const { values, submitForm, setFieldValue } = formik
+          const { values, setFieldValue } = formik
           return (
-            <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
-                  />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('timeout', value)
-                      }}
-                    />
-                  )}
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeCheckboxField
-                    multiTypeTextbox={{ expressions }}
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                  />
-                </div>
-              </Layout.Vertical>
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
+            <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormInput.InputWithIdentifier
+                  inputLabel={getString('name')}
+                  isIdentifierEditable={isEmpty(initialValues.identifier)}
+                />
               </div>
-            </>
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('timeout', value)
+                    }}
+                  />
+                )}
+              </div>
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeCheckboxField
+                  multiTypeTextbox={{ expressions }}
+                  name="spec.skipDryRun"
+                  label={getString('pipelineSteps.skipDryRun')}
+                />
+              </div>
+            </Layout.Vertical>
           )
         }}
       </Formik>

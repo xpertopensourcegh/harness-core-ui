@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, Button, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
+import { IconName, Formik, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
 import { isEmpty, set, get } from 'lodash-es'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -82,29 +82,24 @@ function ShellScriptWidget(
         setFormikRef(formikRef, formik)
 
         return (
-          <>
-            <Accordion activeId="step-1" className={stepCss.accordion}>
-              <Accordion.Panel id="step-1" summary={getString('basic')} details={<BaseShellScript formik={formik} />} />
-              <Accordion.Panel
-                id="step-2"
-                summary={getString('scriptInputVariables')}
-                details={<ShellScriptInput formik={formik} />}
-              />
-              <Accordion.Panel
-                id="step-4"
-                summary={getString('scriptOutputVariables')}
-                details={<ShellScriptOutput formik={formik} />}
-              />
-              <Accordion.Panel
-                id="step-3"
-                summary={getString('executionTarget')}
-                details={<ExecutionTarget formik={formik} />}
-              />
-            </Accordion>
-            <div className={stepCss.actionsPanel}>
-              <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
-            </div>
-          </>
+          <Accordion activeId="step-1" className={stepCss.accordion}>
+            <Accordion.Panel id="step-1" summary={getString('basic')} details={<BaseShellScript formik={formik} />} />
+            <Accordion.Panel
+              id="step-2"
+              summary={getString('scriptInputVariables')}
+              details={<ShellScriptInput formik={formik} />}
+            />
+            <Accordion.Panel
+              id="step-4"
+              summary={getString('scriptOutputVariables')}
+              details={<ShellScriptOutput formik={formik} />}
+            />
+            <Accordion.Panel
+              id="step-3"
+              summary={getString('executionTarget')}
+              details={<ExecutionTarget formik={formik} />}
+            />
+          </Accordion>
         )
       }}
     </Formik>

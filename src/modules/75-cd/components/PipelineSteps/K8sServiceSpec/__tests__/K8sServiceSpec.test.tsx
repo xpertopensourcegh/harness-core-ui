@@ -15,7 +15,7 @@ import connectorListJSON from './connectorList.json'
 import secretMockdata from './secretMockdata.json'
 import { PipelineResponse } from './pipelineMock'
 
-const fetchConnectors = () => Promise.resolve({})
+const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))

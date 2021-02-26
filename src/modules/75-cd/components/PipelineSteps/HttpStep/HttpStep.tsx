@@ -2,7 +2,6 @@ import React from 'react'
 import {
   IconName,
   Formik,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption,
@@ -74,9 +73,6 @@ function HttpStepWidget(props: HttpStepWidgetProps, formikRef: StepFormikFowardR
                 details={<ResponseMapping formik={formik} />}
               />
             </Accordion>
-            <div className={stepCss.actionsPanel}>
-              <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
-            </div>
           </React.Fragment>
         )
       }}

@@ -1,6 +1,6 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { Formik, FormikForm, Accordion, Button } from '@wings-software/uicore'
+import { Formik, FormikForm, Accordion } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
 import { useStrings } from 'framework/exports'
@@ -17,7 +17,6 @@ import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
 import { Modes } from './common'
-import stepCss from '../Steps/Steps.module.scss'
 import css from './AdvancedSteps.module.scss'
 
 export interface AdvancedStepsProps extends StepCommandsProps {
@@ -72,9 +71,6 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                   />
                 )}
               </Accordion>
-            </div>
-            <div className={stepCss.actionsPanel}>
-              <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
             </div>
           </FormikForm>
         )

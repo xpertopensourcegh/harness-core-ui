@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -107,7 +107,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
 
   test('should throw validation error without instances', async () => {
     const onUpdate = jest.fn()
-    const { container, getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container } = render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -117,10 +118,11 @@ describe('Test K8sBlueGreenDeployStep', () => {
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
 
-    fireEvent.click(getByText('Submit').closest('button')!)
+    await ref.current?.submitForm()
 
     await waitFor(() => Promise.resolve())
     await waitFor(() => Promise.resolve())
@@ -130,7 +132,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
 
   test('should submit with valid paylod for instace type count', async () => {
     const onUpdate = jest.fn()
-    const { container, getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container } = render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -146,9 +149,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
+    await ref.current?.submitForm()
 
     await waitFor(() =>
       expect(onUpdate).toHaveBeenCalledWith({
@@ -175,7 +179,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
 
   test('should submit with valid paylod for instace type percentage', async () => {
     const onUpdate = jest.fn()
-    const { container, getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container } = render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -197,9 +202,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
+    await ref.current?.submitForm()
 
     await waitFor(() =>
       expect(onUpdate).toHaveBeenCalledWith({
@@ -225,7 +231,9 @@ describe('Test K8sBlueGreenDeployStep', () => {
 
   test('on Edit view for instance type percentage', async () => {
     const onUpdate = jest.fn()
-    const { getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+
+    render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -247,9 +255,11 @@ describe('Test K8sBlueGreenDeployStep', () => {
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
+
+    await ref.current?.submitForm()
 
     await waitFor(() =>
       expect(onUpdate).toHaveBeenCalledWith({
@@ -273,7 +283,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
   })
   test('on Edit view for instance type count', async () => {
     const onUpdate = jest.fn()
-    const { getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -295,9 +306,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
+    await ref.current?.submitForm()
 
     await waitFor(() =>
       expect(onUpdate).toHaveBeenCalledWith({

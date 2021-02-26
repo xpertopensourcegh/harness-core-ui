@@ -71,7 +71,7 @@ export const getStagePathByIdentifier = memoize((stageIdentifier = '', pipeline:
   return finalPath
 })
 
-export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }) => {
+export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }): string => {
   const fields: { [key: string]: any } = {}
 
   Object.entries(spec).forEach(([key]): void => {
@@ -81,7 +81,7 @@ export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template:
   })
   return JSON.stringify(fields, null, 2)
 }
-const tagExists = (value: any) => typeof value === 'number' || !isEmpty(value)
+const tagExists = (value: unknown): boolean => typeof value === 'number' || !isEmpty(value)
 export interface LastQueryData {
   path?: string
   imagePath?: string
@@ -257,7 +257,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     connectorRef = '',
     connectorType = '',
     registryHostname
-  }: LastQueryData) => {
+  }: LastQueryData): void => {
     if (connectorType === 'Dockerhub') {
       if (
         imagePath?.length &&

@@ -1,13 +1,12 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Icon } from '@wings-software/uicore'
-
-import { isNil } from 'lodash-es'
+import { isNil, isEmpty } from 'lodash-es'
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
-import { StepCommands } from '../StepCommands/StepCommands'
+import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
 import { TabTypes } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
@@ -41,17 +40,29 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
+  const formikRef = React.useRef<StepFormikRef | null>(null)
+
   return (
     <Drawer
-      onClose={() => {
+      onClose={async () => {
+        if (formikRef.current) {
+          // please do not remove the await below.
+          // This is required for errors to be populated correctly
+          await formikRef.current.submitForm()
+
+          if (!isEmpty(formikRef.current.getErrors())) {
+            return
+          }
+        }
+
         updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
       }}
-      usePortal={false}
+      usePortal={true}
       autoFocus={true}
       canEscapeKeyClose={type === DrawerTypes.ExecutionStrategy ? false : true}
       canOutsideClickClose={type === DrawerTypes.ExecutionStrategy ? false : true}
       enforceFocus={true}
-      hasBackdrop={false}
+      hasBackdrop={true}
       size={DrawerSizes[type]}
       isOpen={isDrawerOpened}
       position={Position.RIGHT}
@@ -69,6 +80,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
           step={data.stepConfig.node}
+          ref={formikRef}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={item => {
@@ -95,10 +107,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               }
               data?.stepConfig?.onUpdate?.(item)
               updatePipeline(pipeline)
-            }
-
-            if (!item.shouldKeepOpen) {
-              updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
             }
           }}
           isStepGroup={data.stepConfig.isStepGroup}

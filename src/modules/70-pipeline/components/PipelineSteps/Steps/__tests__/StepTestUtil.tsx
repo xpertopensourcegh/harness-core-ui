@@ -3,7 +3,7 @@ import { Button, Formik, Text } from '@wings-software/uicore'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepWidgetWithFormikRef, StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 
 class StepTestFactory extends AbstractStepFactory {
@@ -46,17 +46,17 @@ export interface TestStepWidgetProps extends Omit<StepWidgetProps, 'factory'> {
   testWrapperProps?: TestWrapperProps
 }
 
-export const TestStepWidget: React.FC<TestStepWidgetProps> = props => {
+export function TestStepWidgetWithoutRef(props: TestStepWidgetProps, ref: StepFormikFowardRef): React.ReactElement {
   const type = props.stepViewType
-  const stepRef = React.useRef(null)
-
   return (
     <TestWrapper {...props.testWrapperProps}>
       {type === StepViewType.InputSet || type === StepViewType.DeploymentForm ? (
         <FormikTestWrapper factory={factory} {...props} />
       ) : (
-        <StepWidgetWithFormikRef ref={stepRef} factory={factory} {...props} />
+        <StepWidgetWithFormikRef ref={ref} factory={factory} {...props} />
       )}
     </TestWrapper>
   )
 }
+
+export const TestStepWidget = React.forwardRef(TestStepWidgetWithoutRef)

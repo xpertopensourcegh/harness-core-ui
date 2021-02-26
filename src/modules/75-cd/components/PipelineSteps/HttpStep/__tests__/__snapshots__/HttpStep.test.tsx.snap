@@ -779,20 +779,6 @@ exports[`Http Step edit mode works 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
-    </div>
   </div>
 </div>
 `;
@@ -1771,20 +1757,6 @@ exports[`Http Step renders runtime inputs 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
-    </div>
   </div>
 </div>
 `;
@@ -2466,20 +2438,6 @@ exports[`Http Step should render edit view as new step 1`] = `
           />
         </div>
       </div>
-    </div>
-    <div
-      class="actionsPanel"
-    >
-      <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Submit
-        </span>
-      </button>
     </div>
   </div>
 </div>

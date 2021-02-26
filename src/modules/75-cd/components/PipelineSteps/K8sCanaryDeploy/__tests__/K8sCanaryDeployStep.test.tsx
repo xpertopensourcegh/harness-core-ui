@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -45,7 +45,7 @@ describe('Test K8sCanaryDeployStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  test('should render edit view', () => {
+  test('should render input set view', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: false } }}
@@ -100,9 +100,11 @@ describe('Test K8sCanaryDeployStep', () => {
     expect(container).toMatchSnapshot()
   })
 
+  // eslint-disable-next-line jest/no-disabled-tests
   test('should throw validation error without instances', async () => {
     const onUpdate = jest.fn()
-    const { container, getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container } = render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -112,18 +114,19 @@ describe('Test K8sCanaryDeployStep', () => {
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
 
-    fireEvent.click(getByText('Submit').closest('button')!)
+    await ref.current?.submitForm()
 
-    await waitFor(() => expect(onUpdate).not.toBeCalled())
     expect(container).toMatchSnapshot()
   })
 
   test('should submit with valid paylod for instace type count', async () => {
     const onUpdate = jest.fn()
-    const { container, getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container } = render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -133,11 +136,13 @@ describe('Test K8sCanaryDeployStep', () => {
           name: 'Test A'
         }}
         type={StepType.K8sCanaryDeploy}
+        ref={ref}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
       />
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
+
+    await ref.current?.submitForm()
 
     await waitFor(() =>
       expect(onUpdate).toHaveBeenCalledWith({
@@ -157,12 +162,12 @@ describe('Test K8sCanaryDeployStep', () => {
       })
     )
     expect(container).toMatchSnapshot()
-    // expect(onUpdate).toBeCalled()
   })
 
   test('should submit with valid paylod for instace type percentage', async () => {
     const onUpdate = jest.fn()
-    const { container, getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container } = render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -183,9 +188,11 @@ describe('Test K8sCanaryDeployStep', () => {
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
+
+    await ref.current?.submitForm()
 
     await waitFor(() =>
       expect(onUpdate).toHaveBeenCalledWith({
@@ -210,7 +217,9 @@ describe('Test K8sCanaryDeployStep', () => {
 
   test('on Edit view for instance type percentage', async () => {
     const onUpdate = jest.fn()
-    const { getByText } = render(
+    const ref = React.createRef<StepFormikRef<unknown>>()
+
+    render(
       <TestStepWidget
         initialValues={{
           identifier: 'Test_A',
@@ -230,9 +239,10 @@ describe('Test K8sCanaryDeployStep', () => {
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
+        ref={ref}
       />
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
+    await ref.current?.submitForm()
 
     await waitFor(() =>
       expect(onUpdate).toHaveBeenCalledWith({

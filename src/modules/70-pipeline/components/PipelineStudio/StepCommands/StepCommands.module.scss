@@ -7,16 +7,10 @@
   flex: 1 1 auto;
   overflow: auto;
   position: relative;
-  overflow: hidden;
-  padding-top: var(--spacing-medium);
 
   .step-tabs {
-    height: calc(100% - var(--spacing-xlarge));
+    height: 100%;
     padding: 0 var(--spacing-large);
-
-    &_advanced {
-      height: calc(100% - 75px);
-    }
 
     :global(.bp3-tabs) {
       height: 100%;
@@ -24,9 +18,14 @@
 
     :global(.bp3-tab-list) {
       border-bottom: none;
+      padding: var(--spacing-medium) 0;
       display: flex;
       align-items: center;
       column-gap: var(--spacing-small);
+      background-color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
 
     :global(.bp3-tab) {
@@ -56,8 +55,7 @@
     }
 
     :global(.bp3-tab-panel) {
-      height: calc(100% - 85px);
-      overflow-y: auto;
+      margin-top: 0;
 
       & > :global(.OverlaySpinner--overlaySpinner) {
         position: static !important;

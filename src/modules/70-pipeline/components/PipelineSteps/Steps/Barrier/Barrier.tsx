@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  FormInput,
-  Button,
-  Layout,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
@@ -27,7 +19,6 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep, StepProps } from '../../PipelineStep'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 type BarrierData = StepElementConfig
 
@@ -66,40 +57,34 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
         })}
       >
         {(formik: FormikProps<BarrierData>) => {
-          const { submitForm, values, setFieldValue } = formik
+          const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
             <>
-              <>
-                <FormInput.InputWithIdentifier
-                  inputLabel={getString('name')}
-                  isIdentifierEditable={isEmpty(initialValues.identifier)}
+              <FormInput.InputWithIdentifier
+                inputLabel={getString('name')}
+                isIdentifierEditable={isEmpty(initialValues.identifier)}
+              />
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{ enableConfigureOptions: false }}
                 />
-                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('timeout', value)
+                    }}
                   />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('timeout', value)
-                      }}
-                    />
-                  )}
-                </Layout.Horizontal>
-              </>
-
-              <div className={stepCss.actionsPanel}>
-                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-              </div>
+                )}
+              </Layout.Horizontal>
             </>
           )
         }}
