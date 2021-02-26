@@ -1638,6 +1638,52 @@
           }
         }
       }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/cft_path": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["cftPath"],
+        "summary": "Cloud formation template path",
+        "description": "Gets the cloud formation template path",
+        "operationId": "GetCloudFormationTemplate",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CFTResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -2696,6 +2742,18 @@
         "response": {
           "type": "object",
           "$ref": "#/definitions/ServiceUsageRecord"
+        }
+      }
+    },
+    "CFTResponse": {
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            }
+          }
         }
       }
     }

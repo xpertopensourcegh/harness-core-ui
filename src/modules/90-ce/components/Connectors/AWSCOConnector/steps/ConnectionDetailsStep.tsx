@@ -16,6 +16,8 @@ import {
 } from '@wings-software/uicore'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import { useCreateConnector } from 'services/cd-ng'
+import { useToaster } from '@common/components/Toaster/useToaster'
+import { useGetCloudFormationTemplate } from 'services/lw'
 import { OPTIMIZATION_FEATURE, CROSS_ACCOUNT_ACCESS, FEATURES_ENABLED } from '../constants'
 import type { feature } from '../constants'
 import i18n from '../AWSCOConnector.i18n'
@@ -27,20 +29,48 @@ interface AWSCODetails {
 }
 
 const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+    accountId: string
+    orgIdentifier: string
+    projectIdentifier: string
+  }>()
   const { prevStepData, nextStep } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const connectorInfo = prevStepData as ConnectorInfoDTO
   const [showRoleView, setShowRoleView] = useState(false)
+  const [externalIDEnabled, setExternalIDEnabled] = useState(true)
   const [externalID, setExternalID] = useState(connectorInfo.spec.externalID as string)
   const [saving, setSaving] = useState(false)
-  const { accountId } = useParams<{ accountId: string }>()
+  const { showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { data, error } = useGetCloudFormationTemplate({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId // eslint-disable-line
+  })
+
+  if (error) {
+    showError(error.message)
+  }
+
+  const randomString = (): string => {
+    return Math.random().toString(36).substring(2, 8) + Math.random().toString(36).substring(2, 8)
+  }
 
   const createTemplate = (): void => {
+    const cftPath: string = data?.response?.path as string
+    if (!cftPath) {
+      showError('Template path is empty')
+      return
+    }
+    setExternalIDEnabled(false)
     const curEnabled: boolean = connectorInfo.spec.billingPermission
     const optimizationEnabled: boolean = connectorInfo.spec.optimizationPermission
     const eventsEnabled: boolean = connectorInfo.spec.eventsPermission
-    const url = `https://console.aws.amazon.com/cloudformation/home?#/stacks/quickcreate?stackName=harness-ce-iam-role-stack&templateURL=https://tests3utsav0.s3.amazonaws.com/stackTemplate2.yaml&param_ExternalId=${externalID}&param_CurEnabled=${curEnabled}&param_OptimizationEnabled=${optimizationEnabled}&param_EventsEnabled=${eventsEnabled}&param_BucketName=testS3BucketName`
+    const rand = randomString()
+    const stackName = `harness-ce-iam-${rand}`
+    const reqPath = 'https://console.aws.amazon.com/cloudformation/home?#/stacks/quickcreate'
+    const url = `${reqPath}?stackName=${stackName}&templateURL=${cftPath}&param_ExternalId=${externalID}&param_CurEnabled=${curEnabled}&param_OptimizationEnabled=${optimizationEnabled}&param_EventsEnabled=${eventsEnabled}`
     window.open(url)
   }
 
@@ -79,9 +109,9 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
       }}
     >
       {() => (
-        <Form>
+        <Form className={css.fullHeight}>
           <ModalErrorHandler bind={setModalErrorHandler} />
-          <Layout.Vertical spacing="large" className={css.containerLayout} padding="large">
+          <Layout.Vertical spacing="large" className={css.containerLayout}>
             <Heading level={2} style={{ fontSize: '18px', color: 'grey800' }}>
               {i18n.crossAccountRole.title}
             </Heading>
@@ -103,21 +133,25 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
               </Container>
             )}
             {showRoleView && (
-              <div>
-                <FormInput.Text name="roleARN" label={i18n.crossAccountRole.arn} />
+              <Layout.Vertical spacing="large">
                 <FormInput.Text
                   name="externalID"
                   label={i18n.crossAccountRole.externalID}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setExternalID(e.target.value)
                   }}
+                  disabled={!externalIDEnabled}
                 />
-                <Button
-                  intent="primary"
-                  minimal
-                  text={i18n.crossAccountRole.templateLaunchText}
-                  onClick={createTemplate}
-                />
+                <FormInput.Text name="roleARN" label={i18n.crossAccountRole.arn} />
+                <div>
+                  <Button
+                    intent="primary"
+                    minimal
+                    text={i18n.crossAccountRole.templateLaunchText}
+                    onClick={createTemplate}
+                    disabled={!externalIDEnabled}
+                  />
+                </div>
                 <div>
                   <Button
                     intent="primary"
@@ -128,7 +162,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
                     type="submit"
                   />
                 </div>
-              </div>
+              </Layout.Vertical>
             )}
           </Layout.Vertical>
         </Form>

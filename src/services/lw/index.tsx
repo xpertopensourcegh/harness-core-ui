@@ -395,6 +395,12 @@ export interface AccessPointActivityResponse {
   response?: ServiceUsageRecord
 }
 
+export interface CFTResponse {
+  response?: {
+    path?: string
+  }
+}
+
 export type ResourceFilterBodyRequestBody = ResourceFilterBody
 
 export interface GetServicesPathParams {
@@ -1964,4 +1970,57 @@ export const useAccessPointActivity = ({
     (paramsInPath: AccessPointActivityPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points/${paramsInPath.access_point_id}/last_active_at`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, access_point_id }, ...props }
+  )
+
+export interface GetCloudFormationTemplatePathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type GetCloudFormationTemplateProps = Omit<
+  GetProps<CFTResponse, void, void, GetCloudFormationTemplatePathParams>,
+  'path'
+> &
+  GetCloudFormationTemplatePathParams
+
+/**
+ * Cloud formation template path
+ *
+ * Gets the cloud formation template path
+ */
+export const GetCloudFormationTemplate = ({
+  org_id,
+  project_id,
+  account_id,
+  ...props
+}: GetCloudFormationTemplateProps) => (
+  <Get<CFTResponse, void, void, GetCloudFormationTemplatePathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/cft_path"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseGetCloudFormationTemplateProps = Omit<
+  UseGetProps<CFTResponse, void, void, GetCloudFormationTemplatePathParams>,
+  'path'
+> &
+  GetCloudFormationTemplatePathParams
+
+/**
+ * Cloud formation template path
+ *
+ * Gets the cloud formation template path
+ */
+export const useGetCloudFormationTemplate = ({
+  org_id,
+  project_id,
+  account_id,
+  ...props
+}: UseGetCloudFormationTemplateProps) =>
+  useGet<CFTResponse, void, void, GetCloudFormationTemplatePathParams>(
+    (paramsInPath: GetCloudFormationTemplatePathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/cft_path`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )

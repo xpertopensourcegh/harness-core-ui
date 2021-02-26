@@ -42,10 +42,16 @@
 
 .containerLayout {
   height: 100%;
+  margin: 25px !important;
 }
 
 .nextButton {
   min-width: 83px;
   position: absolute;
   bottom: 5%;
+}
+
+.fullHeight {
+  height: 100%;
+  min-height: 500px;
 }

@@ -10,5 +10,6 @@ declare const styles: {
   readonly enableButton: string
   readonly containerLayout: string
   readonly nextButton: string
+  readonly fullHeight: string
 }
 export default styles
