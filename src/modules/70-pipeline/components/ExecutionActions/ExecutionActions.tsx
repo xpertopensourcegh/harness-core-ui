@@ -8,14 +8,17 @@ import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionComplete, isExecutionActive, isExecutionPaused } from '@pipeline/utils/statusHelpers'
+import { useStrings } from 'framework/exports'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import i18n from './ExecutionActions.i18n'
 import css from './ExecutionActions.module.scss'
 
 const commonButtonProps: ButtonProps = {
   minimal: true,
-  small: true
+  small: true,
+  tooltipProps: {
+    isDark: true
+  }
 }
 
 export interface ExecutionActionsProps {
@@ -36,6 +39,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
   const { showSuccess } = useToaster()
   const history = useHistory()
+  const { getString } = useStrings()
 
   const reRunPipeline = (): void => {
     history.push(
@@ -65,7 +69,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         }
       })
       // await refetch()
-      showSuccess(i18n.abortedMessage)
+      showSuccess(getString('execution.actionMessages.abortedMessage'))
     } catch (_) {
       //
     }
@@ -82,7 +86,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         }
       })
       // await refetch()
-      showSuccess(i18n.pausedMessage)
+      showSuccess(getString('execution.actionMessages.pausedMessage'))
     } catch (_) {
       //
     }
@@ -99,7 +103,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         }
       })
       // await refetch()
-      showSuccess(i18n.resumedMessage)
+      showSuccess(getString('execution.actionMessages.resumedMessage'))
     } catch (_) {
       //
     }
@@ -115,10 +119,38 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   return (
     <div className={css.main} onClick={killEvent}>
-      {!disableInCIModule && canResume ? <Button icon="play" onClick={resumePipleine} {...commonButtonProps} /> : null}
-      {canRerun ? <Button icon="repeat" {...commonButtonProps} onClick={reRunPipeline} /> : null}
-      {!disableInCIModule && canPause ? <Button icon="pause" onClick={pausePipleine} {...commonButtonProps} /> : null}
-      {!disableInCIModule && canAbort ? <Button icon="stop" onClick={abortPipleine} {...commonButtonProps} /> : null}
+      {!disableInCIModule && canResume ? (
+        <Button
+          icon="play"
+          tooltip={getString('execution.actions.resume')}
+          onClick={resumePipleine}
+          {...commonButtonProps}
+        />
+      ) : null}
+      {canRerun ? (
+        <Button
+          icon="repeat"
+          tooltip={getString('execution.actions.rerun')}
+          onClick={reRunPipeline}
+          {...commonButtonProps}
+        />
+      ) : null}
+      {!disableInCIModule && canPause ? (
+        <Button
+          icon="pause"
+          tooltip={getString('execution.actions.pause')}
+          onClick={pausePipleine}
+          {...commonButtonProps}
+        />
+      ) : null}
+      {!disableInCIModule && canAbort ? (
+        <Button
+          icon="stop"
+          tooltip={getString('execution.actions.abort')}
+          onClick={abortPipleine}
+          {...commonButtonProps}
+        />
+      ) : null}
       <Popover position="bottom-right" minimal>
         <Button icon="more" {...commonButtonProps} className={css.more} />
         <Menu>
@@ -126,13 +158,25 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             className="bp3-menu-item"
             to={routes.toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
           >
-            Edit Pipeline
+            {getString('editPipeline')}
           </Link>
-          <MenuItem text="Re-run" disabled={!canRerun} onClick={reRunPipeline} />
-          <MenuItem text="Pause" onClick={pausePipleine} disabled={disableInCIModule || !canPause} />
-          <MenuItem text="Abort" onClick={abortPipleine} disabled={disableInCIModule || !canAbort} />
-          <MenuItem text="Resume" onClick={resumePipleine} disabled={disableInCIModule || !canResume} />
-          <MenuItem text="Download logs" disabled={disableInCIModule} />
+          <MenuItem text={getString('execution.actions.rerun')} disabled={!canRerun} onClick={reRunPipeline} />
+          <MenuItem
+            text={getString('execution.actions.pause')}
+            onClick={pausePipleine}
+            disabled={disableInCIModule || !canPause}
+          />
+          <MenuItem
+            text={getString('execution.actions.abort')}
+            onClick={abortPipleine}
+            disabled={disableInCIModule || !canAbort}
+          />
+          <MenuItem
+            text={getString('execution.actions.resume')}
+            onClick={resumePipleine}
+            disabled={disableInCIModule || !canResume}
+          />
+          <MenuItem text={getString('execution.actions.downloadLogs')} disabled />
         </Menu>
       </Popover>
     </div>

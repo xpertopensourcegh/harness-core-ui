@@ -744,6 +744,16 @@ execution:
     WEBHOOK: Webhook
   stepLogs: Step Logs
   consoleLogs: Console Logs
+  actions:
+    resume: Resume Pipeline
+    rerun: Re-run Pipeline
+    pause: Pause Pipeline
+    abort: Abort Pipeline
+    downloadLogs: Download logs
+  actionMessages:
+    abortedMessage: Pipeline has been aborted successfully
+    pausedMessage: Pipeline has been paused successfully
+    resumedMessage: Pipeline has been resumed successfully
 pipeline-notifications:
   nameOftheRule: Name of the Rule
   notificationName: Give your notification a name

@@ -55,7 +55,9 @@ describe('<ExecutionActions /> tests', () => {
 
     const btn = container.querySelector('[icon="more"]')?.closest('button')
 
-    fireEvent.click(btn!)
+    act(() => {
+      fireEvent.click(btn!)
+    })
 
     await findByText(document.body, 'Edit Pipeline')
 
