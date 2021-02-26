@@ -991,6 +991,8 @@ pipelineSteps:
   manifestPathValue: 'ManifestPath'
   deleteResourcesBy: 'Delete resources by'
   deleteResourcesPlaceHolder: 'Specify resources to be delete'
+  manifestPathsPlaceHolder: 'Specify file paths'
+  deleteNamespaceWarning: 'Warning: Ensure that you are not deleting a namespace that is used by other deployments'
   timeoutInfo: |
     You can use:
 

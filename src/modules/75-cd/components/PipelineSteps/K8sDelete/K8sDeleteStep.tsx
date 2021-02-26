@@ -3,6 +3,8 @@ import {
   IconName,
   Formik,
   FormInput,
+  Container,
+  Text,
   Button,
   Layout,
   getMultiTypeFromValue,
@@ -33,6 +35,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import css from './K8sDelete.module.scss'
 
 interface K8sDeleteFormSpec {
   resourceNames?: string[]
@@ -100,12 +103,12 @@ function K8sDeleteDeployWidget(
     // eslint-disable-next-line no-shadow
     const options: IOptionProps[] = [
       {
-        label: getString('pipelineSteps.resourceNameLabel'),
-        value: getString('pipelineSteps.resourceNameValue')
-      },
-      {
         label: getString('pipelineSteps.releaseNameLabel'),
         value: getString('pipelineSteps.releaseNameValue')
+      },
+      {
+        label: getString('pipelineSteps.resourceNameLabel'),
+        value: getString('pipelineSteps.resourceNameValue')
       },
       {
         label: getString('pipelineSteps.manifestPathLabel'),
@@ -114,6 +117,49 @@ function K8sDeleteDeployWidget(
     ]
     return options
   }, [])
+
+  const onChange = (values: any, value: any) => {
+    let obj = values
+    if (value === getString('pipelineSteps.manifestPathValue')) {
+      obj = {
+        ...values,
+        spec: {
+          deleteResources: {
+            type: value,
+            spec: {
+              manifestPaths: [{ value: '', id: uuid() }]
+            }
+          }
+        }
+      }
+    } else if (value === getString('pipelineSteps.resourceNameValue')) {
+      obj = {
+        ...values,
+        spec: {
+          deleteResources: {
+            type: value,
+            spec: {
+              resourceNames: [{ value: '', id: uuid() }]
+            }
+          }
+        }
+      }
+    } else if (value === getString('pipelineSteps.releaseNameValue')) {
+      obj = {
+        ...values,
+        spec: {
+          deleteResources: {
+            type: value,
+            spec: {
+              deleteNamespace: false
+            }
+          }
+        }
+      }
+    }
+
+    return obj
+  }
 
   const { expressions } = useVariablesExpression()
 
@@ -252,6 +298,12 @@ function K8sDeleteDeployWidget(
                     name="spec.deleteResources.type"
                     items={accessTypeOptions}
                     radioGroup={{ inline: true }}
+                    onChange={e => {
+                      const currentValue = e.currentTarget?.value
+
+                      const valuesObj = onChange(values, currentValue)
+                      formikProps?.setValues({ ...valuesObj })
+                    }}
                   />
                 </div>
 
@@ -292,8 +344,9 @@ function K8sDeleteDeployWidget(
                           <span>
                             <Button
                               minimal
-                              text={getString('addFileText')}
+                              text={getString('plusAdd')}
                               intent="primary"
+                              className={css.addBtn}
                               onClick={() => {
                                 /* istanbul ignore next */
                                 arrayHelpers.push({ value: '', id: uuid() })
@@ -307,7 +360,7 @@ function K8sDeleteDeployWidget(
                 )}
 
                 {values?.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue') && (
-                  <div className={stepCss.formGroup}>
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
                     <FormMultiTypeCheckboxField
                       name="spec.deleteResources.spec.deleteNamespace"
                       label={getString('pipelineSteps.deleteNamespace')}
@@ -333,10 +386,13 @@ function K8sDeleteDeployWidget(
                               >
                                 <FormInput.MultiTextInput
                                   label=""
-                                  placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
+                                  placeholder={getString('pipelineSteps.manifestPathsPlaceHolder')}
                                   name={`spec.deleteResources.spec.manifestPaths[${index}].value`}
                                   style={{ width: '430px' }}
-                                  multiTextInputProps={{ expressions }}
+                                  multiTextInputProps={{
+                                    expressions,
+                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  }}
                                 />
 
                                 {/* istanbul ignore next */}
@@ -349,7 +405,8 @@ function K8sDeleteDeployWidget(
                           <span>
                             <Button
                               minimal
-                              text={getString('plusAdd')}
+                              text={getString('addFileText')}
+                              className={css.addBtn}
                               intent="primary"
                               onClick={() => arrayHelpers.push({ value: '', id: uuid() })}
                             />
@@ -386,6 +443,24 @@ function K8sDeleteDeployWidget(
               <div className={stepCss.actionsPanel}>
                 <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
               </div>
+              {formikProps?.values?.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue') &&
+                formikProps?.values?.spec?.deleteResources?.spec?.deleteNamespace && (
+                  <Container
+                    id="warning-deletenamespace"
+                    intent="warning"
+                    padding="medium"
+                    font={{
+                      align: 'center'
+                    }}
+                    background="red200"
+                    flex
+                    border={{
+                      color: 'red500'
+                    }}
+                  >
+                    <Text>{getString('pipelineSteps.deleteNamespaceWarning')}</Text>
+                  </Container>
+                )}
             </>
           )
         }}

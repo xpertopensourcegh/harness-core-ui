@@ -28,9 +28,12 @@ describe('Test K8sBlueGreenDeployStep', () => {
           identifier: 'Test_A',
           timeout: '12m',
           spec: {
-            deleteResourcesBy: 'ManifestPath',
-            spec: {
-              manifestPaths: ['testA', 'testB']
+            deleteResources: {
+              type: 'ManifestPath',
+
+              spec: {
+                manifestPaths: ['testA', 'testB']
+              }
             }
           }
         }}
@@ -50,9 +53,12 @@ describe('Test K8sBlueGreenDeployStep', () => {
           identifier: 'Test_A',
           timeout: '12m',
           spec: {
-            deleteResourcesBy: 'ReleaseName',
-            spec: {
-              deleteNamespace: true
+            deleteResources: {
+              type: 'ReleaseName',
+
+              spec: {
+                deleteNamespace: true
+              }
             }
           }
         }}
@@ -61,6 +67,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
       />
     )
     expect(container).toMatchSnapshot()
+    const warningMessage = container.querySelector('#warning-deletenamespace')
+    expect(warningMessage).toBeTruthy()
   })
 
   test('should render edit view -with ResourceName selected', () => {
@@ -72,9 +80,11 @@ describe('Test K8sBlueGreenDeployStep', () => {
           identifier: 'Test_A',
           timeout: '12m',
           spec: {
-            deleteResourcesBy: 'ResourceName',
-            spec: {
-              resourceNames: ['testABC', 'test123']
+            deleteResources: {
+              type: 'ResourceName',
+              spec: {
+                resourceNames: ['testABC', 'test123']
+              }
             }
           }
         }}
@@ -94,9 +104,11 @@ describe('Test K8sBlueGreenDeployStep', () => {
           identifier: 'Test_A',
           timeout: '12m',
           spec: {
-            deleteResourcesBy: 'ResourceName',
-            spec: {
-              resourceNames: ['testABC', 'test123']
+            deleteResources: {
+              type: 'ResourceName',
+              spec: {
+                resourceNames: ['testABC', 'test123']
+              }
             }
           }
         }}
@@ -123,9 +135,11 @@ describe('Test K8sBlueGreenDeployStep', () => {
             identifier: 'Test_A',
             timeout: 'step-timeout',
             spec: {
-              deleteResourcesBy: 'ResourceName',
-              spec: {
-                resourceNames: ['testABC', 'test123']
+              deleteResources: {
+                type: 'ResourceName',
+                spec: {
+                  resourceNames: ['testABC', 'test123']
+                }
               }
             }
           }
