@@ -32,12 +32,13 @@ enum Views {
 }
 
 const i18n: { [key: string]: string } = {
-  AWS:
+  'AWS Cost Dashboard':
     'A dashboard that visually tracks and analyzes the health of your AWS cloud spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
-  GCP:
+  'GCP Cost Dashboard':
     'A dashboard that visually tracks and analyzes the health of your GCP cloud spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
-  Cluster:
-    'A dashboard that visually tracks and analyzes the health of your cluster spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend'
+  'Cluster Cost Dashboard':
+    'A dashboard that visually tracks and analyzes the health of your cluster spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
+  'Multi-cloud Cost Overview Dashboard': 'A dashboard that visually gives overview across all cloud providers spend'
 }
 
 const FirstStep = (props: any): JSX.Element => {
@@ -313,11 +314,27 @@ const HomePage: React.FC = () => {
                       })
                     }}
                   >
-                    <Icon
-                      name={dashboard?.type === 'SHARED' ? 'harness' : 'dashboard'}
-                      size={25}
-                      color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.BLUE_500}
-                    />
+                    <Layout.Horizontal style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Icon
+                        name={dashboard?.type === 'SHARED' ? 'harness' : 'dashboard'}
+                        size={25}
+                        color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.BLUE_500}
+                      />
+                      {dashboard?.type === 'SHARED' && (
+                        <Icon
+                          name={
+                            dashboard?.title.toLowerCase().includes('aws')
+                              ? 'service-aws'
+                              : dashboard?.title.toLowerCase().includes('gcp')
+                              ? 'gcp'
+                              : dashboard?.title.toLowerCase().includes('cluster')
+                              ? 'ce-cluster'
+                              : 'ce-main-colored'
+                          }
+                          size={28}
+                        />
+                      )}
+                    </Layout.Horizontal>
                     <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
                       {dashboard?.title}
                     </Text>
@@ -339,32 +356,36 @@ const HomePage: React.FC = () => {
                       //   overflow: 'hidden'
                       // }}
                     >
-                      <Container
-                        style={{ width: '50%', borderRadius: '5px' }}
-                        padding="small"
-                        background={Color.GREY_100}
-                      >
-                        <Icon name="eye-open" size={16} style={{ marginBottom: '10px' }} />
-                        <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                          <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                            {dashboard?.view_count}
-                          </Text>
-                          &nbsp;{getString('dashboards.createModal.view')}
-                        </Layout.Horizontal>
-                      </Container>
-                      <Container
-                        style={{ width: '50%', borderRadius: '5px' }}
-                        padding="small"
-                        background={Color.GREY_100}
-                      >
-                        <Icon name="star-empty" size={16} style={{ marginBottom: '10px' }} />
-                        <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                          <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                            {dashboard?.favorite_count}
-                          </Text>
-                          &nbsp;{getString('dashboards.createModal.fav')}
-                        </Layout.Horizontal>
-                      </Container>
+                      {dashboard?.type !== 'SHARED' && (
+                        <>
+                          <Container
+                            style={{ width: '50%', borderRadius: '5px' }}
+                            padding="small"
+                            background={Color.GREY_100}
+                          >
+                            <Icon name="eye-open" size={16} style={{ marginBottom: '10px' }} />
+                            <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                              <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
+                                {dashboard?.view_count}
+                              </Text>
+                              &nbsp;{getString('dashboards.createModal.view')}
+                            </Layout.Horizontal>
+                          </Container>
+                          <Container
+                            style={{ width: '50%', borderRadius: '5px' }}
+                            padding="small"
+                            background={Color.GREY_100}
+                          >
+                            <Icon name="star-empty" size={16} style={{ marginBottom: '10px' }} />
+                            <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                              <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
+                                {dashboard?.favorite_count}
+                              </Text>
+                              &nbsp;{getString('dashboards.createModal.fav')}
+                            </Layout.Horizontal>
+                          </Container>
+                        </>
+                      )}
                     </Layout.Horizontal>
                     <Layout.Vertical spacing="medium">
                       <Text color={Color.GREY_400}>{getString('dashboards.createModal.dataSource')}</Text>
