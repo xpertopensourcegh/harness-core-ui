@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
+import { get } from 'lodash-es'
 import { Container, Button, Layout, Text } from '@wings-software/uicore'
 import { Menu } from '@blueprintjs/core'
 import type { CellProps, Column } from 'react-table'
@@ -54,7 +55,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
 }) => {
   const { getString } = useStrings()
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
 
   const [loadingBulk, setLoadingBulk] = useState<boolean>(false)
   const history = useHistory()
@@ -89,9 +90,10 @@ const IndividualTargets: React.FC<IndividualProps> = ({
             status: 'fulfilled',
             data: t
           }))
-          .catch(() => ({
+          .catch(error => ({
             status: 'rejected',
-            data: t
+            data: t,
+            error
           })) as Promise<SettledTarget>
       })
     )
@@ -166,14 +168,14 @@ const IndividualTargets: React.FC<IndividualProps> = ({
         results
           .filter(res => res.status === 'rejected')
           .forEach((res: SettledTarget) => {
-            showError(`Error creating target with id ${res.data.identifier}`)
+            showError(get(res, 'error.data.message', get(res, 'error.message')), 0)
           })
       })
       .then(hideModal)
       .then(onCreateTargets)
       .catch(results => {
         results.forEach((res: SettledTarget) => {
-          showError(`Error creating target with id ${res.data.identifier}`)
+          showError(get(res, 'error.data.message', get(res, 'error.message')), 0)
         })
       })
       .finally(() => setLoadingBulk(false))
@@ -211,6 +213,12 @@ const IndividualTargets: React.FC<IndividualProps> = ({
         showError(`Could not delete target ${id}`)
       })
   }
+
+  useEffect(() => {
+    return () => {
+      clear()
+    }
+  }, [])
 
   return (
     <>

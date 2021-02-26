@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react'
 import { Intent, Dialog, IconName, Classes, IDialogProps } from '@blueprintjs/core'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook, Button, ButtonProps } from '@wings-software/uicore'
 
 export interface UseConfirmationDialogProps {
   titleText: string
   contentText: string | JSX.Element
   cancelButtonText: string
   intent?: Intent
+  buttonIntent?: ButtonProps['intent']
   confirmButtonText?: string
   onCloseDialog?: (isConfirmed: boolean) => void
 }
@@ -41,7 +42,15 @@ const confirmDialogProps: IDialogProps = {
 }
 
 export const useConfirmationDialog = (props: UseConfirmationDialogProps): UseConfirmationDialogReturn => {
-  const { titleText, contentText, cancelButtonText, intent = Intent.NONE, confirmButtonText, onCloseDialog } = props
+  const {
+    titleText,
+    contentText,
+    cancelButtonText,
+    intent = Intent.NONE,
+    buttonIntent = Intent.PRIMARY,
+    confirmButtonText,
+    onCloseDialog
+  } = props
   const [showModal, hideModal] = useModalHook(() => {
     return (
       <Dialog title={titleText} icon={getIconForIntent(intent)} onClose={() => onClose(false)} {...confirmDialogProps}>
@@ -49,7 +58,7 @@ export const useConfirmationDialog = (props: UseConfirmationDialogProps): UseCon
         <div className={Classes.DIALOG_FOOTER}>
           {confirmButtonText && (
             <>
-              <Button intent="primary" text={confirmButtonText} onClick={() => onClose(true)} /> &nbsp; &nbsp;
+              <Button intent={buttonIntent} text={confirmButtonText} onClick={() => onClose(true)} /> &nbsp; &nbsp;
             </>
           )}
           <Button text={cancelButtonText} onClick={() => onClose(false)} />

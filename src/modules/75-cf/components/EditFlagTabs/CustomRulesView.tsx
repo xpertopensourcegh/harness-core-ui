@@ -600,8 +600,15 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   const [tempTargets, setTempTargets] = useState(tagOpts)
 
   const [openEditModal, hideModal] = useModalHook(() => {
-    const handleTempTargetChange = (newData: any) => {
-      setTempTargets(newData.map(toOption))
+    const handleTempTargetChange = (newData: (string | { label: string; value: string })[]) => {
+      const _newData = newData.map(_entry => {
+        if (typeof _entry === 'string') {
+          return { label: _entry, value: _entry }
+        } else {
+          return _entry
+        }
+      })
+      setTempTargets(_newData)
     }
 
     const handleSaveTemp = () => {

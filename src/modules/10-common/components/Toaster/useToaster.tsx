@@ -8,13 +8,13 @@ const toaster = Toaster.create({
 })
 
 export interface ToasterProps extends IToaster {
-  showSuccess: (message: string) => void
+  showSuccess: (message: string | ReactNode, timeout?: number) => void
   showError: (message: string | ReactNode, timeout?: number) => void
   showWarning: (message: string) => void
 }
 
-const showSuccess = (message: string): void => {
-  toaster.show({ message, intent: Intent.SUCCESS, icon: 'tick' })
+const showSuccess = (message: string | ReactNode, timeout?: number): void => {
+  toaster.show({ message, intent: Intent.SUCCESS, icon: 'tick', timeout })
 }
 
 const showError = (message: string | ReactNode, timeout?: number): void => {

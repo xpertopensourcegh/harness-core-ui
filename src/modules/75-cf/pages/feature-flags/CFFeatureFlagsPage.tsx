@@ -22,8 +22,8 @@ import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import routes from '@common/RouteDefinitions'
-import { useToaster, useConfirmationDialog } from '@common/exports'
-import { useLocalStorage } from '@common/hooks'
+import { useToaster } from '@common/exports'
+import { useConfirmAction, useLocalStorage } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag, Features, FeatureState } from 'services/cf'
@@ -289,31 +289,31 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
   const history = useHistory()
-  const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
+  const { getString } = useStrings()
+  const { mutate } = useDeleteFeatureFlag({
     queryParams: {
       project: projectIdentifier as string,
       account: accountId,
       org: orgIdentifier
     }
   })
-  const { openDialog: openDeleteFlagDialog } = useConfirmationDialog({
-    contentText: i18n.deleteDialog.textSubject(data.name),
-    titleText: i18n.deleteDialog.textHeader,
-    confirmButtonText: i18n.delete,
-    cancelButtonText: i18n.cancel,
-    onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
-        try {
-          // FIXME: Check with BE about delete status
-          // const deleted = await deleteFeatureFlag(data.identifier)
-          // if (deleted.status === 'SUCCESS') {
-          //   showSuccess('Successfully deleted...')
-          // }
-          await deleteFeatureFlag(data.identifier)
-          ;(column as any).refetch?.()
-        } catch (e) {
-          showError(e)
-        }
+  const refetch = ((column as unknown) as { refetch: () => void }).refetch
+  const deleteFlag = useConfirmAction({
+    title: getString('cf.featureFlags.deleteFlag'),
+    confirmText: getString('delete'),
+    message: (
+      <Text font="medium">
+        <span
+          dangerouslySetInnerHTML={{ __html: getString('cf.featureFlags.deleteFlagMessage', { name: data.name }) }}
+        />
+      </Text>
+    ),
+    action: async () => {
+      try {
+        await mutate(data.identifier)
+        refetch?.()
+      } catch (e) {
+        showError(e)
       }
     }
   })
@@ -352,14 +352,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
                 onDetailPage()
               }}
             />
-            <Menu.Item
-              icon="trash"
-              text={i18n.delete}
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation()
-                openDeleteFlagDialog()
-              }}
-            />
+            <Menu.Item icon="trash" text={i18n.delete} className={Classes.POPOVER_DISMISS} onClick={deleteFlag} />
           </Menu>
         }
       />

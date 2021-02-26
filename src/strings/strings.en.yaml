@@ -233,6 +233,7 @@ duplicate: Duplicate
 errors: Errors
 loading: Loading...
 confirm: Confirm
+confirmation: Confirmation
 retry: Retry
 search: Search
 deleted: deleted
@@ -1411,6 +1412,12 @@ cf:
     commaSeparator: ', '
     serve: serve
     servePercentageRollout: serve <strong>percentage rollout</strong>
+    deleteFlag: Delete Flag
+    deleteFlagMessage: Are you sure you want to delete flag <strong>{{name}}</strong>? This action cannot be undone.
+    archiveFlag: Archive Flag
+    archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
+    deleteFlagSuccess: Flag <strong>{{name}}</strong> deleted.
+    archiveFlagSuccess: Flag <strong>{{name}}</strong> archived.
   targets:
     title: 'Targets'
     ID: 'ID'

@@ -44,7 +44,7 @@
 
 .content {
   height: calc(100% - 80px);
-  overflow: auto;
+  overflow: hidden;
   background: var(--grey-100) !important;
 }
 

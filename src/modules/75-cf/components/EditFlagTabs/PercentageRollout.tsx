@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Color, Layout, Text, Container, Select } from '@wings-software/uicore'
+import { Layout, Text, Container, Select } from '@wings-software/uicore'
 import { sumBy, clamp } from 'lodash-es'
 import type { Distribution, WeightedVariation, Variation } from 'services/cf'
 import { useStrings } from 'framework/exports'
@@ -93,7 +93,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
         <Text
           margin={{ right: 'small' }}
           style={{ fontSize: '14px', lineHeight: '24px' }}
-          width={editing ? 100 : undefined}
+          width={editing ? 150 : undefined}
         >
           <span
             dangerouslySetInnerHTML={{
@@ -149,19 +149,20 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
                 {elem.displayName}
               </Text>
               {editing ? (
-                <input
-                  type="number"
-                  onChange={e => changeColorWidthSlider(e, elem.id)}
-                  style={{ width: '50px', marginRight: '10px' }}
-                  value={elem.value}
-                  min={0}
-                  max={100}
-                />
+                <Text>
+                  <input
+                    type="number"
+                    onChange={e => changeColorWidthSlider(e, elem.id)}
+                    style={{ width: '50px', marginRight: 'var(--spacing-xsmall)' }}
+                    value={elem.value}
+                    min={0}
+                    max={100}
+                  />
+                  %
+                </Text>
               ) : (
-                <Text>{elem.value}</Text>
+                <Text>{elem.value}%</Text>
               )}
-
-              <Text icon="percentage" style={{ alignSelf: 'center' }} iconProps={{ color: Color.GREY_500, size: 12 }} />
             </Layout.Horizontal>
           ))}
         {percentageError && <Text intent="danger">{getString('cf.featureFlags.bucketOverflow')}</Text>}

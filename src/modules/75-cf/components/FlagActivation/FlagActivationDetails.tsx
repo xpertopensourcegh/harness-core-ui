@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { get, isEqual, zip, flatMap, cloneDeep, orderBy } from 'lodash-es'
 import { Link } from 'react-router-dom'
 import {
@@ -21,15 +21,16 @@ import {
 import moment from 'moment'
 import { FieldArray } from 'formik'
 import cx from 'classnames'
-import { Menu, Dialog } from '@blueprintjs/core'
+import { Menu, Dialog, Intent } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import { Feature, Features, Prerequisite, usePatchFeature, Variation } from 'services/cf'
+import { Feature, Features, Prerequisite, useDeleteFeatureFlag, usePatchFeature, Variation } from 'services/cf'
 import InputDescOptional from '@cf/components/CreateFlagWizard/common/InputDescOptional'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
+import { useConfirmAction } from '@common/hooks'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -106,7 +107,12 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
   const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
   const [isEditingPrerequisites, setEditingPrerequisites] = useState<boolean>(false)
-
+  const featureFlagListURL = routes.toCFFeatureFlags({
+    projectIdentifier: projectIdentifier,
+    orgIdentifier: orgIdentifier,
+    accountId
+  })
+  const { showSuccess } = useToaster()
   const { mutate: submitPatch } = usePatchFeature({
     identifier: featureFlag?.identifier as string,
     queryParams: {
@@ -116,7 +122,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       org: orgIdentifier
     }
   })
-
+  const history = useHistory()
   const isBooleanFlag = featureFlag?.kind === FlagTypeVariations.booleanFlag
 
   const setDefaultFlags = (): void => {
@@ -604,7 +610,59 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       </Dialog>
     )
   })
-  const tbd = () => alert('To be implemented...')
+  const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
+    queryParams: {
+      project: projectIdentifier as string,
+      account: accountId,
+      org: orgIdentifier
+    }
+  })
+  const archiveFlag = useConfirmAction({
+    title: getString('cf.featureFlags.archiveFlag'),
+    message: (
+      <Text font="medium">
+        <span
+          dangerouslySetInnerHTML={{
+            __html: getString('cf.featureFlags.archiveFlagMessage', { name: featureFlag.name })
+          }}
+        ></span>
+      </Text>
+    ),
+    intent: Intent.DANGER,
+    action: () => {
+      alert('To be implemented') // TODO: Backend is not yet support archiving flag.
+    }
+  })
+  const deleteFlag = useConfirmAction({
+    title: getString('cf.featureFlags.deleteFlag'),
+    message: (
+      <Text font="medium">
+        <span
+          dangerouslySetInnerHTML={{
+            __html: getString('cf.featureFlags.deleteFlagMessage', { name: featureFlag.name })
+          }}
+        ></span>
+      </Text>
+    ),
+    intent: Intent.DANGER,
+    action: async () => {
+      try {
+        await deleteFeatureFlag(featureFlag.identifier)
+        history.replace(featureFlagListURL)
+        showSuccess(
+          <Text color={Color.WHITE}>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: getString('cf.featureFlags.deleteFlagSuccess', { name: featureFlag.name })
+              }}
+            />
+          </Text>
+        )
+      } catch (error) {
+        showError(error)
+      }
+    }
+  })
   const renderTime = (time: number, style?: React.CSSProperties) => (
     <Text
       style={{
@@ -641,14 +699,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   return (
     <>
       <Layout.Horizontal className={css.breadcrumb}>
-        <Link
-          style={{ color: '#0092E4', fontSize: '12px' }}
-          to={routes.toCFFeatureFlags({
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier,
-            accountId
-          })}
-        >
+        <Link style={{ color: '#0092E4', fontSize: '12px' }} to={featureFlagListURL}>
           {i18n.flag}
         </Link>
         <span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}>/</span>
@@ -660,9 +711,14 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>
               <Menu.Item icon="edit" text={getString('edit')} onClick={openEditDetailsModal} />
-              <Menu.Item icon="archive" text={getString('archive')} onClick={tbd} />
+              <Menu.Item
+                icon="archive"
+                text={getString('archive')}
+                onClick={archiveFlag}
+                style={{ display: 'none ' }} // TODO: Backend is not yet support archiving flag.
+              />
               <Menu.Divider />
-              <Menu.Item icon="trash" text={getString('delete')} onClick={tbd} />
+              <Menu.Item icon="trash" text={getString('delete')} onClick={deleteFlag} />
             </Menu>
           }
           tooltipProps={{ isDark: true, interactionKind: 'click' }}

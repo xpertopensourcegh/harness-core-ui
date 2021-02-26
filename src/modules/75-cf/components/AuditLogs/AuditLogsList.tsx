@@ -227,7 +227,7 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
               position: 'fixed',
               top: '200px',
               right: 0,
-              width: '62%',
+              width: 'calc(100vw - 720px)',
               height: 'calc(100% - 200px)'
             }
           }
