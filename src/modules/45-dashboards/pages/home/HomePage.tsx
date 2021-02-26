@@ -290,7 +290,7 @@ const HomePage: React.FC = () => {
             }) => (
               <Card className={cx(css.dashboardCard)}>
                 <Container padding="xlarge">
-                  {dashboard?.type !== 'SHARED' && (
+                  {dashboard?.type !== 'SHARED' && dashboard?.type !== 'ACCOUNT' && (
                     <CardBody.Menu
                       menuContent={
                         <Menu>
