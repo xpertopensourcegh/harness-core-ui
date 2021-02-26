@@ -74,7 +74,9 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
   const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
-  const [dnsProvider, setDNSProvider] = useState<string>()
+  const [dnsProvider, setDNSProvider] = useState<string>(
+    customDomainProviderDetails && customDomainProviderDetails.route53 ? 'route53' : 'others'
+  )
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -125,6 +127,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     </Dialog>
   ))
   useEffect(() => {
+    if (!accessPoint || !accessPoint.id) return
     props.gatewayDetails.accessPointID = accessPoint?.id as string
     props.setGatewayDetails(props.gatewayDetails)
   }, [accessPoint])
@@ -137,7 +140,10 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
           customURL: props.gatewayDetails.customDomains?.join(','),
           publicallyAccessible: accessDetails.dnsLink.public as string,
           dnsProvider: customDomainProviderDetails && customDomainProviderDetails.route53 ? 'route53' : 'others',
-          route53Account: '',
+          route53Account:
+            customDomainProviderDetails && customDomainProviderDetails.route53
+              ? customDomainProviderDetails.route53.hosted_zone_id
+              : '',
           accessPoint: props.gatewayDetails.accessPointID
         }}
         onSubmit={values => alert(JSON.stringify(values))}
@@ -184,7 +190,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   <FormInput.Select
                     name="accessPoint"
                     label={'Select Access Point'}
-                    placeholder={'Select account'}
+                    placeholder={'Select Access Point'}
                     items={accessPointsList}
                     onChange={e => {
                       formik.setFieldValue('accessPoint', e.value)
@@ -223,7 +229,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         <FormInput.Select
                           name="route53Account"
                           label={'Select Route53 account'}
-                          placeholder={'Select account'}
+                          placeholder={'Select Route53 account'}
                           items={hostedZonesList}
                           onChange={e => {
                             formik.setFieldValue('route53Account', e.value)
@@ -236,26 +242,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         />
                       </>
                     ) : null}
-                  </>
-                ) : formik.values.publicallyAccessible == 'no' ? (
-                  <>
-                    {/* <FormInput.Select
-                      name="accessPoint"
-                      label={'Select Access Point'}
-                      placeholder={'Select account'}
-                      items={accessPointsList}
-                      onChange={e => {
-                        formik.setFieldValue('accessPoint', e.value)
-                        props.gatewayDetails.accessPointID = e.value as string
-                        props.setGatewayDetails(props.gatewayDetails)
-                      }}
-                      disabled={accessPointsLoading}
-                    />
-                    <Layout.Horizontal padding="small">
-                      <Button minimal onClick={openModal} style={{ width: '100%', justifyContent: 'flex-start' }}>
-                        <Text color={Color.BLUE_500}>+ Create a New Access point</Text>
-                      </Button>
-                    </Layout.Horizontal> */}
                   </>
                 ) : null}
               </>
