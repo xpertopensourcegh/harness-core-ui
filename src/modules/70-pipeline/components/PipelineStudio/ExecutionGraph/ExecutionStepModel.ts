@@ -294,6 +294,7 @@ export class ExecutionStepModel extends DiagramModel {
           icon: factory.getStepIcon('StepGroup'),
           secondaryIcon: 'plus',
           draggable: true,
+          skipCondition: node.stepGroup.skipCondition,
           allowAdd: allowAdd === true,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' }
         })
@@ -310,6 +311,7 @@ export class ExecutionStepModel extends DiagramModel {
         const stepGroupLayer = new StepGroupNodeLayerModel({
           identifier: node.stepGroup.identifier,
           label: node.stepGroup.name,
+          skipCondition: node.stepGroup.skipCondition,
           inComplete: isCustomGeneratedString(node.stepGroup.identifier),
           depth: stepState?.inheritedSG || 1,
           allowAdd: allowAdd === true,

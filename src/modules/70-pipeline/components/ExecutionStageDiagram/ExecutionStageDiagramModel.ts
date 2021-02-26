@@ -93,8 +93,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         height: nodeStyle.height,
         iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
         icon: stage.icon,
-        skipCondition: stage?.skipCondition,
-        status: stage.status
+        skipCondition: stage?.skipCondition
       }
 
       if (!nodeRender) {
@@ -244,6 +243,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             label: node.group.name,
             containerCss: node.group.containerCss,
             textCss: node.group.textCss,
+            skipCondition: node.group.skipCondition,
             showRollback: false
           })
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
@@ -318,6 +318,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             canDelete: false,
             icon: node.group.icon,
             secondaryIcon: 'plus',
+            skipCondition: node.group.skipCondition,
             customNodeStyle: node.group.cssProps
           })
         this.addNode(nodeRender)

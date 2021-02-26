@@ -3,7 +3,6 @@ import { NodeModel, NodeModelGenerics, PortModelAlignment } from '@projectstorm/
 import type { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/react-canvas-core'
 import type { IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import type { ExecutionPipelineItemStatus } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel.ts'
 import { DefaultPortModel } from '../port/DefaultPortModel'
 import { DiagramType } from '../Constants'
 import i18n from '../Diagram.i18n'
@@ -28,7 +27,6 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: React.CSSProperties
   showPorts?: boolean
-  status?: ExecutionPipelineItemStatus
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {

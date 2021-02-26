@@ -247,7 +247,7 @@ export const EditStageView: React.FC<EditStageView> = ({
               addDomId={true}
               details={
                 <div className={css.stageSection}>
-                  <div className={cx(css.stageDetails, css.stageVariables)}>
+                  <div className={cx(css.stageDetails)}>
                     {context ? (
                       <StepWidget<CustomVariablesData>
                         factory={stepsFactory}

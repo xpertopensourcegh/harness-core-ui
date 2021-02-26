@@ -452,7 +452,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                     class="stageSection"
                   >
                     <div
-                      class="stageDetails stageVariables"
+                      class="stageDetails"
                     >
                       <div
                         class="customVariablesStage"

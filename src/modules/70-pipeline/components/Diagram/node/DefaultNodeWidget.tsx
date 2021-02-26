@@ -3,7 +3,6 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon, Text, Button, Link } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
-import { ExecutionPipelineItemStatus } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel.ts'
 import type { DefaultNodeModel } from './DefaultNodeModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
@@ -191,28 +190,18 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         )}
 
         {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
-        {(options.skipCondition || options.status === ExecutionPipelineItemStatus.SKIPPED) && (
-          <>
-            {options.skipCondition ? (
-              <div className={css.сonditional}>
-                <Link
-                  tooltip={`Skip condition:\n${options.skipCondition}`}
-                  tooltipProps={{
-                    isDark: true
-                  }}
-                  withoutHref
-                >
-                  <Icon size={26} name={'conditional-skip-new'} color="white" />
-                </Link>
-              </div>
-            ) : (
-              <div className={css.сonditional}>
-                <Link withoutHref>
-                  <Icon size={26} name={'conditional-skip-new'} color="white" />
-                </Link>
-              </div>
-            )}
-          </>
+        {options.skipCondition && (
+          <div className={css.сonditional}>
+            <Link
+              tooltip={`Skip condition:\n${options.skipCondition}`}
+              tooltipProps={{
+                isDark: true
+              }}
+              withoutHref
+            >
+              <Icon size={26} name={'conditional-skip-new'} color="white" />
+            </Link>
+          </div>
         )}
 
         {options.canDelete && (

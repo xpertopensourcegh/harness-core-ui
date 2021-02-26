@@ -72,7 +72,7 @@ export const stagesMap: StagesMap = {
     type: StageTypes.APPROVAL,
     icon: MapStepTypeToIcon[StageTypes.APPROVAL],
     iconColor: MapStepTypeToIconColor[StageTypes.APPROVAL],
-    isApproval: false,
+    isApproval: true,
     openExecutionStrategy: false
   }
 }

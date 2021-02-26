@@ -61,9 +61,7 @@
   .stageDetails {
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
-    &.stageVariables {
-      width: 700px;
-    }
+
     .stageOverridesTab {
       justify-content: end;
       display: grid;

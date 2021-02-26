@@ -380,6 +380,7 @@ const processNodeData = (
           showInLabel: false,
           status: nodeData.status as ExecutionPipelineItemStatus,
           isOpen: true,
+          skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
           icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
           items: processNodeData(
             nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
@@ -399,6 +400,7 @@ const processNodeData = (
             name: nodeData?.name || /* istanbul ignore next */ '',
             icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
             identifier: item,
+            skipCondition: nodeData?.skipInfo?.evaluatedCondition ? nodeData?.skipInfo.skipCondition : undefined,
             status: nodeData?.status as ExecutionPipelineItemStatus,
             type: ExecutionPipelineNodeType.NORMAL,
             data: nodeData
@@ -426,6 +428,7 @@ const processNodeData = (
             identifier: id,
             data: nodeDataNext,
             showInLabel: false,
+            skipCondition: nodeDataNext.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
             status: nodeDataNext.status as ExecutionPipelineItemStatus,
             isOpen: true,
             icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeDataNext?.stepType as StepTypes] || 'cross',
@@ -444,6 +447,7 @@ const processNodeData = (
             name: nodeDataNext?.name || /* istanbul ignore next */ '',
             icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
             identifier: id,
+            skipCondition: nodeDataNext?.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
             status: nodeDataNext?.status as ExecutionPipelineItemStatus,
             type: ExecutionPipelineNodeType.NORMAL,
             data: nodeDataNext
@@ -493,6 +497,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 name: nodeData.name || /* istanbul ignore next */ '',
                 identifier: nodeId,
                 data: nodeData,
+                skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
                 containerCss: {
                   ...(RollbackIdentifierArray.indexOf(nodeData.identifier || '') > -1 ? RollbackContainerCss : {})
                 },
@@ -522,6 +527,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
           items.push({
             item: {
               name: nodeData.name || /* istanbul ignore next */ '',
+              skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
               icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
               showInLabel: nodeData.stepType === StepTypes.SERVICE || nodeData.stepType === StepTypes.INFRASTRUCTURE,
               identifier: nodeId,

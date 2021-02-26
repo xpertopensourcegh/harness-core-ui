@@ -54,14 +54,16 @@ const ResourceGroupDetails: React.FC = () => {
 
   const [selectedResourceGroup, setSelectedResourceGroup] = useState({})
   useEffect(() => {
-    const tempSelectedResorceGroup = resourceGroupDetails?.data?.resourceGroup.resourceSelectors.length
-      ? resourceGroupDetails?.data?.resourceGroup?.resourceSelectors?.reduce((returnList, resource) => {
-          if (get(resource, 'type') === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
-            returnList[get(resource, 'resourceType')] = true
-          }
-          return returnList
-        }, {})
-      : {}
+    const tempSelectedResorceGroup =
+      resourceGroupDetails?.data?.resourceGroup?.resourceSelectors &&
+      resourceGroupDetails.data.resourceGroup.resourceSelectors.length
+        ? resourceGroupDetails?.data?.resourceGroup?.resourceSelectors?.reduce((returnList, resource) => {
+            if (get(resource, 'type') === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
+              returnList[get(resource, 'resourceType')] = true
+            }
+            return returnList
+          }, {})
+        : {}
     setSelectedResourceGroup(tempSelectedResorceGroup)
   }, [resourceGroupDetails?.data?.resourceGroup?.resourceSelectors])
 
@@ -163,7 +165,7 @@ const ResourceGroupDetails: React.FC = () => {
             <ResourceTypeList
               onResourceTypeChange={onResourceTypeChanged}
               preSelectedResourceList={selectedResourceGroup || {}}
-              disableAddingResources={resourceGroupDetails?.data?.resourceGroup?.harnessManaged}
+              disableAddingResources={resourceGroupDetails?.data?.resourceGroup?.harnessManaged ? true : false}
             />
           </Container>
           <Container padding="xlarge">
@@ -176,7 +178,7 @@ const ResourceGroupDetails: React.FC = () => {
             )}
             <SelectedResourceTypeDetailsList
               resourceTypes={getSelectedResourceTypesStrings(selectedResourceGroup) || []}
-              disableAddingResources={resourceGroupDetails?.data?.resourceGroup?.harnessManaged}
+              disableAddingResources={resourceGroupDetails?.data?.resourceGroup?.harnessManaged ? true : false}
             />
           </Container>
         </div>

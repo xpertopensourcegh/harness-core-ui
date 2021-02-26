@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { map } from 'lodash-es'
 import { DiagramEngine, NodeWidget, NodeModel } from '@projectstorm/react-diagrams-core'
-import { Text, Button, Icon, Color, Layout } from '@wings-software/uicore'
+import { Text, Button, Icon, Color, Layout, Link } from '@wings-software/uicore'
 import type { StepGroupNodeLayerModel } from './StepGroupNodeLayerModel'
 import { Event, StepsType, DiagramDrag } from '../Constants'
 import { RollbackToggleSwitch } from '../canvas/RollbackToggleSwitch/RollbackToggleSwitch'
@@ -188,6 +188,19 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             props.layer.fireEvent({}, Event.StepGroupCollapsed)
           }}
         />
+        {options.skipCondition && (
+          <div className={css.сonditional}>
+            <Link
+              tooltip={`Skip condition:\n${options.skipCondition}`}
+              tooltipProps={{
+                isDark: true
+              }}
+              withoutHref
+            >
+              <Icon size={26} name={'conditional-skip-new'} color="white" />
+            </Link>
+          </div>
+        )}
         <Text
           icon={options.inComplete ? 'warning-sign' : undefined}
           iconProps={{ color: Color.ORANGE_500 }}

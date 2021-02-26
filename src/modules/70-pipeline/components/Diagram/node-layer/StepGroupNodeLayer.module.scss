@@ -50,3 +50,18 @@
   margin: 0 auto;
   box-shadow: -1px 4px 7px 0 rgba(135, 149, 159, 0.27);
 }
+
+.сonditional {
+  position: absolute;
+  top: -18px;
+  left: -12px;
+
+  a {
+    color: var(--white) !important;
+  }
+
+  svg rect {
+    // TODO: Replace color once it is available in UIKit
+    stroke: #f79400 !important;
+  }
+}

@@ -26,6 +26,7 @@ const processExecutionData = (
             name: node?.nodeIdentifier || /* istanbul ignore next */ '',
             status: node?.status as any,
             type: ExecutionPipelineNodeType.NORMAL,
+            skipCondition: node?.skipInfo?.evaluatedCondition ? node.skipInfo.skipCondition : undefined,
             data: node
           }
         })
@@ -40,6 +41,7 @@ const processExecutionData = (
           name: cdStage?.nodeIdentifier || /* istanbul ignore next */ '',
           status: cdStage?.status as any,
           type: ExecutionPipelineNodeType.NORMAL,
+          skipCondition: cdStage?.skipInfo?.evaluatedCondition ? cdStage.skipInfo.skipCondition : undefined,
           data: cdStage
         }
       })
