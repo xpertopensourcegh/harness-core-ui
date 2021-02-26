@@ -131,29 +131,8 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
     )
   }
 
-  if (error?.message) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <PageError message={error.message} onClick={() => refetchEnvironments()} />
-      </Container>
-    )
-  }
-
-  if (!tableData?.length) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <NoDataCard
-          icon="warning-sign"
-          message={getString('cv.activitySources.harnessCD.environment.noData')}
-          buttonText={getString('retry')}
-          onClick={() => refetchEnvironments()}
-        />
-      </Container>
-    )
-  }
-
   const onNext = () => {
-    const environments = tableData.reduce((acc: any, curr) => {
+    const environments = tableData?.reduce((acc: any, curr) => {
       if (curr.selected && curr.environment) {
         acc[curr.id] = {
           id: curr.id,
@@ -273,6 +252,21 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
           )
         }}
       </Formik>
+      {error?.message && (
+        <Container className={css.loadingErrorNoData}>
+          <PageError message={error.message} onClick={() => refetchEnvironments()} />
+        </Container>
+      )}
+      {!tableData?.length && !error?.message && (
+        <Container className={css.loadingErrorNoData}>
+          <NoDataCard
+            icon="warning-sign"
+            message={getString('cv.activitySources.harnessCD.environment.noData')}
+            buttonText={getString('retry')}
+            onClick={() => refetchEnvironments()}
+          />
+        </Container>
+      )}
     </Container>
   )
 }

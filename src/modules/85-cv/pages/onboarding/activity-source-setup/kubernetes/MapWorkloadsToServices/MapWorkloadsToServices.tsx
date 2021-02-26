@@ -204,146 +204,142 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
 
   const { pageSize, pageIndex, totalItems, totalPages } = workloads?.data || {}
 
-  if (error?.data) {
-    return <PageError message={getErrorMessage(error)} onClick={() => refetchWorkloads()} />
-  }
-
-  if (!workloads?.data?.content?.length && !loading) {
-    return (
-      <NoDataCard
-        message={getString('cv.activitySources.kubernetes.noWorkloads')}
-        icon="warning-sign"
-        buttonText={getString('retry')}
-        onClick={() => refetchWorkloads()}
-        className={css.noWorkloads}
-      />
-    )
-  }
-
   return (
-    <Table<WorkloadInfo>
-      className={css.workloadTable}
-      data={tableData}
-      onRowClick={(data, index) => {
-        onClickWorkload({ ...data, selected: !data.selected })
-        setTableData(updateTableRow(tableData, 'selected', !data.selected, index))
-      }}
-      pagination={{
-        pageSize: pageSize || 0,
-        pageIndex: pageIndex,
-        pageCount: totalPages || 0,
-        itemCount: totalItems || 0,
-        gotoPage: newPageIndex => setFilterAndPageOffset({ pageOffset: newPageIndex, filteredWorkload })
-      }}
-      columns={[
-        {
-          accessor: 'selected',
-          width: '5%',
-          disableSortBy: true,
-          Cell: function CheckColumn(tableProps: CellProps<WorkloadInfo>) {
-            return loading ? (
-              <Container height={16} width={16} className={Classes.SKELETON} />
-            ) : (
-              <input
-                type="checkbox"
-                checked={tableProps.value}
-                onChange={() => {
-                  onClickWorkload({ ...tableProps.row.original, selected: !tableProps.value })
-                  setTableData(updateTableRow(tableData, 'selected', !tableProps.value, tableProps.row.index))
-                }}
+    <>
+      <Table<WorkloadInfo>
+        className={css.workloadTable}
+        data={tableData || []}
+        onRowClick={(data, index) => {
+          onClickWorkload({ ...data, selected: !data.selected })
+          setTableData(updateTableRow(tableData, 'selected', !data.selected, index))
+        }}
+        pagination={{
+          pageSize: pageSize || 0,
+          pageIndex: pageIndex,
+          pageCount: totalPages || 0,
+          itemCount: totalItems || 0,
+          gotoPage: newPageIndex => setFilterAndPageOffset({ pageOffset: newPageIndex, filteredWorkload })
+        }}
+        columns={[
+          {
+            accessor: 'selected',
+            width: '5%',
+            disableSortBy: true,
+            Cell: function CheckColumn(tableProps: CellProps<WorkloadInfo>) {
+              return loading ? (
+                <Container height={16} width={16} className={Classes.SKELETON} />
+              ) : (
+                <input
+                  type="checkbox"
+                  checked={tableProps.value}
+                  onChange={() => {
+                    onClickWorkload({ ...tableProps.row.original, selected: !tableProps.value })
+                    setTableData(updateTableRow(tableData, 'selected', !tableProps.value, tableProps.row.index))
+                  }}
+                />
+              )
+            }
+          },
+          {
+            Header: getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.workload'),
+            accessor: 'workload',
+            width: '20%',
+            disableSortBy: true,
+            Cell: function Workload(tableProps: CellProps<WorkloadInfo>) {
+              return (
+                <Text color={Color.BLACK} className={loading ? Classes.SKELETON : undefined}>
+                  {tableProps.value}
+                </Text>
+              )
+            }
+          },
+          {
+            Header: getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToService'),
+            accessor: 'serviceIdentifier',
+            width: '30%',
+            disableSortBy: true,
+            Cell: function ServiceIdentifier(tableProps: CellProps<WorkloadInfo>) {
+              return loading ? (
+                <Container height={16} className={Classes.SKELETON} />
+              ) : (
+                <ServiceSelectOrCreate
+                  item={tableProps.value}
+                  className={cx(css.selectWidth, loading ? Classes.SKELETON : undefined)}
+                  options={serviceOptions || []}
+                  onSelect={selectedService => {
+                    setServiceOptions(generateUpdatedServiceOptions(serviceOptions, selectedService, tableProps.value))
+                    onClickWorkload({ ...tableProps.row.original, serviceIdentifier: selectedService })
+                    setTableData(updateTableRow(tableData, 'serviceIdentifier', selectedService, tableProps.row.index))
+                  }}
+                  onNewCreated={createdService => {
+                    if (!createdService || !createdService.name || !createdService.identifier) {
+                      return
+                    }
+                    const serviceOption = { label: createdService.name, value: createdService.identifier }
+                    setServiceOptions(
+                      generateUpdatedServiceOptions(serviceOptions, { label: '', value: -1 }, serviceOption)
+                    )
+                    onClickWorkload({ ...tableProps.row.original, serviceIdentifier: serviceOption })
+                    setCreatedServices([...createdServices, serviceOption])
+                    setTableData(updateTableRow(tableData, 'serviceIdentifier', serviceOption, tableProps.row.index))
+                  }}
+                />
+              )
+            }
+          },
+          {
+            Header: (
+              <TableColumnWithFilter
+                onFilter={namespaceSubstring =>
+                  setFilterAndPageOffset({ pageOffset: 0, filteredWorkload: namespaceSubstring })
+                }
+                columnName={getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToEnvironment')}
               />
-            )
+            ),
+            accessor: 'environmentIdentifier',
+            width: '35%',
+            disableSortBy: true,
+            Cell: function EnvironmentIdentifier(tableProps: CellProps<WorkloadInfo>) {
+              return loading ? (
+                <Container height={16} className={Classes.SKELETON} />
+              ) : (
+                <EnvironmentSelect
+                  options={environmentOptions || []}
+                  className={cx(css.selectWidth, loading ? Classes.SKELETON : undefined)}
+                  item={tableProps.value}
+                  onSelect={selectedEnv => {
+                    onClickWorkload({ ...tableProps.row.original, environmentIdentifier: selectedEnv })
+                    setTableData(updateTableRow(tableData, 'environmentIdentifier', selectedEnv, tableProps.row.index))
+                  }}
+                  onNewCreated={createdEnv => {
+                    if (!createdEnv || !createdEnv.name || !createdEnv.identifier) {
+                      return
+                    }
+                    const envOption = { label: createdEnv.name, value: createdEnv.identifier }
+                    setEnvironmentOptions([
+                      envOption,
+                      ...generateUpdatedServiceOptions(environmentOptions, { label: '', value: -1 }, envOption)
+                    ])
+                    onClickWorkload({ ...tableProps.row.original, environmentIdentifier: envOption })
+                    setTableData(updateTableRow(tableData, 'environmentIdentifier', envOption, tableProps.row.index))
+                  }}
+                />
+              )
+            }
           }
-        },
-        {
-          Header: getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.workload'),
-          accessor: 'workload',
-          width: '20%',
-          disableSortBy: true,
-          Cell: function Workload(tableProps: CellProps<WorkloadInfo>) {
-            return (
-              <Text color={Color.BLACK} className={loading ? Classes.SKELETON : undefined}>
-                {tableProps.value}
-              </Text>
-            )
-          }
-        },
-        {
-          Header: getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToService'),
-          accessor: 'serviceIdentifier',
-          width: '30%',
-          disableSortBy: true,
-          Cell: function ServiceIdentifier(tableProps: CellProps<WorkloadInfo>) {
-            return loading ? (
-              <Container height={16} className={Classes.SKELETON} />
-            ) : (
-              <ServiceSelectOrCreate
-                item={tableProps.value}
-                className={cx(css.selectWidth, loading ? Classes.SKELETON : undefined)}
-                options={serviceOptions || []}
-                onSelect={selectedService => {
-                  setServiceOptions(generateUpdatedServiceOptions(serviceOptions, selectedService, tableProps.value))
-                  onClickWorkload({ ...tableProps.row.original, serviceIdentifier: selectedService })
-                  setTableData(updateTableRow(tableData, 'serviceIdentifier', selectedService, tableProps.row.index))
-                }}
-                onNewCreated={createdService => {
-                  if (!createdService || !createdService.name || !createdService.identifier) {
-                    return
-                  }
-                  const serviceOption = { label: createdService.name, value: createdService.identifier }
-                  setServiceOptions(
-                    generateUpdatedServiceOptions(serviceOptions, { label: '', value: -1 }, serviceOption)
-                  )
-                  onClickWorkload({ ...tableProps.row.original, serviceIdentifier: serviceOption })
-                  setCreatedServices([...createdServices, serviceOption])
-                  setTableData(updateTableRow(tableData, 'serviceIdentifier', serviceOption, tableProps.row.index))
-                }}
-              />
-            )
-          }
-        },
-        {
-          Header: (
-            <TableColumnWithFilter
-              onFilter={namespaceSubstring =>
-                setFilterAndPageOffset({ pageOffset: 0, filteredWorkload: namespaceSubstring })
-              }
-              columnName={getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToEnvironment')}
-            />
-          ),
-          accessor: 'environmentIdentifier',
-          width: '35%',
-          disableSortBy: true,
-          Cell: function EnvironmentIdentifier(tableProps: CellProps<WorkloadInfo>) {
-            return loading ? (
-              <Container height={16} className={Classes.SKELETON} />
-            ) : (
-              <EnvironmentSelect
-                options={environmentOptions || []}
-                className={cx(css.selectWidth, loading ? Classes.SKELETON : undefined)}
-                item={tableProps.value}
-                onSelect={selectedEnv => {
-                  onClickWorkload({ ...tableProps.row.original, environmentIdentifier: selectedEnv })
-                  setTableData(updateTableRow(tableData, 'environmentIdentifier', selectedEnv, tableProps.row.index))
-                }}
-                onNewCreated={createdEnv => {
-                  if (!createdEnv || !createdEnv.name || !createdEnv.identifier) {
-                    return
-                  }
-                  const envOption = { label: createdEnv.name, value: createdEnv.identifier }
-                  setEnvironmentOptions([
-                    envOption,
-                    ...generateUpdatedServiceOptions(environmentOptions, { label: '', value: -1 }, envOption)
-                  ])
-                  onClickWorkload({ ...tableProps.row.original, environmentIdentifier: envOption })
-                  setTableData(updateTableRow(tableData, 'environmentIdentifier', envOption, tableProps.row.index))
-                }}
-              />
-            )
-          }
-        }
-      ]}
-    />
+        ]}
+      />
+      {!workloads?.data?.content?.length && !loading && !error?.data && (
+        <NoDataCard
+          message={getString('cv.activitySources.kubernetes.noWorkloads')}
+          icon="warning-sign"
+          buttonText={getString('retry')}
+          onClick={() => refetchWorkloads()}
+          className={css.noWorkloads}
+        />
+      )}
+      {error?.data && !loading && <PageError message={getErrorMessage(error)} onClick={() => refetchWorkloads()} />}
+    </>
   )
 }
 

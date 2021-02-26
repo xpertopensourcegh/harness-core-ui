@@ -93,7 +93,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')).toBeNull())
+    await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')).not.toBeNull())
     expect(container.querySelector('[class*="noWorkloads"]')).toBeNull()
 
     const button = container.querySelector('button')

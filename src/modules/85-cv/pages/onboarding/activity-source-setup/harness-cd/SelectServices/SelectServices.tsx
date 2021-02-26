@@ -191,28 +191,8 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
     )
   }
 
-  if (error?.message) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <PageError message={error.message} onClick={() => refetch()} />
-      </Container>
-    )
-  }
-
-  if (!tableData?.length) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <NoDataCard
-          icon="warning-sign"
-          message={getString('cv.activitySources.harnessCD.service.noData')}
-          buttonText={getString('retry')}
-          onClick={() => refetch()}
-        />
-      </Container>
-    )
-  }
   const onNext = async () => {
-    const services = tableData.reduce((acc: any, curr) => {
+    const services = tableData?.reduce((acc: any, curr) => {
       if (curr.selected && curr.service) {
         acc[curr.id] = {
           id: curr.id,
@@ -354,6 +334,21 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
           )
         }}
       </Formik>
+      {error?.message && (
+        <Container className={css.loadingErrorNoData}>
+          <PageError message={error.message} onClick={() => refetch()} />
+        </Container>
+      )}
+      {!tableData?.length && !error?.message && (
+        <Container className={css.loadingErrorNoData}>
+          <NoDataCard
+            icon="warning-sign"
+            message={getString('cv.activitySources.harnessCD.service.noData')}
+            buttonText={getString('retry')}
+            onClick={() => refetch()}
+          />
+        </Container>
+      )}
     </Container>
   )
 }

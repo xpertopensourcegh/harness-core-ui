@@ -112,27 +112,6 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
     )
   }
 
-  if (error?.message) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <PageError message={error.message} onClick={() => refetch()} />
-      </Container>
-    )
-  }
-
-  if (!tableData?.length) {
-    return (
-      <Container className={css.loadingErrorNoData}>
-        <NoDataCard
-          icon="warning-sign"
-          message={getString('cv.activitySources.harnessCD.application.noData')}
-          buttonText={getString('retry')}
-          onClick={() => refetch()}
-        />
-      </Container>
-    )
-  }
-
   const onNext = () => {
     if (selectedApps.size) {
       const newlySelectedApplications: { [key: string]: string } = {}
@@ -204,7 +183,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                     disableSortBy: true
                   }
                 ]}
-                data={tableData}
+                data={tableData || []}
                 pagination={{
                   itemCount: (data?.resource as any)?.total || 0,
                   pageSize: (data?.resource as any)?.pageSize || 8,
@@ -231,6 +210,21 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
           )
         }}
       </Formik>
+      {!tableData?.length && !error?.message && (
+        <Container className={css.loadingErrorNoData}>
+          <NoDataCard
+            icon="warning-sign"
+            message={getString('cv.activitySources.harnessCD.application.noData')}
+            buttonText={getString('retry')}
+            onClick={() => refetch()}
+          />
+        </Container>
+      )}
+      {error?.message && (
+        <Container className={css.loadingErrorNoData}>
+          <PageError message={error.message} onClick={() => refetch()} />
+        </Container>
+      )}
     </Container>
   )
 }
