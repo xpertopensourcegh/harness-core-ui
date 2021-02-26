@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { isEqual, isEqualWith } from 'lodash-es'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { PageSpinner } from '@common/components'
@@ -94,8 +94,14 @@ const PipelineYamlView: React.FC = () => {
   }, [yamlHandler, setYamlHandlerContext])
 
   React.useEffect(() => {
+    let snippetStr = ''
+    try {
+      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+    } catch {
+      /**/
+    }
     setSnippetFetchResponse({
-      snippet: snippet?.data || '',
+      snippet: snippetStr,
       loading: isFetchingSnippet,
       error: errorFetchingSnippet
     })

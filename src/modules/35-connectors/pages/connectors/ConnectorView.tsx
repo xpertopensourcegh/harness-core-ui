@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import cx from 'classnames'
 import moment from 'moment'
 import { CompletionItemKind } from 'vscode-languageserver-types'
@@ -14,7 +14,6 @@ import {
   useGetYamlSnippet,
   ResponseJsonNode,
   ResponseYamlSnippets,
-  ResponseString,
   useListSecretsV2,
   ResponsePageSecretResponseWrapper,
   ConnectorConnectivityDetails
@@ -47,7 +46,7 @@ export interface ConnectorViewProps {
   updateConnector: (data: ConnectorRequestBody) => Promise<unknown>
   refetchConnector: () => Promise<any>
   mockMetaData?: UseGetMockData<ResponseYamlSnippets>
-  mockSnippetData?: UseGetMockData<ResponseString>
+  mockSnippetData?: UseGetMockData<ResponseJsonNode>
   mockSchemaData?: UseGetMockData<ResponseJsonNode>
   mockSecretData?: UseGetMockData<ResponsePageSecretResponseWrapper>
 }
@@ -243,8 +242,14 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   )
 
   useEffect(() => {
+    let snippetStr = ''
+    try {
+      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+    } catch {
+      /**/
+    }
     setSnippetFetchResponse({
-      snippet: snippet?.data || '',
+      snippet: snippetStr,
       loading: isFetchingSnippet,
       error: errorFetchingSnippet
     })

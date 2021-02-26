@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import cx from 'classnames'
 import { omit, without } from 'lodash-es'
 import { Layout, Text, Color, Container, Button } from '@wings-software/uicore'
@@ -139,8 +139,14 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   })
 
   useEffect(() => {
+    let snippetStr = ''
+    try {
+      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+    } catch {
+      /**/
+    }
     setSnippetFetchResponse({
-      snippet: snippet?.data || '',
+      snippet: snippetStr,
       loading: isFetchingSnippet,
       error: errorFetchingSnippet
     })

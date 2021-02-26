@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Button } from '@wings-software/uicore'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
@@ -90,8 +90,14 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
   )
 
   React.useEffect(() => {
+    let snippetStr = ''
+    try {
+      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+    } catch {
+      /**/
+    }
     setSnippetFetchResponse({
-      snippet: snippet?.data || '',
+      snippet: snippetStr,
       loading: isFetchingSnippet,
       error: errorFetchingSnippet
     })

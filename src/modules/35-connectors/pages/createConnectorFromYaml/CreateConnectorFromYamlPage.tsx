@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Button, Layout } from '@wings-software/uicore'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 
@@ -104,8 +104,14 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   )
 
   useEffect(() => {
+    let snippetStr = ''
+    try {
+      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+    } catch {
+      /**/
+    }
     setSnippetFetchResponse({
-      snippet: snippet?.data || '',
+      snippet: snippetStr,
       loading: isFetchingSnippet,
       error: errorFetchingSnippet
     })
