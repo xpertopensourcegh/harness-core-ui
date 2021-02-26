@@ -35,7 +35,10 @@ const PipelineYamlView: React.FC = () => {
     }>
   >()
   const {
-    state: { pipeline },
+    state: {
+      pipeline,
+      pipelineView: { isDrawerOpened }
+    },
     stepsFactory,
     updatePipeline,
     setYamlHandler: setYamlHandlerContext
@@ -55,7 +58,7 @@ const PipelineYamlView: React.FC = () => {
   // setup polling
   React.useEffect(() => {
     try {
-      if (yamlHandler) {
+      if (yamlHandler && !isDrawerOpened) {
         Interval = window.setInterval(() => {
           const pipelineFromYaml = parse(yamlHandler.getLatestYaml())?.pipeline
           if (!isEqual(pipeline, pipelineFromYaml)) {
@@ -69,7 +72,7 @@ const PipelineYamlView: React.FC = () => {
     } catch (e) {
       // Ignore Error
     }
-  }, [yamlHandler, pipeline])
+  }, [yamlHandler, pipeline, isDrawerOpened])
 
   const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
     {
@@ -112,24 +115,28 @@ const PipelineYamlView: React.FC = () => {
       {isFetchingSnippets ? (
         <PageSpinner />
       ) : (
-        <YamlBuilderMemo
-          fileName="Pipeline.yaml"
-          entityType="Pipelines"
-          existingJSON={{ pipeline }}
-          bind={setYamlHandler}
-          onSnippetCopy={onSnippetCopy}
-          onExpressionTrigger={() => {
-            return Promise.resolve(expressions.map(item => ({ label: item, insertText: `${item}>`, kind: 1 })))
-          }}
-          showIconMenu={true}
-          snippetFetchResponse={snippetFetchResponse}
-          yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
-          height={'calc(100vh - 150px)'}
-          invocationMap={stepsFactory.getInvocationMap()}
-          showSnippetSection={true}
-          schema={pipelineSchema?.data}
-          snippets={snippetMetaData?.data?.yamlSnippets}
-        />
+        <>
+          {!isDrawerOpened && (
+            <YamlBuilderMemo
+              fileName="Pipeline.yaml"
+              entityType="Pipelines"
+              existingJSON={{ pipeline }}
+              bind={setYamlHandler}
+              onSnippetCopy={onSnippetCopy}
+              onExpressionTrigger={() => {
+                return Promise.resolve(expressions.map(item => ({ label: item, insertText: `${item}>`, kind: 1 })))
+              }}
+              showIconMenu={true}
+              snippetFetchResponse={snippetFetchResponse}
+              yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
+              height={'calc(100vh - 150px)'}
+              invocationMap={stepsFactory.getInvocationMap()}
+              showSnippetSection={true}
+              schema={pipelineSchema?.data}
+              snippets={snippetMetaData?.data?.yamlSnippets}
+            />
+          )}
+        </>
       )}
     </div>
   )

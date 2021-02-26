@@ -66,7 +66,6 @@ export const RightBar = (): JSX.Element => {
         drawerData: { type }
       }
     },
-    view,
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
@@ -273,7 +272,6 @@ export const RightBar = (): JSX.Element => {
           })
         }}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
-        disabled={view === 'yaml'}
         icon="yaml-builder-notifications"
         iconProps={{ size: 20 }}
         text={getString('notifications')}
@@ -284,7 +282,6 @@ export const RightBar = (): JSX.Element => {
         })}
         onClick={() => {}} //eslint-disable-line
         font={{ weight: 'semi-bold', size: 'xsmall' }}
-        disabled={view === 'yaml'}
         icon="settings"
         iconProps={{ size: 20 }}
         text={getString('flowControl')}
