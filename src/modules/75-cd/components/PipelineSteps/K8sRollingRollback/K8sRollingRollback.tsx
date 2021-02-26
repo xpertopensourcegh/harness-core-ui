@@ -29,7 +29,6 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
-import { FormMultiTypeCheckboxField } from '@common/components'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -68,7 +67,7 @@ function K8sRollingRollbackWidget(
     <>
       <Formik<K8sRollingRollbackData>
         onSubmit={(values: K8sRollingRollbackData) => {
-          onUpdate?.(values)
+          onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
@@ -108,13 +107,6 @@ function K8sRollingRollbackWidget(
                       }}
                     />
                   )}
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeCheckboxField
-                    multiTypeTextbox={{ expressions }}
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                  />
                 </div>
               </Layout.Vertical>
               <div className={stepCss.actionsPanel}>

@@ -27,7 +27,6 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { FormMultiTypeCheckboxField } from '@common/components'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -65,7 +64,7 @@ function K8sCanaryDeleteWidget(
     <>
       <Formik<K8sCanaryDeleteStepData>
         onSubmit={(values: K8sCanaryDeleteStepData) => {
-          onUpdate?.(values)
+          onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
@@ -106,13 +105,6 @@ function K8sCanaryDeleteWidget(
                       }}
                     />
                   )}
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeCheckboxField
-                    multiTypeTextbox={{ expressions }}
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                  />
                 </div>
               </Layout.Vertical>
 

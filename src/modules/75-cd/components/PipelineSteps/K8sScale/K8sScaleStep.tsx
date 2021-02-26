@@ -26,7 +26,7 @@ import type {
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
-import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
+import { FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
   DurationInputFieldForInputSet,
@@ -163,9 +163,6 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                       }}
                     />
                   )}
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
                 </div>
               </Layout.Vertical>
               <div className={stepCss.actionsPanel}>

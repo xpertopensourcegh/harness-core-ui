@@ -33,7 +33,6 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
-import { FormMultiTypeCheckboxField } from '@common/components'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -73,7 +72,7 @@ function K8sBGSwapWidget(
       <Formik<K8sBGSwapServicesData>
         onSubmit={(values: K8sBGSwapServicesData) => {
           /* istanbul ignore next */
-          onUpdate?.(values)
+          onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
@@ -116,13 +115,6 @@ function K8sBGSwapWidget(
                       }}
                     />
                   )}
-                </div>
-                <div className={stepCss.formGroup}>
-                  <FormMultiTypeCheckboxField
-                    multiTypeTextbox={{ expressions }}
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                  />
                 </div>
               </Layout.Vertical>
               <div className={stepCss.actionsPanel}>
