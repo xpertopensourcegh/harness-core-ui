@@ -3,9 +3,9 @@ import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
 import { useStrings, String } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { ArtifactoryRepoType } from '../DockerArtifact/ArtifactoryRepoType'
-import { ExampleStep } from '../DockerArtifact/ExampleStep'
+import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import type { ConnectorRefLabelType, ConnectorDataType } from '../ArtifactsSelection'
+import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
 import css from './ConnectorRefSteps.module.scss'
 
 interface StepChangeData<SharedObject> {
@@ -60,7 +60,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = props => {
         selectedArtifact={props.selectedArtifact}
         changeArtifactType={props.changeArtifactType}
       />
-      <ExampleStep
+      <ArtifactConnector
         name={getString('connectors.artifactRepository')}
         stepName={props.labels.secondStepName}
         handleViewChange={() => props.handleViewChange(true)}

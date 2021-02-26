@@ -4,7 +4,7 @@ import { useStrings } from 'framework/exports'
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import css from './DockerArtifact.module.scss'
+import css from './ArtifactConnector.module.scss'
 
 interface DockerArtifactPropType {
   changeArtifactType: (selected: ConnectorInfoDTO['type']) => void

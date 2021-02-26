@@ -127,6 +127,7 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.SPLUNK:
       return 'service-splunk'
     case Connectors.DOCKER:
+    case 'Dockerhub':
       return 'service-dockerhub'
     case Connectors.AWS:
       return 'service-aws'
@@ -135,11 +136,8 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.ARTIFACTORY:
       return 'service-artifactory'
     case Connectors.GCP:
-      return 'service-gcp'
     case 'Gcr':
       return 'service-gcp'
-    case 'Dockerhub':
-      return 'service-dockerhub'
     default:
       return 'placeholder'
   }

@@ -37,8 +37,8 @@ import {
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
-import { ImagePath } from './DockerArtifact/ImagePath'
-import { GCRImagePath } from './ExistingGCRArtifact/ImagePath'
+import { ImagePath } from './ArtifactRepository/ImagePath'
+import { GCRImagePath } from './ArtifactRepository/GCRImagePath'
 import css from './ArtifactsSelection.module.scss'
 
 enum TagTypes {
@@ -51,12 +51,12 @@ enum ModalViewFor {
 }
 
 const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
-  DockerRegistry: 'DockerRegistry',
+  DockerRegistry: 'Dockerhub',
   Gcp: 'Gcr'
 }
 
 const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp']
-export type CreationType = 'DockerRegistry' | 'Gcr'
+export type CreationType = 'Dockerhub' | 'Gcr'
 export interface OrganizationCreationType {
   type: CreationType
 }

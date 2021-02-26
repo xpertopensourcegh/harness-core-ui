@@ -9,7 +9,7 @@ import { Connectors } from '@connectors/constants'
 import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { ImagePath } from '@pipeline/components/ArtifactsSelection/DockerArtifact/ImagePath'
+import { ImagePath } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ImagePath'
 import css from './DockerConnector.module.scss'
 interface CreateDockerConnectorProps {
   hideLightModal: () => void

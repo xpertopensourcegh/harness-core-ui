@@ -10,16 +10,16 @@ import {
   StepProps,
   Text
 } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import memoize from 'lodash-es/memoize'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import { useGetBuildDetailsForGcr } from 'services/cd-ng'
+import { useGetBuildDetailsForDocker } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
-import css from './GCRArtifact.module.scss'
+import css from './ArtifactConnector.module.scss'
 
 interface ImagePathProps {
   handleSubmit: (data: {
@@ -36,7 +36,6 @@ interface ImagePathProps {
 
 const primarySchema = Yup.object().shape({
   imagePath: Yup.string().trim().required(i18n.validation.imagePath),
-  registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
   tagType: Yup.string().required(),
   tagRegex: Yup.string().when('tagType', {
     is: 'regex',
@@ -55,7 +54,7 @@ const sidecarSchema = Yup.object().shape({
     .required(i18n.validation.sidecarId)
     .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
     .notOneOf(StringUtils.illegalIdentifiers),
-  registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
+  imagePath: Yup.string().trim().required('Image Path is required'),
   tagType: Yup.string().required(),
   tagRegex: Yup.string().when('tagType', {
     is: 'regex',
@@ -78,23 +77,22 @@ const tagOptions: IOptionProps[] = [
   }
 ]
 
-export const GCRImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
+export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
   const { name, context, handleSubmit, prevStepData, initialValues } = props
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])
-  const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
+  const [lastImagePath, setLastImagePath] = React.useState('')
 
-  const { data, loading, refetch } = useGetBuildDetailsForGcr({
+  const { data, loading, refetch } = useGetBuildDetailsForDocker({
     queryParams: {
-      imagePath: lastQueryData.imagePath,
+      imagePath: lastImagePath,
       connectorRef: prevStepData?.connectorId?.value
         ? prevStepData?.connectorId?.value
         : prevStepData?.identifier || '',
       accountIdentifier: accountId,
       orgIdentifier,
-      projectIdentifier,
-      registryHostname: lastQueryData.registryHostname
+      projectIdentifier
     },
     lazy: true
   })
@@ -105,8 +103,8 @@ export const GCRImagePath: React.FC<StepProps<any> & ImagePathProps> = props => 
     }
   }, [data])
   React.useEffect(() => {
-    lastQueryData.registryHostname.length && lastQueryData.imagePath.length && refetch()
-  }, [lastQueryData])
+    refetch()
+  }, [lastImagePath])
   const getSelectItems = React.useCallback(() => {
     const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
     return list
@@ -123,20 +121,19 @@ export const GCRImagePath: React.FC<StepProps<any> & ImagePathProps> = props => 
     } else {
       initialData.connectorId = prevStepData?.identifier || ''
     }
+
     if (getMultiTypeFromValue(initialValues?.tag) === MultiTypeInputType.FIXED) {
       initialData.tag = { label: initialValues?.tag, value: initialValues?.tag }
     }
+
     return initialData
   }
-  const fetchTags = (imagePath = '', registryHostname = '') => {
-    if (
-      imagePath.length &&
-      registryHostname.length &&
-      (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
-    ) {
-      setLastQueryData({ imagePath, registryHostname })
+  const fetchTags = (imagePath = '') => {
+    if (imagePath.length && lastImagePath !== imagePath) {
+      setLastImagePath(imagePath)
     }
   }
+
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
       <Menu.Item
@@ -176,13 +173,6 @@ export const GCRImagePath: React.FC<StepProps<any> & ImagePathProps> = props => 
                   />
                 </div>
               )}
-              <div className={css.dockerSideCard}>
-                <FormInput.Text
-                  label={getString('connectors.GCR.registryHostname')}
-                  placeholder={getString('UrlLabel')}
-                  name="registryHostname"
-                />
-              </div>
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={i18n.existingDocker.imageName}
@@ -222,15 +212,20 @@ export const GCRImagePath: React.FC<StepProps<any> & ImagePathProps> = props => 
                     multiTypeInputProps={{
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
+                        noResults: (
+                          <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                        ),
                         items: tags,
+                        addClearBtn: true,
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true
                       },
-                      onFocus: () => fetchTags(formik.values.imagePath, formik.values?.registryHostname)
+                      onFocus: () => fetchTags(formik.values.imagePath)
                     }}
                     label={i18n.existingDocker.tag}
                     name="tag"
                   />
+
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions

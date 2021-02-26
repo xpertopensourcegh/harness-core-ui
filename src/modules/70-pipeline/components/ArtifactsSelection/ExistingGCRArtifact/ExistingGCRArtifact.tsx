@@ -3,7 +3,7 @@ import { StepWizard } from '@wings-software/uicore'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import { GCRDetailStep } from './GCRDetailStep'
-import { GCRImagePath } from './ImagePath'
+import { GCRImagePath } from '../ArtifactRepository/GCRImagePath'
 import css from './GCRArtifact.module.scss'
 
 export default function ExistingDockerArtifact({

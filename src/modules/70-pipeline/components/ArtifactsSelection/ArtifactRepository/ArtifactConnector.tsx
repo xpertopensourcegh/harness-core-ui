@@ -9,9 +9,9 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { useStrings } from 'framework/exports'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import i18n from '../ArtifactsSelection.i18n'
-import css from './DockerArtifact.module.scss'
+import css from './ArtifactConnector.module.scss'
 
-interface ExampleStepProps {
+interface ArtifactConnectorProps {
   handleViewChange: () => void
   name?: string
   stepName: string
@@ -23,7 +23,7 @@ const primarySchema = Yup.object().shape({
   connectorId: Yup.string().trim().required(i18n.validation.connectorId)
 })
 
-export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props => {
+export const ArtifactConnector: React.FC<StepProps<any> & ArtifactConnectorProps> = props => {
   const {
     handleViewChange,
     previousStep,
