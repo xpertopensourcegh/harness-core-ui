@@ -1317,7 +1317,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                               </svg>
                             </span>
                             <span>
-                              s15656
+                              Create or Select a Secret
                             </span>
                           </div>
                         </span>

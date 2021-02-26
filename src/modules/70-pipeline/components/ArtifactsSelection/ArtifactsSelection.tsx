@@ -2,14 +2,12 @@ import React from 'react'
 import {
   Layout,
   Text,
-  Container,
   Icon,
   Color,
   useModalHook,
-  Heading,
-  CardSelect,
-  CardBody,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  StepWizard,
+  StepProps
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -18,39 +16,65 @@ import get from 'lodash-es/get'
 import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
-import { useStrings, String } from 'framework/exports'
-import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
+import { String } from 'framework/exports'
+import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { Connectors } from '@connectors/constants'
 
-import CreateDockerConnector from '@pipeline/components/connectors/DockerConnector/CreateDockerConnector'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
-import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
-import ExistingGCRArtifact from './ExistingGCRArtifact/ExistingGCRArtifact'
+import { useStrings } from 'framework/exports'
+import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
+import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
+import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnector/StepAuth/GcrAuthentication'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages,
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
-import CreateGCRConnector from '../connectors/GcrConnector/CreateGCRConnector'
-
-import i18n from './ArtifactsSelection.i18n'
+import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
+import { ImagePath } from './DockerArtifact/ImagePath'
+import { GCRImagePath } from './ExistingGCRArtifact/ImagePath'
 import css from './ArtifactsSelection.module.scss'
 
 enum TagTypes {
   Value = 'value',
   Regex = 'regex'
 }
-const ENABLED_ARTIFACT_TYPES: { [key: string]: OrganizationCreationType } = {
-  DOCKER: { type: 'Dockerhub' },
-  GCR: { type: 'Gcr' }
+enum ModalViewFor {
+  PRIMARY = 1,
+  SIDECAR = 2
 }
-export type CreationType = 'Dockerhub' | 'Gcr'
+
+const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
+  DockerRegistry: 'DockerRegistry',
+  Gcp: 'Gcr'
+}
+
+const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp']
+export type CreationType = 'DockerRegistry' | 'Gcr'
 export interface OrganizationCreationType {
   type: CreationType
+}
+
+export interface ConnectorDataType {
+  connectorId: string | undefined
+  identifier: string
+  imagePath: string
+  tag: string
+  tagRegex: string
+  tagType: TagTypes
+  registryHostname?: string
+}
+export interface ConnectorRefLabelType {
+  firstStepName: string
+  secondStepName: string
+  newConnector: string
+  selectConnector: string
 }
 
 export default function ArtifactsSelection({
@@ -76,10 +100,16 @@ export default function ArtifactsSelection({
     getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
+
+  const [isEditMode, setIsEditMode] = React.useState(false)
+  const [selectedArtifact, setSelectedArtifact] = React.useState(Connectors.DOCKER)
+  const [connectorView, setConnectorView] = React.useState(false)
+  const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
+  const [sidecarIndex, setEditIndex] = React.useState(0)
+  const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
+
   const { getString } = useStrings()
-  const [selectedArtifactType, setSelectedArtifactType] = React.useState<CreationType>(
-    ENABLED_ARTIFACT_TYPES.DOCKER.type
-  )
+
   const getPrimaryArtifactByIdentifier = (): void => {
     return artifacts
       .map((artifact: { overrideSet: { identifier: string; artifacts: { primary: object } } }) => {
@@ -189,8 +219,6 @@ export default function ArtifactsSelection({
 
   const primaryArtifact = getPrimaryArtifactPath()
 
-  const primaryArtifactType = 'Dockerhub'
-
   const sideCarArtifact = getSidecarPath()
 
   const DIALOG_PROPS: IDialogProps = {
@@ -203,14 +231,6 @@ export default function ArtifactsSelection({
     title: '',
     style: { width: 1050, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }
-
-  const ModalView = { OPTIONS: 1, EXISTING: 2, NEW: 3 }
-  const ModalViewFor = { PRIMARY: 1, SIDECAR: 2 }
-
-  const [view, setView] = React.useState(ModalView.OPTIONS)
-  const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
-  const [sidecarIndex, setEditIndex] = React.useState(0)
-  const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<
     PipelineType<{
@@ -289,12 +309,13 @@ export default function ArtifactsSelection({
         : data.tagType === TagTypes.Regex
         ? { tagRegex: data.tagRegex }
         : { tag: '' }
-    const registryHostData =
-      selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type ? { registryHostname: data.registryHostname } : {}
+
+    const registryHostData = selectedArtifact === Connectors.GCP ? { registryHostname: data.registryHostname } : {}
+
     if (context === ModalViewFor.PRIMARY) {
       if (isPropagating) {
         artifacts['primary'] = {
-          type: primaryArtifactType,
+          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
           spec: {
             connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
             imagePath: data.imagePath,
@@ -310,15 +331,13 @@ export default function ArtifactsSelection({
               const sideCars = artifact?.overrideSet.artifacts.sidecars
               artifact.overrideSet.artifacts = {
                 primary: {
-                  type: selectedArtifactType,
+                  type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
                   identifier: data.identifier,
                   spec: {
                     connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
                     imagePath: data.imagePath,
                     ...tagData,
-                    ...(selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type
-                      ? { registryHostname: data.registryHostname }
-                      : {})
+                    ...(selectedArtifact === Connectors.GCP ? { registryHostname: data.registryHostname } : {})
                   }
                 }
               }
@@ -330,7 +349,7 @@ export default function ArtifactsSelection({
         )
       } else {
         artifacts['primary'] = {
-          type: selectedArtifactType,
+          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
           spec: {
             connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
             imagePath: data.imagePath,
@@ -351,7 +370,7 @@ export default function ArtifactsSelection({
           registryHostname?: string
         }
       } = {
-        type: selectedArtifactType,
+        type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
         identifier: data.identifier as string,
         spec: {
           connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
@@ -381,166 +400,19 @@ export default function ArtifactsSelection({
           }
         )
       } else {
-        if (view === ModalView.EXISTING) {
-          sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
-        } else {
-          sideCarArtifact.push({ sidecar: sideCarObject })
-        }
+        sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
       }
     }
 
     updatePipeline(pipeline)
-    setView(ModalView.OPTIONS)
     hideConnectorModal()
   }
-  const renderExistingArtifact = () => {
-    if (view !== ModalView.EXISTING) return null
-    switch (selectedArtifactType) {
-      case ENABLED_ARTIFACT_TYPES.DOCKER.type:
-        return (
-          <ExistingDockerArtifact
-            handleSubmit={(data: {
-              connectorId: undefined | { value: string }
-              imagePath: string
-              tag?: string
-              tagRegex?: string
-            }) => {
-              addArtifact(data)
-            }}
-            handleViewChange={() => setView(ModalView.NEW)}
-            context={context}
-            initialValues={getInitialValues(primaryArtifact, sideCarArtifact)}
-          />
-        )
-      case ENABLED_ARTIFACT_TYPES.GCR.type:
-        return (
-          <ExistingGCRArtifact
-            handleSubmit={(data: {
-              connectorId: undefined | { value: string }
-              imagePath: string
-              tag?: string
-              tagRegex?: string
-            }) => {
-              addArtifact(data)
-            }}
-            handleViewChange={() => setView(ModalView.NEW)}
-            context={context}
-            initialValues={getInitialValues(primaryArtifact, sideCarArtifact)}
-          />
-        )
-      default:
-        return null
-    }
-  }
-
-  const renderNewConnector = () => {
-    if (view !== ModalView.NEW) return null
-    switch (selectedArtifactType) {
-      case ENABLED_ARTIFACT_TYPES.DOCKER.type:
-        return (
-          <CreateDockerConnector
-            handleSubmit={(data: {
-              connectorId: undefined | { value: string }
-              imagePath: string
-              tag?: string
-              tagRegex?: string
-            }) => {
-              addArtifact(data)
-            }}
-            hideLightModal={hideConnectorModal}
-            context={context}
-            accountId={accountId}
-            projectIdentifier={projectIdentifier}
-            orgIdentifier={orgIdentifier}
-          />
-        )
-      case ENABLED_ARTIFACT_TYPES.GCR.type:
-        return (
-          <CreateGCRConnector
-            handleSubmit={(data: {
-              connectorId: undefined | { value: string }
-              imagePath: string
-              tag?: string
-              tagRegex?: string
-            }) => {
-              addArtifact(data)
-            }}
-            hideLightModal={hideConnectorModal}
-            context={context}
-          />
-        )
-      default:
-        return null
-    }
-  }
-
-  const handleOptionSelection = (selected: OrganizationCreationType) => {
-    setView(ModalView.EXISTING)
-    setSelectedArtifactType(selected.type)
-  }
-  const [showConnectorModal, hideConnectorModal] = useModalHook(
-    () => (
-      <Dialog
-        onClose={() => {
-          setView(ModalView.OPTIONS)
-          setModalContext(ModalViewFor.PRIMARY)
-          hideConnectorModal()
-        }}
-        {...DIALOG_PROPS}
-        className={cx(css.modal, view !== ModalView.OPTIONS ? Classes.DIALOG : Classes.DARK)}
-      >
-        {view === ModalView.OPTIONS && (
-          <Container className={css.optionsViewContainer}>
-            <Heading level={2} color={Color.WHITE} style={{ fontSize: '30px' }} margin={{ bottom: 'medium' }}>
-              {i18n.modalHeading}
-            </Heading>
-
-            <Layout.Horizontal spacing="large">
-              <CardSelect<OrganizationCreationType>
-                onChange={handleOptionSelection}
-                selected={undefined}
-                className={css.optionsViewGrid}
-                data={Object.values(ENABLED_ARTIFACT_TYPES)}
-                renderItem={(item: OrganizationCreationType) => (
-                  <Container>
-                    {item.type === ENABLED_ARTIFACT_TYPES.DOCKER.type && (
-                      <CardBody.Icon icon={'service-dockerhub'} iconSize={26}>
-                        <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
-                          {i18n.dockerIconLabel}
-                        </Text>
-                      </CardBody.Icon>
-                    )}
-                    {item.type === ENABLED_ARTIFACT_TYPES.GCR.type && (
-                      <CardBody.Icon icon={'service-gcp'} iconSize={26}>
-                        <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
-                          {getString('connectors.GCR.name')}
-                        </Text>
-                      </CardBody.Icon>
-                    )}
-                  </Container>
-                )}
-              />
-            </Layout.Horizontal>
-          </Container>
-        )}
-        {renderExistingArtifact()}
-        {renderNewConnector()}
-      </Dialog>
-    ),
-    [view, context]
-  )
-
-  const getInitialValues = (
-    primaryArtifactParam: {
-      spec: { connectorRef: string; imagePath: string; tag: string; tagRegex: string }
-    },
-    sideCarArtifactParam: any
-  ) => {
+  const getInitialValues = (): ConnectorDataType => {
     let spec
     if (context === ModalViewFor.PRIMARY) {
-      spec = primaryArtifactParam?.spec
+      spec = primaryArtifact?.spec
     } else {
-      spec = sideCarArtifactParam[sidecarIndex]?.sidecar.spec
+      spec = sideCarArtifact[sidecarIndex]?.sidecar.spec
     }
     if (!spec) {
       return {
@@ -553,43 +425,38 @@ export default function ArtifactsSelection({
       }
     }
     const initialValues = {
-      identifier: sideCarArtifactParam[sidecarIndex]?.sidecar.identifier,
+      identifier: sideCarArtifact[sidecarIndex]?.sidecar.identifier,
       connectorId: spec?.connectorRef,
       imagePath: spec.imagePath,
       tagType: spec.tag ? TagTypes.Value : TagTypes.Regex,
       tag: spec.tag,
       tagRegex: spec.tagRegex,
-      ...(selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type ? { registryHostname: spec.registryHostname } : {})
+      ...(selectedArtifact === Connectors.GCP ? { registryHostname: spec.registryHostname } : {})
     }
 
     return initialValues
   }
 
-  const addPrimaryArtifact = (): void => {
-    setModalContext(ModalViewFor.PRIMARY)
+  const addNewArtifact = (viewType: number): void => {
+    setModalContext(viewType)
+    if (viewType === ModalViewFor.SIDECAR) {
+      const newSidecarIndex = sideCarArtifact?.length ? sideCarArtifact?.length + 1 : 0
+      setEditIndex(newSidecarIndex)
+    }
     showConnectorModal()
   }
 
-  const addSideCarArtifact = (): void => {
-    const newSidecarIndex = sideCarArtifact?.length ? sideCarArtifact?.length + 1 : 0
-    setModalContext(ModalViewFor.SIDECAR)
-    setView(ModalView.OPTIONS)
-    setEditIndex(newSidecarIndex)
-    showConnectorModal()
-  }
-
-  const editPrimary = (type: CreationType): void => {
-    setModalContext(ModalViewFor.PRIMARY)
-    setView(ModalView.EXISTING)
-    setSelectedArtifactType(type)
-    showConnectorModal()
-  }
-
-  const editSidecar = (index: number, type: CreationType): void => {
-    setModalContext(ModalViewFor.SIDECAR)
-    setView(ModalView.EXISTING)
-    setEditIndex(index)
-    setSelectedArtifactType(type)
+  const editArtifact = (viewType: number, type: CreationType, index?: number): void => {
+    setModalContext(viewType)
+    setConnectorView(false)
+    if (type === ENABLED_ARTIFACT_TYPES.Gcp) {
+      setSelectedArtifact(Connectors.GCP)
+    } else {
+      setSelectedArtifact(Connectors.DOCKER)
+    }
+    if (viewType === ModalViewFor.SIDECAR && index !== undefined) {
+      setEditIndex(index)
+    }
     showConnectorModal()
   }
 
@@ -605,6 +472,8 @@ export default function ArtifactsSelection({
     } else {
       artifacts['primary'] = null
     }
+    primaryArtifact.spec = undefined
+    setSelectedArtifact(Connectors.DOCKER)
     updatePipeline(pipeline)
   }
 
@@ -613,8 +482,144 @@ export default function ArtifactsSelection({
     updatePipeline(pipeline)
   }
 
-  const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
+  const getNewConnectorSteps = React.useCallback((): JSX.Element => {
+    if (selectedArtifact === Connectors.DOCKER) {
+      return (
+        <StepWizard title={getString('connectors.createNewConnector')}>
+          <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={isEditMode} />
+          <StepDockerAuthentication
+            name={getString('details')}
+            accountId={accountId}
+            orgIdentifier={orgIdentifier}
+            projectIdentifier={projectIdentifier}
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
+          />
+          <VerifyOutOfClusterDelegate
+            name={getString('connectors.stepThreeName')}
+            isStep={true}
+            isLastStep={false}
+            type={Connectors.DOCKER}
+          />
+        </StepWizard>
+      )
+    }
+    return (
+      <StepWizard title={getString('connectors.createNewConnector')}>
+        <ConnectorDetailsStep
+          type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
+          name={getString('overview')}
+          isEditMode={isEditMode}
+        />
+        <GcrAuthentication
+          name={getString('connectors.GCR.stepTwoName')}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+        />
+        <VerifyOutOfClusterDelegate
+          name={getString('connectors.stepThreeName')}
+          isStep={true}
+          isLastStep={false}
+          type={'Gcr'}
+        />
+      </StepWizard>
+    )
+  }, [connectorView])
 
+  const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
+    const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
+
+    const imagePathStep =
+      selectedArtifact === Connectors.DOCKER ? (
+        <ImagePath
+          key={getString('connectors.stepFourName')}
+          name={getString('connectors.stepFourName')}
+          context={context}
+          handleSubmit={(data: {
+            connectorId: undefined | { value: string }
+            imagePath: string
+            tag?: string
+            tagRegex?: string
+          }) => {
+            addArtifact(data)
+          }}
+          initialValues={getInitialValues()}
+        />
+      ) : (
+        <GCRImagePath
+          key={getString('connectors.stepFourName')}
+          name={getString('connectors.stepFourName')}
+          context={context}
+          handleSubmit={(data: {
+            connectorId: undefined | { value: string }
+            imagePath: string
+            tag?: string
+            tagRegex?: string
+          }) => {
+            addArtifact(data)
+          }}
+          initialValues={getInitialValues()}
+        />
+      )
+
+    arr.push(imagePathStep)
+    return arr
+  }
+  const getLabels = (): ConnectorRefLabelType => {
+    return {
+      firstStepName: getString('connectors.specifyArtifactRepoType'),
+      secondStepName: getString('connectors.specifyArtifactRepo'),
+      newConnector: getString('connectors.newArtifactRepository'),
+      selectConnector: 'DockerRegistry'
+    }
+  }
+
+  const changeArtifactType = (selected: ConnectorInfoDTO['type']): void => {
+    setSelectedArtifact(selected)
+  }
+  const renderExistingArtifact = (): JSX.Element => {
+    return (
+      <div>
+        <ConnectorRefSteps
+          connectorData={getInitialValues()}
+          handleSubmit={(data: {
+            connectorId: undefined | { value: string }
+            imagePath: string
+            tag?: string
+            tagRegex?: string
+          }) => {
+            addArtifact(data)
+          }}
+          types={allowedArtifactTypes}
+          lastSteps={getLastSteps()}
+          labels={getLabels()}
+          selectedArtifact={selectedArtifact}
+          changeArtifactType={changeArtifactType}
+          newConnectorView={connectorView}
+          newConnectorSteps={getNewConnectorSteps()}
+          handleViewChange={isConnectorView => setConnectorView(isConnectorView)}
+        />
+      </div>
+    )
+  }
+
+  const [showConnectorModal, hideConnectorModal] = useModalHook(
+    () => (
+      <Dialog
+        onClose={() => {
+          hideConnectorModal()
+          setConnectorView(false)
+        }}
+        {...DIALOG_PROPS}
+        className={cx(css.modal, Classes.DIALOG)}
+      >
+        {renderExistingArtifact()}
+      </Dialog>
+    ),
+    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex]
+  )
+
+  const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
   return (
     <Layout.Vertical>
       {isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={stage} />}
@@ -631,7 +636,7 @@ export default function ArtifactsSelection({
         <Layout.Vertical>
           <section>
             {primaryArtifact && (
-              <section className={cx(css.artifactList, css.rowItem)} key={primaryArtifactType}>
+              <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>
                 <div>
                   <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
                     Primary
@@ -661,7 +666,11 @@ export default function ArtifactsSelection({
                 {overrideSetIdentifier.length === 0 && (
                   <span>
                     <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                      <Icon name="Edit" size={16} onClick={() => editPrimary(primaryArtifact.type)} />
+                      <Icon
+                        name="Edit"
+                        size={16}
+                        onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
+                      />
                       {/* <Icon
                             name="main-clone"
                             size={16}
@@ -735,7 +744,7 @@ export default function ArtifactsSelection({
                               name="Edit"
                               size={16}
                               onClick={() => {
-                                editSidecar(index, sidecar.type as CreationType)
+                                editArtifact(ModalViewFor.SIDECAR, sidecar.type as CreationType, index)
                               }}
                             />
                             {/* <Icon
@@ -757,7 +766,7 @@ export default function ArtifactsSelection({
           )}
           {sideCarArtifact && sideCarArtifact.length > 0 && overrideSetIdentifier.length === 0 && (
             <div className={css.paddingVertical}>
-              <Text intent="primary" style={{ cursor: 'pointer' }} onClick={addSideCarArtifact}>
+              <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
                 <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
               </Text>
             </div>
@@ -767,14 +776,14 @@ export default function ArtifactsSelection({
       <Layout.Vertical>
         {!primaryArtifact && overrideSetIdentifier.length === 0 && (
           <div className={css.rowItem}>
-            <Text onClick={addPrimaryArtifact}>
+            <Text onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
             </Text>
           </div>
         )}
         {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier.length === 0 && (
           <div className={css.rowItem}>
-            <Text onClick={addSideCarArtifact}>
+            <Text onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
             </Text>
           </div>

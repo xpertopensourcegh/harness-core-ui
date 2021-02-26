@@ -46,7 +46,7 @@ interface DockerAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
-  connectorInfo: ConnectorInfoDTO | void
+  connectorInfo?: ConnectorInfoDTO | void
   accountId: string
   orgIdentifier: string
   projectIdentifier: string

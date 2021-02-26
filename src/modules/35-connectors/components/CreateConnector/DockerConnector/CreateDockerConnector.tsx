@@ -23,7 +23,6 @@ interface CreateDockerConnectorProps {
 const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
   const { getString } = useStrings()
   const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
-
   return (
     <>
       <StepWizard

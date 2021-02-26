@@ -26,12 +26,7 @@ const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <GcrAuthentication
-        name={getString('connectors.GCR.stepTwoName')}
-        {...commonProps}
-        onConnectorCreated={props.onSuccess}
-        connectorInfo={props.connectorInfo}
-      />
+      <GcrAuthentication name={getString('connectors.GCR.stepTwoName')} {...commonProps} />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep={true}

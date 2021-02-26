@@ -75,7 +75,10 @@ export const GCRDetailStep: React.FC<StepProps<any> & GCRDetailStepProps> = prop
                     minimal
                     text={getString('newArtifactServer')}
                     icon="plus"
-                    onClick={() => handleViewChange()}
+                    onClick={() => {
+                      props.nextStep?.()
+                      handleViewChange()
+                    }}
                     className={css.addNewArtifact}
                   />
                 )}

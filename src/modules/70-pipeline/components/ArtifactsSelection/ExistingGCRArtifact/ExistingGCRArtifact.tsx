@@ -3,7 +3,7 @@ import { StepWizard } from '@wings-software/uicore'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import { GCRDetailStep } from './GCRDetailStep'
-import { ImagePath } from './ImagePath'
+import { GCRImagePath } from './ImagePath'
 import css from './GCRArtifact.module.scss'
 
 export default function ExistingDockerArtifact({
@@ -34,7 +34,7 @@ export default function ExistingDockerArtifact({
         title={getString(getConnectorTitleIdByType('Gcr'))}
       >
         <GCRDetailStep name={getString('overview')} handleViewChange={handleViewChange} initialValues={initialValues} />
-        <ImagePath
+        <GCRImagePath
           name={getString('connectors.stepFourName')}
           context={context}
           handleSubmit={handleSubmit}

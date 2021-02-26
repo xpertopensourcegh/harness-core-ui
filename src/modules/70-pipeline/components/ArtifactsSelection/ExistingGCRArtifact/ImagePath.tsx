@@ -78,7 +78,7 @@ const tagOptions: IOptionProps[] = [
   }
 ]
 
-export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
+export const GCRImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
   const { name, context, handleSubmit, prevStepData, initialValues } = props
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()

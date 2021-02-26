@@ -124,7 +124,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Artifact Source
+            Artifact Location
           </p>
         </div>
       </div>

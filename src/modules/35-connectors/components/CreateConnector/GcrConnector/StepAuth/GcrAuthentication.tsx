@@ -32,12 +32,12 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { useStrings } from 'framework/exports'
 import css from '../CreateGcrConnector.module.scss'
 
-interface GcpAuthenticationProps {
+interface GcrAuthenticationProps {
   name: string
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
-  connectorInfo: ConnectorInfoDTO | void
+  connectorInfo?: ConnectorInfoDTO | void
 }
 
 interface StepConfigureProps {
@@ -49,7 +49,7 @@ interface GCPFormInterface {
   delegateType: string
   password: SecretReferenceInterface | void
 }
-const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticationProps> = props => {
+const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
@@ -202,4 +202,4 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
   )
 }
 
-export default GcpAuthentication
+export default GcrAuthentication

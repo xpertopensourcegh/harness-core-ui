@@ -17,5 +17,10 @@ declare const styles: {
   readonly tagGroup: string
   readonly radioGroup: string
   readonly padSmall: string
+  readonly headerContainer: string
+  readonly optionsViewContainer: string
+  readonly optionsViewGrid: string
+  readonly squareCardContainer: string
+  readonly artifactIcon: string
 }
 export default styles

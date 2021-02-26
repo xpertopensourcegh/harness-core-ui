@@ -12,8 +12,6 @@ declare const styles: {
   readonly modal: string
   readonly connectorDialog: string
   readonly crossButton: string
-  readonly optionsViewContainer: string
-  readonly optionsViewGrid: string
   readonly editForm: string
   readonly artifactList: string
   readonly listHeader: string

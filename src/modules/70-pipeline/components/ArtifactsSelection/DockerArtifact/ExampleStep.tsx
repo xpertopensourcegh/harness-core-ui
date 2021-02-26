@@ -6,21 +6,36 @@ import { useParams } from 'react-router-dom'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { useStrings } from 'framework/exports'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './DockerArtifact.module.scss'
 
 interface ExampleStepProps {
   handleViewChange: () => void
-  name: string
+  name?: string
+  stepName: string
+  newConnectorLabel: string
   initialValues: any
+  connectorType: ConnectorInfoDTO['type']
 }
 const primarySchema = Yup.object().shape({
   connectorId: Yup.string().trim().required(i18n.validation.connectorId)
 })
 
 export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props => {
-  const { handleViewChange, name, nextStep, initialValues } = props
+  const {
+    handleViewChange,
+    previousStep,
+    nextStep,
+    initialValues,
+    stepName,
+    name,
+    connectorType,
+    newConnectorLabel
+  } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { getString } = useStrings()
 
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
@@ -28,7 +43,7 @@ export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props =>
   const { expressions } = useVariablesExpression()
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{i18n.specifyArtifactServer}</div>
+      <div className={css.heading}>{stepName}</div>
       <Formik
         initialValues={initialValues}
         validationSchema={primarySchema}
@@ -42,22 +57,23 @@ export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props =>
               <div className={css.connectorContainer}>
                 <FormMultiTypeConnectorField
                   name="connectorId"
-                  label={i18n.existingDocker.connectorLabel}
-                  placeholder={i18n.existingDocker.connectorPlaceholder}
+                  label={getString('connectors.selectConnectorLabel')}
+                  placeholder={getString('select')}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={410}
                   multiTypeProps={{ expressions }}
                   isNewConnectorLabelVisible={false}
-                  type={'DockerRegistry'}
+                  type={connectorType}
                   enableConfigureOptions={false}
+                  selected={formik?.values?.connectorId}
                 />
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
                       value={(formik.values.connectorId as unknown) as string}
-                      type={'DockerRegistry'}
+                      type={connectorType}
                       variableName="dockerConnector"
                       showRequiredField={false}
                       showDefaultField={false}
@@ -71,16 +87,26 @@ export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props =>
                   <Button
                     intent="primary"
                     minimal
-                    text={i18n.existingDocker.addnewConnector}
+                    text={newConnectorLabel}
                     icon="plus"
-                    onClick={() => handleViewChange()}
+                    onClick={() => {
+                      handleViewChange()
+                      nextStep?.()
+                    }}
                     className={css.addNewArtifact}
                   />
                 )}
               </div>
             </div>
+            <Layout.Horizontal spacing="xxlarge">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => previousStep?.(props?.prevStepData)}
+              />
 
-            <Button intent="primary" type="submit" text={i18n.existingDocker.save} className={css.saveBtn} />
+              <Button intent="primary" type="submit" text={getString('continue')} rightIcon="chevron-right" />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

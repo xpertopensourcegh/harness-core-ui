@@ -1184,12 +1184,20 @@ activityHistory:
   failedActivity: Failed Activity
   heartbeatFailure: Heart beat Failure
 connectors:
+  createNewConnector: Create New Connector
   confirmDeleteTitle: Delete Connector
   confirmDelete: Are you sure you want to delete the Connector
   testInProgress: Test in progress
   label: 'Connectors'
+  repositoryType: 'Repository Type'
+  artifactRepository: ' {{ $.artifacts }} {{ $.repository }}'
+  artifactRepoType: '{{ $.artifacts }} {{$.connectors.repositoryType}}'
+  specifyArtifactRepoType: 'Specify {{ $.artifacts }} {{ $.connectors.repositoryType }}'
+  specifyArtifactRepo: 'Specify {{ $.artifacts }} {{ $.repository }}'
+  newArtifactRepository: 'New Artifact Repository Connector'
+  selectConnectorLabel: Select Artifact Repository Connector
   stepThreeName: 'Test Connection'
-  stepFourName: 'Artifact Source'
+  stepFourName: 'Artifact Location'
   name: 'Connector Name'
   authTitle: 'Authentication'
   updating: Updating connector
