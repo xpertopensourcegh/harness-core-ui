@@ -1,9 +1,9 @@
 import React from 'react'
 import { Classes, H4 } from '@blueprintjs/core'
 import { Formik } from 'formik'
-import { Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
+import { debounce } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
 import {
@@ -25,6 +25,8 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
     selectedStage: { stage },
     onUpdate
   } = props
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedUpdate = React.useCallback(debounce(onUpdate, 300), [onUpdate])
 
   return (
     <Formik
@@ -44,6 +46,7 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
         failureStrategies: getFailureStrategiesValidationSchema(getString).required().min(1)
       })}
       onSubmit={onUpdate}
+      validate={debouncedUpdate}
     >
       {formik => {
         return (
@@ -57,11 +60,6 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
               <div className={Classes.DIALOG_BODY}>
                 <FailureStrategyPanel mode={Modes.STAGE} formikProps={formik} />
               </div>
-            </div>
-            <div className={Classes.DRAWER_FOOTER}>
-              <Button intent="primary" onClick={formik.submitForm}>
-                {getString('submit')}
-              </Button>
             </div>
           </React.Fragment>
         )

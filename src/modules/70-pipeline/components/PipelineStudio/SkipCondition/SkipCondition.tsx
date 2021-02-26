@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes, H4 } from '@blueprintjs/core'
 import { Formik } from 'formik'
-import { Button } from '@wings-software/uicore'
+import { debounce } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
 
@@ -24,6 +24,8 @@ export default function SkipCondition(props: SkipConditionProps): React.ReactEle
     selectedStage: { stage },
     onUpdate
   } = props
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedUpdate = React.useCallback(debounce(onUpdate, 300), [onUpdate])
 
   return (
     <Formik
@@ -31,8 +33,9 @@ export default function SkipCondition(props: SkipConditionProps): React.ReactEle
         skipCondition: stage.skipCondition || ''
       }}
       onSubmit={onUpdate}
+      validate={debouncedUpdate}
     >
-      {formik => {
+      {() => {
         return (
           <React.Fragment>
             <div className={Classes.DRAWER_HEADER}>
@@ -44,11 +47,6 @@ export default function SkipCondition(props: SkipConditionProps): React.ReactEle
               <div className={Classes.DIALOG_BODY}>
                 <SkipConditionsPanel mode={Modes.STAGE} />
               </div>
-            </div>
-            <div className={Classes.DRAWER_FOOTER}>
-              <Button intent="primary" onClick={formik.submitForm}>
-                {getString('submit')}
-              </Button>
             </div>
           </React.Fragment>
         )

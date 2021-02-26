@@ -193,12 +193,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               pipelineStage.stage.failureStrategies = failureStrategies
               updatePipeline(pipeline)
             }
-
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: false,
-              drawerData: { type: DrawerTypes.ConfigureService }
-            })
           }}
         />
       ) : null}
@@ -212,12 +206,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               pipelineStage.stage.skipCondition = skipCondition?.trim()
               updatePipeline(pipeline)
             }
-
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: false,
-              drawerData: { type: DrawerTypes.ConfigureService }
-            })
           }}
         />
       ) : null}

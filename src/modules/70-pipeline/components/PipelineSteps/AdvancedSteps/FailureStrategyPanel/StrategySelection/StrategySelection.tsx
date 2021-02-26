@@ -2,7 +2,7 @@ import React from 'react'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { connect, FormikContext, FieldArray } from 'formik'
 import { get, difference } from 'lodash-es'
-import { FormInput, Button } from '@wings-software/uicore'
+import { FormInput, Button, MultiTypeInputType } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 
@@ -76,7 +76,12 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         name={`${specPath}.retryCount`}
         label="Retry Count"
       />
-      <MultiTypeFieldSelector name={`${specPath}.retryIntervals`} label="Retry Intervals" defaultValueToReset={['1d']}>
+      <MultiTypeFieldSelector
+        name={`${specPath}.retryIntervals`}
+        label="Retry Intervals"
+        defaultValueToReset={['1d']}
+        disableTypeSelection
+      >
         <FieldArray name={`${specPath}.retryIntervals`}>
           {({ push, remove }) => {
             function handleAdd(): void {
@@ -105,7 +110,10 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                         <FormMultiTypeDurationField
                           name={`${specPath}.retryIntervals[${i}]`}
                           label=""
-                          multiTypeDurationProps={{ enableConfigureOptions: false }}
+                          multiTypeDurationProps={{
+                            enableConfigureOptions: false,
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          }}
                         />
                         <Button minimal small icon="trash" onClick={handleRemove} data-testid="remove-retry-interval" />
                       </div>
@@ -215,6 +223,8 @@ export function SelectedStep(props: SelectedStepProps): React.ReactElement {
       return <RollbackStageStep {...rest} />
     case Strategy.StepGroupRollback:
       return <RollbackStepGroupStep {...rest} />
+    case Strategy.Ignore:
+      return <IgnoreFailureStep {...rest} />
     default:
       return <div>&quot;{strategy}&quot; in not supported</div>
   }

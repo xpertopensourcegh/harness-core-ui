@@ -1,9 +1,14 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import SkipCondition from '../SkipCondition'
+import SkipCondition, { SkipConditionProps } from '../SkipCondition'
 
-const getProps = () => ({
+jest.mock('lodash-es', () => ({
+  debounce: jest.fn((fn: () => void) => fn()),
+  ...(jest.requireActual('lodash-es') as any)
+}))
+
+const getProps = (): SkipConditionProps => ({
   onUpdate: jest.fn(),
   selectedStage: {
     stage: {
@@ -17,14 +22,13 @@ const getProps = () => ({
 describe('Skip Condition in pipeline', () => {
   test('Skip condition in stage', async () => {
     const props = getProps()
-    const { getByDisplayValue, getByText } = render(
+    const { getByDisplayValue } = render(
       <TestWrapper>
         <SkipCondition {...props} />
       </TestWrapper>
     )
 
     fireEvent.change(getByDisplayValue('somecondition'), { target: { value: 'somechangedvalue' } })
-    fireEvent.click(getByText('Submit'))
 
     await waitFor(() => {
       expect(props.onUpdate).toBeCalled()
