@@ -1,0 +1,10 @@
+.pageContainer {
+  height: 100vh;
+  .breadCrumb {
+    padding: var(--spacing-small);
+    border-bottom: 1px solid var(--grey-300);
+  }
+  .frame {
+    height: calc(100vh - 38px);
+  }
+}

@@ -4,6 +4,7 @@ rules:
     - patterns:
         - lodash.*
         - modules/40-delegates/*
+        - modules/45-dashboards/*
         - modules/60-gitsync/*
         - modules/70-pipeline/*
         - modules/75-cd/*
@@ -12,6 +13,7 @@ rules:
         - modules/85-cv/*
         - modules/90-ce/*
         - '@delegates/*'
+        - '@dashboards/*'
         - '@gitsync/*'
         - '@pipeline/*'
         - '@cd/*'

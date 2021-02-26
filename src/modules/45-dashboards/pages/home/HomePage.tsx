@@ -31,6 +31,15 @@ enum Views {
   EDIT
 }
 
+const i18n: { [key: string]: string } = {
+  AWS:
+    'A dashboard that visually tracks and analyzes the health of your AWS cloud spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
+  GCP:
+    'A dashboard that visually tracks and analyzes the health of your GCP cloud spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
+  Cluster:
+    'A dashboard that visually tracks and analyzes the health of your cluster spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend'
+}
+
 const FirstStep = (props: any): JSX.Element => {
   const { getString } = useStrings()
   const { accountId } = useParams()
@@ -79,8 +88,8 @@ const FirstStep = (props: any): JSX.Element => {
       >
         {formik => (
           <Form className={css.formContainer}>
-            <Layout.Horizontal>
-              <Layout.Vertical spacing="xsmall" style={{ width: '50%', paddingRight: 'var(--spacing-xxlarge)' }}>
+            <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
+              <Layout.Vertical spacing="xsmall" style={{ width: '55%', paddingRight: 'var(--spacing-xxlarge)' }}>
                 <FormInput.Text
                   name="name"
                   label={getString('name')}
@@ -94,8 +103,9 @@ const FirstStep = (props: any): JSX.Element => {
                 <Layout.Vertical style={{ marginTop: '180px' }}>
                   <Button
                     type="submit"
+                    intent="primary"
                     style={{ width: '150px', marginTop: '148px' }}
-                    text={getString('submit')}
+                    text={getString('continue')}
                     disabled={loading}
                     className={css.button}
                   />
@@ -107,7 +117,7 @@ const FirstStep = (props: any): JSX.Element => {
                 </Layout.Vertical>
               </Layout.Vertical>
 
-              <Card className={cx(css.dashboardCard)}>
+              <Card className={cx(css.dashboardCard)} style={{ width: '280px', height: '320px' }}>
                 <Container padding="xlarge">
                   <Layout.Vertical spacing="large">
                     <Icon name={'dashboard'} size={25} color={Color.GREY_400} />
@@ -256,9 +266,9 @@ const HomePage: React.FC = () => {
       >
         <Button
           intent="primary"
-          text={getString('dashboards.homePage.addDashboard')}
+          text={getString('cv.navLinks.dashboard')}
           icon="plus"
-          style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '160px' }}
+          style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '110px' }}
           onClick={() => showModal()}
         />
         <section></section>
@@ -269,7 +279,14 @@ const HomePage: React.FC = () => {
             center
             gutter={25}
             items={dashboardList?.resource?.list}
-            renderItem={(dashboard: any) => (
+            renderItem={(dashboard: {
+              id: string
+              type: string
+              description: string
+              title: string
+              view_count?: number
+              favorite_count?: number
+            }) => (
               <Card className={cx(css.dashboardCard)}>
                 <Container padding="xlarge">
                   {dashboard?.type !== 'SHARED' && (
@@ -296,31 +313,33 @@ const HomePage: React.FC = () => {
                       })
                     }}
                   >
-                    {/* <Icon
+                    <Icon
                       name={dashboard?.type === 'SHARED' ? 'harness' : 'dashboard'}
                       size={25}
                       color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.BLUE_500}
-                    /> */}
+                    />
                     <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
                       {dashboard?.title}
                     </Text>
-                    {dashboard?.description && <Text color={Color.GREY_350}>{dashboard?.description}</Text>}
+                    {dashboard?.description && (
+                      <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
+                        {dashboard?.description}
+                      </Text>
+                    )}
+                    {!dashboard?.description && (
+                      <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
+                        {i18n[dashboard?.title]}
+                      </Text>
+                    )}
                     <Layout.Horizontal
                       spacing="medium"
-                      height="160px"
-                      style={{
-                        display: 'flow-root',
-                        overflow: 'hidden'
-                      }}
+                      // height="160px"
+                      // style={{
+                      //   display: 'flow-root',
+                      //   overflow: 'hidden'
+                      // }}
                     >
-                      <img
-                        src={
-                          `https://harnesspoc.cloud.looker.com/api/internal/core/3.1/content_thumbnail/dashboard/` +
-                          dashboard?.id
-                        }
-                        width="100%"
-                      />
-                      {/* <Container
+                      <Container
                         style={{ width: '50%', borderRadius: '5px' }}
                         padding="small"
                         background={Color.GREY_100}
@@ -345,15 +364,15 @@ const HomePage: React.FC = () => {
                           </Text>
                           &nbsp;{getString('dashboards.createModal.fav')}
                         </Layout.Horizontal>
-                      </Container> */}
+                      </Container>
                     </Layout.Horizontal>
                     <Layout.Vertical spacing="medium">
                       <Text color={Color.GREY_400}>{getString('dashboards.createModal.dataSource')}</Text>
                       <Layout.Horizontal spacing="medium">
                         <Icon name="ce-main" size={22} />
-                        <Icon name="cd-main" size={22} />
+                        {/* <Icon name="cd-main" size={22} />
                         <Icon name="ci-main" size={22} />
-                        <Icon name="cf-main" size={22} />
+                        <Icon name="cf-main" size={22} /> */}
                       </Layout.Horizontal>
                     </Layout.Vertical>
                   </Layout.Vertical>

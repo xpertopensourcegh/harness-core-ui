@@ -6,7 +6,7 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-
+import { MinimalLayout } from '@common/layouts'
 import DashboardsSideNav from './components/SideNav/SideNav'
 // import { ModuleName, useAppStore } from 'framework/exports'
 import HomePage from './pages/home/HomePage'
@@ -41,7 +41,8 @@ export default (
       <HomePage />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={DashboardsSideNavProps}
+      layout={MinimalLayout}
+      // sidebarProps={DashboardsSideNavProps}
       path={routes.toViewCustomDashboard({ ...accountPathProps, ...viewPathProps })}
       exact
     >

@@ -8,6 +8,7 @@ rules:
         - modules/35-connectors/*
         - modules/40-delegates/*
         - modules/40-projects-orgs/*
+        - modules/45-dashboards/*
         - modules/60-gitsync/*
         - modules/70-pipeline/*
         - modules/75-cd/*
@@ -20,6 +21,7 @@ rules:
         - '@connectors/*'
         - '@delegates/*'
         - '@projects-orgs/*'
+        - '@dashboards/*'
         - '@gitsync/*'
         - '@pipeline/*'
         - '@cd/*'

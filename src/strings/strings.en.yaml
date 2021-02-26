@@ -1825,10 +1825,11 @@ customVariables:
 dashboards:
   sideNav:
     byHarness: 'BY HARNESS'
-    custom: 'CUSTOMIZED'
+    custom: 'CUSTOM'
+    noDashboard: 'No custom dashboard found'
   homePage:
     title: 'All Dashboards'
-    addDashboard: 'Create Dashboard'
+    # addDashboard: 'Dashboard'
   createModal:
     stepOne: 'About the Dashboard'
     # name: 'Name'
