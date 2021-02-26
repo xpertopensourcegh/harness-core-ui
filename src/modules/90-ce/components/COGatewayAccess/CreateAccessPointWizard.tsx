@@ -50,69 +50,6 @@ interface CreateAccessPointWizardProps {
   refreshAccessPoints: () => void
   isEditMod?: boolean
 }
-// const MapToProvider: React.FC<StepProps<Props>> = props => {
-//   return (
-//     <Layout.Vertical style={{ minHeight: '640px', width: '55%' }} padding="large" spacing="medium">
-//       <Heading level={2}>{props.name}</Heading>
-//       <Formik
-//         initialValues={{
-//           customURL: '',
-//           publicallyAccessible: 'no',
-//           dnsProvider: 'route53',
-//           route53Account: '',
-//           accessPoint: ''
-//         }}
-//         onSubmit={values => alert(JSON.stringify(values))}
-//         render={formik => (
-//           <FormikForm>
-//             <Layout.Vertical spacing="medium">
-//               <FormInput.RadioGroup
-//                 name="dnsProvider"
-//                 label={
-//                   <Layout.Horizontal spacing="small">
-//                     <Heading level={3} font={{ weight: 'light' }}>
-//                       Select the DNS Provider
-//                     </Heading>
-//                     <Icon name="info"></Icon>
-//                   </Layout.Horizontal>
-//                 }
-//                 items={[
-//                   { label: 'Route53', value: 'route53' },
-//                   { label: 'Others', value: 'others' }
-//                 ]}
-//               />
-//               {formik.values.dnsProvider == 'route53' ? (
-//                 <>
-//                   <Layout.Horizontal spacing="medium">
-//                     <FormInput.Select
-//                       name="route53Account"
-//                       label={'Select Route53 account'}
-//                       placeholder={'Select account'}
-//                       items={[]}
-//                       onChange={e => {
-//                         formik.setFieldValue('route53Account', e.value)
-//                       }}
-//                     />
-//                     <Button intent="primary" text="Verify" />
-//                   </Layout.Horizontal>
-//                 </>
-//               ) : (
-//                 <Button intent="primary" text="Verify" />
-//               )}
-//               <Button
-//                 intent="primary"
-//                 text="Finish"
-//                 // onClick={() => {
-//                 //   props.nextStep?.()
-//                 // }}
-//               ></Button>
-//             </Layout.Vertical>
-//           </FormikForm>
-//         )}
-//       ></Formik>
-//     </Layout.Vertical>
-//   )
-// }
 
 interface MapToProviderProps {
   accessPointID: string
@@ -267,6 +204,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   const [selectedCloudAccount, setSelectedCloudAccount] = useState<string>(props.accessPoint.cloud_account_id as string)
   const [selectedRegion, setSelectedRegion] = useState<string>(props.accessPoint.region as string)
   const [selectedVpc, setSelectedVpc] = useState<string>(props.accessPoint.vpc as string)
+  const [accessPointStatusInProgress, setaccessPointStatusInProgress] = useState<boolean>(false)
 
   const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
     org_id: orgIdentifier, // eslint-disable-line
@@ -281,8 +219,10 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     }
     if (!accessPointStatusLoading && accessPoint.id) {
       if (accessPointData?.response?.status == 'errored') {
+        setaccessPointStatusInProgress(false)
         showError('could not create access point')
       } else if (accessPointData?.response?.status == 'created') {
+        setaccessPointStatusInProgress(false)
         props.setAccessPoint(accessPointData?.response as AccessPoint)
         showSuccess('Access Point Created Succesfully')
         props.refreshAccessPoints()
@@ -304,6 +244,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     project_id: projectIdentifier // eslint-disable-line
   })
   const onSave = async (): Promise<void> => {
+    setaccessPointStatusInProgress(true)
     try {
       const result = await createAccessPoint(accessPoint) // eslint-disable-line
       if (result.response) {
@@ -422,9 +363,6 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       }) || []
     setCertificateOptions(loaded)
   }, [certificates])
-  const isLoading = (): boolean => {
-    return accessPoint.status == 'submitted'
-  }
   return (
     <Layout.Vertical style={{ minHeight: '640px', width: '55%' }} padding="large" spacing="medium">
       <Heading level={2}>{props.name}</Heading>
@@ -555,8 +493,8 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 intent="primary"
                 text="Create Access Point"
                 onClick={formik.submitForm}
-                loading={isLoading()}
-                disabled={isLoading()}
+                loading={accessPointStatusInProgress}
+                disabled={accessPointStatusInProgress}
               ></Button>
             </Layout.Vertical>
           </FormikForm>

@@ -69,7 +69,12 @@ const COAccessPointList: React.FC = () => {
         accessPoint={{
           account_id: accountId, // eslint-disable-line
           project_id: projectIdentifier, // eslint-disable-line
-          org_id: orgIdentifier // eslint-disable-line
+          org_id: orgIdentifier, // eslint-disable-line
+          metadata: {
+            role: '',
+            security_groups: [] // eslint-disable-line
+          },
+          type: 'aws'
         }}
         closeModal={hidecreateAccessPointModal}
         setAccessPoint={() => undefined}
