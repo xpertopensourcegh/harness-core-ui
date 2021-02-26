@@ -18,7 +18,7 @@ const DashboardViewPage: React.FC = () => {
   const [iframeState] = React.useState(0)
   // const [isDrawerOpen, setDrawerState] = React.useState(false)
   const external_user_id = decodeURI(atob(localStorage.getItem('email') || '')) /* eslint-disable-line */
-  const account_id = decodeURI(atob(localStorage.getItem('accountId') || '')) /* eslint-disable-line */
+
   const { mutate: createSignedUrl, loading, error } = useMutate({
     verb: 'POST',
     path: 'insights/signedUrl',
@@ -39,8 +39,8 @@ const DashboardViewPage: React.FC = () => {
         accountName: external_user_id.replace(/['"]+/g, '').split('@')[1] /* eslint-disable-line */,
         companyName: external_user_id.replace(/['"]+/g, '').split('@')[1] /* eslint-disable-line */,
         licenseInfo: 'PAID',
-        dataset: account_id /* eslint-disable-line */,
-        accountId: account_id /* eslint-disable-line */
+        dataset: accountId,
+        accountId: accountId
       }
     })
     setEmbedUrl(resource)
