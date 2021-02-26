@@ -18,13 +18,15 @@ module.exports = {
   },
   'cd-ng': {
     output: 'src/services/cd-ng/index.tsx',
-    url: 'http://localhost:7457/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {
       base: `{getConfig("ng/api")}`
     },
-    customGenerator: arg => customGenerator(arg, "getConfig('ng/api')")
+    customGenerator: arg => customGenerator(arg, "getConfig('ng/api')"),
+    ...(process.env.cdng_schema_path
+      ? { file: process.env.cdng_schema_path }
+      : { url: 'http://localhost:7457/swagger.json' })
   },
   'pipeline-ng': {
     output: 'src/services/pipeline-ng/index.tsx',
