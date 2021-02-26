@@ -18,7 +18,7 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   bgImageUrl,
   subTitle,
   documentText,
-  documentURL = 'https://docs.harness.io/'
+  documentURL = 'https://ngdocs.harness.io/'
 }) => {
   const { accountId } = useParams<{
     accountId: string

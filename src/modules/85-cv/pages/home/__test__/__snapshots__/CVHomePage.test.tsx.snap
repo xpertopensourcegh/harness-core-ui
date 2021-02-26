@@ -23,7 +23,7 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
       </p>
       <a
         class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
-        href="https://docs.harness.io/"
+        href="https://ngdocs.harness.io/"
         rel="noreferrer noopener"
         role="button"
         style="align-self: flex-start; color: rgb(0, 146, 228); font-size: 14px;"
