@@ -24,9 +24,7 @@
     .chartRow {
       display: flex;
       align-items: center;
-      height: 100%;
       .chartContainer {
-        height: 100%;
         :global {
           [class*='highcharts-container'] {
             z-index: 3 !important;
