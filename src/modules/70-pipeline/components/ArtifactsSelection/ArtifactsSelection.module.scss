@@ -74,11 +74,9 @@ div.server {
 .artifactList {
   display: grid;
   grid-template-columns: 230px 200px repeat(3, 1fr);
+  padding-left: var(--spacing-small);
   &.list-header {
     border-bottom: solid 1px #d9dae5;
     padding-bottom: var(--spacing-medium);
-  }
-  &:first-child {
-    padding-left: var(--spacing-small);
   }
 }

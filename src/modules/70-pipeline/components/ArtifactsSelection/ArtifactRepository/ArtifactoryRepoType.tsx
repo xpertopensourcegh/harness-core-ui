@@ -13,20 +13,25 @@ interface DockerArtifactPropType {
   stepName: string
 }
 
-export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & DockerArtifactPropType> = props => {
-  const [selectedArtifactType, setSelectedArtifactType] = React.useState(props.selectedArtifact)
-  const { artifactTypes } = props
+export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & DockerArtifactPropType> = ({
+  selectedArtifact,
+  artifactTypes,
+  changeArtifactType,
+  stepName,
+  nextStep
+}) => {
+  const [selectedArtifactType, setSelectedArtifactType] = React.useState(selectedArtifact)
 
   const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
     setSelectedArtifactType(selected)
-    props.changeArtifactType(selected)
+    changeArtifactType(selected)
   }
 
   const { getString } = useStrings()
   return (
     <Container className={css.optionsViewContainer}>
       <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
-        {props.stepName}
+        {stepName}
       </Heading>
       <div className={css.headerContainer}>
         <Layout.Horizontal spacing="large">
@@ -59,8 +64,8 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Docke
           text={getString('continue')}
           rightIcon="chevron-right"
           onClick={() => {
-            props.changeArtifactType(selectedArtifactType)
-            props.nextStep?.()
+            changeArtifactType(selectedArtifactType)
+            nextStep?.()
           }}
           className={css.saveBtn}
         />

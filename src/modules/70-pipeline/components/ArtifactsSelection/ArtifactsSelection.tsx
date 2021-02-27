@@ -16,6 +16,7 @@ import get from 'lodash-es/get'
 import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { String } from 'framework/exports'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
@@ -481,6 +482,24 @@ export default function ArtifactsSelection({
     sideCarArtifact.splice(index, 1)
     updatePipeline(pipeline)
   }
+  const getIconProps = (): IconProps => {
+    const iconProps: IconProps = {
+      name: getConnectorIconByType(selectedArtifact)
+    }
+    if (selectedArtifact === Connectors.DOCKER) {
+      iconProps.color = Color.WHITE
+    }
+    return iconProps
+  }
+
+  const getLabels = (): ConnectorRefLabelType => {
+    return {
+      firstStepName: getString('connectors.specifyArtifactRepoType'),
+      secondStepName: getString('connectors.specifyArtifactRepo'),
+      newConnector: getString('connectors.newArtifactRepository'),
+      selectConnector: 'DockerRegistry'
+    }
+  }
 
   const getNewConnectorSteps = React.useCallback((): JSX.Element => {
     if (selectedArtifact === Connectors.DOCKER) {
@@ -565,14 +584,6 @@ export default function ArtifactsSelection({
     arr.push(imagePathStep)
     return arr
   }
-  const getLabels = (): ConnectorRefLabelType => {
-    return {
-      firstStepName: getString('connectors.specifyArtifactRepoType'),
-      secondStepName: getString('connectors.specifyArtifactRepo'),
-      newConnector: getString('connectors.newArtifactRepository'),
-      selectConnector: 'DockerRegistry'
-    }
-  }
 
   const changeArtifactType = (selected: ConnectorInfoDTO['type']): void => {
     setSelectedArtifact(selected)
@@ -582,14 +593,7 @@ export default function ArtifactsSelection({
       <div>
         <ConnectorRefSteps
           connectorData={getInitialValues()}
-          handleSubmit={(data: {
-            connectorId: undefined | { value: string }
-            imagePath: string
-            tag?: string
-            tagRegex?: string
-          }) => {
-            addArtifact(data)
-          }}
+          iconsProps={getIconProps()}
           types={allowedArtifactTypes}
           lastSteps={getLastSteps()}
           labels={getLabels()}
