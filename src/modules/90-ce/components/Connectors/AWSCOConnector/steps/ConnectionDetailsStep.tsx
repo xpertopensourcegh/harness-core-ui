@@ -70,7 +70,9 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
     const rand = randomString()
     const stackName = `harness-ce-iam-${rand}`
     const reqPath = 'https://console.aws.amazon.com/cloudformation/home?#/stacks/quickcreate'
-    const url = `${reqPath}?stackName=${stackName}&templateURL=${cftPath}&param_ExternalId=${externalID}&param_CurEnabled=${curEnabled}&param_OptimizationEnabled=${optimizationEnabled}&param_EventsEnabled=${eventsEnabled}`
+    const lambdaExecName = `HarnessCELambdaExecRole${rand}`
+    const roleName = `HarnessCERole-${rand}`
+    const url = `${reqPath}?stackName=${stackName}&templateURL=${cftPath}&param_ExternalId=${externalID}&param_CurEnabled=${curEnabled}&param_OptimizationEnabled=${optimizationEnabled}&param_EventsEnabled=${eventsEnabled}&param_LambdaExecutionRoleName=${lambdaExecName}&param_RoleName=${roleName}`
     window.open(url)
   }
 
