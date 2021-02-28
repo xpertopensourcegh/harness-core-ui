@@ -7,8 +7,6 @@ import {
   Container,
   Button,
   Icon,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding,
   Link,
   ExpandingSearchInput,
   Popover
@@ -19,6 +17,7 @@ import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Classes, Drawer, Menu, Position } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
+import { useToaster } from '@common/exports'
 import {
   AllResourcesOfAccountResponse,
   Service,
@@ -124,7 +123,7 @@ const COGatewayList: React.FC = () => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const { showError } = useToaster()
   // const [page, setPage] = useState(0)
   const [selectedService, setSelectedService] = useState<Service>()
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
@@ -182,24 +181,30 @@ const COGatewayList: React.FC = () => {
     )
   }
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
-    const { data, loading } = useHealthOfService({
+    const { data, loading, error: healthError } = useHealthOfService({
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
       debounce: 300
     })
-    const { data: resources, loading: resourcesLoading } = useAllServiceResources({
+    if (healthError) {
+      showError(`could not load health for rule ${tableProps.row.original.name}`)
+    }
+    const { data: resources, loading: resourcesLoading, error: resourcesError } = useAllServiceResources({
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
       service_id: tableProps.row.original.id as number, // eslint-disable-line
       debounce: 300
     })
+    if (resourcesError) {
+      showError(`could not load resources for rule ${tableProps.row.original.name}`)
+    }
     return (
       <Container>
         <Layout.Vertical spacing="medium">
           <Layout.Horizontal spacing="xxxsmall">
             <Text style={{ alignSelf: 'center' }}>No. of instances:</Text>
-            {!resourcesLoading ? (
+            {!resourcesLoading && resources?.response ? (
               <Link
                 href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
                 target="_blank"
@@ -340,7 +345,7 @@ const COGatewayList: React.FC = () => {
     debounce: 300
   })
   if (error) {
-    modalErrorHandler?.showDanger(error.data || error.message)
+    showError(error.data || error.message)
   }
 
   return (
@@ -444,7 +449,6 @@ const COGatewayList: React.FC = () => {
                   </Layout.Horizontal>
                 </Layout.Horizontal>
               </>
-              <ModalErrorHandler bind={setModalErrorHandler} />
               <Page.Body className={css.pageContainer}>
                 <COGatewayCumulativeAnalytics
                   services={data?.response ? (data.response as Service[]) : []}

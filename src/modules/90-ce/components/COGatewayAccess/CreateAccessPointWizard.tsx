@@ -23,7 +23,6 @@ import {
 import {
   AccessPoint,
   useAllCertificates,
-  useAllExecutionRoles,
   useAllHostedZones,
   useAllRegions,
   useAllSecurityGroups,
@@ -198,7 +197,6 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   const [accessPoint, setAccessPoint] = useState<AccessPoint>(props.accessPoint)
   const [regionOptions, setRegionOptions] = useState<SelectOption[]>([])
   const [vpcOptions, setvpcOptions] = useState<SelectOption[]>([])
-  const [roleOptions, setRoleOptions] = useState<SelectOption[]>([])
   const [sgOptions, setSGOptions] = useState<SelectOption[]>([])
   const [certificateOptions, setCertificateOptions] = useState<SelectOption[]>([])
   const [selectedCloudAccount, setSelectedCloudAccount] = useState<string>(props.accessPoint.cloud_account_id as string)
@@ -271,14 +269,6 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       cloud_account_id: selectedCloudAccount // eslint-disable-line
     }
   })
-  const { data: roles, loading: rolesLoading } = useAllExecutionRoles({
-    org_id: orgIdentifier, // eslint-disable-line
-    account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    queryParams: {
-      cloud_account_id: selectedCloudAccount // eslint-disable-line
-    }
-  })
   const { data: certificates, loading: certificatesLoading } = useAllCertificates({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -325,19 +315,6 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     setvpcOptions(loaded)
   }, [vpcs])
   useEffect(() => {
-    if (roles?.response?.length == 0) {
-      return
-    }
-    const loaded: SelectOption[] =
-      roles?.response?.map(v => {
-        return {
-          label: v.name as string,
-          value: v.id as string
-        }
-      }) || []
-    setRoleOptions(loaded)
-  }, [roles])
-  useEffect(() => {
     if (securityGroups?.response?.length == 0) {
       return
     }
@@ -375,7 +352,6 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
           accessPointName: accessPoint.host_name,
           accessPointRegion: accessPoint.region,
           vpc: accessPoint.vpc,
-          role: accessPoint.metadata?.role,
           securityGroups: accessPoint.metadata?.security_groups?.map(x => {
             return {
               value: x,
@@ -436,7 +412,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
               />
               <FormInput.Select
                 name="certificate"
-                label={'Select an certificate'}
+                label={'Select a certificate'}
                 placeholder={'Select Certificate'}
                 items={certificateOptions}
                 onChange={e => {
@@ -445,18 +421,6 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                   setAccessPoint(props.accessPoint)
                 }}
                 disabled={certificatesLoading || certificateOptions.length == 0}
-              />
-              <FormInput.Select
-                name="role"
-                label={'Select Execution Role'}
-                placeholder={'Select Execution Role'}
-                items={roleOptions}
-                onChange={e => {
-                  formik.setFieldValue('role', e)
-                  if (props.accessPoint.metadata) props.accessPoint.metadata.role = e.value as string
-                  setAccessPoint(props.accessPoint)
-                }}
-                disabled={rolesLoading || roleOptions.length == 0 || props.isEditMod}
               />
               <FormInput.Select
                 name="vpc"

@@ -60,7 +60,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     org_id: orgIdentifier, // eslint-disable-line
     metadata: {
-      role: '',
       security_groups: [] // eslint-disable-line
     },
     type: 'aws',

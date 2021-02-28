@@ -14,6 +14,7 @@ import {
   useSavingsOfService
 } from 'services/lw'
 import { useStrings } from 'framework/exports'
+import { useToaster } from '@common/exports'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
@@ -100,12 +101,14 @@ const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ'
 const today = () => moment()
 const startOfDay = (time: moment.Moment) => time.startOf('day').toDate()
 const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
+
 const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const { orgIdentifier, projectIdentifier } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
   }>()
   const { getString } = useStrings()
+  const { showError } = useToaster()
   const [categories, setCategories] = useState<string[]>([])
   const [savingsSeries, setSavingsSeries] = useState<number[]>([])
   const [spendSeries, setSpendSeries] = useState<number[]>([])
@@ -130,12 +133,15 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     serviceID: props.service.id as number,
     debounce: 300
   })
-  const { data: resources, loading: resourcesLoading } = useAllServiceResources({
+  const { data: resources, loading: resourcesLoading, error: resourceError } = useAllServiceResources({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     service_id: props.service.id as number, // eslint-disable-line
     debounce: 300
   })
+  if (resourceError) {
+    showError(`could not load resources for rule`)
+  }
   useEffect(() => {
     if (graphLoading) {
       return
@@ -199,7 +205,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           <Layout.Vertical spacing="large" padding="medium">
             <Text>Instances managed by the Rule</Text>
             <Layout.Horizontal spacing="xsmall">
-              {!resourcesLoading ? (
+              {!resourcesLoading && resources ? (
                 <Link
                   href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
                   target="_blank"

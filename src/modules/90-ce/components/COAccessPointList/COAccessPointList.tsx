@@ -43,7 +43,7 @@ function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
 }
 
 function DNSCell(tableProps: CellProps<AccessPoint>): JSX.Element {
-  return <Text lineClamp={3}>{tableProps.row.original.metadata ? '' : 'Route 53'}</Text>
+  return <Text lineClamp={3}>{tableProps.row.original.metadata ? 'Route 53' : 'Others'}</Text>
 }
 function CloudAccountCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   return (
@@ -71,7 +71,6 @@ const COAccessPointList: React.FC = () => {
           project_id: projectIdentifier, // eslint-disable-line
           org_id: orgIdentifier, // eslint-disable-line
           metadata: {
-            role: '',
             security_groups: [] // eslint-disable-line
           },
           type: 'aws'

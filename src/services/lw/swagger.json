@@ -2408,7 +2408,6 @@
       "type": "object",
       "properties": {
         "error": { "type": "string" },
-        "role": { "type": "string" },
         "certificate_id": { "type": "string" },
         "security_groups": {
           "type": "array",

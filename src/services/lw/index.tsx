@@ -274,7 +274,6 @@ export interface ServiceLogsResponse {
 
 export interface AccessPointMeta {
   error?: string
-  role?: string
   certificate_id?: string
   security_groups?: string[]
 }
