@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Formik, FormikForm, Text, Layout, Icon, Color } from '@wings-software/uicore'
+import { Container, Text, Layout, Icon, Color } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
-import type { FormikProps } from 'formik'
 import Table from '@common/components/Table/Table'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 
 import {
   useGetListApplications,
-  Application,
   RestResponsePageResponseApplication,
   GetListApplicationsQueryParams
 } from 'services/portal'
@@ -21,6 +19,8 @@ import { useStrings } from 'framework/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import css from './SelectApplication.module.scss'
+
+const PAGE_SIZE = 7
 
 export interface HarnessCDActivitySourceDetailsProps {
   stepData: any
@@ -59,6 +59,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<string | undefined>()
   const [tableData, setTableData] = useState<TableData[]>([])
+  const [validationText, setValidationText] = useState<undefined | string>()
   const [selectedApps, setSelectedApps] = useState<Map<string, string>>(
     initializeSelectedApplications(props.stepData.applications)
   )
@@ -66,7 +67,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
     queryParams: {
       accountId,
       offset: String(offset),
-      limit: '8',
+      limit: PAGE_SIZE.toString(),
       search: filter ? [{ field: 'keywords', op: 'CONTAINS', value: filter }] : undefined
     } as GetListApplicationsQueryParams,
     mock: props.mockData
@@ -114,102 +115,90 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
 
   const onNext = () => {
     if (selectedApps.size) {
+      setValidationText(undefined)
       const newlySelectedApplications: { [key: string]: string } = {}
       for (const app of selectedApps) {
         newlySelectedApplications[app[0]] = app[1]
       }
       props.onSubmit?.({ ...props.stepData, applications: newlySelectedApplications })
+    } else {
+      setValidationText(getString('cv.activitySources.harnessCD.validation.applicationValidation'))
     }
   }
 
-  const totalpages = Math.ceil((data?.resource as any)?.total / 8)
+  const totalpages = Math.ceil((data?.resource as any)?.total / PAGE_SIZE)
 
   return (
     <Container className={css.main}>
       <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
         {getString('cv.activitySources.harnessCD.application.infoText')}
       </Text>
-      <Formik
-        initialValues={{
-          selectedApplications: props.stepData.applications || []
+
+      <Table<TableData>
+        onRowClick={rowData => {
+          onUpdateData({ ...rowData, selected: !selectedApps.has(rowData.id) })
         }}
-        onSubmit={onNext}
-      >
-        {(formik: FormikProps<{ selectedApplications: Array<Application> }>) => {
-          return (
-            <FormikForm>
-              <Table<TableData>
-                onRowClick={rowData => onUpdateData({ ...rowData, selected: !rowData.selected })}
-                columns={[
-                  {
-                    Header: getString('cv.activitySources.harnessCD.harnessApps') || '',
-                    accessor: 'selected',
+        columns={[
+          {
+            Header: getString('cv.activitySources.harnessCD.harnessApps') || '',
+            accessor: 'selected',
 
-                    width: '40%',
-                    Cell: function RenderApplications(tableProps) {
-                      const rowData: TableData = tableProps.row?.original
-                      return (
-                        <Layout.Horizontal spacing="small">
-                          <input
-                            style={{ cursor: 'pointer' }}
-                            type="checkbox"
-                            checked={selectedApps.has(rowData.id)}
-                            onChange={e => {
-                              onUpdateData({ ...rowData, selected: e.target.checked })
-                            }}
-                          />
-                          <Icon name="cd-main" />
-                          <Text color={Color.BLACK} lineClamp={1} width="80%">
-                            {rowData.name}
-                          </Text>
-                        </Layout.Horizontal>
-                      )
-                    },
+            width: '40%',
+            Cell: function RenderApplications(tableProps) {
+              const rowData: TableData = tableProps.row?.original
+              return (
+                <Layout.Horizontal spacing="small">
+                  <input
+                    style={{ cursor: 'pointer' }}
+                    type="checkbox"
+                    checked={selectedApps.has(rowData.id)}
+                    onChange={e => {
+                      onUpdateData({ ...rowData, selected: e.target.checked })
+                    }}
+                  />
+                  <Icon name="cd-main" />
+                  <Text color={Color.BLACK} lineClamp={1} width="80%">
+                    {rowData.name}
+                  </Text>
+                </Layout.Horizontal>
+              )
+            },
 
-                    disableSortBy: true
-                  },
-                  {
-                    Header: (
-                      <TableColumnWithFilter
-                        columnName={getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
-                        onFilter={filterValue => setFilter(filterValue)}
-                        appliedFilter={filter}
-                      />
-                    ),
-                    id: 'serviceCount',
-                    width: '60%',
-                    Cell: RenderColumnServicesCount,
-
-                    disableSortBy: true
-                  }
-                ]}
-                data={tableData || []}
-                pagination={{
-                  itemCount: (data?.resource as any)?.total || 0,
-                  pageSize: (data?.resource as any)?.pageSize || 8,
-                  pageCount: totalpages || -1,
-                  pageIndex: page || 0,
-                  gotoPage: pageNumber => {
-                    setPage(pageNumber)
-                    if (pageNumber) {
-                      setOffset(pageNumber * 8 + 1)
-                    } else {
-                      setOffset(0)
-                    }
-                  }
-                }}
+            disableSortBy: true
+          },
+          {
+            Header: (
+              <TableColumnWithFilter
+                columnName={getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
+                onFilter={filterValue => setFilter(filterValue)}
+                appliedFilter={filter}
               />
-              <SubmitAndPreviousButtons
-                nextButtonProps={{ disabled: !selectedApps.size }}
-                onPreviousClick={props.onPrevious}
-                onNextClick={() => {
-                  formik.submitForm()
-                }}
-              />
-            </FormikForm>
-          )
+            ),
+            id: 'serviceCount',
+            width: '60%',
+            Cell: RenderColumnServicesCount,
+
+            disableSortBy: true
+          }
+        ]}
+        data={tableData || []}
+        pagination={{
+          itemCount: (data?.resource as any)?.total || 0,
+          pageSize: (data?.resource as any)?.pageSize || PAGE_SIZE,
+          pageCount: totalpages || -1,
+          pageIndex: page || 0,
+          gotoPage: pageNumber => {
+            setPage(pageNumber)
+            if (pageNumber) {
+              setOffset(pageNumber * PAGE_SIZE + 1)
+            } else {
+              setOffset(0)
+            }
+          }
         }}
-      </Formik>
+      />
+      {validationText?.length && <Text intent="danger">{validationText}</Text>}
+      <SubmitAndPreviousButtons onPreviousClick={props.onPrevious} onNextClick={onNext} />
       {!tableData?.length && !error?.message && (
         <Container className={css.loadingErrorNoData}>
           <NoDataCard

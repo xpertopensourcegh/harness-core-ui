@@ -1742,7 +1742,9 @@ cv:
         harnessServices: 'HARNESS CD 1.0 SERVICES'
         services: 'HARNESS CV 2.0 SERVICES'
       validation:
-        selectedApplication: 'Select atleast one application'
+        applicationValidation: At least one application must be selected.
+        serviceValidation: At least one service mapping must be selected.
+        environmentValidation: At least one environment mapping must be selected.
     kubernetes:
       tabNames:
         - 'Select Kubernetes Connector'

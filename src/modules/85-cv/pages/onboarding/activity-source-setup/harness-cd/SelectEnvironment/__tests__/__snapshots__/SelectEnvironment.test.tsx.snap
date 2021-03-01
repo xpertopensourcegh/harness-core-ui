@@ -11,377 +11,367 @@ exports[`SelectEnvironment render 1`] = `
       Select the CD 1.0 environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.
     </p>
     <div
-      class="OverlaySpinner--overlaySpinner"
+      class="table"
     >
-      <form
-        class="FormikForm--main"
+      <div
+        class="header"
+        role="row"
       >
-        <div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 33%;"
+        >
+          HARNESS CD 1.0 ENVIRONMENTS
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 30%;"
+        >
+          HARNESS CD 1.0 APPLICATION
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 36%;"
+        >
           <div
-            class="table"
+            class="StyledProps--font StyledProps--main filterComponent"
+          />
+        </div>
+      </div>
+      <div
+        class="row card clickable"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 33%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            <div
-              class="header"
-              role="row"
+            <input
+              style="cursor: pointer;"
+              type="checkbox"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="cd-main"
             >
-              <div
-                class="cell"
-                colspan="1"
-                role="columnheader"
-                style="width: 33%;"
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 26 21"
+                width="16"
               >
-                HARNESS CD 1.0 ENVIRONMENTS
-              </div>
-              <div
-                class="cell"
-                colspan="1"
-                role="columnheader"
-                style="width: 30%;"
-              >
-                HARNESS CD 1.0 APPLICATION
-              </div>
-              <div
-                class="cell"
-                colspan="1"
-                role="columnheader"
-                style="width: 36%;"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main filterComponent"
+                <path
+                  clip-rule="evenodd"
+                  d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                  fill="url(#cd-main_svg__paint0_linear)"
+                  fill-rule="evenodd"
                 />
-              </div>
-            </div>
-            <div
-              class="row card clickable"
-              role="row"
+                <defs>
+                  <lineargradient
+                    gradientUnits="userSpaceOnUse"
+                    id="cd-main_svg__paint0_linear"
+                    x1="3.557"
+                    x2="8.848"
+                    y1="9.622"
+                    y2="18.787"
+                  >
+                    <stop
+                      stop-color="#62F91F"
+                    />
+                    <stop
+                      offset="1"
+                      stop-color="#5EAA53"
+                    />
+                  </lineargradient>
+                </defs>
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
-              <div
-                class="cell"
-                role="cell"
-                style="width: 33%;"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                >
-                  <input
-                    style="cursor: pointer;"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="cd-main"
-                  >
-                    <svg
-                      fill="none"
-                      height="16"
-                      viewBox="0 0 26 21"
-                      width="16"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                        fill="url(#cd-main_svg__paint0_linear)"
-                        fill-rule="evenodd"
-                      />
-                      <defs>
-                        <lineargradient
-                          gradientUnits="userSpaceOnUse"
-                          id="cd-main_svg__paint0_linear"
-                          x1="3.557"
-                          x2="8.848"
-                          y1="9.622"
-                          y2="18.787"
-                        >
-                          <stop
-                            stop-color="#62F91F"
-                          />
-                          <stop
-                            offset="1"
-                            stop-color="#5EAA53"
-                          />
-                        </lineargradient>
-                      </defs>
-                    </svg>
-                  </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                  >
-                    Test Env
-                  </p>
-                </div>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 30%;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                >
-                  appName
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 36%;"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--margin-right-small StyledProps--margin-top-small"
-                    data-icon="harness"
-                  >
-                    <svg
-                      height="20"
-                      viewBox="0 0 25 25"
-                      width="20"
-                    >
-                      <path
-                        d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
-                        fill="#4facdf"
-                      />
-                    </svg>
-                  </span>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    <div
-                      class="bp3-popover-wrapper Select--main bp3-fill"
-                    >
-                      <div
-                        class="bp3-popover-target"
-                      >
-                        <div
-                          class="bp3-input-group"
-                        >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            placeholder="Select or create an environment"
-                            style="padding-right: 0px;"
-                            type="text"
-                            value=""
-                          />
-                          <span
-                            class="bp3-input-action"
-                          >
-                            <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
-                            >
-                              <svg
-                                data-icon="caret-down"
-                                height="14"
-                                viewBox="0 0 16 16"
-                                width="14"
-                              >
-                                <desc>
-                                  caret-down
-                                </desc>
-                                <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
-            >
-              <span
-                class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
-              >
-                Showing 
-                <strong>
-                  1
-                </strong>
-                 -
-                 
-                <strong>
-                  5
-                </strong>
-                 of 
-                <strong>
-                  50
-                </strong>
-              </span>
-              <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-              >
-                <button
-                  class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-                  disabled=""
-                  tabindex="-1"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    1
-                  </span>
-                </button>
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    2
-                  </span>
-                </button>
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    3
-                  </span>
-                </button>
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    4
-                  </span>
-                </button>
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    5
-                  </span>
-                </button>
-                <div
-                  class="bp3-popover-wrapper Select--main bp3-fill"
-                >
-                  <div
-                    class="bp3-popover-target"
-                  >
-                    <div
-                      class=""
-                    >
-                      <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-more StyledProps--main"
-                          icon="more"
-                        >
-                          <svg
-                            data-icon="more"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              more
-                            </desc>
-                            <path
-                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    9
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div
-            class="Layout--horizontal StyledProps--main main"
-          >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-                icon="chevron-left"
-              >
-                <svg
-                  data-icon="chevron-left"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    chevron-left
-                  </desc>
-                  <path
-                    d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                Previous
-              </span>
-            </button>
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-              type="submit"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                Next
-              </span>
-              <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                icon="chevron-right"
-              >
-                <svg
-                  data-icon="chevron-right"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    chevron-right
-                  </desc>
-                  <path
-                    d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
+              Test Env
+            </p>
           </div>
         </div>
-      </form>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 30%;"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            appName
+          </p>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 36%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <span
+              class="bp3-icon StyledProps--main StyledProps--margin-right-small StyledProps--margin-top-small"
+              data-icon="harness"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 25 25"
+                width="20"
+              >
+                <path
+                  d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+                  fill="#4facdf"
+                />
+              </svg>
+            </span>
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <div
+                class="bp3-popover-wrapper Select--main bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      placeholder="Select or create an environment"
+                      style="padding-right: 0px;"
+                      type="text"
+                      value=""
+                    />
+                    <span
+                      class="bp3-input-action"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+      >
+        <span
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
+        >
+          Showing 
+          <strong>
+            1
+          </strong>
+           -
+           
+          <strong>
+            5
+          </strong>
+           of 
+          <strong>
+            50
+          </strong>
+        </span>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        >
+          <button
+            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              1
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              2
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              3
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              4
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              5
+            </span>
+          </button>
+          <div
+            class="bp3-popover-wrapper Select--main bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class=""
+              >
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-more StyledProps--main"
+                    icon="more"
+                  >
+                    <svg
+                      data-icon="more"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        more
+                      </desc>
+                      <path
+                        d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              10
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main main"
+    >
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+          icon="chevron-left"
+        >
+          <svg
+            data-icon="chevron-left"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-left
+            </desc>
+            <path
+              d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          Previous
+        </span>
+      </button>
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="submit"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Next
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
     </div>
   </div>
 </div>

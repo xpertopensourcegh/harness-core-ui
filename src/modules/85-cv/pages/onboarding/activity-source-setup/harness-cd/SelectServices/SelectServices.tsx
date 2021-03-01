@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Container, Formik, FormikForm, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uicore'
+import { Container, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
@@ -31,7 +31,7 @@ import routes from '@common/RouteDefinitions'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import css from './SelectServices.module.scss'
 
-const PAGE_LIMIT = 6
+const PAGE_LIMIT = 5
 
 export interface SelectServicesProps {
   initialValues?: any
@@ -106,6 +106,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   const [tableData, setTableData] = useState<Array<TableData>>()
   const [serviceOptions, setServiceOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const [validationText, setValidationText] = useState<undefined | string>()
   const { showError, clear } = useToaster()
   const [page, setPage] = useState(0)
   const [filter, setFilter] = useState<string | undefined>()
@@ -207,7 +208,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
 
     if (Object.keys(services).length) {
       props.onSubmit?.({ services, type: 'HarnessCD_1.0', sourceType: ONBOARDING_ENTITIES.CHANGE_SOURCE })
-
+      setValidationText(undefined)
       const savePayload = transformToSavePayload({ ...props.initialValues, services })
       try {
         await mutate(savePayload)
@@ -224,6 +225,8 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
           showError(getErrorMessage(e))
         }
       }
+    } else {
+      setValidationText(getString('cv.activitySources.harnessCD.validation.serviceValidation'))
     }
   }
 
@@ -232,108 +235,97 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
         {getString('cv.activitySources.harnessCD.service.infoText')}
       </Text>
-      <Formik<{ selectedServices: any[] }>
-        initialValues={{ selectedServices: props.initialValues.selectedServices || [] }}
-        onSubmit={() => {
-          onNext()
-        }}
-      >
-        {() => {
-          return (
-            <FormikForm>
-              <Table<TableData>
-                onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
-                columns={[
-                  {
-                    Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
-                    accessor: 'name',
+      <Table<TableData>
+        onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
+        columns={[
+          {
+            Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
+            accessor: 'name',
 
-                    width: '28%',
-                    Cell: function RenderApplications(tableProps) {
-                      const rowData: TableData = tableProps?.row?.original as TableData
+            width: '28%',
+            Cell: function RenderApplications(tableProps) {
+              const rowData: TableData = tableProps?.row?.original as TableData
 
-                      return (
-                        <Layout.Horizontal spacing="small">
-                          <input
-                            style={{ cursor: 'pointer' }}
-                            type="checkbox"
-                            checked={rowData.selected}
-                            onChange={e => {
-                              onUpdateData(tableProps.row.index, { selected: e.target.checked })
-                            }}
-                          />
-                          <Icon name="cd-main" />
-                          <Text color={Color.BLACK} lineClamp={1} width="95%">
-                            {rowData.name}
-                          </Text>
-                        </Layout.Horizontal>
-                      )
-                    },
-                    disableSortBy: true
-                  },
-                  {
-                    Header: getString('cv.activitySources.harnessCD.harnessApps'),
-                    accessor: 'appName',
+              return (
+                <Layout.Horizontal spacing="small">
+                  <input
+                    style={{ cursor: 'pointer' }}
+                    type="checkbox"
+                    checked={rowData.selected}
+                    onChange={e => {
+                      onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                    }}
+                  />
+                  <Icon name="cd-main" />
+                  <Text color={Color.BLACK} lineClamp={1} width="95%">
+                    {rowData.name}
+                  </Text>
+                </Layout.Horizontal>
+              )
+            },
+            disableSortBy: true
+          },
+          {
+            Header: getString('cv.activitySources.harnessCD.harnessApps'),
+            accessor: 'appName',
 
-                    width: '28%',
-                    Cell: RenderColumnApplication,
+            width: '28%',
+            Cell: RenderColumnApplication,
 
-                    disableSortBy: true
-                  },
-                  {
-                    Header: (
-                      <TableColumnWithFilter
-                        columnName={getString('cv.activitySources.harnessCD.service.services')}
-                        onFilter={filterValue => setFilter(filterValue)}
-                        appliedFilter={filter}
-                      />
-                    ),
-                    accessor: 'service',
-                    width: '44%',
-                    Cell: function ServiceCell({ row, value }) {
-                      return (
-                        <Layout.Horizontal className={css.serviceContent}>
-                          <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
-                          <ServiceSelectOrCreate
-                            item={value}
-                            options={serviceOptions}
-                            onSelect={val => onUpdateData(row.index, { service: val })}
-                            onNewCreated={(val: ServiceResponseDTO) => {
-                              setServiceOptions([{ label: val.name, value: val.identifier }, ...serviceOptions])
-                              onUpdateData(row.index, { service: { label: val.name, value: val.identifier } })
-                            }}
-                          />
-                        </Layout.Horizontal>
-                      )
-                    },
-
-                    disableSortBy: true
-                  }
-                ]}
-                data={tableData || []}
-                pagination={{
-                  itemCount: (data?.resource as any)?.total || 0,
-                  pageSize: (data?.resource as any)?.pageSize || PAGE_LIMIT,
-                  pageCount: Math.ceil((data?.resource as any)?.total / PAGE_LIMIT) || -1,
-                  pageIndex: page || 0,
-                  gotoPage: pageNumber => {
-                    setPage(pageNumber)
-                    if (pageNumber) {
-                      setOffset(pageNumber * PAGE_LIMIT + 1)
-                    } else {
-                      setOffset(0)
-                    }
-                  }
-                }}
+            disableSortBy: true
+          },
+          {
+            Header: (
+              <TableColumnWithFilter
+                columnName={getString('cv.activitySources.harnessCD.service.services')}
+                onFilter={filterValue => setFilter(filterValue)}
+                appliedFilter={filter}
               />
-              <SubmitAndPreviousButtons
-                onPreviousClick={props.onPrevious}
-                nextButtonProps={{ text: getString('submit') }}
-              />
-            </FormikForm>
-          )
+            ),
+            accessor: 'service',
+            width: '44%',
+            Cell: function ServiceCell({ row, value }) {
+              return (
+                <Layout.Horizontal className={css.serviceContent}>
+                  <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
+                  <ServiceSelectOrCreate
+                    item={value}
+                    options={serviceOptions}
+                    onSelect={val => onUpdateData(row.index, { service: val })}
+                    onNewCreated={(val: ServiceResponseDTO) => {
+                      setServiceOptions([{ label: val.name, value: val.identifier }, ...serviceOptions])
+                      onUpdateData(row.index, { service: { label: val.name, value: val.identifier } })
+                    }}
+                  />
+                </Layout.Horizontal>
+              )
+            },
+
+            disableSortBy: true
+          }
+        ]}
+        data={tableData || []}
+        pagination={{
+          itemCount: (data?.resource as any)?.total || 0,
+          pageSize: (data?.resource as any)?.pageSize || PAGE_LIMIT,
+          pageCount: Math.ceil((data?.resource as any)?.total / PAGE_LIMIT) || -1,
+          pageIndex: page || 0,
+          gotoPage: pageNumber => {
+            setPage(pageNumber)
+            if (pageNumber) {
+              setOffset(pageNumber * PAGE_LIMIT + 1)
+            } else {
+              setOffset(0)
+            }
+          }
         }}
-      </Formik>
+      />
+      {validationText && <Text intent="danger">{validationText}</Text>}
+      <SubmitAndPreviousButtons
+        onPreviousClick={props.onPrevious}
+        onNextClick={onNext}
+        nextButtonProps={{ text: getString('submit') }}
+      />
       {error?.message && (
         <Container className={css.loadingErrorNoData}>
           <PageError message={error.message} onClick={() => refetch()} />

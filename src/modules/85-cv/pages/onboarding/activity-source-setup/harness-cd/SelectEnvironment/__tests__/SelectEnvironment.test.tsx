@@ -108,7 +108,7 @@ describe('SelectEnvironment', () => {
       },
       queryParams: {
         appId: ['appId'],
-        limit: '6',
+        limit: '5',
         offset: '0',
         'search[0]': [
           {
@@ -215,5 +215,50 @@ describe('SelectEnvironment', () => {
         }
       })
     )
+  })
+
+  test('Ensure validation message is displayed when no apps are selected', async () => {
+    const useGetEnvironmentListForProjectSpy = jest.spyOn(cdService, 'useGetEnvironmentListForProject')
+    const useCreateEnvironmentSpy = jest.spyOn(cdService, 'useCreateEnvironment')
+    const useGetListEnvironmentsSpy = jest.spyOn(portalService, 'useGetListEnvironments')
+    const refetchMock = jest.fn()
+    useGetEnvironmentListForProjectSpy.mockReturnValue(
+      (mockEnvironments as unknown) as UseGetReturn<any, any, any, any>
+    )
+    useCreateEnvironmentSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<
+      any,
+      any,
+      any,
+      any,
+      any
+    >)
+    useGetListEnvironmentsSpy.mockReturnValue({ data: mockEnv, refetch: refetchMock as unknown } as UseGetReturn<
+      any,
+      any,
+      any,
+      any
+    >)
+
+    const onSubmitMock = jest.fn()
+    const { container, getByText } = render(
+      <MemoryRouter>
+        <TestWrapper>
+          <SelectEnvironment
+            initialValues={{ applications: { appId: 'appName' } }}
+            onPrevious={jest.fn()}
+            onSubmit={onSubmitMock}
+          />
+        </TestWrapper>
+      </MemoryRouter>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    const submitButton = container.querySelector('button[type="submit"]')
+    if (!submitButton) {
+      throw Error('Submit button was not rendered.')
+    }
+
+    fireEvent.click(submitButton)
+    await waitFor(() => expect(getByText('At least one environment mapping must be selected.')))
   })
 })

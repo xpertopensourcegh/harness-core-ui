@@ -95,7 +95,7 @@ describe('Select Services', () => {
       },
       queryParams: {
         appId: ['1234_appId'],
-        limit: '6',
+        limit: '5',
         offset: '0',
         'search[0]': [
           {
@@ -271,5 +271,42 @@ describe('Select Services', () => {
     await waitFor(() =>
       expect(document.body.querySelector('[class*="bp3-toast-message"]')?.innerHTML).toEqual('some error')
     )
+  })
+
+  test('Ensure validation message is displayed when no apps are selected', async () => {
+    const useGetServiceListForProjectSpy = jest.spyOn(cdService, 'useGetServiceListForProject')
+    const useCreateServiceSpy = jest.spyOn(cdService, 'useCreateService')
+    const useGetListServicesSpy = jest.spyOn(portalService, 'useGetListServices')
+
+    useGetServiceListForProjectSpy.mockReturnValue((mockServices as unknown) as UseGetReturn<any, any, any, any>)
+    useCreateServiceSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<any, any, any, any, any>)
+    useGetListServicesSpy.mockReturnValue({ data: mockServiceCD, refetch: jest.fn() as unknown } as UseGetReturn<
+      any,
+      any,
+      any,
+      any
+    >)
+
+    const onSubmitMock = jest.fn()
+    const { container, getByText } = render(
+      <MemoryRouter>
+        <TestWrapper>
+          <SelectServices
+            initialValues={{ applications: { '1234_appId': 'appName' } }}
+            onPrevious={jest.fn()}
+            onSubmit={onSubmitMock}
+          />
+        </TestWrapper>
+      </MemoryRouter>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    const submitButton = container.querySelector('button[type="submit"]')
+    if (!submitButton) {
+      throw Error('Submit button was not rendered.')
+    }
+
+    fireEvent.click(submitButton)
+    await waitFor(() => expect(getByText('At least one service mapping must be selected.')))
   })
 })

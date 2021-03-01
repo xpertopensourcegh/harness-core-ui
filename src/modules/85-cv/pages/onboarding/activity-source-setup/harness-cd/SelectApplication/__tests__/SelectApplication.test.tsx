@@ -918,4 +918,34 @@ describe('SelectApplication', () => {
       })
     )
   })
+
+  test('Ensure validation message is displayed when no apps are selected', async () => {
+    const useGetListApplicationsSpy = jest.spyOn(portalService, 'useGetListApplications')
+    useGetListApplicationsSpy.mockReturnValue({
+      data: MockData
+    } as UseGetReturn<any, any, any, any>)
+    const onSubmitMock = jest.fn()
+
+    const { container, getByText } = render(
+      <MemoryRouter>
+        <TestWrapper>
+          <SelectApplication
+            onPrevious={jest.fn()}
+            onSubmit={onSubmitMock}
+            mockData={{ data: mockData as any, loading: false }}
+            stepData={{}}
+          />
+        </TestWrapper>
+      </MemoryRouter>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    const submitButton = container.querySelector('button[type="submit"]')
+    if (!submitButton) {
+      throw Error('Submit button was not rendered.')
+    }
+
+    fireEvent.click(submitButton)
+    await waitFor(() => expect(getByText('At least one application must be selected.')))
+  })
 })
