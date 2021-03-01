@@ -3,13 +3,12 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { get } from 'lodash-es'
 import { Menu, Position } from '@blueprintjs/core'
-import { Button, Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Button, Color, Container, Layout, Pagination, Text } from '@wings-software/uicore'
 import { EnvironmentResponseDTO, useDeleteEnvironment, useGetEnvironmentListForProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
-import { Page, useConfirmationDialog, useToaster } from '@common/exports'
-import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { PageError } from '@common/components/Page/PageError'
+import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useEnvStrings } from '@cf/hooks/environment'
+import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
 import { withTableData } from '../../utils/table-utils'
@@ -210,61 +209,53 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
     ],
     [getString, getEnvString, handleDeleteEnv]
   )
+  const title = getString('environments')
 
   return (
-    <>
-      <Page.Header title={getEnvString('title')} size="medium" />
-      <Container className={css.envListContainer}>
-        <Layout.Horizontal className={css.envPageBtnsHeader}>
+    <ListingPageTemplate
+      pageTitle={title}
+      header={title}
+      toolbar={
+        <Layout.Horizontal>
           <EnvironmentDialog disabled={loading} onCreate={refetch} />
         </Layout.Horizontal>
-        {hasEnvs && (
-          <Layout.Vertical
-            padding={{
-              top: 'medium',
-              bottom: 'medium',
-              left: 'large',
-              right: 'large'
-            }}
-          >
-            <Table<Environment>
-              columns={columns}
-              data={(environments as Environment[]) || []}
-              onRowClick={({ identifier }) => handleEdit(identifier as string)}
-              pagination={{
-                itemCount: envData?.data?.totalItems || 0,
-                pageSize: envData?.data?.pageSize || 7,
-                pageCount: envData?.data?.totalPages || -1,
-                pageIndex: envData?.data?.pageIndex || 0,
-                gotoPage: () => undefined
-              }}
-            />
-          </Layout.Vertical>
-        )}
-        {emptyEnvs && (
-          <Layout.Vertical className={css.heightOverride}>
-            <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
-              {getEnvString('empty')}
-            </Text>
-            <EnvironmentDialog onCreate={refetch} />
-          </Layout.Vertical>
-        )}
-        {error && <PageError message={error?.message} onClick={() => refetch()} />}
-        {loading && (
-          <Container
-            style={{
-              position: 'fixed',
-              top: '144px',
-              left: '270px',
-              width: 'calc(100% - 270px)',
-              height: 'calc(100% - 144px)'
-            }}
-          >
-            <ContainerSpinner />
-          </Container>
-        )}
-      </Container>
-    </>
+      }
+      content={
+        <>
+          {hasEnvs && (
+            <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
+              <Table<Environment>
+                columns={columns}
+                data={(environments as Environment[]) || []}
+                onRowClick={({ identifier }) => handleEdit(identifier as string)}
+              />
+            </Container>
+          )}
+          {emptyEnvs && (
+            <Layout.Vertical className={css.heightOverride}>
+              <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
+                {getEnvString('empty')}
+              </Text>
+              <EnvironmentDialog onCreate={refetch} />
+            </Layout.Vertical>
+          )}
+        </>
+      }
+      pagination={
+        <Pagination
+          itemCount={envData?.data?.totalItems || 0}
+          pageSize={envData?.data?.pageSize || 0}
+          pageCount={envData?.data?.totalPages || 0}
+          pageIndex={envData?.data?.pageIndex || 0}
+          gotoPage={() => undefined} // TODO: implement goto
+        />
+      }
+      error={error}
+      retryOnError={() => {
+        refetch()
+      }}
+      loading={loading}
+    />
   )
 }
 

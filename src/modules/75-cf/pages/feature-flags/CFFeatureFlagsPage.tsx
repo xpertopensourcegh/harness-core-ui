@@ -27,12 +27,11 @@ import { useConfirmAction, useLocalStorage } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag, Features, FeatureState } from 'services/cf'
-import { PageError } from '@common/components/Page/PageError'
-import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useStrings } from 'framework/exports'
 import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
 import { VariationTypeIcon } from '@cf/components/VariationTypeIcon/VariationTypeIcon'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
+import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
   DEFAULT_ENV,
@@ -67,7 +66,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
     flagIdentifier: data.identifier
   })
   const { showError, clear } = useToaster()
-  const [size, setSize] = useState(300)
+  const [flagNameTextSize, setFlagNameTextSize] = useState(300)
   const ref = useRef<HTMLDivElement>(null)
 
   const switchTooltip = (
@@ -135,7 +134,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
 
   const onResize = () => {
     if (ref.current) {
-      setSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)?.offsetWidth - 174)
+      setFlagNameTextSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)?.offsetWidth - 174)
     }
   }
 
@@ -178,7 +177,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
               lineHeight: '16px'
             }}
             margin={{ right: 'xsmall' }}
-            width={size}
+            width={flagNameTextSize}
             lineClamp={2}
           >
             {data.name}
@@ -391,6 +390,7 @@ const CFFeatureFlagsPage: React.FC = () => {
     queryParams
   })
   const [features, setFeatures] = useState<Features | null>()
+  const { getString } = useStrings()
 
   useEffect(() => {
     if (!envsLoading) {
@@ -494,28 +494,14 @@ const CFFeatureFlagsPage: React.FC = () => {
   }
   const hasFeatureFlags = features?.features && features?.features?.length > 0
   const emptyFeatureFlags = features?.features && features?.features?.length === 0
+  const title = getString('featureFlagsText')
 
   return (
-    <>
-      <Heading
-        level={1}
-        height={80}
-        style={{
-          fontWeight: 'bold',
-          fontSize: '20px',
-          lineHeight: '28px',
-          color: '#22272D',
-          paddingLeft: 'var(--spacing-xxlarge)',
-          display: 'flex',
-          alignItems: 'center',
-          background: 'var(--white)'
-        }}
-      >
-        {i18n.featureFlag}
-      </Heading>
-
-      <Container className={css.content}>
-        <Layout.Horizontal className={css.ffPageBtnsHeader}>
+    <ListingPageTemplate
+      pageTitle={title}
+      header={title}
+      toolbar={
+        <Layout.Horizontal>
           <FlagDialog disabled={loading} environment={environment?.value as string} />
 
           <FlexExpander />
@@ -542,89 +528,65 @@ const CFFeatureFlagsPage: React.FC = () => {
             onClick={onDrawerOpened}
           /> */}
         </Layout.Horizontal>
-
-        {/** TODO: Disable filter as backend does not fully support it yet */}
-        {/* <Drawer
-          isOpen={isDrawerOpened}
-          title={isSaveFiltersOn ? i18n.saveFilters : i18n.drawerFilter}
-          icon="settings"
-          onClose={onDrawerClose}
-          className={css.drawerContainer}
-        >
-          <FlagDrawerFilter isSaveFiltersOn={isSaveFiltersOn} setIsSaveFiltersOn={setIsSaveFiltersOn} />
-        </Drawer> */}
-
-        {hasFeatureFlags && (
-          <Container className={css.table}>
-            <Container className={css.list}>
-              <Table<Feature>
-                columns={columns}
-                data={features?.features || []}
-                onRowClick={feature => {
-                  history.push(
-                    routes.toCFFeatureFlagsDetail({
-                      orgIdentifier: orgIdentifier as string,
-                      projectIdentifier: projectIdentifier as string,
-                      environmentIdentifier: environment?.value || (environments[0]?.value as string),
-                      featureFlagIdentifier: feature.identifier,
-                      accountId
-                    })
-                  )
-                }}
-              />
+      }
+      content={
+        <>
+          {hasFeatureFlags && (
+            <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
+              <Container className={css.list}>
+                <Table<Feature>
+                  columns={columns}
+                  data={features?.features || []}
+                  onRowClick={feature => {
+                    history.push(
+                      routes.toCFFeatureFlagsDetail({
+                        orgIdentifier: orgIdentifier as string,
+                        projectIdentifier: projectIdentifier as string,
+                        environmentIdentifier: environment?.value || (environments[0]?.value as string),
+                        featureFlagIdentifier: feature.identifier,
+                        accountId
+                      })
+                    )
+                  }}
+                />
+              </Container>
             </Container>
-            <Container className={css.pagination}>
-              <Pagination
-                itemCount={features?.itemCount || 0}
-                pageSize={features?.pageSize || 0}
-                pageCount={features?.pageCount || 0}
-                pageIndex={pageNumber}
-                gotoPage={index => {
-                  setPageNumber(index)
-                  refetch({ queryParams: { ...queryParams, pageNumber: index } })
-                }}
-              />
-            </Container>
-          </Container>
-        )}
+          )}
 
-        {emptyFeatureFlags && (
-          <Layout.Vertical className={css.heightOverride}>
-            <Container>
-              <Icon name="flag" size={150} color={Color.GREY_300} className={css.ffContainerImg} />
-            </Container>
-            <Text color="grey400" style={{ fontSize: '20px', padding: '40px 0' }}>
-              {i18n.noFeatureFlags}
-            </Text>
-            <FlagDialog environment={environment?.value as string} />
-          </Layout.Vertical>
-        )}
-
-        {error && (
-          <PageError
-            message={get(error, 'data.message', error?.message)}
-            onClick={() => {
-              setPageNumber(0)
-              refetchEnvironments()
+          {emptyFeatureFlags && (
+            <Layout.Vertical className={css.emptyContainer}>
+              <Container>
+                <Icon name="flag" size={150} color={Color.GREY_300} className={css.ffImage} />
+              </Container>
+              <Text color="grey400" style={{ fontSize: '20px', padding: '40px 0' }}>
+                {i18n.noFeatureFlags}
+              </Text>
+              <FlagDialog environment={environment?.value as string} />
+            </Layout.Vertical>
+          )}
+        </>
+      }
+      pagination={
+        !!features?.itemCount && (
+          <Pagination
+            itemCount={features?.itemCount || 0}
+            pageSize={features?.pageSize || 0}
+            pageCount={features?.pageCount || 0}
+            pageIndex={pageNumber}
+            gotoPage={index => {
+              setPageNumber(index)
+              refetch({ queryParams: { ...queryParams, pageNumber: index } })
             }}
           />
-        )}
-
-        {loading && (
-          <Container
-            style={{
-              position: 'fixed',
-              top: '144px',
-              left: '270px',
-              width: 'calc(100% - 270px)',
-              height: 'calc(100% - 144px)'
-            }}
-          >
-            <ContainerSpinner />
-          </Container>
-        )}
-      </Container>
-    </>
+        )
+      }
+      loading={loading}
+      error={error}
+      retryOnError={() => {
+        setPageNumber(0)
+        refetchEnvironments()
+      }}
+    />
   )
 }
 

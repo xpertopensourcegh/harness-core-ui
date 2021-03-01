@@ -10,7 +10,6 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { PageError } from '@common/components/Page/PageError'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { withTableData } from '../../utils/table-utils'
-import { default as Nav } from './VerticalNav'
 import AddKeyDialog from '../../components/AddKeyDialog/AddKeyDialog'
 import css from './CFEnvironmentDetails.module.scss'
 
@@ -268,39 +267,13 @@ const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ en
   )
 }
 
-enum SettingsTabs {
-  FeatureFlags = 'featureFlags',
-  Deployments = 'deployments',
-  Builds = 'builds',
-  CloudCosts = 'cloudCosts',
-  ChangeVerification = 'changeVerification'
-}
-
-const EnvironmentSettings: React.FC<{ environment: EnvironmentResponseDTO }> = ({ environment }) => {
-  const { getString } = useEnvStrings()
-  return (
-    <Nav initialTab={SettingsTabs.FeatureFlags} sharedProps={{ environment }}>
-      {/* <Nav.Option id={SettingsTabs.Deployments} name={getString('deploymentsText')} component={PlaceholderComp} />
-      <Nav.Option id={SettingsTabs.Builds} name={getString('buildsText')} component={PlaceholderComp} /> */}
-      <Nav.Option id={SettingsTabs.FeatureFlags} name={getString('featureFlagsText')} component={FeatureFlagsTab} />
-      {/* <Nav.Option id={SettingsTabs.CloudCosts} name={getString('cloudCostsText')} component={PlaceholderComp} />
-      <Nav.Option
-        id={SettingsTabs.ChangeVerification}
-        name={getString('changeVerificationText')}
-        component={PlaceholderComp}
-      /> */}
-    </Nav>
-  )
-}
-
 const CFEnvironmentDetailsBody: React.FC<{
   environment: EnvironmentResponseDTO
 }> = ({ environment }) => {
   return (
     <Container className={css.envTabs}>
       <Tabs id="envDetailsTabs">
-        {/* <Tab id="summary" title="Summary" panel={<Text>To be implemented</Text>} /> */}
-        <Tab id="settings" title="Settings" panel={<EnvironmentSettings environment={environment} />} />
+        <Tab id="settings" title="Settings" panel={<FeatureFlagsTab environment={environment} />} />
       </Tabs>
     </Container>
   )

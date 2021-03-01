@@ -1,8 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly heightOverride: string
-  readonly ffContainerImg: string
+  readonly emptyContainer: string
+  readonly ffImage: string
   readonly ffPageBtnsHeader: string
   readonly ffPageBtnsSearch: string
   readonly ffPageBtnsSelect: string

@@ -1418,6 +1418,10 @@ cf:
     archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
     deleteFlagSuccess: Flag <strong>{{name}}</strong> deleted.
     archiveFlagSuccess: Flag <strong>{{name}}</strong> archived.
+    flagOff: Flag is currently off for this environment
+    flagOn: Flag is currently on for this environment
+    flagWillTurnOn: Turn flag on for this environment upon save
+    flagWillTurnOff: Turn flag off for this environment upon save
   targets:
     title: 'Targets'
     ID: 'ID'

@@ -90,11 +90,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
         margin={{ bottom: 'small' }}
         style={{ alignItems: 'baseline', marginTop: editing ? 'var(--spacing-small)' : 0 }}
       >
-        <Text
-          margin={{ right: 'small' }}
-          style={{ fontSize: '14px', lineHeight: '24px' }}
-          width={editing ? 150 : undefined}
-        >
+        <Text margin={{ right: 'small' }} style={{ fontSize: '14px', lineHeight: '24px', whiteSpace: 'nowrap' }}>
           <span
             dangerouslySetInnerHTML={{
               __html: getString('cf.featureFlags.bucketBy', { targetField: editing ? undefined : bucketByDisplayName })
@@ -145,7 +141,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
                   transform: 'translateY(1px)'
                 }}
               ></span>
-              <Text margin={{ right: 'medium' }} width={100}>
+              <Text margin={{ right: 'medium' }} width={editing ? 198 : 237}>
                 {elem.displayName}
               </Text>
               {editing ? (

@@ -36,11 +36,7 @@ const CFEnvironmentDetailsHeader: React.FC<HeaderProps> = ({ environment }) => {
   }
 
   return (
-    <Layout.Vertical
-      spacing="medium"
-      background={Color.BLUE_200}
-      padding={{ top: 'large', bottom: 'large', left: 'xxxlarge', right: 'xxxlarge' }}
-    >
+    <Layout.Vertical spacing="medium" background={Color.BLUE_200} padding="xlarge">
       <div>
         <Layout.Horizontal
           spacing="small"
