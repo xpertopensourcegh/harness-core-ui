@@ -34,7 +34,7 @@ import RightBar from './RightBar/RightBar'
 
 import css from './ExecutionLandingPage.module.scss'
 
-export const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
+export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
 // TODO: remove 'any' once DTO is ready
 /** Add dependency services to nodeMap */
