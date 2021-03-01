@@ -555,7 +555,7 @@ inputTypes:
   EXPRESSION: Expression
 roleForm:
   createSuccess: Role created succesfully
-  editSuccess: Role updated succesfully
+  updateSuccess: Role updated succesfully
 roleDetails:
   permissionUpdatedSuccess: Permissions updated succesfully
   noDataText: You have no Roles. Click the button below to create a new one.

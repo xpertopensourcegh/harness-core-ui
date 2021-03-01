@@ -5,7 +5,7 @@ import debounce from 'p-debounce'
 import produce from 'immer'
 
 import { deepCompareKeys } from '@blueprintjs/core/lib/esnext/common/utils'
-import { useGetAccessControlList, PermissionCheck, HPrincipal, HAccessControlDTO } from 'services/rbac'
+import { useGetAccessControlList, PermissionCheck, UserPrincipal, HAccessControlDTO } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 type Permissions = Map<string, boolean>
@@ -76,8 +76,8 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
       principal: {
         principalIdentifier: accountId,
         principalType: 'USER',
-        '@type': 'HPrincipal'
-      } as HPrincipal
+        '@type': 'HUserPrincipal'
+      } as UserPrincipal
     })
 
     // clear pending requests after API call

@@ -15,14 +15,17 @@ import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import { getPermissionMap } from '@rbac/pages/RoleDetails/utils.tsx'
+import routes from '@common/RouteDefinitions'
+import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module } = useParams()
   const [resource, setResource] = useState<ResourceType>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [permissions, setPermissions] = useState<string[]>([])
+  const [isUpdated, setIsUpdated] = useState<boolean>(false)
   const listRef: Map<ResourceType, HTMLDivElement | null> = new Map()
   const { data, loading, error, refetch } = useGetRole({
     identifier: roleIdentifier,
@@ -56,6 +59,7 @@ const RoleDetails: React.FC = () => {
 
   useEffect(() => {
     setPermissions(data?.data?.role.permissions || [])
+    setIsUpdated(false)
   }, [data?.data])
 
   const permissionsMap: Map<ResourceType, Permission[]> = getPermissionMap(permissionList?.data)
@@ -70,10 +74,11 @@ const RoleDetails: React.FC = () => {
     else {
       setPermissions(_permissions =>
         produce(_permissions, draft => {
-          return draft?.splice(permissions.indexOf(permission), 1)
+          draft?.splice(permissions.indexOf(permission), 1)
         })
       )
     }
+    setIsUpdated(true)
   }
 
   const submitChanges = async (): Promise<void> => {
@@ -92,10 +97,10 @@ const RoleDetails: React.FC = () => {
       }
     }
   }
-
+  const role = data?.data?.role
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
-  if (!data) return <></>
+  if (!role) return <></>
   return (
     <>
       <Page.Header
@@ -103,15 +108,33 @@ const RoleDetails: React.FC = () => {
         className={css.header}
         title={
           <Layout.Vertical>
-            <Breadcrumbs links={[]} />
+            <Breadcrumbs
+              links={[
+                {
+                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                  label: getString('accessControl')
+                },
+                {
+                  url: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module }),
+                  label: getString('roles')
+                },
+                {
+                  url: '#',
+                  label: role.name
+                }
+              ]}
+            />
             <Layout.Horizontal flex spacing="medium">
               {/* TODO: REPLACE WITH ROLE ICON */}
               <Icon name="nav-project-selected" size={40} />
-              <Layout.Vertical padding={{ left: 'medium' }} spacing="small">
+              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
                 <Text color={Color.BLACK} font="medium">
-                  {data.data?.role.name}
+                  {role.name}
                 </Text>
-                <Text>{data.data?.role.description}</Text>
+                <Text>{role.description}</Text>
+                <Layout.Horizontal padding={{ top: 'small' }}>
+                  <TagsRenderer tags={role.tags || {}} length={6} />
+                </Layout.Horizontal>
               </Layout.Vertical>
             </Layout.Horizontal>
           </Layout.Vertical>
@@ -124,11 +147,11 @@ const RoleDetails: React.FC = () => {
               spacing="xsmall"
             >
               <Text>{getString('created')}</Text>
-              <ReactTimeago date={data.data?.createdAt || ''} />
+              <ReactTimeago date={data?.data?.createdAt || ''} />
             </Layout.Vertical>
             <Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}>
               <Text>{getString('lastUpdated')}</Text>
-              <ReactTimeago date={data.data?.lastModifiedAt || ''} />
+              <ReactTimeago date={data?.data?.lastModifiedAt || ''} />
             </Layout.Vertical>
           </Layout.Horizontal>
         }
@@ -163,8 +186,9 @@ const RoleDetails: React.FC = () => {
           </Container>
           <Container padding="large">
             <Layout.Vertical>
-              <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} padding="medium">
-                <Button onClick={submitChanges} text={getString('applyChanges')} />
+              <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} padding="medium" spacing="medium">
+                {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
+                <Button onClick={submitChanges} text={getString('applyChanges')} intent="primary" />
               </Layout.Horizontal>
               {resourceGroups?.data?.resourceTypes.map(resourceType => {
                 return (
@@ -178,7 +202,7 @@ const RoleDetails: React.FC = () => {
                       selected={(resourceType as ResourceType) === resource}
                       permissions={permissionsMap.get(resourceType as ResourceType)}
                       resourceType={resourceType as ResourceType}
-                      isDefault={data.data?.harnessManaged}
+                      isDefault={data?.data?.harnessManaged}
                       onChangePermission={onChangePermission}
                       isPermissionEnabled={isPermissionEnabled}
                     />

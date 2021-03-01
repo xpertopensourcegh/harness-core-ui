@@ -15,6 +15,7 @@
     "GitSync": ["src/modules/60-gitsync/**"],
     "CI": ["src/modules/80-ci/**"],
     "CF": ["src/modules/75-cf/**"],
+    "RBAC": ["src/modules/20-rbac/**"],
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"],
     "DASHBOARDS": ["src/modules/custom-dashboards/**"]
   },

@@ -4,6 +4,9 @@
 .selectedResourceGroupCardDetails {
   width: 100%;
   box-shadow: var(--card-box-shadow);
+}
+
+.resourceFields {
   display: grid !important;
   grid-template-columns: 1fr 1fr 3fr 1fr;
   align-items: center;

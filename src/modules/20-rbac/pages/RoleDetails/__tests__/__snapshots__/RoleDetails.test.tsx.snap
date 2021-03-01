@@ -10,7 +10,41 @@ exports[`Role Details Page render data 1`] = `
     >
       <div
         class="breadcrumbs"
-      />
+      >
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/dummy/admin/access-control"
+          >
+            Access Control
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/dummy/admin/access-control/roles"
+          >
+            Roles
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            role
+          </span>
+        </div>
+      </div>
       <div
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
       >
@@ -30,7 +64,7 @@ exports[`Role Details Page render data 1`] = `
           </svg>
         </span>
         <div
-          class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-medium"
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
@@ -42,6 +76,28 @@ exports[`Role Details Page render data 1`] = `
           >
             vfkvnfknvfv
           </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+            >
+              <span
+                class="Tag--main"
+              >
+                <span
+                  class="bp3-tag"
+                  style="max-width: 240px;"
+                >
+                  <span
+                    class="bp3-text-overflow-ellipsis bp3-fill"
+                  >
+                    vfmvfv
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -90,10 +146,10 @@ exports[`Role Details Page render data 1`] = `
           class="Layout--vertical StyledProps--main"
         >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--padding-medium"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--padding-medium"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="button"
             >
               <span

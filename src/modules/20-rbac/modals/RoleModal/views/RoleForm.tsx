@@ -12,7 +12,6 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { Role, useCreateRole, useUpdateRole } from 'services/rbac'
@@ -49,19 +48,15 @@ const RoleForm: React.FC<RoleModalData> = props => {
   })
 
   const handleSubmit = async (values: Role): Promise<void> => {
-    const dataToSubmit: Role = {
-      ...pick(values, ['name', 'identifier', 'tags', 'description'])
-    }
-
     try {
       if (isEdit) {
-        const updated = await editRole(dataToSubmit)
+        const updated = await editRole(values)
         /* istanbul ignore else */ if (updated) {
-          showSuccess(getString('roleForm.updatedSuccess'))
+          showSuccess(getString('roleForm.updateSuccess'))
           onSubmit?.()
         }
       } else {
-        const created = await createRole(dataToSubmit)
+        const created = await createRole(values)
         /* istanbul ignore else */ if (created) {
           showSuccess(getString('roleForm.createSuccess'))
           onSubmit?.()

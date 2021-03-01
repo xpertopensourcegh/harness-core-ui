@@ -18,13 +18,9 @@ export type HAccessControlDTO = AccessControlDTO & {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+  resourceType?: string
   resourceIdentifier?: string
-  hasAccess?: boolean
-}
-
-export type HPrincipal = Principal & {
-  principalIdentifier?: string
-  principalType?: 'USER' | 'USER_GROUP' | 'API_KEY'
+  accessible?: boolean
 }
 
 export interface Principal {
@@ -43,6 +39,11 @@ export interface ResponseAccessCheckResponseDTO {
   data?: AccessCheckResponseDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export type UserPrincipal = Principal & {
+  principalIdentifier?: string
+  principalType?: 'USER' | 'USER_GROUP' | 'API_KEY'
 }
 
 export interface Failure {
@@ -560,13 +561,20 @@ export interface PermissionCheck {
   permission?: string
 }
 
+export interface ResponseString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: string
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface Permission {
   identifier: string
   name: string
   status: 'EXPERIMENTAL' | 'ACTIVE' | 'DEPRECATED'
   allowedScopeLevels: ('organization' | 'project' | 'account')[]
-  resourceType?: string
-  action?: string
+  resourceType: string
+  action: string
 }
 
 export interface PermissionResponse {
@@ -722,11 +730,57 @@ export const getAccessControlListPromise = (
     signal
   )
 
+export interface TestACLQueryParams {
+  account?: string
+  org?: string
+  project?: string
+  resourceIdentifier?: string
+}
+
+export type TestACLProps = Omit<GetProps<ResponseString, Failure | Error, TestACLQueryParams, void>, 'path'>
+
+/**
+ * Test ACL
+ */
+export const TestACL = (props: TestACLProps) => (
+  <Get<ResponseString, Failure | Error, TestACLQueryParams, void>
+    path="/acl/acl-test"
+    base={getConfig('rbac/api')}
+    {...props}
+  />
+)
+
+export type UseTestACLProps = Omit<UseGetProps<ResponseString, Failure | Error, TestACLQueryParams, void>, 'path'>
+
+/**
+ * Test ACL
+ */
+export const useTestACL = (props: UseTestACLProps) =>
+  useGet<ResponseString, Failure | Error, TestACLQueryParams, void>(`/acl/acl-test`, {
+    base: getConfig('rbac/api'),
+    ...props
+  })
+
+/**
+ * Test ACL
+ */
+export const testACLPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, TestACLQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, TestACLQueryParams, void>(
+    getConfig('rbac/api'),
+    `/acl/acl-test`,
+    props,
+    signal
+  )
+
 export interface GetPermissionListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
   resourceType?: string
+  scopeFilterDisabled?: boolean
 }
 
 export type GetPermissionListProps = Omit<
@@ -961,6 +1015,7 @@ export interface GetRoleQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+  harnessManaged?: boolean
 }
 
 export interface GetRolePathParams {
@@ -1145,7 +1200,7 @@ export interface GetRoleListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  includeManaged?: boolean
+  includeHarnessManaged?: boolean
 }
 
 export type GetRoleListProps = Omit<

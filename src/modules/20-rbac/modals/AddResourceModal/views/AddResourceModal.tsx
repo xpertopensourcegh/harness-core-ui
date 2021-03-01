@@ -7,7 +7,7 @@ import css from './AddResourceModal.module.scss'
 
 interface RoleModalData {
   resource: ResourceType
-  onSuccess: () => void
+  onSuccess: (resources: string[]) => void
   onClose: () => void
 }
 
@@ -46,7 +46,7 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
           <Button
             intent="primary"
             text={`${getString('add')} ${selectedItems.length} ${resourceHandler?.label}`}
-            onClick={onSuccess}
+            onClick={() => onSuccess(selectedItems)}
           />
           <Button text={getString('cancel')} onClick={onClose} />
         </Layout.Horizontal>

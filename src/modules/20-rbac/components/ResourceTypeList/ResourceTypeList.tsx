@@ -1,23 +1,24 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Checkbox, Icon, Card, Layout } from '@wings-software/uicore'
+import { Icon, Card, Layout } from '@wings-software/uicore'
+import { Checkbox } from '@blueprintjs/core'
 import { useGetResourceTypes } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import type { ResourceGroupSelection, ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './ResourceTypeList.module.scss'
 
 interface ResourceTypeListProps {
-  onResourceTypeChange: (resource: ResourceGroupSelection) => void
-  preSelectedResourceList: ResourceGroupSelection
-  disableAddingResources: boolean
+  onResourceSelectionChange: (resource: ResourceType, isAdd: boolean) => void
+  preSelectedResourceList: ResourceType[]
+  disableAddingResources?: boolean
 }
 const ResourceTypeList: React.FC<ResourceTypeListProps> = ({
-  onResourceTypeChange,
+  onResourceSelectionChange,
   preSelectedResourceList,
   disableAddingResources
 }) => {
@@ -29,6 +30,7 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = ({
       orgIdentifier
     }
   })
+
   const { getString } = useStrings()
   const listData = resourceTypeData?.data?.resourceTypes || []
   if (errorGetResourceTypes) {
@@ -48,13 +50,11 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = ({
               <Card className={css.resourceTypeCard} key={eleDetails}>
                 <Checkbox
                   disabled={disableAddingResources}
-                  padding={{ left: 'large' }}
                   onChange={e => {
-                    e.stopPropagation()
-                    onResourceTypeChange({ [e.currentTarget.value]: e.currentTarget.checked })
+                    onResourceSelectionChange(eleDetails as ResourceType, e.currentTarget.checked)
                   }}
                   value={eleDetails}
-                  defaultChecked={!!(preSelectedResourceList && preSelectedResourceList[eleDetails])}
+                  checked={preSelectedResourceList.includes(eleDetails as ResourceType)}
                 >
                   <Icon name={icon} padding={{ left: 'medium', right: 'small' }} />
                   {label}

@@ -14,12 +14,6 @@ import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 
-RbacFactory.registerResourceTypeHandler(ResourceType.SECRET_MANAGER, {
-  icon: 'settings',
-  label: 'Secret Managers',
-  // eslint-disable-next-line react/display-name
-  addResourceModalBody: () => <></>
-})
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
   const params = useParams<OrgPathProps>()
 
@@ -33,9 +27,9 @@ const AccountSettingsSideNavProps: SidebarContext = {
   icon: 'nav-settings'
 }
 
-RbacFactory.registerResourceTypeHandler(ResourceType.SECRET_MANAGER, {
+RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
   icon: 'lock',
-  label: 'Secret Managers',
+  label: 'Connectors',
   // eslint-disable-next-line react/display-name
   addResourceModalBody: () => <></>
 })

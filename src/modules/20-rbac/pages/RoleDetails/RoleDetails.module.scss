@@ -5,12 +5,13 @@
 .resourceList {
   background-color: var(--white) !important;
   padding: var(--spacing-xxxlarge) 0px !important;
+  border-right: 1px solid var(--grey-250);
 }
 
 .card {
   width: 250px;
   display: flex !important;
-  height: var(--spacing-xxxlarge);
+  height: var(--spacing-huge);
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
 }
 

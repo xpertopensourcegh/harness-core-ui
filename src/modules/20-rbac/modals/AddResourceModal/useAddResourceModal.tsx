@@ -7,7 +7,7 @@ import AddResourceModal from './views/AddResourceModal'
 import css from './useAddResourceModal.module.scss'
 
 export interface UseAddResourceModalProps {
-  onSuccess: () => void
+  onSuccess: (resources: string[]) => void
 }
 
 export interface UseAddResourceModalReturn {
@@ -27,7 +27,16 @@ const useAddResourceModal = (props: UseAddResourceModalProps): UseAddResourceMod
         }}
         className={cx(css.dialog, Classes.DIALOG)}
       >
-        {resource && <AddResourceModal resource={resource} onSuccess={onSuccess} onClose={hideModal} />}
+        {resource && (
+          <AddResourceModal
+            resource={resource}
+            onSuccess={resources => {
+              onSuccess(resources)
+              hideModal()
+            }}
+            onClose={hideModal}
+          />
+        )}
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
