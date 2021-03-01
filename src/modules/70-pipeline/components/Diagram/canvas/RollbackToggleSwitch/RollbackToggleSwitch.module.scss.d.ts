@@ -1,6 +1,10 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly rollbackToggle: string
+  readonly activeText: string
   readonly btnRollback: string
+  readonly btn: string
+  readonly btnSmall: string
 }
 export default styles

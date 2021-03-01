@@ -62,7 +62,7 @@ executionText: Execution
 executionsText: Executions
 executionHeaderText: Execution History
 runPipelineText: Run
-
+rollbackLabel: Rollback
 noConnectorFound: No Connector Found
 saveConnectorSuccess: Connector saved successfully
 resources: 'Resources'

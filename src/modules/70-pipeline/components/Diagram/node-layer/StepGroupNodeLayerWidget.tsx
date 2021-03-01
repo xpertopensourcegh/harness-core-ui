@@ -142,7 +142,8 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         {options.showRollback && (
           <RollbackToggleSwitch
             disabled={options.inComplete}
-            style={{ left: width - 60, top: 5 }}
+            large={false}
+            style={{ left: width - 60, top: 0 }}
             {...rollBackProps}
             onChange={type => props.layer.fireEvent({ type }, Event.RollbackClicked)}
           />
