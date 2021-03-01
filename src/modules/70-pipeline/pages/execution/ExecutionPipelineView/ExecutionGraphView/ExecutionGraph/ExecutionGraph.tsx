@@ -23,7 +23,7 @@ const processExecutionData = (
           item: {
             icon: getIconFromStageModule(node?.module),
             identifier: node?.nodeUuid || /* istanbul ignore next */ '',
-            name: node?.nodeIdentifier || /* istanbul ignore next */ '',
+            name: node?.name || node?.nodeIdentifier || /* istanbul ignore next */ '',
             status: node?.status as any,
             type: ExecutionPipelineNodeType.NORMAL,
             skipCondition: node?.skipInfo?.evaluatedCondition ? node.skipInfo.skipCondition : undefined,
@@ -33,16 +33,16 @@ const processExecutionData = (
       })
       items.push({ parallel })
     } else {
-      const cdStage = item.stage
+      const stage = item.stage
       items.push({
         item: {
-          icon: getIconFromStageModule(cdStage?.module),
-          identifier: cdStage?.nodeUuid || /* istanbul ignore next */ '',
-          name: cdStage?.nodeIdentifier || /* istanbul ignore next */ '',
-          status: cdStage?.status as any,
+          icon: getIconFromStageModule(stage?.module),
+          identifier: stage?.nodeUuid || /* istanbul ignore next */ '',
+          name: stage?.name || stage?.nodeIdentifier || /* istanbul ignore next */ '',
+          status: stage?.status as any,
           type: ExecutionPipelineNodeType.NORMAL,
-          skipCondition: cdStage?.skipInfo?.evaluatedCondition ? cdStage.skipInfo.skipCondition : undefined,
-          data: cdStage
+          skipCondition: stage?.skipInfo?.evaluatedCondition ? stage.skipInfo.skipCondition : undefined,
+          data: stage
         }
       })
     }
