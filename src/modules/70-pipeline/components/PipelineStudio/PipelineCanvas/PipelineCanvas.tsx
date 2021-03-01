@@ -321,6 +321,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
                     disabled={isUpdated}
                     className={css.runPipelineBtn}
                     text={getString('runPipelineText')}
+                    tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
                   />
                 </RunPipelineModal>
               </div>

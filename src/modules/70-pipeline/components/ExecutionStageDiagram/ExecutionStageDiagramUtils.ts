@@ -155,11 +155,11 @@ export const getIconStyleBasedOnStatus = (
   isSelected: boolean
 ): React.CSSProperties => {
   let toReturn: React.CSSProperties = {}
-  if (status === ExecutionPipelineItemStatus.SKIPPED) {
-    toReturn = { color: 'var(--grey-500)' }
-  }
   if (isSelected && status !== ExecutionPipelineItemStatus.NOT_STARTED) {
     toReturn = { color: 'var(--white)' }
+  }
+  if (status === ExecutionPipelineItemStatus.SKIPPED || status === ExecutionPipelineItemStatus.EXPIRED) {
+    toReturn = { color: 'var(--grey-500)' }
   }
   return toReturn
 }
