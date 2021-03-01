@@ -1,8 +1,8 @@
 .main {
-  padding: var(--spacing-large);
+  padding: var(--spacing-large) !important;
   :global {
     .bp3-tab-list {
-      margin: 0 auto;
+      margin: 0 auto !important;
       width: 240px;
       border-bottom: none;
       [data-tab-id='tabId1'] {
@@ -24,13 +24,13 @@
 
   .metricPackContainer {
     display: flex;
-    margin: var(--spacing-medium);
+    margin: var(--spacing-medium) !important;
 
     .metricPackName {
       color: var(--black);
-      margin-right: var(--spacing-medium);
+      margin-right: var(--spacing-medium) !important;
       position: relative;
-      font-size: var(--font-size-small);
+      font-size: var(--font-size-small) !important;
       top: 10px;
       word-break: break-word;
       width: 120px;
@@ -39,19 +39,19 @@
 
   .cardContainer {
     --status-card-width: 120px;
-    width: 100%;
+    width: 100% !important;
     display: grid;
     grid-gap: var(--spacing-large) var(--spacing-large);
     grid-template-columns: repeat(auto-fit, var(--status-card-width));
     grid-template-rows: auto;
 
     .dataTitle {
-      font-size: var(--font-size-small);
+      font-size: var(--font-size-small) !important;
       font-weight: 600;
     }
 
     .smallFont {
-      font-size: var(--font-size-xsmall);
+      font-size: var(--font-size-xsmall) !important;
       white-space: nowrap;
     }
 
@@ -85,7 +85,7 @@
       border: 1px solid var(--green-300);
       background: var(--green-100);
       .count {
-        font-size: var(--font-size-medium);
+        font-size: var(--font-size-medium) !important;
         margin-top: var(--spacing-small);
       }
     }
@@ -113,7 +113,7 @@
 
     .callLogs {
       cursor: pointer;
-      margin-top: var(--spacing-xsmall);
+      margin-top: var(--spacing-xsmall) !important;
     }
   }
 }

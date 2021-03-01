@@ -31,6 +31,16 @@ const MockEventData: EventData[] = [
   }
 ]
 
+const MockEventDataDeployment: EventData[] = [
+  {
+    activityId: '1234_deploymentId',
+    activityType: 'DEPLOYMENT',
+    name: 'test',
+    startTime: 1613628000000,
+    verificationResult: 'VERIFICATION_PASSED'
+  }
+]
+
 const MockActivityVerificationResult = {
   metaData: {},
   resource: {
@@ -137,6 +147,38 @@ const MockEventDetailsResponse = {
   },
   metaData: null,
   correlationId: null
+}
+
+const MockDeploymentResponse = {
+  metaData: {},
+  resource: {
+    serviceName: 'manager',
+    serviceIdentifier: 'manager',
+    envName: 'Production',
+    envIdentifier: 'Prod',
+    deploymentTag: 'build#2',
+    deploymentVerificationJobInstanceSummary: {
+      progressPercentage: 100,
+      startTime: 1613628000000,
+      durationMs: 300000,
+      risk: 'NO_DATA',
+      environmentName: 'Production',
+      jobName: 'test',
+      verificationJobInstanceId: '1234_jobId',
+      activityId: '12345_activityId',
+      activityStartTime: 1613628000000,
+      status: 'VERIFICATION_PASSED',
+      additionalInfo: {
+        baselineDeploymentTag: null,
+        baselineStartTime: null,
+        currentDeploymentTag: 'build#2',
+        currentStartTime: 1613628000000,
+        type: 'TEST',
+        baselineRun: true
+      }
+    }
+  },
+  responseMessages: []
 }
 
 jest.mock('react-monaco-editor', () => (props: any) => (
@@ -271,5 +313,31 @@ describe('Unit tests for EventDetailsForChange', () => {
     }
     fireEvent.click(retryButton)
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
+  })
+
+  test('Ensure deployment content is rendered correctly and clicking on the card goes to deployment page', async () => {
+    const refetchMock = jest.fn()
+    jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
+      data: MockDeploymentResponse,
+      refetch: refetchMock as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    render(
+      <TestWrapper>
+        <EventDetailsForChange selectedActivities={MockEventDataDeployment} onCloseCallback={jest.fn()} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(document.body.querySelector('[class*="main"]')).not.toBeNull())
+    expect(getByText(document.body, 'Production')).not.toBeNull()
+    expect(getByText(document.body, 'passed')).not.toBeNull()
+
+    const deploymentCard = document.body.querySelector('[class*="deploymentContent"]')
+    if (!deploymentCard) {
+      throw Error('deployment card was not rendered')
+    }
+
+    fireEvent.click(deploymentCard)
+    await waitFor(() => expect('[class*="metricsTab"]').not.toBeNull())
   })
 })

@@ -26,6 +26,7 @@ declare const styles: {
   readonly type: string
   readonly reason: string
   readonly message: string
+  readonly highlightOnHover: string
   readonly deploymentInfo: string
   readonly harnessEntity: string
   readonly deploymentContent: string

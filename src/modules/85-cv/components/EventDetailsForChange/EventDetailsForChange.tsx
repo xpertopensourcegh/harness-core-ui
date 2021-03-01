@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Container, Heading, Text, Color, Link, Icon, Button } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import MonacoEditor from 'react-monaco-editor'
 import { PageError } from '@common/components/Page/PageError'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -12,7 +12,7 @@ import {
   useGetEventDetails,
   KubernetesActivityDetail,
   ActivityVerificationResultDTO,
-  useGetDeploymentSummary
+  useGetDeploymentActivitySummary
 } from 'services/cv'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import VerificationStatusCard from '@cv/pages/dashboard/deployment-drilldown/VerificationStatusCard'
@@ -254,9 +254,10 @@ function KubernetesContent(props: KubernetesContentProps): JSX.Element {
 }
 
 function DeploymentContent({ selectedActivityId }: { selectedActivityId: string }): JSX.Element {
-  const { accountId } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  const { loading, error, data, refetch } = useGetDeploymentSummary({
+  const { push } = useHistory()
+  const { loading, error, data, refetch } = useGetDeploymentActivitySummary({
     queryParams: { accountId },
     activityId: selectedActivityId
   })
@@ -269,16 +270,41 @@ function DeploymentContent({ selectedActivityId }: { selectedActivityId: string 
     return <PageError message={getErrorMessage(error)} onClick={() => refetch()} className={css.contentError} />
   }
 
+  const hasServiceAndDeploymentTag = data?.resource?.deploymentTag && data.resource.serviceIdentifier
   return (
-    <Container className={css.deploymentInfo}>
-      {data?.resource?.environmentName && (
+    <Container
+      className={css.deploymentInfo}
+      onClick={
+        hasServiceAndDeploymentTag
+          ? () =>
+              push(
+                routes.toCVDeploymentPage({
+                  accountId,
+                  projectIdentifier,
+                  orgIdentifier,
+                  serviceIdentifier: data?.resource?.serviceIdentifier as string,
+                  deploymentTag: encodeURIComponent(data?.resource?.deploymentTag as string).replace(
+                    /[;,/?:@&=+$#]/g,
+                    function (c) {
+                      return '%' + c.charCodeAt(0).toString(16)
+                    }
+                  )
+                })
+              )
+          : undefined
+      }
+    >
+      {data?.resource?.envName && (
         <Container className={css.harnessEntity}>
           <Text>{`${getString('environment')}:`}</Text>
-          <Text>{data.resource.environmentName}</Text>
+          <Text>{data.resource.envName}</Text>
         </Container>
       )}
-      <VerificationStatusCard status={data?.resource?.status} />
-      <DeploymentProgressAndNodes deploymentSummary={data?.resource} className={css.deploymentContent} />
+      <VerificationStatusCard status={data?.resource?.deploymentVerificationJobInstanceSummary?.status} />
+      <DeploymentProgressAndNodes
+        deploymentSummary={data?.resource?.deploymentVerificationJobInstanceSummary}
+        className={cx(css.deploymentContent, hasServiceAndDeploymentTag ? css.highlightOnHover : undefined)}
+      />
     </Container>
   )
 }

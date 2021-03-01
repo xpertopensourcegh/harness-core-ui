@@ -436,11 +436,20 @@ export interface RestResponseActivityVerificationResultDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseDeploymentVerificationJobInstanceSummary {
+export interface DeploymentActivitySummaryDTO {
+  serviceName?: string
+  serviceIdentifier?: string
+  envName?: string
+  envIdentifier?: string
+  deploymentTag?: string
+  deploymentVerificationJobInstanceSummary?: DeploymentVerificationJobInstanceSummary
+}
+
+export interface RestResponseDeploymentActivitySummaryDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: DeploymentVerificationJobInstanceSummary
+  resource?: DeploymentActivitySummaryDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -1376,6 +1385,22 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
+export interface RestResponseListLogAnalysisCluster {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisCluster[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDeploymentLogAnalysisDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentLogAnalysisDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface LogClusterDTO {
   verificationTaskId?: string
   epochMinute?: number
@@ -1954,6 +1979,14 @@ export interface LogRecordDTO {
   log?: string
 }
 
+export interface RestResponseListTimeSeriesThreshold {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesThreshold[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface MetricDefinitionDTO {
   name?: string
   type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
@@ -1994,14 +2027,6 @@ export interface TimeSeriesThresholdDTO {
   metricGroupName?: string
   action?: 'IGNORE' | 'FAIL'
   criteria?: TimeSeriesThresholdCriteria
-}
-
-export interface RestResponseListTimeSeriesThreshold {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesThreshold[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface OnboardingResponseDTO {
@@ -2208,9 +2233,9 @@ export interface DataCollectionRequest {
     | 'STACKDRIVER_SAMPLE_DATA'
     | 'APPDYNAMICS_FETCH_APPS'
     | 'APPDYNAMICS_FETCH_TIERS'
+  dsl?: string
   connectorConfigDTO?: ConnectorConfigDTO
   baseUrl?: string
-  dsl?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -2782,6 +2807,61 @@ export interface ServiceRisk {
   risk?: number
 }
 
+export interface CategoryRisksDTO {
+  startTimeEpoch?: number
+  endTimeEpoch?: number
+  categoryRisks?: CategoryRisk[]
+}
+
+export interface RestResponseCategoryRisksDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CategoryRisksDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface EnvServiceRiskDTO {
+  orgIdentifier?: string
+  projectIdentifier?: string
+  envName?: string
+  envIdentifier?: string
+  risk?: number
+  serviceRisks?: ServiceRisk[]
+}
+
+export interface RestResponseListEnvServiceRiskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvServiceRiskDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ServiceRisk {
+  serviceName?: string
+  serviceIdentifier?: string
+  risk?: number
+}
+
+export interface CountByTag {
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
+export interface LogDataByTag {
+  timestamp?: number
+  countByTags?: CountByTag[]
+}
+
+export interface RestResponseSortedSetLogDataByTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataByTag[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AnalyzedLogDataDTO {
   projectIdentifier?: string
   orgIdentifier?: string
@@ -2818,24 +2898,6 @@ export interface RestResponsePageAnalyzedLogDataDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAnalyzedLogDataDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CountByTag {
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
-}
-
-export interface LogDataByTag {
-  timestamp?: number
-  countByTags?: CountByTag[]
-}
-
-export interface RestResponseSortedSetLogDataByTag {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogDataByTag[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -5775,34 +5837,34 @@ export const getActivityVerificationResultPromise = (
     GetActivityVerificationResultPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/activity-risks`, props, signal)
 
-export interface GetDeploymentSummaryQueryParams {
+export interface GetDeploymentActivitySummaryQueryParams {
   accountId: string
 }
 
-export interface GetDeploymentSummaryPathParams {
+export interface GetDeploymentActivitySummaryPathParams {
   activityId: string
 }
 
-export type GetDeploymentSummaryProps = Omit<
+export type GetDeploymentActivitySummaryProps = Omit<
   GetProps<
-    RestResponseDeploymentVerificationJobInstanceSummary,
+    RestResponseDeploymentActivitySummaryDTO,
     unknown,
-    GetDeploymentSummaryQueryParams,
-    GetDeploymentSummaryPathParams
+    GetDeploymentActivitySummaryQueryParams,
+    GetDeploymentActivitySummaryPathParams
   >,
   'path'
 > &
-  GetDeploymentSummaryPathParams
+  GetDeploymentActivitySummaryPathParams
 
 /**
  * get summary of deployment activity
  */
-export const GetDeploymentSummary = ({ activityId, ...props }: GetDeploymentSummaryProps) => (
+export const GetDeploymentActivitySummary = ({ activityId, ...props }: GetDeploymentActivitySummaryProps) => (
   <Get<
-    RestResponseDeploymentVerificationJobInstanceSummary,
+    RestResponseDeploymentActivitySummaryDTO,
     unknown,
-    GetDeploymentSummaryQueryParams,
-    GetDeploymentSummaryPathParams
+    GetDeploymentActivitySummaryQueryParams,
+    GetDeploymentActivitySummaryPathParams
   >
     path="/activity/${activityId}/deployment-activity-summary"
     base={getConfig('cv/api')}
@@ -5810,28 +5872,28 @@ export const GetDeploymentSummary = ({ activityId, ...props }: GetDeploymentSumm
   />
 )
 
-export type UseGetDeploymentSummaryProps = Omit<
+export type UseGetDeploymentActivitySummaryProps = Omit<
   UseGetProps<
-    RestResponseDeploymentVerificationJobInstanceSummary,
+    RestResponseDeploymentActivitySummaryDTO,
     unknown,
-    GetDeploymentSummaryQueryParams,
-    GetDeploymentSummaryPathParams
+    GetDeploymentActivitySummaryQueryParams,
+    GetDeploymentActivitySummaryPathParams
   >,
   'path'
 > &
-  GetDeploymentSummaryPathParams
+  GetDeploymentActivitySummaryPathParams
 
 /**
  * get summary of deployment activity
  */
-export const useGetDeploymentSummary = ({ activityId, ...props }: UseGetDeploymentSummaryProps) =>
+export const useGetDeploymentActivitySummary = ({ activityId, ...props }: UseGetDeploymentActivitySummaryProps) =>
   useGet<
-    RestResponseDeploymentVerificationJobInstanceSummary,
+    RestResponseDeploymentActivitySummaryDTO,
     unknown,
-    GetDeploymentSummaryQueryParams,
-    GetDeploymentSummaryPathParams
+    GetDeploymentActivitySummaryQueryParams,
+    GetDeploymentActivitySummaryPathParams
   >(
-    (paramsInPath: GetDeploymentSummaryPathParams) =>
+    (paramsInPath: GetDeploymentActivitySummaryPathParams) =>
       `/activity/${paramsInPath.activityId}/deployment-activity-summary`,
     { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
   )
@@ -5839,23 +5901,23 @@ export const useGetDeploymentSummary = ({ activityId, ...props }: UseGetDeployme
 /**
  * get summary of deployment activity
  */
-export const getDeploymentSummaryPromise = (
+export const getDeploymentActivitySummaryPromise = (
   {
     activityId,
     ...props
   }: GetUsingFetchProps<
-    RestResponseDeploymentVerificationJobInstanceSummary,
+    RestResponseDeploymentActivitySummaryDTO,
     unknown,
-    GetDeploymentSummaryQueryParams,
-    GetDeploymentSummaryPathParams
+    GetDeploymentActivitySummaryQueryParams,
+    GetDeploymentActivitySummaryPathParams
   > & { activityId: string },
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<
-    RestResponseDeploymentVerificationJobInstanceSummary,
+    RestResponseDeploymentActivitySummaryDTO,
     unknown,
-    GetDeploymentSummaryQueryParams,
-    GetDeploymentSummaryPathParams
+    GetDeploymentActivitySummaryQueryParams,
+    GetDeploymentActivitySummaryPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/deployment-activity-summary`, props, signal)
 
 export interface ListActivitiesForDashboardQueryParams {

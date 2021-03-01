@@ -142,6 +142,13 @@
     }
   }
 
+  .highlightOnHover {
+    cursor: pointer;
+    &:hover {
+      background-color: var(--blue-200) !important;
+    }
+  }
+
   .deploymentInfo {
     .harnessEntity {
       margin-bottom: var(--spacing-small) !important;
