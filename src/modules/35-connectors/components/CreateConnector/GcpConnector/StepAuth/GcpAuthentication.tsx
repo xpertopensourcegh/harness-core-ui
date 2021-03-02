@@ -197,12 +197,16 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
                 <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
               ) : (
                 <>
-                  <Text margin={{ bottom: 'xsmall' }}>{getString('delegate.useExistingSelectors')}</Text>
+                  <Text font="medium" color={Color.BLACK} margin={{ bottom: 'small' }}>
+                    {getString('delegate.DelegateselectionLabel')}
+                  </Text>
+                  <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
                   <DelegateSelectors
                     className={css.delegateSelectors}
                     fill
                     allowNewTag={false}
                     selectedItems={delegateSelectors}
+                    placeholder={getString('delegate.DelegateselectionPlaceholder')}
                     onChange={data => {
                       setDelegateSelectors(data as Array<string>)
                     }}

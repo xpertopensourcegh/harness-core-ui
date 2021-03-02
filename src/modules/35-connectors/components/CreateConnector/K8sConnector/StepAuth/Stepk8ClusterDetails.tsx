@@ -442,12 +442,16 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                 </>
               ) : (
                 <>
-                  <Text margin={{ bottom: 'xsmall' }}>{getString('delegate.useExistingSelectors')}</Text>
+                  <Text font="medium" color={Color.BLACK} margin={{ bottom: 'small' }}>
+                    {getString('delegate.DelegateselectionLabel')}
+                  </Text>
+                  <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
                   <DelegateSelectors
                     className={css.delegateSelectors}
                     fill
                     allowNewTag={false}
                     selectedItems={delegateSelectors}
+                    placeholder={getString('delegate.DelegateselectionPlaceholder')}
                     onChange={data => {
                       setDelegateSelectors(data as Array<string>)
                     }}

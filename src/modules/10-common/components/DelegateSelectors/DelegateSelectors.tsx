@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { SimpleTagInput, Text } from '@wings-software/uicore'
+import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { useGetDelegateSelectors } from 'services/portal'
@@ -21,20 +21,24 @@ const formatSelectors = (data: any) => {
   return selectors
 }
 
-export function DelegateSelectors(props: Partial<React.ComponentProps<typeof SimpleTagInput>>) {
+interface DelegateSelectorsProps {
+  placeholder?: string
+}
+
+export const DelegateSelectors = (
+  props: Partial<React.ComponentProps<typeof SimpleTagInput> & DelegateSelectorsProps>
+): JSX.Element => {
   const { accountId } = useParams()
   const { getString } = useStrings()
   const { showError } = useToaster()
 
   const { data, loading } = useGetDelegateSelectors({ queryParams: { accountId } })
 
-  if (loading) {
-    return <div />
-  }
-
   const selectors = formatSelectors(data)
 
-  return (
+  return loading ? (
+    <Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} />
+  ) : (
     <SimpleTagInput
       fill
       items={selectors}
@@ -70,7 +74,7 @@ export function DelegateSelectors(props: Partial<React.ComponentProps<typeof Sim
                     return item
                   }
                 })}
-              </>{' '}
+              </>
               {getString('delegate.DelegateSelectorErrMsgSplChars')}: {Array.from(invalidChars).join(',')}
             </Text>
           )
@@ -78,7 +82,7 @@ export function DelegateSelectors(props: Partial<React.ComponentProps<typeof Sim
         }
         return validTag && validExpression
       }}
-      placeholder={getString('delegate.Delegate_Selector_placeholder')}
+      placeholder={props.placeholder || getString('delegate.Delegate_Selector_placeholder')}
     />
   )
 }

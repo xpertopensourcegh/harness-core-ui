@@ -210,11 +210,15 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                 </Layout.Vertical>
               ) : (
                 <>
-                  <Text margin={{ bottom: 'xsmall' }}>{getString('delegate.useExistingSelectors')}</Text>
+                  <Text font="medium" color={Color.BLACK} margin={{ bottom: 'small' }}>
+                    {getString('delegate.DelegateselectionLabel')}
+                  </Text>
+                  <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
                   <DelegateSelectors
                     className={css.formInput}
                     fill
                     allowNewTag={false}
+                    placeholder={getString('delegate.DelegateselectionPlaceholder')}
                     selectedItems={delegateSelectors}
                     onChange={data => {
                       setDelegateSelectors(data as Array<string>)
