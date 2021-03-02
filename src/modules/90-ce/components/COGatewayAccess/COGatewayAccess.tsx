@@ -112,16 +112,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 defaultChecked={accessDetails.dnsLink.selected}
               />
               <Checkbox
-                label="RDP"
-                className={css.checkbox}
-                onChange={val => {
-                  accessDetails.rdp.selected = val.currentTarget.checked
-                  setAccessDetails(Object.assign({}, accessDetails))
-                }}
-                defaultChecked={accessDetails.rdp.selected}
-              />
-              <Checkbox
-                label="SSH"
+                label="SSH / RDP"
                 onChange={val => {
                   accessDetails.ssh.selected = val.currentTarget.checked
                   setAccessDetails(Object.assign({}, accessDetails))
@@ -130,7 +121,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 defaultChecked={accessDetails.ssh.selected}
               />
             </Layout.Vertical>
-            <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
+            {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
               <Checkbox
                 label="Background Tasks"
                 className={css.checkbox}
@@ -149,7 +140,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                   setAccessDetails(Object.assign({}, accessDetails))
                 }}
               />
-            </Layout.Vertical>
+            </Layout.Vertical> */}
           </Layout.Horizontal>
         </Layout.Vertical>
         <Container className={css.setupTab}>
@@ -167,7 +158,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 }
               ></Tab>
             ) : null}
-            {accessDetails.ssh.selected ? <Tab id="ssh" title={'SSH'} panel={<SSHSetup />}></Tab> : null}
+            {accessDetails.ssh.selected ? <Tab id="ssh" title={'SSH / RDP'} panel={<SSHSetup />}></Tab> : null}
             {accessDetails.ipaddress.selected ? <Tab id="ip" title={'IP Address'} panel={<IPSetup />}></Tab> : null}
             {accessDetails.rdp.selected ? <Tab id="rdp" title={'RDP'} panel={<IPSetup />}></Tab> : null}
             {accessDetails.backgroundTasks.selected ? (

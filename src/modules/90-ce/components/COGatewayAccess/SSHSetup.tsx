@@ -3,11 +3,7 @@ import { Layout, Button, Text } from '@wings-software/uicore'
 
 const SSHSetup: React.FC = () => {
   return (
-    <Layout.Vertical
-      spacing="medium"
-      padding="medium"
-      style={{ backgroundColor: 'var(--grey-200)', maxWidth: '755px' }}
-    >
+    <Layout.Vertical spacing="medium" padding="medium" style={{ backgroundColor: 'var(--grey-200)' }}>
       <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
         This is just placeholder text. You can customize the domain name for your Autostopping Rule. Domain name should
         be entered without prefixing the scheme. A Rule can have multiple URLs. You can enter comma separated values
