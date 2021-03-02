@@ -6,6 +6,7 @@ common:
   removeThisVariable: Remove This Variable
 harness: Harness # Name of the company
 featureFlagsText: Feature Flags
+continuousFeatures: Continuous Features
 featureNA: This feature is not available as of now
 logView: Log View
 projectsText: Projects
@@ -1465,8 +1466,9 @@ cf:
     empty: 'There are currently no environments'
     createdBy: 'Created by'
     modifiedBy: 'Modified by'
+    adminEnvironments: 'Admin: Environments'
     delete:
-      message: 'Are you sure you want to delete Environment: {{environmentName}}'
+      message: 'Are you sure you want to delete environment <strong>{{name}}</strong>?'
       title: 'Delete Environment'
     create:
       title: 'Create an Environment'
@@ -1474,9 +1476,10 @@ cf:
       envTypeLabel: 'Environment type'
       nameLabel: 'Name of your environment'
     apiKeys:
+      addKeyTitle: Create SDK Key
       message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
       title: 'SDK Keys'
-      addKey: 'Add Key'
+      addKey: '+ Add Key'
       clientType: 'Client'
       clientId: 'Client ID'
       serverType: 'Server'

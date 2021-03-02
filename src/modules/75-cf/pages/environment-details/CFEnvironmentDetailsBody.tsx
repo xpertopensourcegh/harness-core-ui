@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useRef, useState } from 'react'
-import { Tabs, Tab, Text, Container, Layout, Button, Heading, Color, Utils } from '@wings-software/uicore'
+import { Tabs, Tab, Text, Container, Layout, Button, Heading, Color, Utils, Pagination } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import type { Column } from 'react-table'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
@@ -9,14 +9,12 @@ import Table from '@common/components/Table/Table'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { useEnvStrings } from '@cf/hooks/environment'
+import { CF_DEFAULT_PAGE_SIZE, EnvironmentSDKKeyType } from '@cf/utils/CFUtils'
 import { withTableData } from '../../utils/table-utils'
 import AddKeyDialog from '../../components/AddKeyDialog/AddKeyDialog'
 import css from './CFEnvironmentDetails.module.scss'
 
 type CustomColumn<T extends Record<string, any>> = Column<T>
-
-const PAGE_SIZE = 5
-const CLIENT = 'Client'
 
 type RowFunctions = {
   isNew: (id: string) => boolean
@@ -40,8 +38,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
   const { getString, getEnvString } = useEnvStrings()
   const { showSuccess, showError } = useToaster()
   const textRef = useRef<HTMLDivElement>(null)
-
-  const showCopy = isNew(apiKey.identifier) || apiKey.type === CLIENT
+  const showCopy = isNew(apiKey.identifier) || apiKey.type === EnvironmentSDKKeyType.CLIENT
 
   const handleCopy = () => {
     if (textRef.current) {
@@ -55,16 +52,20 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
       <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
         <Text font={{ weight: 'bold' }}>
-          {apiKey.type === CLIENT ? getEnvString(`apiKeys.clientId`) : getString('secretType')}
+          {apiKey.type === EnvironmentSDKKeyType.CLIENT ? getEnvString(`apiKeys.clientId`) : getString('secretType')}
         </Text>
         {showCopy ? (
           <div ref={textRef}>
             <Text
-              rightIcon="copy"
-              rightIconProps={{ onClick: handleCopy, color: Color.GREY_600, style: { cursor: 'pointer' } }}
-              background={Color.GREY_200}
-              padding="xsmall"
-              style={{ borderRadius: '4px' }}
+              font={{ mono: true }}
+              rightIcon="main-clone"
+              rightIconProps={{
+                onClick: handleCopy,
+                color: Color.GREY_350,
+                style: { cursor: 'pointer', marginLeft: 'var(--spacing-small)' }
+              }}
+              padding="small"
+              style={{ borderRadius: '4px', backgroundColor: '#F3F3FA' }}
             >
               {getSecret(apiKey.identifier, apiKey.apiKey)}
             </Text>
@@ -77,6 +78,10 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
         <Button
           minimal
           icon="trash"
+          iconProps={{
+            size: 16
+          }}
+          style={{ color: 'var(--grey-300)' }}
           tooltip={
             <Container width="350px" padding="medium">
               <Heading level={2} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
@@ -108,7 +113,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
   )
 })
 
-const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ environment }) => {
+const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({ environment }) => {
   const { showSuccess, showError } = useToaster()
   const { getString, getEnvString } = useEnvStrings()
   const [recents, setRecents] = useState<ApiKey[]>([])
@@ -124,7 +129,7 @@ const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ en
   const { data, loading, error, refetch } = useGetAllAPIKeys({
     queryParams: {
       ...queryParams,
-      pageSize: PAGE_SIZE,
+      pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber: page
     }
   })
@@ -141,7 +146,7 @@ const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ en
     itemCount: 0,
     pageCount: 0,
     pageIndex: 0,
-    pageSize: PAGE_SIZE
+    pageSize: CF_DEFAULT_PAGE_SIZE
   }
   const hasData = !error && !loading && (apiKeys || []).length > 0
   const emptyData = !error && !loading && (apiKeys || []).length === 0
@@ -151,18 +156,18 @@ const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ en
       {
         Header: getString('name').toUpperCase(),
         accessor: 'name',
-        width: '25%',
+        width: '35%',
         Cell: NameCell
       },
       {
         Header: getString('typeLabel').toUpperCase(),
         accessor: 'type',
-        width: '25%',
+        width: '10%',
         Cell: TypeCell
       },
       {
         id: 'info',
-        width: '50%',
+        width: '55%',
         Cell: ApiInfoCell
       }
     ],
@@ -170,45 +175,67 @@ const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ en
   )
 
   return (
-    <Container width="100%" height="100%" padding={{ top: 'huge', left: 'xxlarge' }}>
+    <Container width="100%" height="calc(100vh - 174px)">
       {hasData && (
-        <Layout.Vertical spacing="medium" style={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-          <Heading level={2} font={{ weight: 'bold' }}>
-            {getEnvString('apiKeys.title')}
-          </Heading>
-          <Text>{getEnvString('apiKeys.message')}</Text>
-          <Container width="100%" padding={{ right: 'xxlarge' }}>
-            <RowContext.Provider
-              value={{
-                isNew: (id: string) => Boolean(recents.find(r => r.identifier === id)),
-                onDelete: handleDelete,
-                getSecret: (id: string, fallback: string) => recents.find(r => r.identifier === id)?.apiKey || fallback
+        <Layout.Vertical
+          padding={{ top: 'xxxlarge', left: 'xxlarge' }}
+          style={{ justifyContent: 'flex-start', alignItems: 'flex-start', height: '100%', overflow: 'hidden' }}
+        >
+          <Heading
+            level={2}
+            style={{
+              display: 'flex',
+              fontWeight: 600,
+              fontSize: '16px',
+              lineHeight: '22px',
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: '100%',
+              paddingRight: 'var(--spacing-large)'
+            }}
+            color={Color.BLACK}
+          >
+            <span style={{ flexGrow: 1 }}>{getEnvString('apiKeys.title')}</span>
+            <AddKeyDialog
+              environment={environment}
+              onCreate={(newKey: ApiKey, hideCreate) => {
+                setRecents([...recents, newKey])
+                hideCreate()
+                refetch()
               }}
-            >
-              <Table<ApiKey>
-                data={(apiKeys || []) as ApiKey[]}
-                columns={columns}
-                pagination={{
-                  itemCount: pagination.itemCount,
-                  pageCount: pagination.pageCount,
-                  pageIndex: pagination.pageIndex,
-                  pageSize: PAGE_SIZE,
-                  gotoPage: (index: number) => {
+            />
+          </Heading>
+          <Text style={{ color: '#22222A' }} padding={{ top: 'small', bottom: 'xxlarge' }}>
+            {getEnvString('apiKeys.message')}
+          </Text>
+          <Container className={css.content}>
+            <Container className={css.table}>
+              <RowContext.Provider
+                value={{
+                  isNew: (id: string) => Boolean(recents.find(r => r.identifier === id)),
+                  onDelete: handleDelete,
+                  getSecret: (id: string, fallback: string) =>
+                    recents.find(r => r.identifier === id)?.apiKey || fallback
+                }}
+              >
+                <Table<ApiKey> data={(apiKeys || []) as ApiKey[]} columns={columns} />
+              </RowContext.Provider>
+            </Container>
+            {!!pagination.itemCount && (
+              <Container className={css.paginationContainer}>
+                <Pagination
+                  itemCount={pagination.itemCount}
+                  pageCount={pagination.pageCount}
+                  pageIndex={pagination.pageIndex}
+                  pageSize={CF_DEFAULT_PAGE_SIZE}
+                  gotoPage={(index: number) => {
                     setPage(index)
                     refetch({ queryParams: { ...queryParams, pageNumber: index } })
-                  }
-                }}
-              />
-            </RowContext.Provider>
+                  }}
+                />
+              </Container>
+            )}
           </Container>
-          <AddKeyDialog
-            environment={environment}
-            onCreate={(newKey: ApiKey, hideCreate) => {
-              setRecents([...recents, newKey])
-              hideCreate()
-              refetch()
-            }}
-          />
         </Layout.Vertical>
       )}
 
@@ -273,7 +300,7 @@ const CFEnvironmentDetailsBody: React.FC<{
   return (
     <Container className={css.envTabs}>
       <Tabs id="envDetailsTabs">
-        <Tab id="settings" title="Settings" panel={<FeatureFlagsTab environment={environment} />} />
+        <Tab id="settings" title="Settings" panel={<EnvironmentSDKKeys environment={environment} />} />
       </Tabs>
     </Container>
   )

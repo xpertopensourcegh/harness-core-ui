@@ -11,12 +11,8 @@
 
 .dialog {
   position: relative;
-  min-height: 500px;
-  min-width: 625px;
-  & > div {
-    height: 100%;
-    position: absolute;
-  }
+  min-height: 600px;
+  min-width: 650px;
 }
 
 .card-select {

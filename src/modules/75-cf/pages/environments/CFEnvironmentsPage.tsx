@@ -1,12 +1,16 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { get } from 'lodash-es'
 import { Menu, Position } from '@blueprintjs/core'
-import { Button, Color, Container, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Button, Container, Layout, Pagination, Text } from '@wings-software/uicore'
 import { EnvironmentResponseDTO, useDeleteEnvironment, useGetEnvironmentListForProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
-import { useConfirmationDialog, useToaster } from '@common/exports'
+import { useToaster } from '@common/exports'
+import { IdentifierText } from '@cf/components/IdentifierText/IdentifierText'
+import { CF_DEFAULT_PAGE_SIZE } from '@cf/utils/CFUtils'
+import { EnvironmentType } from '@common/constants/EnvironmentType'
+import { useConfirmAction } from '@common/hooks/useConfirmAction'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
@@ -14,46 +18,48 @@ import routes from '@common/RouteDefinitions'
 import { withTableData } from '../../utils/table-utils'
 import css from './CFEnvironmentsPage.module.scss'
 
-type Environment = EnvironmentResponseDTO
-type EnvData = { environment: Environment }
-const withEnvironment = withTableData<Environment, EnvData>(({ row }) => ({ environment: row.original }))
+type EnvData = { environment: EnvironmentResponseDTO }
+const withEnvironment = withTableData<EnvironmentResponseDTO, EnvData>(({ row }) => ({ environment: row.original }))
 const withActions = withTableData<
-  Environment,
+  EnvironmentResponseDTO,
   EnvData & { actions: { [P in 'onEdit' | 'onDelete']?: (id: string) => void } }
 >(({ row, column }) => ({
   environment: row.original,
   actions: (column as any).actions as { [P in 'onEdit' | 'onDelete']?: (id: string) => void }
 }))
 
-const PRODUCTION = 'Production'
 const TypeCell = withEnvironment(({ environment }) => {
   const { getString } = useEnvStrings()
-  return <Text>{getString(environment.type === PRODUCTION ? 'production' : 'nonProduction')}</Text>
+  return <Text>{getString(environment.type === EnvironmentType.PRODUCTION ? 'production' : 'nonProduction')}</Text>
 })
 
 const NameCell = withEnvironment(({ environment }) => {
   const { getString } = useEnvStrings()
-  const showDescription = environment?.description?.length !== undefined && environment.description.length > 0
   const tags = Object.entries(environment.tags ?? {}).reduce((acc: any[], [key, value]: [string, string]) => {
     return [...acc, { name: key, value: value }]
   }, [])
   return (
-    <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }} padding={{ right: 'small' }}>
-      <Layout.Vertical spacing="xsmall">
-        <Text font={{ weight: 'bold', size: 'medium' }}>{environment.name}</Text>
-        {showDescription && <Text>{environment.description}</Text>}
-        <Text
-          font={{ weight: 'semi-bold' }}
-          background={Color.BLUE_300}
-          width="fit-content"
-          padding={{ left: 'xsmall', right: 'xsmall' }}
-        >
-          {environment.identifier}
-        </Text>
+    <Layout.Horizontal
+      flex={{ distribution: 'space-between', align: 'center-center' }}
+      padding={{ left: 'small', right: 'small' }}
+      style={{ maxWidth: 'calc(100% - var(--spacing-medium))' }}
+    >
+      <Layout.Vertical spacing="xsmall" style={{ maxWidth: 'calc(100% - 100px)' }}>
+        <Text style={{ color: '#22222A', fontWeight: 500 }}>{environment.name}</Text>
+
+        {environment.description && (
+          <Container>
+            <Text style={{ color: '#6B6D85', fontSize: '12px', lineHeight: '18px' }}>{environment.description}</Text>
+          </Container>
+        )}
+
+        <Container padding={{ top: 'xsmall' }} margin={{ bottom: 'xsmall' }}>
+          <IdentifierText identifier={environment.identifier} inline style={{ padding: 'var(--spacing-xsmall)' }} />
+        </Container>
       </Layout.Vertical>
       <Layout.Horizontal>
         <Text
-          width="100px"
+          width={100}
           flex
           icon="main-tags"
           style={{ justifyContent: 'center' }}
@@ -80,23 +86,20 @@ const NameCell = withEnvironment(({ environment }) => {
 })
 
 const ModilfiedByCell = withActions(({ environment, actions }) => {
-  const { getString, getEnvString } = useEnvStrings()
-
-  const id = environment.identifier as string
-
-  const { openDialog } = useConfirmationDialog({
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
-    contentText: getEnvString('delete.message', { environmentName: environment.name }),
-    titleText: getEnvString('delete.title'),
-    onCloseDialog: (isConfirmed: boolean) => {
-      isConfirmed && actions.onDelete?.(id)
+  const { getString } = useEnvStrings()
+  const identifier = environment.identifier as string
+  const deleteEnvironment = useConfirmAction({
+    title: getString('cf.environments.delete.title'),
+    message: (
+      <span
+        dangerouslySetInnerHTML={{ __html: getString('cf.environments.delete.message', { name: environment.name }) }}
+      />
+    ),
+    action: () => {
+      actions.onDelete?.(identifier)
     }
   })
 
-  const handleInteraction = (type: 'edit' | 'delete') => () => {
-    type === 'edit' ? actions.onEdit?.(id) : openDialog()
-  }
   return (
     <Layout.Horizontal style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
       {/* TODO: Add user info when BE is ready */}
@@ -112,11 +115,11 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
           style={{ marginLeft: 'auto' }}
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>
-              <Menu.Item icon="edit" text={getString('edit')} onClick={handleInteraction('edit')} />
-              <Menu.Item icon="cross" text={getString('delete')} onClick={handleInteraction('delete')} />
+              <Menu.Item icon="edit" text={getString('edit')} onClick={() => actions.onEdit?.(identifier)} />
+              <Menu.Item icon="cross" text={getString('delete')} onClick={deleteEnvironment} />
             </Menu>
           }
-          tooltipProps={{ isDark: true, interactionKind: 'click' }}
+          tooltipProps={{ isDark: true, interactionKind: 'click', hasBackdrop: true }}
         />
       </Container>
     </Layout.Horizontal>
@@ -127,18 +130,22 @@ type CustomColumn<T extends Record<string, any>> = Column<T>
 
 const CFEnvironmentsPage: React.FC<{}> = () => {
   const { getEnvString, getString } = useEnvStrings()
-  const { showError, showSuccess } = useToaster()
+  const { showError, showSuccess, clear } = useToaster()
   const history = useHistory()
+  const [page, setPage] = useState(0)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<Record<string, string>>()
-
-  const { data: envData, loading, error, refetch } = useGetEnvironmentListForProject({
-    queryParams: {
+  const queryParams = useMemo(() => {
+    return {
       accountId,
+      orgIdentifier,
       projectIdentifier,
-      orgIdentifier
+      size: CF_DEFAULT_PAGE_SIZE,
+      page
     }
+  }, [accountId, orgIdentifier, projectIdentifier, page])
+  const { data: envData, loading, error, refetch } = useGetEnvironmentListForProject({
+    queryParams
   })
-
   const { mutate: deleteEnvironment } = useDeleteEnvironment({
     queryParams: {
       accountId,
@@ -146,7 +153,6 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
       orgIdentifier
     }
   })
-
   const environments = envData?.data?.content
   const hasEnvs = Boolean(!loading && envData?.data?.content?.length)
   const emptyEnvs = Boolean(!loading && envData?.data?.content?.length === 0)
@@ -168,16 +174,20 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
       showSuccess(`Successfully deleted environment ${id}`)
       refetch()
     } catch (e) {
-      showError(get(e, 'data.message', e?.message))
+      showError(get(e, 'data.message', e?.message), 0)
     }
   }
 
-  const columns: CustomColumn<Environment>[] = useMemo(
+  useEffect(() => {
+    return () => clear()
+  }, [])
+
+  const columns: CustomColumn<EnvironmentResponseDTO>[] = useMemo(
     () => [
       {
         Header: getString('environment').toUpperCase(),
         id: 'name',
-        width: '45%',
+        width: '75%',
         accessor: 'name',
         Cell: NameCell
       },
@@ -185,19 +195,10 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
         Header: getString('typeLabel').toUpperCase(),
         id: 'type',
         accessor: 'type',
-        width: '45%',
+        width: '15%',
         Cell: TypeCell
       },
-      // {
-      // TODO: Commenting column at the moment. Uncomment when BE is ready
-      // Header: getEnvString('createdBy').toUpperCase(),
-      // id: 'createdBy',
-      // width: '20%',
-      // Cell: CreatedByCell,
-      // },
       {
-        // TODO: Hiding header at the moment. Uncomment when BE is ready
-        // Header: getEnvString('modifiedBy').toUpperCase(),
         id: 'modifiedBy',
         width: '10%',
         Cell: ModilfiedByCell,
@@ -224,9 +225,9 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
         <>
           {hasEnvs && (
             <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
-              <Table<Environment>
+              <Table<EnvironmentResponseDTO>
                 columns={columns}
-                data={(environments as Environment[]) || []}
+                data={(environments as EnvironmentResponseDTO[]) || []}
                 onRowClick={({ identifier }) => handleEdit(identifier as string)}
               />
             </Container>
@@ -246,8 +247,11 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
           itemCount={envData?.data?.totalItems || 0}
           pageSize={envData?.data?.pageSize || 0}
           pageCount={envData?.data?.totalPages || 0}
-          pageIndex={envData?.data?.pageIndex || 0}
-          gotoPage={() => undefined} // TODO: implement goto
+          pageIndex={page}
+          gotoPage={index => {
+            setPage(index)
+            refetch({ queryParams: { ...queryParams, page: index } })
+          }}
         />
       }
       error={error}

@@ -8,8 +8,6 @@ import { PageError } from '@common/components/Page/PageError'
 import CFEnvironmentDetailsHeader from './CFEnvironmentDetailsHeader'
 import CFEnvironmentDetailsBody from './CFEnvironmentDetailsBody'
 
-type Environment = EnvironmentResponseDTO
-
 const CFEnvironmentDetails: React.FC<{}> = () => {
   const { projectIdentifier, environmentIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { loading, data, error, refetch } = useGetEnvironment({
@@ -20,14 +18,13 @@ const CFEnvironmentDetails: React.FC<{}> = () => {
       orgIdentifier
     }
   })
-
-  const environment = data?.data as Environment
+  const environment = data?.data as EnvironmentResponseDTO
   const hasData = Boolean(environment)
 
   return (
     <>
       {hasData && (
-        <Layout.Vertical height="100vh" style={{ boxSizing: 'border-box' }}>
+        <Layout.Vertical height="100vh" style={{ boxSizing: 'border-box', background: '#FDFDFD' }}>
           <CFEnvironmentDetailsHeader environment={environment} />
           <CFEnvironmentDetailsBody environment={environment} />
         </Layout.Vertical>

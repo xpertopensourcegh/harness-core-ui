@@ -93,3 +93,9 @@ export const useBucketByItems = () => {
 // escaped sequences and not single character like `<', '>', etc...
 export const unescapeI18nSupportedTags = (str: string) =>
   str.replace(/&lt;strong&gt;/g, '<strong>').replace(/&lt;&#x2F;strong&gt;/g, '</strong>')
+
+// FF Environment SDK Type
+export enum EnvironmentSDKKeyType {
+  SERVER = 'Server',
+  CLIENT = 'Client'
+}

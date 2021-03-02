@@ -34,6 +34,7 @@ import { useConfirmAction } from '@common/hooks'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
+import { IdentifierText } from '../IdentifierText/IdentifierText'
 import i18n from './FlagActivationDetails.i18n'
 import css from './FlagActivationDetails.module.scss'
 
@@ -68,7 +69,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
   featureFlag,
   onEditVariations
 }) => {
-  const isFlagTypeBoolean = featureFlag?.kind === FlagTypeVariations.booleanFlag
+  const isFlagTypeBoolean = featureFlag.kind === FlagTypeVariations.booleanFlag
   const { variations } = featureFlag
 
   return (
@@ -114,28 +115,28 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   })
   const { showSuccess } = useToaster()
   const { mutate: submitPatch } = usePatchFeature({
-    identifier: featureFlag?.identifier as string,
+    identifier: featureFlag.identifier as string,
     queryParams: {
-      project: featureFlag?.project as string,
-      environment: featureFlag?.envProperties?.environment as string,
+      project: featureFlag.project as string,
+      environment: featureFlag.envProperties?.environment as string,
       account: accountId,
       org: orgIdentifier
     }
   })
   const history = useHistory()
-  const isBooleanFlag = featureFlag?.kind === FlagTypeVariations.booleanFlag
+  const isBooleanFlag = featureFlag.kind === FlagTypeVariations.booleanFlag
 
   const setDefaultFlags = (): void => {
     let localVars: SelectOption[] = []
-    if (featureFlag?.variations.length) {
+    if (featureFlag.variations.length) {
       // FIXME: Check the TS error about incompatible types
-      localVars = featureFlag?.variations.map(elem => {
+      localVars = featureFlag.variations.map(elem => {
         return { label: elem.identifier as string, value: elem.value as any }
       })
     }
     setEditDefaultValuesModal(localVars)
   }
-  const initialVariations = cloneDeep(featureFlag?.variations)
+  const initialVariations = cloneDeep(featureFlag.variations)
 
   const handlePrerequisiteInteraction = (action: 'edit' | 'delete', prereq: Prerequisite) => () => {
     if (action === 'delete') {
@@ -156,9 +157,9 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
   const [openModalEditVariations, hideModalEditVariations] = useModalHook(() => {
     const initialValues = {
-      variations: featureFlag?.variations,
-      defaultOnVariation: featureFlag?.defaultOnVariation,
-      defaultOffVariation: featureFlag?.defaultOffVariation
+      variations: featureFlag.variations,
+      defaultOnVariation: featureFlag.defaultOnVariation,
+      defaultOffVariation: featureFlag.defaultOffVariation
     }
 
     const [initValues, setInitialValues] = useState(initialValues) // eslint-disable-line
@@ -242,7 +243,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                               text={i18n.descOptional}
                               inputName="variations[0].description"
                               inputPlaceholder={''}
-                              isOpen={featureFlag?.variations[0].description ? true : false}
+                              isOpen={featureFlag.variations[0].description ? true : false}
                             />
                           </Layout.Horizontal>
                           <Layout.Horizontal className={css.variationsContainer}>
@@ -251,7 +252,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                               text={i18n.descOptional}
                               inputName="variations[1].description"
                               inputPlaceholder={''}
-                              isOpen={featureFlag?.variations[1].description ? true : false}
+                              isOpen={featureFlag.variations[1].description ? true : false}
                             />
                           </Layout.Horizontal>
                         </>
@@ -277,7 +278,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                               text={i18n.descOptional}
                               inputName={`variations?.${index}?.description`}
                               inputPlaceholder={i18n.editVariations.variationAbout}
-                              isOpen={featureFlag?.variations[index]?.description ? true : false}
+                              isOpen={featureFlag.variations[index]?.description ? true : false}
                             />
                             <Icon
                               name="trash"
@@ -375,7 +376,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Layout.Vertical>
       </Dialog>
     )
-  }, [editDefaultValuesModal, featureFlag?.variations])
+  }, [editDefaultValuesModal, featureFlag.variations])
 
   const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => {
     const initialPrereqValues = {
@@ -511,10 +512,10 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
   const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => {
     const initialValues = {
-      name: featureFlag?.name,
-      description: featureFlag?.description,
-      tags: featureFlag?.tags?.map(elem => elem.name),
-      permanent: featureFlag?.permanent
+      name: featureFlag.name,
+      description: featureFlag.description,
+      tags: featureFlag.tags?.map(elem => elem.name),
+      permanent: featureFlag.permanent
     }
 
     // TODO: Uncomment when tags are ready on Backend
@@ -735,40 +736,28 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             marginBottom: 'var(--spacing-small)'
           }}
         >
-          {featureFlag?.name}
+          {featureFlag.name}
         </Heading>
-        {featureFlag?.description && (
+        {featureFlag.description && (
           <Text margin={{ bottom: 'small' }} style={{ fontSize: '13px', lineHeight: '20px', color: '#22222A' }}>
             {featureFlag.description}
           </Text>
         )}
-        <Text
-          inline
-          style={{
-            backgroundColor: '#CDF4FE',
-            marginBottom: 'var(--spacing-small)',
-            padding: 'var(--spacing-xsmall) var(--spacing-small)',
-            borderRadius: '2px',
-            fontSize: '12px',
-            lineHeight: '15px',
-            color: '#22222A'
-          }}
-        >
-          {featureFlag?.identifier}
-        </Text>
 
-        {!!featureFlag?.tags?.length && (
+        <IdentifierText identifier={featureFlag.identifier} />
+
+        {!!featureFlag.tags?.length && (
           <Container className={css.tagsFlagActivationDetails}>
             <TagsViewer
-              tags={featureFlag?.tags?.map(({ value }) => value as string)}
+              tags={featureFlag.tags?.map(({ value }) => value as string)}
               style={{ backgroundColor: '#D9DAE6', fontSize: '12px', lineHeight: '16px', color: '#22222A' }}
             />
           </Container>
         )}
 
         <Layout.Vertical margin={{ top: 'medium', bottom: 'xlarge' }}>
-          {renderTime(featureFlag?.createdAt)}
-          {renderTime(featureFlag?.modifiedAt, { paddingTop: 'var(--spacing-xsmall)' })}
+          {renderTime(featureFlag.createdAt)}
+          {renderTime(featureFlag.modifiedAt, { paddingTop: 'var(--spacing-xsmall)' })}
         </Layout.Vertical>
 
         <VariationsList
