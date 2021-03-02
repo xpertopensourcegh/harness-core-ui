@@ -7,15 +7,12 @@ import {
   FormikForm,
   FormInput,
   MultiTextInput,
-  Link,
-  // TextInput,
   Switch,
   Icon,
   Text,
   Popover,
   getMultiTypeFromValue,
   MultiTypeInputType
-  // RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
@@ -24,29 +21,15 @@ import { FieldArray } from 'formik'
 import { isEqual, debounce, cloneDeep } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
-import {
-  SecretDTOV2,
-  listSecretsV2Promise
-  // PipelineInfoConfig,
-  // ConnectorInfoDTO,
-  // useGetConnector
-} from 'services/cd-ng'
+import { SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
 import { PipelineContext } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-// import {
-//   getIdentifierFromValue,
-//   getScopeFromDTO,
-//   getScopeFromValue
-// } from '@common/components/EntityReference/EntityReference'
-// import {
-//   ConnectorReferenceField,
-//   ConnectorReferenceFieldProps
-// } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { skipConditionsNgDocsLink } from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import css from './BuildStageSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -660,9 +643,9 @@ export default function BuildStageSpecifications(): JSX.Element {
                     <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
                       {getString('skipConditionHelpText')}
                       <br />
-                      <Link font="small" withoutHref>
+                      <a href={skipConditionsNgDocsLink} target="_blank" rel="noreferrer">
                         {getString('learnMore')}
-                      </Link>
+                      </a>
                     </Text>
                   </FormikForm>
                 </div>

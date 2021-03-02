@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Text, FormInput, Link } from '@wings-software/uicore'
+import { Text, FormInput } from '@wings-software/uicore'
 import { String } from 'framework/exports'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -10,6 +10,8 @@ import css from '../AdvancedSteps.module.scss'
 export interface SkipConditionPanelProps {
   mode?: Modes
 }
+
+export const skipConditionsNgDocsLink = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
 
 export default function SkipConditionsPanel(props: SkipConditionPanelProps): React.ReactElement {
   const { expressions } = useVariablesExpression()
@@ -24,9 +26,9 @@ export default function SkipConditionsPanel(props: SkipConditionPanelProps): Rea
       <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
         <String stringID={helpTextStringId} />
         <br />
-        <Link font="small" withoutHref>
+        <a href={skipConditionsNgDocsLink} target="_blank" rel="noreferrer">
           <String stringID="learnMore" />
-        </Link>
+        </a>
       </Text>
     </>
   )

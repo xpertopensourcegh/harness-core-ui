@@ -11,7 +11,6 @@ import {
   CardSelect,
   Label,
   Layout,
-  Link,
   ExpressionInput,
   Accordion
 } from '@wings-software/uicore'
@@ -62,6 +61,8 @@ const newStageData = [
     disabled: true
   }
 ]
+
+const skipConditionsNgDocsLink = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
 
 export interface EditStageView {
   data?: StageElementWrapper
@@ -301,9 +302,9 @@ export const EditStageView: React.FC<EditStageView> = ({
                         <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
                           <String stringID="skipConditionText" />
                           <br />
-                          <Link font="small" withoutHref>
+                          <a href={skipConditionsNgDocsLink} target="_blank" rel="noreferrer">
                             <String stringID="learnMore" />
-                          </Link>
+                          </a>
                         </Text>
                       </div>
                     </Layout.Vertical>

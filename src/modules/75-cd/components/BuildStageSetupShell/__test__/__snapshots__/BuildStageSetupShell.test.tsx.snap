@@ -717,16 +717,11 @@ Examples:
 
                           <br />
                           <a
-                            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--font-small"
-                            href="javascript:void()"
-                            role="button"
-                            tabindex="0"
+                            href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
+                            rel="noreferrer"
+                            target="_blank"
                           >
-                            <span
-                              class="bp3-button-text"
-                            >
-                              Learn more
-                            </span>
+                            Learn more
                           </a>
                         </p>
                       </div>
