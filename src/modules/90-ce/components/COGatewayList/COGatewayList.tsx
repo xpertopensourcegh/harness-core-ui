@@ -182,15 +182,13 @@ const COGatewayList: React.FC = () => {
     )
   }
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
-    const { data, loading, error: healthError } = useHealthOfService({
+    const { data, loading } = useHealthOfService({
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
       debounce: 300
     })
-    if (healthError) {
-      showError(`could not load health for rule ${tableProps.row.original.name}`)
-    }
+
     const { data: resources, loading: resourcesLoading, error: resourcesError } = useAllServiceResources({
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
