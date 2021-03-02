@@ -117,12 +117,6 @@ export const getStatusProps = (
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
-      case ExecutionPipelineItemStatus.SKIPPED:
-        secondaryIcon = 'conditional-skip-filled'
-        secondaryIconProps.size = 20
-        secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
-        secondaryIconStyle.animation = `${css.fadeIn} 1s`
-        break
       case ExecutionPipelineItemStatus.SUCCESS:
       case ExecutionPipelineItemStatus.SUCCEEDED:
         secondaryIcon = 'execution-success'
