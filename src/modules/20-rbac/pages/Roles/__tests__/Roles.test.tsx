@@ -3,6 +3,7 @@ import { act, fireEvent, getByText, queryByText, render, RenderResult, waitFor }
 
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
+import routes from '@common/RouteDefinitions'
 import Roles from '../Roles'
 import { createRoleMockData, rolesMockList } from './RolesMock'
 
@@ -28,6 +29,7 @@ jest.mock('react-timeago', () => () => 'dummy date')
 describe('Role Details Page', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']
+  let getByTestId: RenderResult['getByTestId']
 
   beforeEach(async () => {
     const renderObj = render(
@@ -37,6 +39,7 @@ describe('Role Details Page', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
+    getByTestId = renderObj.getByTestId
     await waitFor(() => getAllByText('New Role'))
   })
   test('render data', () => {
@@ -87,5 +90,20 @@ describe('Role Details Page', () => {
         fireEvent.click(deleteBtn!)
         expect(deleteRole).toBeCalled()
       })
+    }),
+    test('Go to Role Details', async () => {
+      const card = getByTestId('role-card-role1')
+      act(() => {
+        fireEvent.click(card)
+      })
+      await waitFor(() => getByTestId('location'))
+      expect(
+        getByTestId('location').innerHTML.endsWith(
+          routes.toRoleDetails({
+            accountId: 'testAcc',
+            roleIdentifier: 'role1'
+          })
+        )
+      ).toBeTruthy()
     })
 })

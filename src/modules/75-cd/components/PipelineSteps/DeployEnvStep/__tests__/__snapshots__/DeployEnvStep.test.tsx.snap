@@ -294,7 +294,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               class="grid"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -310,7 +310,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="1"
                 tabindex="0"
               >
@@ -549,7 +549,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="grid"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -565,7 +565,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="1"
                 tabindex="0"
               >

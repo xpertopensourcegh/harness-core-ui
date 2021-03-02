@@ -39,7 +39,7 @@ const RenderColumnDetails: Renderer<CellProps<ResourceGroupResponse>> = ({ row }
 const RenderColumnLastUpdated: Renderer<CellProps<ResourceGroupResponse>> = ({ row }) => {
   const { getString } = useStrings()
   const data = row?.original
-  if (data?.resourceGroup?.harnessManaged) {
+  if (data.harnessManaged) {
     return (
       <Text color={Color.BLACK} lineClamp={1}>
         {getString('resourceGroup.builtInResourceGroup')}

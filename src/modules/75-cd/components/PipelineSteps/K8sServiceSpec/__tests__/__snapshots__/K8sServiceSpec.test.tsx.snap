@@ -412,7 +412,7 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
         class="optionsViewGrid"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
           data-index="0"
           tabindex="0"
         >
@@ -446,7 +446,7 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
           </section>
         </div>
         <div
-          class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
           data-index="1"
           tabindex="0"
         >

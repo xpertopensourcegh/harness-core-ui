@@ -3,7 +3,7 @@
 exports[`Organization Card test initializes ok  1`] = `
 <div>
   <div
-    class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
+    class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
     data-testid="org-card-bfvbfkbvf"
     tabindex="0"
   >

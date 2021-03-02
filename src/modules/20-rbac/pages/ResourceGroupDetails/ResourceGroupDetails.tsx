@@ -111,6 +111,7 @@ const ResourceGroupDetails: React.FC = () => {
   }
 
   const resourceGroup = resourceGroupDetails?.data?.resourceGroup
+  const isHarnessManaged = resourceGroupDetails?.data?.harnessManaged
 
   if (!resourceGroup)
     return <Page.NoDataCard icon="resources-icon" message={getString('resourceGroup.noResourceGroupFound')} />
@@ -139,23 +140,23 @@ const ResourceGroupDetails: React.FC = () => {
             >
               <Text>{getString('created')}</Text>
               <Text lineClamp={1} color={Color.BLACK}>
-                {resourceGroup.harnessManaged && (
+                {isHarnessManaged ? (
                   <Text lineClamp={1} color={Color.BLACK}>
                     {getString('resourceGroup.builtInResourceGroup')}
                   </Text>
+                ) : (
+                  <ReactTimeago date={resourceGroupDetails?.data?.createdAt || ''} />
                 )}
-                {!resourceGroup.harnessManaged && <ReactTimeago date={resourceGroupDetails?.data?.createdAt || ''} />}
               </Text>
             </Layout.Vertical>
             <Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}>
               <Text>{getString('lastUpdated')}</Text>
               <Text lineClamp={1} color={Color.BLACK}>
-                {resourceGroup.harnessManaged && (
+                {isHarnessManaged ? (
                   <Text lineClamp={1} color={Color.BLACK}>
                     {getString('resourceGroup.builtInResourceGroup')}
                   </Text>
-                )}
-                {!resourceGroup.harnessManaged && (
+                ) : (
                   <ReactTimeago date={resourceGroupDetails?.data?.lastModifiedAt || ''} />
                 )}
               </Text>
@@ -173,11 +174,11 @@ const ResourceGroupDetails: React.FC = () => {
             <ResourceTypeList
               onResourceSelectionChange={onResourceSelectionChange}
               preSelectedResourceList={Array.from(selectedResourcesMap.keys())}
-              disableAddingResources={resourceGroup.harnessManaged}
+              disableAddingResources={isHarnessManaged}
             />
           </Container>
           <Container padding="xlarge">
-            {!resourceGroup.harnessManaged && (
+            {!isHarnessManaged && (
               <Layout.Vertical flex={{ alignItems: 'flex-end' }} padding="small">
                 <Button onClick={() => updateResourceGroupData(resourceGroup)} disabled={updating}>
                   {getString('applyChanges')}
@@ -191,7 +192,7 @@ const ResourceGroupDetails: React.FC = () => {
                   resourceType={resourceType}
                   resourceValues={selectedResourcesMap.get(resourceType)}
                   onResourceSelectionChange={onResourceSelectionChange}
-                  disableAddingResources={resourceGroup.harnessManaged}
+                  disableAddingResources={isHarnessManaged}
                 />
               ))}
             </Layout.Vertical>

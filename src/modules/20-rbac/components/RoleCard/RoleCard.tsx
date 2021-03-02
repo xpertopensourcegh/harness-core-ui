@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, CardBody, Icon, Layout, Text } from '@wings-software/uicore'
+import { Card, CardBody, Color, Icon, Layout, Text } from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Intent, Menu } from '@blueprintjs/core'
@@ -90,7 +90,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
       <Layout.Vertical flex={{ align: 'center-center' }} spacing="large" height="100%">
         {/* TODO: REPLACE WITH ROLE ICON */}
         <Icon name="nav-project-selected" size={40} />
-        <Text className={css.name} lineClamp={2}>
+        <Text className={css.name} lineClamp={2} color={Color.BLACK}>
           {role.name}
         </Text>
       </Layout.Vertical>

@@ -12,7 +12,7 @@ const UsersPage: React.FC = () => {
       <PageHeader
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
-            <Button text={getString('users')} intent="primary" icon="plus" onClick={noop} />
+            <Button text={getString('newUser')} intent="primary" icon="plus" onClick={noop} />
           </Layout.Horizontal>
         }
         toolbar={

@@ -6,7 +6,7 @@ exports[`Render Delegates4Ways render data 1`] = `
     class="grid cardWrapper"
   >
     <div
-      class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+      class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
       data-index="0"
       tabindex="0"
     >
@@ -35,7 +35,7 @@ exports[`Render Delegates4Ways render data 1`] = `
       </div>
     </div>
     <div
-      class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+      class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
       data-index="1"
       tabindex="0"
     >
@@ -82,7 +82,7 @@ exports[`Render Delegates4Ways render data 1`] = `
       </div>
     </div>
     <div
-      class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+      class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
       data-index="2"
       tabindex="0"
     >
@@ -111,7 +111,7 @@ exports[`Render Delegates4Ways render data 1`] = `
       </div>
     </div>
     <div
-      class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+      class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
       data-index="3"
       tabindex="0"
     >

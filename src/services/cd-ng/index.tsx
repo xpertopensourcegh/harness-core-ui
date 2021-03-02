@@ -601,22 +601,22 @@ export interface VisitorErrorResponseWrapper {
 }
 
 export interface ByteString {
-  validUtf8?: boolean
   empty?: boolean
+  validUtf8?: boolean
 }
 
 export interface Commit {
   unknownFields?: UnknownFieldSet
+  message?: string
   initialized?: boolean
   serializedSize?: number
-  message?: string
   parserForType?: ParserCommit
   defaultInstanceForType?: Commit
   messageBytes?: ByteString
-  link?: string
-  sha?: string
-  shaBytes?: ByteString
   linkBytes?: ByteString
+  link?: string
+  shaBytes?: ByteString
+  sha?: string
   author?: Signature
   authorOrBuilder?: SignatureOrBuilder
   committer?: Signature
@@ -631,21 +631,21 @@ export interface Commit {
 export interface CommitOrBuilder {
   message?: string
   messageBytes?: ByteString
-  link?: string
-  sha?: string
-  shaBytes?: ByteString
   linkBytes?: ByteString
+  link?: string
+  shaBytes?: ByteString
+  sha?: string
   author?: Signature
   authorOrBuilder?: SignatureOrBuilder
   committer?: Signature
   committerOrBuilder?: SignatureOrBuilder
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -729,7 +729,8 @@ export interface ExecutionMetadata {
   unknownFields?: UnknownFieldSet
   initialized?: boolean
   serializedSize?: number
-  yaml?: string
+  parserForType?: ParserExecutionMetadata
+  defaultInstanceForType?: ExecutionMetadata
   runSequence?: number
   triggerInfo?: ExecutionTriggerInfo
   triggerInfoOrBuilder?: ExecutionTriggerInfoOrBuilder
@@ -741,9 +742,8 @@ export interface ExecutionMetadata {
   inputSetYamlBytes?: ByteString
   executionUuid?: string
   executionUuidBytes?: ByteString
+  yaml?: string
   yamlBytes?: ByteString
-  parserForType?: ParserExecutionMetadata
-  defaultInstanceForType?: ExecutionMetadata
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -755,12 +755,12 @@ export interface ExecutionTriggerInfo {
   unknownFields?: UnknownFieldSet
   initialized?: boolean
   serializedSize?: number
-  triggerTypeValue?: number
-  triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'UNRECOGNIZED'
-  triggeredBy?: TriggeredBy
-  triggeredByOrBuilder?: TriggeredByOrBuilder
   parserForType?: ParserExecutionTriggerInfo
   defaultInstanceForType?: ExecutionTriggerInfo
+  triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'UNRECOGNIZED'
+  triggerTypeValue?: number
+  triggeredBy?: TriggeredBy
+  triggeredByOrBuilder?: TriggeredByOrBuilder
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -769,17 +769,17 @@ export interface ExecutionTriggerInfo {
 }
 
 export interface ExecutionTriggerInfoOrBuilder {
-  triggerTypeValue?: number
   triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'UNRECOGNIZED'
+  triggerTypeValue?: number
   triggeredBy?: TriggeredBy
   triggeredByOrBuilder?: TriggeredByOrBuilder
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -815,14 +815,13 @@ export interface FieldDescriptor {
   defaultValue?: { [key: string]: any }
   name?: string
   number?: number
+  required?: boolean
   repeated?: boolean
   javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
-  options?: FieldOptions
-  required?: boolean
-  optional?: boolean
   mapField?: boolean
   extension?: boolean
-  packed?: boolean
+  options?: FieldOptions
+  optional?: boolean
   liteJavaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
   liteType?:
     | 'DOUBLE'
@@ -843,6 +842,7 @@ export interface FieldDescriptor {
     | 'SFIXED64'
     | 'SINT32'
     | 'SINT64'
+  packed?: boolean
   packable?: boolean
 }
 
@@ -852,15 +852,15 @@ export interface FieldOptions {
   serializedSize?: number
   parserForType?: ParserFieldOptions
   defaultInstanceForType?: FieldOptions
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
-  packed?: boolean
   ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
   jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
   lazy?: boolean
   weak?: boolean
+  packed?: boolean
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -881,9 +881,9 @@ export interface FileDescriptor {
   name?: string
   package?: string
   file?: FileDescriptor
+  syntax?: 'UNKNOWN' | 'PROTO2' | 'PROTO3'
   options?: FileOptions
   fullName?: string
-  syntax?: 'UNKNOWN' | 'PROTO2' | 'PROTO3'
 }
 
 export interface FileOptions {
@@ -892,11 +892,6 @@ export interface FileOptions {
   serializedSize?: number
   parserForType?: ParserFileOptions
   defaultInstanceForType?: FileOptions
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
-  javaStringCheckUtf8?: boolean
   javaPackage?: string
   javaPackageBytes?: ByteString
   javaOuterClassname?: string
@@ -925,6 +920,11 @@ export interface FileOptions {
   phpMetadataNamespaceBytes?: ByteString
   rubyPackage?: string
   rubyPackageBytes?: ByteString
+  javaStringCheckUtf8?: boolean
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -937,14 +937,14 @@ export interface FileOptions {
 
 export interface Label {
   unknownFields?: UnknownFieldSet
+  name?: string
   initialized?: boolean
   serializedSize?: number
-  name?: string
   parserForType?: ParserLabel
   defaultInstanceForType?: Label
-  nameBytes?: ByteString
   color?: string
   colorBytes?: ByteString
+  nameBytes?: ByteString
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -954,16 +954,16 @@ export interface Label {
 
 export interface LabelOrBuilder {
   name?: string
-  nameBytes?: ByteString
   color?: string
   colorBytes?: ByteString
+  nameBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -972,12 +972,12 @@ export interface Message {
   serializedSize?: number
   initialized?: boolean
   defaultInstanceForType?: MessageLite
+  unknownFields?: UnknownFieldSet
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
 }
 
 export interface MessageLite {
@@ -993,13 +993,13 @@ export interface MessageOptions {
   serializedSize?: number
   parserForType?: ParserMessageOptions
   defaultInstanceForType?: MessageOptions
+  mapEntry?: boolean
+  messageSetWireFormat?: boolean
   noStandardDescriptorAccessor?: boolean
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
-  mapEntry?: boolean
-  messageSetWireFormat?: boolean
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1018,9 +1018,9 @@ export interface MethodDescriptor {
   inputType?: Descriptor
   outputType?: Descriptor
   name?: string
-  options?: MethodOptions
   clientStreaming?: boolean
   serverStreaming?: boolean
+  options?: MethodOptions
 }
 
 export interface MethodOptions {
@@ -1029,11 +1029,11 @@ export interface MethodOptions {
   serializedSize?: number
   parserForType?: ParserMethodOptions
   defaultInstanceForType?: MethodOptions
+  idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
-  idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1087,13 +1087,13 @@ export interface NamePartOrBuilder {
   namePart?: string
   namePartBytes?: ByteString
   isExtension?: boolean
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1133,10 +1133,10 @@ export interface ParsedPayload {
   serializedSize?: number
   parserForType?: ParserParsedPayload
   defaultInstanceForType?: ParsedPayload
-  pr?: PullRequestHook
   push?: PushHook
-  pushOrBuilder?: PushHookOrBuilder
   prOrBuilder?: PullRequestHookOrBuilder
+  pr?: PullRequestHook
+  pushOrBuilder?: PushHookOrBuilder
   payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
   initializationErrorString?: string
   descriptorForType?: Descriptor
@@ -1146,18 +1146,18 @@ export interface ParsedPayload {
 }
 
 export interface ParsedPayloadOrBuilder {
-  pr?: PullRequestHook
   push?: PushHook
-  pushOrBuilder?: PushHookOrBuilder
   prOrBuilder?: PullRequestHookOrBuilder
+  pr?: PullRequestHook
+  pushOrBuilder?: PushHookOrBuilder
   payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1283,9 +1283,9 @@ export interface Perm {
   serializedSize?: number
   parserForType?: ParserPerm
   defaultInstanceForType?: Perm
+  push?: boolean
   admin?: boolean
   pull?: boolean
-  push?: boolean
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1294,16 +1294,16 @@ export interface Perm {
 }
 
 export interface PermOrBuilder {
+  push?: boolean
   admin?: boolean
   pull?: boolean
-  push?: boolean
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1342,42 +1342,42 @@ export interface PlanExecution {
 
 export interface PullRequest {
   unknownFields?: UnknownFieldSet
-  initialized?: boolean
-  serializedSize?: number
   target?: string
   ref?: string
   number?: number
-  head?: Reference
-  base?: Reference
-  title?: string
+  initialized?: boolean
+  serializedSize?: number
   parserForType?: ParserPullRequest
   defaultInstanceForType?: PullRequest
-  source?: string
   created?: Timestamp
-  body?: string
-  link?: string
-  sha?: string
+  title?: string
+  source?: string
+  head?: Reference
+  base?: Reference
   fork?: string
   titleBytes?: ByteString
   bodyBytes?: ByteString
-  shaBytes?: ByteString
   sourceBytes?: ByteString
   targetBytes?: ByteString
   forkBytes?: ByteString
-  linkBytes?: ByteString
   closed?: boolean
   merged?: boolean
   baseOrBuilder?: ReferenceOrBuilder
   headOrBuilder?: ReferenceOrBuilder
-  author?: User
-  authorOrBuilder?: UserOrBuilder
-  createdOrBuilder?: TimestampOrBuilder
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
   labelsList?: Label[]
   labelsCount?: number
   labelsOrBuilderList?: LabelOrBuilder[]
   refBytes?: ByteString
+  linkBytes?: ByteString
+  createdOrBuilder?: TimestampOrBuilder
+  updated?: Timestamp
+  updatedOrBuilder?: TimestampOrBuilder
+  body?: string
+  link?: string
+  shaBytes?: ByteString
+  sha?: string
+  author?: User
+  authorOrBuilder?: UserOrBuilder
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1389,6 +1389,8 @@ export interface PullRequestHook {
   unknownFields?: UnknownFieldSet
   initialized?: boolean
   serializedSize?: number
+  parserForType?: ParserPullRequestHook
+  defaultInstanceForType?: PullRequestHook
   action?:
     | 'UNKNOWN'
     | 'CREATE'
@@ -1402,15 +1404,13 @@ export interface PullRequestHook {
     | 'SYNC'
     | 'MERGE'
     | 'UNRECOGNIZED'
-  parserForType?: ParserPullRequestHook
-  defaultInstanceForType?: PullRequestHook
-  pr?: PullRequest
-  prOrBuilder?: PullRequestOrBuilder
   actionValue?: number
   repo?: Repository
   repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
+  prOrBuilder?: PullRequestOrBuilder
+  pr?: PullRequest
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1432,20 +1432,20 @@ export interface PullRequestHookOrBuilder {
     | 'SYNC'
     | 'MERGE'
     | 'UNRECOGNIZED'
-  pr?: PullRequest
-  prOrBuilder?: PullRequestOrBuilder
   actionValue?: number
   repo?: Repository
   repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
+  prOrBuilder?: PullRequestOrBuilder
+  pr?: PullRequest
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1453,56 +1453,56 @@ export interface PullRequestOrBuilder {
   target?: string
   ref?: string
   number?: number
-  head?: Reference
-  base?: Reference
+  created?: Timestamp
   title?: string
   source?: string
-  created?: Timestamp
-  body?: string
-  link?: string
-  sha?: string
+  head?: Reference
+  base?: Reference
   fork?: string
   titleBytes?: ByteString
   bodyBytes?: ByteString
-  shaBytes?: ByteString
   sourceBytes?: ByteString
   targetBytes?: ByteString
   forkBytes?: ByteString
-  linkBytes?: ByteString
   closed?: boolean
   merged?: boolean
   baseOrBuilder?: ReferenceOrBuilder
   headOrBuilder?: ReferenceOrBuilder
-  author?: User
-  authorOrBuilder?: UserOrBuilder
-  createdOrBuilder?: TimestampOrBuilder
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
   labelsList?: Label[]
   labelsCount?: number
   labelsOrBuilderList?: LabelOrBuilder[]
   refBytes?: ByteString
+  linkBytes?: ByteString
+  createdOrBuilder?: TimestampOrBuilder
+  updated?: Timestamp
+  updatedOrBuilder?: TimestampOrBuilder
+  body?: string
+  link?: string
+  shaBytes?: ByteString
+  sha?: string
+  author?: User
+  authorOrBuilder?: UserOrBuilder
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface PushHook {
   unknownFields?: UnknownFieldSet
+  ref?: string
   initialized?: boolean
   serializedSize?: number
-  ref?: string
   parserForType?: ParserPushHook
   defaultInstanceForType?: PushHook
-  baseRef?: string
-  repo?: Repository
   refBytes?: ByteString
+  baseRef?: string
   baseRefBytes?: ByteString
+  repo?: Repository
   repoOrBuilder?: RepositoryOrBuilder
   before?: string
   beforeBytes?: ByteString
@@ -1513,8 +1513,8 @@ export interface PushHook {
   sender?: User
   senderOrBuilder?: UserOrBuilder
   commitsList?: Commit[]
-  commitsCount?: number
   commitsOrBuilderList?: CommitOrBuilder[]
+  commitsCount?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1524,10 +1524,10 @@ export interface PushHook {
 
 export interface PushHookOrBuilder {
   ref?: string
-  baseRef?: string
-  repo?: Repository
   refBytes?: ByteString
+  baseRef?: string
   baseRefBytes?: ByteString
+  repo?: Repository
   repoOrBuilder?: RepositoryOrBuilder
   before?: string
   beforeBytes?: ByteString
@@ -1538,30 +1538,30 @@ export interface PushHookOrBuilder {
   sender?: User
   senderOrBuilder?: UserOrBuilder
   commitsList?: Commit[]
-  commitsCount?: number
   commitsOrBuilderList?: CommitOrBuilder[]
+  commitsCount?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface Reference {
   unknownFields?: UnknownFieldSet
-  initialized?: boolean
-  serializedSize?: number
   name?: string
   path?: string
+  initialized?: boolean
+  serializedSize?: number
   parserForType?: ParserReference
   defaultInstanceForType?: Reference
-  nameBytes?: ByteString
   pathBytes?: ByteString
-  sha?: string
+  nameBytes?: ByteString
   shaBytes?: ByteString
+  sha?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1572,47 +1572,47 @@ export interface Reference {
 export interface ReferenceOrBuilder {
   name?: string
   path?: string
-  nameBytes?: ByteString
   pathBytes?: ByteString
-  sha?: string
+  nameBytes?: ByteString
   shaBytes?: ByteString
+  sha?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface Repository {
   unknownFields?: UnknownFieldSet
-  branch?: string
-  initialized?: boolean
-  serializedSize?: number
   name?: string
   id?: string
-  namespace?: string
+  initialized?: boolean
+  serializedSize?: number
   parserForType?: ParserRepository
   defaultInstanceForType?: Repository
+  branch?: string
   created?: Timestamp
-  link?: string
   nameBytes?: ByteString
+  namespace?: string
   namespaceBytes?: ByteString
   perm?: Perm
+  permOrBuilder?: PermOrBuilder
+  idBytes?: ByteString
+  branchBytes?: ByteString
+  private?: boolean
   clone?: string
+  cloneBytes?: ByteString
+  cloneSsh?: string
+  cloneSshBytes?: ByteString
   linkBytes?: ByteString
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
-  idBytes?: ByteString
-  permOrBuilder?: PermOrBuilder
-  branchBytes?: ByteString
-  private?: boolean
-  cloneBytes?: ByteString
-  cloneSsh?: string
-  cloneSshBytes?: ByteString
+  link?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1621,34 +1621,34 @@ export interface Repository {
 }
 
 export interface RepositoryOrBuilder {
-  branch?: string
   name?: string
   id?: string
-  namespace?: string
+  branch?: string
   created?: Timestamp
-  link?: string
   nameBytes?: ByteString
+  namespace?: string
   namespaceBytes?: ByteString
   perm?: Perm
+  permOrBuilder?: PermOrBuilder
+  idBytes?: ByteString
+  branchBytes?: ByteString
+  private?: boolean
   clone?: string
+  cloneBytes?: ByteString
+  cloneSsh?: string
+  cloneSshBytes?: ByteString
   linkBytes?: ByteString
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
-  idBytes?: ByteString
-  permOrBuilder?: PermOrBuilder
-  branchBytes?: ByteString
-  private?: boolean
-  cloneBytes?: ByteString
-  cloneSsh?: string
-  cloneSshBytes?: ByteString
+  link?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1690,20 +1690,20 @@ export interface ServiceOptions {
 
 export interface Signature {
   unknownFields?: UnknownFieldSet
+  login?: string
+  name?: string
   initialized?: boolean
   serializedSize?: number
-  name?: string
-  email?: string
-  login?: string
   parserForType?: ParserSignature
   defaultInstanceForType?: Signature
+  email?: string
   date?: Timestamp
   nameBytes?: ByteString
   dateOrBuilder?: TimestampOrBuilder
-  avatar?: string
-  avatarBytes?: ByteString
   emailBytes?: ByteString
+  avatar?: string
   loginBytes?: ByteString
+  avatarBytes?: ByteString
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1712,23 +1712,23 @@ export interface Signature {
 }
 
 export interface SignatureOrBuilder {
+  login?: string
   name?: string
   email?: string
-  login?: string
   date?: Timestamp
   nameBytes?: ByteString
   dateOrBuilder?: TimestampOrBuilder
-  avatar?: string
-  avatarBytes?: ByteString
   emailBytes?: ByteString
+  avatar?: string
   loginBytes?: ByteString
+  avatarBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1736,10 +1736,10 @@ export interface Timestamp {
   unknownFields?: UnknownFieldSet
   initialized?: boolean
   serializedSize?: number
-  seconds?: number
-  nanos?: number
   parserForType?: ParserTimestamp
   defaultInstanceForType?: Timestamp
+  seconds?: number
+  nanos?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1750,13 +1750,13 @@ export interface Timestamp {
 export interface TimestampOrBuilder {
   seconds?: number
   nanos?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1767,9 +1767,9 @@ export interface TriggerPayload {
   parserForType?: ParserTriggerPayload
   defaultInstanceForType?: TriggerPayload
   jsonPayloadBytes?: ByteString
+  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   jsonPayload?: string
   parsedPayload?: ParsedPayload
-  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1779,24 +1779,26 @@ export interface TriggerPayload {
 
 export interface TriggerPayloadOrBuilder {
   jsonPayloadBytes?: ByteString
+  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   jsonPayload?: string
   parsedPayload?: ParsedPayload
-  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface TriggeredBy {
   unknownFields?: UnknownFieldSet
+  identifier?: string
   initialized?: boolean
   serializedSize?: number
-  uuid?: string
+  parserForType?: ParserTriggeredBy
+  defaultInstanceForType?: TriggeredBy
   uuidBytes?: ByteString
   identifierBytes?: ByteString
   extraInfoCount?: number
@@ -1806,9 +1808,7 @@ export interface TriggeredBy {
   extraInfoMap?: {
     [key: string]: string
   }
-  identifier?: string
-  parserForType?: ParserTriggeredBy
-  defaultInstanceForType?: TriggeredBy
+  uuid?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1817,7 +1817,7 @@ export interface TriggeredBy {
 }
 
 export interface TriggeredByOrBuilder {
-  uuid?: string
+  identifier?: string
   uuidBytes?: ByteString
   identifierBytes?: ByteString
   extraInfoCount?: number
@@ -1827,26 +1827,26 @@ export interface TriggeredByOrBuilder {
   extraInfoMap?: {
     [key: string]: string
   }
-  identifier?: string
+  uuid?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface UninterpretedOption {
   unknownFields?: UnknownFieldSet
+  nameCount?: number
+  doubleValue?: number
   initialized?: boolean
   serializedSize?: number
-  nameCount?: number
-  stringValue?: ByteString
-  doubleValue?: number
   parserForType?: ParserUninterpretedOption
   defaultInstanceForType?: UninterpretedOption
+  stringValue?: ByteString
   nameList?: NamePart[]
   nameOrBuilderList?: NamePartOrBuilder[]
   identifierValue?: string
@@ -1864,8 +1864,8 @@ export interface UninterpretedOption {
 
 export interface UninterpretedOptionOrBuilder {
   nameCount?: number
-  stringValue?: ByteString
   doubleValue?: number
+  stringValue?: ByteString
   nameList?: NamePart[]
   nameOrBuilderList?: NamePartOrBuilder[]
   identifierValue?: string
@@ -1874,13 +1874,13 @@ export interface UninterpretedOptionOrBuilder {
   negativeIntValue?: number
   aggregateValue?: string
   aggregateValueBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1894,22 +1894,22 @@ export interface UnknownFieldSet {
 
 export interface User {
   unknownFields?: UnknownFieldSet
+  login?: string
+  name?: string
   initialized?: boolean
   serializedSize?: number
-  name?: string
-  email?: string
-  login?: string
   parserForType?: ParserUser
   defaultInstanceForType?: User
+  email?: string
   created?: Timestamp
   nameBytes?: ByteString
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
-  avatar?: string
-  avatarBytes?: ByteString
   emailBytes?: ByteString
+  avatar?: string
   loginBytes?: ByteString
+  avatarBytes?: ByteString
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1918,25 +1918,25 @@ export interface User {
 }
 
 export interface UserOrBuilder {
+  login?: string
   name?: string
   email?: string
-  login?: string
   created?: Timestamp
   nameBytes?: ByteString
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
-  avatar?: string
-  avatarBytes?: ByteString
   emailBytes?: ByteString
+  avatar?: string
   loginBytes?: ByteString
+  avatarBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -2003,8 +2003,8 @@ export type DeleteResourceNameSpec = DeleteResourcesBaseSpec & {
 
 export interface DeleteResourcesBaseSpec {
   type?: 'ResourceName' | 'ReleaseName' | 'ManifestPath'
-  manifestPaths?: string
   resourceNames?: string
+  manifestPaths?: string
   deleteNamespace?: boolean
   allManifestPaths?: boolean
 }
@@ -2334,11 +2334,11 @@ export interface ServiceOverrides {
 }
 
 export interface ServiceSpec {
-  artifacts?: ArtifactListConfig
   variables?: NGVariable[]
+  variableOverrideSets?: NGVariableOverrideSetWrapper[]
   manifestOverrideSets?: ManifestOverrideSetWrapper[]
   artifactOverrideSets?: ArtifactOverrideSetWrapper[]
-  variableOverrideSets?: NGVariableOverrideSetWrapper[]
+  artifacts?: ArtifactListConfig
   manifests?: ManifestConfigWrapper[]
 }
 
@@ -2475,13 +2475,6 @@ export type ValuesManifest = ManifestAttributes & {
 
 export interface MergeInputSetRequest {
   inputSetReferences?: string[]
-}
-
-export interface ResponseBoolean {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: boolean
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
@@ -3010,6 +3003,13 @@ export interface Connector {
   connector?: ConnectorInfoDTO
 }
 
+export interface ResponseBoolean {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: boolean
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface Page {
   totalPages?: number
   totalItems?: number
@@ -3075,6 +3075,21 @@ export type ConnectorFilterProperties = FilterProperties & {
   inheritingCredentialsFromDelegate?: boolean
 }
 
+export interface ConnectorValidationResult {
+  status?: 'SUCCESS' | 'FAILURE' | 'PARTIAL'
+  errors?: ErrorDetail[]
+  errorSummary?: string
+  testedAt?: number
+  delegateId?: string
+}
+
+export interface ResponseConnectorValidationResult {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorValidationResult
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ConnectorCatalogueItem {
   category?:
     | 'CLOUD_PROVIDER'
@@ -3114,21 +3129,6 @@ export interface ConnectorCatalogueResponse {
 export interface ResponseConnectorCatalogueResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: ConnectorCatalogueResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface ConnectorValidationResult {
-  status?: 'SUCCESS' | 'FAILURE' | 'PARTIAL'
-  errors?: ErrorDetail[]
-  errorSummary?: string
-  testedAt?: number
-  delegateId?: string
-}
-
-export interface ResponseConnectorValidationResult {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ConnectorValidationResult
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -3374,8 +3374,8 @@ export interface PageActivity {
   size?: number
   content?: Activity[]
   number?: number
-  sort?: Sort
   first?: boolean
+  sort?: Sort
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
@@ -3384,11 +3384,11 @@ export interface PageActivity {
 
 export interface Pageable {
   offset?: number
-  sort?: Sort
   pageSize?: number
+  sort?: Sort
   paged?: boolean
-  unpaged?: boolean
   pageNumber?: number
+  unpaged?: boolean
 }
 
 export interface ResponsePageActivity {
@@ -3440,8 +3440,8 @@ export interface PageActivitySummary {
   size?: number
   content?: ActivitySummary[]
   number?: number
-  sort?: Sort
   first?: boolean
+  sort?: Sort
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
@@ -3922,7 +3922,6 @@ export interface DelegateResponseData {
 }
 
 export interface Document {
-  implementation?: DOMImplementation
   doctype?: DocumentType
   documentElement?: Element
   inputEncoding?: string
@@ -3932,11 +3931,10 @@ export interface Document {
   strictErrorChecking?: boolean
   documentURI?: string
   domConfig?: DOMConfiguration
+  implementation?: DOMImplementation
+  namespaceURI?: string
   prefix?: string
   attributes?: NamedNodeMap
-  localName?: string
-  nodeType?: number
-  namespaceURI?: string
   nodeName?: string
   nodeValue?: string
   parentNode?: Node
@@ -3948,6 +3946,8 @@ export interface Document {
   ownerDocument?: Document
   baseURI?: string
   textContent?: string
+  localName?: string
+  nodeType?: number
 }
 
 export interface DocumentType {
@@ -3957,11 +3957,9 @@ export interface DocumentType {
   entities?: NamedNodeMap
   notations?: NamedNodeMap
   internalSubset?: string
+  namespaceURI?: string
   prefix?: string
   attributes?: NamedNodeMap
-  localName?: string
-  nodeType?: number
-  namespaceURI?: string
   nodeName?: string
   nodeValue?: string
   parentNode?: Node
@@ -3973,16 +3971,16 @@ export interface DocumentType {
   ownerDocument?: Document
   baseURI?: string
   textContent?: string
+  localName?: string
+  nodeType?: number
 }
 
 export interface Element {
   tagName?: string
   schemaTypeInfo?: TypeInfo
+  namespaceURI?: string
   prefix?: string
   attributes?: NamedNodeMap
-  localName?: string
-  nodeType?: number
-  namespaceURI?: string
   nodeName?: string
   nodeValue?: string
   parentNode?: Node
@@ -3994,6 +3992,8 @@ export interface Element {
   ownerDocument?: Document
   baseURI?: string
   textContent?: string
+  localName?: string
+  nodeType?: number
 }
 
 export interface ExecutionDataValue {
@@ -4066,11 +4066,9 @@ export interface NamedNodeMap {
 }
 
 export interface Node {
+  namespaceURI?: string
   prefix?: string
   attributes?: NamedNodeMap
-  localName?: string
-  nodeType?: number
-  namespaceURI?: string
   nodeName?: string
   nodeValue?: string
   parentNode?: Node
@@ -4082,6 +4080,8 @@ export interface Node {
   ownerDocument?: Document
   baseURI?: string
   textContent?: string
+  localName?: string
+  nodeType?: number
 }
 
 export interface NodeList {
@@ -4156,8 +4156,8 @@ export interface PageEntitySetupUsageDTO {
   size?: number
   content?: EntitySetupUsageDTO[]
   number?: number
-  sort?: Sort
   first?: boolean
+  sort?: Sort
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
@@ -4516,20 +4516,6 @@ export type VaultMetadataRequestSpecDTO = SecretManagerMetadataRequestSpecDTO & 
   spec?: VaultCredentialDTO
 }
 
-export interface SecretTextDTO {
-  account?: string
-  org?: string
-  project?: string
-  identifier?: string
-  secretManager?: string
-  name?: string
-  tags?: string[]
-  description?: string
-  type: 'SecretFile' | 'SecretText' | 'SSHKey'
-  valueType: 'Inline' | 'Reference'
-  value?: string
-}
-
 export interface PageEncryptedDataDTO {
   totalPages?: number
   totalItems?: number
@@ -4545,6 +4531,20 @@ export interface ResponsePageEncryptedDataDTO {
   data?: PageEncryptedDataDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export interface SecretTextDTO {
+  account?: string
+  org?: string
+  project?: string
+  identifier?: string
+  secretManager?: string
+  name?: string
+  tags?: string[]
+  description?: string
+  type: 'SecretFile' | 'SecretText' | 'SSHKey'
+  valueType: 'Inline' | 'Reference'
+  value?: string
 }
 
 export interface BaseSSHSpecDTO {
@@ -4878,19 +4878,6 @@ export interface ResponsePageUserSearchDTO {
   correlationId?: string
 }
 
-export interface ResponsePipelineExecutionInterrupt {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PipelineExecutionInterrupt
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface PipelineExecutionInterrupt {
-  id?: string
-  type?: 'Abort' | 'Pause' | 'Resume'
-  planExecutionId?: string
-}
-
 export interface ArtifactSummary {
   type?: string
 }
@@ -4909,9 +4896,9 @@ export interface AsyncExecutableResponse {
   callbackIdsList?: string[]
   logKeysList?: string[]
   logKeysCount?: number
+  callbackIdsCount?: number
   unitsList?: string[]
   unitsCount?: number
-  callbackIdsCount?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -4923,16 +4910,16 @@ export interface AsyncExecutableResponseOrBuilder {
   callbackIdsList?: string[]
   logKeysList?: string[]
   logKeysCount?: number
+  callbackIdsCount?: number
   unitsList?: string[]
   unitsCount?: number
-  callbackIdsCount?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -4967,8 +4954,8 @@ export interface Child {
   serializedSize?: number
   parserForType?: ParserChild
   defaultInstanceForType?: Child
-  childNodeId?: string
   childNodeIdBytes?: ByteString
+  childNodeId?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -4982,12 +4969,12 @@ export interface ChildChainExecutableResponse {
   serializedSize?: number
   parserForType?: ParserChildChainExecutableResponse
   defaultInstanceForType?: ChildChainExecutableResponse
-  nextChildId?: string
-  passThroughData?: ByteString
-  lastLink?: boolean
   nextChildIdBytes?: ByteString
   previousChildId?: string
+  nextChildId?: string
   previousChildIdBytes?: ByteString
+  passThroughData?: ByteString
+  lastLink?: boolean
   suspend?: boolean
   initializationErrorString?: string
   descriptorForType?: Descriptor
@@ -4997,20 +4984,20 @@ export interface ChildChainExecutableResponse {
 }
 
 export interface ChildChainExecutableResponseOrBuilder {
-  nextChildId?: string
-  passThroughData?: ByteString
-  lastLink?: boolean
   nextChildIdBytes?: ByteString
   previousChildId?: string
+  nextChildId?: string
   previousChildIdBytes?: ByteString
+  passThroughData?: ByteString
+  lastLink?: boolean
   suspend?: boolean
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -5020,8 +5007,8 @@ export interface ChildExecutableResponse {
   serializedSize?: number
   parserForType?: ParserChildExecutableResponse
   defaultInstanceForType?: ChildExecutableResponse
-  childNodeId?: string
   childNodeIdBytes?: ByteString
+  childNodeId?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -5030,28 +5017,28 @@ export interface ChildExecutableResponse {
 }
 
 export interface ChildExecutableResponseOrBuilder {
-  childNodeId?: string
   childNodeIdBytes?: ByteString
+  childNodeId?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface ChildOrBuilder {
-  childNodeId?: string
   childNodeIdBytes?: ByteString
+  childNodeId?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -5061,9 +5048,9 @@ export interface ChildrenExecutableResponse {
   serializedSize?: number
   parserForType?: ParserChildrenExecutableResponse
   defaultInstanceForType?: ChildrenExecutableResponse
-  childrenOrBuilderList?: ChildOrBuilder[]
-  childrenList?: Child[]
   childrenCount?: number
+  childrenList?: Child[]
+  childrenOrBuilderList?: ChildOrBuilder[]
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -5072,23 +5059,21 @@ export interface ChildrenExecutableResponse {
 }
 
 export interface ChildrenExecutableResponseOrBuilder {
-  childrenOrBuilderList?: ChildOrBuilder[]
-  childrenList?: Child[]
   childrenCount?: number
+  childrenList?: Child[]
+  childrenOrBuilderList?: ChildOrBuilder[]
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface ExecutableResponse {
   unknownFields?: UnknownFieldSet
-  initialized?: boolean
-  serializedSize?: number
   async?: AsyncExecutableResponse
   responseCase?: 'ASYNC' | 'CHILD' | 'CHILDREN' | 'CHILDCHAIN' | 'TASK' | 'TASKCHAIN' | 'RESPONSE_NOT_SET'
   asyncOrBuilder?: AsyncExecutableResponseOrBuilder
@@ -5101,9 +5086,11 @@ export interface ExecutableResponse {
   taskOrBuilder?: TaskExecutableResponseOrBuilder
   taskChain?: TaskChainExecutableResponse
   taskChainOrBuilder?: TaskChainExecutableResponseOrBuilder
-  task?: TaskExecutableResponse
+  initialized?: boolean
+  serializedSize?: number
   parserForType?: ParserExecutableResponse
   defaultInstanceForType?: ExecutableResponse
+  task?: TaskExecutableResponse
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -5113,9 +5100,9 @@ export interface ExecutableResponse {
 
 export interface ExecutionErrorInfo {
   unknownFields?: UnknownFieldSet
+  message?: string
   initialized?: boolean
   serializedSize?: number
-  message?: string
   parserForType?: ParserExecutionErrorInfo
   defaultInstanceForType?: ExecutionErrorInfo
   messageBytes?: ByteString
@@ -5181,7 +5168,8 @@ export interface FailureInfo {
   unknownFields?: UnknownFieldSet
   initialized?: boolean
   serializedSize?: number
-  errorMessage?: string
+  parserForType?: ParserFailureInfo
+  defaultInstanceForType?: FailureInfo
   errorMessageBytes?: ByteString
   failureTypesList?: (
     | 'UNKNOWN_FAILURE'
@@ -5197,8 +5185,7 @@ export interface FailureInfo {
   )[]
   failureTypesCount?: number
   failureTypesValueList?: number[]
-  parserForType?: ParserFailureInfo
-  defaultInstanceForType?: FailureInfo
+  errorMessage?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -5326,11 +5313,11 @@ export interface ServiceExecutionSummary {
 
 export interface SkipInfo {
   unknownFields?: UnknownFieldSet
-  initialized?: boolean
-  serializedSize?: number
   skipCondition?: string
   skipConditionBytes?: ByteString
   evaluatedCondition?: boolean
+  initialized?: boolean
+  serializedSize?: number
   parserForType?: ParserSkipInfo
   defaultInstanceForType?: SkipInfo
   initializationErrorString?: string
@@ -5350,16 +5337,16 @@ export interface TaskChainExecutableResponse {
   serializedSize?: number
   parserForType?: ParserTaskChainExecutableResponse
   defaultInstanceForType?: TaskChainExecutableResponse
-  taskId?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
   unitsCount?: number
-  passThroughData?: ByteString
   taskCategoryValue?: number
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
-  taskIdBytes?: ByteString
   chainEnd?: boolean
+  passThroughData?: ByteString
+  taskIdBytes?: ByteString
+  taskId?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -5368,23 +5355,23 @@ export interface TaskChainExecutableResponse {
 }
 
 export interface TaskChainExecutableResponseOrBuilder {
-  taskId?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
   unitsCount?: number
-  passThroughData?: ByteString
   taskCategoryValue?: number
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
-  taskIdBytes?: ByteString
   chainEnd?: boolean
+  passThroughData?: ByteString
+  taskIdBytes?: ByteString
+  taskId?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -5394,7 +5381,6 @@ export interface TaskExecutableResponse {
   serializedSize?: number
   parserForType?: ParserTaskExecutableResponse
   defaultInstanceForType?: TaskExecutableResponse
-  taskId?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
@@ -5402,6 +5388,7 @@ export interface TaskExecutableResponse {
   taskCategoryValue?: number
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
   taskIdBytes?: ByteString
+  taskId?: string
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -5410,7 +5397,6 @@ export interface TaskExecutableResponse {
 }
 
 export interface TaskExecutableResponseOrBuilder {
-  taskId?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
@@ -5418,26 +5404,27 @@ export interface TaskExecutableResponseOrBuilder {
   taskCategoryValue?: number
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
   taskIdBytes?: ByteString
+  taskId?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface UnitProgress {
   unknownFields?: UnknownFieldSet
-  unitName?: string
-  unitNameBytes?: ByteString
-  statusValue?: number
-  status?: 'UNKNOWN' | 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED' | 'UNRECOGNIZED'
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUnitProgress
   defaultInstanceForType?: UnitProgress
+  unitName?: string
+  unitNameBytes?: ByteString
+  statusValue?: number
+  status?: 'UNKNOWN' | 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED' | 'UNRECOGNIZED'
   startTime?: number
   endTime?: number
   initializationErrorString?: string
@@ -5473,6 +5460,19 @@ export interface ResponseMapExecutionNodeTypeString {
   }
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export interface ResponsePipelineExecutionInterrupt {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PipelineExecutionInterrupt
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface PipelineExecutionInterrupt {
+  id?: string
+  type?: 'Abort' | 'Pause' | 'Resume'
+  planExecutionId?: string
 }
 
 export interface PagePipelineExecutionSummaryDTO {
@@ -5525,46 +5525,6 @@ export interface ResponseCDPipelineModuleInfo {
   correlationId?: string
 }
 
-export interface JiraIssueType {
-  id?: string
-  name?: string
-  description?: string
-  jiraStatusList?: JiraStatus[]
-  subTask?: boolean
-}
-
-export interface JiraProject {
-  id?: string
-  key?: string
-  name?: string
-  issuetypes?: JiraIssueType[]
-}
-
-export interface JiraProjectResponse {
-  jiraProjects?: JiraProject[]
-}
-
-export interface JiraStatus {
-  id?: string
-  name?: string
-  untranslatedName?: string
-  description?: string
-  statusCategory?: JiraStatusCategory
-}
-
-export interface JiraStatusCategory {
-  id?: string
-  key?: string
-  name?: string
-}
-
-export interface ResponseJiraProjectResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: JiraProjectResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface CreateJiraTicketRequest {
   project: string
   summary: string
@@ -5613,6 +5573,46 @@ export interface UpdateJiraTicketRequest {
   approvalValue?: string
   rejectionField?: string
   rejectionValue?: string
+}
+
+export interface JiraIssueType {
+  id?: string
+  name?: string
+  description?: string
+  jiraStatusList?: JiraStatus[]
+  subTask?: boolean
+}
+
+export interface JiraProject {
+  id?: string
+  key?: string
+  name?: string
+  issuetypes?: JiraIssueType[]
+}
+
+export interface JiraProjectResponse {
+  jiraProjects?: JiraProject[]
+}
+
+export interface JiraStatus {
+  id?: string
+  name?: string
+  untranslatedName?: string
+  description?: string
+  statusCategory?: JiraStatusCategory
+}
+
+export interface JiraStatusCategory {
+  id?: string
+  key?: string
+  name?: string
+}
+
+export interface ResponseJiraProjectResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: JiraProjectResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface JiraIssue {
@@ -5706,8 +5706,8 @@ export interface AmbianceDTO {
 
 export interface Duration {
   seconds?: number
-  units?: TemporalUnit[]
   nano?: number
+  units?: TemporalUnit[]
   zero?: boolean
   negative?: boolean
 }
@@ -5857,10 +5857,10 @@ export interface RestResponseOrchestrationGraphDTO {
 }
 
 export interface TemporalUnit {
+  duration?: Duration
+  timeBased?: boolean
   dateBased?: boolean
   durationEstimated?: boolean
-  timeBased?: boolean
-  duration?: Duration
 }
 
 export interface StreamingOutput {
@@ -6043,21 +6043,14 @@ export interface NGPipelineSummaryResponse {
   version?: number
 }
 
-export interface ResponseNGPipelineSummaryResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: NGPipelineSummaryResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface PageNGPipelineSummaryResponse {
   totalElements?: number
   totalPages?: number
   size?: number
   content?: NGPipelineSummaryResponse[]
   number?: number
-  sort?: Sort
   first?: boolean
+  sort?: Sort
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
@@ -6067,6 +6060,13 @@ export interface PageNGPipelineSummaryResponse {
 export interface ResponsePageNGPipelineSummaryResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageNGPipelineSummaryResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseNGPipelineSummaryResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGPipelineSummaryResponse
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -6183,19 +6183,19 @@ export interface ResourceGroupDTO {
   projectIdentifier?: string
   identifier: string
   name: string
-  color: string
-  harnessManaged?: boolean
   resourceSelectors?: ResourceSelector[]
   tags?: {
     [key: string]: string
   }
   description?: string
+  color?: string
 }
 
 export interface ResourceGroupResponse {
   resourceGroup: ResourceGroupDTO
   createdAt?: number
   lastModifiedAt?: number
+  harnessManaged?: boolean
 }
 
 export interface ResourceSelector {
@@ -6210,7 +6210,7 @@ export interface ResponseResourceGroupResponse {
 }
 
 export type StaticResourceSelector = ResourceSelector & {
-  identifier: string
+  identifiers?: string[]
   resourceType: string
 }
 
@@ -6235,8 +6235,13 @@ export interface ResponsePageResourceGroupResponse {
   correlationId?: string
 }
 
+export interface ResourceType {
+  name?: string
+  validatorTypes?: ('STATIC' | 'DYNAMIC')[]
+}
+
 export interface ResourceTypeDTO {
-  resourceTypes: string[]
+  resourceTypes: ResourceType[]
 }
 
 export interface ResponseResourceTypeDTO {
@@ -6343,9 +6348,9 @@ export type ConnectorRequestBody = Connector
 
 export type SecretTextDTO2RequestBody = SecretTextDTO
 
-export type SecretRequestWrapperRequestBody = void
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
-export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+export type SecretRequestWrapper2RequestBody = void
 
 export type GetOrganizationListBodyRequestBody = string[]
 
@@ -6785,57 +6790,6 @@ export const postPipelineExecuteWithInputSetListPromise = (
     PostPipelineExecuteWithInputSetListPathParams
   >('POST', getConfig('ng/api'), `/pipelines/execute/${identifier}/inputSetList`, props, signal)
 
-export interface ValidateTheIdentifierIsUniqueQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  identifier?: string
-}
-
-export type ValidateTheIdentifierIsUniqueProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
-  'path'
->
-
-/**
- * Validate Identifier is unique
- */
-export const ValidateTheIdentifierIsUnique = (props: ValidateTheIdentifierIsUniqueProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>
-    path="/connectors/validateUniqueIdentifier"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateTheIdentifierIsUniqueProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
-  'path'
->
-
-/**
- * Validate Identifier is unique
- */
-export const useValidateTheIdentifierIsUnique = (props: UseValidateTheIdentifierIsUniqueProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>(
-    `/connectors/validateUniqueIdentifier`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Validate Identifier is unique
- */
-export const validateTheIdentifierIsUniquePromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>(
-    getConfig('ng/api'),
-    `/connectors/validateUniqueIdentifier`,
-    props,
-    signal
-  )
-
 export interface GetConnectorQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
@@ -7228,6 +7182,149 @@ export const getConnectorListV2Promise = (
     void
   >('POST', getConfig('ng/api'), `/connectors/listV2`, props, signal)
 
+export interface ValidateTheIdentifierIsUniqueQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifier?: string
+}
+
+export type ValidateTheIdentifierIsUniqueProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Identifier is unique
+ */
+export const ValidateTheIdentifierIsUnique = (props: ValidateTheIdentifierIsUniqueProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>
+    path="/connectors/validateUniqueIdentifier"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateTheIdentifierIsUniqueProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Identifier is unique
+ */
+export const useValidateTheIdentifierIsUnique = (props: UseValidateTheIdentifierIsUniqueProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>(
+    `/connectors/validateUniqueIdentifier`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate Identifier is unique
+ */
+export const validateTheIdentifierIsUniquePromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>(
+    getConfig('ng/api'),
+    `/connectors/validateUniqueIdentifier`,
+    props,
+    signal
+  )
+
+export interface GetTestConnectionResultQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetTestConnectionResultPathParams {
+  identifier: string
+}
+
+export type GetTestConnectionResultProps = Omit<
+  MutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const GetTestConnectionResult = ({ identifier, ...props }: GetTestConnectionResultProps) => (
+  <Mutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >
+    verb="POST"
+    path="/connectors/testConnection/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTestConnectionResultProps = Omit<
+  UseMutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const useGetTestConnectionResult = ({ identifier, ...props }: UseGetTestConnectionResultProps) =>
+  useMutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >(
+    'POST',
+    (paramsInPath: GetTestConnectionResultPathParams) => `/connectors/testConnection/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Test the connection
+ */
+export const getTestConnectionResultPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
+
 export interface GetConnectorCatalogueQueryParams {
   accountIdentifier?: string
 }
@@ -7374,98 +7471,6 @@ export const getTestGitRepoConnectionResultPromise = (
     void,
     GetTestGitRepoConnectionResultPathParams
   >('POST', getConfig('ng/api'), `/connectors/testGitRepoConnection/${identifier}`, props, signal)
-
-export interface GetTestConnectionResultQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetTestConnectionResultPathParams {
-  identifier: string
-}
-
-export type GetTestConnectionResultProps = Omit<
-  MutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const GetTestConnectionResult = ({ identifier, ...props }: GetTestConnectionResultProps) => (
-  <Mutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >
-    verb="POST"
-    path="/connectors/testConnection/${identifier}"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetTestConnectionResultProps = Omit<
-  UseMutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const useGetTestConnectionResult = ({ identifier, ...props }: UseGetTestConnectionResultProps) =>
-  useMutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >(
-    'POST',
-    (paramsInPath: GetTestConnectionResultPathParams) => `/connectors/testConnection/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Test the connection
- */
-export const getTestConnectionResultPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
 
 export interface GetConnectorStatisticsQueryParams {
   accountIdentifier?: string
@@ -8070,6 +8075,77 @@ export const listGitSyncEntitiesByTypePromise = (
     ListGitSyncEntitiesByTypePathParams
   >(getConfig('ng/api'), `/git-sync-entities/entities/${entityType}`, props, signal)
 
+export interface PutGitSyncDefaultQueryParams {
+  projectId?: string
+  organizationId?: string
+  accountId?: string
+}
+
+export interface PutGitSyncDefaultPathParams {
+  identifier: string
+  folderIdentifier: string
+}
+
+export type PutGitSyncDefaultProps = Omit<
+  MutateProps<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>,
+  'path' | 'verb'
+> &
+  PutGitSyncDefaultPathParams
+
+/**
+ * Update Git Sync default by id
+ */
+export const PutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: PutGitSyncDefaultProps) => (
+  <Mutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>
+    verb="PUT"
+    path="/git-sync/${identifier}/folder/${folderIdentifier}/default"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutGitSyncDefaultProps = Omit<
+  UseMutateProps<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>,
+  'path' | 'verb'
+> &
+  PutGitSyncDefaultPathParams
+
+/**
+ * Update Git Sync default by id
+ */
+export const usePutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: UsePutGitSyncDefaultProps) =>
+  useMutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>(
+    'PUT',
+    (paramsInPath: PutGitSyncDefaultPathParams) =>
+      `/git-sync/${paramsInPath.identifier}/folder/${paramsInPath.folderIdentifier}/default`,
+    { base: getConfig('ng/api'), pathParams: { identifier, folderIdentifier }, ...props }
+  )
+
+/**
+ * Update Git Sync default by id
+ */
+export const putGitSyncDefaultPromise = (
+  {
+    identifier,
+    folderIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    GitSyncConfigDTO[],
+    unknown,
+    PutGitSyncDefaultQueryParams,
+    void,
+    PutGitSyncDefaultPathParams
+  > & { identifier: string; folderIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/git-sync/${identifier}/folder/${folderIdentifier}/default`,
+    props,
+    signal
+  )
+
 export interface PutGitSyncQueryParams {
   projectId?: string
   organizationId?: string
@@ -8230,77 +8306,6 @@ export const postGitSyncPromise = (
     'POST',
     getConfig('ng/api'),
     `/git-sync`,
-    props,
-    signal
-  )
-
-export interface PutGitSyncDefaultQueryParams {
-  projectId?: string
-  organizationId?: string
-  accountId?: string
-}
-
-export interface PutGitSyncDefaultPathParams {
-  identifier: string
-  folderIdentifier: string
-}
-
-export type PutGitSyncDefaultProps = Omit<
-  MutateProps<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>,
-  'path' | 'verb'
-> &
-  PutGitSyncDefaultPathParams
-
-/**
- * Update Git Sync default by id
- */
-export const PutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: PutGitSyncDefaultProps) => (
-  <Mutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>
-    verb="PUT"
-    path="/git-sync/${identifier}/folder/${folderIdentifier}/default"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutGitSyncDefaultProps = Omit<
-  UseMutateProps<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>,
-  'path' | 'verb'
-> &
-  PutGitSyncDefaultPathParams
-
-/**
- * Update Git Sync default by id
- */
-export const usePutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: UsePutGitSyncDefaultProps) =>
-  useMutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>(
-    'PUT',
-    (paramsInPath: PutGitSyncDefaultPathParams) =>
-      `/git-sync/${paramsInPath.identifier}/folder/${paramsInPath.folderIdentifier}/default`,
-    { base: getConfig('ng/api'), pathParams: { identifier, folderIdentifier }, ...props }
-  )
-
-/**
- * Update Git Sync default by id
- */
-export const putGitSyncDefaultPromise = (
-  {
-    identifier,
-    folderIdentifier,
-    ...props
-  }: MutateUsingFetchProps<
-    GitSyncConfigDTO[],
-    unknown,
-    PutGitSyncDefaultQueryParams,
-    void,
-    PutGitSyncDefaultPathParams
-  > & { identifier: string; folderIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/git-sync/${identifier}/folder/${folderIdentifier}/default`,
     props,
     signal
   )
@@ -8628,57 +8633,6 @@ export const validateArtifactImageForDockerPromise = (
     signal
   )
 
-export interface ValidateArtifactServerForDockerQueryParams {
-  connectorRef?: string
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type ValidateArtifactServerForDockerProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Validate docker artifact server
- */
-export const ValidateArtifactServerForDocker = (props: ValidateArtifactServerForDockerProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>
-    path="/artifacts/docker/validateArtifactServer"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateArtifactServerForDockerProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Validate docker artifact server
- */
-export const useValidateArtifactServerForDocker = (props: UseValidateArtifactServerForDockerProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>(
-    `/artifacts/docker/validateArtifactServer`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Validate docker artifact server
- */
-export const validateArtifactServerForDockerPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>(
-    getConfig('ng/api'),
-    `/artifacts/docker/validateArtifactServer`,
-    props,
-    signal
-  )
-
 export interface GetLastSuccessfulBuildForDockerQueryParams {
   imagePath?: string
   connectorRef?: string
@@ -8760,6 +8714,57 @@ export const getLastSuccessfulBuildForDockerPromise = (
     void
   >('POST', getConfig('ng/api'), `/artifacts/docker/getLastSuccessfulBuild`, props, signal)
 
+export interface ValidateArtifactServerForDockerQueryParams {
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactServerForDockerProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate docker artifact server
+ */
+export const ValidateArtifactServerForDocker = (props: ValidateArtifactServerForDockerProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>
+    path="/artifacts/docker/validateArtifactServer"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactServerForDockerProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate docker artifact server
+ */
+export const useValidateArtifactServerForDocker = (props: UseValidateArtifactServerForDockerProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>(
+    `/artifacts/docker/validateArtifactServer`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate docker artifact server
+ */
+export const validateArtifactServerForDockerPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/validateArtifactServer`,
+    props,
+    signal
+  )
+
 export interface ValidateArtifactForDockerQueryParams {
   imagePath?: string
   connectorRef?: string
@@ -8808,58 +8813,6 @@ export const validateArtifactForDockerPromise = (
   getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>(
     getConfig('ng/api'),
     `/artifacts/docker/validateArtifact`,
-    props,
-    signal
-  )
-
-export interface GetBuildDetailsForDockerQueryParams {
-  imagePath?: string
-  connectorRef?: string
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type GetBuildDetailsForDockerProps = Omit<
-  GetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Gets docker build details
- */
-export const GetBuildDetailsForDocker = (props: GetBuildDetailsForDockerProps) => (
-  <Get<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>
-    path="/artifacts/docker/getBuildDetails"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetBuildDetailsForDockerProps = Omit<
-  UseGetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Gets docker build details
- */
-export const useGetBuildDetailsForDocker = (props: UseGetBuildDetailsForDockerProps) =>
-  useGet<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
-    `/artifacts/docker/getBuildDetails`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets docker build details
- */
-export const getBuildDetailsForDockerPromise = (
-  props: GetUsingFetchProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
-    getConfig('ng/api'),
-    `/artifacts/docker/getBuildDetails`,
     props,
     signal
   )
@@ -8939,6 +8892,58 @@ export const getLabelsForDockerPromise = (
     void
   >('POST', getConfig('ng/api'), `/artifacts/docker/getLabels`, props, signal)
 
+export interface GetBuildDetailsForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetBuildDetailsForDockerProps = Omit<
+  GetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets docker build details
+ */
+export const GetBuildDetailsForDocker = (props: GetBuildDetailsForDockerProps) => (
+  <Get<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>
+    path="/artifacts/docker/getBuildDetails"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetBuildDetailsForDockerProps = Omit<
+  UseGetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets docker build details
+ */
+export const useGetBuildDetailsForDocker = (props: UseGetBuildDetailsForDockerProps) =>
+  useGet<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    `/artifacts/docker/getBuildDetails`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets docker build details
+ */
+export const getBuildDetailsForDockerPromise = (
+  props: GetUsingFetchProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/getBuildDetails`,
+    props,
+    signal
+  )
+
 export interface ValidateArtifactImageForGcrQueryParams {
   imagePath: string
   registryHostname: string
@@ -8988,59 +8993,6 @@ export const validateArtifactImageForGcrPromise = (
   getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>(
     getConfig('ng/api'),
     `/artifacts/gcr/validateArtifactSource`,
-    props,
-    signal
-  )
-
-export interface ValidateArtifactServerForGcrQueryParams {
-  imagePath: string
-  connectorRef: string
-  registryHostname: string
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type ValidateArtifactServerForGcrProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
-  'path'
->
-
-/**
- * Validate gcr artifact server
- */
-export const ValidateArtifactServerForGcr = (props: ValidateArtifactServerForGcrProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>
-    path="/artifacts/gcr/validateArtifactServer"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateArtifactServerForGcrProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
-  'path'
->
-
-/**
- * Validate gcr artifact server
- */
-export const useValidateArtifactServerForGcr = (props: UseValidateArtifactServerForGcrProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
-    `/artifacts/gcr/validateArtifactServer`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Validate gcr artifact server
- */
-export const validateArtifactServerForGcrPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
-    getConfig('ng/api'),
-    `/artifacts/gcr/validateArtifactServer`,
     props,
     signal
   )
@@ -9125,6 +9077,59 @@ export const getLastSuccessfulBuildForGcrPromise = (
     GcrRequestDTORequestBody,
     void
   >('POST', getConfig('ng/api'), `/artifacts/gcr/getLastSuccessfulBuild`, props, signal)
+
+export interface ValidateArtifactServerForGcrQueryParams {
+  imagePath: string
+  connectorRef: string
+  registryHostname: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactServerForGcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate gcr artifact server
+ */
+export const ValidateArtifactServerForGcr = (props: ValidateArtifactServerForGcrProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>
+    path="/artifacts/gcr/validateArtifactServer"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactServerForGcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate gcr artifact server
+ */
+export const useValidateArtifactServerForGcr = (props: UseValidateArtifactServerForGcrProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
+    `/artifacts/gcr/validateArtifactServer`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate gcr artifact server
+ */
+export const validateArtifactServerForGcrPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/gcr/validateArtifactServer`,
+    props,
+    signal
+  )
 
 export interface ValidateArtifactForGcrQueryParams {
   imagePath: string
@@ -9766,55 +9771,6 @@ export const updateSelectorsNgPromise = (
     UpdateSelectorsNgPathParams
   >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}/selectors`, props, signal)
 
-export interface AsyncTaskD2QueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type AsyncTaskD2Props = Omit<MutateProps<string, unknown, AsyncTaskD2QueryParams, void, void>, 'path' | 'verb'>
-
-/**
- * Create a delegate tasks
- */
-export const AsyncTaskD2 = (props: AsyncTaskD2Props) => (
-  <Mutate<string, unknown, AsyncTaskD2QueryParams, void, void>
-    verb="POST"
-    path="/delegate2-tasks/async"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseAsyncTaskD2Props = Omit<
-  UseMutateProps<string, unknown, AsyncTaskD2QueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a delegate tasks
- */
-export const useAsyncTaskD2 = (props: UseAsyncTaskD2Props) =>
-  useMutate<string, unknown, AsyncTaskD2QueryParams, void, void>('POST', `/delegate2-tasks/async`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Create a delegate tasks
- */
-export const asyncTaskD2Promise = (
-  props: MutateUsingFetchProps<string, unknown, AsyncTaskD2QueryParams, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<string, unknown, AsyncTaskD2QueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/delegate2-tasks/async`,
-    props,
-    signal
-  )
-
 export interface SyncTaskD2QueryParams {
   accountId?: string
   orgIdentifier?: string
@@ -9863,6 +9819,55 @@ export const syncTaskD2Promise = (
     'POST',
     getConfig('ng/api'),
     `/delegate2-tasks/sync`,
+    props,
+    signal
+  )
+
+export interface AsyncTaskD2QueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type AsyncTaskD2Props = Omit<MutateProps<string, unknown, AsyncTaskD2QueryParams, void, void>, 'path' | 'verb'>
+
+/**
+ * Create a delegate tasks
+ */
+export const AsyncTaskD2 = (props: AsyncTaskD2Props) => (
+  <Mutate<string, unknown, AsyncTaskD2QueryParams, void, void>
+    verb="POST"
+    path="/delegate2-tasks/async"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseAsyncTaskD2Props = Omit<
+  UseMutateProps<string, unknown, AsyncTaskD2QueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a delegate tasks
+ */
+export const useAsyncTaskD2 = (props: UseAsyncTaskD2Props) =>
+  useMutate<string, unknown, AsyncTaskD2QueryParams, void, void>('POST', `/delegate2-tasks/async`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create a delegate tasks
+ */
+export const asyncTaskD2Promise = (
+  props: MutateUsingFetchProps<string, unknown, AsyncTaskD2QueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<string, unknown, AsyncTaskD2QueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/delegate2-tasks/async`,
     props,
     signal
   )
@@ -10987,53 +10992,6 @@ export const getProjectAggregateDTOListPromise = (
     signal
   )
 
-export type PostSecretFileViaYamlProps = Omit<
-  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret file via yaml
- */
-export const PostSecretFileViaYaml = (props: PostSecretFileViaYamlProps) => (
-  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>
-    verb="POST"
-    path="/secrets/files/yaml"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretFileViaYamlProps = Omit<
-  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret file via yaml
- */
-export const usePostSecretFileViaYaml = (props: UsePostSecretFileViaYamlProps) =>
-  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
-    'POST',
-    `/secrets/files/yaml`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Create a secret file via yaml
- */
-export const postSecretFileViaYamlPromise = (
-  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/secrets/files/yaml`,
-    props,
-    signal
-  )
-
 export interface PutSecretFilePathParams {
   identifier: string
 }
@@ -11088,6 +11046,53 @@ export const putSecretFilePromise = (
     'PUT',
     getConfig('ng/api'),
     `/secrets/files/${identifier}`,
+    props,
+    signal
+  )
+
+export type PostSecretFileViaYamlProps = Omit<
+  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file via yaml
+ */
+export const PostSecretFileViaYaml = (props: PostSecretFileViaYamlProps) => (
+  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>
+    verb="POST"
+    path="/secrets/files/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretFileViaYamlProps = Omit<
+  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file via yaml
+ */
+export const usePostSecretFileViaYaml = (props: UsePostSecretFileViaYamlProps) =>
+  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
+    'POST',
+    `/secrets/files/yaml`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create a secret file via yaml
+ */
+export const postSecretFileViaYamlPromise = (
+  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/secrets/files/yaml`,
     props,
     signal
   )
@@ -11230,52 +11235,6 @@ export const getMetadataPromise = (
     SecretManagerMetadataRequestDTO,
     void
   >('POST', getConfig('ng/api'), `/secret-managers/meta-data`, props, signal)
-
-export type PostSecretTextViaYamlProps = Omit<
-  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret text via yaml
- */
-export const PostSecretTextViaYaml = (props: PostSecretTextViaYamlProps) => (
-  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>
-    verb="POST"
-    path="/secrets/yaml"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretTextViaYamlProps = Omit<
-  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret text via yaml
- */
-export const usePostSecretTextViaYaml = (props: UsePostSecretTextViaYamlProps) =>
-  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>('POST', `/secrets/yaml`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Create a secret text via yaml
- */
-export const postSecretTextViaYamlPromise = (
-  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/secrets/yaml`,
-    props,
-    signal
-  )
 
 export interface GetSecretQueryParams {
   accountIdentifier: string
@@ -11552,6 +11511,52 @@ export const postSecretTextPromise = (
     signal
   )
 
+export type PostSecretTextViaYamlProps = Omit<
+  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text via yaml
+ */
+export const PostSecretTextViaYaml = (props: PostSecretTextViaYamlProps) => (
+  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>
+    verb="POST"
+    path="/secrets/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretTextViaYamlProps = Omit<
+  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text via yaml
+ */
+export const usePostSecretTextViaYaml = (props: UsePostSecretTextViaYamlProps) =>
+  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>('POST', `/secrets/yaml`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create a secret text via yaml
+ */
+export const postSecretTextViaYamlPromise = (
+  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/secrets/yaml`,
+    props,
+    signal
+  )
+
 export interface PutSecretTextViaYamlPathParams {
   identifier: string
 }
@@ -11613,171 +11618,6 @@ export const putSecretTextViaYamlPromise = (
     props,
     signal
   )
-
-export interface ValidateSecretIdentifierIsUniqueQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface ValidateSecretIdentifierIsUniquePathParams {
-  identifier: string
-}
-
-export type ValidateSecretIdentifierIsUniqueProps = Omit<
-  GetProps<
-    ResponseBoolean,
-    Failure | Error,
-    ValidateSecretIdentifierIsUniqueQueryParams,
-    ValidateSecretIdentifierIsUniquePathParams
-  >,
-  'path'
-> &
-  ValidateSecretIdentifierIsUniquePathParams
-
-/**
- * Validate Secret Identifier is unique
- */
-export const ValidateSecretIdentifierIsUnique = ({ identifier, ...props }: ValidateSecretIdentifierIsUniqueProps) => (
-  <Get<
-    ResponseBoolean,
-    Failure | Error,
-    ValidateSecretIdentifierIsUniqueQueryParams,
-    ValidateSecretIdentifierIsUniquePathParams
-  >
-    path="/v2/secrets/validateUniqueIdentifier/${identifier}"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateSecretIdentifierIsUniqueProps = Omit<
-  UseGetProps<
-    ResponseBoolean,
-    Failure | Error,
-    ValidateSecretIdentifierIsUniqueQueryParams,
-    ValidateSecretIdentifierIsUniquePathParams
-  >,
-  'path'
-> &
-  ValidateSecretIdentifierIsUniquePathParams
-
-/**
- * Validate Secret Identifier is unique
- */
-export const useValidateSecretIdentifierIsUnique = ({
-  identifier,
-  ...props
-}: UseValidateSecretIdentifierIsUniqueProps) =>
-  useGet<
-    ResponseBoolean,
-    Failure | Error,
-    ValidateSecretIdentifierIsUniqueQueryParams,
-    ValidateSecretIdentifierIsUniquePathParams
-  >(
-    (paramsInPath: ValidateSecretIdentifierIsUniquePathParams) =>
-      `/v2/secrets/validateUniqueIdentifier/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Validate Secret Identifier is unique
- */
-export const validateSecretIdentifierIsUniquePromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    ValidateSecretIdentifierIsUniqueQueryParams,
-    ValidateSecretIdentifierIsUniquePathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    ResponseBoolean,
-    Failure | Error,
-    ValidateSecretIdentifierIsUniqueQueryParams,
-    ValidateSecretIdentifierIsUniquePathParams
-  >(getConfig('ng/api'), `/v2/secrets/validateUniqueIdentifier/${identifier}`, props, signal)
-
-export interface PostSecretViaYamlQueryParams {
-  accountIdentifier: string
-}
-
-export type PostSecretViaYamlProps = Omit<
-  MutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a secret via yaml
- */
-export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
-  <Mutate<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >
-    verb="POST"
-    path="/v2/secrets/yaml"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretViaYamlProps = Omit<
-  UseMutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a secret via yaml
- */
-export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
-  useMutate<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Create a secret via yaml
- */
-export const postSecretViaYamlPromise = (
-  props: MutateUsingFetchProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
 export interface GetSecretV2QueryParams {
   accountIdentifier: string
@@ -11858,7 +11698,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -11873,7 +11713,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -11888,7 +11728,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -11903,7 +11743,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -11922,7 +11762,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -11931,7 +11771,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -12053,7 +11893,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -12063,7 +11903,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path="/v2/secrets"
     base={getConfig('ng/api')}
@@ -12076,7 +11916,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -12090,7 +11930,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -12102,7 +11942,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -12111,9 +11951,174 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
+
+export interface ValidateSecretIdentifierIsUniqueQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface ValidateSecretIdentifierIsUniquePathParams {
+  identifier: string
+}
+
+export type ValidateSecretIdentifierIsUniqueProps = Omit<
+  GetProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateSecretIdentifierIsUniqueQueryParams,
+    ValidateSecretIdentifierIsUniquePathParams
+  >,
+  'path'
+> &
+  ValidateSecretIdentifierIsUniquePathParams
+
+/**
+ * Validate Secret Identifier is unique
+ */
+export const ValidateSecretIdentifierIsUnique = ({ identifier, ...props }: ValidateSecretIdentifierIsUniqueProps) => (
+  <Get<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateSecretIdentifierIsUniqueQueryParams,
+    ValidateSecretIdentifierIsUniquePathParams
+  >
+    path="/v2/secrets/validateUniqueIdentifier/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateSecretIdentifierIsUniqueProps = Omit<
+  UseGetProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateSecretIdentifierIsUniqueQueryParams,
+    ValidateSecretIdentifierIsUniquePathParams
+  >,
+  'path'
+> &
+  ValidateSecretIdentifierIsUniquePathParams
+
+/**
+ * Validate Secret Identifier is unique
+ */
+export const useValidateSecretIdentifierIsUnique = ({
+  identifier,
+  ...props
+}: UseValidateSecretIdentifierIsUniqueProps) =>
+  useGet<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateSecretIdentifierIsUniqueQueryParams,
+    ValidateSecretIdentifierIsUniquePathParams
+  >(
+    (paramsInPath: ValidateSecretIdentifierIsUniquePathParams) =>
+      `/v2/secrets/validateUniqueIdentifier/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Validate Secret Identifier is unique
+ */
+export const validateSecretIdentifierIsUniquePromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateSecretIdentifierIsUniqueQueryParams,
+    ValidateSecretIdentifierIsUniquePathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateSecretIdentifierIsUniqueQueryParams,
+    ValidateSecretIdentifierIsUniquePathParams
+  >(getConfig('ng/api'), `/v2/secrets/validateUniqueIdentifier/${identifier}`, props, signal)
+
+export interface PostSecretViaYamlQueryParams {
+  accountIdentifier: string
+}
+
+export type PostSecretViaYamlProps = Omit<
+  MutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret via yaml
+ */
+export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
+  <Mutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >
+    verb="POST"
+    path="/v2/secrets/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretViaYamlProps = Omit<
+  UseMutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret via yaml
+ */
+export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
+  useMutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Create a secret via yaml
+ */
+export const postSecretViaYamlPromise = (
+  props: MutateUsingFetchProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
 export interface ValidateSecretQueryParams {
   accountIdentifier: string
@@ -12204,7 +12209,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -12219,7 +12224,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -12234,7 +12239,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -12249,7 +12254,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -12268,7 +12273,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -12277,7 +12282,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 
@@ -13561,6 +13566,63 @@ export const updateServicePromise = (
     void
   >('PUT', getConfig('ng/api'), `/services`, props, signal)
 
+export interface CreateServicesQueryParams {
+  accountId?: string
+}
+
+export type CreateServicesProps = Omit<
+  MutateProps<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create Services
+ */
+export const CreateServices = (props: CreateServicesProps) => (
+  <Mutate<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>
+    verb="POST"
+    path="/services/batch"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateServicesProps = Omit<
+  UseMutateProps<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create Services
+ */
+export const useCreateServices = (props: UseCreateServicesProps) =>
+  useMutate<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>(
+    'POST',
+    `/services/batch`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create Services
+ */
+export const createServicesPromise = (
+  props: MutateUsingFetchProps<
+    ResponsePageServiceResponseDTO,
+    Failure | Error,
+    CreateServicesQueryParams,
+    ServiceRequestDTO[],
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePageServiceResponseDTO,
+    Failure | Error,
+    CreateServicesQueryParams,
+    ServiceRequestDTO[],
+    void
+  >('POST', getConfig('ng/api'), `/services/batch`, props, signal)
+
 export interface UpsertServiceQueryParams {
   accountId?: string
 }
@@ -13630,63 +13692,6 @@ export const upsertServicePromise = (
     void
   >('PUT', getConfig('ng/api'), `/services/upsert`, props, signal)
 
-export interface CreateServicesQueryParams {
-  accountId?: string
-}
-
-export type CreateServicesProps = Omit<
-  MutateProps<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>,
-  'path' | 'verb'
->
-
-/**
- * Create Services
- */
-export const CreateServices = (props: CreateServicesProps) => (
-  <Mutate<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>
-    verb="POST"
-    path="/services/batch"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseCreateServicesProps = Omit<
-  UseMutateProps<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>,
-  'path' | 'verb'
->
-
-/**
- * Create Services
- */
-export const useCreateServices = (props: UseCreateServicesProps) =>
-  useMutate<ResponsePageServiceResponseDTO, Failure | Error, CreateServicesQueryParams, ServiceRequestDTO[], void>(
-    'POST',
-    `/services/batch`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Create Services
- */
-export const createServicesPromise = (
-  props: MutateUsingFetchProps<
-    ResponsePageServiceResponseDTO,
-    Failure | Error,
-    CreateServicesQueryParams,
-    ServiceRequestDTO[],
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponsePageServiceResponseDTO,
-    Failure | Error,
-    CreateServicesQueryParams,
-    ServiceRequestDTO[],
-    void
-  >('POST', getConfig('ng/api'), `/services/batch`, props, signal)
-
 export interface GetUsersQueryParams {
   accountIdentifier: string
   searchString?: string
@@ -13738,99 +13743,6 @@ export const getUsersPromise = (
     props,
     signal
   )
-
-export interface HandleInterruptQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  interruptType: 'Abort' | 'Pause' | 'Resume'
-}
-
-export interface HandleInterruptPathParams {
-  planExecutionId: string
-}
-
-export type HandleInterruptProps = Omit<
-  MutateProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
-  <Mutate<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >
-    verb="PUT"
-    path="/executions/interrupt/${planExecutionId}"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHandleInterruptProps = Omit<
-  UseMutateProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
-  useMutate<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >('PUT', (paramsInPath: HandleInterruptPathParams) => `/executions/interrupt/${paramsInPath.planExecutionId}`, {
-    base: getConfig('ng/api'),
-    pathParams: { planExecutionId },
-    ...props
-  })
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const handleInterruptPromise = (
-  {
-    planExecutionId,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  > & { planExecutionId: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >('PUT', getConfig('ng/api'), `/executions/interrupt/${planExecutionId}`, props, signal)
 
 export interface GetPipelineExecutionDetailQueryParams {
   accountIdentifier: string
@@ -14031,6 +13943,99 @@ export const getStepTypesToYamlTypeMappingPromise = (
     signal
   )
 
+export interface HandleInterruptQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  interruptType: 'Abort' | 'Pause' | 'Resume'
+}
+
+export interface HandleInterruptPathParams {
+  planExecutionId: string
+}
+
+export type HandleInterruptProps = Omit<
+  MutateProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
+  'path' | 'verb'
+> &
+  HandleInterruptPathParams
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
+  <Mutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >
+    verb="PUT"
+    path="/executions/interrupt/${planExecutionId}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHandleInterruptProps = Omit<
+  UseMutateProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
+  'path' | 'verb'
+> &
+  HandleInterruptPathParams
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
+  useMutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', (paramsInPath: HandleInterruptPathParams) => `/executions/interrupt/${paramsInPath.planExecutionId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { planExecutionId },
+    ...props
+  })
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const handleInterruptPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', getConfig('ng/api'), `/executions/interrupt/${planExecutionId}`, props, signal)
+
 export interface GetListOfExecutionsQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -14196,108 +14201,6 @@ export const getDummyCDPipelineModuleInfoPromise = (
     signal
   )
 
-export interface GetJiraProjectsQueryParams {
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type GetJiraProjectsProps = Omit<
-  GetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
-  'path'
->
-
-/**
- * Get jira projects
- */
-export const GetJiraProjects = (props: GetJiraProjectsProps) => (
-  <Get<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>
-    path="/jira/getProjects"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetJiraProjectsProps = Omit<
-  UseGetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
-  'path'
->
-
-/**
- * Get jira projects
- */
-export const useGetJiraProjects = (props: UseGetJiraProjectsProps) =>
-  useGet<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(`/jira/getProjects`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get jira projects
- */
-export const getJiraProjectsPromise = (
-  props: GetUsingFetchProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(
-    getConfig('ng/api'),
-    `/jira/getProjects`,
-    props,
-    signal
-  )
-
-export interface ValidateJiraCredentialsQueryParams {
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type ValidateJiraCredentialsProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
-  'path'
->
-
-/**
- * Validate jira credentials
- */
-export const ValidateJiraCredentials = (props: ValidateJiraCredentialsProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>
-    path="/jira/validate"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateJiraCredentialsProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
-  'path'
->
-
-/**
- * Validate jira credentials
- */
-export const useValidateJiraCredentials = (props: UseValidateJiraCredentialsProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(`/jira/validate`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Validate jira credentials
- */
-export const validateJiraCredentialsPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(
-    getConfig('ng/api'),
-    `/jira/validate`,
-    props,
-    signal
-  )
-
 export interface CreateJiraTicketQueryParams {
   connectorRef?: string
   accountId?: string
@@ -14414,6 +14317,108 @@ export const updateJiraTicketPromise = (
     'POST',
     getConfig('ng/api'),
     `/jira/updateTicket`,
+    props,
+    signal
+  )
+
+export interface ValidateJiraCredentialsQueryParams {
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateJiraCredentialsProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate jira credentials
+ */
+export const ValidateJiraCredentials = (props: ValidateJiraCredentialsProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>
+    path="/jira/validate"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateJiraCredentialsProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate jira credentials
+ */
+export const useValidateJiraCredentials = (props: UseValidateJiraCredentialsProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(`/jira/validate`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Validate jira credentials
+ */
+export const validateJiraCredentialsPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(
+    getConfig('ng/api'),
+    `/jira/validate`,
+    props,
+    signal
+  )
+
+export interface GetJiraProjectsQueryParams {
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetJiraProjectsProps = Omit<
+  GetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get jira projects
+ */
+export const GetJiraProjects = (props: GetJiraProjectsProps) => (
+  <Get<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>
+    path="/jira/getProjects"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetJiraProjectsProps = Omit<
+  UseGetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get jira projects
+ */
+export const useGetJiraProjects = (props: UseGetJiraProjectsProps) =>
+  useGet<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(`/jira/getProjects`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get jira projects
+ */
+export const getJiraProjectsPromise = (
+  props: GetUsingFetchProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(
+    getConfig('ng/api'),
+    `/jira/getProjects`,
     props,
     signal
   )
@@ -16866,22 +16871,6 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'steps'
     | 'pipeline'
     | 'http'
-    | 'splunk'
-    | 'appdynamics'
-    | 'vault'
-    | 'local'
-    | 'gcpkms'
-    | 'gcp'
-    | 'aws'
-    | 'artifactory'
-    | 'jira'
-    | 'nexus'
-    | 'github'
-    | 'gitlab'
-    | 'bitbucket'
-    | 'ceaws'
-    | 'ceazure'
-    | 'cek8s'
   )[]
 }
 

@@ -46,7 +46,7 @@ exports[`Role Details Page render data 1`] = `
         </div>
       </div>
       <div
-        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
       >
         <span
           class="bp3-icon StyledProps--main"

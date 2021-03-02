@@ -224,7 +224,7 @@ exports[`CVSetupPage check next and previous 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                         tabindex="0"
                       >
                         <div
@@ -292,7 +292,7 @@ exports[`CVSetupPage check next and previous 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                         tabindex="0"
                       >
                         <div
@@ -615,7 +615,7 @@ exports[`CVSetupPage check next and previous 2`] = `
                   class="cardWrapper"
                 >
                   <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                     tabindex="0"
                   >
                     <div
@@ -652,7 +652,7 @@ exports[`CVSetupPage check next and previous 2`] = `
                   class="cardWrapper"
                 >
                   <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                     tabindex="0"
                   >
                     <div
@@ -983,7 +983,7 @@ exports[`CVSetupPage check next and previous 3`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                         tabindex="0"
                       >
                         <div
@@ -1051,7 +1051,7 @@ exports[`CVSetupPage check next and previous 3`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                         tabindex="0"
                       >
                         <div
@@ -1344,7 +1344,7 @@ exports[`CVSetupPage render initial state 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                         tabindex="0"
                       >
                         <div
@@ -1412,7 +1412,7 @@ exports[`CVSetupPage render initial state 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss Card--interactive"
                         tabindex="0"
                       >
                         <div

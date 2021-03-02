@@ -246,7 +246,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             class="squareCardContainer"
                           >
                             <div
-                              class="bp3-card bp3-interactive bp3-elevation-0 Card--card squareCard Card--selected"
+                              class="bp3-card bp3-interactive bp3-elevation-0 Card--card squareCard Card--selected Card--interactive"
                               tabindex="0"
                             >
                               <span

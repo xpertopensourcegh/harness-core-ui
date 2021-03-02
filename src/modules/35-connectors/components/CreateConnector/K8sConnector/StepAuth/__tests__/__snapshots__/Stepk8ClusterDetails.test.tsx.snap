@@ -25,7 +25,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               class="cardRow"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -59,7 +59,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="1"
                 tabindex="0"
               >
@@ -440,7 +440,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               class="cardRow"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -474,7 +474,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="1"
                 tabindex="0"
               >
@@ -870,7 +870,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               class="cardRow"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -904,7 +904,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="1"
                 tabindex="0"
               >
@@ -1300,7 +1300,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               class="cardRow"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -1334,7 +1334,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="1"
                 tabindex="0"
               >
@@ -1715,7 +1715,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               class="cardRow"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -1749,7 +1749,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="1"
                 tabindex="0"
               >
@@ -2038,7 +2038,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               class="cardRow"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -2072,7 +2072,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="1"
                 tabindex="0"
               >
@@ -2297,7 +2297,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               class="cardRow"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                 data-index="0"
                 tabindex="0"
               >
@@ -2331,7 +2331,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 </div>
               </div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                 data-index="1"
                 tabindex="0"
               >

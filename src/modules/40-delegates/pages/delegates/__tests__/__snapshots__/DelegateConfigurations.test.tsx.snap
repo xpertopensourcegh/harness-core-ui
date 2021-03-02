@@ -108,7 +108,7 @@ exports[`Delegates Configurations Page render data 1`] = `
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-2 Card--card"
+            class="bp3-card bp3-interactive bp3-elevation-2 Card--card Card--interactive"
             tabindex="0"
           >
             <div

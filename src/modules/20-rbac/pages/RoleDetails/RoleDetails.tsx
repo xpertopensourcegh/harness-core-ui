@@ -124,7 +124,7 @@ const RoleDetails: React.FC = () => {
                 }
               ]}
             />
-            <Layout.Horizontal flex spacing="medium">
+            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
               {/* TODO: REPLACE WITH ROLE ICON */}
               <Icon name="nav-project-selected" size={40} />
               <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
@@ -160,7 +160,7 @@ const RoleDetails: React.FC = () => {
         <Layout.Horizontal className={css.body}>
           <Container className={css.resourceList}>
             <Layout.Vertical flex spacing="small">
-              {resourceGroups?.data?.resourceTypes.map(resourceType => {
+              {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
                 const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType as ResourceType)
                 return (
                   resourceHandler && (
@@ -190,7 +190,7 @@ const RoleDetails: React.FC = () => {
                 {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
                 <Button onClick={submitChanges} text={getString('applyChanges')} intent="primary" />
               </Layout.Horizontal>
-              {resourceGroups?.data?.resourceTypes.map(resourceType => {
+              {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
                 return (
                   <div
                     key={resourceType}

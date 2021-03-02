@@ -307,7 +307,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
               tabindex="0"
             >
               <div
@@ -728,7 +728,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
               tabindex="0"
             >
               <div
@@ -1103,7 +1103,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
               tabindex="0"
             >
               <div

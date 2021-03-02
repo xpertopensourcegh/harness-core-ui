@@ -42,7 +42,7 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = ({
   return (
     <Layout.Vertical flex spacing="small">
       {listData.length ? (
-        listData.map(eleDetails => {
+        listData.map(({ name: eleDetails }) => {
           const resourceDetails = RbacFactory.getResourceTypeHandler(eleDetails as ResourceType)
           if (resourceDetails) {
             const { label, icon } = resourceDetails

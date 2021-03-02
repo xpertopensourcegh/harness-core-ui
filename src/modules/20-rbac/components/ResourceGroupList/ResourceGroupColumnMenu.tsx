@@ -20,7 +20,7 @@ export type CellPropsResourceGroupColumn<D extends object, V = any> = TableInsta
 }
 const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGroupResponse>> = ({ row, column }) => {
   const data = row.original
-  const isHarnessManaged = data?.resourceGroup?.harnessManaged
+  const isHarnessManaged = data.harnessManaged
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()

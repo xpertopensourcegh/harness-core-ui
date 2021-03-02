@@ -143,7 +143,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                     class="grid delegateSizeWrapper"
                   >
                     <div
-                      class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                      class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
                       data-index="0"
                       tabindex="0"
                     >

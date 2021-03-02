@@ -1,8 +1,7 @@
 .card {
   width: 190px;
   height: 210px;
-  box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid transparent !important;
+  box-shadow: var(--card-box-shadow);
   align-items: center;
   justify-content: center;
 }

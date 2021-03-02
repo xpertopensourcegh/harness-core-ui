@@ -100,7 +100,7 @@ exports[`Org Page List Create New Org 1`] = `
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
           data-testid="org-card-bfvbfkbvf"
           tabindex="0"
         >
@@ -281,7 +281,7 @@ exports[`Org Page List Create New Org 1`] = `
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
           data-testid="org-card-Harness"
           tabindex="0"
         >
@@ -506,7 +506,7 @@ exports[`Org Page List Create New Org 1`] = `
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
           data-testid="org-card-default"
           tabindex="0"
         >

@@ -457,7 +457,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                                 class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                               >
                                 <div
-                                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
+                                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard Card--interactive"
                                   tabindex="0"
                                 >
                                   <div
@@ -507,7 +507,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                                   class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                                 >
                                   <div
-                                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
+                                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard Card--interactive"
                                     tabindex="0"
                                   >
                                     <div
@@ -645,7 +645,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                                   class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                                 >
                                   <div
-                                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
+                                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard Card--interactive"
                                     tabindex="0"
                                   >
                                     <div
@@ -690,7 +690,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                                 class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                               >
                                 <div
-                                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
+                                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard Card--interactive"
                                   tabindex="0"
                                 >
                                   <div

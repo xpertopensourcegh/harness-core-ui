@@ -25,7 +25,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main monitoringCard"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard selectedCard Card--selected"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard selectedCard Card--selected Card--interactive"
                 tabindex="0"
               >
                 <div

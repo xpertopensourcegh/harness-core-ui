@@ -187,6 +187,7 @@ lastRunAtDate: '{{$.lastExecutionTs}}: '
 lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
 emptyDeployments: _ _ _ _ _ _
 recentActivity: Recent Activity
+newUser: New User
 allNotificationFormat: All Notification Format
 lastUpdatedSort: '{{$.lastUpdated}}'
 AZ09: A - Z, 0 - 9
@@ -559,7 +560,6 @@ roleForm:
 roleDetails:
   permissionUpdatedSuccess: Permissions updated succesfully
   noDataText: You have no Roles. Click the button below to create a new one.
-
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'
