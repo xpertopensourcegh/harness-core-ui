@@ -273,7 +273,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           </Button>
           <Button
             minimal
-            iconProps={{ size: 40 }}
+            iconProps={{ size: 28, margin: 'xsmall' }}
             className={css.failureStrategy}
             onClick={openFailureStrategyPanel}
             icon="failure-strategy"

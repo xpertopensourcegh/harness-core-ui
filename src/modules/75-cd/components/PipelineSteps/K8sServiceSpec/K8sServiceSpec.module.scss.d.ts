@@ -16,5 +16,6 @@ declare const styles: {
   readonly cardSection: string
   readonly serviceDefinition: string
   readonly accordionSummary: string
+  readonly manifestVariablesTable: string
 }
 export default styles

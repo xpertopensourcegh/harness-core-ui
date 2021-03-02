@@ -78,6 +78,27 @@
   .failureStrategy {
     position: relative;
     margin-right: 0 !important;
+
+    /* Following hacky CSS is required in order to render the icon properly :( */
+    & > span svg :not(path) {
+      stroke: none !important;
+    }
+
+    & > span svg rect {
+      stroke: currentColor !important;
+    }
+
+    & > span svg path[fill='#DA291D'] {
+      fill: #da291d !important;
+    }
+
+    & > span svg path[fill='#000'] {
+      fill: #000 !important;
+    }
+
+    & > span svg path[fill='#fff'] {
+      fill: #fff !important;
+    }
   }
 
   .footer {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { isPlainObject, get, isNil } from 'lodash-es'
+import cx from 'classnames'
 
 import { Text } from '@wings-software/uicore'
 import { CopyText } from '@common/components/CopyText/CopyText'
@@ -12,15 +13,16 @@ export interface VariableListTableProps<T = Record<string, unknown>> {
   data: T
   originalData: T
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  className?: string
 }
 
 export function VariablesListTable<T>(props: VariableListTableProps<T>): React.ReactElement | null {
-  const { data, metadataMap, originalData } = props
+  const { data, metadataMap, originalData, className } = props
 
   if (!data || !originalData || !metadataMap) return null
 
   return (
-    <div className={css.variablesListTable}>
+    <div className={cx(css.variablesListTable, className)}>
       {Object.entries(data || {}).map(([key, value]) => {
         if (typeof value !== 'string' || key === 'uuid' || isNil(value)) return null
 

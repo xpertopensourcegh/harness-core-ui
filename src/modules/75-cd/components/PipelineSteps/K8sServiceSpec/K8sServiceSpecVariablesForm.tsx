@@ -87,6 +87,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                 {manifestsVariables?.map(({ manifest }, index) => (
                   <VariablesListTable
                     key={index}
+                    className={css.manifestVariablesTable}
                     data={manifest?.spec?.store?.spec}
                     originalData={initialValues?.manifests?.[index]?.manifest?.spec?.store?.spec}
                     metadataMap={metadataMap}

@@ -88,3 +88,9 @@
   border-bottom: 1px solid var(--grey-250);
   background: var(--white);
 }
+
+.manifestVariablesTable {
+  & + & {
+    margin-top: var(--spacing-large);
+  }
+}
