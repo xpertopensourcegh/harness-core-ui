@@ -1,10 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import type {
-  GetYamlSnippetMetadataQueryParams,
-  GetYamlSchemaQueryParams,
-  GetYamlSchemaForSubtypeQueryParams
-} from 'services/cd-ng'
+import type { GetYamlSnippetMetadataQueryParams, GetYamlSchemaQueryParams, ConnectorInfoDTO } from 'services/cd-ng'
 
 export const getIconNameForTag = (tag: string): IconName => {
   switch (tag) {
@@ -21,26 +17,42 @@ export const getIconNameForTag = (tag: string): IconName => {
   }
 }
 
+const entitySubTypeToTagMap: {
+  [key in ConnectorInfoDTO['type']]: GetYamlSnippetMetadataQueryParams['tags'][number]
+} = {
+  K8sCluster: 'k8s',
+  Git: 'git',
+  Splunk: 'splunk',
+  AppDynamics: 'appdynamics',
+  Vault: 'vault',
+  DockerRegistry: 'docker',
+  Local: 'local',
+  GcpKms: 'gcpkms',
+  Gcp: 'gcp',
+  Aws: 'aws',
+  Artifactory: 'artifactory',
+  Jira: 'jira',
+  Nexus: 'nexus',
+  Github: 'github',
+  Gitlab: 'gitlab',
+  Bitbucket: 'bitbucket',
+  CEAws: 'ceaws',
+  CEAzure: 'ceazure',
+  CEK8sCluster: 'cek8s'
+}
+
 export const getSnippetTags = (
   entityType: GetYamlSchemaQueryParams['entityType'],
-  entitySubType?: GetYamlSchemaForSubtypeQueryParams['subtype'] | Module
+  entitySubType?: ConnectorInfoDTO['type'] | Module
 ): GetYamlSnippetMetadataQueryParams['tags'] => {
   const tags: GetYamlSnippetMetadataQueryParams['tags'] = []
   switch (entityType) {
-    case 'Connectors':
+    case 'Connectors': {
       tags.push('connector')
-      switch (entitySubType) {
-        case 'K8sCluster':
-          tags.push('k8s')
-          break
-        case 'DockerRegistry':
-          tags.push('docker')
-          break
-        case 'Git':
-          tags.push('git')
-          break
-      }
+      const entitySubTypeTag = entitySubType && entitySubTypeToTagMap[entitySubType as ConnectorInfoDTO['type']]
+      entitySubTypeTag && tags.push(entitySubTypeTag)
       break
+    }
     case 'Secrets':
       tags.push('secret')
       break
