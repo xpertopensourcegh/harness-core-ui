@@ -28,6 +28,7 @@ const CV_HOME = `/cv/home`
 const routes = {
   toAdmin: withAccountId(() => '/admin'),
   toLogin: () => '/login',
+  toSignup: () => '/signup',
   toSettings: withAccountId(() => '/settings'),
   toResources: withAccountId(() => '/admin/resources'),
   // account resources

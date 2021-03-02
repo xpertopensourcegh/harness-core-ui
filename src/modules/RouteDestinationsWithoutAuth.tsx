@@ -4,6 +4,7 @@ import NotFoundPage from '@common/pages/404/NotFoundPage'
 import routes from '@common/RouteDefinitions'
 import SessionToken from 'framework/utils/SessionToken'
 import LoginPage from '@common/pages/login/LoginPage'
+import SignupPage from '@common/pages/signup/SignupPage'
 
 const RedirectToHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
@@ -20,6 +21,11 @@ const RouteDestinationsWithoutAuth: React.FC = () => {
       {__DEV__ ? (
         <Route path={routes.toLogin()}>
           <LoginPage />
+        </Route>
+      ) : null}
+      {__DEV__ ? (
+        <Route path={routes.toSignup()}>
+          <SignupPage />
         </Route>
       ) : null}
       <Route path="*">

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Callout } from '@blueprintjs/core'
 import { FormInput, Formik, FormikForm, Card, Button, Layout } from '@wings-software/uicore'
 import AppStorage from 'framework/utils/AppStorage'
@@ -70,6 +70,7 @@ const LoginPage: React.FC = () => {
               </Button>
             </FormikForm>
           </Formik>
+          <Link to={routes.toSignup()}>Sign up for an account</Link>
           <Callout intent="warning">This page is only meant for dev testing</Callout>
         </Layout.Vertical>
       </Card>
