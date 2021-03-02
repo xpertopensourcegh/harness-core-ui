@@ -49,7 +49,7 @@ function HeatMapTooltip({ cell, series, isSelected, onDismiss }: OnCellClick): J
   const riskScore = generateTimestampForTooltip(cell?.startTime, cell?.endTime)
   const tooltipText = !isNumber(cell?.riskScore)
     ? getString('cv.noAnalysis')
-    : `${riskScoreToRiskLabel(cell?.riskScore)} ${series?.name ?? ''} ${getString('cv.riskScore')}`
+    : `${riskScoreToRiskLabel(cell?.riskScore * 100)} ${series?.name ?? ''} ${getString('cv.riskScore')}`
   return cell ? (
     <Container className={css.heatmapTooltip}>
       {isSelected && (

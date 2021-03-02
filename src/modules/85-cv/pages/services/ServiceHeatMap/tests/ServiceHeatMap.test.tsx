@@ -215,6 +215,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
     expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(
       '12/18/2020 9:00 am - 12/19/2020 12:00 am'
     )
+    expect(document.body.querySelector('[class*="overallRiskScore"]')?.innerHTML).toEqual('High Performance Risk Score')
 
     const resetButton = document.body.querySelector('[class*="resetButton"]')
     if (!resetButton) {
@@ -233,5 +234,6 @@ describe('Unit tests for Service Heatmap componnt', () => {
     expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(
       '12/17/2020 3:00 am - 6:00 pm'
     )
+    expect(document.body.querySelector('[class*="overallRiskScore"]')?.innerHTML).toEqual('Low Performance Risk Score')
   })
 })
