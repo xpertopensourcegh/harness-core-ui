@@ -71,7 +71,12 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
             props.setFormData?.(formData)
             nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
           } else {
-            modalErrorHandler?.showDanger(i18n.validateError)
+            modalErrorHandler?.showDanger(
+              getString('validation.duplicateIdError', {
+                connectorName: formData.name,
+                connectorIdentifier: formData.identifier
+              })
+            )
           }
         } else {
           throw response as Failure
