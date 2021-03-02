@@ -24,7 +24,8 @@ export type HAccessControlDTO = AccessControlDTO & {
 }
 
 export interface Principal {
-  [key: string]: any
+  identifier: string
+  type: 'USER' | 'USER_GROUP' | 'API_KEY'
 }
 
 export interface Response {
@@ -619,17 +620,25 @@ export interface RoleAssignment {
   identifier: string
   resourceGroupIdentifier: string
   roleIdentifier: string
-  principalIdentifier: string
-  principalType: 'USER' | 'USER_GROUP' | 'API_KEY'
+  principal: Principal
+  harnessManaged?: boolean
+  disabled?: boolean
 }
 
 export interface RoleAssignmentResponse {
   roleAssignment: RoleAssignment
-  scope?: string
-  harnessManaged?: boolean
-  disabled?: boolean
+  scope: string
   createdAt?: number
   lastModifiedAt?: number
+}
+
+export interface RoleAssignmentFilter {
+  resourceGroupFilter?: string[]
+  roleFilter?: string[]
+  principalTypeFilter?: ('USER' | 'USER_GROUP' | 'API_KEY')[]
+  principalFilter?: Principal[]
+  managed?: boolean[]
+  disabled?: boolean[]
 }
 
 export interface ResponseRoleAssignmentResponse {
@@ -659,7 +668,7 @@ export interface Role {
 
 export interface RoleResponse {
   role: Role
-  scope?: string
+  scope: string
   harnessManaged?: boolean
   createdAt?: number
   lastModifiedAt?: number
@@ -696,7 +705,7 @@ export const GetAccessControlList = (props: GetAccessControlListProps) => (
   <Mutate<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>
     verb="POST"
     path="/acl"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -711,7 +720,7 @@ export type UseGetAccessControlListProps = Omit<
  */
 export const useGetAccessControlList = (props: UseGetAccessControlListProps) =>
   useMutate<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>('POST', `/acl`, {
-    base: getConfig('rbac/api'),
+    base: getConfig('authz/api'),
     ...props
   })
 
@@ -724,7 +733,7 @@ export const getAccessControlListPromise = (
 ) =>
   mutateUsingFetch<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>(
     'POST',
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/acl`,
     props,
     signal
@@ -745,7 +754,7 @@ export type TestACLProps = Omit<GetProps<ResponseString, Failure | Error, TestAC
 export const TestACL = (props: TestACLProps) => (
   <Get<ResponseString, Failure | Error, TestACLQueryParams, void>
     path="/acl/acl-test"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -757,7 +766,7 @@ export type UseTestACLProps = Omit<UseGetProps<ResponseString, Failure | Error, 
  */
 export const useTestACL = (props: UseTestACLProps) =>
   useGet<ResponseString, Failure | Error, TestACLQueryParams, void>(`/acl/acl-test`, {
-    base: getConfig('rbac/api'),
+    base: getConfig('authz/api'),
     ...props
   })
 
@@ -769,7 +778,7 @@ export const testACLPromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<ResponseString, Failure | Error, TestACLQueryParams, void>(
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/acl/acl-test`,
     props,
     signal
@@ -794,7 +803,7 @@ export type GetPermissionListProps = Omit<
 export const GetPermissionList = (props: GetPermissionListProps) => (
   <Get<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>
     path="/permissions"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -809,7 +818,7 @@ export type UseGetPermissionListProps = Omit<
  */
 export const useGetPermissionList = (props: UseGetPermissionListProps) =>
   useGet<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>(`/permissions`, {
-    base: getConfig('rbac/api'),
+    base: getConfig('authz/api'),
     ...props
   })
 
@@ -821,11 +830,93 @@ export const getPermissionListPromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<ResponseListPermissionResponse, Failure | Error, GetPermissionListQueryParams, void>(
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/permissions`,
     props,
     signal
   )
+
+export interface GetFilteredRoleAssignmentListQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetFilteredRoleAssignmentListProps = Omit<
+  MutateProps<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilter,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Filtered Role Assignments
+ */
+export const GetFilteredRoleAssignmentList = (props: GetFilteredRoleAssignmentListProps) => (
+  <Mutate<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilter,
+    void
+  >
+    verb="POST"
+    path="/roleassignments/filter"
+    base={getConfig('authz/api')}
+    {...props}
+  />
+)
+
+export type UseGetFilteredRoleAssignmentListProps = Omit<
+  UseMutateProps<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilter,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Filtered Role Assignments
+ */
+export const useGetFilteredRoleAssignmentList = (props: UseGetFilteredRoleAssignmentListProps) =>
+  useMutate<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilter,
+    void
+  >('POST', `/roleassignments/filter`, { base: getConfig('authz/api'), ...props })
+
+/**
+ * Get Filtered Role Assignments
+ */
+export const getFilteredRoleAssignmentListPromise = (
+  props: MutateUsingFetchProps<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilter,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilter,
+    void
+  >('POST', getConfig('authz/api'), `/roleassignments/filter`, props, signal)
 
 export interface GetRoleAssignmentListQueryParams {
   pageIndex?: number
@@ -834,8 +925,6 @@ export interface GetRoleAssignmentListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  principalIdentifier?: string
-  roleIdentifier?: string
 }
 
 export type GetRoleAssignmentListProps = Omit<
@@ -849,7 +938,7 @@ export type GetRoleAssignmentListProps = Omit<
 export const GetRoleAssignmentList = (props: GetRoleAssignmentListProps) => (
   <Get<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>
     path="/roleassignments"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -865,7 +954,7 @@ export type UseGetRoleAssignmentListProps = Omit<
 export const useGetRoleAssignmentList = (props: UseGetRoleAssignmentListProps) =>
   useGet<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>(
     `/roleassignments`,
-    { base: getConfig('rbac/api'), ...props }
+    { base: getConfig('authz/api'), ...props }
   )
 
 /**
@@ -881,7 +970,7 @@ export const getRoleAssignmentListPromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<ResponsePageRoleAssignmentResponse, Failure | Error, GetRoleAssignmentListQueryParams, void>(
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/roleassignments`,
     props,
     signal
@@ -905,7 +994,7 @@ export const CreateRoleAssignment = (props: CreateRoleAssignmentProps) => (
   <Mutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>
     verb="POST"
     path="/roleassignments"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -928,7 +1017,7 @@ export const useCreateRoleAssignment = (props: UseCreateRoleAssignmentProps) =>
   useMutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>(
     'POST',
     `/roleassignments`,
-    { base: getConfig('rbac/api'), ...props }
+    { base: getConfig('authz/api'), ...props }
   )
 
 /**
@@ -950,7 +1039,7 @@ export const createRoleAssignmentPromise = (
     CreateRoleAssignmentQueryParams,
     RoleAssignment,
     void
-  >('POST', getConfig('rbac/api'), `/roleassignments`, props, signal)
+  >('POST', getConfig('authz/api'), `/roleassignments`, props, signal)
 
 export interface DeleteRoleAssignmentQueryParams {
   accountIdentifier?: string
@@ -970,7 +1059,7 @@ export const DeleteRoleAssignment = (props: DeleteRoleAssignmentProps) => (
   <Mutate<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>
     verb="DELETE"
     path="/roleassignments"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -987,7 +1076,7 @@ export const useDeleteRoleAssignment = (props: UseDeleteRoleAssignmentProps) =>
   useMutate<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>(
     'DELETE',
     `/roleassignments`,
-    { base: getConfig('rbac/api'), ...props }
+    { base: getConfig('authz/api'), ...props }
   )
 
 /**
@@ -1005,7 +1094,7 @@ export const deleteRoleAssignmentPromise = (
 ) =>
   mutateUsingFetch<ResponseRoleAssignmentResponse, Failure | Error, DeleteRoleAssignmentQueryParams, string, void>(
     'DELETE',
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/roleassignments`,
     props,
     signal
@@ -1034,7 +1123,7 @@ export type GetRoleProps = Omit<
 export const GetRole = ({ identifier, ...props }: GetRoleProps) => (
   <Get<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>
     path="/roles/${identifier}"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -1051,7 +1140,7 @@ export type UseGetRoleProps = Omit<
 export const useGetRole = ({ identifier, ...props }: UseGetRoleProps) =>
   useGet<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>(
     (paramsInPath: GetRolePathParams) => `/roles/${paramsInPath.identifier}`,
-    { base: getConfig('rbac/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('authz/api'), pathParams: { identifier }, ...props }
   )
 
 /**
@@ -1067,7 +1156,7 @@ export const getRolePromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<ResponseRoleResponse, Failure | Error, GetRoleQueryParams, GetRolePathParams>(
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/roles/${identifier}`,
     props,
     signal
@@ -1096,7 +1185,7 @@ export const UpdateRole = ({ identifier, ...props }: UpdateRoleProps) => (
   <Mutate<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>
     verb="PUT"
     path="/roles/${identifier}"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -1114,7 +1203,7 @@ export const useUpdateRole = ({ identifier, ...props }: UseUpdateRoleProps) =>
   useMutate<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>(
     'PUT',
     (paramsInPath: UpdateRolePathParams) => `/roles/${paramsInPath.identifier}`,
-    { base: getConfig('rbac/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('authz/api'), pathParams: { identifier }, ...props }
   )
 
 /**
@@ -1135,7 +1224,7 @@ export const updateRolePromise = (
 ) =>
   mutateUsingFetch<ResponseRoleResponse, Failure | Error, UpdateRoleQueryParams, RoleRequestBody, UpdateRolePathParams>(
     'PUT',
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/roles/${identifier}`,
     props,
     signal
@@ -1159,7 +1248,7 @@ export const DeleteRole = (props: DeleteRoleProps) => (
   <Mutate<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>
     verb="DELETE"
     path="/roles"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -1174,7 +1263,7 @@ export type UseDeleteRoleProps = Omit<
  */
 export const useDeleteRole = (props: UseDeleteRoleProps) =>
   useMutate<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>('DELETE', `/roles`, {
-    base: getConfig('rbac/api'),
+    base: getConfig('authz/api'),
     ...props
   })
 
@@ -1187,7 +1276,7 @@ export const deleteRolePromise = (
 ) =>
   mutateUsingFetch<ResponseRoleResponse, Failure | Error, DeleteRoleQueryParams, string, void>(
     'DELETE',
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/roles`,
     props,
     signal
@@ -1214,7 +1303,7 @@ export type GetRoleListProps = Omit<
 export const GetRoleList = (props: GetRoleListProps) => (
   <Get<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>
     path="/roles"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -1229,7 +1318,7 @@ export type UseGetRoleListProps = Omit<
  */
 export const useGetRoleList = (props: UseGetRoleListProps) =>
   useGet<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>(`/roles`, {
-    base: getConfig('rbac/api'),
+    base: getConfig('authz/api'),
     ...props
   })
 
@@ -1241,7 +1330,7 @@ export const getRoleListPromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<ResponsePageRoleResponse, Failure | Error, GetRoleListQueryParams, void>(
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/roles`,
     props,
     signal
@@ -1265,7 +1354,7 @@ export const CreateRole = (props: CreateRoleProps) => (
   <Mutate<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>
     verb="POST"
     path="/roles"
-    base={getConfig('rbac/api')}
+    base={getConfig('authz/api')}
     {...props}
   />
 )
@@ -1280,7 +1369,7 @@ export type UseCreateRoleProps = Omit<
  */
 export const useCreateRole = (props: UseCreateRoleProps) =>
   useMutate<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>('POST', `/roles`, {
-    base: getConfig('rbac/api'),
+    base: getConfig('authz/api'),
     ...props
   })
 
@@ -1293,7 +1382,7 @@ export const createRolePromise = (
 ) =>
   mutateUsingFetch<ResponseRoleResponse, Failure | Error, CreateRoleQueryParams, RoleRequestBody, void>(
     'POST',
-    getConfig('rbac/api'),
+    getConfig('authz/api'),
     `/roles`,
     props,
     signal

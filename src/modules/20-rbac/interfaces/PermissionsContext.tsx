@@ -75,8 +75,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
       permissions: pendingRequests,
       principal: {
         principalIdentifier: accountId,
-        principalType: 'USER',
-        '@type': 'HUserPrincipal'
+        principalType: 'USER'
       } as UserPrincipal
     })
 

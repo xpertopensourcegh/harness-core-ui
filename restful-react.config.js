@@ -64,9 +64,9 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {
-      base: `{getConfig("rbac/api")}`
+      base: `{getConfig("authz/api")}`
     },
-    customGenerator: arg => customGenerator(arg, "getConfig('rbac/api')")
+    customGenerator: arg => customGenerator(arg, "getConfig('authz/api')")
   },
   ci: {
     output: 'src/services/ci/index.tsx',
