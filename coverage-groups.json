@@ -1,6 +1,7 @@
 {
   "groups": {
     "Framework": ["src/framework/**"],
+    "Notification": ["src/modules/15-notifications/**"],
     "Secrets": ["src/modules/30-secrets/**"],
     "Projects & Orgs": ["src/modules/40-projects-orgs/**"],
     "CD": ["src/modules/75-cd/**"],
@@ -15,9 +16,10 @@
     "GitSync": ["src/modules/60-gitsync/**"],
     "CI": ["src/modules/80-ci/**"],
     "CF": ["src/modules/75-cf/**"],
+    "CE": ["src/modules/90-ce/**"],
     "RBAC": ["src/modules/20-rbac/**"],
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"],
-    "DASHBOARDS": ["src/modules/custom-dashboards/**"]
+    "DASHBOARDS": ["src/modules/45-dashboards/**"]
   },
   "ignore": ["src/**/*.d.ts", "src/**/*.stories.*", "src/**/__tests__/**", "src/**/__test__/**"]
 }
