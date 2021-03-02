@@ -7,8 +7,9 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
 import * as cvService from 'services/cv'
-
 import VerificationJobsDetails from '../VerificationJobsDetails'
+
+const mockHistoryPush = jest.fn()
 
 const MockDataSources = {
   metaData: {},
@@ -97,13 +98,13 @@ const MockActivitySource = {
   },
   responseMessages: []
 }
-// jest.mock('services/cv', () => ({
-//   useListAllSupportedDataSource: jest.fn().mockImplementation(() => ({
-//     refetch: jest.fn(),
-//     data: null
-//   })),
-//   useListActivitySources: jest.fn().mockImplementation(() => ({}))
-// }))
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as object),
+  useHistory: () => ({
+    push: mockHistoryPush
+  })
+}))
 
 describe('VerificationJobsDetails', () => {
   test('Render initiaaly', async () => {
@@ -601,6 +602,51 @@ describe('VerificationJobsDetails', () => {
         name: 'sdfsfsdf',
         type: 'CANARY'
       })
+    )
+  })
+
+  test('Ensure that when previous button is clicked, user is taken back to verification jobs page', async () => {
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
+      data: MockDataSources,
+      refetch: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({
+      data: MockActivitySource
+    } as UseGetReturn<any, any, any, any>)
+    const submitFuncMock = jest.fn()
+
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <VerificationJobsDetails
+          onNext={submitFuncMock}
+          stepData={{
+            dataSource: [{ label: 'All', value: 'All' }],
+            activitySource: [{ label: 'cdSource', value: 'cdSource' }],
+            identifier: 'sdfsfsdf',
+            serviceIdentifier: '1234_service',
+            environentIdentifier: '1234_environentIdentifier',
+            duration: '15m',
+            name: 'sdfsfsdf',
+            type: 'HEALTH'
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    fireEvent.click(getByText('Previous'))
+
+    await waitFor(() =>
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        '/account/1234_account/cv/orgs/1234_ORG/projects/1234_project/admin/setup?step=3'
+      )
     )
   })
 })

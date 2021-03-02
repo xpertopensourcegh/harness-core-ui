@@ -180,11 +180,11 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                 <SubmitAndPreviousButtons
                   onPreviousClick={() =>
                     history.push(
-                      routes.toCVAdminSetup({
+                      `${routes.toCVAdminSetup({
                         projectIdentifier,
                         orgIdentifier,
                         accountId
-                      })
+                      })}?step=3`
                     )
                   }
                 />

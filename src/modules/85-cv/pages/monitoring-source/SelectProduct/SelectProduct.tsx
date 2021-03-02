@@ -187,11 +187,11 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
           <SubmitAndPreviousButtons
             onPreviousClick={() =>
               history.push(
-                routes.toCVAdminSetup({
+                `${routes.toCVAdminSetup({
                   projectIdentifier,
                   orgIdentifier,
                   accountId
-                })
+                })}?step=2`
               )
             }
           />
