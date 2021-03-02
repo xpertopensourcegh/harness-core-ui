@@ -3,6 +3,7 @@ import { Container, Text, Color } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position, Tooltip, Spinner } from '@blueprintjs/core'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   useGetVerificationsPopoverSummary,
   DeploymentActivityVerificationResultDTO,
@@ -23,21 +24,20 @@ export default function VerificationItem({
   item: DeploymentActivityVerificationResultDTO
   onSelect?(phase?: string): void
 }): React.ReactElement {
-  const { serviceName, tag } = item
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { serviceName, tag, serviceIdentifier } = item
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { data: tooltipData, loading, refetch: loadPopoverSummary } = useGetVerificationsPopoverSummary({
     deploymentTag: encodeURIComponent(tag as string),
     lazy: true
   })
-
   const onOpeningTooltip = (): void => {
-    if (!tooltipData && !loading) {
+    if (!tooltipData && !loading && serviceIdentifier) {
       loadPopoverSummary({
         queryParams: {
           accountId,
-          projectIdentifier: projectIdentifier as string,
-          orgIdentifier: orgIdentifier as string,
-          serviceIdentifier: serviceName as string
+          projectIdentifier,
+          orgIdentifier,
+          serviceIdentifier
         }
       })
     }

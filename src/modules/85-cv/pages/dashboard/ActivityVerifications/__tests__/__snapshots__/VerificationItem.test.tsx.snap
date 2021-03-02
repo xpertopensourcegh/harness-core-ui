@@ -54,13 +54,13 @@ exports[`VerificationItem VerificationItem 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
           style="--text-line-clamp: 1; width: 120px;"
         >
-          tag1
+          build-18531
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           style="--text-line-clamp: 1; width: 120px;"
         >
-          service1
+          Banking WebApp
         </p>
       </div>
     </div>
@@ -71,19 +71,34 @@ exports[`VerificationItem VerificationItem 1`] = `
         class="bp3-popover-target"
       >
         <div
-          class="StyledProps--font StyledProps--main dataColumn notStarted"
+          class="StyledProps--font StyledProps--main dataColumn"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--font-size-xsmall"
           >
-            Not started
+            1/1 verifications passed
           </p>
           <div
-            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar"
+            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar bp3-intent-success"
           >
             <div
               class="StyledProps--font StyledProps--main bp3-progress-meter"
+              style="width: 100%;"
             />
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--flex"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+            >
+              Started on 2/22/2021, 4:12:00 PM
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+            >
+              30 min
+            </p>
           </div>
         </div>
       </span>
@@ -95,19 +110,34 @@ exports[`VerificationItem VerificationItem 1`] = `
         class="bp3-popover-target"
       >
         <div
-          class="StyledProps--font StyledProps--main dataColumn notStarted"
+          class="StyledProps--font StyledProps--main dataColumn"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--font-size-xsmall"
           >
-            Not started
+            1/1 verifications passed
           </p>
           <div
-            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar"
+            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar bp3-intent-success"
           >
             <div
               class="StyledProps--font StyledProps--main bp3-progress-meter"
+              style="width: 100%;"
             />
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--flex"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+            >
+              Started on 2/22/2021, 5:00:00 PM
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+            >
+              30 min
+            </p>
           </div>
         </div>
       </span>
@@ -119,19 +149,34 @@ exports[`VerificationItem VerificationItem 1`] = `
         class="bp3-popover-target"
       >
         <div
-          class="StyledProps--font StyledProps--main dataColumn notStarted"
+          class="StyledProps--font StyledProps--main dataColumn"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--font-size-xsmall"
           >
-            Not started
+            1/1 verifications passed
           </p>
           <div
-            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar"
+            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar bp3-intent-success"
           >
             <div
               class="StyledProps--font StyledProps--main bp3-progress-meter"
+              style="width: 100%;"
             />
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--flex"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+            >
+              Started on 2/22/2021, 4:30:00 PM
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+            >
+              30 min
+            </p>
           </div>
         </div>
       </span>
