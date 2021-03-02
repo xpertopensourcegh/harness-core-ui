@@ -60,7 +60,14 @@ interface AnimatedGraphicContainerProps {
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
   return (
     <Layout.Horizontal spacing="medium">
-      <img className={css.fulFilmentIcon} src={tableProps.value == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
+      <img
+        className={css.fulFilmentIcon}
+        src={tableProps.value == 'spot' ? spotIcon : odIcon}
+        alt=""
+        width={'20px'}
+        height={'19px'}
+        aria-hidden
+      />
       <Text lineClamp={3} color={Color.GREY_500}>
         {tableProps.value}
       </Text>
