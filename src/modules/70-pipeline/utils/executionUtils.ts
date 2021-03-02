@@ -15,7 +15,8 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 
 export const LITE_ENGINE_TASK = 'liteEngineTask'
 export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
-export const RollbackIdentifierArray = ['Rollback', 'Step_Group(Rollback)']
+export const RollbackIdentifier = 'Rollback'
+export const StepGroupRollbackIdentifier = '(Rollback)'
 
 export const RollbackContainerCss: React.CSSProperties = {
   borderColor: 'var(--red-450)'
@@ -375,7 +376,7 @@ const processNodeData = (
           identifier: item,
           data: nodeData,
           containerCss: {
-            ...(RollbackIdentifierArray.indexOf(nodeData.identifier || '') > -1 ? RollbackContainerCss : {})
+            ...(nodeData.identifier?.endsWith(StepGroupRollbackIdentifier) ? RollbackContainerCss : {})
           },
           showInLabel: false,
           status: nodeData.status as ExecutionPipelineItemStatus,
@@ -499,7 +500,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 data: nodeData,
                 skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
                 containerCss: {
-                  ...(RollbackIdentifierArray.indexOf(nodeData.identifier || '') > -1 ? RollbackContainerCss : {})
+                  ...(RollbackIdentifier === nodeData.identifier ? RollbackContainerCss : {})
                 },
                 status: nodeData.status as ExecutionPipelineItemStatus,
                 isOpen: true,

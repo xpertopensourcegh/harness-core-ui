@@ -39,7 +39,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
-  const stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
+  let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
+  if (data?.stepConfig?.isStepGroup) {
+    stepData = stepsFactory.getStepData(StepType.StepGroup)
+  }
   const formikRef = React.useRef<StepFormikRef | null>(null)
 
   return (
