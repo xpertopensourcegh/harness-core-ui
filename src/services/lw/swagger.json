@@ -2414,6 +2414,22 @@
           "items": {
             "type": "string"
           }
+        },
+        "dns": {
+          "type": "object",
+          "properties": {
+            "route53": {
+              "type": "object",
+              "properties": {
+                "hosted_zone_id": {
+                  "type": "string"
+                }
+              }
+            },
+            "others": {
+              "type": "string"
+            }
+          }
         }
       }
     },

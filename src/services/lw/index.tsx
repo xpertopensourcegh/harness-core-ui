@@ -276,6 +276,12 @@ export interface AccessPointMeta {
   error?: string
   certificate_id?: string
   security_groups?: string[]
+  dns?: {
+    route53?: {
+      hosted_zone_id?: string
+    }
+    others?: string
+  }
 }
 
 export interface AccessPoint {

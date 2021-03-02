@@ -164,7 +164,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
               type: item.type ? item.type : '',
               tags: '',
               launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
-              status: item.status ? item.status : ''
+              status: item.status ? item.status : '',
+              vpc: item.metadata ? item.metadata['VpcID'] : ''
             }
           })
         setAllInstances(instances)

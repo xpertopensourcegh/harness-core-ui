@@ -168,7 +168,6 @@ const COAccessPointList: React.FC = () => {
         <CreateAccessPointWizard
           accessPoint={row.original}
           closeModal={hideModal}
-          setAccessPoint={() => undefined}
           refreshAccessPoints={() => undefined}
           isEditMod={true}
         />
@@ -276,7 +275,7 @@ const COAccessPointList: React.FC = () => {
             </>
             <Page.Body className={css.pageContainer}>
               <Table<AccessPoint>
-                data={allAccessPoints}
+                data={allAccessPoints || []}
                 className={css.table}
                 columns={[
                   {

@@ -15,8 +15,11 @@ import {
 import { Dialog, IDialogProps, RadioGroup, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { AccessPoint, useAllHostedZones, useListAccessPoints } from 'services/lw'
+import { useStrings } from 'framework/exports'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
+import { cleanupForHostName } from '../COGatewayList/Utils'
+import css from './COGatewayAccess.module.scss'
 
 const modalPropsLight: IDialogProps = {
   isOpen: true,
@@ -60,15 +63,12 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     org_id: orgIdentifier, // eslint-disable-line
     metadata: {
-      security_groups: [] // eslint-disable-line
+      security_groups: [], // eslint-disable-line
+      dns: {}
     },
     type: 'aws',
     region: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].region : '',
-    vpc: props.gatewayDetails.selectedInstances?.length
-      ? props.gatewayDetails.selectedInstances[0].metadata
-        ? props.gatewayDetails.selectedInstances[0].metadata['VpcID']
-        : ''
-      : ''
+    vpc: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].vpc : ''
   }
 
   const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
@@ -76,11 +76,21 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const [dnsProvider, setDNSProvider] = useState<string>(
     customDomainProviderDetails && customDomainProviderDetails.route53 ? 'route53' : 'others'
   )
+  const [generatedHostName, setGeneratedHostName] = useState<string>(
+    (props.gatewayDetails.hostName as string) || 'Auto generated URL'
+  )
+  const { getString } = useStrings()
+
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId // eslint-disable-line
   })
+  function generateHostName(val: string): string {
+    return `${cleanupForHostName(orgIdentifier)}-${cleanupForHostName(
+      props.gatewayDetails.name
+    )}.${val}`.toLocaleLowerCase()
+  }
   useEffect(() => {
     if (accessPoints?.response?.length == 0) {
       return
@@ -122,13 +132,15 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         closeModal={hideModal}
         setAccessPoint={setAccessPoint}
         refreshAccessPoints={refetch}
+        isRuleCreationMode={true}
       />
     </Dialog>
   ))
   useEffect(() => {
     if (!accessPoint || !accessPoint.id) return
-    props.gatewayDetails.accessPointID = accessPoint?.id as string
+    props.gatewayDetails.accessPointID = accessPoint.id
     props.setGatewayDetails(props.gatewayDetails)
+    setGeneratedHostName(generateHostName(accessPoint.host_name as string))
   }, [accessPoint])
   return (
     <Layout.Vertical spacing="medium" padding="medium" style={{ backgroundColor: 'var(--grey-100)' }}>
@@ -136,36 +148,80 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
       <Formik
         initialValues={{
+          usingCustomDomain: props.gatewayDetails.customDomains?.length ? 'yes' : 'no',
           customURL: props.gatewayDetails.customDomains?.join(','),
-          publicallyAccessible: accessDetails.dnsLink.public as string,
+          publicallyAccessible: (accessDetails.dnsLink.public as string) || 'yes',
           dnsProvider: customDomainProviderDetails && customDomainProviderDetails.route53 ? 'route53' : 'others',
           route53Account:
             customDomainProviderDetails && customDomainProviderDetails.route53
               ? customDomainProviderDetails.route53.hosted_zone_id
               : '',
-          accessPoint: props.gatewayDetails.accessPointID
+          accessPoint: accessPoint?.id
         }}
+        enableReinitialize={true}
         onSubmit={values => alert(JSON.stringify(values))}
         render={formik => (
           <FormikForm>
             <Layout.Vertical spacing="medium">
-              <FormInput.Text
-                name="customURL"
-                label={
-                  <Layout.Horizontal spacing="small">
-                    <Heading level={3} font={{ weight: 'light' }}>
-                      Enter the URL currently used to access the instances
-                    </Heading>
-                    <Icon name="info"></Icon>
-                  </Layout.Horizontal>
-                }
-                placeholder={'Custom URL (Example: qa.yourcompany.com)'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  formik.setFieldValue('customURL', e.target.value)
-                  props.gatewayDetails.customDomains = e.target.value.split(',')
-                  props.setGatewayDetails(props.gatewayDetails)
-                }}
-              />
+              <Layout.Horizontal spacing="small" style={{ paddingBottom: 'var(--spacing-small)' }}>
+                <Heading level={3} font={{ weight: 'light' }}>
+                  {getString('ce.co.autoStoppingRule.setupAccess.customDomainHelpText')}
+                </Heading>
+                <Icon name="info"></Icon>
+              </Layout.Horizontal>
+              <Layout.Horizontal>
+                <Radio
+                  value="no"
+                  onChange={e => {
+                    formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
+                    if (e.currentTarget.value == 'no') props.setHelpTextSection('usingCustomDomain')
+                    else props.setHelpTextSection('usingCustomDomain')
+                    formik.setFieldValue('customURL', '')
+                    props.gatewayDetails.customDomains = []
+                    props.setGatewayDetails(props.gatewayDetails)
+                  }}
+                  checked={formik.values.usingCustomDomain == 'no'}
+                />
+                <Layout.Vertical spacing="xsmall">
+                  <Text style={{ fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '20px' }}>
+                    {generatedHostName}
+                  </Text>
+                  <Text
+                    color={Color.GREY_500}
+                    style={{
+                      fontSize: '12px',
+                      fontWeight: 400,
+                      lineHeight: '18px',
+                      paddingBottom: 'var(--spacing-small)'
+                    }}
+                  >
+                    {getString('ce.co.autoStoppingRule.setupAccess.autogeneratedHelpText')}
+                  </Text>
+                </Layout.Vertical>
+              </Layout.Horizontal>
+              <Layout.Horizontal style={{ width: '100%' }}>
+                <Radio
+                  value="yes"
+                  onChange={e => {
+                    formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
+                    if (e.currentTarget.value == 'yes') props.setHelpTextSection('usingCustomDomain')
+                    else props.setHelpTextSection('usingCustomDomain')
+                  }}
+                  checked={formik.values.usingCustomDomain == 'yes'}
+                  className={css.centerAlignedRadio}
+                />
+                <FormInput.Text
+                  name="customURL"
+                  placeholder={'Custom URL (Example: qa.yourcompany.com)'}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    formik.setFieldValue('customURL', e.target.value)
+                    props.gatewayDetails.customDomains = e.target.value.split(',')
+                    props.setGatewayDetails(props.gatewayDetails)
+                  }}
+                  style={{ width: '100%' }}
+                  disabled={formik.values.usingCustomDomain != 'yes'}
+                />
+              </Layout.Horizontal>
 
               <>
                 <RadioGroup
@@ -194,15 +250,17 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     onChange={e => {
                       formik.setFieldValue('accessPoint', e.value)
                       props.gatewayDetails.accessPointID = e.value as string
+                      props.gatewayDetails.hostName = generateHostName(e.label as string)
                       props.setGatewayDetails(props.gatewayDetails)
+                      setGeneratedHostName(props.gatewayDetails.hostName)
                     }}
                     disabled={accessPointsLoading}
                   />
-                  <Button minimal onClick={openModal} style={{ width: '100%', justifyContent: 'flex-start' }}>
+                  <Button minimal onClick={openModal} style={{ justifyContent: 'flex-start' }}>
                     <Text color={Color.BLUE_500}>+ Create a New Access point</Text>
                   </Button>
                 </Layout.Vertical>
-                {formik.values.publicallyAccessible == 'yes' && formik.values.customURL ? (
+                {formik.values.customURL ? (
                   <>
                     <Layout.Horizontal spacing="small">
                       <Heading level={3} font={{ weight: 'light' }}>
