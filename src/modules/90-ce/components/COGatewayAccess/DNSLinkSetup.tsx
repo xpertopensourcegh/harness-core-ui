@@ -156,7 +156,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             customDomainProviderDetails && customDomainProviderDetails.route53
               ? customDomainProviderDetails.route53.hosted_zone_id
               : '',
-          accessPoint: accessPoint?.id
+          accessPoint: props.gatewayDetails.accessPointID
         }}
         enableReinitialize={true}
         onSubmit={values => alert(JSON.stringify(values))}

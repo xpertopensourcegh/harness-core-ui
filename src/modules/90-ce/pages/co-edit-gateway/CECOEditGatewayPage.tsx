@@ -53,6 +53,7 @@ export const CECOEditGatewayPage: React.FC = () => {
       filter: service.routing?.instance?.filter_text as string,
       kind: service.kind,
       healthCheck: service.health_check as HealthCheck,
+      hostName: service.host_name,
       routing: {
         instance: {
           filterText: service.routing?.instance?.filter_text as string
