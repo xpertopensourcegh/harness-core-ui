@@ -1,16 +1,13 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
 import cx from 'classnames'
 import {
   FormInput,
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption,
-  ExpressionInput,
-  Button
+  ExpressionInput
 } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -18,57 +15,22 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import type { ShellScriptFormData } from './shellScriptTypes'
+import { ShellScriptMonacoField, ScriptType } from './ShellScriptMonaco'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-import css from './ShellScript.module.scss'
 
 export const shellScriptType: SelectOption[] = [
   { label: 'Bash', value: 'Bash' },
   { label: 'PowerShell', value: 'PowerShell' }
 ]
 
-const langMap: Record<string, string> = {
-  Bash: 'shell',
-  PowerShell: 'powershell'
-}
-
 export default function BaseShellScript(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue }
   } = props
-  const [isFullScreen, setFullScreen] = React.useState(false)
-
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const scriptType: string = formValues.spec?.shell || 'Bash'
-  const monaco = (
-    <div className={css.monacoWrapper}>
-      {isFullScreen ? null : (
-        <Button
-          className={css.expandBtn}
-          icon="fullscreen"
-          small
-          onClick={() => setFullScreen(true)}
-          iconProps={{ size: 10 }}
-        />
-      )}
-      <MonacoEditor
-        height={isFullScreen ? '70vh' : 300}
-        value={formValues?.spec?.source?.spec?.script || ''}
-        language={langMap[scriptType] as string}
-        options={
-          {
-            fontFamily: "'Roboto Mono', monospace",
-            fontSize: 13,
-            minimap: {
-              enabled: false
-            }
-          } as MonacoEditorProps['options']
-        }
-        onChange={value => setFieldValue('spec.source.spec.script', value)}
-      />
-    </div>
-  )
+  const scriptType: ScriptType = formValues.spec?.shell || 'Bash'
 
   return (
     <>
@@ -100,7 +62,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
             )
           }}
         >
-          {isFullScreen ? <div className={css.monacoWrapper} /> : monaco}
+          <ShellScriptMonacoField name="spec.source.spec.script" scriptType={scriptType} />
         </MultiTypeFieldSelector>
         {getMultiTypeFromValue(formValues.spec.source?.spec?.script) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -135,17 +97,6 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
           />
         )}
       </div>
-      <Dialog
-        lazy
-        isOpen={isFullScreen}
-        isCloseButtonShown
-        canOutsideClickClose={false}
-        onClose={() => setFullScreen(false)}
-        title={`${getString('script')} (${scriptType})`}
-        className={css.monacoDialog}
-      >
-        <div className={Classes.DIALOG_BODY}>{monaco}</div>
-      </Dialog>
     </>
   )
 }

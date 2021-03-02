@@ -1,11 +1,14 @@
 import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm } from '@wings-software/uicore'
 import { FormGroup } from '@blueprintjs/core'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, get } from 'lodash-es'
+
 import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+
+import { ShellScriptMonacoField, ScriptType } from './ShellScriptMonaco'
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
 
 export interface ShellScriptInputSetStepProps {
@@ -18,14 +21,19 @@ export interface ShellScriptInputSetStepProps {
 }
 
 export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepProps): React.ReactElement {
-  const { template, path, readonly } = props
+  const { template, path, readonly, initialValues } = props
   const { getString } = useStrings()
+  const scriptType: ScriptType = get(initialValues, 'spec.shell') || 'Bash'
 
   return (
     <FormikForm>
       {getMultiTypeFromValue(template?.spec?.source?.spec?.script) === MultiTypeInputType.RUNTIME ? (
         <FormGroup label={getString('script')}>
-          <FormInput.Text disabled={readonly} name={`${isEmpty(path) ? '' : `${path}.`}spec.source.spec.script`} />
+          <ShellScriptMonacoField
+            disabled={readonly}
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.source.spec.script`}
+            scriptType={scriptType}
+          />
         </FormGroup>
       ) : null}
 
