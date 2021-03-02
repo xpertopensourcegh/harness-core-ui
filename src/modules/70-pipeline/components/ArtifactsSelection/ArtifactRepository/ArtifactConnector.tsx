@@ -27,6 +27,7 @@ export const ArtifactConnector: React.FC<StepProps<any> & ArtifactConnectorProps
   const {
     handleViewChange,
     previousStep,
+    prevStepData,
     nextStep,
     initialValues,
     stepName,
@@ -99,11 +100,7 @@ export const ArtifactConnector: React.FC<StepProps<any> & ArtifactConnectorProps
               </div>
             </div>
             <Layout.Horizontal spacing="xxlarge">
-              <Button
-                text={getString('back')}
-                icon="chevron-left"
-                onClick={() => previousStep?.(props?.prevStepData)}
-              />
+              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
 
               <Button intent="primary" type="submit" text={getString('continue')} rightIcon="chevron-right" />
             </Layout.Horizontal>

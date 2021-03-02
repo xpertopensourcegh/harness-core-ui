@@ -2,29 +2,30 @@ import React from 'react'
 import { Button, Card, Color, Container, Heading, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import css from './ArtifactConnector.module.scss'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ManifestTypes } from '../ManifestSelection'
+import { manifestTypeIcons, manifestTypeLabels } from '../Manifesthelper'
+import css from './ManifestWizardSteps.module.scss'
 
-interface ArtifactPropType {
-  changeArtifactType: (selected: ConnectorInfoDTO['type']) => void
-  artifactTypes: Array<ConnectorInfoDTO['type']>
-  selectedArtifact: ConnectorInfoDTO['type']
+interface ManifestPropType {
+  changeManifestType: (selected: ManifestTypes) => void
+  manifestTypes: Array<ManifestTypes>
+  selectedManifest: ManifestTypes
   stepName: string
 }
 
-export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & ArtifactPropType> = ({
-  selectedArtifact,
-  artifactTypes,
-  changeArtifactType,
+export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & ManifestPropType> = ({
+  selectedManifest,
+  manifestTypes,
+  changeManifestType,
   stepName,
   nextStep
 }) => {
-  const [selectedArtifactType, setSelectedArtifactType] = React.useState(selectedArtifact)
+  const [selectedManifestType, setselectedManifestType] = React.useState(selectedManifest)
 
-  const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
-    setSelectedArtifactType(selected)
-    changeArtifactType(selected)
+  const handleOptionSelection = (selected: ManifestTypes): void => {
+    setselectedManifestType(selected)
+    changeManifestType(selected)
   }
 
   const { getString } = useStrings()
@@ -35,14 +36,14 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
       </Heading>
       <div className={css.headerContainer}>
         <Layout.Horizontal spacing="large">
-          {artifactTypes.map(item => (
+          {manifestTypes.map(item => (
             <div key={item} className={css.squareCardContainer}>
               <Card
-                className={css.artifactIcon}
-                selected={item === selectedArtifactType}
+                className={css.manifestIcon}
+                selected={item === selectedManifestType}
                 onClick={() => handleOptionSelection(item)}
               >
-                <Icon name={getConnectorIconByType(item)} size={26} height={26} />
+                <Icon name={manifestTypeIcons[item]} size={26} />
               </Card>
               <Text
                 style={{
@@ -51,7 +52,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
                 }}
                 color={Color.BLACK_100}
               >
-                {getString(getConnectorTitleIdByType(item))}
+                {manifestTypeLabels[item]}
               </Text>
             </div>
           ))}
@@ -64,7 +65,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
           text={getString('continue')}
           rightIcon="chevron-right"
           onClick={() => {
-            changeArtifactType(selectedArtifactType)
+            changeManifestType(selectedManifestType)
             nextStep?.()
           }}
           className={css.saveBtn}

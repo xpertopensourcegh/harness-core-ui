@@ -41,9 +41,6 @@
     }
   }
 }
-.artifactId {
-  color: var(--pipeline-color-dark-grey);
-}
 
 div.server {
   display: grid;
@@ -53,89 +50,11 @@ div.server {
     display: block !important;
   }
 }
-.paddingVertical {
-  padding: var(--spacing-medium) 0;
-}
-.gitFetchTypeDropdwn {
-  margin-top: var(--spacing-medium) !important;
-}
-
-.sideCarBtn {
-  width: 150px;
-}
-
-.overrideSetRow {
-  grid-template-columns: 180px 90px 50px 180px 230px 120px 30px;
-}
-
-.crossIcon {
-  position: absolute;
-  right: var(--spacing-large);
-  top: var(--spacing-large);
-}
 
 .modal {
   [class*='bp3-dialog-header'] button {
     z-index: 2;
   }
-}
-
-.connectorDialog {
-  width: fit-content;
-  min-width: 960px;
-  height: 600px;
-  border-left: 0;
-  padding-bottom: 0;
-  position: relative;
-  overflow: hidden;
-  .crossButton {
-    position: absolute;
-    right: var(--spacing-small);
-    top: var(--spacing-small);
-  }
-}
-
-.optionsViewContainer {
-  padding: 200px 0 0 60px !important;
-}
-
-.optionsViewGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 100px);
-  grid-template-rows: 110px;
-  grid-column-gap: var(--spacing-large);
-  grid-row-gap: 0;
-
-  > div {
-    text-align: center;
-    background-color: var(--white) !important;
-  }
-}
-
-.editForm {
-  margin-top: -50px !important;
-  width: calc(100% - 35px) !important;
-}
-
-.drag {
-  cursor: move;
-}
-
-.dragging {
-  background-color: var(--yellow-450) !important;
-}
-
-.dragOver {
-  border-top: 2px solid var(--blue-500);
-}
-
-.fileHelpText {
-  padding-bottom: var(--spacing-large) !important;
-  text-align: justify;
-}
-
-.addFileButton {
-  margin-bottom: var(--spacing-large) !important;
 }
 
 .manifestList {

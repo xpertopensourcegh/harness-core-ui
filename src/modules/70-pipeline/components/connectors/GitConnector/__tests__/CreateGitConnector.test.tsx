@@ -32,7 +32,6 @@ describe('CreateGitConnector tests', () => {
           pipeline={mockData as any}
           hideLightModal={(): void => undefined}
           updatePipeline={(): Promise<void> => undefined as any}
-          view={2}
         />
       </TestWrapper>
     )
@@ -53,7 +52,6 @@ describe('CreateGitConnector tests', () => {
           pipeline={mockData as any}
           hideLightModal={(): void => undefined}
           updatePipeline={(): Promise<void> => undefined as any}
-          view={2}
         />
       </TestWrapper>
     )
@@ -75,7 +73,6 @@ describe('CreateGitConnector tests', () => {
           pipeline={mockData as any}
           hideLightModal={(): void => undefined}
           updatePipeline={(): Promise<void> => undefined as any}
-          view={2}
         />
       </TestWrapper>
     )

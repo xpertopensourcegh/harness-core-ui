@@ -321,6 +321,7 @@ metricPacks: 'Metric Packs'
 review: 'Review'
 enabledLabel: 'Enabled'
 activity: 'Activity'
+store: Store
 executionStrategy:
   strategies:
     blueGreen: With Blue/Green Deployment, two identical environments called blue (staging) and green (production) run simultaneously with different versions or service/artifact. QA and UAT are typically done on the blue environment. When satisfied, traffic is flipped (via a load balancer) from the green environment (current version) to the blue environment (new version). You can then decommission the old environment once deployment is successful.
@@ -346,6 +347,8 @@ stageConfirmationText: 'Are you sure you want to delete stage "{{ name }} [Id: {
 deletePipelineStage: 'Delete Pipeline Stage.'
 deleteStageSuccess: 'Pipeline Stage Successfully removed.'
 deleteStageFailure: 'Pipeline Stage cannot be removed.'
+repositoryType: 'Repository Type'
+selectServer: 'Select Server'
 stepPalette:
   title: 'Step Library'
   subTitle: 'All Steps'
@@ -1176,6 +1179,7 @@ validation:
   targethostRequired: 'Target host is required field'
   workingDirRequired: 'Working Directory is required field'
   sshConnectorRequired: 'Connector is required field'
+  gitServerRequired: 'Git server is a required field'
 
 yamlBuilder:
   enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
@@ -1187,16 +1191,22 @@ activityHistory:
   successfulActivity: Successful Activity
   failedActivity: Failed Activity
   heartbeatFailure: Heart beat Failure
+manifestType:
+  manifestSource: Manifest Source
+  manifestDetails: Manifest Details
+  manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
+  specifyManifestRepoType: 'Specify {{ $.manifestsText }} {{ $.typeLabel }}'
+  specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'
+  selectManifestStore: '{{$.select}} {{ $.manifestsText }} {{$.store}}'
 connectors:
   createNewConnector: Create New Connector
   confirmDeleteTitle: Delete Connector
   confirmDelete: Are you sure you want to delete the Connector
   testInProgress: Test in progress
   label: 'Connectors'
-  repositoryType: 'Repository Type'
   artifactRepository: ' {{ $.artifacts }} {{ $.repository }}'
-  artifactRepoType: '{{ $.artifacts }} {{$.connectors.repositoryType}}'
-  specifyArtifactRepoType: 'Specify {{ $.artifacts }} {{ $.connectors.repositoryType }}'
+  artifactRepoType: '{{ $.artifacts }} {{$.repositoryType}}'
+  specifyArtifactRepoType: 'Specify {{ $.artifacts }} {{ $.repositoryType }}'
   specifyArtifactRepo: 'Specify {{ $.artifacts }} {{ $.repository }}'
   newArtifactRepository: 'New Artifact Repository Connector'
   selectConnectorLabel: Select Artifact Repository Connector

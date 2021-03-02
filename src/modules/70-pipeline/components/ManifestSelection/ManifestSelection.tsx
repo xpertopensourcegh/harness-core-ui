@@ -1,74 +1,68 @@
 import React from 'react'
-import {
-  Layout,
-  Text,
-  Container,
-  Icon,
-  Color,
-  useModalHook,
-  Button,
-  Heading,
-  CardSelect,
-  Formik,
-  FormInput,
-  FormikForm as Form,
-  MultiTypeInputType,
-  IconName
-} from '@wings-software/uicore'
-import { FieldArray, FieldArrayRenderProps } from 'formik'
+import { Layout, Text, Icon, Color, useModalHook, IconName, StepWizard, StepProps } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
-import * as Yup from 'yup'
 import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { useGetConnectorListV2, PageConnectorResponse, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
-import CreateGitConnector from '@pipeline/components/connectors/GitConnector/CreateGitConnector'
 
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { useStrings, String } from 'framework/exports'
-import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
-import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
+import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
+import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
+import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
+import { Connectors } from '@connectors/constants'
+import { getIconByType } from '@connectors/exports'
+import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages,
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
+import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactsSelection'
+import { manifestTypeText } from './Manifesthelper'
+import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import css from './ManifestSelection.module.scss'
-export type CreationType = 'KUBERNETES' | 'VALUES'
 
-const manifestTypeLabels: Record<string, string> = {
-  K8sManifest: 'Manifest',
-  Values: 'Values Overrides'
+interface PathDataType {
+  path: string
+  uuid: string
 }
+export interface ManifestDataType {
+  identifier: string
+  branch: string | undefined
+  commitId: string | undefined
+  connectorRef: string | undefined
+  gitFetchType: 'Branch' | 'Commit'
+  paths: Array<PathDataType> | Array<string> | undefined
+  store: ConnectorInfoDTO['type'] | string
+}
+export type ManifestTypes = 'K8sManifest' | 'Values'
 
-const manifestTypeLabel: { [key: string]: string } = {
-  KUBERNETES: 'K8s Manifest',
-  VALUES: 'Values Override'
-}
+const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values']
+const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
+  Connectors.GIT,
+  Connectors.GITHUB,
+  Connectors.GITLAB,
+  Connectors.BITBUCKET
+]
+
 const manifestTypeIcons: Record<string, IconName> = {
   K8sManifest: 'file',
   Values: 'config-file'
 }
 
-export interface ManifestCreationType {
-  type: CreationType
-}
+let selectedManifestReference: { identifier: string; spec: { store: { type: string; spec: {} } } } | undefined
 
-const gitFetchTypes = [
-  { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
-  { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
-]
-let selectedManifestReference: { spec: { store: { spec: {} } } } | undefined
 function ManifestListView({
-  identifier,
   manifestList,
   pipeline,
   updatePipeline,
@@ -80,7 +74,6 @@ function ManifestListView({
   overrideSetIdentifier,
   connectors
 }: {
-  identifier: string
   pipeline: NgPipeline
   isForOverrideSets: boolean
   manifestList: {}[] | undefined
@@ -92,11 +85,11 @@ function ManifestListView({
   overrideSetIdentifier?: string
   connectors: PageConnectorResponse | undefined
 }): JSX.Element {
-  const ModalView = { OPTIONS: 1, KUBERNETES: 2, VALUES: 3 }
-  const ModalContext = { EXISTING: 0, NEW: 1 }
-
-  const [view, setView] = React.useState(ModalView.OPTIONS)
-  const [modalContext, setModalContext] = React.useState(ModalContext.EXISTING)
+  const [selectedManifest, setSelectedManifest] = React.useState(allowedManifestTypes[0])
+  const [connectorView, setConnectorView] = React.useState(false)
+  const [manifestStore, setManifestStore] = React.useState(Connectors.GIT)
+  const [isEditMode, setIsEditMode] = React.useState(false)
+  const [manifestIndex, setEditIndex] = React.useState(0)
 
   const DIALOG_PROPS: IDialogProps = {
     isOpen: true,
@@ -106,98 +99,12 @@ function ManifestListView({
     canOutsideClickClose: false,
     enforceFocus: true,
     title: '',
-    style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
+    style: { width: 1175, height: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
-  const [showConnectorModal, hideConnectorModal] = useModalHook(
-    () => (
-      <Dialog
-        onClose={() => {
-          setView(ModalView.OPTIONS)
-          setModalContext(ModalContext.EXISTING)
-          hideConnectorModal()
-        }}
-        {...DIALOG_PROPS}
-        className={cx(css.modal, view !== ModalView.OPTIONS ? Classes.DIALOG : Classes.DARK)}
-      >
-        {view === ModalView.OPTIONS && (
-          <Container className={css.optionsViewContainer}>
-            <Heading level={2} color={Color.WHITE} style={{ fontSize: '30px' }}>
-              {i18n.modalHeading}
-            </Heading>
-            <Heading level={3} font="small" color={Color.WHITE} margin={{ top: 'large', bottom: 'medium' }}>
-              {i18n.modalSubHeading}
-            </Heading>
-            <Layout.Horizontal spacing="large">
-              <CardSelect<ManifestCreationType>
-                onChange={selected => {
-                  if (selected.type === 'KUBERNETES') {
-                    setView(ModalView.KUBERNETES)
-                  } else {
-                    setView(ModalView.VALUES)
-                  }
-                }}
-                selected={undefined}
-                className={css.optionsViewGrid}
-                data={[{ type: 'KUBERNETES' }, { type: 'VALUES' }]}
-                renderItem={(item: ManifestCreationType) => (
-                  <>
-                    <Container>
-                      {(item.type === 'KUBERNETES' && <Icon name="service-kubernetes" size={35} />) ||
-                        (item.type === 'VALUES' && <Icon name="functions" size={35} />)}
-                    </Container>
-                    <section style={{ marginTop: 'var(--spacing-small)' }}>{manifestTypeLabel[item.type]}</section>
-                  </>
-                )}
-              />
-            </Layout.Horizontal>
-          </Container>
-        )}
 
-        {(view === ModalView.KUBERNETES || view === ModalView.VALUES) && modalContext === ModalContext.EXISTING && (
-          <ManifestWizard
-            closeModal={() => {
-              setView(ModalView.OPTIONS)
-              setModalContext(ModalContext.EXISTING)
-              hideConnectorModal()
-            }}
-            identifier={identifier}
-            pipeline={pipeline}
-            isForOverrideSets={isForOverrideSets}
-            isForPredefinedSets={isForPredefinedSets}
-            isPropagating={isPropagating}
-            identifierName={identifierName}
-            stage={stage}
-            view={view}
-            handleViewChange={() => setModalContext(ModalContext.NEW)}
-            updatePipeline={updatePipeline}
-          />
-        )}
-        {modalContext === ModalContext.NEW && (
-          <CreateGitConnector
-            accountId={accountId}
-            projectIdentifier={projectIdentifier}
-            orgIdentifier={orgIdentifier}
-            onSuccess={() => {
-              setView(ModalView.OPTIONS)
-              setModalContext(ModalContext.EXISTING)
-            }}
-            isForOverrideSets={isForOverrideSets}
-            isForPredefinedSets={isForPredefinedSets}
-            identifierName={identifierName}
-            stage={stage}
-            pipeline={pipeline}
-            updatePipeline={updatePipeline}
-            view={view}
-            hideLightModal={hideConnectorModal}
-          />
-        )}
-      </Dialog>
-    ),
-    [view, modalContext]
-  )
   const getManifestList = React.useCallback(() => {
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
@@ -251,32 +158,48 @@ function ManifestListView({
     updatePipeline(pipeline)
   }
 
-  const editManifest = (manifest: {
-    identifier: string
-    type: string
-    spec: {
-      store: {
-        type: string
-        spec: {
-          connectorRef: string
-          gitFetchType: string
-          branch: string
-          commitId: string
-          paths: string[]
-        }
-      }
-    }
-  }): void => {
+  const addNewManifest = (): void => {
     selectedManifestReference = undefined
-    selectedManifestReference = manifest
-    showEditConnectorModal()
+    setEditIndex(listOfManifests.length)
+    showConnectorModal()
   }
 
-  const getManifestInitialValues = () => {
+  const editManifest = (
+    manifest: {
+      identifier: string
+      type: ManifestTypes
+      spec: {
+        store: {
+          type: string
+          spec: {
+            connectorRef: string
+            gitFetchType: string
+            branch: string
+            commitId: string
+            paths: string[]
+          }
+        }
+      }
+    },
+    index: number
+  ): void => {
+    selectedManifestReference = undefined
+    selectedManifestReference = manifest
+
+    setSelectedManifest(manifest.type)
+    setConnectorView(false)
+    setEditIndex(index)
+    showConnectorModal()
+  }
+
+  const getManifestInitialValues = (): ManifestDataType => {
     const initValues = get(selectedManifestReference, 'spec.store.spec', null)
+
     if (initValues) {
       const values = {
         ...initValues,
+        identifier: selectedManifestReference?.identifier,
+        store: selectedManifestReference?.spec?.store?.type,
         connectorRef: initValues?.connectorRef,
         paths:
           typeof initValues['paths'] === 'string'
@@ -284,198 +207,162 @@ function ManifestListView({
             : initValues['paths'].map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
       }
       return values
-    } else {
-      return {}
+    }
+    return {
+      identifier: '',
+      store: Connectors.GIT,
+      branch: undefined,
+      commitId: undefined,
+      connectorRef: undefined,
+      gitFetchType: 'Branch',
+      paths: [{ path: '', uuid: uuid('', nameSpace()) }]
     }
   }
-  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
-    event.dataTransfer.setData('data', index.toString())
-    event.currentTarget.classList.add(css.dragging)
-  }, [])
-  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.remove(css.dragging)
-  }, [])
 
-  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.remove(css.dragOver)
-  }, [])
-
-  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    /* istanbul ignore else */
-    if (event.preventDefault) {
-      event.preventDefault()
+  const handleSubmit = (formData: any) => {
+    const manifestObj = {
+      manifest: {
+        identifier: formData.identifier,
+        type: selectedManifest,
+        spec: {
+          store: {
+            type: formData?.store,
+            spec: {
+              connectorRef: formData?.connectorRef,
+              gitFetchType: formData?.gitFetchType,
+              branch: formData?.branch,
+              commitId: formData?.commitId,
+              paths:
+                typeof formData?.paths === 'string'
+                  ? formData?.paths
+                  : formData?.paths.map((path: { path: string }) => path.path)
+            }
+          }
+        }
+      }
     }
-    event.currentTarget.classList.add(css.dragOver)
-    event.dataTransfer.dropEffect = 'move'
-  }, [])
 
-  const onDrop = React.useCallback(
-    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
-      /* istanbul ignore else */
-      if (event.preventDefault) {
-        event.preventDefault()
+    if (isPropagating) {
+      if (listOfManifests && listOfManifests.length > 0) {
+        listOfManifests.splice(manifestIndex, 1, manifestObj)
+      } else {
+        listOfManifests.splice(manifestIndex, 1, manifestObj)
       }
-      const data = event.dataTransfer.getData('data')
-      /* istanbul ignore else */
-      if (data) {
-        const index = parseInt(data, 10)
-        arrayHelpers.swap(index, droppedIndex)
+      updatePipeline(pipeline)
+      hideConnectorModal()
+      return
+    }
+    if (!isForOverrideSets) {
+      if (listOfManifests && listOfManifests.length > 0) {
+        listOfManifests.splice(manifestIndex, 1, manifestObj)
+      } else {
+        listOfManifests.splice(manifestIndex, 1, manifestObj)
       }
-      event.currentTarget.classList.remove(css.dragOver)
-    },
-    []
-  )
-  const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
+    } else {
+      listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+        if (overrideSets.overrideSet.identifier === identifierName) {
+          overrideSets.overrideSet.manifests.push(manifestObj)
+        }
+      })
+    }
 
-  const [showEditConnectorModal, hideEditConnectorModal] = useModalHook(
+    updatePipeline(pipeline)
+    hideConnectorModal()
+  }
+
+  const changeManifestType = (selected: ManifestTypes): void => {
+    setSelectedManifest(selected)
+  }
+
+  const handleViewChange = (isConnectorView: boolean, store: ConnectorInfoDTO['type']): void => {
+    setConnectorView(isConnectorView)
+    setManifestStore(store)
+  }
+
+  const getLabels = (): ConnectorRefLabelType => {
+    return {
+      firstStepName: getString('manifestType.specifyManifestRepoType'),
+      secondStepName: getString('manifestType.specifyManifestStore'),
+      newConnector: getString('newConnector')
+    }
+  }
+
+  const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
+    const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
+
+    const manifestDetailStep = (
+      <ManifestDetails
+        name={getString('manifestType.manifestDetails')}
+        key={getString('manifestType.manifestDetails')}
+        stepName={getString('manifestType.manifestDetails')}
+        initialValues={getManifestInitialValues()}
+        handleSubmit={handleSubmit}
+      />
+    )
+
+    arr.push(manifestDetailStep)
+    return arr
+  }
+
+  const getNewConnectorSteps = (): JSX.Element => {
+    return (
+      <StepWizard title={getString('connectors.createNewConnector')}>
+        <ConnectorDetailsStep type={manifestStore} name={getString('overview')} isEditMode={isEditMode} />
+        <GitDetailsStep
+          type={manifestStore}
+          name={getString('details')}
+          isEditMode={isEditMode}
+          connectorInfo={undefined}
+        />
+        <StepGitAuthentication
+          name={getString('credentials')}
+          onConnectorCreated={() => {
+            // Handle on success
+          }}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          connectorInfo={undefined}
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+        />
+        <VerifyOutOfClusterDelegate
+          name={getString('connectors.stepThreeName')}
+          connectorIdentifier={''}
+          setIsEditMode={() => setIsEditMode(true)}
+          isStep={true}
+          isLastStep={false}
+          type={manifestStore}
+        />
+      </StepWizard>
+    )
+  }
+
+  const [showConnectorModal, hideConnectorModal] = useModalHook(
     () => (
       <Dialog
         onClose={() => {
-          // resetFormValues()
-          selectedManifestReference = undefined
-          // setEditModeContext(ModalViewFor.PRIMARY)
-          hideEditConnectorModal()
+          setConnectorView(false)
+          hideConnectorModal()
         }}
         {...DIALOG_PROPS}
-        style={{ width: 600, minHeight: 350, borderLeft: 'none', paddingBottom: 0, position: 'relative' }}
-        className={Classes.DIALOG}
+        className={cx(css.modal, Classes.DIALOG)}
       >
-        <Layout.Vertical spacing="large" padding="xlarge" className={css.editForm}>
-          <Text style={{ color: 'var(--black)' }}>{i18n.existingManifest.editModalTitle}</Text>
-          <Formik
-            enableReinitialize={true}
-            validationSchema={Yup.object().shape({
-              connectorRef: Yup.string().trim().required(i18n.validation.connectorId)
-            })}
-            initialValues={getManifestInitialValues()}
-            onSubmit={values => {
-              const _updatedValues = {
-                ...getManifestInitialValues(),
-                ...values,
-                connectorRef: values.connectorRef.value ? values.connectorRef.value : values.connectorRef,
-                paths:
-                  typeof values['paths'] === 'string'
-                    ? values['paths']
-                    : values['paths'].map((path: { path: string }) => path.path)
-              }
-
-              if (selectedManifestReference) selectedManifestReference['spec']['store']['spec'] = _updatedValues
-              updatePipeline(pipeline)
-              hideEditConnectorModal()
-            }}
-          >
-            {formik => (
-              <Form>
-                <div>
-                  <FormMultiTypeConnectorField
-                    name="connectorRef"
-                    label={i18n.existingManifest.connectorLabel}
-                    placeholder={i18n.existingManifest.connectorPlaceholder}
-                    accountIdentifier={accountId}
-                    projectIdentifier={projectIdentifier}
-                    orgIdentifier={orgIdentifier}
-                    width={350}
-                    isNewConnectorLabelVisible={false}
-                    category={'CODE_REPO'}
-                    enableConfigureOptions={false}
-                  />
-                </div>
-                <FormInput.Select
-                  name="gitFetchType"
-                  label={i18n.existingManifest.gitFetchTypeLabel}
-                  items={gitFetchTypes}
-                />
-                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
-                  <FormInput.MultiTextInput
-                    label={i18n.existingManifest.branchLabel}
-                    placeholder={i18n.existingManifest.branchPlaceholder}
-                    name="branch"
-                  />
-                )}
-                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
-                  <FormInput.MultiTextInput
-                    label={i18n.existingManifest.commitLabel}
-                    placeholder={i18n.existingManifest.commitPlaceholder}
-                    name="commitId"
-                  />
-                )}
-
-                <MultiTypeFieldSelector
-                  defaultValueToReset={defaultValueToReset}
-                  name={'paths'}
-                  label={getString('fileFolderPathText')}
-                  disableTypeSelection
-                >
-                  <Text
-                    icon="info-sign"
-                    className={css.fileHelpText}
-                    iconProps={{ color: Color.BLUE_450, size: 23, padding: 'small' }}
-                  >
-                    <String tagName="div" stringID="multipleFilesHelpText" />
-                  </Text>
-                  <FieldArray
-                    name="paths"
-                    render={arrayHelpers => (
-                      <Layout.Vertical>
-                        {formik.values?.paths?.map((path: { uuid: string; path: string }, index: number) => (
-                          <Layout.Horizontal
-                            key={path.uuid}
-                            flex={{ distribution: 'space-between' }}
-                            style={{ alignItems: 'end' }}
-                          >
-                            <Layout.Horizontal
-                              spacing="medium"
-                              style={{ alignItems: 'baseline' }}
-                              draggable={true}
-                              onDragStart={event => {
-                                onDragStart(event, index)
-                              }}
-                              data-testid={path.uuid}
-                              onDragEnd={onDragEnd}
-                              onDragOver={onDragOver}
-                              onDragLeave={onDragLeave}
-                              onDrop={event => onDrop(event, arrayHelpers, index)}
-                            >
-                              {formik.values?.paths?.length > 1 && (
-                                <Icon name="drag-handle-vertical" className={css.drag} />
-                              )}
-                              {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
-                              <FormInput.MultiTextInput
-                                name={`paths[${index}].path`}
-                                style={{ width: '430px' }}
-                                multiTextInputProps={{
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                                }}
-                                label=""
-                              />
-                            </Layout.Horizontal>
-                            {formik.values?.paths?.length > 1 && (
-                              <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
-                            )}
-                          </Layout.Horizontal>
-                        ))}
-                        <span>
-                          <Button
-                            minimal
-                            text={getString('addFileText')}
-                            intent="primary"
-                            className={css.addFileButton}
-                            onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
-                          />
-                        </span>
-                      </Layout.Vertical>
-                    )}
-                  />
-                </MultiTypeFieldSelector>
-
-                <Button intent="primary" type="submit" text={i18n.existingManifest.submit} />
-              </Form>
-            )}
-          </Formik>
-        </Layout.Vertical>
+        <ManifestWizard
+          types={allowedManifestTypes}
+          manifestStoreTypes={manifestStoreTypes}
+          labels={getLabels()}
+          selectedManifest={selectedManifest}
+          newConnectorView={connectorView}
+          changeManifestType={changeManifestType}
+          handleViewChange={handleViewChange}
+          initialValues={getManifestInitialValues()}
+          newConnectorSteps={getNewConnectorSteps()}
+          lastSteps={getLastSteps()}
+        />
       </Dialog>
     ),
-    [selectedManifestReference]
+    [selectedManifest, connectorView, manifestIndex, selectedManifestReference]
   )
 
   return (
@@ -492,7 +379,6 @@ function ManifestListView({
         <div className={css.rowItem}>
           <Text
             onClick={() => {
-              setView(ModalView.OPTIONS)
               showConnectorModal()
             }}
           >
@@ -508,7 +394,7 @@ function ManifestListView({
                 data: {
                   manifest: {
                     identifier: string
-                    type: string
+                    type: ManifestTypes
                     spec: {
                       store: {
                         type: string
@@ -537,11 +423,11 @@ function ManifestListView({
                         {manifest.identifier}
                       </Text>
                     </div>
-                    <div>{manifestTypeLabels[manifest.type]}</div>
+                    <div>{manifestTypeText[manifest.type]}</div>
                     <div className={css.server}>
                       <Text
                         inline
-                        icon={'service-github'}
+                        icon={getIconByType(manifest.spec.store.type as ConnectorInfoDTO['type'])}
                         iconProps={{ size: 18 }}
                         width={130}
                         lineClamp={1}
@@ -564,7 +450,7 @@ function ManifestListView({
                     {!overrideSetIdentifier?.length && (
                       <span className={css.lastColumn}>
                         <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                          <Icon name="Edit" size={16} onClick={() => editManifest(manifest)} />
+                          <Icon name="Edit" size={16} onClick={() => editManifest(manifest, index)} />
                           {/* <Icon
                             name="main-clone"
                             size={16}
@@ -586,7 +472,7 @@ function ManifestListView({
           <Text
             intent="primary"
             style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
-            onClick={() => showConnectorModal()}
+            onClick={() => addNewManifest()}
           >
             {i18n.addFileLabel}
           </Text>
@@ -621,7 +507,6 @@ export default function ManifestSelection({
   } = React.useContext(PipelineContext)
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
-  const identifier = selectedStageId || 'stage-identifier'
   const getManifestList = React.useCallback(() => {
     if (isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
@@ -632,6 +517,7 @@ export default function ManifestSelection({
         : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
       : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
   }, [isForOverrideSets, isPropagating, isForPredefinedSets])
+
   let listOfManifests = getManifestList()
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
@@ -711,7 +597,6 @@ export default function ManifestSelection({
       )}
 
       <ManifestListView
-        identifier={identifier}
         manifestList={listOfManifests}
         isPropagating={isPropagating}
         pipeline={pipeline}

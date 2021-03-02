@@ -75,7 +75,6 @@ export interface ConnectorRefLabelType {
   firstStepName: string
   secondStepName: string
   newConnector: string
-  selectConnector: string
 }
 
 export default function ArtifactsSelection({
@@ -497,8 +496,7 @@ export default function ArtifactsSelection({
     return {
       firstStepName: getString('connectors.specifyArtifactRepoType'),
       secondStepName: getString('connectors.specifyArtifactRepo'),
-      newConnector: getString('connectors.newArtifactRepository'),
-      selectConnector: 'DockerRegistry'
+      newConnector: getString('connectors.newArtifactRepository')
     }
   }
 

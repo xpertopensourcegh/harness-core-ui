@@ -98,21 +98,6 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           Test Connection
         </p>
       </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          5
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Manifest Source
-        </p>
-      </div>
     </div>
     <div
       class="StepWizard--stepDetails"
@@ -427,21 +412,6 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
           style="--text-line-clamp: 2; width: 240px;"
         >
           Test Connection
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          5
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Manifest Source
         </p>
       </div>
     </div>
@@ -760,21 +730,6 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
           Test Connection
         </p>
       </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          5
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Manifest Source
-        </p>
-      </div>
     </div>
     <div
       class="StepWizard--stepDetails"
@@ -1089,21 +1044,6 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
           style="--text-line-clamp: 2; width: 240px;"
         >
           Test Connection
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          5
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Manifest Source
         </p>
       </div>
     </div>
