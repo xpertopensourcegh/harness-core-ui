@@ -1,5 +1,15 @@
 import React from 'react'
-import { Layout, Text, Icon, Color, useModalHook, IconName, StepWizard, StepProps } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Icon,
+  Color,
+  useModalHook,
+  IconName,
+  StepWizard,
+  StepProps,
+  Button
+} from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -98,8 +108,7 @@ function ManifestListView({
     canEscapeKeyClose: false,
     canOutsideClickClose: false,
     enforceFocus: true,
-    title: '',
-    style: { width: 1175, height: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
+    style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
@@ -338,32 +347,31 @@ function ManifestListView({
     )
   }
 
-  const [showConnectorModal, hideConnectorModal] = useModalHook(
-    () => (
-      <Dialog
-        onClose={() => {
-          setConnectorView(false)
-          hideConnectorModal()
-        }}
-        {...DIALOG_PROPS}
-        className={cx(css.modal, Classes.DIALOG)}
-      >
-        <ManifestWizard
-          types={allowedManifestTypes}
-          manifestStoreTypes={manifestStoreTypes}
-          labels={getLabels()}
-          selectedManifest={selectedManifest}
-          newConnectorView={connectorView}
-          changeManifestType={changeManifestType}
-          handleViewChange={handleViewChange}
-          initialValues={getManifestInitialValues()}
-          newConnectorSteps={getNewConnectorSteps()}
-          lastSteps={getLastSteps()}
-        />
+  const [showConnectorModal, hideConnectorModal] = useModalHook(() => {
+    const onClose = (): void => {
+      setConnectorView(false)
+      hideConnectorModal()
+    }
+    return (
+      <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>
+        <div className={css.createConnectorWizard}>
+          <ManifestWizard
+            types={allowedManifestTypes}
+            manifestStoreTypes={manifestStoreTypes}
+            labels={getLabels()}
+            selectedManifest={selectedManifest}
+            newConnectorView={connectorView}
+            changeManifestType={changeManifestType}
+            handleViewChange={handleViewChange}
+            initialValues={getManifestInitialValues()}
+            newConnectorSteps={getNewConnectorSteps()}
+            lastSteps={getLastSteps()}
+          />
+        </div>
+        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
       </Dialog>
-    ),
-    [selectedManifest, connectorView, manifestIndex, selectedManifestReference]
-  )
+    )
+  }, [selectedManifest, connectorView, manifestIndex, selectedManifestReference])
 
   return (
     <Layout.Vertical spacing="small">

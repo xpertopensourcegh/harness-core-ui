@@ -33,7 +33,5 @@ describe('ManifestSelection tests', () => {
     fireEvent.click(addFileButton)
     const createFileModal = findByText(document.body, 'Specify your manifest file repository type')
     expect(createFileModal).toBeDefined()
-    const closeButton = document.querySelector("button[class*='bp3-dialog-close-button']") as Element
-    fireEvent.click(closeButton)
   })
 })

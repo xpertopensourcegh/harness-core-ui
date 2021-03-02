@@ -11,5 +11,7 @@ declare const styles: {
   readonly modal: string
   readonly manifestList: string
   readonly listHeader: string
+  readonly crossIcon: string
+  readonly createConnectorWizard: string
 }
 export default styles

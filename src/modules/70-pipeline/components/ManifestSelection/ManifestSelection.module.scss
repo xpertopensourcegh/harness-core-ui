@@ -65,3 +65,14 @@ div.server {
     padding-bottom: var(--spacing-medium);
   }
 }
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.createConnectorWizard {
+  flex-grow: 1;
+  display: flex;
+}

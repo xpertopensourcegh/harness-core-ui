@@ -1,9 +1,5 @@
 .manifestWizard {
-  position: absolute;
-  top: 0;
-  height: 100%;
   width: 100%;
-  overflow: auto;
 
   [class*='stepDetails'] {
     background-color: var(--white) !important;
