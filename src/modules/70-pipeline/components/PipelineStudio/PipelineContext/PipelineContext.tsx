@@ -4,7 +4,6 @@ import { isEqual, cloneDeep, pick } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import type {
-  NgPipeline,
   PipelineInfoConfig,
   ResponseNGPipelineResponse,
   StageElementConfig,
@@ -42,7 +41,7 @@ const logger = loggerFor(ModuleName.CD)
 export const getPipelineByIdentifier = (
   params: GetPipelineQueryParams,
   identifier: string
-): Promise<NgPipeline | undefined> => {
+): Promise<PipelineInfoConfig | undefined> => {
   return getPipelinePromise({
     pipelineIdentifier: identifier,
     queryParams: {
@@ -63,14 +62,14 @@ export const getPipelineByIdentifier = (
       obj = response
     }
     if (obj.status === 'SUCCESS' && obj.data?.yamlPipeline) {
-      return parse(obj.data.yamlPipeline).pipeline as NgPipeline
+      return parse(obj.data.yamlPipeline).pipeline as PipelineInfoConfig
     }
   })
 }
 
 export const savePipeline = (
   params: PutPipelineQueryParams,
-  pipeline: NgPipeline,
+  pipeline: PipelineInfoConfig,
   isEdit = false
 ): Promise<Failure | undefined> => {
   return isEdit
@@ -137,7 +136,7 @@ export interface PipelineContextInterface {
   renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
-  updatePipeline: (pipeline: NgPipeline) => Promise<void>
+  updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => Promise<void>
   getStageFromPipeline: (
@@ -145,14 +144,14 @@ export interface PipelineContextInterface {
     pipeline?: PipelineInfoConfig
   ) => { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined }
   runPipeline: (identifier: string) => void
-  pipelineSaved: (pipeline: NgPipeline) => void
+  pipelineSaved: (pipeline: PipelineInfoConfig) => void
   updateStage: (stage: StageElementConfig) => Promise<void>
 }
 
 interface PipelinePayload {
   identifier: string
-  pipeline: NgPipeline | undefined
-  originalPipeline?: NgPipeline
+  pipeline: PipelineInfoConfig | undefined
+  originalPipeline?: PipelineInfoConfig
   isUpdated: boolean
 }
 
@@ -232,8 +231,8 @@ const _updatePipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetPipelineQueryParams,
   identifier: string,
-  originalPipeline: NgPipeline,
-  pipeline: NgPipeline
+  originalPipeline: PipelineInfoConfig,
+  pipeline: PipelineInfoConfig
 ): Promise<void> => {
   const id = getId(
     queryParams.accountIdentifier,
@@ -357,7 +356,7 @@ export const PipelineProvider: React.FC<{
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
   const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier)
   const pipelineSaved = React.useCallback(
-    async (pipeline: NgPipeline) => {
+    async (pipeline: PipelineInfoConfig) => {
       await deletePipelineCache()
       dispatch(PipelineContextActions.pipelineSavedAction({ pipeline, originalPipeline: cloneDeep(pipeline) }))
     },

@@ -1,6 +1,6 @@
 import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
-import type { NgPipeline, ExecutionWrapper, YamlSnippetMetaData } from 'services/cd-ng'
+import type { ExecutionWrapper, YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type { Diagram } from '@pipeline/exports'
 import type { DependenciesWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
@@ -81,9 +81,9 @@ export interface PipelineViewData {
 }
 
 export interface PipelineReducerState {
-  pipeline: NgPipeline
+  pipeline: PipelineInfoConfig
   yamlHandler?: YamlBuilderHandlerBinding
-  originalPipeline: NgPipeline
+  originalPipeline: PipelineInfoConfig
   pipelineView: PipelineViewData
   pipelineIdentifier: string
   error?: string
@@ -95,7 +95,7 @@ export interface PipelineReducerState {
   snippets?: YamlSnippetMetaData[]
 }
 
-export const DefaultPipeline: NgPipeline = {
+export const DefaultPipeline: PipelineInfoConfig = {
   name: '',
   identifier: DefaultNewPipelineId
 }
@@ -103,9 +103,9 @@ export const DefaultPipeline: NgPipeline = {
 export interface ActionResponse {
   error?: string
   isUpdated?: boolean
-  pipeline?: NgPipeline
+  pipeline?: PipelineInfoConfig
   yamlHandler?: YamlBuilderHandlerBinding
-  originalPipeline?: NgPipeline
+  originalPipeline?: PipelineInfoConfig
   isBEPipelineUpdated?: boolean
   pipelineView?: PipelineViewData
 }
