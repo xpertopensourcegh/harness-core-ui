@@ -42,7 +42,7 @@ module.exports = {
     target: targetLocalHost ? 'http://localhost:9090' : `${baseUrl}/lw/api`,
     pathRewrite: { '^/lw/api': '' }
   },
-  '/insights': {
+  '/dashboard': {
     target: targetLocalHost ? 'http://localhost:5000' : baseUrl
   }
 }

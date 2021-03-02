@@ -2,32 +2,31 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Layout, Text, Color } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 
 import { useStrings } from 'framework/exports'
-import css from './sidenav.module.scss'
 
 export default function DashboardsSideNav(): React.ReactElement {
   const { accountId } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
   const { getString } = useStrings()
-  const history = useHistory()
-  const { data: dashboardList, refetch } = useGet({
+  // const history = useHistory()
+  const { data: dashboardList } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'insights/dashboards',
+    path: 'dashboard/list',
     queryParams: { accountId: accountId }
   })
 
-  React.useEffect(() => {
-    if (history?.action === 'PUSH' && history.location.pathname.includes('/dashboards/view')) {
-      refetch()
-    }
-  }, [history?.location?.pathname])
+  // React.useEffect(() => {
+  //   if (history?.action === 'PUSH' && history.location.pathname.includes('/dashboards/view')) {
+  //     refetch()
+  //   }
+  // }, [history?.location?.pathname])
 
   return (
-    <Layout.Vertical spacing="small" className={css.dashboardNav}>
+    <Layout.Vertical spacing="small">
       <SidebarLink label="All Dashboards" to={routes.toCustomDasboardHome({ accountId })} />
       {dashboardList?.resource?.list?.length > 0 && (
         <section

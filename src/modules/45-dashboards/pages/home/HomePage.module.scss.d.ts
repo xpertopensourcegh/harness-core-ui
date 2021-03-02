@@ -3,6 +3,7 @@
 declare const styles: {
   readonly dashboardCard: string
   readonly pageContainer: string
+  readonly filter: string
   readonly dialog: string
   readonly create: string
   readonly stepWizard: string

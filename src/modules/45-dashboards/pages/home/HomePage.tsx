@@ -8,12 +8,16 @@ import {
   Card,
   Button,
   CardBody,
+  Heading,
   Icon,
   useModalHook,
   StepWizard,
   FormInput,
-  Formik
+  Formik,
+  Checkbox,
+  ExpandingSearchInput
 } from '@wings-software/uicore'
+
 import { Classes, Menu, MenuItem, Dialog } from '@blueprintjs/core'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -31,14 +35,23 @@ enum Views {
   EDIT
 }
 
+interface DashboardInterface {
+  id: string
+  type: string
+  description: string
+  title: string
+  view_count?: number | undefined
+  favorite_count?: number | undefined
+}
+
 const i18n: { [key: string]: string } = {
   'AWS Cost Dashboard':
-    'A dashboard that visually tracks and analyzes the health of your AWS cloud spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
+    'Analysis of your AWS cloud spend, including the total cost spend, projected cost spend, historical cost and forecast, trending services, most expensive services and current vs previous period spend',
   'GCP Cost Dashboard':
-    'A dashboard that visually tracks and analyzes the health of your GCP cloud spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
+    'Analysis of your GCP cloud spend, including the total cost spend, projected cost spend, historical cost and forecast, trending services, most expensive products and current vs previous period spend',
   'Cluster Cost Dashboard':
-    'A dashboard that visually tracks and analyzes the health of your cluster spend. Widgets include: Total cost spend, project cost spend, historical and forecasted cost, trending services, most expensive resources and current vs previous month spend',
-  'Multi-cloud Cost Overview Dashboard': 'A dashboard that visually gives overview across all cloud providers spend'
+    'Analysis of your cluster spend including: the total cost spend, projected cost spend, historical cost and forecast, trending resources, most expensive resources, current vs previous period spend, efficiency score and cost breakdown',
+  'Multi-cloud Cost Overview Dashboard': 'Total cost analysis of your GCP, AWS and or Azure accounts'
 }
 
 const FirstStep = (props: any): JSX.Element => {
@@ -48,7 +61,7 @@ const FirstStep = (props: any): JSX.Element => {
   const history = useHistory()
   const { mutate: createDashboard, loading } = useMutate({
     verb: 'POST',
-    path: 'insights/dashboards/create',
+    path: 'dashboard/create',
     queryParams: { accountId: accountId }
   })
 
@@ -183,14 +196,56 @@ const HomePage: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams()
   const history = useHistory()
-
+  const [_dashboardList, _setDashboardList] = React.useState<DashboardInterface[]>([])
+  const [filteredDashboardList, setFilteredList] = React.useState<DashboardInterface[]>([])
   const [view, setView] = useState(Views.CREATE)
-
+  const [isHarness, setHarnessCheckbox] = React.useState<boolean>(false)
+  const [isCustom, setCustomChecbox] = React.useState<boolean>(false)
   const { data: dashboardList, loading, error } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'insights/dashboards',
+    path: 'dashboard/list',
     queryParams: { accountId: accountId }
   })
+
+  React.useEffect(() => {
+    if (dashboardList) {
+      if (dashboardList?.resource?.list) {
+        dashboardList?.resource?.list.map((x: DashboardInterface) => {
+          if (x.type === 'SHARED') {
+            x['description'] = i18n[x['title']]
+          }
+        })
+      }
+      _setDashboardList(dashboardList?.resource?.list)
+      setFilteredList(dashboardList?.resource?.list)
+    }
+  }, [dashboardList])
+
+  React.useEffect(() => {
+    if (isHarness) {
+      const filteredData = _dashboardList.filter((x: { type: string }) => x.type === 'SHARED')
+      setFilteredList(filteredData)
+    }
+
+    if (isCustom) {
+      const filteredData = _dashboardList.filter((x: { type: string }) => x.type === 'ACCOUNT')
+      setFilteredList(filteredData)
+    }
+
+    if ((isHarness && isCustom) || (!isHarness && !isCustom)) {
+      setFilteredList(_dashboardList)
+    }
+  }, [isHarness, isCustom])
+
+  const onSearch = (searchData: string) => {
+    if (searchData) {
+      const filteredData = _dashboardList.filter(x => x.description.toLowerCase().search(searchData) !== -1)
+
+      setFilteredList(filteredData)
+    } else {
+      setFilteredList(_dashboardList)
+    }
+  }
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -241,15 +296,6 @@ const HomePage: React.FC = () => {
         return
       }}
       error={(error?.data as Error)?.message}
-      noData={{
-        when: () => dashboardList?.resource?.list?.length === 0,
-        icon: 'dashboard',
-        message: 'No dashboards available',
-        buttonText: getString('dashboards.homePage.title'),
-        onClick: () => {
-          return
-        }
-      }}
     >
       <Layout.Vertical
         padding="large"
@@ -265,145 +311,165 @@ const HomePage: React.FC = () => {
         style={{ borderBottom: '1px solid var(--grey-200)', justifyContent: 'space-between' }}
         flex={true}
       >
-        <Button
-          intent="primary"
-          text={getString('cv.navLinks.dashboard')}
-          icon="plus"
-          style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '110px' }}
-          onClick={() => showModal()}
-        />
-        <section></section>
-      </Layout.Horizontal>
-      <Layout.Vertical padding="large">
-        <Container height="90%">
-          <Layout.Masonry
-            center
-            gutter={25}
-            items={dashboardList?.resource?.list}
-            renderItem={(dashboard: {
-              id: string
-              type: string
-              description: string
-              title: string
-              view_count?: number
-              favorite_count?: number
-            }) => (
-              <Card className={cx(css.dashboardCard)}>
-                <Container padding="xlarge">
-                  {dashboard?.type !== 'SHARED' && dashboard?.type !== 'ACCOUNT' && (
-                    <CardBody.Menu
-                      menuContent={
-                        <Menu>
-                          <MenuItem text="edit" />
-                        </Menu>
-                      }
-                      menuPopoverProps={{
-                        className: Classes.DARK
-                      }}
-                    />
-                  )}
+        <Layout.Horizontal spacing="medium" style={{ justifyContent: 'inherit', alignItems: 'center', width: '368px' }}>
+          <Button
+            intent="primary"
+            text={getString('cv.navLinks.dashboard')}
+            icon="plus"
+            style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '110px' }}
+            onClick={() => showModal()}
+          />
+          <Layout.Horizontal className={css.filter}>
+            <Checkbox
+              label={'By Harness'}
+              key={'By Harness'}
+              defaultChecked={false}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                setHarnessCheckbox(event.currentTarget.checked)
+              }}
+            />
 
-                  <Layout.Vertical
-                    spacing="large"
-                    onClick={() => {
-                      history.push({
-                        pathname: routes.toViewCustomDashboard({
-                          viewId: dashboard.id,
-                          accountId: accountId
-                        })
-                      })
-                    }}
-                  >
-                    <Layout.Horizontal style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Icon
-                        name={dashboard?.type === 'SHARED' ? 'harness' : 'dashboard'}
-                        size={25}
-                        color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.BLUE_500}
+            <Checkbox
+              label={'Custom'}
+              key={'Custom'}
+              defaultChecked={false}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                setCustomChecbox(event.currentTarget.checked)
+              }}
+            />
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+
+        <ExpandingSearchInput
+          autoFocus={false}
+          placeholder="Search Dashboard"
+          throttle={200}
+          onChange={(text: string) => {
+            onSearch(text)
+          }}
+        />
+      </Layout.Horizontal>
+      {filteredDashboardList && filteredDashboardList.length > 0 && (
+        <Layout.Vertical padding="large">
+          <Container height="90%">
+            <Layout.Masonry
+              center
+              gutter={25}
+              items={filteredDashboardList}
+              renderItem={(dashboard: {
+                id: string
+                type: string
+                description: string
+                title: string
+                view_count?: number
+                favorite_count?: number
+              }) => (
+                <Card className={cx(css.dashboardCard)}>
+                  <Container padding="xlarge">
+                    {dashboard?.type !== 'SHARED' && dashboard?.type !== 'ACCOUNT' && (
+                      <CardBody.Menu
+                        menuContent={
+                          <Menu>
+                            <MenuItem text="edit" />
+                          </Menu>
+                        }
+                        menuPopoverProps={{
+                          className: Classes.DARK
+                        }}
                       />
-                      {dashboard?.type === 'SHARED' && (
-                        <Icon
-                          name={
-                            dashboard?.title.toLowerCase().includes('aws')
-                              ? 'service-aws'
-                              : dashboard?.title.toLowerCase().includes('gcp')
-                              ? 'gcp'
-                              : dashboard?.title.toLowerCase().includes('cluster')
-                              ? 'ce-cluster'
-                              : 'ce-main-colored'
-                          }
-                          size={28}
-                        />
-                      )}
-                    </Layout.Horizontal>
-                    <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {dashboard?.title}
-                    </Text>
-                    {dashboard?.description && (
-                      <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
-                        {dashboard?.description}
-                      </Text>
                     )}
-                    {!dashboard?.description && (
-                      <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
-                        {i18n[dashboard?.title]}
-                      </Text>
-                    )}
-                    <Layout.Horizontal
-                      spacing="medium"
-                      // height="160px"
-                      // style={{
-                      //   display: 'flow-root',
-                      //   overflow: 'hidden'
-                      // }}
+
+                    <Layout.Vertical
+                      spacing="large"
+                      onClick={() => {
+                        history.push({
+                          pathname: routes.toViewCustomDashboard({
+                            viewId: dashboard.id,
+                            accountId: accountId
+                          })
+                        })
+                      }}
                     >
-                      {dashboard?.type !== 'SHARED' && (
-                        <>
-                          <Container
-                            style={{ width: '50%', borderRadius: '5px' }}
-                            padding="small"
-                            background={Color.GREY_100}
-                          >
-                            <Icon name="eye-open" size={16} style={{ marginBottom: '10px' }} />
-                            <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                              <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                                {dashboard?.view_count}
-                              </Text>
-                              &nbsp;{getString('dashboards.createModal.view')}
-                            </Layout.Horizontal>
-                          </Container>
-                          <Container
-                            style={{ width: '50%', borderRadius: '5px' }}
-                            padding="small"
-                            background={Color.GREY_100}
-                          >
-                            <Icon name="star-empty" size={16} style={{ marginBottom: '10px' }} />
-                            <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                              <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                                {dashboard?.favorite_count}
-                              </Text>
-                              &nbsp;{getString('dashboards.createModal.fav')}
-                            </Layout.Horizontal>
-                          </Container>
-                        </>
+                      <Layout.Horizontal style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Icon
+                          name={dashboard?.type === 'SHARED' ? 'harness' : 'dashboard'}
+                          size={25}
+                          color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.BLUE_500}
+                        />
+                      </Layout.Horizontal>
+                      <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
+                        {dashboard?.title}
+                      </Text>
+                      {dashboard?.description && (
+                        <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
+                          {dashboard?.description}
+                        </Text>
                       )}
-                    </Layout.Horizontal>
-                    <Layout.Vertical spacing="medium">
-                      <Text color={Color.GREY_400}>{getString('dashboards.createModal.dataSource')}</Text>
+                      {!dashboard?.description && (
+                        <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
+                          {i18n[dashboard?.title]}
+                        </Text>
+                      )}
                       <Layout.Horizontal spacing="medium">
-                        <Icon name="ce-main" size={22} />
-                        {/* <Icon name="cd-main" size={22} />
+                        {dashboard?.type !== 'SHARED' && (
+                          <>
+                            <Container
+                              style={{ width: '50%', borderRadius: '5px' }}
+                              padding="small"
+                              background={Color.GREY_100}
+                            >
+                              <Icon name="eye-open" size={16} style={{ marginBottom: '10px' }} />
+                              <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                                <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
+                                  {dashboard?.view_count}
+                                </Text>
+                                &nbsp;{getString('dashboards.createModal.view')}
+                              </Layout.Horizontal>
+                            </Container>
+                            <Container
+                              style={{ width: '50%', borderRadius: '5px' }}
+                              padding="small"
+                              background={Color.GREY_100}
+                            >
+                              <Icon name="star-empty" size={16} style={{ marginBottom: '10px' }} />
+                              <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                                <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
+                                  {dashboard?.favorite_count}
+                                </Text>
+                                &nbsp;{getString('dashboards.createModal.fav')}
+                              </Layout.Horizontal>
+                            </Container>
+                          </>
+                        )}
+                      </Layout.Horizontal>
+                      <Layout.Vertical spacing="medium">
+                        <Text color={Color.GREY_400}>{getString('dashboards.createModal.dataSource')}</Text>
+                        <Layout.Horizontal spacing="medium">
+                          <Icon name="ce-main" size={22} />
+                          {/* <Icon name="cd-main" size={22} />
                         <Icon name="ci-main" size={22} />
                         <Icon name="cf-main" size={22} /> */}
-                      </Layout.Horizontal>
+                        </Layout.Horizontal>
+                      </Layout.Vertical>
                     </Layout.Vertical>
-                  </Layout.Vertical>
-                </Container>
-              </Card>
-            )}
-            keyOf={dashboard => dashboard?.id}
-          />
+                  </Container>
+                </Card>
+              )}
+              keyOf={dashboard => dashboard?.id}
+            />
+          </Container>
+        </Layout.Vertical>
+      )}
+      {filteredDashboardList && filteredDashboardList.length === 0 && (
+        <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
+          <Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}>
+            <Icon name="dashboard" color={Color.GREY_300} size={35} />
+            <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
+              {'No dashboards available'}
+            </Heading>
+          </Layout.Vertical>
         </Container>
-      </Layout.Vertical>
+      )}
     </Page.Body>
   )
 }

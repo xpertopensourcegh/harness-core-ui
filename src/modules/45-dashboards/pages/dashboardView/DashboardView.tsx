@@ -21,12 +21,12 @@ const DashboardViewPage: React.FC = () => {
 
   const { mutate: createSignedUrl, loading, error } = useMutate({
     verb: 'POST',
-    path: 'insights/signedUrl',
-    queryParams: { accountId: accountId, src: `/embed/dashboards-next/${viewId}` }
+    path: 'dashboard/signedUrl',
+    queryParams: { accountId: accountId, src: `/embed/dashboards-next/${viewId}?theme=Harness` }
   })
 
   const { data: dashboardData } = useGet({
-    path: `insights/dashboard/${viewId}/isEmpty`,
+    path: `dashboard/${viewId}/isEmpty`,
     queryParams: { accountId: accountId }
   })
 
@@ -38,9 +38,7 @@ const DashboardViewPage: React.FC = () => {
       user_attributes /* eslint-disable-line */: {
         accountName: external_user_id.replace(/['"]+/g, '').split('@')[1] /* eslint-disable-line */,
         companyName: external_user_id.replace(/['"]+/g, '').split('@')[1] /* eslint-disable-line */,
-        licenseInfo: 'PAID',
-        dataset: accountId,
-        accountId: accountId
+        licenseInfo: 'PAID'
       }
     })
     setEmbedUrl(resource)

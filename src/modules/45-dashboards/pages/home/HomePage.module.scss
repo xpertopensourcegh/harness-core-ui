@@ -11,6 +11,25 @@
 
 .pageContainer {
   height: 100%;
+  width: 100%;
+}
+
+.filter {
+  background: var(--grey-200) !important;
+  padding: var(--spacing-small) var(--spacing-xxlarge) var(--spacing-small) var(--spacing-xxxlarge) !important;
+  border-radius: 30px !important;
+  width: 230px !important;
+  display: flex;
+  justify-content: inherit;
+  :global {
+    label {
+      color: var(--black-100);
+    }
+    .bp3-checkbox:first-child {
+      border-right: 1px solid var(--grey-400);
+      padding-right: var(--spacing-small);
+    }
+  }
 }
 
 .dialog {
