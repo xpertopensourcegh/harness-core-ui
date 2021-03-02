@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom'
 import { Classes, Drawer, Menu, Position } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   AllResourcesOfAccountResponse,
   Service,
@@ -346,6 +347,14 @@ const COGatewayList: React.FC = () => {
   })
   if (error) {
     showError(error.data || error.message)
+  }
+
+  if (loading) {
+    return (
+      <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+        <PageSpinner />
+      </div>
+    )
   }
 
   return (

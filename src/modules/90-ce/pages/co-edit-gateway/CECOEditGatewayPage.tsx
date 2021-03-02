@@ -11,6 +11,7 @@ import {
   useAllServiceResources,
   useRouteDetails
 } from 'services/lw'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 export const CECOEditGatewayPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams()
@@ -92,7 +93,11 @@ export const CECOEditGatewayPage: React.FC = () => {
           setGatewayDetails={setGatewayDetails}
           previousTab={() => undefined}
         />
-      ) : null}
+      ) : (
+        <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+          <PageSpinner />
+        </div>
+      )}
     </>
   )
 }

@@ -19,6 +19,7 @@ import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import { getRelativeTime } from '../COGatewayList/Utils'
 import css from './COAcessPointList.module.scss'
@@ -341,7 +342,11 @@ const COAccessPointList: React.FC = () => {
               />
             </Page.Body>
           </>
-        ) : null}
+        ) : (
+          <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+            <PageSpinner />
+          </div>
+        )}
       </>
     </Container>
   )
