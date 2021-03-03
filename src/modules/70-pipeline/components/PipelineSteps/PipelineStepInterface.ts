@@ -31,5 +31,7 @@ export enum StepType {
   GCS = 'GCSUpload',
   S3 = 'S3Upload',
   JFrogArtifactory = 'ArtifactoryUpload',
-  RunTests = 'RunTests'
+  RunTests = 'RunTests',
+  HelmDeploy = 'HelmDeploy',
+  HelmRollback = 'HelmRollback'
 }

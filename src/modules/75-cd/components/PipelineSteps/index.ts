@@ -15,6 +15,8 @@ import { K8sApplyStep } from './K8sApply/K8sApplyStep'
 import { K8sDeleteStep } from './K8sDelete/K8sDeleteStep'
 import { DeployEnvironmentStep } from './DeployEnvStep/DeployEnvStep'
 import { DeployServiceStep } from './DeployServiceStep/DeployServiceStep'
+import { HelmDeploy } from './HelmDeploy/HelmDeploy'
+import { HelmRollback } from './HelmRollback/HelmRollback'
 
 factory.registerStep(new HttpStep())
 factory.registerStep(new K8RolloutDeployStep())
@@ -31,3 +33,5 @@ factory.registerStep(new KubernetesInfraSpec())
 factory.registerStep(new DeployEnvironmentStep())
 factory.registerStep(new DeployServiceStep())
 factory.registerStep(new KubernetesServiceSpec())
+factory.registerStep(new HelmDeploy())
+factory.registerStep(new HelmRollback())
