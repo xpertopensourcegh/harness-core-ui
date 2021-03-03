@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Formik, FormikForm, Button, Text } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
+import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName, useStrings } from 'framework/exports'
 import type { NgPipeline } from 'services/cd-ng'
 
@@ -26,6 +27,7 @@ export default function CreatePipelines({
   closeModal
 }: PipelineCreateProps): JSX.Element {
   const { getString } = useStrings()
+  const { pipelineIdentifier } = useParams<{ pipelineIdentifier: string }>()
 
   const identifier = initialValues?.identifier
   if (identifier === DefaultNewPipelineId) {
@@ -63,7 +65,7 @@ export default function CreatePipelines({
                   <NameIdDescriptionTags
                     formikProps={formikProps}
                     identifierProps={{
-                      isIdentifierEditable: !isEdit
+                      isIdentifierEditable: pipelineIdentifier === DefaultNewPipelineId
                     }}
                   />
                 </div>
