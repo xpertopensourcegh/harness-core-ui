@@ -1357,6 +1357,11 @@ export const useCreateAccessPoint = ({ org_id, project_id, ...props }: UseCreate
     { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
   )
 
+export interface ListAccessPointsQueryParams {
+  vpc: string
+  region: string
+}
+
 export interface ListAccessPointsPathParams {
   org_id: string
   project_id: string
@@ -1364,7 +1369,7 @@ export interface ListAccessPointsPathParams {
 }
 
 export type ListAccessPointsProps = Omit<
-  GetProps<ListAccessPointResponse, void, void, ListAccessPointsPathParams>,
+  GetProps<ListAccessPointResponse, void, ListAccessPointsQueryParams, ListAccessPointsPathParams>,
   'path'
 > &
   ListAccessPointsPathParams
@@ -1375,7 +1380,7 @@ export type ListAccessPointsProps = Omit<
  * List all AccessPoints
  */
 export const ListAccessPoints = ({ org_id, project_id, account_id, ...props }: ListAccessPointsProps) => (
-  <Get<ListAccessPointResponse, void, void, ListAccessPointsPathParams>
+  <Get<ListAccessPointResponse, void, ListAccessPointsQueryParams, ListAccessPointsPathParams>
     path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points"
     base={getConfig('lw/api')}
     {...props}
@@ -1383,7 +1388,7 @@ export const ListAccessPoints = ({ org_id, project_id, account_id, ...props }: L
 )
 
 export type UseListAccessPointsProps = Omit<
-  UseGetProps<ListAccessPointResponse, void, void, ListAccessPointsPathParams>,
+  UseGetProps<ListAccessPointResponse, void, ListAccessPointsQueryParams, ListAccessPointsPathParams>,
   'path'
 > &
   ListAccessPointsPathParams
@@ -1394,7 +1399,7 @@ export type UseListAccessPointsProps = Omit<
  * List all AccessPoints
  */
 export const useListAccessPoints = ({ org_id, project_id, account_id, ...props }: UseListAccessPointsProps) =>
-  useGet<ListAccessPointResponse, void, void, ListAccessPointsPathParams>(
+  useGet<ListAccessPointResponse, void, ListAccessPointsQueryParams, ListAccessPointsPathParams>(
     (paramsInPath: ListAccessPointsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }

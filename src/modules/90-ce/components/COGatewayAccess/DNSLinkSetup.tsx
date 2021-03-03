@@ -84,7 +84,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
-    account_id: accountId // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    queryParams: {
+      region: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].region : '',
+      vpc: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].vpc : ''
+    }
   })
   function generateHostName(val: string): string {
     return `${cleanupForHostName(orgIdentifier)}-${cleanupForHostName(

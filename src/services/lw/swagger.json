@@ -1000,6 +1000,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "vpc",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": ["ListAccessPoints"],
