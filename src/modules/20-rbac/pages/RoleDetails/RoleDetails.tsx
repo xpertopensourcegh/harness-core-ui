@@ -188,9 +188,14 @@ const RoleDetails: React.FC = () => {
           </Container>
           <Container padding="large">
             <Layout.Vertical>
-              <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} padding="medium" spacing="medium">
-                {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
-                <Button onClick={() => submitChanges(role)} text={getString('applyChanges')} intent="primary" />
+              <Layout.Horizontal flex padding="medium" spacing="medium">
+                <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ left: 'medium' }}>
+                  {getString('roleDetails.updateRolePermissions')}
+                </Text>
+                <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
+                  {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
+                  <Button onClick={() => submitChanges(role)} text={getString('applyChanges')} intent="primary" />
+                </Layout.Horizontal>
               </Layout.Horizontal>
               {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
                 return (

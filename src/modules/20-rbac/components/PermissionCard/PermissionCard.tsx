@@ -27,7 +27,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
   const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType)
   return resourceHandler ? (
     <Card className={cx(css.card, { [css.selectedCard]: selected })}>
-      <Layout.Horizontal padding="large" width="100%" className={css.permissionRow}>
+      <Layout.Horizontal padding="small" width="100%" className={css.permissionRow}>
         <Layout.Horizontal spacing="medium" className={css.center}>
           <Icon name={resourceHandler.icon} size={20} />
           <Text>{resourceHandler.label}</Text>

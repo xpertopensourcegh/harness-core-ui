@@ -258,18 +258,27 @@ exports[`Role Details Page Click on Resource Type 1`] = `
           class="Layout--vertical StyledProps--main"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--padding-medium"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--padding-medium"
           >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-              type="button"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-left-medium"
             >
-              <span
-                class="bp3-button-text"
+              Update Role permissions
+            </p>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+            >
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="button"
               >
-                Apply Changes
-              </span>
-            </button>
+                <span
+                  class="bp3-button-text"
+                >
+                  Apply Changes
+                </span>
+              </button>
+            </div>
           </div>
           <div />
           <div>
@@ -277,7 +286,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               class="bp3-card bp3-elevation-0 Card--card card selectedCard"
             >
               <div
-                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-large"
+                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-small"
                 style="width: 100%;"
               >
                 <div
@@ -367,7 +376,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               class="bp3-card bp3-elevation-0 Card--card card"
             >
               <div
-                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-large"
+                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-small"
                 style="width: 100%;"
               >
                 <div
@@ -458,7 +467,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               class="bp3-card bp3-elevation-0 Card--card card"
             >
               <div
-                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-large"
+                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-small"
                 style="width: 100%;"
               >
                 <div
@@ -773,18 +782,27 @@ exports[`Role Details Page render data 1`] = `
           class="Layout--vertical StyledProps--main"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--padding-medium"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--padding-medium"
           >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-              type="button"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-left-medium"
             >
-              <span
-                class="bp3-button-text"
+              Update Role permissions
+            </p>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+            >
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="button"
               >
-                Apply Changes
-              </span>
-            </button>
+                <span
+                  class="bp3-button-text"
+                >
+                  Apply Changes
+                </span>
+              </button>
+            </div>
           </div>
           <div />
           <div>
@@ -792,7 +810,7 @@ exports[`Role Details Page render data 1`] = `
               class="bp3-card bp3-elevation-0 Card--card card"
             >
               <div
-                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-large"
+                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-small"
                 style="width: 100%;"
               >
                 <div
@@ -882,7 +900,7 @@ exports[`Role Details Page render data 1`] = `
               class="bp3-card bp3-elevation-0 Card--card card"
             >
               <div
-                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-large"
+                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-small"
                 style="width: 100%;"
               >
                 <div
@@ -973,7 +991,7 @@ exports[`Role Details Page render data 1`] = `
               class="bp3-card bp3-elevation-0 Card--card card"
             >
               <div
-                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-large"
+                class="Layout--horizontal StyledProps--main permissionRow StyledProps--padding-small"
                 style="width: 100%;"
               >
                 <div

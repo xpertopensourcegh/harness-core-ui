@@ -3,7 +3,13 @@ import { useParams, Redirect, Route } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, orgPathProps, projectPathProps } from '@common/utils/routeUtils'
+import {
+  accountPathProps,
+  orgPathProps,
+  projectPathProps,
+  resourceGroupPathProps,
+  rolePathProps
+} from '@common/utils/routeUtils'
 import { MinimalLayout } from '@common/layouts'
 
 import ProjectsPage from '@projects-orgs/pages/projects/ProjectsPage'
@@ -24,6 +30,13 @@ import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
+import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
+import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
+import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
+import Roles from '@rbac/pages/Roles/Roles'
+import UserGroups from '@rbac/pages/UserGroups/UsersGroups'
+import UsersPage from '@rbac/pages/Users/UsersPage'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -53,6 +66,12 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
   return <Redirect to={routes.toProjectResourcesConnectors(params)} />
+}
+
+const RedirectToAccessControlHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+
+  return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier })} />
 }
 
 export default (
@@ -131,6 +150,61 @@ export default (
       exact
     >
       <OrganizationDetailsPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={[routes.toAccessControl({ ...projectPathProps })]}
+      exact
+    >
+      <RedirectToAccessControlHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={ProjectDetailsSideNavProps} path={[routes.toUsers({ ...projectPathProps })]} exact>
+      <AccessControlPage>
+        <UsersPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={[routes.toUserGroups({ ...projectPathProps })]}
+      exact
+    >
+      <AccessControlPage>
+        <UserGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={[routes.toResourceGroups({ ...projectPathProps })]}
+      exact
+    >
+      <AccessControlPage>
+        <ResourceGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={ProjectDetailsSideNavProps} path={[routes.toRoles({ ...projectPathProps })]} exact>
+      <AccessControlPage>
+        <Roles />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={[routes.toRoleDetails({ ...projectPathProps, ...rolePathProps })]}
+      exact
+    >
+      <RoleDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={[routes.toResourceGroupDetails({ ...projectPathProps, ...resourceGroupPathProps })]}
+      exact
+    >
+      <ResourceGroupDetails />
     </RouteWithLayout>
   </>
 )

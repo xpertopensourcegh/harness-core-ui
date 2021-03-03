@@ -4,14 +4,7 @@ import { Redirect, useParams } from 'react-router-dom'
 import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
-import {
-  accountPathProps,
-  modulePathProps,
-  orgPathProps,
-  projectPathProps,
-  rolePathProps,
-  resourceGroupPathProps
-} from '@common/utils/routeUtils'
+import { accountPathProps, orgPathProps, rolePathProps, resourceGroupPathProps } from '@common/utils/routeUtils'
 
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -28,21 +21,16 @@ const AccountSettingsSideNavProps: SidebarContext = {
   title: 'Settings'
 }
 const RedirectToAccessControlHome = (): React.ReactElement => {
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams()
+  const { accountId, orgIdentifier } = useParams()
 
-  return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
+  return <Redirect to={routes.toUsers({ accountId, orgIdentifier })} />
 }
 
 export default (
   <>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toAccessControl({ ...accountPathProps }),
-        routes.toAccessControl({ ...orgPathProps }),
-        routes.toAccessControl({ ...projectPathProps }),
-        routes.toAccessControl({ ...projectPathProps, ...modulePathProps })
-      ]}
+      path={[routes.toAccessControl({ ...accountPathProps }), routes.toAccessControl({ ...orgPathProps })]}
       exact
     >
       <RedirectToAccessControlHome />
@@ -50,12 +38,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toUsers({ ...accountPathProps }),
-        routes.toUsers({ ...orgPathProps }),
-        routes.toUsers({ ...projectPathProps }),
-        routes.toUsers({ ...projectPathProps, ...modulePathProps })
-      ]}
+      path={[routes.toUsers({ ...accountPathProps }), routes.toUsers({ ...orgPathProps })]}
       exact
     >
       <AccessControlPage>
@@ -65,12 +48,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toUserGroups({ ...accountPathProps }),
-        routes.toUserGroups({ ...orgPathProps }),
-        routes.toUserGroups({ ...projectPathProps }),
-        routes.toUserGroups({ ...projectPathProps, ...modulePathProps })
-      ]}
+      path={[routes.toUserGroups({ ...accountPathProps }), routes.toUserGroups({ ...orgPathProps })]}
       exact
     >
       <AccessControlPage>
@@ -80,12 +58,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toResourceGroups({ ...accountPathProps }),
-        routes.toResourceGroups({ ...orgPathProps }),
-        routes.toResourceGroups({ ...projectPathProps }),
-        routes.toResourceGroups({ ...projectPathProps, ...modulePathProps })
-      ]}
+      path={[routes.toResourceGroups({ ...accountPathProps }), routes.toResourceGroups({ ...orgPathProps })]}
       exact
     >
       <AccessControlPage>
@@ -95,12 +68,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toRoles({ ...accountPathProps }),
-        routes.toRoles({ ...orgPathProps }),
-        routes.toRoles({ ...projectPathProps }),
-        routes.toRoles({ ...projectPathProps, ...modulePathProps })
-      ]}
+      path={[routes.toRoles({ ...accountPathProps }), routes.toRoles({ ...orgPathProps })]}
       exact
     >
       <AccessControlPage>
@@ -112,10 +80,7 @@ export default (
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toRoleDetails({ ...accountPathProps, ...rolePathProps }),
-        routes.toRoleDetails({ ...orgPathProps, ...rolePathProps }),
-        routes.toRoleDetails({ ...projectPathProps, ...rolePathProps }),
-        // TODO: MOVE MODULE ROUTES INSIDE THE MODULE
-        routes.toRoleDetails({ ...projectPathProps, ...modulePathProps, ...rolePathProps })
+        routes.toRoleDetails({ ...orgPathProps, ...rolePathProps })
       ]}
       exact
     >
@@ -125,9 +90,7 @@ export default (
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toResourceGroupDetails({ ...accountPathProps, ...resourceGroupPathProps }),
-        routes.toResourceGroupDetails({ ...orgPathProps, ...resourceGroupPathProps }),
-        routes.toResourceGroupDetails({ ...projectPathProps, ...resourceGroupPathProps }),
-        routes.toResourceGroupDetails({ ...projectPathProps, ...modulePathProps, ...resourceGroupPathProps })
+        routes.toResourceGroupDetails({ ...orgPathProps, ...resourceGroupPathProps })
       ]}
       exact
     >

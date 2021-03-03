@@ -103,6 +103,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       if (module && orgIdentifier && projectIdentifier) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control`
+      } else if (orgIdentifier && projectIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control`
       } else if (orgIdentifier) {
         return `/admin/organizations/${orgIdentifier}/access-control`
       }
@@ -113,6 +115,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       if (module && orgIdentifier && projectIdentifier) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/users`
+      } else if (orgIdentifier && projectIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/users`
       } else if (orgIdentifier) {
         return `/admin/organizations/${orgIdentifier}/access-control/users`
       }
@@ -123,6 +127,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       if (module && orgIdentifier && projectIdentifier) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/user-groups`
+      } else if (orgIdentifier && projectIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/user-groups`
       } else if (orgIdentifier) {
         return `/admin/organizations/${orgIdentifier}/access-control/user-groups`
       }
@@ -133,6 +139,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       if (module && orgIdentifier && projectIdentifier) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/resource-groups`
+      } else if (orgIdentifier && projectIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/resource-groups`
       } else if (orgIdentifier) {
         return `/admin/organizations/${orgIdentifier}/access-control/resource-groups`
       }
@@ -143,6 +151,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       if (module && orgIdentifier && projectIdentifier) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/roles`
+      } else if (orgIdentifier && projectIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/roles`
       } else if (orgIdentifier) {
         return `/admin/organizations/${orgIdentifier}/access-control/roles`
       }
@@ -158,6 +168,8 @@ const routes = {
     }: Partial<ProjectPathProps & ModulePathParams & RolePathProps>) => {
       if (module && orgIdentifier && projectIdentifier && roleIdentifier) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/roles/${roleIdentifier}`
+      } else if (orgIdentifier && projectIdentifier && roleIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/roles/${roleIdentifier}`
       } else if (orgIdentifier) {
         return `/admin/organizations/${orgIdentifier}/access-control/roles/${roleIdentifier}`
       }
@@ -173,6 +185,8 @@ const routes = {
     }: Partial<ProjectPathProps & ModulePathParams & ResourceGroupPathProps>) => {
       if (module && orgIdentifier && projectIdentifier && resourceGroupIdentifier) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/resource-groups/${resourceGroupIdentifier}`
+      } else if (orgIdentifier && projectIdentifier && resourceGroupIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/resource-groups/${resourceGroupIdentifier}`
       } else if (orgIdentifier) {
         return `/admin/organizations/${orgIdentifier}/access-control/resource-groups/${resourceGroupIdentifier}`
       }
