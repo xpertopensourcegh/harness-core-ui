@@ -197,11 +197,7 @@ describe('Wizard tests', () => {
       expect(queryByText(document.body, result.current.getString('addressErrorFields'))).not.toBeNull()
       expect(document.body.querySelectorAll('[icon="warning-sign"]')?.length).toEqual(2)
       fireEvent.click(tab2)
-      await waitFor(() =>
-        expect(
-          queryByText(document.body, result.current.getString('pipeline-triggers.conditionsPanel.subtitle'))
-        ).toBeDefined()
-      )
+      await waitFor(() => expect(document.querySelector('[name="numberOnly"]')).toBeTruthy())
       const numberOnly2 = container.querySelector('[name="numberOnly"]')
       if (!numberOnly2) {
         throw Error('cannot find numberOnly field')
