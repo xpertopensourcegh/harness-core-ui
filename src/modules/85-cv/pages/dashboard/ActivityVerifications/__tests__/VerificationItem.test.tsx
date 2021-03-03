@@ -99,7 +99,6 @@ describe('VerificationItem', () => {
         <VerificationItem item={MockItem} />
       </TestWrapper>
     )
-    expect(container).toMatchSnapshot()
     expect(getByText(MockItem.tag as string)).toBeDefined()
     expect(getByText(MockItem.serviceName as string)).toBeDefined()
 

@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import { ONBOARDING_ENTITIES, BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
-
-import { SETUP_INDEXDB_ID } from '@cv/constants'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { getRoutePathByType } from '@cv/utils/routeUtils'
 import { useIndexedDBHook, CVObjectStoreNames } from '../IndexedDBHook/IndexedDBHook'
@@ -31,13 +30,32 @@ interface UseCVTabsHookProps {
   totalTabs: number
 }
 
+function addItemToCache(sources: any[], item: any[]): any[] {
+  if (!sources?.length) {
+    return item
+  }
+
+  const existingIndex = sources.findIndex(source => {
+    if (!source.identifier) return
+    return source.identifier === item[0].identifier
+  })
+
+  if (existingIndex !== -1) {
+    sources[existingIndex] = item[0]
+  } else {
+    sources.push(item[0])
+  }
+
+  return sources
+}
+
 export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHookReturnType<T> {
   const [currentTab, setCurrentTab] = useState<number>(1)
   const [currentData, setCurrentData] = useState<T>()
   const [maxEnabledTab, setMaxEnabledTab] = useState<number>(1)
   const { showWarning } = useToaster()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
-
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
+  const entryKey = `${accountId}-${orgIdentifier}-${projectIdentifier}`
   const { isInitializingDB, dbInstance } = useIndexedDBHook({
     clearStroreList: [CVObjectStoreNames.ONBOARDING_SOURCES]
   })
@@ -95,7 +113,7 @@ export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHook
     onNext: async ({ data, prevTab, newTab }) => {
       if (props?.totalTabs === currentTab) {
         if (dbInstance) {
-          dbInstance.get(CVObjectStoreNames.SETUP, SETUP_INDEXDB_ID)?.then(async resultData => {
+          dbInstance.get(CVObjectStoreNames.SETUP, entryKey)?.then(async resultData => {
             const item = [
               {
                 type: data?.type,
@@ -110,24 +128,18 @@ export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHook
             ]
             try {
               await dbInstance.put(CVObjectStoreNames.SETUP, {
-                setupID: SETUP_INDEXDB_ID,
+                setupID: entryKey,
                 monitoringSources:
                   data?.sourceType === ONBOARDING_ENTITIES.MONITORING_SOURCE
-                    ? resultData?.monitoringSources
-                      ? resultData?.monitoringSources?.concat(item)
-                      : item
+                    ? addItemToCache(resultData?.monitoringSources, item)
                     : resultData?.monitoringSources,
                 activitySources:
                   data?.sourceType === ONBOARDING_ENTITIES.CHANGE_SOURCE
-                    ? resultData?.activitySources
-                      ? resultData?.activitySources?.concat(item)
-                      : item
+                    ? addItemToCache(resultData?.activitySources, item)
                     : resultData?.activitySources,
                 verificationJobs:
                   data?.sourceType === ONBOARDING_ENTITIES.VERIFICATION_JOBS
-                    ? resultData?.verificationJobs
-                      ? resultData?.verificationJobs?.concat(item)
-                      : item
+                    ? addItemToCache(resultData?.verificationJobs, item)
                     : resultData?.verificationJobs
               })
             } catch (e) {

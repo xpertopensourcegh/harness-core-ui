@@ -29,8 +29,4 @@ export const VerificationJobType: { [key: string]: AdditionalInfo['type'] } = {
   HEALTH: 'HEALTH'
 }
 
-export const connectorId = '7BgBODXQQtuHI4M7hh9PLA' //'WWF95JcuQ-azSNbH4zt-XQ'
-export const accountId = 'kmpySmUISimoRrJL6NL73w'
 export const appId = '_ia5NKUCSoytYrZJMM15mQ' //t0-jbpLoR7S2BTsNfsk4Iw'
-export const projectIdentifier = '12345'
-export const SETUP_INDEXDB_ID = 'setupIndexDBid'

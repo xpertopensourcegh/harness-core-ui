@@ -16,7 +16,6 @@ import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
 import { useIndexedDBHook, CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { SETUP_INDEXDB_ID } from '@cv/constants'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
@@ -410,9 +409,9 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   })
   const { data, loading, refetch, error } = useGetCVSetupStatus({
     queryParams: {
-      accountId: accountId,
-      projectIdentifier: projectIdentifier,
-      orgIdentifier: orgIdentifier
+      accountId,
+      projectIdentifier,
+      orgIdentifier
     },
     mock: props.setupStatusMockData
   })
@@ -440,33 +439,35 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   useEffect(() => {
     if (step) {
       if (!isInitializingDB && setUpDbInstance) {
-        setUpDbInstance.get(CVObjectStoreNames.SETUP, SETUP_INDEXDB_ID)?.then(resultData => {
-          if (resultData) {
-            setIndexDBData(resultData)
-          }
+        setUpDbInstance
+          .get(CVObjectStoreNames.SETUP, `${accountId}-${orgIdentifier}-${projectIdentifier}`)
+          ?.then(resultData => {
+            if (resultData) {
+              setIndexDBData(resultData)
+            }
 
-          if (step === '1') {
-            if (activeStep === Step.MONITORING_SOURCE) {
-              setChangeSource(Status.COMPLETED)
+            if (step === '1') {
+              if (activeStep === Step.MONITORING_SOURCE) {
+                setChangeSource(Status.COMPLETED)
+              }
             }
-          }
 
-          if (step === '2') {
-            if (activeStep === Step.CHANGE_SOURCE) {
-              setActiveStep(Step.MONITORING_SOURCE)
-              setMonitoringSource(Status.ACTIVE)
-              setChangeSource(Status.COMPLETED)
+            if (step === '2') {
+              if (activeStep === Step.CHANGE_SOURCE) {
+                setActiveStep(Step.MONITORING_SOURCE)
+                setMonitoringSource(Status.ACTIVE)
+                setChangeSource(Status.COMPLETED)
+              }
             }
-          }
-          if (step === '3') {
-            if (activeStep === Step.CHANGE_SOURCE) {
-              setActiveStep(Step.VERIFICATION_JOBS)
-              setVerificationJob(Status.COMPLETED)
-              setChangeSource(Status.COMPLETED)
-              setMonitoringSource(Status.COMPLETED)
+            if (step === '3') {
+              if (activeStep === Step.CHANGE_SOURCE) {
+                setActiveStep(Step.VERIFICATION_JOBS)
+                setVerificationJob(Status.COMPLETED)
+                setChangeSource(Status.COMPLETED)
+                setMonitoringSource(Status.COMPLETED)
+              }
             }
-          }
-        })
+          })
       }
     }
   }, [isInitializingDB, setUpDbInstance])
