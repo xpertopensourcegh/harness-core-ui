@@ -44,7 +44,7 @@ function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
 }
 
 function DNSCell(tableProps: CellProps<AccessPoint>): JSX.Element {
-  return <Text lineClamp={3}>{tableProps.row.original.metadata ? 'Route 53' : 'Others'}</Text>
+  return <Text lineClamp={3}>{tableProps.row.original.metadata?.dns?.route53 ? 'Route 53' : 'Others'}</Text>
 }
 function CloudAccountCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   return (
