@@ -71,6 +71,15 @@
   width: 400px;
   max-height: 200px;
   overflow: scroll;
+  :global {
+    .icon-container {
+      vertical-align: middle;
+    }
+    button.bp3-button {
+      width: 90%;
+      justify-content: flex-start;
+    }
+  }
 }
 
 .card-section {

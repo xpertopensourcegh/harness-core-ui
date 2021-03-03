@@ -265,18 +265,18 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           }}
         />
       )}
-      {getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name={`${path}.releaseName`}
-          label={i18n.releaseName}
-          placeholder={i18n.releaseNamePlaceholder}
-        />
-      )}
       {getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           name={`${path}.namespace`}
           label={i18n.nameSpaceLabel}
           placeholder={i18n.nameSpacePlaceholder}
+        />
+      )}
+      {getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME && (
+        <FormInput.Text
+          name={`${path}.releaseName`}
+          label={i18n.releaseName}
+          placeholder={i18n.releaseNamePlaceholder}
         />
       )}
     </Layout.Vertical>

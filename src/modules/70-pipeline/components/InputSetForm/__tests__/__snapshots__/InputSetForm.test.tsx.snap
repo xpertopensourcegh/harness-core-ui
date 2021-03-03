@@ -745,36 +745,6 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                           >
                                             <label
                                               class="bp3-label"
-                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                            >
-                                              Release name
-                                               
-                                              <span
-                                                class="bp3-text-muted"
-                                              />
-                                            </label>
-                                            <div
-                                              class="bp3-form-content"
-                                            >
-                                              <div
-                                                class="bp3-input-group"
-                                              >
-                                                <input
-                                                  autocomplete="off"
-                                                  class="bp3-input"
-                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                                  placeholder="Specify a release name"
-                                                  type="text"
-                                                  value=""
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div
-                                            class="bp3-form-group"
-                                          >
-                                            <label
-                                              class="bp3-label"
                                               for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                             >
                                               Namespace
@@ -794,6 +764,36 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                   class="bp3-input"
                                                   name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                                   placeholder="Specify a namespace"
+                                                  type="text"
+                                                  value=""
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="bp3-form-group"
+                                          >
+                                            <label
+                                              class="bp3-label"
+                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                            >
+                                              Release name
+                                               
+                                              <span
+                                                class="bp3-text-muted"
+                                              />
+                                            </label>
+                                            <div
+                                              class="bp3-form-content"
+                                            >
+                                              <div
+                                                class="bp3-input-group"
+                                              >
+                                                <input
+                                                  autocomplete="off"
+                                                  class="bp3-input"
+                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                                  placeholder="Specify a release name"
                                                   type="text"
                                                   value=""
                                                 />
@@ -2129,38 +2129,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                           </div>
                                           <div
                                             class="bp3-form-group"
-                                            data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-3"
-                                          >
-                                            <label
-                                              class="bp3-label"
-                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                            >
-                                              Release name
-                                               
-                                              <span
-                                                class="bp3-text-muted"
-                                              />
-                                            </label>
-                                            <div
-                                              class="bp3-form-content"
-                                            >
-                                              <div
-                                                class="bp3-input-group"
-                                              >
-                                                <input
-                                                  autocomplete="off"
-                                                  class="bp3-input"
-                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                                  placeholder="Specify a release name"
-                                                  type="text"
-                                                  value="asd"
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div
-                                            class="bp3-form-group"
-                                            data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-4"
+                                            data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-3"
                                           >
                                             <label
                                               class="bp3-label"
@@ -2183,6 +2152,37 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                   class="bp3-input"
                                                   name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                                   placeholder="Specify a namespace"
+                                                  type="text"
+                                                  value="asd"
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="bp3-form-group"
+                                            data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-4"
+                                          >
+                                            <label
+                                              class="bp3-label"
+                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                            >
+                                              Release name
+                                               
+                                              <span
+                                                class="bp3-text-muted"
+                                              />
+                                            </label>
+                                            <div
+                                              class="bp3-form-content"
+                                            >
+                                              <div
+                                                class="bp3-input-group"
+                                              >
+                                                <input
+                                                  autocomplete="off"
+                                                  class="bp3-input"
+                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                                  placeholder="Specify a release name"
                                                   type="text"
                                                   value="asd"
                                                 />

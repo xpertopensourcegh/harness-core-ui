@@ -340,36 +340,6 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                     >
                                       <label
                                         class="bp3-label"
-                                        for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                      >
-                                        Release name
-                                         
-                                        <span
-                                          class="bp3-text-muted"
-                                        />
-                                      </label>
-                                      <div
-                                        class="bp3-form-content"
-                                      >
-                                        <div
-                                          class="bp3-input-group"
-                                        >
-                                          <input
-                                            autocomplete="off"
-                                            class="bp3-input"
-                                            name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                            placeholder="Specify a release name"
-                                            type="text"
-                                            value="<+input>"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div
-                                      class="bp3-form-group"
-                                    >
-                                      <label
-                                        class="bp3-label"
                                         for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                       >
                                         Namespace
@@ -389,6 +359,36 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                             class="bp3-input"
                                             name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                             placeholder="Specify a namespace"
+                                            type="text"
+                                            value="<+input>"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="bp3-form-group"
+                                    >
+                                      <label
+                                        class="bp3-label"
+                                        for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                      >
+                                        Release name
+                                         
+                                        <span
+                                          class="bp3-text-muted"
+                                        />
+                                      </label>
+                                      <div
+                                        class="bp3-form-content"
+                                      >
+                                        <div
+                                          class="bp3-input-group"
+                                        >
+                                          <input
+                                            autocomplete="off"
+                                            class="bp3-input"
+                                            name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                            placeholder="Specify a release name"
                                             type="text"
                                             value="<+input>"
                                           />
