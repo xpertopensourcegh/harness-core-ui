@@ -1928,6 +1928,10 @@ ce:
       rules: 'Autostopping Rules'
     noData: 'No data available. Please check after sometime'
     autoStoppingRule:
+      providerSelector:
+        title: 'Let’s get you started'
+        description: 'Select the cloud account type'
+        cloudAccounts: 'CLOUD ACCOUNTS'
       configuration:
         pageName: 'Configuration'
       review:

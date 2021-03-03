@@ -138,11 +138,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-            label: 'Setup'
-          },
-          {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
+            url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
             label: getString('ce.co.breadCrumb.rules')
           },
           {
