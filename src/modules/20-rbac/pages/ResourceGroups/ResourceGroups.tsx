@@ -28,7 +28,6 @@ const ResourceGroups: React.FC = () => {
       ...defaultQueryParams
     }
   })
-
   const { openResourceGroupModal } = useResourceGroupModal({ onSuccess: refetch })
 
   return (
@@ -41,6 +40,7 @@ const ResourceGroups: React.FC = () => {
               intent="primary"
               icon="plus"
               onClick={() => openResourceGroupModal()}
+              data-testid="addNewResourceGroup"
             />
           </Layout.Horizontal>
         }

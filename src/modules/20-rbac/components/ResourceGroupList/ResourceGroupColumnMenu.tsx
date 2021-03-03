@@ -74,6 +74,7 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
       position={Position.RIGHT_TOP}
     >
       <Button
+        data-testid={`resourceGroupDetailsEditMenu${data.resourceGroup?.identifier}`}
         minimal
         icon="Options"
         iconProps={{ size: 20 }}
