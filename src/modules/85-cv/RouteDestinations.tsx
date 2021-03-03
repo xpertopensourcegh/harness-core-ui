@@ -7,7 +7,6 @@ import routes from '@common/RouteDefinitions'
 import {
   accountPathProps,
   projectPathProps,
-  cvDataSourceTypePathProps,
   connectorPathProps,
   secretPathProps,
   verificationPathProps
@@ -17,12 +16,7 @@ import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/Rout
 import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
-import DataSources from '@cv/pages/data-sources/DataSources'
 import CVServicesPage from '@cv/pages/services/CVServicesPage'
-import DataSourceSetupPage from '@cv/pages/onboarding/setup/DataSourceSetupPage'
-import DataSourceProductPage from '@cv/pages/onboarding/data-source-products/DataSourceProductPage'
-import SplunkInputType from '@cv/pages/onboarding/splunk-input-type/SplunkInputType'
-import DataSourceListEntityPage from '@cv/pages/onboarding/list-entity-select/DataSourceListEntityPage'
 import ActivitySourceSetup from '@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup'
 import MetricPackConfigure from '@cv/pages/metric-pack/MetricPackConfigure'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
@@ -118,56 +112,9 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVDataSources({ ...accountPathProps, ...projectPathProps })}
-    >
-      <DataSources />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
       path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
     >
       <CVServicesPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVOnBoardingSetup({ ...accountPathProps, ...projectPathProps, ...cvDataSourceTypePathProps })}
-    >
-      <DataSourceSetupPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVDataSourcesProductPage({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...cvDataSourceTypePathProps
-      })}
-    >
-      <DataSourceProductPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVSplunkInputTypePage({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...cvDataSourceTypePathProps
-      })}
-    >
-      <SplunkInputType />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVDataSourcesEntityPage({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...cvDataSourceTypePathProps
-      })}
-    >
-      <DataSourceListEntityPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
