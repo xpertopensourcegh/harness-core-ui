@@ -35,7 +35,7 @@ const modalPropsLight: IDialogProps = {
 
 interface DNSLinkSetupProps {
   gatewayDetails: GatewayDetails
-  setHelpTextSection: (s: string) => void
+  setHelpTextSections: (s: string[]) => void
   setGatewayDetails: (gw: GatewayDetails) => void
 }
 
@@ -151,7 +151,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
           usingCustomDomain: props.gatewayDetails.customDomains?.length ? 'yes' : 'no',
           customURL: props.gatewayDetails.customDomains?.join(','),
           publicallyAccessible: (accessDetails.dnsLink.public as string) || 'yes',
-          dnsProvider: customDomainProviderDetails && customDomainProviderDetails.route53 ? 'route53' : 'others',
+          dnsProvider: customDomainProviderDetails
+            ? customDomainProviderDetails.route53
+              ? 'route53'
+              : 'others'
+            : 'route53',
           route53Account:
             customDomainProviderDetails && customDomainProviderDetails.route53
               ? customDomainProviderDetails.route53.hosted_zone_id
@@ -174,8 +178,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   value="no"
                   onChange={e => {
                     formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
-                    if (e.currentTarget.value == 'no') props.setHelpTextSection('usingCustomDomain')
-                    else props.setHelpTextSection('usingCustomDomain')
+                    if (e.currentTarget.value == 'no') props.setHelpTextSections([])
                     formik.setFieldValue('customURL', '')
                     props.gatewayDetails.customDomains = []
                     props.setGatewayDetails(props.gatewayDetails)
@@ -204,8 +207,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   value="yes"
                   onChange={e => {
                     formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
-                    if (e.currentTarget.value == 'yes') props.setHelpTextSection('usingCustomDomain')
-                    else props.setHelpTextSection('usingCustomDomain')
                   }}
                   checked={formik.values.usingCustomDomain == 'yes'}
                   className={css.centerAlignedRadio}
@@ -217,6 +218,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     formik.setFieldValue('customURL', e.target.value)
                     props.gatewayDetails.customDomains = e.target.value.split(',')
                     props.setGatewayDetails(props.gatewayDetails)
+                    props.setHelpTextSections(['usingCustomDomain'])
                   }}
                   style={{ width: '100%' }}
                   disabled={formik.values.usingCustomDomain != 'yes'}
@@ -230,8 +232,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   name="publicallyAccessible"
                   onChange={e => {
                     formik.setFieldValue('publicallyAccessible', e.currentTarget.value)
-                    if (e.currentTarget.value == 'yes') props.setHelpTextSection('public-dns')
-                    else props.setHelpTextSection('private-dns')
                     accessDetails.dnsLink.public = e.currentTarget.value
                     props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
                     props.setGatewayDetails(props.gatewayDetails)
@@ -275,6 +275,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       onChange={e => {
                         formik.setFieldValue('dnsProvider', e.currentTarget.value)
                         setDNSProvider(e.currentTarget.value)
+                        if (e.currentTarget.value == 'others') {
+                          props.setHelpTextSections(['usingCustomDomain', 'dns-others'])
+                        } else {
+                          props.setHelpTextSections(['usingCustomDomain'])
+                        }
                       }}
                       selectedValue={formik.values.dnsProvider}
                     >

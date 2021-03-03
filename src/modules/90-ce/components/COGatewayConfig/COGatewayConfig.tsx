@@ -333,7 +333,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         <Container style={{ textAlign: 'right' }}>
           <Button icon="cross" minimal onClick={_ => setDrawerOpen(false)} />
         </Container>
-        <COHelpSidebar pageName="configuration" />
+        <COHelpSidebar pageName="configuration" activeSectionNames={[]} />
       </Drawer>
       <Container style={{ paddingTop: 10 }}>
         <Layout.Vertical spacing="large" padding="large">

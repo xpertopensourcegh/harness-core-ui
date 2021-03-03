@@ -59,7 +59,10 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
           }
         ]}
       />
-      <COFixedDrawer topMargin={35} content={<COHelpSidebar pageName={'provider-selector'} sectionName={''} />} />
+      <COFixedDrawer
+        topMargin={35}
+        content={<COHelpSidebar pageName={'provider-selector'} activeSectionNames={[]} />}
+      />
       <Container style={{ margin: '0 auto', paddingTop: 100, paddingLeft: 50 }}>
         <Layout.Vertical spacing="large" padding="large">
           <Heading className={css.title}>{getString('ce.co.autoStoppingRule.providerSelector.title')}</Heading>

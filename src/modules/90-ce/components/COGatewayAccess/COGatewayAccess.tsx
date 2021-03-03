@@ -29,7 +29,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
-  const [selectedHelpTextSection, setSelectedHelpTextSection] = useState<string>('')
+  const [selectedHelpTextSections, setSelectedHelpTextSections] = useState<string[]>([])
   const selectTab = (tabId: string) => {
     setSelectedTabId(tabId)
   }
@@ -80,7 +80,15 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     <Container className={css.page}>
       <COFixedDrawer
         topMargin={86}
-        content={<COHelpSidebar pageName={selectedHelpText} sectionName={selectedHelpTextSection} />}
+        content={
+          <COHelpSidebar
+            key={selectedHelpTextSections.join()}
+            pageName={selectedHelpText}
+            activeSectionNames={selectedHelpTextSections}
+            customDomain={props.gatewayDetails.customDomains?.join(',')}
+            hostName={props.gatewayDetails.hostName}
+          />
+        }
       />
       <Layout.Vertical spacing="large" padding="medium" style={{ marginLeft: '10px' }}>
         <Layout.Vertical spacing="small" padding="medium">
@@ -152,7 +160,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 panel={
                   <DNSLinkSetup
                     gatewayDetails={props.gatewayDetails}
-                    setHelpTextSection={setSelectedHelpTextSection}
+                    setHelpTextSections={setSelectedHelpTextSections}
                     setGatewayDetails={props.setGatewayDetails}
                   />
                 }
