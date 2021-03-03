@@ -16,9 +16,16 @@ import * as Yup from 'yup'
 import { get, isEmpty, isNil, noop, omit, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog, FormGroup, Intent } from '@blueprintjs/core'
-import { PipelineInfrastructure, useGetEnvironmentListForProject, EnvironmentYaml } from 'services/cd-ng'
+import { parse } from 'yaml'
+import { CompletionItemKind } from 'vscode-languageserver-types'
+import {
+  PipelineInfrastructure,
+  useGetEnvironmentListForProject,
+  EnvironmentYaml,
+  getEnvironmentListForProjectPromise
+} from 'services/cd-ng'
 import { StepViewType } from '@pipeline/exports'
-import { useStrings, UseStringsReturn } from 'framework/exports'
+import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/exports'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
@@ -27,8 +34,10 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { errorCheck } from '@common/utils/formikHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import css from './DeployEnvStep.module.scss'
 
+const logger = loggerFor(ModuleName.CD)
 export interface DeployEnvData extends Omit<PipelineInfrastructure, 'environmentRef'> {
   environmentRef?: string
 }
@@ -379,7 +388,60 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
   )
 }
 
+const EnvironmentRegex = /^.+stage\.spec\.infrastructure\.environmentRef$/
 export class DeployEnvironmentStep extends Step<DeployEnvData> {
+  lastFetched: number
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
+  constructor() {
+    super()
+    this.lastFetched = new Date().getTime()
+    this.invocationMap.set(EnvironmentRegex, this.getEnvironmentListForYaml.bind(this))
+  }
+
+  protected getEnvironmentListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.infrastructure.environmentRef', ''))
+      if (obj.type === 'Deployment') {
+        return getEnvironmentListForProjectPromise({
+          queryParams: {
+            accountId,
+            orgIdentifier,
+            projectIdentifier
+          }
+        }).then(response => {
+          const data =
+            response?.data?.content?.map(service => ({
+              label: service.name || '',
+              insertText: service.identifier || '',
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
   renderStep(props: StepProps<DeployEnvData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {

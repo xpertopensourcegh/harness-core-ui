@@ -11,18 +11,28 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { isEmpty, isNil, noop, omit, pick } from 'lodash-es'
+import { get, isEmpty, isNil, noop, omit, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog } from '@blueprintjs/core'
+import { parse } from 'yaml'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepViewType } from '@pipeline/exports'
-import { ServiceConfig, useGetServiceListForProject, ServiceYaml } from 'services/cd-ng'
-import { useStrings, UseStringsReturn } from 'framework/exports'
+import {
+  ServiceConfig,
+  useGetServiceListForProject,
+  ServiceYaml,
+  getServiceListForProjectPromise
+} from 'services/cd-ng'
+import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/exports'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+
+const logger = loggerFor(ModuleName.CD)
 export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
   serviceRef?: string
 }
@@ -323,8 +333,60 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
     </>
   )
 }
-
+const ServiceRegex = /^.+stage\.spec\.serviceConfig\.serviceRef$/
 export class DeployServiceStep extends Step<DeployServiceData> {
+  lastFetched: number
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
+  constructor() {
+    super()
+    this.lastFetched = new Date().getTime()
+    this.invocationMap.set(ServiceRegex, this.getServiceListForYaml.bind(this))
+  }
+
+  protected getServiceListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.serviceConfig.serviceRef', ''))
+      if (obj.type === 'Deployment') {
+        return getServiceListForProjectPromise({
+          queryParams: {
+            accountId,
+            orgIdentifier,
+            projectIdentifier
+          }
+        }).then(response => {
+          const data =
+            response?.data?.content?.map(service => ({
+              label: service.name || '',
+              insertText: service.identifier || '',
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
   renderStep(props: StepProps<DeployServiceData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
