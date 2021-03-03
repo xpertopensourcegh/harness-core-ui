@@ -43,6 +43,9 @@ const getStep = () => {
     failureInfo: {},
     executableResponses: [
       {
+        async: {
+          logKeys: ['key1', 'key2']
+        },
         taskChain: {
           taskId: 'id1',
           logKeys: ['key1', 'key2'],
@@ -121,7 +124,7 @@ describe('LogsContentUtils', () => {
         queryVars: {
           'X-Harness-Token': 'logsToken',
           accountID: 'accountId',
-          key: 'accountId/orgIdentifier/projectIdentifier/pipelineIdentifier/runSequence/stageIdentifier/stepIdentifier'
+          key: 'key1'
         }
       }
     ]

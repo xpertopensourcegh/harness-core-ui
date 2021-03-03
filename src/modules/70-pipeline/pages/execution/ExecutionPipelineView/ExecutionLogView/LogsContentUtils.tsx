@@ -67,15 +67,23 @@ export function createLogSection(
     }
 
     let key
+    let taskObj
     // NOTE: exception for Initialize/liteEngineTask
-    if (step?.stepType === LITE_ENGINE_TASK) {
-      // TODO: DTO
-      const taskObj = (step?.executableResponses?.find(item => item['task']) as any)?.task
-      key = taskObj?.logKeys?.[0]
+    switch (step?.stepType) {
+      case LITE_ENGINE_TASK:
+        // TODO: DTO
+        taskObj = (step?.executableResponses?.find(item => item['task']) as any)?.task
+        key = taskObj?.logKeys?.[0]
 
-      enableLogLoading = !!key && enableLogLoading
-    } else {
-      key = `${accountId}/${orgIdentifier}/${projectIdentifier}/${pipelineIdentifier}/${runSequence}/${stageIdentifier}/${step?.identifier}`
+        enableLogLoading = !!key && enableLogLoading
+        break
+      case 'dependency-service':
+        key = (step as any)?.logKeys?.[0]
+        break
+      default:
+        taskObj = (step?.executableResponses?.find(item => item['async']) as any)?.async
+        key = taskObj?.logKeys?.[0]
+        break
     }
 
     const queryVars = {
