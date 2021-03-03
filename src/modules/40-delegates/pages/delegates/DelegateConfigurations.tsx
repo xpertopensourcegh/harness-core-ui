@@ -3,13 +3,11 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Classes, Menu } from '@blueprintjs/core'
 import { Card, Text, Layout, Container, Button, FlexExpander, Color, Heading, Utils } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/exports'
-
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import type { DelegateProfileDetails, EmbeddedUser } from 'services/portal'
+import type { DelegateProfileDetails } from 'services/portal'
 import { useListDelegateProfilesNg, useDeleteDelegateProfileNg } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import { TimeAgo } from '@common/exports'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
@@ -132,27 +130,14 @@ export default function DelegateConfigurations(): JSX.Element {
             }}
           >
             <FlexExpander />
-            <Container>
-              <Text
-                style={{ fontSize: '8px', color: '#6B6D85', letterSpacing: '0.285714px', fontWeight: 500 }}
-                margin={{ bottom: 'small' }}
-              >
-                {getString('lastUpdated').toUpperCase()}
-              </Text>
-              <Container flex={{ align: 'center-center' }}>
-                <Text
-                  icon="person"
-                  tooltip={(profile as { lastUpdatedBy: EmbeddedUser })?.lastUpdatedBy?.name}
-                  iconProps={{ size: 16 }}
-                />
-                {/** TODO: Backend currently does not send back lastUpdated */}
-                <TimeAgo
-                  icon={undefined}
-                  time={Date.now()}
-                  style={{ color: '#9293AB', fontSize: '10px', letterSpacing: '0.375px', paddingLeft: '3px' }}
-                />
-              </Container>
-            </Container>
+          </Container>
+          <Container>
+            <Text
+              style={{ fontSize: '8px', color: '#6B6D85', letterSpacing: '0.285714px', fontWeight: 500 }}
+              margin={{ bottom: 'small' }}
+            >
+              {getString('delegate.numberOfDelegates')}:{profile.numberOfDelegates}
+            </Text>
           </Container>
         </Container>
       </Card>

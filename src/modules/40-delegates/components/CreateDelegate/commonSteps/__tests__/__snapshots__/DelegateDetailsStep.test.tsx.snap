@@ -185,7 +185,7 @@ exports[`Delgate Details StepWizard Click continue button 1`] = `
         <p
           class="StyledProps--font StyledProps--main preReqContent StyledProps--font-size-normal"
         >
-          You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Char
+          You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Chart
         </p>
         <div
           class="StyledProps--font StyledProps--main"
@@ -601,7 +601,7 @@ exports[`Delgate Details StepWizard render DelegateDetailsStep 1`] = `
         <p
           class="StyledProps--font StyledProps--main preReqContent StyledProps--font-size-normal"
         >
-          You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Char
+          You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Chart
         </p>
         <div
           class="StyledProps--font StyledProps--main"

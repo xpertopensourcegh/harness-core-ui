@@ -610,6 +610,8 @@ instanceFieldOptions:
   percentagePlaceHolder: 'Percentage'
   instanceHolder: 'Count'
 delegate:
+  numberOfDelegates: 'Number of delegates'
+  delegateSizeUndefined: 'Delegate Size is undefined'
   hostName: 'Hostname'
   useExistingSelectors: 'Use existing delegate selectors'
   verifyDelegateYamlCmnd: '$ kubectl apply -f harness-delegate.yaml'
@@ -663,7 +665,7 @@ delegate:
   downloadScript: 'Download Script'
   kubernetes:
     prerequisites: 'Kubernetes Prerequisites'
-    prerequisites_info1: 'You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Char'
+    prerequisites_info1: 'You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Chart'
     prerequisites_info2: 'If you are using Harness SaaS, your machine must be able to connect to Harness SaaS URL: '
     prerequisites_info3: 'Your Kubernetes cluster has unallocated resources required to run the Harness Delegate workload'
     prerequisites_worload1: 'Small (runs upto 250 concurrent tasks) - 1GB memory, 0.25 CPU, 1GB disk'

@@ -8942,6 +8942,7 @@ export interface DelegateProfileDetails {
   approvalRequired?: boolean
   startupScript?: string
   scopingRules?: ScopingRuleDetails[]
+  numberOfDelegates?: number
   selectors?: string[]
 }
 
@@ -8986,6 +8987,7 @@ export interface DelegateProfile {
   createdBy?: EmbeddedUser
   createdAt?: number
   lastUpdatedBy?: EmbeddedUser
+
   lastUpdatedAt: number
 }
 

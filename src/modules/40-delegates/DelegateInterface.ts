@@ -34,7 +34,7 @@ export interface DelegateProfile {
   approvalRequired?: boolean
   startupScript?: string
   selectors?: string[]
-  lastUpdatedAt?: string
+  lastUpdatedAt?: number
   scopingRules?: string[]
 }
 
