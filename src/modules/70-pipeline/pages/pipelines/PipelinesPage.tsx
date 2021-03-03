@@ -573,17 +573,19 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
               {getString('filters.noDataFound')}
             </Text>
           ) : (
-            <div className={css.noData}>
-              <Icon size={20} name="pipeline-ng"></Icon>
-              <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
-                {getString('pipeline-list.aboutPipeline')}
-              </Text>
+            <div className={css.noPipelineSection}>
+              <div className={css.noPipelineData}>
+                <Icon size={20} name="pipeline-ng"></Icon>
+                <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
+                  {getString('pipeline-list.aboutPipeline')}
+                </Text>
 
-              <Button
-                intent="primary"
-                onClick={() => goToPipeline()}
-                text={getString('pipeline-list.createPipeline')}
-              ></Button>
+                <Button
+                  intent="primary"
+                  onClick={() => goToPipeline()}
+                  text={getString('pipeline-list.createPipeline')}
+                ></Button>
+              </div>
             </div>
           )
         ) : view === Views.GRID ? (

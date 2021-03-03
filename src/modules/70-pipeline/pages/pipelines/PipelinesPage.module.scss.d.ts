@@ -27,5 +27,7 @@ declare const styles: {
   readonly pagination: string
   readonly loading: string
   readonly noData: string
+  readonly noPipelineSection: string
+  readonly noPipelineData: string
 }
 export default styles

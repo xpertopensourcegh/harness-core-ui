@@ -63,7 +63,12 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
               }}
             />
             <div>
-              <Button onClick={() => formikProps.submitForm()} intent="primary" text={getString('save')} />
+              <Button
+                data-id="service-save"
+                onClick={() => formikProps.submitForm()}
+                intent="primary"
+                text={getString('save')}
+              />
             </div>
           </Layout.Vertical>
         )}

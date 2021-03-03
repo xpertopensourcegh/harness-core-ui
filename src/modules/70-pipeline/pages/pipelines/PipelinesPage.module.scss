@@ -148,3 +148,11 @@
   align-items: center;
   margin: auto;
 }
+.noPipelineSection {
+  display: flex;
+  height: 80%;
+  .noPipelineData {
+    margin: auto;
+    text-align: center;
+  }
+}

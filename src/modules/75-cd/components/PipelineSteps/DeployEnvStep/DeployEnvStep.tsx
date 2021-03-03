@@ -106,7 +106,12 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
               </CardSelect>
             </FormGroup>
             <div>
-              <Button onClick={() => formikProps.submitForm()} intent="primary" text={getString('save')} />
+              <Button
+                data-id="environment-save"
+                onClick={() => formikProps.submitForm()}
+                intent="primary"
+                text={getString('save')}
+              />
             </div>
           </Layout.Vertical>
         )}
