@@ -184,9 +184,8 @@ export default function ArtifactsSelection({
     if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts.primary', null)
     }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {})
-    } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
+
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
   }
 
   const getSidecarPath = (): any => {
@@ -350,7 +349,7 @@ export default function ArtifactsSelection({
           }
         )
       } else {
-        artifacts['primary'] = {
+        set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {
           type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
           spec: {
             connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
@@ -358,7 +357,7 @@ export default function ArtifactsSelection({
             ...tagData,
             ...registryHostData
           }
-        }
+        })
       }
     } else {
       const sideCarObject: {
@@ -638,7 +637,7 @@ export default function ArtifactsSelection({
 
         <Layout.Vertical>
           <section>
-            {primaryArtifact && Object.keys(primaryArtifact).length > 0 && (
+            {primaryArtifact && (
               <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>
                 <div>
                   <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
@@ -777,7 +776,7 @@ export default function ArtifactsSelection({
         </Layout.Vertical>
       </Layout.Vertical>
       <Layout.Vertical>
-        {(!primaryArtifact || !Object.keys(primaryArtifact).length) && overrideSetIdentifier.length === 0 && (
+        {!primaryArtifact && overrideSetIdentifier.length === 0 && (
           <div className={css.rowItem}>
             <Text onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
