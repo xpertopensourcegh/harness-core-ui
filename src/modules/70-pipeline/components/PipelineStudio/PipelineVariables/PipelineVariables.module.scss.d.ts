@@ -2,8 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly pipelineVariables: string
+  readonly description: string
   readonly variableCard: string
-  readonly variablesContainer: string
   readonly header: string
   readonly content: string
   readonly stagesTree: string

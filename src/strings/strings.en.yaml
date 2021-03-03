@@ -1874,6 +1874,8 @@ variables:
   copyVariableName: copy variable name
   copyFqn: copy fully qualified name
 customVariables:
+  pipelineVariablesTitle: Pipeline Variables
+  pipelineVariablesDescription: Every aspect of the pipeline configuration is represented in pipeline variables and its corresponding values. These variables can be referenced within stages and step. Custom variables may be added whose values are prompted for during the execution of this pipeline
   title: Custom Variables
   variableAndType: '{{name}} [Type: {{type}}]'
 

@@ -5,7 +5,6 @@ import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '
 
 import { String } from 'framework/exports'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
-import { RightBar } from './RightBar/RightBar'
 import { PipelineContext } from './PipelineContext/PipelineContext'
 import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineSchemaContextProvider } from './PipelineSchema/PipelineSchemaContext'
@@ -95,7 +94,6 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
               toPipelineList={routePipelineList}
               toPipelineProject={routePipelineProject}
             />
-            <RightBar />
           </div>
         </PipelineVariablesContextProvider>
       </PipelineSchemaContextProvider>

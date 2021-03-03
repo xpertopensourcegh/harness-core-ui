@@ -18,7 +18,7 @@ import type { Failure } from 'services/pipeline-ng'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
-import { RightDrawer } from '../RightDrawer/RightDrawer'
+import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
 import { PipelineStudioView } from '../PipelineUtils'
@@ -273,64 +273,62 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
           history.push(newPath)
         }}
       />
-      <div>
-        <div className={css.titleBar}>
-          <div className={css.breadcrumbsMenu}>
-            <div className={css.pipelineNameContainer}>
-              <div>
-                <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
-                <Text className={css.pipelineName}>{pipeline?.name}</Text>
-                <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
-              </div>
+      <div className={css.titleBar}>
+        <div className={css.breadcrumbsMenu}>
+          <div className={css.pipelineNameContainer}>
+            <div>
+              <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
+              <Text className={css.pipelineName}>{pipeline?.name}</Text>
+              <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
             </div>
           </div>
+        </div>
 
-          <div className={css.pipelineStudioTitleContainer}>
-            <div className={css.optionBtns}>
-              <div
-                className={cx(css.item, { [css.selected]: !isYaml })}
-                onClick={() => handleViewChange(PipelineStudioView.ui)}
-              >
-                {getString('visual')}
-              </div>
-              <div
-                className={cx(css.item, { [css.selected]: isYaml })}
-                onClick={() => handleViewChange(PipelineStudioView.yaml)}
-              >
-                {getString('yaml')}
-              </div>
+        <div className={css.pipelineStudioTitleContainer}>
+          <div className={css.optionBtns}>
+            <div
+              className={cx(css.item, { [css.selected]: !isYaml })}
+              onClick={() => handleViewChange(PipelineStudioView.ui)}
+            >
+              {getString('visual')}
+            </div>
+            <div
+              className={cx(css.item, { [css.selected]: isYaml })}
+              onClick={() => handleViewChange(PipelineStudioView.yaml)}
+            >
+              {getString('yaml')}
             </div>
           </div>
-          <div>
-            <div className={css.savePublishContainer}>
-              {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
-              <div>
+        </div>
+        <div>
+          <div className={css.savePublishContainer}>
+            {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
+            <div>
+              <Button
+                minimal
+                intent="primary"
+                text={getString('save')}
+                onClick={saveAndPublish}
+                className={css.savePublishBtn}
+                icon="send-data"
+              />
+              <RunPipelineModal pipelineIdentifier={pipeline?.identifier || /* istanbul ignore next */ ''}>
                 <Button
-                  minimal
+                  data-testid="card-run-pipeline"
                   intent="primary"
-                  text={getString('save')}
-                  onClick={saveAndPublish}
-                  className={css.savePublishBtn}
-                  icon="send-data"
+                  icon="run-pipeline"
+                  disabled={isUpdated}
+                  className={css.runPipelineBtn}
+                  text={getString('runPipelineText')}
+                  tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
                 />
-                <RunPipelineModal pipelineIdentifier={pipeline?.identifier || /* istanbul ignore next */ ''}>
-                  <Button
-                    data-testid="card-run-pipeline"
-                    intent="primary"
-                    icon="run-pipeline"
-                    disabled={isUpdated}
-                    className={css.runPipelineBtn}
-                    text={getString('runPipelineText')}
-                    tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
-                  />
-                </RunPipelineModal>
-              </div>
+              </RunPipelineModal>
             </div>
           </div>
         </div>
       </div>
       {isYaml ? <PipelineYamlView /> : <StageBuilder />}
-      <RightDrawer />
+      <RightBar />
     </div>
   )
 }

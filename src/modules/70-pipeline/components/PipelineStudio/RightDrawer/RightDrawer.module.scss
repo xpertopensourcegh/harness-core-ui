@@ -1,3 +1,6 @@
+$right-bar-width: 60px;
+$top-offset: 110px;
+
 .main {
   overflow-y: auto;
   display: flex;
@@ -6,6 +9,8 @@
   :global(.bp3-drawer-header) {
     margin: 0 var(--spacing-large);
     padding: var(--spacing-medium) 0 !important;
+    box-shadow: none;
+    border-bottom: 1px solid var(--grey-300);
   }
 
   .title {
@@ -14,6 +19,22 @@
 
     :global(.bp3-icon) {
       margin-right: var(--spacing-small);
+
+      &[data-icon='conditional-skip'] path {
+        fill: currentColor !important;
+      }
+    }
+  }
+
+  &.almostFullScreen {
+    top: $top-offset;
+    right: $right-bar-width;
+    overflow: initial;
+    box-shadow: none;
+
+    :global(.bp3-drawer-header) {
+      margin: 0 !important;
+      padding: var(--spacing-medium) var(--spacing-large) !important;
     }
   }
 }
@@ -25,4 +46,37 @@
   .bp3-overlay.bp3-overlay-inline {
     overflow-x: hidden;
   }
+}
+
+.almostFullScreenPortal {
+  &::before {
+    content: '';
+    position: fixed;
+    display: block;
+    top: 0;
+    right: 0;
+    width: $right-bar-width;
+    height: $top-offset;
+    background-color: rgba(16, 22, 26, 0.7);
+    z-index: 20;
+    user-select: none;
+    opacity: 0.94;
+  }
+
+  :global {
+    .bp3-overlay,
+    .bp3-overlay-backdrop {
+      right: $right-bar-width;
+    }
+  }
+}
+
+.almostFullScreenCloseBtn:global(.bp3-button.bp3-minimal) {
+  position: absolute;
+  right: 100%;
+  top: 0;
+  background: #00ade4 !important;
+  opacity: 0.5;
+  color: var(--white) !important;
+  border-radius: 4px 0 0 4px !important;
 }

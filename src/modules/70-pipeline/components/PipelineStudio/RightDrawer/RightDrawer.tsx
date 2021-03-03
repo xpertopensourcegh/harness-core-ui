@@ -1,9 +1,12 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
-import { Icon } from '@wings-software/uicore'
+import { Icon, Button } from '@wings-software/uicore'
 import { isNil, isEmpty } from 'lodash-es'
+import cx from 'classnames'
+
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 
+import { useStrings } from 'framework/exports'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -21,6 +24,12 @@ import { StepWidget } from '../../AbstractSteps/StepWidget'
 import SkipCondition from '../SkipCondition/SkipCondition'
 
 import css from './RightDrawer.module.scss'
+
+export const AlmostFullScreenDrawers: DrawerTypes[] = [
+  DrawerTypes.PipelineVariables,
+  DrawerTypes.PipelineNotifications,
+  DrawerTypes.FlowControl
+]
 
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
@@ -41,10 +50,47 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
+  const formikRef = React.useRef<StepFormikRef | null>(null)
+  const { getString } = useStrings()
+  const isAlmostFullscreen = AlmostFullScreenDrawers.includes(type)
+  let title: React.ReactNode | null = null
+
   if (data?.stepConfig?.isStepGroup) {
     stepData = stepsFactory.getStepData(StepType.StepGroup)
   }
-  const formikRef = React.useRef<StepFormikRef | null>(null)
+
+  if (stepData) {
+    title = (
+      <div className={css.title}>
+        <Icon name={stepsFactory.getStepIcon(stepData?.type || /* istanbul ignore next */ '')} />
+        {stepData?.name}
+      </div>
+    )
+  } else {
+    switch (type) {
+      case DrawerTypes.FailureStrategy:
+        title = (
+          <div className={css.title}>
+            <Icon name="failure-strategy" size={40} />
+            {getString('stageName', selectedStage?.stage)} / {getString('failureStrategy.title')}
+          </div>
+        )
+        break
+      case DrawerTypes.SkipCondition:
+        title = (
+          <div className={css.title}>
+            <Icon name="conditional-skip" size={20} />
+            {getString('stageName', selectedStage?.stage)} / {getString('skipConditionTitle')}
+          </div>
+        )
+        break
+      case DrawerTypes.PipelineNotifications:
+        title = getString('notifications')
+        break
+      default:
+        title = null
+    }
+  }
 
   return (
     <Drawer
@@ -70,18 +116,27 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       size={DrawerSizes[type]}
       isOpen={isDrawerOpened}
       position={Position.RIGHT}
-      title={
-        stepData ? (
-          <div className={css.title}>
-            <Icon name={stepsFactory.getStepIcon(stepData?.type || /* istanbul ignore next */ '')} />
-            {stepData?.name}
-          </div>
-        ) : null
-      }
-      className={css.main}
+      title={title}
+      data-type={type}
+      className={cx(css.main, { [css.almostFullScreen]: isAlmostFullscreen })}
       {...restDrawerProps}
       {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
+      isCloseButtonShown={!isAlmostFullscreen}
+      // BUG: https://github.com/palantir/blueprint/issues/4519
+      // you must pass only a single classname, not even an empty string, hence passing a dummy class
+      // "classnames" package cannot be used here because it returns an empty string when no classes are applied
+      portalClassName={isAlmostFullscreen ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'}
     >
+      {isAlmostFullscreen ? (
+        <Button
+          minimal
+          className={css.almostFullScreenCloseBtn}
+          icon="cross"
+          onClick={() => {
+            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+          }}
+        />
+      ) : null}
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
           step={data.stepConfig.node}
@@ -192,7 +247,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.FailureStrategy && selectedStageId ? (
         <FailureStrategy
-          selectedStage={selectedStage || {}}
+          selectedStage={selectedStage}
           onUpdate={({ failureStrategies }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
             if (pipelineStage && pipelineStage.stage) {

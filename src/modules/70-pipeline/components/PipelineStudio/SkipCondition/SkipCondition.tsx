@@ -1,9 +1,7 @@
 import React from 'react'
-import { Classes, H4 } from '@blueprintjs/core'
+import { Classes } from '@blueprintjs/core'
 import { Formik } from 'formik'
 import { debounce } from 'lodash-es'
-
-import { useStrings } from 'framework/exports'
 
 import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
@@ -19,7 +17,6 @@ export interface SkipConditionProps {
 }
 
 export default function SkipCondition(props: SkipConditionProps): React.ReactElement {
-  const { getString } = useStrings()
   const {
     selectedStage: { stage },
     onUpdate
@@ -35,22 +32,9 @@ export default function SkipCondition(props: SkipConditionProps): React.ReactEle
       onSubmit={onUpdate}
       validate={debouncedUpdate}
     >
-      {() => {
-        return (
-          <React.Fragment>
-            <div className={Classes.DRAWER_HEADER}>
-              <H4>
-                {getString('stageName', stage)} / {getString('skipConditionTitle')}
-              </H4>
-            </div>
-            <div className={Classes.DRAWER_BODY}>
-              <div className={Classes.DIALOG_BODY}>
-                <SkipConditionsPanel mode={Modes.STAGE} />
-              </div>
-            </div>
-          </React.Fragment>
-        )
-      }}
+      <div className={Classes.DIALOG_BODY}>
+        <SkipConditionsPanel mode={Modes.STAGE} />
+      </div>
     </Formik>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NestedAccordionProvider, useNestedAccordion, Button } from '@wings-software/uicore'
+import { NestedAccordionProvider, useNestedAccordion } from '@wings-software/uicore'
 import type { ITreeNode } from '@blueprintjs/core'
 
 import { get } from 'lodash-es'
@@ -16,15 +16,13 @@ import StagesTree, { stagesTreeNodeClasses } from '../../StagesThree/StagesTree'
 import PipelineCard from './Cards/PipelineCard'
 import StageCard from './Cards/StageCard'
 
-import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './PipelineVariables.module.scss'
 
 export const PipelineVariables: React.FC = (): JSX.Element => {
   const {
     updatePipeline,
     stepsFactory,
-    state: { pipeline: originalPipeline, pipelineView },
-    updatePipelineView
+    state: { pipeline: originalPipeline }
   } = usePipelineContext()
   const { variablesPipeline, metadataMap, error, initLoading } = usePipelineVariables()
 
@@ -78,54 +76,44 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
 
   return (
     <div className={css.pipelineVariables}>
-      <div className={css.variablesContainer}>
-        <div className={css.header}>
-          <String stringID="variablesText" />
-          <Button
-            minimal
-            icon="cross"
-            onClick={() => {
-              updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-            }}
+      {error ? (
+        <PageError message={error.message || (error as string)} />
+      ) : (
+        <div className={css.content}>
+          <StagesTree
+            className={css.stagesTree}
+            contents={nodes}
+            selectedId={selectedTreeNodeId}
+            selectionChange={handleSelectionChange}
           />
-        </div>
-        {error ? (
-          <PageError message={error.message || (error as string)} />
-        ) : (
-          <div className={css.content}>
-            <StagesTree
-              className={css.stagesTree}
-              contents={nodes}
-              selectedId={selectedTreeNodeId}
-              selectionChange={handleSelectionChange}
-            />
-            <div className={css.variableList}>
-              <String stringID="pipeline" className={css.title} />
-              <div className={css.variableListHeader}>
-                <String stringID="variableLabel" />
-                <String stringID="valueLabel" />
-              </div>
-              <PipelineCard
-                pipeline={variablesPipeline}
-                originalPipeline={originalPipeline}
-                stepsFactory={stepsFactory}
-                updatePipeline={updatePipeline}
-                metadataMap={metadataMap}
-              />
-              {stagesCards.length > 0 ? (
-                <React.Fragment>
-                  <String stringID="stages" className={css.title} />
-                  <div className={css.variableListHeader}>
-                    <String stringID="variableLabel" />
-                    <String stringID="valueLabel" />
-                  </div>
-                  {stagesCards}
-                </React.Fragment>
-              ) : null}
+          <div className={css.variableList}>
+            <String tagName="h4" className="bp3-heading" stringID="customVariables.pipelineVariablesTitle" />
+            <String className={css.description} stringID="customVariables.pipelineVariablesDescription" />
+            <String stringID="pipeline" className={css.title} />
+            <div className={css.variableListHeader}>
+              <String stringID="variableLabel" />
+              <String stringID="valueLabel" />
             </div>
+            <PipelineCard
+              pipeline={variablesPipeline}
+              originalPipeline={originalPipeline}
+              stepsFactory={stepsFactory}
+              updatePipeline={updatePipeline}
+              metadataMap={metadataMap}
+            />
+            {stagesCards.length > 0 ? (
+              <React.Fragment>
+                <String stringID="stages" className={css.title} />
+                <div className={css.variableListHeader}>
+                  <String stringID="variableLabel" />
+                  <String stringID="valueLabel" />
+                </div>
+                {stagesCards}
+              </React.Fragment>
+            ) : null}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

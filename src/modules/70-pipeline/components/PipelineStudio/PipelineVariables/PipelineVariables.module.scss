@@ -1,9 +1,9 @@
 .pipeline-variables {
-  --variable-column1: 300px;
-  --variable-column2: 100px;
-  --variable-column3: 1fr;
-
   height: 100%;
+
+  .description {
+    font-size: var(--font-size-small);
+  }
 
   .variable-card {
     width: 100%;
@@ -11,67 +11,59 @@
     margin-bottom: var(--spacing-large);
   }
 
-  .variables-container {
-    overflow-x: auto;
-    display: grid;
-    grid-template-rows: 75px 1fr;
-    height: 100%;
+  .header {
+    padding: var(--spacing-xlarge) var(--spacing-large);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+    border-bottom: 1px solid var(--grey-200);
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .header {
-      padding: var(--spacing-xlarge) var(--spacing-large);
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-      border-bottom: 1px solid var(--grey-200);
-      display: flex;
-      justify-content: space-between;
+  .content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+
+    .stages-tree {
+      margin-top: var(--spacing-large);
+      margin-right: var(--spacing-large);
     }
 
-    .content {
-      display: grid;
-      grid-template-columns: 250px 1fr;
-      height: calc(100vh - 139px);
+    .variable-list {
+      padding: 35px;
+      background-color: var(--grey-200);
+      overflow-y: auto;
+      height: 100%;
 
-      .stages-tree {
-        margin-top: var(--spacing-large);
-        margin-right: var(--spacing-large);
+      .stage-title {
+        display: flex;
+        align-items: center;
+
+        &::before {
+          content: '';
+          display: block;
+          width: 13px;
+          height: 13px;
+          background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
+          opacity: 0.6;
+          border-radius: 3px;
+          margin-right: var(--spacing-small);
+        }
       }
 
-      .variable-list {
-        padding: 35px;
-        background-color: var(--grey-200);
-        overflow-y: auto;
-        height: 100%;
+      :global(.Accordion--panel) {
+        background-color: transparent;
+      }
 
-        .stage-title {
-          display: flex;
-          align-items: center;
+      :global(.Accordion--panel + .Accordion--panel) {
+        margin-top: var(--spacing-medium);
+      }
 
-          &::before {
-            content: '';
-            display: block;
-            width: 13px;
-            height: 13px;
-            background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
-            opacity: 0.6;
-            border-radius: 3px;
-            margin-right: var(--spacing-small);
-          }
-        }
+      :global(.Accordion--summary) {
+        border-bottom: 1px solid var(--grey-250);
+      }
 
-        :global(.Accordion--panel) {
-          background-color: transparent;
-        }
-
-        :global(.Accordion--panel + .Accordion--panel) {
-          margin-top: var(--spacing-medium);
-        }
-
-        :global(.Accordion--summary) {
-          border-bottom: 1px solid var(--grey-250);
-        }
-
-        :global(.Accordion--details) {
-          padding-top: var(--spacing-medium);
-        }
+      :global(.Accordion--details) {
+        padding-top: var(--spacing-medium);
       }
     }
   }

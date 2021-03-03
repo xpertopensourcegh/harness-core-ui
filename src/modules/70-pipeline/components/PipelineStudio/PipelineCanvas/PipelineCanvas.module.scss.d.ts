@@ -2,10 +2,6 @@
 // this is an auto-generated file
 declare const styles: {
   readonly content: string
-  readonly topBar: string
-  readonly topButtons: string
-  readonly selected: string
-  readonly savePublishBtn: string
   readonly dialog: string
   readonly titleBar: string
   readonly breadcrumbsMenu: string
@@ -14,10 +10,11 @@ declare const styles: {
   readonly rectangle: string
   readonly optionBtns: string
   readonly item: string
+  readonly selected: string
   readonly savePublishContainer: string
   readonly tagRender: string
   readonly runPipelineBtn: string
-  readonly rightSideBottom: string
+  readonly savePublishBtn: string
   readonly pipelineNameContainer: string
   readonly pipelineName: string
   readonly pipelineIcon: string

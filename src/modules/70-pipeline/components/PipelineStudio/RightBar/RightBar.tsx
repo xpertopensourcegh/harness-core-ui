@@ -37,6 +37,7 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
+import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './RightBar.module.scss'
 
 interface CodebaseValues {
@@ -234,7 +235,6 @@ export const RightBar = (): JSX.Element => {
   const { getString } = useStrings()
   return (
     <div className={css.rightBar}>
-      <div />
       {typeof codebaseStatus !== 'undefined' &&
         selectedProject?.modules &&
         selectedProject.modules.indexOf?.('CI') > -1 &&
@@ -261,7 +261,7 @@ export const RightBar = (): JSX.Element => {
 
       <Button
         className={cx(css.iconButton, css.notificationsIcon, {
-          [css.selected]: type === DrawerTypes.PipelineVariables
+          [css.selected]: type === DrawerTypes.PipelineNotifications
         })}
         onClick={() => {
           updatePipelineView({
@@ -280,7 +280,7 @@ export const RightBar = (): JSX.Element => {
       {isFlowControlEnabled && (
         <Button
           className={cx(css.iconButton, css.flowControlIcon, {
-            [css.selected]: type === DrawerTypes.PipelineVariables
+            [css.selected]: type === DrawerTypes.FlowControl
           })}
           onClick={() => {
             updatePipelineView({
@@ -304,7 +304,7 @@ export const RightBar = (): JSX.Element => {
           updatePipelineView({
             ...pipelineView,
             isDrawerOpened: true,
-            drawerData: { type: DrawerTypes.PipelineVariables, size: '100%', hasBackdrop: true },
+            drawerData: { type: DrawerTypes.PipelineVariables },
             isSplitViewOpen: false,
             splitViewData: {}
           })
@@ -414,6 +414,7 @@ export const RightBar = (): JSX.Element => {
           </Formik>
         </Dialog>
       )}
+      <RightDrawer />
     </div>
   )
 }

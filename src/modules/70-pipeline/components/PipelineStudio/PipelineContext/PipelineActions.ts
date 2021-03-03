@@ -33,17 +33,18 @@ export enum DrawerTypes {
   FlowControl = 'FlowControl'
 }
 
-export const DrawerSizes: { [key: string]: React.CSSProperties['width'] } = {
-  StepConfig: 600,
-  AddCommand: 700,
-  PipelineVariables: 450,
-  Templates: 450,
-  ExecutionStrategy: 1000,
-  AddService: 485,
-  ConfigureService: 600,
-  FailureStrategy: 600,
-  PipelineNotifications: '100%',
-  SkipCondition: 600
+export const DrawerSizes: Record<DrawerTypes, React.CSSProperties['width']> = {
+  [DrawerTypes.StepConfig]: 600,
+  [DrawerTypes.AddStep]: 700,
+  [DrawerTypes.PipelineVariables]: 'calc(100% - 270px)',
+  [DrawerTypes.Templates]: 450,
+  [DrawerTypes.ExecutionStrategy]: 1000,
+  [DrawerTypes.AddService]: 485,
+  [DrawerTypes.ConfigureService]: 600,
+  [DrawerTypes.FailureStrategy]: 600,
+  [DrawerTypes.PipelineNotifications]: 'calc(100% - 270px)',
+  [DrawerTypes.SkipCondition]: 600,
+  [DrawerTypes.FlowControl]: 600
 }
 
 export enum SplitViewTypes {

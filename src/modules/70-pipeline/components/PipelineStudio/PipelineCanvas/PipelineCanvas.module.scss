@@ -1,51 +1,22 @@
 .content {
   display: grid;
   grid-template-rows: 48px 1fr;
+  grid-template-columns: 1fr 60px;
   height: 100%;
   position: relative;
   overflow: hidden;
-
-  .top-bar {
-    display: grid;
-    grid-template-columns: 1fr 125px 173px;
-    align-items: center;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-    border-bottom: 1px solid var(--pipeline-light-grey);
-    .topButtons {
-      width: 56px;
-      border-radius: 14px;
-      background-color: var(--white);
-      display: inline-block;
-      font-size: 10px;
-      text-align: center;
-      color: #b1b1b1;
-      border: 1px solid var(--pipeline-grey-border);
-      margin-left: 12px;
-      padding-top: 2px;
-
-      &.selected {
-        color: var(--white);
-        cursor: not-allowed;
-        box-shadow: 0px 0px inset rgba(0, 0, 0, 0.5);
-        background-color: rgba(12, 48, 88, 0.4);
-      }
-    }
-
-    .savePublishBtn {
-      width: 153px;
-      height: 26px;
-      border: 1px solid var(--blue-300) !important;
-      color: var(--pipeline-blue-color) !important;
-      border-radius: 4px;
-    }
-  }
 }
+
 .dialog {
   width: 910px;
 }
+
 .titleBar {
-  display: grid;
-  grid-template-columns: 1fr 0 1fr;
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid var(--pipeline-light-grey);
   padding: 0px var(--spacing-large);
   background-color: var(--white);
@@ -56,7 +27,7 @@
 }
 .pipelineStudioTitleContainer {
   text-align: center;
-  height: 40px;
+
   .pipelineStudioTitle {
     display: grid;
     justify-content: center;
@@ -99,14 +70,9 @@
 
   .optionBtns {
     display: inline-block;
-    border-radius: 10px;
-    margin: 12px 0;
     font-size: var(--font-size-xsmall);
     line-height: 14px;
     width: 132px;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
 
     .item {
       display: inline-block;
@@ -161,18 +127,6 @@
     border: 1px solid var(--blue-300) !important;
     color: var(--pipeline-blue-color) !important;
     border-radius: 4px;
-  }
-}
-
-.rightSideBottom {
-  display: flex;
-  justify-content: flex-end;
-
-  button {
-    span:last-child {
-      // TODO: Replace color once it is available in UIKit
-      color: #0092e4 !important;
-    }
   }
 }
 
