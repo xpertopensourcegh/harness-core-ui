@@ -30,10 +30,10 @@ interface NameIdProps {
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
 }
 
-const NameId = (props: NameIdProps): JSX.Element => {
-  const { identifierProps, nameLabel = 'Name' } = props
+export const NameId = (props: NameIdProps): JSX.Element => {
   const { getString } = useStrings()
-  return <FormInput.InputWithIdentifier inputLabel={nameLabel || getString('name')} {...identifierProps} />
+  const { identifierProps, nameLabel = getString('name') } = props
+  return <FormInput.InputWithIdentifier inputLabel={nameLabel} {...identifierProps} />
 }
 
 const Description = (props: DescriptionComponentProps): JSX.Element => {

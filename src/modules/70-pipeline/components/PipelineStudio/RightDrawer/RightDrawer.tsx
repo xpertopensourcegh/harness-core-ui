@@ -16,6 +16,7 @@ import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
+import { FlowControl } from '../FlowControl/FlowControl'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
 import SkipCondition from '../SkipCondition/SkipCondition'
 
@@ -79,6 +80,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       }
       className={css.main}
       {...restDrawerProps}
+      {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
     >
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
@@ -187,6 +189,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.Templates && <PipelineTemplates />}
       {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
+      {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.FailureStrategy && selectedStageId ? (
         <FailureStrategy
           selectedStage={selectedStage || {}}

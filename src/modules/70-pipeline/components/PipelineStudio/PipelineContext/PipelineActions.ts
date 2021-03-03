@@ -29,7 +29,8 @@ export enum DrawerTypes {
   ConfigureService = 'ConfigureService',
   FailureStrategy = 'FailureStrategy',
   PipelineNotifications = 'PipelineNotifications',
-  SkipCondition = 'SkipCondition'
+  SkipCondition = 'SkipCondition',
+  FlowControl = 'FlowControl'
 }
 
 export const DrawerSizes: { [key: string]: React.CSSProperties['width'] } = {

@@ -147,7 +147,6 @@ tbd: TBD
 applyChanges: Apply Changes
 createViaYaml: Create via YAML Builder
 notifications: Notifications
-flowControl: Flow Control
 numberOfServices: 'Number of Services'
 saveAndPublish: Save and Publish
 unsavedChanges: Unsaved changes
@@ -564,6 +563,11 @@ roleForm:
 roleDetails:
   permissionUpdatedSuccess: Permissions updated succesfully
   noDataText: You have no Roles. Click the button below to create a new one.
+barriers:
+  syncBarriers: Synchronization Barriers
+  flowControl: Flow Control
+  addBarrier: + Add Barrier
+
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'
