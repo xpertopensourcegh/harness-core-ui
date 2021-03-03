@@ -6,6 +6,7 @@ import { Router, Route, Switch, useLocation, useHistory } from 'react-router-dom
 import { ModalProvider } from '@wings-software/uicore'
 import qs from 'qs'
 
+import { enableMapSet } from 'immer'
 import strings from 'strings/strings.en.yaml'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
@@ -85,6 +86,7 @@ export function BrowserView(props: BrowserViewProps): React.ReactElement {
 }
 
 export const TestWrapper: React.FC<TestWrapperProps> = props => {
+  enableMapSet()
   const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {} } = props
 
   const search = qs.stringify(queryParams, { addQueryPrefix: true })
