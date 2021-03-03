@@ -13,9 +13,10 @@ import {
   IconName,
   Color,
   CardSelect,
-  Container
+  Container,
+  ButtonProps
 } from '@wings-software/uicore'
-import { useCreateEnvironment } from 'services/cd-ng'
+import { ResponseEnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { EnvironmentType } from '@common/constants/EnvironmentType'
@@ -28,9 +29,10 @@ const collapseProps = {
   isRemovable: false
 }
 
-interface EnvironmentDialogProps {
+export interface EnvironmentDialogProps {
   disabled?: boolean
-  onCreate: () => void
+  onCreate: (response?: ResponseEnvironmentResponseDTO) => void
+  buttonProps?: ButtonProps
 }
 
 interface EnvironmentValues {
@@ -43,7 +45,7 @@ interface EnvironmentValues {
 
 const identity = (x: any) => x as string
 
-const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreate }) => {
+const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreate, buttonProps }) => {
   const { showError, clear } = useToaster()
   const { getString, getEnvString } = useEnvStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
@@ -84,8 +86,10 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
       type: values.type,
       tags: values.tags.length > 0 ? values.tags.reduce((acc, next) => ({ ...acc, [next]: next }), {}) : {}
     })
-      .then(hideModal)
-      .then(onCreate)
+      .then(response => {
+        hideModal()
+        onCreate(response)
+      })
       .catch(error => {
         showError(get(error, 'data.message') || error?.message, 0)
       })
@@ -213,6 +217,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
         left: 'huge',
         right: 'huge'
       }}
+      {...buttonProps}
     />
   )
 }

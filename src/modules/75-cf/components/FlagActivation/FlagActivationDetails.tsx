@@ -713,10 +713,11 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             <Menu style={{ minWidth: 'unset' }}>
               <Menu.Item icon="edit" text={getString('edit')} onClick={openEditDetailsModal} />
               <Menu.Item
+                disabled
                 icon="archive"
                 text={getString('archive')}
                 onClick={archiveFlag}
-                style={{ display: 'none ' }} // TODO: Backend is not yet support archiving flag.
+                title={getString('cf.featureNotReady')}
               />
               <Menu.Divider />
               <Menu.Item icon="trash" text={getString('delete')} onClick={deleteFlag} />

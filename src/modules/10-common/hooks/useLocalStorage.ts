@@ -11,7 +11,7 @@ export function useLocalStorage<T>(key: string, initalValue: T): [T, Dispatch<Se
     try {
       const item = window.localStorage.getItem(key)
 
-      return item ? JSON.parse(item) : initalValue
+      return item && item !== 'undefined' ? JSON.parse(item) : initalValue
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e)

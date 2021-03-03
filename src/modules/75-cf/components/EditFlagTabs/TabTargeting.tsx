@@ -3,17 +3,21 @@ import {
   Layout,
   Button,
   Text,
-  Container,
   Formik,
   FormikForm as Form,
   FormInput,
-  useModalHook
+  useModalHook,
+  FlexExpander
 } from '@wings-software/uicore'
-import { Dialog } from '@blueprintjs/core'
+import { Classes, Dialog, Switch } from '@blueprintjs/core'
+import cx from 'classnames'
+import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
+import { useStrings } from 'framework/exports'
 import type { Feature } from 'services/cf'
 import CustomRulesView from './CustomRulesView'
 import i18n from './Tabs.i18n'
 import { DefaultRulesView } from './DefaultRulesView'
+import css from '../FlagActivation/FlagActivation.module.scss'
 
 interface TabTargetingProps {
   formikProps: any
@@ -29,6 +33,7 @@ interface TabTargetingProps {
 const TodoTargeting: React.FC<TabTargetingProps> = props => {
   const { formikProps, targetData, editing, setEditing, environmentIdentifier, projectIdentifier } = props
   const [isEditRulesOn, setEditRulesOn] = useState(false)
+  const { getString } = useStrings()
 
   useEffect(() => {
     if (!editing && isEditRulesOn) setEditRulesOn(false)
@@ -66,10 +71,41 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
     editing ||
     (targetData?.envProperties?.rules?.length || 0) > 0 ||
     (targetData?.envProperties?.variationMap?.length || 0) > 0
+  const isFlagSwitchChanged = targetData.envProperties?.state !== formikProps.values.state
+  const switchOff = (formikProps.values.state || FeatureFlagActivationStatus.OFF) === FeatureFlagActivationStatus.OFF
+
+  const onChangeSwitchEnv = (_: string, _formikProps: any): void => {
+    _formikProps.setFieldValue(
+      'state',
+      _formikProps.values.state === FeatureFlagActivationStatus.OFF
+        ? FeatureFlagActivationStatus.ON
+        : FeatureFlagActivationStatus.OFF
+    )
+  }
 
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'large', bottom: 'large' }}>
-      <Container style={{ marginLeft: 'auto' }}>
+      <Layout.Horizontal
+        className={css.contentHeading}
+        style={{ alignItems: 'center' }}
+        margin={{ top: 'small', bottom: 'xlarge' }}
+      >
+        <Switch
+          onChange={event => {
+            onChangeSwitchEnv(event.currentTarget.value, formikProps)
+          }}
+          alignIndicator="right"
+          className={cx(Classes.LARGE, css.switch)}
+          checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
+        />
+        <Text style={{ fontSize: '12px', color: '#6B6D85' }} padding={{ left: 'small' }}>
+          {isFlagSwitchChanged
+            ? getString(`cf.featureFlags.flagWillTurn${switchOff ? 'Off' : 'On'}`)
+            : switchOff
+            ? getString('cf.featureFlags.flagOff')
+            : getString('cf.featureFlags.flagOn')}
+        </Text>
+        <FlexExpander />
         <Button
           text={i18n.tabTargeting.editRules}
           icon="edit"
@@ -78,7 +114,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
             visibility: isEditRulesOn ? 'hidden' : undefined
           }}
         />
-      </Container>
+      </Layout.Horizontal>
       <Layout.Vertical>
         <DefaultRulesView
           formikProps={formikProps}

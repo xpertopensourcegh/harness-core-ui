@@ -1387,6 +1387,7 @@ connectors:
 cf:
   boolean: Boolean
   multivariate: Multivariate
+  featureNotReady: This feature is not yet ready. Please check back later.
   homepage:
     slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
     learnMore: Learn more about Feature Flags
@@ -1439,8 +1440,8 @@ cf:
     archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
     deleteFlagSuccess: Flag <strong>{{name}}</strong> deleted.
     archiveFlagSuccess: Flag <strong>{{name}}</strong> archived.
-    flagOff: Flag is currently off for this environment
-    flagOn: Flag is currently on for this environment
+    flagOff: Flag Targeting is OFF
+    flagOn: Flag Targeting is ON
     flagWillTurnOn: Turn flag on for this environment upon save
     flagWillTurnOff: Turn flag off for this environment upon save
   targets:
@@ -1513,6 +1514,9 @@ cf:
     createdMessageFFUpdate: 'updated feature flag'
     createdMessageSegment: 'created segment'
     jsonDifference: JSON DIFFERENCE
+  noEnvironment:
+    title: No Environment Available
+    message: Create an environment and let’s start configuring the targeting rules of your flag
 cv:
   continuousVerification: Continuous Verification
   dashboard:

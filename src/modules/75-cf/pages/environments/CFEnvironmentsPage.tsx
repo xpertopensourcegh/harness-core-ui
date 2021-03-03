@@ -218,7 +218,7 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
       header={title}
       toolbar={
         <Layout.Horizontal>
-          <EnvironmentDialog disabled={loading} onCreate={refetch} />
+          <EnvironmentDialog disabled={loading} onCreate={() => refetch()} />
         </Layout.Horizontal>
       }
       content={
@@ -237,7 +237,7 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
               <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
                 {getEnvString('empty')}
               </Text>
-              <EnvironmentDialog onCreate={refetch} />
+              <EnvironmentDialog onCreate={() => refetch()} />
             </Layout.Vertical>
           )}
         </>

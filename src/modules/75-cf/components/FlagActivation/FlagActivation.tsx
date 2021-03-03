@@ -17,7 +17,7 @@ import {
   Formik,
   FormikForm as Form
 } from '@wings-software/uicore'
-import { Switch, Classes, Dialog } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import {
   Feature,
@@ -33,7 +33,7 @@ import { useStrings } from 'framework/exports'
 import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
-import { FeatureFlagActivationStatus, FFDetailPageTab } from '@cf/utils/CFUtils'
+import { FFDetailPageTab } from '@cf/utils/CFUtils'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -85,15 +85,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       org: orgIdentifier
     }
   })
-
-  const onChangeSwitchEnv = (_: string, formikProps: any): void => {
-    formikProps.setFieldValue(
-      'state',
-      formikProps.values.state === FeatureFlagActivationStatus.OFF
-        ? FeatureFlagActivationStatus.ON
-        : FeatureFlagActivationStatus.OFF
-    )
-  }
 
   const onCancelEditHandler = (): void => {
     setEditing(false)
@@ -357,10 +348,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       onSubmit={onSaveChanges}
     >
       {formikProps => {
-        const isFlagSwitchChanged = flagData.envProperties?.state !== formikProps.values.state
-        const switchOff =
-          (formikProps.values.state || FeatureFlagActivationStatus.OFF) === FeatureFlagActivationStatus.OFF
-
         return (
           <Form>
             <Container className={css.formContainer}>
@@ -374,6 +361,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                   paddingLeft: 'var(--spacing-huge)'
                 }}
               >
+                <FlexExpander />
                 <Text
                   margin={{ right: 'medium' }}
                   font={{ weight: 'bold' }}
@@ -387,24 +375,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                   value={environment ?? environments[0]}
                   onChange={props.onEnvChange}
                 />
-                <FlexExpander />
-                <Layout.Horizontal style={{ alignItems: 'center' }} className={css.contentHeading}>
-                  <Text style={{ fontSize: '12px', color: '#6B6D85' }}>
-                    {isFlagSwitchChanged
-                      ? getString(`cf.featureFlags.flagWillTurn${switchOff ? 'Off' : 'On'}`)
-                      : switchOff
-                      ? getString('cf.featureFlags.flagOff')
-                      : getString('cf.featureFlags.flagOn')}
-                  </Text>
-                  <Switch
-                    onChange={event => {
-                      onChangeSwitchEnv(event.currentTarget.value, formikProps)
-                    }}
-                    alignIndicator="right"
-                    className={cx(Classes.LARGE, css.switch)}
-                    checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
-                  />
-                </Layout.Horizontal>
               </Layout.Horizontal>
               <Container
                 className={cx(css.tabContainer, (!editing || activeTabId !== FFDetailPageTab.TARGETING) && css.noEdit)}
@@ -442,7 +412,15 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                         panel={<TabActivity flagData={flagData} />}
                       />
                     </Tabs>
-                    <Button icon="code" minimal intent="primary" onClick={openModalTestFlag} className={css.btnCode} />
+                    <Button
+                      icon="code"
+                      disabled
+                      minimal
+                      intent="primary"
+                      onClick={openModalTestFlag}
+                      className={css.btnCode}
+                      title={getString('cf.featureNotReady')}
+                    />
                   </>
                 )}
               </Container>

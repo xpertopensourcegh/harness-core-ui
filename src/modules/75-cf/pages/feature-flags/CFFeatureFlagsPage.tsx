@@ -20,7 +20,6 @@ import { /*Drawer,*/ Menu, Position, Switch, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
-import cx from 'classnames'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
@@ -259,15 +258,16 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   )
 }
 
-const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => {
-  const { getString } = useStrings()
-  const { archived } = row.original
-  return (
-    <Text inline className={cx(css.status, archived && css.archived)}>
-      {getString(archived ? 'inactive' : 'active').toLocaleUpperCase()}
-    </Text>
-  )
-}
+// Hide until FF analytics is ready
+// const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => {
+//   const { getString } = useStrings()
+//   const { archived } = row.original
+//   return (
+//     <Text inline className={cx(css.status, archived && css.archived)}>
+//       {getString(archived ? 'inactive' : 'active').toLocaleUpperCase()}
+//     </Text>
+//   )
+// }
 
 const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
   return row.original?.modifiedAt ? (
@@ -276,6 +276,10 @@ const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
       <ReactTimeago date={row.original?.modifiedAt} />
     </Layout.Horizontal>
   ) : null
+}
+
+const RenderColumnCreatedDate: Renderer<CellProps<Feature>> = ({ row }) => {
+  return row.original?.createdAt ? <ReactTimeago date={row.original?.createdAt} /> : null
 }
 
 interface ColumnMenuProps {
@@ -317,7 +321,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
     }
   })
 
-  const onDetailPage = (): void => {
+  const gotoDetailPage = (): void => {
     history.push(
       routes.toCFFeatureFlagsDetail({
         orgIdentifier: orgIdentifier as string,
@@ -348,7 +352,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
               text={i18n.edit}
               onClick={(e: React.MouseEvent) => {
                 e.stopPropagation()
-                onDetailPage()
+                gotoDetailPage()
               }}
             />
             <Menu.Item icon="trash" text={i18n.delete} className={Classes.POPOVER_DISMISS} onClick={deleteFlag} />
@@ -404,8 +408,9 @@ const CFFeatureFlagsPage: React.FC = () => {
         }
       } else if (environments?.length === 0) {
         setEnvironment(undefined)
-        setFeatures(undefined)
-        // TODO: Show modal to create an environment
+        setTimeout(() => {
+          refetch({ queryParams: { ...queryParams, environment: (undefined as unknown) as string } })
+        }, 0)
       }
     }
   }, [environments?.length, envsLoading])
@@ -422,7 +427,7 @@ const CFFeatureFlagsPage: React.FC = () => {
       {
         Header: i18n.featureFlag.toUpperCase(),
         accessor: row => row.name,
-        width: '50%',
+        width: '45%',
         Cell: function WrapperRenderColumnFlag(cell: Cell<Feature>) {
           return (
             <RenderColumnFlag
@@ -454,11 +459,18 @@ const CFFeatureFlagsPage: React.FC = () => {
         width: '20%',
         Cell: RenderColumnDetails
       },
+      // Hide until analytics is ready
+      // {
+      //   Header: i18n.status.toUpperCase(),
+      //   accessor: 'archived',
+      //   width: '10%',
+      //   Cell: RenderColumnStatus
+      // },
       {
-        Header: i18n.status.toUpperCase(),
-        accessor: 'archived',
-        width: '10%',
-        Cell: RenderColumnStatus
+        Header: getString('cf.targets.createdDate').toUpperCase(),
+        accessor: row => row.createdAt,
+        width: '15%',
+        Cell: RenderColumnCreatedDate
       },
       {
         Header: i18n.lastUpdated.toUpperCase(),
@@ -493,7 +505,7 @@ const CFFeatureFlagsPage: React.FC = () => {
     refetch({ queryParams: { ...queryParams, environment: item.value as string } })
   }
   const hasFeatureFlags = features?.features && features?.features?.length > 0
-  const emptyFeatureFlags = features?.features && features?.features?.length === 0
+  const emptyFeatureFlags = (features?.features && features?.features?.length === 0) || !features
   const title = getString('featureFlagsText')
 
   return (
@@ -509,14 +521,16 @@ const CFFeatureFlagsPage: React.FC = () => {
           {/** TODO: Disable search as backend does not support it yet */}
           {/* <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} /> */}
 
-          <Select
-            items={environments}
-            className={css.ffPageBtnsSelect}
-            inputProps={{ placeholder: i18n.selectEnv }}
-            onChange={onEnvironmentChanged}
-            value={environment?.value ? environment : environments[0] || null}
-            disabled={loading}
-          />
+          {!!environments?.length && (
+            <Select
+              items={environments}
+              className={css.ffPageBtnsSelect}
+              inputProps={{ placeholder: i18n.selectEnv }}
+              onChange={onEnvironmentChanged}
+              value={environment?.value ? environment : environments[0] || null}
+              disabled={loading}
+            />
+          )}
 
           {/** TODO: Disable filter as backend does not fully support it yet */}
           {/* <Button
@@ -553,7 +567,7 @@ const CFFeatureFlagsPage: React.FC = () => {
             </Container>
           )}
 
-          {emptyFeatureFlags && (
+          {!loading && emptyFeatureFlags && (
             <Layout.Vertical className={css.emptyContainer}>
               <Container>
                 <Icon name="flag" size={150} color={Color.GREY_300} className={css.ffImage} />
@@ -567,7 +581,7 @@ const CFFeatureFlagsPage: React.FC = () => {
         </>
       }
       pagination={
-        !!features?.itemCount && (
+        !!features?.features?.length && (
           <Pagination
             itemCount={features?.itemCount || 0}
             pageSize={features?.pageSize || 0}

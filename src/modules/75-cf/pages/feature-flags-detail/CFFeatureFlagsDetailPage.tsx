@@ -10,16 +10,21 @@ import { useEnvironments } from '@cf/hooks/environment'
 import { PageError } from '@common/components/Page/PageError'
 import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV } from '@cf/utils/CFUtils'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { useLocalStorage } from '@common/hooks'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
 import css from './CFFeatureFlagsDetailPage.module.scss'
 
+// Show loading and wait 3s when the first environment is created before reloading
+// current detail page. See https://harness.atlassian.net/browse/FFM-565
+const WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT = 3000
+
 const CFFeatureFlagsDetailPage: React.FC = () => {
   const history = useHistory()
   const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<any>()
   const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
-
+  const [newEnvironmentCreateLoading, setNewEnvironmentCreateLoading] = useState(false)
   const { data: environments, error: errorEnvs, loading: envsLoading, refetch: refetchEnvironments } = useEnvironments({
     projectIdentifier,
     accountIdentifier: accountId,
@@ -48,6 +53,8 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     }
   })
 
+  // TODO: This call needs to be removed, does not make sense to put it here
+  // And it fetches all features which is very costly
   const { data: featureList, refetch: fetchFlagList } = useGetAllFeatures({
     lazy: true,
     queryParams: {
@@ -91,7 +98,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   }, [environmentOption])
 
   const error = errorFlag || errorEnvs
-  const loading = envsLoading || loadingFlag
+  const loading = envsLoading || loadingFlag || newEnvironmentCreateLoading
 
   return (
     <Container flex height="100%">
@@ -127,6 +134,31 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
                 refetchEnvironments()
               }}
             />
+          )}
+          {!loading && !error && environments?.length === 0 && (
+            <Container style={{ height: '100%', display: 'grid', alignItems: 'center' }}>
+              <NoEnvironment
+                style={{ marginTop: '-100px' }}
+                onCreated={response => {
+                  history.replace(
+                    routes.toCFFeatureFlagsDetail({
+                      orgIdentifier,
+                      projectIdentifier,
+                      environmentIdentifier: response?.data?.identifier as string,
+                      featureFlagIdentifier,
+                      accountId
+                    })
+                  )
+
+                  // See https://harness.atlassian.net/browse/FFM-565
+                  setNewEnvironmentCreateLoading(true)
+                  setTimeout(() => {
+                    setNewEnvironmentCreateLoading(false)
+                    refetchEnvironments()
+                  }, WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT)
+                }}
+              />
+            </Container>
           )}
         </Layout.Vertical>
       </Layout.Horizontal>

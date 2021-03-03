@@ -9,7 +9,7 @@ import css from './ListingPageTemplate.module.scss'
 
 const HEADER_HEIGHT = 80
 const TOOLBAR_HEIGHT = 64
-const PAGINATION_HEIGHT = 50
+const PAGINATION_HEIGHT = 60
 
 export interface ListingPageTemplateProps {
   pageTitle: string
@@ -41,6 +41,34 @@ export interface ListingPageTemplateProps {
   toolbarHeight?: number
   paginationHeight?: number
 }
+
+export const ListingPageTitle: React.FC<React.ComponentProps<typeof Heading>> = ({
+  height,
+  style,
+  children,
+  ...props
+}) => (
+  <Heading
+    data-name="header"
+    level={1}
+    height={height}
+    style={{
+      fontWeight: 'bold',
+      fontSize: '20px',
+      lineHeight: '28px',
+      color: '#22272D',
+      paddingLeft: 'var(--spacing-xxlarge)',
+      display: 'flex',
+      alignItems: 'center',
+      background: 'var(--white)',
+      borderBottom: '0.5px solid #d9dae6',
+      ...style
+    }}
+    {...props}
+  >
+    {children}
+  </Heading>
+)
 
 /**
  * This page template implements a common layout for a listing page in which:
@@ -82,7 +110,7 @@ export const ListingPageTemplate: React.FC<ListingPageTemplateProps> = ({
 
   useEffect(() => {
     const harness = getString('harness')
-    document.title = `${pageTitle} - ${harness}`
+    document.title = `${harness} | ${pageTitle}`
     return () => {
       document.title = harness
     }
@@ -90,26 +118,15 @@ export const ListingPageTemplate: React.FC<ListingPageTemplateProps> = ({
 
   return (
     <>
-      <Heading
-        data-name="header"
-        level={1}
-        height={headerHeight}
-        style={{
-          fontWeight: 'bold',
-          fontSize: '20px',
-          lineHeight: '28px',
-          color: '#22272D',
-          paddingLeft: 'var(--spacing-xxlarge)',
-          display: 'flex',
-          alignItems: 'center',
-          background: 'var(--white)',
-          borderBottom: '0.5px solid #d9dae6',
-          ...headerStyle
-        }}
-        className={headerClassName}
-      >
-        {header}
-      </Heading>
+      {(typeof header === 'string' && (
+        <ListingPageTitle height={headerHeight} style={headerStyle} className={headerClassName}>
+          {header}
+        </ListingPageTitle>
+      )) || (
+        <Container data-name="header" height={headerHeight} style={headerStyle} className={headerClassName}>
+          {header}
+        </Container>
+      )}
 
       <Container
         data-name="body"
