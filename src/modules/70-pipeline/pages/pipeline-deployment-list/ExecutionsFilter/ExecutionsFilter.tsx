@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ExpandingSearchInput, ButtonGroup } from '@wings-software/uicore'
+import { Button, ButtonGroup } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
@@ -7,7 +7,7 @@ import { String } from 'framework/exports'
 // import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
 // import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useUpdateQueryParams, useQueryParams } from '@common/hooks'
+// import { useUpdateQueryParams, useQueryParams } from '@common/hooks'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 
 import css from './ExecutionsFilter.module.scss'
@@ -24,12 +24,8 @@ export interface FilterQueryParams {
 
 export default function ExecutionFilter(props: ExecutionFilterProps): React.ReactElement {
   const { module } = useParams<Partial<PipelineType<PipelinePathProps>>>()
-  const { updateQueryParams } = useUpdateQueryParams<FilterQueryParams>()
-  const queryParams = useQueryParams<FilterQueryParams>()
-
-  function handleSearch(query: string): void {
-    updateQueryParams({ query })
-  }
+  // const { updateQueryParams } = useUpdateQueryParams<FilterQueryParams>()
+  // const queryParams = useQueryParams<FilterQueryParams>()
 
   // function handlePipelineSelect(pipeline: string): void {
   //   updateQueryParams({ pipeline })
@@ -70,11 +66,6 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
           </>
         )} */}
       </div>
-      {module !== 'ci' && (
-        <div className={css.rhs}>
-          <ExpandingSearchInput defaultValue={queryParams.query} className={css.search} onChange={handleSearch} />
-        </div>
-      )}
     </div>
   )
 }
