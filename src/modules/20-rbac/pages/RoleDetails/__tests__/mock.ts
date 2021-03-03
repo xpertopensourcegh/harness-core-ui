@@ -1,28 +1,46 @@
-export const resourceTypesMockData = {
+import type { ResponseResourceTypeDTO } from 'services/cd-ng'
+import type { ResponseRoleResponse } from 'services/rbac'
+
+export const resourceTypesMockData: ResponseResourceTypeDTO = {
   status: 'SUCCESS',
-  data: { resourceTypes: ['ORGANIZATION', 'SECRET_MANAGER', 'PROJECT'] },
-  metaData: null,
-  correlationId: '102034b9-83eb-4637-a039-e70fa2b71c91'
+  data: {
+    resourceTypes: [
+      { name: 'ACCOUNT', validatorTypes: ['STATIC'] },
+      { name: 'ORGANIZATION', validatorTypes: ['STATIC', 'DYNAMIC'] },
+      { name: 'PROJECT', validatorTypes: ['STATIC', 'DYNAMIC'] },
+      { name: 'SECRET', validatorTypes: ['STATIC', 'DYNAMIC'] }
+    ]
+  },
+  metaData: {},
+  correlationId: '97683e83-6a8a-4e9f-9607-534cc499016f'
 }
 
-export const roleMockData = {
+export const roleMockData: ResponseRoleResponse = {
   status: 'SUCCESS',
   data: {
     role: {
-      identifier: 'role',
-      name: 'role',
-      permissions: null,
-      scopes: ['account'],
-      description: 'vfkvnfknvfv',
-      tags: { vfmvfv: '' }
+      identifier: 'identifier',
+      name: 'name',
+      permissions: [
+        'core.project.delete',
+        'core.organization.create',
+        'core.organization.edit',
+        'core.project.edit',
+        'core.project.view',
+        'core.organization.view',
+        'core.project.create'
+      ],
+      allowedScopeLevels: ['account'],
+      description: 'description',
+      tags: { ui: '', dev: '' }
     },
-    parentIdentifier: '/account/kmpySmUISimoRrJL6NL73w',
+    scope: '/ACCOUNT/testAcc',
     harnessManaged: false,
-    createdAt: 1612942343471,
-    lastModifiedAt: 1612942343471
+    createdAt: 1614260652905,
+    lastModifiedAt: 1614669872800
   },
-  metaData: null,
-  correlationId: '65b01698-8093-472a-801e-f58f44ec6388'
+  metaData: {},
+  correlationId: '3b452fb0-aa4b-4f31-979a-f0b3fd61772d'
 }
 
 export const permissionListMockData = {
@@ -30,12 +48,12 @@ export const permissionListMockData = {
   data: [
     {
       permission: {
-        identifier: 'core.organization.delete',
-        name: 'Delete Organization',
+        identifier: 'core.project.edit',
+        name: 'Edit Project',
         status: 'ACTIVE',
-        allowedScopeLevels: ['organization', 'account'],
-        resourceType: 'organization',
-        action: 'delete'
+        allowedScopeLevels: ['organization', 'project', 'account'],
+        resourceType: 'PROJECT',
+        action: 'edit'
       }
     },
     {
@@ -44,8 +62,28 @@ export const permissionListMockData = {
         name: 'Create Project',
         status: 'ACTIVE',
         allowedScopeLevels: ['organization', 'account'],
-        resourceType: 'project',
+        resourceType: 'PROJECT',
         action: 'create'
+      }
+    },
+    {
+      permission: {
+        identifier: 'core.project.view',
+        name: 'View Project',
+        status: 'ACTIVE',
+        allowedScopeLevels: ['organization', 'project', 'account'],
+        resourceType: 'PROJECT',
+        action: 'view'
+      }
+    },
+    {
+      permission: {
+        identifier: 'core.organization.edit',
+        name: 'Edit Organization',
+        status: 'ACTIVE',
+        allowedScopeLevels: ['organization', 'account'],
+        resourceType: 'ORGANIZATION',
+        action: 'edit'
       }
     },
     {
@@ -54,17 +92,17 @@ export const permissionListMockData = {
         name: 'Create Organization',
         status: 'ACTIVE',
         allowedScopeLevels: ['account'],
-        resourceType: 'organization',
+        resourceType: 'ORGANIZATION',
         action: 'create'
       }
     },
     {
       permission: {
-        identifier: 'core.project.delete',
-        name: 'Delete Project',
+        identifier: 'core.organization.delete',
+        name: 'Delete Organization',
         status: 'ACTIVE',
-        allowedScopeLevels: ['organization', 'project', 'account'],
-        resourceType: 'project',
+        allowedScopeLevels: ['organization', 'account'],
+        resourceType: 'ORGANIZATION',
         action: 'delete'
       }
     },
@@ -74,31 +112,51 @@ export const permissionListMockData = {
         name: 'View Organization',
         status: 'ACTIVE',
         allowedScopeLevels: ['organization', 'account'],
-        resourceType: 'organization',
+        resourceType: 'ORGANIZATION',
         action: 'view'
       }
     },
     {
       permission: {
-        identifier: 'core.project.edit',
-        name: 'Edit Project',
+        identifier: 'core.project.delete',
+        name: 'Delete Project',
         status: 'ACTIVE',
         allowedScopeLevels: ['organization', 'project', 'account'],
-        resourceType: 'project',
+        resourceType: 'PROJECT',
+        action: 'delete'
+      }
+    },
+    {
+      permission: {
+        identifier: 'core.account.edit',
+        name: 'Edit Account Settings',
+        status: 'ACTIVE',
+        allowedScopeLevels: ['account'],
+        resourceType: 'ACCOUNT',
         action: 'edit'
       }
     },
     {
       permission: {
-        identifier: 'core.organization.edit',
-        name: 'Edit Organization',
+        identifier: 'core.account.delete',
+        name: 'Delete Account',
         status: 'ACTIVE',
-        allowedScopeLevels: ['organization', 'account'],
-        resourceType: 'organization',
-        action: 'edit'
+        allowedScopeLevels: ['account'],
+        resourceType: 'ACCOUNT',
+        action: 'delete'
+      }
+    },
+    {
+      permission: {
+        identifier: 'core.secret.create',
+        name: 'create secret',
+        status: 'ACTIVE',
+        allowedScopeLevels: ['organization', 'project', 'account'],
+        resourceType: 'SECRET',
+        action: 'create'
       }
     }
   ],
   metaData: {},
-  correlationId: 'fcc8c652-eac6-4d46-b6bc-c66a0c3d1281'
+  correlationId: '9948d417-82e0-483c-a46d-ef24b659f433'
 }

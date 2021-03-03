@@ -10,6 +10,7 @@ exports[`Role Details Page render data 1`] = `
     >
       <button
         class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        data-testid="createRole"
         type="button"
       >
         <span

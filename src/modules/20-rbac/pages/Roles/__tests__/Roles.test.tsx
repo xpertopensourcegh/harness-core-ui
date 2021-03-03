@@ -46,17 +46,31 @@ describe('Role Details Page', () => {
     expect(container).toMatchSnapshot()
   }),
     test('Create Role', async () => {
-      const newRole = getAllByText('New Role')[0]
+      const newRole = getByTestId('createRole')
       await act(async () => {
         fireEvent.click(newRole)
-        await waitFor(() => getByText(document.body, 'New Role'))
-        const form = findDialogContainer()
-        expect(form).toBeTruthy()
-        if (form) {
-          fillAtForm([{ container: form, type: InputTypes.TEXTFIELD, value: 'new Role', fieldId: 'name' }])
-          clickSubmit(form)
-        }
       })
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+      if (form) {
+        fillAtForm([{ container: form, type: InputTypes.TEXTFIELD, value: 'new Role', fieldId: 'name' }])
+        await act(async () => {
+          clickSubmit(form)
+        })
+      }
+    }),
+    test('Close Role Form', async () => {
+      const newRole = getByTestId('createRole')
+      await act(async () => {
+        fireEvent.click(newRole)
+      })
+      let form = findDialogContainer()
+      expect(form).toBeTruthy()
+      act(() => {
+        fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      })
+      form = findDialogContainer()
+      expect(form).not.toBeTruthy()
     }),
     test('Edit Role', async () => {
       const menu = container

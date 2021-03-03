@@ -8,7 +8,7 @@ import { useStrings } from 'framework/exports'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
-import { Permission, useGetPermissionList, useGetRole, useUpdateRole } from 'services/rbac'
+import { Permission, Role, useGetPermissionList, useGetRole, useUpdateRole } from 'services/rbac'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useGetResourceTypes } from 'services/cd-ng'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
@@ -58,7 +58,7 @@ const RoleDetails: React.FC = () => {
   })
 
   useEffect(() => {
-    setPermissions(data?.data?.role.permissions || [])
+    setPermissions(data?.data?.role.permissions || /* istanbul ignore next */ [])
     setIsUpdated(false)
   }, [data?.data])
 
@@ -81,20 +81,17 @@ const RoleDetails: React.FC = () => {
     setIsUpdated(true)
   }
 
-  const submitChanges = async (): Promise<void> => {
-    const role = data?.data?.role
-
-    if (role) {
-      role['permissions'] = permissions
-      try {
-        const updated = await addPermissions(role)
-        if (updated) {
-          showSuccess(getString('roleDetails.permissionUpdatedSuccess'))
-          refetch()
-        }
-      } catch (e) {
-        showError(e.data?.message || e.message)
+  const submitChanges = async (role: Role): Promise<void> => {
+    role['permissions'] = permissions
+    try {
+      const updated = await addPermissions(role)
+      /* istanbul ignore else */ if (updated) {
+        showSuccess(getString('roleDetails.permissionUpdatedSuccess'))
+        refetch()
       }
+    } catch (e) {
+      /* istanbul ignore next */
+      showError(e.data?.message || e.message)
     }
   }
   const role = data?.data?.role
@@ -133,7 +130,7 @@ const RoleDetails: React.FC = () => {
                 </Text>
                 <Text>{role.description}</Text>
                 <Layout.Horizontal padding={{ top: 'small' }}>
-                  <TagsRenderer tags={role.tags || {}} length={6} />
+                  <TagsRenderer tags={role.tags || /* istanbul ignore next */ {}} length={6} />
                 </Layout.Horizontal>
               </Layout.Vertical>
             </Layout.Horizontal>
@@ -141,18 +138,22 @@ const RoleDetails: React.FC = () => {
         }
         toolbar={
           <Layout.Horizontal flex>
-            <Layout.Vertical
-              padding={{ right: 'small' }}
-              border={{ right: true, color: Color.GREY_300 }}
-              spacing="xsmall"
-            >
-              <Text>{getString('created')}</Text>
-              <ReactTimeago date={data?.data?.createdAt || ''} />
-            </Layout.Vertical>
-            <Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}>
-              <Text>{getString('lastUpdated')}</Text>
-              <ReactTimeago date={data?.data?.lastModifiedAt || ''} />
-            </Layout.Vertical>
+            {data?.data?.createdAt && (
+              <Layout.Vertical
+                padding={{ right: 'small' }}
+                border={{ right: true, color: Color.GREY_300 }}
+                spacing="xsmall"
+              >
+                <Text>{getString('created')}</Text>
+                <ReactTimeago date={data.data.createdAt} />
+              </Layout.Vertical>
+            )}
+            {data?.data?.lastModifiedAt && (
+              <Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}>
+                <Text>{getString('lastUpdated')}</Text>
+                <ReactTimeago date={data.data.lastModifiedAt} />
+              </Layout.Vertical>
+            )}
           </Layout.Horizontal>
         }
       />
@@ -167,6 +168,7 @@ const RoleDetails: React.FC = () => {
                     <Card
                       interactive
                       key={resourceType}
+                      data-testid={`resourceCard-${resourceType}`}
                       className={css.card}
                       onClick={() => {
                         setResource(resourceType as ResourceType)
@@ -188,7 +190,7 @@ const RoleDetails: React.FC = () => {
             <Layout.Vertical>
               <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} padding="medium" spacing="medium">
                 {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
-                <Button onClick={submitChanges} text={getString('applyChanges')} intent="primary" />
+                <Button onClick={() => submitChanges(role)} text={getString('applyChanges')} intent="primary" />
               </Layout.Horizontal>
               {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
                 return (

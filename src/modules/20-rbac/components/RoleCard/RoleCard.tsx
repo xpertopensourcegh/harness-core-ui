@@ -36,13 +36,14 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
       /* istanbul ignore else */ if (isConfirmed) {
         try {
           const deleted = await deleteRole(role.identifier, { headers: { 'content-type': 'application/json' } })
-          if (deleted) {
+          /* istanbul ignore else */ if (deleted) {
             showSuccess(getString('roleCard.successMessage', { name: role.name }))
             reloadRoles?.()
           } else {
             showError(getString('deleteError'))
           }
         } catch (err) {
+          /* istanbul ignore next */
           showError(err)
         }
       }
@@ -66,7 +67,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
       data-testid={`role-card-${role.identifier}`}
       onClick={() => {
         history.push(
-          routes.toRoleDetails({ roleIdentifier: role.identifier || '', accountId, orgIdentifier, projectIdentifier })
+          routes.toRoleDetails({ roleIdentifier: role.identifier, accountId, orgIdentifier, projectIdentifier })
         )
       }}
       interactive

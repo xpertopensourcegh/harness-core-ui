@@ -38,6 +38,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
             return (
               <Checkbox
                 label={permission.action}
+                data-testid={`checkBox-${resourceType}-${permission.action}`}
                 key={permission.name}
                 disabled={isDefault}
                 defaultChecked={isPermissionEnabled(permission.identifier)}

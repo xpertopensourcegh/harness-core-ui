@@ -36,7 +36,13 @@ const Roles: React.FC = () => {
       <PageHeader
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
-            <Button text={getString('newRole')} intent="primary" icon="plus" onClick={() => openRoleModal()} />
+            <Button
+              text={getString('newRole')}
+              data-testid="createRole"
+              intent="primary"
+              icon="plus"
+              onClick={() => openRoleModal()}
+            />
           </Layout.Horizontal>
         }
         toolbar={

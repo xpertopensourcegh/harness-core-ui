@@ -59,7 +59,9 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
         ...pick(values, ['name', 'description', 'color', 'tags']),
         resourceSelectors: [],
         identifier: values.identifier,
-        accountIdentifier: accountId
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
       }
     }
     try {
