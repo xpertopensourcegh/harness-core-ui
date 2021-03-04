@@ -8,6 +8,7 @@ allowpaths:
   - '/delegate-profiles/{delegateProfileId}.get'
   - '/setup/delegates/kubernetes-delegates'
   - '/users/user.get'
+  - '/users/new-trial'
   - '/setup/delegates/delegate-tags.get'
   - '/apps'
   - '/services'

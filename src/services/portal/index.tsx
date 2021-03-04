@@ -18753,6 +18753,31 @@ export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, 
 export const useGetUser = (props: UseGetUserProps) =>
   useGet<RestResponseUser, unknown, void, void>(`/users/user`, { base: getConfig('api'), ...props })
 
+export type TrialSignupProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const TrialSignup = (props: TrialSignupProps) => (
+  <Mutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>
+    verb="POST"
+    path="/users/new-trial"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseTrialSignupProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useTrialSignup = (props: UseTrialSignupProps) =>
+  useMutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>('POST', `/users/new-trial`, {
+    base: getConfig('api'),
+    ...props
+  })
+
 export interface GetDelegateTagsQueryParams {
   accountId?: string
 }

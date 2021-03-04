@@ -80,9 +80,11 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 
 function AppWithoutAuthentication(): React.ReactElement {
   return (
-    <AppErrorBoundary>
-      <RouteDestinationsWithoutAuth />
-    </AppErrorBoundary>
+    <RestfulProvider base="/">
+      <AppErrorBoundary>
+        <RouteDestinationsWithoutAuth />
+      </AppErrorBoundary>
+    </RestfulProvider>
   )
 }
 
