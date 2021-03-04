@@ -197,6 +197,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stageIndex])
 
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
   React.useEffect(() => {
     const useFromStage = stage?.stage?.spec.serviceConfig?.useFromStage
     const stageOverrides = stage?.stage?.spec.serviceConfig?.stageOverrides
@@ -249,8 +250,14 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       setSetupMode(setupMode.DIFFERENT)
     }
   }, [stage?.stage?.spec])
-  const onTimelineItemClick = (id: string) => {
-    document.querySelector(`#${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+  const onTimelineItemClick = (id: string): void => {
+    const element = document.querySelector(`#${id}`)
+    if (scrollRef.current && element) {
+      const elementTop = element.getBoundingClientRect().top
+      const parentTop = scrollRef.current.getBoundingClientRect().top
+      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
+    }
   }
 
   const getTimelineNodes = React.useCallback(
@@ -263,16 +270,16 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         label: 'Service Definition',
         id: 'serviceDefinition',
         childItems: [
-          { label: 'Deployment Type', id: 'deploymentType' },
+          { label: 'Deployment Type', id: 'deploymentType-panel' },
           {
             label: 'Artifacts',
-            id: getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
+            id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}-panel`
           },
           {
             label: 'Manifests',
-            id: getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')
+            id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}-panel`
           },
-          { label: 'Variables', id: getString('variablesText') }
+          { label: 'Variables', id: `${getString('variablesText')}-panel` }
         ]
       }
     ],
@@ -281,7 +288,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   return (
     <div className={css.serviceOverrides}>
       <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
-      <div>
+      <div className={css.overFlowScroll} ref={scrollRef}>
         <div className={css.contentSection}>
           <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
           <Card className={css.sectionCard} id="aboutService">
@@ -303,7 +310,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               stepViewType={StepViewType.Edit}
             />
           </Card>
-          <div className={css.tabHeading}>
+          <div className={css.tabHeading} id="serviceDefinition">
             {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
           </div>
           <Accordion className={css.sectionCard} activeId="deploymentType">

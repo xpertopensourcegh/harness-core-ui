@@ -8,6 +8,7 @@ import type { K8SDirectInfrastructure, NgPipeline, PipelineInfrastructure } from
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import Timeline from '@common/components/Timeline/Timeline'
+import { String } from 'framework/exports'
 import i18n from './DeployInfraSpecifications.i18n'
 import css from './DeployInfraSpecifications.module.scss'
 
@@ -54,7 +55,7 @@ const TimelineNodes = [
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const [initialValues, setInitialValues] = React.useState<{}>()
   const [updateKey, setUpdateKey] = React.useState(0)
-
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const {
     state: {
       pipeline,
@@ -115,14 +116,21 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     }
   }
   const onTimelineItemClick = (id: string) => {
-    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const element = document.querySelector(`#${id}`)
+    if (scrollRef.current && element) {
+      const elementTop = element.getBoundingClientRect().top
+      const parentTop = scrollRef.current.getBoundingClientRect().top
+      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
+    }
   }
   const renderInfraSelection = (): JSX.Element => {
     const k8sInfra = supportedDeploymentTypes[0]
     return (
       <div className={css.infraSelection}>
         <div>
-          <div className={css.connectionType}>Direct Connection</div>
+          <div className={css.connectionType}>
+            <String stringID="pipelineSteps.deploy.infrastructure.directConnection" />
+          </div>
           <div key={k8sInfra.name} className={css.squareCardContainer}>
             <Card
               disabled={!k8sInfra.enabled}
@@ -145,7 +153,9 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           </div>
         </div>
         <div>
-          <div className={css.connectionType}>Via Cloud Provider</div>
+          <div className={css.connectionType}>
+            <String stringID="pipelineSteps.deploy.infrastructure.viaCloudProvider" />
+          </div>
           <Layout.Horizontal>
             {supportedDeploymentTypes.map(
               (type: { name: string; icon: IconName; enabled: boolean }) =>
@@ -181,10 +191,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     <div className={css.serviceOverrides}>
       <Timeline onNodeClick={onTimelineItemClick} nodes={TimelineNodes} />
 
-      <div className={css.contentSection}>
+      <div className={css.contentSection} ref={scrollRef}>
         <Layout.Vertical>
-          <div className={css.tabHeading}>Environment</div>
-          <Card className={cx(css.sectionCard, css.shadow)} id="environment">
+          <div className={css.tabHeading} id="environment">
+            {<String stringID="environment" />}
+          </div>
+          <Card className={cx(css.sectionCard, css.shadow)}>
             <StepWidget
               type={StepType.DeployEnvironment}
               initialValues={get(stage, 'stage.spec.infrastructure', {})}
@@ -204,10 +216,14 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             />
           </Card>
         </Layout.Vertical>
-        <div className={css.tabHeading}>Infrastructure definition</div>
+        <div className={css.tabHeading} id="infrastructureDefinition">
+          <String stringID="pipelineSteps.deploy.infrastructure.infraDefinition" />
+        </div>
         <Card className={cx(css.sectionCard, css.shadow)}>
           <div className={css.stepContainer}>
-            <div className={css.subheading}>Select the best method for Harness to reach your Kubernetes Cluster.</div>
+            <div className={css.subheading}>
+              <String stringID="pipelineSteps.deploy.infrastructure.selectMethod" />
+            </div>
             {renderInfraSelection()}
           </div>
         </Card>

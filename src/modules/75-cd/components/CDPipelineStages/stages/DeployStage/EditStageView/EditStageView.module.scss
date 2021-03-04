@@ -227,14 +227,18 @@
   display: grid;
   padding: var(--spacing-xlarge);
   grid-template-columns: 1fr;
+  height: 100%;
 }
 
 .edit-stage-grid {
   display: grid;
   grid-template-columns: auto 1fr;
+  height: 100%;
 }
 .content-section {
   padding-left: 60px;
+  height: 100%;
+  overflow-y: scroll;
 }
 .tabHeading {
   font-size: var(--font-size-medium);

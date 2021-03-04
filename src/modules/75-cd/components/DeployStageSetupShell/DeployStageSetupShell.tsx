@@ -164,7 +164,8 @@ export default function DeployStageSetupShell(): JSX.Element {
     <section
       ref={layoutRef}
       key={selectedStageId}
-      className={cx(css.setupShell, { [css.tabsFullHeight]: selectedTabId === i18n.executionLabel })}
+      // className={cx(css.setupShell, { [css.tabsFullHeight]: selectedTabId === i18n.executionLabel })}
+      className={cx(css.setupShell)}
     >
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId} data-tabId={selectedTabId}>
         <Tab

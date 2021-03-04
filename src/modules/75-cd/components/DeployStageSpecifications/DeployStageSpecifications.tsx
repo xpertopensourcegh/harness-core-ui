@@ -1,9 +1,5 @@
 import React from 'react'
-
-import { Layout } from '@wings-software/uicore'
-
 import { cloneDeep } from 'lodash-es'
-
 import { PipelineContext } from '@pipeline/exports'
 import { EditStageView } from '../CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
 
@@ -44,22 +40,20 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
   }, [])
 
   return (
-    <Layout.Vertical spacing="large">
-      <EditStageView
-        data={cloneOriginalData}
-        context={'setup'}
-        onChange={values => {
-          updateStage({
-            name: values?.name,
-            identifier: values?.identifier,
-            description: values?.description,
-            variables: values?.variables || [],
-            skipCondition: values?.skipCondition
-          })
-        }}
-      >
-        {props.children}
-      </EditStageView>
-    </Layout.Vertical>
+    <EditStageView
+      data={cloneOriginalData}
+      context={'setup'}
+      onChange={values => {
+        updateStage({
+          name: values?.name,
+          identifier: values?.identifier,
+          description: values?.description,
+          variables: values?.variables,
+          skipCondition: values?.skipCondition
+        })
+      }}
+    >
+      {props.children}
+    </EditStageView>
   )
 }

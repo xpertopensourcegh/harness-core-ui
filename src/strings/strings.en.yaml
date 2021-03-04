@@ -256,11 +256,13 @@ createOrSelectSecret: Create or Select a Secret
 description: Description
 recentlyUsed: Recently Used
 stageDetails: Stage Details
+stageOverview: Stage Overview
 stageNameLabel: Stage Name
 stageName: 'Stage: {{ name }}'
 tagsLabel: Tags
 tagLabel: Tag
 tagsInfo: Specify one or more tags for the Docker image
+whatToDeploy: What would you like to deploy?
 removeLabel: 'remove'
 keyLabel: Key
 valueLabel: Value
@@ -1105,13 +1107,17 @@ pipelineSteps:
       imagePath: 'Image Path'
       artifactServer: 'Artifact Server'
       branch: 'Branch'
-
     serviceSpecifications:
       serviceDefinition: Service Definition
       useFromStageLabel: 'Use from Stage'
       deploymentTypes:
         artifacts: '{{ $.artifacts }}'
         manifests: '{{ $.manifests }}'
+    infrastructure:
+      infraDefinition: Infrastructure definition
+      selectMethod: Select the best method for Harness to reach your Kubernetes Cluster.
+      directConnection: Direct Connection
+      viaCloudProvider: Via Cloud Provider
 
 validation:
   nameRequired: Name is a required field

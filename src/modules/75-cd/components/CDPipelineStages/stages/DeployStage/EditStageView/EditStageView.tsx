@@ -86,21 +86,26 @@ export const EditStageView: React.FC<EditStageView> = ({
 
   const { stepsFactory, getStageFromPipeline } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
-
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const onTimelineItemClick = (id: string): void => {
-    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const element = document.querySelector(`#${id}`)
+    if (scrollRef.current && element) {
+      const elementTop = element.getBoundingClientRect().top
+      const parentTop = scrollRef.current.getBoundingClientRect().top
+      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
+    }
   }
   const getTimelineNodes = React.useCallback(
     () => [
       {
         label: 'Stage Overview',
-        id: 'stageoverview'
+        id: 'stageOverview'
       },
       {
         label: 'Deploy',
-        id: 'deployservice'
+        id: 'whatToDeploy'
       },
       {
         label: 'Stage variables',
@@ -116,11 +121,13 @@ export const EditStageView: React.FC<EditStageView> = ({
   return (
     <div className={cx(css.stageSection, { [css.editStageGrid]: context, [css.createStageGrid]: !context })}>
       {context && <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />}
-      <div className={cx({ [css.contentSection]: context })}>
+      <div className={cx({ [css.contentSection]: context })} ref={scrollRef}>
         <div className={cx({ [css.stagePopover]: !context })}>
           <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
             {context ? (
-              <div className={css.tabHeading}>{i18n.aboutYourStage}</div>
+              <div className={css.tabHeading} id="stageOverview">
+                {getString('stageOverview')}
+              </div>
             ) : (
               <Text icon="cd-main" iconProps={{ size: 16 }} style={{ paddingBottom: 'var(--spacing-medium)' }}>
                 {i18n.aboutYourStage}
@@ -180,7 +187,9 @@ export const EditStageView: React.FC<EditStageView> = ({
                         />
                       )}
 
-                      <div className={css.tabHeading}>{i18n.whatToDeploy}</div>
+                      <div className={css.tabHeading} id="whatToDeploy">
+                        {getString('whatToDeploy')}
+                      </div>
                       <Card className={cx(css.sectionCard, css.shadow, { [css.notwide]: !context })}>
                         <CardSelect
                           type={CardSelectType.Any} // TODO: Remove this by publishing uikit with exported CardSelectType

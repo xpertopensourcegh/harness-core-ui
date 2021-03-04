@@ -1,11 +1,13 @@
 .serviceOverrides {
   display: grid !important;
   grid-template-columns: auto 1fr;
-
+  height: 100%;
   :global(.bp3-collapse-body > div) {
     background-color: var(--white) !important;
   }
-
+  .overFlowScroll {
+    overflow-y: auto;
+  }
   .content-section {
     padding-left: 60px;
   }

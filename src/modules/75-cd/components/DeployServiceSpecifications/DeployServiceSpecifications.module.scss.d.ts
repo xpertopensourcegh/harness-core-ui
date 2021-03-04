@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly serviceOverrides: string
+  readonly overFlowScroll: string
   readonly contentSection: string
   readonly tabHeading: string
   readonly sectionCard: string

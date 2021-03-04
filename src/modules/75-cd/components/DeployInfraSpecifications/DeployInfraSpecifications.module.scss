@@ -1,6 +1,7 @@
 .serviceOverrides {
   display: grid;
   grid-template-columns: auto 1fr;
+  height: 100%;
   :global {
     .bp3-tab-panel {
       margin: 0;
@@ -117,6 +118,8 @@
 }
 .content-section {
   padding-left: 60px;
+  height: 100%;
+  overflow-y: scroll;
 }
 .tabHeading {
   font-size: var(--font-size-medium);
