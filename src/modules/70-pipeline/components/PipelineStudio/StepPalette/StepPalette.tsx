@@ -20,9 +20,25 @@ import type { AbstractStepFactory, StepData as FactoryStepData } from '../../Abs
 
 import { iconMap, iconMapByName } from './iconMap'
 // TODO: Mock API
+import featureStageSteps from './mock/featureStageSteps.json'
 import buildStageSteps from './mock/buildStageSteps.json'
 import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
+import { StageTypes } from '../Stages/StageTypes'
 import css from './StepPalette.module.scss'
+
+// TODO: This should be removed once the DTO is available
+const useGetFeatureSteps = (props: UseGetStepsProps) => {
+  return useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
+    `/pipelines/configuration/featuresteps`,
+    {
+      base: getConfig('ng/api'),
+      ...props,
+      mock: {
+        data: (featureStageSteps as unknown) as ResponseStepCategory
+      }
+    }
+  )
+}
 
 // TODO: This should be removed once the DTO is available
 const useGetBuildSteps = (props: UseGetStepsProps) => {
@@ -43,12 +59,14 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
 }
 
 // TODO: move to StepPaletteUtils.ts
-const dataSourceFactory = (stageType: string): any => {
+const dataSourceFactory = (stageType: StageTypes): any => {
   switch (stageType) {
-    case 'CI':
+    case StageTypes.BUILD:
       return useGetBuildSteps
-    case 'Deployment':
+    case StageTypes.DEPLOY:
       return useGetSteps
+    case StageTypes.FEATURE:
+      return useGetFeatureSteps
   }
 }
 const primaryTypes = {
@@ -66,7 +84,7 @@ export interface StepPaletteProps {
   onClose: () => void
   stepsFactory: AbstractStepFactory
   selectedStage: object
-  stageType: string
+  stageType: StageTypes
 }
 export const StepPalette: React.FC<StepPaletteProps> = ({
   onSelect,

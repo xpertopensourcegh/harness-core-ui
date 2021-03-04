@@ -78,7 +78,7 @@ export const RunStepBase = (
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
-          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || [],
           getString
         })
       }}

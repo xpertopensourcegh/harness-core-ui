@@ -1,11 +1,11 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { getCDPipelineStages, stagesMap } from '@cd/components/CDPipelineStages/CDPipelineStages'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
-
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineStagesUtils'
 import { useAppStore, useStrings } from 'framework/exports'
 import css from './CDPipelineStudio.module.scss'
 
@@ -30,7 +30,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   const { getString } = useStrings()
   return (
     <PipelineProvider
-      stagesMap={stagesMap}
+      stagesMap={stagesCollection.getAllStagesAttributes(getString)}
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }}
       pipelineIdentifier={pipelineIdentifier}
       renderPipelineStage={args =>
@@ -38,7 +38,8 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
           args,
           getString,
           selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1,
-          true
+          true,
+          selectedProject?.modules && selectedProject.modules.indexOf?.('CF') > -1
         )
       }
       stepsFactory={factory}

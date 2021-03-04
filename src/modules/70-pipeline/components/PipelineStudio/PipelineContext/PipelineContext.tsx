@@ -117,16 +117,18 @@ const IdbPipelineStoreName = 'pipeline-cache'
 export const PipelineDBName = 'pipeline-db'
 const KeyPath = 'identifier'
 
-export interface StagesMap {
-  [key: string]: {
-    name: string
-    type: string
-    icon: IconName
-    iconColor: string
-    isApproval: boolean
-    openExecutionStrategy: boolean
-  }
+export interface StageAttributes {
+  name: string
+  type: string
+  icon: IconName
+  iconColor: string
+  isApproval: boolean
+  openExecutionStrategy: boolean
 }
+export interface StagesMap {
+  [key: string]: StageAttributes
+}
+
 export interface PipelineContextInterface {
   state: PipelineReducerState
   stagesMap: StagesMap

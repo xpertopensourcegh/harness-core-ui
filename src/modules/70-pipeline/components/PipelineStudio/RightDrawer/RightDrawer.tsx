@@ -22,6 +22,7 @@ import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
 import SkipCondition from '../SkipCondition/SkipCondition'
+import { StageTypes } from '../Stages/StageTypes'
 
 import css from './RightDrawer.module.scss'
 
@@ -167,6 +168,16 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               }
               data?.stepConfig?.onUpdate?.(item)
               updatePipeline(pipeline)
+
+              // TODO: temporary fix for CI and FF
+              // can be removed once the unified solution across modules is implemented
+              if (stageType === StageTypes.BUILD || stageType === StageTypes.FEATURE) {
+                updatePipelineView({
+                  ...pipelineView,
+                  isDrawerOpened: false,
+                  drawerData: { type: DrawerTypes.StepConfig }
+                })
+              }
             }
           }}
           isStepGroup={data.stepConfig.isStepGroup}
@@ -177,7 +188,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepPalette
           selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
-          stageType={stageType as string}
+          stageType={stageType as StageTypes}
           onSelect={(item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {

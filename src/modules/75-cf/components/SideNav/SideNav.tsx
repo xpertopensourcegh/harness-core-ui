@@ -12,6 +12,7 @@ export default function CFSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
   const { accountId, projectIdentifier, orgIdentifier } = params
   const history = useHistory()
+  const module = 'cf'
   const { updateAppStore } = useAppStore()
   return (
     <Layout.Vertical spacing="small">
@@ -33,6 +34,8 @@ export default function CFSideNav(): React.ReactElement {
           <SidebarLink label="Feature Flags" to={routes.toCFFeatureFlags(params)} />
           <SidebarLink label="Targets" to={routes.toCFTargets(params)} />
           <SidebarLink label="Environments" to={routes.toCFEnvironments(params)} />
+          <SidebarLink label="Builds" to={routes.toDeployments({ ...params, module })} />
+          <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

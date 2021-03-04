@@ -1,10 +1,11 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { getCDPipelineStages, stagesMap } from '@cd/components/CDPipelineStages/CDPipelineStages'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
-import { DefaultNewPipelineId, PipelineProvider, PipelineStudio } from '@pipeline/exports'
+import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
+import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { getCIPipelineStages } from '@ci/components/PipelineStudio/CIPipelineStagesUtils'
 import { useAppStore, useStrings } from 'framework/exports'
 import css from './CIPipelineStudio.module.scss'
 
@@ -28,15 +29,16 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
   }
   return (
     <PipelineProvider
-      stagesMap={stagesMap}
+      stagesMap={stagesCollection.getAllStagesAttributes(getString)}
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }}
       pipelineIdentifier={pipelineIdentifier}
       renderPipelineStage={args =>
-        getCDPipelineStages(
+        getCIPipelineStages(
           args,
           getString,
           true,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1
+          selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1,
+          selectedProject?.modules && selectedProject.modules.indexOf?.('CF') > -1
         )
       }
       stepsFactory={factory}
@@ -44,27 +46,6 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
     >
       <PipelineStudio
         className={css.container}
-        onClose={() => {
-          if (pipelineIdentifier !== DefaultNewPipelineId) {
-            history.push(
-              routes.toCIPipelineDeploymentList({
-                projectIdentifier,
-                orgIdentifier,
-                pipelineIdentifier,
-                accountId
-              })
-            )
-          } else {
-            history.push(
-              routes.toPipelines({
-                projectIdentifier,
-                orgIdentifier,
-                accountId,
-                module
-              })
-            )
-          }
-        }}
         routePipelineStudio={routes.toPipelineStudio}
         routePipelineDetail={routes.toPipelineDetail}
         routePipelineProject={routes.toDeployments}

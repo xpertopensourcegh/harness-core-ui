@@ -2,7 +2,7 @@ import React from 'react'
 import { PipelineStage } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { EditStageView } from './EditStageView/EditStageView'
-import BuildStageSetupShell from '../../../BuildStageSetupShell/BuildStageSetupShell'
+import BuildStageSetupShell from '../BuildStageSetupShell/BuildStageSetupShell'
 
 interface BuildStageProps {
   data?: StageElementWrapper

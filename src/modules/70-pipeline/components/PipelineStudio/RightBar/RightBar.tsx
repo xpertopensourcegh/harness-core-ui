@@ -38,6 +38,8 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
+import { StageTypes } from '../Stages/StageTypes'
+
 import css from './RightBar.module.scss'
 
 interface CodebaseValues {
@@ -77,7 +79,7 @@ export const RightBar = (): JSX.Element => {
 
   const ciStageExists = pipeline?.stages?.some(stage => {
     if (stage?.stage?.type) {
-      return stage?.stage?.type === 'CI'
+      return stage?.stage?.type === StageTypes.BUILD
     } else {
       return false
     }

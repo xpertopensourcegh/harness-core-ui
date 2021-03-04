@@ -53,6 +53,7 @@ import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
 import './components/PipelineSteps'
+import './components/PipelineStudio/BuildStage'
 
 const RedirectToCIHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()

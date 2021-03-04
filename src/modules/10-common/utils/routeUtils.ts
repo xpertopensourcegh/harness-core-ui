@@ -86,7 +86,7 @@ export const modulePathProps: ModulePathParams = {
   module: ':module'
 }
 
-export const pipelineModuleParams: Record<keyof PipelineType<{}>, 'ci' | 'cd' | ':module'> = {
+export const pipelineModuleParams: Record<keyof PipelineType<{}>, 'ci' | 'cd' | 'cf' | ':module'> = {
   module: ':module'
 }
 

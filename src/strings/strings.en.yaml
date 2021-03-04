@@ -1118,6 +1118,12 @@ pipelineSteps:
       selectMethod: Select the best method for Harness to reach your Kubernetes Cluster.
       directConnection: Direct Connection
       viaCloudProvider: Via Cloud Provider
+  feature:
+    create:
+      featureStageName: Feature Flag
+      featureStageDescription: Use this stage to roll out features or run a workflow.
+      specifyEnvironment: Specify the environment
+      whatIsFor: What is your flag used for?
 
 validation:
   nameRequired: Name is a required field

@@ -17,7 +17,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
 import Timeline from '@common/components/Timeline/Timeline'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
-import type { K8SDirectServiceStep } from '../PipelineSteps/K8sServiceSpec/K8sServiceSpec'
+import type { K8SDirectServiceStep } from '../../PipelineSteps/K8sServiceSpec/K8sServiceSpec'
 import i18n from './DeployServiceSpecifications.i18n'
 import css from './DeployServiceSpecifications.module.scss'
 

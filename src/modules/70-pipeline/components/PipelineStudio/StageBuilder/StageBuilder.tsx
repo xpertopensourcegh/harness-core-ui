@@ -33,6 +33,7 @@ import {
 } from './StageBuilderUtil'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
+import type { StageTypes } from '../Stages/StageTypes'
 import css from './StageBuilder.module.scss'
 
 const PANEL_RESIZE_DELTA = 4
@@ -292,7 +293,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 groupSelectedStageId: selectedStageId,
                 isStageView: false,
                 groupStages: parent.parallel,
-                onClickGroupStage: (stageId: string, typeOfStage: string) => {
+                onClickGroupStage: (stageId: string, typeOfStage: StageTypes) => {
                   dynamicPopoverHandler?.hide()
                   resetDiagram(engine)
                   updatePipelineView({

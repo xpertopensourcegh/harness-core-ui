@@ -1,0 +1,42 @@
+.stageCreate {
+  width: 430px;
+  padding: var(--spacing-small);
+  background-color: var(--white);
+}
+
+.collapseDiv div {
+  border-top: none;
+  padding: 0;
+}
+
+.grid {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+}
+
+.squareCard {
+  width: 64px;
+  height: 64px;
+  padding: var(--spacing-small) 0;
+  margin-bottom: var(--spacing-small);
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabHeading {
+  margin-top: var(--spacing-medium);
+  font-size: var(--font-size-medium);
+  color: var(--black-color-3);
+  font-weight: 600;
+}
+
+.sectionCard {
+  display: block !important;
+  margin-bottom: 20px;
+  margin-top: 14px;
+  &.shadow {
+    box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
+  }
+}

@@ -108,6 +108,26 @@ exports[`Sidenav render 1`] = `
         Environments
       </p>
     </a>
+    <a
+      class="link"
+      href="/account/dummy/cf/orgs/dummy/projects/dummy/deployments"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Builds
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cf/orgs/dummy/projects/dummy/pipelines"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Pipelines
+      </p>
+    </a>
   </div>
 </div>
 `;

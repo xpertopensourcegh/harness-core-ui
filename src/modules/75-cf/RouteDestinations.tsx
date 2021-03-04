@@ -12,9 +12,20 @@ import {
   connectorPathProps,
   secretPathProps,
   segmentPathProps,
-  targetPathProps
+  targetPathProps,
+  pipelinePathProps,
+  pipelineModuleParams,
+  executionPathProps,
+  inputSetFormPathProps,
+  triggerPathProps
 } from '@common/utils/routeUtils'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  ExecutionPathProps,
+  PipelinePathProps,
+  PipelineType,
+  ProjectPathProps
+} from '@common/interfaces/RouteInterfaces'
 
 import CFHomePage from '@cf/pages/home/CFHomePage'
 import CFDashboardPage from '@cf/pages/dashboard/CFDashboardPage'
@@ -33,7 +44,24 @@ import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { useAppStore, ModuleName } from 'framework/exports'
+import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
+import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
+import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
+//import DeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
+import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
+import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
+import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
+import TriggerDetails from '@pipeline/pages/trigger-details/TriggerDetails'
+import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
+import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
+import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage/ExecutionLandingPage'
+import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
+import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
+import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import ResourcesPage from './pages/Resources/ResourcesPage'
+import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
+
+import './components/PipelineStudio/FeatureFlagStage'
 
 const RedirectToCFHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -56,6 +84,18 @@ const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
 
   return <Redirect to={routes.toCFAdminResourcesConnectors(params)} />
+}
+
+const RedirectToExecutionPipeline = (): React.ReactElement => {
+  const params = useParams<PipelineType<ExecutionPathProps>>()
+
+  return <Redirect to={routes.toExecutionPipelineView(params)} />
+}
+
+const RedirectToPipelineDetailHome = (): React.ReactElement => {
+  const params = useParams<PipelineType<PipelinePathProps>>()
+
+  return <Redirect to={routes.toPipelineStudio(params)} />
 }
 
 const CFSideNavProps: SidebarContext = {
@@ -164,6 +204,155 @@ export default (
       exact
     >
       <CFWorkflowsPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      exact
+      path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <CFPipelineStudio />
+      </PipelineDetails>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <PipelinesPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <InputSetList />
+      </PipelineDetails>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      exact
+    >
+      {/*<DeploymentsList />*/}
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
+    >
+      <EnhancedInputSetForm />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <TriggersPage />
+      </PipelineDetails>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+    >
+      <TriggersDetailPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+    >
+      <TriggerDetails>
+        <TriggersWizardPage />
+      </TriggerDetails>
+    </RouteWithLayout>
+
+    <Route
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToExecutionPipeline />
+    </Route>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RunPipelinePage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionPipelineView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionInputsView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toExecutionArtifactsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionArtifactsView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToPipelineDetailHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toPipelineDeploymentList({
+        ...accountPathProps,
+        ...pipelinePathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <PipelineDetails>{/*<CFPipelineDeploymentList />*/}</PipelineDetails>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToPipelineDetailHome />
     </RouteWithLayout>
 
     <Route

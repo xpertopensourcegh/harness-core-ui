@@ -1,7 +1,7 @@
 import React from 'react'
 import { cloneDeep } from 'lodash-es'
 import { PipelineContext } from '@pipeline/exports'
-import { EditStageView } from '../CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
+import { EditStageView } from '../DeployStage/EditStageView/EditStageView'
 
 export default function DeployStageSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const {

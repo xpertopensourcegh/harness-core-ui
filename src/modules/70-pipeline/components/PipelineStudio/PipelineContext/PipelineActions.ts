@@ -5,6 +5,7 @@ import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderPr
 import type { Diagram } from '@pipeline/exports'
 import type { DependenciesWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
+import type { StageTypes } from '../Stages/StageTypes'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -75,7 +76,7 @@ export interface PipelineViewData {
   isSplitViewOpen: boolean
   splitViewData: {
     selectedStageId?: string
-    stageType?: string
+    stageType?: StageTypes
     type?: SplitViewTypes
   }
   isDrawerOpened: boolean

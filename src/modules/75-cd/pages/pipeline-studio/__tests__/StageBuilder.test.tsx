@@ -22,6 +22,12 @@ import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@comm
 import services from '@cd/components/PipelineSteps/DeployServiceStep/__tests__/serviceMock.ts'
 import environments from '@cd/components/PipelineSteps/DeployEnvStep/__tests__/mock.json'
 // eslint-disable-next-line no-restricted-imports
+import '@cd/components/PipelineStudio/DeployStage'
+// eslint-disable-next-line no-restricted-imports
+import '@ci/components/PipelineStudio/BuildStage'
+// eslint-disable-next-line no-restricted-imports
+import '@cf/components/PipelineStudio/FeatureFlagStage'
+// eslint-disable-next-line no-restricted-imports
 import '@cd/components/PipelineSteps'
 // eslint-disable-next-line no-restricted-imports
 import '@ci/components/PipelineSteps'
