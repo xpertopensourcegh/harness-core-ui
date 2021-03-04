@@ -7,8 +7,9 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import i18n from '../ArtifactsSelection.i18n'
+import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
 interface ArtifactConnectorProps {
@@ -16,14 +17,14 @@ interface ArtifactConnectorProps {
   name?: string
   stepName: string
   newConnectorLabel: string
-  initialValues: any
+  initialValues: ConnectorDataType
   connectorType: ConnectorInfoDTO['type']
 }
 const primarySchema = Yup.object().shape({
   connectorId: Yup.string().trim().required(i18n.validation.connectorId)
 })
 
-export const ArtifactConnector: React.FC<StepProps<any> & ArtifactConnectorProps> = props => {
+export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
   const {
     handleViewChange,
     previousStep,

@@ -5,8 +5,8 @@ import { useStrings, String } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
-import type { ConnectorRefLabelType, ConnectorDataType } from '../ArtifactsSelection'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
+import type { ConnectorDataType, ConnectorRefLabelType } from '../ArtifactInterface'
 import css from './ConnectorRefSteps.module.scss'
 
 interface StepChangeData<SharedObject> {

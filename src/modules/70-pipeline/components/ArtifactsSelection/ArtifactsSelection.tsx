@@ -26,6 +26,13 @@ import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
 import { ImagePath } from './ArtifactRepository/ImagePath'
 import { GCRImagePath } from './ArtifactRepository/GCRImagePath'
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
+import type {
+  ConnectorDataType,
+  ConnectorRefLabelType,
+  CreationType,
+  ImagePathProps,
+  ImagePathTypes
+} from './ArtifactInterface'
 import css from './ArtifactsSelection.module.scss'
 
 enum TagTypes {
@@ -39,38 +46,6 @@ const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
 }
 
 const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp']
-export type CreationType = 'Dockerhub' | 'Gcr'
-export interface OrganizationCreationType {
-  type: CreationType
-}
-
-export interface ConnectorDataType {
-  connectorId: string | undefined
-  identifier: string
-  imagePath: string
-  tag: string
-  tagRegex: string
-  tagType: TagTypes
-  registryHostname?: string
-}
-
-interface ImagePathProps {
-  key: string
-  name: string
-  context: number
-  initialValues: ConnectorDataType
-  handleSubmit: (data: {
-    connectorId: undefined | { value: string }
-    imagePath: string
-    tag?: string
-    tagRegex?: string
-  }) => void
-}
-export interface ConnectorRefLabelType {
-  firstStepName: string
-  secondStepName: string
-  newConnector: string
-}
 
 export default function ArtifactsSelection({
   isForOverrideSets,
@@ -406,7 +381,7 @@ export default function ArtifactsSelection({
     updatePipeline(pipeline)
     hideConnectorModal()
   }
-  const getInitialValues = (): ConnectorDataType => {
+  const getInitialValues = (): ImagePathTypes => {
     let spec
     if (context === ModalViewFor.PRIMARY) {
       spec = primaryArtifact?.spec
@@ -415,7 +390,6 @@ export default function ArtifactsSelection({
     }
     if (!spec) {
       return {
-        connectorId: undefined,
         identifier: '',
         imagePath: '',
         tag: RUNTIME_INPUT_VALUE,
@@ -425,7 +399,6 @@ export default function ArtifactsSelection({
     }
     const initialValues = {
       identifier: sideCarArtifact[sidecarIndex]?.sidecar.identifier,
-      connectorId: spec?.connectorRef,
       imagePath: spec.imagePath,
       tagType: spec.tag ? TagTypes.Value : TagTypes.Regex,
       tag: spec.tag,
@@ -434,6 +407,23 @@ export default function ArtifactsSelection({
     }
 
     return initialValues
+  }
+
+  const getConnectorDataValues = (): ConnectorDataType => {
+    let spec
+    if (context === ModalViewFor.PRIMARY) {
+      spec = primaryArtifact?.spec
+    } else {
+      spec = sideCarArtifact[sidecarIndex]?.sidecar.spec
+    }
+    if (!spec) {
+      return {
+        connectorId: undefined
+      }
+    }
+    return {
+      connectorId: spec?.connectorRef
+    }
   }
 
   const addNewArtifact = (viewType: number): void => {
@@ -566,14 +556,14 @@ export default function ArtifactsSelection({
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
 
-    const imagePathStep =
+    const lastStep =
       selectedArtifact === Connectors.DOCKER ? (
         <ImagePath {...getImagePathProps()} />
       ) : (
         <GCRImagePath {...getImagePathProps()} />
       )
 
-    arr.push(imagePathStep)
+    arr.push(lastStep)
     return arr
   }
 
@@ -584,7 +574,7 @@ export default function ArtifactsSelection({
     return (
       <div>
         <ConnectorRefSteps
-          connectorData={getInitialValues()}
+          connectorData={getConnectorDataValues()}
           iconsProps={getIconProps()}
           types={allowedArtifactTypes}
           lastSteps={getLastSteps()}

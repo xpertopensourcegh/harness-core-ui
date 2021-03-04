@@ -110,8 +110,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
-              : prevStepData?.name
-              ? prevStepData?.name
+              : prevStepData?.identifier
+              ? prevStepData?.identifier
               : ''
           })
         }}

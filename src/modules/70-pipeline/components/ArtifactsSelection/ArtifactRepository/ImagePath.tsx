@@ -14,25 +14,13 @@ import { Form } from 'formik'
 import memoize from 'lodash-es/memoize'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import { useGetBuildDetailsForDocker } from 'services/cd-ng'
+import { ConnectorConfigDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
+import type { ImagePathProps } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
-
-interface ImagePathProps {
-  handleSubmit: (data: {
-    connectorId: undefined | { value: string }
-    imagePath: string
-    identifier?: string
-    tag?: string
-    tagRegex?: string
-  }) => void
-  name?: string
-  context?: number
-  initialValues: any
-}
 
 const primarySchema = Yup.object().shape({
   imagePath: Yup.string().trim().required(i18n.validation.imagePath),
@@ -48,7 +36,6 @@ const primarySchema = Yup.object().shape({
 })
 
 const sidecarSchema = Yup.object().shape({
-  connectorId: Yup.string().trim().required(i18n.validation.connectorId),
   identifier: Yup.string()
     .trim()
     .required(i18n.validation.sidecarId)
@@ -77,7 +64,7 @@ const tagOptions: IOptionProps[] = [
   }
 ]
 
-export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
+export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = props => {
   const { name, context, handleSubmit, prevStepData, initialValues } = props
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -102,6 +89,7 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
       setTagList(data?.data?.buildDetailsList as [])
     }
   }, [data])
+
   React.useEffect(() => {
     refetch()
   }, [lastImagePath])
@@ -109,17 +97,12 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
     const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
     return list
   }, [tagList])
+
   const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
+
   const getInitialValues = () => {
     const initialData = {
-      ...initialValues
-    }
-    if (getMultiTypeFromValue(prevStepData?.connectorId) === MultiTypeInputType.RUNTIME) {
-      initialData.connectorId = prevStepData?.connectorId
-    } else if (prevStepData?.connectorId?.value) {
-      initialData.connectorId = prevStepData?.connectorId?.value
-    } else {
-      initialData.connectorId = prevStepData?.identifier || ''
+      ...(initialValues as any)
     }
 
     if (getMultiTypeFromValue(initialValues?.tag) === MultiTypeInputType.FIXED) {
@@ -132,6 +115,16 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
     if (imagePath.length && lastImagePath !== imagePath) {
       setLastImagePath(imagePath)
     }
+  }
+
+  const getConnectorIdValue = (): string => {
+    if (getMultiTypeFromValue(prevStepData?.connectorId) === MultiTypeInputType.RUNTIME) {
+      return prevStepData?.connectorId
+    }
+    if (prevStepData?.connectorId?.value) {
+      return prevStepData?.connectorId?.value
+    }
+    return prevStepData?.identifier || ''
   }
 
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
@@ -157,7 +150,8 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
           handleSubmit({
             ...prevStepData,
             ...formData,
-            tag: formData?.tag?.value ? formData?.tag?.value : formData?.tag
+            tag: formData?.tag?.value ? formData?.tag?.value : formData?.tag,
+            connectorId: getConnectorIdValue()
           })
         }}
       >

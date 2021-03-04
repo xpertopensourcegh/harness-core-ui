@@ -37,9 +37,9 @@ import {
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
-import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactsSelection'
 import { manifestTypeText } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
+import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
 import css from './ManifestSelection.module.scss'
 
 interface PathDataType {

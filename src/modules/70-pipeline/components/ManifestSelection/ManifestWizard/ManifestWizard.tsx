@@ -3,8 +3,8 @@ import { Text, Icon, StepWizard, Color, StepProps } from '@wings-software/uicore
 
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import { Connectors } from '@connectors/constants'
+import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import type { ManifestDataType, ManifestTypes } from '../ManifestSelection'
 import { ManifestRepoTypes } from '../ManifestWizardSteps/ManifestRepoTypes'
 import ManifestStore from '../ManifestWizardSteps/ManifestStore'
