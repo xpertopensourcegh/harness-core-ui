@@ -20,7 +20,7 @@ import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions, getDay } from './Utils'
-import SpotvsODChart from './SpotvsODChart'
+// import SpotvsODChart from './SpotvsODChart'
 import css from './COGatewayList.module.scss'
 interface COGatewayAnalyticsProps {
   service: Service
@@ -252,30 +252,30 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               <Icon name="spinner" size={12} color="blue500" />
             ) : (
               <>
+                {/* <Layout.Horizontal spacing="medium"> */}
+                {/* {props.service.fulfilment == 'spot' ? <SpotvsODChart spotPercent={76}></SpotvsODChart> : null} */}
                 <Layout.Horizontal spacing="medium">
-                  {props.service.fulfilment == 'spot' ? <SpotvsODChart spotPercent={76}></SpotvsODChart> : null}
-                  <Layout.Horizontal spacing="medium">
-                    <div style={{ alignSelf: 'center' }}>
-                      <HighchartsReact
-                        highchart={Highcharts}
-                        options={
-                          data?.response != null
-                            ? getRiskGaugeChartOptions((data?.response as ServiceSavings).savings_percentage as number)
-                            : getRiskGaugeChartOptions(0)
-                        }
-                      />
-                    </div>
-                    <Layout.Vertical spacing="xsmall" padding="large">
-                      <Heading level={2}>
-                        $
-                        {data?.response != null
-                          ? Math.round(((data?.response as ServiceSavings).actual_savings as number) * 100) / 100
-                          : 0}
-                      </Heading>
-                      <Text>Cumulative Savings</Text>
-                    </Layout.Vertical>
-                  </Layout.Horizontal>
+                  <div style={{ alignSelf: 'center' }}>
+                    <HighchartsReact
+                      highchart={Highcharts}
+                      options={
+                        data?.response != null
+                          ? getRiskGaugeChartOptions((data?.response as ServiceSavings).savings_percentage as number)
+                          : getRiskGaugeChartOptions(0)
+                      }
+                    />
+                  </div>
+                  <Layout.Vertical spacing="xsmall" padding="large">
+                    <Heading level={2}>
+                      $
+                      {data?.response != null
+                        ? Math.round(((data?.response as ServiceSavings).actual_savings as number) * 100) / 100
+                        : 0}
+                    </Heading>
+                    <Text>Cumulative Savings</Text>
+                  </Layout.Vertical>
                 </Layout.Horizontal>
+                {/* </Layout.Horizontal> */}
               </>
             )}
           </Layout.Horizontal>
