@@ -456,7 +456,7 @@ failureStrategies:
     MarkAsSuccess: Mark As Success
   errorTypeLabels:
     Authentication: Authentication Errors
-    Authorization: Autherization Errors
+    Authorization: Authorization Errors
     Connectivity: Connectivity Errors
     Timeout: Timeout Errors
     Verification: Verification Errors
