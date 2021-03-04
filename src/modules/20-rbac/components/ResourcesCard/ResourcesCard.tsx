@@ -11,7 +11,7 @@ import css from './ResourcesCard.module.scss'
 
 interface ResourcesCardProps {
   resourceType: ResourceType
-  resourceValues?: string | string[]
+  resourceValues: string | string[]
   onResourceSelectionChange: (resourceType: ResourceType, isAdd: boolean, identifiers?: string[] | undefined) => void
   disableAddingResources?: boolean
 }
@@ -54,16 +54,16 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
             disabled={disableAddingResources}
             className={css.addResourceBtn}
             onClick={() => {
-              openAddResourceModal(resourceType)
+              openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
             }}
           >
             {getString('resourceGroup.add', { name: label })}
           </Button>
         </Layout.Horizontal>
 
-        {typeof resourceValues === 'string' ? null : (
+        {Array.isArray(resourceValues) && (
           <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }}>
-            {resourceValues?.map(resource => (
+            {resourceValues.map(resource => (
               <Layout.Horizontal
                 spacing="small"
                 padding="large"

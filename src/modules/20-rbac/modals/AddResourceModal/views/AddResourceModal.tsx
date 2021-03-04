@@ -7,15 +7,16 @@ import css from './AddResourceModal.module.scss'
 
 interface RoleModalData {
   resource: ResourceType
+  selectedData: string[]
   onSuccess: (resources: string[]) => void
   onClose: () => void
 }
 
-const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClose }) => {
+const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClose, selectedData }) => {
   const resourceHandler = RbacFactory.getResourceTypeHandler(resource)
   const { getString } = useStrings()
   const [searchTerm, setSearchTerm] = useState<string>('')
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const [selectedItems, setSelectedItems] = useState<string[]>(selectedData)
 
   return (
     <Layout.Vertical padding="xxxlarge">

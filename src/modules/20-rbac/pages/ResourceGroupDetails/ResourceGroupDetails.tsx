@@ -228,15 +228,20 @@ const ResourceGroupDetails: React.FC = () => {
                 ></Page.NoDataCard>
               )}
               {Array.from(selectedResourcesMap.keys()).length !== 0 &&
-                Array.from(selectedResourcesMap.keys()).map(resourceType => (
-                  <ResourcesCard
-                    key={resourceType}
-                    resourceType={resourceType}
-                    resourceValues={selectedResourcesMap.get(resourceType)}
-                    onResourceSelectionChange={onResourceSelectionChange}
-                    disableAddingResources={isHarnessManaged}
-                  />
-                ))}
+                Array.from(selectedResourcesMap.keys()).map(resourceType => {
+                  const resourceValues = selectedResourcesMap.get(resourceType)
+                  return (
+                    resourceValues && (
+                      <ResourcesCard
+                        key={resourceType}
+                        resourceType={resourceType}
+                        resourceValues={resourceValues}
+                        onResourceSelectionChange={onResourceSelectionChange}
+                        disableAddingResources={isHarnessManaged}
+                      />
+                    )
+                  )
+                })}
             </Layout.Vertical>
           </Container>
         </div>

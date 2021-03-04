@@ -11,12 +11,13 @@ export interface UseAddResourceModalProps {
 }
 
 export interface UseAddResourceModalReturn {
-  openAddResourceModal: (resource: ResourceType) => void
+  openAddResourceModal: (resource: ResourceType, selectedItems: string[]) => void
   closeAddResourceModal: () => void
 }
 
 const useAddResourceModal = (props: UseAddResourceModalProps): UseAddResourceModalReturn => {
   const [resource, setResource] = useState<ResourceType>()
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
   const { onSuccess } = props
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -34,18 +35,20 @@ const useAddResourceModal = (props: UseAddResourceModalProps): UseAddResourceMod
               onSuccess(resources)
               hideModal()
             }}
+            selectedData={selectedItems}
             onClose={hideModal}
           />
         )}
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    [resource]
+    [resource, selectedItems]
   )
 
   return {
-    openAddResourceModal: (_resource: ResourceType) => {
+    openAddResourceModal: (_resource: ResourceType, _selectedItems: string[]) => {
       setResource(_resource)
+      setSelectedItems(_selectedItems)
       showModal()
     },
     closeAddResourceModal: hideModal
