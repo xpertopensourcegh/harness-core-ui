@@ -224,6 +224,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="description-edit"
                           icon="edit"
                         >
                           <svg
@@ -254,6 +255,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg
@@ -2021,6 +2023,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg

@@ -220,6 +220,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="description-edit"
                           icon="edit"
                         >
                           <svg
@@ -250,6 +251,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg
@@ -536,6 +538,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="description-edit"
                           icon="edit"
                         >
                           <svg
@@ -566,6 +569,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg
@@ -852,6 +856,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="description-edit"
                           icon="edit"
                         >
                           <svg
@@ -882,6 +887,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg
@@ -1170,6 +1176,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="description-edit"
                           icon="edit"
                         >
                           <svg
@@ -1200,6 +1207,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg

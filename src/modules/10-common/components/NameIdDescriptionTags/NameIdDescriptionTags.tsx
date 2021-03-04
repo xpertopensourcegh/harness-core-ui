@@ -50,6 +50,7 @@ const Description = (props: DescriptionComponentProps): JSX.Element => {
           <Icon
             className={css.editOpen}
             data-name="edit"
+            data-testid="description-edit"
             size={12}
             name="edit"
             color={Color.GREY_500}
@@ -85,6 +86,7 @@ const Tags = (props: TagsComponentProps): JSX.Element => {
           <Icon
             className={css.editOpen}
             data-name="edit"
+            data-testid="tags-edit"
             size={12}
             color={Color.GREY_500}
             name="edit"

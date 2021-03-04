@@ -223,6 +223,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="description-edit"
                           icon="edit"
                         >
                           <svg
@@ -253,6 +254,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg
@@ -1077,6 +1079,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
+                          data-testid="tags-edit"
                           icon="edit"
                         >
                           <svg

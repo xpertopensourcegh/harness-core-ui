@@ -283,6 +283,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
+                              data-testid="description-edit"
                               icon="edit"
                             >
                               <svg
@@ -313,6 +314,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
+                              data-testid="tags-edit"
                               icon="edit"
                             >
                               <svg
@@ -1018,6 +1020,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
+                              data-testid="tags-edit"
                               icon="edit"
                             >
                               <svg
@@ -1795,6 +1798,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
+                              data-testid="description-edit"
                               icon="edit"
                             >
                               <svg
@@ -1825,6 +1829,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
+                              data-testid="tags-edit"
                               icon="edit"
                             >
                               <svg
