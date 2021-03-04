@@ -1,5 +1,12 @@
-.spotUsage .bp3-progress-meter {
-  background-color: var(--blue-100) !important;
+.spotUsage {
+  :global {
+    .bp3-progress-bar {
+      .bp3-progress-meter {
+        // background-color: var(--blue-100) !important;
+        background-color: #00ade4 !important;
+      }
+    }
+  }
 }
 .fulFilmentIcon {
   img {

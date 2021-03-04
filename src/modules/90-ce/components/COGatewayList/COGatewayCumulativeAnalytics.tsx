@@ -1,4 +1,4 @@
-import { ProgressBar } from '@blueprintjs/core'
+// import { ProgressBar } from '@blueprintjs/core'
 import { Color, Container, Heading, Icon, Intent, Layout, Tag, Text } from '@wings-software/uicore'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -6,10 +6,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { Service, useCumulativeServiceSavings } from 'services/lw'
-import odIcon from './images/ondemandIcon.svg'
-import spotIcon from './images/spotIcon.svg'
 import { geGaugeChartOptionsWithoutLabel, getDay } from './Utils'
-import css from './COGatewayCumulativeAnalytics.module.scss'
+// import css from './COGatewayCumulativeAnalytics.module.scss'
 interface COGatewayCumulativeAnalyticsProps {
   services: Service[]
 }
@@ -144,54 +142,41 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
             padding: 'var(--spacing-medium)'
           }}
         >
-          <Layout.Vertical spacing="large">
+          <Layout.Vertical style={{ flex: 1 }}>
+            <Layout.Vertical spacing="xsmall">
+              <Text>SAVINGS PERCENTAGE</Text>
+              <Heading level={1}>
+                {graphData?.response != null
+                  ? getSavingsPercentage(
+                      graphData?.response?.total_savings as number,
+                      graphData?.response?.total_potential as number
+                    )
+                  : 0}
+                %
+              </Heading>
+              <Layout.Horizontal>
+                <HighchartsReact
+                  highchart={Highcharts}
+                  options={
+                    graphData?.response != null
+                      ? geGaugeChartOptionsWithoutLabel(
+                          getSavingsPercentage(
+                            graphData?.response?.total_savings as number,
+                            graphData?.response?.total_potential as number
+                          )
+                        )
+                      : geGaugeChartOptionsWithoutLabel(0)
+                  }
+                />
+              </Layout.Horizontal>
+            </Layout.Vertical>
             <Heading level={2}>ACTIVE RULES</Heading>
             <Layout.Horizontal spacing="small">
               <Heading level={1}>{props.services.length}</Heading>
               <Text style={{ alignSelf: 'center' }}>Rules</Text>
             </Layout.Horizontal>
-            <Heading level={2}>INSTANCES MANAGED</Heading>
-            <Layout.Horizontal spacing="small">
-              <Heading level={1}>{props.services.length}</Heading>
-              <Text style={{ alignSelf: 'center' }}>Instances</Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal spacing="small">
-              <Text style={{ alignSelf: 'center' }}>{props.services.length % 2}</Text>
-              <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
-                RUNNING
-              </Tag>
-            </Layout.Horizontal>
-            <Layout.Horizontal spacing="small">
-              <Text style={{ alignSelf: 'center' }}>{props.services.length - (props.services.length % 2)}</Text>
-              <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
-                STOPPED
-              </Tag>
-            </Layout.Horizontal>
           </Layout.Vertical>
-          <Layout.Vertical spacing="large">
-            <Heading level={2}>SPOT/ON-DEMAND USAGE</Heading>
-            <Layout.Vertical spacing="large" padding="small">
-              <Layout.Horizontal spacing="small">
-                <img src={odIcon} alt="" aria-hidden />
-                <Text>On-demand (33%)</Text>
-              </Layout.Horizontal>
-              <Layout.Vertical spacing="small">
-                <Text>300h 55m</Text>
-                <ProgressBar intent={Intent.PRIMARY} value={0.33} stripes={false} />
-              </Layout.Vertical>
-            </Layout.Vertical>
-            <Layout.Vertical spacing="large" padding="small">
-              <Layout.Horizontal spacing="small">
-                <img style={{ width: '20px' }} src={spotIcon} alt="" aria-hidden />
-                <Text>Spot (66%)</Text>
-              </Layout.Horizontal>
-              <Layout.Vertical spacing="small">
-                <Text>975h 36m</Text>
-                <ProgressBar intent={Intent.PRIMARY} value={0.66} stripes={false} className={css.spotUsage} />
-              </Layout.Vertical>
-            </Layout.Vertical>
-          </Layout.Vertical>
-          <Layout.Vertical spacing="large" width="50%" style={{ textAlign: 'center' }}>
+          <Layout.Vertical spacing="large" style={{ textAlign: 'center', flex: 3 }}>
             <Heading level={2}>TOTAL SPEND VS SAVINGS</Heading>
             {graphData && graphData.response?.days && graphData.response?.days.length ? (
               <HighchartsReact
@@ -212,7 +197,7 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
               </Text>
             )}
           </Layout.Vertical>
-          <Layout.Vertical spacing="small">
+          <Layout.Vertical spacing="small" style={{ flex: 1.5 }}>
             <Layout.Vertical spacing="medium" padding="small">
               <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
                 <Layout.Vertical spacing="small">
@@ -238,36 +223,60 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
                   )}
                 </Layout.Vertical>
               </Container>
-              <Layout.Horizontal spacing="small" padding="small">
-                <HighchartsReact
-                  highchart={Highcharts}
-                  options={
-                    graphData?.response != null
-                      ? geGaugeChartOptionsWithoutLabel(
-                          getSavingsPercentage(
-                            graphData?.response?.total_savings as number,
-                            graphData?.response?.total_potential as number
-                          )
-                        )
-                      : geGaugeChartOptionsWithoutLabel(0)
-                  }
-                  style={{ alignSelf: 'flex-end' }}
-                />
-                <Layout.Vertical spacing="xsmall">
-                  <Text>SAVINGS PERCENTAGE</Text>
-                  <Heading level={1}>
-                    {graphData?.response != null
-                      ? getSavingsPercentage(
-                          graphData?.response?.total_savings as number,
-                          graphData?.response?.total_potential as number
-                        )
-                      : 0}
-                    %
-                  </Heading>
-                </Layout.Vertical>
-              </Layout.Horizontal>
             </Layout.Vertical>
           </Layout.Vertical>
+          <Layout.Vertical spacing="large" style={{ flex: 1 }}>
+            <Heading level={2}>INSTANCES MANAGED</Heading>
+            <Layout.Horizontal spacing="large">
+              <Heading level={1}>{props.services.length}</Heading>
+              <Text style={{ alignSelf: 'center' }}>Instances</Text>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing="large">
+              <Text style={{ alignSelf: 'center' }}>{props.services.length % 2}</Text>
+              <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
+                RUNNING
+              </Tag>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing="large">
+              <Text style={{ alignSelf: 'center' }}>{props.services.length - (props.services.length % 2)}</Text>
+              <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
+                STOPPED
+              </Tag>
+            </Layout.Horizontal>
+          </Layout.Vertical>
+          {/* <Layout.Vertical spacing="large" style={{ flex: 1 }}>
+            <Heading level={2}>USAGE TIMING</Heading>
+            <Layout.Horizontal padding={'medium'} style={{ paddingLeft: 0, alignItems: 'flex-end' }}>
+              <Heading level={1} style={{ marginBottom: '-5px' }}>
+                {'19'}
+              </Heading>
+              <Text>{'d'}</Text>
+              <Heading level={1} style={{ marginBottom: '-5px' }}>
+                {'4'}
+              </Heading>
+              <Text>{'h'}</Text>
+              <Heading level={1} style={{ marginBottom: '-5px' }}>
+                {'31'}
+              </Heading>
+              <Text>{'m'}</Text>
+            </Layout.Horizontal>
+            <div>
+              <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
+                <Text>66%</Text>
+                <Text>300h 55m</Text>
+              </Layout.Horizontal>
+              <ProgressBar intent={Intent.PRIMARY} value={0.66} stripes={false} />
+              <Heading level={2}>On-demand</Heading>
+            </div>
+            <div className={css.spotUsage}>
+              <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
+                <Text>33%</Text>
+                <Text>975h 36m</Text>
+              </Layout.Horizontal>
+              <ProgressBar intent={Intent.PRIMARY} value={0.33} stripes={false} />
+              <Heading level={2}>Spot</Heading>
+            </div>
+          </Layout.Vertical> */}
         </Layout.Horizontal>
       </Layout.Vertical>
     </Container>
