@@ -53,6 +53,7 @@ interface KubernetesInfraSpecEditableProps {
   initialValues: K8SDirectInfrastructure
   onUpdate?: (data: K8SDirectInfrastructure) => void
   stepViewType?: StepViewType
+  readonly?: boolean
   template?: K8SDirectInfrastructureTemplate
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: K8SDirectInfrastructure
@@ -198,6 +199,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
   onUpdate,
   initialValues,
   template,
+  readonly = false,
   path
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -255,7 +257,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           name="connectorRef"
           label={i18n.k8ConnectorDropDownLabel}
           placeholder={loading ? i18n.loading : i18n.k8ConnectorDropDownPlaceholder}
-          disabled={loading}
+          disabled={readonly || loading}
           onChange={(record, scope) => {
             onUpdate?.({
               ...initialValues,
@@ -269,6 +271,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
         <FormInput.Text
           name={`${path}.namespace`}
           label={i18n.nameSpaceLabel}
+          disabled={readonly}
           placeholder={i18n.nameSpacePlaceholder}
         />
       )}
@@ -276,6 +279,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
         <FormInput.Text
           name={`${path}.releaseName`}
           label={i18n.releaseName}
+          disabled={readonly}
           placeholder={i18n.releaseNamePlaceholder}
         />
       )}
@@ -393,6 +397,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
+          readonly={inputSetData?.readonly}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
         />
