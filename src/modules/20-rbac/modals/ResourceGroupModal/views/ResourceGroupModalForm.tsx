@@ -23,7 +23,7 @@ import {
 import { useStrings } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
-
+import css from './ResourceGroupModal.module.scss'
 interface ResourceGroupModalData {
   data?: ResourceGroupDTO
   onSubmit?: () => void
@@ -110,7 +110,7 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
           {formikProps => {
             return (
               <Form>
-                <Container>
+                <Container className={css.modal}>
                   <ModalErrorHandler bind={setModalErrorHandler} />
                   <NameIdDescriptionTags
                     formikProps={formikProps}

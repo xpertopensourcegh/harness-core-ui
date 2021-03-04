@@ -47,7 +47,16 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = ({
           if (resourceDetails) {
             const { label, icon } = resourceDetails
             return (
-              <Card className={css.resourceTypeCard} key={eleDetails}>
+              <Card
+                className={css.resourceTypeCard}
+                key={eleDetails}
+                draggable
+                onDragStart={e => {
+                  // TO DO: should make it work for resource types sub divisions
+                  e.dataTransfer.setData('text/plain', eleDetails as ResourceType)
+                  e.dataTransfer.dropEffect = 'copy'
+                }}
+              >
                 <Checkbox
                   disabled={disableAddingResources}
                   onChange={e => {

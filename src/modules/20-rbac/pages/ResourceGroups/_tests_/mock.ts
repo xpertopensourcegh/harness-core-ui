@@ -14,7 +14,6 @@ export const resourceGroupListResponse = {
           identifier: 'ss33',
           name: 'ss33',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'SECRET_MANAGER' }
@@ -23,6 +22,7 @@ export const resourceGroupListResponse = {
           description: ''
         },
         createdAt: 1614237155621,
+        harnessManaged: false,
         lastModifiedAt: 1614237168823
       },
       {
@@ -33,7 +33,6 @@ export const resourceGroupListResponse = {
           identifier: 'starte',
           name: 'starte',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'SECRET_MANAGER' },
@@ -43,6 +42,7 @@ export const resourceGroupListResponse = {
           description: ''
         },
         createdAt: 1614235877442,
+        harnessManaged: false,
         lastModifiedAt: 1614237139987
       },
       {
@@ -53,7 +53,6 @@ export const resourceGroupListResponse = {
           identifier: 'swarfdfds34343',
           name: 'swarfdfds34343',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
@@ -62,6 +61,7 @@ export const resourceGroupListResponse = {
           description: ''
         },
         createdAt: 1614235749097,
+        harnessManaged: false,
         lastModifiedAt: 1614235755919
       },
       {
@@ -72,7 +72,6 @@ export const resourceGroupListResponse = {
           identifier: 'testttttte34343',
           name: 'testttttte34343',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
@@ -81,6 +80,7 @@ export const resourceGroupListResponse = {
           description: ''
         },
         createdAt: 1614235670353,
+        harnessManaged: false,
         lastModifiedAt: 1614235675738
       },
       {
@@ -91,7 +91,6 @@ export const resourceGroupListResponse = {
           identifier: 'tterer',
           name: 'tterer',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
@@ -100,6 +99,7 @@ export const resourceGroupListResponse = {
           description: ''
         },
         createdAt: 1614176572867,
+        harnessManaged: false,
         lastModifiedAt: 1614235655830
       },
       {
@@ -110,7 +110,6 @@ export const resourceGroupListResponse = {
           identifier: 'testvery1',
           name: 'testvery1',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' },
@@ -120,6 +119,7 @@ export const resourceGroupListResponse = {
           description: ''
         },
         createdAt: 1614173017675,
+        harnessManaged: false,
         lastModifiedAt: 1614176563581
       },
       {
@@ -130,7 +130,6 @@ export const resourceGroupListResponse = {
           identifier: 'test create 3',
           name: 'test create 3',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'SECRET_MANAGER' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
@@ -139,6 +138,7 @@ export const resourceGroupListResponse = {
           description: 'dfdfd'
         },
         createdAt: 1613532230271,
+        harnessManaged: false,
         lastModifiedAt: 1614084781484
       },
       {
@@ -149,7 +149,6 @@ export const resourceGroupListResponse = {
           identifier: 'test_554',
           name: 'test 5549',
           color: '#e63535',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' },
@@ -159,6 +158,7 @@ export const resourceGroupListResponse = {
           description: 'fdfdsf'
         },
         createdAt: 1613533038727,
+        harnessManaged: false,
         lastModifiedAt: 1614060809595
       },
       {
@@ -169,7 +169,6 @@ export const resourceGroupListResponse = {
           identifier: 'dfdfdf',
           name: 'dfdfdf',
           color: '#e6b800',
-          harnessManaged: true,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' },
@@ -179,6 +178,7 @@ export const resourceGroupListResponse = {
           description: 'fdfdf'
         },
         createdAt: 1613443175193,
+        harnessManaged: true,
         lastModifiedAt: 1614060106616
       },
       {
@@ -189,7 +189,6 @@ export const resourceGroupListResponse = {
           identifier: 'test_with_desc',
           name: 'test with desc',
           color: '#0063f7',
-          harnessManaged: false,
           resourceSelectors: [
             { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
             { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
@@ -198,6 +197,7 @@ export const resourceGroupListResponse = {
           description: 'description here '
         },
         createdAt: 1614055998262,
+        harnessManaged: false,
         lastModifiedAt: 1614056855028
       }
     ],

@@ -18,6 +18,8 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import routes from '@common/RouteDefinitions'
 import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
@@ -123,12 +125,33 @@ const ResourceGroupDetails: React.FC = () => {
         className={css.headerContainer}
         title={
           <Layout.Vertical spacing="small">
-            <Text font="medium" lineClamp={1} color={Color.BLACK}>
-              {resourceGroup.name}
-            </Text>
-            <Text lineClamp={1} color={Color.GREY_400}>
-              {resourceGroup.description}
-            </Text>
+            <Breadcrumbs
+              links={[
+                {
+                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier }),
+                  label: getString('accessControl')
+                },
+                {
+                  url: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier }),
+                  label: getString('resourceGroups')
+                },
+                {
+                  url: '#',
+                  label: resourceGroup.name
+                }
+              ]}
+            />
+            <Layout.Horizontal spacing="medium" flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+              <div style={{ backgroundColor: resourceGroup.color }} className={css.colorDiv}></div>
+              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
+                <Text font="medium" lineClamp={1} color={Color.BLACK} width={700}>
+                  {resourceGroup.name}
+                </Text>
+                <Text lineClamp={1} color={Color.GREY_400} width={700}>
+                  {resourceGroup.description}
+                </Text>
+              </Layout.Vertical>
+            </Layout.Horizontal>
           </Layout.Vertical>
         }
         toolbar={
@@ -177,24 +200,43 @@ const ResourceGroupDetails: React.FC = () => {
               disableAddingResources={isHarnessManaged}
             />
           </Container>
-          <Container padding="xlarge">
+          <Container
+            padding="xlarge"
+            onDrop={event => {
+              onResourceSelectionChange(event.dataTransfer.getData('text/plain') as ResourceType, true)
+              event.preventDefault()
+              event.stopPropagation()
+            }}
+            onDragOver={event => {
+              event.dataTransfer.dropEffect = 'copy'
+              event.preventDefault()
+            }}
+          >
             {!isHarnessManaged && (
               <Layout.Vertical flex={{ alignItems: 'flex-end' }} padding="small">
-                <Button onClick={() => updateResourceGroupData(resourceGroup)} disabled={updating}>
+                <Button onClick={() => updateResourceGroupData(resourceGroup)} disabled={updating} intent="primary">
                   {getString('applyChanges')}
                 </Button>
               </Layout.Vertical>
             )}
             <Layout.Vertical spacing="small" height="100%">
-              {Array.from(selectedResourcesMap.keys()).map(resourceType => (
-                <ResourcesCard
-                  key={resourceType}
-                  resourceType={resourceType}
-                  resourceValues={selectedResourcesMap.get(resourceType)}
-                  onResourceSelectionChange={onResourceSelectionChange}
-                  disableAddingResources={isHarnessManaged}
-                />
-              ))}
+              {Array.from(selectedResourcesMap.keys()).length === 0 && (
+                <Page.NoDataCard
+                  message={getString('resourceGroup.dragAndDropData')}
+                  icon="drag-handle-horizontal"
+                  iconSize={100}
+                ></Page.NoDataCard>
+              )}
+              {Array.from(selectedResourcesMap.keys()).length !== 0 &&
+                Array.from(selectedResourcesMap.keys()).map(resourceType => (
+                  <ResourcesCard
+                    key={resourceType}
+                    resourceType={resourceType}
+                    resourceValues={selectedResourcesMap.get(resourceType)}
+                    onResourceSelectionChange={onResourceSelectionChange}
+                    disableAddingResources={isHarnessManaged}
+                  />
+                ))}
             </Layout.Vertical>
           </Container>
         </div>
