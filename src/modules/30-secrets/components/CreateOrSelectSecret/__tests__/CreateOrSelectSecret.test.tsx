@@ -1,13 +1,30 @@
 import React from 'react'
-import { render, wait, fireEvent, act } from '@testing-library/react'
+import { render, waitFor, fireEvent, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import CreateOrSelectSecret from '../CreateOrSelectSecret'
 
 import connectorsListMockData from './connectorsListMockdata.json'
 import secretsListMockData from './secretsListMockData.json'
+import connectorDetailsMockData from './getConnectorMock.json'
 
 const successCallback = jest.fn()
+
+jest.mock('services/cd-ng', () => ({
+  ...(jest.requireActual('services/cd-ng') as any),
+  useGetConnectorList: () => {
+    return {
+      data: connectorsListMockData,
+      refetch: jest.fn()
+    }
+  },
+  useGetConnector: () => {
+    return {
+      data: connectorDetailsMockData,
+      refetch: jest.fn()
+    }
+  }
+}))
 
 describe('CreateOrSelectSecret', () => {
   test('render', async () => {
@@ -16,13 +33,15 @@ describe('CreateOrSelectSecret', () => {
         <CreateOrSelectSecret
           type="SecretText"
           onSuccess={successCallback}
-          connectorsListMockData={connectorsListMockData as any}
           secretsListMockData={secretsListMockData as any}
         />
       </TestWrapper>
     )
-    await wait()
-    expect(getByText('Create a new secret')).toBeDefined()
+
+    await waitFor(() => {
+      expect(getByText('Create a new secret')).toBeDefined()
+    })
+
     expect(container).toMatchSnapshot()
 
     const $selectTab = getByText('Select an existing secret')

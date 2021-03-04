@@ -1,0 +1,34 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "connector": {
+      "name": "vault1",
+      "identifier": "vault1",
+      "description": "",
+      "tags": [],
+      "type": "Vault",
+      "spec": {
+        "vaultUrl": "http://localhost:8200",
+        "renewalIntervalMinutes": 0,
+        "secretEngineName": "secret",
+        "secretEngineVersion": 2,
+        "default": false,
+        "readOnly": false
+      }
+    },
+    "createdAt": 1613640571396,
+    "lastModifiedAt": 1613640571370,
+    "status": {
+      "status": "SUCCESS",
+      "errorSummary": null,
+      "errors": null,
+      "testedAt": 1613640571550,
+      "lastTestedAt": 0,
+      "lastConnectedAt": 1613640571550
+    },
+    "activityDetails": { "lastActivityTime": 1613640571478 },
+    "harnessManaged": true
+  },
+  "metaData": null,
+  "correlationId": "d3638f6b-404d-49a4-bd48-793842b8de20"
+}

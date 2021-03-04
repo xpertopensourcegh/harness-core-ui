@@ -5,6 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import CreateUpdateSecret from '../CreateUpdateSecret'
 
 import mockData from './listSecretManagersMock.json'
+import connectorMockData from './getConnectorMock.json'
 import secretDetailsMock from './secretDetailsMock.json'
 
 const mockUpdateTextSecret = jest.fn()
@@ -14,14 +15,25 @@ jest.mock('services/cd-ng', () => ({
   usePostSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetConnectorList: () => mockData
+  useGetConnectorList: () => {
+    return {
+      data: mockData,
+      refetch: jest.fn()
+    }
+  },
+  useGetConnector: () => {
+    return {
+      data: connectorMockData,
+      refetch: jest.fn()
+    }
+  }
 }))
 
 describe('CreateUpdateSecret', () => {
   test('Create Text Secret', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <CreateUpdateSecret connectorListMockData={mockData as any} />
+        <CreateUpdateSecret />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -30,7 +42,7 @@ describe('CreateUpdateSecret', () => {
   test('Create File Secret', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <CreateUpdateSecret connectorListMockData={mockData as any} type="SecretFile" />
+        <CreateUpdateSecret type="SecretFile" />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -39,7 +51,7 @@ describe('CreateUpdateSecret', () => {
   test('Update Text Secret', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <CreateUpdateSecret connectorListMockData={mockData as any} secret={secretDetailsMock as any} />
+        <CreateUpdateSecret secret={secretDetailsMock as any} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

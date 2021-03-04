@@ -14,13 +14,7 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import {
-  SecretRequestWrapper,
-  usePostSecret,
-  SSHAuthDTO,
-  ResponsePageSecretResponseWrapper,
-  usePutSecret
-} from 'services/cd-ng'
+import { SecretRequestWrapper, usePostSecret, SSHAuthDTO, usePutSecret } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
@@ -47,7 +41,6 @@ export interface SSHConfigFormData {
 
 interface StepAuthenticationProps {
   onSuccess?: () => void
-  mockSecretReference?: ResponsePageSecretResponseWrapper
 }
 
 const validationSchema = Yup.object().shape({
@@ -80,8 +73,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   prevStepData,
   nextStep,
   previousStep,
-  onSuccess,
-  mockSecretReference
+  onSuccess
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [saving, setSaving] = useState(false)
@@ -158,11 +150,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
           {formik => {
             return (
               <FormikForm>
-                <SSHAuthFormFields
-                  formik={formik}
-                  secretName={prevStepData?.detailsData?.name}
-                  mockSecretReference={mockSecretReference}
-                />
+                <SSHAuthFormFields formik={formik} secretName={prevStepData?.detailsData?.name} />
                 <Layout.Horizontal spacing="small">
                   <Button
                     text={getString('back')}

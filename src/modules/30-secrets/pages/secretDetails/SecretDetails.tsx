@@ -10,7 +10,6 @@ import {
   SecretTextSpecDTO,
   usePutSecretViaYaml,
   ResponseSecretResponseWrapper,
-  ResponsePageConnectorResponse,
   useGetYamlSchema,
   useGetYamlSnippetMetadata,
   useGetYamlSnippet,
@@ -48,7 +47,6 @@ interface OptionalIdentifiers {
 
 interface SecretDetailsProps {
   mockSecretDetails?: UseGetMockData<ResponseSecretResponseWrapper>
-  connectorListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   mockKey?: ResponseSecretResponseWrapper
   mockPassword?: ResponseSecretResponseWrapper
   mockPassphrase?: ResponseSecretResponseWrapper

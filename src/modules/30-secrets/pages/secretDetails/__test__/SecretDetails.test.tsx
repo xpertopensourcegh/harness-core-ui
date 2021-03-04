@@ -5,6 +5,7 @@ import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import SecretDetails from '../SecretDetails'
 
 import mockData from './secretDetailsMocks.json'
+import connectorMockData from './getConnectorMock.json'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div>yamlDiv</div>
@@ -17,6 +18,12 @@ jest.mock('services/cd-ng', () => ({
   useGetConnectorList: jest.fn().mockImplementation(() => {
     return { ...mockData.secretManagers, refetch: jest.fn(), error: null, loading: false }
   }),
+  useGetConnector: () => {
+    return {
+      data: connectorMockData,
+      refetch: jest.fn()
+    }
+  },
   usePostSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePostSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
@@ -39,10 +46,7 @@ describe('Secret Details', () => {
   test('Text Secret', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <SecretDetails
-          mockSecretDetails={mockData.text as any}
-          connectorListMockData={mockData.secretManagers as any}
-        />
+        <SecretDetails mockSecretDetails={mockData.text as any} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

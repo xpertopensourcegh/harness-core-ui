@@ -4,19 +4,13 @@ import { Dialog } from '@blueprintjs/core'
 
 import CreateOrSelectSecret from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import type {
-  SecretResponseWrapper,
-  ResponsePageConnectorResponse,
-  ResponsePageSecretResponseWrapper
-} from 'services/cd-ng'
-import type { UseGetMockData } from '@common/utils/testUtils'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 
 import css from './useCreateOrSelectSecretModal.module.scss'
 
 export interface UseCreateOrSelectSecretModalProps {
   type: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
-  connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   secretsListMockData?: ResponsePageSecretResponseWrapper
 }
 

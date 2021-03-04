@@ -12,12 +12,7 @@ import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
 
 import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretModal/useCreateOrSelectSecretModal'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import type {
-  SecretResponseWrapper,
-  ResponsePageConnectorResponse,
-  ResponsePageSecretResponseWrapper
-} from 'services/cd-ng'
-import type { UseGetMockData } from '@common/utils/testUtils'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { errorCheck } from '@common/utils/formikHelpers'
 
@@ -45,7 +40,6 @@ export interface MultiTypeSecretInputProps extends IFormGroupProps {
   label?: string
   type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
-  connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   secretsListMockData?: ResponsePageSecretResponseWrapper
   isMultiType?: boolean
 }
@@ -62,7 +56,6 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     name,
     onSuccess,
     type = 'SecretText',
-    connectorsListMockData,
     secretsListMockData,
     isMultiType = true,
     ...restProps
@@ -75,7 +68,6 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
         /* istanbul ignore next */
         onSuccess?.(secret)
       },
-      connectorsListMockData,
       secretsListMockData
     },
     [name, onSuccess]

@@ -8,12 +8,7 @@ import { getScopeFromDTO } from '@common/components/EntityReference/EntityRefere
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
 import { getReference } from '@secrets/utils/SSHAuthUtils'
 import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
-import type { UseGetMockData } from '@common/utils/testUtils'
-import type {
-  ResponsePageConnectorResponse,
-  SecretResponseWrapper,
-  ResponsePageSecretResponseWrapper
-} from 'services/cd-ng'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 
 import i18n from './CreateOrSelectSecret.i18n'
 
@@ -28,16 +23,10 @@ export interface SecretReference {
 export interface CreateOrSelectSecretProps {
   type: SecretResponseWrapper['secret']['type']
   onSuccess: (secret: SecretReference) => void
-  connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   secretsListMockData?: ResponsePageSecretResponseWrapper
 }
 
-const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
-  type,
-  onSuccess,
-  connectorsListMockData,
-  secretsListMockData
-}) => {
+const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuccess, secretsListMockData }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   return (
     <>
@@ -55,7 +44,6 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
                     referenceString: getReference(getScopeFromDTO(data), data.identifier) as string
                   })
                 }}
-                connectorListMockData={connectorsListMockData}
               />
             }
           />

@@ -30,6 +30,7 @@ jest.mock('services/portal', () => ({
   })
 }))
 jest.mock('services/cd-ng', () => ({
+  ...(jest.requireActual('services/cd-ng') as any),
   useGetConnectorList: jest.fn().mockImplementation(() => {
     return { ...mockData, refetch: jest.fn(), error: null, loading: false }
   }),
@@ -37,20 +38,14 @@ jest.mock('services/cd-ng', () => ({
   useValidateSecret: jest
     .fn()
     .mockImplementation(() => ({ mutate: () => Promise.resolve({ responseSecretValidation }) })),
-  usePostSecret: jest.fn().mockImplementation(() => ({ mutate: createSSHSecret })),
-  usePostSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  usePutSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  usePutSecretViaYaml: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  usePostSecret: jest.fn().mockImplementation(() => ({ mutate: createSSHSecret }))
 }))
 
 describe('Create SSH Cred Wizard', () => {
   test('should render form', async () => {
     const { container, getAllByText } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <CreateSSHCredWizard hideModal={noop} onSuccess={noop} mockSecretReference={mockListSecrets as any} />
+        <CreateSSHCredWizard hideModal={noop} onSuccess={noop} />
       </TestWrapper>
     )
 

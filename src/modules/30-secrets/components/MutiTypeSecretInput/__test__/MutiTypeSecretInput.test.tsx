@@ -6,7 +6,25 @@ import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 
 import connectorsListMockData from './connectorsListMockdata.json'
 import secretsListMockData from './secretsListMockData.json'
+import connectorDetailsMockData from './getConnectorMock.json'
+
 import MutiTypeSecretInput from '../MultiTypeSecretInput'
+
+jest.mock('services/cd-ng', () => ({
+  ...(jest.requireActual('services/cd-ng') as any),
+  useGetConnectorList: () => {
+    return {
+      data: connectorsListMockData,
+      refetch: jest.fn()
+    }
+  },
+  useGetConnector: () => {
+    return {
+      data: connectorDetailsMockData,
+      refetch: jest.fn()
+    }
+  }
+}))
 
 describe('SecretInput', () => {
   test('render', async () => {
@@ -22,7 +40,6 @@ describe('SecretInput', () => {
                   name="test"
                   label="test"
                   onSuccess={handleSuccess}
-                  connectorsListMockData={connectorsListMockData as any}
                   secretsListMockData={secretsListMockData as any}
                 />
               </FormikForm>

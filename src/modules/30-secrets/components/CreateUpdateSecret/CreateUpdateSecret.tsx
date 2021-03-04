@@ -23,13 +23,12 @@ import {
   SecretRequestWrapper,
   ConnectorInfoDTO,
   ConnectorResponse,
-  ResponsePageConnectorResponse,
-  VaultConnectorDTO
+  VaultConnectorDTO,
+  useGetConnector
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
-import type { UseGetMockData } from '@common/utils/testUtils'
 import i18n from './CreateUpdateSecret.i18n'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'
@@ -41,7 +40,6 @@ interface CreateUpdateSecretProps {
   type?: SecretResponseWrapper['secret']['type']
   onChange?: (data: SecretDTOV2) => void
   onSuccess?: (data: SecretFormData) => void
-  connectorListMockData?: UseGetMockData<ResponsePageConnectorResponse>
 }
 
 const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
@@ -52,9 +50,22 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
-  const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' },
-    mock: props.connectorListMockData
+  const {
+    data: secretManagersApiResponse,
+    loading: loadingSecretsManagers,
+    refetch: getSecretManagers
+  } = useGetConnectorList({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      category: 'SECRET_MANAGER'
+    },
+    lazy: true
+  })
+  const { data: connectorDetails, loading: loadingConnectorDetails, refetch: getConnectorDetails } = useGetConnector({
+    identifier: (secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier,
+    lazy: true
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
     queryParams: { accountIdentifier: accountId }
@@ -74,6 +85,19 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const loading = loadingCreateText || loadingUpdateText || loadingCreateFile || loadingUpdateFile
   const editing = !!secret?.identifier
   if (secret && secret.type) type = secret?.type
+
+  useEffect(() => {
+    if (!editing) {
+      getSecretManagers()
+    } else {
+      getConnectorDetails({
+        queryParams: {
+          accountIdentifier: accountId,
+          ...pick(secret, ['orgIdentifier', 'projectIdentifier'])
+        }
+      })
+    }
+  }, [])
 
   const createFormData = (data: SecretFormData): FormData => {
     const formData = new FormData()
@@ -136,13 +160,20 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     }
   }
 
-  const secretManagersOptions: SelectOption[] =
-    secretManagersApiResponse?.data?.content?.map((item: ConnectorResponse) => {
-      return {
-        label: item.connector?.name || '',
-        value: item.connector?.identifier || ''
-      }
-    }) || []
+  const secretManagersOptions: SelectOption[] = editing
+    ? [
+        {
+          label: connectorDetails?.data?.connector?.name || '',
+          value: connectorDetails?.data?.connector?.identifier || ''
+        }
+      ]
+    : secretManagersApiResponse?.data?.content?.map((item: ConnectorResponse) => {
+        return {
+          label: item.connector?.name || '',
+          value: item.connector?.identifier || ''
+        }
+      }) || []
+
   const defaultSecretManagerId = secretManagersApiResponse?.data?.content?.filter(
     item => item.connector?.spec?.default
   )[0]?.connector?.identifier
@@ -150,13 +181,26 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const [selectedSecretManager, setSelectedSecretManager] = useState<ConnectorInfoDTO | undefined>()
   const [readOnlySecretManager, setReadOnlySecretManager] = useState<boolean>()
 
+  // update selectedSecretManager and readOnly flag in state when we get new data
   useEffect(() => {
-    const selectedSM = secretManagersApiResponse?.data?.content?.filter(
-      itemValue => itemValue.connector?.identifier === defaultSecretManagerId
-    )?.[0]?.connector
+    const selectedSM = editing
+      ? // when editing, use connector from api response directly, since user cannot change SM
+        connectorDetails?.data?.connector
+      : // when creating, iterate over all secret managers to find default SM
+        secretManagersApiResponse?.data?.content?.filter(
+          itemValue => itemValue.connector?.identifier === defaultSecretManagerId
+        )?.[0]?.connector
+
     setSelectedSecretManager(selectedSM)
     setReadOnlySecretManager((selectedSM?.spec as VaultConnectorDTO)?.readOnly)
-  }, [defaultSecretManagerId])
+  }, [defaultSecretManagerId, connectorDetails])
+
+  // if the selected secret manager changes, update readOnly flag in state
+  useEffect(() => {
+    selectedSecretManager?.type === 'Vault'
+      ? setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO)?.readOnly)
+      : setReadOnlySecretManager(false)
+  }, [selectedSecretManager])
 
   return (
     <>
@@ -201,12 +245,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
         }}
       >
         {formikProps => {
-          const typeOfSelectedSecretManager = secretManagersApiResponse?.data?.content?.filter(
-            itemValue => itemValue.connector?.identifier === formikProps.values['secretManagerIdentifier']
-          )?.[0]?.connector?.type
-          typeOfSelectedSecretManager === 'Vault'
-            ? setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO)?.readOnly)
-            : setReadOnlySecretManager(false)
+          const typeOfSelectedSecretManager = selectedSecretManager?.type
 
           return (
             <FormikForm>
@@ -214,7 +253,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 name="secretManagerIdentifier"
                 label={i18n.labelSecretsManager}
                 items={secretManagersOptions}
-                disabled={editing || loadingSecretsManagers}
+                disabled={editing || loadingSecretsManagers || loadingConnectorDetails}
                 onChange={item => {
                   setSelectedSecretManager(
                     secretManagersApiResponse?.data?.content?.filter(

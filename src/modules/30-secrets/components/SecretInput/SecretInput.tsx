@@ -6,12 +6,7 @@ import { get, isPlainObject } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretModal/useCreateOrSelectSecretModal'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import type {
-  SecretResponseWrapper,
-  ResponsePageConnectorResponse,
-  ResponsePageSecretResponseWrapper
-} from 'services/cd-ng'
-import type { UseGetMockData } from '@common/utils/testUtils'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 
 import i18n from './SecretInput.i18n'
 import css from './SecretInput.module.scss'
@@ -21,7 +16,6 @@ interface SecretInputProps {
   label?: string
   type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
-  connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   secretsListMockData?: ResponsePageSecretResponseWrapper
 }
 
@@ -30,7 +24,7 @@ interface FormikSecretInput extends SecretInputProps {
 }
 
 const SecretInput: React.FC<FormikSecretInput> = props => {
-  const { formik, label, name, onSuccess, type = 'SecretText', connectorsListMockData, secretsListMockData } = props
+  const { formik, label, name, onSuccess, type = 'SecretText', secretsListMockData } = props
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
     {
       type,
@@ -39,7 +33,6 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
         /* istanbul ignore next */
         onSuccess?.(secret)
       },
-      connectorsListMockData,
       secretsListMockData
     },
     [name, onSuccess]

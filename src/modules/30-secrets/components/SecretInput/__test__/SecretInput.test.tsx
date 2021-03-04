@@ -5,9 +5,27 @@ import { noop } from 'lodash-es'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 
-import connectorsListMockData from './connectorsListMockdata.json'
 import secretsListMockData from './secretsListMockData.json'
+import mockData from './connectorsListMockdata.json'
+import connectorMockData from './getConnectorMock.json'
+
 import SecretInput from '../SecretInput'
+
+jest.mock('services/cd-ng', () => ({
+  ...(jest.requireActual('services/cd-ng') as any),
+  useGetConnectorList: () => {
+    return {
+      data: mockData,
+      refetch: jest.fn()
+    }
+  },
+  useGetConnector: () => {
+    return {
+      data: connectorMockData,
+      refetch: jest.fn()
+    }
+  }
+}))
 
 describe('SecretInput', () => {
   test('render', async () => {
@@ -23,7 +41,6 @@ describe('SecretInput', () => {
                   name="test"
                   label="test"
                   onSuccess={handleSuccess}
-                  connectorsListMockData={connectorsListMockData as any}
                   secretsListMockData={secretsListMockData as any}
                 />
               </FormikForm>

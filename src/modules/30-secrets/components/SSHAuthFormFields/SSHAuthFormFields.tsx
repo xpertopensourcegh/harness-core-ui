@@ -6,7 +6,6 @@ import type { FormikProps } from 'formik'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
-import type { ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 
 import i18n from './SSHAuthFormFields.i18n'
 
@@ -16,7 +15,6 @@ interface SSHAuthFormFieldsProps {
   formik: FormikProps<SSHConfigFormData>
   secretName?: string
   editing?: boolean
-  mockSecretReference?: ResponsePageSecretResponseWrapper
 }
 
 const credentialTypeOptions: SelectOption[] = [
