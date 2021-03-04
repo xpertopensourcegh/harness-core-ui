@@ -12,6 +12,7 @@ import {
   useModalHook,
   SelectOption
 } from '@wings-software/uicore'
+import { debounce as _debounce } from 'lodash-es'
 import { Dialog, IDialogProps, RadioGroup, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { AccessPoint, useAllHostedZones, useListAccessPoints } from 'services/lw'
@@ -57,6 +58,9 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     },
     lazy: true
   })
+
+  const debouncedFetchHostedZones = React.useCallback(_debounce(loadHostedZones, 500), [])
+
   const initialAccessPointDetails: AccessPoint = {
     cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -122,7 +126,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         }
       }) || []
     setHostedZonesList(loadedhostedZones)
-  }, [hostedZones, hostedZonesLoading])
+  }, [hostedZones?.response, hostedZonesLoading])
 
   useEffect(() => {
     if (dnsProvider == 'route53') loadHostedZones()
@@ -223,6 +227,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     props.gatewayDetails.customDomains = e.target.value.split(',')
                     props.setGatewayDetails(props.gatewayDetails)
                     props.setHelpTextSections(['usingCustomDomain'])
+                    debouncedFetchHostedZones()
                   }}
                   style={{ width: '100%' }}
                   disabled={formik.values.usingCustomDomain != 'yes'}
