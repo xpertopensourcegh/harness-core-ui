@@ -19,7 +19,7 @@ import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
-import css from '../ExistingGCRArtifact/GCRArtifact.module.scss'
+import css from './GCRArtifact.module.scss'
 
 interface ImagePathProps {
   handleSubmit: (data: {

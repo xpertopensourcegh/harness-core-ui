@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Layout,
-  Text,
-  Icon,
-  Color,
-  useModalHook,
-  RUNTIME_INPUT_VALUE,
-  StepWizard,
-  StepProps
-} from '@wings-software/uicore'
+import { Color, useModalHook, RUNTIME_INPUT_VALUE, StepWizard, StepProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 
@@ -17,13 +8,11 @@ import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import { String } from 'framework/exports'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { Connectors } from '@connectors/constants'
 
-import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { useStrings } from 'framework/exports'
@@ -31,24 +20,17 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnector/StepAuth/GcrAuthentication'
-import {
-  getStageIndexFromPipeline,
-  getFlattenedStages,
-  getStatus
-} from '../PipelineStudio/StageBuilder/StageBuilderUtil'
+import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
 import { ImagePath } from './ArtifactRepository/ImagePath'
 import { GCRImagePath } from './ArtifactRepository/GCRImagePath'
+import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
 import css from './ArtifactsSelection.module.scss'
 
 enum TagTypes {
   Value = 'value',
   Regex = 'regex'
-}
-enum ModalViewFor {
-  PRIMARY = 1,
-  SIDECAR = 2
 }
 
 const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
@@ -70,6 +52,19 @@ export interface ConnectorDataType {
   tagRegex: string
   tagType: TagTypes
   registryHostname?: string
+}
+
+interface ImagePathProps {
+  key: string
+  name: string
+  context: number
+  initialValues: ConnectorDataType
+  handleSubmit: (data: {
+    connectorId: undefined | { value: string }
+    imagePath: string
+    tag?: string
+    tagRegex?: string
+  }) => void
 }
 export interface ConnectorRefLabelType {
   firstStepName: string
@@ -286,7 +281,7 @@ export default function ArtifactsSelection({
 
   const connectorIdentifiers = connectorScopeIdentifierList.map(item => item.identifier)
 
-  const refetchConnectorList = async () => {
+  const refetchConnectorList = async (): Promise<void> => {
     const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
     setFetchedConnectorResponse(connectorResponse)
   }
@@ -439,6 +434,8 @@ export default function ArtifactsSelection({
 
   const addNewArtifact = (viewType: number): void => {
     setModalContext(viewType)
+    setConnectorView(false)
+
     if (viewType === ModalViewFor.SIDECAR) {
       const newSidecarIndex = sideCarArtifact?.length ? sideCarArtifact?.length + 1 : 0
       setEditIndex(newSidecarIndex)
@@ -481,6 +478,7 @@ export default function ArtifactsSelection({
     sideCarArtifact.splice(index, 1)
     updatePipeline(pipeline)
   }
+
   const getIconProps = (): IconProps => {
     const iconProps: IconProps = {
       name: getConnectorIconByType(selectedArtifact)
@@ -489,6 +487,25 @@ export default function ArtifactsSelection({
       iconProps.color = Color.WHITE
     }
     return iconProps
+  }
+
+  const getImagePathProps = (): ImagePathProps => {
+    const imagePathProps: ImagePathProps = {
+      key: getString('connectors.stepFourName'),
+      name: getString('connectors.stepFourName'),
+      context,
+      initialValues: getInitialValues(),
+      handleSubmit: (data: {
+        connectorId: undefined | { value: string }
+        imagePath: string
+        tag?: string
+        tagRegex?: string
+      }) => {
+        addArtifact(data)
+      }
+    }
+
+    return imagePathProps
   }
 
   const getLabels = (): ConnectorRefLabelType => {
@@ -548,35 +565,9 @@ export default function ArtifactsSelection({
 
     const imagePathStep =
       selectedArtifact === Connectors.DOCKER ? (
-        <ImagePath
-          key={getString('connectors.stepFourName')}
-          name={getString('connectors.stepFourName')}
-          context={context}
-          handleSubmit={(data: {
-            connectorId: undefined | { value: string }
-            imagePath: string
-            tag?: string
-            tagRegex?: string
-          }) => {
-            addArtifact(data)
-          }}
-          initialValues={getInitialValues()}
-        />
+        <ImagePath {...getImagePathProps()} />
       ) : (
-        <GCRImagePath
-          key={getString('connectors.stepFourName')}
-          name={getString('connectors.stepFourName')}
-          context={context}
-          handleSubmit={(data: {
-            connectorId: undefined | { value: string }
-            imagePath: string
-            tag?: string
-            tagRegex?: string
-          }) => {
-            addArtifact(data)
-          }}
-          initialValues={getInitialValues()}
-        />
+        <GCRImagePath {...getImagePathProps()} />
       )
 
     arr.push(imagePathStep)
@@ -621,176 +612,19 @@ export default function ArtifactsSelection({
     [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex]
   )
 
-  const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
   return (
-    <Layout.Vertical>
-      {isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={stage} />}
-
-      <Layout.Vertical spacing="small">
-        <div className={cx(css.artifactList, css.listHeader)}>
-          <span></span>
-          <span>{getString('artifactRepository')}</span>
-          <span> {getString('location')}</span>
-          <span></span>
-          <span></span>
-        </div>
-
-        <Layout.Vertical>
-          <section>
-            {primaryArtifact && (
-              <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>
-                <div>
-                  <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
-                    Primary
-                  </Text>
-                </div>
-
-                <div className={css.server}>
-                  <Text
-                    inline
-                    icon={getConnectorIconByType(primaryArtifact.type)}
-                    iconProps={{ size: 18 }}
-                    width={180}
-                    lineClamp={1}
-                    style={{ color: Color.BLACK, fontWeight: 900 }}
-                  >
-                    {primaryArtifact.type}
-                  </Text>
-
-                  <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
-                </div>
-                <div>
-                  <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    {primaryArtifact?.spec?.imagePath}
-                  </Text>
-                </div>
-                <div>{/* WIP artifact validation */}</div>
-                {overrideSetIdentifier.length === 0 && (
-                  <span>
-                    <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                      <Icon
-                        name="Edit"
-                        size={16}
-                        onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
-                      />
-                      {/* <Icon
-                            name="main-clone"
-                            size={16}
-                            style={{ cursor: 'pointer' }}
-                            className={css.cloneIcon}
-                            // onClick={() => cloneArtifact(manifest)}
-                          /> */}
-                      <Icon name="bin-main" size={25} onClick={removePrimary} />
-                    </Layout.Horizontal>
-                  </span>
-                )}
-              </section>
-            )}
-          </section>
-          {sideCarArtifact && sideCarArtifact.length > 0 && (
-            <section>
-              {sideCarArtifact.map(
-                (
-                  data: {
-                    sidecar: {
-                      type: string
-                      identifier: string
-                      spec: {
-                        connectorRef: string
-                        imagePath: string
-                      }
-                    }
-                  },
-                  index: number
-                ) => {
-                  const { sidecar } = data
-                  const { color: sideCarConnectionColor } = getStatus(
-                    sidecar?.spec?.connectorRef,
-                    fetchedConnectorResponse,
-                    accountId
-                  )
-                  return (
-                    <section className={cx(css.artifactList, css.rowItem)} key={sidecar?.identifier + index}>
-                      <div>
-                        <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
-                          {getString('sidecar')}
-                          <Text lineClamp={1} className={css.artifactId}>
-                            ({getString('cf.targets.ID')}: {sidecar.identifier})
-                          </Text>
-                        </Text>
-                      </div>
-                      <div className={css.server}>
-                        <Text
-                          inline
-                          icon={getConnectorIconByType(sidecar.type)}
-                          iconProps={{ size: 18 }}
-                          width={180}
-                          lineClamp={1}
-                          style={{ color: Color.BLACK, fontWeight: 900 }}
-                        >
-                          {sidecar.type}
-                        </Text>
-
-                        <Text width={200} icon="full-circle" iconProps={{ size: 10, color: sideCarConnectionColor }} />
-                      </div>
-                      <div>
-                        <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {sidecar?.spec?.imagePath}
-                        </Text>
-                      </div>
-                      <div>{/* WIP artifact validation */}</div>
-                      {overrideSetIdentifier.length === 0 && (
-                        <span>
-                          <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                            <Icon
-                              name="Edit"
-                              size={16}
-                              onClick={() => {
-                                editArtifact(ModalViewFor.SIDECAR, sidecar.type as CreationType, index)
-                              }}
-                            />
-                            {/* <Icon
-                                  name="main-clone"
-                                  size={16}
-                                  style={{ cursor: 'pointer' }}
-                                  className={css.cloneIcon}
-                                  // onClick={() => cloneArtifact(manifest)}
-                                /> */}
-                            <Icon name="bin-main" size={25} onClick={() => removeSidecar(index)} />
-                          </Layout.Horizontal>
-                        </span>
-                      )}
-                    </section>
-                  )
-                }
-              )}
-            </section>
-          )}
-          {sideCarArtifact && sideCarArtifact.length > 0 && overrideSetIdentifier.length === 0 && (
-            <div className={css.paddingVertical}>
-              <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
-                <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
-              </Text>
-            </div>
-          )}
-        </Layout.Vertical>
-      </Layout.Vertical>
-      <Layout.Vertical>
-        {!primaryArtifact && overrideSetIdentifier.length === 0 && (
-          <div className={css.rowItem}>
-            <Text onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
-              <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
-            </Text>
-          </div>
-        )}
-        {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier.length === 0 && (
-          <div className={css.rowItem}>
-            <Text onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
-              <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
-            </Text>
-          </div>
-        )}
-      </Layout.Vertical>
-    </Layout.Vertical>
+    <ArtifactListView
+      isForPredefinedSets={isForPredefinedSets}
+      stage={stage}
+      primaryArtifact={primaryArtifact}
+      overrideSetIdentifier={overrideSetIdentifier}
+      sideCarArtifact={sideCarArtifact}
+      addNewArtifact={addNewArtifact}
+      editArtifact={editArtifact}
+      removePrimary={removePrimary}
+      removeSidecar={removeSidecar}
+      fetchedConnectorResponse={fetchedConnectorResponse}
+      accountId={accountId}
+    />
   )
 }
