@@ -260,12 +260,13 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       setFilteredInstances(allInstances)
       return
     }
+    text = text.toLowerCase()
     const instances: InstanceDetails[] = []
     allInstances.forEach(t => {
       const r = t as InstanceDetails
       const name = r.name as string
       const id = r.id as string
-      if (name.indexOf(text) >= 0 || id.indexOf(text) >= 0) {
+      if (name.toLowerCase().indexOf(text) >= 0 || id.toLowerCase().indexOf(text) >= 0) {
         instances.push(t)
       }
     })
