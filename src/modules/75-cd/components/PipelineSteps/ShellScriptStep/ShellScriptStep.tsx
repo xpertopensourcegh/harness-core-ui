@@ -1,113 +1,30 @@
 import React from 'react'
-import { IconName, Formik, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
+import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { isEmpty, set, get } from 'lodash-es'
 import * as Yup from 'yup'
-import { FormikProps, yupToFormErrors } from 'formik'
+import { yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
-import { useStrings, UseStringsReturn, loggerFor, ModuleName } from 'framework/exports'
+import { UseStringsReturn, loggerFor, ModuleName } from 'framework/exports'
 import type { StepProps } from '@pipeline/exports'
 import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/exports'
-import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+
 import i18n from './ShellScriptStep.i18n'
-import BaseShellScript, { shellScriptType } from './BaseShellScript'
-import ShellScriptInput from './ShellScriptInput'
-import ExecutionTarget from './ExecutionTarget'
-import ShellScriptOutput from './ShellScriptOutput'
+import { shellScriptType } from './BaseShellScript'
+
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
 import ShellScriptInputSetStep from './ShellScriptInputSetStep'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import { ShellScriptWidgetWithRef } from './ShellScriptWidget'
+import { ShellScriptVariablesView, ShellScriptVariablesViewProps } from './ShellScriptVariablesView'
+
 const logger = loggerFor(ModuleName.CD)
-
-/**
- * Spec
- * https://harness.atlassian.net/wiki/spaces/CDNG/pages/1203634286/Shell+Script
- */
-
-interface ShellScriptWidgetProps {
-  initialValues: ShellScriptFormData
-  onUpdate?: (data: ShellScriptFormData) => void
-  stepViewType?: StepViewType
-}
-
-function ShellScriptWidget(
-  { initialValues, onUpdate }: ShellScriptWidgetProps,
-  formikRef: StepFormikFowardRef
-): JSX.Element {
-  const { getString } = useStrings()
-
-  const defaultSSHSchema = Yup.object().shape({
-    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-    timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-    spec: Yup.object().shape({
-      shell: Yup.string().required(getString('validation.scriptTypeRequired')),
-      source: Yup.object().shape({
-        spec: Yup.object().shape({
-          script: Yup.string().required(getString('validation.scriptTypeRequired'))
-        })
-      })
-    })
-  })
-
-  const values: any = {
-    ...initialValues,
-    spec: {
-      ...initialValues.spec,
-      executionTarget: {
-        ...initialValues.spec.executionTarget,
-        connectorRef: undefined
-      }
-    }
-  }
-
-  const validationSchema = defaultSSHSchema
-
-  return (
-    <Formik<ShellScriptFormData>
-      onSubmit={submit => {
-        onUpdate?.(submit)
-      }}
-      initialValues={values}
-      validationSchema={validationSchema}
-    >
-      {(formik: FormikProps<ShellScriptFormData>) => {
-        // this is required
-        setFormikRef(formikRef, formik)
-
-        return (
-          <Accordion activeId="step-1" className={stepCss.accordion}>
-            <Accordion.Panel id="step-1" summary={getString('basic')} details={<BaseShellScript formik={formik} />} />
-            <Accordion.Panel
-              id="step-2"
-              summary={getString('scriptInputVariables')}
-              details={<ShellScriptInput formik={formik} />}
-            />
-            <Accordion.Panel
-              id="step-4"
-              summary={getString('scriptOutputVariables')}
-              details={<ShellScriptOutput formik={formik} />}
-            />
-            <Accordion.Panel
-              id="step-3"
-              summary={getString('executionTarget')}
-              details={<ExecutionTarget formik={formik} />}
-            />
-          </Accordion>
-        )
-      }}
-    </Formik>
-  )
-}
-
-const ShellScriptWidgetWithRef = React.forwardRef(ShellScriptWidget)
-
 const ConnectorRefRegex = /^.+step\.spec\.executionTarget\.connectorRef$/
 
 const getConnectorValue = (connector?: SecretResponseWrapper): string =>
@@ -129,8 +46,14 @@ const getConnectorName = (connector?: SecretResponseWrapper): string =>
   }` || ''
 
 export class ShellScriptStep extends PipelineStep<ShellScriptData> {
+  constructor() {
+    super()
+    this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
+    this._hasStepVariables = true
+  }
+
   renderStep(props: StepProps<ShellScriptData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -144,6 +67,16 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         />
       )
     }
+
+    if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <ShellScriptVariablesView
+          {...(customStepProps as ShellScriptVariablesViewProps)}
+          originalData={initialValues}
+        />
+      )
+    }
+
     return (
       <ShellScriptWidgetWithRef
         initialValues={this.getInitialValues(initialValues)}
@@ -239,11 +172,6 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         }
       }
     }
-  }
-
-  constructor() {
-    super()
-    this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
   }
 
   protected async getSecretsListForYaml(

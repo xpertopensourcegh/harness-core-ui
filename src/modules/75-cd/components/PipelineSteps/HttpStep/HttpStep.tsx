@@ -1,90 +1,31 @@
 import React from 'react'
-import {
-  IconName,
-  Formik,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  SelectOption,
-  Accordion
-} from '@wings-software/uicore'
+import { IconName, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
 import { yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { isEmpty } from 'lodash-es'
 
 import { StepViewType, StepProps } from '@pipeline/exports'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings, UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { HttpHeaderConfig, NGVariable } from 'services/cd-ng'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import HttpStepBase, { httpStepType } from './HttpStepBase'
-import ResponseMapping from './ResponseMapping'
+import { httpStepType } from './HttpStepBase'
 import HttpInputSetStep from './HttpInputSetStep'
+import { HttpStepWidgetWithRef } from './HttpStepWidget'
+import { HttpStepVariablesView, HttpStepVariablesViewProps } from './HttpStepVariablesView'
 import type { HttpStepData, HttpStepFormData, HttpStepHeaderConfig, HttpStepOutputVariable } from './types'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-
-/**
- * Spec
- * https://harness.atlassian.net/wiki/spaces/CDNG/pages/1160446867/Http+Step
- */
-
-interface HttpStepWidgetProps {
-  initialValues: HttpStepFormData
-  onUpdate?: (data: HttpStepFormData) => void
-  stepViewType?: StepViewType
-  readonly?: boolean
-}
-
-function HttpStepWidget(props: HttpStepWidgetProps, formikRef: StepFormikFowardRef<HttpStepData>): React.ReactElement {
-  const { initialValues, onUpdate } = props
-  const { getString } = useStrings()
-
-  return (
-    <Formik<HttpStepFormData>
-      onSubmit={values => {
-        onUpdate?.(values)
-      }}
-      initialValues={initialValues}
-      validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-        spec: Yup.object().shape({
-          url: Yup.string().required(getString('validation.UrlRequired')),
-          method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired'))
-        })
-      })}
-    >
-      {(formik: FormikProps<HttpStepFormData>) => {
-        // this is required
-        setFormikRef(formikRef, formik)
-
-        return (
-          <React.Fragment>
-            <Accordion activeId="step-1" className={stepCss.accordion}>
-              <Accordion.Panel id="step-1" summary={getString('basic')} details={<HttpStepBase formik={formik} />} />
-              <Accordion.Panel
-                id="step-2"
-                summary={getString('responseMapping')}
-                details={<ResponseMapping formik={formik} />}
-              />
-            </Accordion>
-          </React.Fragment>
-        )
-      }}
-    </Formik>
-  )
-}
-
-const HttpStepWidgetWithRef = React.forwardRef(HttpStepWidget)
 
 export class HttpStep extends PipelineStep<HttpStepData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
+
   renderStep(this: HttpStep, props: StepProps<HttpStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -97,6 +38,10 @@ export class HttpStep extends PipelineStep<HttpStepData> {
           path={inputSetData?.path || ''}
         />
       )
+    }
+
+    if (stepViewType === StepViewType.InputVariable) {
+      return <HttpStepVariablesView {...(customStepProps as HttpStepVariablesViewProps)} originalData={initialValues} />
     }
 
     return (

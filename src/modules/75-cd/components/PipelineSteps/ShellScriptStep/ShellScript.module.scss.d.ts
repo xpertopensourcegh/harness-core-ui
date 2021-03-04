@@ -13,5 +13,6 @@ declare const styles: {
   readonly monacoWrapper: string
   readonly expandBtn: string
   readonly monacoDialog: string
+  readonly variablesList: string
 }
 export default styles

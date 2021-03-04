@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import { Text } from '@wings-software/uicore'
 import { CopyText } from '@common/components/CopyText/CopyText'
-import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import type { VariableResponseMapValue } from 'services/pipeline-ng'
 import { toVariableStr } from '@common/utils/StringUtils'
 
 import css from './VariablesListTable.module.scss'
@@ -12,7 +12,7 @@ import css from './VariablesListTable.module.scss'
 export interface VariableListTableProps<T = Record<string, unknown>> {
   data: T
   originalData: T
-  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  metadataMap: Record<string, VariableResponseMapValue>
   className?: string
 }
 
