@@ -396,7 +396,11 @@ export default function ArtifactsSelection({
           }
         )
       } else {
-        sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
+        if (sideCarArtifact?.length) {
+          sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
+        } else {
+          sideCarArtifact.push({ sidecar: sideCarObject })
+        }
       }
     }
     updatePipeline(pipeline)
@@ -437,8 +441,7 @@ export default function ArtifactsSelection({
     setConnectorView(false)
 
     if (viewType === ModalViewFor.SIDECAR) {
-      const newSidecarIndex = sideCarArtifact?.length ? sideCarArtifact?.length + 1 : 0
-      setEditIndex(newSidecarIndex)
+      setEditIndex(sideCarArtifact?.length)
     }
     showConnectorModal()
   }

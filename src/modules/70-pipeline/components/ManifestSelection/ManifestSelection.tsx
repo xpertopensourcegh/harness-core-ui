@@ -70,8 +70,6 @@ const manifestTypeIcons: Record<string, IconName> = {
   Values: 'config-file'
 }
 
-let selectedManifestReference: { identifier: string; spec: { store: { type: string; spec: {} } } } | undefined
-
 function ManifestListView({
   manifestList,
   pipeline,
@@ -168,7 +166,6 @@ function ManifestListView({
   }
 
   const addNewManifest = (): void => {
-    selectedManifestReference = undefined
     setEditIndex(listOfManifests.length)
     showConnectorModal()
   }
@@ -192,9 +189,6 @@ function ManifestListView({
     },
     index: number
   ): void => {
-    selectedManifestReference = undefined
-    selectedManifestReference = manifest
-
     setSelectedManifest(manifest.type)
     setConnectorView(false)
     setEditIndex(index)
@@ -202,13 +196,13 @@ function ManifestListView({
   }
 
   const getManifestInitialValues = (): ManifestDataType => {
-    const initValues = get(selectedManifestReference, 'spec.store.spec', null)
+    const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
 
     if (initValues) {
       const values = {
         ...initValues,
-        identifier: selectedManifestReference?.identifier,
-        store: selectedManifestReference?.spec?.store?.type,
+        identifier: listOfManifests[manifestIndex]?.manifest.identifier,
+        store: listOfManifests[manifestIndex]?.manifest.spec?.store?.type,
         connectorRef: initValues?.connectorRef,
         paths:
           typeof initValues['paths'] === 'string'
@@ -252,20 +246,20 @@ function ManifestListView({
     }
 
     if (isPropagating) {
-      if (listOfManifests && listOfManifests.length > 0) {
+      if (listOfManifests?.length > 0) {
         listOfManifests.splice(manifestIndex, 1, manifestObj)
       } else {
-        listOfManifests.splice(manifestIndex, 1, manifestObj)
+        listOfManifests.push(manifestObj)
       }
       updatePipeline(pipeline)
       hideConnectorModal()
       return
     }
     if (!isForOverrideSets) {
-      if (listOfManifests && listOfManifests.length > 0) {
+      if (listOfManifests?.length > 0) {
         listOfManifests.splice(manifestIndex, 1, manifestObj)
       } else {
-        listOfManifests.splice(manifestIndex, 1, manifestObj)
+        listOfManifests.push(manifestObj)
       }
     } else {
       listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
@@ -371,7 +365,7 @@ function ManifestListView({
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
       </Dialog>
     )
-  }, [selectedManifest, connectorView, manifestIndex, selectedManifestReference])
+  }, [selectedManifest, connectorView, manifestIndex])
 
   return (
     <Layout.Vertical spacing="small">
