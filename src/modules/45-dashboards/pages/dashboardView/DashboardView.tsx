@@ -17,7 +17,6 @@ const DashboardViewPage: React.FC = () => {
   const [embedUrl, setEmbedUrl] = React.useState('')
   const [iframeState] = React.useState(0)
   // const [isDrawerOpen, setDrawerState] = React.useState(false)
-  const external_user_id = decodeURI(atob(localStorage.getItem('email') || '')) /* eslint-disable-line */
 
   const { mutate: createSignedUrl, loading, error } = useMutate({
     verb: 'POST',
@@ -31,16 +30,7 @@ const DashboardViewPage: React.FC = () => {
   })
 
   const generateSignedUrl = async () => {
-    const { resource } = await createSignedUrl({
-      external_user_id: external_user_id.replace(/['"]+/g, '') /* eslint-disable-line */,
-      first_name: external_user_id.replace(/['"]+/g, '').split('@')[0] /* eslint-disable-line */,
-      permissions: 'editor',
-      user_attributes /* eslint-disable-line */: {
-        accountName: external_user_id.replace(/['"]+/g, '').split('@')[1] /* eslint-disable-line */,
-        companyName: external_user_id.replace(/['"]+/g, '').split('@')[1] /* eslint-disable-line */,
-        licenseInfo: 'PAID'
-      }
-    })
+    const { resource } = await createSignedUrl({})
     setEmbedUrl(resource)
   }
 
