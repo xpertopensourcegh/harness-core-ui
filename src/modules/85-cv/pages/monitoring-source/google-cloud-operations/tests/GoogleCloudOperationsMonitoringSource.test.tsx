@@ -1,9 +1,8 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
-import type { UseGetReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as cvService from 'services/cv'
+import type { RestResponseDSConfig } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
 import { GoogleCloudOperationsMonitoringSource, transformGetResponse } from '../GoogleCloudOperationsMonitoringSource'
@@ -87,14 +86,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
     await waitFor(() => expect(container.querySelector('[class*="SelectProduct"]')).not.toBeNull())
   })
 
-  test('Ensure that when identifier is in url the api is called', async () => {
-    const refetchFn = jest.fn()
-    const useGetDSConfigSpy = jest.spyOn(cvService, 'useGetDSConfig')
-    useGetDSConfigSpy.mockReturnValue({
-      data: MockResponseData,
-      loading: false,
-      refetch: refetchFn as any
-    } as UseGetReturn<any, any, any, any>)
+  test('Ensure edit state works', async () => {
     const { container } = render(
       <TestWrapper
         path={routes.toCVAdminSetupMonitoringSourceEdit({
@@ -111,12 +103,11 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
           monitoringSource: '1234_monitoringSource'
         }}
       >
-        <GoogleCloudOperationsMonitoringSource />
+        <GoogleCloudOperationsMonitoringSource dsConfig={{ data: MockResponseData } as RestResponseDSConfig} />
       </TestWrapper>
     )
 
     await waitFor(() => expect(container.querySelector('[class*="SelectProduct"]')).not.toBeNull())
-    expect(refetchFn).toBeCalledTimes(1)
     expect(
       transformGetResponse(MockResponseData.resource as GCODSConfig, {
         accountId: '1234_account',

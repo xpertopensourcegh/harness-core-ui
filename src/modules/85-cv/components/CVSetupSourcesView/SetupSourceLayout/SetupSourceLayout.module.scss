@@ -1,0 +1,39 @@
+.main {
+  height: 100%;
+  .contentContainer {
+    display: flex;
+    height: 100%;
+    .leftPanel,
+    .rightPanel {
+      width: clamp(250px, 350px, 350px);
+    }
+    .content {
+      flex: 1;
+      margin: var(--spacing-medium);
+      overflow-y: scroll;
+    }
+  }
+}
+
+.footerCTA {
+  height: 50px;
+  width: 100%;
+  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-self: flex-start;
+  position: fixed;
+  bottom: 0;
+  padding: var(--spacing-small) 0 !important;
+
+  button:first-child {
+    margin-left: var(--spacing-xlarge);
+    margin-right: var(--spacing-small);
+  }
+
+  .nextButton {
+    background-color: var(--blue-600) !important;
+    width: 72px;
+    color: var(--white) !important;
+    border: none !important;
+  }
+}

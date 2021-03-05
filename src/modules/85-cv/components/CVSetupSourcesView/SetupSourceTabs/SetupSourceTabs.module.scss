@@ -1,0 +1,29 @@
+.tabWrapper {
+  flex: 1;
+  height: 100%;
+  [class~='bp3-tab-list'] {
+    border-bottom: none !important;
+    box-shadow: 5px 1px 10px var(--grey-300);
+  }
+  [class~='bp3-tab-panel'] {
+    flex: 1;
+    display: flex;
+    margin-top: 0 !important;
+    flex-direction: column;
+    > *:first-child {
+      flex: 1;
+    }
+  }
+  [class~='bp3-tabs'] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  [class~='bp3-tab'] {
+    margin-top: var(--spacing-small) !important;
+    &[data-tab-id='0'] {
+      padding: var(-spacing-xsmall) 0 !important;
+      margin-left: var(--spacing-xlarge) !important;
+    }
+  }
+}

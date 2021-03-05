@@ -23,7 +23,8 @@ export const ActivitySourceSetupRoutePaths = {
 }
 export const MonitoringSourceSetupRoutePaths = {
   APP_DYNAMICS: 'app-dynamics',
-  GoogleCloudOperations: 'GoogleCloudOperations'
+  GOOGLE_CLOUD_OPERATIONS: 'GoogleCloudOperations',
+  NEW_RELIC: 'new-relic'
 }
 
 export const getRoutePathByType = (type: string) => {
@@ -35,7 +36,7 @@ export const getRoutePathByType = (type: string) => {
     case 'AppDynamics':
       return MonitoringSourceSetupRoutePaths.APP_DYNAMICS
     case 'STACKDRIVER':
-      return MonitoringSourceSetupRoutePaths.GoogleCloudOperations
+      return MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS
     default:
       return ''
   }

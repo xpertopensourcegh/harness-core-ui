@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
 import type { BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { Page } from '@common/exports'
-import { useGetDSConfig } from 'services/cv'
+import type { RestResponseDSConfig } from 'services/cv'
+
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import SelectApplications from './SelectApplications/SelectApplications'
 import MapApplications from './MapApplications/MapApplications'
@@ -48,129 +45,100 @@ function transformDSResponse(dsConfig: any) {
   return {}
 }
 
-const AppDMonitoringSource = () => {
+const AppDMonitoringSource = ({ dsConfig }: { dsConfig?: RestResponseDSConfig | null }) => {
   const { currentData, setCurrentData, onNext, onPrevious, currentTab, maxEnabledTab } = useCVTabsHook<
     AppDMonitoringSourceDataType
   >({ totalTabs: 4 })
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier, identifier } = useParams<
-    ProjectPathProps & { identifier: string }
-  >()
-  const { refetch: fetchDSConfig, loading, data, error } = useGetDSConfig({
-    identifier,
-    lazy: true
-  })
 
   useEffect(() => {
-    if (data?.resource) {
-      setCurrentData({
-        ...currentData,
-        ...transformDSResponse(data.resource)
-      })
+    if (dsConfig?.resource) {
+      setCurrentData(transformDSResponse(dsConfig.resource))
     }
-  }, [data])
-
-  useEffect(() => {
-    if (identifier) {
-      fetchDSConfig({
-        queryParams: {
-          accountId,
-          projectIdentifier,
-          orgIdentifier
-        }
-      })
-    }
-  }, [identifier])
+  }, [dsConfig])
 
   return (
-    <Page.Body
-      loading={loading}
-      key={loading.toString()}
-      error={getErrorMessage(error)}
-      retryOnError={() => fetchDSConfig()}
-    >
-      <CVOnboardingTabs
-        iconName="service-appdynamics"
-        defaultEntityName={currentData?.name || 'Default Name'}
-        setName={val => {
-          setCurrentData({ ...currentData, name: val })
-        }}
-        onNext={onNext}
-        onPrevious={onPrevious}
-        currentTab={currentTab}
-        maxEnabledTab={maxEnabledTab}
-        tabProps={[
-          {
-            id: 1,
-            title: getString('selectProduct'),
-            component: (
-              <SelectProduct
-                stepData={currentData}
-                type="AppDynamics"
-                onCompleteStep={stepData => {
-                  if (currentData?.connectorRef?.value !== stepData?.connectorRef?.value) {
-                    stepData = { ...stepData, applications: null }
-                  }
-                  setCurrentData({ ...currentData, ...stepData })
-                  onNext({ data: { ...currentData, ...stepData } })
-                }}
-              />
-            )
-          },
-          {
-            id: 2,
-            title: getString('selectApplication'),
-            component: (
-              <SelectApplications
-                stepData={{
-                  connectorIdentifier: currentData?.connectorRef?.value,
-                  applications: currentData?.applications
-                }}
-                onCompleteStep={stepData => {
-                  setCurrentData({ ...currentData, ...stepData })
-                  onNext({ data: { ...currentData, ...stepData } })
-                }}
-                onPrevious={onPrevious}
-              />
-            )
-          },
-          {
-            id: 3,
-            title: getString('mapApplications'),
-            component: (
-              <MapApplications
-                stepData={{
-                  sourceName: currentData?.name,
-                  connectorIdentifier: currentData?.connectorRef?.value,
-                  productName: currentData?.product,
-                  applications: currentData?.applications,
-                  metricPacks: currentData?.metricPacks
-                }}
-                onCompleteStep={stepData => {
-                  setCurrentData({ ...currentData, ...stepData })
-                  onNext({ data: { ...currentData, ...stepData } })
-                }}
-                onPrevious={onPrevious}
-              />
-            )
-          },
-          {
-            id: 4,
-            title: getString('review'),
-            component: (
-              <ReviewTiersAndApps
-                stepData={currentData}
-                onCompleteStep={stepData => {
-                  setCurrentData({ ...currentData, ...stepData })
-                  onNext({ data: { ...currentData, ...stepData } })
-                }}
-                onPrevious={onPrevious}
-              />
-            )
-          }
-        ]}
-      />
-    </Page.Body>
+    <CVOnboardingTabs
+      iconName="service-appdynamics"
+      defaultEntityName={currentData?.name || 'Default Name'}
+      setName={val => {
+        setCurrentData({ ...currentData, name: val })
+      }}
+      onNext={onNext}
+      onPrevious={onPrevious}
+      currentTab={currentTab}
+      maxEnabledTab={maxEnabledTab}
+      tabProps={[
+        {
+          id: 1,
+          title: getString('selectProduct'),
+          component: (
+            <SelectProduct
+              stepData={currentData}
+              type="AppDynamics"
+              onCompleteStep={stepData => {
+                if (currentData?.connectorRef?.value !== stepData?.connectorRef?.value) {
+                  stepData = { ...stepData, applications: null }
+                }
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
+              }}
+            />
+          )
+        },
+        {
+          id: 2,
+          title: getString('selectApplication'),
+          component: (
+            <SelectApplications
+              stepData={{
+                connectorIdentifier: currentData?.connectorRef?.value,
+                applications: currentData?.applications
+              }}
+              onCompleteStep={stepData => {
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
+              }}
+              onPrevious={onPrevious}
+            />
+          )
+        },
+        {
+          id: 3,
+          title: getString('mapApplications'),
+          component: (
+            <MapApplications
+              stepData={{
+                sourceName: currentData?.name,
+                connectorIdentifier: currentData?.connectorRef?.value,
+                productName: currentData?.product,
+                applications: currentData?.applications,
+                metricPacks: currentData?.metricPacks
+              }}
+              onCompleteStep={stepData => {
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
+              }}
+              onPrevious={onPrevious}
+            />
+          )
+        },
+        {
+          id: 4,
+          title: getString('review'),
+          component: (
+            <ReviewTiersAndApps
+              stepData={currentData}
+              onCompleteStep={stepData => {
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
+              }}
+              onPrevious={onPrevious}
+            />
+          )
+        }
+      ]}
+    />
   )
 }
 

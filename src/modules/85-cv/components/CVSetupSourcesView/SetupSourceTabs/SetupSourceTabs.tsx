@@ -1,11 +1,12 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { Tab, Tabs } from '@wings-software/uicore'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
+import { Container, Tab, Tabs } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { getRoutePathByType } from '@cv/utils/routeUtils'
 import { CVObjectStoreNames, useIndexedDBHook } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
+import css from './SetupSourceTabs.module.scss'
 
 type TabStatus = 'SUCCESS' | 'WARNING' | 'ERROR'
 
@@ -15,7 +16,7 @@ type TabInfo = {
 
 export interface SetupSourceTabsProps<T> {
   data: T
-  children: JSX.Element[]
+  children: JSX.Element[] | JSX.Element
   tabTitles: string[]
   determineMaxTab: (data: T) => number
 }
@@ -211,24 +212,26 @@ export function SetupSourceTabs<T>(props: SetupSourceTabsProps<T>): JSX.Element 
     initializeTabsInfo(tabTitles)
   )
   const maxEnabledTab = determineMaxTab(sourceData)
-
+  const updatedChildren = useMemo(() => (Array.isArray(children) ? children : [children]), [children])
   return (
     <SetupSourceTabsProvider sourceData={sourceData} tabsInfo={tabsInfo} onSwitchTab={onSwitchTab}>
-      <Tabs
-        id="setup-sources"
-        selectedTabId={activeTabIndex}
-        onChange={(newTabId: number) => onSwitchTab(data, newTabId, tabsInfo)}
-      >
-        {children.map((child, index) => (
-          <Tab
-            key={tabTitles[index]}
-            id={index}
-            title={tabTitles[index]}
-            disabled={index > maxEnabledTab}
-            panel={child}
-          />
-        ))}
-      </Tabs>
+      <Container className={css.tabWrapper}>
+        <Tabs
+          id="setup-sources"
+          selectedTabId={activeTabIndex}
+          onChange={(newTabId: number) => onSwitchTab(sourceData, newTabId, tabsInfo)}
+        >
+          {updatedChildren.map((child, index) => (
+            <Tab
+              key={tabTitles[index]}
+              id={index}
+              title={tabTitles[index]}
+              disabled={index > maxEnabledTab}
+              panel={child}
+            />
+          ))}
+        </Tabs>
+      </Container>
     </SetupSourceTabsProvider>
   )
 }

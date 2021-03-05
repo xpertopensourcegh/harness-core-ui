@@ -3,10 +3,8 @@ import { useParams } from 'react-router-dom'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
-import { Page } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useGetDSConfig } from 'services/cv'
+import type { RestResponseDSConfig } from 'services/cv'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import { SelectGCODashboards } from './SelectGCODashboards/SelectGCODashboards'
 import { MapGCOMetricsToServices } from './MapGCOMetricsToServices/MapGCOMetricsToServices'
@@ -81,108 +79,91 @@ export function transformGetResponse(
   return gcoInfo
 }
 
-export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
+export function GoogleCloudOperationsMonitoringSource({
+  dsConfig
+}: {
+  dsConfig?: RestResponseDSConfig | null
+}): JSX.Element {
   const { getString } = useStrings()
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<GCOMonitoringSourceInfo>({ totalTabs: 4 })
   const params = useParams<ProjectPathProps & { identifier: string }>()
 
-  const { loading, error, refetch: fetchGCOSource } = useGetDSConfig({
-    identifier: params.identifier,
-    queryParams: {
-      accountId: params.accountId,
-      orgIdentifier: params.orgIdentifier,
-      projectIdentifier: params.projectIdentifier
-    },
-    lazy: true,
-    resolve: function (response) {
-      setCurrentData(transformGetResponse(response?.resource as GCODSConfig, params))
-      return response
-    }
-  })
-
   useEffect(() => {
-    if (params.identifier && !currentData) {
-      fetchGCOSource()
+    if (dsConfig?.resource) {
+      setCurrentData(transformGetResponse(dsConfig?.resource as GCODSConfig, params))
     }
-  }, [params])
+  }, [dsConfig])
 
   return (
-    <Page.Body
-      loading={loading}
-      key={loading.toString()}
-      error={getErrorMessage(error)}
-      retryOnError={() => fetchGCOSource()}
-    >
-      <CVOnboardingTabs
-        iconName="service-stackdriver"
-        defaultEntityName={currentData?.name || DefaultValue.name}
-        setName={val => setCurrentData({ ...currentData, name: val } as GCOMonitoringSourceInfo)}
-        onNext={onNext}
-        {...tabInfo}
-        tabProps={[
-          {
-            id: 1,
-            title: getString('selectProduct'),
-            component: (
-              <SelectProduct<GCOMonitoringSourceInfo>
-                stepData={currentData || buildGCOMonitoringSourceInfo(params)}
-                type="GoogleCloudOperations"
-                onCompleteStep={data => {
-                  if (currentData?.connectorRef?.value && data.connectorRef?.value !== currentData.connectorRef.value) {
-                    data.selectedDashboards = []
-                    data.selectedMetrics = new Map()
-                  }
-                  setCurrentData(data)
-                  onNext({ data })
-                }}
-                productSelectValidationText={getString('cv.monitoringSources.gco.productValidationText')}
-              />
-            )
-          },
-          {
-            id: 2,
-            title: getString('cv.monitoringSources.gco.tabName.selectDashboards'),
-            component: (
-              <SelectGCODashboards
-                data={currentData || buildGCOMonitoringSourceInfo(params)}
-                onPrevious={tabInfo.onPrevious}
-                onNext={data => {
-                  setCurrentData(data)
-                  onNext({ data })
-                }}
-              />
-            )
-          },
-          {
-            id: 3,
-            title: getString('cv.monitoringSources.mapMetricsToServices'),
-            component: (
-              <MapGCOMetricsToServices
-                data={currentData || buildGCOMonitoringSourceInfo(params)}
-                onPrevious={tabInfo.onPrevious}
-                onNext={data => {
-                  setCurrentData(data)
-                  onNext({ data })
-                }}
-              />
-            )
-          },
-          {
-            id: 4,
-            title: getString('review'),
-            component: (
-              <ReviewGCOMonitoringSource
-                data={currentData || buildGCOMonitoringSourceInfo(params)}
-                onPrevious={tabInfo.onPrevious}
-                onSubmit={data => {
-                  setCurrentData(data)
-                  onNext({ data })
-                }}
-              />
-            )
-          }
-        ]}
-      />
-    </Page.Body>
+    <CVOnboardingTabs
+      iconName="service-stackdriver"
+      defaultEntityName={currentData?.name || DefaultValue.name}
+      setName={val => setCurrentData({ ...currentData, name: val } as GCOMonitoringSourceInfo)}
+      onNext={onNext}
+      {...tabInfo}
+      tabProps={[
+        {
+          id: 1,
+          title: getString('selectProduct'),
+          component: (
+            <SelectProduct<GCOMonitoringSourceInfo>
+              stepData={currentData || buildGCOMonitoringSourceInfo(params)}
+              type="GoogleCloudOperations"
+              onCompleteStep={data => {
+                if (currentData?.connectorRef?.value && data.connectorRef?.value !== currentData.connectorRef.value) {
+                  data.selectedDashboards = []
+                  data.selectedMetrics = new Map()
+                }
+                setCurrentData(data)
+                onNext({ data })
+              }}
+              productSelectValidationText={getString('cv.monitoringSources.gco.productValidationText')}
+            />
+          )
+        },
+        {
+          id: 2,
+          title: getString('cv.monitoringSources.gco.tabName.selectDashboards'),
+          component: (
+            <SelectGCODashboards
+              data={currentData || buildGCOMonitoringSourceInfo(params)}
+              onPrevious={tabInfo.onPrevious}
+              onNext={data => {
+                setCurrentData(data)
+                onNext({ data })
+              }}
+            />
+          )
+        },
+        {
+          id: 3,
+          title: getString('cv.monitoringSources.mapMetricsToServices'),
+          component: (
+            <MapGCOMetricsToServices
+              data={currentData || buildGCOMonitoringSourceInfo(params)}
+              onPrevious={tabInfo.onPrevious}
+              onNext={data => {
+                setCurrentData(data)
+                onNext({ data })
+              }}
+            />
+          )
+        },
+        {
+          id: 4,
+          title: getString('review'),
+          component: (
+            <ReviewGCOMonitoringSource
+              data={currentData || buildGCOMonitoringSourceInfo(params)}
+              onPrevious={tabInfo.onPrevious}
+              onSubmit={data => {
+                setCurrentData(data)
+                onNext({ data })
+              }}
+            />
+          )
+        }
+      ]}
+    />
   )
 }

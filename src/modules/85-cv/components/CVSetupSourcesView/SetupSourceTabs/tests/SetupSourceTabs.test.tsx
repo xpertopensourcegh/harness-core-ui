@@ -344,4 +344,82 @@ describe('Unit tests for SetupSourceTabs', () => {
       })
     )
   })
+
+  test('Ensure that when user clicks on a previous tab, that tab is then rendered', async () => {
+    const mockPut = jest.fn().mockResolvedValue(undefined)
+    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
+      dbInstance: {
+        put: mockPut,
+        get: jest.fn().mockResolvedValue({
+          currentTabIndex: 4,
+          currentData: { solo: {}, dolo: {}, semi: {}, auto: {}, m: {} },
+          tabsInfo: [
+            { status: 'SUCCESS' },
+            { status: 'SUCCESS' },
+            { status: 'SUCCESS' },
+            { status: 'SUCCESS' },
+            { status: 'SUCCESS' }
+          ]
+        }),
+        clear: jest.fn()
+      } as any,
+      isInitializingDB: false
+    })
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminMonitoringSources({
+          accountId: '1234_accountId',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_org'
+        })}
+      >
+        <SetupSourceTabs data={{}} tabTitles={TabTitles} determineMaxTab={determineMaxTab}>
+          {[
+            <Container key={1} className="1" />,
+            <Container key={2} className="2" />,
+            <Container key={3} className="3" />,
+            <Container key={4} className="4" />,
+            <MockComponentThatHitsSubmit
+              key={5}
+              tab={4}
+              switchData={{
+                solo: {},
+                dolo: {},
+                semi: {},
+                auto: {},
+                m: {},
+                type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                monitoringSources: [
+                  {
+                    type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                    name: 'some name',
+                    identifier: 'ident',
+                    routeUrl: 'dsfsf'
+                  }
+                ]
+              }}
+            />
+          ]}
+        </SetupSourceTabs>
+      </TestWrapper>
+    )
+
+    // expect there to be 5 tabs
+    await waitFor(() => expect(container.querySelectorAll('[role="tab"]').length).toBe(5))
+    expect(container.querySelectorAll('[aria-disabled="true"]')?.length).toBe(0)
+
+    const tabs = container.querySelectorAll('[role="tab"]')
+    fireEvent.click(tabs[1])
+
+    await waitFor(() =>
+      expect(container.querySelectorAll('[role="tab"]')[1].getAttribute('aria-selected')).toEqual('true')
+    )
+    expect(container.querySelector('[class*="2"]')).not.toBeNull()
+
+    fireEvent.click(container.querySelectorAll('[role="tab"]')[3])
+    await waitFor(() =>
+      expect(container.querySelectorAll('[role="tab"]')[3].getAttribute('aria-selected')).toEqual('true')
+    )
+    expect(container.querySelector('[class*="4"]')).not.toBeNull()
+  })
 })
