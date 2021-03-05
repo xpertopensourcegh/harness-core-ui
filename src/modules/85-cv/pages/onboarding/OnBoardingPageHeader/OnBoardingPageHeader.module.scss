@@ -1,29 +1,6 @@
-.main {
-  .visualAndYaml {
-    border-bottom: 1px solid var(--grey-300);
-    display: flex;
-    padding-left: var(--spacing-xlarge) !important;
-    align-items: center;
-    .viewSelection {
-      border-radius: 8px !important;
-      margin-right: var(--spacing-xsmall) !important;
-      cursor: pointer;
-      font-size: var(--font-size-small) !important;
-      padding-left: var(--spacing-medium) !important;
-      padding-right: var(--spacing-medium) !important;
-      box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.5);
-    }
-    .notSelectedView {
-      background-color: transparent !important;
-      color: var(--grey-500) !important;
-      border: 1px solid var(--grey-500) !important;
-    }
-  }
-
-  .breadcrumbs {
-    padding-left: var(--spacing-xlarge) !important;
-    border-bottom: 1px solid var(--grey-300);
-    display: flex;
-    align-items: center;
-  }
+.breadcrumbs {
+  padding-left: var(--spacing-xlarge) !important;
+  border-bottom: 1px solid var(--grey-300);
+  display: flex;
+  align-items: center;
 }

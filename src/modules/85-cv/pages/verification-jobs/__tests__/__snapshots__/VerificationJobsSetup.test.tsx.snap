@@ -6,53 +6,31 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
     class="StyledProps--font StyledProps--main pageDimensions"
   >
     <div
-      class="StyledProps--font StyledProps--main main"
+      class="StyledProps--font StyledProps--main breadcrumbs StyledProps--background-grey100"
+      style="height: 40px;"
     >
       <div
-        class="StyledProps--font StyledProps--main visualAndYaml StyledProps--background-grey100"
-        style="height: 40px;"
+        class="breadcrumbs"
       >
-        <span
-          class="Tag--main"
-        >
-          <span
-            class="bp3-tag viewSelection"
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/1234_account/cv/orgs/1234_ORG/projects/1234_project/admin/setup"
           >
-            <span
-              class="bp3-text-overflow-ellipsis bp3-fill"
-            >
-              VISUAL
-            </span>
+            Setup
+          </a>
+          <span
+            class="separator"
+          >
+            /
           </span>
-        </span>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main breadcrumbs StyledProps--background-grey100"
-        style="height: 40px;"
-      >
-        <div
-          class="breadcrumbs"
-        >
-          <div>
-            <a
-              class="breadcrumb"
-              href="/account/1234_account/cv/orgs/1234_ORG/projects/1234_project/admin/setup"
-            >
-              Setup
-            </a>
-            <span
-              class="separator"
-            >
-              /
-            </span>
-          </div>
-          <div>
-            <span
-              class="lastBreadcrumb"
-            >
-              Verification Jobs
-            </span>
-          </div>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            Verification Jobs
+          </span>
         </div>
       </div>
     </div>
