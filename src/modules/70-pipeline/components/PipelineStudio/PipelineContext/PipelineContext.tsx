@@ -377,11 +377,11 @@ export const PipelineProvider: React.FC<{
       let parent: StageElementWrapper | undefined = undefined
       const localPipeline = pipeline || state.pipeline
       if (localPipeline?.stages) {
-        localPipeline.stages.some(item => {
-          if (item.stage && item.stage.identifier === stageId) {
+        localPipeline.stages?.some?.(item => {
+          if (item?.stage && item.stage.identifier === stageId) {
             stage = item
             return true
-          } else if (item.parallel) {
+          } else if (item?.parallel) {
             stage = getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage
             if (stage) {
               parent = item

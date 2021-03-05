@@ -77,7 +77,7 @@ export const RightBar = (): JSX.Element => {
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>()
 
-  const ciStageExists = pipeline?.stages?.some(stage => {
+  const ciStageExists = pipeline?.stages?.some?.(stage => {
     if (stage?.stage?.type) {
       return stage?.stage?.type === StageTypes.BUILD
     } else {

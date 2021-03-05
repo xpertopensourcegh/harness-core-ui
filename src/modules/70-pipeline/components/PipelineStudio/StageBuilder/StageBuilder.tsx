@@ -41,12 +41,12 @@ const PANEL_RESIZE_DELTA = 4
 export type StageStateMap = Map<string, StageState>
 
 const initializeStageStateMap = (pipeline: NgPipeline, mapState: StageStateMap): void => {
-  /* istanbul ignore else */ if (pipeline.stages) {
-    pipeline.stages.forEach((node: StageElementWrapper) => {
-      if (node.stage && node.stage.name !== EmptyStageName) {
+  /* istanbul ignore else */ if (pipeline?.stages) {
+    pipeline.stages.forEach?.((node: StageElementWrapper) => {
+      if (node?.stage && node.stage.name !== EmptyStageName) {
         mapState.set(node.stage.identifier, { isConfigured: true, stage: node })
-      } /* istanbul ignore else */ else if (node.parallel) {
-        node.parallel.forEach((parallelNode: StageElementWrapper) => {
+      } /* istanbul ignore else */ else if (node?.parallel) {
+        node.parallel.forEach?.((parallelNode: StageElementWrapper) => {
           /* istanbul ignore else */ if (parallelNode.stage && parallelNode.stage.name !== EmptyStageName) {
             mapState.set(parallelNode.stage.identifier, { isConfigured: true, stage: parallelNode })
           }

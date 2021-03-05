@@ -81,7 +81,7 @@ export class StageBuilderModel extends DiagramModel {
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
-    } /* istanbul ignore else */ else if (node.parallel && prevNodes) {
+    } /* istanbul ignore else */ else if (node?.parallel && prevNodes) {
       /* istanbul ignore else */ if (node.parallel.length > 1) {
         if (selectedStageId && (splitPaneSize || 0) < (this.gap * node.parallel.length) / 2 + 40) {
           const parallelStageNames: Array<string> = []
@@ -221,7 +221,7 @@ export class StageBuilderModel extends DiagramModel {
     startX -= this.gap / 2
 
     let prevNodes: DefaultNodeModel[] = [startNode]
-    data.stages?.forEach((node: StageElementWrapper) => {
+    data?.stages?.forEach((node: StageElementWrapper) => {
       const resp = this.renderGraphNodes(
         node,
         startX,

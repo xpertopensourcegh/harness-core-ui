@@ -19,16 +19,6 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
     enabled: true
   },
   {
-    name: i18n.deploymentTypes.azurek8s,
-    icon: 'azure-kubernetes-service',
-    enabled: false
-  },
-  {
-    name: i18n.deploymentTypes.ek8s,
-    icon: 'elastic-kubernetes-service',
-    enabled: false
-  },
-  {
     name: i18n.deploymentTypes.gk8engine,
     icon: 'google-kubernetes-engine',
     enabled: false
