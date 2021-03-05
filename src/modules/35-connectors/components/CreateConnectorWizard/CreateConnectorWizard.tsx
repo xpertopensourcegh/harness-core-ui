@@ -12,6 +12,7 @@ import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/
 import CreateSplunkConnector from '../CreateConnector/SplunkConnector/CreateSplunkConnector'
 import CreateDockerConnector from '../CreateConnector/DockerConnector/CreateDockerConnector'
 import CreateAWSConnector from '../CreateConnector/AWSConnector/CreateAWSConnector'
+import CreateAWSCodeCommitConnector from '../CreateConnector/AWSCodeCommitConnector/CreateAWSCodeCommitConnector'
 import CreateNexusConnector from '../CreateConnector/NexusConnector/CreateNexusConnector'
 import CreateArtifactoryConnector from '../CreateConnector/ArtifactoryConnector/CreateArtifactoryConnector'
 import CreateGcpConnector from '../CreateConnector/GcpConnector/CreateGcpConnector'
@@ -80,6 +81,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateDockerConnector {...commonProps} />
     case Connectors.AWS:
       return <CreateAWSConnector {...commonProps} />
+    case Connectors.AWS_CODE_COMMIT:
+      return <CreateAWSCodeCommitConnector {...commonProps} />
     case Connectors.NEXUS:
       return <CreateNexusConnector {...commonProps} />
     case Connectors.ARTIFACTORY:

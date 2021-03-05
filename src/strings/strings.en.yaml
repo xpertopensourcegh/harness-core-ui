@@ -1274,6 +1274,7 @@ connectors:
     appdynamics: 'AppDynamics connector'
     splunk: 'Splunk connector'
     aws: 'AWS Cloud Provider'
+    awsCodeCommit: 'AWS CodeCommit'
     nexus: 'Nexus Repository'
     artifactory: 'Artifactory Repository'
   name_labels:
@@ -1412,7 +1413,8 @@ connectors:
       secretKeyRef: 'Secret key is required'
       accessKey: 'Access key is required'
       crossAccountRoleArn: 'Role ARN is required'
-
+  awsCodeCommit:
+    repoUrl: 'AWS CodeCommit Repository URL'
 cf:
   boolean: Boolean
   multivariate: Multivariate

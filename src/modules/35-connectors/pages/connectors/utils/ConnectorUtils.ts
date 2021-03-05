@@ -638,6 +638,39 @@ export const buildAWSPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
+export const buildAWSCodeCommitPayload = (formData: FormData) => {
+  const connector = {
+    name: formData.name,
+    identifier: formData.identifier,
+    description: formData.description,
+    tags: formData.tags,
+    orgIdentifier: formData.orgIdentifier,
+    projectIdentifier: formData.projectIdentifier,
+    type: Connectors.AWS_CODE_COMMIT,
+    spec: {
+      type: formData.urlType,
+      url: formData.url,
+      authentication: {
+        type: 'HTTPS',
+        spec: {
+          type: 'AWSCredentials',
+          spec: {
+            ...(formData.accessKey.type === ValueType.ENCRYPTED
+              ? {
+                  accessKeyRef: formData.accessKey.value
+                }
+              : {
+                  accessKey: formData.accessKey.value
+                }),
+            secretKeyRef: formData.secretKey?.referenceString
+          }
+        }
+      }
+    }
+  }
+  return { connector }
+}
+
 export const buildDockerPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -817,6 +850,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-dockerhub'
     case Connectors.AWS:
       return 'service-aws'
+    case Connectors.AWS_CODE_COMMIT:
+      return 'service-aws-code-deploy'
     case Connectors.NEXUS:
       return 'service-nexus'
     case Connectors.ARTIFACTORY:
@@ -850,6 +885,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Splunk server'
     case Connectors.AWS:
       return 'AWS'
+    case Connectors.AWS_CODE_COMMIT:
+      return 'AWS CodeCommit'
     case Connectors.NEXUS:
       return 'Nexus'
     case Connectors.LOCAL:

@@ -2653,6 +2653,7 @@ export interface ConnectorInfoDTO {
     | 'CEAws'
     | 'CEAzure'
     | 'CEK8sCluster'
+    | 'Codecommit'
   spec: ConnectorConfigDTO
 }
 
@@ -6930,6 +6931,7 @@ export interface GetConnectorListQueryParams {
     | 'CEAws'
     | 'CEAzure'
     | 'CEK8sCluster'
+    | 'Codecommit'
   category?:
     | 'CLOUD_PROVIDER'
     | 'SECRET_MANAGER'
@@ -16887,6 +16889,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'ceaws'
     | 'ceazure'
     | 'cek8s'
+    | 'codecommit'
   )[]
 }
 

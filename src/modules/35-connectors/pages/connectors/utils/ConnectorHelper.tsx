@@ -92,6 +92,8 @@ export const getConnectorTitleIdByType = (type: string): string => {
       return 'dockerRegistry'
     case Connectors.AWS:
       return 'connectors.title.aws'
+    case Connectors.AWS_CODE_COMMIT:
+      return 'connectors.title.awsCodeCommit'
     case Connectors.NEXUS:
       return 'connectors.title.nexus'
     case Connectors.ARTIFACTORY:
@@ -131,6 +133,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-dockerhub'
     case Connectors.AWS:
       return 'service-aws'
+    case Connectors.AWS_CODE_COMMIT:
+      return 'service-aws-code-deploy'
     case Connectors.NEXUS:
       return 'service-nexus'
     case Connectors.ARTIFACTORY:
