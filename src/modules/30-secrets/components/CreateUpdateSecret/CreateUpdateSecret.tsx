@@ -29,7 +29,7 @@ import {
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
-import i18n from './CreateUpdateSecret.i18n'
+import { useStrings } from 'framework/exports'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'
 
@@ -43,12 +43,14 @@ interface CreateUpdateSecretProps {
 }
 
 const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
+  const { getString } = useStrings()
   const { onSuccess } = props
   const secret = props.secret?.secret
-  let { type = 'SecretText' } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const secretTypeFromProps = props.type || secret?.type
+  const [type, setType] = useState<SecretResponseWrapper['secret']['type']>(secretTypeFromProps || 'SecretText')
 
   const {
     data: secretManagersApiResponse,
@@ -84,7 +86,6 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
 
   const loading = loadingCreateText || loadingUpdateText || loadingCreateFile || loadingUpdateFile
   const editing = !!secret?.identifier
-  if (secret && secret.type) type = secret?.type
 
   useEffect(() => {
     if (!editing) {
@@ -177,6 +178,10 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const defaultSecretManagerId = secretManagersApiResponse?.data?.content?.filter(
     item => item.connector?.spec?.default
   )[0]?.connector?.identifier
+  const secretTypeOptions = [
+    { label: getString('secret.labelText'), value: 'SecretText' },
+    { label: getString('secret.labelFile'), value: 'SecretFile' }
+  ]
 
   const [selectedSecretManager, setSelectedSecretManager] = useState<ConnectorInfoDTO | undefined>()
   const [readOnlySecretManager, setReadOnlySecretManager] = useState<boolean>()
@@ -212,7 +217,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
           identifier: '',
           tags: {},
           valueType: readOnlySecretManager ? 'Reference' : 'Inline',
-          type: type || 'SecretText',
+          type,
           secretManagerIdentifier: selectedSecretManager?.identifier || defaultSecretManagerId || '',
           orgIdentifier,
           projectIdentifier,
@@ -221,17 +226,19 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
         }}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.validationName),
+          name: Yup.string().trim().required(getString('secret.validationName')),
           identifier: Yup.string().when('name', {
             is: val => val?.length,
             then: Yup.string()
-              .required(i18n.validationIdentifier)
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validationIdentifierChars)
+              .required(getString('secret.validationIdentifier'))
+              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
               .notOneOf(illegalIdentifiers)
           }),
           value:
-            editing || type === 'SecretFile' ? Yup.string().trim() : Yup.string().trim().required(i18n.validationValue),
-          secretManagerIdentifier: Yup.string().required(i18n.validationKms)
+            editing || type === 'SecretFile'
+              ? Yup.string().trim()
+              : Yup.string().trim().required(getString('secret.validationValue')),
+          secretManagerIdentifier: Yup.string().required(getString('secret.validationKms'))
         })}
         validate={formData => {
           props.onChange?.({
@@ -251,7 +258,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
             <FormikForm>
               <FormInput.Select
                 name="secretManagerIdentifier"
-                label={i18n.labelSecretsManager}
+                label={getString('secret.labelSecretsManager')}
                 items={secretManagersOptions}
                 disabled={editing || loadingSecretsManagers || loadingConnectorDetails}
                 onChange={item => {
@@ -262,13 +269,24 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                   )
                 }}
               />
+              {!secretTypeFromProps ? (
+                <FormInput.RadioGroup
+                  name="type"
+                  label={getString('secret.labelSecretType')}
+                  items={secretTypeOptions}
+                  radioGroup={{ inline: true }}
+                  onChange={ev => {
+                    setType((ev.target as HTMLInputElement).value as SecretResponseWrapper['secret']['type'])
+                  }}
+                />
+              ) : null}
               <FormInput.InputWithIdentifier
                 inputName="name"
-                inputLabel={i18n.labelSecretName}
+                inputLabel={getString('secret.labelSecretName')}
                 idName="identifier"
                 isIdentifierEditable={!editing}
               />
-              {!typeOfSelectedSecretManager ? <Text>{i18n.messageSelectSM}</Text> : null}
+              {!typeOfSelectedSecretManager ? <Text>{getString('secret.messageSelectSM')}</Text> : null}
               {typeOfSelectedSecretManager === 'Local' || typeOfSelectedSecretManager === 'GcpKms' ? (
                 <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
@@ -278,7 +296,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               <Button
                 intent="primary"
                 type="submit"
-                text={loading ? i18n.btnSaving : i18n.btnSave}
+                text={loading ? getString('secret.saving') : getString('save')}
                 margin={{ top: 'large' }}
                 disabled={loading || !typeOfSelectedSecretManager}
               />

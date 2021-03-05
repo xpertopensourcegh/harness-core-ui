@@ -4,7 +4,6 @@ import type { FormikContext } from 'formik'
 import type { SecretDTOV2 } from 'services/cd-ng'
 
 import { useStrings } from 'framework/exports'
-import i18n from '../CreateUpdateSecret.i18n'
 
 interface VaultFormFieldsProps {
   type: SecretDTOV2['type']
@@ -38,8 +37,8 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
           {formik?.values['valueType'] === 'Inline' ? (
             <FormInput.Text
               name="value"
-              label={i18n.labelSecretValue}
-              placeholder={editing ? i18n.valueEncrypted : i18n.placeholderSecretValue}
+              label={getString('secret.labelSecretValue')}
+              placeholder={editing ? getString('encrypted') : getString('secret.placeholderSecretValue')}
               inputGroup={{ type: 'password' }}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 event.target.value.trim()
@@ -49,13 +48,15 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
           {formik?.values['valueType'] === 'Reference' ? (
             <FormInput.Text
               name="value"
-              label={i18n.labelSecretReference}
-              placeholder={i18n.placeholderSecretReference}
+              label={getString('secret.labelSecretReference')}
+              placeholder={getString('secret.placeholderSecretReference')}
             />
           ) : null}
         </>
       ) : null}
-      {type === 'SecretFile' ? <FormInput.FileInput name="file" label={i18n.labelSecretFile} multiple /> : null}
+      {type === 'SecretFile' ? (
+        <FormInput.FileInput name="file" label={getString('secret.labelSecretFile')} multiple />
+      ) : null}
       <FormInput.TextArea name="description" label={getString('description')} />
       <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} />
     </>

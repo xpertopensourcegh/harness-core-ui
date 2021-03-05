@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, findByText, act } from '@testing-library/react'
+import { render, fireEvent, findByText, act, getByText, queryByText } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import CreateUpdateSecret from '../CreateUpdateSecret'
@@ -33,7 +33,7 @@ describe('CreateUpdateSecret', () => {
   test('Create Text Secret', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <CreateUpdateSecret />
+        <CreateUpdateSecret type={'SecretText'} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -42,16 +42,56 @@ describe('CreateUpdateSecret', () => {
   test('Create File Secret', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <CreateUpdateSecret type="SecretFile" />
+        <CreateUpdateSecret type={'SecretFile'} />
       </TestWrapper>
     )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Create Secret with radio button', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
+        <CreateUpdateSecret />
+      </TestWrapper>
+    )
+    expect(getByText(container, 'Secret type')).toBeDefined()
+    expect(getByText(container, 'Secret Value*')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Create Secret with radio button and switch radio from text to file', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
+        <CreateUpdateSecret />
+      </TestWrapper>
+    )
+    expect(getByText(container, 'Secret Value*')).toBeDefined()
+    fireEvent.click(getByText(container, 'File'))
+    expect(getByText(container, 'Select File')).toBeDefined()
+    expect(queryByText(container, 'Secret Value*')).toBeNull()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Create Secret with radio button and switch radio from text to file and back', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
+        <CreateUpdateSecret />
+      </TestWrapper>
+    )
+    expect(getByText(container, 'Secret Value*')).toBeDefined()
+    fireEvent.click(getByText(container, 'File'))
+    expect(getByText(container, 'Select File')).toBeDefined()
+    expect(queryByText(container, 'Secret Value*')).toBeNull()
+    fireEvent.click(getByText(container, 'Text'))
+    expect(queryByText(container, 'Select File')).toBeNull()
+    expect(getByText(container, 'Secret Value*')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
   test('Update Text Secret', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <CreateUpdateSecret secret={secretDetailsMock as any} />
+        <CreateUpdateSecret secret={secretDetailsMock as any} type={'SecretText'} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

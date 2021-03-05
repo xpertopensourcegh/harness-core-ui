@@ -4,7 +4,6 @@ import type { FormikContext } from 'formik'
 import { useStrings } from 'framework/exports'
 
 import type { SecretDTOV2 } from 'services/cd-ng'
-import i18n from '../CreateUpdateSecret.i18n'
 
 interface LocalFormFieldsProps {
   type: SecretDTOV2['type']
@@ -22,15 +21,17 @@ const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> 
       {type === 'SecretText' ? (
         <FormInput.Text
           name="value"
-          label={i18n.labelSecretValue}
-          placeholder={editing ? i18n.valueEncrypted : i18n.placeholderSecretValue}
+          label={getString('secret.labelSecretValue')}
+          placeholder={editing ? getString('encrypted') : getString('secret.placeholderSecretValue')}
           inputGroup={{ type: 'password' }}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             event.target.value.trim()
           }}
         />
       ) : null}
-      {type === 'SecretFile' ? <FormInput.FileInput name="file" label={i18n.labelSecretFile} multiple /> : null}
+      {type === 'SecretFile' ? (
+        <FormInput.FileInput name="file" label={getString('secret.labelSecretFile')} multiple />
+      ) : null}
       <FormInput.TextArea name="description" label={getString('description')} />
       <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} />
     </>

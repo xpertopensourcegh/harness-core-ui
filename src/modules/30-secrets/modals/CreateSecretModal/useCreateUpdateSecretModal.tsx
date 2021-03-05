@@ -21,7 +21,7 @@ export interface UseCreateSecretModalReturn {
 }
 
 const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecretModalReturn => {
-  const [type, setType] = useState<SecretType>('SecretText')
+  const [type, setType] = useState<SecretType>()
   const [secret, setSecret] = useState<SecretResponseWrapper>()
   const handleSuccess = (): void => {
     hideModal()
@@ -39,7 +39,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
       >
         <Text font={{ size: 'medium' }} color={Color.BLACK} margin={{ bottom: 'large' }}>
           {secret?.secret.identifier
-            ? type === 'SecretText'
+            ? !type || type === 'SecretText'
               ? getString('secret.titleEditText')
               : getString('secret.titleEditFile')
             : type === 'SecretText'
@@ -54,7 +54,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
   )
 
   return {
-    openCreateSecretModal: (_type: SecretType, _secret: SecretResponseWrapper | undefined) => {
+    openCreateSecretModal: (_type: SecretType | undefined, _secret: SecretResponseWrapper | undefined) => {
       setType(_type)
       setSecret(_secret)
       showModal()
