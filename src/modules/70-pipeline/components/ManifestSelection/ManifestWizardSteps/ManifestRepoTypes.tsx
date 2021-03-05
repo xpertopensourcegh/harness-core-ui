@@ -3,8 +3,8 @@ import { Button, Card, Color, Container, Heading, Icon, Layout, StepProps, Text 
 import { useStrings } from 'framework/exports'
 
 import type { ConnectorConfigDTO } from 'services/cd-ng'
-import type { ManifestTypes } from '../ManifestSelection'
 import { manifestTypeIcons, manifestTypeLabels } from '../Manifesthelper'
+import type { ManifestTypes } from '../ManifestInterface'
 import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestPropType {

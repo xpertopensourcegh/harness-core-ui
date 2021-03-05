@@ -5,10 +5,10 @@ import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import type { ManifestDataType, ManifestTypes } from '../ManifestSelection'
 import { ManifestRepoTypes } from '../ManifestWizardSteps/ManifestRepoTypes'
 import ManifestStore from '../ManifestWizardSteps/ManifestStore'
 import { manifestTypeIcons, manifestTypeLabels } from '../Manifesthelper'
+import type { ManifestStepInitData, ManifestTypes } from '../ManifestInterface'
 import css from './ManifestWizard.module.scss'
 
 interface StepChangeData<SharedObject> {
@@ -19,7 +19,7 @@ interface StepChangeData<SharedObject> {
 
 interface ManifestWizardStepsProps {
   handleViewChange: (isConnectorView: boolean, selectedStore: ConnectorInfoDTO['type']) => void
-  initialValues: ManifestDataType
+  initialValues: ManifestStepInitData
   types: Array<ManifestTypes>
   manifestStoreTypes: Array<ConnectorInfoDTO['type']>
   labels: ConnectorRefLabelType

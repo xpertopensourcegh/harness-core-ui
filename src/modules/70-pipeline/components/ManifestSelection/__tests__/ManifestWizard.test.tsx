@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestWizard } from '../ManifestWizard/ManifestWizard'
-import type { ManifestDataType } from '../ManifestSelection'
+import type { ManifestStepInitData } from '../ManifestInterface'
 
 describe('ManifestSelection tests', () => {
   test(`renders without crashing`, () => {
@@ -10,7 +10,7 @@ describe('ManifestSelection tests', () => {
       <TestWrapper>
         <ManifestWizard
           handleViewChange={jest.fn()}
-          initialValues={{} as ManifestDataType}
+          initialValues={{} as ManifestStepInitData}
           types={[]}
           manifestStoreTypes={[]}
           labels={{
@@ -40,7 +40,7 @@ describe('ManifestSelection tests', () => {
       <TestWrapper>
         <ManifestWizard
           handleViewChange={jest.fn()}
-          initialValues={initialValues as ManifestDataType}
+          initialValues={initialValues as ManifestStepInitData}
           types={[]}
           manifestStoreTypes={['Git', 'Github', 'Gitlab', 'Bitbucket']}
           labels={{

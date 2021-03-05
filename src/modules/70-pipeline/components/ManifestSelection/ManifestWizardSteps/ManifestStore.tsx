@@ -11,14 +11,14 @@ import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { getIconByType } from '@connectors/exports'
-import type { ManifestDataType } from '../ManifestSelection'
+import type { ManifestStepInitData } from '../ManifestInterface'
 import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestStorePropType {
   stepName: string
   newConnectorLabel: string
   manifestStoreTypes: Array<ConnectorInfoDTO['type']>
-  initialValues: ManifestDataType
+  initialValues: ManifestStepInitData
   handleViewChange: (selectedStore: ConnectorInfoDTO['type']) => void
 }
 

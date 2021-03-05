@@ -1,15 +1,5 @@
 import React from 'react'
-import {
-  Layout,
-  Text,
-  Icon,
-  Color,
-  useModalHook,
-  IconName,
-  StepWizard,
-  StepProps,
-  Button
-} from '@wings-software/uicore'
+import { Layout, Text, Icon, Color, useModalHook, StepWizard, StepProps, Button } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -17,7 +7,6 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
@@ -37,25 +26,17 @@ import {
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
-import { manifestTypeText } from './Manifesthelper'
+import { manifestTypeIcons, manifestTypeText } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
+import type {
+  ManifestSelectionProps,
+  ManifestDataType,
+  ManifestStepInitData,
+  ManifestTypes,
+  ManifestListViewProps
+} from './ManifestInterface'
 import css from './ManifestSelection.module.scss'
-
-interface PathDataType {
-  path: string
-  uuid: string
-}
-export interface ManifestDataType {
-  identifier: string
-  branch: string | undefined
-  commitId: string | undefined
-  connectorRef: string | undefined
-  gitFetchType: 'Branch' | 'Commit'
-  paths: Array<PathDataType> | Array<string> | undefined
-  store: ConnectorInfoDTO['type'] | string
-}
-export type ManifestTypes = 'K8sManifest' | 'Values'
 
 const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values']
 const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
@@ -64,11 +45,6 @@ const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GITLAB,
   Connectors.BITBUCKET
 ]
-
-const manifestTypeIcons: Record<string, IconName> = {
-  K8sManifest: 'file',
-  Values: 'config-file'
-}
 
 function ManifestListView({
   manifestList,
@@ -81,18 +57,7 @@ function ManifestListView({
   isPropagating,
   overrideSetIdentifier,
   connectors
-}: {
-  pipeline: NgPipeline
-  isForOverrideSets: boolean
-  manifestList: {}[] | undefined
-  updatePipeline: (pipeline: NgPipeline) => Promise<void>
-  identifierName?: string
-  stage: StageElementWrapper | undefined
-  isForPredefinedSets: boolean
-  isPropagating?: boolean
-  overrideSetIdentifier?: string
-  connectors: PageConnectorResponse | undefined
-}): JSX.Element {
+}: ManifestListViewProps): JSX.Element {
   const [selectedManifest, setSelectedManifest] = React.useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = React.useState(false)
   const [manifestStore, setManifestStore] = React.useState(Connectors.GIT)
@@ -195,15 +160,13 @@ function ManifestListView({
     showConnectorModal()
   }
 
-  const getManifestInitialValues = (): ManifestDataType => {
+  const getManifestDetailsInitialData = (): ManifestDataType => {
     const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
 
     if (initValues) {
       const values = {
         ...initValues,
         identifier: listOfManifests[manifestIndex]?.manifest.identifier,
-        store: listOfManifests[manifestIndex]?.manifest.spec?.store?.type,
-        connectorRef: initValues?.connectorRef,
         paths:
           typeof initValues['paths'] === 'string'
             ? initValues['paths']
@@ -213,12 +176,27 @@ function ManifestListView({
     }
     return {
       identifier: '',
-      store: Connectors.GIT,
       branch: undefined,
       commitId: undefined,
-      connectorRef: undefined,
       gitFetchType: 'Branch',
       paths: [{ path: '', uuid: uuid('', nameSpace()) }]
+    }
+  }
+
+  const getInitialValues = (): ManifestStepInitData => {
+    const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
+
+    if (initValues) {
+      const values = {
+        ...initValues,
+        store: listOfManifests[manifestIndex]?.manifest.spec?.store?.type,
+        connectorRef: initValues?.connectorRef
+      }
+      return values
+    }
+    return {
+      store: Connectors.GIT,
+      connectorRef: undefined
     }
   }
 
@@ -298,7 +276,7 @@ function ManifestListView({
         name={getString('manifestType.manifestDetails')}
         key={getString('manifestType.manifestDetails')}
         stepName={getString('manifestType.manifestDetails')}
-        initialValues={getManifestInitialValues()}
+        initialValues={getManifestDetailsInitialData()}
         handleSubmit={handleSubmit}
       />
     )
@@ -357,7 +335,7 @@ function ManifestListView({
             newConnectorView={connectorView}
             changeManifestType={changeManifestType}
             handleViewChange={handleViewChange}
-            initialValues={getManifestInitialValues()}
+            initialValues={getInitialValues()}
             newConnectorSteps={getNewConnectorSteps()}
             lastSteps={getLastSteps()}
           />
@@ -490,13 +468,7 @@ export default function ManifestSelection({
   isForPredefinedSets = false,
   isPropagating,
   overrideSetIdentifier
-}: {
-  isForOverrideSets: boolean
-  identifierName?: string
-  isForPredefinedSets: boolean
-  isPropagating?: boolean
-  overrideSetIdentifier?: string
-}): JSX.Element {
+}: ManifestSelectionProps): JSX.Element {
   const {
     state: {
       pipeline,

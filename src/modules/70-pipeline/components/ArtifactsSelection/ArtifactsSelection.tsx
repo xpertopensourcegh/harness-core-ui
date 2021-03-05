@@ -27,6 +27,7 @@ import { ImagePath } from './ArtifactRepository/ImagePath'
 import { GCRImagePath } from './ArtifactRepository/GCRImagePath'
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
 import type {
+  ArtifactsSelectionProps,
   ConnectorDataType,
   ConnectorRefLabelType,
   CreationType,
@@ -53,13 +54,7 @@ export default function ArtifactsSelection({
   isForPredefinedSets,
   isPropagating,
   overrideSetIdentifier = ''
-}: {
-  isForOverrideSets: boolean
-  isForPredefinedSets?: boolean
-  identifierName?: string
-  isPropagating?: boolean
-  overrideSetIdentifier?: string
-}): JSX.Element {
+}: ArtifactsSelectionProps): JSX.Element {
   const {
     state: {
       pipeline,

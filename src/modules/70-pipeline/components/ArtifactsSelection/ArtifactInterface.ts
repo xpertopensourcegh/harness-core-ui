@@ -1,3 +1,11 @@
+export interface ArtifactsSelectionProps {
+  isForOverrideSets: boolean
+  isForPredefinedSets?: boolean
+  identifierName?: string
+  isPropagating?: boolean
+  overrideSetIdentifier?: string
+}
+
 export type CreationType = 'Dockerhub' | 'Gcr'
 export interface OrganizationCreationType {
   type: CreationType
