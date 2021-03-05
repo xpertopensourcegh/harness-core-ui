@@ -36,8 +36,11 @@ import type {
   ManifestTypes,
   ManifestListViewProps
 } from './ManifestInterface'
+import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import css from './ManifestSelection.module.scss'
 
+// Commenting Helm temporarily until BE support is ready
+// const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values', 'Helm']
 const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values']
 const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GIT,
@@ -160,6 +163,29 @@ function ManifestListView({
     showConnectorModal()
   }
 
+  const getHelmWithGITInitialData = (): ManifestDataType => {
+    const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
+
+    if (initValues) {
+      const values = {
+        ...initValues,
+        identifier: listOfManifests[manifestIndex]?.manifest.identifier,
+        paths:
+          typeof initValues['paths'] === 'string'
+            ? initValues['paths']
+            : initValues['paths'].map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
+      }
+      return values
+    }
+    return {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      gitFetchType: 'Branch',
+      paths: ''
+    }
+  }
+
   const getManifestDetailsInitialData = (): ManifestDataType => {
     const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
 
@@ -200,26 +226,12 @@ function ManifestListView({
     }
   }
 
-  const handleSubmit = (formData: any) => {
-    const manifestObj = {
+  const handleSubmit = (manifestObj: any) => {
+    manifestObj = {
+      ...manifestObj,
       manifest: {
-        identifier: formData.identifier,
-        type: selectedManifest,
-        spec: {
-          store: {
-            type: formData?.store,
-            spec: {
-              connectorRef: formData?.connectorRef,
-              gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
-              paths:
-                typeof formData?.paths === 'string'
-                  ? formData?.paths
-                  : formData?.paths.map((path: { path: string }) => path.path)
-            }
-          }
-        }
+        ...manifestObj.manifest,
+        type: selectedManifest
       }
     }
 
@@ -270,16 +282,35 @@ function ManifestListView({
 
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
+    let manifestDetailStep = null
 
-    const manifestDetailStep = (
-      <ManifestDetails
-        name={getString('manifestType.manifestDetails')}
-        key={getString('manifestType.manifestDetails')}
-        stepName={getString('manifestType.manifestDetails')}
-        initialValues={getManifestDetailsInitialData()}
-        handleSubmit={handleSubmit}
-      />
-    )
+    switch (true) {
+      case selectedManifest === 'Helm' && manifestStore === Connectors.GIT:
+        manifestDetailStep = (
+          <HelmWithGIT
+            name={getString('manifestType.manifestDetails')}
+            key={getString('manifestType.manifestDetails')}
+            stepName={getString('manifestType.manifestDetails')}
+            initialValues={getHelmWithGITInitialData()}
+            handleSubmit={handleSubmit}
+          />
+        )
+        break
+
+      case ['K8sManifest', 'Values'].includes(selectedManifest) && manifestStore === Connectors.GIT:
+      default:
+        manifestDetailStep = (
+          <ManifestDetails
+            name={getString('manifestType.manifestDetails')}
+            key={getString('manifestType.manifestDetails')}
+            stepName={getString('manifestType.manifestDetails')}
+            initialValues={getManifestDetailsInitialData()}
+            handleSubmit={handleSubmit}
+          />
+        )
+
+        break
+    }
 
     arr.push(manifestDetailStep)
     return arr

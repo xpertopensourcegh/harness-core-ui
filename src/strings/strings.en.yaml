@@ -324,6 +324,7 @@ review: 'Review'
 enabledLabel: 'Enabled'
 activity: 'Activity'
 store: Store
+helmVersion: Helm Version
 executionStrategy:
   strategies:
     blueGreen: With Blue/Green Deployment, two identical environments called blue (staging) and green (production) run simultaneously with different versions or service/artifact. QA and UAT are typically done on the blue environment. When satisfied, traffic is flipped (via a load balancer) from the green environment (current version) to the blue environment (new version). You can then decommission the old environment once deployment is successful.

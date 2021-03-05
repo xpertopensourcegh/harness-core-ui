@@ -82,6 +82,31 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   )
   const { getString } = useStrings()
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
+
+  const submitFormData = (formData: any): void => {
+    const manifestObj = {
+      manifest: {
+        identifier: formData.identifier,
+        spec: {
+          store: {
+            type: formData?.store,
+            spec: {
+              connectorRef: formData?.connectorRef,
+              gitFetchType: formData?.gitFetchType,
+              branch: formData?.branch,
+              commitId: formData?.commitId,
+              paths:
+                typeof formData?.paths === 'string'
+                  ? formData?.paths
+                  : formData?.paths.map((path: { path: string }) => path.path)
+            }
+          }
+        }
+      }
+    }
+    handleSubmit(manifestObj)
+  }
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       <Text font="large" color={Color.GREY_800}>
@@ -102,10 +127,9 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
           ).min(1)
         })}
         onSubmit={formData => {
-          handleSubmit({
+          submitFormData({
             ...prevStepData,
             ...formData,
-            store: prevStepData?.store,
             connectorRef: prevStepData?.connectorRef
               ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
                 ? prevStepData?.connectorRef

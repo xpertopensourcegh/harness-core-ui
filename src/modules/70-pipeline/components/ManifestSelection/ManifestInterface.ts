@@ -1,4 +1,3 @@
-import type { IconName } from '@wings-software/uicore'
 import type { ConnectorInfoDTO, PageConnectorResponse } from 'services/cd-ng'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 
@@ -13,7 +12,7 @@ export interface ManifestSelectionProps {
 export interface ManifestListViewProps {
   pipeline: NgPipeline
   isForOverrideSets: boolean
-  manifestList: {}[] | undefined
+  manifestList: [] | undefined
   updatePipeline: (pipeline: NgPipeline) => Promise<void>
   identifierName?: string
   stage: StageElementWrapper | undefined
@@ -37,11 +36,6 @@ export interface ManifestDataType {
   branch: string | undefined
   commitId: string | undefined
   gitFetchType: 'Branch' | 'Commit'
-  paths: Array<PathDataType> | Array<string> | undefined
+  paths: Array<PathDataType> | Array<string> | string | undefined
 }
-export type ManifestTypes = 'K8sManifest' | 'Values'
-
-export const manifestTypeIcons: Record<string, IconName> = {
-  K8sManifest: 'file',
-  Values: 'config-file'
-}
+export type ManifestTypes = 'K8sManifest' | 'Values' | 'Helm'
