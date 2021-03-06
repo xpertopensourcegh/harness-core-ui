@@ -20,6 +20,7 @@ export interface ManifestListViewProps {
   isPropagating?: boolean
   overrideSetIdentifier?: string
   connectors: PageConnectorResponse | undefined
+  refetchConnectors: () => void
 }
 
 interface PathDataType {

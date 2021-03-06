@@ -59,7 +59,8 @@ function ManifestListView({
   isForPredefinedSets,
   isPropagating,
   overrideSetIdentifier,
-  connectors
+  connectors,
+  refetchConnectors
 }: ManifestListViewProps): JSX.Element {
   const [selectedManifest, setSelectedManifest] = React.useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = React.useState(false)
@@ -261,6 +262,7 @@ function ManifestListView({
 
     updatePipeline(pipeline)
     hideConnectorModal()
+    refetchConnectors()
   }
 
   const changeManifestType = (selected: ManifestTypes): void => {
@@ -556,36 +558,38 @@ export default function ManifestSelection({
     queryParams: defaultQueryParams
   })
 
-  const connectorList = listOfManifests
-    ? listOfManifests &&
-      listOfManifests.map(
-        (data: {
-          manifest: {
-            identifier: string
-            type: string
-            spec: {
-              store: {
+  const getConnectorList = () => {
+    return listOfManifests
+      ? listOfManifests &&
+          listOfManifests.map(
+            (data: {
+              manifest: {
+                identifier: string
                 type: string
                 spec: {
-                  connectorRef: string
-                  gitFetchType: string
-                  branch: string
-                  commitId: string
-                  paths: string[]
+                  store: {
+                    type: string
+                    spec: {
+                      connectorRef: string
+                      gitFetchType: string
+                      branch: string
+                      commitId: string
+                      paths: string[]
+                    }
+                  }
                 }
               }
-            }
-          }
-        }) => ({
-          scope: getScopeFromValue(data?.manifest?.spec?.store?.spec?.connectorRef),
-          identifier: getIdentifierFromValue(data?.manifest?.spec?.store?.spec?.connectorRef)
-        })
-      )
-    : []
-
-  const connectorIdentifiers = connectorList.map((item: { scope: string; identifier: string }) => item.identifier)
+            }) => ({
+              scope: getScopeFromValue(data?.manifest?.spec?.store?.spec?.connectorRef),
+              identifier: getIdentifierFromValue(data?.manifest?.spec?.store?.spec?.connectorRef)
+            })
+          )
+      : []
+  }
 
   const refetchConnectorList = async (): Promise<void> => {
+    const connectorList = getConnectorList()
+    const connectorIdentifiers = connectorList.map((item: { scope: string; identifier: string }) => item.identifier)
     const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
     setFetchedConnectorResponse(connectorResponse)
   }
@@ -612,6 +616,7 @@ export default function ManifestSelection({
         isForPredefinedSets={isForPredefinedSets}
         overrideSetIdentifier={overrideSetIdentifier}
         connectors={fetchedConnectorResponse}
+        refetchConnectors={refetchConnectorList}
       />
     </Layout.Vertical>
   )
