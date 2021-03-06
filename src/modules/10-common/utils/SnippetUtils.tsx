@@ -39,7 +39,8 @@ const entitySubTypeToTagMap: {
   CEAws: 'ceaws',
   CEAzure: 'ceazure',
   CEK8sCluster: 'cek8s',
-  Codecommit: 'codecommit'
+  Codecommit: 'codecommit',
+  HttpHelmRepo: 'httphelmrepo'
 }
 
 export const getSnippetTags = (
