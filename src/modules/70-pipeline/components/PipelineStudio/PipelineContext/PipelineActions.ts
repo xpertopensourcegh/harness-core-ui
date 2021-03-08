@@ -37,13 +37,13 @@ export enum DrawerTypes {
 export const DrawerSizes: Record<DrawerTypes, React.CSSProperties['width']> = {
   [DrawerTypes.StepConfig]: 600,
   [DrawerTypes.AddStep]: 700,
-  [DrawerTypes.PipelineVariables]: 'calc(100% - 270px)',
+  [DrawerTypes.PipelineVariables]: 'calc(100% - 270px - 60px)', // has 60px more offset from right
   [DrawerTypes.Templates]: 450,
   [DrawerTypes.ExecutionStrategy]: 1000,
   [DrawerTypes.AddService]: 485,
   [DrawerTypes.ConfigureService]: 600,
   [DrawerTypes.FailureStrategy]: 600,
-  [DrawerTypes.PipelineNotifications]: 'calc(100% - 270px)',
+  [DrawerTypes.PipelineNotifications]: 'calc(100% - 270px - 60px)', // has 60px more offset from right
   [DrawerTypes.SkipCondition]: 600,
   [DrawerTypes.FlowControl]: 600
 }

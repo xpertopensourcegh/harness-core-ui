@@ -79,14 +79,10 @@
   }
 
   :global(.bp3-tree-node-content:hover) {
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
     background-color: var(--tree-selected-color);
   }
 
   :global(.bp3-tree-node.bp3-tree-node-selected > .bp3-tree-node-content) {
     background-color: var(--tree-selected-color);
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
   }
 }

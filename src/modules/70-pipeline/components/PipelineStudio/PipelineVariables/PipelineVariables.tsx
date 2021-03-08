@@ -1,8 +1,8 @@
 import React from 'react'
-import { NestedAccordionProvider, useNestedAccordion } from '@wings-software/uicore'
+import { NestedAccordionProvider, useNestedAccordion, Icon } from '@wings-software/uicore'
 import type { ITreeNode } from '@blueprintjs/core'
-
 import { get } from 'lodash-es'
+import cx from 'classnames'
 
 import type { StageElementWrapper } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
@@ -28,8 +28,12 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
 
   const { openNestedPath } = useNestedAccordion()
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
-
+  const [isSidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('Pipeline_Variables')
+
+  function toggleSidebar(): void {
+    setSidebarCollapsed(status => !status)
+  }
 
   React.useEffect(() => {
     updateNodes(getPipelineTree(originalPipeline, stagesTreeNodeClasses))
@@ -79,13 +83,20 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
       {error ? (
         <PageError message={error.message || (error as string)} />
       ) : (
-        <div className={css.content}>
-          <StagesTree
-            className={css.stagesTree}
-            contents={nodes}
-            selectedId={selectedTreeNodeId}
-            selectionChange={handleSelectionChange}
-          />
+        <div className={cx(css.content, { [css.closed]: isSidebarCollapsed })}>
+          <div className={css.lhs}>
+            <String tagName="div" className={css.title} stringID="variablesText" />
+            <StagesTree
+              className={css.stagesTree}
+              contents={nodes}
+              selectedId={selectedTreeNodeId}
+              selectionChange={handleSelectionChange}
+            />
+            <div className={css.collapse} onClick={toggleSidebar}>
+              <Icon name="chevron-left" />
+            </div>
+          </div>
+
           <div className={css.variableList}>
             <String tagName="h4" className="bp3-heading" stringID="customVariables.pipelineVariablesTitle" />
             <String className={css.description} stringID="customVariables.pipelineVariablesDescription" />

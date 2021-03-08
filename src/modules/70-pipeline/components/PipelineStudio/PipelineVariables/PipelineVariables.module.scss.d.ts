@@ -6,12 +6,15 @@ declare const styles: {
   readonly variableCard: string
   readonly header: string
   readonly content: string
+  readonly lhs: string
+  readonly title: string
   readonly stagesTree: string
+  readonly collapse: string
+  readonly closed: string
   readonly variableList: string
   readonly stageTitle: string
   readonly stageSummary: string
   readonly stageDetails: string
-  readonly title: string
   readonly variableListHeader: string
   readonly customVariables: string
   readonly panel: string
