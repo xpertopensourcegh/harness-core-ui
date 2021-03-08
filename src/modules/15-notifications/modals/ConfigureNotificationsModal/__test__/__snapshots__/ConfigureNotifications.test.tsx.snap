@@ -383,7 +383,7 @@ exports[`ConfigureNotifications Slack 1`] = `
                   class="bp3-input"
                   name="webhookUrl"
                   type="text"
-                  value="testUrl"
+                  value="http://valid.url"
                 />
               </div>
             </div>

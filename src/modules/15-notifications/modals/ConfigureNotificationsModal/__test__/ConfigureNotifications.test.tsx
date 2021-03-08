@@ -35,7 +35,7 @@ describe('ConfigureNotifications', () => {
         container,
         fieldId: 'webhookUrl',
         type: InputTypes.TEXTFIELD,
-        value: 'testUrl'
+        value: 'http://valid.url'
       }
     ])
 
@@ -48,7 +48,7 @@ describe('ConfigureNotifications', () => {
     expect(testNotification).toHaveBeenCalledWith({
       accountId: 'dummy',
       type: 'SLACK',
-      recipient: 'testUrl',
+      recipient: 'http://valid.url',
       notificationId: 'asd'
     })
 
@@ -57,7 +57,7 @@ describe('ConfigureNotifications', () => {
     await waitFor(() =>
       expect(handleSuccess).toHaveBeenCalledWith({
         type: NotificationType.Slack,
-        webhookUrl: 'testUrl',
+        webhookUrl: 'http://valid.url',
         userGroups: []
       })
     )

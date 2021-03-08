@@ -1,21 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { get, isNil } from 'lodash-es'
 import produce from 'immer'
-import NotificationTable from '@pipeline/components/Notifications/NotificationTable'
+import NotificationTable, { NotificationRulesItem } from '@pipeline/components/Notifications/NotificationTable'
 import type { NotificationRules } from 'services/pipeline-ng'
 import { Actions } from '@pipeline/components/Notifications/NotificationUtils'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './PipelineNotifications.module.scss'
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 10
 
 export const PipelineNotifications: React.FC = (): JSX.Element => {
   const {
     state: { pipeline },
     updatePipeline
   } = React.useContext(PipelineContext)
-  const data: NotificationRules[] = get(pipeline, 'notificationRules', [])
+
   const [page, setPage] = React.useState(0)
+
+  const [selectedNotificationTypeFilter, setSelectedNotificationTypeFilter] = useState<string | undefined>(undefined)
+
+  const allRowsData: NotificationRulesItem[] = get(pipeline, 'notificationRules', []).map(
+    (notificationRules: NotificationRules, index: number) => ({
+      index,
+      notificationRules
+    })
+  )
+
+  // filter table data
+  let data = allRowsData
+  if (selectedNotificationTypeFilter) {
+    data = allRowsData.filter(
+      item => item.notificationRules.notificationMethod?.type === selectedNotificationTypeFilter
+    )
+  }
+
   return (
     <div className={css.pipelineNotifications}>
       <NotificationTable
@@ -24,10 +42,17 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
         totalPages={Math.ceil(data.length / PAGE_SIZE)}
         pageItemCount={PAGE_SIZE}
         pageSize={PAGE_SIZE}
+        filterType={selectedNotificationTypeFilter}
         totalItems={data.length}
-        gotoPage={setPage}
-        onUpdate={(notification, _index = 0, action, closeModal) => {
-          const index = page * PAGE_SIZE + _index
+        gotoPage={index => {
+          setPage(index)
+        }}
+        onFilterType={type => {
+          setSelectedNotificationTypeFilter(type)
+        }}
+        onUpdate={(notificationItem, action, closeModal) => {
+          const index = notificationItem?.index
+          const notification = notificationItem?.notificationRules
           if (action === Actions.Delete) {
             updatePipeline(
               produce(pipeline, draft => {

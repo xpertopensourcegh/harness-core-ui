@@ -8,25 +8,34 @@ import NotificationTable, { NotificationTableProps } from '../NotificationTable'
 const args: NotificationTableProps = {
   data: [
     {
-      name: 'name',
-      enabled: true,
-      pipelineEvents: [{ type: 'AllEvents' }, { type: 'PipelineFailed' }],
-      notificationMethod: {
-        type: 'Slack',
-        spec: { userGroups: ['pl-cd-ng'], webhookUrls: 'webhookURL' }
+      index: 0,
+      notificationRules: {
+        name: 'name',
+        enabled: true,
+        pipelineEvents: [{ type: 'AllEvents' }, { type: 'PipelineFailed' }],
+        notificationMethod: {
+          type: 'Slack',
+          spec: { userGroups: ['pl-cd-ng'], webhookUrls: 'webhookURL' }
+        }
       }
     },
     {
-      name: 'name',
-      enabled: true,
-      pipelineEvents: [{ type: 'AllEvents' }],
-      notificationMethod: { type: 'Email', spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] } }
+      index: 1,
+      notificationRules: {
+        name: 'name',
+        enabled: true,
+        pipelineEvents: [{ type: 'AllEvents' }],
+        notificationMethod: { type: 'Email', spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] } }
+      }
     },
     {
-      name: 'name',
-      enabled: true,
-      pipelineEvents: [{ type: 'AllEvents' }],
-      notificationMethod: { type: 'PagerDuty', spec: { userGroups: ['pl-cd-ng'], integrationKeys: '12345' } }
+      index: 2,
+      notificationRules: {
+        name: 'name',
+        enabled: true,
+        pipelineEvents: [{ type: 'AllEvents' }],
+        notificationMethod: { type: 'PagerDuty', spec: { userGroups: ['pl-cd-ng'], integrationKeys: '12345' } }
+      }
     }
   ],
   gotoPage: jest.fn(),
@@ -35,7 +44,9 @@ const args: NotificationTableProps = {
   totalItems: 3,
   pageItemCount: 3,
   pageSize: 5,
-  pageIndex: 0
+  pageIndex: 0,
+  onFilterType: _type => undefined,
+  filterType: ''
 }
 describe('Notification Table test', () => {
   let container: HTMLElement

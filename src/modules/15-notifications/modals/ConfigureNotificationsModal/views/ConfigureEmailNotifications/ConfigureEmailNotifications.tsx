@@ -23,7 +23,7 @@ interface ConfigureEmailNotificationsProps {
   onSuccess: (notificationConfiguration: EmailNotificationConfiguration) => void
   hideModal: () => void
   isStep?: boolean
-  onBack?: () => void
+  onBack?: (config?: EmailNotificationConfiguration) => void
   withoutHeading?: boolean
   submitButtonText?: string
   config?: EmailNotificationConfiguration
@@ -112,17 +112,20 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
   }
 
   const handleSubmit = (formData: EmailNotificationData): void => {
-    props.onSuccess({
+    props.onSuccess(convertFormData(formData))
+    props.hideModal()
+  }
+
+  const convertFormData = (formData: EmailNotificationData) => {
+    return {
       type: NotificationType.Email,
       emailIds: formData.emailIds
         .split(',')
         .map(email => email.trim())
         .filter(email => email),
       userGroups: formData.userGroups
-    })
-    props.hideModal()
+    }
   }
-
   return (
     <div className={css.body}>
       <Layout.Vertical spacing="large">
@@ -138,7 +141,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
           }}
           enableReinitialize={true}
         >
-          {() => {
+          {formik => {
             return (
               <FormikForm>
                 <FormInput.TextArea name={'emailIds'} label={i18n.labelEmailIds} />
@@ -157,7 +160,12 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
                 </Layout.Horizontal>
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
-                    <Button text={getString('back')} onClick={props.onBack} />
+                    <Button
+                      text={getString('back')}
+                      onClick={() => {
+                        props.onBack?.(convertFormData(formik.values))
+                      }}
+                    />
                     <Button text={props.submitButtonText || getString('next')} intent="primary" type="submit" />
                   </Layout.Horizontal>
                 ) : (

@@ -8,6 +8,8 @@ import Overview from './Steps/Overview'
 import PipelineEvents from './Steps/PipelineEvents'
 import NotificationMethods from './Steps/NotificationMethods'
 import { Actions } from './NotificationUtils'
+import { NotificationTypeSelectOptions } from './NotificationTypeOptions'
+
 import css from './useNotificationModal.module.scss'
 
 export interface UseNotificationModalProps {
@@ -31,7 +33,7 @@ export const useNotificationModal = ({
 }: UseNotificationModalProps): UseNotificationModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [index, setIndex] = useState<number>()
-  const [NotificationData, setNotificationData] = useState<NotificationRules>()
+  const [notificationRules, setNotificationRules] = useState<NotificationRules>()
   const { getString } = useStrings()
   const wizardCompleteHandler = async (wizardData?: NotificationRules): Promise<void> => {
     onCreateOrUpdate?.(wizardData, index, view === Views.CREATE ? Actions.Added : Actions.Update)
@@ -53,9 +55,12 @@ export const useNotificationModal = ({
           icon="notifications"
           title={getString('newNotification')}
         >
-          <Overview name={getString('pipeline-notifications.nameOftheRule')} data={NotificationData} />
+          <Overview name={getString('pipeline-notifications.nameOftheRule')} data={notificationRules} />
           <PipelineEvents name={getString('pipeline-notifications.pipelineEvents')} />
-          <NotificationMethods name={getString('pipeline-notifications.notificationMethod')} />
+          <NotificationMethods
+            name={getString('pipeline-notifications.notificationMethod')}
+            typeOptions={NotificationTypeSelectOptions}
+          />
         </StepWizard>
         <Button
           minimal
@@ -70,12 +75,12 @@ export const useNotificationModal = ({
         />
       </Dialog>
     ),
-    [view, NotificationData]
+    [view, notificationRules, wizardCompleteHandler]
   )
 
   const open = useCallback(
     (_notification?: NotificationRules, _index?: number) => {
-      setNotificationData(_notification)
+      setNotificationRules(_notification)
       if (_notification) {
         setIndex(_index)
         setView(Views.EDIT)
@@ -86,7 +91,8 @@ export const useNotificationModal = ({
   )
 
   return {
-    openNotificationModal: (notificationRules?: NotificationRules, _index?: number) => open(notificationRules, _index),
+    openNotificationModal: (_notificationRules?: NotificationRules, _index?: number) =>
+      open(_notificationRules, _index),
     closeNotificationModal: hideModal
   }
 }

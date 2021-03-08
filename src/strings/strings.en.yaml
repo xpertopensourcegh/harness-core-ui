@@ -1229,6 +1229,7 @@ validation:
   workingDirRequired: 'Working Directory is required field'
   sshConnectorRequired: 'Connector is required field'
   gitServerRequired: 'Git server is a required field'
+  urlIsNotValid: 'URL is not valid'
 
 yamlBuilder:
   enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?

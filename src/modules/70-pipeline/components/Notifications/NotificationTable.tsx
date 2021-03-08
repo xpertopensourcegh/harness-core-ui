@@ -12,21 +12,29 @@ import type { NotificationType } from '@notifications/interfaces/Notifications'
 import { useNotificationModal } from './useNotificationModal'
 import { PipelineEventType } from './Steps/PipelineEvents'
 import { Actions } from './NotificationUtils'
+import { getAllNotificationTypeSelectOption, NotificationTypeSelectOptions } from './NotificationTypeOptions'
 import css from './NotificationTable.module.scss'
 
+export interface NotificationRulesItem {
+  index: number
+  notificationRules: NotificationRules
+}
+
 export interface NotificationTableProps {
-  data: NotificationRules[]
-  onUpdate?: (data?: NotificationRules, index?: number, action?: Actions, closeModal?: () => void) => void
+  data: NotificationRulesItem[]
+  onUpdate?: (data?: NotificationRulesItem, action?: Actions, closeModal?: () => void) => void
+  onFilterType: (type: string | undefined) => void
+  filterType: string | undefined
   gotoPage: (index: number) => void
-  totalPages?: number
-  totalItems?: number
+  totalPages: number
+  totalItems: number
   pageItemCount?: number
-  pageSize?: number
-  pageIndex?: number
+  pageSize: number
+  pageIndex: number
 }
 
 type CustomColumn<T extends object> = Column<T> & {
-  onUpdate?: (data: NotificationRules, index: number) => void
+  onUpdate?: (data: NotificationRulesItem) => void
 }
 
 export const getPipelineEventColor = (option?: Required<PipelineEvent>['type']): Color => {
@@ -47,34 +55,33 @@ export const getPipelineEventColor = (option?: Required<PipelineEvent>['type']):
   return Color.GREY_200
 }
 
-const RenderColumnEnabled: Renderer<CellProps<NotificationRules>> = ({ row, column }) => {
+const RenderColumnEnabled: Renderer<CellProps<NotificationRulesItem>> = ({ row, column }) => {
   const data = row.original
   return (
     <Switch
-      checked={data.enabled}
+      checked={data.notificationRules.enabled}
       onChange={e => {
         ;(column as any).onUpdate?.(
           produce(data, draft => {
-            draft.enabled = e.currentTarget.checked
+            draft.notificationRules.enabled = e.currentTarget.checked
           }),
-          row.id,
           Actions.Update
         )
       }}
     />
   )
 }
-const RenderColumnName: Renderer<CellProps<NotificationRules>> = ({ row }) => {
+const RenderColumnName: Renderer<CellProps<NotificationRulesItem>> = ({ row }) => {
   const data = row.original
   return (
     <Text color={Color.BLACK} lineClamp={1}>
-      {data.name}
+      {data.notificationRules.name}
     </Text>
   )
 }
 
-const RenderColumnEvents: Renderer<CellProps<NotificationRules>> = ({ row }) => {
-  const data = row.original.pipelineEvents?.map(event => event.type)
+const RenderColumnEvents: Renderer<CellProps<NotificationRulesItem>> = ({ row }) => {
+  const data = row.original.notificationRules.pipelineEvents?.map(event => event.type)
   const baseData = data?.slice(0, 3)
   const popoverData = data?.slice(3, data.length)
   return (
@@ -102,8 +109,8 @@ const RenderColumnEvents: Renderer<CellProps<NotificationRules>> = ({ row }) => 
   )
 }
 
-const RenderColumnMethod: Renderer<CellProps<NotificationRules>> = ({ row }) => {
-  const data = row.original.notificationMethod?.type
+const RenderColumnMethod: Renderer<CellProps<NotificationRulesItem>> = ({ row }) => {
+  const data = row.original.notificationRules.notificationMethod?.type
   return (
     <Layout.Horizontal spacing="small">
       <Icon name={getIconByNotificationMethod(data as NotificationType)} />
@@ -112,7 +119,7 @@ const RenderColumnMethod: Renderer<CellProps<NotificationRules>> = ({ row }) => 
   )
 }
 
-const RenderColumnMenu: Renderer<CellProps<NotificationRules>> = ({ row, column }) => {
+const RenderColumnMenu: Renderer<CellProps<NotificationRulesItem>> = ({ row, column }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
   const data = row.original
@@ -120,13 +127,13 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRules>> = ({ row, column 
   const handleEdit = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
-    ;(column as any).openNotificationModal?.(data)
+    ;(column as any).openNotificationModal?.(data.notificationRules, data.index)
   }
 
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
-    ;(column as any).onUpdate?.(row, row.id, Actions.Delete)
+    ;(column as any).onUpdate?.(row.original, Actions.Delete)
   }
   return (
     <Layout.Horizontal>
@@ -157,20 +164,21 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRules>> = ({ row, column 
 }
 
 const NotificationTable: React.FC<NotificationTableProps> = props => {
-  const { data, onUpdate } = props
+  const { data, onUpdate, gotoPage, filterType, onFilterType, totalPages, totalItems, pageSize, pageIndex } = props
   const { getString } = useStrings()
+
   const { openNotificationModal, closeNotificationModal } = useNotificationModal({
     onCreateOrUpdate: (_data?: NotificationRules, _index?: number, _action?: Actions) => {
-      onUpdate?.(_data, _index, _action, closeNotificationModal)
+      onUpdate?.({ notificationRules: _data!, index: _index! }, _action, closeNotificationModal)
     }
   })
 
-  const columns: CustomColumn<NotificationRules>[] = useMemo(
+  const columns: CustomColumn<NotificationRulesItem>[] = useMemo(
     () => [
       {
         Header: getString('enabledLabel').toUpperCase(),
         id: 'enabled',
-        accessor: 'enabled',
+        accessor: row => row.notificationRules.enabled,
         onUpdate: onUpdate,
         width: '15%',
         Cell: RenderColumnEnabled,
@@ -179,7 +187,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: getString('pipeline-notifications.nameOftheRule').toUpperCase(),
         id: 'name',
-        accessor: 'name',
+        accessor: row => row.notificationRules.name,
         width: '20%',
         Cell: RenderColumnName,
         disableSortBy: true
@@ -187,7 +195,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: getString('pipeline-notifications.pipelineEvents').toUpperCase(),
         id: 'events',
-        accessor: row => row.pipelineEvents,
+        accessor: row => row.notificationRules.pipelineEvents,
         width: '35%',
         Cell: RenderColumnEvents,
         disableSortBy: true
@@ -195,7 +203,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: getString('pipeline-notifications.notificationMethod').toUpperCase(),
         id: 'methods',
-        accessor: row => row.notificationMethod?.type,
+        accessor: row => row.notificationRules.notificationMethod?.type,
         width: '25%',
         Cell: RenderColumnMethod,
         disableSortBy: true
@@ -203,7 +211,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: '',
         id: 'menu',
-        accessor: row => row.notificationMethod?.spec,
+        accessor: row => row.notificationRules.notificationMethod?.spec,
         width: '5%',
         Cell: RenderColumnMenu,
         onUpdate: onUpdate,
@@ -211,37 +219,48 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         disableSortBy: true
       }
     ],
-    [onUpdate, openNotificationModal]
+    [onUpdate, openNotificationModal, data]
   )
-  return (
-    <Container>
-      <Layout.Horizontal flex className={css.headerActions}>
-        <Button
-          intent="primary"
-          text={getString('notifications')}
-          icon="plus"
-          id="newNotificationBtn"
-          onClick={() => openNotificationModal()}
-        />
 
-        <Select
-          value={{
-            label: getString('allNotificationFormat'),
-            value: getString('allNotificationFormat')
-          }}
-          items={[
-            {
-              label: getString('allNotificationFormat'),
-              value: getString('allNotificationFormat')
-            }
-          ]}
-          className={css.filterDropdown}
-        />
-      </Layout.Horizontal>
-      <Container padding={{ bottom: 'huge' }} className={css.content}>
-        <Table<NotificationRules> columns={columns} data={data} className={css.notificationTable} />
+  const filterOptions = [getAllNotificationTypeSelectOption(getString), ...NotificationTypeSelectOptions]
+
+  return (
+    <>
+      <Container>
+        <Layout.Horizontal flex className={css.headerActions}>
+          <Button
+            intent="primary"
+            text={getString('notifications')}
+            icon="plus"
+            id="newNotificationBtn"
+            onClick={() => openNotificationModal()}
+          />
+
+          <Select
+            value={filterOptions.find(item => item.value === filterType)}
+            items={filterOptions}
+            onChange={value => {
+              onFilterType?.(value.value as string)
+            }}
+            className={css.filterDropdown}
+          />
+        </Layout.Horizontal>
       </Container>
-    </Container>
+      <Container padding={{ bottom: 'huge' }} className={css.content}>
+        <Table<NotificationRulesItem>
+          columns={columns}
+          data={data}
+          className={css.notificationTable}
+          pagination={{
+            itemCount: totalItems,
+            pageSize: pageSize,
+            pageCount: totalPages,
+            pageIndex: pageIndex,
+            gotoPage: gotoPage
+          }}
+        />
+      </Container>
+    </>
   )
 }
 

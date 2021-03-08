@@ -1,4 +1,16 @@
 .pipeline-notifications {
+  display: grid;
+  grid-template-rows: 52px auto;
+  height: calc(100% - 52px);
+
+  > div:nth-child(2) {
+    overflow: auto;
+  }
+
+  > div:last-child {
+    padding: var(--spacing-small) var(--spacing-large);
+  }
+
   .notificationHeaderText {
     font-weight: 600 !important;
     font-size: 24px !important;

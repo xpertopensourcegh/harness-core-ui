@@ -16,7 +16,7 @@ interface ConfigureSlackNotificationsProps {
   hideModal: () => void
   withoutHeading?: boolean
   isStep?: boolean
-  onBack?: () => void
+  onBack?: (config?: SlackNotificationConfiguration) => void
   submitButtonText?: string
   config?: SlackNotificationConfiguration
 }
@@ -53,10 +53,14 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
   }
 
   const handleSubmit = (formData: SlackNotificationData): void => {
-    props.onSuccess({
+    props.onSuccess(convertFormData(formData))
+  }
+
+  const convertFormData = (formData: SlackNotificationData) => {
+    return {
       type: NotificationType.Slack,
       ...formData
-    })
+    }
   }
 
   return (
@@ -74,7 +78,15 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
-            webhookUrl: Yup.string().trim().required(i18n.validationWebhook)
+            webhookUrl: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), _webhookUrl => {
+              // TODO: Create global validation function for url validation
+              try {
+                const url = new URL(_webhookUrl)
+                return url.protocol === 'http:' || url.protocol === 'https:'
+              } catch (_) {
+                return false
+              }
+            })
           })}
           initialValues={{
             webhookUrl: '',
@@ -95,7 +107,12 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
 
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
-                    <Button text={getString('back')} onClick={props.onBack} />
+                    <Button
+                      text={getString('back')}
+                      onClick={() => {
+                        props.onBack?.(convertFormData(formik.values))
+                      }}
+                    />
                     <Button text={props.submitButtonText || getString('next')} intent="primary" type="submit" />
                   </Layout.Horizontal>
                 ) : (

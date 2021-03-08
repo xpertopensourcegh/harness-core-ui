@@ -9,7 +9,16 @@ import ConfigureEmailNotifications from '@notifications/modals/ConfigureNotifica
 import ConfigureSlackNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
 
-const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepData, nextStep, previousStep }) => {
+type NotificationMethodsProps = StepProps<NotificationRules> & {
+  typeOptions?: SelectOption[]
+}
+
+const NotificationMethods: React.FC<NotificationMethodsProps> = ({
+  prevStepData,
+  nextStep,
+  previousStep,
+  typeOptions
+}) => {
   const { getString } = useStrings()
   const [method, setMethod] = useState<SelectOption | undefined>(
     prevStepData?.notificationMethod?.type
@@ -29,7 +38,7 @@ const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepD
         <Layout.Vertical spacing="xsmall">
           <Text>{getString('pipeline-notifications.notificationMethod')}</Text>
           <Select
-            items={NotificationTypeSelectOptions}
+            items={typeOptions || NotificationTypeSelectOptions}
             value={method}
             onChange={item => {
               setMethod(item)
@@ -55,7 +64,18 @@ const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepD
               }}
               hideModal={noop}
               isStep={true}
-              onBack={() => previousStep?.({ ...prevStepData })}
+              onBack={data =>
+                previousStep?.({
+                  ...prevStepData,
+                  notificationMethod: {
+                    type: method.value.toString(),
+                    spec: {
+                      userGroups: data?.userGroups,
+                      recipients: data?.emailIds
+                    }
+                  }
+                })
+              }
               config={{
                 type: NotificationType.Email,
                 emailIds: (prevStepData?.notificationMethod?.spec as PmsEmailChannel)?.recipients || [],
@@ -83,7 +103,18 @@ const NotificationMethods: React.FC<StepProps<NotificationRules>> = ({ prevStepD
             }}
             hideModal={noop}
             isStep={true}
-            onBack={() => previousStep?.({ ...prevStepData })}
+            onBack={data =>
+              previousStep?.({
+                ...prevStepData,
+                notificationMethod: {
+                  type: method.value.toString(),
+                  spec: {
+                    userGroups: data?.userGroups,
+                    webhookUrl: data?.webhookUrl
+                  }
+                }
+              })
+            }
             config={{
               type: NotificationType.Slack,
               webhookUrl: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.webhookUrl || '',
