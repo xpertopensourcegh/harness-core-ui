@@ -6,6 +6,7 @@ common:
   removeThisVariable: Remove This Variable
 harness: Harness # Name of the company
 featureFlagsText: Feature Flags
+flag: Flag
 continuousFeatures: Continuous Features
 featureNA: This feature is not available as of now
 logView: Log View
@@ -427,6 +428,7 @@ skipConditionsTitle: Skip Conditions
 skipConditionTitle: Skip Condition
 skipConditionLabel: If the JEXL condition evaluates to true, skip this step
 skipConditionStageLabel: If the JEXL condition evaluates to true, skip this stage
+skipResourceVersion: 'Skip Resource Versioning'
 skipConditionHelpText: |
   In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
 
@@ -1240,6 +1242,10 @@ manifestType:
   specifyManifestRepoType: 'Specify {{ $.manifestsText }} {{ $.typeLabel }}'
   specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'
   selectManifestStore: '{{$.select}} {{ $.manifestsText }} {{$.store}}'
+  helmSkipResourceVersion: By selecting this option, Harness will no longer version ConfigMaps and Secrets for this Service.
+  helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
+  helmCommandFlagLabel: Helm Command Flags (optional)
+  helmCommandType: Command Type
 connectors:
   createNewConnector: Create New Connector
   confirmDeleteTitle: Delete Connector

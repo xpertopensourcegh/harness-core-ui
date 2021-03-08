@@ -4,4 +4,14 @@
   .halfWidth {
     width: 50%;
   }
+  .helmAdvancedSteps {
+    margin-bottom: var(--spacing-large);
+  }
+  .commandFlags {
+    margin-top: var(--spacing-medium);
+  }
+}
+.checkbox {
+  padding-left: var(--spacing-xlarge) !important;
+  margin-right: var(--spacing-medium) !important;
 }

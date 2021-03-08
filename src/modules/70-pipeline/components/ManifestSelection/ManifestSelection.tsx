@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
-import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 
@@ -31,7 +30,6 @@ import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
 import type {
   ManifestSelectionProps,
-  ManifestDataType,
   ManifestStepInitData,
   ManifestTypes,
   ManifestListViewProps
@@ -40,7 +38,7 @@ import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import css from './ManifestSelection.module.scss'
 
 // Commenting Helm temporarily until BE support is ready
-// const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values', 'Helm']
+// const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values', 'HelmChart']
 const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values']
 const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GIT,
@@ -164,50 +162,9 @@ function ManifestListView({
     showConnectorModal()
   }
 
-  const getHelmWithGITInitialData = (): ManifestDataType => {
-    const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
-
-    if (initValues) {
-      const values = {
-        ...initValues,
-        identifier: listOfManifests[manifestIndex]?.manifest.identifier,
-        paths:
-          typeof initValues['paths'] === 'string'
-            ? initValues['paths']
-            : initValues['paths'].map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
-      }
-      return values
-    }
-    return {
-      identifier: '',
-      branch: undefined,
-      commitId: undefined,
-      gitFetchType: 'Branch',
-      paths: ''
-    }
-  }
-
-  const getManifestDetailsInitialData = (): ManifestDataType => {
-    const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
-
-    if (initValues) {
-      const values = {
-        ...initValues,
-        identifier: listOfManifests[manifestIndex]?.manifest.identifier,
-        paths:
-          typeof initValues['paths'] === 'string'
-            ? initValues['paths']
-            : initValues['paths'].map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
-      }
-      return values
-    }
-    return {
-      identifier: '',
-      branch: undefined,
-      commitId: undefined,
-      gitFetchType: 'Branch',
-      paths: [{ path: '', uuid: uuid('', nameSpace()) }]
-    }
+  const getLastStepInitialData = (): any => {
+    const initValues = get(listOfManifests[manifestIndex], 'manifest', null)
+    return initValues
   }
 
   const getInitialValues = (): ManifestStepInitData => {
@@ -287,13 +244,13 @@ function ManifestListView({
     let manifestDetailStep = null
 
     switch (true) {
-      case selectedManifest === 'Helm' && manifestStore === Connectors.GIT:
+      case selectedManifest === 'HelmChart' && manifestStore === Connectors.GIT:
         manifestDetailStep = (
           <HelmWithGIT
             name={getString('manifestType.manifestDetails')}
             key={getString('manifestType.manifestDetails')}
             stepName={getString('manifestType.manifestDetails')}
-            initialValues={getHelmWithGITInitialData()}
+            initialValues={getLastStepInitialData()}
             handleSubmit={handleSubmit}
           />
         )
@@ -306,7 +263,7 @@ function ManifestListView({
             name={getString('manifestType.manifestDetails')}
             key={getString('manifestType.manifestDetails')}
             stepName={getString('manifestType.manifestDetails')}
-            initialValues={getManifestDetailsInitialData()}
+            initialValues={getLastStepInitialData()}
             handleSubmit={handleSubmit}
           />
         )

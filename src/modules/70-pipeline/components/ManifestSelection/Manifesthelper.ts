@@ -3,17 +3,22 @@ import type { IconName } from '@wings-software/uicore'
 export const manifestTypeIcons: Record<string, IconName> = {
   K8sManifest: 'service-kubernetes',
   Values: 'functions',
-  Helm: 'service-helm'
+  HelmChart: 'service-helm'
 }
 
 export const manifestTypeLabels: { [key: string]: string } = {
   K8sManifest: 'K8s Manifest',
   Values: 'Values YAML',
-  Helm: 'Helm Chart'
+  HelmChart: 'Helm Chart'
 }
 
 export const manifestTypeText: Record<string, string> = {
   K8sManifest: 'Manifest',
   Values: 'Values Overrides',
-  Helm: 'Helm'
+  HelmChart: 'Helm Chart'
 }
+
+export const helmVersions = [
+  { label: 'Version 2', value: 'V2' },
+  { label: 'Version 3', value: 'V3' }
+]

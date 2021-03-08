@@ -8,17 +8,23 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Color,
-  StepProps
+  StepProps,
+  Accordion
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
+import { get } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import i18n from '../ManifestWizard.i18n'
+import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
+import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
+import { helmVersions } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
@@ -26,11 +32,11 @@ const gitFetchTypes = [
   { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
   { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
 ]
-const helmVersions = [
-  { label: 'Version 2', value: 'V2' },
-  { label: 'Version 3', value: 'V3' }
-]
 
+const commandFlagOptions = [
+  { label: 'Version ', value: 'Version' },
+  { label: 'Template ', value: 'Template' }
+]
 interface HelmWithGITPropType {
   stepName: string
   initialValues: any
@@ -45,6 +51,37 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   previousStep
 }) => {
   const { getString } = useStrings()
+
+  const getInitialValues = (): HelmWithGITDataType => {
+    const specValues = get(initialValues, 'spec.store.spec', null)
+
+    if (specValues) {
+      const values = {
+        ...specValues,
+        identifier: initialValues.identifier,
+        paths: specValues.paths,
+        helmVersion: initialValues.spec?.helmVersion,
+        skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
+        commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
+          commandType: commandFlag.commandType,
+          flag: commandFlag.flag
+          // id: uuid(commandFlag, nameSpace())
+        }))
+      }
+      return values
+    }
+    return {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      gitFetchType: 'Branch',
+      paths: '',
+      helmVersion: 'V2',
+      skipResourceVersioning: false,
+      commandFlags: [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
+    }
+  }
+
   const submitFormData = (formData: any): void => {
     const manifestObj = {
       manifest: {
@@ -59,7 +96,13 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               commitId: formData?.commitId,
               paths: formData?.paths
             }
-          }
+          },
+          skipResourceVersioning: formData?.skipResourceVersioning,
+          helmVersion: formData?.helmVersion,
+          commandFlags: formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+            commandType: commandFlag.commandType,
+            flag: commandFlag.flag
+          }))
         }
       }
     }
@@ -72,7 +115,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         {stepName}
       </Text>
       <Formik
-        initialValues={initialValues}
+        initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
@@ -95,10 +138,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
           })
         }}
       >
-        {(formik: {
-          setFieldValue: (a: string, b: string) => void
-          values: { gitFetchType: string; branch: string; paths: { path: string; uuid: string }[] }
-        }) => (
+        {(formik: { setFieldValue: (a: string, b: string) => void; values: HelmWithGITDataType }) => (
           <Form>
             <div className={helmcss.helmGitForm}>
               <FormInput.Text
@@ -107,12 +147,13 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 placeholder={i18n.STEP_ONE.idPlaceholder}
                 className={helmcss.halfWidth}
               />
-              <Layout.Horizontal spacing="medium" flex>
+              <Layout.Horizontal flex spacing="xxlarge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
                 </div>
-                <div className={helmcss.halfWidth}>
-                  {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+
+                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                  <div className={helmcss.halfWidth}>
                     <FormInput.MultiTextInput
                       label={i18n.STEP_TWO.branchLabel}
                       placeholder={i18n.STEP_TWO.branchPlaceholder}
@@ -121,30 +162,31 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                         [css.runtimeInput]: getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
                       })}
                     />
-                  )}
-                  {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={formik.values?.branch}
-                      type="String"
-                      variableName="branch"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formik.setFieldValue('branch', value)}
-                    />
-                  )}
-                </div>
-                <div className={helmcss.halfWidth}>
-                  {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                  </div>
+                )}
+                {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik.values?.branch as string}
+                    type="String"
+                    variableName="branch"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik.setFieldValue('branch', value)}
+                  />
+                )}
+                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                  <div className={helmcss.halfWidth}>
                     <FormInput.MultiTextInput
                       label={i18n.STEP_TWO.commitLabel}
                       placeholder={i18n.STEP_TWO.commitPlaceholder}
                       name="commitId"
                     />
-                  )}
-                </div>
+                  </div>
+                )}
               </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" flex>
+
+              <Layout.Horizontal flex spacing="xxlarge" margin={{ bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.MultiTextInput
                     label={getString('fileFolderPathText')}
@@ -159,6 +201,14 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
                 </div>
               </Layout.Horizontal>
+              <Accordion activeId={getString('advancedTitle')}>
+                <Accordion.Panel
+                  id={getString('advancedTitle')}
+                  addDomId={true}
+                  summary={getString('advancedTitle')}
+                  details={<HelmAdvancedStepSection formik={formik} commandFlagOptions={commandFlagOptions} />}
+                />
+              </Accordion>
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>

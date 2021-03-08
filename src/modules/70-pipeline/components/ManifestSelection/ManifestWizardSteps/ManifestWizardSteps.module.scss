@@ -11,6 +11,9 @@
   div[class*='OverlaySpinner'] {
     height: 100%;
   }
+  :global(.bp3-collapse-body > div) {
+    background-color: var(--white) !important;
+  }
 
   .formContainerStepOne {
     height: 100%;

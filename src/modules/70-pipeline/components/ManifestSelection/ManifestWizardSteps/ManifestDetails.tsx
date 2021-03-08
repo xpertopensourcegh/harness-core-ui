@@ -15,6 +15,7 @@ import cx from 'classnames'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import * as Yup from 'yup'
+import { get } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -22,6 +23,7 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { String, useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import i18n from './ManifestWizard.i18n'
+import type { ManifestDataType } from '../ManifestInterface'
 import css from './ManifestWizardSteps.module.scss'
 
 const gitFetchTypes = [
@@ -80,8 +82,32 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     },
     []
   )
+
   const { getString } = useStrings()
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
+
+  const getInitialValues = (): ManifestDataType => {
+    const specValues = get(initialValues, 'spec.store.spec', null)
+
+    if (specValues) {
+      const values = {
+        ...specValues,
+        identifier: initialValues.identifier,
+        paths:
+          typeof specValues.paths === 'string'
+            ? specValues.paths
+            : specValues.paths?.map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
+      }
+      return values
+    }
+    return {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      gitFetchType: 'Branch',
+      paths: [{ path: '', uuid: uuid('', nameSpace()) }]
+    }
+  }
 
   const submitFormData = (formData: any): void => {
     const manifestObj = {
@@ -113,7 +139,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         {stepName}
       </Text>
       <Formik
-        initialValues={initialValues}
+        initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()

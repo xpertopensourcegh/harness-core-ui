@@ -39,4 +39,20 @@ export interface ManifestDataType {
   gitFetchType: 'Branch' | 'Commit'
   paths: Array<PathDataType> | Array<string> | string | undefined
 }
-export type ManifestTypes = 'K8sManifest' | 'Values' | 'Helm'
+export interface CommandFlags {
+  commandType: string
+  flag: string
+  id?: string
+}
+export interface HelmWithGITDataType {
+  identifier: string
+  branch: string | undefined
+  commitId: string | undefined
+  gitFetchType: 'Branch' | 'Commit'
+  paths: string
+  helmVersion: 'V2' | 'V3'
+  skipResourceVersioning: boolean
+  commandFlags: Array<CommandFlags>
+}
+
+export type ManifestTypes = 'K8sManifest' | 'Values' | 'HelmChart'

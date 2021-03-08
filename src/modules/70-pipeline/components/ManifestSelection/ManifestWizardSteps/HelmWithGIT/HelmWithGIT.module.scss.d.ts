@@ -3,5 +3,8 @@
 declare const styles: {
   readonly helmGitForm: string
   readonly halfWidth: string
+  readonly helmAdvancedSteps: string
+  readonly commandFlags: string
+  readonly checkbox: string
 }
 export default styles
