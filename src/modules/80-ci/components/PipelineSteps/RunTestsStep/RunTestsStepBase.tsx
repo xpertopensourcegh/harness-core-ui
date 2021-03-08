@@ -18,6 +18,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { PipelineContext } from '@pipeline/exports'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
@@ -44,6 +45,8 @@ export const RunTestsStepBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -115,6 +118,7 @@ export const RunTestsStepBase = (
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+                multiTypeTextArea={{ expressions }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -137,6 +141,7 @@ export const RunTestsStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
+                multiTypeProps={{ expressions }}
                 style={{ marginBottom: 0, marginTop: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -148,7 +153,8 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  placeholder: getString('imagePlaceholder')
+                  placeholder: getString('imagePlaceholder'),
+                  multiTextInputProps: { expressions }
                 }}
               />
               <MultiTypeTextField
@@ -159,6 +165,9 @@ export const RunTestsStepBase = (
                     <Button icon="question" minimal tooltip={getString('runTestsArgsInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
               <MultiTypeSelectField
                 name="spec.buildTool"
@@ -169,7 +178,8 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 multiTypeInputProps={{
-                  selectItems: buildToolOptions
+                  selectItems: buildToolOptions,
+                  multiTypeInputProps: { expressions }
                 }}
               />
               <MultiTypeSelectField
@@ -181,7 +191,8 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 multiTypeInputProps={{
-                  selectItems: languageOptions
+                  selectItems: languageOptions,
+                  multiTypeInputProps: { expressions }
                 }}
               />
               <MultiTypeTextField
@@ -192,6 +203,9 @@ export const RunTestsStepBase = (
                     <Button icon="question" minimal tooltip={getString('packagesInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
               />
             </div>
             <div className={css.fieldsSection}>
@@ -201,6 +215,7 @@ export const RunTestsStepBase = (
               <FormMultiTypeCheckboxField
                 name="spec.runOnlySelectedTests"
                 label={getString('runOnlySelectedTestsLabel')}
+                multiTypeTextbox={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -216,6 +231,9 @@ export const RunTestsStepBase = (
                     />
                   </Text>
                 }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions }
+                }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <FormMultiTypeTextAreaField
@@ -228,6 +246,7 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 placeholder={getString('commandPlaceholder')}
+                multiTypeTextArea={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <FormMultiTypeTextAreaField
@@ -240,6 +259,7 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 placeholder={getString('commandPlaceholder')}
+                multiTypeTextArea={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeList
@@ -258,6 +278,7 @@ export const RunTestsStepBase = (
                     </Text>
                   )
                 }}
+                multiTextInputProps={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeMap
@@ -275,6 +296,7 @@ export const RunTestsStepBase = (
                     </Text>
                   )
                 }}
+                valueMultiTextInputProps={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeList
@@ -292,6 +314,7 @@ export const RunTestsStepBase = (
                     </Text>
                   )
                 }}
+                multiTextInputProps={{ expressions }}
               />
               <StepCommonFields />
             </div>
