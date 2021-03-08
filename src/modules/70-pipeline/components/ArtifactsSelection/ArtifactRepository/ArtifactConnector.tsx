@@ -8,6 +8,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+// import { Connectors } from '@connectors/constants'
 import i18n from '../ArtifactsSelection.i18n'
 import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
@@ -43,6 +44,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     nextStep?.({ ...formData })
   }
   const { expressions } = useVariablesExpression()
+
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{stepName}</div>

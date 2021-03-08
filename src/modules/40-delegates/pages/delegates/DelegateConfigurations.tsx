@@ -5,7 +5,7 @@ import { Card, Text, Layout, Container, Button, FlexExpander, Color, Heading, Ut
 import { useConfirmationDialog } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import type { DelegateProfileDetails } from 'services/portal'
+import type { ScopingRuleDetails } from 'services/portal'
 import { useListDelegateProfilesNg, useDeleteDelegateProfileNg } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -24,6 +24,19 @@ const fullSizeContentStyle: React.CSSProperties = {
   left: '270px',
   width: 'calc(100% - 270px)',
   height: 'calc(100% - 135px)'
+}
+
+interface DelegateProfileDetails {
+  uuid?: string
+  accountId?: string
+  name?: string
+  description?: string
+  primary?: boolean
+  approvalRequired?: boolean
+  startupScript?: string
+  scopingRules?: ScopingRuleDetails[]
+  selectors?: string[]
+  numberOfDelegates?: number
 }
 
 export default function DelegateConfigurations(): JSX.Element {

@@ -8942,7 +8942,6 @@ export interface DelegateProfileDetails {
   approvalRequired?: boolean
   startupScript?: string
   scopingRules?: ScopingRuleDetails[]
-  numberOfDelegates?: number
   selectors?: string[]
 }
 
@@ -8987,7 +8986,6 @@ export interface DelegateProfile {
   createdBy?: EmbeddedUser
   createdAt?: number
   lastUpdatedBy?: EmbeddedUser
-
   lastUpdatedAt: number
 }
 
@@ -19393,6 +19391,34 @@ export type UseInitializationProps = Omit<
 
 export const useInitialization = (props: UseInitializationProps) =>
   useGet<RestInitializationResponse, unknown, InitializationQueryParams, void>(`/delegates-verification/initialized`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface ListAwsRegionsQueryParams {
+  accountId?: string
+}
+
+export type ListAwsRegionsProps = Omit<
+  GetProps<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>,
+  'path'
+>
+
+export const ListAwsRegions = (props: ListAwsRegionsProps) => (
+  <Get<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>
+    path="/awshelper/aws-regions"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseListAwsRegionsProps = Omit<
+  UseGetProps<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>,
+  'path'
+>
+
+export const useListAwsRegions = (props: UseListAwsRegionsProps) =>
+  useGet<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>(`/awshelper/aws-regions`, {
     base: getConfig('api'),
     ...props
   })

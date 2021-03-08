@@ -1382,6 +1382,8 @@ connectors:
   GCP:
     delegateOutClusterInfo: 'Specify credentials here'
     delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
+  ECR:
+    name: ECR
   GCR:
     name: GCR
     fullName: Google Container Registry

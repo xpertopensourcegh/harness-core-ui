@@ -24,6 +24,7 @@ import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
 import { ImagePath } from './ArtifactRepository/ImagePath'
+import { ECRArtifact } from './ArtifactRepository/ECRArtifact'
 import { GCRImagePath } from './ArtifactRepository/GCRImagePath'
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
 import type {
@@ -45,7 +46,7 @@ const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
   DockerRegistry: 'Dockerhub',
   Gcp: 'Gcr'
 }
-
+// TODO : ADD 'ECR' WHEN TYPE IS ADDED
 const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp']
 
 export default function ArtifactsSelection({
@@ -267,6 +268,7 @@ export default function ArtifactsSelection({
     tagRegex?: string
     tagType?: string
     registryHostname?: string
+    region?: { name: string; value: string }
   }): void => {
     const tagData =
       data.tagType === TagTypes.Value
@@ -376,6 +378,106 @@ export default function ArtifactsSelection({
     updatePipeline(pipeline)
     hideConnectorModal()
   }
+
+  const addArtifactForEcr = (data: {
+    connectorId: undefined | { value: string }
+    identifier?: string
+    imagePath: string
+    region?: { name: string; value: string }
+  }): void => {
+    if (context === ModalViewFor.PRIMARY) {
+      if (isPropagating) {
+        artifacts['primary'] = {
+          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+          spec: {
+            awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+            imagePath: data.imagePath,
+            region: data.region?.value
+          }
+        }
+      }
+      if (isForOverrideSets) {
+        artifacts.map(
+          (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
+            if (artifact?.overrideSet?.identifier === identifierName) {
+              const sideCars = artifact?.overrideSet.artifacts.sidecars
+              artifact.overrideSet.artifacts = {
+                primary: {
+                  type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+                  identifier: data.identifier,
+                  spec: {
+                    awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+                    imagePath: data.imagePath,
+                    region: data.region?.value
+                  }
+                }
+              }
+              if (sideCars) {
+                artifact.overrideSet.artifacts['sidecars'] = sideCars
+              }
+            }
+          }
+        )
+      } else {
+        set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {
+          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+          spec: {
+            awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+            imagePath: data.imagePath,
+            region: data.region?.value
+          }
+        })
+      }
+    } else {
+      const sideCarObject: {
+        type: string
+        identifier: string
+        spec: {
+          awsConnector: string | undefined | { value: string }
+          imagePath: string
+          region: string | undefined
+        }
+      } = {
+        type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+        identifier: data.identifier as string,
+        spec: {
+          awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+          imagePath: data.imagePath,
+          region: data.region?.value
+        }
+      }
+
+      if (isForOverrideSets) {
+        artifacts.map(
+          (artifact: {
+            overrideSet: { identifier: string; artifacts: { sidecars: [{ sidecar: object }]; primary: object } }
+          }) => {
+            if (artifact?.overrideSet?.identifier === identifierName) {
+              if (artifact.overrideSet.artifacts['sidecars']) {
+                artifact.overrideSet.artifacts['sidecars'].push({ sidecar: sideCarObject })
+              } else {
+                const primary = artifact.overrideSet.artifacts?.primary || null
+
+                artifact.overrideSet.artifacts = {
+                  primary: primary,
+                  sidecars: [{ sidecar: sideCarObject }]
+                }
+              }
+            }
+          }
+        )
+      } else {
+        if (sideCarArtifact?.length) {
+          sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
+        } else {
+          sideCarArtifact.push({ sidecar: sideCarObject })
+        }
+      }
+    }
+    updatePipeline(pipeline)
+    hideConnectorModal()
+  }
+
   const getInitialValues = (): ImagePathTypes => {
     let spec
     if (context === ModalViewFor.PRIMARY) {
@@ -489,7 +591,11 @@ export default function ArtifactsSelection({
         tag?: string
         tagRegex?: string
       }) => {
-        addArtifact(data)
+        if (selectedArtifact === Connectors.AWS) {
+          addArtifactForEcr(data)
+        } else {
+          addArtifact(data)
+        }
       }
     }
 
@@ -551,14 +657,20 @@ export default function ArtifactsSelection({
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
 
-    const lastStep =
-      selectedArtifact === Connectors.DOCKER ? (
-        <ImagePath {...getImagePathProps()} />
-      ) : (
-        <GCRImagePath {...getImagePathProps()} />
-      )
+    switch (selectedArtifact) {
+      case Connectors.Docker:
+        arr.push(<ImagePath {...getImagePathProps()} />)
+        break
+      case Connectors.GCR:
+        arr.push(<GCRImagePath {...getImagePathProps()} />)
+        break
+      case Connectors.AWS:
+        arr.push(<ECRArtifact {...getImagePathProps()} />)
+        break
+      default:
+        break
+    }
 
-    arr.push(lastStep)
     return arr
   }
 
