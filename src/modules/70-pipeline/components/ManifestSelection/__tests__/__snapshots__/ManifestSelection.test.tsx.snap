@@ -29,12 +29,9 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <section />
-      </div>
-      <div
-        class="rowItem"
-      >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          style="cursor: pointer;"
         >
           <span>
             + Add Manifest/Config File

@@ -12,7 +12,6 @@ export interface ManifestSelectionProps {
 export interface ManifestListViewProps {
   pipeline: NgPipeline
   isForOverrideSets: boolean
-  manifestList: [] | undefined
   updatePipeline: (pipeline: NgPipeline) => Promise<void>
   identifierName?: string
   stage: StageElementWrapper | undefined
