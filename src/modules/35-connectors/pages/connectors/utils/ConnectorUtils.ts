@@ -701,6 +701,33 @@ export const buildDockerPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
+export const buildHelmPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    identifier: formData.identifier,
+    tags: formData.tags,
+    type: Connectors.HttpHelmRepo,
+    spec: {
+      helmRepoUrl: formData.helmRepoUrl,
+      auth:
+        formData.authType === AuthTypes.USER_PASSWORD
+          ? {
+              type: formData.authType,
+              spec: {
+                username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+                usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
+                passwordRef: formData.password.referenceString
+              }
+            }
+          : {
+              type: formData.authType
+            }
+    }
+  }
+  return { connector: savedData }
+}
+
 export const buildGcpPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -832,6 +859,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-kubernetes'
     case Connectors.GIT:
       return 'service-github'
+    case Connectors.HttpHelmRepo:
+      return 'service-helm'
     case Connectors.GITHUB:
       return 'github'
     case Connectors.GITLAB:
@@ -901,6 +930,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Azure Vault'
     case Connectors.AWSSM:
       return 'AWS Secret Manager'
+    case Connectors.HttpHelmRepo:
+      return 'Http Helm Repo'
     default:
       return ''
   }

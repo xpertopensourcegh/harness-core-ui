@@ -40,6 +40,8 @@ const getLabelByType = (type: string): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return 'connectors.name_labels.Kubernetes'
+    case Connectors.HttpHelmRepo:
+      return 'connectors.name_labels.HttpHelmRepo'
     case Connectors.GIT:
       return 'connectors.name_labels.Git'
     case Connectors.GITHUB:
@@ -70,6 +72,7 @@ const getLabelByType = (type: string): string => {
       return 'connector'
   }
 }
+
 const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
@@ -258,6 +261,27 @@ const getDockerSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
   ]
 }
 
+const getHelmHttpSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: 'connectors.httpHelm.httpHelmRepoUrl',
+      value: connector?.spec?.helmRepoUrl
+    },
+    {
+      label: 'credType',
+      value: getLabelForAuthType(connector?.spec?.auth?.type)
+    },
+    {
+      label: 'username',
+      value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.usernameRef
+    },
+    {
+      label: 'password',
+      value: connector?.spec?.auth?.spec?.passwordRef
+    }
+  ]
+}
+
 const getVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   const data = connector.spec as VaultConnectorDTO
   return [
@@ -398,6 +422,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getGithubSchema(connector) // GitHub schema will work for GitLab, Bitbucket too
     case Connectors.DOCKER:
       return getDockerSchema(connector)
+    case Connectors.HttpHelmRepo:
+      return getHelmHttpSchema(connector)
     case Connectors.GCP:
       return getGCPSchema(connector)
     case Connectors.AWS:

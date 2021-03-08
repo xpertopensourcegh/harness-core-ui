@@ -76,6 +76,8 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
     switch (props.type) {
       case Connectors.KUBERNETES_CLUSTER:
         return props.prevStepData?.masterUrl
+      case Connectors.HttpHelmRepo:
+        return props.prevStepData?.helmRepoUrl
       case Connectors.DOCKER:
         return props.prevStepData?.dockerRegistryUrl
       case Connectors.NEXUS:

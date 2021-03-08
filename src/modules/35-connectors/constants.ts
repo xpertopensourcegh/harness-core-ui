@@ -51,7 +51,8 @@ export const Connectors: ConnectorType = {
   AWS_CODE_COMMIT: 'Codecommit',
   NEXUS: 'Nexus',
   ARTIFACTORY: 'Artifactory',
-  CEAWS: 'CEAws'
+  CEAWS: 'CEAws',
+  HttpHelmRepo: 'HttpHelmRepo'
 }
 
 export const ConnectorInfoText = {

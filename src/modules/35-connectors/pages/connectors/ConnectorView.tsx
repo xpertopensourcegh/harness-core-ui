@@ -232,7 +232,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       identifier: '',
       requestOptions: { headers: { accept: 'application/json' } },
       lazy: true,
-      mock: props.mockSnippetData,
+      // mock: props.mockSnippetData,
       queryParams: {
         projectIdentifier,
         orgIdentifier,

@@ -16,6 +16,7 @@ import CreateAWSCodeCommitConnector from '../CreateConnector/AWSCodeCommitConnec
 import CreateNexusConnector from '../CreateConnector/NexusConnector/CreateNexusConnector'
 import CreateArtifactoryConnector from '../CreateConnector/ArtifactoryConnector/CreateArtifactoryConnector'
 import CreateGcpConnector from '../CreateConnector/GcpConnector/CreateGcpConnector'
+import HelmRepoConnector from '../CreateConnector/HelmRepoConnector/HemRepoConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -79,6 +80,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       )
     case Connectors.DOCKER:
       return <CreateDockerConnector {...commonProps} />
+    case Connectors.HttpHelmRepo:
+      return <HelmRepoConnector {...commonProps} />
     case Connectors.AWS:
       return <CreateAWSConnector {...commonProps} />
     case Connectors.AWS_CODE_COMMIT:

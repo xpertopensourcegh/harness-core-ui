@@ -120,6 +120,8 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
   switch (connector?.type) {
     case Connectors.KUBERNETES_CLUSTER:
       return getK8DisplaySummary(connector)
+    case Connectors.HttpHelmRepo:
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.helmRepoUrl))
     case Connectors.GIT:
     case Connectors.GITHUB:
     case Connectors.GITLAB:
