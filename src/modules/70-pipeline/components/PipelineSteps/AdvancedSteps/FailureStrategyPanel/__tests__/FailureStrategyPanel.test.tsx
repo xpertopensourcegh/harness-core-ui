@@ -32,7 +32,7 @@ describe('<FailureStratergyPanel /> tests', () => {
         data-testid="code-output"
       >
         failureStrategies:
-        - {}
+        - onFailure: {}
 
       </pre>
     `)

@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import { omit } from 'lodash-es'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
@@ -7,11 +8,27 @@ import { ErrorType, Strategy } from './StrategySelection/StrategyConfig'
 
 function getRetryActionBaseFields(getString: (str: string) => string): Record<string, Yup.Schema<unknown>> {
   return {
-    retryCount: Yup.number()
-      .typeError(getString('failureStrategies.validation.retryCountInteger'))
-      .integer(getString('failureStrategies.validation.retryCountInteger'))
-      .min(1, getString('failureStrategies.validation.retryCountMinimum'))
-      .required(getString('failureStrategies.validation.retryCountRequired')),
+    retryCount: Yup.mixed().test({
+      name: 'failureStrategies-retryCount',
+      test(value: any) {
+        if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+          return true
+        }
+
+        const schema = Yup.number()
+          .typeError(getString('failureStrategies.validation.retryCountInteger'))
+          .integer(getString('failureStrategies.validation.retryCountInteger'))
+          .min(1, getString('failureStrategies.validation.retryCountMinimum'))
+          .required(getString('failureStrategies.validation.retryCountRequired'))
+
+        try {
+          schema.validateSync(value)
+          return true
+        } catch (e) {
+          return this.createError({ message: e.message })
+        }
+      }
+    }),
     retryIntervals: Yup.array()
       .of(getDurationValidationSchema().required(getString('failureStrategies.validation.retryIntervalRequired')))
       .min(1, getString('failureStrategies.validation.retryIntervalMinimum'))

@@ -2,7 +2,7 @@ import React from 'react'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { connect, FormikContext, FieldArray } from 'formik'
 import { get, difference } from 'lodash-es'
-import { FormInput, Button, MultiTypeInputType } from '@wings-software/uicore'
+import { MultiTextInput, Button, MultiTypeInputType } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 
@@ -43,7 +43,7 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
         multiTypeDurationProps={{ enableConfigureOptions: false }}
       />
       <StrategySelection
-        label={getString('failureStrategies.onTimeoutLabel')}
+        label={getString('failureStrategies.fieldLabels.onTimeoutLabel')}
         name={`${specPath}.onTimeout.action`}
         formik={formik}
         parentStrategy={Strategy.ManualIntervention}
@@ -60,29 +60,57 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
   const { name, formik, parentStrategy, allowedStrategies, specPath } = props
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
+  const retryIntervalsFieldName = `${specPath}.retryIntervals`
+  const retryCountFieldName = `${specPath}.retryCount`
 
   function handleChange(): void {
     formik.setFieldValue(name, undefined)
     formik.setFieldValue(specPath, undefined)
   }
 
-  const intervals: string[] = get(formik.values, `${specPath}.retryIntervals`) || []
+  const intervals: string[] = get(formik.values, retryIntervalsFieldName) || []
+  const retryCountHasError = errorCheck(retryCountFieldName, formik)
+  const intent = retryCountHasError ? Intent.DANGER : Intent.NONE
+  const helperText = retryCountHasError ? get(formik?.errors, retryCountFieldName) : null
+  const retryCountValue = get(formik?.values, retryCountFieldName, '')
 
+  /**
+   * We are using `MultiTextInput` here because we want to
+   * parse the value to an integer (whenever possible)
+   *
+   * It is not possible when using `FormInput.MultiTextInput`
+   */
   return (
     <div className={cx(css.step, css.retryStep)}>
       <StrategyIcon strategy={Strategy.Retry} checked onChange={handleChange} />
-      <FormInput.MultiTextInput
-        multiTextInputProps={{ textProps: { type: 'number', min: 0 } }}
-        name={`${specPath}.retryCount`}
-        label="Retry Count"
-      />
+      <FormGroup
+        label={getString('failureStrategies.fieldLabels.retryCountLabel')}
+        labelFor={retryCountFieldName}
+        helperText={helperText}
+        intent={intent}
+      >
+        <MultiTextInput
+          textProps={{
+            type: 'number',
+            min: 0
+          }}
+          name={retryCountFieldName}
+          value={retryCountValue}
+          onChange={newValue => {
+            const parsedValue = parseInt(newValue as string)
+
+            formik.setFieldValue(retryCountFieldName, Number.isNaN(parsedValue) ? newValue : parsedValue)
+            formik.setFieldTouched(retryCountFieldName, true)
+          }}
+        />
+      </FormGroup>
       <MultiTypeFieldSelector
-        name={`${specPath}.retryIntervals`}
-        label="Retry Intervals"
+        name={retryIntervalsFieldName}
+        label={getString('failureStrategies.fieldLabels.retryIntervalsLabel')}
         defaultValueToReset={['1d']}
         disableTypeSelection
       >
-        <FieldArray name={`${specPath}.retryIntervals`}>
+        <FieldArray name={retryIntervalsFieldName}>
           {({ push, remove }) => {
             function handleAdd(): void {
               uids.current.push(uuid())
@@ -108,7 +136,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                     return (
                       <div className={css.row} key={key}>
                         <FormMultiTypeDurationField
-                          name={`${specPath}.retryIntervals[${i}]`}
+                          name={`${retryIntervalsFieldName}[${i}]`}
                           label=""
                           multiTypeDurationProps={{
                             enableConfigureOptions: false,
@@ -129,7 +157,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         </FieldArray>
       </MultiTypeFieldSelector>
       <StrategySelection
-        label={getString('failureStrategies.onRetryFailureLabel')}
+        label={getString('failureStrategies.fieldLabels.onRetryFailureLabel')}
         name={`${specPath}.onRetryFailure.action`}
         formik={formik}
         parentStrategy={Strategy.Retry}

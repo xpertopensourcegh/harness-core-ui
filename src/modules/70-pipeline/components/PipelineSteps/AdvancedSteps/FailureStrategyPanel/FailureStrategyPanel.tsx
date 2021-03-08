@@ -2,13 +2,13 @@ import React from 'react'
 import { Button } from '@wings-software/uicore'
 import { FormikProps, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { isEmpty, get } from 'lodash-es'
+import { isEmpty, get, flatMap } from 'lodash-es'
 
 import { String, useStrings } from 'framework/exports'
-import type { Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import type { FailureStrategyConfig } from 'services/cd-ng'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
-import { allowedStrategiesAsPerStep } from './StrategySelection/StrategyConfig'
+import { allowedStrategiesAsPerStep, ErrorType } from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
 import { Modes } from '../common'
 import css from './FailureStrategyPanel.module.scss'
@@ -20,7 +20,9 @@ import css from './FailureStrategyPanel.module.scss'
  */
 
 export interface FailureStrategyPanelProps {
-  formikProps: FormikProps<Values>
+  formikProps: FormikProps<{
+    failureStrategies?: FailureStrategyConfig[]
+  }>
   mode: Modes
 }
 
@@ -34,7 +36,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
   const isDefaultStageStrategy = mode === Modes.STAGE && selectedStategyNum === 0
-
+  const filterTypes = flatMap(formValues.failureStrategies || [], e => (e.onFailure?.errors as ErrorType[]) || [])
   async function handleTabChange(n: number): Promise<void> {
     await submitForm()
 
@@ -59,7 +61,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
           {({ push, remove }) => {
             function handleAdd(): void {
               uids.current.push(uuid())
-              push({})
+              push({ onFailure: {} })
             }
 
             function handleRemove(): void {
@@ -131,6 +133,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
             <FailureTypeMultiSelect
               name={`failureStrategies[${selectedStategyNum}].onFailure.errors`}
               label={getString('failureTypeSelectLabel')}
+              filterTypes={filterTypes}
             />
           )}
 

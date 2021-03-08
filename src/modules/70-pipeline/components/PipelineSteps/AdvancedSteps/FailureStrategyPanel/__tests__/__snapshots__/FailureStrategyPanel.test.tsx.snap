@@ -372,7 +372,7 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
         data-testid="code-output"
       >
         failureStrategies:
-  - {}
+  - onFailure: {}
 
       </pre>
     </div>

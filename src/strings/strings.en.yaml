@@ -449,6 +449,11 @@ failureStrategy:
 failureTypeSelectLabel: On failure of type
 performAction: Perform Action
 failureStrategies:
+  fieldLabels:
+    retryCountLabel: Retry count
+    retryIntervalsLabel: Retry intervals
+    onTimeoutLabel: Post timeout action
+    onRetryFailureLabel: Post retry failure action
   strategiesLabel:
     Ignore: Ignore Failure
     StageRollback: Rollback Stage
@@ -463,8 +468,6 @@ failureStrategies:
     Verification: Verification Errors
     DelegateProvisioning: Delegate Provisioning Errors
     AnyOther: Any Other
-  onTimeoutLabel: Post timeout action
-  onRetryFailureLabel: Post retry failure action
   validation:
     errorsRequired: At least one failure type is required
     errorsMinimum: '{{ $.failureStrategies.validation.errorsRequired }}'

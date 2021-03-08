@@ -12,7 +12,7 @@ import css from './FailureStrategyPanel.module.scss'
 
 interface Option {
   label: string
-  value: string
+  value: ErrorType
 }
 
 const errorTypesOrder: ErrorType[] = [
@@ -32,12 +32,13 @@ const itemRenderer: ItemRenderer<Option> = (item, itemProps) => {
 }
 
 const tagRenderer = (item: Option): string => {
-  return item.label
+  return item?.label
 }
 
 export interface FailureTypeMultiSelectProps {
   label: string
   name: string
+  filterTypes?: ErrorType[]
 }
 
 export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSelectProps {
@@ -45,18 +46,24 @@ export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSe
 }
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {
-  const { name, label, formik } = props
+  const { name, label, formik, filterTypes = [] } = props
   const { getString } = useStrings()
 
   const hasError = errorCheck(name, formik)
   const intent = hasError ? Intent.DANGER : Intent.NONE
   const helperText = hasError ? get(formik?.errors, name) : null
-  const errorTypes: Option[] = React.useMemo(() => {
-    return errorTypesOrder.map(e => ({ value: e, label: getString(`failureStrategies.errorTypeLabels.${e}`) }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const selectedValues = get(formik.values, name) || []
+  const selectedValuesSet = new Set<ErrorType>(selectedValues)
+  const options: Option[] = (() => {
+    const filterTypesSet = new Set(filterTypes)
 
-  const selectedItemsValue = new Set<ErrorType>(get(formik.values, name) || [])
+    selectedValuesSet.forEach(val => filterTypesSet.delete(val))
+
+    return errorTypesOrder
+      .filter(e => !filterTypesSet.has(e))
+      .map(e => ({ value: e, label: getString(`failureStrategies.errorTypeLabels.${e}`) }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  })()
 
   function handleItemSelect(item: Option): void {
     if (item.value === ErrorType.AnyOther) {
@@ -64,17 +71,17 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
       formik.setFieldTouched(name, true)
       return
     }
-    formik.setFieldValue(name, [...selectedItemsValue, item.value])
+    formik.setFieldValue(name, [...selectedValues, item.value])
     formik.setFieldTouched(name, true)
   }
 
-  function itemListPredicate(query: string, items: Option[]): Option[] {
-    if (selectedItemsValue.has(ErrorType.AnyOther)) {
+  function itemListPredicate(query: string, listItems: Option[]): Option[] {
+    if (selectedValuesSet.has(ErrorType.AnyOther)) {
       return []
     }
 
-    return items.filter(item => {
-      if (selectedItemsValue.has(item.value as ErrorType)) {
+    return listItems.filter(item => {
+      if (selectedValuesSet.has(item.value as ErrorType)) {
         return false
       }
 
@@ -86,11 +93,14 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
     })
   }
 
-  const selectedItems = [...selectedItemsValue].map((key: ErrorType) => errorTypes[errorTypesOrder.indexOf(key)])
+  const selectedOptions: Option[] = selectedValues.map((key: ErrorType) => ({
+    value: key,
+    label: getString(`failureStrategies.errorTypeLabels.${key}`)
+  }))
 
   function onRemove(value: string): void {
-    const items = selectedItems.filter(item => item.label !== value)
-    formik.setFieldValue(name, items)
+    const newItems = selectedOptions.filter(item => item.label !== value).map(item => item.value)
+    formik.setFieldValue(name, newItems)
     formik.setFieldTouched(name, true)
   }
 
@@ -98,10 +108,10 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
     <FormGroup label={label} labelFor={name} helperText={helperText} intent={intent}>
       <MultiSelect
         className={css.errorSelect}
-        selectedItems={selectedItems}
+        selectedItems={selectedOptions}
         itemListPredicate={itemListPredicate}
         onItemSelect={handleItemSelect}
-        items={errorTypes}
+        items={options}
         fill
         popoverProps={{ minimal: true }}
         itemRenderer={itemRenderer}
