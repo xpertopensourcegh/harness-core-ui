@@ -6,6 +6,7 @@ import { useStrings } from 'framework/exports'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import List from '@common/components/List/List'
+import Map from '@common/components/Map/Map'
 import type { RunTestsStepProps } from './RunTestsStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -130,6 +131,14 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
+      {getMultiTypeFromValue(template?.spec?.runOnlySelectedTests) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.runOnlySelectedTests`}
+          label={getString('runOnlySelectedTestsLabel')}
+          disabled={readonly}
+          style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
       {getMultiTypeFromValue(template?.spec?.testAnnotations) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           className={css.removeBpLabelMargin}
@@ -144,10 +153,30 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.runOnlySelectedTests) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.runOnlySelectedTests`}
-          label={getString('runOnlySelectedTestsLabel')}
+      {getMultiTypeFromValue(template?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
+        <FormInput.TextArea
+          className={css.removeBpLabelMargin}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
+          label={
+            <Text style={{ display: 'flex', alignItems: 'center' }}>
+              {getString('preCommandLabel')}
+              <Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} />
+            </Text>
+          }
+          disabled={readonly}
+          style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
+        <FormInput.TextArea
+          className={css.removeBpLabelMargin}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
+          label={
+            <Text style={{ display: 'flex', alignItems: 'center' }}>
+              {getString('postCommandLabel')}
+              <Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} />
+            </Text>
+          }
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
@@ -169,6 +198,41 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.envVariables as string) === MultiTypeInputType.RUNTIME && (
+        <Map
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.envVariables`}
+          label={
+            <Text style={{ display: 'flex', alignItems: 'center' }}>
+              {getString('environmentVariables')}
+              <Button
+                icon="question"
+                minimal
+                tooltip={getString('environmentVariablesInfo')}
+                iconProps={{ size: 14 }}
+              />
+            </Text>
+          }
+          disabled={readonly}
+          style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME && (
+        <List
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.outputVariables`}
+          label={
+            <Text style={{ display: 'flex', alignItems: 'center' }}>
+              {getString('pipelineSteps.outputVariablesLabel')}
+              <Button
+                icon="question"
+                minimal
+                tooltip={getString('pipelineSteps.outputVariablesInfo')}
+                iconProps={{ size: 14 }}
+              />
+            </Text>
+          }
+          disabled={readonly}
         />
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />

@@ -12,6 +12,8 @@ import type {
   MultiTypeConnectorRef,
   MultiTypeListType,
   MultiTypeListUIType,
+  MultiTypeMapType,
+  MultiTypeMapUIType,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { RunTestsStepBaseWithRef } from './RunTestsStepBase'
@@ -26,14 +28,18 @@ export interface RunTestsStepSpec {
   buildTool: MultiTypePullOption
   language: MultiTypePullOption
   packages: string
-  testAnnotations?: string
   runOnlySelectedTests?: boolean
+  testAnnotations?: string
+  preCommand?: string
+  postCommand?: string
   reports?: {
     type: 'JUnit'
     spec: {
       paths: MultiTypeListType
     }
   }
+  envVariables?: MultiTypeMapType
+  outputVariables?: MultiTypeListType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
@@ -49,11 +55,16 @@ export interface RunTestsStepData {
 }
 
 export interface RunTestsStepSpecUI
-  extends Omit<RunTestsStepSpec, 'connectorRef' | 'buildTool' | 'language' | 'reports' | 'resources'> {
+  extends Omit<
+    RunTestsStepSpec,
+    'connectorRef' | 'buildTool' | 'language' | 'reports' | 'envVariables' | 'outputVariables' | 'resources'
+  > {
   connectorRef: MultiTypeConnectorRef
   buildTool: MultiTypeSelectOption
   language: MultiTypeSelectOption
   reportPaths?: MultiTypeListUIType
+  envVariables?: MultiTypeMapUIType
+  outputVariables?: MultiTypeListUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
   limitMemory?: string

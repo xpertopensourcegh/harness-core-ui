@@ -39,16 +39,32 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Text
   },
   {
+    name: 'spec.runOnlySelectedTests',
+    type: TransformValuesTypes.Text
+  },
+  {
     name: 'spec.testAnnotations',
     type: TransformValuesTypes.Text
   },
   {
-    name: 'spec.runOnlySelectedTests',
+    name: 'spec.preCommand',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'spec.postCommand',
     type: TransformValuesTypes.Text
   },
   {
     name: 'spec.reportPaths',
     type: TransformValuesTypes.ReportPaths
+  },
+  {
+    name: 'spec.envVariables',
+    type: TransformValuesTypes.Map
+  },
+  {
+    name: 'spec.outputVariables',
+    type: TransformValuesTypes.List
   },
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // {
@@ -111,6 +127,14 @@ export const editViewValidateFieldsConfig = [
     type: ValidationFieldTypes.List
   },
   {
+    name: 'spec.envVariables',
+    type: ValidationFieldTypes.Map
+  },
+  {
+    name: 'spec.outputVariables',
+    type: ValidationFieldTypes.OutputVariables
+  },
+  {
     name: 'spec.limitMemory',
     type: ValidationFieldTypes.LimitMemory
   },
@@ -152,6 +176,14 @@ export const inputSetViewValidateFieldsConfig = [
   {
     name: 'spec.reports.spec.paths',
     type: ValidationFieldTypes.List
+  },
+  {
+    name: 'spec.envVariables',
+    type: ValidationFieldTypes.Map
+  },
+  {
+    name: 'spec.outputVariables',
+    type: ValidationFieldTypes.OutputVariables
   },
   {
     name: 'spec.resources.limits.memory',

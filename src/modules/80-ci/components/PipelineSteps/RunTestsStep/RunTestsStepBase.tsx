@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -197,6 +198,11 @@ export const RunTestsStepBase = (
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
+              <FormMultiTypeCheckboxField
+                name="spec.runOnlySelectedTests"
+                label={getString('runOnlySelectedTestsLabel')}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
               <MultiTypeTextField
                 name="spec.testAnnotations"
                 label={
@@ -210,11 +216,30 @@ export const RunTestsStepBase = (
                     />
                   </Text>
                 }
-                style={{ marginBottom: 'var(--spacing-medium)' }}
+                style={{ marginBottom: 'var(--spacing-small)' }}
               />
-              <FormMultiTypeCheckboxField
-                name="spec.runOnlySelectedTests"
-                label={getString('runOnlySelectedTestsLabel')}
+              <FormMultiTypeTextAreaField
+                className={css.removeBpLabelMargin}
+                name="spec.preCommand"
+                label={
+                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                    {getString('preCommandLabel')}
+                    <Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                }
+                placeholder={getString('commandPlaceholder')}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <FormMultiTypeTextAreaField
+                className={css.removeBpLabelMargin}
+                name="spec.postCommand"
+                label={
+                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                    {getString('postCommandLabel')}
+                    <Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                }
+                placeholder={getString('commandPlaceholder')}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeList
@@ -234,6 +259,39 @@ export const RunTestsStepBase = (
                   )
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeMap
+                name="spec.envVariables"
+                multiTypeFieldSelectorProps={{
+                  label: (
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('environmentVariables')}
+                      <Button
+                        icon="question"
+                        minimal
+                        tooltip={getString('environmentVariablesInfo')}
+                        iconProps={{ size: 14 }}
+                      />
+                    </Text>
+                  )
+                }}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeList
+                name="spec.outputVariables"
+                multiTypeFieldSelectorProps={{
+                  label: (
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('pipelineSteps.outputVariablesLabel')}
+                      <Button
+                        icon="question"
+                        minimal
+                        tooltip={getString('pipelineSteps.outputVariablesInfo')}
+                        iconProps={{ size: 14 }}
+                      />
+                    </Text>
+                  )
+                }}
               />
               <StepCommonFields />
             </div>

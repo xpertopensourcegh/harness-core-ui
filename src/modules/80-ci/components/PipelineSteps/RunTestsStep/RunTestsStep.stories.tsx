@@ -62,14 +62,22 @@ RunTestsStep.args = {
       buildTool: 'maven',
       language: 'java',
       packages: 'io.harness., software.wings., migrations.',
-      testAnnotations: 'org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test',
       runOnlySelectedTests: false,
+      testAnnotations: 'org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test',
+      preCommand: 'pre command',
+      postCommand: 'post command',
       reports: {
         type: 'JUnit',
         spec: {
           paths: ['path1.xml', 'path2.xml', 'path3.xml', 'path4.xml', 'path5.xml']
         }
       },
+      envVariables: {
+        key1: 'value1',
+        key2: 'value2',
+        key3: 'value3'
+      },
+      outputVariables: ['variable1', 'variable2', 'variable3', 'variable4'],
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: 'always',
       resources: {
@@ -99,14 +107,18 @@ RunTestsStep.args = {
       buildTool: RUNTIME_INPUT_VALUE,
       language: RUNTIME_INPUT_VALUE,
       packages: RUNTIME_INPUT_VALUE,
-      testAnnotations: RUNTIME_INPUT_VALUE,
       runOnlySelectedTests: RUNTIME_INPUT_VALUE,
+      testAnnotations: RUNTIME_INPUT_VALUE,
+      preCommand: RUNTIME_INPUT_VALUE,
+      postCommand: RUNTIME_INPUT_VALUE,
       reports: {
         type: 'JUnit',
         spec: {
           paths: RUNTIME_INPUT_VALUE
         }
       },
+      envVariables: RUNTIME_INPUT_VALUE,
+      outputVariables: RUNTIME_INPUT_VALUE,
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: RUNTIME_INPUT_VALUE,
       resources: {
@@ -130,14 +142,18 @@ RunTestsStep.args = {
       buildTool: RUNTIME_INPUT_VALUE,
       language: RUNTIME_INPUT_VALUE,
       packages: RUNTIME_INPUT_VALUE,
-      testAnnotations: RUNTIME_INPUT_VALUE,
       runOnlySelectedTests: RUNTIME_INPUT_VALUE,
+      testAnnotations: RUNTIME_INPUT_VALUE,
+      preCommand: RUNTIME_INPUT_VALUE,
+      postCommand: RUNTIME_INPUT_VALUE,
       reports: {
         type: 'JUnit',
         spec: {
           paths: RUNTIME_INPUT_VALUE
         }
       },
+      envVariables: RUNTIME_INPUT_VALUE,
+      outputVariables: RUNTIME_INPUT_VALUE,
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: RUNTIME_INPUT_VALUE,
       resources: {
@@ -205,22 +221,46 @@ RunTestsStep.args = {
           localName: 'step.runTests.spec.packages'
         }
       },
-      'step-testAnnotations': {
-        yamlProperties: {
-          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.testAnnotations',
-          localName: 'step.runTests.spec.testAnnotations'
-        }
-      },
       'step-runOnlySelectedTests': {
         yamlProperties: {
           fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.runOnlySelectedTests',
           localName: 'step.runTests.spec.runOnlySelectedTests'
         }
       },
+      'step-testAnnotations': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.testAnnotations',
+          localName: 'step.runTests.spec.testAnnotations'
+        }
+      },
+      'step-preCommand': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.preCommand',
+          localName: 'step.runTests.spec.preCommand'
+        }
+      },
+      'step-postCommand': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.postCommand',
+          localName: 'step.runTests.spec.postCommand'
+        }
+      },
       'step-reportPaths': {
         yamlProperties: {
           fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.reports.spec.paths',
           localName: 'step.runTests.spec.reports.spec.paths'
+        }
+      },
+      'step-envVariables': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.spec.runTests.envVariables',
+          localName: 'step.runTests.spec.envVariables'
+        }
+      },
+      'step-outputVariables': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.outputVariables',
+          localName: 'step.runTests.spec.outputVariables'
         }
       },
       // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -256,13 +296,17 @@ RunTestsStep.args = {
         buildTool: 'step-buildTool',
         language: 'step-language',
         packages: 'step-packages',
-        testAnnotations: 'step-testAnnotations',
         runOnlySelectedTests: 'step-runOnlySelectedTests',
+        testAnnotations: 'step-testAnnotations',
+        preCommand: 'step-preCommand',
+        postCommand: 'step-postCommand',
         reports: {
           spec: {
             paths: 'step-reportPaths'
           }
         },
+        envVariables: 'step-envVariables',
+        outputVariables: 'step-outputVariables',
         // TODO: Right now we do not support Image Pull Policy but will do in the future
         // pull: 'step-pull',
         resources: {
