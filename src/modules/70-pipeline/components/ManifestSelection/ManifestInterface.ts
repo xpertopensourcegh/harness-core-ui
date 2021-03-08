@@ -2,9 +2,9 @@ import type { ConnectorInfoDTO, PageConnectorResponse } from 'services/cd-ng'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 
 export interface ManifestSelectionProps {
-  isForOverrideSets: boolean
+  isForOverrideSets?: boolean
   identifierName?: string
-  isForPredefinedSets: boolean
+  isForPredefinedSets?: boolean
   isPropagating?: boolean
   overrideSetIdentifier?: string
 }

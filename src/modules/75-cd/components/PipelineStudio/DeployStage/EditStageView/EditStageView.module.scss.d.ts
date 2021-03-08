@@ -4,6 +4,7 @@ declare const styles: {
   readonly collapseDiv: string
   readonly labelBold: string
   readonly grid: string
+  readonly navigationButtons: string
   readonly squareCard: string
   readonly stageCreate: string
   readonly btnSetup: string

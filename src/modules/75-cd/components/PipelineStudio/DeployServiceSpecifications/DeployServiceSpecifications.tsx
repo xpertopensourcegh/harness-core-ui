@@ -1,5 +1,16 @@
 import React from 'react'
-import { Layout, Card, Icon, Text, SelectOption, IconName, Accordion } from '@wings-software/uicore'
+import {
+  Layout,
+  Card,
+  Icon,
+  Text,
+  SelectOption,
+  IconName,
+  Accordion,
+  Radio,
+  Select,
+  Checkbox
+} from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
@@ -23,7 +34,7 @@ import css from './DeployServiceSpecifications.module.scss'
 
 const setupMode = {
   PROPAGATE: 'PROPAGATE',
-  DIFFERENT: 'DIFFRENT'
+  DIFFERENT: 'DIFFERENT'
 }
 
 const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
@@ -76,6 +87,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
   const [isConfigVisible, setConfigVisibility] = React.useState(false)
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
   const previousStageList: { label: string; value: string }[] = []
   const {
@@ -158,7 +170,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [setupModeType, stageIndex, stage?.stage])
 
-  const setDefaultServiceSchema = (): void => {
+  const setDefaultServiceSchema = (): Promise<void> => {
     stage.stage.spec = {
       serviceConfig: {
         serviceRef: '',
@@ -178,14 +190,40 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         }
       }
     }
-    debounceUpdatePipeline(pipeline)
+    return debounceUpdatePipeline(pipeline)
   }
 
+  const setStageOverrideSchema = (): Promise<void> => {
+    stage.stage.spec = {
+      serviceConfig: {
+        ...stage?.stage?.spec.serviceConfig,
+        stageOverrides: {
+          artifacts: {
+            // primary: null,
+            sidecars: []
+          },
+          manifests: [],
+          variables: []
+        }
+      }
+    }
+    return debounceUpdatePipeline(pipeline)
+  }
+
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const _isChecked = (event.target as HTMLInputElement).checked
+    setCheckedItems({
+      ...checkedItems,
+      overrideSetCheckbox: _isChecked
+    })
+    if (_isChecked) {
+      setStageOverrideSchema()
+    } else {
+      setDefaultServiceSchema()
+    }
+  }
   React.useEffect(() => {
-    if (
-      !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
-      !stage?.stage?.spec.serviceConfig?.useFromStage
-    ) {
+    if (!stage?.stage?.spec?.service?.serviceDefinition?.type && !stage?.stage?.spec.service?.useFromStage) {
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       debounceUpdatePipeline(pipeline)
     }
@@ -197,10 +235,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stageIndex])
 
-  const scrollRef = React.useRef<HTMLDivElement | null>(null)
   React.useEffect(() => {
-    const useFromStage = stage?.stage?.spec.serviceConfig?.useFromStage
-    const stageOverrides = stage?.stage?.spec.serviceConfig?.stageOverrides
+    const useFromStage = stage?.stage?.spec?.serviceConfig?.useFromStage
+    const stageOverrides = stage?.stage?.spec?.serviceConfig?.stageOverrides
     const serviceDefinition = stage?.stage?.spec.serviceConfig?.serviceDefinition
 
     if (useFromStage) {
@@ -251,6 +288,17 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stage?.stage?.spec])
 
+  const selectPropagatedStep = (item: SelectOption): void => {
+    if (item && item.value) {
+      set(stage as {}, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
+
+      setSelectedPropagatedState({
+        label: `Stage [${item.value as string}] - Service`,
+        value: item.value
+      })
+      updatePipeline(pipeline)
+    }
+  }
   const onTimelineItemClick = (id: string): void => {
     const element = document.querySelector(`#${id}`)
     if (scrollRef.current && element) {
@@ -261,102 +309,182 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }
 
   const getTimelineNodes = React.useCallback(
-    () => [
-      {
-        label: 'About the Service',
-        id: 'aboutService'
-      },
-      {
-        label: 'Service Definition',
-        id: 'serviceDefinition',
-        childItems: [
-          { label: 'Deployment Type', id: 'deploymentType-panel' },
-          {
-            label: 'Artifacts',
-            id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}-panel`
-          },
-          {
-            label: 'Manifests',
-            id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}-panel`
-          },
-          { label: 'Variables', id: `${getString('variablesText')}-panel` }
-        ]
-      }
-    ],
+    (forOverrideSet = false) =>
+      !forOverrideSet
+        ? [
+            {
+              label: 'About the Service',
+              id: 'aboutService'
+            },
+            {
+              label: 'Service Definition',
+              id: 'serviceDefinition',
+              childItems: [
+                { label: 'Deployment Type', id: 'deploymentType-panel' },
+                {
+                  label: 'Artifacts',
+                  id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}-panel`
+                },
+                {
+                  label: 'Manifests',
+                  id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}-panel`
+                },
+                { label: 'Variables', id: `${getString('variablesText')}-panel` }
+              ]
+            }
+          ]
+        : [
+            {
+              label: 'Artifacts',
+              id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}-panel`
+            },
+            {
+              label: 'Manifests',
+              id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}-panel`
+            },
+            { label: 'Variables', id: `${getString('variablesText')}-panel` }
+          ],
     []
   )
+
+  const initWithServiceDefinition = () => {
+    setDefaultServiceSchema().then(() => {
+      setSelectedPropagatedState({ label: '', value: '' })
+      setSetupMode(setupMode.DIFFERENT)
+    })
+  }
   return (
-    <div className={css.serviceOverrides}>
-      <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
-      <div className={css.overFlowScroll} ref={scrollRef}>
-        <div className={css.contentSection}>
-          <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
-          <Card className={css.sectionCard} id="aboutService">
-            <StepWidget
-              type={StepType.DeployService}
-              initialValues={{ ...{ serviceRef: '' }, ...get(stage, 'stage.spec.serviceConfig', {}) }}
-              onUpdate={(value: ServiceConfig) => {
-                const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
-                if (value.service) {
-                  serviceObj.service = value.service
-                  delete serviceObj.serviceRef
-                } else if (value.serviceRef) {
-                  serviceObj.serviceRef = value.serviceRef
-                  delete serviceObj.service
-                }
-                debounceUpdatePipeline(pipeline)
-              }}
-              factory={factory}
-              stepViewType={StepViewType.Edit}
+    <>
+      {stageIndex > 0 && (
+        <div className={css.stageSelection}>
+          <section className={cx(css.stageSelectionGrid)}>
+            <div className={css.radioColumn}>
+              <Radio
+                checked={setupModeType === setupMode.PROPAGATE}
+                onChange={() => setSetupMode(setupMode.PROPAGATE)}
+              />
+              <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>
+                {getString('pipelineSteps.deploy.serviceSpecifications.propagate')}
+              </Text>
+            </div>
+            <Select
+              disabled={setupModeType === setupMode.DIFFERENT}
+              className={css.propagatedropdown}
+              items={previousStageList}
+              value={selectedPropagatedState}
+              onChange={(item: SelectOption) => selectPropagatedStep(item)}
             />
-          </Card>
-          <div className={css.tabHeading} id="serviceDefinition">
-            {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
-          </div>
-          <Accordion className={css.sectionCard} activeId="deploymentType">
-            <Accordion.Panel
-              id="deploymentType"
-              addDomId={true}
-              summary={'Deployment Type'}
-              details={
-                <Layout.Horizontal>
-                  {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
-                    <div key={type.name} className={css.squareCardContainer}>
-                      <Card
-                        disabled={!type.enabled}
-                        interactive={true}
-                        selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                        cornerSelected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                        className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
-                      >
-                        <Icon name={type.icon as IconName} size={26} height={26} />
-                      </Card>
-                      <Text
-                        style={{
-                          fontSize: '12px',
-                          color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                          textAlign: 'center'
-                        }}
-                      >
-                        {type.name}
-                      </Text>
-                    </div>
-                  ))}
-                </Layout.Horizontal>
-              }
-            />
-          </Accordion>
-          <Layout.Horizontal>
-            <StepWidget<K8SDirectServiceStep>
-              factory={factory}
-              initialValues={{ stageIndex, setupModeType }}
-              type={StepType.K8sServiceSpec}
-              stepViewType={StepViewType.Edit}
-            />
-          </Layout.Horizontal>
-          <React.Fragment>{props.children}</React.Fragment>
+          </section>
+
+          <section className={css.radioColumn}>
+            <Radio checked={setupModeType === setupMode.DIFFERENT} onClick={() => initWithServiceDefinition()} />
+            <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.deployDifferentLabel}</Text>
+          </section>
         </div>
-      </div>
-    </div>
+      )}
+      {setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.value && (
+        <div className={css.useoverrideCheckbox}>
+          <Checkbox
+            label="Override artifacts, manifests, service variables for this stage"
+            checked={checkedItems.overrideSetCheckbox}
+            onChange={handleChange}
+          />
+        </div>
+      )}
+      {setupModeType === setupMode.DIFFERENT ? (
+        <div className={css.serviceOverrides}>
+          <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
+          <div className={css.overFlowScroll} ref={scrollRef}>
+            <div className={css.contentSection}>
+              <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
+              <Card className={css.sectionCard} id="aboutService">
+                <StepWidget
+                  type={StepType.DeployService}
+                  initialValues={{ ...{ serviceRef: '' }, ...get(stage, 'stage.spec.serviceConfig', {}) }}
+                  onUpdate={(value: ServiceConfig) => {
+                    const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
+                    if (value.service) {
+                      serviceObj.service = value.service
+                      delete serviceObj.serviceRef
+                    } else if (value.serviceRef) {
+                      serviceObj.serviceRef = value.serviceRef
+                      delete serviceObj.service
+                    }
+                    debounceUpdatePipeline(pipeline)
+                  }}
+                  factory={factory}
+                  stepViewType={StepViewType.Edit}
+                />
+              </Card>
+              <div className={css.tabHeading} id="serviceDefinition">
+                {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
+              </div>
+              <Accordion className={css.sectionCard} activeId="deploymentType">
+                <Accordion.Panel
+                  id="deploymentType"
+                  addDomId={true}
+                  summary={'Deployment Type'}
+                  details={
+                    <Layout.Horizontal>
+                      {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
+                        <div key={type.name} className={css.squareCardContainer}>
+                          <Card
+                            disabled={!type.enabled}
+                            interactive={true}
+                            selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                            cornerSelected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                            className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                          >
+                            <Icon name={type.icon as IconName} size={26} height={26} />
+                          </Card>
+                          <Text
+                            style={{
+                              fontSize: '12px',
+                              color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                              textAlign: 'center'
+                            }}
+                          >
+                            {type.name}
+                          </Text>
+                        </div>
+                      ))}
+                    </Layout.Horizontal>
+                  }
+                />
+              </Accordion>
+              <Layout.Horizontal>
+                <StepWidget<K8SDirectServiceStep>
+                  factory={factory}
+                  initialValues={{ stageIndex, setupModeType }}
+                  type={StepType.K8sServiceSpec}
+                  stepViewType={StepViewType.Edit}
+                />
+              </Layout.Horizontal>
+            </div>
+            <div className={css.navigationButtons}>{props.children}</div>
+          </div>
+        </div>
+      ) : (
+        checkedItems.overrideSetCheckbox &&
+        selectedPropagatedState?.value && (
+          <>
+            <div className={cx(css.serviceOverrides, css.heightStageOverrides)}>
+              <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes(true)} />
+              <div className={cx(css.overFlowScroll, css.alignCenter)} ref={scrollRef}>
+                <Layout.Horizontal>
+                  <StepWidget<K8SDirectServiceStep>
+                    factory={factory}
+                    initialValues={{ stageIndex, setupModeType }}
+                    type={StepType.K8sServiceSpec}
+                    stepViewType={StepViewType.Edit}
+                  />
+                </Layout.Horizontal>
+                <div className={css.navigationButtons}>{props.children}</div>
+              </div>
+            </div>
+          </>
+        )
+      )}
+    </>
   )
 }

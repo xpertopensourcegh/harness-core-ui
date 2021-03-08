@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Text, Icon, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/exports'
-import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
+// import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { PageConnectorResponse, StageElementWrapper } from 'services/cd-ng'
@@ -37,7 +37,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
   )
   return (
     <Layout.Vertical>
-      {props.isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={props.stage} />}
+      {/* {props.isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={props.stage} />} */}
 
       <Layout.Vertical spacing="small">
         <div className={cx(css.artifactList, css.listHeader)}>

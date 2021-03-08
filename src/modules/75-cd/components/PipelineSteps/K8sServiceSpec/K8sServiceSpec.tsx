@@ -102,13 +102,14 @@ interface KubernetesServiceInputFormProps {
 
 const setupMode = {
   PROPAGATE: 'PROPAGATE',
-  DIFFERENT: 'DIFFRENT'
+  DIFFERENT: 'DIFFERENT'
 }
 const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues: { stageIndex = 0, setupModeType },
   factory
 }) => {
   const { getString } = useStrings()
+  const isPropagating = stageIndex > 0 && setupModeType === setupMode.PROPAGATE
   return (
     <div className={css.serviceDefinition}>
       <Accordion
@@ -119,12 +120,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
           addDomId={true}
           summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
-          details={
-            <ArtifactsSelection
-              isForOverrideSets={false}
-              isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-            />
-          }
+          details={<ArtifactsSelection isPropagating={isPropagating} />}
         />
       </Accordion>
 
@@ -136,12 +132,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
           addDomId={true}
           summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          details={
-            <ManifestSelection
-              isForOverrideSets={false}
-              isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-            />
-          }
+          details={<ManifestSelection isPropagating={isPropagating} />}
         />
       </Accordion>
       <Accordion className={css.cardSection} activeId={getString('variablesText')}>
@@ -149,13 +140,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           id={getString('variablesText')}
           addDomId={true}
           summary={getString('variablesText')}
-          details={
-            <WorkflowVariables
-              factory={factory as any}
-              isForOverrideSets={false}
-              isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-            />
-          }
+          details={<WorkflowVariables factory={factory as any} isPropagating={isPropagating} />}
         />
       </Accordion>
     </div>

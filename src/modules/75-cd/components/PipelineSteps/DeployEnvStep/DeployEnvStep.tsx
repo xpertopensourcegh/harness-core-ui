@@ -24,12 +24,12 @@ import {
   EnvironmentYaml,
   getEnvironmentListForProjectPromise
 } from 'services/cd-ng'
+import { NameIdDescriptionTags } from '@common/components'
 import { StepViewType } from '@pipeline/exports'
 import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/exports'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { errorCheck } from '@common/utils/formikHelpers'
@@ -82,7 +82,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
       >
         {formikProps => (
           <Layout.Vertical spacing="medium" padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
-            <AddDescriptionAndKVTagsWithIdentifier
+            <NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
                 inputLabel: getString('name'),

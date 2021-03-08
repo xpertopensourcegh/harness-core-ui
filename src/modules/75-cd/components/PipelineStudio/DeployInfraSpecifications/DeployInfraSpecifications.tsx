@@ -234,7 +234,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             }
           />
         </Accordion>
-        {props.children}
+        <div className={css.navigationButtons}> {props.children}</div>
       </div>
     </div>
   )

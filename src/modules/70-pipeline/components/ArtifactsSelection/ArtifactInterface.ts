@@ -1,5 +1,5 @@
 export interface ArtifactsSelectionProps {
-  isForOverrideSets: boolean
+  isForOverrideSets?: boolean
   isForPredefinedSets?: boolean
   identifierName?: string
   isPropagating?: boolean

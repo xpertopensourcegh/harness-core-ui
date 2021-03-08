@@ -323,7 +323,7 @@ export const EditStageView: React.FC<EditStageView> = ({
             />
           </Accordion>
         )}
-        {children}
+        <div className={css.navigationButtons}>{children}</div>
       </div>
     </div>
   )

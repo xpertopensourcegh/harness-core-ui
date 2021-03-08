@@ -49,10 +49,10 @@ const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
 const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp']
 
 export default function ArtifactsSelection({
-  isForOverrideSets,
+  isForOverrideSets = false,
   identifierName,
-  isForPredefinedSets,
-  isPropagating,
+  isForPredefinedSets = false,
+  isPropagating = false,
   overrideSetIdentifier = ''
 }: ArtifactsSelectionProps): JSX.Element {
   const {
@@ -126,7 +126,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts', {})
   }
 
-  const getPrimaryArtifactPath = (): any => {
+  const getPrimaryArtifactPath = React.useCallback((): any => {
     if (isForOverrideSets) {
       return getPrimaryArtifactByIdentifier()
     }
@@ -151,9 +151,9 @@ export default function ArtifactsSelection({
     }
 
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
-  }
+  }, [stage])
 
-  const getSidecarPath = (): any => {
+  const getSidecarPath = React.useCallback((): any => {
     if (isForOverrideSets) {
       return getSidecarArtifactByIdentifier()
     }
@@ -179,12 +179,11 @@ export default function ArtifactsSelection({
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', null)) {
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
     } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
-  }
+  }, [stage])
 
   const artifacts = getArtifactsPath()
 
   const primaryArtifact = getPrimaryArtifactPath()
-
   const sideCarArtifact = getSidecarPath()
 
   const DIALOG_PROPS: IDialogProps = {
@@ -258,7 +257,7 @@ export default function ArtifactsSelection({
 
   React.useEffect(() => {
     refetchConnectorList()
-  }, [primaryArtifact, sideCarArtifact])
+  }, [stage])
 
   const addArtifact = (data: {
     connectorId: undefined | { value: string }
@@ -289,40 +288,41 @@ export default function ArtifactsSelection({
             ...registryHostData
           }
         }
-      }
-      if (isForOverrideSets) {
-        artifacts.map(
-          (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
-            if (artifact?.overrideSet?.identifier === identifierName) {
-              const sideCars = artifact?.overrideSet.artifacts.sidecars
-              artifact.overrideSet.artifacts = {
-                primary: {
-                  type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-                  identifier: data.identifier,
-                  spec: {
-                    connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-                    imagePath: data.imagePath,
-                    ...tagData,
-                    ...(selectedArtifact === Connectors.GCP ? { registryHostname: data.registryHostname } : {})
+      } else {
+        if (isForOverrideSets) {
+          artifacts.map(
+            (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
+              if (artifact?.overrideSet?.identifier === identifierName) {
+                const sideCars = artifact?.overrideSet.artifacts.sidecars
+                artifact.overrideSet.artifacts = {
+                  primary: {
+                    type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+                    identifier: data.identifier,
+                    spec: {
+                      connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+                      imagePath: data.imagePath,
+                      ...tagData,
+                      ...(selectedArtifact === Connectors.GCP ? { registryHostname: data.registryHostname } : {})
+                    }
                   }
                 }
-              }
-              if (sideCars) {
-                artifact.overrideSet.artifacts['sidecars'] = sideCars
+                if (sideCars) {
+                  artifact.overrideSet.artifacts['sidecars'] = sideCars
+                }
               }
             }
-          }
-        )
-      } else {
-        set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {
-          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-          spec: {
-            connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-            imagePath: data.imagePath,
-            ...tagData,
-            ...registryHostData
-          }
-        })
+          )
+        } else {
+          set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {
+            type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+            spec: {
+              connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+              imagePath: data.imagePath,
+              ...tagData,
+              ...registryHostData
+            }
+          })
+        }
       }
     } else {
       const sideCarObject: {
@@ -455,7 +455,7 @@ export default function ArtifactsSelection({
         }
       )
     } else {
-      artifacts['primary'] = null
+      delete artifacts.primary
     }
     primaryArtifact.spec = undefined
     setSelectedArtifact(Connectors.DOCKER)

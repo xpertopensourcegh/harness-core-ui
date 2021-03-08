@@ -20,16 +20,16 @@ import i18n from './WorkflowVariables.i18n'
 import css from './WorkflowVariables.module.scss'
 
 export default function WorkflowVariables({
-  isForOverrideSets,
+  isForOverrideSets = false,
   identifierName,
-  isForPredefinedSets,
+  isForPredefinedSets = false,
   overrideSetIdentifier = '',
-  isPropagating,
+  isPropagating = false,
   factory
 }: {
-  isForOverrideSets: boolean
+  isForOverrideSets?: boolean
   identifierName?: string
-  isForPredefinedSets: boolean
+  isForPredefinedSets?: boolean
   overrideSetIdentifier?: string
   isPropagating?: boolean
   factory: AbstractStepFactory
@@ -89,18 +89,7 @@ export default function WorkflowVariables({
 
   const getInitialValues = (): Variable[] => {
     if (isPropagating) {
-      if (!overrideSetIdentifier.length) {
-        return predefinedSetsPath?.variables || []
-      }
-      const overrideSets = get(
-        parentStageData,
-        'stage.spec.serviceConfig.serviceDefinition.spec.variableOverrideSets',
-        []
-      )
-      const selectedOverrideSet = overrideSets.find(
-        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
-      )
-      return get(selectedOverrideSet, 'overrideSet.variables', [])
+      return get(predefinedSetsPath, 'variables', [])
     }
     if (!isForOverrideSets) {
       if (isForPredefinedSets) {
@@ -125,21 +114,9 @@ export default function WorkflowVariables({
     const { stage: variablesStage } = getStageFromPipeline(parentStage || selectedStageId, variablesPipeline)
     const variablesServiceConfig = variablesStage?.stage?.spec?.serviceConfig || {}
     const variablesStageSpec = variablesServiceConfig.serviceDefinition?.spec
-    const variablesPredefinedSetsPath = variablesServiceConfig.stageOverrides
 
     if (isPropagating) {
-      if (!overrideSetIdentifier.length) {
-        return variablesPredefinedSetsPath?.variables || []
-      }
-      const overrideSets = get(
-        variablesStage,
-        'stage.spec.serviceConfig.serviceDefinition.spec.variableOverrideSets',
-        []
-      )
-      const selectedOverrideSet = overrideSets.find(
-        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
-      )
-      return get(selectedOverrideSet, 'overrideSet.variables', [])
+      return get(predefinedSetsPath, 'variables', [])
     }
     if (!isForOverrideSets) {
       if (isForPredefinedSets) {

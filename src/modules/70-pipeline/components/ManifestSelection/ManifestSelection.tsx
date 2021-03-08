@@ -8,7 +8,7 @@ import { get, set } from 'lodash-es'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 
-import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
+// import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { useStrings, String } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
@@ -345,17 +345,7 @@ function ManifestListView({
 
         <span></span>
       </div>
-      {(!manifestList || manifestList.length === 0) && !overrideSetIdentifier && (
-        <div className={css.rowItem}>
-          <Text
-            onClick={() => {
-              showConnectorModal()
-            }}
-          >
-            <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
-          </Text>
-        </div>
-      )}
+
       <Layout.Vertical spacing="medium">
         <section>
           {listOfManifests &&
@@ -448,12 +438,23 @@ function ManifestListView({
           </Text>
         )}
       </Layout.Vertical>
+      {(!manifestList || manifestList.length === 0) && !overrideSetIdentifier && (
+        <div className={css.rowItem}>
+          <Text
+            onClick={() => {
+              showConnectorModal()
+            }}
+          >
+            <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
+          </Text>
+        </div>
+      )}
     </Layout.Vertical>
   )
 }
 
 export default function ManifestSelection({
-  isForOverrideSets,
+  isForOverrideSets = false,
   identifierName,
   isForPredefinedSets = false,
   isPropagating,
@@ -473,14 +474,14 @@ export default function ManifestSelection({
   const { stage } = getStageFromPipeline(selectedStageId || '')
   const getManifestList = React.useCallback(() => {
     if (isPropagating) {
-      return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+      return get(stage, 'stage.spec.service.stageOverrides.manifests', [])
     }
     return !isForOverrideSets
       ? !isForPredefinedSets
         ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
-        : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+        : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
       : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-  }, [isForOverrideSets, isPropagating, isForPredefinedSets])
+  }, [stage])
 
   let listOfManifests = getManifestList()
   if (isForOverrideSets) {
@@ -553,11 +554,11 @@ export default function ManifestSelection({
 
   React.useEffect(() => {
     refetchConnectorList()
-  }, [listOfManifests])
+  }, [stage])
 
   return (
     <Layout.Vertical>
-      {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />}
+      {/* {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />} //disabled for now */}
       {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
         <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
       )}

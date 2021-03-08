@@ -1,12 +1,23 @@
 .serviceOverrides {
   display: grid !important;
   grid-template-columns: auto 1fr;
-  height: 100%;
+  height: calc(100%);
+  &.heightStageOverrides {
+    height: calc(100% - 90px);
+  }
   :global(.bp3-collapse-body > div) {
     background-color: var(--white) !important;
   }
+  .navigationButtons {
+    padding-left: var(--spacing-huge);
+    margin-bottom: 40px;
+  }
   .overFlowScroll {
     overflow-y: auto;
+    padding-bottom: var(--spacing-xxlarge);
+    &.alignCenter {
+      padding-left: var(--spacing-huge);
+    }
   }
   .content-section {
     padding-left: 60px;
@@ -24,24 +35,6 @@
   }
   .nopadleft {
     padding-left: 0 !important;
-  }
-  .serviceStageContainer {
-    display: grid;
-    grid-template-columns: 1fr;
-    width: fit-content;
-    .serviceStageSelection {
-      padding: var(--spacing-small);
-      margin-right: var(--spacing-xlarge);
-      p,
-      label {
-        display: inline-block;
-      }
-    }
-
-    .stageSelection {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
   }
 
   .propagatedropdown {
@@ -122,9 +115,6 @@
   }
   .artifactType {
     display: grid;
-    &.overrideAlignCenter {
-      justify-items: center;
-    }
     & > div {
       width: 1024px;
     }
@@ -133,7 +123,7 @@
 
 .serviceSection {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   padding: var(--spacing-medium) var(--spacing-large) var(--spacing-medium) var(--spacing-large);
   border-bottom: 1px solid var(--grey-200);
 
@@ -181,5 +171,35 @@
 
   [class*='cardIcon'] svg {
     margin: 0 !important;
+  }
+}
+
+.stageSelection {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  padding: 0 var(--spacing-xxlarge) var(--spacing-large) var(--spacing-xxlarge);
+  padding-top: 0;
+  column-gap: var(--spacing-huge);
+  align-items: center;
+  .stage-selection-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+
+    align-items: center;
+  }
+  .radio-column {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    label {
+      position: relative;
+      left: 35px;
+    }
+  }
+}
+.useoverrideCheckbox {
+  padding: 0 var(--spacing-xxlarge) var(--spacing-large) var(--spacing-xxlarge);
+  label {
+    position: relative;
+    left: 35px;
   }
 }
