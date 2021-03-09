@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { get, isNil } from 'lodash-es'
+import { isNil } from 'lodash-es'
 import produce from 'immer'
 import NotificationTable, { NotificationRulesItem } from '@pipeline/components/Notifications/NotificationTable'
 import type { NotificationRules } from 'services/pipeline-ng'
@@ -20,7 +20,7 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
 
   const [selectedNotificationTypeFilter, setSelectedNotificationTypeFilter] = useState<string | undefined>(undefined)
 
-  const allRowsData: NotificationRulesItem[] = get(pipeline, 'notificationRules', []).map(
+  const allRowsData: NotificationRulesItem[] = (pipeline.notificationRules || []).map(
     (notificationRules: NotificationRules, index: number) => ({
       index,
       notificationRules
@@ -61,17 +61,17 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
           if (action === Actions.Delete) {
             updatePipeline(
               produce(pipeline, draft => {
-                ;(draft as any).notificationRules.splice(index, 1)
+                draft.notificationRules?.splice(index || 0, 1)
               })
             )
           } else if (action === Actions.Added && notification) {
             updatePipeline(
               produce(pipeline, draft => {
-                if (isNil((draft as any).notificationRules)) {
-                  ;(draft as any).notificationRules = []
+                if (isNil(draft.notificationRules)) {
+                  draft.notificationRules = []
                 }
                 notification.enabled = true
-                ;(draft as any).notificationRules.unshift(notification)
+                draft.notificationRules.unshift(notification)
               })
             ).then(() => {
               closeModal?.()
@@ -79,7 +79,7 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
           } else if (action === Actions.Update && notification) {
             updatePipeline(
               produce(pipeline, draft => {
-                ;(draft as any).notificationRules.splice(index, 1, notification)
+                draft.notificationRules?.splice(index || 0, 1, notification)
               })
             ).then(() => {
               closeModal?.()
