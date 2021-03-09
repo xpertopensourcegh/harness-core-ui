@@ -15,6 +15,7 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { Classes, Drawer, Menu, Position } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -27,7 +28,9 @@ import {
   useGetServices,
   useHealthOfService,
   useRequestsOfService,
-  useSavingsOfService
+  useSavingsOfService,
+  useGetServiceDiagnostics,
+  ServiceError
 } from 'services/lw'
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
@@ -37,6 +40,7 @@ import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions } from './Utils'
+import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
 // import landingPageSVG from './images/landingPageGraphic.svg'
 import landingPageBannerImage1 from './images/landingPage/1.svg'
 import landingPageBannerImage2 from './images/landingPage/2.svg'
@@ -82,11 +86,38 @@ function TimeCell(tableProps: CellProps<Service>): JSX.Element {
   )
 }
 function NameCell(tableProps: CellProps<Service>): JSX.Element {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+    accountId: string
+    orgIdentifier: string
+    projectIdentifier: string
+  }>()
+  const { data } = useGetServiceDiagnostics({
+    org_id: orgIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    service_id: tableProps.row.original.id as number // eslint-disable-line
+  })
+  const diagnosticsErrors = (data?.response || [])
+    .filter(item => !item.success)
+    .map(item => ({ action: item.name, error: item.message }))
+  const hasError: boolean = !_isEmpty(tableProps.row.original.metadata?.service_errors) || !_isEmpty(diagnosticsErrors)
+  const combinedErrors: ServiceError[] = (tableProps.row.original.metadata?.service_errors || []).concat(
+    diagnosticsErrors
+  )
   return (
-    <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 600 }}>
-      {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
-      {tableProps.value}
-    </Text>
+    <>
+      <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 600 }}>
+        {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
+        {tableProps.value}
+      </Text>
+      {hasError && (
+        <TextWithToolTip
+          status={textWithToolTipStatus.ERROR}
+          messageText={combinedErrors[0].action}
+          errors={combinedErrors}
+        />
+      )}
+    </>
   )
 }
 

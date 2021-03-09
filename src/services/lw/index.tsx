@@ -34,6 +34,12 @@ export interface ServiceMetadata {
   target_group_details?: { [key: string]: any }
   access_details?: { [key: string]: any }
   custom_domain_providers?: { [key: string]: any }
+  service_errors?: ServiceError[]
+}
+
+export interface ServiceError {
+  error?: string
+  action?: string
 }
 
 export interface ServiceDep {
@@ -404,6 +410,10 @@ export interface CFTResponse {
   response?: {
     path?: string
   }
+}
+
+export interface ServiceDiagnosticsResponse {
+  response?: any[]
 }
 
 export type ResourceFilterBodyRequestBody = ResourceFilterBody
@@ -2033,4 +2043,60 @@ export const useGetCloudFormationTemplate = ({
     (paramsInPath: GetCloudFormationTemplatePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/cft_path`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
+export interface GetServiceDiagnosticsPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+  service_id: number
+}
+
+export type GetServiceDiagnosticsProps = Omit<
+  GetProps<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>,
+  'path'
+> &
+  GetServiceDiagnosticsPathParams
+
+/**
+ * Service Diagnostics
+ *
+ * Gets the diagnostics result of a service
+ */
+export const GetServiceDiagnostics = ({
+  org_id,
+  project_id,
+  account_id,
+  service_id,
+  ...props
+}: GetServiceDiagnosticsProps) => (
+  <Get<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/${service_id}/diagnostics"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceDiagnosticsProps = Omit<
+  UseGetProps<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>,
+  'path'
+> &
+  GetServiceDiagnosticsPathParams
+
+/**
+ * Service Diagnostics
+ *
+ * Gets the diagnostics result of a service
+ */
+export const useGetServiceDiagnostics = ({
+  org_id,
+  project_id,
+  account_id,
+  service_id,
+  ...props
+}: UseGetServiceDiagnosticsProps) =>
+  useGet<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>(
+    (paramsInPath: GetServiceDiagnosticsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/${paramsInPath.service_id}/diagnostics`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, service_id }, ...props }
   )
