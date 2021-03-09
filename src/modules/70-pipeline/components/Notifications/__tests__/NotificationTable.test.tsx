@@ -10,7 +10,7 @@ const args: NotificationTableProps = {
     {
       index: 0,
       notificationRules: {
-        name: 'name',
+        name: 'name1',
         enabled: true,
         pipelineEvents: [{ type: 'AllEvents' }, { type: 'PipelineFailed' }],
         notificationMethod: {
@@ -22,7 +22,7 @@ const args: NotificationTableProps = {
     {
       index: 1,
       notificationRules: {
-        name: 'name',
+        name: 'name2',
         enabled: true,
         pipelineEvents: [{ type: 'AllEvents' }],
         notificationMethod: { type: 'Email', spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] } }
@@ -31,7 +31,7 @@ const args: NotificationTableProps = {
     {
       index: 2,
       notificationRules: {
-        name: 'name',
+        name: 'name3',
         enabled: true,
         pipelineEvents: [{ type: 'AllEvents' }],
         notificationMethod: { type: 'PagerDuty', spec: { userGroups: ['pl-cd-ng'], integrationKeys: '12345' } }

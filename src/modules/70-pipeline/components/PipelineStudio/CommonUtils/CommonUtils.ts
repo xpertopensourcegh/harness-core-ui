@@ -1,10 +1,17 @@
-import type { SelectOption } from '@wings-software/uicore'
+import type { MultiSelectOption, SelectOption } from '@wings-software/uicore'
 import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
 import { EmptyStageName } from '../PipelineConstants'
 
 export interface StageSelectOption extends SelectOption {
   node: StageElementWrapper
   type: string
+}
+
+export function getStagesMultiSelectOptionFromPipeline(pipeline: NgPipeline): MultiSelectOption[] {
+  return getStagesFromPipeline(pipeline).map(node => ({
+    label: node.stage.name,
+    value: node.stage.identifier
+  }))
 }
 
 export function getSelectStageOptionsFromPipeline(pipeline: NgPipeline): StageSelectOption[] {

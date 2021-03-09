@@ -251,6 +251,7 @@ plaintext: Plaintext
 encryptedFile: Encrypted File
 encrypted: Encrypted
 newNotification: New Notification
+editNotification: Edit Notification
 addNotification: + Add Notification
 noSearchResultsFoundPeriod: No results found.
 createOrSelectSecret: Create or Select a Secret
@@ -803,7 +804,7 @@ pipeline-notifications:
   notificationName: Give your notification a name
   pipelineEvents: Pipeline Events
   selectPipelineEvents: Select Pipeline Events
-  placeholder: 'Type and Press Enter to add Stages'
+  selectStagesPlaceholder: 'Select stages'
   notificationMethod: '{{$.notificationMethod}}'
   emailRecipients: Type emails of your recipients
   emailUserGroups: Email all members of these user groups
@@ -1230,6 +1231,7 @@ validation:
   sshConnectorRequired: 'Connector is required field'
   gitServerRequired: 'Git server is a required field'
   urlIsNotValid: 'URL is not valid'
+  notificationNameDuplicate: Notification with same name already exists
 
 yamlBuilder:
   enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?

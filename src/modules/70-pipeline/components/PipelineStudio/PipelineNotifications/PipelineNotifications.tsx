@@ -5,6 +5,7 @@ import NotificationTable, { NotificationRulesItem } from '@pipeline/components/N
 import type { NotificationRules } from 'services/pipeline-ng'
 import { Actions } from '@pipeline/components/Notifications/NotificationUtils'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { getStagesMultiSelectOptionFromPipeline } from '../CommonUtils/CommonUtils'
 import css from './PipelineNotifications.module.scss'
 
 const PAGE_SIZE = 10
@@ -38,6 +39,10 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
     <div className={css.pipelineNotifications}>
       <NotificationTable
         data={data.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)}
+        stagesOptions={getStagesMultiSelectOptionFromPipeline(pipeline)}
+        getExistingNotificationNames={(skipIndex?: number): string[] => {
+          return allRowsData.filter(item => item.index !== skipIndex).map(item => item.notificationRules.name!)
+        }}
         pageIndex={page}
         totalPages={Math.ceil(data.length / PAGE_SIZE)}
         pageItemCount={PAGE_SIZE}

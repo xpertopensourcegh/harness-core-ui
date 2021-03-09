@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, StepWizard, Button } from '@wings-software/uicore'
+import { isNil } from 'lodash-es'
+import { useModalHook, StepWizard, Button, MultiSelectOption } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { NotificationRules } from 'services/pipeline-ng'
@@ -15,6 +16,8 @@ import css from './useNotificationModal.module.scss'
 export interface UseNotificationModalProps {
   onCloseModal?: () => void
   onCreateOrUpdate?: (data?: NotificationRules, index?: number, action?: Actions) => void
+  stagesOptions?: MultiSelectOption[]
+  getExistingNotificationNames?: (skipIndex?: number) => string[]
 }
 
 export interface UseNotificationModalReturn {
@@ -29,7 +32,9 @@ enum Views {
 
 export const useNotificationModal = ({
   onCreateOrUpdate,
-  onCloseModal
+  onCloseModal,
+  stagesOptions,
+  getExistingNotificationNames
 }: UseNotificationModalProps): UseNotificationModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [index, setIndex] = useState<number>()
@@ -53,10 +58,15 @@ export const useNotificationModal = ({
         <StepWizard<NotificationRules>
           onCompleteWizard={wizardCompleteHandler}
           icon="notifications"
-          title={getString('newNotification')}
+          iconProps={{ color: 'white', size: 50 }}
+          title={isNil(index) ? getString('newNotification') : getString('editNotification')}
         >
-          <Overview name={getString('pipeline-notifications.nameOftheRule')} data={notificationRules} />
-          <PipelineEvents name={getString('pipeline-notifications.pipelineEvents')} />
+          <Overview
+            name={getString('pipeline-notifications.nameOftheRule')}
+            data={notificationRules}
+            existingNotificationNames={getExistingNotificationNames?.(index)}
+          />
+          <PipelineEvents name={getString('pipeline-notifications.pipelineEvents')} stagesOptions={stagesOptions} />
           <NotificationMethods
             name={getString('pipeline-notifications.notificationMethod')}
             typeOptions={NotificationTypeSelectOptions}
@@ -81,8 +91,8 @@ export const useNotificationModal = ({
   const open = useCallback(
     (_notification?: NotificationRules, _index?: number) => {
       setNotificationRules(_notification)
+      setIndex(_index)
       if (_notification) {
-        setIndex(_index)
         setView(Views.EDIT)
       } else setView(Views.CREATE)
       showModal()

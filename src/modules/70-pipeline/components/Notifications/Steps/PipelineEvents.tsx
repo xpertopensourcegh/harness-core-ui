@@ -1,4 +1,4 @@
-import { Button, Color, Formik, FormInput, Layout, StepProps, Text } from '@wings-software/uicore'
+import { Button, Color, Formik, FormInput, Layout, MultiSelectOption, StepProps, Text } from '@wings-software/uicore'
 import React from 'react'
 import { Form } from 'formik'
 import { startCase } from 'lodash-es'
@@ -57,7 +57,9 @@ interface PipelineEventsFormData {
   [key: string]: any
 }
 
-const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prevStepData }) => {
+type PipelineEventsProps = StepProps<NotificationRules> & { stagesOptions?: MultiSelectOption[] }
+
+const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData, stagesOptions }) => {
   const { getString } = useStrings()
   const initialValues: PipelineEventsFormData = { types: {} }
   const types: Required<PipelineEventsFormData>['types'] = {}
@@ -93,7 +95,7 @@ const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prev
         {formikProps => {
           return (
             <Form>
-              <Layout.Vertical spacing="medium" height={400} width={500}>
+              <Layout.Vertical spacing="medium" className={css.formContent}>
                 <Text margin={{ bottom: 'large' }}>{getString('pipeline-notifications.selectPipelineEvents')} </Text>
                 {pipelineEventItems.map(event => {
                   return (
@@ -121,10 +123,16 @@ const PipelineEvents: React.FC<StepProps<NotificationRules>> = ({ nextStep, prev
                         {(event.value === PipelineEventType.StageSuccess ||
                           event.value === PipelineEventType.StageFailed ||
                           event.value === PipelineEventType.StageStart) && (
-                          <FormInput.MultiInput
+                          <FormInput.MultiSelect
+                            disabled={!formikProps.values.types[event.value]}
+                            className={css.stagesMultiSelect}
+                            items={stagesOptions || []}
                             name={event.value}
-                            className={css.forStages}
-                            tagsProps={{ placeholder: getString('pipeline-notifications.placeholder') }}
+                            label={''}
+                            multiSelectProps={{
+                              placeholder: getString('pipeline-notifications.selectStagesPlaceholder'),
+                              allowCreatingNewItems: false
+                            }}
                           />
                         )}
                       </Layout.Horizontal>

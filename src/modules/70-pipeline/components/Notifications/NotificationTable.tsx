@@ -1,5 +1,16 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Color, Button, Popover, Switch, Container, Icon, Select } from '@wings-software/uicore'
+import {
+  Text,
+  Layout,
+  Color,
+  Button,
+  Popover,
+  Switch,
+  Container,
+  Icon,
+  Select,
+  MultiSelectOption
+} from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Menu, PopoverInteractionKind, Position, Tag } from '@blueprintjs/core'
 import { startCase } from 'lodash-es'
@@ -31,6 +42,8 @@ export interface NotificationTableProps {
   pageItemCount?: number
   pageSize: number
   pageIndex: number
+  stagesOptions?: MultiSelectOption[]
+  getExistingNotificationNames?: (skipIndex?: number) => string[]
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -164,13 +177,27 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRulesItem>> = ({ row, col
 }
 
 const NotificationTable: React.FC<NotificationTableProps> = props => {
-  const { data, onUpdate, gotoPage, filterType, onFilterType, totalPages, totalItems, pageSize, pageIndex } = props
+  const {
+    data,
+    onUpdate,
+    gotoPage,
+    filterType,
+    onFilterType,
+    totalPages,
+    totalItems,
+    pageSize,
+    pageIndex,
+    stagesOptions = [],
+    getExistingNotificationNames = (_skipIndex?: number) => []
+  } = props
   const { getString } = useStrings()
 
   const { openNotificationModal, closeNotificationModal } = useNotificationModal({
     onCreateOrUpdate: (_data?: NotificationRules, _index?: number, _action?: Actions) => {
       onUpdate?.({ notificationRules: _data!, index: _index! }, _action, closeNotificationModal)
-    }
+    },
+    stagesOptions,
+    getExistingNotificationNames
   })
 
   const columns: CustomColumn<NotificationRulesItem>[] = useMemo(

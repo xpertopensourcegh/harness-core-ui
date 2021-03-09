@@ -164,7 +164,7 @@ exports[`Notification Table test render 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
-            name
+            name1
           </p>
         </div>
         <div
@@ -340,7 +340,7 @@ exports[`Notification Table test render 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
-            name
+            name2
           </p>
         </div>
         <div
@@ -483,7 +483,7 @@ exports[`Notification Table test render 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
-            name
+            name3
           </p>
         </div>
         <div

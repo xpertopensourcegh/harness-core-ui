@@ -7,9 +7,15 @@ import type { NotificationRules } from 'services/pipeline-ng'
 
 interface OverviewProps {
   data?: NotificationRules
+  existingNotificationNames?: string[]
 }
 
-const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({ data, nextStep, prevStepData }) => {
+const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
+  data,
+  existingNotificationNames = [],
+  nextStep,
+  prevStepData
+}) => {
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="xxlarge" padding="small">
@@ -19,7 +25,11 @@ const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({ data
       <Formik
         initialValues={{ name: '', ...data, ...prevStepData }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required()
+          name: Yup.string()
+            .required()
+            .test('isNameUnique', getString('validation.notificationNameDuplicate'), name => {
+              return existingNotificationNames.indexOf(name) === -1
+            })
         })}
         onSubmit={values => {
           nextStep?.(values)
