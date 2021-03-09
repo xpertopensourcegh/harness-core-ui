@@ -15,6 +15,10 @@ import { Strategy } from './StrategyConfig'
 import { StrategyIcon } from './StrategyIcon'
 import css from './StrategySelection.module.scss'
 
+/**
+ * NOTE: Failure strategies do not support runtime inputs
+ */
+
 export interface BaseStepProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: FormikContext<any>
@@ -40,7 +44,10 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
       <FormMultiTypeDurationField
         name={`${specPath}.timeout`}
         label="Timeout"
-        multiTypeDurationProps={{ enableConfigureOptions: false }}
+        multiTypeDurationProps={{
+          enableConfigureOptions: false,
+          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+        }}
       />
       <StrategySelection
         label={getString('failureStrategies.fieldLabels.onTimeoutLabel')}
@@ -95,6 +102,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
             min: 0
           }}
           name={retryCountFieldName}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
           value={retryCountValue}
           onChange={newValue => {
             const parsedValue = parseInt(newValue as string)
