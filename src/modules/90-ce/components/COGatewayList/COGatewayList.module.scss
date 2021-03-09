@@ -47,3 +47,17 @@
     width: 18px !important;
   }
 }
+
+.refreshIconContainer {
+  align-items: center;
+  position: absolute;
+  top: 13px;
+  right: 30px;
+  cursor: pointer;
+  img {
+    margin-right: 10px;
+  }
+  p {
+    color: #0278d5 !important;
+  }
+}

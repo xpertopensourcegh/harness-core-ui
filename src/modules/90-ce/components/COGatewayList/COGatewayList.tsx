@@ -58,6 +58,7 @@ import landingPageBannerImage12 from './images/landingPage/12.svg'
 import landingPageBannerImage13 from './images/landingPage/13.svg'
 import spotDisableIcon from './images/spotDisabled.svg'
 import onDemandDisableIcon from './images/onDemandDisabled.svg'
+import refreshIcon from './images/refresh.svg'
 import css from './COGatewayList.module.scss'
 
 interface AnimatedGraphicContainerProps {
@@ -115,7 +116,11 @@ function NameCell(tableProps: CellProps<Service>): JSX.Element {
   )
   return (
     <>
-      <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 600 }}>
+      <Text
+        lineClamp={3}
+        color={Color.BLACK}
+        style={{ fontWeight: 600, color: tableProps.row.original.disabled ? textColor.disable : 'inherit' }}
+      >
         {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
         {tableProps.value}
       </Text>
@@ -177,7 +182,7 @@ const COGatewayList: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   const [tableData, setTableData] = useState<Service[]>([])
 
-  const { data: servicesData, error, loading } = useGetServices({
+  const { data: servicesData, error, loading, refetch: refetchServices } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     debounce: 300
@@ -191,7 +196,7 @@ const COGatewayList: React.FC = () => {
     showError(error.data || error.message)
   }
 
-  if (loading) {
+  if (_isEmpty(tableData) && loading) {
     return (
       <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
         <PageSpinner />
@@ -495,7 +500,7 @@ const COGatewayList: React.FC = () => {
         </>
       ) : (
         <>
-          {!loading ? (
+          {
             <>
               <Page.Header title="Autostopping Rules" className={css.header} />
               <Drawer
@@ -555,71 +560,85 @@ const COGatewayList: React.FC = () => {
                 <COGatewayCumulativeAnalytics
                   activeServicesCount={getActiveServicesCount()}
                 ></COGatewayCumulativeAnalytics>
-                <Table<Service>
-                  data={tableData}
-                  className={css.table}
-                  // pagination={{
-                  //   itemCount: 50, //data?.data?.totalItems || 0,
-                  //   pageSize: 10, //data?.data?.pageSize || 10,
-                  //   pageCount: 5, //data?.data?.totalPages || 0,
-                  //   pageIndex: page, //data?.data?.pageIndex || 0,
-                  //   gotoPage: (pageNumber: number) => setPage(pageNumber)
-                  // }}
-                  onRowClick={(e, index) => {
-                    setSelectedService({ data: e, index })
-                    setIsDrawerOpen(true)
-                  }}
-                  columns={[
-                    {
-                      accessor: 'name',
-                      Header: 'Name'.toUpperCase(),
-                      width: '18%',
-                      Cell: NameCell,
-                      disableSortBy: true
-                    },
-                    {
-                      accessor: 'idle_time_mins',
-                      Header: 'Idle Time'.toUpperCase(),
-                      width: '8%',
-                      Cell: TimeCell,
-                      disableSortBy: true
-                    },
-                    {
-                      accessor: 'fulfilment',
-                      Header: 'Compute Type'.toUpperCase(),
-                      width: '12%',
-                      Cell: IconCell,
-                      disableSortBy: true
-                    },
-                    {
-                      Header: 'Resources Managed By The Rule'.toUpperCase(),
-                      width: '32%',
-                      Cell: ResourcesCell
-                    },
-                    {
-                      Header: 'Cumulative Savings'.toUpperCase(),
-                      width: '15%',
-                      Cell: SavingsCell,
-                      disableSortBy: true
-                    },
-                    {
-                      Header: 'Last Activity'.toUpperCase(),
-                      width: '10%',
-                      Cell: ActivityCell
-                    },
-                    {
-                      Header: '',
-                      id: 'menu',
-                      accessor: row => row.id,
-                      width: '5%',
-                      Cell: RenderColumnMenu,
-                      disableSortBy: true
-                    }
-                  ]}
-                />
+                <div style={{ position: 'relative' }}>
+                  <Layout.Horizontal className={css.refreshIconContainer} onClick={() => refetchServices()}>
+                    <img src={refreshIcon} width={'12px'} height={'12px'} />
+                    <Text>Refresh</Text>
+                  </Layout.Horizontal>
+                  {loading && !_isEmpty(tableData) ? (
+                    <Layout.Horizontal
+                      style={{ padding: 'var(--spacing-large)', paddingTop: 'var(--spacing-xxxlarge)' }}
+                    >
+                      <PageSpinner />
+                    </Layout.Horizontal>
+                  ) : (
+                    <Table<Service>
+                      data={tableData}
+                      className={css.table}
+                      // pagination={{
+                      //   itemCount: 50, //data?.data?.totalItems || 0,
+                      //   pageSize: 10, //data?.data?.pageSize || 10,
+                      //   pageCount: 5, //data?.data?.totalPages || 0,
+                      //   pageIndex: page, //data?.data?.pageIndex || 0,
+                      //   gotoPage: (pageNumber: number) => setPage(pageNumber)
+                      // }}
+                      onRowClick={(e, index) => {
+                        setSelectedService({ data: e, index })
+                        setIsDrawerOpen(true)
+                      }}
+                      columns={[
+                        {
+                          accessor: 'name',
+                          Header: 'Name'.toUpperCase(),
+                          width: '18%',
+                          Cell: NameCell,
+                          disableSortBy: true
+                        },
+                        {
+                          accessor: 'idle_time_mins',
+                          Header: 'Idle Time'.toUpperCase(),
+                          width: '8%',
+                          Cell: TimeCell,
+                          disableSortBy: true
+                        },
+                        {
+                          accessor: 'fulfilment',
+                          Header: 'Compute Type'.toUpperCase(),
+                          width: '12%',
+                          Cell: IconCell,
+                          disableSortBy: true
+                        },
+                        {
+                          Header: 'Resources Managed By The Rule'.toUpperCase(),
+                          width: '32%',
+                          Cell: ResourcesCell
+                        },
+                        {
+                          Header: 'Cumulative Savings'.toUpperCase(),
+                          width: '15%',
+                          Cell: SavingsCell,
+                          disableSortBy: true
+                        },
+                        {
+                          Header: 'Last Activity'.toUpperCase(),
+                          width: '10%',
+                          Cell: ActivityCell
+                        },
+                        {
+                          Header: '',
+                          id: 'menu',
+                          accessor: row => row.id,
+                          width: '5%',
+                          Cell: RenderColumnMenu,
+                          disableSortBy: true
+                        }
+                      ]}
+                    />
+                  )}
+                </div>
               </Page.Body>
             </>
-          ) : null}
+          }
         </>
       )}
     </Container>
