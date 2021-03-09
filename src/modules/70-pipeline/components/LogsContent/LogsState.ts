@@ -123,9 +123,10 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
          * task object must always be picked from the first entry
          * in `executableResponses`
          *
-         * It can be either be a `taskChain` or a `task`
+         * It can be either be a `taskChain`, `task` or `sync`
          */
-        const task = node?.executableResponses?.[0]?.taskChain || node?.executableResponses?.[0]?.task
+        const executableResponse = node?.executableResponses?.[0] || {}
+        const task = executableResponse.taskChain || executableResponse.task || executableResponse.sync
 
         const { units = [], logKeys = [] } = task || ({} as any)
         const progressMap = new Map<string, ProgressMapValue>()
