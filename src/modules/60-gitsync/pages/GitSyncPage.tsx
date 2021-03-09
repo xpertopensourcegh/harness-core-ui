@@ -7,7 +7,7 @@ import i18n from './GitSyncPage.i18n'
 import css from './GitSyncPage.module.scss'
 
 const GitSyncPage: React.FC = ({ children }) => {
-  const { orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
     <>
       <Page.Header
@@ -19,7 +19,9 @@ const GitSyncPage: React.FC = ({ children }) => {
                 className={css.tags}
                 activeClassName={css.activeTag}
                 to={
-                  orgIdentifier
+                  projectIdentifier
+                    ? routes.toGitSyncReposForProjects({ projectIdentifier, orgIdentifier, accountId })
+                    : orgIdentifier
                     ? routes.toOrgGitSyncRepos({ orgIdentifier, accountId })
                     : routes.toGitSyncRepos({ accountId })
                 }

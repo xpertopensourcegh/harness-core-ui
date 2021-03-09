@@ -3,7 +3,7 @@ import { Route, Redirect, useParams } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, orgPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, orgPathProps, projectPathProps } from '@common/utils/routeUtils'
 
 import GitSyncRepoTab from '@gitsync/pages/views/repos/GitSyncRepoTab'
 import GitSyncActivities from '@gitsync/pages/views/activities/GitSyncActivities'
@@ -16,11 +16,17 @@ import GitSyncPage from './pages/GitSyncPage'
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
-  const { orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier } = useParams()
 
   return (
     <Redirect
-      to={orgIdentifier ? routes.toOrgGitSyncRepos({ accountId, orgIdentifier }) : routes.toGitSyncRepos({ accountId })}
+      to={
+        projectIdentifier
+          ? routes.toGitSyncReposForProjects({ projectIdentifier, accountId, orgIdentifier })
+          : orgIdentifier
+          ? routes.toOrgGitSyncRepos({ accountId, orgIdentifier })
+          : routes.toGitSyncRepos({ accountId })
+      }
     />
   )
 }
@@ -36,7 +42,11 @@ export default (
   <>
     <Route
       exact
-      path={[routes.toGitSync({ ...accountPathProps }), routes.toOrgGitSync({ ...accountPathProps, ...orgPathProps })]}
+      path={[
+        routes.toGitSync({ ...accountPathProps }),
+        routes.toOrgGitSync({ ...accountPathProps, ...orgPathProps }),
+        routes.toGitSyncForProjects({ ...accountPathProps, ...orgPathProps, ...projectPathProps })
+      ]}
     >
       <RedirectToGitSyncHome />
     </Route>
@@ -45,7 +55,8 @@ export default (
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toGitSyncRepos({ ...accountPathProps }),
-        routes.toOrgGitSyncRepos({ ...accountPathProps, ...orgPathProps })
+        routes.toOrgGitSyncRepos({ ...accountPathProps, ...orgPathProps }),
+        routes.toGitSyncReposForProjects({ ...accountPathProps, ...orgPathProps, ...projectPathProps })
       ]}
       exact
     >

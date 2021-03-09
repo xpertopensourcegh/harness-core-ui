@@ -9,6 +9,7 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useAppStore } from 'framework/exports'
 
 export default function CDSideNav(): React.ReactElement {
@@ -18,6 +19,7 @@ export default function CDSideNav(): React.ReactElement {
   const history = useHistory()
   const module = 'cd'
   const { updateAppStore } = useAppStore()
+  const { GIT_SYNC_NG } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -53,8 +55,10 @@ export default function CDSideNav(): React.ReactElement {
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
+            {GIT_SYNC_NG ? (
+              <AdminSelectorLink label="Git Sync" iconName="git-repo" to={routes.toGitSyncForProjects(params)} />
+            ) : null}
             {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
-            <AdminSelectorLink label="Git Sync" iconName="git-repo" to="" disabled />
             <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
             <AdminSelectorLink label="Access Control" iconName="user" to="" disabled />
             <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled /> */}

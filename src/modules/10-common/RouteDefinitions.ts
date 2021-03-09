@@ -401,6 +401,16 @@ const routes = {
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
 
+  //git-sync at project scope
+  toGitSyncForProjects: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/git-sync`
+  ),
+  toGitSyncReposForProjects: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/git-sync/repos`
+  ),
+
   /********************************************************************************************************************/
   toCI: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier
