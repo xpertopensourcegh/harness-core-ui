@@ -1252,6 +1252,15 @@ manifestType:
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
   helmCommandFlagLabel: Helm Command Flags (optional)
   helmCommandType: Command Type
+  http:
+    chartName: 'Helm Chart Name'
+    chartVersion: 'Helm Chart Version'
+    chartNameRequired: 'Chart Name is required'
+    chartNamePlaceHolder: 'Enter Chart Name'
+    chartVersionPlaceHolder: 'Enter Chart Version'
+    helmVersionPlaceHolder: 'Enter Helm Version'
+    chartVersionRequired: 'Chart Version is required'
+    helmVersionRequired: 'Helm Version is required'
 connectors:
   createNewConnector: Create New Connector
   confirmDeleteTitle: Delete Connector

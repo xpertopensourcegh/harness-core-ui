@@ -25,6 +25,7 @@ import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
 import type { ManifestStepInitData, ManifestTypes, ManifestListViewProps } from './ManifestInterface'
 import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
+import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
 import css from './ManifestSelection.module.scss'
 
 // Commenting Helm temporarily until BE support is ready
@@ -35,6 +36,7 @@ const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GITHUB,
   Connectors.GITLAB,
   Connectors.BITBUCKET
+  //Connectors.HttpHelmRepo
 ]
 
 const ManifestListView = ({
@@ -226,7 +228,9 @@ const ManifestListView = ({
           />
         )
         break
-
+      case selectedManifest === 'HelmChart' && manifestStore === Connectors.HttpHelmRepo:
+        manifestDetailStep = <HelmWithHttp initialValues={getLastStepInitialData()} handleSubmit={handleSubmit} />
+        break
       case ['K8sManifest', 'Values'].includes(selectedManifest) && manifestStore === Connectors.GIT:
       default:
         manifestDetailStep = (
