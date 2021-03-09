@@ -95,8 +95,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
   return (
     <Drawer
-      onClose={async () => {
-        if (formikRef.current) {
+      onClose={async e => {
+        e?.persist()
+
+        if (
+          // this will not check for form validation when cross icon is clicked to close the modal
+          !(e?.type === 'click' && (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button')) &&
+          formikRef.current
+        ) {
           // please do not remove the await below.
           // This is required for errors to be populated correctly
           await formikRef.current.submitForm()
@@ -122,7 +128,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       className={cx(css.main, { [css.almostFullScreen]: isAlmostFullscreen })}
       {...restDrawerProps}
       {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
-      isCloseButtonShown={!isAlmostFullscreen}
+      isCloseButtonShown={title ? !isAlmostFullscreen : undefined}
       // BUG: https://github.com/palantir/blueprint/issues/4519
       // you must pass only a single classname, not even an empty string, hence passing a dummy class
       // "classnames" package cannot be used here because it returns an empty string when no classes are applied
