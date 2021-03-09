@@ -53,5 +53,13 @@ export interface HelmWithGITDataType {
   skipResourceVersioning: boolean
   commandFlags: Array<CommandFlags>
 }
+export interface HelmWithHTTPDataType {
+  identifier: string
+  helmVersion: 'V2' | 'V3'
+  skipResourceVersioning: boolean
+  chartName: string
+  chartVersion: string
+  commandFlags: Array<CommandFlags>
+}
 
 export type ManifestTypes = 'K8sManifest' | 'Values' | 'HelmChart'

@@ -122,7 +122,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .required(i18n.validation.identifier)
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
             .notOneOf(StringUtils.illegalIdentifiers),
-          paths: Yup.string().trim().required(i18n.validation.filePath)
+          paths: Yup.string().trim().required(i18n.validation.filePath),
+          helmVersion: Yup.string().trim().required(getString('manifestType.http.helmVersionRequired'))
         })}
         onSubmit={formData => {
           submitFormData({

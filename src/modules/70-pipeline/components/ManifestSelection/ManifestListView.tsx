@@ -35,8 +35,8 @@ const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GIT,
   Connectors.GITHUB,
   Connectors.GITLAB,
-  Connectors.BITBUCKET
-  //Connectors.HttpHelmRepo
+  Connectors.BITBUCKET,
+  Connectors.HttpHelmRepo
 ]
 
 const ManifestListView = ({
@@ -229,7 +229,15 @@ const ManifestListView = ({
         )
         break
       case selectedManifest === 'HelmChart' && manifestStore === Connectors.HttpHelmRepo:
-        manifestDetailStep = <HelmWithHttp initialValues={getLastStepInitialData()} handleSubmit={handleSubmit} />
+        manifestDetailStep = (
+          <HelmWithHttp
+            name={getString('manifestType.manifestDetails')}
+            key={getString('manifestType.manifestDetails')}
+            stepName={getString('manifestType.manifestDetails')}
+            initialValues={getLastStepInitialData()}
+            handleSubmit={handleSubmit}
+          />
+        )
         break
       case ['K8sManifest', 'Values'].includes(selectedManifest) && manifestStore === Connectors.GIT:
       default:
@@ -334,12 +342,13 @@ const ManifestListView = ({
                         type: string
                         spec: {
                           connectorRef: string
-                          gitFetchType: string
-                          branch: string
-                          commitId: string
-                          paths: string[]
+                          gitFetchType?: string
+                          branch?: string
+                          commitId?: string
+                          paths?: string[]
                         }
                       }
+                      chartName?: string
                     }
                   }
                 },
@@ -363,7 +372,7 @@ const ManifestListView = ({
                         inline
                         icon={getIconByType(manifest.spec.store.type as ConnectorInfoDTO['type'])}
                         iconProps={{ size: 18 }}
-                        width={130}
+                        width={200}
                         lineClamp={1}
                         style={{ color: Color.BLACK, fontWeight: 900 }}
                       >
@@ -373,13 +382,23 @@ const ManifestListView = ({
                       <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
                     </div>
 
-                    <span>
-                      <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                        {typeof manifest.spec.store.spec.paths === 'string'
-                          ? manifest.spec.store.spec.paths
-                          : manifest.spec.store.spec.paths[0]}
-                      </Text>
-                    </span>
+                    {!!manifest.spec.store.spec.paths?.length && (
+                      <span>
+                        <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                          {typeof manifest.spec.store.spec.paths === 'string'
+                            ? manifest.spec.store.spec.paths
+                            : manifest.spec.store.spec.paths.join(', ')}
+                        </Text>
+                      </span>
+                    )}
+
+                    {!!manifest.spec.chartName && (
+                      <span>
+                        <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                          {manifest.spec.chartName}
+                        </Text>
+                      </span>
+                    )}
 
                     {!overrideSetIdentifier?.length && (
                       <span className={css.lastColumn}>

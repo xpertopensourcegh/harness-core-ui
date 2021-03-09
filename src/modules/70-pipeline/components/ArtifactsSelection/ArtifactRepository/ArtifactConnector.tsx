@@ -8,7 +8,6 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-// import { Connectors } from '@connectors/constants'
 import i18n from '../ArtifactsSelection.i18n'
 import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'

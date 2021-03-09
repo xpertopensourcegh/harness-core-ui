@@ -4,6 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import HelmWithHttp from '../HelmWithHttp'
 
 const props = {
+  stepName: 'Manifest details',
   initialValues: {
     helmVersion: 'test',
     chartName: 'test',

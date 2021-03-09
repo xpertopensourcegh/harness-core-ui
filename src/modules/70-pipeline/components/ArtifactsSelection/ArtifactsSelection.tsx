@@ -658,19 +658,17 @@ export default function ArtifactsSelection({
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
 
     switch (selectedArtifact) {
-      case Connectors.Docker:
-        arr.push(<ImagePath {...getImagePathProps()} />)
-        break
       case Connectors.GCR:
         arr.push(<GCRImagePath {...getImagePathProps()} />)
         break
       case Connectors.AWS:
         arr.push(<ECRArtifact {...getImagePathProps()} />)
         break
+      case Connectors.DOCKER:
       default:
+        arr.push(<ImagePath {...getImagePathProps()} />)
         break
     }
-
     return arr
   }
 
