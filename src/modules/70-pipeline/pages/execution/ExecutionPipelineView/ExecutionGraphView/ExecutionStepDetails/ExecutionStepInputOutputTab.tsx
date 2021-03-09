@@ -8,6 +8,8 @@ import { CopyText } from '@common/components/CopyText/CopyText'
 import { toVariableStr } from '@common/utils/StringUtils'
 import css from './ExecutionStepDetails.module.scss'
 
+const blackListKeys = ['step', 'parallel', 'spec']
+
 function Collapse(props: React.PropsWithChildren<{ title: string }>): React.ReactElement {
   const [isOpen, setIsOpen] = React.useState(true)
 
@@ -39,7 +41,12 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
       {toPairs(props.data).map(([key, value]) => {
         if (key.startsWith('_') || isNil(value) || isEmpty(value)) return null
 
-        const newKey = `${props.prefix}.${key}`
+        let newKey = `${props.prefix}.${key}`
+
+        if (blackListKeys.includes(key.toLowerCase()) || key.toLowerCase().endsWith('definition')) {
+          newKey = props.prefix
+        }
+
         if (isPlainObject(value)) {
           return (
             <Collapse key={key} title={startCase(key)}>
@@ -75,7 +82,7 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
         } else {
           return (
             <div className={css.ioRow} key={key}>
-              <div className={css.key}>
+              <div data-fqn={newKey} className={css.key}>
                 <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
               </div>
               <div className={css.value}>{value}</div>
