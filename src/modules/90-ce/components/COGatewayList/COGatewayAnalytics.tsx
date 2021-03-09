@@ -252,8 +252,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               <Icon name="spinner" size={12} color="blue500" />
             ) : (
               <>
-                {/* <Layout.Horizontal spacing="medium"> */}
-                {/* {props.service.fulfilment == 'spot' ? <SpotvsODChart spotPercent={76}></SpotvsODChart> : null} */}
+                {/* <Layout.Horizontal spacing="medium">
+                  {props.service.fulfilment == 'spot' ? <SpotvsODChart spotPercent={76}></SpotvsODChart> : null} */}
                 <Layout.Horizontal spacing="medium">
                   <div style={{ alignSelf: 'center' }}>
                     <HighchartsReact
