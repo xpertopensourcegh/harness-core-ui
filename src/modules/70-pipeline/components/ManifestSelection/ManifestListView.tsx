@@ -30,15 +30,12 @@ import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
 import css from './ManifestSelection.module.scss'
 
 // Commenting Helm temporarily until BE support is ready
-const allowedManifestTypes: Array<ManifestTypes> = [
-  ManifestDataType.K8sManifest,
-  ManifestDataType.Values,
-  ManifestDataType.HelmChart
-]
 // const allowedManifestTypes: Array<ManifestTypes> = [
 //   ManifestDataType.K8sManifest,
 //   ManifestDataType.Values,
+//   ManifestDataType.HelmChart
 // ]
+const allowedManifestTypes: Array<ManifestTypes> = [ManifestDataType.K8sManifest, ManifestDataType.Values]
 const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GIT,
   Connectors.GITHUB,
