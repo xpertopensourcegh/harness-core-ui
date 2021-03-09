@@ -38,8 +38,8 @@ const PLOT_LINE_LOCATIONS = [11, 22, 33, 44, 55, 66, 77, 88].map(degree => ({
   value: degree,
   zIndex: 10
 }))
-export function getRiskGaugeChartOptions(riskScore: number) {
-  const gaugeColor = riskScore === -1 ? 'var(--grey-200)' : getColorValue(100 - riskScore, 0, 100)
+export function getRiskGaugeChartOptions(riskScore: number, disable?: boolean) {
+  const gaugeColor = riskScore === -1 || disable ? 'var(--grey-200)' : getColorValue(100 - riskScore, 0, 100)
   riskScore = Math.round(riskScore * 10) / 10
   return {
     chart: {

@@ -5,11 +5,11 @@ import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
-import { Service, useCumulativeServiceSavings } from 'services/lw'
+import { useCumulativeServiceSavings } from 'services/lw'
 import { geGaugeChartOptionsWithoutLabel, getDay } from './Utils'
 // import css from './COGatewayCumulativeAnalytics.module.scss'
 interface COGatewayCumulativeAnalyticsProps {
-  services: Service[]
+  activeServicesCount: number
 }
 function getStackedAreaChartOptions(
   title: string,
@@ -172,7 +172,7 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
             </Layout.Vertical>
             <Heading level={2}>ACTIVE RULES</Heading>
             <Layout.Horizontal spacing="small">
-              <Heading level={1}>{props.services.length}</Heading>
+              <Heading level={1}>{props.activeServicesCount}</Heading>
               <Text style={{ alignSelf: 'center' }}>Rules</Text>
             </Layout.Horizontal>
           </Layout.Vertical>
@@ -228,17 +228,17 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
           <Layout.Vertical spacing="large" style={{ flex: 1 }}>
             <Heading level={2}>INSTANCES MANAGED</Heading>
             <Layout.Horizontal spacing="large">
-              <Heading level={1}>{props.services.length}</Heading>
+              <Heading level={1}>{props.activeServicesCount}</Heading>
               <Text style={{ alignSelf: 'center' }}>Instances</Text>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="large">
-              <Text style={{ alignSelf: 'center' }}>{props.services.length % 2}</Text>
+              <Text style={{ alignSelf: 'center' }}>{props.activeServicesCount % 2}</Text>
               <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
                 RUNNING
               </Tag>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="large">
-              <Text style={{ alignSelf: 'center' }}>{props.services.length - (props.services.length % 2)}</Text>
+              <Text style={{ alignSelf: 'center' }}>{props.activeServicesCount - (props.activeServicesCount % 2)}</Text>
               <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
                 STOPPED
               </Tag>

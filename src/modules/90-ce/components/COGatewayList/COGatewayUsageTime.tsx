@@ -11,7 +11,7 @@ import { getTimestamp } from './Utils'
 import css from './COGatewayList.module.scss'
 
 interface COGatewayUsageTimeProps {
-  service: Service
+  service: Service | undefined
 }
 function convertToDuration(t: number): string {
   const durationMap = []
@@ -82,7 +82,7 @@ const COGatewayUsageTime: React.FC<COGatewayUsageTimeProps> = props => {
         from: moment(startOfDay(today().subtract(7, 'days'))).format(DATE_FORMAT),
         to: moment(endOfDay(today())).format(DATE_FORMAT),
         report_name: 'GATEWAY-SESSION-WISE', // eslint-disable-line
-        service_ids: [props.service.id as number], // eslint-disable-line
+        service_ids: [props.service?.id as number], // eslint-disable-line
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
       })
       if (result && result.response && result.response.rows) {

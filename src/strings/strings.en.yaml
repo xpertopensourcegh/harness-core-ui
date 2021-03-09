@@ -2077,6 +2077,12 @@ ce:
             info: 'IP addresses if the instances managed by this AutoStopping Rule are currently accessed by an IP.'
 
       save: 'Save Rule'
+      confirm:
+        disableTitle: 'Disable Rule {{name}}'
+        disableDialogText: 'Are you sure you want to disable?'
+        enableTitle: 'Enable Rule {{name}}'
+        enableDialogText: 'Are you sure you want to enable?'
+        disable: 'Disable'
 
     accessPoint:
       create: 'Create Access Point'

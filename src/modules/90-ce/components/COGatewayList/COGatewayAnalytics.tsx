@@ -20,10 +20,12 @@ import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions, getDay } from './Utils'
+import useToggleRuleState from './useToggleRuleState'
 // import SpotvsODChart from './SpotvsODChart'
 import css from './COGatewayList.module.scss'
 interface COGatewayAnalyticsProps {
-  service: Service
+  service: { data: Service; index: number } | null | undefined
+  handleServiceToggle: (type: 'SUCCESS' | 'FAILURE', data: Service | any, index?: number) => void
 }
 
 function getBarChartOptions(
@@ -115,12 +117,12 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const { data, loading } = useSavingsOfService({
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service.id as number
+    serviceID: props.service?.data.id as number
   })
   const { data: graphData, loading: graphLoading } = useSavingsOfService({
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service.id as number,
+    serviceID: props.service?.data.id as number,
     queryParams: {
       from: moment(startOfDay(today().subtract(7, 'days'))).format(DATE_FORMAT),
       to: moment(endOfDay(today())).format(DATE_FORMAT),
@@ -130,15 +132,25 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const { data: healthData, loading: healthDataLoading } = useHealthOfService({
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service.id as number,
+    serviceID: props.service?.data.id as number,
     debounce: 300
   })
   const { data: resources, loading: resourcesLoading, error: resourceError } = useAllServiceResources({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
-    service_id: props.service.id as number, // eslint-disable-line
+    service_id: props.service?.data.id as number, // eslint-disable-line
     debounce: 300
   })
+
+  const { triggerToggle } = useToggleRuleState({
+    orgIdentifier,
+    projectIdentifier,
+    serviceData: props.service?.data as Service,
+    onSuccess: (updatedServiceData: Service) =>
+      props.handleServiceToggle('SUCCESS', updatedServiceData, props.service?.index),
+    onFailure: error => props.handleServiceToggle('FAILURE', error)
+  })
+
   if (resourceError) {
     showError(`could not load resources for rule`)
   }
@@ -167,19 +179,19 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
         <Layout.Horizontal className={css.analyticsHeader}>
           <Layout.Horizontal width="50%">
             <Heading level={2} font={{ weight: 'semi-bold' }}>
-              {props.service.name}
+              {props.service?.data.name}
             </Heading>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="large" width="50%" className={css.headerLayout}>
             <Layout.Horizontal flex spacing="large">
-              <Switch defaultChecked={!props.service.disabled}></Switch>
+              <Switch checked={!props.service?.data.disabled} onChange={() => triggerToggle()}></Switch>
               <Icon name="edit" style={{ marginBottom: '10px' }}></Icon>
               <Icon name="trash" style={{ marginBottom: '10px' }}></Icon>
             </Layout.Horizontal>
           </Layout.Horizontal>
         </Layout.Horizontal>
         <Text>
-          {`Created ${getRelativeTime(props.service.created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}`}
+          {`Created ${getRelativeTime(props.service?.data.created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}`}
           {/* <Avatar email="john.doe@harnes.io" size={'small'} />
           {'John Doe '} */}
         </Text>
@@ -189,17 +201,17 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             <Text>Connector</Text>
             <Layout.Horizontal spacing="xsmall">
               <Icon name="service-aws" />
-              <Text>{props.service.metadata?.cloud_provider_details?.name}</Text>
+              <Text>{props.service?.data.metadata?.cloud_provider_details?.name}</Text>
             </Layout.Horizontal>
             <Text>Idle time</Text>
             <Layout.Horizontal spacing="xsmall">
               <Icon name="deployment-timeout-legacy" />
-              <Text>{props.service.idle_time_mins}</Text>
+              <Text>{props.service?.data.idle_time_mins}</Text>
             </Layout.Horizontal>
             <Text>Compute type</Text>
             <Layout.Horizontal spacing="xsmall">
-              <img src={props.service.fulfilment == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
-              <Text>{props.service.fulfilment}</Text>
+              <img src={props.service?.data.fulfilment == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
+              <Text>{props.service?.data.fulfilment}</Text>
             </Layout.Horizontal>
           </Layout.Vertical>
           <Layout.Vertical spacing="large" padding="medium">
@@ -226,14 +238,14 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             </Layout.Horizontal>
             <Text>Host name</Text>
             <Layout.Horizontal spacing="xsmall">
-              <Link href={`http://${props.service.host_name}`} target="_blank">
-                {props.service.host_name}
+              <Link href={`http://${props.service?.data.host_name}`} target="_blank">
+                {props.service?.data.host_name}
               </Link>
             </Layout.Horizontal>
-            {props.service.custom_domains?.length ? (
+            {props.service?.data.custom_domains?.length ? (
               <>
                 <Text>Custom Domain</Text>
-                {props.service.custom_domains.map((d, i) => {
+                {props.service?.data.custom_domains.map((d, i) => {
                   return (
                     <Layout.Horizontal spacing="xsmall" key={`custom_domain${i}`}>
                       <Link key={`custom_domain${i}`} href={`http://${d}`} target="_blank">
@@ -296,8 +308,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
         )}
         <Heading level={3}>LOGS AND USAGE TIME</Heading>
         <Tabs id="logsAndUsage">
-          <Tab id="name" title={'Usage Time'} panel={<COGatewayUsageTime service={props.service} />}></Tab>
-          <Tab id="logs" title={'Logs'} panel={<COGatewayLogs service={props.service} />}></Tab>
+          <Tab id="name" title={'Usage Time'} panel={<COGatewayUsageTime service={props.service?.data} />}></Tab>
+          <Tab id="logs" title={'Logs'} panel={<COGatewayLogs service={props.service?.data} />}></Tab>
         </Tabs>
       </Layout.Vertical>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { CellProps } from 'react-table'
 import {
   Text,
@@ -11,11 +11,11 @@ import {
   ExpandingSearchInput,
   Popover
 } from '@wings-software/uicore'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { isEmpty as _isEmpty } from 'lodash-es'
 import { Classes, Drawer, Menu, Position } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -40,6 +40,7 @@ import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions } from './Utils'
+import useToggleRuleState from './useToggleRuleState'
 import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
 // import landingPageSVG from './images/landingPageGraphic.svg'
 import landingPageBannerImage1 from './images/landingPage/1.svg'
@@ -55,24 +56,32 @@ import landingPageBannerImage10 from './images/landingPage/10.svg'
 import landingPageBannerImage11 from './images/landingPage/11.svg'
 import landingPageBannerImage12 from './images/landingPage/12.svg'
 import landingPageBannerImage13 from './images/landingPage/13.svg'
+import spotDisableIcon from './images/spotDisabled.svg'
+import onDemandDisableIcon from './images/onDemandDisabled.svg'
 import css from './COGatewayList.module.scss'
 
 interface AnimatedGraphicContainerProps {
   imgList: Array<string>
 }
 
+const textColor: { [key: string]: string } = {
+  disable: '#6B6D85'
+}
+
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
+  const getIcon = () => {
+    return tableProps.value === 'spot'
+      ? tableProps.row.original.disabled
+        ? spotDisableIcon
+        : spotIcon
+      : tableProps.row.original.disabled
+      ? onDemandDisableIcon
+      : odIcon
+  }
   return (
     <Layout.Horizontal spacing="medium">
-      <img
-        className={css.fulFilmentIcon}
-        src={tableProps.value == 'spot' ? spotIcon : odIcon}
-        alt=""
-        width={'20px'}
-        height={'19px'}
-        aria-hidden
-      />
-      <Text lineClamp={3} color={Color.GREY_500}>
+      <img className={css.fulFilmentIcon} src={getIcon()} alt="" width={'20px'} height={'19px'} aria-hidden />
+      <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
         {tableProps.value}
       </Text>
     </Layout.Horizontal>
@@ -80,7 +89,7 @@ function IconCell(tableProps: CellProps<Service>): JSX.Element {
 }
 function TimeCell(tableProps: CellProps<Service>): JSX.Element {
   return (
-    <Text lineClamp={3} color={Color.GREY_500}>
+    <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
       {tableProps.value} mins
     </Text>
   )
@@ -162,12 +171,36 @@ const COGatewayList: React.FC = () => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const { showError } = useToaster()
+  const { showSuccess, showError } = useToaster()
   // const [page, setPage] = useState(0)
-  const [selectedService, setSelectedService] = useState<Service>()
+  const [selectedService, setSelectedService] = useState<{ data: Service; index: number } | null>()
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
+  const [tableData, setTableData] = useState<Service[]>([])
+
+  const { data: servicesData, error, loading } = useGetServices({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    debounce: 300
+  })
+
+  useEffect(() => {
+    setTableData(servicesData?.response || tableData)
+  }, [servicesData?.response])
+
+  if (error) {
+    showError(error.data || error.message)
+  }
+
+  if (loading) {
+    return (
+      <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+        <PageSpinner />
+      </div>
+    )
+  }
+
   function SavingsCell(tableProps: CellProps<Service>): JSX.Element {
-    const { data, loading } = useSavingsOfService({
+    const { data, loading: savingsLoading } = useSavingsOfService({
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
@@ -179,14 +212,17 @@ const COGatewayList: React.FC = () => {
           highchart={Highcharts}
           options={
             data?.response != null
-              ? getRiskGaugeChartOptions((data?.response as ServiceSavings).savings_percentage as number)
+              ? getRiskGaugeChartOptions(
+                  (data?.response as ServiceSavings).savings_percentage as number,
+                  tableProps.row.original.disabled
+                )
               : getRiskGaugeChartOptions(0)
           }
         />
         <Text className={css.savingsAmount}>
           {data?.response != null ? (
             `$${Math.round(((data?.response as ServiceSavings).actual_savings as number) * 100) / 100}`
-          ) : !loading ? (
+          ) : !savingsLoading ? (
             0
           ) : (
             <Icon name="spinner" size={12} color="blue500" />
@@ -196,7 +232,7 @@ const COGatewayList: React.FC = () => {
     )
   }
   function ActivityCell(tableProps: CellProps<Service>): JSX.Element {
-    const { data, loading } = useRequestsOfService({
+    const { data, loading: activityLoading } = useRequestsOfService({
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
@@ -207,11 +243,11 @@ const COGatewayList: React.FC = () => {
         {data?.response?.length ? (
           <Layout.Horizontal spacing="medium">
             <Icon name="history" />
-            <Text lineClamp={3} color={Color.GREY_500}>
+            <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
               {getRelativeTime(data.response[0].created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}
             </Text>
           </Layout.Horizontal>
-        ) : !loading ? (
+        ) : !activityLoading ? (
           '-'
         ) : (
           <Icon name="spinner" size={12} color="blue500" />
@@ -220,7 +256,7 @@ const COGatewayList: React.FC = () => {
     )
   }
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
-    const { data, loading } = useHealthOfService({
+    const { data, loading: healthLoading } = useHealthOfService({
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
@@ -240,12 +276,20 @@ const COGatewayList: React.FC = () => {
       <Container>
         <Layout.Vertical spacing="medium">
           <Layout.Horizontal spacing="xxxsmall">
-            <Text style={{ alignSelf: 'center' }}>No. of instances:</Text>
+            <Text
+              style={{ alignSelf: 'center', color: tableProps.row.original.disabled ? textColor.disable : 'inherit' }}
+            >
+              No. of instances:
+            </Text>
             {!resourcesLoading && resources?.response ? (
               <Link
                 href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
                 target="_blank"
-                style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                style={{
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                }}
                 onClick={e => {
                   e.stopPropagation()
                 }}
@@ -255,22 +299,30 @@ const COGatewayList: React.FC = () => {
             ) : (
               <Icon name="spinner" size={12} color="blue500" />
             )}
-            {data?.response?.['state'] != null ? (
-              getStateTag(data?.response?.['state'])
-            ) : !loading ? (
-              getStateTag('down')
-            ) : (
-              <Icon name="spinner" size={12} color="blue500" />
+            {!tableProps.row.original.disabled && (
+              <>
+                {data?.response?.['state'] != null ? (
+                  getStateTag(data?.response?.['state'])
+                ) : !healthLoading ? (
+                  getStateTag('down')
+                ) : (
+                  <Icon name="spinner" size={12} color="blue500" />
+                )}
+              </>
             )}
           </Layout.Horizontal>
           <Layout.Horizontal spacing="large">
             {tableProps.row.original.custom_domains?.length ? (
-              <Text lineClamp={3} color={Color.GREY_500}>
+              <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
                 Custom Domain:
                 <Link
                   href={`http://${tableProps.row.original.custom_domains[0]}`}
                   target="_blank"
-                  style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  style={{
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                  }}
                   onClick={e => {
                     e.stopPropagation()
                   }}
@@ -279,12 +331,16 @@ const COGatewayList: React.FC = () => {
                 </Link>
               </Text>
             ) : (
-              <Text lineClamp={3} color={Color.GREY_500}>
+              <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
                 Host name:
                 <Link
                   href={`http://${tableProps.row.original.host_name}`}
                   target="_blank"
-                  style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  style={{
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                  }}
                   onClick={e => {
                     e.stopPropagation()
                   }}
@@ -304,6 +360,18 @@ const COGatewayList: React.FC = () => {
     const row = tableProps.row
     const data = row.original.id
     const [menuOpen, setMenuOpen] = useState(false)
+    const { triggerToggle } = useToggleRuleState({
+      orgIdentifier,
+      projectIdentifier,
+      serviceData: row.original,
+      onSuccess: (updatedServiceData: Service) => onServiceStateToggle('SUCCESS', updatedServiceData, row.index),
+      onFailure: err => onServiceStateToggle('FAILURE', err)
+    })
+
+    const handleToggleRuleClick = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.stopPropagation()
+      triggerToggle()
+    }
 
     return (
       <Layout.Horizontal className={css.layout}>
@@ -327,23 +395,9 @@ const COGatewayList: React.FC = () => {
           />
           <Menu style={{ minWidth: 'unset' }}>
             {row.original.disabled ? (
-              <Menu.Item
-                icon="play"
-                text="Enable"
-                onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                  e.stopPropagation()
-                  alert('you are enabling')
-                }}
-              />
+              <Menu.Item icon="play" text="Enable" onClick={handleToggleRuleClick} />
             ) : (
-              <Menu.Item
-                icon="disable"
-                text="Disable"
-                onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                  e.stopPropagation()
-                  alert('you are disabling')
-                }}
-              />
+              <Menu.Item icon="disable" text="Disable" onClick={handleToggleRuleClick} />
             )}
             <Menu.Item
               icon="edit"
@@ -376,26 +430,28 @@ const COGatewayList: React.FC = () => {
       </Layout.Horizontal>
     )
   }
-  const { data, error, loading } = useGetServices({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    debounce: 300
-  })
-  if (error) {
-    showError(error.data || error.message)
+
+  const getActiveServicesCount = () => {
+    return tableData.filter(service => !service.disabled).length
   }
 
-  if (loading) {
-    return (
-      <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
-        <PageSpinner />
-      </div>
-    )
+  const onServiceStateToggle = (type: 'SUCCESS' | 'FAILURE', data: Service | any, index?: number) => {
+    if (type === 'SUCCESS') {
+      const currTableData: Service[] = [...tableData]
+      currTableData.splice(index as number, 1, data)
+      setTableData(currTableData)
+      if (!_isEmpty(selectedService)) {
+        setSelectedService({ data, index: index as number })
+      }
+      showSuccess(`Rule ${data.name} ${!data.disabled ? 'enabled' : 'disabled'}`)
+    } else {
+      showError(data)
+    }
   }
 
   return (
     <Container background={Color.WHITE} height="100vh">
-      {!loading && !data?.response ? (
+      {!loading && _isEmpty(tableData) ? (
         <>
           <Breadcrumbs
             className={css.breadCrumb}
@@ -452,6 +508,7 @@ const COGatewayList: React.FC = () => {
                 isOpen={isDrawerOpen}
                 onClose={() => {
                   setIsDrawerOpen(false)
+                  setSelectedService(null)
                 }}
                 size="656px"
                 style={{
@@ -460,7 +517,7 @@ const COGatewayList: React.FC = () => {
                   overflowY: 'scroll'
                 }}
               >
-                <COGatewayAnalytics service={selectedService as Service} />
+                <COGatewayAnalytics service={selectedService} handleServiceToggle={onServiceStateToggle} />
               </Drawer>
               <>
                 <Layout.Horizontal padding="large">
@@ -496,10 +553,10 @@ const COGatewayList: React.FC = () => {
               </>
               <Page.Body className={css.pageContainer}>
                 <COGatewayCumulativeAnalytics
-                  services={data?.response ? (data.response as Service[]) : []}
+                  activeServicesCount={getActiveServicesCount()}
                 ></COGatewayCumulativeAnalytics>
                 <Table<Service>
-                  data={data?.response ? data.response : []}
+                  data={tableData}
                   className={css.table}
                   // pagination={{
                   //   itemCount: 50, //data?.data?.totalItems || 0,
@@ -508,8 +565,8 @@ const COGatewayList: React.FC = () => {
                   //   pageIndex: page, //data?.data?.pageIndex || 0,
                   //   gotoPage: (pageNumber: number) => setPage(pageNumber)
                   // }}
-                  onRowClick={e => {
-                    setSelectedService(e)
+                  onRowClick={(e, index) => {
+                    setSelectedService({ data: e, index })
                     setIsDrawerOpen(true)
                   }}
                   columns={[
