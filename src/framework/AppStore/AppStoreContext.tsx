@@ -53,7 +53,8 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
 
   const { data: featureFlags, loading: featureFlagsLoading } = useGetFeatureFlags({
     accountId,
-    pathParams: { accountId }
+    pathParams: { accountId },
+    queryParams: { routingId: accountId } as any // BE accepts this queryParam, but not declared in swagger
   })
 
   const { refetch, data: project } = useGetProject({
