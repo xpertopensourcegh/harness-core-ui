@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
 
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useStrings, String } from 'framework/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
@@ -20,7 +21,7 @@ import {
   getFlattenedStages,
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
-import { manifestTypeIcons, manifestTypeText } from './Manifesthelper'
+import { ManifestDataType, manifestTypeIcons, manifestTypeText } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
 import type { ManifestStepInitData, ManifestTypes, ManifestListViewProps } from './ManifestInterface'
@@ -29,14 +30,20 @@ import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
 import css from './ManifestSelection.module.scss'
 
 // Commenting Helm temporarily until BE support is ready
-// const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values', 'HelmChart']
-const allowedManifestTypes: Array<ManifestTypes> = ['K8sManifest', 'Values']
+const allowedManifestTypes: Array<ManifestTypes> = [
+  ManifestDataType.K8sManifest,
+  ManifestDataType.Values,
+  ManifestDataType.HelmChart
+]
+// const allowedManifestTypes: Array<ManifestTypes> = [
+//   ManifestDataType.K8sManifest,
+//   ManifestDataType.Values,
+// ]
 const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GIT,
   Connectors.GITHUB,
   Connectors.GITLAB,
-  Connectors.BITBUCKET,
-  Connectors.HttpHelmRepo
+  Connectors.BITBUCKET
 ]
 
 const ManifestListView = ({
@@ -152,7 +159,7 @@ const ManifestListView = ({
       return values
     }
     return {
-      store: Connectors.GIT,
+      store: manifestStore,
       connectorRef: undefined
     }
   }
@@ -212,12 +219,23 @@ const ManifestListView = ({
     }
   }
 
+  const getIconProps = (): IconProps => {
+    const iconProps: IconProps = {
+      name: manifestTypeIcons[selectedManifest]
+    }
+
+    if (selectedManifest === ManifestDataType.HelmChart) {
+      iconProps.color = Color.WHITE
+    }
+    return iconProps
+  }
+
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
     let manifestDetailStep = null
 
     switch (true) {
-      case selectedManifest === 'HelmChart' && manifestStore === Connectors.GIT:
+      case selectedManifest === ManifestDataType.HelmChart && manifestStore === Connectors.GIT:
         manifestDetailStep = (
           <HelmWithGIT
             name={getString('manifestType.manifestDetails')}
@@ -228,7 +246,7 @@ const ManifestListView = ({
           />
         )
         break
-      case selectedManifest === 'HelmChart' && manifestStore === Connectors.HttpHelmRepo:
+      case selectedManifest === ManifestDataType.HelmChart && manifestStore === Connectors.HttpHelmRepo:
         manifestDetailStep = (
           <HelmWithHttp
             name={getString('manifestType.manifestDetails')}
@@ -239,7 +257,8 @@ const ManifestListView = ({
           />
         )
         break
-      case ['K8sManifest', 'Values'].includes(selectedManifest) && manifestStore === Connectors.GIT:
+      case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
+        manifestStore === Connectors.GIT:
       default:
         manifestDetailStep = (
           <ManifestDetails
@@ -297,12 +316,17 @@ const ManifestListView = ({
       setConnectorView(false)
       hideConnectorModal()
     }
+    const storeTypes =
+      selectedManifest === ManifestDataType.HelmChart
+        ? [...manifestStoreTypes, Connectors.HttpHelmRepo]
+        : manifestStoreTypes
+
     return (
       <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>
         <div className={css.createConnectorWizard}>
           <ManifestWizard
             types={allowedManifestTypes}
-            manifestStoreTypes={manifestStoreTypes}
+            manifestStoreTypes={storeTypes}
             labels={getLabels()}
             selectedManifest={selectedManifest}
             newConnectorView={connectorView}
@@ -311,6 +335,7 @@ const ManifestListView = ({
             initialValues={getInitialValues()}
             newConnectorSteps={getNewConnectorSteps()}
             lastSteps={getLastSteps()}
+            iconsProps={getIconProps()}
           />
         </div>
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />

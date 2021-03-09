@@ -21,6 +21,7 @@ describe('ManifestSelection tests', () => {
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}
           newConnectorView={false}
+          iconsProps={{ name: 'info' }}
         />
       </TestWrapper>
     )
@@ -51,6 +52,7 @@ describe('ManifestSelection tests', () => {
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}
           newConnectorView={false}
+          iconsProps={{ name: 'info' }}
         />
       </TestWrapper>
     )

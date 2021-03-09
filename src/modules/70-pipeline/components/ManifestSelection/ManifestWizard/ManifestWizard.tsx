@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, Icon, StepWizard, Color, StepProps } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
@@ -7,7 +8,7 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ManifestRepoTypes } from '../ManifestWizardSteps/ManifestRepoTypes'
 import ManifestStore from '../ManifestWizardSteps/ManifestStore'
-import { manifestTypeIcons, manifestTypeLabels } from '../Manifesthelper'
+import { manifestTypeLabels } from '../Manifesthelper'
 import type { ManifestStepInitData, ManifestTypes } from '../ManifestInterface'
 import css from './ManifestWizard.module.scss'
 
@@ -28,6 +29,7 @@ interface ManifestWizardStepsProps {
   newConnectorSteps?: any
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   changeManifestType: (data: ManifestTypes) => void
+  iconsProps: IconProps
 }
 
 export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
@@ -40,7 +42,8 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   newConnectorView,
   newConnectorSteps,
   lastSteps,
-  changeManifestType
+  changeManifestType,
+  iconsProps
 }) => {
   const { getString } = useStrings()
 
@@ -54,7 +57,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
     const stringId = manifestTypeLabels[selectedManifest]
     return (
       <div className={css.subtitle} style={{ display: 'flex' }}>
-        <Icon name={manifestTypeIcons[selectedManifest]} size={26} />
+        <Icon {...iconsProps} size={26} />
         <Text style={{ alignSelf: 'center', marginLeft: 'var(--spacing-small)' }} color={Color.WHITE}>
           {stringId}
         </Text>

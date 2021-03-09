@@ -1,4 +1,11 @@
 import type { IconName } from '@wings-software/uicore'
+import type { ManifestTypes } from './ManifestInterface'
+
+export const ManifestDataType: { [key: string]: ManifestTypes } = {
+  K8sManifest: 'K8sManifest',
+  Values: 'Values',
+  HelmChart: 'HelmChart'
+}
 
 export const manifestTypeIcons: Record<string, IconName> = {
   K8sManifest: 'service-kubernetes',

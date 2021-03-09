@@ -658,7 +658,7 @@ export default function ArtifactsSelection({
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
 
     switch (selectedArtifact) {
-      case Connectors.GCR:
+      case Connectors.GCP:
         arr.push(<GCRImagePath {...getImagePathProps()} />)
         break
       case Connectors.AWS:
