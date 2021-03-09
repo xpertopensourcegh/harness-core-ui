@@ -51,6 +51,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   previousStep
 }) => {
   const { getString } = useStrings()
+  const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
 
   const getInitialValues = (): HelmWithGITDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -59,14 +60,14 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
-        paths: specValues.paths,
+        paths: specValues.paths?.[0],
         helmVersion: initialValues.spec?.helmVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
           commandType: commandFlag.commandType,
           flag: commandFlag.flag
           // id: uuid(commandFlag, nameSpace())
-        }))
+        })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
       }
       return values
     }
@@ -78,12 +79,12 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       paths: '',
       helmVersion: 'V2',
       skipResourceVersioning: false,
-      commandFlags: [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
+      commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
     }
   }
 
   const submitFormData = (formData: any): void => {
-    const manifestObj = {
+    const manifestObj: any = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -94,17 +95,19 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               gitFetchType: formData?.gitFetchType,
               branch: formData?.branch,
               commitId: formData?.commitId,
-              paths: formData?.paths
+              paths: [formData?.paths]
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning,
-          helmVersion: formData?.helmVersion,
-          commandFlags: formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-            commandType: commandFlag.commandType,
-            flag: commandFlag.flag
-          }))
+          helmVersion: formData?.helmVersion
         }
       }
+    }
+    if (formData?.commandFlags[0].commandType) {
+      manifestObj.manifest.spec.commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+        commandType: commandFlag.commandType,
+        flag: commandFlag.flag
+      }))
     }
     handleSubmit(manifestObj)
   }
@@ -123,7 +126,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
             .notOneOf(StringUtils.illegalIdentifiers),
           paths: Yup.string().trim().required(i18n.validation.filePath),
-          helmVersion: Yup.string().trim().required(getString('manifestType.http.helmVersionRequired'))
+          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
         })}
         onSubmit={formData => {
           submitFormData({
@@ -202,7 +205,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
                 </div>
               </Layout.Horizontal>
-              <Accordion activeId={getString('advancedTitle')}>
+              <Accordion activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}>
                 <Accordion.Panel
                   id={getString('advancedTitle')}
                   addDomId={true}

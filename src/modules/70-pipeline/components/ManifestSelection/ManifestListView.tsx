@@ -24,18 +24,21 @@ import {
 import { ManifestDataType, manifestTypeIcons, manifestTypeText } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
-import type { ManifestStepInitData, ManifestTypes, ManifestListViewProps } from './ManifestInterface'
+import type {
+  ManifestStepInitData,
+  ManifestTypes,
+  ManifestListViewProps,
+  ManifestLastStepProps
+} from './ManifestInterface'
 import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
 import css from './ManifestSelection.module.scss'
 
-// Commenting Helm temporarily until BE support is ready
-// const allowedManifestTypes: Array<ManifestTypes> = [
-//   ManifestDataType.K8sManifest,
-//   ManifestDataType.Values,
-//   ManifestDataType.HelmChart
-// ]
-const allowedManifestTypes: Array<ManifestTypes> = [ManifestDataType.K8sManifest, ManifestDataType.Values]
+const allowedManifestTypes: Array<ManifestTypes> = [
+  ManifestDataType.K8sManifest,
+  ManifestDataType.Values,
+  ManifestDataType.HelmChart
+]
 const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
   Connectors.GIT,
   Connectors.GITHUB,
@@ -208,6 +211,16 @@ const ManifestListView = ({
     setManifestStore(store)
   }
 
+  const lastStepProps = (): ManifestLastStepProps => {
+    return {
+      key: getString('manifestType.manifestDetails'),
+      name: getString('manifestType.manifestDetails'),
+      stepName: getString('manifestType.manifestDetails'),
+      initialValues: getLastStepInitialData(),
+      handleSubmit: handleSubmit
+    }
+  }
+
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('manifestType.specifyManifestRepoType'),
@@ -233,39 +246,15 @@ const ManifestListView = ({
 
     switch (true) {
       case selectedManifest === ManifestDataType.HelmChart && manifestStore === Connectors.GIT:
-        manifestDetailStep = (
-          <HelmWithGIT
-            name={getString('manifestType.manifestDetails')}
-            key={getString('manifestType.manifestDetails')}
-            stepName={getString('manifestType.manifestDetails')}
-            initialValues={getLastStepInitialData()}
-            handleSubmit={handleSubmit}
-          />
-        )
+        manifestDetailStep = <HelmWithGIT {...lastStepProps()} />
         break
       case selectedManifest === ManifestDataType.HelmChart && manifestStore === Connectors.HttpHelmRepo:
-        manifestDetailStep = (
-          <HelmWithHttp
-            name={getString('manifestType.manifestDetails')}
-            key={getString('manifestType.manifestDetails')}
-            stepName={getString('manifestType.manifestDetails')}
-            initialValues={getLastStepInitialData()}
-            handleSubmit={handleSubmit}
-          />
-        )
+        manifestDetailStep = <HelmWithHttp {...lastStepProps()} />
         break
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
         manifestStore === Connectors.GIT:
       default:
-        manifestDetailStep = (
-          <ManifestDetails
-            name={getString('manifestType.manifestDetails')}
-            key={getString('manifestType.manifestDetails')}
-            stepName={getString('manifestType.manifestDetails')}
-            initialValues={getLastStepInitialData()}
-            handleSubmit={handleSubmit}
-          />
-        )
+        manifestDetailStep = <ManifestDetails {...lastStepProps()} />
 
         break
     }
@@ -313,10 +302,11 @@ const ManifestListView = ({
       setConnectorView(false)
       hideConnectorModal()
     }
-    const storeTypes =
-      selectedManifest === ManifestDataType.HelmChart
-        ? [...manifestStoreTypes, Connectors.HttpHelmRepo]
-        : manifestStoreTypes
+    const storeTypes = manifestStoreTypes
+    // Connectors.HttpHelmRepo is commented till BE is ready
+    //  const storeTypes = selectedManifest === ManifestDataType.HelmChart
+    //   ? [...manifestStoreTypes, Connectors.HttpHelmRepo]
+    //   : manifestStoreTypes
 
     return (
       <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>

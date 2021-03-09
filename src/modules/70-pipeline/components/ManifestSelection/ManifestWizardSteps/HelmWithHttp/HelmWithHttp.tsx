@@ -50,6 +50,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
 }) => {
   const [defaultHelmVersion, setHelmVersion] = useState(initialValues?.spec?.helmVersion || 'V2')
   const { getString } = useStrings()
+  const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
 
   const getInitialValues = (): HelmWithHTTPDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -66,7 +67,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           commandType: commandFlag.commandType,
           flag: commandFlag.flag
           // id: uuid(commandFlag, nameSpace())
-        }))
+        })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
       }
       return values
     }
@@ -76,11 +77,11 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
-      commandFlags: [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
+      commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
     }
   }
   const submitFormData = (formData: any): void => {
-    const manifestObj = {
+    const manifestObj: any = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -93,13 +94,15 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           chartName: formData?.chartName,
           chartVersion: formData?.chartVersion,
           helmVersion: formData?.helmVersion,
-          skipResourceVersioning: formData?.skipResourceVersioning,
-          commandFlags: formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-            commandType: commandFlag.commandType,
-            flag: commandFlag.flag
-          }))
+          skipResourceVersioning: formData?.skipResourceVersioning
         }
       }
+    }
+    if (formData?.commandFlags[0].commandType) {
+      manifestObj.manifest.spec.commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+        commandType: commandFlag.commandType,
+        flag: commandFlag.flag
+      }))
     }
     handleSubmit(manifestObj)
   }
@@ -114,7 +117,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
         validationSchema={Yup.object().shape({
           chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
           chartVersion: Yup.string().trim().required(getString('manifestType.http.chartVersionRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.http.helmVersionRequired'))
+          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
         })}
         onSubmit={formData => {
           submitFormData({
@@ -156,7 +159,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   }}
                 />
               </Layout.Vertical>
-              <Accordion activeId={getString('advancedTitle')}>
+              <Accordion activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}>
                 <Accordion.Panel
                   id={getString('advancedTitle')}
                   addDomId={true}

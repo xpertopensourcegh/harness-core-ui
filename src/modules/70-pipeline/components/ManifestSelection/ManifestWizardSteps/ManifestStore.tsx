@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon } from '@wings-software/uicore'
@@ -36,21 +36,19 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
 
-  // const [selectedManifest, setSelectedManifest] = useState(initialValues.store)
-  const selectedManifest = initialValues.store // To be replaced by state variable after api is ready for other manifest stores
+  const [selectedManifest, setSelectedManifest] = useState(initialValues.store)
 
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
 
-  //To be enabled after backend support is there for Github , gitlab and bitbucket
-  // const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
-  //   if (selected === selectedManifest) {
-  //     setSelectedManifest('')
-  //   } else {
-  //     setSelectedManifest(selected)
-  //   }
-  // }
+  const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
+    if (selected === selectedManifest) {
+      setSelectedManifest('')
+    } else {
+      setSelectedManifest(selected)
+    }
+  }
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
@@ -68,10 +66,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
               cornerSelected={store === selectedManifest}
               className={cx({ [css.disabled]: selectedManifest !== '' && selectedManifest !== store }, css.squareCard)}
               onClick={() => {
-                //To be enabled after backend support is there for Github , gitlab and bitbucket
-                // if (selectedManifest === '' || selectedManifest === store) {
-                //   handleOptionSelection(store)
-                // }
+                if (selectedManifest === '' || selectedManifest === store) {
+                  handleOptionSelection(store)
+                }
               }}
             >
               <Icon name={getIconByType(store)} size={26} />

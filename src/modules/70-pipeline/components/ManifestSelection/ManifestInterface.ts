@@ -38,9 +38,16 @@ export interface ManifestDataType {
   gitFetchType: 'Branch' | 'Commit'
   paths: Array<PathDataType> | Array<string> | string | undefined
 }
+export interface ManifestLastStepProps {
+  key: string
+  name: string
+  stepName: string
+  initialValues: any
+  handleSubmit: (data: any) => void
+}
 export interface CommandFlags {
-  commandType: string
-  flag: string
+  commandType: string | undefined
+  flag: string | undefined
   id?: string
 }
 export interface HelmWithGITDataType {
