@@ -23,7 +23,7 @@ import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import {
@@ -40,7 +40,7 @@ export const RunTestsStepBase = (
 ): JSX.Element => {
   const {
     state: { pipelineView },
-    updatePipelineView,
+
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -70,13 +70,6 @@ export const RunTestsStepBase = (
   // const values = getInitialValuesInCorrectFormat<RunTestsStepData, RunTestsStepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-  const handleCancelClick = (): void => {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: false,
-      drawerData: { type: DrawerTypes.StepConfig }
-    })
-  }
 
   return (
     <Formik
@@ -317,16 +310,6 @@ export const RunTestsStepBase = (
                 multiTextInputProps={{ expressions }}
               />
               <StepCommonFields />
-            </div>
-            <div className={css.buttonsWrapper}>
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('save')}
-                margin={{ right: 'xxlarge' }}
-                data-testid={'submit'}
-              />
-              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
             </div>
           </FormikForm>
         )

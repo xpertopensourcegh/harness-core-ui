@@ -19,7 +19,7 @@ import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+
 import StepCommonFields from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
@@ -37,7 +37,7 @@ export const RestoreCacheS3StepBase = (
 ): JSX.Element => {
   const {
     state: { pipelineView },
-    updatePipelineView,
+
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -56,14 +56,6 @@ export const RestoreCacheS3StepBase = (
     { label: 'tar', value: 'tar' },
     { label: 'gzip', value: 'gzip' }
   ]
-
-  const handleCancelClick = (): void => {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: false,
-      drawerData: { type: DrawerTypes.StepConfig }
-    })
-  }
 
   return (
     <Formik
@@ -230,16 +222,6 @@ export const RestoreCacheS3StepBase = (
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <StepCommonFields />
-            </div>
-            <div className={css.buttonsWrapper}>
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('save')}
-                margin={{ right: 'xxlarge' }}
-                data-testid={'submit'}
-              />
-              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
             </div>
           </FormikForm>
         )

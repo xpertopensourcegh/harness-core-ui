@@ -175,9 +175,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               data?.stepConfig?.onUpdate?.(item)
               updatePipeline(pipeline)
 
-              // TODO: temporary fix for CI and FF
+              // TODO: temporary fix for FF
               // can be removed once the unified solution across modules is implemented
-              if (stageType === StageTypes.BUILD || stageType === StageTypes.FEATURE) {
+              if (stageType === StageTypes.FEATURE) {
                 updatePipelineView({
                   ...pipelineView,
                   isDrawerOpened: false,

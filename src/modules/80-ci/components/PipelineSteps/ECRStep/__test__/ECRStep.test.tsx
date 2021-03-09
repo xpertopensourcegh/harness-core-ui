@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
@@ -87,19 +87,19 @@ describe('ECR Step', () => {
         }
       }
       const onUpdate = jest.fn()
-      const { container, getByTestId } = render(
+      const ref = React.createRef<StepFormikRef<unknown>>()
+      const { container } = render(
         <TestStepWidget
           initialValues={initialValues}
           type={StepType.ECR}
           stepViewType={StepViewType.Edit}
           onUpdate={onUpdate}
+          ref={ref}
         />
       )
 
       expect(container).toMatchSnapshot()
-      await act(async () => {
-        fireEvent.click(getByTestId('submit'))
-      })
+      await act(() => ref.current?.submitForm())
       expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })
 
@@ -138,19 +138,19 @@ describe('ECR Step', () => {
         }
       }
       const onUpdate = jest.fn()
-      const { container, getByTestId } = render(
+      const ref = React.createRef<StepFormikRef<unknown>>()
+      const { container } = render(
         <TestStepWidget
           initialValues={initialValues}
           type={StepType.ECR}
           stepViewType={StepViewType.Edit}
           onUpdate={onUpdate}
+          ref={ref}
         />
       )
 
       expect(container).toMatchSnapshot()
-      await act(async () => {
-        fireEvent.click(getByTestId('submit'))
-      })
+      await act(() => ref.current?.submitForm())
       expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })
   })

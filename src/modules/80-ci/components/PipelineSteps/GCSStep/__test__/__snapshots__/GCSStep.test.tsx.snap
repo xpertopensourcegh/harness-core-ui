@@ -807,31 +807,6 @@ exports[`GCS Step Edit View edit mode works 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="buttonsWrapper"
-        >
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-xxlarge"
-            data-testid="submit"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save
-            </span>
-          </button>
-          <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Cancel
-            </span>
-          </button>
-        </div>
       </div>
     </form>
   </div>
@@ -1778,31 +1753,6 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="buttonsWrapper"
-        >
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-xxlarge"
-            data-testid="submit"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save
-            </span>
-          </button>
-          <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Cancel
-            </span>
-          </button>
-        </div>
       </div>
     </form>
   </div>
@@ -2634,31 +2584,6 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="buttonsWrapper"
-        >
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-xxlarge"
-            data-testid="submit"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save
-            </span>
-          </button>
-          <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Cancel
-            </span>
-          </button>
         </div>
       </div>
     </form>

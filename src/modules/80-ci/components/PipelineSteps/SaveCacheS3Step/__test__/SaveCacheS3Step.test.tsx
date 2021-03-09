@@ -1,8 +1,8 @@
 import React from 'react'
 import { omit, set } from 'lodash-es'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
@@ -108,39 +108,39 @@ describe('Save Cache S3 Step', () => {
 
     test('renders runtime inputs', async () => {
       const onUpdate = jest.fn()
-      const { container, getByTestId } = render(
+      const ref = React.createRef<StepFormikRef<unknown>>()
+      const { container } = render(
         <TestStepWidget
           initialValues={runtimeValues}
           type={StepType.SaveCacheS3}
           stepViewType={StepViewType.Edit}
           onUpdate={onUpdate}
+          ref={ref}
         />
       )
 
       expect(container).toMatchSnapshot()
 
-      await act(async () => {
-        fireEvent.click(getByTestId('submit'))
-      })
+      await act(() => ref.current?.submitForm())
       expect(onUpdate).toHaveBeenCalledWith(runtimeValues)
     })
 
     test('edit mode works', async () => {
       const onUpdate = jest.fn()
-      const { container, getByTestId } = render(
+      const ref = React.createRef<StepFormikRef<unknown>>()
+      const { container } = render(
         <TestStepWidget
           initialValues={fixedValues}
           type={StepType.SaveCacheS3}
           stepViewType={StepViewType.Edit}
           onUpdate={onUpdate}
+          ref={ref}
         />
       )
 
       expect(container).toMatchSnapshot()
 
-      await act(async () => {
-        fireEvent.click(getByTestId('submit'))
-      })
+      await act(() => ref.current?.submitForm())
       expect(onUpdate).toHaveBeenCalledWith(fixedValues)
     })
   })

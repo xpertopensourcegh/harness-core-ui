@@ -47,10 +47,13 @@
 }
 
 .fieldsSection {
-  // TODO: Replace color once it is available in UIKit
-  border-bottom: 1px solid #d9dae6;
   padding-bottom: var(--spacing-xlarge);
   margin-bottom: var(--spacing-xlarge);
+
+  &:not(:last-child) {
+    // TODO: Replace color once it is available in UIKit
+    border-bottom: 1px solid #d9dae6;
+  }
 
   :global {
     .bp3-popover-wrapper {

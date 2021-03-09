@@ -19,7 +19,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
-import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
@@ -37,7 +37,7 @@ export const ECRStepBase = (
 ): JSX.Element => {
   const {
     state: { pipelineView },
-    updatePipelineView,
+
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -59,14 +59,6 @@ export const ECRStepBase = (
   // const values = getInitialValuesInCorrectFormat<ECRStepData, ECRStepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-
-  const handleCancelClick = (): void => {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: false,
-      drawerData: { type: DrawerTypes.StepConfig }
-    })
-  }
 
   return (
     <Formik
@@ -279,16 +271,6 @@ export const ECRStepBase = (
                 }}
               />
               <StepCommonFields />
-            </div>
-            <div className={css.buttonsWrapper}>
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('save')}
-                margin={{ right: 'xxlarge' }}
-                data-testid={'submit'}
-              />
-              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
             </div>
           </FormikForm>
         )
