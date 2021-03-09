@@ -161,7 +161,7 @@ const ManifestListView = ({
     }
   }
 
-  const handleSubmit = (manifestObj: any) => {
+  const handleSubmit = (manifestObj: any): void => {
     manifestObj = {
       ...manifestObj,
       manifest: {

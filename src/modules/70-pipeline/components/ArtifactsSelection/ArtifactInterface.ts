@@ -10,7 +10,7 @@ export type CreationType = 'Dockerhub' | 'Gcr'
 export interface OrganizationCreationType {
   type: CreationType
 }
-enum TagTypes {
+export enum TagTypes {
   Value = 'value',
   Regex = 'regex'
 }
@@ -25,6 +25,7 @@ export interface ImagePathTypes {
   tagRegex: string
   tagType: TagTypes
   registryHostname?: string
+  region?: string
 }
 
 export interface ImagePathProps {
@@ -32,13 +33,7 @@ export interface ImagePathProps {
   name: string
   context: number
   initialValues: ImagePathTypes
-  handleSubmit: (data: {
-    connectorId: undefined | { value: string }
-    imagePath: string
-    tag?: string
-    tagRegex?: string
-    identifier?: string
-  }) => void
+  handleSubmit: (data: any) => void
 }
 
 export interface ConnectorRefLabelType {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, useModalHook, RUNTIME_INPUT_VALUE, StepWizard, StepProps } from '@wings-software/uicore'
+import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 
@@ -32,15 +32,9 @@ import type {
   ConnectorDataType,
   ConnectorRefLabelType,
   CreationType,
-  ImagePathProps,
-  ImagePathTypes
+  ImagePathProps
 } from './ArtifactInterface'
 import css from './ArtifactsSelection.module.scss'
-
-enum TagTypes {
-  Value = 'value',
-  Regex = 'regex'
-}
 
 const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
   DockerRegistry: 'Dockerhub',
@@ -260,94 +254,32 @@ export default function ArtifactsSelection({
     refetchConnectorList()
   }, [stage])
 
-  const addArtifact = (data: {
-    connectorId: undefined | { value: string }
-    imagePath: string
-    identifier?: string
-    tag?: string
-    tagRegex?: string
-    tagType?: string
-    registryHostname?: string
-    region?: { name: string; value: string }
-  }): void => {
-    const tagData =
-      data.tagType === TagTypes.Value
-        ? { tag: data.tag }
-        : data.tagType === TagTypes.Regex
-        ? { tagRegex: data.tagRegex }
-        : { tag: '' }
-
-    const registryHostData = selectedArtifact === Connectors.GCP ? { registryHostname: data.registryHostname } : {}
+  const addArtifact = (artifactObj: any): void => {
+    artifactObj = {
+      ...artifactObj,
+      type: ENABLED_ARTIFACT_TYPES[selectedArtifact]
+    }
 
     if (context === ModalViewFor.PRIMARY) {
       if (isPropagating) {
-        artifacts['primary'] = {
-          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-          spec: {
-            connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-            imagePath: data.imagePath,
-            ...tagData,
-            ...registryHostData
-          }
-        }
+        artifacts['primary'] = { ...artifactObj }
       } else {
         if (isForOverrideSets) {
           artifacts.map(
             (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
               if (artifact?.overrideSet?.identifier === identifierName) {
-                const sideCars = artifact?.overrideSet.artifacts.sidecars
                 artifact.overrideSet.artifacts = {
-                  primary: {
-                    type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-                    identifier: data.identifier,
-                    spec: {
-                      connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-                      imagePath: data.imagePath,
-                      ...tagData,
-                      ...(selectedArtifact === Connectors.GCP ? { registryHostname: data.registryHostname } : {})
-                    }
-                  }
-                }
-                if (sideCars) {
-                  artifact.overrideSet.artifacts['sidecars'] = sideCars
+                  ...artifact.overrideSet.artifacts,
+                  primary: { ...artifactObj }
                 }
               }
             }
           )
         } else {
-          set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {
-            type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-            spec: {
-              connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-              imagePath: data.imagePath,
-              ...tagData,
-              ...registryHostData
-            }
-          })
+          set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', { ...artifactObj })
         }
       }
     } else {
-      const sideCarObject: {
-        type: string
-        identifier: string
-        spec: {
-          connectorRef: string | undefined | { value: string }
-          imagePath: string
-          tag?: string
-          tagRegex?: string
-          registryHostname?: string
-        }
-      } = {
-        type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-        identifier: data.identifier as string,
-        spec: {
-          connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-          imagePath: data.imagePath,
-          ...tagData,
-          ...registryHostData
-        }
-      }
-
       if (isForOverrideSets) {
         artifacts.map(
           (artifact: {
@@ -355,13 +287,11 @@ export default function ArtifactsSelection({
           }) => {
             if (artifact?.overrideSet?.identifier === identifierName) {
               if (artifact.overrideSet.artifacts['sidecars']) {
-                artifact.overrideSet.artifacts['sidecars'].push({ sidecar: sideCarObject })
+                artifact.overrideSet.artifacts['sidecars'].push({ sidecar: artifactObj })
               } else {
-                const primary = artifact.overrideSet.artifacts?.primary || null
-
                 artifact.overrideSet.artifacts = {
-                  primary: primary,
-                  sidecars: [{ sidecar: sideCarObject }]
+                  ...artifact.overrideSet.artifacts,
+                  sidecars: [{ sidecar: artifactObj }]
                 }
               }
             }
@@ -369,141 +299,23 @@ export default function ArtifactsSelection({
         )
       } else {
         if (sideCarArtifact?.length) {
-          sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
+          sideCarArtifact.splice(sidecarIndex, 1, { sidecar: artifactObj })
         } else {
-          sideCarArtifact.push({ sidecar: sideCarObject })
+          sideCarArtifact.push({ sidecar: artifactObj })
         }
       }
     }
+
     updatePipeline(pipeline)
     hideConnectorModal()
   }
 
-  const addArtifactForEcr = (data: {
-    connectorId: undefined | { value: string }
-    identifier?: string
-    imagePath: string
-    region?: { name: string; value: string }
-  }): void => {
+  const getLastStepInitialData = (): any => {
     if (context === ModalViewFor.PRIMARY) {
-      if (isPropagating) {
-        artifacts['primary'] = {
-          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-          spec: {
-            awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-            imagePath: data.imagePath,
-            region: data.region?.value
-          }
-        }
-      }
-      if (isForOverrideSets) {
-        artifacts.map(
-          (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
-            if (artifact?.overrideSet?.identifier === identifierName) {
-              const sideCars = artifact?.overrideSet.artifacts.sidecars
-              artifact.overrideSet.artifacts = {
-                primary: {
-                  type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-                  identifier: data.identifier,
-                  spec: {
-                    awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-                    imagePath: data.imagePath,
-                    region: data.region?.value
-                  }
-                }
-              }
-              if (sideCars) {
-                artifact.overrideSet.artifacts['sidecars'] = sideCars
-              }
-            }
-          }
-        )
-      } else {
-        set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {
-          type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-          spec: {
-            awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-            imagePath: data.imagePath,
-            region: data.region?.value
-          }
-        })
-      }
+      return primaryArtifact
     } else {
-      const sideCarObject: {
-        type: string
-        identifier: string
-        spec: {
-          awsConnector: string | undefined | { value: string }
-          imagePath: string
-          region: string | undefined
-        }
-      } = {
-        type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
-        identifier: data.identifier as string,
-        spec: {
-          awsConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-          imagePath: data.imagePath,
-          region: data.region?.value
-        }
-      }
-
-      if (isForOverrideSets) {
-        artifacts.map(
-          (artifact: {
-            overrideSet: { identifier: string; artifacts: { sidecars: [{ sidecar: object }]; primary: object } }
-          }) => {
-            if (artifact?.overrideSet?.identifier === identifierName) {
-              if (artifact.overrideSet.artifacts['sidecars']) {
-                artifact.overrideSet.artifacts['sidecars'].push({ sidecar: sideCarObject })
-              } else {
-                const primary = artifact.overrideSet.artifacts?.primary || null
-
-                artifact.overrideSet.artifacts = {
-                  primary: primary,
-                  sidecars: [{ sidecar: sideCarObject }]
-                }
-              }
-            }
-          }
-        )
-      } else {
-        if (sideCarArtifact?.length) {
-          sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
-        } else {
-          sideCarArtifact.push({ sidecar: sideCarObject })
-        }
-      }
+      return sideCarArtifact[sidecarIndex]?.sidecar
     }
-    updatePipeline(pipeline)
-    hideConnectorModal()
-  }
-
-  const getInitialValues = (): ImagePathTypes => {
-    let spec
-    if (context === ModalViewFor.PRIMARY) {
-      spec = primaryArtifact?.spec
-    } else {
-      spec = sideCarArtifact[sidecarIndex]?.sidecar.spec
-    }
-    if (!spec) {
-      return {
-        identifier: '',
-        imagePath: '',
-        tag: RUNTIME_INPUT_VALUE,
-        tagType: TagTypes.Value,
-        tagRegex: ''
-      }
-    }
-    const initialValues = {
-      identifier: sideCarArtifact[sidecarIndex]?.sidecar.identifier,
-      imagePath: spec.imagePath,
-      tagType: spec.tag ? TagTypes.Value : TagTypes.Regex,
-      tag: spec.tag,
-      tagRegex: spec.tagRegex,
-      ...(selectedArtifact === Connectors.GCP ? { registryHostname: spec.registryHostname } : {})
-    }
-
-    return initialValues
   }
 
   const getConnectorDataValues = (): ConnectorDataType => {
@@ -584,18 +396,9 @@ export default function ArtifactsSelection({
       key: getString('connectors.stepFourName'),
       name: getString('connectors.stepFourName'),
       context,
-      initialValues: getInitialValues(),
-      handleSubmit: (data: {
-        connectorId: undefined | { value: string }
-        imagePath: string
-        tag?: string
-        tagRegex?: string
-      }) => {
-        if (selectedArtifact === Connectors.AWS) {
-          addArtifactForEcr(data)
-        } else {
-          addArtifact(data)
-        }
+      initialValues: getLastStepInitialData(),
+      handleSubmit: (data: any) => {
+        addArtifact(data)
       }
     }
 
