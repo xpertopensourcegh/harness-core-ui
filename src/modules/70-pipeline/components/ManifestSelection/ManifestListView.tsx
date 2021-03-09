@@ -101,7 +101,7 @@ const ManifestListView = ({
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests')) {
-      set(stage as {}, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+      // set(stage as {}, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])

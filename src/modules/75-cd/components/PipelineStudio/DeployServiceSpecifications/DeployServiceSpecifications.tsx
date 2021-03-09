@@ -172,6 +172,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   const setDefaultServiceSchema = (): Promise<void> => {
     stage.stage.spec = {
+      ...stage.stage.spec,
       serviceConfig: {
         serviceRef: '',
         serviceDefinition: {
@@ -190,11 +191,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         }
       }
     }
+
     return debounceUpdatePipeline(pipeline)
   }
 
   const setStageOverrideSchema = (): Promise<void> => {
     stage.stage.spec = {
+      ...stage.stage.spec,
       serviceConfig: {
         ...stage?.stage?.spec.serviceConfig,
         stageOverrides: {
@@ -206,6 +209,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           variables: []
         }
       }
+    }
+    if (stage.stage.spec?.serviceConfig.serviceDefinition) {
+      delete stage.stage.spec?.serviceConfig.serviceDefinition
     }
     return debounceUpdatePipeline(pipeline)
   }
@@ -219,12 +225,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     if (_isChecked) {
       setStageOverrideSchema()
     } else {
-      setDefaultServiceSchema()
+      if (stage?.stage?.spec?.serviceConfig?.stageOverrides) {
+        delete stage?.stage?.spec?.serviceConfig?.stageOverrides
+      }
     }
   }
   React.useEffect(() => {
-    if (!stage?.stage?.spec?.service?.serviceDefinition?.type && !stage?.stage?.spec.service?.useFromStage) {
+    if (stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      debounceUpdatePipeline(pipeline)
+    }
+    if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition', {})
       debounceUpdatePipeline(pipeline)
     }
   }, [])
@@ -239,7 +251,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     const useFromStage = stage?.stage?.spec?.serviceConfig?.useFromStage
     const stageOverrides = stage?.stage?.spec?.serviceConfig?.stageOverrides
     const serviceDefinition = stage?.stage?.spec.serviceConfig?.serviceDefinition
-
     if (useFromStage) {
       setSetupMode(setupMode.PROPAGATE)
       if (previousStageList && previousStageList.length > 0) {
@@ -353,6 +364,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       setSetupMode(setupMode.DIFFERENT)
     })
   }
+
   return (
     <>
       {stageIndex > 0 && (
@@ -400,7 +412,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <Card className={css.sectionCard} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}
-                  initialValues={{ ...{ serviceRef: '' }, ...get(stage, 'stage.spec.serviceConfig', {}) }}
+                  initialValues={{ serviceRef: '', ...get(stage, 'stage.spec.serviceConfig', {}) }}
                   onUpdate={(value: ServiceConfig) => {
                     const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
                     if (value.service) {
