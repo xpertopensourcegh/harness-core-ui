@@ -9,9 +9,21 @@ enum OS {
 }
 
 const dropdownOptions: SelectOption[] = [
-  { label: OS.Mac, value: 'https://lightwing-downloads-temp.s3.ap-south-1.amazonaws.com/proxymanager.zip' },
-  { label: OS.Windows, value: 'https://lightwing-downloads-temp.s3.ap-south-1.amazonaws.com/proxymanager.zip' },
-  { label: OS.Linux, value: 'https://lightwing-downloads-temp.s3.ap-south-1.amazonaws.com/proxymanager.zip' }
+  {
+    label: OS.Mac,
+    value:
+      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_linux_amd64.zip'
+  },
+  {
+    label: OS.Windows,
+    value:
+      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_windows_amd64.zip'
+  },
+  {
+    label: OS.Linux,
+    value:
+      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_darwin_amd64.zip'
+  }
 ]
 
 const SSHSetup: React.FC = () => {
