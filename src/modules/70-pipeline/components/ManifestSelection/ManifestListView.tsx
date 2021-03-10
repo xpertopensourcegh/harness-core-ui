@@ -249,7 +249,10 @@ const ManifestListView = ({
     let manifestDetailStep = null
 
     switch (true) {
-      case selectedManifest === ManifestDataType.HelmChart && manifestStore === Connectors.GIT:
+      case selectedManifest === ManifestDataType.HelmChart &&
+        [Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET].includes(
+          manifestStore as ConnectorInfoDTO['type']
+        ):
         manifestDetailStep = <HelmWithGIT {...lastStepProps()} />
         break
       case selectedManifest === ManifestDataType.HelmChart && manifestStore === Connectors.HttpHelmRepo:
