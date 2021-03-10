@@ -1,6 +1,8 @@
 import type { ConnectorInfoDTO, PageConnectorResponse } from 'services/cd-ng'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 
+export type ManifestTypes = 'K8sManifest' | 'Values' | 'HelmChart'
+export type HelmVersionOptions = 'V2' | 'V3'
 export interface ManifestSelectionProps {
   isForOverrideSets?: boolean
   identifierName?: string
@@ -56,17 +58,15 @@ export interface HelmWithGITDataType {
   commitId: string | undefined
   gitFetchType: 'Branch' | 'Commit'
   paths: string
-  helmVersion: 'V2' | 'V3'
+  helmVersion: { label: string; value: HelmVersionOptions }
   skipResourceVersioning: boolean
   commandFlags: Array<CommandFlags>
 }
 export interface HelmWithHTTPDataType {
   identifier: string
-  helmVersion: 'V2' | 'V3'
+  helmVersion: { label: string; value: HelmVersionOptions }
   skipResourceVersioning: boolean
   chartName: string
   chartVersion: string
   commandFlags: Array<CommandFlags>
 }
-
-export type ManifestTypes = 'K8sManifest' | 'Values' | 'HelmChart'

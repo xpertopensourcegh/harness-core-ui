@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon } from '@wings-software/uicore'
@@ -38,18 +38,15 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
 
-  const [selectedManifest, setSelectedManifest] = useState(initialValues.store)
+  const selectedManifest = initialValues.store
 
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
-
   const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
     if (selected === selectedManifest) {
-      setSelectedManifest('')
       handleStoreChange('' as ConnectorInfoDTO['type'])
     } else {
-      setSelectedManifest(selected)
       handleStoreChange(selected)
     }
   }

@@ -5,6 +5,8 @@ declare const styles: {
   readonly halfWidth: string
   readonly helmAdvancedSteps: string
   readonly commandFlags: string
+  readonly runtimeInput: string
+  readonly advancedStepOpen: string
   readonly checkbox: string
   readonly tooltip: string
   readonly tooltipContent: string

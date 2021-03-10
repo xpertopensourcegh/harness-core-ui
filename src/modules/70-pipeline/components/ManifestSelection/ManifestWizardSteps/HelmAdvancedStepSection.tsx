@@ -1,12 +1,13 @@
 import React from 'react'
 import { Layout, Button, FormInput, MultiTypeInputType, Color, Icon } from '@wings-software/uicore'
 import { Tooltip } from '@blueprintjs/core'
+import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-
 import { FieldArray } from 'formik'
 
 import { String, useStrings } from 'framework/exports'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { FormMultiTypeCheckboxField } from '@common/components'
 import type { CommandFlags, HelmWithGITDataType } from '../ManifestInterface'
 import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -39,11 +40,11 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
 
   return (
     <div className={helmcss.helmAdvancedSteps}>
-      <Layout.Horizontal>
-        <FormInput.CheckBox
+      <Layout.Horizontal width={'90%'} flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+        <FormMultiTypeCheckboxField
           name="skipResourceVersioning"
           label={getString('skipResourceVersion')}
-          className={helmcss.checkbox}
+          className={cx(helmcss.checkbox, helmcss.halfWidth)}
         />
         <Tooltip
           position="top"
@@ -63,7 +64,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
         >
           <FieldArray
             name="commandFlags"
-            render={arrayHelpers => (
+            render={({ push, remove }) => (
               <Layout.Vertical>
                 {formik.values?.commandFlags?.map((commandFlag: CommandFlags, index: number) => (
                   <Layout.Horizontal key={commandFlag.id} spacing="xxlarge" flex margin={{ top: 'small' }}>
@@ -86,25 +87,23 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
                         />
 
                         {formik.values?.commandFlags?.length > 1 && (
-                          <Button
-                            minimal
-                            icon="minus"
-                            onClick={() => arrayHelpers.remove(index)}
-                            style={{ alignSelf: 'center' }}
-                          />
+                          <Button minimal icon="minus" onClick={() => remove(index)} style={{ alignSelf: 'center' }} />
                         )}
                       </Layout.Horizontal>
                     </div>
                   </Layout.Horizontal>
                 ))}
-                <span>
-                  <Button
-                    minimal
-                    text={getString('add')}
-                    intent="primary"
-                    onClick={() => arrayHelpers.push({ commandType: '', flag: '', id: uuid('', nameSpace()) })}
-                  />
-                </span>
+                {!!(formik.values?.commandFlags?.length < commandFlagOptions.length) && (
+                  <span>
+                    <Button
+                      minimal
+                      text={getString('add')}
+                      intent="primary"
+                      style={{ marginTop: 'var(--spacing-medium)', marginBottom: 80 }}
+                      onClick={() => push({ commandType: '', flag: '', id: uuid('', nameSpace()) })}
+                    />
+                  </span>
+                )}
               </Layout.Vertical>
             )}
           />

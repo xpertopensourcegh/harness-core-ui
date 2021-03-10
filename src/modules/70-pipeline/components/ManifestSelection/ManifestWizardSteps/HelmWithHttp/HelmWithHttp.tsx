@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Text,
   Accordion,
@@ -13,10 +13,12 @@ import {
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
+import cx from 'classnames'
 import { get } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
@@ -48,7 +50,6 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
   handleSubmit,
   previousStep
 }) => {
-  const [defaultHelmVersion, setHelmVersion] = useState(initialValues?.spec?.helmVersion || 'V2')
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
 
@@ -59,7 +60,9 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
-        helmVersion: initialValues.spec?.helmVersion,
+        helmVersion:
+          helmVersions.find(version => version.value === initialValues.spec?.helmVersion) ||
+          initialValues.spec?.helmVersion,
         chartName: initialValues.spec?.chartName,
         chartVersion: initialValues.spec?.chartVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
@@ -73,7 +76,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
     }
     return {
       identifier: '',
-      helmVersion: 'V2',
+      helmVersion: helmVersions[0],
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
@@ -93,7 +96,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           },
           chartName: formData?.chartName,
           chartVersion: formData?.chartVersion,
-          helmVersion: formData?.helmVersion,
+          helmVersion: formData?.helmVersion.value ? formData?.helmVersion.value : formData?.helmVersion,
           skipResourceVersioning: formData?.skipResourceVersioning
         }
       }
@@ -149,17 +152,45 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
                   className={helmcss.halfWidth}
                 />
-                <FormInput.Select
-                  name="helmVersion"
-                  label={getString('helmVersion')}
-                  items={helmVersions}
-                  className={helmcss.halfWidth}
-                  onChange={version => {
-                    setHelmVersion(version.value)
-                  }}
-                />
+                <div
+                  className={cx(helmcss.halfWidth, {
+                    [helmcss.runtimeInput]:
+                      getMultiTypeFromValue(formik.values?.helmVersion) === MultiTypeInputType.RUNTIME
+                  })}
+                >
+                  <FormInput.MultiTypeInput
+                    name="helmVersion"
+                    multiTypeInputProps={{
+                      selectProps: {
+                        defaultSelectedItem: formik.values?.helmVersion,
+                        items: helmVersions
+                      }
+                    }}
+                    label={getString('helmVersion')}
+                    selectItems={helmVersions}
+                  />
+                  {getMultiTypeFromValue(formik.values?.helmVersion) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={(formik.values?.helmVersion as unknown) as string}
+                      type="String"
+                      variableName="helmVersion"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('helmVersion', value)
+                      }}
+                    />
+                  )}
+                </div>
               </Layout.Vertical>
-              <Accordion activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}>
+              <Accordion
+                activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                className={cx({
+                  [helmcss.advancedStepOpen]: isActiveAdvancedStep
+                })}
+              >
                 <Accordion.Panel
                   id={getString('advancedTitle')}
                   addDomId={true}
@@ -167,7 +198,9 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   details={
                     <HelmAdvancedStepSection
                       formik={formik}
-                      commandFlagOptions={defaultHelmVersion === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3}
+                      commandFlagOptions={
+                        formik.values?.helmVersion?.value === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3
+                      }
                     />
                   }
                 />

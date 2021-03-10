@@ -1,5 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
-import type { ManifestTypes } from './ManifestInterface'
+import type { HelmVersionOptions, ManifestTypes } from './ManifestInterface'
 
 export const ManifestDataType: { [key: string]: ManifestTypes } = {
   K8sManifest: 'K8sManifest',
@@ -25,7 +25,7 @@ export const manifestTypeText: Record<string, string> = {
   HelmChart: 'Helm Chart'
 }
 
-export const helmVersions = [
+export const helmVersions: Array<{ label: string; value: HelmVersionOptions }> = [
   { label: 'Version 2', value: 'V2' },
   { label: 'Version 3', value: 'V3' }
 ]

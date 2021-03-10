@@ -60,7 +60,7 @@ const ManifestListView = ({
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = useState(false)
-  const [manifestStore, setManifestStore] = useState('')
+  const [manifestStore, setManifestStore] = useState<ConnectorInfoDTO['type'] | string>('')
   const [isEditMode, setIsEditMode] = useState(false)
   const [manifestIndex, setEditIndex] = useState(0)
 
@@ -135,8 +135,9 @@ const ManifestListView = ({
     showConnectorModal()
   }
 
-  const editManifest = (manifestType: ManifestTypes, index: number): void => {
+  const editManifest = (manifestType: ManifestTypes, store: ConnectorInfoDTO['type'] | string, index: number): void => {
     setSelectedManifest(manifestType)
+    setManifestStore(store)
     setConnectorView(false)
     setEditIndex(index)
     showConnectorModal()
@@ -312,9 +313,10 @@ const ManifestListView = ({
     }
     const storeTypes = manifestStoreTypes
     // Connectors.HttpHelmRepo is commented till BE is ready
-    //  const storeTypes = selectedManifest === ManifestDataType.HelmChart
-    //   ? [...manifestStoreTypes, Connectors.HttpHelmRepo]
-    //   : manifestStoreTypes
+    // const storeTypes =
+    //   selectedManifest === ManifestDataType.HelmChart
+    //     ? [...manifestStoreTypes, Connectors.HttpHelmRepo]
+    //     : manifestStoreTypes
 
     return (
       <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>
@@ -424,7 +426,11 @@ const ManifestListView = ({
                     {!overrideSetIdentifier?.length && (
                       <span className={css.lastColumn}>
                         <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                          <Icon name="Edit" size={16} onClick={() => editManifest(manifest.type, index)} />
+                          <Icon
+                            name="Edit"
+                            size={16}
+                            onClick={() => editManifest(manifest.type, manifest.spec.store.type, index)}
+                          />
                           {/* <Icon
                               name="main-clone"
                               size={16}
