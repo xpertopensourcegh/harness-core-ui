@@ -35,6 +35,7 @@ import {
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { useStrings } from 'framework/exports'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -170,6 +171,7 @@ const AnimatedGraphicContainer: React.FC<AnimatedGraphicContainerProps> = props 
 }
 
 const COGatewayList: React.FC = () => {
+  const { getString } = useStrings()
   const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
@@ -463,7 +465,7 @@ const COGatewayList: React.FC = () => {
             links={[
               {
                 url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
-                label: 'Autostopping Rules'
+                label: getString('ce.co.breadCrumb.rules')
               }
             ]}
           />
@@ -478,13 +480,11 @@ const COGatewayList: React.FC = () => {
             {/* <img src={landingPageSVG} alt="" width="300px"></img> */}
             <AnimatedGraphicContainer imgList={landingPageGraphicsImages} />
             <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
-              AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you)
-              only when you’re using them, and never when they are idle. Additionally, run your workloads on fully
-              orchestrated spot instances without any worry of spot interruptions. <Link href="/">Learn more</Link>
+              {getString('ce.co.landingPageText')} <Link href="/">Learn more</Link>
             </Text>
             <Button
               intent="primary"
-              text="New Autostopping Rule"
+              text={getString('ce.co.newAutoStoppingRule')}
               icon="plus"
               onClick={() =>
                 history.push(
@@ -502,7 +502,7 @@ const COGatewayList: React.FC = () => {
         <>
           {
             <>
-              <Page.Header title="Autostopping Rules" className={css.header} />
+              <Page.Header title={getString('ce.co.breadCrumb.rules')} className={css.header} />
               <Drawer
                 autoFocus={true}
                 enforceFocus={true}
@@ -529,7 +529,7 @@ const COGatewayList: React.FC = () => {
                   <Layout.Horizontal width="55%">
                     <Button
                       intent="primary"
-                      text="New Autostopping Rule"
+                      text={getString('ce.co.newAutoStoppingRule')}
                       icon="plus"
                       onClick={() =>
                         history.push(
