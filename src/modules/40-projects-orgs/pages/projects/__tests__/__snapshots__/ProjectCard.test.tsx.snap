@@ -1182,7 +1182,7 @@ exports[`Project Card Functionality Test Click on CE 1`] = `
     <div
       data-testid="location"
     >
-      /account/kmpySmUISimoRrJL6NL73w/ce/home
+      /account/testAcc/ce/home
     </div>
   </div>
 </div>
