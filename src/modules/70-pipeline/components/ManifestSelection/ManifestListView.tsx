@@ -60,7 +60,7 @@ const ManifestListView = ({
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = React.useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = React.useState(false)
-  const [manifestStore, setManifestStore] = React.useState(Connectors.GIT)
+  const [manifestStore, setManifestStore] = React.useState('')
   const [isEditMode, setIsEditMode] = React.useState(false)
   const [manifestIndex, setEditIndex] = React.useState(0)
 
@@ -266,9 +266,13 @@ const ManifestListView = ({
   const getNewConnectorSteps = (): JSX.Element => {
     return (
       <StepWizard title={getString('connectors.createNewConnector')}>
-        <ConnectorDetailsStep type={manifestStore} name={getString('overview')} isEditMode={isEditMode} />
+        <ConnectorDetailsStep
+          type={manifestStore as ConnectorInfoDTO['type']}
+          name={getString('overview')}
+          isEditMode={isEditMode}
+        />
         <GitDetailsStep
-          type={manifestStore}
+          type={manifestStore as ConnectorInfoDTO['type']}
           name={getString('details')}
           isEditMode={isEditMode}
           connectorInfo={undefined}
@@ -301,6 +305,7 @@ const ManifestListView = ({
     const onClose = (): void => {
       setConnectorView(false)
       hideConnectorModal()
+      setManifestStore('')
     }
     const storeTypes = manifestStoreTypes
     // Connectors.HttpHelmRepo is commented till BE is ready

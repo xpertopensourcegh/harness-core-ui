@@ -130,7 +130,13 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
               <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                intent="primary"
+                type="submit"
+                text={getString('continue')}
+                rightIcon="chevron-right"
+                disabled={!selectedManifest}
+              />
             </Layout.Horizontal>
           </Form>
         )}

@@ -4,7 +4,6 @@ import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { Connectors } from '@connectors/constants'
 import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ManifestRepoTypes } from '../ManifestWizardSteps/ManifestRepoTypes'
 import ManifestStore from '../ManifestWizardSteps/ManifestStore'
@@ -49,7 +48,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
 
   const onStepChange = (arg: StepChangeData<any>): void => {
     if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep) {
-      handleViewChange(false, Connectors.GIT)
+      handleViewChange(false, '' as ConnectorInfoDTO['type'])
     }
   }
 
