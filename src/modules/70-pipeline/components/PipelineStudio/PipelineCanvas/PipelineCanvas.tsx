@@ -14,7 +14,6 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import type { Failure } from 'services/pipeline-ng'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -78,22 +77,17 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
   const [isYamlError, setYamlError] = React.useState(false)
 
   const saveAndPublish = React.useCallback(async () => {
-    let response: Failure | undefined
     let latestPipeline: NgPipeline = pipeline
+
     if (isYaml && yamlHandler) {
       latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
-      response = await savePipeline(
-        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-        latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
-      )
-    } else {
-      response = await savePipeline(
-        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-        latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
-      )
     }
+
+    const response = await savePipeline(
+      { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+      latestPipeline,
+      pipelineIdentifier !== DefaultNewPipelineId
+    )
 
     const newPipelineId = latestPipeline?.identifier
 
