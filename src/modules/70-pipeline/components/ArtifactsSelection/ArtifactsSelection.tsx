@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -59,14 +59,14 @@ export default function ArtifactsSelection({
     },
     getStageFromPipeline,
     updatePipeline
-  } = React.useContext(PipelineContext)
+  } = useContext(PipelineContext)
 
-  const [isEditMode, setIsEditMode] = React.useState(false)
-  const [selectedArtifact, setSelectedArtifact] = React.useState(Connectors.DOCKER)
-  const [connectorView, setConnectorView] = React.useState(false)
-  const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
-  const [sidecarIndex, setEditIndex] = React.useState(0)
-  const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [selectedArtifact, setSelectedArtifact] = useState(Connectors.DOCKER)
+  const [connectorView, setConnectorView] = useState(false)
+  const [context, setModalContext] = useState(ModalViewFor.PRIMARY)
+  const [sidecarIndex, setEditIndex] = useState(0)
+  const [fetchedConnectorResponse, setFetchedConnectorResponse] = useState<PageConnectorResponse | undefined>()
 
   const { getString } = useStrings()
 
@@ -121,7 +121,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts', {})
   }
 
-  const getPrimaryArtifactPath = React.useCallback((): any => {
+  const getPrimaryArtifactPath = useCallback((): any => {
     if (isForOverrideSets) {
       return getPrimaryArtifactByIdentifier()
     }
@@ -148,7 +148,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
   }, [stage])
 
-  const getSidecarPath = React.useCallback((): any => {
+  const getSidecarPath = useCallback((): any => {
     if (isForOverrideSets) {
       return getSidecarArtifactByIdentifier()
     }
@@ -250,7 +250,7 @@ export default function ArtifactsSelection({
     setFetchedConnectorResponse(connectorResponse)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     refetchConnectorList()
   }, [stage])
 
@@ -413,7 +413,7 @@ export default function ArtifactsSelection({
     }
   }
 
-  const getNewConnectorSteps = React.useCallback((): JSX.Element => {
+  const getNewConnectorSteps = useCallback((): JSX.Element => {
     if (selectedArtifact === Connectors.DOCKER) {
       return (
         <StepWizard title={getString('connectors.createNewConnector')}>
@@ -455,7 +455,7 @@ export default function ArtifactsSelection({
         />
       </StepWizard>
     )
-  }, [connectorView])
+  }, [connectorView, selectedArtifact])
 
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []

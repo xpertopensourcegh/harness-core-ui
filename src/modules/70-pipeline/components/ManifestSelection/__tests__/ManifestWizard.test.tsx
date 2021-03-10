@@ -9,7 +9,8 @@ describe('ManifestSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <ManifestWizard
-          handleViewChange={jest.fn()}
+          handleConnectorViewChange={jest.fn()}
+          handleStoreChange={jest.fn()}
           initialValues={{} as ManifestStepInitData}
           types={[]}
           manifestStoreTypes={[]}
@@ -40,7 +41,8 @@ describe('ManifestSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <ManifestWizard
-          handleViewChange={jest.fn()}
+          handleConnectorViewChange={jest.fn()}
+          handleStoreChange={jest.fn()}
           initialValues={initialValues as ManifestStepInitData}
           types={[]}
           manifestStoreTypes={['Git', 'Github', 'Gitlab', 'Bitbucket']}

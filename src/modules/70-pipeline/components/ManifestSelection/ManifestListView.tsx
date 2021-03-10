@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Layout, Text, Icon, Color, useModalHook, StepWizard, StepProps, Button } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -58,11 +58,11 @@ const ManifestListView = ({
   connectors,
   refetchConnectors
 }: ManifestListViewProps): JSX.Element => {
-  const [selectedManifest, setSelectedManifest] = React.useState(allowedManifestTypes[0])
-  const [connectorView, setConnectorView] = React.useState(false)
-  const [manifestStore, setManifestStore] = React.useState('')
-  const [isEditMode, setIsEditMode] = React.useState(false)
-  const [manifestIndex, setEditIndex] = React.useState(0)
+  const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
+  const [connectorView, setConnectorView] = useState(false)
+  const [manifestStore, setManifestStore] = useState('')
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [manifestIndex, setEditIndex] = useState(0)
 
   const DIALOG_PROPS: IDialogProps = {
     isOpen: true,
@@ -77,7 +77,7 @@ const ManifestListView = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
 
-  const getManifestList = React.useCallback(() => {
+  const getManifestList = useCallback(() => {
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
@@ -206,9 +206,12 @@ const ManifestListView = ({
     setSelectedManifest(selected)
   }
 
-  const handleViewChange = (isConnectorView: boolean, store: ConnectorInfoDTO['type']): void => {
+  const handleConnectorViewChange = (isConnectorView: boolean): void => {
     setConnectorView(isConnectorView)
-    setManifestStore(store)
+  }
+
+  const handleStoreChange = (store?: ConnectorInfoDTO['type']): void => {
+    setManifestStore(store || '')
   }
 
   const lastStepProps = (): ManifestLastStepProps => {
@@ -263,7 +266,7 @@ const ManifestListView = ({
     return arr
   }
 
-  const getNewConnectorSteps = (): JSX.Element => {
+  const getNewConnectorSteps = useCallback((): JSX.Element => {
     return (
       <StepWizard title={getString('connectors.createNewConnector')}>
         <ConnectorDetailsStep
@@ -299,7 +302,7 @@ const ManifestListView = ({
         />
       </StepWizard>
     )
-  }
+  }, [connectorView])
 
   const [showConnectorModal, hideConnectorModal] = useModalHook(() => {
     const onClose = (): void => {
@@ -323,7 +326,8 @@ const ManifestListView = ({
             selectedManifest={selectedManifest}
             newConnectorView={connectorView}
             changeManifestType={changeManifestType}
-            handleViewChange={handleViewChange}
+            handleConnectorViewChange={handleConnectorViewChange}
+            handleStoreChange={handleStoreChange}
             initialValues={getInitialValues()}
             newConnectorSteps={getNewConnectorSteps()}
             lastSteps={getLastSteps()}
@@ -333,7 +337,7 @@ const ManifestListView = ({
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
       </Dialog>
     )
-  }, [selectedManifest, connectorView, manifestIndex])
+  }, [selectedManifest, connectorView, manifestIndex, manifestStore])
 
   return (
     <Layout.Vertical spacing="small">

@@ -18,7 +18,8 @@ interface StepChangeData<SharedObject> {
 }
 
 interface ManifestWizardStepsProps {
-  handleViewChange: (isConnectorView: boolean, selectedStore: ConnectorInfoDTO['type']) => void
+  handleConnectorViewChange: (isConnectorView: boolean) => void
+  handleStoreChange: (store?: ConnectorInfoDTO['type']) => void
   initialValues: ManifestStepInitData
   types: Array<ManifestTypes>
   manifestStoreTypes: Array<ConnectorInfoDTO['type']>
@@ -32,7 +33,8 @@ interface ManifestWizardStepsProps {
 }
 
 export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
-  handleViewChange,
+  handleConnectorViewChange,
+  handleStoreChange,
   initialValues,
   types,
   manifestStoreTypes,
@@ -48,7 +50,8 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
 
   const onStepChange = (arg: StepChangeData<any>): void => {
     if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep) {
-      handleViewChange(false, '' as ConnectorInfoDTO['type'])
+      handleConnectorViewChange(false)
+      handleStoreChange()
     }
   }
 
@@ -78,9 +81,8 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
         stepName={labels.secondStepName}
         newConnectorLabel={labels.newConnector}
         manifestStoreTypes={manifestStoreTypes}
-        handleViewChange={selectedStore => {
-          handleViewChange(true, selectedStore)
-        }}
+        handleConnectorViewChange={() => handleConnectorViewChange(true)}
+        handleStoreChange={handleStoreChange}
         initialValues={initialValues}
       />
       {newConnectorView ? newConnectorSteps : null}

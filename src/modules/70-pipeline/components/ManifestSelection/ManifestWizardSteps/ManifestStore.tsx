@@ -19,11 +19,13 @@ interface ManifestStorePropType {
   newConnectorLabel: string
   manifestStoreTypes: Array<ConnectorInfoDTO['type']>
   initialValues: ManifestStepInitData
-  handleViewChange: (selectedStore: ConnectorInfoDTO['type']) => void
+  handleConnectorViewChange: () => void
+  handleStoreChange: (store: ConnectorInfoDTO['type']) => void
 }
 
 const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropType> = ({
-  handleViewChange,
+  handleConnectorViewChange,
+  handleStoreChange,
   stepName,
   manifestStoreTypes,
   initialValues,
@@ -45,8 +47,10 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
     if (selected === selectedManifest) {
       setSelectedManifest('')
+      handleStoreChange('' as ConnectorInfoDTO['type'])
     } else {
       setSelectedManifest(selected)
+      handleStoreChange(selected)
     }
   }
 
@@ -120,7 +124,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     className={css.addNewManifest}
                     icon="plus"
                     onClick={() => {
-                      handleViewChange(selectedManifest as ConnectorInfoDTO['type'])
+                      handleConnectorViewChange()
                       nextStep?.({ ...prevStepData, store: selectedManifest })
                     }}
                   />
