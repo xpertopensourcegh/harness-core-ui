@@ -15,3 +15,13 @@
   padding-left: var(--spacing-xlarge) !important;
   margin-right: var(--spacing-medium) !important;
 }
+
+.tooltip {
+  > * {
+    width: 50%;
+  }
+}
+
+.tooltipContent {
+  width: 200px;
+}

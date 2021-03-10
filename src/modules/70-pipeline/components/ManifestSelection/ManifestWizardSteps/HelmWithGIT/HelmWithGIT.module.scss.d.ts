@@ -6,5 +6,7 @@ declare const styles: {
   readonly helmAdvancedSteps: string
   readonly commandFlags: string
   readonly checkbox: string
+  readonly tooltip: string
+  readonly tooltipContent: string
 }
 export default styles
