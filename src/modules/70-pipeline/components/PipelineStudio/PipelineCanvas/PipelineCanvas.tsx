@@ -17,7 +17,7 @@ import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipel
 import type { Failure } from 'services/pipeline-ng'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
-import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
@@ -32,7 +32,15 @@ export interface PipelineCanvasProps {
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, toPipelineStudio }): JSX.Element => {
-  const { state, updatePipeline, deletePipelineCache, fetchPipeline, view, setView } = React.useContext(PipelineContext)
+  const {
+    state,
+    updatePipeline,
+    deletePipelineCache,
+    fetchPipeline,
+    view,
+    setView,
+    updatePipelineView
+  } = React.useContext(PipelineContext)
 
   const { pipeline, isUpdated, isLoading, isInitialized, originalPipeline, yamlHandler, isBEPipelineUpdated } = state
   // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
@@ -95,26 +103,20 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
 
         showSuccess(getString('pipelines-studio.publishPipeline'))
 
-        if (isYaml) {
-          history.replace(
-            toPipelineStudio({
-              projectIdentifier,
-              orgIdentifier,
-              pipelineIdentifier: newPipelineId,
-              accountId,
-              module
-            })
-          )
-        } else {
-          history.replace(
-            toPipelineStudio({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId, accountId, module })
-          )
-        }
+        history.replace(
+          toPipelineStudio({
+            projectIdentifier,
+            orgIdentifier,
+            pipelineIdentifier: newPipelineId,
+            accountId,
+            module
+          })
+        )
         // note: without setTimeout does not redirect properly after save
         setTimeout(() => location.reload(), 250)
-      } else {
-        fetchPipeline(true, true)
       }
+
+      fetchPipeline(true, true)
     } else {
       showError(response?.message || getString('errorWhileSaving'))
     }
@@ -210,6 +212,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
       }
     }
     setView(newView)
+    updatePipelineView({
+      splitViewData: {},
+      isDrawerOpened: false,
+      isSplitViewOpen: false,
+      drawerData: { type: DrawerTypes.AddStep }
+    })
   }
 
   if (isLoading) {
