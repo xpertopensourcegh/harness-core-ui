@@ -1204,6 +1204,7 @@ validation:
   accessToken: Access token is required
   dockerRegistryUrl: 'Docker Registry URL is required'
   helmRepoUrl: 'Helm Repo URL is required.'
+  jiraUrl: 'Jira Url is required.'
   registryHostname: 'GCR Registry URL is required'
   nexusServerURL: 'Nexus URL is required'
   nexusVersion: 'Version is required'
@@ -1356,6 +1357,8 @@ connectors:
       git: Validating the Git authentication and permissions
   httpHelm:
     httpHelmRepoUrl: 'Helm Repo URL'
+  jira:
+    jiraUrl: 'Jira URL'
   k8:
     delegateOutClusterInfo: 'Specify master url and credentials'
     delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'

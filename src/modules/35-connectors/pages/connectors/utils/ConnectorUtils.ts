@@ -701,6 +701,48 @@ export const buildDockerPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
+export const buildJiraPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    identifier: formData.identifier,
+    projectIdentifier: formData.projectIdentifier,
+    orgIdentifier: formData.orgIdentifier,
+    type: Connectors.Jira,
+    spec: {
+      jiraUrl: formData.jiraUrl,
+
+      username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+      usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
+      passwordRef: formData.passwordRef.referenceString
+    }
+  }
+  return { connector: savedData }
+}
+
+export const setupJiraFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    jiraUrl: connectorInfo.spec.jiraUrl,
+
+    username:
+      connectorInfo.spec.username || connectorInfo.spec.usernameRef
+        ? {
+            value: connectorInfo.spec.username || connectorInfo.spec.usernameRef,
+            type: connectorInfo.spec.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
+    passwordRef: await setSecretField(connectorInfo.spec.passwordRef, scopeQueryParams)
+  }
+  return formData
+}
+
 export const buildHelmPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -887,6 +929,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-artifactory'
     case Connectors.GCP:
       return 'service-gcp'
+    case Connectors.Jira:
+      return 'service-jira'
     default:
       return 'cog'
   }

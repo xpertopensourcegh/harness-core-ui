@@ -17,6 +17,7 @@ import CreateNexusConnector from '../CreateConnector/NexusConnector/CreateNexusC
 import CreateArtifactoryConnector from '../CreateConnector/ArtifactoryConnector/CreateArtifactoryConnector'
 import CreateGcpConnector from '../CreateConnector/GcpConnector/CreateGcpConnector'
 import HelmRepoConnector from '../CreateConnector/HelmRepoConnector/HemRepoConnector'
+import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -56,6 +57,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateBitbucketConnector {...commonProps} />
     case Connectors.VAULT:
       return <CreateHashiCorpVault {...commonProps} />
+    case Connectors.Jira:
+      return <JiraConnector {...commonProps} />
     case Connectors.APP_DYNAMICS:
       return (
         <CreateAppDynamicsConnector

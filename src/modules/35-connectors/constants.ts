@@ -52,7 +52,8 @@ export const Connectors: ConnectorType = {
   NEXUS: 'Nexus',
   ARTIFACTORY: 'Artifactory',
   CEAWS: 'CEAws',
-  HttpHelmRepo: 'HttpHelmRepo'
+  HttpHelmRepo: 'HttpHelmRepo',
+  Jira: 'Jira'
 }
 
 export const ConnectorInfoText = {
