@@ -161,7 +161,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                             <section className={css.actionButtons}>
                               <Button
                                 icon="edit"
-                                tooltip={<String stringID="common.editVariable" />}
+                                tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
                                 data-testid={`edit-variable-${index}`}
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
@@ -170,7 +170,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               <Button
                                 icon="trash"
                                 data-testid={`delete-variable-${index}`}
-                                tooltip={<String stringID="common.removeThisVariable" />}
+                                tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
                                 onClick={() => handleRemove(index)}
                               />
                             </section>
