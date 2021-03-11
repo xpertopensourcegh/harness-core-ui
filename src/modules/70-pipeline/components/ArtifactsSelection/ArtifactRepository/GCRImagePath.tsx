@@ -18,6 +18,8 @@ import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
@@ -78,7 +80,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])
   const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
-
+  const { expressions } = useVariablesExpression()
   const { data, loading, refetch } = useGetBuildDetailsForGcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
@@ -213,17 +215,34 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 </div>
               )}
               <div className={css.dockerSideCard}>
-                <FormInput.Text
+                <FormInput.MultiTextInput
                   label={getString('connectors.GCR.registryHostname')}
                   placeholder={getString('UrlLabel')}
                   name="registryHostname"
+                  multiTextInputProps={{ expressions }}
                 />
+                {getMultiTypeFromValue(formik.values.registryHostname) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      value={formik.values.imagePath as string}
+                      type="String"
+                      variableName="registryHostname"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('registryHostname', value)
+                      }}
+                    />
+                  </div>
+                )}
               </div>
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={i18n.existingDocker.imageName}
                   name="imagePath"
                   placeholder={i18n.existingDocker.imageNamePlaceholder}
+                  multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
@@ -256,6 +275,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                     selectItems={tags}
                     disabled={!formik.values?.imagePath?.length}
                     multiTypeInputProps={{
+                      expressions,
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
                         items: tags,
@@ -291,6 +311,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                     label={i18n.existingDocker.tagRegex}
                     name="tagRegex"
                     placeholder={i18n.existingDocker.enterTagRegex}
+                    multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>

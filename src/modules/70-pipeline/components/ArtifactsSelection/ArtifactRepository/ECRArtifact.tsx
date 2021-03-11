@@ -16,6 +16,8 @@ import { get } from 'lodash-es'
 import { useListAwsRegions } from 'services/portal'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import i18n from '../ArtifactsSelection.i18n'
@@ -44,6 +46,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   const { data } = useListAwsRegions({
     queryParams: defaultQueryParams
   })
+
+  const { expressions } = useVariablesExpression()
 
   const regions = (data?.resource || []).map((region: any) => ({
     value: region.value,
@@ -126,13 +130,14 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   label={i18n.existingDocker.imageName}
                   name="imagePath"
                   placeholder={i18n.existingDocker.imageNamePlaceholder}
+                  multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
                       value={formik.values.imagePath as string}
                       type="String"
-                      variableName="dockerConnector"
+                      variableName="imagePath"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
@@ -146,10 +151,25 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               <div>
                 <FormInput.MultiTypeInput
                   selectItems={regions}
-                  // multiTypeInputProps={{ expressions }}
+                  multiTypeInputProps={{ expressions }}
                   label={getString('pipelineSteps.regionLabel')}
                   name="region"
                 />
+                {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      value={formik.values.imagePath as string}
+                      type="String"
+                      variableName="region"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('region', value)
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
