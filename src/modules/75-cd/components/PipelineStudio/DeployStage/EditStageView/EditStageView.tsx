@@ -297,7 +297,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                     <Layout.Vertical>
                       <div className={css.labelBold}>
                         <Label>
-                          <String stringID="skipConditionLabel" />
+                          <String stringID="skipConditionStageLabel" />
                         </Label>
                       </div>
                       <div>

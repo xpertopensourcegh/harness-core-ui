@@ -548,7 +548,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           class="Label--main"
                         >
                           <span>
-                            If the JEXL condition evaluates to true, skip this step
+                            If the JEXL condition evaluates to true, skip this stage
                           </span>
                         </label>
                       </div>
