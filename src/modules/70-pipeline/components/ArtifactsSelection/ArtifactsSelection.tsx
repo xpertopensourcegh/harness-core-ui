@@ -19,6 +19,7 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnector/StepAuth/GcrAuthentication'
+import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
@@ -43,7 +44,7 @@ const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
   Aws: 'Ecr'
 }
 
-const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp', 'Aws']
+const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = [Connectors.DOCKER, Connectors.GCP, Connectors.AWS]
 
 export default function ArtifactsSelection({
   isForOverrideSets = false,
@@ -424,47 +425,74 @@ export default function ArtifactsSelection({
   }
 
   const getNewConnectorSteps = useCallback((): JSX.Element => {
-    if (selectedArtifact === Connectors.DOCKER) {
-      return (
-        <StepWizard title={getString('connectors.createNewConnector')}>
-          <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={isEditMode} />
-          <StepDockerAuthentication
-            name={getString('details')}
-            accountId={accountId}
-            orgIdentifier={orgIdentifier}
-            projectIdentifier={projectIdentifier}
-            isEditMode={isEditMode}
-            setIsEditMode={setIsEditMode}
-          />
-          <VerifyOutOfClusterDelegate
-            name={getString('connectors.stepThreeName')}
-            isStep={true}
-            isLastStep={false}
-            type={Connectors.DOCKER}
-          />
-        </StepWizard>
-      )
+    switch (selectedArtifact) {
+      case Connectors.GCP:
+        return (
+          <StepWizard title={getString('connectors.createNewConnector')}>
+            <ConnectorDetailsStep
+              type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
+              name={getString('overview')}
+              isEditMode={isEditMode}
+            />
+            <GcrAuthentication
+              name={getString('connectors.GCR.stepTwoName')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+            />
+            <VerifyOutOfClusterDelegate
+              name={getString('connectors.stepThreeName')}
+              isStep={true}
+              isLastStep={false}
+              type={'Gcr'}
+            />
+          </StepWizard>
+        )
+      case Connectors.AWS:
+        return (
+          <StepWizard iconProps={{ size: 37 }} title={getString('connectors.createNewConnector')}>
+            <ConnectorDetailsStep type={Connectors.AWS} name={getString('overview')} isEditMode={isEditMode} />
+            <StepAWSAuthentication
+              name={getString('credentials')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              connectorInfo={undefined}
+              onConnectorCreated={() => {
+                //TO BE Removed
+              }}
+            />
+            <VerifyOutOfClusterDelegate
+              name={getString('connectors.stepThreeName')}
+              isStep={true}
+              isLastStep={false}
+              type={Connectors.AWS}
+            />
+          </StepWizard>
+        )
+      case Connectors.DOCKER:
+      default:
+        return (
+          <StepWizard title={getString('connectors.createNewConnector')}>
+            <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={isEditMode} />
+            <StepDockerAuthentication
+              name={getString('details')}
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+            />
+            <VerifyOutOfClusterDelegate
+              name={getString('connectors.stepThreeName')}
+              isStep={true}
+              isLastStep={false}
+              type={Connectors.DOCKER}
+            />
+          </StepWizard>
+        )
     }
-    return (
-      <StepWizard title={getString('connectors.createNewConnector')}>
-        <ConnectorDetailsStep
-          type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
-          name={getString('overview')}
-          isEditMode={isEditMode}
-        />
-        <GcrAuthentication
-          name={getString('connectors.GCR.stepTwoName')}
-          isEditMode={isEditMode}
-          setIsEditMode={setIsEditMode}
-        />
-        <VerifyOutOfClusterDelegate
-          name={getString('connectors.stepThreeName')}
-          isStep={true}
-          isLastStep={false}
-          type={'Gcr'}
-        />
-      </StepWizard>
-    )
   }, [connectorView, selectedArtifact])
 
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {

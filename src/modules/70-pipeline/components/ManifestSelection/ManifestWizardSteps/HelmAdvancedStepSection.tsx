@@ -102,7 +102,6 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
                       minimal
                       text={getString('add')}
                       intent="primary"
-                      style={{ marginTop: 'var(--spacing-medium)', marginBottom: 80 }}
                       onClick={() => push({ commandType: '', flag: '', id: uuid('', nameSpace()) })}
                     />
                   </span>

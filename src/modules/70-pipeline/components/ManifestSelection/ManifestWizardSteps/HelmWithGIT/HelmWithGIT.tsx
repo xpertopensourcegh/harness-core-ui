@@ -187,28 +187,59 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 )}
 
                 {formik.values?.gitFetchType === gitFetchTypes[1].value && (
-                  <div className={helmcss.halfWidth}>
+                  <div
+                    className={cx(helmcss.halfWidth, {
+                      [helmcss.runtimeInput]:
+                        getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME
+                    })}
+                  >
                     <FormInput.MultiTextInput
                       label={i18n.STEP_TWO.commitLabel}
                       multiTextInputProps={{ expressions }}
                       placeholder={i18n.STEP_TWO.commitPlaceholder}
                       name="commitId"
                     />
+                    {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.commitId as string}
+                        type="String"
+                        variableName="commitId"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('commitId', value)}
+                      />
+                    )}
                   </div>
                 )}
               </Layout.Horizontal>
 
               <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
-                <div className={helmcss.halfWidth}>
+                <div
+                  className={cx(helmcss.halfWidth, {
+                    [helmcss.runtimeInput]:
+                      getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME
+                  })}
+                >
                   <FormInput.MultiTextInput
                     label={getString('chartPath')}
                     placeholder={i18n.STEP_TWO.filePathPlaceholder}
                     name="folderPath"
-                    multiTextInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                    }}
+                    multiTextInputProps={{ expressions }}
                   />
+                  {getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.folderPath as string}
+                      type="String"
+                      variableName="folderPath"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('folderPath', value)}
+                    />
+                  )}
                 </div>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />

@@ -188,6 +188,15 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
         {formik => (
           <Form>
             <div className={css.connectorForm}>
+              {context === 2 && (
+                <div className={css.imagePathContainer}>
+                  <FormInput.Text
+                    label={i18n.existingDocker.sidecarId}
+                    placeholder={i18n.existingDocker.sidecarIdPlaceholder}
+                    name="identifier"
+                  />
+                </div>
+              )}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={i18n.existingDocker.imageName}
@@ -213,22 +222,22 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               </div>
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTypeInput
+                  name="region"
                   selectItems={regions}
                   multiTypeInputProps={{
-                    expressions,
                     selectProps: {
-                      defaultSelectedItem: formik.values?.region,
+                      defaultSelectedItem: formik.values.region,
                       items: regions
                     }
                   }}
                   label={getString('pipelineSteps.regionLabel')}
-                  name="region"
                 />
 
                 {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
-                      value={formik.values.imagePath as string}
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.region as string}
                       type="String"
                       variableName="region"
                       showRequiredField={false}
