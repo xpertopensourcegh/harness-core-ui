@@ -13,6 +13,7 @@ import RouteDestinations from 'modules/RouteDestinations'
 // eslint-disable-next-line aliased-module-imports
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
+import { StringsContext, StringsMap } from 'framework/strings/StringsContext'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 
 import '@common/services'
@@ -31,8 +32,7 @@ setAutoFreeze(false)
 enableMapSet()
 
 interface AppProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  strings: Record<string, any>
+  strings: StringsMap
 }
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
@@ -70,23 +70,27 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
         }
       }}
     >
-      <AppStoreProvider strings={props.strings}>
-        <AppErrorBoundary>
-          <PermissionsProvider>
-            <RouteDestinations />
-          </PermissionsProvider>
-        </AppErrorBoundary>
-      </AppStoreProvider>
+      <StringsContext.Provider value={props.strings}>
+        <AppStoreProvider>
+          <AppErrorBoundary>
+            <PermissionsProvider>
+              <RouteDestinations />
+            </PermissionsProvider>
+          </AppErrorBoundary>
+        </AppStoreProvider>
+      </StringsContext.Provider>
     </RestfulProvider>
   )
 }
 
-function AppWithoutAuthentication(): React.ReactElement {
+function AppWithoutAuthentication(props: AppProps): React.ReactElement {
   return (
     <RestfulProvider base="/">
-      <AppErrorBoundary>
-        <RouteDestinationsWithoutAuth />
-      </AppErrorBoundary>
+      <StringsContext.Provider value={props.strings}>
+        <AppErrorBoundary>
+          <RouteDestinationsWithoutAuth />
+        </AppErrorBoundary>
+      </StringsContext.Provider>
     </RestfulProvider>
   )
 }
@@ -110,7 +114,7 @@ function AppWithoutAuthentication(): React.ReactElement {
           <AppWithAuthentication strings={strings} />
         </Route>
         <Route path="/">
-          <AppWithoutAuthentication />
+          <AppWithoutAuthentication strings={strings} />
         </Route>
       </Switch>
     </HashRouter>,
