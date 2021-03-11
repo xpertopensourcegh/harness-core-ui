@@ -6,7 +6,7 @@ export interface ArtifactsSelectionProps {
   overrideSetIdentifier?: string
 }
 
-export type CreationType = 'Dockerhub' | 'Gcr'
+export type CreationType = 'Dockerhub' | 'Gcr' | 'Ecr'
 export interface OrganizationCreationType {
   type: CreationType
 }

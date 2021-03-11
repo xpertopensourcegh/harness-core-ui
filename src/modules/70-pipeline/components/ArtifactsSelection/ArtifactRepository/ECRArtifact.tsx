@@ -1,4 +1,6 @@
 import React from 'react'
+import { Menu } from '@blueprintjs/core'
+
 import {
   Formik,
   FormInput,
@@ -7,14 +9,16 @@ import {
   MultiTypeInputType,
   Button,
   StepProps,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  Text
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import { useParams } from 'react-router-dom'
+import memoize from 'lodash-es/memoize'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { useListAwsRegions } from 'services/portal'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import { ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
@@ -36,7 +40,40 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   initialValues
 }) => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const [tagList, setTagList] = React.useState([])
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', region: '' })
+
+  const { data: ecrBuildData, loading, refetch } = useGetBuildDetailsForEcr({
+    queryParams: {
+      imagePath: lastQueryData.imagePath,
+      connectorRef: prevStepData?.connectorId?.value
+        ? prevStepData?.connectorId?.value
+        : prevStepData?.identifier || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      region: lastQueryData.region
+    },
+    lazy: true
+  })
+
+  React.useEffect(() => {
+    if (Array.isArray(ecrBuildData?.data?.buildDetailsList)) {
+      setTagList(ecrBuildData?.data?.buildDetailsList as [])
+    }
+  }, [ecrBuildData])
+
+  React.useEffect(() => {
+    lastQueryData.region.length && lastQueryData.imagePath.length && refetch()
+  }, [lastQueryData])
+
+  const getSelectItems = React.useCallback(() => {
+    const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
+    return list
+  }, [tagList])
+  const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
+
   // const [tagList, setTagList] = React.useState([])
   // const [lastImagePath, setLastImagePath] = React.useState('')
 
@@ -81,6 +118,16 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     }
   }
 
+  const fetchTags = (imagePath = '', region = '') => {
+    if (
+      imagePath.length &&
+      region.length &&
+      (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)
+    ) {
+      setLastQueryData({ imagePath, region })
+    }
+  }
+
   const getConnectorIdValue = (): string => {
     if (getMultiTypeFromValue(prevStepData?.connectorId) === MultiTypeInputType.RUNTIME) {
       return prevStepData?.connectorId
@@ -107,6 +154,20 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     }
     handleSubmit(artifactObj)
   }
+
+  const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
+    <div key={item.label.toString()}>
+      <Menu.Item
+        text={
+          <Layout.Horizontal spacing="small">
+            <Text>{item.label}</Text>
+          </Layout.Horizontal>
+        }
+        disabled={loading}
+        onClick={handleClick}
+      />
+    </div>
+  ))
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
@@ -166,6 +227,39 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       showAdvanced={true}
                       onChange={value => {
                         formik.setFieldValue('region', value)
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className={css.imagePathContainer}>
+                <FormInput.MultiTypeInput
+                  selectItems={tags}
+                  disabled={!formik.values?.imagePath?.length}
+                  multiTypeInputProps={{
+                    selectProps: {
+                      defaultSelectedItem: formik.values?.tag,
+                      items: tags,
+                      itemRenderer: itemRenderer,
+                      allowCreatingNewItems: true
+                    },
+                    onFocus: () => fetchTags(formik.values.imagePath, formik.values?.region)
+                  }}
+                  label={i18n.existingDocker.tag}
+                  name="tag"
+                />
+                {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      value={formik.values.tag as string}
+                      type="String"
+                      variableName="tag"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('tag', value)
                       }}
                     />
                   </div>
