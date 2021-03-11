@@ -206,11 +206,9 @@ const ManifestListView = ({
   const changeManifestType = (selected: ManifestTypes): void => {
     setSelectedManifest(selected)
   }
-
   const handleConnectorViewChange = (isConnectorView: boolean): void => {
     setConnectorView(isConnectorView)
   }
-
   const handleStoreChange = (store?: ConnectorInfoDTO['type']): void => {
     setManifestStore(store || '')
   }

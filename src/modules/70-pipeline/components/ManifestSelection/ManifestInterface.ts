@@ -60,7 +60,7 @@ export interface HelmWithGITDataType {
   commitId: string | undefined
   gitFetchType: 'Branch' | 'Commit'
   folderPath: string
-  helmVersion: { label: string; value: HelmVersionOptions }
+  helmVersion: string
   skipResourceVersioning: boolean
   commandFlags: Array<CommandFlags>
 }

@@ -61,10 +61,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         ...specValues,
         identifier: initialValues.identifier,
         folderPath: specValues.folderPath,
-        helmVersion:
-          helmVersions.find(version => version.value === initialValues.spec?.helmVersion) ||
-          initialValues.spec?.helmVersion,
-
+        helmVersion: initialValues.spec?.helmVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
           commandType: commandFlag.commandType,
@@ -80,7 +77,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       commitId: undefined,
       gitFetchType: 'Branch',
       folderPath: '',
-      helmVersion: helmVersions[0],
+      helmVersion: 'V2',
       skipResourceVersioning: false,
       commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
     }
@@ -208,37 +205,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     }}
                   />
                 </div>
-                <div
-                  className={cx(helmcss.halfWidth, {
-                    [helmcss.runtimeInput]:
-                      getMultiTypeFromValue(formik.values?.helmVersion) === MultiTypeInputType.RUNTIME
-                  })}
-                >
-                  <FormInput.MultiTypeInput
-                    name="helmVersion"
-                    multiTypeInputProps={{
-                      selectProps: {
-                        defaultSelectedItem: formik.values?.helmVersion,
-                        items: helmVersions
-                      }
-                    }}
-                    label={getString('helmVersion')}
-                    selectItems={helmVersions}
-                  />
-                  {getMultiTypeFromValue(formik.values?.helmVersion) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={(formik.values?.helmVersion as unknown) as string}
-                      type="String"
-                      variableName="helmVersion"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('helmVersion', value)
-                      }}
-                    />
-                  )}
+                <div className={helmcss.halfWidth}>
+                  <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
                 </div>
               </Layout.Horizontal>
               <Accordion
