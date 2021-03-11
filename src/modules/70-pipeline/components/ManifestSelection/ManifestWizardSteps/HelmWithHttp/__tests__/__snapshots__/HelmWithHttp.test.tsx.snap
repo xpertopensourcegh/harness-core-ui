@@ -25,6 +25,36 @@ exports[`helm with http tests renders without crashing 1`] = `
             >
               <label
                 class="bp3-label"
+                for="identifier"
+              >
+                Manifest Identifier
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="identifier"
+                    placeholder="Give name to your manifest config"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group halfWidth"
+            >
+              <label
+                class="bp3-label"
                 for="chartName"
               >
                 Helm Chart Name

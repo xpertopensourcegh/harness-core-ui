@@ -3,12 +3,12 @@ import { Text, Icon, StepWizard, Color, StepProps } from '@wings-software/uicore
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
 import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ManifestRepoTypes } from '../ManifestWizardSteps/ManifestRepoTypes'
 import ManifestStore from '../ManifestWizardSteps/ManifestStore'
 import { manifestTypeLabels } from '../Manifesthelper'
-import type { ManifestStepInitData, ManifestTypes } from '../ManifestInterface'
+import type { ManifestStepInitData, ManifestStores, ManifestTypes } from '../ManifestInterface'
 import css from './ManifestWizard.module.scss'
 
 interface StepChangeData<SharedObject> {
@@ -19,10 +19,10 @@ interface StepChangeData<SharedObject> {
 
 interface ManifestWizardStepsProps {
   handleConnectorViewChange: (isConnectorView: boolean) => void
-  handleStoreChange: (store?: ConnectorInfoDTO['type']) => void
+  handleStoreChange: (store?: ManifestStores) => void
   initialValues: ManifestStepInitData
   types: Array<ManifestTypes>
-  manifestStoreTypes: Array<ConnectorInfoDTO['type']>
+  manifestStoreTypes: Array<ManifestStores>
   labels: ConnectorRefLabelType
   selectedManifest: ManifestTypes
   newConnectorView: boolean

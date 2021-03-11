@@ -142,6 +142,12 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           <Form>
             <div className={helmcss.helmGitForm}>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+                <FormInput.Text
+                  name="identifier"
+                  label={getString('manifestType.manifestIdentifier')}
+                  placeholder={getString('manifestType.manifestPlaceholder')}
+                  className={helmcss.halfWidth}
+                />
                 <FormInput.MultiTextInput
                   name="chartName"
                   multiTextInputProps={{ expressions }}

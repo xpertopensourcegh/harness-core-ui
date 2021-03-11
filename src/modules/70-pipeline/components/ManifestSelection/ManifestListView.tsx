@@ -12,23 +12,30 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
-import { Connectors } from '@connectors/constants'
-import { getIconByType } from '@connectors/exports'
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages,
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
-import { ManifestDataType, manifestTypeIcons, manifestTypeText } from './Manifesthelper'
+import {
+  getManifestIconByType,
+  ManifestDataType,
+  manifestStoreConnectorMap,
+  ManifestStoreMap,
+  manifestTypeIcons,
+  manifestTypeText
+} from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
 import type {
   ManifestStepInitData,
   ManifestTypes,
   ManifestListViewProps,
-  ManifestLastStepProps
+  ManifestLastStepProps,
+  ManifestStores
 } from './ManifestInterface'
 import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
@@ -40,11 +47,11 @@ const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.Values,
   ManifestDataType.HelmChart
 ]
-const manifestStoreTypes: Array<ConnectorInfoDTO['type']> = [
-  Connectors.GIT,
-  Connectors.GITHUB,
-  Connectors.GITLAB,
-  Connectors.BITBUCKET
+const manifestStoreTypes: Array<ManifestStores> = [
+  ManifestStoreMap.Git,
+  ManifestStoreMap.Github,
+  ManifestStoreMap.Gitlab,
+  ManifestStoreMap.Bitbucket
 ]
 
 const ManifestListView = ({
@@ -61,7 +68,7 @@ const ManifestListView = ({
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = useState(false)
-  const [manifestStore, setManifestStore] = useState<ConnectorInfoDTO['type'] | string>('')
+  const [manifestStore, setManifestStore] = useState('')
   const [isEditMode, setIsEditMode] = useState(false)
   const [manifestIndex, setEditIndex] = useState(0)
 
@@ -136,7 +143,7 @@ const ManifestListView = ({
     showConnectorModal()
   }
 
-  const editManifest = (manifestType: ManifestTypes, store: ConnectorInfoDTO['type'] | string, index: number): void => {
+  const editManifest = (manifestType: ManifestTypes, store: ManifestStores, index: number): void => {
     setSelectedManifest(manifestType)
     setManifestStore(store)
     setConnectorView(false)
@@ -210,7 +217,7 @@ const ManifestListView = ({
   const handleConnectorViewChange = (isConnectorView: boolean): void => {
     setConnectorView(isConnectorView)
   }
-  const handleStoreChange = (store?: ConnectorInfoDTO['type']): void => {
+  const handleStoreChange = (store?: ManifestStores): void => {
     setManifestStore(store || '')
   }
 
@@ -251,16 +258,20 @@ const ManifestListView = ({
 
     switch (true) {
       case selectedManifest === ManifestDataType.HelmChart &&
-        [Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET].includes(
-          manifestStore as ConnectorInfoDTO['type']
+        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.Gitlab, ManifestStoreMap.Bitbucket].includes(
+          manifestStore as ManifestStores
         ):
         manifestDetailStep = <HelmWithGIT {...lastStepProps()} />
         break
-      case selectedManifest === ManifestDataType.HelmChart && manifestStore === Connectors.HttpHelmRepo:
+
+      case selectedManifest === ManifestDataType.HelmChart && manifestStore === ManifestStoreMap.Http:
         manifestDetailStep = <HelmWithHttp {...lastStepProps()} />
         break
+
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
-        manifestStore === Connectors.GIT:
+        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.Gitlab, ManifestStoreMap.Bitbucket].includes(
+          manifestStore as ManifestStores
+        ):
       default:
         manifestDetailStep = <ManifestDetails {...lastStepProps()} />
 
@@ -272,15 +283,42 @@ const ManifestListView = ({
   }
 
   const getNewConnectorSteps = useCallback((): JSX.Element => {
+    if (manifestStore === ManifestStoreMap.Http) {
+      return (
+        <StepWizard title={getString('connectors.createNewConnector')}>
+          <ConnectorDetailsStep
+            type={manifestStoreConnectorMap[manifestStore]}
+            name={getString('overview')}
+            isEditMode={isEditMode}
+          />
+          <StepHelmAuth
+            name={getString('details')}
+            accountId={accountId}
+            orgIdentifier={orgIdentifier}
+            projectIdentifier={projectIdentifier}
+            isEditMode={isEditMode}
+            connectorInfo={undefined}
+            setIsEditMode={setIsEditMode}
+          />
+
+          <VerifyOutOfClusterDelegate
+            name={getString('connectors.stepThreeName')}
+            isStep={true}
+            isLastStep={false}
+            type={manifestStoreConnectorMap[manifestStore]}
+          />
+        </StepWizard>
+      )
+    }
     return (
       <StepWizard title={getString('connectors.createNewConnector')}>
         <ConnectorDetailsStep
-          type={manifestStore as ConnectorInfoDTO['type']}
+          type={manifestStoreConnectorMap[manifestStore]}
           name={getString('overview')}
           isEditMode={isEditMode}
         />
         <GitDetailsStep
-          type={manifestStore as ConnectorInfoDTO['type']}
+          type={manifestStoreConnectorMap[manifestStore]}
           name={getString('details')}
           isEditMode={isEditMode}
           connectorInfo={undefined}
@@ -299,11 +337,9 @@ const ManifestListView = ({
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
-          connectorIdentifier={''}
-          setIsEditMode={() => setIsEditMode(true)}
           isStep={true}
           isLastStep={false}
-          type={manifestStore}
+          type={manifestStoreConnectorMap[manifestStore]}
         />
       </StepWizard>
     )
@@ -316,12 +352,11 @@ const ManifestListView = ({
       hideConnectorModal()
       setManifestStore('')
     }
-    const storeTypes = manifestStoreTypes
-    // Connectors.HttpHelmRepo is commented till BE is ready
-    // const storeTypes =
-    //   selectedManifest === ManifestDataType.HelmChart
-    //     ? [...manifestStoreTypes, Connectors.HttpHelmRepo]
-    //     : manifestStoreTypes
+
+    const storeTypes =
+      selectedManifest === ManifestDataType.HelmChart
+        ? [...manifestStoreTypes, ManifestStoreMap.Http]
+        : manifestStoreTypes
 
     return (
       <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>
@@ -400,7 +435,7 @@ const ManifestListView = ({
                     <div className={css.server}>
                       <Text
                         inline
-                        icon={getIconByType(manifest.spec.store.type as ConnectorInfoDTO['type'])}
+                        icon={getManifestIconByType(manifest.spec.store.type)}
                         iconProps={{ size: 18 }}
                         width={200}
                         lineClamp={1}
@@ -443,7 +478,9 @@ const ManifestListView = ({
                           <Icon
                             name="Edit"
                             size={16}
-                            onClick={() => editManifest(manifest.type, manifest.spec.store.type, index)}
+                            onClick={() =>
+                              editManifest(manifest.type, manifest.spec.store.type as ManifestStores, index)
+                            }
                           />
                           {/* <Icon
                               name="main-clone"

@@ -149,8 +149,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             <div className={helmcss.helmGitForm}>
               <FormInput.Text
                 name="identifier"
-                label={i18n.STEP_TWO.manifestId}
-                placeholder={i18n.STEP_ONE.idPlaceholder}
+                label={getString('manifestType.manifestIdentifier')}
+                placeholder={getString('manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>

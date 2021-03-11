@@ -6,20 +6,19 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { getIconByType } from '@connectors/exports'
-import type { ManifestStepInitData } from '../ManifestInterface'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
+import { getManifestIconByType, getManifestStoreTitle, manifestStoreConnectorMap } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestStorePropType {
   stepName: string
   expressions: string[]
   newConnectorLabel: string
-  manifestStoreTypes: Array<ConnectorInfoDTO['type']>
+  manifestStoreTypes: Array<ManifestStores>
   initialValues: ManifestStepInitData
   handleConnectorViewChange: () => void
-  handleStoreChange: (store: ConnectorInfoDTO['type']) => void
+  handleStoreChange: (store: ManifestStores) => void
 }
 
 const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropType> = ({
@@ -42,9 +41,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
-  const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
+  const handleOptionSelection = (selected: ManifestStores): void => {
     if (selected === selectedManifest) {
-      handleStoreChange('' as ConnectorInfoDTO['type'])
+      handleStoreChange('' as ManifestStores)
     } else {
       handleStoreChange(selected)
     }
@@ -71,7 +70,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 }
               }}
             >
-              <Icon name={getIconByType(store)} size={26} />
+              <Icon name={getManifestIconByType(store)} size={26} />
             </Card>
             <Text
               style={{
@@ -80,7 +79,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 textAlign: 'center'
               }}
             >
-              {getString(getConnectorTitleIdByType(store))}
+              {getString(getManifestStoreTitle(store))}
             </Text>
           </div>
         ))}
@@ -110,7 +109,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     width={400}
                     multiTypeProps={{ expressions }}
                     isNewConnectorLabelVisible={false}
-                    type={selectedManifest as ConnectorInfoDTO['type']}
+                    type={manifestStoreConnectorMap[selectedManifest]}
                     enableConfigureOptions={false}
                   />
                   <Button

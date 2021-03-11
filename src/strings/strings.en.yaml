@@ -1258,6 +1258,8 @@ activityHistory:
   failedActivity: Failed Activity
   heartbeatFailure: Heart beat Failure
 manifestType:
+  manifestIdentifier: Manifest Identifier
+  manifestPlaceholder: Give name to your manifest config
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
