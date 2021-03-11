@@ -200,7 +200,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.MultiTextInput
-                    label={getString('charPath')}
+                    label={getString('chartPath')}
                     placeholder={i18n.STEP_TWO.filePathPlaceholder}
                     name="folderPath"
                     multiTextInputProps={{

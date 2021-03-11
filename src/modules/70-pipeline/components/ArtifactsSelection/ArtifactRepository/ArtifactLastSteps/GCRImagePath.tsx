@@ -1,5 +1,5 @@
 import React from 'react'
-import { IOptionProps, Menu } from '@blueprintjs/core'
+import { Menu } from '@blueprintjs/core'
 import {
   Formik,
   FormInput,
@@ -22,9 +22,10 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
-import i18n from '../ArtifactsSelection.i18n'
-import { ImagePathProps, ImagePathTypes, TagTypes } from '../ArtifactInterface'
-import css from './GCRArtifact.module.scss'
+import i18n from '../../ArtifactsSelection.i18n'
+import { ImagePathProps, ImagePathTypes, TagTypes } from '../../ArtifactInterface'
+import { tagOptions } from '../../ArtifactHelper'
+import css from '../GCRArtifact.module.scss'
 
 const primarySchema = Yup.object().shape({
   imagePath: Yup.string().trim().required(i18n.validation.imagePath),
@@ -57,17 +58,6 @@ const sidecarSchema = Yup.object().shape({
     then: Yup.string().trim().required('Tag is required')
   })
 })
-
-const tagOptions: IOptionProps[] = [
-  {
-    label: 'Value',
-    value: 'value'
-  },
-  {
-    label: 'Regex',
-    value: 'regex'
-  }
-]
 
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,

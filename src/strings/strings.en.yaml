@@ -182,7 +182,7 @@ sidecarsText: '{{$.sidecar}}s'
 manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
-charPath: Chart Path
+chartPath: Chart Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
@@ -1330,6 +1330,7 @@ connectors:
     Docker: 'Docker Connector Name'
     GCP: 'GCP Connector Name'
     AWS: 'AWS Connector Name'
+    ECR: ECR Connector Name'
     Nexus: 'Nexus Connector Name'
     Artifactory: 'Artifactory Connector Name'
     SecretManager: 'Secret Manager Name'
@@ -1411,13 +1412,13 @@ connectors:
     delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
   ECR:
     name: ECR
+    fullName: ECR Container Registry
   GCR:
     name: GCR
     fullName: Google Container Registry
     artifactServer: 'GCR Server'
     stepTwoName: 'Google Container Registry Details'
     registryHostname: 'GCR Registry URL'
-
   git:
     branchName: 'Branch name'
     urlType: 'URL Type'

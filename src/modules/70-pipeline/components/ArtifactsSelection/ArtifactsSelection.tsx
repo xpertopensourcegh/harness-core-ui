@@ -10,7 +10,6 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
-import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { Connectors } from '@connectors/constants'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -23,9 +22,9 @@ import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnect
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
-import { ImagePath } from './ArtifactRepository/ImagePath'
-import { ECRArtifact } from './ArtifactRepository/ECRArtifact'
-import { GCRImagePath } from './ArtifactRepository/GCRImagePath'
+import { ImagePath } from './ArtifactRepository/ArtifactLastSteps/ImagePath'
+import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact'
+import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePath'
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
 import type {
   ArtifactsSelectionProps,
@@ -34,14 +33,16 @@ import type {
   CreationType,
   ImagePathProps
 } from './ArtifactInterface'
+import { getArtifactIconByType } from './ArtifactHelper'
 import css from './ArtifactsSelection.module.scss'
 
 const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
   DockerRegistry: 'Dockerhub',
-  Gcp: 'Gcr'
+  Gcp: 'Gcr',
+  Aws: 'Ecr'
 }
-// TODO : ADD 'ECR' WHEN TYPE IS ADDED
-const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp']
+
+const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = ['DockerRegistry', 'Gcp', 'Aws']
 
 export default function ArtifactsSelection({
   isForOverrideSets = false,
@@ -348,11 +349,18 @@ export default function ArtifactsSelection({
   const editArtifact = (viewType: number, type: CreationType, index?: number): void => {
     setModalContext(viewType)
     setConnectorView(false)
-    if (type === ENABLED_ARTIFACT_TYPES.Gcp) {
-      setSelectedArtifact(Connectors.GCP)
-    } else {
-      setSelectedArtifact(Connectors.DOCKER)
+    switch (type) {
+      case ENABLED_ARTIFACT_TYPES.Gcp:
+        setSelectedArtifact(Connectors.GCP)
+        break
+      case ENABLED_ARTIFACT_TYPES.Aws:
+        setSelectedArtifact(Connectors.AWS)
+        break
+      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
+      default:
+        setSelectedArtifact(Connectors.DOCKER)
     }
+
     if (viewType === ModalViewFor.SIDECAR && index !== undefined) {
       setEditIndex(index)
     }
@@ -383,7 +391,7 @@ export default function ArtifactsSelection({
 
   const getIconProps = (): IconProps => {
     const iconProps: IconProps = {
-      name: getConnectorIconByType(selectedArtifact)
+      name: selectedArtifact === Connectors.Aws ? 'ecr-step' : getArtifactIconByType(selectedArtifact)
     }
     if (selectedArtifact === Connectors.DOCKER) {
       iconProps.color = Color.WHITE

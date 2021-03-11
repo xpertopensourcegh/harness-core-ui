@@ -3,10 +3,10 @@ import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useStrings, String } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
 import type { ConnectorDataType, ConnectorRefLabelType } from '../ArtifactInterface'
+import { getArtifactTitleIdByType } from '../ArtifactHelper'
 import css from './ConnectorRefSteps.module.scss'
 
 interface StepChangeData<SharedObject> {
@@ -48,7 +48,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   }
 
   const renderSubtitle = (): JSX.Element => {
-    const stringId = getConnectorTitleIdByType(selectedArtifact)
+    const stringId = getArtifactTitleIdByType(selectedArtifact)
     return (
       <div className={css.subtitle} style={{ display: 'flex' }}>
         <Icon size={26} {...iconsProps} />

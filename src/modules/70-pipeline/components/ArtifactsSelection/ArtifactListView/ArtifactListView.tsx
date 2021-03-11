@@ -4,15 +4,14 @@ import cx from 'classnames'
 import { String, useStrings } from 'framework/exports'
 // import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
-import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { PageConnectorResponse, StageElementWrapper } from 'services/cd-ng'
+import { CreationType, getArtifactIconByType } from '../ArtifactHelper'
 import css from '../ArtifactsSelection.module.scss'
 
 export enum ModalViewFor {
   PRIMARY = 1,
   SIDECAR = 2
 }
-type CreationType = 'Dockerhub' | 'Gcr'
 
 interface ArtifactListViewProps {
   isForPredefinedSets?: boolean
@@ -61,7 +60,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                 <div className={css.server}>
                   <Text
                     inline
-                    icon={getConnectorIconByType(props.primaryArtifact.type)}
+                    icon={getArtifactIconByType(props.primaryArtifact.type)}
                     iconProps={{ size: 18 }}
                     width={180}
                     lineClamp={1}
@@ -135,7 +134,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                       <div className={css.server}>
                         <Text
                           inline
-                          icon={getConnectorIconByType(sidecar.type)}
+                          icon={getArtifactIconByType(sidecar.type)}
                           iconProps={{ size: 18 }}
                           width={180}
                           lineClamp={1}
