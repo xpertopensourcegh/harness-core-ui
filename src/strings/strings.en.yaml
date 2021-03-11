@@ -645,6 +645,18 @@ instanceFieldOptions:
   instanceText: 'Instance Count'
   percentagePlaceHolder: 'Percentage'
   instanceHolder: 'Count'
+approvalStep:
+  message: 'Approval Message'
+  approvers: 'Approvers'
+  approverInputs: 'Inputs to be provided by approver'
+  includePipelineExecutionHistory: 'Include pipeline execution history'
+  userGroups: 'Groups'
+  minimumCount: 'Number of approvers that are required at this step'
+  disallowPipelineExecutor: 'Disallow the pipeline executor from approving the pipeline'
+  validation:
+    usersOrUserGroups: 'Please provide users or user groups for approval'
+    minimumCountOne: 'Minimum count cannot be less than one'
+    minimumCountRequired: 'Minimum count is required'
 delegate:
   numberOfDelegates: 'Number of delegates'
   delegateSizeUndefined: 'Delegate Size is undefined'

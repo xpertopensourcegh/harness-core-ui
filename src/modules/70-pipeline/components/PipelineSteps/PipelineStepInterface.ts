@@ -33,5 +33,6 @@ export enum StepType {
   JFrogArtifactory = 'ArtifactoryUpload',
   RunTests = 'RunTests',
   HelmDeploy = 'HelmDeploy',
-  HelmRollback = 'HelmRollback'
+  HelmRollback = 'HelmRollback',
+  HarnessApproval = 'HarnessApproval'
 }
