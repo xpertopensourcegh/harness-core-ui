@@ -52,16 +52,26 @@ import { useToaster } from '@common/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CustomVariableInputSetExtraProps } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import { useListAwsRegions } from 'services/portal'
+import type { ManifestStores } from '@pipeline/components/ManifestSelection/ManifestInterface'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
-export const ARTIFACT_TYPE_TO_CONNECTOR_MAP: { [key: string]: string } = {
+export const MANIFEST_TYPE_TO_CONNECTOR_MAP: { [key in ManifestStores]: ConnectorInfoDTO['type'] } = {
+  Http: 'HttpHelmRepo',
+  Git: 'Git',
+  Github: 'Github',
+  Bitbucket: 'Bitbucket',
+  Gitlab: 'Gitlab'
+}
+
+export const ARTIFACT_TYPE_TO_CONNECTOR_MAP: { [key: string]: ConnectorInfoDTO['type'] } = {
   Dockerhub: 'DockerRegistry',
   Gcr: 'Gcp',
   Ecr: 'Aws'
 }
+
 export const getStagePathByIdentifier = memoize((stageIdentifier = '', pipeline: NgPipeline) => {
   let finalPath = ''
   if (pipeline) {
@@ -732,10 +742,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                   {
                     manifest: {
                       identifier = '',
-                      type = '',
                       spec: {
                         skipResourceVersioning = '',
-                        store: { spec: { branch = '', connectorRef = '', folderPath = '' } = {} } = {}
+                        store: { spec: { branch = '', connectorRef = '', folderPath = '' } = {}, type = '' } = {}
                       } = {}
                     } = {}
                   }: any,
@@ -745,10 +754,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <Layout.Vertical key={identifier}>
                       <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
                       {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                        <FormGroup
-                          labelFor={'connectorRef'}
-                          label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
-                        >
+                        <FormGroup labelFor={'connectorRef'} label={getString('manifestType.selectManifestStore')}>
                           <ConnectorReferenceField
                             disabled={readonly}
                             name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
@@ -757,7 +763,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
-                            type={type}
+                            type={MANIFEST_TYPE_TO_CONNECTOR_MAP[type as ManifestStores]}
                           />
                         </FormGroup>
                       )}
