@@ -18,3 +18,13 @@
   margin-top: var(--spacing-large);
   margin-left: var(--spacing-large);
 }
+
+.tooltip {
+  > * {
+    width: 50%;
+  }
+}
+
+.tooltipContent {
+  width: 200px;
+}

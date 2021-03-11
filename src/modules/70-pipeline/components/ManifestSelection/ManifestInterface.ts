@@ -39,6 +39,7 @@ export interface ManifestDataType {
   commitId: string | undefined
   gitFetchType: 'Branch' | 'Commit'
   paths: Array<PathDataType> | Array<string> | string | undefined
+  skipResourceVersioning?: boolean
 }
 export interface ManifestLastStepProps {
   key: string
@@ -46,6 +47,7 @@ export interface ManifestLastStepProps {
   stepName: string
   initialValues: any
   handleSubmit: (data: any) => void
+  selectedManifest: string
 }
 export interface CommandFlags {
   commandType: string | undefined

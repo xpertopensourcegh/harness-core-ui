@@ -221,7 +221,8 @@ const ManifestListView = ({
       name: getString('manifestType.manifestDetails'),
       stepName: getString('manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
-      handleSubmit: handleSubmit
+      handleSubmit: handleSubmit,
+      selectedManifest
     }
   }
 

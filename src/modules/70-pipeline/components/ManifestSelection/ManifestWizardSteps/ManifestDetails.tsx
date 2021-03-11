@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Accordion,
   Layout,
   Button,
   Text,
@@ -14,12 +15,15 @@ import {
 import cx from 'classnames'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
+import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { FormMultiTypeCheckboxField } from '@common/components'
+
 import { String, useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import i18n from './ManifestWizard.i18n'
@@ -34,11 +38,13 @@ const gitFetchTypes = [
 interface ManifestDetailsPropType {
   stepName: string
   initialValues: any
+  selectedManifest: string
   handleSubmit: (data: any) => void
 }
 
 const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
   stepName,
+  selectedManifest,
   initialValues,
   handleSubmit,
   prevStepData,
@@ -85,7 +91,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   const { getString } = useStrings()
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
-
+  const isActiveAdvancedStep: boolean = initialValues?.skipResourceVersioning
   const getInitialValues = (): ManifestDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
@@ -105,7 +111,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
-      paths: [{ path: '', uuid: uuid('', nameSpace()) }]
+      paths: [{ path: '', uuid: uuid('', nameSpace()) }],
+      skipResourceVersioning: false
     }
   }
 
@@ -124,7 +131,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               paths:
                 typeof formData?.paths === 'string'
                   ? formData?.paths
-                  : formData?.paths.map((path: { path: string }) => path.path)
+                  : formData?.paths.map((path: { path: string }) => path.path),
+              skipResourceVersioning: formData?.skipResourceVersioning
             }
           }
         }
@@ -277,6 +285,38 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   )}
                 />
               </MultiTypeFieldSelector>
+              {selectedManifest === 'K8sManifest' && (
+                <Accordion
+                  activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                  className={css.advancedStepOpen}
+                >
+                  <Accordion.Panel
+                    id={getString('advancedTitle')}
+                    addDomId={true}
+                    summary={getString('advancedTitle')}
+                    details={
+                      <Layout.Horizontal width={'90%'} flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+                        <FormMultiTypeCheckboxField
+                          name="skipResourceVersioning"
+                          label={getString('skipResourceVersion')}
+                          className={cx(css.checkbox, css.halfWidth)}
+                        />
+                        <Tooltip
+                          position="top"
+                          content={
+                            <div className={css.tooltipContent}>
+                              {getString('manifestType.helmSkipResourceVersion')}{' '}
+                            </div>
+                          }
+                          className={css.tooltip}
+                        >
+                          <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                        </Tooltip>
+                      </Layout.Horizontal>
+                    }
+                  />
+                </Accordion>
+              )}
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
