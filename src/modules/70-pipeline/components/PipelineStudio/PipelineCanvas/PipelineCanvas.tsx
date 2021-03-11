@@ -281,7 +281,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
             <div>
               <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
               <Text className={css.pipelineName}>{pipeline?.name}</Text>
-              <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
+              {isYaml ? null : <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />}
             </div>
           </div>
         </div>
