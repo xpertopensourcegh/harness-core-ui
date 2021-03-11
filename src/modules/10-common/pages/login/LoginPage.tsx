@@ -5,6 +5,7 @@ import { FormInput, Formik, FormikForm, Card, Button, Layout } from '@wings-soft
 import AppStorage from 'framework/utils/AppStorage'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components'
+import { useQueryParams } from '@common/hooks'
 
 import css from './LoginPage.module.scss'
 
@@ -29,9 +30,12 @@ const createAuthToken = (login: string, password: string): string => {
 const LoginPage: React.FC = () => {
   const history = useHistory()
   const { showError } = useToaster()
+  const { returnUrl } = useQueryParams<{ returnUrl?: string }>()
+  const [isLoading, setLoading] = React.useState(false)
 
   const handleLogin = async (data: LoginForm): Promise<void> => {
     try {
+      setLoading(true)
       // hacky/temporary fetch call
       const response = await fetch('/api/users/login', {
         method: 'POST',
@@ -47,8 +51,14 @@ const LoginPage: React.FC = () => {
       AppStorage.set('token', json.resource.token)
       AppStorage.set('acctId', json.resource.defaultAccountId)
 
-      history.push(routes.toProjects({ accountId: json.resource.defaultAccountId }))
+      // this is naive redirect for now
+      if (returnUrl) {
+        window.location.href = returnUrl
+      } else {
+        history.push(routes.toProjects({ accountId: json.resource.defaultAccountId }))
+      }
     } catch (e) {
+      setLoading(false)
       showError(e)
     }
   }
@@ -63,9 +73,9 @@ const LoginPage: React.FC = () => {
         <Layout.Vertical spacing="large">
           <Formik<LoginForm> initialValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
             <FormikForm>
-              <FormInput.Text name="email" label="Email" />
-              <FormInput.Text name="password" label="Password" inputGroup={{ type: 'password' }} />
-              <Button type="submit" intent="primary">
+              <FormInput.Text name="email" label="Email" disabled={isLoading} />
+              <FormInput.Text name="password" label="Password" inputGroup={{ type: 'password' }} disabled={isLoading} />
+              <Button type="submit" intent="primary" loading={isLoading} disabled={isLoading}>
                 Submit
               </Button>
             </FormikForm>

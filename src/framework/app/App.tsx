@@ -21,8 +21,11 @@ import './App.scss'
 FocusStyleManager.onlyShowFocusOnTabs()
 
 // pick current path, but remove `/ng/`
-const LOGIN_PAGE_URL = `${window.location.pathname.replace(/\/ng\//, '/')}#/login`
+const getLoginPageURL = (): string => {
+  const redirectUrl = encodeURIComponent(window.location.href)
 
+  return `${window.location.pathname.replace(/\/ng\//, '/')}#/login?returnUrl=${redirectUrl}`
+}
 // set up Immer
 setAutoFreeze(false)
 enableMapSet()
@@ -47,7 +50,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 
   useEffect(() => {
     if (!token) {
-      window.location.href = LOGIN_PAGE_URL
+      window.location.href = getLoginPageURL()
     }
   }, [token])
 
@@ -61,7 +64,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
           // check response body to confirm invalid token
           // response.json().then(body => {
           //   if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
-          window.location.href = LOGIN_PAGE_URL
+          window.location.href = getLoginPageURL()
           // }
           // })
         }
