@@ -38,6 +38,7 @@ const gitFetchTypes = [
 
 interface ManifestDetailsPropType {
   stepName: string
+  expressions: string[]
   initialValues: any
   selectedManifest: string
   handleSubmit: (data: any) => void
@@ -46,6 +47,7 @@ interface ManifestDetailsPropType {
 const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
   stepName,
   selectedManifest,
+  expressions,
   initialValues,
   handleSubmit,
   prevStepData,
@@ -192,6 +194,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               <div>
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
                   <FormInput.MultiTextInput
+                    multiTextInputProps={{ expressions }}
                     label={i18n.STEP_TWO.branchLabel}
                     placeholder={i18n.STEP_TWO.branchPlaceholder}
                     name="branch"
@@ -215,6 +218,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
               {formik.values?.gitFetchType === gitFetchTypes[1].value && (
                 <FormInput.MultiTextInput
+                  multiTextInputProps={{ expressions }}
                   label={i18n.STEP_TWO.commitLabel}
                   placeholder={i18n.STEP_TWO.commitPlaceholder}
                   name="commitId"
@@ -266,6 +270,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                               name={`paths[${index}].path`}
                               style={{ width: '330px' }}
                               multiTextInputProps={{
+                                expressions,
                                 allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                               }}
                             />
@@ -302,6 +307,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                         <FormMultiTypeCheckboxField
                           name="skipResourceVersioning"
                           label={getString('skipResourceVersion')}
+                          multiTypeTextbox={{ expressions }}
                           className={cx(css.checkbox, css.halfWidth)}
                         />
                         <Tooltip

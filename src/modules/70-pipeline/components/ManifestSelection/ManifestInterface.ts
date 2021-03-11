@@ -44,6 +44,7 @@ export interface ManifestDetailDataType {
 export interface ManifestLastStepProps {
   key: string
   name: string
+  expressions: string[]
   stepName: string
   initialValues: any
   handleSubmit: (data: any) => void

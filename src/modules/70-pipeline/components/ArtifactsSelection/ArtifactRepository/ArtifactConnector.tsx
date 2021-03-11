@@ -5,7 +5,6 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import i18n from '../ArtifactsSelection.i18n'
@@ -15,6 +14,7 @@ import css from './ArtifactConnector.module.scss'
 interface ArtifactConnectorProps {
   handleViewChange: () => void
   name?: string
+  expressions: string[]
   stepName: string
   newConnectorLabel: string
   initialValues: ConnectorDataType
@@ -33,6 +33,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     initialValues,
     stepName,
     name,
+    expressions,
     connectorType,
     newConnectorLabel
   } = props
@@ -42,7 +43,6 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
-  const { expressions } = useVariablesExpression()
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>

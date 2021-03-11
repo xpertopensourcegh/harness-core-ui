@@ -5,8 +5,6 @@ import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon } from '@win
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -16,6 +14,7 @@ import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestStorePropType {
   stepName: string
+  expressions: string[]
   newConnectorLabel: string
   manifestStoreTypes: Array<ConnectorInfoDTO['type']>
   initialValues: ManifestStepInitData
@@ -30,12 +29,12 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   manifestStoreTypes,
   initialValues,
   previousStep,
+  expressions,
   prevStepData,
   nextStep,
   newConnectorLabel
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
 
   const selectedManifest = initialValues.store

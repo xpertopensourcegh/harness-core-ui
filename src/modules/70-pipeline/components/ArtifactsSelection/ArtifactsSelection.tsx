@@ -34,6 +34,7 @@ import type {
   ImagePathProps
 } from './ArtifactInterface'
 import { getArtifactIconByType } from './ArtifactHelper'
+import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './ArtifactsSelection.module.scss'
 
 const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
@@ -404,6 +405,7 @@ export default function ArtifactsSelection({
       key: getString('connectors.stepFourName'),
       name: getString('connectors.stepFourName'),
       context,
+      expressions,
       initialValues: getLastStepInitialData(),
       handleSubmit: (data: any) => {
         addArtifact(data)
@@ -486,6 +488,8 @@ export default function ArtifactsSelection({
   const changeArtifactType = (selected: ConnectorInfoDTO['type']): void => {
     setSelectedArtifact(selected)
   }
+
+  const { expressions } = useVariablesExpression()
   const renderExistingArtifact = (): JSX.Element => {
     return (
       <div>
@@ -493,6 +497,7 @@ export default function ArtifactsSelection({
           connectorData={getConnectorDataValues()}
           iconsProps={getIconProps()}
           types={allowedArtifactTypes}
+          expressions={expressions}
           lastSteps={getLastSteps()}
           labels={getLabels()}
           selectedArtifact={selectedArtifact}
@@ -518,7 +523,7 @@ export default function ArtifactsSelection({
         {renderExistingArtifact()}
       </Dialog>
     ),
-    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex]
+    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions]
   )
 
   return (

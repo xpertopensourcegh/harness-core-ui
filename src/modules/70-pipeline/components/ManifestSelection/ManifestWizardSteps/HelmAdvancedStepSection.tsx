@@ -13,13 +13,14 @@ import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
 
 interface HelmAdvancedStepProps {
   commandFlagOptions: Array<{ label: string; value: string }>
+  expressions: string[]
   formik: {
     setFieldValue: (a: string, b: string) => void
     values: HelmWithGITDataType
   }
 }
 
-const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, commandFlagOptions }) => {
+const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, commandFlagOptions, expressions }) => {
   const { getString } = useStrings()
   const defaultValueToReset = [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
 
@@ -45,6 +46,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
           name="skipResourceVersioning"
           label={getString('skipResourceVersion')}
           className={cx(helmcss.checkbox, helmcss.halfWidth)}
+          multiTypeTextbox={{ expressions }}
         />
         <Tooltip
           position="top"
@@ -82,6 +84,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
                           label={index === 0 ? getString('flag') : ''}
                           name={`commandFlags[${index}].flag`}
                           multiTextInputProps={{
+                            expressions,
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
                         />

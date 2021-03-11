@@ -32,6 +32,7 @@ import type {
 } from './ManifestInterface'
 import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
+import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './ManifestSelection.module.scss'
 
 const allowedManifestTypes: Array<ManifestTypes> = [
@@ -217,6 +218,7 @@ const ManifestListView = ({
     return {
       key: getString('manifestType.manifestDetails'),
       name: getString('manifestType.manifestDetails'),
+      expressions,
       stepName: getString('manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
@@ -306,6 +308,7 @@ const ManifestListView = ({
       </StepWizard>
     )
   }, [connectorView])
+  const { expressions } = useVariablesExpression()
 
   const [showConnectorModal, hideConnectorModal] = useModalHook(() => {
     const onClose = (): void => {
@@ -329,6 +332,7 @@ const ManifestListView = ({
             labels={getLabels()}
             selectedManifest={selectedManifest}
             newConnectorView={connectorView}
+            expressions={expressions}
             changeManifestType={changeManifestType}
             handleConnectorViewChange={handleConnectorViewChange}
             handleStoreChange={handleStoreChange}
@@ -341,7 +345,7 @@ const ManifestListView = ({
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
       </Dialog>
     )
-  }, [selectedManifest, connectorView, manifestIndex, manifestStore])
+  }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions])
 
   return (
     <Layout.Vertical spacing="small">

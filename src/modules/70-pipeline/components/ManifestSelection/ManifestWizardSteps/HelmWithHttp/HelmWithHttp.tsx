@@ -28,6 +28,7 @@ import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
 interface HelmWithHttpPropType {
   stepName: string
+  expressions: string[]
   initialValues: any
   handleSubmit: (data: any) => void
 }
@@ -46,6 +47,7 @@ const commandFlagOptionsV3 = [
 const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType> = ({
   stepName,
   prevStepData,
+  expressions,
   initialValues,
   handleSubmit,
   previousStep
@@ -142,12 +144,14 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <FormInput.MultiTextInput
                   name="chartName"
+                  multiTextInputProps={{ expressions }}
                   label={getString('manifestType.http.chartName')}
                   placeholder={getString('manifestType.http.chartNamePlaceHolder')}
                   className={helmcss.halfWidth}
                 />
                 <FormInput.MultiTextInput
                   name="chartVersion"
+                  multiTextInputProps={{ expressions }}
                   label={getString('manifestType.http.chartVersion')}
                   placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
                   className={helmcss.halfWidth}
@@ -161,6 +165,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   <FormInput.MultiTypeInput
                     name="helmVersion"
                     multiTypeInputProps={{
+                      expressions,
                       selectProps: {
                         defaultSelectedItem: formik.values?.helmVersion,
                         items: helmVersions
@@ -198,6 +203,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   details={
                     <HelmAdvancedStepSection
                       formik={formik}
+                      expressions={expressions}
                       commandFlagOptions={
                         formik.values?.helmVersion?.value === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3
                       }

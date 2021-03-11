@@ -13,6 +13,7 @@ describe('ManifestSelection tests', () => {
           handleStoreChange={jest.fn()}
           initialValues={{} as ManifestStepInitData}
           types={[]}
+          expressions={[]}
           manifestStoreTypes={[]}
           labels={{
             firstStepName: 'first step',
@@ -45,6 +46,7 @@ describe('ManifestSelection tests', () => {
           handleStoreChange={jest.fn()}
           initialValues={initialValues as ManifestStepInitData}
           types={[]}
+          expressions={[]}
           manifestStoreTypes={['Git', 'Github', 'Gitlab', 'Bitbucket']}
           labels={{
             firstStepName: 'first step',

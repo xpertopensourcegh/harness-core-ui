@@ -20,7 +20,6 @@ import { get } from 'lodash-es'
 import { useListAwsRegions } from 'services/portal'
 import { ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -37,11 +36,11 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   name,
   context,
   handleSubmit,
+  expressions,
   prevStepData,
   initialValues
 }) => {
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])

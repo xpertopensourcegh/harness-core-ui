@@ -26,6 +26,7 @@ interface ManifestWizardStepsProps {
   labels: ConnectorRefLabelType
   selectedManifest: ManifestTypes
   newConnectorView: boolean
+  expressions: string[]
   newConnectorSteps?: any
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   changeManifestType: (data: ManifestTypes) => void
@@ -37,6 +38,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   handleStoreChange,
   initialValues,
   types,
+  expressions,
   manifestStoreTypes,
   labels,
   selectedManifest,
@@ -79,6 +81,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
       <ManifestStore
         name={getString('manifestType.manifestSource')}
         stepName={labels.secondStepName}
+        expressions={expressions}
         newConnectorLabel={labels.newConnector}
         manifestStoreTypes={manifestStoreTypes}
         handleConnectorViewChange={() => handleConnectorViewChange(true)}

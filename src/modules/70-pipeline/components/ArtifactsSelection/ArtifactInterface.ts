@@ -31,6 +31,7 @@ export interface ImagePathTypes {
 export interface ImagePathProps {
   key: string
   name: string
+  expressions: string[]
   context: number
   initialValues: ImagePathTypes
   handleSubmit: (data: any) => void

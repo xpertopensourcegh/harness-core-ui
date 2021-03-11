@@ -20,6 +20,7 @@ interface ConnectorRefStepsProps {
   types: Array<ConnectorInfoDTO['type']>
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   newConnectorSteps?: any
+  expressions: string[]
   labels: ConnectorRefLabelType
   selectedArtifact: ConnectorInfoDTO['type']
   changeArtifactType: (data: ConnectorInfoDTO['type']) => void
@@ -30,6 +31,7 @@ interface ConnectorRefStepsProps {
 const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   types,
   labels,
+  expressions,
   selectedArtifact,
   changeArtifactType,
   handleViewChange,
@@ -68,6 +70,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
       <ArtifactConnector
         name={getString('connectors.artifactRepository')}
         stepName={labels.secondStepName}
+        expressions={expressions}
         handleViewChange={() => handleViewChange(true)}
         initialValues={connectorData}
         connectorType={selectedArtifact}

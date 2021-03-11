@@ -39,6 +39,7 @@ const commandFlagOptions = [
 ]
 interface HelmWithGITPropType {
   stepName: string
+  expressions: string[]
   initialValues: any
   handleSubmit: (data: any) => void
 }
@@ -47,6 +48,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   stepName,
   initialValues,
   handleSubmit,
+  expressions,
   prevStepData,
   previousStep
 }) => {
@@ -166,6 +168,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     <FormInput.MultiTextInput
                       label={i18n.STEP_TWO.branchLabel}
                       placeholder={i18n.STEP_TWO.branchPlaceholder}
+                      multiTextInputProps={{ expressions }}
                       name="branch"
                     />
                     {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
@@ -187,6 +190,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   <div className={helmcss.halfWidth}>
                     <FormInput.MultiTextInput
                       label={i18n.STEP_TWO.commitLabel}
+                      multiTextInputProps={{ expressions }}
                       placeholder={i18n.STEP_TWO.commitPlaceholder}
                       name="commitId"
                     />
@@ -201,6 +205,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     placeholder={i18n.STEP_TWO.filePathPlaceholder}
                     name="folderPath"
                     multiTextInputProps={{
+                      expressions,
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}
                   />
@@ -219,7 +224,13 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   id={getString('advancedTitle')}
                   addDomId={true}
                   summary={getString('advancedTitle')}
-                  details={<HelmAdvancedStepSection formik={formik} commandFlagOptions={commandFlagOptions} />}
+                  details={
+                    <HelmAdvancedStepSection
+                      expressions={expressions}
+                      formik={formik}
+                      commandFlagOptions={commandFlagOptions}
+                    />
+                  }
                 />
               </Accordion>
             </div>

@@ -18,7 +18,6 @@ import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
@@ -62,6 +61,7 @@ const sidecarSchema = Yup.object().shape({
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,
   context,
+  expressions,
   handleSubmit,
   prevStepData,
   initialValues
@@ -70,7 +70,6 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])
   const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
-  const { expressions } = useVariablesExpression()
   const { data, loading, refetch } = useGetBuildDetailsForGcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
