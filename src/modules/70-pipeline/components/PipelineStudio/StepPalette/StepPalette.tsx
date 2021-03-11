@@ -96,10 +96,12 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
-  const { module } = useParams<{ module: string }>()
+  const { module, accountId } = useParams<{ module: string; accountId: string }>()
   const serviceDefinitionType = get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
 
-  const { data: stepsData } = dataSourceFactory(stageType)({ queryParams: { category: serviceDefinitionType, module } })
+  const { data: stepsData } = dataSourceFactory(stageType)({
+    queryParams: { category: serviceDefinitionType, module, accountId }
+  })
   const { getString } = useStrings()
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
