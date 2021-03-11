@@ -25,7 +25,7 @@ declare const styles: {
   readonly advancedStepOpen: string
   readonly checkbox: string
   readonly halfWidth: string
-  readonly tooltipContent: string
   readonly tooltip: string
+  readonly tooltipContent: string
 }
 export default styles

@@ -33,7 +33,7 @@ export interface ManifestStepInitData {
   connectorRef: string | undefined
   store: ConnectorInfoDTO['type'] | string
 }
-export interface ManifestDataType {
+export interface ManifestDetailDataType {
   identifier: string
   branch: string | undefined
   commitId: string | undefined

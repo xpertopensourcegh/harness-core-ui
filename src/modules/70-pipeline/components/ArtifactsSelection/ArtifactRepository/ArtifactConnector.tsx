@@ -69,7 +69,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   multiTypeProps={{ expressions }}
                   isNewConnectorLabelVisible={false}
                   type={connectorType}
-                  //         enableConfigureOptions={false}
+                  enableConfigureOptions={false}
                   selected={formik?.values?.connectorId}
                 />
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (

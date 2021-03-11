@@ -27,7 +27,8 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { String, useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import i18n from './ManifestWizard.i18n'
-import type { ManifestDataType } from '../ManifestInterface'
+import type { ManifestDetailDataType } from '../ManifestInterface'
+import { ManifestDataType } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
 
 const gitFetchTypes = [
@@ -91,14 +92,16 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   const { getString } = useStrings()
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
-  const isActiveAdvancedStep: boolean = initialValues?.skipResourceVersioning
-  const getInitialValues = (): ManifestDataType => {
+  const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning
+
+  const getInitialValues = (): ManifestDetailDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
+        skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         paths:
           typeof specValues.paths === 'string'
             ? specValues.paths
@@ -131,10 +134,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               paths:
                 typeof formData?.paths === 'string'
                   ? formData?.paths
-                  : formData?.paths.map((path: { path: string }) => path.path),
-              skipResourceVersioning: formData?.skipResourceVersioning
+                  : formData?.paths.map((path: { path: string }) => path.path)
             }
-          }
+          },
+          skipResourceVersioning: formData?.skipResourceVersioning
         }
       }
     }
@@ -285,7 +288,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   )}
                 />
               </MultiTypeFieldSelector>
-              {selectedManifest === 'K8sManifest' && (
+              {!!(selectedManifest === ManifestDataType.K8sManifest) && (
                 <Accordion
                   activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
                   className={css.advancedStepOpen}
