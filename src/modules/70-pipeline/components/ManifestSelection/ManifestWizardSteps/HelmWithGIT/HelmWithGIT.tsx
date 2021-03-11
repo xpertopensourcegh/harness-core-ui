@@ -60,7 +60,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
-        paths: specValues.paths?.[0],
+        folderPath: specValues.folderPath,
         helmVersion:
           helmVersions.find(version => version.value === initialValues.spec?.helmVersion) ||
           initialValues.spec?.helmVersion,
@@ -79,7 +79,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
-      paths: '',
+      folderPath: '',
       helmVersion: helmVersions[0],
       skipResourceVersioning: false,
       commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
@@ -98,7 +98,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               gitFetchType: formData?.gitFetchType,
               branch: formData?.branch,
               commitId: formData?.commitId,
-              paths: [formData?.paths]
+              folderPath: formData?.folderPath
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning,
@@ -128,7 +128,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .required(i18n.validation.identifier)
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
             .notOneOf(StringUtils.illegalIdentifiers),
-          paths: Yup.string().trim().required(i18n.validation.filePath),
+          folderPath: Yup.string().trim().required(i18n.validation.filePath),
           helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
         })}
         onSubmit={formData => {
@@ -200,9 +200,9 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.MultiTextInput
-                    label={getString('fileFolderPathText')}
+                    label={getString('charPath')}
                     placeholder={i18n.STEP_TWO.filePathPlaceholder}
-                    name="paths"
+                    name="folderPath"
                     multiTextInputProps={{
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}

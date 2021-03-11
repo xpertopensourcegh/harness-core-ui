@@ -373,6 +373,7 @@ const ManifestListView = ({
                           branch?: string
                           commitId?: string
                           paths?: string[]
+                          folderPath?: string
                         }
                       }
                       chartName?: string
@@ -415,6 +416,13 @@ const ManifestListView = ({
                           {typeof manifest.spec.store.spec.paths === 'string'
                             ? manifest.spec.store.spec.paths
                             : manifest.spec.store.spec.paths.join(', ')}
+                        </Text>
+                      </span>
+                    )}
+                    {!!manifest.spec.store.spec.folderPath && (
+                      <span>
+                        <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                          {manifest.spec.store?.spec?.folderPath}
                         </Text>
                       </span>
                     )}
