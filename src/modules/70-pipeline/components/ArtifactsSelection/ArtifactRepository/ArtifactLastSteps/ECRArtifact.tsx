@@ -102,7 +102,6 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       const values = {
         ...specValues,
         tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-        // region: regions.find(regionData => regionData.value === specValues?.region)
       }
 
       if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {

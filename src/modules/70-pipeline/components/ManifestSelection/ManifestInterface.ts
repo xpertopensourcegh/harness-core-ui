@@ -68,7 +68,7 @@ export interface HelmWithGITDataType {
 }
 export interface HelmWithHTTPDataType {
   identifier: string
-  helmVersion: { label: string; value: HelmVersionOptions }
+  helmVersion: string
   skipResourceVersioning: boolean
   chartName: string
   chartVersion: string
