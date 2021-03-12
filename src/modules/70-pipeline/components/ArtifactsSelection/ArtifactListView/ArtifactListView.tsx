@@ -25,6 +25,7 @@ interface ArtifactListViewProps {
   removeSidecar: (index: number) => void
   fetchedConnectorResponse: PageConnectorResponse | undefined
   accountId: string
+  refetchConnectors: () => void
 }
 
 const ArtifactListView: React.FC<ArtifactListViewProps> = props => {

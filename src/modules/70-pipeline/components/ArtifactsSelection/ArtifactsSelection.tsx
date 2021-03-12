@@ -224,31 +224,31 @@ export default function ArtifactsSelection({
       ]
     : []
 
-  const sideCarArtifacts =
-    sideCarArtifact && sideCarArtifact.length
+  const getConnectorList = () => {
+    return sideCarArtifact && sideCarArtifact.length
       ? sideCarArtifact &&
-        sideCarArtifact.map(
-          (data: {
-            sidecar: {
-              type: string
-              identifier: string
-              spec: {
-                connectorRef: string
-                imagePath: string
+          sideCarArtifact.map(
+            (data: {
+              sidecar: {
+                type: string
+                identifier: string
+                spec: {
+                  connectorRef: string
+                  imagePath: string
+                }
               }
-            }
-          }) => ({
-            scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
-            identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
-          })
-        )
+            }) => ({
+              scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
+              identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
+            })
+          )
       : []
-
-  connectorScopeIdentifierList.join(...sideCarArtifacts)
-
-  const connectorIdentifiers = connectorScopeIdentifierList.map(item => item.identifier)
+  }
 
   const refetchConnectorList = async (): Promise<void> => {
+    const connectorList = getConnectorList()
+    const arr = connectorScopeIdentifierList.concat(...connectorList)
+    const connectorIdentifiers = arr.map(item => item.identifier)
     const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
     setFetchedConnectorResponse(connectorResponse)
   }
@@ -311,6 +311,7 @@ export default function ArtifactsSelection({
 
     updatePipeline(pipeline)
     hideConnectorModal()
+    refetchConnectorList()
   }
 
   const getLastStepInitialData = (): any => {
@@ -346,6 +347,7 @@ export default function ArtifactsSelection({
       setEditIndex(sideCarArtifact?.length)
     }
     showConnectorModal()
+    refetchConnectorList()
   }
 
   const editArtifact = (viewType: number, type: CreationType, index?: number): void => {
@@ -367,6 +369,7 @@ export default function ArtifactsSelection({
       setEditIndex(index)
     }
     showConnectorModal()
+    refetchConnectorList()
   }
 
   const removePrimary = (): void => {
@@ -567,6 +570,7 @@ export default function ArtifactsSelection({
       removeSidecar={removeSidecar}
       fetchedConnectorResponse={fetchedConnectorResponse}
       accountId={accountId}
+      refetchConnectors={refetchConnectorList}
     />
   )
 }
