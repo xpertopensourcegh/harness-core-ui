@@ -8,6 +8,7 @@ import {
   Layout,
   MultiTypeInputType,
   Button,
+  SelectOption,
   StepProps,
   RUNTIME_INPUT_VALUE,
   Text
@@ -44,6 +45,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])
+  const [regions, setRegions] = React.useState<SelectOption[]>([])
   const [lastQueryData, setLastQueryData] = React.useState<{ imagePath: string; region: any }>({
     imagePath: '',
     region: ''
@@ -73,22 +75,25 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     lastQueryData.region && lastQueryData.imagePath && refetch()
   }, [lastQueryData])
 
-  const getSelectItems = React.useCallback(() => {
-    const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
-    return list
-  }, [tagList])
-  const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
-
   const { data } = useListAwsRegions({
     queryParams: {
       accountId
     }
   })
 
-  const regions = (data?.resource || []).map((region: any) => ({
-    value: region.value,
-    label: region.name
-  }))
+  React.useEffect(() => {
+    const regionValues = (data?.resource || []).map((region: any) => ({
+      value: region.value,
+      label: region.name
+    }))
+    setRegions(regionValues)
+  }, [data?.resource])
+
+  const getSelectItems = React.useCallback(() => {
+    const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
+    return list
+  }, [tagList])
+  const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
 
   const getInitialValues = (): Omit<ImagePathTypes, 'tag' | 'region'> & { tag: any; region: any } => {
     const specValues = get(initialValues, 'spec', null)
@@ -96,18 +101,21 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     if (specValues) {
       const values = {
         ...specValues,
-        tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex,
-        region: regions.find(regionData => regionData.value === specValues?.region) || specValues?.region
+        tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
+        // region: regions.find(regionData => regionData.value === specValues?.region)
       }
 
       if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
         values.tag = { label: specValues?.tag, value: specValues?.tag }
       }
 
+      if (getMultiTypeFromValue(specValues?.region) === MultiTypeInputType.FIXED) {
+        values.region = regions.find(regionData => regionData.value === specValues?.region)
+      }
+
       if (context === 2 && initialValues?.identifier) {
         values.identifier = initialValues?.identifier
       }
-
       return values
     }
 
@@ -184,6 +192,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
             connectorId: getConnectorIdValue()
           })
         }}
+        enableReinitialize={true}
       >
         {formik => (
           <Form>
