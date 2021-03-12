@@ -584,7 +584,6 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                   <button
                                     class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                                     data-testid="remove-sharedPaths-[0]"
-                                    style="margin-top: 4px;"
                                     type="button"
                                   >
                                     <span

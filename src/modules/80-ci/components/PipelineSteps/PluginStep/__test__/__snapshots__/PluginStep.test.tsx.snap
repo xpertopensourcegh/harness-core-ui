@@ -616,7 +616,6 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.settings-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -727,7 +726,6 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.settings-[1]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -838,7 +836,6 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.settings-[2]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -2716,7 +2713,6 @@ exports[`Plugin Step Edit View should render properly 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.settings-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span

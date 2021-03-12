@@ -617,7 +617,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                             data-testid="remove-spec.envVariables-[0]"
-                            style="margin-top: 4px;"
                             type="button"
                           >
                             <span
@@ -728,7 +727,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                             data-testid="remove-spec.envVariables-[1]"
-                            style="margin-top: 4px;"
                             type="button"
                           >
                             <span
@@ -839,7 +837,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                             data-testid="remove-spec.envVariables-[2]"
-                            style="margin-top: 4px;"
                             type="button"
                           >
                             <span
@@ -1034,7 +1031,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.entrypoint-[0]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span
@@ -1112,7 +1108,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.entrypoint-[1]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span
@@ -1190,7 +1185,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.entrypoint-[2]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span
@@ -1383,7 +1377,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.args-[0]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span
@@ -1461,7 +1454,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.args-[1]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span
@@ -1539,7 +1531,6 @@ exports[`Dependency Step Edit view edit mode works 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.args-[2]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span
@@ -3495,7 +3486,6 @@ exports[`Dependency Step Edit view should render properly 1`] = `
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                             data-testid="remove-spec.envVariables-[0]"
-                            style="margin-top: 4px;"
                             type="button"
                           >
                             <span
@@ -3690,7 +3680,6 @@ exports[`Dependency Step Edit view should render properly 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.entrypoint-[0]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span
@@ -3883,7 +3872,6 @@ exports[`Dependency Step Edit view should render properly 1`] = `
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         data-testid="remove-spec.args-[0]"
-                        style="margin-top: 4px;"
                         type="button"
                       >
                         <span

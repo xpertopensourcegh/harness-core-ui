@@ -685,7 +685,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[0]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -763,7 +762,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[1]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -841,7 +839,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[2]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -1268,7 +1265,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1379,7 +1375,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[1]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1490,7 +1485,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[2]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1726,7 +1720,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1837,7 +1830,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[1]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1948,7 +1940,6 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[2]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -4762,7 +4753,6 @@ exports[`ECR Step Edit View should render properly 1`] = `
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[0]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -5189,7 +5179,6 @@ exports[`ECR Step Edit View should render properly 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -5425,7 +5414,6 @@ exports[`ECR Step Edit View should render properly 1`] = `
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
