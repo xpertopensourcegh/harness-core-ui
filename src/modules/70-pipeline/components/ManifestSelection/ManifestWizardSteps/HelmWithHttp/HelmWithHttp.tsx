@@ -25,6 +25,7 @@ import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import { helmVersions } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface HelmWithHttpPropType {
   stepName: string
@@ -142,81 +143,85 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           <Form>
             <div className={helmcss.helmGitForm}>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <FormInput.Text
-                  name="identifier"
-                  label={getString('manifestType.manifestIdentifier')}
-                  placeholder={getString('manifestType.manifestPlaceholder')}
-                  className={helmcss.halfWidth}
-                />
-                <FormInput.MultiTextInput
-                  name="chartName"
-                  multiTextInputProps={{ expressions }}
-                  label={getString('manifestType.http.chartName')}
-                  placeholder={getString('manifestType.http.chartNamePlaceHolder')}
-                  className={helmcss.halfWidth}
-                />
-                <FormInput.MultiTextInput
-                  name="chartVersion"
-                  multiTextInputProps={{ expressions }}
-                  label={getString('manifestType.http.chartVersion')}
-                  placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
-                  className={helmcss.halfWidth}
-                />
-                <div
-                  className={cx(helmcss.halfWidth, {
-                    [helmcss.runtimeInput]:
-                      getMultiTypeFromValue(formik.values?.helmVersion) === MultiTypeInputType.RUNTIME
+                <Layout.Horizontal flex>
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.Text
+                      name="identifier"
+                      label={getString('manifestType.manifestIdentifier')}
+                      placeholder={getString('manifestType.manifestPlaceholder')}
+                    />
+                  </div>
+
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.MultiTextInput
+                      name="chartName"
+                      multiTextInputProps={{ expressions }}
+                      label={getString('manifestType.http.chartName')}
+                      placeholder={getString('manifestType.http.chartNamePlaceHolder')}
+                    />
+                    {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.folderPath as string}
+                        type="String"
+                        variableName="chartName"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('chartName', value)}
+                      />
+                    )}
+                  </div>
+                </Layout.Horizontal>
+                <Layout.Horizontal flex>
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.MultiTextInput
+                      name="chartVersion"
+                      multiTextInputProps={{ expressions }}
+                      label={getString('manifestType.http.chartVersion')}
+                      placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
+                    />
+                    {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.folderPath as string}
+                        type="String"
+                        variableName="chartVersion"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('chartVersion', value)}
+                      />
+                    )}
+                  </div>
+
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
+                  </div>
+                </Layout.Horizontal>
+
+                <Accordion
+                  activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                  className={cx({
+                    [helmcss.advancedStepOpen]: isActiveAdvancedStep
                   })}
                 >
-                  <FormInput.MultiTypeInput
-                    name="helmVersion"
-                    multiTypeInputProps={{
-                      expressions,
-                      selectProps: {
-                        defaultSelectedItem: formik.values?.helmVersion,
-                        items: helmVersions
-                      }
-                    }}
-                    label={getString('helmVersion')}
-                    selectItems={helmVersions}
+                  <Accordion.Panel
+                    id={getString('advancedTitle')}
+                    addDomId={true}
+                    summary={getString('advancedTitle')}
+                    details={
+                      <HelmAdvancedStepSection
+                        formik={formik}
+                        expressions={expressions}
+                        commandFlagOptions={
+                          formik.values?.helmVersion?.value === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3
+                        }
+                      />
+                    }
                   />
-                  {getMultiTypeFromValue(formik.values?.helmVersion) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={(formik.values?.helmVersion as unknown) as string}
-                      type="String"
-                      variableName="helmVersion"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('helmVersion', value)
-                      }}
-                    />
-                  )}
-                </div>
+                </Accordion>
               </Layout.Vertical>
-              <Accordion
-                activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
-                className={cx({
-                  [helmcss.advancedStepOpen]: isActiveAdvancedStep
-                })}
-              >
-                <Accordion.Panel
-                  id={getString('advancedTitle')}
-                  addDomId={true}
-                  summary={getString('advancedTitle')}
-                  details={
-                    <HelmAdvancedStepSection
-                      formik={formik}
-                      expressions={expressions}
-                      commandFlagOptions={
-                        formik.values?.helmVersion?.value === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3
-                      }
-                    />
-                  }
-                />
-              </Accordion>
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
