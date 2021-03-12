@@ -30,6 +30,7 @@ import i18n from './ManifestWizard.i18n'
 import type { ManifestDetailDataType } from '../ManifestInterface'
 import { ManifestDataType } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const gitFetchTypes = [
   { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
@@ -191,16 +192,14 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 placeholder={i18n.STEP_ONE.idPlaceholder}
               />
               <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
-              <div>
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
                   <FormInput.MultiTextInput
                     multiTextInputProps={{ expressions }}
                     label={i18n.STEP_TWO.branchLabel}
                     placeholder={i18n.STEP_TWO.branchPlaceholder}
                     name="branch"
-                    className={cx({
-                      [css.runtimeInput]: getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
-                    })}
+                    style={{ width: '370px' }}
                   />
                 )}
                 {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
