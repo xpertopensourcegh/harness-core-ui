@@ -346,6 +346,7 @@ selectProject: 'Select a Project'
 selectResource: Select Resource
 closeSelection: 'Close Selection'
 mapApplications: 'Map Applications to Harness Services'
+mapApplicationsToEnvs: Map Applications to Harness Environments
 lastSevenDays: 'last 7 days'
 total: 'Total'
 credentials: Credentials
@@ -1749,7 +1750,9 @@ cv:
       noAppsMsg: No Applications were found
       noTiersMsg: No Tiers were found for selected application
       mappingToHarnessService: MAPPING TO HARNESS SERVICE
-      mapToHarnessEnvironment: MAP TO HARNESS ENVIRONMENT
+      mapToHarnessEnvironment: MAPPING TO HARNESS ENVIRONMENT
+      mappedToHarnessService: MAPPED TO HARNESS SERVICE
+      mappedToHarnessEnvironment: MAPPED TO HARNESS ENVIRONMENT
       harnessServices: HARNESS SERVICES
       status: STATUS
       validation: VALIDATION
@@ -1757,6 +1760,7 @@ cv:
       errorsFound: errors found
       verificationsInProgress: verifications in progress
       noData: no data
+      searchPlaceholderApplications: Search for Applications
       validationsPassed: validations passed
       validationsFailed: validations failed
       validations:
@@ -1778,6 +1782,7 @@ cv:
         applications: Applications
         applicationsDesc: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace “prod-setup.” Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
         tiers: Tiers
+      searchTiersPlaceHolder: 'Search for Tiers'
     gco:
       connectToMonitoringSource: 'Connect to your Google Cloud Platform'
       defaultName: 'My Google Cloud Operations Monitoring Source'
@@ -1785,6 +1790,7 @@ cv:
       createConnectorText: '+ New Google Cloud Platform Connector'
       addManualInputQuery: '+ Manually input query'
       selectProduct: 'Select the Google Cloud Operations feature that you would like to choose dashboards from'
+      searchForDashboardsPlaceholder: Search for dashboards
       product:
         metrics: 'Cloud Metrics'
       productValidationText: 'Google Cloud Operations feature is required.'
@@ -1838,23 +1844,26 @@ cv:
       selectActivitySource: 'Select Change Source'
       selectApplication: 'Select Applications'
       selectEnvironment: 'Select Environments'
-      selectService: 'Review Services'
-      iconLabel: 'Harness CD 1.0'
-      harnessApps: 'HARNESS CD 1.0 APPLICATION'
+      selectService: 'Select Services'
+      iconLabel: 'Harness FirstGen'
+      harnessApps: 'HARNESS FIRSTGEN APPLICATION'
       application:
         noData: 'No applications were found'
-        infoText: 'Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications. Select which applications and services you’d like to import over to your current project.'
-        servicesToBeImported: 'HARNESS SERVICES (TO BE IMPORTED)'
+        infoText: 'Harness CV can verify change activities by automatically sourcing them from your Harness FirstGen applications. Select which applications and services you’d like to import over to your current project.'
+        servicesToBeImported: HARNESS FIRSTGEN SERVICES (TO BE IMPORTED)
+        searchPlaceholder: Search for FirstGen Applications
       environment:
         noData: 'No environments were found'
-        infoText: 'Select the CD 1.0 environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.'
-        harnessEnv: 'HARNESS CD 1.0 ENVIRONMENTS'
-        env: 'ENVIRONMENTS'
+        infoText: 'Select the FirstGen Environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.'
+        harnessEnv: 'HARNESS FIRSTGEN ENVIRONMENTS'
+        env: 'HARNESS NEXTGEN ENVIRONMENTS'
+        searchPlaceholder: Search for FirstGen Environments
       service:
         noData: 'No services were found'
         infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.'
-        harnessServices: 'HARNESS CD 1.0 SERVICES'
-        services: 'HARNESS CV 2.0 SERVICES'
+        harnessServices: 'HARNESS FIRSTGEN SERVICES'
+        services: 'HARNESS NEXTGEN SERVICES'
+        searchPlaceholder: Search for FirstGen Services
       validation:
         applicationValidation: At least one application must be selected.
         serviceValidation: At least one service mapping must be selected.
@@ -1864,9 +1873,12 @@ cv:
         - 'Select Kubernetes Connector'
         - 'Select Kubernetes Namespace(s)'
         - 'Map Workloads to Services'
+      namespaceMapping:
+        searchNamespacePlaceholder: Search for Namespaces
       mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
       noWorkloads: 'No workloads found.'
       missingWorkloadMapping: Please add at least one workload mapping
+      searchWorkloadPlaceholder: Search for Workloads
       workloadToServiceTableColumns:
         workload: 'Kubernetes Workload'
         mapToService: 'Map to Harness Service'

@@ -19,7 +19,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large"
             >
-              Monitoring Source Type
+              Monitoring Source
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main monitoringCard"
@@ -150,7 +150,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name your monitoring source
+                        Name your Monitoring Source
                          
                         <span
                           class="bp3-text-muted"

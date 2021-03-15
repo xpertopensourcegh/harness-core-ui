@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uicore'
-import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
 
@@ -18,7 +17,7 @@ import {
   EnvironmentResponseDTO,
   GetEnvironmentListForProjectQueryParams
 } from 'services/cd-ng'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import css from './SelectEnvironment.module.scss'
 
 const PAGE_LIMIT = 5
@@ -40,11 +39,6 @@ interface TableData {
   appId: string
   selected: boolean
   environment?: SelectOption
-}
-
-const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
-  const data = row.original
-  return <Text>{data.appName}</Text>
 }
 
 const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
@@ -157,17 +151,20 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
       <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
         {getString('cv.activitySources.harnessCD.environment.infoText')}
       </Text>
+      <TableFilter
+        placeholder={getString('cv.activitySources.harnessCD.environment.searchPlaceholder')}
+        onFilter={filterValue => setFilter(filterValue)}
+        appliedFilter={filter}
+      />
       <Table<TableData>
         onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
         columns={[
           {
-            Header: getString('cv.activitySources.harnessCD.environment.harnessEnv'),
-            accessor: 'name',
-
-            width: '33%',
-            Cell: function RenderApplications(tableProps) {
+            Header: getString('cv.activitySources.harnessCD.harnessApps'),
+            accessor: 'appName',
+            width: '30%',
+            Cell: function RendApplicationName(tableProps) {
               const rowData: TableData = tableProps?.row?.original as TableData
-
               return (
                 <Layout.Horizontal spacing="small">
                   <input
@@ -178,6 +175,22 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                       onUpdateData(tableProps.row.index, { selected: e.target.checked })
                     }}
                   />
+                  <Text color={Color.BLACK}>{rowData.appName}</Text>
+                </Layout.Horizontal>
+              )
+            },
+
+            disableSortBy: true
+          },
+          {
+            Header: getString('cv.activitySources.harnessCD.environment.harnessEnv'),
+            accessor: 'name',
+            width: '33%',
+            Cell: function RenderApplications(tableProps) {
+              const rowData: TableData = tableProps?.row?.original as TableData
+
+              return (
+                <Layout.Horizontal spacing="small">
                   <Icon name="cd-main" />
                   <Text color={Color.BLACK}>{rowData.name}</Text>
                 </Layout.Horizontal>
@@ -186,24 +199,8 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
             disableSortBy: true
           },
           {
-            Header: getString('cv.activitySources.harnessCD.harnessApps'),
-            accessor: 'appName',
-
-            width: '30%',
-            Cell: RenderColumnApplication,
-
-            disableSortBy: true
-          },
-          {
-            Header: (
-              <TableColumnWithFilter
-                columnName={getString('cv.activitySources.harnessCD.environment.env')}
-                onFilter={filterValue => setFilter(filterValue)}
-                appliedFilter={filter}
-              />
-            ),
+            Header: getString('cv.activitySources.harnessCD.environment.env'),
             accessor: 'environment',
-
             width: '36%',
             Cell: function EnvironmentCell({ row, value }) {
               return (

@@ -22,9 +22,9 @@ jest.mock('framework/exports', () => ({
   })
 }))
 
-jest.mock('@cv/components/TableColumnWithFilter/TableColumnWithFilter', () => ({
-  ...(jest.requireActual('@cv/components/TableColumnWithFilter/TableColumnWithFilter') as object),
-  TableColumnWithFilter: function MockComponent(props: any) {
+jest.mock('@cv/components/TableFilter/TableFilter', () => ({
+  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
+  TableFilter: function MockComponent(props: any) {
     return <Container className="filterComponent" onClick={() => props.onFilter('mockFilter')} />
   }
 }))

@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uicore'
-import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
@@ -25,7 +24,7 @@ import {
   GetServiceListForProjectQueryParams
 } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import { useRegisterActivitySource, ActivitySourceDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
@@ -66,15 +65,6 @@ export interface CDActivitySourceDTO extends ActivitySourceDTO {
     appId: string
     serviceIdentifier: string
   }>
-}
-
-const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
-  const data = row.original
-  return (
-    <Text lineClamp={1} width="95%">
-      {data.appName}
-    </Text>
-  )
 }
 
 export function transformToSavePayload(data: any): CDActivitySourceDTO {
@@ -235,17 +225,21 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
         {getString('cv.activitySources.harnessCD.service.infoText')}
       </Text>
+      <TableFilter
+        placeholder={getString('cv.activitySources.harnessCD.service.searchPlaceholder')}
+        onFilter={filterValue => setFilter(filterValue)}
+        appliedFilter={filter}
+      />
       <Table<TableData>
         onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
         columns={[
           {
-            Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
-            accessor: 'name',
+            Header: getString('cv.activitySources.harnessCD.harnessApps'),
+            accessor: 'appName',
 
             width: '28%',
-            Cell: function RenderApplications(tableProps) {
+            Cell: function RenderColumnApplication(tableProps) {
               const rowData: TableData = tableProps?.row?.original as TableData
-
               return (
                 <Layout.Horizontal spacing="small">
                   <input
@@ -256,6 +250,24 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                       onUpdateData(tableProps.row.index, { selected: e.target.checked })
                     }}
                   />
+                  <Text lineClamp={1} width="95%" color={Color.BLACK}>
+                    {rowData.appName}
+                  </Text>
+                </Layout.Horizontal>
+              )
+            },
+
+            disableSortBy: true
+          },
+          {
+            Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
+            accessor: 'name',
+            width: '28%',
+            Cell: function RenderApplications(tableProps) {
+              const rowData: TableData = tableProps?.row?.original as TableData
+
+              return (
+                <Layout.Horizontal spacing="small">
                   <Icon name="cd-main" />
                   <Text color={Color.BLACK} lineClamp={1} width="95%">
                     {rowData.name}
@@ -266,22 +278,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
             disableSortBy: true
           },
           {
-            Header: getString('cv.activitySources.harnessCD.harnessApps'),
-            accessor: 'appName',
-
-            width: '28%',
-            Cell: RenderColumnApplication,
-
-            disableSortBy: true
-          },
-          {
-            Header: (
-              <TableColumnWithFilter
-                columnName={getString('cv.activitySources.harnessCD.service.services')}
-                onFilter={filterValue => setFilter(filterValue)}
-                appliedFilter={filter}
-              />
-            ),
+            Header: getString('cv.activitySources.harnessCD.service.services'),
             accessor: 'service',
             width: '44%',
             Cell: function ServiceCell({ row, value }) {

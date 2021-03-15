@@ -95,7 +95,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
               <p
                 class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
               >
-                Harness CD 1.0
+                Harness FirstGen
               </p>
             </div>
             <div
