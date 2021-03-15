@@ -364,6 +364,7 @@ stepPalette:
   title: 'Step Library'
   subTitle: 'All Steps'
   noSearchResultsFound: 'No results found. Please try another step name.'
+  loadingSteps: Loading steps...
   selectStep: 'Select a Step'
   library: 'Library'
   others: 'Others'
