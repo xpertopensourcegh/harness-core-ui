@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout } from '@wings-software/uicore'
 import cx from 'classnames'
-import { debounce } from 'lodash-es'
+import { debounce, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -195,7 +195,10 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         if (!stage) {
           nodeParallel = event.entity.getTargetPort().getNode() as DefaultNodeModel
           nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[2]
-          stage = getStageFromPipeline(nodeId).parent
+          const parallelOrRootLevelStage = getStageFromPipeline(nodeId)
+          // NOTE: in a case of two stages parallel node is moved to root level
+          // so we use parallelOrRootLevelStage.parent if defined, otherwise we use parallelOrRootLevelStage
+          stage = parallelOrRootLevelStage.parent ? parallelOrRootLevelStage.parent : parallelOrRootLevelStage.stage
           next = 0
         }
         if (stage) {
@@ -220,7 +223,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         }
       }
     } else {
-      if (insertAt && insertAt > -1) {
+      if (!isNil(insertAt) && insertAt > -1) {
         pipeline.stages.splice(insertAt, 0, newStage)
       } else {
         pipeline.stages.push(newStage)
