@@ -50,7 +50,7 @@ const allowedManifestTypes: Array<ManifestTypes> = [
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
   ManifestStoreMap.Github,
-  ManifestStoreMap.Gitlab,
+  ManifestStoreMap.GitLab,
   ManifestStoreMap.Bitbucket
 ]
 
@@ -258,7 +258,7 @@ const ManifestListView = ({
 
     switch (true) {
       case selectedManifest === ManifestDataType.HelmChart &&
-        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.Gitlab, ManifestStoreMap.Bitbucket].includes(
+        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
           manifestStore as ManifestStores
         ):
         manifestDetailStep = <HelmWithGIT {...lastStepProps()} />
@@ -269,7 +269,7 @@ const ManifestListView = ({
         break
 
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
-        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.Gitlab, ManifestStoreMap.Bitbucket].includes(
+        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
           manifestStore as ManifestStores
         ):
       default:

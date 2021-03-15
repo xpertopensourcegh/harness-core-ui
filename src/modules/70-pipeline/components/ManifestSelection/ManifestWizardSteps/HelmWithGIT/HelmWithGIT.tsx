@@ -24,7 +24,7 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import i18n from '../ManifestWizard.i18n'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
-import { helmVersions } from '../../Manifesthelper'
+import { GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
@@ -54,6 +54,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
+  const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
 
   const getInitialValues = React.useCallback((): HelmWithGITDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -81,7 +82,11 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       folderPath: '',
       helmVersion: 'V2',
       skipResourceVersioning: false,
-      commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
+      commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }],
+      repoName:
+        prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo
+          ? prevStepData?.connectorRef?.connector?.spec?.url
+          : ''
     }
   }, [])
 
@@ -97,6 +102,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               gitFetchType: formData?.gitFetchType,
               branch: formData?.branch,
               commitId: formData?.commitId,
+              repoName: formData?.repoName,
               folderPath: formData?.folderPath
             }
           },
@@ -154,6 +160,30 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 placeholder={getString('manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
+              {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo && (
+                <div className={helmcss.halfWidth}>
+                  <FormInput.Text
+                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                    disabled
+                    name="repoName"
+                  />
+                </div>
+              )}
+
+              {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Account && (
+                <div className={helmcss.halfWidth}>
+                  <div>
+                    <FormInput.Text
+                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                      name="repoName"
+                      className={helmcss.repoName}
+                    />
+                  </div>
+                  <div
+                    style={{ marginBottom: 'var(--spacing-medium)' }}
+                  >{`${prevStepData?.connectorRef?.connector?.spec?.url}/${formik.values?.repoName}`}</div>
+                </div>
+              )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />

@@ -15,7 +15,7 @@ export const ManifestDataType: { [key: string]: ManifestTypes } = {
 export const ManifestStoreMap: { [key: string]: ManifestStores } = {
   Git: 'Git',
   Github: 'Github',
-  Gitlab: 'Gitlab',
+  GitLab: 'GitLab',
   Bitbucket: 'Bitbucket',
   Http: 'Http',
   S3: 'S3',
@@ -59,7 +59,7 @@ export const getManifestIconByType = (type: string | undefined): IconName => {
       return 'service-github'
     case ManifestStoreMap.Github:
       return 'github'
-    case ManifestStoreMap.Gitlab:
+    case ManifestStoreMap.GitLab:
       return 'service-gotlab'
     case ManifestStoreMap.Bitbucket:
       return 'bitbucket'
@@ -79,7 +79,7 @@ export const getManifestStoreTitle = (type: string): string => {
       return 'connectors.title.gitConnector'
     case ManifestStoreMap.Github:
       return 'connectors.title.githubConnector'
-    case ManifestStoreMap.Gitlab:
+    case ManifestStoreMap.GitLab:
       return 'connectors.title.gitlabConnector'
     case ManifestStoreMap.Bitbucket:
       return 'connectors.title.bitbucketConnector'
@@ -97,9 +97,13 @@ export const getManifestStoreTitle = (type: string): string => {
 export const ManifestToConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
   Git: Connectors.GIT,
   Github: Connectors.GITHUB,
-  Gitlab: Connectors.GITLAB,
+  GitLab: Connectors.GITLAB,
   Bitbucket: Connectors.BITBUCKET,
   Http: Connectors.HttpHelmRepo,
   S3: Connectors.AWS,
   Gcs: Connectors.GCP
+}
+export const GitRepoName: Record<string, string> = {
+  Account: 'Account',
+  Repo: 'Repo'
 }

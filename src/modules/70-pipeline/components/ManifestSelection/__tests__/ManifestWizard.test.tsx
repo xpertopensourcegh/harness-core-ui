@@ -47,7 +47,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={[]}
           expressions={[]}
-          manifestStoreTypes={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+          manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'first step',
             secondStepName: 'second step',

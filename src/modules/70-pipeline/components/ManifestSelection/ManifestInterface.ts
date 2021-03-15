@@ -9,7 +9,7 @@ export type ManifestTypes =
   | 'OpenshiftTemplate'
   | 'OpenshiftParam'
 
-export type ManifestStores = 'Git' | 'Github' | 'Gitlab' | 'Bitbucket' | 'Http' | 'S3' | 'Gcs'
+export type ManifestStores = 'Git' | 'Github' | 'GitLab' | 'Bitbucket' | 'Http' | 'S3' | 'Gcs'
 export type HelmVersionOptions = 'V2' | 'V3'
 export interface ManifestSelectionProps {
   isForOverrideSets?: boolean
@@ -43,6 +43,7 @@ export interface ManifestDetailDataType {
   gitFetchType: 'Branch' | 'Commit'
   paths: any
   skipResourceVersioning?: boolean
+  repoName?: string
 }
 export interface ManifestLastStepProps {
   key: string
@@ -62,6 +63,7 @@ export interface HelmWithGITDataType {
   identifier: string
   branch: string | undefined
   commitId: string | undefined
+  repoName?: string
   gitFetchType: 'Branch' | 'Commit'
   folderPath: string
   helmVersion: string
