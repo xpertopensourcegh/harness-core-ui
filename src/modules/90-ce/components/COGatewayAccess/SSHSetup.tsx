@@ -13,7 +13,7 @@ const dropdownOptions: SelectOption[] = [
   {
     label: OS.Mac,
     value:
-      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_linux_amd64.zip'
+      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_darwin_amd64.zip'
   },
   {
     label: OS.Windows,
@@ -23,7 +23,7 @@ const dropdownOptions: SelectOption[] = [
   {
     label: OS.Linux,
     value:
-      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_darwin_amd64.zip'
+      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_linux_amd64.zip'
   }
 ]
 
@@ -44,7 +44,7 @@ const SSHSetup: React.FC = () => {
     if (defaultOs) {
       setAssetLink(dropdownOptions.find(item => item.label === defaultOs) as SelectOption)
     }
-  })
+  }, [])
 
   const downloadAsset = () => {
     const linkEl: HTMLAnchorElement = document.createElement('a')
