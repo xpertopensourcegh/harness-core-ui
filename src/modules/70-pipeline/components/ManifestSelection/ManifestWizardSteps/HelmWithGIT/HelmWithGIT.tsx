@@ -20,7 +20,7 @@ import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import i18n from '../ManifestWizard.i18n'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
@@ -40,8 +40,8 @@ const commandFlagOptions = [
 interface HelmWithGITPropType {
   stepName: string
   expressions: string[]
-  initialValues: any
-  handleSubmit: (data: any) => void
+  initialValues: ManifestConfig
+  handleSubmit: (data: ManifestConfigWrapper) => void
 }
 
 const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType> = ({
@@ -85,8 +85,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
     }
   }, [])
 
-  const submitFormData = (formData: any): void => {
-    const manifestObj: any = {
+  const submitFormData = (formData: HelmWithGITDataType & { store?: string; connectorRef?: string }): void => {
+    const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -101,16 +101,17 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning,
-          helmVersion: formData?.helmVersion.value ? formData?.helmVersion.value : formData?.helmVersion
+          helmVersion: formData?.helmVersion,
+          commandFlags: formData?.commandFlags[0].commandType
+            ? formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+                commandType: commandFlag.commandType,
+                flag: commandFlag.flag
+              }))
+            : []
         }
       }
     }
-    if (formData?.commandFlags[0].commandType) {
-      manifestObj.manifest.spec.commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-        commandType: commandFlag.commandType,
-        flag: commandFlag.flag
-      }))
-    }
+
     handleSubmit(manifestObj)
   }
 

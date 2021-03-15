@@ -25,7 +25,7 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { FormMultiTypeCheckboxField } from '@common/components'
 
 import { String, useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import i18n from './ManifestWizard.i18n'
 import type { ManifestDetailDataType } from '../ManifestInterface'
 import { ManifestDataType } from '../Manifesthelper'
@@ -40,9 +40,9 @@ const gitFetchTypes = [
 interface ManifestDetailsPropType {
   stepName: string
   expressions: string[]
-  initialValues: any
+  initialValues: ManifestConfig
   selectedManifest: string
-  handleSubmit: (data: any) => void
+  handleSubmit: (data: ManifestConfigWrapper) => void
 }
 
 const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
@@ -122,7 +122,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     }
   }
 
-  const submitFormData = (formData: any): void => {
+  const submitFormData = (formData: ManifestDetailDataType & { store?: string; connectorRef?: string }): void => {
     const manifestObj = {
       manifest: {
         identifier: formData.identifier,
@@ -137,12 +137,14 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               paths:
                 typeof formData?.paths === 'string'
                   ? formData?.paths
-                  : formData?.paths.map((path: { path: string }) => path.path)
+                  : formData?.paths?.map((path: { path: string }) => path.path)
             }
-          },
-          skipResourceVersioning: formData?.skipResourceVersioning
+          }
         }
       }
+    }
+    if (selectedManifest === ManifestDataType.K8sManifest) {
+      ;(manifestObj.manifest.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
     }
     handleSubmit(manifestObj)
   }

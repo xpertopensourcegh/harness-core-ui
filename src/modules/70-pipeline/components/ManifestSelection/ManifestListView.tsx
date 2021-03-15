@@ -13,7 +13,7 @@ import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/G
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -23,7 +23,7 @@ import {
 import {
   getManifestIconByType,
   ManifestDataType,
-  manifestStoreConnectorMap,
+  ManifestToConnectorMap,
   ManifestStoreMap,
   manifestTypeIcons,
   manifestTypeText
@@ -151,7 +151,7 @@ const ManifestListView = ({
     showConnectorModal()
   }
 
-  const getLastStepInitialData = (): any => {
+  const getLastStepInitialData = (): ManifestConfig => {
     const initValues = get(listOfManifests[manifestIndex], 'manifest', null)
     return initValues
   }
@@ -173,7 +173,7 @@ const ManifestListView = ({
     }
   }
 
-  const handleSubmit = (manifestObj: any): void => {
+  const handleSubmit = (manifestObj: ManifestConfigWrapper): void => {
     manifestObj = {
       ...manifestObj,
       manifest: {
@@ -287,7 +287,7 @@ const ManifestListView = ({
       return (
         <StepWizard title={getString('connectors.createNewConnector')}>
           <ConnectorDetailsStep
-            type={manifestStoreConnectorMap[manifestStore]}
+            type={ManifestToConnectorMap[manifestStore]}
             name={getString('overview')}
             isEditMode={isEditMode}
           />
@@ -305,7 +305,7 @@ const ManifestListView = ({
             name={getString('connectors.stepThreeName')}
             isStep={true}
             isLastStep={false}
-            type={manifestStoreConnectorMap[manifestStore]}
+            type={ManifestToConnectorMap[manifestStore]}
           />
         </StepWizard>
       )
@@ -313,12 +313,12 @@ const ManifestListView = ({
     return (
       <StepWizard title={getString('connectors.createNewConnector')}>
         <ConnectorDetailsStep
-          type={manifestStoreConnectorMap[manifestStore]}
+          type={ManifestToConnectorMap[manifestStore]}
           name={getString('overview')}
           isEditMode={isEditMode}
         />
         <GitDetailsStep
-          type={manifestStoreConnectorMap[manifestStore]}
+          type={ManifestToConnectorMap[manifestStore]}
           name={getString('details')}
           isEditMode={isEditMode}
           connectorInfo={undefined}
@@ -339,7 +339,7 @@ const ManifestListView = ({
           name={getString('connectors.stepThreeName')}
           isStep={true}
           isLastStep={false}
-          type={manifestStoreConnectorMap[manifestStore]}
+          type={ManifestToConnectorMap[manifestStore]}
         />
       </StepWizard>
     )

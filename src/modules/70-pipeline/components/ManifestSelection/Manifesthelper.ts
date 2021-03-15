@@ -72,7 +72,7 @@ export const getManifestStoreTitle = (type: string): string => {
   }
 }
 
-export const manifestStoreConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
+export const ManifestToConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
   Git: Connectors.GIT,
   Github: Connectors.GITHUB,
   Gitlab: Connectors.GITLAB,

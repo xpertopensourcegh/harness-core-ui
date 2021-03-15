@@ -17,7 +17,7 @@ import cx from 'classnames'
 import { get } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
@@ -29,8 +29,8 @@ import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 interface HelmWithHttpPropType {
   stepName: string
   expressions: string[]
-  initialValues: any
-  handleSubmit: (data: any) => void
+  initialValues: ManifestConfig
+  handleSubmit: (data: ManifestConfigWrapper) => void
 }
 
 const commandFlagOptionsV2 = [
@@ -83,8 +83,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
     }
   }
-  const submitFormData = (formData: any): void => {
-    const manifestObj: any = {
+  const submitFormData = (formData: HelmWithHTTPDataType & { store?: string; connectorRef?: string }): void => {
+    const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -96,17 +96,18 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           },
           chartName: formData?.chartName,
           chartVersion: formData?.chartVersion,
-          helmVersion: formData?.helmVersion.value ? formData?.helmVersion.value : formData?.helmVersion,
-          skipResourceVersioning: formData?.skipResourceVersioning
+          helmVersion: formData?.helmVersion,
+          skipResourceVersioning: formData?.skipResourceVersioning,
+          commandFlags: formData?.commandFlags[0].commandType
+            ? formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+                commandType: commandFlag.commandType,
+                flag: commandFlag.flag
+              }))
+            : []
         }
       }
     }
-    if (formData?.commandFlags[0].commandType) {
-      manifestObj.manifest.spec.commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-        commandType: commandFlag.commandType,
-        flag: commandFlag.flag
-      }))
-    }
+
     handleSubmit(manifestObj)
   }
 
@@ -136,7 +137,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           })
         }}
       >
-        {(formik: { setFieldValue: (a: string, b: string) => void; values: any }) => (
+        {(formik: { setFieldValue: (a: string, b: string) => void; values: HelmWithHTTPDataType }) => (
           <Form>
             <div className={helmcss.helmGitForm}>
               <Layout.Horizontal flex spacing="huge">

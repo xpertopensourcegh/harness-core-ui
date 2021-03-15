@@ -53,18 +53,11 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { CustomVariableInputSetExtraProps } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import { useListAwsRegions } from 'services/portal'
 import type { ManifestStores } from '@pipeline/components/ManifestSelection/ManifestInterface'
+import { ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
-
-export const MANIFEST_TYPE_TO_CONNECTOR_MAP: { [key in ManifestStores]: ConnectorInfoDTO['type'] } = {
-  Http: 'HttpHelmRepo',
-  Git: 'Git',
-  Github: 'Github',
-  Bitbucket: 'Bitbucket',
-  Gitlab: 'Gitlab'
-}
 
 export const ARTIFACT_TYPE_TO_CONNECTOR_MAP: { [key: string]: ConnectorInfoDTO['type'] } = {
   Dockerhub: 'DockerRegistry',
@@ -763,7 +756,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
-                            type={MANIFEST_TYPE_TO_CONNECTOR_MAP[type as ManifestStores]}
+                            type={ManifestToConnectorMap[type as ManifestStores]}
                           />
                         </FormGroup>
                       )}

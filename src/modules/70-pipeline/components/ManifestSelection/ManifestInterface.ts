@@ -1,4 +1,4 @@
-import type { ConnectorInfoDTO, PageConnectorResponse } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ManifestConfig, ManifestConfigWrapper, PageConnectorResponse } from 'services/cd-ng'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 
 export type ManifestTypes = 'K8sManifest' | 'Values' | 'HelmChart'
@@ -25,11 +25,6 @@ export interface ManifestListViewProps {
   refetchConnectors: () => void
 }
 
-interface PathDataType {
-  path: string
-  uuid: string
-}
-
 export interface ManifestStepInitData {
   connectorRef: string | undefined
   store: ConnectorInfoDTO['type'] | string
@@ -39,7 +34,7 @@ export interface ManifestDetailDataType {
   branch: string | undefined
   commitId: string | undefined
   gitFetchType: 'Branch' | 'Commit'
-  paths: Array<PathDataType> | Array<string> | string | undefined
+  paths: any
   skipResourceVersioning?: boolean
 }
 export interface ManifestLastStepProps {
@@ -47,8 +42,8 @@ export interface ManifestLastStepProps {
   name: string
   expressions: string[]
   stepName: string
-  initialValues: any
-  handleSubmit: (data: any) => void
+  initialValues: ManifestConfig
+  handleSubmit: (data: ManifestConfigWrapper) => void
   selectedManifest: string
 }
 export interface CommandFlags {

@@ -8,7 +8,7 @@ import { FieldArray } from 'formik'
 import { String, useStrings } from 'framework/exports'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeCheckboxField } from '@common/components'
-import type { CommandFlags, HelmWithGITDataType } from '../ManifestInterface'
+import type { CommandFlags, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
 import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
 
 interface HelmAdvancedStepProps {
@@ -16,7 +16,7 @@ interface HelmAdvancedStepProps {
   expressions: string[]
   formik: {
     setFieldValue: (a: string, b: string) => void
-    values: HelmWithGITDataType
+    values: HelmWithGITDataType | HelmWithHTTPDataType
   }
 }
 

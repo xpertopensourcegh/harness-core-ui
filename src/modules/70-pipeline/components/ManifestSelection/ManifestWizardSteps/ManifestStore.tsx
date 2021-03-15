@@ -8,7 +8,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
-import { getManifestIconByType, getManifestStoreTitle, manifestStoreConnectorMap } from '../Manifesthelper'
+import { getManifestIconByType, getManifestStoreTitle, ManifestToConnectorMap } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestStorePropType {
@@ -36,15 +36,17 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
 
-  const selectedManifest = initialValues.store
+  const [selectedManifest, setSelectedManifest] = React.useState(initialValues.store)
 
-  const submitFirstStep = async (formData: any): Promise<void> => {
+  const submitFirstStep = async (formData: ManifestStepInitData): Promise<void> => {
     nextStep?.({ ...formData })
   }
   const handleOptionSelection = (selected: ManifestStores): void => {
     if (selected === selectedManifest) {
+      setSelectedManifest('')
       handleStoreChange('' as ManifestStores)
     } else {
+      setSelectedManifest(selected)
       handleStoreChange(selected)
     }
   }
@@ -109,7 +111,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     width={400}
                     multiTypeProps={{ expressions }}
                     isNewConnectorLabelVisible={false}
-                    type={manifestStoreConnectorMap[selectedManifest]}
+                    type={ManifestToConnectorMap[selectedManifest]}
                     enableConfigureOptions={false}
                   />
                   <Button

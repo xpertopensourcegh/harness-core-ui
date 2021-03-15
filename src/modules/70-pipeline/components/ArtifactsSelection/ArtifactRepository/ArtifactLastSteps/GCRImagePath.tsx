@@ -16,7 +16,7 @@ import { Form } from 'formik'
 import memoize from 'lodash-es/memoize'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
-import { ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
+import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -99,7 +99,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   }, [tagList])
   const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
 
-  const getInitialValues = (): Omit<ImagePathTypes, 'tag'> & { tag: any } => {
+  const getInitialValues = (): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
 
     if (specValues) {
@@ -146,10 +146,13 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     return prevStepData?.identifier || ''
   }
 
-  const submitFormData = (formData: any): void => {
-    const tagData = formData?.tagType === TagTypes.Value ? { tag: formData.tag } : { tagRegex: formData.tagRegex }
+  const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
+    const tagData =
+      formData?.tagType === TagTypes.Value
+        ? { tag: formData.tag?.value || formData.tag }
+        : { tagRegex: formData.tagRegex?.value || formData.tagRegex }
 
-    const artifactObj: any = {
+    const artifactObj: ArtifactConfig = {
       spec: {
         connectorRef: formData?.connectorId,
         imagePath: formData?.imagePath,
