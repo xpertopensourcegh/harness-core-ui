@@ -15,6 +15,9 @@ import StepGitAuthentication from '@connectors/components/CreateConnector/GitCon
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
+import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
+import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
+import StepGitlabAuthentication from '@connectors/components/CreateConnector/GitlabConnector/StepAuth/StepGitlabAuthentication'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -358,18 +361,62 @@ const ManifestListView = ({
               isEditMode={isEditMode}
               connectorInfo={undefined}
             />
-            <StepGitAuthentication
-              name={getString('credentials')}
-              onConnectorCreated={() => {
-                // Handle on success
-              }}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-              connectorInfo={undefined}
-              accountId={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
-            />
+            {ManifestToConnectorMap[manifestStore] === 'Git' ? (
+              <StepGitAuthentication
+                name={getString('credentials')}
+                onConnectorCreated={() => {
+                  // Handle on success
+                }}
+                isEditMode={isEditMode}
+                setIsEditMode={setIsEditMode}
+                connectorInfo={undefined}
+                accountId={accountId}
+                orgIdentifier={orgIdentifier}
+                projectIdentifier={projectIdentifier}
+              />
+            ) : null}
+            {ManifestToConnectorMap[manifestStore] === 'Github' ? (
+              <StepGithubAuthentication
+                name={getString('credentials')}
+                onConnectorCreated={() => {
+                  // Handle on success
+                }}
+                isEditMode={isEditMode}
+                setIsEditMode={setIsEditMode}
+                connectorInfo={undefined}
+                accountId={accountId}
+                orgIdentifier={orgIdentifier}
+                projectIdentifier={projectIdentifier}
+              />
+            ) : null}
+            {ManifestToConnectorMap[manifestStore] === 'Bitbucket' ? (
+              <StepBitbucketAuthentication
+                name={getString('credentials')}
+                onConnectorCreated={() => {
+                  // Handle on success
+                }}
+                isEditMode={isEditMode}
+                setIsEditMode={setIsEditMode}
+                connectorInfo={undefined}
+                accountId={accountId}
+                orgIdentifier={orgIdentifier}
+                projectIdentifier={projectIdentifier}
+              />
+            ) : null}
+            {ManifestToConnectorMap[manifestStore] === 'Gitlab' ? (
+              <StepGitlabAuthentication
+                name={getString('credentials')}
+                onConnectorCreated={() => {
+                  // Handle on success
+                }}
+                isEditMode={isEditMode}
+                setIsEditMode={setIsEditMode}
+                connectorInfo={undefined}
+                accountId={accountId}
+                orgIdentifier={orgIdentifier}
+                projectIdentifier={projectIdentifier}
+              />
+            ) : null}
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
               isStep={true}
@@ -379,7 +426,7 @@ const ManifestListView = ({
           </StepWizard>
         )
     }
-  }, [connectorView])
+  }, [connectorView, manifestStore])
 
   const { expressions } = useVariablesExpression()
 
