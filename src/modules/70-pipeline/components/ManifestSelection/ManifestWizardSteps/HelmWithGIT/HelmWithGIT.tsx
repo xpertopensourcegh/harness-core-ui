@@ -134,7 +134,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .required(i18n.validation.identifier)
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(i18n.validation.filePath),
+          folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
           helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
         })}
         onSubmit={formData => {
@@ -255,7 +255,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 >
                   <FormInput.MultiTextInput
                     label={getString('chartPath')}
-                    placeholder={i18n.STEP_TWO.filePathPlaceholder}
+                    placeholder={getString('manifestType.pathPlaceholder')}
                     name="folderPath"
                     multiTextInputProps={{ expressions }}
                   />

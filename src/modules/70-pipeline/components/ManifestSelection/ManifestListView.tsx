@@ -14,6 +14,7 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -40,6 +41,7 @@ import type {
 import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
+import HelmWithS3 from './ManifestWizardSteps/HelmWithS3/HelmWithS3'
 import css from './ManifestSelection.module.scss'
 
 const allowedManifestTypes: Array<ManifestTypes> = [
@@ -268,6 +270,10 @@ const ManifestListView = ({
         manifestDetailStep = <HelmWithHttp {...lastStepProps()} />
         break
 
+      case selectedManifest === ManifestDataType.HelmChart && manifestStore === ManifestStoreMap.S3:
+        manifestDetailStep = <HelmWithS3 {...lastStepProps()} />
+        break
+
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
         [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
           manifestStore as ManifestStores
@@ -283,67 +289,98 @@ const ManifestListView = ({
   }
 
   const getNewConnectorSteps = useCallback((): JSX.Element => {
-    if (manifestStore === ManifestStoreMap.Http) {
-      return (
-        <StepWizard title={getString('connectors.createNewConnector')}>
-          <ConnectorDetailsStep
-            type={ManifestToConnectorMap[manifestStore]}
-            name={getString('overview')}
-            isEditMode={isEditMode}
-          />
-          <StepHelmAuth
-            name={getString('details')}
-            accountId={accountId}
-            orgIdentifier={orgIdentifier}
-            projectIdentifier={projectIdentifier}
-            isEditMode={isEditMode}
-            connectorInfo={undefined}
-            setIsEditMode={setIsEditMode}
-          />
+    switch (manifestStore) {
+      case ManifestStoreMap.Http:
+        return (
+          <StepWizard title={getString('connectors.createNewConnector')}>
+            <ConnectorDetailsStep
+              type={ManifestToConnectorMap[manifestStore]}
+              name={getString('overview')}
+              isEditMode={isEditMode}
+            />
+            <StepHelmAuth
+              name={getString('details')}
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              isEditMode={isEditMode}
+              connectorInfo={undefined}
+              setIsEditMode={setIsEditMode}
+            />
 
-          <VerifyOutOfClusterDelegate
-            name={getString('connectors.stepThreeName')}
-            isStep={true}
-            isLastStep={false}
-            type={ManifestToConnectorMap[manifestStore]}
-          />
-        </StepWizard>
-      )
+            <VerifyOutOfClusterDelegate
+              name={getString('connectors.stepThreeName')}
+              isStep={true}
+              isLastStep={false}
+              type={ManifestToConnectorMap[manifestStore]}
+            />
+          </StepWizard>
+        )
+      case ManifestStoreMap.S3:
+        return (
+          <StepWizard iconProps={{ size: 37 }} title={getString('connectors.createNewConnector')}>
+            <ConnectorDetailsStep
+              type={ManifestToConnectorMap[manifestStore]}
+              name={getString('overview')}
+              isEditMode={isEditMode}
+            />
+            <StepAWSAuthentication
+              name={getString('credentials')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              connectorInfo={undefined}
+              onConnectorCreated={() => {
+                //TO BE Removed
+              }}
+            />
+            <VerifyOutOfClusterDelegate
+              name={getString('connectors.stepThreeName')}
+              isStep={true}
+              isLastStep={false}
+              type={ManifestToConnectorMap[manifestStore]}
+            />
+          </StepWizard>
+        )
+      default:
+        return (
+          <StepWizard title={getString('connectors.createNewConnector')}>
+            <ConnectorDetailsStep
+              type={ManifestToConnectorMap[manifestStore]}
+              name={getString('overview')}
+              isEditMode={isEditMode}
+            />
+            <GitDetailsStep
+              type={ManifestToConnectorMap[manifestStore]}
+              name={getString('details')}
+              isEditMode={isEditMode}
+              connectorInfo={undefined}
+            />
+            <StepGitAuthentication
+              name={getString('credentials')}
+              onConnectorCreated={() => {
+                // Handle on success
+              }}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              connectorInfo={undefined}
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+            />
+            <VerifyOutOfClusterDelegate
+              name={getString('connectors.stepThreeName')}
+              isStep={true}
+              isLastStep={false}
+              type={ManifestToConnectorMap[manifestStore]}
+            />
+          </StepWizard>
+        )
     }
-    return (
-      <StepWizard title={getString('connectors.createNewConnector')}>
-        <ConnectorDetailsStep
-          type={ManifestToConnectorMap[manifestStore]}
-          name={getString('overview')}
-          isEditMode={isEditMode}
-        />
-        <GitDetailsStep
-          type={ManifestToConnectorMap[manifestStore]}
-          name={getString('details')}
-          isEditMode={isEditMode}
-          connectorInfo={undefined}
-        />
-        <StepGitAuthentication
-          name={getString('credentials')}
-          onConnectorCreated={() => {
-            // Handle on success
-          }}
-          isEditMode={isEditMode}
-          setIsEditMode={setIsEditMode}
-          connectorInfo={undefined}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-        <VerifyOutOfClusterDelegate
-          name={getString('connectors.stepThreeName')}
-          isStep={true}
-          isLastStep={false}
-          type={ManifestToConnectorMap[manifestStore]}
-        />
-      </StepWizard>
-    )
   }, [connectorView])
+
   const { expressions } = useVariablesExpression()
 
   const [showConnectorModal, hideConnectorModal] = useModalHook(() => {
@@ -352,7 +389,11 @@ const ManifestListView = ({
       hideConnectorModal()
       setManifestStore('')
     }
-
+    //S3 and GCS are disabled till BE is ready
+    // const storeTypes =
+    //   selectedManifest === ManifestDataType.HelmChart
+    //     ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
+    //     : manifestStoreTypes
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart
         ? [...manifestStoreTypes, ManifestStoreMap.Http]
@@ -441,7 +482,7 @@ const ManifestListView = ({
                     </span>
                   )}
 
-                  {!!manifest?.spec?.chartName && (
+                  {!!(manifest?.spec?.chartName && !manifest?.spec?.store.spec.folderPath) && (
                     <span>
                       <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {manifest.spec.chartName}

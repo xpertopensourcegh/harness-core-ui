@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon } from '@wings-software/uicore'
+import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon, Heading } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -53,11 +53,11 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+      <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
         {stepName}
-      </Text>
+      </Heading>
 
-      <Layout.Horizontal spacing="xxlarge">
+      <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
         {manifestStoreTypes.map(store => (
           <div key={store} className={css.squareCardContainer}>
             <Card
