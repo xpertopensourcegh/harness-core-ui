@@ -240,6 +240,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                     onClick={e => {
                       e.currentTarget.classList.add(css.selectedLabel)
                       moveStageToFocus(engine, item[1].identifier)
+                      itemClickHandler({ stage: {} })
                     }}
                     onAnimationEnd={e => {
                       e.currentTarget.classList.remove(css.selectedLabel)

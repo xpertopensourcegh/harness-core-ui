@@ -71,7 +71,7 @@ export default function ExecutionGraphView(): React.ReactElement {
         selectedStage={selectedStageId}
         selectedStep={selectedStepId}
       />
-      <ExecutionStepDetails selectedStep={selectedStepId} />
+      <ExecutionStepDetails selectedStep={selectedStepId} closeDetails={() => handleStepSelection()} />
     </ExecutionLayout>
   )
 }
