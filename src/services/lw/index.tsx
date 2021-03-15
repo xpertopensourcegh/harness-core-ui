@@ -1770,6 +1770,7 @@ export const useAttachTags = ({ org_id, project_id, account_id, ...props }: UseA
 export interface AllHostedZonesQueryParams {
   cloud_account_id: string
   region: string
+  domain?: string
 }
 
 export interface AllHostedZonesPathParams {

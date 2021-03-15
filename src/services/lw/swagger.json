@@ -1447,6 +1447,12 @@
           "in": "header",
           "required": true,
           "type": "string"
+        },
+        {
+          "name": "domain",
+          "in": "query",
+          "required": false,
+          "type": "string"
         }
       ],
       "get": {

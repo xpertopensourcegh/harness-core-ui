@@ -41,6 +41,7 @@ interface MapToProviderProps {
   accessPoint: AccessPoint
 }
 const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => {
+  const { accessPoint } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -52,14 +53,17 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.accessPoint.cloud_account_id as string, // eslint-disable-line
-      region: 'us-east-1'
+      region: 'us-east-1',
+      domain: accessPoint.name
     },
     lazy: true
   })
   const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
-  const [dnsProvider, setDNSProvider] = useState<string>('route53')
+  const [dnsProvider, setDNSProvider] = useState<string>(
+    props.accessPoint.metadata?.dns?.route53 ? 'route53' : 'others'
+  )
 
-  const { showError, showSuccess } = useToaster()
+  const { showError, showSuccess, showWarning } = useToaster()
   const { previousStep } = props
   const { getString } = useStrings()
   const [accessPointStatusInProgress, setaccessPointStatusInProgress] = useState<boolean>(false)
@@ -70,9 +74,13 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     access_point_id: props.accessPoint.id as string, //eslint-disable-line
     lazy: true
   })
+
   useEffect(() => {
     if (hostedZonesLoading) return
     if (hostedZones?.response?.length == 0) {
+      if (accessPoint.name) {
+        showWarning(getString('ce.co.accessPoint.hostedZone.noResult'))
+      }
       return
     }
     const loadedhostedZones: SelectOption[] =
@@ -84,9 +92,11 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
       }) || []
     setHostedZonesList(loadedhostedZones)
   }, [hostedZones, hostedZonesLoading])
+
   useEffect(() => {
     if (dnsProvider == 'route53') loadHostedZones()
   }, [dnsProvider])
+
   useEffect(() => {
     if (accessPointStatusInProgress && accessPointID) {
       if (!accessPointStatusLoading) {
@@ -137,6 +147,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
           dnsProvider: props.accessPoint.metadata?.dns?.route53 ? 'route53' : 'others',
           route53Account: props.accessPoint.metadata?.dns?.route53?.hosted_zone_id // eslint-disable-line
         }}
+        enableReinitialize
         onSubmit={_ => {
           onSave()
         }}
