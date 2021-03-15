@@ -1,8 +1,15 @@
 import type { ConnectorInfoDTO, ManifestConfig, ManifestConfigWrapper, PageConnectorResponse } from 'services/cd-ng'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 
-export type ManifestTypes = 'K8sManifest' | 'Values' | 'HelmChart'
-export type ManifestStores = 'Git' | 'Github' | 'Gitlab' | 'Bitbucket' | 'Http'
+export type ManifestTypes =
+  | 'K8sManifest'
+  | 'Values'
+  | 'HelmChart'
+  | 'Kustomize'
+  | 'OpenshiftTemplate'
+  | 'OpenshiftParam'
+
+export type ManifestStores = 'Git' | 'Github' | 'Gitlab' | 'Bitbucket' | 'Http' | 'S3' | 'Gcs'
 export type HelmVersionOptions = 'V2' | 'V3'
 export interface ManifestSelectionProps {
   isForOverrideSets?: boolean

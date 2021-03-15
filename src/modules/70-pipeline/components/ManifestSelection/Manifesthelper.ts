@@ -6,7 +6,10 @@ import type { HelmVersionOptions, ManifestStores, ManifestTypes } from './Manife
 export const ManifestDataType: { [key: string]: ManifestTypes } = {
   K8sManifest: 'K8sManifest',
   Values: 'Values',
-  HelmChart: 'HelmChart'
+  HelmChart: 'HelmChart',
+  Kustomize: 'Kustomize',
+  OpenshiftTemplate: 'OpenshiftTemplate',
+  OpenshiftParam: 'OpenshiftParam'
 }
 
 export const ManifestStoreMap: { [key: string]: ManifestStores } = {
@@ -14,25 +17,36 @@ export const ManifestStoreMap: { [key: string]: ManifestStores } = {
   Github: 'Github',
   Gitlab: 'Gitlab',
   Bitbucket: 'Bitbucket',
-  Http: 'Http'
+  Http: 'Http',
+  S3: 'S3',
+  Gcs: 'Gcs'
 }
 
-export const manifestTypeIcons: Record<string, IconName> = {
+export const manifestTypeIcons: Record<ManifestTypes, IconName> = {
   K8sManifest: 'service-kubernetes',
   Values: 'functions',
-  HelmChart: 'service-helm'
+  HelmChart: 'service-helm',
+  Kustomize: 'kustamize',
+  OpenshiftTemplate: 'openshift',
+  OpenshiftParam: 'openshift-params'
 }
 
-export const manifestTypeLabels: { [key: string]: string } = {
+export const manifestTypeLabels: Record<ManifestTypes, string> = {
   K8sManifest: 'K8s Manifest',
   Values: 'Values YAML',
-  HelmChart: 'Helm Chart'
+  HelmChart: 'Helm Chart',
+  Kustomize: 'Kustomize',
+  OpenshiftTemplate: 'Openshift Template',
+  OpenshiftParam: 'Openshift Param'
 }
 
 export const manifestTypeText: Record<string, string> = {
   K8sManifest: 'Manifest',
   Values: 'Values Overrides',
-  HelmChart: 'Helm Chart'
+  HelmChart: 'Helm Chart',
+  Kustomize: 'Kustomize',
+  OpenshiftTemplate: 'Openshift Template',
+  OpenshiftParam: 'Openshift Param'
 }
 
 export const helmVersions: Array<{ label: string; value: HelmVersionOptions }> = [
@@ -51,6 +65,10 @@ export const getManifestIconByType = (type: string | undefined): IconName => {
       return 'bitbucket'
     case ManifestStoreMap.Http:
       return 'service-helm'
+    case ManifestStoreMap.S3:
+      return 'service-helm' // proper icon needs to be added for S3 and Gcs
+    case ManifestStoreMap.Gcs:
+      return 'service-helm'
     default:
       return 'cog'
   }
@@ -67,6 +85,10 @@ export const getManifestStoreTitle = (type: string): string => {
       return 'connectors.title.bitbucketConnector'
     case ManifestStoreMap.Http:
       return 'connectors.title.helmConnector'
+    case ManifestStoreMap.S3:
+      return 'connectors.S3'
+    case ManifestStoreMap.Gcs:
+      return 'connectors.GCS.fullName'
     default:
       return 'store'
   }

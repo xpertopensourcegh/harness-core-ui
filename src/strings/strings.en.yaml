@@ -1423,6 +1423,10 @@ connectors:
     artifactServer: 'GCR Server'
     stepTwoName: 'Google Container Registry Details'
     registryHostname: 'GCR Registry URL'
+  GCS:
+    name: GCS
+    fullName: Google Cloud Storage
+  S3: S3
   git:
     branchName: 'Branch name'
     urlType: 'URL Type'

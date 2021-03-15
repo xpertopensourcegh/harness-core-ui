@@ -97,15 +97,15 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           chartName: formData?.chartName,
           chartVersion: formData?.chartVersion,
           helmVersion: formData?.helmVersion,
-          skipResourceVersioning: formData?.skipResourceVersioning,
-          commandFlags: formData?.commandFlags[0].commandType
-            ? formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-                commandType: commandFlag.commandType,
-                flag: commandFlag.flag
-              }))
-            : []
+          skipResourceVersioning: formData?.skipResourceVersioning
         }
       }
+    }
+    if (formData?.commandFlags[0].commandType) {
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+        commandType: commandFlag.commandType,
+        flag: commandFlag.flag
+      }))
     }
 
     handleSubmit(manifestObj)

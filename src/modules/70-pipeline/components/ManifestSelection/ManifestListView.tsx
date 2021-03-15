@@ -395,108 +395,88 @@ const ManifestListView = ({
       <Layout.Vertical spacing="medium">
         <section>
           {listOfManifests &&
-            listOfManifests.map(
-              (
-                data: {
-                  manifest: {
-                    identifier: string
-                    type: ManifestTypes
-                    spec: {
-                      store: {
-                        type: string
-                        spec: {
-                          connectorRef: string
-                          gitFetchType?: string
-                          branch?: string
-                          commitId?: string
-                          paths?: string[]
-                          folderPath?: string
-                        }
-                      }
-                      chartName?: string
-                    }
-                  }
-                },
-                index: number
-              ) => {
-                const manifest = data['manifest']
+            listOfManifests.map((data: ManifestConfigWrapper, index: number) => {
+              const manifest = data['manifest']
 
-                const { color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
+              const { color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
 
-                return (
-                  <section className={cx(css.manifestList, css.rowItem)} key={manifest.identifier + index}>
-                    <div className={css.columnId}>
-                      <Icon inline name={manifestTypeIcons[manifest.type]} size={20} />
-                      <Text inline width={150} className={css.type} color={Color.BLACK} lineClamp={1}>
-                        {manifest.identifier}
+              return (
+                <section className={cx(css.manifestList, css.rowItem)} key={`${manifest?.identifier}-${index}`}>
+                  <div className={css.columnId}>
+                    <Icon inline name={manifestTypeIcons[manifest?.type as ManifestTypes]} size={20} />
+                    <Text inline width={150} className={css.type} color={Color.BLACK} lineClamp={1}>
+                      {manifest?.identifier}
+                    </Text>
+                  </div>
+                  <div>{manifestTypeText[manifest?.type as ManifestTypes]}</div>
+                  <div className={css.server}>
+                    <Text
+                      inline
+                      icon={getManifestIconByType(manifest?.spec?.store.type)}
+                      iconProps={{ size: 18 }}
+                      width={200}
+                      lineClamp={1}
+                      style={{ color: Color.BLACK, fontWeight: 900 }}
+                    >
+                      {manifest?.spec?.store.type}
+                    </Text>
+
+                    <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
+                  </div>
+
+                  {!!manifest?.spec?.store.spec.paths?.length && (
+                    <span>
+                      <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                        {typeof manifest?.spec?.store.spec.paths === 'string'
+                          ? manifest?.spec?.store.spec.paths
+                          : manifest?.spec?.store.spec.paths.join(', ')}
                       </Text>
-                    </div>
-                    <div>{manifestTypeText[manifest.type]}</div>
-                    <div className={css.server}>
-                      <Text
-                        inline
-                        icon={getManifestIconByType(manifest.spec.store.type)}
-                        iconProps={{ size: 18 }}
-                        width={200}
-                        lineClamp={1}
-                        style={{ color: Color.BLACK, fontWeight: 900 }}
-                      >
-                        {manifest.spec.store.type}
+                    </span>
+                  )}
+                  {!!manifest?.spec?.store.spec.folderPath && (
+                    <span>
+                      <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                        {manifest.spec.store?.spec?.folderPath}
                       </Text>
+                    </span>
+                  )}
 
-                      <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
-                    </div>
+                  {!!manifest?.spec?.chartName && (
+                    <span>
+                      <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                        {manifest.spec.chartName}
+                      </Text>
+                    </span>
+                  )}
 
-                    {!!manifest.spec.store.spec.paths?.length && (
-                      <span>
-                        <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {typeof manifest.spec.store.spec.paths === 'string'
-                            ? manifest.spec.store.spec.paths
-                            : manifest.spec.store.spec.paths.join(', ')}
-                        </Text>
-                      </span>
-                    )}
-                    {!!manifest.spec.store.spec.folderPath && (
-                      <span>
-                        <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {manifest.spec.store?.spec?.folderPath}
-                        </Text>
-                      </span>
-                    )}
-
-                    {!!manifest.spec.chartName && (
-                      <span>
-                        <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {manifest.spec.chartName}
-                        </Text>
-                      </span>
-                    )}
-
-                    {!overrideSetIdentifier?.length && (
-                      <span className={css.lastColumn}>
-                        <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                          <Icon
-                            name="Edit"
-                            size={16}
-                            onClick={() =>
-                              editManifest(manifest.type, manifest.spec.store.type as ManifestStores, index)
-                            }
-                          />
-                          {/* <Icon
+                  {!overrideSetIdentifier?.length && (
+                    <span className={css.lastColumn}>
+                      <Layout.Horizontal spacing="medium" className={css.actionGrid}>
+                        <Icon
+                          name="Edit"
+                          size={16}
+                          onClick={() =>
+                            editManifest(
+                              manifest?.type as ManifestTypes,
+                              manifest?.spec?.store.type as ManifestStores,
+                              index
+                            )
+                          }
+                        />
+                        {/* <Icon
                               name="main-clone"
                               size={16}
                               style={{ cursor: 'pointer' }}
                               className={css.cloneIcon}
                               // onClick={() => editManifest(manifest)}
                             /> */}
-                          <Icon name="bin-main" size={25} onClick={() => removeManifestConfig(index)} />
-                        </Layout.Horizontal>
-                      </span>
-                    )}
-                  </section>
-                )
-              }
-            )}
+                        <Icon name="bin-main" size={25} onClick={() => removeManifestConfig(index)} />
+                      </Layout.Horizontal>
+                    </span>
+                  )}
+                </section>
+              )
+            })}
         </section>
 
         {!overrideSetIdentifier?.length && (

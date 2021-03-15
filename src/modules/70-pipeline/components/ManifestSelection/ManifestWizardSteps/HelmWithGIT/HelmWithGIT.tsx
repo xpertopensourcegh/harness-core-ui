@@ -101,15 +101,15 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning,
-          helmVersion: formData?.helmVersion,
-          commandFlags: formData?.commandFlags[0].commandType
-            ? formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-                commandType: commandFlag.commandType,
-                flag: commandFlag.flag
-              }))
-            : []
+          helmVersion: formData?.helmVersion
         }
       }
+    }
+    if (formData?.commandFlags[0].commandType) {
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+        commandType: commandFlag.commandType,
+        flag: commandFlag.flag
+      }))
     }
 
     handleSubmit(manifestObj)
