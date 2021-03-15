@@ -836,7 +836,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
 exports[`Test K8sApplyStep should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable topSpacingLarge"
   >
     <div
       class="main"
