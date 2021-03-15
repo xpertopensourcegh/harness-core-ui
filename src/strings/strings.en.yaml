@@ -1198,6 +1198,7 @@ validation:
   duplicateIdError: 'Failed to create connector: {{ connectorName }}, there is a connector with identifier {{ connectorIdentifier }} that is already present or was soft deleted. Please provide a unique identifier name and try saving again.'
   username: 'Username is a required field'
   password: 'Password is a required field'
+  accountName: Account Name is a required field
   authType: 'Auth type is required'
   masterUrl: 'Master URL is required'
   serviceAccountToken: 'Service Account Token is required'
@@ -1768,6 +1769,7 @@ cv:
       errorsFound: errors found
       verificationsInProgress: verifications in progress
       noData: no data
+      metricsVerificationModalTitle: Metric Pack Connection Test
       searchPlaceholderApplications: Search for Applications
       validationsPassed: validations passed
       validationsFailed: validations failed
@@ -1843,7 +1845,9 @@ cv:
         gcoMetrics: 'Google Cloud Operation metrics'
       tabName:
         selectDashboards: 'Select Dashboards'
-
+  connectors:
+    appD:
+      controllerUrlValidation: Controller URL is a required field
   activitySources:
     name: 'Name your Change Source'
     harnessCD:

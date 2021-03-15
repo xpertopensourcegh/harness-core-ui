@@ -393,7 +393,7 @@ exports[`ConfigureNotifications Slack 1`] = `
             style="align-items: center;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span

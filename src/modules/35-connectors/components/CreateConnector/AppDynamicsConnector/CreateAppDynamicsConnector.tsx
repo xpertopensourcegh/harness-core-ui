@@ -27,6 +27,7 @@ import { setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtil
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { useStrings } from 'framework/exports'
 import i18n from './CreateAppDynamicsConnector.i18n'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
@@ -147,6 +148,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
 function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loadingSecrets, setLoadingSecrets] = useState(props.isEditMode)
+  const { getString } = useStrings()
   const [initialValues, setInitialValues] = useState<ConnectorConfigDTO>({
     url: '',
     accountName: '',
@@ -203,10 +205,10 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
         ...props.prevStepData
       }}
       validationSchema={Yup.object().shape({
-        url: Yup.string().trim().required(),
-        accountName: Yup.string().trim().required(),
-        username: Yup.string().trim().required(),
-        password: Yup.string().trim().required()
+        url: Yup.string().trim().required(getString('cv.connectors.appD.controllerUrlValidation')),
+        accountName: Yup.string().trim().required(getString('validation.accountName')),
+        username: Yup.string().trim().required(getString('validation.username')),
+        password: Yup.string().trim().required(getString('validation.password'))
       })}
       onSubmit={formData => {
         handleFormSubmission(formData)

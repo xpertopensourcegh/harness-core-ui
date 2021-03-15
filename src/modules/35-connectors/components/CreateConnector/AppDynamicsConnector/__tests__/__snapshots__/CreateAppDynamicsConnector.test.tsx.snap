@@ -381,7 +381,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="url"
               >
-                Url
+                Controller URL
                  
                 <span
                   class="bp3-text-muted"
@@ -621,7 +621,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="url"
               >
-                Url
+                Controller URL
                  
                 <span
                   class="bp3-text-muted"
@@ -674,7 +674,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  accountName is a required field
+                  Account Name is a required field
                 </div>
               </div>
             </div>
@@ -709,7 +709,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  username is a required field
+                  Username is a required field
                 </div>
               </div>
             </div>
@@ -737,7 +737,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    password is a required field
+                    Password is a required field
                   </div>
                 </div>
               </div>
