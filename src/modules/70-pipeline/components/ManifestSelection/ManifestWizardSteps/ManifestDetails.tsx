@@ -98,6 +98,36 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning
 
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
+  const connectionType =
+    prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo ||
+    prevStepData?.urlType === GitRepoName.Repo
+      ? GitRepoName.Repo
+      : GitRepoName.Account
+
+  const accountUrl =
+    connectionType === GitRepoName.Account
+      ? prevStepData?.connectorRef
+        ? prevStepData?.connectorRef?.connector?.spec?.url
+        : prevStepData?.url
+      : null
+
+  const getRepoName = (): string => {
+    let repoName = ''
+    if (prevStepData?.connectorRef) {
+      if (connectionType === GitRepoName.Repo) {
+        repoName = prevStepData?.connectorRef?.connector?.spec?.url
+      } else {
+        repoName = initialValues.spec?.store.spec.repoName || ''
+      }
+      return repoName
+    }
+    if (prevStepData?.identifier) {
+      if (connectionType === GitRepoName.Repo) {
+        repoName = prevStepData?.url
+      }
+    }
+    return repoName
+  }
 
   const getInitialValues = (): ManifestDetailDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -107,6 +137,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         ...specValues,
         identifier: initialValues.identifier,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
+        repoName: getRepoName(),
         paths:
           typeof specValues.paths === 'string'
             ? specValues.paths
@@ -121,10 +152,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       gitFetchType: 'Branch',
       paths: [{ path: '', uuid: uuid('', nameSpace()) }],
       skipResourceVersioning: false,
-      repoName:
-        prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo
-          ? prevStepData?.connectorRef?.connector?.spec?.url
-          : ''
+      repoName: getRepoName()
     }
   }
 
@@ -197,7 +225,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 label={i18n.STEP_TWO.manifestId}
                 placeholder={i18n.STEP_ONE.idPlaceholder}
               />
-              {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo && (
+              {connectionType === GitRepoName.Repo && (
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Text
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
@@ -208,19 +236,17 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 </div>
               )}
 
-              {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Account && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <div>
-                    <FormInput.Text
-                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      name="repoName"
-                      style={{ width: '370px' }}
-                    />
-                  </div>
+              {connectionType === GitRepoName.Account && (
+                <div>
+                  <FormInput.Text
+                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                    name="repoName"
+                    className={css.repoName}
+                  />
 
                   <div
-                    style={{ marginLeft: 'var(--spacing-small)' }}
-                  >{`${prevStepData?.connectorRef?.connector?.spec?.url}/${formik.values?.repoName}`}</div>
+                    style={{ marginBottom: 'var(--spacing-medium)' }}
+                  >{`${accountUrl}/${formik.values?.repoName}`}</div>
                 </div>
               )}
               <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />

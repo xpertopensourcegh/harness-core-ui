@@ -27,5 +27,6 @@ declare const styles: {
   readonly halfWidth: string
   readonly tooltip: string
   readonly tooltipContent: string
+  readonly repoName: string
 }
 export default styles

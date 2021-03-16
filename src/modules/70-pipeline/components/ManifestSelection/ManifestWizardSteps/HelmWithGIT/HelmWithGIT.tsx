@@ -55,6 +55,37 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
+  const connectionType =
+    prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo ||
+    prevStepData?.urlType === GitRepoName.Repo
+      ? GitRepoName.Repo
+      : GitRepoName.Account
+
+  const accountUrl =
+    connectionType === GitRepoName.Account
+      ? prevStepData?.connectorRef
+        ? prevStepData?.connectorRef?.connector?.spec?.url
+        : prevStepData?.url
+      : null
+
+  const getRepoName = (): string => {
+    let repoName = ''
+    if (prevStepData?.connectorRef) {
+      if (connectionType === GitRepoName.Repo) {
+        repoName = prevStepData?.connectorRef?.connector?.spec?.url
+      } else {
+        repoName = initialValues.spec?.store.spec.repoName || ''
+      }
+      return repoName
+    }
+
+    if (prevStepData?.identifier) {
+      if (connectionType === GitRepoName.Repo) {
+        repoName = prevStepData?.url
+      }
+    }
+    return repoName
+  }
 
   const getInitialValues = React.useCallback((): HelmWithGITDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -64,6 +95,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         ...specValues,
         identifier: initialValues.identifier,
         folderPath: specValues.folderPath,
+        repoName: getRepoName(),
         helmVersion: initialValues.spec?.helmVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
@@ -83,10 +115,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       helmVersion: 'V2',
       skipResourceVersioning: false,
       commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }],
-      repoName:
-        prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo
-          ? prevStepData?.connectorRef?.connector?.spec?.url
-          : ''
+      repoName: getRepoName()
     }
   }, [])
 
@@ -160,7 +189,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 placeholder={getString('manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
-              {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo && (
+              {connectionType === GitRepoName.Repo && (
                 <div className={helmcss.halfWidth}>
                   <FormInput.Text
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
@@ -170,7 +199,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 </div>
               )}
 
-              {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Account && (
+              {connectionType === GitRepoName.Account && (
                 <div className={helmcss.halfWidth}>
                   <div>
                     <FormInput.Text
@@ -181,7 +210,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   </div>
                   <div
                     style={{ marginBottom: 'var(--spacing-medium)' }}
-                  >{`${prevStepData?.connectorRef?.connector?.spec?.url}/${formik.values?.repoName}`}</div>
+                  >{`${accountUrl}/${formik.values?.repoName}`}</div>
                 </div>
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
