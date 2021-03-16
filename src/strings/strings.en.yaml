@@ -1279,6 +1279,7 @@ validation:
   gitServerRequired: 'Git server is a required field'
   urlIsNotValid: 'URL is not valid'
   notificationNameDuplicate: Notification with same name already exists
+  artifactServerRequired: Artifact Server is a required field
 
 yamlBuilder:
   enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?

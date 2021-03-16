@@ -7,7 +7,6 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import i18n from '../ArtifactsSelection.i18n'
 import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
@@ -20,9 +19,6 @@ interface ArtifactConnectorProps {
   initialValues: ConnectorDataType
   connectorType: ConnectorInfoDTO['type']
 }
-const primarySchema = Yup.object().shape({
-  connectorId: Yup.string().trim().required(i18n.validation.connectorId)
-})
 
 export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
   const {
@@ -40,6 +36,10 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
+
+  const primarySchema = Yup.object().shape({
+    connectorId: Yup.string().trim().required(getString('validation.artifactServerRequired'))
+  })
 
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
