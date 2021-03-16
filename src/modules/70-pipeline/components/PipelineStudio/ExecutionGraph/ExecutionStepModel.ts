@@ -260,7 +260,7 @@ export class ExecutionStepModel extends DiagramModel {
             this.connectedParentToNode(
               emptyNodeEnd,
               prevNode,
-              true,
+              false,
               isStepGroupNode ? 4 : 0,
               isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
             )
