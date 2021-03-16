@@ -5,8 +5,6 @@ import { fromPairs } from 'lodash-es'
 import { Project, useGetProject } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import type { Permission } from 'services/rbac'
-// import { useGetPermissionList } from 'services/rbac'
 
 export type FeatureFlagMap = Record<string, boolean>
 
@@ -21,15 +19,11 @@ export interface AppStoreContextProps {
   /** feature flags */
   readonly featureFlags: FeatureFlagMap
 
-  /** all permission names */
-  readonly permissions: Permission[]
-
   updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void
 }
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
   featureFlags: {},
-  permissions: [],
   updateAppStore: () => void 0
 })
 
@@ -40,8 +34,7 @@ export function useAppStore(): AppStoreContextProps {
 export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
-    featureFlags: {},
-    permissions: []
+    featureFlags: {}
   })
 
   const { data: featureFlags, loading: featureFlagsLoading } = useGetFeatureFlags({
@@ -58,20 +51,6 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     },
     lazy: true
   })
-
-  // TODO: add flag to fetch all permissions, not just account scope, once BE supports it
-  // TODO: enable this when we actually start using permissions
-  // const { data: permissionsResponse } = useGetPermissionList({
-  //   queryParams: { accountIdentifier: accountId }
-  // })
-
-  // populate permissions
-  // useEffect(() => {
-  //   setState(prevState => ({
-  //     ...prevState,
-  //     permissions: permissionsResponse?.data?.map(perm => perm.permission) || []
-  //   }))
-  // }, [permissionsResponse])
 
   React.useEffect(() => {
     setState(prevState => ({
