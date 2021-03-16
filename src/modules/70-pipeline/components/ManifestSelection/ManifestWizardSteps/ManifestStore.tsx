@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon, Heading } from '@wings-software/uicore'
@@ -36,10 +36,10 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
 
-  const [selectedManifest, setSelectedManifest] = React.useState(initialValues.store)
+  const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
 
   const submitFirstStep = async (formData: ManifestStepInitData): Promise<void> => {
-    nextStep?.({ ...formData })
+    nextStep?.({ ...formData, store: selectedManifest })
   }
   const handleOptionSelection = (selected: ManifestStores): void => {
     if (selected === selectedManifest) {
@@ -51,13 +51,17 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
     }
   }
 
-  const getInitialValues = (): ManifestStepInitData => {
+  const getInitialValues = useCallback((): ManifestStepInitData => {
     const initValues = { ...initialValues }
+
     if (prevStepData?.connectorRef) {
       initValues.connectorRef = prevStepData?.connectorRef
     }
+    if (selectedManifest !== initValues.store) {
+      initValues.connectorRef = ''
+    }
     return initValues
-  }
+  }, [selectedManifest])
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
@@ -102,6 +106,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
         onSubmit={formData => {
           submitFirstStep({ ...formData, store: selectedManifest })
         }}
+        enableReinitialize={true}
       >
         {() => (
           <Form>
