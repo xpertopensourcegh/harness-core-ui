@@ -51,6 +51,14 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
     }
   }
 
+  const getInitialValues = (): ManifestStepInitData => {
+    const initValues = { ...initialValues }
+    if (prevStepData?.connectorRef) {
+      initValues.connectorRef = prevStepData?.connectorRef
+    }
+    return initValues
+  }
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
@@ -87,7 +95,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
         ))}
       </Layout.Horizontal>
       <Formik
-        initialValues={initialValues}
+        initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
           connectorRef: Yup.string().trim().required(getString('validation.gitServerRequired'))
         })}

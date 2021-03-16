@@ -18,6 +18,7 @@ import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSCon
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
 import StepGitlabAuthentication from '@connectors/components/CreateConnector/GitlabConnector/StepAuth/StepGitlabAuthentication'
+import { Connectors } from '@connectors/constants'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -361,7 +362,7 @@ const ManifestListView = ({
               isEditMode={isEditMode}
               connectorInfo={undefined}
             />
-            {ManifestToConnectorMap[manifestStore] === 'Git' ? (
+            {ManifestToConnectorMap[manifestStore] === Connectors.GIT ? (
               <StepGitAuthentication
                 name={getString('credentials')}
                 onConnectorCreated={() => {
@@ -375,7 +376,7 @@ const ManifestListView = ({
                 projectIdentifier={projectIdentifier}
               />
             ) : null}
-            {ManifestToConnectorMap[manifestStore] === 'Github' ? (
+            {ManifestToConnectorMap[manifestStore] === Connectors.GITHUB ? (
               <StepGithubAuthentication
                 name={getString('credentials')}
                 onConnectorCreated={() => {
@@ -389,7 +390,7 @@ const ManifestListView = ({
                 projectIdentifier={projectIdentifier}
               />
             ) : null}
-            {ManifestToConnectorMap[manifestStore] === 'Bitbucket' ? (
+            {ManifestToConnectorMap[manifestStore] === Connectors.BITBUCKET ? (
               <StepBitbucketAuthentication
                 name={getString('credentials')}
                 onConnectorCreated={() => {
@@ -403,7 +404,7 @@ const ManifestListView = ({
                 projectIdentifier={projectIdentifier}
               />
             ) : null}
-            {ManifestToConnectorMap[manifestStore] === 'Gitlab' ? (
+            {ManifestToConnectorMap[manifestStore] === Connectors.GITLAB ? (
               <StepGitlabAuthentication
                 name={getString('credentials')}
                 onConnectorCreated={() => {
