@@ -496,7 +496,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         </label>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span

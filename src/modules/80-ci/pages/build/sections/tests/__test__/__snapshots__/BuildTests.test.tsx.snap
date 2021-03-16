@@ -34315,7 +34315,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -36491,7 +36491,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <button
-                class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -36503,7 +36503,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -36513,7 +36513,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -36523,7 +36523,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -36533,7 +36533,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -36552,7 +36552,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class=""
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       type="button"
                     >
                       <span
@@ -36579,7 +36579,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -36603,7 +36603,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -36731,7 +36731,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -36859,7 +36859,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -36987,7 +36987,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -37115,7 +37115,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -37243,7 +37243,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -37371,7 +37371,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -37499,7 +37499,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -37627,7 +37627,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -37755,7 +37755,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -37883,7 +37883,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -38011,7 +38011,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -38139,7 +38139,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -38267,7 +38267,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1; text-align: left; justify-content: flex-start;"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -38408,7 +38408,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -38420,7 +38420,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -38430,7 +38430,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -38440,7 +38440,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -38450,7 +38450,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -38469,7 +38469,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 class=""
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
@@ -38496,7 +38496,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span

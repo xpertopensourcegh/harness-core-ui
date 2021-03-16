@@ -459,7 +459,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                       class="customVariablesStage"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                         type="button"
                       >
                         <span

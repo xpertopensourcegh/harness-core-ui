@@ -223,7 +223,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main skipCondition"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main skipCondition"
           type="button"
         >
           <span
@@ -415,7 +415,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         class="addDataLinks"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                           type="button"
                         >
                           <span
@@ -500,7 +500,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -530,7 +530,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                 class="bp3-popover-target typeSelector"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                                   type="button"
                                 >
                                   <span
@@ -629,7 +629,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                 </div>
                               </div>
                               <button
-                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                                 data-testid="remove-sharedPaths-[0]"
                                 type="button"
                               >
@@ -651,7 +651,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                               </button>
                             </div>
                             <button
-                              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                               data-testid="add-sharedPaths"
                               type="button"
                             >
@@ -708,7 +708,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         >
                           <div>
                             <button
-                              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                               type="button"
                             >
                               <span
@@ -835,7 +835,7 @@ Examples:
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer StyledProps--padding-medium"
               >
                 <button
-                  class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   disabled=""
                   tabindex="-1"
                   type="button"
@@ -866,7 +866,7 @@ Examples:
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span

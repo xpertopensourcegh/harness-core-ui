@@ -67,7 +67,7 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                         style="width: 272px;"
                         type="button"
                       >
@@ -134,7 +134,7 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
             </div>
           </div>
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             style="height: 30px;"

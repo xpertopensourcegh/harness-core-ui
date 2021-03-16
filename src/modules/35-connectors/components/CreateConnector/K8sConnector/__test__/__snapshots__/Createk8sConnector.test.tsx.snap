@@ -274,7 +274,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -708,7 +708,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -778,7 +778,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -808,7 +808,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -1272,7 +1272,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             OIDC Password
                           </label>
                           <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                             data-testid="oidcPassword"
                             type="button"
                           >
@@ -1336,7 +1336,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             OIDC Client ID
                           </label>
                           <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                             data-testid="oidcCleintId"
                             type="button"
                           >
@@ -1395,7 +1395,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             OIDC Secret
                           </label>
                           <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                             data-testid="oidcCleintSecret"
                             type="button"
                           >
@@ -1496,7 +1496,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -1526,7 +1526,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -1865,7 +1865,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                           Service Account Token
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="serviceAccountToken"
                           type="button"
                         >
@@ -1935,7 +1935,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -1965,7 +1965,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -2287,7 +2287,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -2721,7 +2721,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -2791,7 +2791,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -2821,7 +2821,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -3159,7 +3159,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           Client Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKey"
                           type="button"
                         >
@@ -3218,7 +3218,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           Client Key passphrase
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyPassphrase"
                           type="button"
                         >
@@ -3281,7 +3281,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           Client Certificate
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyCertificate"
                           type="button"
                         >
@@ -3375,7 +3375,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           CA Certificate (optional)
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyCACertificate"
                           type="button"
                         >
@@ -3445,7 +3445,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -3475,7 +3475,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -3853,7 +3853,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                           Client Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKey"
                           type="button"
                         >
@@ -3912,7 +3912,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                           Client Key passphrase
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyPassphrase"
                           type="button"
                         >
@@ -3975,7 +3975,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                           Client Certificate
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyCertificate"
                           type="button"
                         >
@@ -4069,7 +4069,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                           CA Certificate (optional)
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyCACertificate"
                           type="button"
                         >
@@ -4139,7 +4139,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -4169,7 +4169,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span

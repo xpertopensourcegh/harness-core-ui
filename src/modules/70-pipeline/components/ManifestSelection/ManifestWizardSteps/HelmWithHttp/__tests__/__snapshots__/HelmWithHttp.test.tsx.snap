@@ -291,7 +291,7 @@ exports[`helm with http tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -320,7 +320,7 @@ exports[`helm with http tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="submit"
           >
             <span

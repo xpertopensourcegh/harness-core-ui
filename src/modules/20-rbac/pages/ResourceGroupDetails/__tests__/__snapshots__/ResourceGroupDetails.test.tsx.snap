@@ -266,7 +266,7 @@ exports[`Resource Groups Page render data 1`] = `
           class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-small"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span

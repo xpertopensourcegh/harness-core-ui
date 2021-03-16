@@ -81,7 +81,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                         class="bp3-popover-target bp3-popover-open"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container bp3-active"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container bp3-active"
                           style="width: 300px;"
                           type="button"
                         >
@@ -331,7 +331,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                           style="width: 300px;"
                           type="button"
                         >

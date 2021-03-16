@@ -198,7 +198,7 @@ exports[`Signup Page The signup page renders 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main signupButton StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main signupButton StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

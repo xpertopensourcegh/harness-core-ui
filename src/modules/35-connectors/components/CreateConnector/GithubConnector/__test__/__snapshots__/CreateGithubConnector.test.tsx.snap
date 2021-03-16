@@ -281,7 +281,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -586,7 +586,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -616,7 +616,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     </span>
                   </button>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -993,7 +993,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -1068,7 +1068,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="githubBackButton"
                   type="button"
                 >
@@ -1098,7 +1098,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -1400,7 +1400,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -1430,7 +1430,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                     </span>
                   </button>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1653,7 +1653,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                           SSH Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="sshKey"
                           type="button"
                         >
@@ -1728,7 +1728,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="githubBackButton"
                   type="button"
                 >
@@ -1758,7 +1758,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -2049,7 +2049,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -2421,7 +2421,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -2491,7 +2491,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="githubBackButton"
                   type="button"
                 >
@@ -2521,7 +2521,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -2890,7 +2890,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                           Personal Access Token
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="accessToken"
                           type="button"
                         >
@@ -3110,7 +3110,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                             GitHub Private Key
                           </label>
                           <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                             data-testid="privateKey"
                             type="button"
                           >
@@ -3161,7 +3161,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="githubBackButton"
                   type="button"
                 >
@@ -3191,7 +3191,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -3560,7 +3560,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                           Personal Access Token
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="accessToken"
                           type="button"
                         >
@@ -3714,7 +3714,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                           Personal Access Token
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="apiAccessToken"
                           type="button"
                         >
@@ -3764,7 +3764,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="githubBackButton"
                   type="button"
                 >
@@ -3794,7 +3794,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

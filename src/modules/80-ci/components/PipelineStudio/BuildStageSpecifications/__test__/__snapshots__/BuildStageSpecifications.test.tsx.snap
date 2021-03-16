@@ -245,7 +245,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                               tabindex="0"
                               type="button"
                             >
@@ -275,7 +275,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                             type="button"
                           >
                             <span
@@ -374,7 +374,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-sharedPaths-[0]"
                           type="button"
                         >
@@ -396,7 +396,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                         </button>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                         data-testid="add-sharedPaths"
                         type="button"
                       >
@@ -453,7 +453,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                   >
                     <div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                         type="button"
                       >
                         <span
@@ -740,7 +740,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   class="addDataLinks"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                     type="button"
                   >
                     <span
@@ -825,7 +825,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                               tabindex="0"
                               type="button"
                             >
@@ -855,7 +855,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                             type="button"
                           >
                             <span
@@ -954,7 +954,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-sharedPaths-[0]"
                           type="button"
                         >
@@ -976,7 +976,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                         </button>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                         data-testid="add-sharedPaths"
                         type="button"
                       >
@@ -1033,7 +1033,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   >
                     <div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                         type="button"
                       >
                         <span

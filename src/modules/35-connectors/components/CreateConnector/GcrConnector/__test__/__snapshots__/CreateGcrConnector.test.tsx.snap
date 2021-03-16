@@ -322,7 +322,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -614,7 +614,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                         Encrypted Key
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="password"
                         type="button"
                       >
@@ -659,7 +659,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -993,7 +993,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1285,7 +1285,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                         Encrypted Key
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="password"
                         type="button"
                       >
@@ -1330,7 +1330,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span

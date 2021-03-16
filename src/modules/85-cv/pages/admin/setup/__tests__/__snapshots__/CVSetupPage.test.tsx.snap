@@ -122,7 +122,7 @@ exports[`CVSetupPage check next and previous 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -313,7 +313,7 @@ exports[`CVSetupPage check next and previous 1`] = `
               Don’t have a Change Source? 
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -468,7 +468,7 @@ exports[`CVSetupPage check next and previous 2`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -497,7 +497,7 @@ exports[`CVSetupPage check next and previous 2`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -796,7 +796,7 @@ exports[`CVSetupPage check next and previous 3`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -1015,7 +1015,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               Don’t have a Change Source? 
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -1156,7 +1156,7 @@ exports[`CVSetupPage render initial state 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -1347,7 +1347,7 @@ exports[`CVSetupPage render initial state 1`] = `
               Don’t have a Change Source? 
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"
