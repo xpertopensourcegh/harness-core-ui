@@ -814,6 +814,9 @@ execution:
     abortedMessage: Pipeline has been aborted successfully
     pausedMessage: Pipeline has been paused successfully
     resumedMessage: Pipeline has been resumed successfully
+  iotab:
+    noInputText: No input found for current step
+    noOutputText: No output found for current step
 pipeline-notifications:
   nameOftheRule: Name of the Rule
   notificationName: Give your notification a name
