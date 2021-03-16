@@ -35,26 +35,6 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
       </div>
     </div>
     <div
-      class="bp3-form-group"
-    >
-      <div
-        class="bp3-form-content"
-      >
-        <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkbox StyledProps--main StyledProps--inline"
-        >
-          <input
-            name="spec.skipDryRun"
-            type="checkbox"
-          />
-          <span
-            class="bp3-control-indicator"
-          />
-          Skip Dry Run
-        </label>
-      </div>
-    </div>
-    <div
       class="bp3-form-group formGroup"
     >
       <label

@@ -186,14 +186,6 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
           disabled={readonly}
         />
       ) : null}
-      {getMultiTypeFromValue(template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${prefix}spec.skipDryRun`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipDryRun')}
-          disabled={readonly}
-        />
-      )}
       {(getMultiTypeFromValue(
         (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
       ) === MultiTypeInputType.RUNTIME ||
@@ -322,7 +314,6 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     identifier: '',
     timeout: '10m',
     spec: {
-      skipDryRun: false,
       workload: '',
       skipSteadyStateCheck: false,
       instanceSelection: { type: InstanceTypes.Instances, spec: { count: 0 } as any }
