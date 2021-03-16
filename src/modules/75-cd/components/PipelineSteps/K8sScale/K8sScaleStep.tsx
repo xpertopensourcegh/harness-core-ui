@@ -135,13 +135,6 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   )}
                 </div>
 
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeCheckboxField
-                    name="spec.skipSteadyStateCheck"
-                    label={getString('pipelineSteps.skipSteadyStateCheck')}
-                  />
-                </div>
-
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeDurationField
                     name="timeout"
@@ -162,6 +155,12 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                       }}
                     />
                   )}
+                </div>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormMultiTypeCheckboxField
+                    name="spec.skipSteadyStateCheck"
+                    label={getString('pipelineSteps.skipSteadyStateCheck')}
+                  />
                 </div>
               </Layout.Vertical>
             </>
@@ -195,14 +194,6 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
           disabled={readonly}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${prefix}spec.skipSteadyStateCheck`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipSteadyStateCheck')}
-          disabled={readonly}
-        />
-      )}
       {(getMultiTypeFromValue(
         (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
       ) === MultiTypeInputType.RUNTIME ||
@@ -213,6 +204,14 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
           label={getString('pipelineSteps.instanceLabel')}
           name={`${prefix}spec.instanceSelection`}
           disabledType
+          disabled={readonly}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${prefix}spec.skipSteadyStateCheck`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipSteadyStateCheck')}
           disabled={readonly}
         />
       )}

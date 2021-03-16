@@ -278,7 +278,6 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
 
               // clean up the out string and add left padding to make it align correctly
               const outStr = out
-                .trim()
                 .split('\n')
                 .map((l, i) => (i === 0 ? l : `${' '.repeat(LOG_TYPE_LENGTH)}\t${' '.repeat(TIMESTAMP_LENGTH)}\t${l}`))
                 .join('\n')
