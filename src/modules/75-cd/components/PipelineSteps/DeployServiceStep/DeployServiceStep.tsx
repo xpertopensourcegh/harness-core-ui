@@ -31,7 +31,7 @@ import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDes
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
-
+import css from './DeployServiceStep.module.scss'
 const logger = loggerFor(ModuleName.CD)
 export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
   serviceRef?: string
@@ -328,6 +328,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
           placeholder={getString('pipelineSteps.serviceTab.selectService')}
           items={services}
           disabled={inputSetData?.readonly}
+          className={css.inputWidth}
         />
       )}
     </>
