@@ -39,6 +39,8 @@ noData: No Data
 members: Members
 wip: Work in progress
 tagRegex: Tag Regex
+of: of
+step: Step
 parallelSteps: Parallel Steps
 stepGroup: Step Group
 changeHistory: Change History
@@ -258,6 +260,7 @@ noSearchResultsFoundPeriod: No results found.
 createOrSelectSecret: Create or Select a Secret
 description: Description
 recentlyUsed: Recently Used
+applications: Applications
 stageDetails: Stage Details
 stageOverview: Stage Overview
 stageNameLabel: Stage Name
@@ -1315,6 +1318,7 @@ connectors:
   hashicorpVaultDetails: 'HashiCorp Vault Overview'
   appDynamicsDetails: 'AppDynamics Connector Details'
   splunkConnectorDetails: 'Splunk Connector Details'
+  newRelicConnectorDetails: New Relic Connector Details
   title:
     k8sCluster: 'Kubernetes Cluster'
     gcpConnector: 'Google Cloud Provider'
@@ -1717,10 +1721,34 @@ cv:
         health: Health Verification
       confirmDeleteTitle: Delete Verification Job
       confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
+  connectors:
+    connectorDetailsHeader: '{{type}} Connector Details'
+    addConnectorDetails: Add {{type}} Verification Provider
+    unableToCreateConnector: Unable to create connector
+    unableToUpdateConnector: Unable to update connector
+    appD:
+      controllerUrlValidation: Controller URL is a required field
+    newRelic:
+      subTitle: To add New Relic connector, you will need Pro or higher subscription level. Verification analysis is limited to Web Transaction only.
+      urlFieldLabel: New Relic URL
+      accountIdFieldLabel: Account Identifier
+      encryptedAPIKeyLabel: Encrypted API Key
+      urlValidation: New Relic URL is required.
+      accountIdValidation: New Relic Account ID is required.
+      encryptedKeyValidation: Encrypted API Key is required.
+      products:
+        fullStackObservability: 'Full Stack Observability: APM'
   onboarding:
     monitoringSources:
       addMoreSources: Add more Monitoring Sources
       addedStatus: You have added {{sourceCount}} Monitoring Source
+      defineMonitoringSource: Define your Monitoring Source
+      monitoringSourceSubheading: Which Monitoring Source are you setting up for this deployment?
+      specifyConnector: Specify your {{type}} connector
+      firstTimeSetupText: First time? You can setup a new connector to {{type}}. It takes 2 minutes.
+      selectConnector: Select your {{type}} connector
+      addConnector: + Add {{type}} connector
+      selectProduct: Select the {{type}} product that you would like to select {{entity}} from
     activitySources:
       addMoreSources: Add more Change Sources
       addedStatus: You have added {{sourceCount}} Change Source
@@ -1792,7 +1820,6 @@ cv:
       infoPanel:
         mapDashboards: Map Dashboards to Harness Services
         mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
-        applications: Applications
         applicationsDesc: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace “prod-setup.” Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
         tiers: Tiers
       searchTiersPlaceHolder: 'Search for Tiers'
@@ -1833,10 +1860,10 @@ cv:
         configureRiskProfile: 'Configure Risk Profile'
         higherCounts: 'Higher counts = higher risk'
         lowerCounts: 'Lower counts = lower risk'
-        enterQueryForValidation: 'Please enter a query.'
+        enterQueryForValidation: Please enter a query.
         validation:
           mainSetupValidation: 'All fields for at least one metric must be filled completely.'
-          validJSON: 'Please provide valid json.'
+          validJSON: Please provide valid json.
           riskCategory: Risk Category is required.
           env: Environment is required.
           service: Service is required.
@@ -1845,12 +1872,9 @@ cv:
         noDataForQuery: 'No data for provided query.'
       reviewPage:
         mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
-        gcoMetrics: 'Google Cloud Operation metrics'
+        gcoMetrics: Google Cloud Operation metrics
       tabName:
         selectDashboards: 'Select Dashboards'
-  connectors:
-    appD:
-      controllerUrlValidation: Controller URL is a required field
   activitySources:
     name: 'Name your Change Source'
     harnessCD:

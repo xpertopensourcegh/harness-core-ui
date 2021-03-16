@@ -53,7 +53,8 @@ export const Connectors: ConnectorType = {
   ARTIFACTORY: 'Artifactory',
   CEAWS: 'CEAws',
   HttpHelmRepo: 'HttpHelmRepo',
-  Jira: 'Jira'
+  Jira: 'Jira',
+  NEW_RELIC: 'NewRelic'
 }
 
 export const ConnectorInfoText = {

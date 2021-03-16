@@ -917,6 +917,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-appdynamics'
     case Connectors.SPLUNK:
       return 'service-splunk'
+    case Connectors.NEW_RELIC:
+      return 'service-newrelic'
     case Connectors.DOCKER:
       return 'service-dockerhub'
     case Connectors.AWS:
