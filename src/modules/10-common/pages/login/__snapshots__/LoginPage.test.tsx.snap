@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Signup Page The signup page renders 1`] = `
+exports[`Login Page The login page renders 1`] = `
 <div>
   <div
     class="layout"
@@ -30,39 +30,11 @@ exports[`Signup Page The signup page renders 1`] = `
                 fill="#060000"
               />
             </svg>
-            <a
-              href="/login"
-            >
-              <span
-                class="bp3-icon bp3-icon-arrow-left StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--margin-right-xsmall"
-                icon="arrow-left"
-              >
-                <svg
-                  data-icon="arrow-left"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    arrow-left
-                  </desc>
-                  <path
-                    d="M13.99 6.99H4.41L7.7 3.7a1.003 1.003 0 00-1.42-1.42l-5 5a1.014 1.014 0 000 1.42l5 5a1.003 1.003 0 001.42-1.42L4.41 8.99H14c.55 0 1-.45 1-1s-.46-1-1.01-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--inline StyledProps--font-size-medium"
-              >
-                Sign In
-              </span>
-            </a>
           </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
           >
-            Sign up for an account
+            Sign In
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black StyledProps--margin-top-xsmall"
@@ -81,38 +53,7 @@ exports[`Signup Page The signup page renders 1`] = `
                 <div>
                   <div
                     class="bp3-form-group"
-                    data-id="name-0"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="name"
-                    >
-                      Name
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="name"
-                          placeholder="John Smith"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="email-1"
+                    data-id="email-0"
                   >
                     <label
                       class="bp3-label"
@@ -134,7 +75,6 @@ exports[`Signup Page The signup page renders 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="email"
-                          placeholder="email@work.com"
                           type="text"
                           value=""
                         />
@@ -143,38 +83,7 @@ exports[`Signup Page The signup page renders 1`] = `
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="company-2"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="company"
-                    >
-                      Company
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="company"
-                          placeholder="Your Company"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="password-3"
+                    data-id="password-1"
                   >
                     <label
                       class="bp3-label"
@@ -196,7 +105,6 @@ exports[`Signup Page The signup page renders 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="password"
-                          placeholder="6+ characters"
                           type="password"
                           value=""
                         />
@@ -211,7 +119,7 @@ exports[`Signup Page The signup page renders 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      Sign Up
+                      Sign In
                     </span>
                   </button>
                 </div>
@@ -224,7 +132,7 @@ exports[`Signup Page The signup page renders 1`] = `
             <span
               class="message"
             >
-              or sign up with
+              or login with
             </span>
           </h2>
           <div
@@ -404,28 +312,48 @@ exports[`Signup Page The signup page renders 1`] = `
                 </span>
               </a>
             </div>
-            <div
-              class="disclaimer"
+            <button
+              class="ssoButton"
             >
-              By signing up you agree to our 
-              <a
-                class="externalLink"
-                href="https://harness.io/privacy/"
-                rel="noreferrer"
-                target="_blank"
+              <p
+                class="StyledProps--font StyledProps--main text"
+                style="display: flex; align-items: center;"
               >
-                Privacy Policy
-              </a>
-               and our 
-              <a
-                class="externalLink"
-                href="https://harness.io/subscriptionterms/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Terms of Use
-              </a>
-            </div>
+                <span
+                  class="bp3-icon StyledProps--main icon StyledProps--padding-right-xsmall"
+                  data-icon="cloud-sso"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    viewBox="0 0 28 22"
+                    width="24"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M13.533.733c4.107 0 7.56 2.738 8.587 6.845 3.36.391 5.88 3.324 5.88 6.844 0 3.814-2.893 6.845-6.533 6.845H5.133c-2.8 0-5.133-2.445-5.133-5.378 0-2.836 2.053-5.182 4.667-5.378v-.489c0-5.084 4.013-9.289 8.866-9.289zm2.081 4.328c-2.364 0-4.28 1.972-4.28 4.404 0 .307.03.61.09.905l-3.76 3.869v3.406h4.281v-1.258h1.223v-1.259h1.223V13.87h1.223c2.364 0 4.28-1.972 4.28-4.405 0-2.432-1.916-4.404-4.28-4.404zm0 7.55h-2.446v1.259h-1.223v1.258h-1.223v1.259H8.888v-1.628l3.906-4.019-.106-.36a3.218 3.218 0 01-.131-.915c0-1.737 1.369-3.146 3.057-3.146 1.689 0 3.058 1.409 3.058 3.146 0 1.738-1.37 3.146-3.058 3.146zm0-1.887c-.675 0-1.223-.564-1.223-1.259s.548-1.258 1.223-1.258 1.223.563 1.223 1.258c0 .695-.547 1.259-1.223 1.259z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                Single Sign-On
+              </p>
+            </button>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--margin-top-xxxlarge"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              No Account?
+            </p>
+            <a
+              href="/signup"
+            >
+              Get Started
+            </a>
           </div>
         </div>
       </div>

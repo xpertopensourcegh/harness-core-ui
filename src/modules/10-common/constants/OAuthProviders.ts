@@ -17,3 +17,10 @@ export const OAuthProviders: OAuthProviderType[] = [
   { type: 'GOOGLE', name: 'Google', url: 'oauth2Redirect?provider=google', iconName: 'google' },
   { type: 'AZURE', name: 'Azure', url: 'oauth2Redirect?provider=azure', iconName: 'service-azure' }
 ]
+
+export const URLS = {
+  OAUTH: 'https://app.harness.io/gateway/',
+  FREE_TRIAL: 'https://harness.io/thanks-freetrial-p/',
+  PRIVACY_AGREEMENT: 'https://harness.io/privacy/',
+  SUBSCRIPTION_TERMS: 'https://harness.io/subscriptionterms/'
+}
