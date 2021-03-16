@@ -78,12 +78,12 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                     <ConfigureOptions
                       value={(formik.values.connectorId as unknown) as string}
                       type={connectorType}
-                      variableName="dockerConnector"
+                      variableName="connectorId"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => {
-                        formik.setFieldValue('imagePath', value)
+                        formik.setFieldValue('connectorId', value)
                       }}
                     />
                   </div>
