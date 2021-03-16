@@ -31,7 +31,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
 
   const resourceDetails = RbacFactory.getResourceTypeHandler(resourceType)
   if (!resourceDetails) return null
-  const { label, icon } = resourceDetails
+  const { label, icon, addResourceModalBody } = resourceDetails
   return (
     <Card className={css.selectedResourceGroupCardDetails} key={resourceType}>
       <Layout.Vertical>
@@ -48,17 +48,19 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
           <Text lineClamp={1} color={Color.GREY_400} className={css.limitAccessCell}>
             {getString('resourceGroup.limitAccess', { name: label })}
           </Text>
-          <Button
-            intent="primary"
-            minimal
-            disabled={disableAddingResources}
-            className={css.addResourceBtn}
-            onClick={() => {
-              openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
-            }}
-          >
-            {getString('resourceGroup.add', { name: label })}
-          </Button>
+          {addResourceModalBody && (
+            <Button
+              intent="primary"
+              minimal
+              disabled={disableAddingResources}
+              className={css.addResourceBtn}
+              onClick={() => {
+                openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
+              }}
+            >
+              {getString('resourceGroup.add', { name: label })}
+            </Button>
+          )}
         </Layout.Horizontal>
 
         {Array.isArray(resourceValues) && (

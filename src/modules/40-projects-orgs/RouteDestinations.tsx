@@ -22,7 +22,8 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import ProjectDetailsSideNav from '@projects-orgs/components/SideNav/SideNav'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import AddProjectResourceModalBody from '@projects-orgs/components/AddProjectResourceModalBody/AddProjectResourceModalBody'
+import AddProjectResourceModalBody from '@projects-orgs/components/ProjectResourceModalBody/ProjectResourceModalBody'
+import OrgResourceModalBody from '@projects-orgs/components/OrgResourceModalBody/OrgResourceModalBody'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
@@ -61,7 +62,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'settings',
   label: 'Organizations',
   // eslint-disable-next-line react/display-name
-  addResourceModalBody: () => <></>
+  addResourceModalBody: props => <OrgResourceModalBody {...props} />
 })
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
