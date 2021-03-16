@@ -18,7 +18,7 @@ import type {
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
-import { FormInstanceDropdown } from '@common/components'
+import { FormInstanceDropdown, FormMultiTypeCheckboxField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
   DurationInputFieldForInputSet,
@@ -135,6 +135,13 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   )}
                 </div>
 
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormMultiTypeCheckboxField
+                    name="spec.skipSteadyStateCheck"
+                    label={getString('pipelineSteps.skipSteadyStateCheck')}
+                  />
+                </div>
+
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeDurationField
                     name="timeout"
@@ -185,6 +192,14 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
           name={`${prefix}spec.skipDryRun`}
           className={stepCss.checkbox}
           label={getString('pipelineSteps.skipDryRun')}
+          disabled={readonly}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${prefix}spec.skipSteadyStateCheck`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipSteadyStateCheck')}
           disabled={readonly}
         />
       )}
@@ -310,6 +325,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     spec: {
       skipDryRun: false,
       workload: '',
+      skipSteadyStateCheck: false,
       instanceSelection: { type: InstanceTypes.Instances, spec: { count: 0 } as any }
     }
   }

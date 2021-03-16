@@ -1100,7 +1100,7 @@ pipelineSteps:
   K8sCanaryDelete: 'K8s Canary Delete'
   k8sScale: 'K8s Scale'
   skipDryRun: 'Skip Dry Run'
-  skipSteadyStateCheck: 'Skip Steady State Check'
+  skipSteadyStateCheck: Skip Steady State Check
   workload: 'Workload'
   stepNameRequired: 'Step Name is required'
   lessThanZero: 'Instance cannot be less than zero.'
@@ -1473,7 +1473,7 @@ connectors:
     quay: 'Quay'
     other: 'Other (Docker V2 compliant)'
   helmRepo:
-    helmRepoUrl: 'Helm Registry URL'
+    helmRepoUrl: 'Helm Repository URL'
   aws:
     awsAccessKey: AWS Access Key
     accessKey: Access Key

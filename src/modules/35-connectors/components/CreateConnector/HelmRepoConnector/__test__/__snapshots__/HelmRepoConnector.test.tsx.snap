@@ -445,7 +445,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                     class="bp3-label"
                     for="helmRepoUrl"
                   >
-                    Helm Registry URL
+                    Helm Repository URL
                      
                     <span
                       class="bp3-text-muted"
@@ -1174,7 +1174,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                     class="bp3-label"
                     for="helmRepoUrl"
                   >
-                    Helm Registry URL
+                    Helm Repository URL
                      
                     <span
                       class="bp3-text-muted"

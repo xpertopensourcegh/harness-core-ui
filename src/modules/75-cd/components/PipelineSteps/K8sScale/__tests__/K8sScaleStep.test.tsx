@@ -32,6 +32,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             skipDryRun: RUNTIME_INPUT_VALUE,
             timeout: RUNTIME_INPUT_VALUE,
             workload: RUNTIME_INPUT_VALUE,
+            skipSteadyStateCheck: RUNTIME_INPUT_VALUE,
             instanceSelection: { type: 'Count', spec: { count: RUNTIME_INPUT_VALUE } }
           }
         }}
@@ -51,6 +52,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             skipDryRun: false,
             workload: 'test',
             timeout: '10m',
+            skipSteadyStateCheck: false,
             instanceSelection: { type: 'Count', spec: { count: 10 } }
           }
         }}
@@ -61,6 +63,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             skipDryRun: RUNTIME_INPUT_VALUE,
             timeout: RUNTIME_INPUT_VALUE,
             workload: RUNTIME_INPUT_VALUE,
+            skipSteadyStateCheck: RUNTIME_INPUT_VALUE,
             instanceSelection: { type: 'Count', spec: { count: RUNTIME_INPUT_VALUE } }
           }
         }}
@@ -72,6 +75,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             skipDryRun: RUNTIME_INPUT_VALUE,
             timeout: RUNTIME_INPUT_VALUE,
             workload: RUNTIME_INPUT_VALUE,
+            skipSteadyStateCheck: RUNTIME_INPUT_VALUE,
             instanceSelection: { type: 'Count', spec: { count: RUNTIME_INPUT_VALUE } }
           }
         }}
@@ -95,6 +99,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             skipDryRun: RUNTIME_INPUT_VALUE,
             timeout: '10m',
             workload: 'test',
+            skipSteadyStateCheck: false,
             instanceSelection: { type: 'Count', spec: { count: 10 } }
           }
         }}
@@ -113,6 +118,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           type: 'K8sScale',
+          skipSteadyStateCheck: false,
           spec: { skipDryRun: false, workload: 'test' }
         }}
         type={StepType.K8sScale}
@@ -141,6 +147,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
           spec: {
             skipDryRun: false,
             workload: 'test',
+            skipSteadyStateCheck: true,
             instanceSelection: { type: 'Count', spec: { count: 10 } }
           },
           name: 'Test A',
@@ -166,7 +173,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             type: 'Count'
           },
           skipDryRun: false,
-
+          skipSteadyStateCheck: true,
           workload: 'test'
         },
         timeout: '10m',

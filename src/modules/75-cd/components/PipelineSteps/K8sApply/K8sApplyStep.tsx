@@ -195,10 +195,10 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                     />
                   )}
                 </div>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
                 </div>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
                     label={getString('pipelineSteps.skipSteadyStateCheck')}
