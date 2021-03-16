@@ -115,8 +115,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>
@@ -156,8 +156,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>
@@ -198,8 +198,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>
@@ -234,8 +234,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>

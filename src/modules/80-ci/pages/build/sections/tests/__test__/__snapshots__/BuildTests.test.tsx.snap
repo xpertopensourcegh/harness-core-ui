@@ -35226,7 +35226,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    5s
+                    6s
                   </span>
                 </p>
               </div>
@@ -35511,7 +35511,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    3s
+                    4s
                   </span>
                 </p>
               </div>
@@ -35606,7 +35606,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    3s
+                    4s
                   </span>
                 </p>
               </div>
@@ -35701,7 +35701,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    3s
+                    4s
                   </span>
                 </p>
               </div>
@@ -35796,7 +35796,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    3s
+                    4s
                   </span>
                 </p>
               </div>
@@ -35891,7 +35891,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    3s
+                    4s
                   </span>
                 </p>
               </div>
@@ -36271,7 +36271,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    2s
+                    3s
                   </span>
                 </p>
               </div>
@@ -36366,7 +36366,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    2s
+                    3s
                   </span>
                 </p>
               </div>
@@ -36461,7 +36461,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                   >
                      
-                    2s
+                    3s
                   </span>
                 </p>
               </div>
@@ -36707,7 +36707,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
                
-              8m 18s
+              8m 19s
             </span>
             <div
               class="bp3-progress-bar bp3-intent-danger bp3-no-animation bp3-no-stripes progressBar"
@@ -36835,7 +36835,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
                
-              7m 32s
+              7m 33s
             </span>
             <div
               class="bp3-progress-bar bp3-intent-success bp3-no-animation bp3-no-stripes progressBar"
@@ -36963,7 +36963,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
                
-              7m 3s
+              7m 4s
             </span>
             <div
               class="bp3-progress-bar bp3-intent-success bp3-no-animation bp3-no-stripes progressBar"
@@ -37091,7 +37091,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
                
-              6m 41s
+              6m 42s
             </span>
             <div
               class="bp3-progress-bar bp3-intent-success bp3-no-animation bp3-no-stripes progressBar"
@@ -37219,7 +37219,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
                
-              6m 25s
+              6m 26s
             </span>
             <div
               class="bp3-progress-bar bp3-intent-success bp3-no-animation bp3-no-stripes progressBar"
@@ -37475,7 +37475,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
                
-              6m 8s
+              6m 9s
             </span>
             <div
               class="bp3-progress-bar bp3-intent-success bp3-no-animation bp3-no-stripes progressBar"
@@ -37731,7 +37731,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </svg>
               </span>
                
-              5m 10s
+              5m 11s
             </span>
             <div
               class="bp3-progress-bar bp3-intent-success bp3-no-animation bp3-no-stripes progressBar"

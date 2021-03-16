@@ -4,6 +4,7 @@ common:
   editVariable: Edit variable
   editVariableType: Edit variable type
   removeThisVariable: Remove This Variable
+  durationPrefix: 'Duration: '
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'
