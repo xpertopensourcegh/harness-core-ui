@@ -74,7 +74,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues.spec?.store.spec.repoName || ''
+        repoName = initialValues?.spec?.store.spec.repoName || ''
       }
       return repoName
     }
@@ -199,7 +199,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 </div>
               )}
 
-              {connectionType === GitRepoName.Account && (
+              {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <div className={helmcss.halfWidth}>
                   <div>
                     <FormInput.Text

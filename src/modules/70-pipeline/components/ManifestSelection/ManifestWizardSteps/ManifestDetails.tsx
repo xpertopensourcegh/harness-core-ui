@@ -117,7 +117,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues.spec?.store.spec.repoName || ''
+        repoName = initialValues?.spec?.store.spec.repoName || ''
       }
       return repoName
     }
@@ -236,7 +236,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 </div>
               )}
 
-              {connectionType === GitRepoName.Account && (
+              {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <div>
                   <FormInput.Text
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
