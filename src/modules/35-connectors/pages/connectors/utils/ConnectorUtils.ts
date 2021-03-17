@@ -109,12 +109,7 @@ const buildAuthTypePayload = (formData: FormData) => {
 }
 
 export const getSpecForDelegateType = (formData: FormData) => {
-  const type = formData?.delegateType
-  if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
-    return {
-      delegateSelectors: formData?.delegateSelectors
-    }
-  } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+  if (formData?.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER) {
     return {
       masterUrl: formData?.masterUrl,
       auth: {
@@ -123,6 +118,7 @@ export const getSpecForDelegateType = (formData: FormData) => {
       }
     }
   }
+  return null
 }
 
 export const buildKubPayload = (formData: FormData) => {
@@ -135,6 +131,7 @@ export const buildKubPayload = (formData: FormData) => {
     tags: formData?.tags,
     type: Connectors.KUBERNETES_CLUSTER,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       credential: {
         type: formData?.delegateType,
         spec: getSpecForDelegateType(formData)
@@ -178,6 +175,7 @@ export const buildGithubPayload = (formData: FormData) => {
     tags: formData?.tags,
     type: Connectors.GITHUB,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       type: formData.urlType,
       url: formData.url,
       authentication: {
@@ -221,6 +219,7 @@ export const buildGitlabPayload = (formData: FormData) => {
     tags: formData?.tags,
     type: Connectors.GITLAB,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       type: formData.urlType,
       url: formData.url,
       authentication: {
@@ -264,6 +263,7 @@ export const buildBitbucketPayload = (formData: FormData) => {
     tags: formData?.tags,
     type: Connectors.BITBUCKET,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       type: formData.urlType,
       url: formData.url,
       authentication: {
@@ -451,8 +451,7 @@ export const getK8AuthFormFields = async (connectorInfo: ConnectorInfoDTO, accou
     clientKeyCertificate: await setSecretField(authdata?.clientCertRef, scopeQueryParams),
     clientKeyPassphrase: await setSecretField(authdata?.clientKeyPassphraseRef, scopeQueryParams),
     clientKeyCACertificate: await setSecretField(authdata?.caCertRef, scopeQueryParams),
-    clientKeyAlgo: authdata?.clientKeyAlgo,
-    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || []
+    clientKeyAlgo: authdata?.clientKeyAlgo
   }
 }
 
@@ -481,7 +480,6 @@ export const setupGCPFormData = async (connectorInfo: ConnectorInfoDTO, accountI
 
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
-    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || [],
     password: await setSecretField(connectorInfo.spec.credential?.spec?.secretKeyRef, scopeQueryParams)
   }
 
@@ -497,7 +495,6 @@ export const setupAWSFormData = async (connectorInfo: ConnectorInfoDTO, accountI
 
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
-    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || [],
     accessKey:
       connectorInfo.spec.credential.spec?.accessKey || connectorInfo.spec.credential.spec?.accessKeyRef
         ? {
@@ -613,19 +610,18 @@ export const buildAWSPayload = (formData: FormData) => {
     tags: formData.tags,
     type: Connectors.AWS,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       credential: {
         type: formData.delegateType,
         spec:
-          formData.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
+          formData.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER
             ? {
-                delegateSelectors: formData.delegateSelectors
-              }
-            : {
                 accessKey: formData.accessKey.type === ValueType.TEXT ? formData.accessKey.value : undefined,
                 accessKeyRef: formData.accessKey.type === ValueType.ENCRYPTED ? formData.accessKey.value : undefined,
 
                 secretKeyRef: formData.secretKeyRef.referenceString
-              },
+              }
+            : null,
         crossAccountAccess: formData.crossAccountAccess
           ? {
               crossAccountRoleArn: formData.crossAccountRoleArn,
@@ -681,6 +677,7 @@ export const buildDockerPayload = (formData: FormData) => {
     tags: formData.tags,
     type: Connectors.DOCKER,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       dockerRegistryUrl: formData.dockerRegistryUrl,
       providerType: formData.dockerProviderType,
       auth:
@@ -780,16 +777,15 @@ export const buildGcpPayload = (formData: FormData) => {
     tags: formData.tags,
     type: Connectors.GCP,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       credential: {
         type: formData?.delegateType,
         spec:
-          formData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
+          formData?.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER
             ? {
-                delegateSelectors: formData.delegateSelectors
-              }
-            : {
                 secretKeyRef: formData.password.referenceString
               }
+            : null
       }
     }
   }
@@ -807,6 +803,7 @@ export const buildGitPayload = (formData: FormData) => {
     tags: formData.tags,
     type: Connectors.GIT,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       connectionType: formData.urlType,
       url: formData.url,
       type: formData.connectionType,
@@ -853,6 +850,7 @@ export const buildNexusPayload = (formData: FormData) => {
 
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       nexusServerUrl: formData?.nexusServerUrl,
       version: formData?.nexusVersion,
       auth: {
@@ -877,6 +875,7 @@ export const buildArtifactoryPayload = (formData: FormData) => {
     type: Connectors.ARTIFACTORY,
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       artifactoryServerUrl: formData?.artifactoryServerUrl,
       auth: {
         type: formData.authType,
@@ -894,6 +893,36 @@ export const buildArtifactoryPayload = (formData: FormData) => {
 
   return { connector: savedData }
 }
+
+export const buildAppDynamicsPayload = (formData: FormData, accountId: string) => ({
+  connector: {
+    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+    type: Connectors.APP_DYNAMICS,
+    spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      username: formData.username,
+      accountname: formData.accountName,
+      passwordRef: formData.password.referenceString,
+      controllerUrl: formData.url,
+      accountId
+    }
+  }
+})
+
+export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
+  connector: {
+    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+    type: Connectors.SPLUNK,
+    spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      username: formData.username,
+      accountname: formData.accountName,
+      passwordRef: formData.passwordRef.referenceString,
+      splunkUrl: formData.url,
+      accountId
+    }
+  }
+})
 
 export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconName => {
   switch (type) {
@@ -1050,7 +1079,7 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
 export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: ConnectorInfoDTO): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return connector.spec.credential.spec.masterUrl
+      return connector.spec.credential.spec?.masterUrl
     case Connectors.DOCKER:
       return connector.spec.dockerRegistryUrl
     case Connectors.NEXUS:

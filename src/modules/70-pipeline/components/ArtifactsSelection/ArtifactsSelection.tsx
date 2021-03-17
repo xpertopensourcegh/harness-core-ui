@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -20,6 +20,8 @@ import StepDockerAuthentication from '@connectors/components/CreateConnector/Doc
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnector/StepAuth/GcrAuthentication'
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
+import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
@@ -64,12 +66,12 @@ export default function ArtifactsSelection({
     updatePipeline
   } = useContext(PipelineContext)
 
-  const [isEditMode, setIsEditMode] = useState(false)
-  const [selectedArtifact, setSelectedArtifact] = useState(Connectors.DOCKER)
-  const [connectorView, setConnectorView] = useState(false)
-  const [context, setModalContext] = useState(ModalViewFor.PRIMARY)
-  const [sidecarIndex, setEditIndex] = useState(0)
-  const [fetchedConnectorResponse, setFetchedConnectorResponse] = useState<PageConnectorResponse | undefined>()
+  const [isEditMode, setIsEditMode] = React.useState(false)
+  const [selectedArtifact, setSelectedArtifact] = React.useState(Connectors.DOCKER)
+  const [connectorView, setConnectorView] = React.useState(false)
+  const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
+  const [sidecarIndex, setEditIndex] = React.useState(0)
+  const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
 
   const { getString } = useStrings()
 
@@ -442,6 +444,13 @@ export default function ArtifactsSelection({
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
             />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              buildPayload={buildGcpPayload}
+              connectorInfo={undefined}
+            />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
               isStep={true}
@@ -466,6 +475,13 @@ export default function ArtifactsSelection({
                 //TO BE Removed
               }}
             />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              buildPayload={buildAWSPayload}
+              connectorInfo={undefined}
+            />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
               isStep={true}
@@ -486,6 +502,13 @@ export default function ArtifactsSelection({
               projectIdentifier={projectIdentifier}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
+            />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              buildPayload={buildDockerPayload}
+              connectorInfo={undefined}
             />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}

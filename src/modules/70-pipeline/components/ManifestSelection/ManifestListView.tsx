@@ -13,12 +13,20 @@ import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/G
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
-import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
 import StepGitlabAuthentication from '@connectors/components/CreateConnector/GitlabConnector/StepAuth/StepGitlabAuthentication'
 import { Connectors } from '@connectors/constants'
+import {
+  buildAWSPayload,
+  buildBitbucketPayload,
+  buildGithubPayload,
+  buildGitlabPayload,
+  buildGitPayload
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
+import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -258,6 +266,22 @@ const ManifestListView = ({
     return iconProps
   }
 
+  const getBuildPayload = (type: ConnectorInfoDTO['type']) => {
+    if (type === Connectors.GIT) {
+      return buildGitPayload
+    }
+    if (type === Connectors.GITHUB) {
+      return buildGithubPayload
+    }
+    if (type === Connectors.BITBUCKET) {
+      return buildBitbucketPayload
+    }
+    if (type === Connectors.GITLAB) {
+      return buildGitlabPayload
+    }
+    return () => ({})
+  }
+
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
     let manifestDetailStep = null
@@ -293,6 +317,7 @@ const ManifestListView = ({
   }
 
   const getNewConnectorSteps = useCallback((): JSX.Element => {
+    const buildPayload = getBuildPayload(ManifestToConnectorMap[manifestStore])
     switch (manifestStore) {
       case ManifestStoreMap.Http:
         return (
@@ -339,6 +364,13 @@ const ManifestListView = ({
               onConnectorCreated={() => {
                 //TO BE Removed
               }}
+            />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              buildPayload={buildAWSPayload}
+              connectorInfo={undefined}
             />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
@@ -418,6 +450,13 @@ const ManifestListView = ({
                 projectIdentifier={projectIdentifier}
               />
             ) : null}
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              buildPayload={buildPayload}
+              connectorInfo={undefined}
+            />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
               isStep={true}

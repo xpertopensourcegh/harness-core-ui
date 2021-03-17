@@ -377,6 +377,7 @@ mapApplicationsToEnvs: Map Applications to Harness Environments
 lastSevenDays: 'last 7 days'
 total: 'Total'
 credentials: Credentials
+delegateSelection: Delegation Selection
 editCredentials: Edit Credentials
 createProject: '+ Create Project'
 pickProject: Pick a project and drill down to see your information.
