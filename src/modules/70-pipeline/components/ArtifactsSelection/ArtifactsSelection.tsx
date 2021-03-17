@@ -435,7 +435,7 @@ export default function ArtifactsSelection({
             <ConnectorDetailsStep
               type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
               name={getString('overview')}
-              isEditMode={isEditMode}
+              isEditMode={false}
             />
             <GcrAuthentication
               name={getString('connectors.GCR.stepTwoName')}
@@ -453,7 +453,7 @@ export default function ArtifactsSelection({
       case Connectors.AWS:
         return (
           <StepWizard iconProps={{ size: 37 }} title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep type={Connectors.AWS} name={getString('overview')} isEditMode={isEditMode} />
+            <ConnectorDetailsStep type={Connectors.AWS} name={getString('overview')} isEditMode={false} />
             <StepAWSAuthentication
               name={getString('credentials')}
               isEditMode={isEditMode}
@@ -478,7 +478,7 @@ export default function ArtifactsSelection({
       default:
         return (
           <StepWizard title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={isEditMode} />
+            <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={false} />
             <StepDockerAuthentication
               name={getString('details')}
               accountId={accountId}

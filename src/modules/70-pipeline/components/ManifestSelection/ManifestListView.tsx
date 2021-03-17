@@ -300,7 +300,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={isEditMode}
+              isEditMode={false}
             />
             <StepHelmAuth
               name={getString('details')}
@@ -326,7 +326,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={isEditMode}
+              isEditMode={false}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -354,7 +354,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={isEditMode}
+              isEditMode={false}
             />
             <GitDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
