@@ -101,7 +101,6 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
 
   const getInitialValues = (): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
-
     if (specValues) {
       const values = {
         ...specValues,
@@ -133,7 +132,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   }
 
   const getConnectorIdValue = (): string => {
-    if (getMultiTypeFromValue(prevStepData?.connectorId) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(prevStepData?.connectorId) !== MultiTypeInputType.FIXED) {
       return prevStepData?.connectorId
     }
     if (prevStepData?.connectorId?.value) {
@@ -158,6 +157,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     if (context === 2) {
       artifactObj.identifier = formData?.identifier
     }
+
     handleSubmit(artifactObj)
   }
 

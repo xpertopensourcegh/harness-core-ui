@@ -137,7 +137,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   }
 
   const getConnectorIdValue = (): string => {
-    if (getMultiTypeFromValue(prevStepData?.connectorId) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(prevStepData?.connectorId) !== MultiTypeInputType.FIXED) {
       return prevStepData?.connectorId
     }
     if (prevStepData?.connectorId?.value) {
