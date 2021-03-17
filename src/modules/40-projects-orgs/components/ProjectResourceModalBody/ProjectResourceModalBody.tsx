@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ResourceHandlerTable from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
 import { Project, useGetProjectList } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
+import { useStrings } from 'framework/exports'
 
 const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original
@@ -24,6 +25,7 @@ const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
 const ProjectResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm, onSelectChange, selectedData }) => {
   const { accountId } = useParams()
   const [page, setPage] = useState(0)
+  const { getString } = useStrings()
   const { data, loading } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId,
@@ -36,13 +38,14 @@ const ProjectResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm
   const projectData = data?.data?.content?.map(projectResponse => projectResponse.project)
 
   if (loading) return <PageSpinner />
-  return projectData ? (
+  return projectData?.length ? (
     <Container>
       <ResourceHandlerTable
         data={projectData}
         selectedData={selectedData}
         columns={[
           {
+            Header: getString('projectLabel'),
             id: 'name',
             accessor: 'name',
             width: '25%',
@@ -60,7 +63,14 @@ const ProjectResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm
         onSelectChange={onSelectChange}
       />
     </Container>
-  ) : null
+  ) : (
+    <Layout.Vertical flex={{ align: 'center-center' }} height="100vh" spacing="small">
+      <Icon name="nav-project" size={20} />
+      <Text font="medium" color={Color.BLACK}>
+        {getString('noData')}
+      </Text>
+    </Layout.Vertical>
+  )
 }
 
 export default ProjectResourceModalBody

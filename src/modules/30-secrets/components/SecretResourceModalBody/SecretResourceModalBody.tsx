@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ResourceHandlerTable from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
@@ -7,6 +7,7 @@ import { useListSecretsV2, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { getStringForType } from '@secrets/utils/SSHAuthUtils'
+import { useStrings } from 'framework/exports'
 
 const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original
@@ -40,6 +41,7 @@ const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
 const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm, onSelectChange, selectedData }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [page, setPage] = useState(0)
+  const { getString } = useStrings()
   const { data, loading } = useListSecretsV2({
     queryParams: {
       accountIdentifier: accountId,
@@ -54,13 +56,14 @@ const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm,
   const secretData = data?.data?.content?.map(secretResponse => secretResponse.secret)
 
   if (loading) return <PageSpinner />
-  return secretData ? (
+  return secretData?.length ? (
     <Container>
       <ResourceHandlerTable
         data={secretData}
         selectedData={selectedData}
         columns={[
           {
+            Header: getString('secretType'),
             id: 'name',
             accessor: 'name',
             width: '25%',
@@ -68,6 +71,7 @@ const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm,
             disableSortBy: true
           },
           {
+            Header: getString('details'),
             accessor: 'description',
             id: 'details',
             width: '25%',
@@ -85,7 +89,14 @@ const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm,
         onSelectChange={onSelectChange}
       />
     </Container>
-  ) : null
+  ) : (
+    <Layout.Vertical flex={{ align: 'center-center' }} height="100vh" spacing="small">
+      <Icon name="resources-icon" size={20} />
+      <Text font="medium" color={Color.BLACK}>
+        {getString('noData')}
+      </Text>
+    </Layout.Vertical>
+  )
 }
 
 export default SecretResourceModalBody

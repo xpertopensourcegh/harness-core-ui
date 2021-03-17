@@ -64,18 +64,12 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
         </Layout.Horizontal>
 
         {Array.isArray(resourceValues) && (
-          <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }}>
+          <Layout.Vertical padding={{ top: 'large' }}>
             {resourceValues.map(resource => (
-              <Layout.Horizontal
-                spacing="small"
-                padding="large"
-                border={{ bottom: true, color: Color.GREY_300 }}
-                key={resource}
-                flex
-              >
+              <Layout.Horizontal padding="large" className={css.staticResource} key={resource} flex>
                 <Text>{resource}</Text>
                 <Button
-                  icon="cross"
+                  icon="trash"
                   minimal
                   onClick={() => {
                     onResourceSelectionChange(resourceType, false, [resource])
