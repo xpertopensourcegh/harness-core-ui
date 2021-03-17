@@ -31,6 +31,8 @@ import { useStrings, UseStringsReturn } from 'framework/exports'
 import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownField/InstanceDropdownField'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sScaleData extends StepElementConfig {
@@ -68,12 +70,14 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
             instanceSelection: getInstanceDropdownSchema()
-          })
+          }),
+          ...IdentifierValidation()
         })}
       >
         {(formik: FormikProps<K8sScaleData>) => {

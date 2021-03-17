@@ -31,6 +31,8 @@ import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDes
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import css from './DeployServiceStep.module.scss'
 const logger = loggerFor(ModuleName.CD)
 export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
@@ -60,7 +62,8 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
         validationSchema={Yup.object().shape({
           name: Yup.string()
             .trim()
-            .required(getString?.('fieldRequired', { field: 'Service' }))
+            .required(getString?.('fieldRequired', { field: 'Service' })),
+          ...IdentifierValidation()
         })}
       >
         {formikProps => (

@@ -8,7 +8,7 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import ResponseMapping from './ResponseMapping'
 import type { HttpStepData, HttpStepFormData } from './types'
 import HttpStepBase from './HttpStepBase'
@@ -58,7 +58,8 @@ export function HttpStepWidget(
               value: Yup.string().required(getString('validation.valueRequired'))
             })
           )
-        })
+        }),
+        ...IdentifierValidation()
       })}
     >
       {(formik: FormikProps<HttpStepFormData>) => {
