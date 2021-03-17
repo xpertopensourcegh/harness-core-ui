@@ -554,7 +554,7 @@ const ManifestListView = ({
 
                   {!!manifest?.spec?.store.spec.paths?.length && (
                     <span>
-                      <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                      <Text width={200} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {typeof manifest?.spec?.store.spec.paths === 'string'
                           ? manifest?.spec?.store.spec.paths
                           : manifest?.spec?.store.spec.paths.join(', ')}
@@ -563,7 +563,7 @@ const ManifestListView = ({
                   )}
                   {!!manifest?.spec?.store.spec.folderPath && (
                     <span>
-                      <Text width={150} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                      <Text width={200} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {manifest.spec.store?.spec?.folderPath}
                       </Text>
                     </span>

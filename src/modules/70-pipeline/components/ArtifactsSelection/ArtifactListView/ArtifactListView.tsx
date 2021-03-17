@@ -78,7 +78,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                   <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
                 </div>
                 <div>
-                  <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                  <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                     {props.primaryArtifact?.spec?.imagePath}
                   </Text>
                 </div>
@@ -139,7 +139,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                       <Text width={200} icon="full-circle" iconProps={{ size: 10, color: sideCarConnectionColor }} />
                     </div>
                     <div>
-                      <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                      <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {sidecar?.spec?.imagePath}
                       </Text>
                     </div>
