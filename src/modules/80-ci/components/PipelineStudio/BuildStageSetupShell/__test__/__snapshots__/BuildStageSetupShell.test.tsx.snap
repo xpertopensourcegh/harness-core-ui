@@ -6,7 +6,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
     class="setupShell"
   >
     <div
-      class="bp3-tabs Tabs--main"
+      class="bp3-tabs Tabs--main Tabs--horizontal"
     >
       <div
         class="bp3-tab-list"

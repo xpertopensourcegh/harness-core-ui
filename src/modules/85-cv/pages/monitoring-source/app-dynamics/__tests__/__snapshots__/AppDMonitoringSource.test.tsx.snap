@@ -6,7 +6,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
     class="tabWrapper"
   >
     <div
-      class="bp3-tabs Tabs--main"
+      class="bp3-tabs Tabs--main Tabs--horizontal"
     >
       <div
         class="bp3-tab-list"

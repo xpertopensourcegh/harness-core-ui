@@ -293,7 +293,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             class="StyledProps--font StyledProps--main filters"
           >
             <div
-              class="bp3-tabs Tabs--main"
+              class="bp3-tabs Tabs--main Tabs--horizontal"
             >
               <div
                 class="bp3-tab-list"

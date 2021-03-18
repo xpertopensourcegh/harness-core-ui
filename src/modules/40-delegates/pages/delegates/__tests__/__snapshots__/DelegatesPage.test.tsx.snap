@@ -9,7 +9,7 @@ exports[`Delegates Page render data 1`] = `
       class="StyledProps--font StyledProps--main delegateTabs StyledProps--background-white"
     >
       <div
-        class="bp3-tabs Tabs--main"
+        class="bp3-tabs Tabs--main Tabs--horizontal"
       >
         <div
           class="bp3-tab-list"

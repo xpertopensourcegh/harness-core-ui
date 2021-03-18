@@ -62,7 +62,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"
@@ -772,7 +772,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"
@@ -1577,7 +1577,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"

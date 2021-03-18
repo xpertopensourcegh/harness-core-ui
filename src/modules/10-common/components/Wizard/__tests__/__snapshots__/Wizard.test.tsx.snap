@@ -29,7 +29,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"
@@ -263,7 +263,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"
