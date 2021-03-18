@@ -197,10 +197,14 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               <Switch checked={!props.service?.data.disabled} onChange={() => triggerToggle()}></Switch>
               <Icon
                 name="edit"
-                style={{ marginBottom: '10px' }}
+                style={{ marginBottom: '10px', cursor: 'pointer' }}
                 onClick={() => props.handleServiceEdit(props.service?.data as Service)}
               ></Icon>
-              <Icon name="trash" style={{ marginBottom: '10px' }} onClick={() => triggerDelete()}></Icon>
+              <Icon
+                name="trash"
+                style={{ marginBottom: '10px', cursor: 'pointer' }}
+                onClick={() => triggerDelete()}
+              ></Icon>
             </Layout.Horizontal>
           </Layout.Horizontal>
         </Layout.Horizontal>
