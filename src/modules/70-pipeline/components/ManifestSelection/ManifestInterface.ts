@@ -83,3 +83,13 @@ export interface HelmWithS3DataType extends HelmWithHTTPDataType {
   region: any
   bucketName: string
 }
+
+export interface OpenShiftTemplateGITDataType {
+  identifier: string
+  branch: string | undefined
+  commitId: string | undefined
+  repoName?: string
+  gitFetchType: 'Branch' | 'Commit'
+  path: string
+  skipResourceVersioning: boolean
+}

@@ -1310,6 +1310,7 @@ manifestType:
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
+  path: 'Path'
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
   http:

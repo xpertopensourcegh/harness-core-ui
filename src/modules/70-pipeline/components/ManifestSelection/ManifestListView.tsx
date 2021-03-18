@@ -52,6 +52,7 @@ import type {
 } from './ManifestInterface'
 import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
+import OpenShiftTemplateWithGit from './ManifestWizardSteps/OSTemplateWithGit/OSTemplateWithGit'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import HelmWithS3 from './ManifestWizardSteps/HelmWithS3/HelmWithS3'
 import css from './ManifestSelection.module.scss'
@@ -300,6 +301,13 @@ const ManifestListView = ({
 
       case selectedManifest === ManifestDataType.HelmChart && manifestStore === ManifestStoreMap.S3:
         manifestDetailStep = <HelmWithS3 {...lastStepProps()} />
+        break
+
+      case selectedManifest === ManifestDataType.OpenshiftTemplate &&
+        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
+          manifestStore as ManifestStores
+        ):
+        manifestDetailStep = <OpenShiftTemplateWithGit {...lastStepProps()} />
         break
 
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
