@@ -1,5 +1,7 @@
 import { isEmpty } from 'lodash-es'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
+
+import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import {
   DiagramModel,
   CreateNewModel,
@@ -158,10 +160,10 @@ export class ExecutionStepModel extends DiagramModel {
     getString?: (key: string, vars?: Record<string, any>) => string
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node.step) {
-      const type = node?.step?.type || 'Approval'
+      const type = node?.step?.type || ExecutionPipelineNodeType.NORMAL
       startX += this.gap
       const nodeRender =
-        type === 'APPROVAL'
+        type === ExecutionPipelineNodeType.DIAMOND
           ? new DiamondNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
