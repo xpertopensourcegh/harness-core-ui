@@ -225,6 +225,7 @@ const ManifestListView = ({
 
     updatePipeline(pipeline)
     hideConnectorModal()
+    setConnectorView(false)
     refetchConnectors()
   }
 
