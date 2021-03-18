@@ -209,6 +209,7 @@ manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
 chartPath: Chart Path
+pluginPath: Plugin Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
@@ -1310,6 +1311,7 @@ manifestType:
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
+  pluginPathRequired: Plugin Path is required
   path: 'Path'
   pathPlaceholder: Enter file path
   bucketName: Bucket Name

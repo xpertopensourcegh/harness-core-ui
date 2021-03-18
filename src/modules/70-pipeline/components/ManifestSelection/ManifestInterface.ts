@@ -93,3 +93,13 @@ export interface OpenShiftTemplateGITDataType {
   path: string
   skipResourceVersioning: boolean
 }
+export interface KustomizeWithGITDataType {
+  identifier: string
+  branch: string | undefined
+  commitId: string | undefined
+  repoName?: string
+  gitFetchType: 'Branch' | 'Commit'
+  skipResourceVersioning: boolean
+  folderPath: string
+  pluginPath: string
+}

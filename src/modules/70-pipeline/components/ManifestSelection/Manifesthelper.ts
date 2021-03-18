@@ -66,9 +66,9 @@ export const getManifestIconByType = (type: string | undefined): IconName => {
     case ManifestStoreMap.Http:
       return 'service-helm'
     case ManifestStoreMap.S3:
-      return 'service-helm' // proper icon needs to be added for S3 and Gcs
+      return 'service-service-s3'
     case ManifestStoreMap.Gcs:
-      return 'service-helm'
+      return 'gcs-step'
     default:
       return 'cog'
   }
