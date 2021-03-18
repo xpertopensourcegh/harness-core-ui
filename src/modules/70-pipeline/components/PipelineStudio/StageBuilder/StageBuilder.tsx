@@ -10,6 +10,7 @@ import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
 import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
+import { moveStageToFocusDelayed } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagramUtils'
 import {
   CanvasWidget,
   createEngine,
@@ -31,6 +32,7 @@ import {
   resetDiagram,
   removeNodeFromPipeline
 } from './StageBuilderUtil'
+import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
 import type { StageTypes } from '../Stages/StageTypes'
@@ -230,7 +232,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       }
     }
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId)
+    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap)
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
     }
@@ -246,6 +248,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             stageType: newStage.stage.type
           }
         })
+        moveStageToFocusDelayed(engine, newStage.stage.identifier, true, false)
       }
     })
   }
@@ -296,12 +299,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 groupStages: parent.parallel,
                 onClickGroupStage: (stageId: string, typeOfStage: StageTypes) => {
                   dynamicPopoverHandler?.hide()
-                  resetDiagram(engine)
                   updatePipelineView({
                     ...pipelineView,
                     isSplitViewOpen: true,
                     splitViewData: { selectedStageId: stageId, type: SplitViewTypes.StageView, stageType: typeOfStage }
                   })
+                  moveStageToFocusDelayed(engine, stageId, true, false)
                 },
                 stagesMap,
                 renderPipelineStage
@@ -313,6 +316,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
           const data = getStageFromPipeline(eventTemp.entity.getIdentifier()).stage
           if (isSplitViewOpen && data?.stage?.identifier) {
             if (data?.stage?.name === EmptyStageName) {
+              // TODO: check if this is unused code
               dynamicPopoverHandler?.show(
                 `[data-nodeid="${eventTemp.entity.getID()}"]`,
                 {
@@ -344,7 +348,6 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 splitViewData: {}
               })
             } else {
-              resetDiagram(engine)
               updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: true,
@@ -354,10 +357,10 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                   stageType: data?.stage?.type || 'Deployment'
                 }
               })
+              moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             }
           } /* istanbul ignore else */ else if (!isSplitViewOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
-              resetDiagram(engine)
               updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: true,
@@ -367,7 +370,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                   stageType: data?.stage?.type || 'Deployment'
                 }
               })
+              moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             } else {
+              // TODO: check if this is unused code
               dynamicPopoverHandler?.show(
                 `[data-nodeid="${eventTemp.entity.getID()}"]`,
                 {
@@ -519,6 +524,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   function handleStageResize(size: number): void {
     setSplitPaneSizeDeb(size)
   }
+
+  // handle position and zoom of canvas
+  useStageBuilderCanvasState(engine, [])
 
   const StageCanvas = (
     <div

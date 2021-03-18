@@ -160,7 +160,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   }, [data.identifier])
 
   React.useEffect(() => {
-    moveStageToFocus(engine, selectedIdentifier, true), [selectedIdentifier]
+    moveStageToFocus(engine, selectedIdentifier, true, true), [selectedIdentifier]
   })
 
   React.useEffect(() => {

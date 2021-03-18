@@ -103,6 +103,7 @@ export class StageBuilderModel extends DiagramModel {
           const groupedNode = new GroupNodeModel({
             customNodeStyle: getCommonStyles(isSelected),
             identifier: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
+            id: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
             name:
               parallelStageNames.length > 2
                 ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
