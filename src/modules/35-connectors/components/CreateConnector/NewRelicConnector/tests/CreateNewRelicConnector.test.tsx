@@ -291,7 +291,7 @@ describe('Create newrelic connector Wizard', () => {
 
     // second step
     await waitFor(() => expect(document.body.querySelector('input[name="apiKeyRef"]')).not.toBeNull())
-    expect(document.body.querySelector('input[value="Loading..."]')).not.toBeNull()
+    expect(document.body.querySelector('input[placeholder="Loading..."]')).not.toBeNull()
   })
 
   test('Ensure that when endpoint api is ini error state toaster is displayed', async () => {

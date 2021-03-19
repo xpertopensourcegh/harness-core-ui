@@ -9,7 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useCreateService, ServiceResponseDTO, CreateServiceQueryParams } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 
-interface ServiceSelectOrCreateProps {
+export interface ServiceSelectOrCreateProps {
   item?: SelectOption
   options: Array<SelectOption>
   onSelect(value: SelectOption): void

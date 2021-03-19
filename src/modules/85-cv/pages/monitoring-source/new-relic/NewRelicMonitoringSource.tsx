@@ -4,7 +4,21 @@ import { useStrings } from 'framework/exports'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SelectNewRelicConnector } from './SelectNewRelicConnector/SelectNewRelicConnector'
-import { buildDefaultNewRelicMonitoringSource } from './NewRelicMonitoringSourceUtils'
+import { buildDefaultNewRelicMonitoringSource, NewRelicSetupSource } from './NewRelicMonitoringSourceUtils'
+import { MapNewRelicAppsToServicesAndEnvs } from './MapNewRelicAppsToServicesAndEnvs/MapNewRelicAppsToServicesAndEnvs'
+
+const NewRelicTabIndex = {
+  SELECT_CONNECTOR: 0,
+  MAP_APPLICATIONS: 1
+}
+
+function determineMaxTab(data: NewRelicSetupSource): number {
+  if (data?.productName && data?.connectorRef) {
+    return NewRelicTabIndex.MAP_APPLICATIONS
+  }
+
+  return NewRelicTabIndex.SELECT_CONNECTOR
+}
 
 export function NewRelicMonitoringSource(): JSX.Element {
   const { getString } = useStrings()
@@ -12,10 +26,14 @@ export function NewRelicMonitoringSource(): JSX.Element {
   return (
     <SetupSourceTabs
       data={buildDefaultNewRelicMonitoringSource({ projectIdentifier, orgIdentifier, accountId })}
-      tabTitles={[getString('cv.onboarding.monitoringSources.defineMonitoringSource')]}
-      determineMaxTab={() => 1}
+      determineMaxTab={determineMaxTab}
+      tabTitles={[
+        getString('cv.onboarding.monitoringSources.defineMonitoringSource'),
+        `${getString('mapApplications')} ${getString('and')} ${getString('environments')}`
+      ]}
     >
       <SelectNewRelicConnector />
+      <MapNewRelicAppsToServicesAndEnvs />
     </SetupSourceTabs>
   )
 }

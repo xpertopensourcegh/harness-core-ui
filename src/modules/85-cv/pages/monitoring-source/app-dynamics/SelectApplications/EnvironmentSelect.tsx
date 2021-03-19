@@ -11,7 +11,7 @@ import { EnvironmentResponseDTO, useCreateEnvironment, CreateEnvironmentQueryPar
 import { useStrings } from 'framework/exports'
 import { EnvironmentTypes } from '../../utils'
 
-interface EnvironmentSelectProps {
+export interface EnvironmentSelectProps {
   item?: SelectOption
   options: Array<SelectOption>
   onSelect(value: SelectOption): void

@@ -212,7 +212,7 @@ describe('Unit tests for SetupSourceTabs', () => {
         put: jest.fn(),
         get: jest.fn().mockResolvedValue({
           currentTabIndex: 3,
-          currentData: { solo: {}, dolo: {}, semi: {}, auto: {} },
+          sourceData: { solo: {}, dolo: {}, semi: {}, auto: {} },
           tabsInfo: [{ status: 'SUCCESS' }, { status: 'SUCCESS' }, { status: 'SUCCESS' }, { status: 'SUCCESS' }]
         })
       } as any,
@@ -260,7 +260,7 @@ describe('Unit tests for SetupSourceTabs', () => {
         put: mockPut,
         get: jest.fn().mockResolvedValue({
           currentTabIndex: 4,
-          currentData: { solo: {}, dolo: {}, semi: {}, auto: {}, m: {} },
+          sourceData: { solo: {}, dolo: {}, semi: {}, auto: {}, m: {} },
           tabsInfo: [
             { status: 'SUCCESS' },
             { status: 'SUCCESS' },
@@ -318,13 +318,6 @@ describe('Unit tests for SetupSourceTabs', () => {
 
     await waitFor(() =>
       expect(mockPut).toHaveBeenLastCalledWith('setup', {
-        currentData: {
-          auto: {},
-          dolo: {},
-          m: {},
-          semi: {},
-          solo: {}
-        },
         currentTabIndex: 4,
         monitoringSources: [
           {
@@ -334,6 +327,13 @@ describe('Unit tests for SetupSourceTabs', () => {
             type: 'MONITORING_SOURCE'
           }
         ],
+        sourceData: {
+          auto: {},
+          dolo: {},
+          m: {},
+          semi: {},
+          solo: {}
+        },
         tabsInfo: [
           { status: 'SUCCESS' },
           { status: 'SUCCESS' },
@@ -352,7 +352,7 @@ describe('Unit tests for SetupSourceTabs', () => {
         put: mockPut,
         get: jest.fn().mockResolvedValue({
           currentTabIndex: 4,
-          currentData: { solo: {}, dolo: {}, semi: {}, auto: {}, m: {} },
+          sourceData: { solo: {}, dolo: {}, semi: {}, auto: {}, m: {} },
           tabsInfo: [
             { status: 'SUCCESS' },
             { status: 'SUCCESS' },

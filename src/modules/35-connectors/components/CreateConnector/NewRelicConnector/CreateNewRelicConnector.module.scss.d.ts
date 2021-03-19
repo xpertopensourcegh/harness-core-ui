@@ -6,5 +6,6 @@ declare const styles: {
   readonly heading: string
   readonly subHeading: string
   readonly form: string
+  readonly identifierLabel: string
 }
 export default styles

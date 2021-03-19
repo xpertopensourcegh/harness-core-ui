@@ -397,7 +397,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main subHeading"
         >
-          To add New Relic connector, you will need Pro or higher subscription level. Verification analysis is limited to Web Transaction only.
+          To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
         </p>
         <form
           class="FormikForm--main form"
@@ -440,7 +440,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value=""
+                          value="endpoint1"
                         />
                         <span
                           class="bp3-input-action"
@@ -478,7 +478,40 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                   class="bp3-label"
                   for="newRelicAccountId"
                 >
-                  Account Identifier
+                  <div
+                    class="StyledProps--font StyledProps--main identifierLabel"
+                  >
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--inline"
+                    >
+                      New Relic Account ID
+                    </span>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="info"
+                          tabindex="0"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 12 12"
+                            width="12"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                    
                   <span
                     class="bp3-text-muted"
@@ -675,7 +708,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
         <p
           class="StyledProps--font StyledProps--main subHeading"
         >
-          To add New Relic connector, you will need Pro or higher subscription level. Verification analysis is limited to Web Transaction only.
+          To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
         </p>
         <form
           class="FormikForm--main form"
@@ -686,7 +719,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
               style="height: 400px;"
             >
               <div
-                class="bp3-form-group bp3-intent-danger"
+                class="bp3-form-group"
                 data-id="url-0"
               >
                 <label
@@ -709,7 +742,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                       class="bp3-popover-target"
                     >
                       <div
-                        class="bp3-input-group bp3-intent-danger"
+                        class="bp3-input-group"
                       >
                         <input
                           autocomplete="off"
@@ -718,7 +751,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value=""
+                          value="endpoint1"
                         />
                         <span
                           class="bp3-input-action"
@@ -746,11 +779,6 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="bp3-form-helper-text"
-                  >
-                    New Relic URL is required.
-                  </div>
                 </div>
               </div>
               <div
@@ -761,7 +789,40 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                   class="bp3-label"
                   for="newRelicAccountId"
                 >
-                  Account Identifier
+                  <div
+                    class="StyledProps--font StyledProps--main identifierLabel"
+                  >
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--inline"
+                    >
+                      New Relic Account ID
+                    </span>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="info"
+                          tabindex="0"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 12 12"
+                            width="12"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                    
                   <span
                     class="bp3-text-muted"

@@ -8,10 +8,13 @@ import {
   FormInput,
   FormikForm,
   Container,
-  SelectOption
+  SelectOption,
+  Icon,
+  Color
 } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import { PopoverInteractionKind, Tooltip } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
@@ -46,22 +49,48 @@ interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
   connectorInfo?: ConnectorInfoDTO | void
 }
 
+function AccountIdTooltip(): JSX.Element {
+  const { getString } = useStrings()
+  return (
+    <Tooltip
+      interactionKind={PopoverInteractionKind.HOVER}
+      hoverCloseDelay={500}
+      content={
+        <>
+          <Text style={{ display: 'inline-block', marginRight: 'var(--spacing-xsmall)' }} color={Color.GREY_350}>
+            {getString('cv.connectors.newRelic.accountIdTooltip')}
+          </Text>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={'https://docs.newrelic.com/docs/accounts/accounts-billing/account-setup/account-id/'}
+            style={{ color: 'var(--blue-500)' }}
+          >
+            {getString('clickHere')}
+          </a>
+        </>
+      }
+    >
+      <Icon name="info" size={12} />
+    </Tooltip>
+  )
+}
+
 function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
   const [loadingSecrets, setLoadingSecrets] = useState(props.isEditMode)
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
   const { data: endPoints, error: endPointError, loading: loadingEndpoints } = useGetNewRelicEndPoints({})
   const [initialValues, setInitialValues] = useState<ConnectorConfigDTO>({
-    url: '',
-    newRelicAccountId: '',
+    url: props.isEditMode ? { label: props.prevStepData?.spec?.url, value: props.prevStepData?.spec?.url } : undefined,
+    newRelicAccountId: props.isEditMode ? props.prevStepData?.spec?.newRelicAccountId : '',
     apiKeyRef: undefined
   })
   useEffect(() => {
     ;(async () => {
       if (props.isEditMode) {
         setInitialValues({
-          url: props.prevStepData?.spec?.url || '',
-          newRelicAccountId: props.prevStepData?.spec?.newRelicAccountId || '',
+          ...initialValues,
           apiKeyRef: await setSecretField((props.connectorInfo as ConnectorInfoDTO)?.spec?.apiKeyRef, {
             accountIdentifier: props.accountId,
             projectIdentifier: props.projectIdentifier,
@@ -86,6 +115,11 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
       if (endPoint) {
         filteredPoints.push({ label: endPoint, value: endPoint })
       }
+    }
+
+    // set default value
+    if (!props.isEditMode && !initialValues.url) {
+      setInitialValues({ ...initialValues, url: filteredPoints[0] })
     }
     return filteredPoints
   }, [endPoints, endPointError, loadingEndpoints])
@@ -123,8 +157,8 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
       <Formik
         enableReinitialize
         initialValues={{
-          ...initialValues,
-          ...props.prevStepData
+          ...props.prevStepData,
+          ...initialValues
         }}
         validationSchema={Yup.object().shape({
           url: Yup.string().trim().required(getString('cv.connectors.newRelic.urlValidation')),
@@ -132,20 +166,27 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
           apiKeyRef: Yup.string().trim().required(getString('cv.connectors.newRelic.encryptedKeyValidation'))
         })}
         onSubmit={formData => {
-          handleFormSubmission(formData)
+          handleFormSubmission({ ...formData, url: (formData as any).url.value })
         }}
       >
-        {() => (
+        {formikProps => (
           <FormikForm className={css.form}>
             <Layout.Vertical spacing="large" height={400}>
               <FormInput.Select
-                key={loadingEndpoints?.toString()}
+                placeholder={loadingEndpoints ? getString('loading') : undefined}
                 items={endPointOptions}
+                value={(formikProps.values as any).url}
+                onChange={updatedOption => formikProps.setFieldValue('url', updatedOption)}
                 label={getString('cv.connectors.newRelic.urlFieldLabel')}
                 name="url"
               />
               <FormInput.Text
-                label={getString('cv.connectors.newRelic.accountIdFieldLabel')}
+                label={
+                  <Container className={css.identifierLabel}>
+                    <Text inline>{getString('cv.connectors.newRelic.accountIdFieldLabel')}</Text>
+                    <AccountIdTooltip />
+                  </Container>
+                }
                 name="newRelicAccountId"
               />
               <SecretInput label={getString('cv.connectors.newRelic.encryptedAPIKeyLabel')} name="apiKeyRef" />

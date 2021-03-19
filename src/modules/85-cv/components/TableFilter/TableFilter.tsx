@@ -4,7 +4,7 @@ import { TextInput, Container } from '@wings-software/uicore'
 import cx from 'classnames'
 import css from './TableFilter.module.scss'
 
-export interface TableColumnWithFilterProps {
+export interface TableFilterProps {
   appliedFilter?: string
   onFilter: (filterValue: string) => void
   className?: string
@@ -12,7 +12,7 @@ export interface TableColumnWithFilterProps {
   throttle?: number
 }
 
-export function TableFilter(props: TableColumnWithFilterProps): JSX.Element {
+export function TableFilter(props: TableFilterProps): JSX.Element {
   const { appliedFilter, onFilter, className, placeholder } = props
   const [filter, setFilter] = useState<string | undefined>(appliedFilter)
   const [, setDebouncedFunc] = useState()

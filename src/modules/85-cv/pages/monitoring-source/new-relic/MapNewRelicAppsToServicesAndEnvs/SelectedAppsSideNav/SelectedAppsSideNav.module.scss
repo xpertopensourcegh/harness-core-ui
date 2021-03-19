@@ -1,0 +1,21 @@
+.main {
+  padding: var(--spacing-medium) !important;
+  padding-left: var(--spacing-xlarge) !important;
+  overflow-y: scroll;
+
+  .navHeader {
+    margin-bottom: var(--spacing-medium) !important;
+    color: var(--black) !important;
+  }
+
+  .seletedAppContainer {
+    padding: var(--spacing-small) 0 !important;
+    border-top: 1px solid var(--grey-300);
+    .selectedApp {
+      font-size: var(--font-size-medium) !important;
+      color: var(--black) !important;
+      border-left: 3px solid var(--grey-300);
+      padding-left: var(--spacing-small) !important;
+    }
+  }
+}

@@ -145,7 +145,7 @@ export function buildObjectToStore(
   return objectToStore
 }
 
-function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): UseSetupSourceTabsHookReturnValues {
+export function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): UseSetupSourceTabsHookReturnValues {
   const [{ activeTabIndex, sourceData, tabsInfo }, setTabsState] = useState({
     activeTabIndex: 0,
     sourceData: data,
@@ -161,7 +161,7 @@ function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): UseSetu
   async function onSwitchTab<T>(updatedData: T, newTabIndex: number, updatedTabInfo?: TabInfo): Promise<void> {
     if (!dbInstance) return
 
-    if (newTabIndex >= tabsInfo.length - 1) {
+    if (newTabIndex > tabsInfo.length - 1) {
       dbInstance.get(CVObjectStoreNames.SETUP, indexedDBEntryKey)?.then(async (savedData: CachedSetupObject) => {
         try {
           await Promise.all([
@@ -201,7 +201,7 @@ function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): UseSetu
         if (cachedData) {
           setTabsState({
             activeTabIndex: cachedData.currentTabIndex,
-            sourceData: cachedData.currentData,
+            sourceData: cachedData.sourceData,
             tabsInfo: cachedData.tabsInfo
           })
         }

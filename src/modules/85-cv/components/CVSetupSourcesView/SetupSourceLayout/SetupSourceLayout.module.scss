@@ -23,6 +23,7 @@ $footer-cta-height: 50px;
 
 .footerCTA {
   height: $footer-cta-height;
+  z-index: 2;
   width: 100%;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
   background: var(--white) !important;

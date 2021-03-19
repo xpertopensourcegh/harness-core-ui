@@ -17,4 +17,12 @@
   .form {
     width: 60%;
   }
+
+  .identifierLabel {
+    display: flex;
+    align-items: baseline;
+    span:first-child {
+      margin-right: var(--spacing-xsmall) !important;
+    }
+  }
 }

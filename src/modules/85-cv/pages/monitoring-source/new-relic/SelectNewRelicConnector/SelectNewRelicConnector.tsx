@@ -52,7 +52,7 @@ function getValidationSchema(getString: UseStringsReturn['getString']): object {
         .notOneOf(StringUtils.illegalIdentifiers)
     }),
     connectorRef: Yup.object().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef')),
-    product: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.product'))
+    productName: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.product'))
   })
 }
 
@@ -63,7 +63,9 @@ export function SelectNewRelicConnector(): JSX.Element {
     <SetupSourceLayout
       content={
         <Formik
-          onSubmit={values => onNext(values, { tabStatus: 'SUCCESS' })}
+          onSubmit={values => {
+            onNext(values, { tabStatus: 'SUCCESS' })
+          }}
           initialValues={sourceData}
           validationSchema={getValidationSchema(getString)}
           render={formikProps => (
@@ -86,7 +88,7 @@ export function SelectNewRelicConnector(): JSX.Element {
                     products={[
                       {
                         productName: NewRelicProductNames.APM,
-                        productLabel: getString('cv.monitoringSources.newRelic.products.fullStackObservability'),
+                        productLabel: getString('cv.connectors.newRelic.products.fullStackObservability'),
                         icon: { name: 'service-newrelic', size: 35 }
                       }
                     ]}

@@ -1,0 +1,465 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for SelectedAppsSideNav Ensure that when apps are provided, the list is rendered 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main navHeader"
+    >
+      Selected Applications
+    </p>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        0
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        1
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        2
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        3
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        4
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        5
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        6
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        7
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        8
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        9
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        10
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        11
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        12
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        13
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        14
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        15
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        16
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        17
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        18
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        19
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        20
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        21
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        22
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        23
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        24
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        25
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        26
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        27
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        28
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        29
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        30
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        31
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        32
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        33
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        34
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        35
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        36
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        37
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        38
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        39
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        40
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        41
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        42
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        43
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        44
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        45
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        46
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        47
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        48
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main seletedAppContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main selectedApp"
+      >
+        49
+      </p>
+    </div>
+  </div>
+</div>
+`;

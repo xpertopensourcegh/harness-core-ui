@@ -1875,13 +1875,14 @@ cv:
     appD:
       controllerUrlValidation: Controller URL is a required field
     newRelic:
-      subTitle: To add New Relic connector, you will need Pro or higher subscription level. Verification analysis is limited to Web Transaction only.
+      subTitle: To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
       urlFieldLabel: New Relic URL
-      accountIdFieldLabel: Account Identifier
+      accountIdFieldLabel: New Relic Account ID
       encryptedAPIKeyLabel: Encrypted API Key
       urlValidation: New Relic URL is required.
       accountIdValidation: New Relic Account ID is required.
       encryptedKeyValidation: Encrypted API Key is required.
+      accountIdTooltip: For steps to get New Relic Account ID
       products:
         fullStackObservability: 'Full Stack Observability: APM'
   onboarding:
@@ -1895,6 +1896,8 @@ cv:
       selectConnector: Select your {{type}} connector
       addConnector: + Add {{type}} connector
       selectProduct: Select the {{type}} product that you would like to select {{entity}} from
+      selectMetricPacks: Select Metric Pack(s)
+      metricPacksToMonitor: Select metric packs you want to monitor.
     activitySources:
       addMoreSources: Add more Change Sources
       addedStatus: You have added {{sourceCount}} Change Source
@@ -1925,6 +1928,11 @@ cv:
   selectCreateService: Select or create a service
   monitoringSources:
     mapMetricsToServices: 'Map Metrics to Harness Services'
+    metricPackValidation: Metric Pack Validation
+    oneMetricMappingValidation: At least one application must be mapped
+    oneMetricPackValidation: At least one Metric Pack must be selected
+    oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
+    backToMapping: Back to Mapping
     appD:
       envDescription: An Environment is the representation of your production or non-production infrastructure.
       appDApplications: APPDYNAMICS APPLICATIONS
@@ -1944,12 +1952,12 @@ cv:
       validation: VALIDATION
       tiersMappedToServices: tiers mapped to services
       errorsFound: errors found
-      verificationsInProgress: verifications in progress
-      noData: no data
+      verificationsInProgress: Verification in progress
+      noData: No data
       metricsVerificationModalTitle: Metric Pack Connection Test
       searchPlaceholderApplications: Search for Applications
-      validationsPassed: validations passed
-      validationsFailed: validations failed
+      validationsPassed: Validation passed
+      validationsFailed: Validation failed
       validations:
         selectApp: Please select application and its environment
         selectTier: Please select tier and its service
@@ -2021,6 +2029,13 @@ cv:
         gcoMetrics: Google Cloud Operation metrics
       tabName:
         selectDashboards: 'Select Dashboards'
+    newRelic:
+      mapNewRelicAppsToServicesAndEnvs: Map New Relic Applications to Harness Environments and Services
+      mappingServiceAndEnvSubheading: Select Harness Environments and Services to map to New Relic Applications
+      newRelicAppColumn: NEW RELIC APPLICATION
+      selectedApplications: Selected Applications
+      oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
+
   activitySources:
     name: 'Name your Change Source'
     harnessCD:
