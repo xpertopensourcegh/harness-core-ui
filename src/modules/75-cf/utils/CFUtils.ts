@@ -1,4 +1,6 @@
 import { useMemo } from 'react'
+import { get } from 'lodash-es'
+import { Utils } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import type { Feature } from 'services/cf'
 
@@ -99,3 +101,36 @@ export enum EnvironmentSDKKeyType {
   SERVER = 'Server',
   CLIENT = 'Client'
 }
+
+export const NO_ENVIRONMENT_IDENTIFIER = '-1'
+
+export const DISABLE_AVATAR_PROPS = {
+  onMouseEnter: Utils.stopEvent,
+  onClick: Utils.stopEvent,
+  onMouseDown: Utils.stopEvent,
+  style: { cursor: 'default' }
+}
+
+export enum SortOrder {
+  ASCENDING = 'ASCENDING',
+  DESCENDING = 'DESCENDING'
+}
+
+export enum SegmentsSortByField {
+  NAME = 'name',
+  IDENTIFIER = 'identifier',
+  ARCHIVED = 'archived',
+  KIND = 'kind',
+  MODIFIED_AT = 'modifiedAt'
+}
+
+export enum FlagsSortByField {
+  NAME = 'name',
+  IDENTIFIER = 'identifier',
+  ARCHIVED = 'archived',
+  KIND = 'kind',
+  MODIFIED_AT = 'modifiedAt'
+  // TODO: backend needs to support Last Evaluated & Variation, etc..
+}
+
+export const getErrorMessage = (error: any) => get(error, 'data.error', get(error, 'data.message', error?.message))

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { get } from 'lodash-es'
@@ -130,7 +130,7 @@ type CustomColumn<T extends Record<string, any>> = Column<T>
 
 const CFEnvironmentsPage: React.FC<{}> = () => {
   const { getEnvString, getString } = useEnvStrings()
-  const { showError, showSuccess, clear } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const history = useHistory()
   const [page, setPage] = useState(0)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<Record<string, string>>()
@@ -178,10 +178,6 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
     }
   }
 
-  useEffect(() => {
-    return () => clear()
-  }, [])
-
   const columns: CustomColumn<EnvironmentResponseDTO>[] = useMemo(
     () => [
       {
@@ -208,7 +204,7 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
         }
       }
     ],
-    [getString, getEnvString, handleDeleteEnv]
+    [getString, handleDeleteEnv]
   )
   const title = getString('environments')
 

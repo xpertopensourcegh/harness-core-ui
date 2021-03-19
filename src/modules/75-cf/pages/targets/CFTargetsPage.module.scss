@@ -31,3 +31,23 @@
 .content {
   padding: var(--spacing-medium) var(--spacing-large) !important;
 }
+
+.modal {
+  width: 750px;
+  padding: var(--spacing-medium);
+
+  :global {
+    .bp3-heading {
+      font-weight: 600 !important;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1c1c28;
+    }
+  }
+}
+
+.uploadTargetContainer {
+  input {
+    display: none !important;
+  }
+}

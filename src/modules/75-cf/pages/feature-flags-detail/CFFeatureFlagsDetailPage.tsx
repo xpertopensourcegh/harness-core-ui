@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { get } from 'lodash-es'
 import { Layout, Container, SelectOption } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -8,7 +7,7 @@ import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, useGetFeatureFlag } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { PageError } from '@common/components/Page/PageError'
-import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV } from '@cf/utils/CFUtils'
+import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV, getErrorMessage } from '@cf/utils/CFUtils'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { useLocalStorage } from '@common/hooks'
@@ -66,10 +65,8 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   })
 
   useEffect(() => {
-    if (environmentOption) {
-      refetch()
-      fetchFlagList()
-    }
+    refetch()
+    fetchFlagList()
   }, [environmentOption])
 
   const onEnvChange = (item: SelectOption) => {
@@ -99,6 +96,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   const error = errorFlag || errorEnvs
   const loading = envsLoading || loadingFlag || newEnvironmentCreateLoading
+  const noEnvironmentExists = !loading && !error && environments?.length === 0
 
   return (
     <Container flex height="100%">
@@ -116,7 +114,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
         style={{ transform: 'translateX(-20px)', background: 'var(--white)' }}
       >
         <Layout.Vertical width="100%">
-          {featureFlag && (
+          {!loading && featureFlag && !noEnvironmentExists && (
             <FlagActivation
               refetchFlag={refetch}
               project={projectIdentifier as string}
@@ -129,13 +127,13 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
           )}
           {error && (
             <PageError
-              message={get(error, 'data.message', error?.message)}
+              message={getErrorMessage(error)}
               onClick={() => {
                 refetchEnvironments()
               }}
             />
           )}
-          {!loading && !error && environments?.length === 0 && (
+          {noEnvironmentExists && (
             <Container style={{ height: '100%', display: 'grid', alignItems: 'center' }}>
               <NoEnvironment
                 style={{ marginTop: '-100px' }}

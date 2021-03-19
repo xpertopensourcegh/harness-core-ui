@@ -525,6 +525,10 @@ const routes = {
     }: ProjectPathProps & FeatureFlagPathProps & EnvironmentPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}/environments/${environmentIdentifier}`
   ),
+  toCFSegments: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments`
+  ),
   toCFTargets: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/targets`
@@ -536,7 +540,7 @@ const routes = {
       environmentIdentifier,
       segmentIdentifier
     }: ProjectPathProps & SegmentPathProps & EnvironmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/targets/environments/${environmentIdentifier}/target-segment/${segmentIdentifier}`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments/environments/${environmentIdentifier}/target-segment/${segmentIdentifier}`
   ),
   toCFTargetDetails: withAccountId(
     ({

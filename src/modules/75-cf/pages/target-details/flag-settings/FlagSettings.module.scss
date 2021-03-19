@@ -1,0 +1,11 @@
+.pagination {
+  position: sticky;
+  bottom: 0;
+  background-color: #fcfdfd !important;
+  z-index: 1;
+
+  > div {
+    padding-left: var(--spacing-large) !important;
+    padding-right: var(--spacing-large) !important;
+  }
+}

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { get } from 'lodash-es'
 import cx from 'classnames'
 import { Container, Heading } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
+import { getErrorMessage } from '@cf/utils/CFUtils'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import css from './ListingPageTemplate.module.scss'
@@ -123,7 +123,16 @@ export const ListingPageTemplate: React.FC<ListingPageTemplateProps> = ({
           {header}
         </ListingPageTitle>
       )) || (
-        <Container data-name="header" height={headerHeight} style={headerStyle} className={headerClassName}>
+        <Container
+          data-name="header"
+          height={headerHeight}
+          style={{
+            background: 'var(--white)',
+            borderBottom: '0.5px solid #d9dae6',
+            ...headerStyle
+          }}
+          className={headerClassName}
+        >
           {header}
         </Container>
       )}
@@ -167,9 +176,7 @@ export const ListingPageTemplate: React.FC<ListingPageTemplateProps> = ({
           className={contentClassName}
         >
           {!error && content}
-          {error && (
-            <PageError message={get(error, 'data.message', get(error, 'message', error))} onClick={retryOnError} />
-          )}
+          {error && <PageError message={getErrorMessage(error)} onClick={retryOnError} />}
         </Container>
 
         {pagination && !error && (

@@ -3,6 +3,7 @@ import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import cx from 'classnames'
 import { MonacoDiffEditor } from 'react-monaco-editor'
+import { stringify } from 'yaml'
 import { Layout, Container, Text, Color, Button, useToggle } from '@wings-software/uicore'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
@@ -10,7 +11,8 @@ import {
   AuditLogAction,
   formatDate,
   formatTime,
-  ADIT_LOG_EMPTY_ENTRY_ID
+  ADIT_LOG_EMPTY_ENTRY_ID,
+  getErrorMessage
 } from '@cf/utils/CFUtils'
 import { useLocalStorage } from '@common/hooks'
 import { PageError } from '@common/components/Page/PageError'
@@ -80,10 +82,10 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
     const _after = get(diffData, `data.objectsnapshots[${isNewObject ? 0 : 1}].value`)
 
     if (_before) {
-      setValueBefore(JSON.stringify(_before, null, 2))
+      setValueBefore(stringify(_before))
     }
     if (_after) {
-      setValueAfter(JSON.stringify(_after, null, 2))
+      setValueAfter(stringify(_after))
     }
   }, [diffData])
 
@@ -135,7 +137,7 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
 
                 {error && (
                   <PageError
-                    message={get(error, 'data.message', error?.message)}
+                    message={getErrorMessage(error)}
                     onClick={() => {
                       refetch()
                     }}

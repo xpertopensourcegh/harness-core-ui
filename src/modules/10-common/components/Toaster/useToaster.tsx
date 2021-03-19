@@ -1,5 +1,5 @@
-import { Toaster, Position, IToaster, Intent } from '@blueprintjs/core'
 import type { ReactNode } from 'react'
+import { Toaster, Position, IToaster, Intent } from '@blueprintjs/core'
 import css from './useToaster.module.scss'
 
 const toaster = Toaster.create({
@@ -26,6 +26,12 @@ const showWarning = (message: string): void => {
 }
 
 export function useToaster(): ToasterProps {
+  // useEffect(() => {
+  //   return () => {
+  //     toaster.clear()
+  //   }
+  // }, [])
+
   return {
     ...toaster,
     showSuccess,

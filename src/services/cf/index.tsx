@@ -81,9 +81,14 @@ export interface Variation {
   description?: string
 }
 
+export interface TargetMap {
+  identifier?: string
+  name: string
+}
+
 export interface VariationMap {
   variation: string
-  targets?: string[]
+  targets?: TargetMap[]
   targetSegments?: string[]
 }
 
@@ -145,6 +150,7 @@ export interface Feature {
   createdAt: number
   modifiedAt: number
   tags?: Tag[]
+  evaluation?: string
 }
 
 export type Features = Pagination & {
@@ -169,12 +175,12 @@ export interface PatchOperation {
 }
 
 export interface Target {
-  identifier?: string
+  identifier: string
   account: string
   org: string
   environment: string
   project: string
-  name?: string
+  name: string
   anonymous?: boolean
   attributes?: { [key: string]: any }
   createdAt?: number
@@ -182,6 +188,18 @@ export interface Target {
 
 export type Targets = Pagination & {
   targets?: Target[]
+}
+
+export interface TargetDetailSegment {
+  identifier?: string
+  name?: string
+}
+
+export interface TargetDetail {
+  identifier?: string
+  includedSegments?: TargetDetailSegment[]
+  excludedSegments?: TargetDetailSegment[]
+  ruleSegments?: TargetDetailSegment[]
 }
 
 export interface Segment {
@@ -210,13 +228,23 @@ export type Segments = Pagination & {
   segments?: Segment[]
 }
 
+export interface SegmentFlag {
+  identifier: string
+  type: 'DIRECT' | 'CONDITION'
+  project: string
+  environment: string
+  name: string
+  description?: string
+  variation: string
+}
+
 export interface AuditTrail {
   objectIdentifier: string
   objectType: string
   project: string
   enviroment?: string
   status: string
-  instructionSet: string
+  instructionSet: { [key: string]: any }[]
   action: string
   actor: string
   comment: string
@@ -239,6 +267,16 @@ export interface ObjectSnapshot {
 
 export interface ObjectSnapshots {
   objectsnapshots?: ObjectSnapshot[]
+}
+
+export interface TargetAndSegment {
+  name?: string
+  identifier?: string
+  type: 'target' | 'segment'
+}
+
+export type TargetsAndSegments = Pagination & {
+  entities?: TargetAndSegment[]
 }
 
 export interface ProjectRequestRequestBody {
@@ -412,12 +450,22 @@ export type TargetResponseResponse = Target
 /**
  * OK
  */
+export type TargetDetailResponseResponse = TargetDetail
+
+/**
+ * OK
+ */
 export type SegmentsResponseResponse = Segments
 
 /**
  * OK
  */
 export type SegmentResponseResponse = Segment
+
+/**
+ * OK
+ */
+export type SegmentFlagsResponseResponse = SegmentFlag[]
 
 /**
  * OK
@@ -438,6 +486,11 @@ export interface ObjectSnapshotResponseResponse {
   metaData?: { [key: string]: any }
   correlationId?: string
 }
+
+/**
+ * OK
+ */
+export type TargetSegmentResponseResponse = TargetsAndSegments
 
 export interface CreateProjectQueryParams {
   /**
@@ -550,7 +603,7 @@ export interface GetAllProjectsQueryParams {
   /**
    * SortByField
    */
-  sortByField?: string
+  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
 }
 
 export type GetAllProjectsProps = Omit<
@@ -1388,7 +1441,7 @@ export interface GetAllEnvironmentsQueryParams {
   /**
    * SortByField
    */
-  sortByField?: string
+  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
 }
 
 export type GetAllEnvironmentsProps = Omit<
@@ -1791,7 +1844,7 @@ export interface GetAllFeaturesQueryParams {
   /**
    * Environment
    */
-  environment: string
+  environment?: string
   /**
    * PageNumber
    */
@@ -1811,7 +1864,27 @@ export interface GetAllFeaturesQueryParams {
   /**
    * SortByField
    */
-  sortByField?: string
+  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
+  /**
+   * Name of the feature flag
+   */
+  name?: string
+  /**
+   * Identifier of the feature flag
+   */
+  identifier?: string
+  /**
+   * Status of the feature flag
+   */
+  archived?: boolean
+  /**
+   * Kind of the feature flag
+   */
+  kind?: 'json' | 'string' | 'int' | 'boolean'
+  /**
+   * Identifier of a target
+   */
+  targetIdentifier?: string
 }
 
 export type GetAllFeaturesProps = Omit<
@@ -1881,7 +1954,7 @@ export interface GetFeatureFlagQueryParams {
   /**
    * Environment
    */
-  environment: string
+  environment?: string
 }
 
 export interface GetFeatureFlagPathParams {
@@ -2242,11 +2315,19 @@ export interface GetAllTargetsQueryParams {
   /**
    * SortOrder
    */
-  sortOrder?: 'ASCENDING' | 'DESCENDING'
+  sortOrder?: 'ASC' | 'DESC'
   /**
    * SortByField
    */
-  sortByField?: string
+  sortByField?: 'createdAt' | 'name' | 'identifier'
+  /**
+   * Name of the target
+   */
+  targetName?: string
+  /**
+   * Identifier of the target
+   */
+  targetIdentifier?: string
 }
 
 export type GetAllTargetsProps = Omit<
@@ -2657,6 +2738,89 @@ export const useDeleteTarget = (props: UseDeleteTargetProps) =>
     void
   >('DELETE', `/admin/targets`, { base: getConfig('cf'), ...props })
 
+export interface GetTargetSegmentsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface GetTargetSegmentsPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetTargetSegmentsProps = Omit<
+  GetProps<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetSegmentsPathParams
+
+/**
+ * Retrieve the segmenets that the specified target belongs to.
+ *
+ * Used to retrieve certain segments for a certian target
+ */
+export const GetTargetSegments = ({ identifier, ...props }: GetTargetSegmentsProps) => (
+  <Get<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >
+    path="/admin/targets/${identifier}/segments"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetTargetSegmentsProps = Omit<
+  UseGetProps<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetSegmentsPathParams
+
+/**
+ * Retrieve the segmenets that the specified target belongs to.
+ *
+ * Used to retrieve certain segments for a certian target
+ */
+export const useGetTargetSegments = ({ identifier, ...props }: UseGetTargetSegmentsProps) =>
+  useGet<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >((paramsInPath: GetTargetSegmentsPathParams) => `/admin/targets/${paramsInPath.identifier}/segments`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
 export interface CreateSegmentQueryParams {
   /**
    * Account
@@ -2776,7 +2940,7 @@ export interface GetAllSegmentsQueryParams {
   /**
    * SortByField
    */
-  sortByField?: string
+  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
 }
 
 export type GetAllSegmentsProps = Omit<
@@ -3096,6 +3260,89 @@ export const useDeleteSegment = (props: UseDeleteSegmentProps) =>
     void
   >('DELETE', `/admin/segments`, { base: getConfig('cf'), ...props })
 
+export interface GetSegmentFlagsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface GetSegmentFlagsPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetSegmentFlagsProps = Omit<
+  GetProps<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >,
+  'path'
+> &
+  GetSegmentFlagsPathParams
+
+/**
+ * Retrieve segment flags.
+ *
+ * Used to retrieve certain segment flags for certain id and account id.
+ */
+export const GetSegmentFlags = ({ identifier, ...props }: GetSegmentFlagsProps) => (
+  <Get<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >
+    path="/admin/segments/${identifier}/flags"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetSegmentFlagsProps = Omit<
+  UseGetProps<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >,
+  'path'
+> &
+  GetSegmentFlagsPathParams
+
+/**
+ * Retrieve segment flags.
+ *
+ * Used to retrieve certain segment flags for certain id and account id.
+ */
+export const useGetSegmentFlags = ({ identifier, ...props }: UseGetSegmentFlagsProps) =>
+  useGet<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >((paramsInPath: GetSegmentFlagsPathParams) => `/admin/segments/${paramsInPath.identifier}/flags`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
 export interface GetAuditByParamsQueryParams {
   /**
    * Environment
@@ -3145,6 +3392,14 @@ export interface GetAuditByParamsQueryParams {
    * Identifier of the entity
    */
   identifier?: string
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASC' | 'DESC'
+  /**
+   * SortByField
+   */
+  sortByField?: 'executed_on' | 'actor' | 'action'
 }
 
 export type GetAuditByParamsProps = Omit<
@@ -3261,3 +3516,97 @@ export const useGetOSById = ({ identifiers, ...props }: UseGetOSByIdProps) =>
     pathParams: { identifiers },
     ...props
   })
+
+export interface GetTargetsAndSegmentsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * Identifier of the target or segment
+   */
+  tsIdentifier?: string
+  /**
+   * Name of the target or segment
+   */
+  tsName?: string
+  /**
+   * SortByField
+   */
+  sortByField?: 'name' | 'identifier'
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASC' | 'DESC'
+  /**
+   * PageNumber
+   */
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+}
+
+export type GetTargetsAndSegmentsProps = Omit<
+  GetProps<
+    TargetSegmentResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get targets and segments for an environment with search and sort features
+ *
+ * Get targets and segments for an environment with search and sort features
+ */
+export const GetTargetsAndSegments = (props: GetTargetsAndSegmentsProps) => (
+  <Get<
+    TargetSegmentResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsQueryParams,
+    void
+  >
+    path="/admin/targets-segments/"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetTargetsAndSegmentsProps = Omit<
+  UseGetProps<
+    TargetSegmentResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get targets and segments for an environment with search and sort features
+ *
+ * Get targets and segments for an environment with search and sort features
+ */
+export const useGetTargetsAndSegments = (props: UseGetTargetsAndSegmentsProps) =>
+  useGet<
+    TargetSegmentResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsQueryParams,
+    void
+  >(`/admin/targets-segments/`, { base: getConfig('cf'), ...props })

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-import { get, omit } from 'lodash-es'
+import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
@@ -8,7 +8,7 @@ import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures
 import { useEnvironments } from '@cf/hooks/environment'
 import { Page } from '@common/exports'
 import { useLocalStorage } from '@common/hooks'
-import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV } from '@cf/utils/CFUtils'
+import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV, getErrorMessage } from '@cf/utils/CFUtils'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import IndividualTargets from './IndividualTargets'
@@ -23,7 +23,7 @@ interface HeaderContentProps {
 }
 
 const HeaderContent: React.FC<HeaderContentProps> = ({ view, onChangePage, leftLabel, rightLabel }) => (
-  <Layout.Horizontal>
+  <Layout.Horizontal style={{ display: 'none' }}>
     <Button
       width={120}
       text={leftLabel}
@@ -65,14 +65,14 @@ const CFTargetsPage: React.FC = () => {
     orgIdentifier
   } as GetEnvironmentListForProjectQueryParams)
 
-  const [view, setView] = useState<'individual' | 'segments'>('individual')
+  const [view, setView] = useState<'individual' | 'segments'>('segments')
   const onChangePage = () => {
     view === 'individual' ? setTargetPage(0) : setSegmentPage(0)
     setView(view === 'individual' ? 'segments' : 'individual')
   }
   const { getString } = useStrings()
   const getSharedString = (key: string) => getString(`cf.shared.${key}`)
-  const getPageString = (key: string) => getString(`cf.targets.${key}`)
+  // const getPageString = (key: string) => getString(`cf.targets.${key}`)
   // const [environment, setEnvironment] = useState<SelectOption>()
   const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
 
@@ -164,7 +164,7 @@ const CFTargetsPage: React.FC = () => {
   return (
     <>
       <Page.Header
-        title={getPageString('title')}
+        title={getString('cf.shared.segments')}
         size="medium"
         content={
           <HeaderContent
@@ -214,7 +214,7 @@ const CFTargetsPage: React.FC = () => {
         )}
         {error && (
           <PageError
-            message={get(error, 'data.message', error?.message)}
+            message={getErrorMessage(error)}
             onClick={() => {
               refetchEnvironments()
             }}

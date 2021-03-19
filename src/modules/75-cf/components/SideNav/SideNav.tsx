@@ -14,7 +14,7 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const module = 'cf'
   const { updateAppStore } = useAppStore()
-  const isDev = location.hostname === 'localhost' || location.hostname === 'qb.harness.io'
+  const isDev = localStorage.ENABLED_FF_PIPELINE
 
   return (
     <Layout.Vertical spacing="small">
@@ -35,6 +35,7 @@ export default function CFSideNav(): React.ReactElement {
         <React.Fragment>
           <SidebarLink label="Feature Flags" to={routes.toCFFeatureFlags(params)} />
           <SidebarLink label="Targets" to={routes.toCFTargets(params)} />
+          <SidebarLink label="Segments" to={routes.toCFSegments(params)} />
           <SidebarLink label="Environments" to={routes.toCFEnvironments(params)} />
           {isDev && (
             <>

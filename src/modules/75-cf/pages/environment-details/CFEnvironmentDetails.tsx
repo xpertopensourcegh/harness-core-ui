@@ -1,22 +1,21 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
 import { Layout, Container } from '@wings-software/uicore'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { useGetEnvironment, EnvironmentResponseDTO } from 'services/cd-ng'
+import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
+import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
+import { getErrorMessage } from '@cf/utils/CFUtils'
 import CFEnvironmentDetailsHeader from './CFEnvironmentDetailsHeader'
 import CFEnvironmentDetailsBody from './CFEnvironmentDetailsBody'
 
 const CFEnvironmentDetails: React.FC<{}> = () => {
   const { projectIdentifier, environmentIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const { loading, data, error, refetch } = useGetEnvironment({
-    environmentIdentifier,
-    queryParams: {
-      accountId,
-      projectIdentifier,
-      orgIdentifier
-    }
+  const { loading, data, error, refetch } = useSyncedEnvironment({
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    environmentIdentifier
   })
   const environment = data?.data as EnvironmentResponseDTO
   const hasData = Boolean(environment)
@@ -44,7 +43,7 @@ const CFEnvironmentDetails: React.FC<{}> = () => {
       )}
       {error && (
         <PageError
-          message={get(error, 'data.message', error?.message)}
+          message={getErrorMessage(error)}
           onClick={() => {
             refetch()
           }}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
@@ -55,7 +55,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
 }) => {
   const { getString } = useStrings()
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
-  const { showError, clear } = useToaster()
+  const { showError } = useToaster()
 
   const [loadingBulk, setLoadingBulk] = useState<boolean>(false)
   const history = useHistory()
@@ -213,12 +213,6 @@ const IndividualTargets: React.FC<IndividualProps> = ({
         showError(`Could not delete target ${id}`)
       })
   }
-
-  useEffect(() => {
-    return () => {
-      clear()
-    }
-  }, [clear])
 
   return (
     <>

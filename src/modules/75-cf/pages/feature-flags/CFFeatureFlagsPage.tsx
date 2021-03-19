@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
-  Color,
   Layout,
   Container,
   Icon,
@@ -13,11 +12,11 @@ import {
   SelectOption,
   Heading,
   Utils,
-  Pagination
+  Pagination,
+  Color
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
-import { /*Drawer,*/ Menu, Position, Switch, Classes } from '@blueprintjs/core'
-import { get } from 'lodash-es'
+import { /*Drawer,*/ Position, Switch, Classes } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
@@ -27,23 +26,27 @@ import Table from '@common/components/Table/Table'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag, Features, FeatureState } from 'services/cf'
 import { useStrings } from 'framework/exports'
+import { OptionsMenuButton } from '@common/components'
 import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
 import { VariationTypeIcon } from '@cf/components/VariationTypeIcon/VariationTypeIcon'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
-import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
+import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
+import { NoData } from '@cf/components/NoData/NoData'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
   DEFAULT_ENV,
   isFeatureFlagOn,
   CF_DEFAULT_PAGE_SIZE,
   featureFlagHasCustomRules,
-  FeatureFlagActivationStatus
+  FeatureFlagActivationStatus,
+  getErrorMessage
 } from '../../utils/CFUtils'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
 import { useEnvironments } from '../../hooks/environment'
 import i18n from './CFFeatureFlagsPage.i18n'
+import imageURL from './flag.svg'
 import css from './CFFeatureFlagsPage.module.scss'
 
 interface RenderColumnFlagProps {
@@ -64,7 +67,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
     environmentIdentifier: data.envProperties?.environment as string,
     flagIdentifier: data.identifier
   })
-  const { showError, clear } = useToaster()
+  const { showError } = useToaster()
   const [flagNameTextSize, setFlagNameTextSize] = useState(300)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -114,7 +117,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
                   update(!status)
                 })
                 .catch(error => {
-                  showError(get(error, 'message', get(error, 'data.message', error.toString())), 0)
+                  showError(getErrorMessage(error), 0)
                 })
             }}
           />
@@ -124,12 +127,6 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
       </Container>
     </Container>
   )
-
-  useEffect(() => {
-    return () => {
-      clear()
-    }
-  }, [clear])
 
   const onResize = () => {
     if (ref.current) {
@@ -289,7 +286,7 @@ interface ColumnMenuProps {
 
 const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, environment }) => {
   const data = row.original
-  const { showError } = useToaster()
+  const { showError, showSuccess, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
   const history = useHistory()
   const { getString } = useStrings()
@@ -305,7 +302,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
     title: getString('cf.featureFlags.deleteFlag'),
     confirmText: getString('delete'),
     message: (
-      <Text font="medium">
+      <Text>
         <span
           dangerouslySetInnerHTML={{ __html: getString('cf.featureFlags.deleteFlagMessage', { name: data.name }) }}
         />
@@ -313,10 +310,25 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
     ),
     action: async () => {
       try {
+        clear()
         await mutate(data.identifier)
-        refetch?.()
-      } catch (e) {
-        showError(e)
+          .then(() => {
+            showSuccess(
+              <Text color={Color.WHITE}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: data.name })
+                  }}
+                />
+              </Text>
+            )
+            refetch?.()
+          })
+          .catch(error => {
+            showError(getErrorMessage(error))
+          })
+      } catch (error) {
+        showError(getErrorMessage(error))
       }
     }
   })
@@ -334,30 +346,20 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   }
 
   return (
-    <Container
-      style={{ textAlign: 'right' }}
-      onClick={(e: React.MouseEvent) => {
-        e.stopPropagation()
-      }}
-    >
-      <Button
-        minimal
-        icon="Options"
-        iconProps={{ size: 24 }}
-        tooltipProps={{ isDark: true, interactionKind: 'click', hasBackdrop: true }}
-        tooltip={
-          <Menu style={{ minWidth: 'unset' }}>
-            <Menu.Item
-              icon="edit"
-              text={i18n.edit}
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation()
-                gotoDetailPage()
-              }}
-            />
-            <Menu.Item icon="trash" text={i18n.delete} className={Classes.POPOVER_DISMISS} onClick={deleteFlag} />
-          </Menu>
-        }
+    <Container style={{ textAlign: 'right' }} onClick={Utils.stopEvent}>
+      <OptionsMenuButton
+        items={[
+          {
+            icon: 'edit',
+            text: getString('edit'),
+            onClick: gotoDetailPage
+          },
+          {
+            icon: 'trash',
+            text: getString('delete'),
+            onClick: deleteFlag
+          }
+        ]}
       />
     </Container>
   )
@@ -395,6 +397,7 @@ const CFFeatureFlagsPage: React.FC = () => {
   })
   const [features, setFeatures] = useState<Features | null>()
   const { getString } = useStrings()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!envsLoading) {
@@ -408,6 +411,7 @@ const CFFeatureFlagsPage: React.FC = () => {
         }
       } else if (environments?.length === 0) {
         setEnvironment(undefined)
+        setLoading(true)
         setTimeout(() => {
           refetch({ queryParams: { ...queryParams, environment: (undefined as unknown) as string } })
         }, 0)
@@ -419,8 +423,11 @@ const CFFeatureFlagsPage: React.FC = () => {
     setFeatures(data)
   }, [data])
 
+  useEffect(() => {
+    setLoading(flagsLoading || envsLoading)
+  }, [flagsLoading, envsLoading])
+
   const error = flagsError || envsError
-  const loading = flagsLoading || envsLoading
 
   const columns: Column<Feature>[] = useMemo(
     () => [
@@ -505,32 +512,37 @@ const CFFeatureFlagsPage: React.FC = () => {
     refetch({ queryParams: { ...queryParams, environment: item.value as string } })
   }
   const hasFeatureFlags = features?.features && features?.features?.length > 0
-  const emptyFeatureFlags = (features?.features && features?.features?.length === 0) || !features
+  const emptyFeatureFlags = !loading && features?.features?.length === 0
   const title = getString('featureFlagsText')
+  const header = (
+    <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
+      <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
+      <FlexExpander />
+      {!!environments?.length && (
+        <Select
+          items={environments}
+          className={css.ffPageBtnsSelect}
+          inputProps={{ placeholder: i18n.selectEnv }}
+          onChange={onEnvironmentChanged}
+          value={environment?.value ? environment : environments[0] || null}
+          disabled={loading}
+        />
+      )}
+    </Layout.Horizontal>
+  )
 
   return (
     <ListingPageTemplate
       pageTitle={title}
-      header={title}
+      header={header}
+      headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
           <FlagDialog disabled={loading} environment={environment?.value as string} />
-
           <FlexExpander />
 
           {/** TODO: Disable search as backend does not support it yet */}
           {/* <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} /> */}
-
-          {!!environments?.length && (
-            <Select
-              items={environments}
-              className={css.ffPageBtnsSelect}
-              inputProps={{ placeholder: i18n.selectEnv }}
-              onChange={onEnvironmentChanged}
-              value={environment?.value ? environment : environments[0] || null}
-              disabled={loading}
-            />
-          )}
 
           {/** TODO: Disable filter as backend does not fully support it yet */}
           {/* <Button
@@ -568,15 +580,11 @@ const CFFeatureFlagsPage: React.FC = () => {
           )}
 
           {!loading && emptyFeatureFlags && (
-            <Layout.Vertical className={css.emptyContainer}>
-              <Container>
-                <Icon name="flag" size={150} color={Color.GREY_300} className={css.ffImage} />
-              </Container>
-              <Text color="grey400" style={{ fontSize: '20px', padding: '40px 0' }}>
-                {i18n.noFeatureFlags}
-              </Text>
-              <FlagDialog environment={environment?.value as string} />
-            </Layout.Vertical>
+            <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
+              <NoData imageURL={imageURL} message={getString('cf.noFlag')}>
+                <FlagDialog environment={environment?.value as string} />
+              </NoData>
+            </Container>
           )}
         </>
       }

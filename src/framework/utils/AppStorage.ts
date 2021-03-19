@@ -185,4 +185,6 @@ export default class AppStorage {
     secureStorage.clear()
     localStorage.clear()
   }
+
+  static decode64 = decode64
 }

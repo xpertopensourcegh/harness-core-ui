@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
 import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf'
+import AppStorage from 'framework/utils/AppStorage'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
+import { getErrorMessage } from '@cf/utils/CFUtils'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -28,55 +30,45 @@ const flagTypeOptions: SelectOption[] = [
 const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { flagTypeView, environmentIdentifier, toggleFlagType, hideModal, goBackToTypeSelections } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { showError, clear } = useToaster()
+  const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
-  const {
-    mutate: createFeatureFlag,
-    loading: isLoadingCreateFeatureFlag,
-    error: errorCreateFlag
-  } = useCreateFeatureFlag({
+  const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
     queryParams: { account: accountId, org: orgIdentifier }
   })
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()
 
-    /*--- START ONLY FOR DEV ---*/
     if (formData) {
       const valTags: any = formData?.tags?.map(elem => {
         return { name: elem, value: elem }
       })
       formData.tags = valTags
-      formData.owner = 'admin' // FIXME: Hardcoded for now
+      // Note: Currently there's no official way to get current user. Rely on old token from
+      // current gen login
+      formData.owner = AppStorage.decode64(localStorage.email || 'unknown')
     }
-    /*--- END ONLY FOR DEV ---*/
 
     if (formData) {
-      createFeatureFlag(formData).then(() => {
-        hideModal()
-        history.push(
-          routes.toCFFeatureFlagsDetail({
-            orgIdentifier: orgIdentifier as string,
-            projectIdentifier: projectIdentifier as string,
-            featureFlagIdentifier: formData.identifier,
-            environmentIdentifier,
-            accountId
-          })
-        )
-      })
+      createFeatureFlag(formData)
+        .then(() => {
+          hideModal()
+          history.push(
+            routes.toCFFeatureFlagsDetail({
+              orgIdentifier: orgIdentifier as string,
+              projectIdentifier: projectIdentifier as string,
+              featureFlagIdentifier: formData.identifier,
+              environmentIdentifier,
+              accountId
+            })
+          )
+        })
+        .catch(error => {
+          showError(getErrorMessage(error), 0)
+        })
     } else {
       hideModal()
     }
-  }
-
-  useEffect(() => {
-    return () => {
-      clear()
-    }
-  }, [])
-
-  if (errorCreateFlag) {
-    showError((errorCreateFlag.data as { message: string })?.message || errorCreateFlag.message, 0)
   }
 
   return (

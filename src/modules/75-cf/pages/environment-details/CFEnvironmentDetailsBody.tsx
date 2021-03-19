@@ -9,7 +9,7 @@ import Table from '@common/components/Table/Table'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { useEnvStrings } from '@cf/hooks/environment'
-import { CF_DEFAULT_PAGE_SIZE, EnvironmentSDKKeyType } from '@cf/utils/CFUtils'
+import { CF_DEFAULT_PAGE_SIZE, EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
 import { withTableData } from '../../utils/table-utils'
 import AddKeyDialog from '../../components/AddKeyDialog/AddKeyDialog'
 import css from './CFEnvironmentDetails.module.scss'
@@ -283,7 +283,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
 
       {error && (
         <PageError
-          message={get(error, 'data.message', error?.message)}
+          message={getErrorMessage(error)}
           onClick={() => {
             setPage(0)
             refetch()

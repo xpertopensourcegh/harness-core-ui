@@ -1,4 +1,3 @@
-import { get } from 'lodash-es'
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
@@ -10,7 +9,7 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { PageError } from '@common/components/Page/PageError'
 import Table from '@common/components/Table/Table'
 import { AuditTrail, Feature, useGetAuditByParams } from 'services/cf'
-import { formatDate, formatTime, AuditLogAction, CF_DEFAULT_PAGE_SIZE } from '@cf/utils/CFUtils'
+import { formatDate, formatTime, AuditLogAction, CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
 import { EventSummary } from './EventSummary'
 
@@ -214,7 +213,7 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
 
       {error && (
         <PageError
-          message={get(error, 'data.message', error?.message)}
+          message={getErrorMessage(error)}
           onClick={() => {
             refetch()
           }}

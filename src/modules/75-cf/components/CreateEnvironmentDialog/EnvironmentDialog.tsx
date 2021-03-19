@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
 import { Dialog, Spinner } from '@blueprintjs/core'
 import {
   Button,
@@ -20,6 +19,7 @@ import { ResponseEnvironmentResponseDTO, useCreateEnvironment } from 'services/c
 import { EnvironmentRequestRequestBody, useCreateEnvironment as useCreateEnvironmentCF } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { useEnvStrings } from '@cf/hooks/environment'
+import { getErrorMessage } from '@cf/utils/CFUtils'
 import { EnvironmentType } from '@common/constants/EnvironmentType'
 import css from './EnvironmentDialog.module.scss'
 
@@ -47,7 +47,7 @@ interface EnvironmentValues {
 const identity = (x: any) => x as string
 
 const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreate, buttonProps }) => {
-  const { showError, clear } = useToaster()
+  const { showError } = useToaster()
   const { getString, getEnvString } = useEnvStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
   const { mutate: createEnv, loading } = useCreateEnvironment({
@@ -109,13 +109,9 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
         })
       })
       .catch(error => {
-        showError(get(error, 'data.message') || error?.message, 0)
+        showError(getErrorMessage(error), 0)
       })
   }
-
-  useEffect(() => {
-    return () => clear()
-  }, [clear])
 
   const [openModal, hideModal] = useModalHook(() => {
     return (

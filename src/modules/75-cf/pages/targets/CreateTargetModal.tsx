@@ -6,16 +6,15 @@ import {
   useModalHook,
   Text,
   TextInput,
-  Icon,
   Color,
-  FlexExpander
+  FlexExpander,
+  SimpleTagInput
 } from '@wings-software/uicore'
 import { Radio, RadioGroup, Spinner, Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import type { Target } from 'services/cf'
+import uploadImageUrl from './upload.svg'
 import css from './CFTargetsPage.module.scss'
-
-type ModalVariant = 'list' | 'upload'
 
 export type TargetData = Pick<Target, 'name' | 'identifier'>
 
@@ -23,43 +22,76 @@ const emptyTarget = (): TargetData => ({ name: '', identifier: '' })
 
 interface TargetListProps {
   onAdd: () => void
+  onRemove: (index: number) => void
   onChange: (idx: number, newData: TargetData) => void
   targets: TargetData[]
 }
 
-const TargetList: React.FC<TargetListProps> = ({ targets, onAdd, onChange }) => {
+const TargetList: React.FC<TargetListProps> = ({ targets, onAdd, onRemove, onChange }) => {
   const { getString } = useStrings()
-
   const handleChange = (idx: number, attr: keyof TargetData) => (e: any) => {
     onChange(idx, { ...targets[idx], [attr]: e.target.value })
   }
+  const fieldWidth = 290
 
   return (
-    <Layout.Vertical spacing="xsmall" margin={{ bottom: 'medium' }}>
+    <Layout.Vertical spacing="xsmall" margin={{ top: 'small', bottom: 'medium' }} style={{ paddingLeft: '28px' }}>
       <Layout.Horizontal spacing="small">
-        <Text style={{ width: '50%' }}>{getString('name')}</Text>
-        <Text style={{ width: '50%' }}>{getString('identifier')}</Text>
+        <Text style={{ color: '#22222A', fontWeight: 500 }} width={fieldWidth}>
+          {getString('name')}
+        </Text>
+        <Text style={{ color: '#22222A', fontWeight: 500 }} width={fieldWidth}>
+          {getString('identifier')}
+        </Text>
         <FlexExpander />
       </Layout.Horizontal>
       {targets.map((target: TargetData, idx: number) => {
+        const lastItem = idx === targets.length - 1
+
         return (
-          <Layout.Horizontal key={idx + '-target-row'} flex={{ align: 'center-center' }} spacing="small">
+          <Layout.Horizontal key={idx + '-target-row'} spacing="small">
             <TextInput
               placeholder={getString('cf.targets.enterName')}
               value={target.name}
               onChange={handleChange(idx, 'name')}
+              style={{ width: `${fieldWidth}px` }}
             />
             <TextInput
               placeholder={getString('cf.targets.enterValue')}
               value={target.identifier}
               onChange={handleChange(idx, 'identifier')}
+              style={{ width: `${fieldWidth}px` }}
             />
-            <Icon
-              name="zoom-in"
-              size={16}
-              style={{ visibility: idx !== targets.length - 1 ? 'hidden' : 'visible' }}
-              color={Color.BLUE_600}
-              onClick={onAdd}
+            {lastItem && idx !== 0 && (
+              <Button
+                minimal
+                intent="primary"
+                icon={'minus'}
+                iconProps={{
+                  size: 16,
+                  style: { alignSelf: 'center' }
+                }}
+                onClick={() => {
+                  onRemove(idx)
+                }}
+              />
+            )}
+            <Button
+              minimal
+              intent="primary"
+              icon={lastItem ? 'plus' : 'minus'}
+              iconProps={{
+                size: 16,
+                style: { alignSelf: 'center' }
+              }}
+              onClick={
+                lastItem
+                  ? onAdd
+                  : () => {
+                      onRemove(idx)
+                    }
+              }
+              style={{ transform: `translateX(${lastItem && idx ? -10 : 0}px)` }}
             />
           </Layout.Horizontal>
         )
@@ -68,46 +100,98 @@ const TargetList: React.FC<TargetListProps> = ({ targets, onAdd, onChange }) => 
   )
 }
 
-const FileUpload: React.FC<{ onChange: (data?: any) => void; file?: File }> = ({ onChange, file }) => {
-  const handleChange = (e: any) => {
-    onChange(e.target.files[0])
+const FileUpload: React.FC<{ onChange: (targets: TargetData[]) => void }> = ({ onChange }) => {
+  const { getString } = useStrings()
+  const uploadContainerHeight = 260
+  const [targets, setTargets] = useState<TargetData[]>([])
+  const [tagItems, setTagItems] = useState<{ label: string; value: string }[]>([])
+  const handleRemove = () => {
+    setTargets([])
+    onChange([])
+    setTagItems([])
   }
-
-  const handleRemove = () => onChange(undefined)
+  const handleUpload = (file: File) => {
+    file
+      .text()
+      .then((str: string) => {
+        return str
+          .split(/\r?\n/)
+          .filter(value => !!value?.length)
+          .map(row => row.split(',').map(x => x.trim()))
+          .map(([name, identifier]) => ({ name, identifier } as TargetData))
+      })
+      .then((targetData: TargetData[]) => {
+        setTagItems(
+          targetData.map(
+            ({ name, identifier }) => ({ label: identifier, value: name } as { label: string; value: string })
+          )
+        )
+        setTargets(targetData)
+        onChange(targetData)
+      })
+  }
+  const handleChange = (e: any) => {
+    handleUpload(e.target.files[0])
+  }
+  const onTagChanged: React.ComponentProps<typeof SimpleTagInput>['onChange'] = (
+    selectedItems,
+    _createdItems,
+    _items
+  ) => {
+    setTargets(
+      selectedItems.map(arg => {
+        const { label, value } = arg as { label: string; value: string }
+        return { name: value, identifier: label }
+      })
+    )
+  }
 
   return (
     <>
-      {file === undefined ? (
+      {!targets?.length ? (
         <>
           <label htmlFor="bulk" className={css.upload}>
             <Layout.Vertical
               flex={{ align: 'center-center' }}
-              background={Color.GREY_200}
-              border={{ color: Color.GREY_450 }}
-              padding="xxxlarge"
+              height={uploadContainerHeight}
+              style={{ border: '1px solid #D9DAE6', borderRadius: '4px', background: '#FAFBFC', margin: '0 28px' }}
             >
-              <Icon size={48} name="cloud-upload" />
-              <Text>Upload a File</Text>
+              <img src={uploadImageUrl} width={100} height={100} />
+              <Text padding={{ top: 'large' }} color={Color.BLUE_500} style={{ fontSize: '14px' }}>
+                {getString('cf.targets.uploadYourFile')}
+              </Text>
             </Layout.Vertical>
           </label>
           <input type="file" id="bulk" name="bulk-upload" style={{ display: 'none' }} onChange={handleChange} />
         </>
       ) : (
-        <>
-          <Layout.Vertical
-            flex={{ align: 'center-center' }}
-            background={Color.GREY_200}
-            border={{ color: Color.GREY_450 }}
-            padding="xxxlarge"
-            spacing="small"
+        <Container>
+          <Layout.Horizontal
+            margin={{ right: 'xxlarge', bottom: 'small', left: 'xlarge' }}
+            style={{ alignItems: 'center' }}
           >
-            <Text color={Color.BLACK}>{`You've uploaded`}</Text>
-            <Text color={Color.BLUE_500} font={{ size: 'medium' }}>
-              {file?.name}
+            <Text>
+              <span
+                dangerouslySetInnerHTML={{ __html: getString('cf.targets.uploadStats', { count: targets.length }) }}
+              />
             </Text>
-            <Button text="Change" onClick={handleRemove} outlined />
-          </Layout.Vertical>
-        </>
+            <FlexExpander />
+            <Button intent="primary" text={getString('filters.clearAll')} onClick={handleRemove} minimal />
+          </Layout.Horizontal>
+          <Container
+            style={{
+              border: '1px solid #D9DAE6',
+              borderRadius: '4px',
+              margin: '0 28px',
+              overflow: 'auto'
+            }}
+            height={220}
+            padding="xsmall"
+            className={css.uploadTargetContainer}
+          >
+            <SimpleTagInput noInputBorder selectedItems={tagItems} items={tagItems} onChange={onTagChanged} />
+          </Container>
+        </Container>
       )}
     </>
   )
@@ -122,23 +206,27 @@ interface CreateTargetModalProps {
   onSubmitUpload: (file: File, hideModal: () => void) => void
 }
 
-const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmitTargets, onSubmitUpload }) => {
-  const [variant, setVariant] = useState<ModalVariant>('list')
+const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmitTargets }) => {
+  const LIST = 'list'
+  const UPLOAD = 'upload'
+  const [isList, setIsList] = useState(true)
   const [targets, setTargets] = useState<TargetData[]>([emptyTarget()])
-  const [file, setFile] = useState<File | undefined>()
-
-  const addDisabled = variant === 'list' ? filterTargets(targets).length === 0 : file === undefined
-
+  const addDisabled = filterTargets(targets).length === 0
   const { getString } = useStrings()
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setVariant((e.target as HTMLInputElement).value as ModalVariant)
+    setIsList((e.target as HTMLInputElement).value === LIST)
     setTargets([emptyTarget()])
   }
 
   const handleTargetAdd = () => {
     setTargets([...targets, emptyTarget()])
+  }
+
+  const handleTargetRemove = (index: number) => {
+    targets.splice(index, 1)
+    setTargets([...targets])
   }
 
   const handleTargetChange = (idx: number, newData: TargetData) => {
@@ -147,70 +235,65 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
   }
 
   const handleSubmit = () => {
-    if (variant === 'list') {
-      const filteredTargets = filterTargets(targets)
-      if (filteredTargets.length) {
-        onSubmitTargets(filteredTargets, () => {
-          hideModal()
-          setTargets([emptyTarget()])
-        })
-      }
-    } else {
-      if (file) {
-        onSubmitUpload(file, () => {
-          hideModal()
-          setFile(undefined)
-        })
-      }
+    const filteredTargets = filterTargets(targets)
+    if (filteredTargets.length) {
+      onSubmitTargets(filteredTargets, () => {
+        hideModal()
+        setTargets([emptyTarget()])
+      })
     }
   }
 
-  const handleFileChange = (data: any) => {
-    setFile(data)
-  }
-
   const handleCancel = () => {
-    setVariant('list')
-    setFile(undefined)
+    setIsList(true)
     setTargets([emptyTarget()])
     hideModal()
   }
 
   const [openModal, hideModal] = useModalHook(() => {
     return (
-      <Dialog isOpen onClose={hideModal} title={getString('cf.targets.addTargets')}>
-        <Container padding="medium">
-          <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
-            <RadioGroup name="modalVariant" selectedValue={variant} onChange={handleChange}>
-              <Radio name="modalVariant" label={getPageString('list')} value="list" />
-              {variant === 'list' && (
-                <TargetList targets={targets} onAdd={handleTargetAdd} onChange={handleTargetChange} />
+      <Dialog isOpen onClose={hideModal} title={getString('cf.targets.addTargetsLabel')} className={css.modal}>
+        <Layout.Vertical padding="medium" height={450}>
+          <Container style={{ flexGrow: 1, overflow: 'auto' }} padding={{ top: 'small' }}>
+            <RadioGroup name="modalVariant" selectedValue={isList ? LIST : UPLOAD} onChange={handleChange}>
+              <Radio name="modalVariant" label={getPageString('list')} value={LIST} />
+              {isList && (
+                <TargetList
+                  targets={targets}
+                  onAdd={handleTargetAdd}
+                  onRemove={handleTargetRemove}
+                  onChange={handleTargetChange}
+                />
               )}
-              <Radio name="modalVariant" label={getPageString('upload')} value="upload" />
-              {variant === 'upload' && (
+              <Radio name="modalVariant" label={getPageString('upload')} value={UPLOAD} />
+              {!isList && (
                 <Layout.Vertical spacing="small">
-                  <Text>Please upload a csv file according to our template</Text>
-                  <FileUpload file={file} onChange={handleFileChange} />
+                  <Text style={{ padding: 'var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall) 27px' }}>
+                    <span dangerouslySetInnerHTML={{ __html: getString('cf.targets.uploadHeadline') }} />
+                    <Text
+                      rightIcon="question"
+                      inline
+                      tooltip={getString('cf.targets.uploadHelp')}
+                      style={{ transform: 'translateY(2px)', cursor: 'pointer' }}
+                    ></Text>
+                  </Text>
+                  <FileUpload onChange={_targets => setTargets(_targets)} />
                 </Layout.Vertical>
               )}
             </RadioGroup>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-              <Button
-                disabled={addDisabled || loading}
-                text={getString('add')}
-                intent="primary"
-                onClick={handleSubmit}
-              />
-              <Button disabled={loading} text={getString('cancel')} minimal onClick={handleCancel} />
-              {loading && <Spinner size={16} />}
-            </div>
-          </Layout.Vertical>
-        </Container>
+          </Container>
+          {/* Buttons */}
+          <Layout.Horizontal height={34} spacing="small">
+            <Button disabled={addDisabled || loading} text={getString('add')} intent="primary" onClick={handleSubmit} />
+            <Button disabled={loading} text={getString('cancel')} minimal onClick={handleCancel} />
+            {loading && <Spinner size={16} />}
+          </Layout.Horizontal>
+        </Layout.Vertical>
       </Dialog>
     )
-  }, [variant, targets, loading, file, addDisabled])
+  }, [isList, targets, loading, addDisabled])
 
-  return <Button intent="primary" text={`+ ${getString('cf.targets.create')}`} onClick={openModal} />
+  return <Button intent="primary" text={getString('cf.targets.create')} onClick={openModal} />
 }
 
 export default CreateTargetModal

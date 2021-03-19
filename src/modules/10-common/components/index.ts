@@ -26,6 +26,7 @@ import { DelegateSelectors } from './DelegateSelectors/DelegateSelectors'
 import Wizard from './Wizard/Wizard'
 import WizardWithProgress from './WizardWithProgress/WizardWithProgress'
 import CopyToClipBoard from './CopyToClipBoard/CopyToClipBoard'
+import { OptionsMenuButton, MenuDivider } from './OptionsMenuButton/OptionsMenuButton'
 export {
   AdminSelector,
   AddDrawer,
@@ -58,5 +59,7 @@ export {
   UserLabel,
   Wizard,
   DelegateSelectors,
-  WizardWithProgress
+  WizardWithProgress,
+  OptionsMenuButton,
+  MenuDivider
 }

@@ -1551,6 +1551,9 @@ cf:
   boolean: Boolean
   multivariate: Multivariate
   featureNotReady: This feature is not yet ready. Please check back later.
+  noFlag: You currently have no flags
+  noTarget: There are currently no targets
+  noTargetForEnv: There are currently no targets for this environment
   homepage:
     slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
     learnMore: Learn more about Feature Flags
@@ -1565,9 +1568,11 @@ cf:
       in: 'in'
       matchSegment: 'Match Segment'
   shared:
-    individual: 'Individual'
-    segments: 'Segments'
-    environment: 'environment'
+    individual: Individual
+    segments: Segments
+    environment: environment
+    lastEvaluated: Last Evaluated
+    variation: Variation
   featureFlags:
     percentageRollout: 'Percentage Rollout'
     turnOnHeading: Turn ON Flag
@@ -1608,20 +1613,62 @@ cf:
     flagWillTurnOn: Turn flag on for this environment upon save
     flagWillTurnOff: Turn flag off for this environment upon save
   targets:
-    title: 'Targets'
-    ID: 'ID'
-    name: 'name'
-    targetSegment: 'Target Segment'
+    title: Targets
+    ID: ID
+    name: name
+    targetSegment: Target Segment
     lastActivity: 'Last Activity'
     createdDate: Created Date
-    create: 'Target(s)'
-    list: 'Add a target'
-    upload: 'Upload a list of targets'
+    create: + Target(s)
+    list: Add a target
+    upload: Upload a list of targets (CSV files only)
     enterName: 'Enter a Name'
     enterValue: 'Enter a Value'
-    addTargets: 'Add Target(s)'
+    addTargetsLabel: Add Target(s)
+    addTargets: + Add Target(s)
     noTargetFound: 'No target found in this environment. Click the button above to create target(s).'
     noSegmentFound: 'No segment found in this environment. Click the button above to create a segment.'
+    uploadHeadline: Please upload a CSV file according to our <a href="https://docs.harness.io" target="_blank" rel="noreferrer">template</a>.
+    uploadHelp: 'Target CSV entry format: Name,Identifier'
+    uploadYourFile: Click to upload your file
+    uploadStats: <strong>Targets</strong> ({{ count }})
+    noneDefined: None Defined
+    deleteTarget: Delete Target
+    deleteTargetMessage: Are you sure you want to delete target <strong>{{name}}</strong>? This action cannot be undone.
+    deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
+  targetDetail:
+    title: 'Targets: Individual'
+    environmentLine: '<strong>Environment</strong>: {{name}}'
+    createdOnDate: Created on {{ date }}, {{ time }} PST
+    targetSetting: Target Settings
+    flagSetting: Flag Settings
+    attribute: ATTRIBUTE
+    attributes: Attributes ({{ counter }})
+    learnMore: To learn how to mark specific target attributes or information as private, read <a href="https://docs.harness.io" target="_blank" rel="noreferrer">documentation</a>.
+    manuallyAdded: MANUALLY ADDED
+    addToSegment: Add to Segment
+    autoAdded: AUTOMATICALLY ADDED THROUGH CONDITIONS
+    exclusionList: EXCLUSION LIST
+    excludefromSegment: Exclude from Segment
+    removeSegment: Remove from list
+    noSegmentAdded: No Segment added
+    noSegmentMatched: No Segment matched
+    noSegmentExcluded: No Segment excluded
+    addTargetToSegment: Add Target to Segment
+    excludeTargetFromSegment: Exclude Target from Segment
+    exclude: Exclude
+    removeFromIncludeListTitle: Remove from include list
+    removeFromIncludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from include segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
+    removeFromExcludeListTitle: Remove from exclusion list
+    removeFromExcludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from exclusion segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
+    noFlagConfigured: No feature flags configured for this target
+    searchPlaceholder: Search Feature Flags...
+  selectSegmentModal:
+    searchSegmentPlaceholder: Search for Segment by Name or Description
+    flagsUsingSegment: '{{ counter }} flag'
+    flagsUsingThisSegment: FLAGS USING THIS SEGMENT
+    selected: '{{ counter }} selected'
+    empty: No Segment found
   segments:
     create: 'Segment'
     targetDefinition: 'Target Definition'

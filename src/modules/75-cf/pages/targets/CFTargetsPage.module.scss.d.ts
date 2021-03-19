@@ -7,5 +7,7 @@ declare const styles: {
   readonly upload: string
   readonly header: string
   readonly content: string
+  readonly modal: string
+  readonly uploadTargetContainer: string
 }
 export default styles

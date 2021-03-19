@@ -32,7 +32,6 @@ import CFDashboardPage from '@cf/pages/dashboard/CFDashboardPage'
 import CFFeatureFlagsPage from '@cf/pages/feature-flags/CFFeatureFlagsPage'
 import CFFeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'
 import CFTargetsPage from '@cf/pages/targets/CFTargetsPage'
-import CFTargetDetailsPage from '@cf/pages/target-details/CFTargetDetailsPage'
 import CFSegmentDetailsPage from '@cf/pages/segment-details/CFSegmentDetailsPage'
 import CFEnvironmentsPage from '@cf/pages/environments/CFEnvironmentsPage'
 import CFEnvironmentDetails from '@cf/pages/environment-details/CFEnvironmentDetails'
@@ -59,7 +58,9 @@ import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineVi
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import ResourcesPage from './pages/Resources/ResourcesPage'
+import { TargetsPage } from './pages/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
+import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 
 import './components/PipelineStudio/FeatureFlagStage'
 
@@ -171,7 +172,15 @@ export default (
       })}
       exact
     >
-      <CFTargetDetailsPage />
+      <TargetDetailPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFSegments({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CFTargetsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -179,7 +188,7 @@ export default (
       path={routes.toCFTargets({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CFTargetsPage />
+      <TargetsPage />
     </RouteWithLayout>
 
     <RouteWithLayout

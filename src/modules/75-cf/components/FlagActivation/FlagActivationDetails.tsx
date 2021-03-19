@@ -27,10 +27,12 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { OptionsMenuButton, MenuDivider } from '@common/components'
 import { Feature, Features, Prerequisite, useDeleteFeatureFlag, usePatchFeature, Variation } from 'services/cf'
 import InputDescOptional from '@cf/components/CreateFlagWizard/common/InputDescOptional'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { useConfirmAction } from '@common/hooks'
+import { getErrorMessage } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -621,7 +623,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const archiveFlag = useConfirmAction({
     title: getString('cf.featureFlags.archiveFlag'),
     message: (
-      <Text font="medium">
+      <Text>
         <span
           dangerouslySetInnerHTML={{
             __html: getString('cf.featureFlags.archiveFlagMessage', { name: featureFlag.name })
@@ -637,7 +639,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const deleteFlag = useConfirmAction({
     title: getString('cf.featureFlags.deleteFlag'),
     message: (
-      <Text font="medium">
+      <Text>
         <span
           dangerouslySetInnerHTML={{
             __html: getString('cf.featureFlags.deleteFlagMessage', { name: featureFlag.name })
@@ -648,19 +650,24 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     intent: Intent.DANGER,
     action: async () => {
       try {
-        await deleteFeatureFlag(featureFlag.identifier)
-        history.replace(featureFlagListURL)
-        showSuccess(
-          <Text color={Color.WHITE}>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: getString('cf.featureFlags.deleteFlagSuccess', { name: featureFlag.name })
-              }}
-            />
-          </Text>
-        )
+        deleteFeatureFlag(featureFlag.identifier)
+          .then(() => {
+            history.replace(featureFlagListURL)
+            showSuccess(
+              <Text color={Color.WHITE}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: featureFlag.name })
+                  }}
+                />
+              </Text>
+            )
+          })
+          .catch(error => {
+            showError(getErrorMessage(error), 0)
+          })
       } catch (error) {
-        showError(error)
+        showError(getErrorMessage(error), 0)
       }
     }
   })
@@ -705,25 +712,27 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Link>
         <span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}>/</span>
         <FlexExpander />
-        <Button
-          minimal
-          icon="Options"
-          iconProps={{ size: 24 }}
-          tooltip={
-            <Menu style={{ minWidth: 'unset' }}>
-              <Menu.Item icon="edit" text={getString('edit')} onClick={openEditDetailsModal} />
-              <Menu.Item
-                disabled
-                icon="archive"
-                text={getString('archive')}
-                onClick={archiveFlag}
-                title={getString('cf.featureNotReady')}
-              />
-              <Menu.Divider />
-              <Menu.Item icon="trash" text={getString('delete')} onClick={deleteFlag} />
-            </Menu>
-          }
-          tooltipProps={{ isDark: true, interactionKind: 'click' }}
+        <OptionsMenuButton
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: openEditDetailsModal
+            },
+            {
+              disabled: true,
+              icon: 'archive',
+              text: getString('archive'),
+              onClick: archiveFlag,
+              title: getString('cf.featureNotReady')
+            },
+            MenuDivider,
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: deleteFlag
+            }
+          ]}
         />
       </Layout.Horizontal>
 

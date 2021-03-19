@@ -27,7 +27,8 @@ import {
   Clause,
   Serve,
   VariationMap,
-  WeightedVariation
+  WeightedVariation,
+  TargetMap
 } from 'services/cf'
 import { useStrings } from 'framework/exports'
 import { extraOperatorReference } from '@cf/constants'
@@ -211,9 +212,20 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         })
     }
 
-    if (!isEqual(values.variationMap, initialValues.variationMap)) {
-      const initial = fromVariationMapToObj(initialValues.variationMap)
-      const updated = fromVariationMapToObj(values.variationMap)
+    // TODO: this whole complication needs to be refactored
+    const normalize = (variationMap: VariationMap[]) =>
+      (variationMap || []).map(item => {
+        if (item.targets?.length) {
+          item.targets = (item.targets?.map(target => target.identifier) as unknown) as TargetMap[]
+        }
+        return item
+      })
+    const normalizedInitialVariationMap = normalize(initialValues.variationMap)
+    const normalizedVariationMap = normalize(values.variationMap)
+
+    if (!isEqual(normalizedVariationMap, normalizedInitialVariationMap)) {
+      const initial = fromVariationMapToObj(normalizedInitialVariationMap)
+      const updated = fromVariationMapToObj(normalizedVariationMap)
 
       const variations = Array.from(new Set(Object.keys(initial).concat(Object.keys(updated))))
       variations.forEach((variation: string) => {

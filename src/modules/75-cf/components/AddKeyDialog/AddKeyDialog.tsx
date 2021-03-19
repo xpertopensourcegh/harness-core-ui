@@ -1,5 +1,4 @@
 import React from 'react'
-import { get } from 'lodash-es'
 import { Dialog, Spinner } from '@blueprintjs/core'
 import {
   Button,
@@ -15,7 +14,7 @@ import {
 import { ApiKey, useAddAPIKey } from 'services/cf/index'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { useToaster } from '@common/exports'
-import { EnvironmentSDKKeyType } from '@cf/utils/CFUtils'
+import { EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import css from './AddKeyDialog.module.scss'
 
@@ -68,7 +67,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
       type: values.type
     })
       .then((created: ApiKey) => onCreate(created, hideModal))
-      .catch(error => showError(get(error, 'data.error', error?.message)))
+      .catch(error => showError(getErrorMessage(error)))
   }
 
   const labelStyle = {

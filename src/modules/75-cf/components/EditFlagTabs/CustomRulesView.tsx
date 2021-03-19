@@ -29,7 +29,6 @@ import {
 } from 'react-beautiful-dnd'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target, ServingRule } from 'services/cf'
 import { useStrings } from 'framework/exports'
-import { shape } from '@cf/utils/instructions'
 import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
 import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'
@@ -759,7 +758,9 @@ const ServingCard: React.FC<ServingCardProps> = ({
       <Layout.Vertical spacing="small">
         <Text className={css.serveLabel}>{getString('cf.featureFlags.serveVariationToTargetLabel')}</Text>
         {servings.map(({ variation, targets }, idx) => {
-          const targetAvatars = targets?.map(shape<{ name: string }>('name'))
+          const targetAvatars = targets?.map(target => ({
+            name: target?.identifier || target
+          })) as { name: string }[]
           const variationOps = variations
             .filter(v => !servings.find(serving => serving.variation === v.identifier) || v.identifier === variation)
             .map(toVariationOp)
