@@ -13,12 +13,12 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
   const { getString } = useStrings()
   return (
     <StepWizard
-      icon={getConnectorIconByType(Connectors.AWS_CODE_COMMIT)}
+      icon={getConnectorIconByType(Connectors.AWS_CODECOMMIT)}
       iconProps={{ size: 37 }}
-      title={getString(getConnectorTitleIdByType(Connectors.AWS_CODE_COMMIT))}
+      title={getString(getConnectorTitleIdByType(Connectors.AWS_CODECOMMIT))}
     >
       <ConnectorDetailsStep
-        type={Connectors.AWS_CODE_COMMIT}
+        type={Connectors.AWS_CODECOMMIT}
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
@@ -39,7 +39,7 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
         name={getString('connectors.stepThreeName')}
         isStep
         isLastStep
-        type={Connectors.AWS_CODE_COMMIT}
+        type={Connectors.AWS_CODECOMMIT}
         onClose={props.onClose}
       />
     </StepWizard>

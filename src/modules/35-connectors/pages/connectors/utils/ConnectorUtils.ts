@@ -642,7 +642,7 @@ export const buildAWSCodeCommitPayload = (formData: FormData) => {
     tags: formData.tags,
     orgIdentifier: formData.orgIdentifier,
     projectIdentifier: formData.projectIdentifier,
-    type: Connectors.AWS_CODE_COMMIT,
+    type: Connectors.AWS_CODECOMMIT,
     spec: {
       type: formData.urlType,
       url: formData.url,
@@ -952,7 +952,7 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-dockerhub'
     case Connectors.AWS:
       return 'service-aws'
-    case Connectors.AWS_CODE_COMMIT:
+    case Connectors.AWS_CODECOMMIT:
       return 'service-aws-code-deploy'
     case Connectors.NEXUS:
       return 'service-nexus'
@@ -989,7 +989,7 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Splunk server'
     case Connectors.AWS:
       return 'AWS'
-    case Connectors.AWS_CODE_COMMIT:
+    case Connectors.AWS_CODECOMMIT:
       return 'AWS CodeCommit'
     case Connectors.NEXUS:
       return 'Nexus'

@@ -48,7 +48,7 @@ export const Connectors: ConnectorType = {
   GCP_KMS: 'GcpKms',
   LOCAL: 'Local',
   AWS: 'Aws',
-  AWS_CODE_COMMIT: 'Codecommit',
+  AWS_CODECOMMIT: 'Codecommit',
   NEXUS: 'Nexus',
   ARTIFACTORY: 'Artifactory',
   CEAWS: 'CEAws',

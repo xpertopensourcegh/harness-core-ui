@@ -8,6 +8,7 @@ export const GitSourceProviders = {
   GITHUB: { value: 'GITHUB', iconName: 'github' },
   GITLAB: { value: 'GITLAB', iconName: 'service-gotlab' },
   BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket' },
+  CODECOMMIT: { value: 'AWS_CODECOMMIT', iconName: 'service-aws-code-deploy' },
   CUSTOM: { value: 'CUSTOM', iconName: 'build' }
 }
 
@@ -80,6 +81,11 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
           iconName: GitSourceProviders.BITBUCKET.iconName as IconName
         },
         {
+          itemLabel: getString('repo-provider.awscodecommit'),
+          value: GitSourceProviders.CODECOMMIT.value,
+          iconName: GitSourceProviders.CODECOMMIT.iconName as IconName
+        },
+        {
           itemLabel: getString('repo-provider.customLabel'),
           value: GitSourceProviders.CUSTOM.value,
           iconName: GitSourceProviders.CUSTOM.iconName as IconName
@@ -93,6 +99,7 @@ export const getSourceRepoOptions = (getString: (str: string) => string): { labe
   { label: getString('repo-provider.githubLabel'), value: GitSourceProviders.GITHUB.value },
   { label: getString('repo-provider.gitlabLabel'), value: GitSourceProviders.GITLAB.value },
   { label: getString('repo-provider.bitbucketLabel'), value: GitSourceProviders.BITBUCKET.value },
+  { label: getString('repo-provider.awscodecommit'), value: GitSourceProviders.CODECOMMIT.value },
   { label: getString('repo-provider.customLabel'), value: GitSourceProviders.CUSTOM.value }
 ]
 

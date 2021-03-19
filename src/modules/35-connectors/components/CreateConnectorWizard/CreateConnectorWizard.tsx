@@ -90,7 +90,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <HelmRepoConnector {...commonProps} />
     case Connectors.AWS:
       return <CreateAWSConnector {...commonProps} />
-    case Connectors.AWS_CODE_COMMIT:
+    case Connectors.AWS_CODECOMMIT:
       return <CreateAWSCodeCommitConnector {...commonProps} />
     case Connectors.NEXUS:
       return <CreateNexusConnector {...commonProps} />

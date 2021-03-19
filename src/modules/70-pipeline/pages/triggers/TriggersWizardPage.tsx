@@ -171,6 +171,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           payloadConditions?.find(
             (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.TARGET_BRANCH
           ) || {}
+        const { value: tagConditionValue, operator: tagConditionOperator } =
+          payloadConditions?.find(
+            (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.TAG
+          ) || {}
+
         let pipelineJson = undefined
         try {
           pipelineJson = parse(pipelineYaml)?.pipeline
@@ -196,11 +201,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           sourceBranchValue,
           targetBranchOperator,
           targetBranchValue,
+          tagConditionOperator,
+          tagConditionValue,
+
           headerConditions,
           payloadConditions: payloadConditions?.filter(
             (payloadCondition: AddConditionInterface) =>
               payloadCondition.key !== PayloadConditionTypes.SOURCE_BRANCH &&
-              payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH
+              payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH &&
+              payloadCondition.key !== PayloadConditionTypes.TAG
           )
         }
         gitRepoSpecCopy = gitRepoSpec
@@ -280,24 +289,33 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       sourceBranchValue,
       targetBranchOperator,
       targetBranchValue,
+      tagConditionOperator,
+      tagConditionValue,
       headerConditions = [],
       payloadConditions = [],
       secureToken
     } = val
 
     if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
-      if (targetBranchOperator && targetBranchValue?.trim()) {
+      if (targetBranchOperator && targetBranchValue?.trim() && event !== eventTypes.TAG) {
         payloadConditions.unshift({
           key: PayloadConditionTypes.TARGET_BRANCH,
           operator: targetBranchOperator,
           value: targetBranchValue
         })
       }
-      if (sourceBranchOperator && sourceBranchValue?.trim() && event !== eventTypes.PUSH) {
+      if (sourceBranchOperator && sourceBranchValue?.trim() && event !== eventTypes.PUSH && event !== eventTypes.TAG) {
         payloadConditions.unshift({
           key: PayloadConditionTypes.SOURCE_BRANCH,
           operator: sourceBranchOperator,
           value: sourceBranchValue
+        })
+      }
+      if (tagConditionOperator && tagConditionValue?.trim() && event === eventTypes.TAG) {
+        payloadConditions.unshift({
+          key: PayloadConditionTypes.TAG,
+          operator: tagConditionOperator,
+          value: tagConditionValue
         })
       }
     }

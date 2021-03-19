@@ -960,6 +960,7 @@ pipeline-triggers:
     sourceBranch: 'Source Branch'
     targetBranch: 'Target Branch'
     branchName: 'Branch Name'
+    tagName: 'Tag Name'
     headerConditions: 'Header Conditions'
     payloadConditions: 'Payload Conditions'
     attribute: 'Attribute'
@@ -973,6 +974,7 @@ repo-provider:
   customLabel: Custom
   githubLabel: GitHub
   gitlabLabel: GitLab
+  awscodecommit: CodeCommit
 executionStatus:
   Failed: FAILED
   Success: SUCCESS

@@ -22,21 +22,46 @@ interface WebhookConditionsPanelPropsInterface {
   formikProps?: any
 }
 
+export const ConditionRow = ({ formikProps, name, label }: { formikProps: any; name: string; label: string }) => {
+  const { getString } = useStrings()
+  const operatorKey = `${name}Operator`
+  const valueKey = `${name}Value`
+  const operatorError = formikProps?.errors?.[operatorKey]
+  const valueError = formikProps?.errors?.[valueKey]
+  return (
+    <div className={css.conditionsRow}>
+      <div>
+        <Text style={{ fontSize: 16 }}>{label}</Text>
+      </div>
+      <FormInput.Select
+        style={{ alignSelf: valueError ? 'baseline' : 'center' }}
+        items={mockOperators}
+        name={operatorKey}
+        label={getString('pipeline-triggers.conditionsPanel.operator')}
+        onChange={() => {
+          formikProps.setFieldTouched(valueKey, true)
+        }}
+      />
+      <FormInput.Text
+        name={valueKey}
+        style={{ alignSelf: operatorError ? 'baseline' : 'center' }}
+        label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
+        onChange={() => {
+          formikProps.setFieldTouched(operatorKey, true)
+        }}
+      />
+    </div>
+  )
+}
+
 const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = ({ formikProps }): JSX.Element => {
   const {
     values: { event, sourceRepo },
     values: formikValues,
     setFieldValue,
-    errors,
-    errors: {
-      sourceBranchOperator: sourceBranchOperatorError,
-      sourceBranchValue: sourceBranchValueError,
-      targetBranchOperator: targetBranchOperatorError,
-      targetBranchValue: targetBranchValueError
-    }
+    errors
   } = formikProps
   const { getString } = useStrings()
-  const eventIsPush = event === eventTypes.PUSH
   return (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
       <h2 className={css.heading}>
@@ -51,56 +76,31 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
           <Heading level={2} font={{ weight: 'bold' }}>
             {getString('pipeline-triggers.conditionsPanel.branchConditions')}
           </Heading>
-          {!eventIsPush && (
-            <div className={css.conditionsRow}>
-              <div>
-                <Text style={{ fontSize: 16 }}>{getString('pipeline-triggers.conditionsPanel.sourceBranch')}</Text>
-              </div>
-              <FormInput.Select
-                style={{ alignSelf: sourceBranchValueError ? 'baseline' : 'center' }}
-                items={mockOperators}
-                name="sourceBranchOperator"
-                label={getString('pipeline-triggers.conditionsPanel.operator')}
-                onChange={() => {
-                  formikProps.setFieldTouched('sourceBranchValue', true)
-                }}
-              />
-              <FormInput.Text
-                name="sourceBranchValue"
-                style={{ alignSelf: sourceBranchOperatorError ? 'baseline' : 'center' }}
-                label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
-                onChange={() => {
-                  formikProps.setFieldTouched('sourceBranchOperator', true)
-                }}
-              />
-            </div>
+          {event !== eventTypes.PUSH && event !== eventTypes.TAG && (
+            <ConditionRow
+              formikProps={formikProps}
+              name="sourceBranch"
+              label={getString('pipeline-triggers.conditionsPanel.sourceBranch')}
+            />
           )}
-          <div className={css.conditionsRow}>
-            <div>
-              <Text style={{ fontSize: 16 }}>
-                {eventIsPush
+          {event !== eventTypes.TAG && (
+            <ConditionRow
+              formikProps={formikProps}
+              name="targetBranch"
+              label={
+                event === eventTypes.PUSH
                   ? getString('pipeline-triggers.conditionsPanel.branchName')
-                  : getString('pipeline-triggers.conditionsPanel.targetBranch')}
-              </Text>
-            </div>
-            <FormInput.Select
-              items={mockOperators}
-              style={{ alignSelf: targetBranchValueError ? 'baseline' : 'center' }}
-              name="targetBranchOperator"
-              label={getString('pipeline-triggers.conditionsPanel.operator')}
-              onChange={() => {
-                formikProps.setFieldTouched('targetBranchValue', true)
-              }}
+                  : getString('pipeline-triggers.conditionsPanel.targetBranch')
+              }
             />
-            <FormInput.Text
-              name="targetBranchValue"
-              style={{ alignSelf: targetBranchOperatorError ? 'baseline' : 'center' }}
-              label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
-              onChange={() => {
-                formikProps.setFieldTouched('targetBranchOperator', true)
-              }}
+          )}
+          {event === eventTypes.TAG && (
+            <ConditionRow
+              formikProps={formikProps}
+              name="tagCondition"
+              label={getString('pipeline-triggers.conditionsPanel.tagName')}
             />
-          </div>
+          )}
         </section>
       )}
       {sourceRepo === GitSourceProviders.CUSTOM.value && (

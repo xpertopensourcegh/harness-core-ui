@@ -179,11 +179,16 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 name="event"
                 items={eventOptions}
                 onChange={e => {
-                  const additionalValues: { sourceBranchOperator?: string; sourceBranchValue?: string } = {}
+                  const additionalValues: any = {}
 
                   if (event === eventTypes.PUSH) {
                     additionalValues.sourceBranchOperator = undefined
                     additionalValues.sourceBranchValue = undefined
+                  }
+
+                  if (event !== eventTypes.TAG) {
+                    additionalValues.tagConditionOperator = undefined
+                    additionalValues.tagConditionValue = undefined
                   }
 
                   formikProps.setValues({

@@ -52,6 +52,8 @@ export interface FlatOnEditValuesInterface {
   sourceBranchValue?: string
   targetBranchOperator?: string
   targetBranchValue?: string
+  tagConditionOperator?: string
+  tagConditionValue?: string
   headerConditions?: AddConditionInterface[]
   payloadConditions?: AddConditionInterface[]
 }
@@ -77,6 +79,8 @@ export interface FlatValidFormikValuesInterface {
   sourceBranchValue?: string
   targetBranchOperator?: string
   targetBranchValue?: string
+  tagConditionOperator?: string
+  tagConditionValue?: string
   headerConditions?: AddConditionInterface[]
   payloadConditions?: AddConditionInterface[]
 }
@@ -94,7 +98,8 @@ interface TriggerTypeSourceInterface {
 
 export const PayloadConditionTypes = {
   TARGET_BRANCH: 'targetBranch',
-  SOURCE_BRANCH: 'sourceBranch'
+  SOURCE_BRANCH: 'sourceBranch',
+  TAG: 'tag'
 }
 export const ResponseStatus = {
   SUCCESS: 'SUCCESS',
@@ -176,6 +181,8 @@ const checkValidPayloadConditions = (formikValues: FlatValidFormikValuesInterfac
     (!formikValues['sourceBranchOperator'] && formikValues['sourceBranchValue']?.trim()) ||
     (formikValues['targetBranchOperator'] && !formikValues['targetBranchValue']) ||
     (!formikValues['targetBranchOperator'] && formikValues['targetBranchValue']?.trim()) ||
+    (formikValues['tagConditionOperator'] && !formikValues['tagConditionValue']) ||
+    (!formikValues['tagConditionOperator'] && formikValues['tagConditionValue']?.trim()) ||
     (payloadConditions?.length &&
       payloadConditions.some((payloadCondition: AddConditionInterface) => isRowUnfilled(payloadCondition)))
   ) {
@@ -308,6 +315,28 @@ export const getValidationSchema = (getString: (key: string) => string): ObjectS
         )
       }
     ),
+    tagConditionOperator: string().test(
+      getString('pipeline-triggers.validation.operator'),
+      getString('pipeline-triggers.validation.operator'),
+      function (operator) {
+        return (
+          (operator && !this.parent.tagConditionValue) ||
+          (operator && this.parent.tagConditionValue) ||
+          (!this.parent.tagConditionValue?.trim() && !operator)
+        )
+      }
+    ),
+    tagConditionValue: string().test(
+      getString('pipeline-triggers.validation.matchesValue'),
+      getString('pipeline-triggers.validation.matchesValue'),
+      function (matchesValue) {
+        return (
+          (matchesValue && !this.parent.tagConditionOperator) ||
+          (matchesValue && this.parent.tagConditionOperator) ||
+          (!matchesValue?.trim() && !this.parent.tagConditionOperator)
+        )
+      }
+    ),
     payloadConditions: array().test(
       getString('pipeline-triggers.validation.payloadConditions'),
       getString('pipeline-triggers.validation.payloadConditions'),
@@ -331,5 +360,7 @@ export const getValidationSchema = (getString: (key: string) => string): ObjectS
   })
 
 export const eventTypes = {
-  PUSH: 'Push'
+  PUSH: 'Push',
+  BRANCH: 'Branch',
+  TAG: 'Tag'
 }
