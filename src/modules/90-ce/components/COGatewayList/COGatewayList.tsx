@@ -329,7 +329,7 @@ const COGatewayList: React.FC = () => {
                   style={{
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
-                    color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                    color: tableProps.row.original.disabled ? textColor.disable : '#0278D5'
                   }}
                   onClick={e => {
                     e.stopPropagation()
@@ -347,7 +347,7 @@ const COGatewayList: React.FC = () => {
                   style={{
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
-                    color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                    color: tableProps.row.original.disabled ? textColor.disable : '#0278D5'
                   }}
                   onClick={e => {
                     e.stopPropagation()
