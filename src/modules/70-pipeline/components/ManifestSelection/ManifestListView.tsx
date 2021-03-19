@@ -60,13 +60,13 @@ import HelmWithGcs from './ManifestWizardSteps/HelmWithGcs/HelmWithGcs'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import HelmWithS3 from './ManifestWizardSteps/HelmWithS3/HelmWithS3'
 import KustomizeWithGIT from './ManifestWizardSteps/KustomizeWithGIT/KustomizeWithGIT'
+import OpenShiftParamWithGit from './ManifestWizardSteps/OpenShiftParam/OSWithGit'
 import css from './ManifestSelection.module.scss'
 
 const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
   ManifestDataType.HelmChart
-  // ManifestDataType.Kustomize
 ]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
@@ -326,6 +326,12 @@ const ManifestListView = ({
         ):
         manifestDetailStep = <KustomizeWithGIT {...lastStepProps()} />
         break
+      case selectedManifest === ManifestDataType.OpenshiftParam &&
+        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
+          manifestStore as ManifestStores
+        ):
+        manifestDetailStep = <OpenShiftParamWithGit {...lastStepProps()} />
+        break
 
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
         [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
@@ -546,6 +552,14 @@ const ManifestListView = ({
     //   selectedManifest === ManifestDataType.HelmChart
     //     ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
     //     : manifestStoreTypes
+
+    /*
+      // This is for openshiftparam
+        const storeTypes =
+      selectedManifest === ManifestDataType.OpenshiftParam
+        ? [ManifestStoreMap.Git, ManifestStoreMap.Local]
+        : manifestStoreTypes
+    */
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart
         ? [...manifestStoreTypes, ManifestStoreMap.Http]

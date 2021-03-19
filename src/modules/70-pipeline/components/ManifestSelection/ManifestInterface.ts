@@ -114,3 +114,11 @@ export interface KustomizeWithGITDataType {
   folderPath: string
   pluginPath: string
 }
+export interface OpenShiftParamDataType {
+  identifier: string
+  branch?: string | undefined
+  commitId?: string | undefined
+  repoName?: string
+  gitFetchType?: 'Branch' | 'Commit'
+  path: string
+}

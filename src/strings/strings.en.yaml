@@ -1311,10 +1311,10 @@ manifestType:
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
+  path: 'Path'
   pluginPathRequired: Plugin Path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
-  path: Path
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'

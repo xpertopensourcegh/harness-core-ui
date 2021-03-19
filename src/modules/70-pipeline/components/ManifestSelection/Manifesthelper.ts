@@ -20,6 +20,7 @@ export const ManifestStoreMap: { [key: string]: ManifestStores } = {
   Http: 'Http',
   S3: 'S3',
   Gcs: 'Gcs'
+  // Local: 'Local'
 }
 
 export const manifestTypeIcons: Record<ManifestTypes, IconName> = {
