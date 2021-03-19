@@ -65,7 +65,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   const canRerun = isExecutionComplete(executionStatus)
   const canResume = isExecutionPaused(executionStatus)
 
-  async function abortPipleine(): Promise<void> {
+  async function abortPipeline(): Promise<void> {
     try {
       if (stageId) {
         await stageInterrupt({} as never, {
@@ -93,7 +93,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     }
   }
 
-  async function pausePipleine(): Promise<void> {
+  async function pausePipeline(): Promise<void> {
     try {
       if (stageId) {
         await stageInterrupt({} as never, {
@@ -121,7 +121,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     }
   }
 
-  async function resumePipleine(): Promise<void> {
+  async function resumePipeline(): Promise<void> {
     try {
       if (stageId) {
         await stageInterrupt({} as never, {
@@ -163,7 +163,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         <Button
           icon="play"
           tooltip={getString('execution.actions.resume')}
-          onClick={resumePipleine}
+          onClick={resumePipeline}
           {...commonButtonProps}
         />
       ) : null}
@@ -179,15 +179,15 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         <Button
           icon="pause"
           tooltip={getString('execution.actions.pause')}
-          onClick={pausePipleine}
+          onClick={pausePipeline}
           {...commonButtonProps}
         />
       ) : null}
-      {!disableInCIModule && canAbort ? (
+      {canAbort ? (
         <Button
           icon="stop"
           tooltip={getString('execution.actions.abort')}
-          onClick={abortPipleine}
+          onClick={abortPipeline}
           {...commonButtonProps}
         />
       ) : null}
@@ -204,17 +204,13 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             <MenuItem text={getString('execution.actions.rerun')} disabled={!canRerun} onClick={reRunPipeline} />
             <MenuItem
               text={getString('execution.actions.pause')}
-              onClick={pausePipleine}
+              onClick={pausePipeline}
               disabled={disableInCIModule || !canPause}
             />
-            <MenuItem
-              text={getString('execution.actions.abort')}
-              onClick={abortPipleine}
-              disabled={disableInCIModule || !canAbort}
-            />
+            <MenuItem text={getString('execution.actions.abort')} onClick={abortPipeline} disabled={!canAbort} />
             <MenuItem
               text={getString('execution.actions.resume')}
-              onClick={resumePipleine}
+              onClick={resumePipeline}
               disabled={disableInCIModule || !canResume}
             />
             <MenuItem text={getString('execution.actions.downloadLogs')} disabled />
