@@ -1,0 +1,89 @@
+import React, { useState } from 'react'
+import { Text, Container, Color, Layout, Icon, Button } from '@wings-software/uicore'
+import cx from 'classnames'
+import { TimeSelect } from '@common/components'
+import { useStrings } from 'framework/exports'
+import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
+import Expression from './Expression'
+import Spacer from './Spacer'
+import { defaultScheduleValues, shortDays, DaysOfWeek } from './ScheduleUtils'
+import css from './WeeklyTab.module.scss'
+interface DailyTabInterface {
+  formikProps: any
+}
+
+export default function WeeklyTab(props: DailyTabInterface): JSX.Element {
+  const [selectedDaysOfWeek, setSelectedDaysOfWeek] = useState<DaysOfWeek[]>(defaultScheduleValues.DAYS_OF_WEEK) // may need to move to formikProps
+  const {
+    formikProps: {
+      values: { minutes, hours, amPm },
+      values
+    },
+    formikProps
+  } = props
+  const { getString } = useStrings()
+
+  // useEffect(() => {
+  //   formikProps.setValues({
+  //     hours: defaultValues.HOURS,
+  //     minutes: defaultValues.MINUTES,
+  //     amPm: defaultValues.AM_PM
+  //   })
+  // }, [])
+
+  return (
+    <div className={css.weeklyTab}>
+      <Layout.Vertical style={{ alignItems: 'flex-start' }}>
+        <Container>
+          <Text className={css.label}> {getString('pipeline-triggers.schedulePanel.runOn')}</Text>
+          {shortDays.map(day => (
+            <Button
+              key={day}
+              className={cx(css.weekday, (selectedDaysOfWeek.includes(day) && css.activeDay) || '')}
+              onClick={() => {
+                const filteredDays = selectedDaysOfWeek.filter(selectedDay => selectedDay !== day)
+                if (filteredDays.length !== selectedDaysOfWeek.length) {
+                  setSelectedDaysOfWeek(filteredDays)
+                } else {
+                  filteredDays.push(day)
+                  setSelectedDaysOfWeek(filteredDays)
+                }
+              }}
+            >
+              <Layout.Horizontal className={css.weekdayText}>
+                <Icon
+                  style={{
+                    visibility: selectedDaysOfWeek.includes(day) ? 'visible' : 'hidden',
+                    marginRight: 'var(--spacing-xsmall)'
+                  }}
+                  background={Color.WHITE}
+                  color={Color.WHITE}
+                  size={16}
+                  name="deployment-success-new"
+                />
+                <Text>{getString(`pipeline-triggers.schedulePanel.${day}`)}</Text>
+              </Layout.Horizontal>
+            </Button>
+          ))}
+          <TimeSelect
+            label={getString('pipeline-triggers.schedulePanel.runAt')}
+            hoursValue={hours}
+            minutesValue={minutes}
+            amPmValue={amPm}
+            handleHoursSelect={option => formikProps.setFieldValue('hours', option)}
+            handleMinutesSelect={option => formikProps.setFieldValue('minutes', option)}
+            handleAmPmSelect={option => formikProps.setFieldValue('amPm', option)}
+            hideSeconds={true}
+          />
+        </Container>
+        <Spacer paddingTop="var(--spacing-large)" />
+        <ExpressionBreakdown
+          formikValues={values}
+          activeInputs={[ActiveInputs.MINUTES, ActiveInputs.HOURS, ActiveInputs.DAY_OF_WEEK]}
+        />
+        <Spacer />
+        <Expression formikProps={formikProps} />
+      </Layout.Vertical>
+    </div>
+  )
+}

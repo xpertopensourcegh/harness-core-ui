@@ -9,13 +9,9 @@ import { AddDrawer } from '@common/components'
 import { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
-import { getCategoryItems, ItemInterface } from '../utils/TriggersListUtils'
+import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
+import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
 import css from './TriggersList.module.scss'
-interface TriggerDataInterface {
-  triggerType: string
-  sourceRepo: string
-  // all else optional
-}
 
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
@@ -78,7 +74,10 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
     const onSelect = (val: ItemInterface): void => {
       if (val?.categoryValue) {
         hideDrawer()
-        onNewTriggerClick({ triggerType: val.categoryValue, sourceRepo: val.value })
+        onNewTriggerClick({
+          triggerType: val.categoryValue,
+          sourceRepo: (val.categoryValue === TriggerTypes.WEBHOOK && val.value) || undefined
+        })
       }
     }
 

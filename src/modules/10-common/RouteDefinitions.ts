@@ -301,10 +301,12 @@ const routes = {
       triggerType,
       sourceRepo,
       module
-    }: PipelineType<TriggerPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${
-        (triggerType && sourceRepo && `?triggerType=${triggerType}&sourceRepo=${sourceRepo}`) || ''
-      }`
+    }: PipelineType<TriggerPathProps>) => {
+      const isNewTrigger = triggerIdentifier === 'new'
+      return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${
+        (isNewTrigger && triggerType && `?triggerType=${triggerType}`) || ''
+      }${(isNewTrigger && sourceRepo && `&sourceRepo=${sourceRepo}`) || ''}`
+    }
   ),
   toPipelineDeploymentList: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>

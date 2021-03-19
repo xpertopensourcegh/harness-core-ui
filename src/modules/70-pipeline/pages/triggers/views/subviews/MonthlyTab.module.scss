@@ -1,0 +1,10 @@
+.monthlyTab {
+  .label {
+    margin-bottom: var(--spacing-small) !important;
+    color: var(--grey-800) !important;
+    font-size: 14px !important;
+  }
+  > div > div:nth-child(2) {
+    margin-top: var(--spacing-medium) !important;
+  }
+}

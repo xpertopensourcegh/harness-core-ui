@@ -1,0 +1,31 @@
+.weeklyTab {
+  .activeDay {
+    background-color: rgba(220, 238, 255, 0.5) !important;
+    border: 1px solid var(--blue-500) !important;
+  }
+  .weekdayText {
+    position: relative;
+    left: -11px;
+  }
+  .label {
+    margin-bottom: var(--spacing-small) !important;
+    color: var(--grey-800) !important;
+    font-size: 14px !important;
+  }
+}
+
+.weekday {
+  width: 93px;
+  height: 38px !important;
+  margin: 0 var(--spacing-xsmall) var(--spacing-medium) 0 !important;
+  border-color: var(--bp3-intent-color, #dddddd) !important;
+
+  [data-icon='deployment-success-new'] svg path {
+    &:first-child {
+      fill: var(--white) !important;
+    }
+    &:nth-child(2) {
+      fill: var(--blue-500) !important;
+    }
+  }
+}

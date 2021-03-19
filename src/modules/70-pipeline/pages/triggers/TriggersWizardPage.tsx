@@ -23,21 +23,30 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { defaultScheduleValues, scheduleTabsId } from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import { eventTypes } from './utils/TriggersWizardPageUtils'
-import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
+import {
+  WebhookTriggerConfigPanel,
+  WebhookConditionsPanel,
+  WebhookPipelineInputPanel,
+  SchedulePanel,
+  TriggerOverviewPanel
+} from './views'
 import {
   clearNullUndefined,
   ConnectorRefInterface,
   FlatInitialValuesInterface,
   FlatOnEditValuesInterface,
-  FlatValidFormikValuesInterface,
+  FlatValidWebhookFormikValuesInterface,
+  FlatValidScheduleFormikValuesInterface,
   getQueryParamsOnNew,
   getWizardMap,
   PayloadConditionTypes,
   ResponseStatus,
   TriggerTypes,
+  scheduledTypes,
   getValidationSchema
 } from './utils/TriggersWizardPageUtils'
 import css from './TriggersWizardPage.module.scss'
@@ -91,8 +100,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
   const [onEditInitialValues, setOnEditInitialValues] = useState<
     | FlatOnEditValuesInterface
-    | { pipeline?: string; identifier?: string; connectorRef?: { identifier?: string; scope?: string } }
-  >({})
+    | {
+        triggerType: NGTriggerSource['type']
+        pipeline?: string
+        identifier?: string
+        connectorRef?: { identifier?: string; scope?: string }
+      }
+  >({ triggerType: triggerTypeOnNew })
 
   const { data: connectorData, refetch: getConnectorDetails } = useGetConnector({
     identifier: getIdentifierFromValue(onEditInitialValues?.connectorRef?.identifier || '') as string,
@@ -271,7 +285,40 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     )
   }
   const { showSuccess } = useToaster()
-  const handleSubmit = async (val: FlatValidFormikValuesInterface): Promise<void> => {
+  const submitTrigger = async (triggerJson: NGTriggerConfig) => {
+    if (onEditInitialValues?.identifier) {
+      const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
+      if (status === ResponseStatus.SUCCESS) {
+        showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
+        history.push(
+          routes.toTriggersPage({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier,
+            module
+          })
+        )
+      }
+      // error flow sent to Wizard
+    } else {
+      const { status, data } = await createTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
+      if (status === ResponseStatus.SUCCESS) {
+        showSuccess(getString('pipeline-triggers.toast.successfulCreate', { name: data?.name }))
+        history.push(
+          routes.toTriggersPage({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier,
+            module
+          })
+        )
+      }
+    }
+  }
+
+  const handleWebhookSubmit = async (val: FlatValidWebhookFormikValuesInterface): Promise<void> => {
     const {
       name,
       identifier,
@@ -361,54 +408,80 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       triggerJson.source.spec.spec.headerConditions = headerConditions
     }
 
-    if (onEditInitialValues?.identifier) {
-      const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
-      if (status === ResponseStatus.SUCCESS) {
-        showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
-        history.push(
-          routes.toTriggersPage({
-            accountId,
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            module
-          })
-        )
+    submitTrigger(triggerJson)
+  }
+
+  const handleScheduleSubmit = async (val: FlatValidScheduleFormikValuesInterface): Promise<void> => {
+    const {
+      name,
+      identifier,
+      description,
+      tags,
+      pipeline: pipelineRuntimeInput,
+      triggerType: formikValueTriggerType,
+      targetIdentifier,
+      expression
+    } = val
+
+    // actions will be required thru validation
+    const stringifyPipelineRuntimeInput = stringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+    const triggerJson: NGTriggerConfig = {
+      name,
+      identifier,
+      enabled: enabledStatus,
+      description,
+      tags,
+      target: {
+        targetIdentifier: targetIdentifier || pipelineIdentifier,
+        type: 'Pipeline',
+        spec: {
+          runtimeInputYaml: stringifyPipelineRuntimeInput
+        }
+      },
+      source: {
+        type: (formikValueTriggerType as unknown) as NGTriggerSource['type'],
+        spec: {
+          type: scheduledTypes.CRON,
+          spec: {
+            expression
+          }
+        }
       }
-      // error flow sent to Wizard
-    } else {
-      const { status, data } = await createTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
-      if (status === ResponseStatus.SUCCESS) {
-        showSuccess(getString('pipeline-triggers.toast.successfulCreate', { name: data?.name }))
-        history.push(
-          routes.toTriggersPage({
-            accountId,
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            module
-          })
-        )
+    }
+
+    submitTrigger(triggerJson)
+  }
+
+  const getInitialValues = (triggerType: NGTriggerSource['type']): FlatInitialValuesInterface | undefined => {
+    if (triggerType === TriggerTypes.WEBHOOK) {
+      return {
+        triggerType: triggerTypeOnNew,
+        sourceRepo: sourceRepoOnNew,
+        identifier: '',
+        tags: {},
+        pipeline: currentPipeline?.pipeline,
+        originalPipeline
+      }
+    } else if (triggerType === TriggerTypes.SCHEDULE) {
+      return {
+        triggerType: triggerTypeOnNew,
+        identifier: '',
+        tags: {},
+        selectedScheduleTab: scheduleTabsId.MINUTES,
+        minutes: defaultScheduleValues.MINUTES,
+        pipeline: currentPipeline?.pipeline,
+        originalPipeline
       }
     }
   }
-
   const initialValues: FlatInitialValuesInterface = Object.assign(
-    {
-      triggerType: (triggerTypeOnNew as unknown) as NGTriggerSource['type'],
-      sourceRepo: sourceRepoOnNew,
-      identifier: '',
-      tags: {},
-      pipeline: currentPipeline?.pipeline,
-      originalPipeline
-    },
+    (triggerTypeOnNew && getInitialValues(triggerTypeOnNew)) || {},
     onEditInitialValues
   )
 
-  const wizardMap =
-    initialValues.sourceRepo && initialValues.triggerType
-      ? getWizardMap({ triggerType: initialValues.triggerType, getString, triggerName: initialValues?.name })
-      : undefined
+  const wizardMap = initialValues.triggerType
+    ? getWizardMap({ triggerType: initialValues.triggerType, getString, triggerName: initialValues?.name })
+    : undefined
 
   const titleWithSwitch = (
     <Layout.Horizontal
@@ -439,8 +512,46 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       <Wizard
         formikInitialProps={{
           initialValues,
-          onSubmit: (val: FlatValidFormikValuesInterface) => handleSubmit(val),
-          validationSchema: getValidationSchema(getString),
+          onSubmit: (val: FlatValidWebhookFormikValuesInterface) => handleWebhookSubmit(val),
+          validationSchema: getValidationSchema(
+            (TriggerTypes.WEBHOOK as unknown) as NGTriggerSource['type'],
+            getString
+          ),
+          enableReinitialize: true
+        }}
+        className={css.tabs}
+        wizardMap={wizardMap}
+        tabWidth="218px"
+        onHide={returnToTriggersPage}
+        // defaultTabId="Schedule"
+        submitLabel={
+          isEdit ? getString('pipeline-triggers.updateTrigger') : getString('pipeline-triggers.createTrigger')
+        }
+        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
+        isEdit={isEdit}
+        errorToasterMessage={errorToasterMessage}
+        showVisualYaml={false}
+        leftNav={titleWithSwitch}
+      >
+        <WebhookTriggerConfigPanel />
+        <WebhookConditionsPanel />
+        <WebhookPipelineInputPanel />
+      </Wizard>
+    )
+  }
+
+  const renderScheduleWizard = (): JSX.Element | undefined => {
+    const isEdit = !!onEditInitialValues?.identifier
+    if (!wizardMap) return undefined
+    return (
+      <Wizard
+        formikInitialProps={{
+          initialValues,
+          onSubmit: (val: FlatValidScheduleFormikValuesInterface) => handleScheduleSubmit(val),
+          validationSchema: getValidationSchema(
+            (TriggerTypes.SCHEDULE as unknown) as NGTriggerSource['type'],
+            getString
+          ),
           enableReinitialize: true
         }}
         className={css.tabs}
@@ -457,8 +568,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         showVisualYaml={false}
         leftNav={titleWithSwitch}
       >
-        <WebhookTriggerConfigPanel />
-        <WebhookConditionsPanel />
+        <TriggerOverviewPanel />
+        <SchedulePanel />
         <WebhookPipelineInputPanel />
       </Wizard>
     )
@@ -483,6 +594,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       <Page.Body>
         {!loadingGetTrigger && getTriggerErrorMessage && <PageError message={getTriggerErrorMessage} />}
         {initialValues.triggerType === TriggerTypes.WEBHOOK && renderWebhookWizard()}
+        {initialValues.triggerType === TriggerTypes.SCHEDULE && renderScheduleWizard()}
       </Page.Body>
     </>
   )

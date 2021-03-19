@@ -10,14 +10,18 @@ const CUSTOM = 'CUSTOM'
 
 export interface FlatInitialValuesInterface {
   triggerType: NGTriggerSource['type']
-  sourceRepo?: GetActionsListQueryParams['sourceRepo'] | string
-  identifier: string
-  tags: {
+  identifier?: string
+  tags?: {
     [key: string]: string
   }
-  pipeline?: string
+  pipeline?: string | NgPipeline
   originalPipeline?: NgPipeline
   name?: string
+  // WEBHOOK-SPECIFIC
+  sourceRepo?: GetActionsListQueryParams['sourceRepo'] | string
+  // SCHEDULE-SPECIFIC
+  selectedScheduleTab?: string
+  minutes?: string // default open tab
 }
 
 export interface ConnectorRefInterface {
@@ -35,14 +39,15 @@ export interface FlatOnEditValuesInterface {
     [key: string]: string
   }
   pipeline: string
+  triggerType: NGTriggerSource['type']
+  originalPipeline?: NgPipeline
+  // WEBHOOK-SPECIFIC
+  sourceRepo: GetActionsListQueryParams['sourceRepo']
   connectorRef?: {
     identifier: string
     repoName?: string
   }
   repoName?: string
-  originalPipeline?: NgPipeline
-  sourceRepo: GetActionsListQueryParams['sourceRepo']
-  triggerType: string
   repoUrl?: string
   event: string
   actions: string[]
@@ -56,9 +61,12 @@ export interface FlatOnEditValuesInterface {
   tagConditionValue?: string
   headerConditions?: AddConditionInterface[]
   payloadConditions?: AddConditionInterface[]
+  // SCHEDULE-SPECIFIC
+  selectedScheduleType?: string
+  minutes?: string
 }
 
-export interface FlatValidFormikValuesInterface {
+export interface FlatValidWebhookFormikValuesInterface {
   name: string
   identifier: string
   description?: string
@@ -69,7 +77,7 @@ export interface FlatValidFormikValuesInterface {
   targetIdentifier?: string
   pipeline: NgPipeline
   sourceRepo: GetActionsListQueryParams['sourceRepo']
-  triggerType: string
+  triggerType: NGTriggerSource['type']
   repoName?: string
   connectorRef?: { connector: { spec: { type: string } }; value: string } // get from dto interface when available
   event?: string
@@ -85,15 +93,30 @@ export interface FlatValidFormikValuesInterface {
   payloadConditions?: AddConditionInterface[]
 }
 
+export interface FlatValidScheduleFormikValuesInterface {
+  name: string
+  identifier: string
+  description?: string
+  tags?: {
+    [key: string]: string
+  }
+  target?: string
+  targetIdentifier?: string
+  pipeline: NgPipeline
+  sourceRepo: GetActionsListQueryParams['sourceRepo']
+  triggerType: NGTriggerSource['type']
+  expression: string
+}
+
 export const TriggerTypes = {
   WEBHOOK: 'Webhook',
   NEW_ARTIFACT: 'NewArtifact',
-  SCHEDULED: 'Scheduled'
+  SCHEDULE: 'Scheduled'
 }
 
 interface TriggerTypeSourceInterface {
-  triggerType: string
-  sourceRepo: GetActionsListQueryParams['sourceRepo']
+  triggerType: NGTriggerSource['type']
+  sourceRepo?: GetActionsListQueryParams['sourceRepo']
 }
 
 export const PayloadConditionTypes = {
@@ -112,7 +135,7 @@ const getTriggerTitle = ({
   triggerName,
   getString
 }: {
-  triggerType: string
+  triggerType: NGTriggerSource['type']
   triggerName?: string
   getString: (key: string) => string
 }): string => {
@@ -120,8 +143,10 @@ const getTriggerTitle = ({
     return `Trigger: ${triggerName}`
   } else if (triggerType === TriggerTypes.WEBHOOK) {
     return getString('pipeline-triggers.onNewWebhookTitle')
-  } else if (triggerType === 'OnArtifact') {
+  } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
     return getString('pipeline-triggers.onNewArtifactTitle')
+  } else if (triggerType === TriggerTypes.SCHEDULE) {
+    return getString('pipeline-triggers.onNewScheduleTitle')
   }
   return ''
 }
@@ -137,16 +162,25 @@ export const clearNullUndefined = /* istanbul ignore next */ (data: TriggerConfi
 export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterface => {
   const triggerTypeParam = 'triggerType='
   const sourceRepoParam = '&sourceRepo='
-  return {
-    triggerType: (searchStr.substring(
-      searchStr.lastIndexOf(triggerTypeParam) + triggerTypeParam.length,
-      searchStr.lastIndexOf(sourceRepoParam)
-    ) as unknown) as string,
-    sourceRepo: (searchStr.substring(
-      searchStr.lastIndexOf(sourceRepoParam) + sourceRepoParam.length
-    ) as unknown) as GetActionsListQueryParams['sourceRepo']
+  const triggerType = searchStr.replace(`?${triggerTypeParam}`, '')
+  if (triggerType.includes(TriggerTypes.WEBHOOK)) {
+    return {
+      triggerType: (searchStr.substring(
+        searchStr.lastIndexOf(triggerTypeParam) + triggerTypeParam.length,
+        searchStr.lastIndexOf(sourceRepoParam)
+      ) as unknown) as NGTriggerSource['type'],
+      sourceRepo: (searchStr.substring(
+        searchStr.lastIndexOf(sourceRepoParam) + sourceRepoParam.length
+      ) as unknown) as GetActionsListQueryParams['sourceRepo']
+    }
+  } else {
+    // SCHEDULED | unfound page
+    return {
+      triggerType: (triggerType as unknown) as NGTriggerSource['type']
+    }
   }
 }
+
 export const isUndefinedOrEmptyString = (str: string | undefined): boolean => isUndefined(str) || str?.trim() === ''
 
 const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
@@ -155,7 +189,7 @@ const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
   return truthyValuesLength > 0 && truthyValuesLength < 3
 }
 
-const checkValidTriggerConfiguration = (formikValues: FlatValidFormikValuesInterface): boolean => {
+const checkValidTriggerConfiguration = (formikValues: FlatValidWebhookFormikValuesInterface): boolean => {
   const sourceRepo = formikValues['sourceRepo']
   const connectorURLType = formikValues.connectorRef?.connector?.spec?.type
 
@@ -173,7 +207,7 @@ const checkValidTriggerConfiguration = (formikValues: FlatValidFormikValuesInter
   return true
 }
 
-const checkValidPayloadConditions = (formikValues: FlatValidFormikValuesInterface): boolean => {
+const checkValidPayloadConditions = (formikValues: FlatValidWebhookFormikValuesInterface): boolean => {
   const payloadConditions = formikValues['payloadConditions']
   const headerConditions = formikValues['headerConditions']
   if (
@@ -196,31 +230,58 @@ const checkValidPayloadConditions = (formikValues: FlatValidFormikValuesInterfac
   return true
 }
 
-const getPanels = (getString: (key: string) => string): PanelInterface[] => [
-  {
-    id: 'Trigger Configuration',
-    tabTitle: getString('pipeline-triggers.triggerConfigurationLabel'),
-    requiredFields: ['name', 'identifier'], // conditional required validations checkValidTriggerConfiguration
-    checkValidPanel: checkValidTriggerConfiguration
-  },
-  {
-    id: 'Conditions',
-    tabTitle: getString('conditions'),
-    checkValidPanel: checkValidPayloadConditions
-  },
-  {
-    id: 'Pipeline Input',
-    tabTitle: getString('pipeline-triggers.pipelineInputLabel')
-    // require all fields for input set and have preflight check handled on backend
+const getPanels = ({
+  triggerType,
+  getString
+}: {
+  triggerType: NGTriggerSource['type']
+  getString: (key: string) => string
+}): PanelInterface[] | [] => {
+  if (triggerType === TriggerTypes.WEBHOOK) {
+    return [
+      {
+        id: 'Trigger Configuration',
+        tabTitle: getString('pipeline-triggers.triggerConfigurationLabel'),
+        requiredFields: ['name', 'identifier'], // conditional required validations checkValidTriggerConfiguration
+        checkValidPanel: checkValidTriggerConfiguration
+      },
+      {
+        id: 'Conditions',
+        tabTitle: getString('conditions'),
+        checkValidPanel: checkValidPayloadConditions
+      },
+      {
+        id: 'Pipeline Input',
+        tabTitle: getString('pipeline-triggers.pipelineInputLabel')
+        // require all fields for input set and have preflight check handled on backend
+      }
+    ]
+  } else if (triggerType === TriggerTypes.SCHEDULE) {
+    return [
+      {
+        id: 'Trigger Overview',
+        tabTitle: getString('pipeline-triggers.triggerOverviewPanel.title'),
+        requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
+      },
+      {
+        id: 'Schedule',
+        tabTitle: getString('pipeline-triggers.schedulePanel.title')
+      },
+      {
+        id: 'Pipeline Input',
+        tabTitle: getString('pipeline-triggers.pipelineInputLabel')
+        // require all fields for input set and have preflight check handled on backend
+      }
+    ]
   }
-]
-
+  return []
+}
 export const getWizardMap = ({
   triggerType,
   getString,
   triggerName
 }: {
-  triggerType: string
+  triggerType: NGTriggerSource['type']
   triggerName?: string
   getString: (key: string) => string
 }): { wizardLabel: string; panels: PanelInterface[] } => ({
@@ -229,138 +290,154 @@ export const getWizardMap = ({
     getString,
     triggerName
   }),
-  panels: getPanels(getString)
+  panels: getPanels({ triggerType, getString })
 })
 
 // requiredFields and checkValidPanel in getPanels() above to render warning icons related to this schema
-export const getValidationSchema = (getString: (key: string) => string): ObjectSchema<object | undefined> =>
-  object().shape({
-    name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
-    identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),
-    event: string().test(
-      getString('pipeline-triggers.validation.event'),
-      getString('pipeline-triggers.validation.event'),
-      function (event) {
-        return this.parent.sourceRepo === CUSTOM || event
-      }
-    ),
-    connectorRef: object().test(
-      getString('pipeline-triggers.validation.connector'),
-      getString('pipeline-triggers.validation.connector'),
-      function (connectorRef) {
-        return this.parent.sourceRepo === CUSTOM || connectorRef?.value
-      }
-    ),
-    repoName: string().test(
-      getString('pipeline-triggers.validation.repoName'),
-      getString('pipeline-triggers.validation.repoName'),
-      function (repoName) {
-        const connectorURLType = this.parent.connectorRef?.connector?.spec?.type
-        return (
-          !connectorURLType ||
-          (connectorURLType === connectorUrlType.ACCOUNT && repoName?.trim()) ||
-          connectorURLType === connectorUrlType.REPO
-        )
-      }
-    ),
-    actions: array().test(
-      getString('pipeline-triggers.validation.actions'),
-      getString('pipeline-triggers.validation.actions'),
-      function (actions) {
-        return this.parent.sourceRepo === CUSTOM || !isUndefined(actions)
-      }
-    ),
-    sourceBranchOperator: string().test(
-      getString('pipeline-triggers.validation.operator'),
-      getString('pipeline-triggers.validation.operator'),
-      function (operator) {
-        return (
-          // both filled or both empty. Return false to show error
-          (operator && !this.parent.sourceBranchValue) ||
-          (operator && this.parent.sourceBranchValue) ||
-          (!this.parent.sourceBranchValue?.trim() && !operator)
-        )
-      }
-    ),
-    sourceBranchValue: string().test(
-      getString('pipeline-triggers.validation.matchesValue'),
-      getString('pipeline-triggers.validation.matchesValue'),
-      function (matchesValue) {
-        return (
-          (matchesValue && !this.parent.sourceBranchOperator) ||
-          (matchesValue && this.parent.sourceBranchOperator) ||
-          (!matchesValue?.trim() && !this.parent.sourceBranchOperator)
-        )
-      }
-    ),
-    targetBranchOperator: string().test(
-      getString('pipeline-triggers.validation.operator'),
-      getString('pipeline-triggers.validation.operator'),
-      function (operator) {
-        return (
-          (operator && !this.parent.targetBranchValue) ||
-          (operator && this.parent.targetBranchValue) ||
-          (!this.parent.targetBranchValue?.trim() && !operator)
-        )
-      }
-    ),
-    targetBranchValue: string().test(
-      getString('pipeline-triggers.validation.matchesValue'),
-      getString('pipeline-triggers.validation.matchesValue'),
-      function (matchesValue) {
-        return (
-          (matchesValue && !this.parent.targetBranchOperator) ||
-          (matchesValue && this.parent.targetBranchOperator) ||
-          (!matchesValue?.trim() && !this.parent.targetBranchOperator)
-        )
-      }
-    ),
-    tagConditionOperator: string().test(
-      getString('pipeline-triggers.validation.operator'),
-      getString('pipeline-triggers.validation.operator'),
-      function (operator) {
-        return (
-          (operator && !this.parent.tagConditionValue) ||
-          (operator && this.parent.tagConditionValue) ||
-          (!this.parent.tagConditionValue?.trim() && !operator)
-        )
-      }
-    ),
-    tagConditionValue: string().test(
-      getString('pipeline-triggers.validation.matchesValue'),
-      getString('pipeline-triggers.validation.matchesValue'),
-      function (matchesValue) {
-        return (
-          (matchesValue && !this.parent.tagConditionOperator) ||
-          (matchesValue && this.parent.tagConditionOperator) ||
-          (!matchesValue?.trim() && !this.parent.tagConditionOperator)
-        )
-      }
-    ),
-    payloadConditions: array().test(
-      getString('pipeline-triggers.validation.payloadConditions'),
-      getString('pipeline-triggers.validation.payloadConditions'),
-      function (payloadConditions = []) {
-        if (payloadConditions.some((payloadCondition: AddConditionInterface) => isRowUnfilled(payloadCondition))) {
-          return false
+export const getValidationSchema = (
+  triggerType: NGTriggerSource['type'],
+  getString: (key: string) => string
+): ObjectSchema<object | undefined> => {
+  if (triggerType === TriggerTypes.WEBHOOK) {
+    return object().shape({
+      name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
+      identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),
+      event: string().test(
+        getString('pipeline-triggers.validation.event'),
+        getString('pipeline-triggers.validation.event'),
+        function (event) {
+          return this.parent.sourceRepo === CUSTOM || event
         }
-        return true
-      }
-    ),
-    headerConditions: array().test(
-      getString('pipeline-triggers.validation.headerConditions'),
-      getString('pipeline-triggers.validation.headerConditions'),
-      function (headerConditions = []) {
-        if (headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))) {
-          return false
+      ),
+      connectorRef: object().test(
+        getString('pipeline-triggers.validation.connector'),
+        getString('pipeline-triggers.validation.connector'),
+        function (connectorRef) {
+          return this.parent.sourceRepo === CUSTOM || connectorRef?.value
         }
-        return true
-      }
-    )
-  })
+      ),
+      repoName: string().test(
+        getString('pipeline-triggers.validation.repoName'),
+        getString('pipeline-triggers.validation.repoName'),
+        function (repoName) {
+          const connectorURLType = this.parent.connectorRef?.connector?.spec?.type
+          return (
+            !connectorURLType ||
+            (connectorURLType === connectorUrlType.ACCOUNT && repoName?.trim()) ||
+            connectorURLType === connectorUrlType.REPO
+          )
+        }
+      ),
+      actions: array().test(
+        getString('pipeline-triggers.validation.actions'),
+        getString('pipeline-triggers.validation.actions'),
+        function (actions) {
+          return this.parent.sourceRepo === CUSTOM || !isUndefined(actions)
+        }
+      ),
+      sourceBranchOperator: string().test(
+        getString('pipeline-triggers.validation.operator'),
+        getString('pipeline-triggers.validation.operator'),
+        function (operator) {
+          return (
+            // both filled or both empty. Return false to show error
+            (operator && !this.parent.sourceBranchValue) ||
+            (operator && this.parent.sourceBranchValue) ||
+            (!this.parent.sourceBranchValue?.trim() && !operator)
+          )
+        }
+      ),
+      sourceBranchValue: string().test(
+        getString('pipeline-triggers.validation.matchesValue'),
+        getString('pipeline-triggers.validation.matchesValue'),
+        function (matchesValue) {
+          return (
+            (matchesValue && !this.parent.sourceBranchOperator) ||
+            (matchesValue && this.parent.sourceBranchOperator) ||
+            (!matchesValue?.trim() && !this.parent.sourceBranchOperator)
+          )
+        }
+      ),
+      targetBranchOperator: string().test(
+        getString('pipeline-triggers.validation.operator'),
+        getString('pipeline-triggers.validation.operator'),
+        function (operator) {
+          return (
+            (operator && !this.parent.targetBranchValue) ||
+            (operator && this.parent.targetBranchValue) ||
+            (!this.parent.targetBranchValue?.trim() && !operator)
+          )
+        }
+      ),
+      targetBranchValue: string().test(
+        getString('pipeline-triggers.validation.matchesValue'),
+        getString('pipeline-triggers.validation.matchesValue'),
+        function (matchesValue) {
+          return (
+            (matchesValue && !this.parent.targetBranchOperator) ||
+            (matchesValue && this.parent.targetBranchOperator) ||
+            (!matchesValue?.trim() && !this.parent.targetBranchOperator)
+          )
+        }
+      ),
+      tagConditionOperator: string().test(
+        getString('pipeline-triggers.validation.operator'),
+        getString('pipeline-triggers.validation.operator'),
+        function (operator) {
+          return (
+            (operator && !this.parent.tagConditionValue) ||
+            (operator && this.parent.tagConditionValue) ||
+            (!this.parent.tagConditionValue?.trim() && !operator)
+          )
+        }
+      ),
+      tagConditionValue: string().test(
+        getString('pipeline-triggers.validation.matchesValue'),
+        getString('pipeline-triggers.validation.matchesValue'),
+        function (matchesValue) {
+          return (
+            (matchesValue && !this.parent.tagConditionOperator) ||
+            (matchesValue && this.parent.tagConditionOperator) ||
+            (!matchesValue?.trim() && !this.parent.tagConditionOperator)
+          )
+        }
+      ),
+      payloadConditions: array().test(
+        getString('pipeline-triggers.validation.payloadConditions'),
+        getString('pipeline-triggers.validation.payloadConditions'),
+        function (payloadConditions = []) {
+          if (payloadConditions.some((payloadCondition: AddConditionInterface) => isRowUnfilled(payloadCondition))) {
+            return false
+          }
+          return true
+        }
+      ),
+      headerConditions: array().test(
+        getString('pipeline-triggers.validation.headerConditions'),
+        getString('pipeline-triggers.validation.headerConditions'),
+        function (headerConditions = []) {
+          if (headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))) {
+            return false
+          }
+          return true
+        }
+      )
+    })
+  } else {
+    // Scheduled
+    return object().shape({
+      name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
+      identifier: string().trim().required(getString('pipeline-triggers.validation.identifier'))
+    })
+  }
+}
 
 export const eventTypes = {
   PUSH: 'Push',
   BRANCH: 'Branch',
   TAG: 'Tag'
+}
+
+export const scheduledTypes = {
+  CRON: 'Cron'
 }

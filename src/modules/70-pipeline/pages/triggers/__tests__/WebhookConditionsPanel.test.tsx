@@ -5,10 +5,10 @@ import { renderHook } from '@testing-library/react-hooks'
 import { useStrings } from 'framework/exports'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { NGTriggerSource } from 'services/pipeline-ng'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
-import { getValidationSchema } from '../utils/TriggersWizardPageUtils'
+import { getValidationSchema, TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import WebhookConditionsPanel from '../views/WebhookConditionsPanel'
-
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
@@ -21,7 +21,10 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
-        validationSchema={getValidationSchema(result.current.getString)}
+        validationSchema={getValidationSchema(
+          (TriggerTypes.WEBHOOK as unknown) as NGTriggerSource['type'],
+          result.current.getString
+        )}
         onSubmit={jest.fn()}
       >
         {formikProps => {

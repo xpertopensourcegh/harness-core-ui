@@ -6,6 +6,8 @@ import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import css from './AddDrawer.module.scss'
 
+const enableScheduleTriggers = false
+
 const defaultPageDrawerProps: IDrawerProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
@@ -107,7 +109,10 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
 
   useEffect(() => {
     if (addDrawerMap.categories) {
-      const stepsCategories = addDrawerMap.categories
+      let stepsCategories = addDrawerMap.categories
+      if (!enableScheduleTriggers) {
+        stepsCategories = stepsCategories.filter(category => category.categoryValue !== 'Scheduled')
+      }
       setCategories(stepsCategories)
       setOriginalCategories(stepsCategories)
     }

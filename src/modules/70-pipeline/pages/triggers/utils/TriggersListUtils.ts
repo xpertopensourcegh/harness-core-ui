@@ -35,7 +35,7 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
   searchPlaceholder: getString('pipeline-triggers.searchPlaceholder'),
   categories: [
     // {
-    //   categoryLabel: getString('pipeline-triggers.onNewArtifactLabel'),
+    //   categoryLabel: getString('pipeline-triggers.onNewArtifactTitle'),
     //   categoryValue: 'OnArtifact',
     //   items: [
     //     {
@@ -50,17 +50,17 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
     //     }
     //   ]
     // },
-    // {
-    //   categoryLabel: getString('pipeline-triggers.scheduledLabel'),
-    //   categoryValue: 'OnSchedule',
-    //   items: [
-    //     {
-    //       itemLabel: getString('pipeline-triggers.onScheduleLabel'),
-    //       value: 'OnSchedule',
-    //       iconName: 'trigger-schedule' as IconName
-    //     }
-    //   ]
-    // },
+    {
+      categoryLabel: getString('pipeline-triggers.scheduledLabel'),
+      categoryValue: 'Scheduled',
+      items: [
+        {
+          itemLabel: getString('pipeline-triggers.onScheduleLabel'),
+          value: 'Scheduled',
+          iconName: 'trigger-schedule' as IconName
+        }
+      ]
+    },
     {
       categoryLabel: getString('execution.triggerType.WEBHOOK'),
       categoryValue: 'Webhook',
@@ -113,4 +113,10 @@ export interface ItemInterface {
   visible?: boolean
   disabled?: boolean
   categoryValue?: string
+}
+
+export interface TriggerDataInterface {
+  triggerType: string
+  sourceRepo?: string
+  // all else optional
 }

@@ -15,6 +15,8 @@ import { ReferenceSelect } from './ReferenceSelect/ReferenceSelect'
 import SnippetSection from './SnippetSection/SnippetSection'
 import Table from './Table/Table'
 import TagsPopover from './TagsPopover/TagsPopover'
+import Toothpick from './Toothpick/Toothpick'
+import TimeSelect from './TimeSelect/TimeSelect'
 import { TimeAgo } from './TimeAgo/TimeAgo'
 import { useToaster } from './Toaster/useToaster'
 import { UserLabel } from './UserLabel/UserLabel'
@@ -46,6 +48,8 @@ export {
   Table,
   TagsPopover,
   TimeAgo,
+  TimeSelect,
+  Toothpick,
   useToaster,
   MultiTypeTextArea,
   MultiTypeRadioGroup,

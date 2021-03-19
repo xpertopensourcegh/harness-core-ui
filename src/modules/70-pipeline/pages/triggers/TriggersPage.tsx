@@ -5,11 +5,12 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import TriggersList from './views/TriggersList'
+import type { TriggerDataInterface } from './utils/TriggersListUtils'
 
-interface TriggerDataInterface {
-  triggerType: string
-  sourceRepo: string
-}
+// interface TriggerDataInterface {
+//   triggerType: string
+//   sourceRepo?: string
+// }
 const TriggersPage: React.FC = (): React.ReactElement => {
   const { orgIdentifier, projectIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<{

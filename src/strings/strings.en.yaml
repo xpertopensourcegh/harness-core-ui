@@ -181,6 +181,8 @@ status: Status
 filePaths: File Paths
 submit: Submit
 previous: Previous
+dateLabel: Date
+timeLabel: Time
 startTime: Start time
 services: Services
 artifacts: Artifacts
@@ -901,7 +903,7 @@ pipeline-triggers:
   showAllTriggers: 'Show all Triggers'
   onNewWebhookTitle: 'On New Webhook'
   onNewArtifactTitle: 'On New Artifact/Manifest'
-  onNewArtifactLabel: 'On New artifact'
+  onNewScheduleTitle: 'On New Schedule'
   newArtifactLabel: 'New Artifact'
   newManifestLabel: 'New Manifest'
   onScheduleLabel: 'On Schedule'
@@ -953,6 +955,8 @@ pipeline-triggers:
     regenerateToken: 'Regenerate Token'
     regeneratedToken: 'Successfully regenerated secure token'
     secureTokenRegenerateWarning: 'When the existing secure token is regenerated and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
+    recurrenceLabel: Recurrence
+    selectTimezonePlaceholder: Select timezone
   conditionsPanel:
     titleOptional: '(OPTIONAL)'
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
@@ -969,6 +973,42 @@ pipeline-triggers:
     jexlConditions: 'JEXL Conditions'
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
+  triggerOverviewPanel:
+    title: 'Trigger Overview'
+  schedulePanel:
+    title: 'Schedule'
+    minutesLabel: 'Minutes'
+    hourlyTabTitle: 'Hourly'
+    dailyTabTitle: 'Daily'
+    weeklyTabTitle: 'Weekly'
+    monthlyTabTitle: 'Monthly'
+    yearlyTabTitle: 'Yearly'
+    runEvery: 'Run every'
+    runAt: 'Run at'
+    runOn: 'Run on'
+    runEveryWeekday: 'Run every weekday'
+    runOnSpecificDay: 'Run on a specific day'
+    runOnSpecificDayMonth: 'Run on a specific day and month'
+    mondayToFridayParentheses: '(Monday - Friday)'
+    enterCustomCron: 'Enter a custom cron expression'
+    minutesParentheses: 'minute(s)'
+    daysParentheses: 'day(s)'
+    hoursAnd: 'hours(s) and'
+    ofEvery: 'of every'
+    onThe: 'on the'
+    monthsParentheses: 'month(s)'
+    hoursLabel: 'Hours'
+    dayOfMonthLabel: 'Day of month'
+    monthLabel: 'Month'
+    dayOfWeekLabel: 'Day of week'
+    MON: 'MON'
+    TUE: 'TUE'
+    WED: 'WED'
+    THU: 'THU'
+    FRI: 'FRI'
+    SAT: 'SAT'
+    SUN: 'SUN'
+    expressionBreakdown: 'Expression Breakdown'
 repo-provider:
   bitbucketLabel: BitBucket
   customLabel: Custom

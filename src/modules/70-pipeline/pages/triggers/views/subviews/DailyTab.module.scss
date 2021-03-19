@@ -1,0 +1,42 @@
+.dailyTab {
+  .radioOption {
+    color: var(--grey-800) !important;
+    font-size: 14px !important;
+  }
+
+  div {
+    .everyContainer {
+      align-items: center;
+      margin-left: var(--spacing-xxxlarge);
+      margin-top: 0 !important;
+    }
+  }
+
+  button[class*='minimal']:hover {
+    background-color: transparent !important;
+  }
+
+  .radioContainer {
+    &:first-child {
+      border-bottom: 1px solid var(--grey-200);
+    }
+    width: 100%;
+    padding-bottom: var(--spacing-medium) !important;
+  }
+
+  .activeRadio {
+    button span[icon='selection'] {
+      color: var(--blue-500) !important;
+    }
+  }
+
+  .inactiveRadio {
+    [class*='bp3-input'] {
+      opacity: 0.8;
+    }
+
+    p:not(.radioOption) {
+      opacity: 0.5;
+    }
+  }
+}
