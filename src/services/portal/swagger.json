@@ -11365,6 +11365,36 @@
         }
       }
     },
+    "/selection-logs/v2": {
+      "get": {
+        "tags": ["selection-logs"],
+        "operationId": "getSelectionLogsV2",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "taskId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseDelegateSelectionLogResponse"
+            }
+          }
+        }
+      }
+    },
     "/setup/delegates/kubernetes/account-identifier": {
       "get": {
         "tags": ["setupdelegates"],
@@ -66733,6 +66763,64 @@
         "eventTimestamp": {
           "type": "integer",
           "format": "int64"
+        },
+        "profileScopingRulesDetails": {
+          "$ref": "#/definitions/ProfileScopingRulesDetails"
+        }
+      }
+    },
+    "ProfileScopingRulesDetails": {
+      "type": "object",
+      "properties": {
+        "profileId": {
+          "type": "string"
+        },
+        "profileName": {
+          "type": "string"
+        },
+        "scopingRulesDescriptions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RestResponseDelegateSelectionLogResponse": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DelegateSelectionLogResponse"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "DelegateSelectionLogResponse": {
+      "type": "object",
+      "properties": {
+        "delegateSelectionLogs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateSelectionLogParams"
+          }
+        },
+        "taskSetupAbstractions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },

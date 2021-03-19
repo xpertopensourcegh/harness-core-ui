@@ -454,6 +454,10 @@ collaboratorsLabel: 'Collaborators'
 viewDetails: 'View Details'
 startedAt: 'Started at:'
 endedAt: 'Ended at:'
+loggedAt: 'Logged at {{time}}'
+delegateLabel: 'Delegate:'
+delegateSelectionLogs: delegate selection logs
+assessment: Assessment
 duration: 'Duration:'
 skipped: 'Step has been skipped.'
 skipCondition: 'Skip condition:'

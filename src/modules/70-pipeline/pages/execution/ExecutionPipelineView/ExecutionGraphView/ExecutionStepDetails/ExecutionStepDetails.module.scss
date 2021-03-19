@@ -122,6 +122,12 @@
       text-align: left;
     }
 
+    tr.delegateRow {
+      vertical-align: baseline;
+      p {
+        display: inline;
+      }
+    }
     & th {
       color: var(--grey-400);
       width: 100px;

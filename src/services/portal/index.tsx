@@ -9036,6 +9036,28 @@ export interface DelegateSelectionLogParams {
   conclusion?: string
   message?: string
   eventTimestamp?: number
+  profileScopingRulesDetails?: ProfileScopingRulesDetails
+}
+
+export interface ProfileScopingRulesDetails {
+  profileId?: string
+  profileName?: string
+  scopingRulesDescriptions?: string[]
+}
+
+export interface RestResponseDelegateSelectionLogResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateSelectionLogResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface DelegateSelectionLogResponse {
+  delegateSelectionLogs?: DelegateSelectionLogParams[]
+  taskSetupAbstractions?: {
+    [key: string]: string
+  }
 }
 
 export interface RestResponseListDelegateSelectionLogParams {
@@ -18521,6 +18543,35 @@ export type UseGetDelegatesProps = Omit<
 
 export const useGetDelegates = (props: UseGetDelegatesProps) =>
   useGet<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>(`/setup/delegates`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetSelectionLogsV2QueryParams {
+  accountId?: string
+  taskId?: string
+}
+
+export type GetSelectionLogsV2Props = Omit<
+  GetProps<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>,
+  'path'
+>
+
+export const GetSelectionLogsV2 = (props: GetSelectionLogsV2Props) => (
+  <Get<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>
+    path="/selection-logs/v2"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetSelectionLogsV2Props = Omit<
+  UseGetProps<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>,
+  'path'
+>
+
+export const useGetSelectionLogsV2 = (props: UseGetSelectionLogsV2Props) =>
+  useGet<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>(`/selection-logs/v2`, {
     base: getConfig('api'),
     ...props
   })

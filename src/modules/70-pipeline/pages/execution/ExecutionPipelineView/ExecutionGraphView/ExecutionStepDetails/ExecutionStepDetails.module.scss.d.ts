@@ -12,6 +12,7 @@ declare const styles: {
   readonly error: string
   readonly warn: string
   readonly detailsTable: string
+  readonly delegateRow: string
   readonly ioTab: string
   readonly ioRow: string
   readonly key: string

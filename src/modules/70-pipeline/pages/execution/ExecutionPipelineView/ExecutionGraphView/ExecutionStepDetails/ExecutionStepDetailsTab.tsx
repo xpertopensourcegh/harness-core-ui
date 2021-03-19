@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { timeToDisplayText } from '@wings-software/uicore'
+import { timeToDisplayText, Text, Layout, Color } from '@wings-software/uicore'
 import type { ExecutionNode } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
@@ -10,6 +10,7 @@ import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 import { isExecutionFailed, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
+import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
 import LogsContentOld from '../../ExecutionLogView/LogsContent'
 import css from './ExecutionStepDetails.module.scss'
 
@@ -44,6 +45,9 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   const errorMessage = step?.failureInfo?.errorMessage || step.executableResponses?.[0]?.skipTask?.message
   const isFailed = isExecutionFailed(step.status)
   const isSkipped = isExecutionSkipped(step.status)
+  const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
+  const taskIds: string[] =
+    step.executableResponses?.map(taskChain => taskChain?.task?.taskId || taskChain.taskChain?.taskId || '') || []
 
   return (
     <div className={css.detailsTab}>
@@ -56,21 +60,41 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
       <table className={css.detailsTable}>
         <tbody>
           <tr>
-            <th>Started at:</th>
+            <th>{getString('startedAt')}</th>
             <td>{step?.startTs ? moment(step?.startTs).format(DATE_FORMAT) : '-'}</td>
           </tr>
           <tr>
-            <th>Ended at:</th>
+            <th>{getString('endedAt')}</th>
             <td>{step?.endTs ? moment(step?.endTs).format(DATE_FORMAT) : '-'}</td>
           </tr>
-          <tr>
-            <th>Duration:</th>
-            <td>{step?.startTs && step?.endTs ? timeToDisplayText(step.endTs - step.startTs) : '-'}</td>
-          </tr>
-          {/*<tr>
-            <th>Delegate:</th>
-            <td>TODO: No data from server</td>
-          </tr>*/}
+          {step?.startTs && step?.endTs && (
+            <tr>
+              <th>{getString('duration')}</th>
+              <td>{timeToDisplayText(step.endTs - step.startTs)}</td>
+            </tr>
+          )}
+          {step.delegateInfoList && step.delegateInfoList.length > 0 && (
+            <tr className={css.delegateRow}>
+              <th>{getString('delegateLabel')}</th>
+              <td>
+                <Layout.Vertical spacing="xsmall">
+                  {step.delegateInfoList.map((item, index) => (
+                    <div key={`${item.id}-${index}`}>
+                      <Text>{item.name}</Text> (
+                      <Text
+                        onClick={() => openDelegateSelectionLogsModal(taskIds)}
+                        style={{ cursor: 'pointer' }}
+                        color={Color.BLUE_500}
+                      >
+                        {getString('delegateSelectionLogs')}
+                      </Text>
+                      )
+                    </div>
+                  ))}
+                </Layout.Vertical>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       {module === 'cd' ? (
