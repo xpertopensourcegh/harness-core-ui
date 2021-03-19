@@ -114,7 +114,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
       <Layout.Horizontal>
         <Layout.Vertical width={500}>
           <section className={css.patterns}>
-            <section className={css.strategies}>
+            <section className={css.strategies} data-section-id="strategy-selection">
               {strategiesByDeploymentType.map((v: StrategyType) => (
                 // <div>{v}</div>
                 <Card
