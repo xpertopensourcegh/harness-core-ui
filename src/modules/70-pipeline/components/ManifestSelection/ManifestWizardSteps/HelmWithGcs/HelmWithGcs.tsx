@@ -177,6 +177,8 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                     />
                   )}
                 </div>
+              </Layout.Horizontal>
+              <Layout.Horizontal flex spacing="huge">
                 <div
                   className={cx(helmcss.halfWidth, {
                     [helmcss.runtimeInput]:
