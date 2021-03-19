@@ -1,5 +1,5 @@
-import React from 'react'
-import { Classes, ITreeNode, Tooltip, Intent } from '@blueprintjs/core'
+import React, { useEffect, useRef } from 'react'
+import { Classes, ITreeNode, Tooltip, Intent, Dialog } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -11,7 +11,8 @@ import {
   NestedAccordionProvider,
   useNestedAccordion,
   Accordion,
-  Icon
+  Icon,
+  useModalHook
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
@@ -49,6 +50,7 @@ import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
+import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
@@ -104,11 +106,12 @@ function RunPipelineFormBasic({
   const history = useHistory()
   const { getString } = useStrings()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (inputSetYAML) {
       setCurrentPipeline(parse(inputSetYAML))
     }
   }, [inputSetYAML])
+
   const { openNestedPath } = useNestedAccordion()
   const { data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
@@ -230,9 +233,11 @@ function RunPipelineFormBasic({
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
   const renderErrors = React.useCallback(() => {
     const errorList = getErrorsList(formErrors)
-    if (!errorList.length) {
+    const errorCount = errorList.length
+    if (!errorCount) {
       return null
     }
+    const errorString = `${errorCount} ${errorCount > 1 ? 'problems' : 'problem'} with Input Set`
     return (
       <div className={css.errorHeader}>
         <Accordion>
@@ -241,7 +246,7 @@ function RunPipelineFormBasic({
             summary={
               <span>
                 <Icon name="warning-sign" intent={Intent.DANGER} />
-                {`${errorList.length} problems with Input Set`}
+                {errorString}
               </span>
             }
             details={
@@ -256,11 +261,42 @@ function RunPipelineFormBasic({
       </div>
     )
   }, [formErrors])
+
+  const valuesPipelineRef = useRef<NgPipeline>()
+
+  const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
+    return (
+      <Dialog className={css.preFlightCheckModal} isOpen onClose={hidePreflightCheckModal} title={''}>
+        <PreFlightCheckModal
+          pipeline={valuesPipelineRef.current}
+          module={module}
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          pipelineIdentifier={pipelineIdentifier}
+          onCloseButtonClick={hidePreflightCheckModal}
+          onContinuePipelineClick={() => {
+            hidePreflightCheckModal()
+            handleRunPipeline(valuesPipelineRef.current, true)
+          }}
+        />
+      </Dialog>
+    )
+  }, [])
+
   const handleRunPipeline = React.useCallback(
-    async (valuesPipeline?: NgPipeline) => {
+    async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
+      valuesPipelineRef.current = valuesPipeline
+
+      if (!skipPreFlightCheck && !forceSkipFlightCheck) {
+        // Not skipping pre-flight check - open the new modal
+        showPreflightCheckModal()
+        return
+      }
+
       try {
         const response = await runPipeline(
-          !isEmpty(valuesPipeline) ? (stringify({ pipeline: valuesPipeline }) as any) : ''
+          !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
         )
         const data = response.data
         if (response.status === 'SUCCESS') {
@@ -423,7 +459,6 @@ function RunPipelineFormBasic({
                         }}
                       />
                       <Checkbox
-                        disabled
                         label={i18n.skipPreFlightCheck}
                         checked={skipPreFlightCheck}
                         onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
