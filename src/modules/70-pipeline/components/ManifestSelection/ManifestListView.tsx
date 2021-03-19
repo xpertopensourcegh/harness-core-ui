@@ -22,11 +22,14 @@ import { Connectors } from '@connectors/constants'
 import {
   buildAWSPayload,
   buildBitbucketPayload,
+  buildGcpPayload,
   buildGithubPayload,
   buildGitlabPayload,
   buildGitPayload
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
+
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -53,6 +56,7 @@ import type {
 import HelmWithGIT from './ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 import HelmWithHttp from './ManifestWizardSteps/HelmWithHttp/HelmWithHttp'
 import OpenShiftTemplateWithGit from './ManifestWizardSteps/OSTemplateWithGit/OSTemplateWithGit'
+import HelmWithGcs from './ManifestWizardSteps/HelmWithGcs/HelmWithGcs'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import HelmWithS3 from './ManifestWizardSteps/HelmWithS3/HelmWithS3'
 import KustomizeWithGIT from './ManifestWizardSteps/KustomizeWithGIT/KustomizeWithGIT'
@@ -305,6 +309,9 @@ const ManifestListView = ({
       case selectedManifest === ManifestDataType.HelmChart && manifestStore === ManifestStoreMap.S3:
         manifestDetailStep = <HelmWithS3 {...lastStepProps()} />
         break
+      case selectedManifest === ManifestDataType.HelmChart && manifestStore === ManifestStoreMap.Gcs:
+        manifestDetailStep = <HelmWithGcs {...lastStepProps()} />
+        break
 
       case selectedManifest === ManifestDataType.OpenshiftTemplate &&
         [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
@@ -398,6 +405,46 @@ const ManifestListView = ({
             />
           </StepWizard>
         )
+      case ManifestStoreMap.Gcs:
+        return (
+          <StepWizard iconProps={{ size: 37 }} title={getString('connectors.createNewConnector')}>
+            <ConnectorDetailsStep
+              type={Connectors.GCP}
+              name={getString('overview')}
+              isEditMode={isEditMode}
+              connectorInfo={undefined}
+            />
+            <GcpAuthentication
+              name={getString('details')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              onConnectorCreated={() => {
+                //TO BE Removed
+              }}
+              connectorInfo={undefined}
+            />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              buildPayload={buildGcpPayload}
+              onConnectorCreated={() => {
+                //TO BE Removed
+              }}
+              connectorInfo={undefined}
+            />
+            <VerifyOutOfClusterDelegate
+              name={getString('connectors.stepThreeName')}
+              isStep={true}
+              isLastStep={true}
+              type={Connectors.GCP}
+            />
+          </StepWizard>
+        )
+
       default:
         return (
           <StepWizard title={getString('connectors.createNewConnector')}>

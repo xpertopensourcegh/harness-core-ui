@@ -78,6 +78,17 @@ export interface HelmWithHTTPDataType {
   chartVersion: string
   commandFlags: Array<CommandFlags>
 }
+
+export interface HelmWithGcsDataType {
+  identifier: string
+  helmVersion: string
+  skipResourceVersioning: boolean
+  chartName: string
+  chartVersion: string
+  commandFlags: Array<CommandFlags>
+  bucketName: string
+  folderPath: string
+}
 export interface HelmWithS3DataType extends HelmWithHTTPDataType {
   folderPath: string
   region: any
