@@ -19,12 +19,16 @@
     font-size: 24px !important;
     font-weight: bold !important;
   }
+}
 
-  .green {
-    color: var(--green-500);
-  }
+.statusIcon {
+  padding-left: var(--spacing-small) !important;
+}
 
-  .red {
-    color: var(--red-500);
-  }
+.green {
+  color: var(--green-500) !important;
+}
+
+.red {
+  color: var(--red-500) !important;
 }

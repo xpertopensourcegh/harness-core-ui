@@ -5,6 +5,7 @@ declare const styles: {
   readonly crossIcon: string
   readonly body: string
   readonly title: string
+  readonly statusIcon: string
   readonly green: string
   readonly red: string
 }

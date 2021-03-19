@@ -11,9 +11,15 @@ import ConfigureEmailNotifications, {
 import ConfigureSlackNotifications from '../views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from '../views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
 
-const testNotification = jest.fn()
+const testNotificationMock = jest.fn()
+testNotificationMock.mockImplementation(
+  (): Promise<{ status: string }> => {
+    return Promise.resolve({ status: 'SUCCESS' })
+  }
+)
+
 jest.mock('services/notifications', () => ({
-  useTestNotificationSetting: jest.fn().mockImplementation(() => ({ mutate: testNotification }))
+  useTestNotificationSetting: jest.fn().mockImplementation(() => ({ mutate: testNotificationMock }))
 }))
 
 describe('ConfigureNotifications', () => {
@@ -45,7 +51,7 @@ describe('ConfigureNotifications', () => {
       fireEvent.click(getByText('Test'))
     })
 
-    expect(testNotification).toHaveBeenCalledWith({
+    expect(testNotificationMock).toHaveBeenCalledWith({
       accountId: 'dummy',
       type: 'SLACK',
       recipient: 'http://valid.url',
@@ -155,7 +161,7 @@ describe('ConfigureNotifications', () => {
       fireEvent.click(getByText('Test'))
     })
 
-    expect(testNotification).toHaveBeenCalledWith({
+    expect(testNotificationMock).toHaveBeenCalledWith({
       accountId: 'dummy',
       type: 'PAGERDUTY',
       recipient: 'testKey',

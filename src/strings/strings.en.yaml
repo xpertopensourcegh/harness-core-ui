@@ -857,10 +857,13 @@ pipeline-notifications:
   notificationMethod: '{{$.notificationMethod}}'
   emailRecipients: Type emails of your recipients
   emailUserGroups: Email all members of these user groups
+  emailTestSuccess: Email test is successfully executed
   slackwebhookUrl: Slack Webhook URL (Optional)
   slackuserGroups: Notify the Slack Channels associated with these user groups
+  slackTestSuccess: Slack test is successfully executed
   pagerDutykey: PagerDuty Key (Optional)
   pagerDutyuserGroups: Notify these user groups
+  userGroupsPlaceholder: Type and press enter to add user group
 pipeline-triggers:
   aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
   addNewTrigger: Add New Trigger

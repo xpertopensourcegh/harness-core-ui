@@ -3,7 +3,9 @@ import { Formik } from 'formik'
 import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
+import cx from 'classnames'
 
+import { useToaster } from '@common/components'
 import { useTestNotificationSetting, SlackSettingDTO } from 'services/notifications'
 import { SlackNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
@@ -31,6 +33,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})
+  const { showSuccess, showError } = useToaster()
 
   const handleTest = async (testData: SlackNotificationData): Promise<void> => {
     try {
@@ -41,13 +44,15 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
         recipient: testData.webhookUrl,
         notificationId: 'asd'
       } as SlackSettingDTO)
-      if (resp.status === 'SUCCESS') {
-        if (resp.data) setTestStatus(TestStatus.SUCCESS)
-        else setTestStatus(TestStatus.FAILED)
+      if (resp.status === 'SUCCESS' && resp.data) {
+        showSuccess(getString('pipeline-notifications.slackTestSuccess'))
+        setTestStatus(TestStatus.SUCCESS)
       } else {
+        showError(getString('somethingWentWrong'))
         setTestStatus(TestStatus.FAILED)
       }
     } catch (err) {
+      showError(err.data.message)
       setTestStatus(TestStatus.ERROR)
     }
   }
@@ -102,10 +107,18 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                 <FormInput.Text name={'webhookUrl'} label={i18n.labelWebhookUrl} />
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
                   <Button text={i18n.buttonTest} onClick={() => handleTest(formik.values)} />
-                  {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={css.green} /> : null}
-                  {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
+                  {testStatus === TestStatus.SUCCESS ? (
+                    <Icon name="tick" className={cx(css.statusIcon, css.green)} />
+                  ) : null}
+                  {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
+                    <Icon name="cross" className={cx(css.statusIcon, css.red)} />
+                  ) : null}
                 </Layout.Horizontal>
-                <FormInput.MultiInput name={'userGroups'} label={i18n.labelSlackUserGroups} />
+                <FormInput.MultiInput
+                  name={'userGroups'}
+                  label={i18n.labelSlackUserGroups}
+                  tagsProps={{ placeholder: getString('pipeline-notifications.userGroupsPlaceholder') }}
+                />
 
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>

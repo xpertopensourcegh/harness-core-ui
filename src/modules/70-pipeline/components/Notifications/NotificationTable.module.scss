@@ -10,6 +10,12 @@
 }
 .notificationTable {
   padding: var(--spacing-medium)  var(--spacing-xlarge);
+
+  :global {
+    .bp3-switch {
+      display: inline;
+    }
+  }
 }
 
 .content {

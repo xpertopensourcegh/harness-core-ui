@@ -4,7 +4,9 @@ import * as Yup from 'yup'
 import { FormikForm, FormInput, Button, Layout, Container, Icon, Heading } from '@wings-software/uicore'
 import { Popover, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 
+import { useToaster } from '@common/components'
 import type { EmailNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
@@ -85,6 +87,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
   const { accountId } = useParams()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
+  const { showSuccess, showError } = useToaster()
 
   const { mutate: testNotificationSetting, loading } = useTestNotificationSetting({})
 
@@ -100,13 +103,15 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
         subject: testData.subject,
         body: testData.body
       } as EmailSettingDTO)
-      if (resp.status === 'SUCCESS') {
-        if (resp.data) setTestStatus(TestStatus.SUCCESS)
-        else setTestStatus(TestStatus.FAILED)
+      if (resp.status === 'SUCCESS' && resp.data) {
+        showSuccess(getString('pipeline-notifications.emailTestSuccess'))
+        setTestStatus(TestStatus.SUCCESS)
       } else {
+        showError(getString('somethingWentWrong'))
         setTestStatus(TestStatus.FAILED)
       }
     } catch (err) {
+      showError(err.data.message)
       setTestStatus(TestStatus.ERROR)
     }
   }
@@ -145,18 +150,25 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             return (
               <FormikForm>
                 <FormInput.TextArea name={'emailIds'} label={i18n.labelEmailIds} />
-                <FormInput.MultiInput name={'userGroups'} label={i18n.labelEmailUserGroups} />
+                <FormInput.MultiInput
+                  name={'userGroups'}
+                  label={i18n.labelEmailUserGroups}
+                  tagsProps={{ placeholder: getString('pipeline-notifications.userGroupsPlaceholder') }}
+                />
                 <Layout.Horizontal style={{ alignItems: 'center' }}>
                   <Popover isOpen={isOpen} onInteraction={setIsOpen}>
                     <Button
-                      minimal
                       text={loading ? <Spinner size={Spinner.SIZE_SMALL} /> : i18n.buttonTest}
                       disabled={loading}
                     />
                     <TestEmailConfig handleTest={handleTest} />
                   </Popover>
-                  {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={css.green} /> : null}
-                  {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
+                  {testStatus === TestStatus.SUCCESS ? (
+                    <Icon name="tick" className={cx(css.statusIcon, css.green)} />
+                  ) : null}
+                  {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
+                    <Icon name="cross" className={cx(css.statusIcon, css.red)} />
+                  ) : null}
                 </Layout.Horizontal>
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
