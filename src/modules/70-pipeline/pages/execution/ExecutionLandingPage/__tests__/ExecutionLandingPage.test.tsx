@@ -11,7 +11,6 @@ import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/
 import { ExecutionPathParams, getRunningStageForPipeline, getRunningStep } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import ExecutionLandingPage, { POLL_INTERVAL } from '../ExecutionLandingPage'
-import i18nTabs from '../ExecutionTabs/ExecutionTabs.i18n'
 import mockData from './mock.json'
 
 jest.mock('services/pipeline-ng', () => ({
@@ -77,8 +76,8 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test.each<[string, string]>([
-    [i18nTabs.piplines, routes.toExecutionPipelineView(pathParams)],
-    [i18nTabs.inputs, routes.toExecutionInputsView(pathParams)]
+    ['Pipelines', routes.toExecutionPipelineView(pathParams)],
+    ['Inputs', routes.toExecutionInputsView(pathParams)]
     // [i18nTabs.artifacts, routes.toExecutionArtifactsView(pathParams)]
   ])('Navigation to "%s" Tabs work', async (tab, url) => {
     ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({

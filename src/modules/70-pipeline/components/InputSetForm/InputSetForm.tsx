@@ -48,7 +48,6 @@ import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetFo
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
-import i18n from './InputSetForm.18n'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import css from './InputSetForm.module.scss'
@@ -71,28 +70,34 @@ const collapseProps = {
   isRemovable: false,
   className: 'collapse'
 }
-const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18n.description })
-const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.tags })
 
-export const BasicInputSetForm: React.FC<{ isEdit: boolean; values: InputSetDTO }> = ({ isEdit, values }) => (
-  <div className={css.basicForm}>
-    <FormInput.InputWithIdentifier
-      isIdentifierEditable={!isEdit}
-      inputLabel={i18n.inputSetName}
-      inputGroupProps={{ placeholder: i18n.name }}
-    />
-    <div className={css.collapseDiv}>
-      <Collapse {...descriptionCollapseProps} isOpen={(values.description && values.description?.length > 0) || false}>
-        <FormInput.TextArea name="description" />
-      </Collapse>
+export const BasicInputSetForm: React.FC<{ isEdit: boolean; values: InputSetDTO }> = ({ isEdit, values }) => {
+  const { getString } = useStrings()
+  const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: getString('description') })
+  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
+  return (
+    <div className={css.basicForm}>
+      <FormInput.InputWithIdentifier
+        isIdentifierEditable={!isEdit}
+        inputLabel={getString('inputSets.inputSetName')}
+        inputGroupProps={{ placeholder: getString('name') }}
+      />
+      <div className={css.collapseDiv}>
+        <Collapse
+          {...descriptionCollapseProps}
+          isOpen={(values.description && values.description?.length > 0) || false}
+        >
+          <FormInput.TextArea name="description" />
+        </Collapse>
+      </div>
+      <div className={css.collapseDiv}>
+        <Collapse {...tagCollapseProps} isOpen={values.tags && Object.keys(values.tags).length > 0}>
+          <FormInput.KVTagInput name="tags" />
+        </Collapse>
+      </div>
     </div>
-    <div className={css.collapseDiv}>
-      <Collapse {...tagCollapseProps} isOpen={values.tags && Object.keys(values.tags).length > 0}>
-        <FormInput.KVTagInput name="tags" />
-      </Collapse>
-    </div>
-  </div>
-)
+  )
+}
 
 enum SelectedView {
   VISUAL = 'VISUAL',
@@ -113,20 +118,13 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
 
-const getTitle = (isEdit: boolean, inputSet: InputSetDTO): string => {
-  if (isEdit) {
-    return i18n.editTitle(inputSet.name || /* istanbul ignore next */ '')
-  } else {
-    return i18n.newInputSet
-  }
-}
-
 export interface InputSetFormProps {
   executionView?: boolean
 }
 
 export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element => {
   const { executionView } = props
+  const { getString } = useStrings()
   const [isEdit, setIsEdit] = React.useState(false)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, inputSetIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
@@ -210,7 +208,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     }
   }, [inputSetIdentifier])
 
-  const { getString } = useStrings()
   useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
 
   const { loading, data: pipelineSchema } = useGetYamlSchema({
@@ -252,14 +249,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           /* istanbul ignore else */
           if (response) {
             if (response.data?.errorResponse) {
-              showError(i18n.inputSetSavedError)
+              showError(getString('inputSets.inputSetSavedError'))
             } else {
-              showSuccess(i18n.inputSetSaved)
+              showSuccess(getString('inputSets.inputSetSaved'))
             }
           }
           history.goBack()
         } catch (e) {
-          showError(e?.data?.message || e?.message || i18n.commonError)
+          showError(e?.data?.message || e?.message || getString('commonError'))
         }
       }
     },
@@ -310,7 +307,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           validate={values => {
             const errors: FormikErrors<InputSetDTO> = {}
             if (isEmpty(values.name)) {
-              errors.name = i18n.nameIsRequired
+              errors.name = getString('inputSets.nameIsRequired')
             }
             if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
               errors.pipeline = validatePipeline(
@@ -350,7 +347,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             <NameIdDescriptionTags
                               className={css.nameiddescription}
                               identifierProps={{
-                                inputLabel: i18n.inputSetName,
+                                inputLabel: getString('inputSets.inputSetName'),
                                 isIdentifierEditable: !isEdit
                               }}
                               formikProps={formikProps}
@@ -376,14 +373,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                                 handleSubmit(formikProps.values)
                               }
                             }}
-                            text={i18n.save}
+                            text={getString('save')}
                           />
                           &nbsp; &nbsp;
                           <Button
                             onClick={() => {
                               history.goBack()
                             }}
-                            text={i18n.cancel}
+                            text={getString('cancel')}
                           />
                         </Layout.Horizontal>
                       </FormikForm>
@@ -410,7 +407,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                       <Button
                         intent="primary"
                         type="submit"
-                        text={i18n.save}
+                        text={getString('save')}
                         onClick={() => {
                           const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
                           handleSubmit(parse(latestYaml)?.inputSet)
@@ -421,7 +418,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         onClick={() => {
                           history.goBack()
                         }}
-                        text={i18n.cancel}
+                        text={getString('cancel')}
                       />
                     </Layout.Horizontal>
                   </div>
@@ -513,23 +510,27 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                   }),
                   label: parse(pipeline?.data?.yamlPipeline || '')?.pipeline.name || ''
                 },
-                { url: '#', label: isEdit ? inputSet.name : i18n.newInputSet }
+                { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
               ]}
             />
             <Layout.Horizontal>
-              <Text font="medium">{getTitle(isEdit, inputSet)}</Text>
+              <Text font="medium">
+                {isEdit
+                  ? getString('inputSets.editTitle', { name: inputSet.name })
+                  : getString('inputSets.newInputSetLabel')}
+              </Text>
               <div className={css.optionBtns}>
                 <div
                   className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
                   onClick={() => handleModeSwitch(SelectedView.VISUAL)}
                 >
-                  {i18n.VISUAL}
+                  {getString('visual')}
                 </div>
                 <div
                   className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
                   onClick={() => handleModeSwitch(SelectedView.YAML)}
                 >
-                  {i18n.YAML}
+                  {getString('yaml')}
                 </div>
               </div>
             </Layout.Horizontal>

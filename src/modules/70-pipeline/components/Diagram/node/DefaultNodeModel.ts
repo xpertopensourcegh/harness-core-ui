@@ -5,7 +5,6 @@ import type { IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { DefaultPortModel } from '../port/DefaultPortModel'
 import { DiagramType } from '../Constants'
-import i18n from '../Diagram.i18n'
 import type { DefaultLinkModel } from '../link/DefaultLinkModel'
 
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
@@ -47,7 +46,7 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
     }
     super({
       type: DiagramType.Default,
-      name: i18n.Untitled,
+      name: 'Untitled',
       icon: 'add',
       nodeClassName: '',
       allowAdd: false,

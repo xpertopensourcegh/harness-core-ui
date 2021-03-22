@@ -33,7 +33,7 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
-import i18n from './OverlayInputSetForm.18n'
+import { useStrings } from 'framework/exports'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {
@@ -82,15 +82,8 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 const clearNullUndefined = /* istanbul ignore next */ (data: OverlayInputSetDTO): OverlayInputSetDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
 
-const getTitle = (isEdit: boolean, inputSet: OverlayInputSetDTO): string => {
-  if (isEdit) {
-    return i18n.editOverlayTitle(inputSet.name || /* istanbul ignore next */ '')
-  } else {
-    return i18n.newOverlayInputSet
-  }
-}
-
 export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideForm, identifier }): JSX.Element => {
+  const { getString } = useStrings()
   const [isOpen, setIsOpen] = React.useState(true)
   const [isEdit, setIsEdit] = React.useState(false)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
@@ -243,9 +236,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
           /* istanbul ignore else */
           if (response) {
             if (response.data?.errorResponse) {
-              showError(i18n.overlayInputSetSavedError)
+              showError(getString('inputSets.overlayInputSetSavedError'))
             } else {
-              showSuccess(i18n.overlayInputSetSaved)
+              showSuccess(getString('inputSets.overlayInputSetSaved'))
             }
           }
           closeForm()
@@ -310,7 +303,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
         (updateOverlayInputSetError?.data as Failure)?.message ||
         (errorOverlayInputSet?.data as Failure)?.message ||
         (errorInputSetList?.data as Failure)?.message ||
-        i18n.commonError
+        getString('commonError')
     )
   }
 
@@ -334,7 +327,16 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
   })
 
   return (
-    <Dialog title={getTitle(isEdit, inputSet)} onClose={() => closeForm()} isOpen={isOpen} {...dialogProps}>
+    <Dialog
+      title={
+        isEdit
+          ? getString('inputSets.editOverlayTitle', { name: inputSet.name })
+          : getString('inputSets.newOverlayInputSet')
+      }
+      onClose={() => closeForm()}
+      isOpen={isOpen}
+      {...dialogProps}
+    >
       {(loadingPipeline ||
         createOverlayInputSetLoading ||
         updateOverlayInputSetLoading ||
@@ -347,13 +349,13 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
               className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
               onClick={() => handleModeSwitch(SelectedView.VISUAL)}
             >
-              {i18n.VISUAL}
+              {getString('visual')}
             </div>
             <div
               className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
               onClick={() => handleModeSwitch(SelectedView.YAML)}
             >
-              {i18n.YAML}
+              {getString('yaml')}
             </div>
           </div>
 
@@ -361,7 +363,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
             initialValues={{ ...inputSet }}
             enableReinitialize={true}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(i18n.nameIsRequired)
+              name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
             })}
             onSubmit={values => {
               handleSubmit(values)
@@ -376,16 +378,16 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                         <NameIdDescriptionTags
                           className={css.inputSetName}
                           identifierProps={{
-                            inputLabel: i18n.overlaySetName,
+                            inputLabel: getString('inputSets.overlaySetName'),
                             isIdentifierEditable: !isEdit
                           }}
                           formikProps={formikProps}
                         />
 
                         <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }} spacing="small">
-                          <Text font={{ size: 'medium' }}>{i18n.selectInputSets}</Text>
+                          <Text font={{ size: 'medium' }}>{getString('inputSets.selectInputSets')}</Text>
                           <Text icon="info-sign" iconProps={{ color: Color.BLUE_450, size: 23, padding: 'small' }}>
-                            {i18n.selectInputSetsHelp}
+                            {getString('inputSets.selectInputSetsHelp')}
                           </Text>
                           <Layout.Vertical padding={{ top: 'xxxlarge', bottom: 'large' }}>
                             <FieldArray
@@ -417,7 +419,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                                           items={inputSetListOptions}
                                           name={`inputSetReferences[${index}]`}
                                           style={{ width: 400 }}
-                                          placeholder={i18n.selectInputSet}
+                                          placeholder={getString('inputSetsText')}
                                         />
                                       </Layout.Horizontal>
                                       <Button minimal icon="delete" onClick={() => arrayHelpers.remove(index)} />
@@ -426,7 +428,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                                   <span>
                                     <Button
                                       minimal
-                                      text={i18n.addInputSet}
+                                      text={getString('inputSets.addInputSetPlus')}
                                       intent="primary"
                                       onClick={() => arrayHelpers.push('')}
                                     />
@@ -438,9 +440,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                         </Layout.Vertical>
                       </div>
                       <div className={Classes.DIALOG_FOOTER}>
-                        <Button intent="primary" type="submit" text={i18n.save} />
+                        <Button intent="primary" type="submit" text={getString('save')} />
                         &nbsp; &nbsp;
-                        <Button onClick={closeForm} text={i18n.cancel} />
+                        <Button onClick={closeForm} text={getString('cancel')} />
                       </div>
                     </FormikForm>
                   ) : (
@@ -460,7 +462,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                         <Button
                           intent="primary"
                           type="submit"
-                          text={i18n.save}
+                          text={getString('save')}
                           onClick={() => {
                             const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
 
@@ -468,7 +470,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                           }}
                         />
                         &nbsp; &nbsp;
-                        <Button onClick={closeForm} text={i18n.cancel} />
+                        <Button onClick={closeForm} text={getString('cancel')} />
                       </Layout.Horizontal>
                     </div>
                   )}

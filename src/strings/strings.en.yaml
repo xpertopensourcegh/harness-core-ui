@@ -158,6 +158,9 @@ changeSource: Change Source
 monitoringSource: Monitoring Source
 sensitivity: Sensitivity
 pipelines: Pipelines
+inputs: Inputs
+commits: Commits
+tests: Tests
 pipelineBreadcrumb: '{{$.pipelines}}: Pipeline Studio'
 performance: Performance
 quality: quality
@@ -398,6 +401,7 @@ deletePipelineStage: 'Delete Pipeline Stage.'
 deleteStageSuccess: 'Pipeline Stage Successfully removed.'
 deleteStageFailure: 'Pipeline Stage cannot be removed.'
 repositoryType: 'Repository Type'
+commonError: Error occurred while fetching/saving the data
 selectServer: 'Select Server'
 stepPalette:
   title: 'Step Library'
@@ -469,7 +473,21 @@ loggedAt: 'Logged at {{time}}'
 delegateLabel: 'Delegate:'
 inputSets:
   inputSetLabel: Input Set
+  editTitle: 'Edit Input Set: {{name}}'
+  editOverlayTitle: 'Edit Overlay Input Set: {{name}}'
   newInputSet: + New Input Set
+  addInputSetPlus: + Add Input Set
+  newOverlayInputSet: New Overlay Input Set
+  newInputSetLabel: New Input Set
+  inputSetSaved: Input Set saved
+  nameIsRequired: InputSet Name is Required field
+  inputSetName: Input set name
+  overlaySetName: Overlay set name
+  overlayInputSetSavedError: 'Error while saving Overlay InputSet'
+  selectInputSets: Select Input Sets
+  selectInputSetsHelp: Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
+  overlayInputSetSaved: 'Overlay Input Set saved'
+  inputSetSavedError: Error while saving InputSet
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
   aboutInputSets: Input sets are collections of variables/values that should be provided to a pipeline before execution.

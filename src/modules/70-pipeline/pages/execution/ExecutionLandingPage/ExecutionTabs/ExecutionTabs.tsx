@@ -10,13 +10,13 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import { String } from 'framework/exports'
-import i18n from './ExecutionTabs.i18n'
+import { String, useStrings } from 'framework/exports'
 
 import css from './ExecutionTabs.module.scss'
 
 export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { children } = props
+  const { getString } = useStrings()
   const { pipelineExecutionDetail } = useExecutionContext()
   const params = useParams<PipelineType<ExecutionPathProps>>()
   const location = useLocation()
@@ -69,11 +69,11 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
       <div className={css.tabs}>
         <NavLink to={routes.toExecutionPipelineView(params)} className={css.tabLink} activeClassName={css.activeLink}>
           <Icon name="alignment-vertical-center" size={16} />
-          <span>{i18n.piplines}</span>
+          <span>{getString('pipelines')}</span>
         </NavLink>
         <NavLink to={routes.toExecutionInputsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
           <Icon name="manually-entered-data" size={16} />
-          <span>{i18n.inputs}</span>
+          <span>{getString('inputs')}</span>
         </NavLink>
         {/* {!isCI && (
           <NavLink
@@ -94,12 +94,12 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
                 activeClassName={css.activeLink}
               >
                 <Icon name="git-commit" size={16} />
-                <span>{i18n.commits}</span>
+                <span>{getString('commits')}</span>
               </NavLink>
             ) : null}
             <NavLink to={routes.toExecutionTestsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
               <Icon name="lab-test" size={16} />
-              <span>{i18n.tests}</span>
+              <span>{getString('tests')}</span>
             </NavLink>
           </>
         )}

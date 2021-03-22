@@ -2,10 +2,10 @@ import * as React from 'react'
 import { map } from 'lodash-es'
 import { DiagramEngine, NodeWidget, NodeModel } from '@projectstorm/react-diagrams-core'
 import { Text, Button, Icon, Color, Layout, Link } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
 import type { StepGroupNodeLayerModel } from './StepGroupNodeLayerModel'
 import { Event, StepsType, DiagramDrag } from '../Constants'
 import { RollbackToggleSwitch } from '../canvas/RollbackToggleSwitch/RollbackToggleSwitch'
-import i18n from '../Diagram.i18n'
 import css from './StepGroupNodeLayer.module.scss'
 
 export interface StepGroupNodeLayerWidgetProps {
@@ -33,6 +33,7 @@ const onAddNodeClick = (
 export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): JSX.Element => {
   const options = props.layer.getOptions()
   const allowAdd = options.allowAdd
+  const { getString } = useStrings()
   const rollBackProps = options.rollBackProps || {}
   const config = {
     maxX: props.layer.endNode.getPosition().x,
@@ -212,7 +213,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             props.layer.fireEvent({}, Event.StepGroupClicked)
           }}
         >
-          {options.label} {options.rollBackProps?.active === StepsType.Rollback && `(${i18n.Rollback})`}
+          {options.label} {options.rollBackProps?.active === StepsType.Rollback && `(${getString('rollbackLabel')})`}
         </Text>
       </Layout.Horizontal>
       <>
