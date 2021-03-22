@@ -324,6 +324,7 @@ export const getValidationSchema = (
           return (
             !connectorURLType ||
             (connectorURLType === connectorUrlType.ACCOUNT && repoName?.trim()) ||
+            (connectorURLType === connectorUrlType.REGION && repoName?.trim()) ||
             connectorURLType === connectorUrlType.REPO
           )
         }

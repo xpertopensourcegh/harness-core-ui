@@ -65,7 +65,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
           />
         </>
       )
-    } else if (connectorURLType === connectorUrlType.ACCOUNT) {
+    } else if (connectorURLType === connectorUrlType.ACCOUNT || connectorURLType === connectorUrlType.REGION) {
       return (
         <>
           <FormInput.Text

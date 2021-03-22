@@ -96,5 +96,6 @@ export const ActivityStatus: ActivityStatusType = {
 
 export const connectorUrlType = {
   ACCOUNT: 'Account',
-  REPO: 'Repo'
+  REPO: 'Repo',
+  REGION: 'Region'
 }
