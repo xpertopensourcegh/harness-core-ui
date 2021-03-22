@@ -18,8 +18,8 @@ const getStageEditorImplementation = (isEnabled: boolean, _getString: UseStrings
   <ApprovalStage
     icon={'pipeline-approval'}
     name={'Approval'}
-    title=""
-    description=""
+    title={_getString('approvalStage.title')}
+    description={_getString('approvalStage.description')}
     type={StageTypes.APPROVAL}
     isDisabled={!isEnabled}
     isApproval={true}

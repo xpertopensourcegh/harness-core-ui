@@ -4,6 +4,7 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import routes from '@common/RouteDefinitions'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineStagesUtils'
 import { useAppStore, useStrings } from 'framework/exports'
@@ -28,6 +29,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   }
   const { selectedProject } = useAppStore()
   const { getString } = useStrings()
+  const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -39,7 +41,8 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
           getString,
           selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1,
           true,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CF') > -1
+          selectedProject?.modules && selectedProject.modules.indexOf?.('CF') > -1,
+          isApprovalStageEnabled
         )
       }
       stepsFactory={factory}

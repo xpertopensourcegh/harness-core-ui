@@ -1,0 +1,54 @@
+.approvalStageMinimalWrapper {
+  background-color: var(--white) !important;
+  display: grid;
+  padding: var(--spacing-xlarge);
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+
+.collapseDiv {
+  margin-top: calc(var(--spacing-large) / -1);
+  margin-bottom: var(--spacing-medium);
+
+  div {
+    border-top: none;
+    padding: 0;
+  }
+}
+
+.tabHeading {
+  font-size: var(--font-size-medium);
+  color: var(--black-color-3);
+  font-weight: 600;
+}
+
+.approvalTypeCardBody {
+  width: 50px;
+  height: 50px;
+  margin: 0 var(--spacing-small);
+}
+
+.grid {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  margin: var(--spacing-medium) 0;
+}
+
+.squareCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 64px;
+  margin-right: var(--spacing-small);
+}
+
+.squareCard {
+  width: 64px;
+  height: 64px;
+  padding: var(--spacing-small) 0;
+  margin-bottom: var(--spacing-small);
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}

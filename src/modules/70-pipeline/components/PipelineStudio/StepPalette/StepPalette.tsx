@@ -86,6 +86,9 @@ const dataSourceFactory = (stageType: StageTypes): any => {
       return useGetBuildSteps
     case StageTypes.DEPLOY:
       return useGetSteps
+    case StageTypes.APPROVAL:
+      // Replace this with approval step palette API
+      return useGetSteps
     case StageTypes.FEATURE:
       return useGetFeatureSteps
   }
@@ -118,7 +121,10 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const { module, accountId } = useParams<{ module: string; accountId: string }>()
-  const serviceDefinitionType = get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+  const categoryForStepPalette =
+    (selectedStage as any).stage?.type === StageTypes.APPROVAL
+      ? StageTypes.APPROVAL
+      : get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
 
   const Message = ({ stepsDataLoading }: { stepsDataLoading: boolean }) => {
     const message = stepsDataLoading
@@ -133,7 +139,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   }
 
   const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(stageType)({
-    queryParams: { category: serviceDefinitionType, module, accountId }
+    queryParams: { category: categoryForStepPalette, module, accountId }
   })
   const { getString } = useStrings()
   useEffect(() => {

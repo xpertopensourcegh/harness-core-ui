@@ -7,6 +7,14 @@
   }
 }
 
+.multiSelect {
+  :global {
+    .bp3-multi-select {
+      height: fit-content !important;
+    }
+  }
+}
+
 .approvalMessage {
   :global {
     textarea {
@@ -35,4 +43,8 @@
   :global(.bp3-icon-trash) {
     color: var(--grey-400) !important;
   }
+}
+
+.align {
+  align-items: center;
 }

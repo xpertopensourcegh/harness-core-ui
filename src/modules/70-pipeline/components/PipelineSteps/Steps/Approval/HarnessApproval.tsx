@@ -9,7 +9,7 @@ import { getDurationValidationSchema } from '@common/components/MultiTypeDuratio
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
-import { flatObject } from './helper'
+import { flatObject, processFormData, processForInitialValues } from './helper'
 import HarnessApprovalDeploymentMode from './HarnessApprovalDeploymentMode'
 import HarnessApprovalStepModeWithRef from './HarnessApprovalStepMode'
 import type { HarnessApprovalData, HarnessApprovalVariableListModeProps } from './types'
@@ -37,7 +37,12 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
         minimumCount: 1,
         disallowPipelineExecutor: true
       },
-      approverInputs: [{ name: '', value: '' }]
+      approverInputs: [
+        {
+          name: '',
+          defaultValue: ''
+        }
+      ]
     }
   }
 
@@ -93,12 +98,13 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
 
   renderStep(this: HarnessApproval, props: StepProps<HarnessApprovalData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <HarnessApprovalDeploymentMode
           stepViewType={stepViewType}
-          initialValues={initialValues}
-          onUpdate={onUpdate}
+          initialValues={processForInitialValues(initialValues)}
+          onUpdate={values => onUpdate?.(processFormData(values))}
           inputSetData={inputSetData}
         />
       )
@@ -116,8 +122,8 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       <HarnessApprovalStepModeWithRef
         ref={formikRef}
         stepViewType={stepViewType}
-        initialValues={initialValues}
-        onUpdate={onUpdate}
+        initialValues={processForInitialValues(initialValues)}
+        onUpdate={values => onUpdate?.(processFormData(values))}
       />
     )
   }

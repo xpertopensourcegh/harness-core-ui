@@ -18,7 +18,6 @@ export interface VariableListTableProps<T = Record<string, unknown>> {
 
 export function VariablesListTable<T>(props: VariableListTableProps<T>): React.ReactElement | null {
   const { data, metadataMap, originalData, className } = props
-
   if (!data || !originalData || !metadataMap) return null
   return (
     <div className={cx(css.variablesListTable, className)}>

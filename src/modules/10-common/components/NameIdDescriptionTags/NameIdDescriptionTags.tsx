@@ -36,7 +36,7 @@ export const NameId = (props: NameIdProps): JSX.Element => {
   return <FormInput.InputWithIdentifier inputLabel={nameLabel} {...identifierProps} />
 }
 
-const Description = (props: DescriptionComponentProps): JSX.Element => {
+export const Description = (props: DescriptionComponentProps): JSX.Element => {
   const { descriptionProps, hasValue } = props
   const { getString } = useStrings()
   const [isDescriptionOpen, setDescriptionOpen] = useState<boolean>(hasValue || false)

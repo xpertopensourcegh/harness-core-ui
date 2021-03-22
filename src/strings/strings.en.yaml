@@ -2241,6 +2241,13 @@ customVariables:
   title: Custom Variables
   variableAndType: '{{name}} [Type: {{type}}]'
 
+approvalStage:
+  title: Approval
+  description: Use this stage to approval section.
+  approvalTypeHeading: What type of approval would you like to add?
+  stageNameRequired: Stage name is mandatory
+  setupShellOverview: Approval Stage Overview
+  setupShellExecution: Approval Execution
   # Custom Dashboards
 dashboards:
   sideNav:
