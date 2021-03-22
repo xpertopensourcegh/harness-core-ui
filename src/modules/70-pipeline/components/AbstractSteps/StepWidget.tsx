@@ -3,7 +3,6 @@ import { Text } from '@wings-software/uicore'
 
 import { String } from 'framework/exports'
 import type { AbstractStepFactory } from './AbstractStepFactory'
-import i18n from './StepWidget.i18n'
 import { StepViewType } from './Step'
 import type { StepProps, StepFormikFowardRef } from './Step'
 import type { StepType } from '../PipelineSteps/PipelineStepInterface'
@@ -36,7 +35,7 @@ export function StepWidget<T = unknown, U = unknown>(
 ): JSX.Element | null {
   const step = factory.getStep<T>(type)
   if (!step) {
-    return __DEV__ ? <Text intent="warning">{i18n.invalidStep}</Text> : null
+    return __DEV__ ? <Text intent="warning">Step not found</Text> : null
   } else if (stepViewType === StepViewType.InputVariable && !step.hasStepVariables) {
     return __DEV__ ? (
       <Text intent="warning">

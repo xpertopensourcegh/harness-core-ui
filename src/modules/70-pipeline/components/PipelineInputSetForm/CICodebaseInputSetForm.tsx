@@ -2,7 +2,7 @@ import React from 'react'
 import { get, isEmpty } from 'lodash-es'
 import { Card, FormInput } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
-import i18n from './PipelineInputSetForm.i18n'
+import { useStrings } from 'framework/exports'
 
 export interface CICodebaseInputSetFormProps {
   path: string
@@ -14,23 +14,23 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   const type = get(formik?.values, `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`, '') as
     | 'branch'
     | 'tag'
-
+  const { getString } = useStrings()
   const radioGroupItems = [
     {
-      label: i18n.gitBranch,
+      label: getString('gitBranch'),
       value: 'branch',
       disabled: readonly
     },
     {
-      label: i18n.gitTag,
+      label: getString('gitTag'),
       value: 'tag',
       disabled: readonly
     }
   ]
 
   const inputLabels = {
-    branch: i18n.gitBranch,
-    tag: i18n.gitTag
+    branch: getString('gitBranch'),
+    tag: getString('gitTag')
   }
 
   return (

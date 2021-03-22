@@ -15,12 +15,11 @@ import type {
   ServiceConfig,
   PipelineInfrastructure
 } from 'services/cd-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
 import { CollapseForm } from './CollapseForm'
-import i18n from './PipelineInputSetForm.i18n'
 import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import css from './PipelineInputSetForm.module.scss'
 function StepForm({
@@ -179,6 +178,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   stageIdentifier
 }) => {
   const deploymentStageInputSet = get(formik?.values, path, {})
+  const { getString } = useStrings()
   return (
     <>
       {deploymentStageTemplate.serviceConfig && (
@@ -332,7 +332,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             <>
               {deploymentStageTemplate.execution?.steps && (
                 <CollapseForm
-                  header={i18n.execution}
+                  header={getString('executionText')}
                   headerProps={{ font: { size: 'normal' } }}
                   headerColor="var(--black)"
                 >
@@ -348,7 +348,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               )}
               {deploymentStageTemplate.execution?.rollbackSteps && (
                 <CollapseForm
-                  header={i18n.rollbackSteps}
+                  header={getString('rollbackSteps')}
                   headerProps={{ font: { size: 'normal' } }}
                   headerColor="var(--black)"
                 >

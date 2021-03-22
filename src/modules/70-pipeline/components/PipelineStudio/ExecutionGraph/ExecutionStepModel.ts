@@ -22,7 +22,6 @@ import {
 } from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
-import i18n from './ExecutionGraph.i18n'
 
 const LINE_SEGMENT_LENGTH = 50
 export class ExecutionStepModel extends DiagramModel {
@@ -69,7 +68,7 @@ export class ExecutionStepModel extends DiagramModel {
     } else {
       const stepGroupLayer = new StepGroupNodeLayerModel({
         identifier: STATIC_SERVICE_GROUP_NAME,
-        label: i18n.dependencies,
+        label: getString?.('pipelines-studio.dependenciesGroupTitle') as string,
         depth: 1,
         allowAdd: false,
         showRollback: false

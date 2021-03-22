@@ -3,7 +3,7 @@ import { Layout, Card, NestedAccordionPanel, getMultiTypeFromValue, MultiTypeInp
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 import { CollapseForm } from './CollapseForm'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
@@ -16,7 +16,6 @@ import type {
 import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '../AbstractSteps/Step'
-import i18n from './PipelineInputSetForm.i18n'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
 import css from './PipelineInputSetForm.module.scss'
 
@@ -98,11 +97,11 @@ function StageForm({
 
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
   const { originalPipeline, template, path = '', readonly } = props
-
+  const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="medium" padding="medium" className={css.container}>
       {(originalPipeline as any)?.variables?.length > 0 && (
-        <CollapseForm header={i18n.pipelineVariables}>
+        <CollapseForm header={getString('customVariables.pipelineVariablesTitle')}>
           <Card>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
               factory={(factory as unknown) as AbstractStepFactory}
@@ -123,7 +122,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
       {getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
         MultiTypeInputType.RUNTIME && (
         <>
-          <div className={css.header}>{i18n.ciCodebase}</div>
+          <div className={css.header}>{getString('ciCodebase')}</div>
           <CICodebaseInputSetForm path={path} readonly={readonly} />
         </>
       )}

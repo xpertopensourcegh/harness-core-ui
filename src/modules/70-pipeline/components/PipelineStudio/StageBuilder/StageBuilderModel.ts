@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
-import i18n from './StageBuilder.i18n'
+import type { UseStringsReturn } from 'framework/exports'
 import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
@@ -195,6 +195,7 @@ export class StageBuilderModel extends DiagramModel {
     data: NgPipeline,
     listeners: Listeners,
     stagesMap: StagesMap,
+    getString: UseStringsReturn['getString'],
     selectedStageId?: string,
     splitPaneSize?: number
   ): void {
@@ -217,7 +218,7 @@ export class StageBuilderModel extends DiagramModel {
       id: 'create-node',
       width: 114,
       height: 50,
-      name: i18n.addStage,
+      name: getString('addStage'),
       customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
     })
 

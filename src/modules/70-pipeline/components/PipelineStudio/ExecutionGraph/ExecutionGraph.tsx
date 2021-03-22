@@ -10,7 +10,6 @@ import { useToaster } from '@common/exports'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import { ExecutionStepModel } from './ExecutionStepModel'
 import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'
-import i18n from './ExecutionGraph.i18n'
 import {
   addStepOrGroup,
   ExecutionGraphState,
@@ -56,23 +55,32 @@ export type ExecutionGraphForwardRef =
 interface PopoverData {
   event?: DefaultNodeEvent
   isParallelNodeClicked?: boolean
+  labels: {
+    addStep: string
+    addStepGroup: string
+  }
   onPopoverSelection?: (isStepGroup: boolean, isParallelNodeClicked: boolean, event?: DefaultNodeEvent) => void
 }
 
-const renderPopover = ({ onPopoverSelection, isParallelNodeClicked = false, event }: PopoverData): JSX.Element => {
+const renderPopover = ({
+  onPopoverSelection,
+  isParallelNodeClicked = false,
+  event,
+  labels
+}: PopoverData): JSX.Element => {
   return (
     <>
       <Layout.Vertical spacing="small" padding="small">
         <Button
           minimal
           icon="Edit"
-          text={i18n.addStep}
+          text={labels.addStep}
           onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
         />
         <Button
           minimal
           icon="step-group"
-          text={i18n.addStepGroup}
+          text={labels.addStepGroup}
           onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
         />
       </Layout.Vertical>
@@ -202,7 +210,11 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         {
           event,
           isParallelNodeClicked: isParallel,
-          onPopoverSelection
+          onPopoverSelection,
+          labels: {
+            addStep: getString('addStep'),
+            addStepGroup: getString('addStepGroup')
+          }
         },
         { useArrows: true, darkMode: true },
         onHide
@@ -221,7 +233,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         // Check Drop Node and Current node should not be same
         if (event.node.identifier !== eventTemp.entity.getIdentifier() && dropNode) {
           if (dropNode?.stepGroup && eventTemp.entity.getParent() instanceof StepGroupNodeLayerModel) {
-            showError(i18n.stepGroupInAnotherStepGroup)
+            showError(getString('stepGroupInAnotherStepGroup'))
           } else {
             const isRemove = removeStepOrGroup(state, dropEntity)
             if (isRemove) {
@@ -346,7 +358,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         if (dropEntity) {
           const dropNode = getStepFromNode(state.stepsData, dropEntity, true).node
           if (dropNode?.stepGroup && isLinkUnderStepGroup(eventTemp.entity)) {
-            showError(i18n.stepGroupInAnotherStepGroup)
+            showError(getString('stepGroupInAnotherStepGroup'))
           } else {
             const isRemove = removeStepOrGroup(state, dropEntity)
             if (isRemove && dropNode) {
@@ -557,7 +569,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       <div className={css.canvas} ref={canvasRef}>
         {state.isRollback && (
           <Text font={{ size: 'medium' }} className={css.rollbackBanner}>
-            {i18n.rollback}
+            {getString('rollbackLabel')}
           </Text>
         )}
         <CanvasWidget

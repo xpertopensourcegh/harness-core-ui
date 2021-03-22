@@ -1,13 +1,14 @@
 import React from 'react'
 import { Text } from '@wings-software/uicore'
-import i18n from './PipelineTemplates.i18n'
+import { useStrings } from 'framework/exports'
 import css from './PipelineTemplates.module.scss'
 
 export const PipelineTemplates: React.FC = (): JSX.Element => {
+  const { getString } = useStrings()
   return (
     <div className={css.pipelineTemplates}>
       <div className={css.templatesContainer}>
-        <Text font={{ size: 'large' }}>{i18n.templates}</Text>
+        <Text font={{ size: 'large' }}>{getString('templates')}</Text>
       </div>
     </div>
   )

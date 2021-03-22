@@ -92,6 +92,10 @@ executionsText: Executions
 executionHeaderText: Execution History
 runPipelineText: Run
 rollbackLabel: Rollback
+ciCodebase: CI Codebase
+addStage: Add Stage
+templates: Templates
+rollbackSteps: Rollback Steps
 noConnectorFound: No Connector Found
 saveConnectorSuccess: Connector saved successfully
 resources: 'Resources'
@@ -175,6 +179,8 @@ verificationJobs: Verification Jobs
 abort: Abort
 conditions: Conditions
 gitBranch: Git Branch
+addStep: Add Step
+addStepGroup: Add Step Group
 gitTag: Git Tag
 tbd: TBD
 applyChanges: Apply Changes
@@ -637,6 +643,7 @@ inputName: Input Name
 outputValue: Output Value
 outputName: Output Name
 notificationMethod: Notification Method
+stepGroupInAnotherStepGroup: Step Group can not be put under another Step Group
 pipelines-studio:
   addStep: Add step
   dependenciesGroupTitle: Dependencies
