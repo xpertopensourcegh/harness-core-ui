@@ -193,8 +193,10 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
 
   const setAccessPointMeta = (vpc: string | undefined, sg: string[] | undefined, albARN: string | undefined) => {
     const ap = props.accessPoint
-    ap.vpc = vpc
-    setSelectedVpc(vpc)
+    if (!props.isRuleCreationMode) {
+      ap.vpc = vpc
+      setSelectedVpc(vpc)
+    }
     setSelectedAPCore(albARN)
     ap.metadata = {
       ...ap.metadata,
