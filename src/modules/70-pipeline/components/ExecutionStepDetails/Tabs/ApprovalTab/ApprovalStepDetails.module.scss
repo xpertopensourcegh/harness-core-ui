@@ -1,0 +1,102 @@
+.approval-tab {
+  .label {
+    color: var(--grey-500);
+    margin-bottom: var(--spacing-xsmall);
+  }
+
+  .info {
+    color: var(--orange-color-1);
+    --intent-color: var(--orange-color-1);
+    font-size: var(--font-size-normal);
+    background-color: var(--yellow-200);
+    padding: var(--spacing-medium) var(--spacing-large) var(--spacing-small) var(--spacing-large);
+
+    & :global(.bp3-icon) {
+      color: var(--orange-color-1);
+
+      & path {
+        fill: currentColor !important;
+      }
+    }
+
+    .timer {
+      font-size: var(--font-size-small);
+      margin-bottom: var(--spacing-small);
+
+      .duration {
+        --font-size: var(--font-size-small);
+        margin-right: var(--spacing-xsmall);
+      }
+    }
+
+    .review-msg {
+      margin-bottom: var(--spacing-large);
+    }
+  }
+}
+
+.harness-approval {
+  padding: var(--spacing-medium) var(--spacing-large);
+
+  .inputs {
+    padding: var(--spacing-medium) 0;
+
+    .heading {
+      font-weight: bold;
+      margin-bottom: var(--spacing-small);
+    }
+  }
+
+  .actions {
+    :global(.bp3-button + .bp3-button) {
+      margin-left: var(--spacing-small);
+    }
+  }
+}
+
+.approver {
+  font-size: var(--font-size-small);
+  border-bottom: 1px solid var(--grey-200);
+  padding: var(--spacing-medium) 0;
+
+  .approverName {
+    font-weight: bold;
+  }
+
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 16px;
+    align-items: center;
+  }
+
+  .details {
+    padding: var(--spacing-medium) 0 0 0;
+  }
+
+  .toggle {
+    min-height: auto !important;
+    height: 16px !important;
+    padding: 0;
+    transition-property: background-color, color, border-color, transform !important;
+
+    &.open {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .approverInputs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--spacing-medium) 0;
+
+    & > li {
+      display: flex;
+      line-height: 22px;
+      column-gap: var(--spacing-xsmall);
+    }
+  }
+
+  .comments {
+    margin: 0 0 var(--spacing-medium) 0;
+  }
+}

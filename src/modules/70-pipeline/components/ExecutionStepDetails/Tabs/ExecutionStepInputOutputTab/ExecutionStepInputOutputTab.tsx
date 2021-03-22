@@ -6,7 +6,8 @@ import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import { CopyText } from '@common/components/CopyText/CopyText'
 import { toVariableStr } from '@common/utils/StringUtils'
-import css from './ExecutionStepDetails.module.scss'
+
+import css from './ExecutionStepInputOutputTab.module.scss'
 
 const blackListKeys = ['step', 'parallel', 'spec']
 

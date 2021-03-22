@@ -5,6 +5,8 @@ common:
   editVariableType: Edit variable type
   removeThisVariable: Remove This Variable
   durationPrefix: 'Duration: '
+  pipelineDetails: Pipeline Details
+  comments: Comments
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'
@@ -941,6 +943,10 @@ execution:
   iotab:
     noInputText: No input found for current step
     noOutputText: No output found for current step
+  approvals:
+    timeRemainingSuffix: remaining till timeout
+    inputsTitle: Approval inputs
+    statusMsg: '{{ count }} of {{ total }} approvals complete'
 pipeline-notifications:
   nameOftheRule: Name of the Rule
   notificationName: Give your notification a name

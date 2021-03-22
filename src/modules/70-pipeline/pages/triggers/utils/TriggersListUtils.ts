@@ -4,11 +4,14 @@ import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDraw
 import type { GetActionsListQueryParams } from 'services/pipeline-ng'
 import { TriggerTypes } from './TriggersWizardPageUtils'
 
-export const GitSourceProviders = {
+export const GitSourceProviders: Record<
+  GetActionsListQueryParams['sourceRepo'],
+  { value: GetActionsListQueryParams['sourceRepo']; iconName: IconName }
+> = {
   GITHUB: { value: 'GITHUB', iconName: 'github' },
   GITLAB: { value: 'GITLAB', iconName: 'service-gotlab' },
   BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket' },
-  CODECOMMIT: { value: 'AWS_CODECOMMIT', iconName: 'service-aws-code-deploy' },
+  AWS_CODECOMMIT: { value: 'AWS_CODECOMMIT', iconName: 'service-aws-code-deploy' },
   CUSTOM: { value: 'CUSTOM', iconName: 'build' }
 }
 
@@ -22,7 +25,7 @@ export const getTriggerIcon = ({
   const webhookSourceRepoIconName =
     webhookSourceRepo && GitSourceProviders[webhookSourceRepo as GetActionsListQueryParams['sourceRepo']]?.iconName
   if (type === TriggerTypes.WEBHOOK && webhookSourceRepoIconName) {
-    return webhookSourceRepoIconName as IconName
+    return webhookSourceRepoIconName
   }
   // placeholder for now
   return GitSourceProviders.GITHUB?.iconName as IconName
@@ -57,7 +60,7 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
         {
           itemLabel: getString('pipeline-triggers.onScheduleLabel'),
           value: 'Scheduled',
-          iconName: 'trigger-schedule' as IconName
+          iconName: 'trigger-schedule'
         }
       ]
     },
@@ -68,27 +71,27 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
         {
           itemLabel: getString('repo-provider.githubLabel'),
           value: GitSourceProviders.GITHUB.value,
-          iconName: GitSourceProviders.GITHUB.iconName as IconName
+          iconName: GitSourceProviders.GITHUB.iconName
         },
         {
           itemLabel: getString('repo-provider.gitlabLabel'),
           value: GitSourceProviders.GITLAB.value,
-          iconName: GitSourceProviders.GITLAB.iconName as IconName
+          iconName: GitSourceProviders.GITLAB.iconName
         },
         {
           itemLabel: getString('repo-provider.bitbucketLabel'),
           value: GitSourceProviders.BITBUCKET.value,
-          iconName: GitSourceProviders.BITBUCKET.iconName as IconName
+          iconName: GitSourceProviders.BITBUCKET.iconName
         },
         {
           itemLabel: getString('repo-provider.awscodecommit'),
-          value: GitSourceProviders.CODECOMMIT.value,
-          iconName: GitSourceProviders.CODECOMMIT.iconName as IconName
+          value: GitSourceProviders.AWS_CODECOMMIT.value,
+          iconName: GitSourceProviders.AWS_CODECOMMIT.iconName
         },
         {
           itemLabel: getString('repo-provider.customLabel'),
           value: GitSourceProviders.CUSTOM.value,
-          iconName: GitSourceProviders.CUSTOM.iconName as IconName
+          iconName: GitSourceProviders.CUSTOM.iconName
         }
       ]
     }
@@ -99,7 +102,7 @@ export const getSourceRepoOptions = (getString: (str: string) => string): { labe
   { label: getString('repo-provider.githubLabel'), value: GitSourceProviders.GITHUB.value },
   { label: getString('repo-provider.gitlabLabel'), value: GitSourceProviders.GITLAB.value },
   { label: getString('repo-provider.bitbucketLabel'), value: GitSourceProviders.BITBUCKET.value },
-  { label: getString('repo-provider.awscodecommit'), value: GitSourceProviders.CODECOMMIT.value },
+  { label: getString('repo-provider.awscodecommit'), value: GitSourceProviders.AWS_CODECOMMIT.value },
   { label: getString('repo-provider.customLabel'), value: GitSourceProviders.CUSTOM.value }
 ]
 

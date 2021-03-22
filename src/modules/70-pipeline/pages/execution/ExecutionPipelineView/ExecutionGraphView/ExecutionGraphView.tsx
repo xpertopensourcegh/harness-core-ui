@@ -5,10 +5,10 @@ import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayou
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
+import ExecutionStepDetails from '@pipeline/components/ExecutionStepDetails/ExecutionStepDetails'
 
 import ExecutionGraph from './ExecutionGraph/ExecutionGraph'
 import ExecutionStageDetails from './ExecutionStageDetails/ExecutionStageDetails'
-import ExecutionStepDetails from './ExecutionStepDetails/ExecutionStepDetails'
 
 import css from './ExecutionGraphView.module.scss'
 

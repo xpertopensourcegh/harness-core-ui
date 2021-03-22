@@ -11,8 +11,9 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 import { isExecutionFailed, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
-import LogsContentOld from '../../ExecutionLogView/LogsContent'
-import css from './ExecutionStepDetails.module.scss'
+import LogsContentOld from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionLogView/LogsContent'
+
+import css from './ExecutionStepDetailsTab.module.scss'
 
 const DATE_FORMAT = 'MM/DD/YYYY hh:mm:ss a'
 

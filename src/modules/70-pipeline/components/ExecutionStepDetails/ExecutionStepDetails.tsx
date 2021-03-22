@@ -1,13 +1,12 @@
 import React from 'react'
-import { Tabs } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
 
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
+import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
-import ExecutionStepDetailsTab from './ExecutionStepDetailsTab'
-import ExecutionStepInputOutputTab from './ExecutionStepInputOutputTab'
-
+import { StepDetailTabs } from './StepDetailTabs'
 import css from './ExecutionStepDetails.module.scss'
 
 export interface ExecutionStepDetailsProps {
@@ -20,33 +19,24 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
   const { allNodeMap } = useExecutionContext()
 
   const step = allNodeMap?.[selectedStep] || {}
+  const isApprovalStep = step.stepType === StepType.HarnessApproval || step.stepType === StepType.JiraApproval
+  const isWaiting = isExecutionWaiting(step.status)
 
   return (
     <div className={css.main}>
       <div className={css.header}>
         <div className={css.title}>Step: {step.name}</div>
+        {isApprovalStep && isWaiting ? (
+          <Button minimal small>
+            Refresh
+          </Button>
+        ) : null}
         <div className={css.actions}>
           <ExecutionLayout.Toggle />
           <Button minimal icon="cross" onClick={closeDetails} />
         </div>
       </div>
-      <Tabs id="step-details" className={css.tabs} renderActiveTabPanelOnly>
-        <Tabs.Tab id="details" title="Details" panel={<ExecutionStepDetailsTab step={step} />} />
-        <Tabs.Tab
-          id="input"
-          title="Input"
-          panel={
-            <ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="input" data={[(step as any).stepParameters]} />
-          }
-        />
-        <Tabs.Tab
-          id="output"
-          title="Output"
-          panel={
-            <ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="output" data={(step as any).outcomes || []} />
-          }
-        />
-      </Tabs>
+      <StepDetailTabs step={step} />
     </div>
   )
 }

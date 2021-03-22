@@ -64,7 +64,9 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItem
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'
         break
       case ExecutionPipelineItemStatus.WAITING:
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : 'var(--white)'
+        style.backgroundColor = isSelected
+          ? 'var(--execution-pipeline-color-blue)'
+          : 'var(--execution-pipeline-color-orange)'
         break
       case ExecutionPipelineItemStatus.NOT_STARTED:
         style.borderColor = 'var(--execution-pipeline-color-dark-grey)'
