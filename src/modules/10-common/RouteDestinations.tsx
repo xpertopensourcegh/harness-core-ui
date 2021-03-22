@@ -8,7 +8,7 @@ import { accountPathProps, orgPathProps, withAccountId } from '@common/utils/rou
 import AdminPage from '@common/pages/AccountSettings/AdminPage'
 import GovernancePage from '@common/pages/governance/GovernancePage'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
-import UserProfile from '@common/navigation/UserProfile/UserProfile'
+import UserNav from '@common/navigation/UserNav/UserNav'
 import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
@@ -38,8 +38,7 @@ const AccountSettingsSideNavProps: SidebarContext = {
 }
 
 const UserProfileSideNavProps: SidebarContext = {
-  navComponent: UserProfile,
-  icon: 'nav-settings'
+  navComponent: UserNav
 }
 
 const justAccountPath = withAccountId(() => '/')

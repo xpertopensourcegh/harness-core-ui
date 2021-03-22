@@ -304,6 +304,10 @@ removeLabel: 'remove'
 keyLabel: Key
 valueLabel: Value
 commandLabel: Command
+summary: Summary
+permissions: Permissions
+activityLog: Activity Log
+authentication: Authentication
 preCommandLabel: PreCommand
 preCommandInfo: Commands used for setting up the environment before running the tests
 postCommandLabel: PostCommand
@@ -1421,7 +1425,7 @@ connectors:
   stepThreeName: 'Test Connection'
   stepFourName: 'Artifact Location'
   name: 'Connector Name'
-  authTitle: 'Authentication'
+  authTitle: '{{ $.authentication }}'
   updating: Updating connector
   successfullCreate: 'Connector {{name}} created successfully'
   successfullUpdate: 'Connector {{name}} updated successfully'
@@ -2227,7 +2231,7 @@ resourceGroup:
   color: 'Color'
   dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
   resourceGroupColumn: 'Resource Group'
-  summary: 'Summary'
+  summary: '{{ $.summary }}'
   createSuccess: 'Resource Group created succesfully'
   updateSuccess: 'Resource Group updated succesfully'
   confirmDelete: 'Are you sure you want to delete {{name}} Resource Group'
@@ -2405,3 +2409,11 @@ ce:
 
 logs:
   noLogsText: 'No logs found'
+userProfile:
+  mysourceCodeManagers: My Source Code Managers
+  basicInformation: Basic Information
+  changePassword: Change Password
+  twofactorAuth: Two-Factor Authentication
+  myProjects: My Projects
+  myGroups: My Groups
+  myTools: My Collaboration Tools

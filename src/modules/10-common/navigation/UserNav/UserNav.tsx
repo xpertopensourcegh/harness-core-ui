@@ -7,7 +7,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useStrings } from 'framework/exports'
 
-export default function UserProfile(): React.ReactElement {
+export default function UserNav(): React.ReactElement {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   return (
