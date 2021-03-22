@@ -33,7 +33,6 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       includePipelineExecutionHistory: false,
       approvers: {
         userGroups: [],
-        users: [],
         minimumCount: 1,
         disallowPipelineExecutor: true
       },
@@ -54,15 +53,11 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     const errors = { spec: {} } as any
 
     if (
-      typeof template?.spec?.approvers.users === 'string' &&
       typeof template?.spec?.approvers.userGroups === 'string' &&
-      getMultiTypeFromValue(template?.spec?.approvers.users) === MultiTypeInputType.RUNTIME &&
       getMultiTypeFromValue(template?.spec?.approvers.userGroups) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.approvers.users) &&
       isEmpty(data?.spec?.approvers.userGroups)
     ) {
-      // If both users and userGroups are runtime, and both of them are not provided in input set
-      errors.spec.approvers = getString?.('approvalStep.validation.usersOrUserGroups')
+      errors.spec.approvers = getString?.('approvalStep.validation.userGroups')
     }
 
     if (

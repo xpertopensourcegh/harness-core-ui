@@ -16,7 +16,6 @@ export interface HarnessApprovalData extends StepElementConfig {
     includePipelineExecutionHistory: string | boolean
     approvers: {
       userGroups: string | string[] | MultiSelectOption[]
-      users: string | string[] | MultiSelectOption[]
       minimumCount: string | number
       disallowPipelineExecutor: string | boolean
     }

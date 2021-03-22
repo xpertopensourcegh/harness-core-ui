@@ -12,7 +12,8 @@ import {
   MultiSelectOption,
   Layout,
   Avatar,
-  Text
+  Text,
+  getMultiTypeFromValue
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
@@ -24,11 +25,9 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import {
   getUserGroupListPromise,
-  getUsersPromise,
+  GetUserGroupListQueryParams,
   ResponsePageUserGroupDTO,
-  ResponsePageUserSearchDTO,
-  UserGroupDTO,
-  UserSearchDTO
+  UserGroupDTO
 } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
@@ -38,7 +37,6 @@ import {
   HarnessApprovalData,
   APIStateInterface,
   AsyncStatus,
-  EntityType,
   ApproverInputsSubmitCallInterface
 } from './types'
 import { INIT_API_STATE, setFetchingApiState, setSuccessApiState, setFailureApiState } from './helper'
@@ -57,64 +55,33 @@ function HarnessApprovalStepMode(
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId } = useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
-  const [userOptions, setUserOptions] = useState<APIStateInterface>(INIT_API_STATE)
   const [userGroupOptions, setUserGroupOptions] = useState<APIStateInterface>(INIT_API_STATE)
   let userOptionsTimerId: number | null = null
 
   const [initialValues, setInitialValues] = useState<HarnessApprovalData>(props.initialValues)
 
-  const getOptions = (type: string, searchString = '') => {
-    // get the state object for which the API needs to be called
-    const apiState = type === EntityType.USER ? setUserOptions : setUserGroupOptions
-
+  const getOptions = (searchString = '') => {
     // Begin the API lifecycle
-    setFetchingApiState(apiState)
+    setFetchingApiState(setUserGroupOptions)
 
-    // Get the needed function from services
+    const queryParams: GetUserGroupListQueryParams = { accountIdentifier: accountId }
+    if (searchString) {
+      queryParams.searchTerm = searchString
+    }
 
-    const promise: Promise<ResponsePageUserGroupDTO | ResponsePageUserSearchDTO> =
-      type === EntityType.USER
-        ? getUsersPromise({
-            queryParams: { accountIdentifier: accountId, searchString }
-          })
-        : getUserGroupListPromise({ queryParams: { accountIdentifier: accountId, searchTerm: searchString } })
+    const promise: Promise<ResponsePageUserGroupDTO> = getUserGroupListPromise({ queryParams })
     promise
       .then(resolvedData => {
-        /*
-          Resolve the promised data based on the type.
-          If the type is 'USER', then we resolve as UserSearchDTO and vice versa for UserGroup.
-          This is done because we're using a common function to get users and usergroups
-        */
         let options: MultiSelectOption[] = []
-        if (type === EntityType.USER) {
-          const userData: UserSearchDTO[] = (resolvedData as ResponsePageUserSearchDTO).data?.content || []
-          options =
-            userData.map((user: UserSearchDTO) => ({
-              label: user.name,
-              value: user.uuid
-            })) || []
-          const selectedUserIds: string[] = initialValues.spec.approvers.users as string[]
-          const selectedUsers: MultiSelectOption[] = options.filter(option =>
-            selectedUserIds.includes(option.value?.toString())
-          )
-          const updatedInitialValues: HarnessApprovalData = {
-            ...initialValues,
-            spec: {
-              ...initialValues.spec,
-              approvers: {
-                ...initialValues.spec.approvers,
-                users: selectedUsers
-              }
-            }
-          }
-          setInitialValues(updatedInitialValues)
-        } else {
-          const userGroupData: UserGroupDTO[] = (resolvedData as ResponsePageUserGroupDTO).data?.content || []
-          options =
-            userGroupData.map((userGroup: UserGroupDTO) => ({
-              label: userGroup.name || '',
-              value: userGroup.identifier || ''
-            })) || []
+
+        const userGroupData: UserGroupDTO[] = (resolvedData as ResponsePageUserGroupDTO).data?.content || []
+        options =
+          userGroupData.map((userGroup: UserGroupDTO) => ({
+            label: userGroup.name || '',
+            value: userGroup.identifier || ''
+          })) || []
+        if (getMultiTypeFromValue(initialValues.spec.approvers.userGroups as string) === MultiTypeInputType.FIXED) {
+          // If the value is fixed, populate the selected user groups
           const selectedUserGroupIds: string[] = initialValues.spec.approvers.userGroups as string[]
           const selectedUserGroups: MultiSelectOption[] = options.filter(option =>
             selectedUserGroupIds.includes(option.value?.toString())
@@ -131,10 +98,11 @@ function HarnessApprovalStepMode(
           }
           setInitialValues(updatedInitialValues)
         }
-        setSuccessApiState(options, apiState)
+
+        setSuccessApiState(options, setUserGroupOptions)
       })
       .catch(error => {
-        setFailureApiState(error, apiState)
+        setFailureApiState(error, setUserGroupOptions)
       })
   }
 
@@ -143,23 +111,19 @@ function HarnessApprovalStepMode(
     Only call the APIs once on every mount i.e. on status INIT
     After first invokation, the status will change to success/inprogress/error
     */
-    if (userOptions.apiStatus === AsyncStatus.INIT) {
-      getOptions(EntityType.USER)
-    }
-
     if (userGroupOptions.apiStatus === AsyncStatus.INIT) {
-      getOptions(EntityType.USERGROUP)
+      getOptions()
     }
   }
 
   onComponentMount()
 
-  const setSearchDebounce = (type: EntityType, searchString: string) => {
+  const setSearchDebounce = (searchString: string) => {
     if (userOptionsTimerId) {
       clearTimeout(userOptionsTimerId)
     }
     userOptionsTimerId = window.setTimeout(() => {
-      getOptions(type, searchString)
+      getOptions(searchString)
     }, 300)
   }
 
@@ -177,15 +141,9 @@ function HarnessApprovalStepMode(
           approvers: Yup.object().shape({
             // userGroups: Yup.array().when(['users'], {
             //   is: users => isEmpty(users),
-            //   then: Yup.array().required(getString('approvalStep.validation.usersOrUserGroups'))
-            // }),
-            // users: Yup.array().when(['userGroups'], {
-            //   is: userGroups => isEmpty(userGroups),
-            //   then: Yup.array().required(getString('approvalStep.validation.usersOrUserGroups'))
-            // }),
-            minimumCount: Yup.number()
-              .min(1, getString('approvalStep.validation.minimumCountOne'))
-              .required(getString('approvalStep.validation.minimumCountRequired'))
+            //   then: Yup.array().required(getString('approvalStep.validation.userGroups'))
+            // })
+            minimumCount: Yup.string().required(getString('approvalStep.validation.minimumCountRequired'))
           })
         })
       })}
@@ -229,51 +187,6 @@ function HarnessApprovalStepMode(
                   <div>
                     <FormInput.MultiSelectTypeInput
                       className={css.multiSelect}
-                      name="spec.approvers.users"
-                      placeholder={`${userOptions.apiStatus === AsyncStatus.FETCHING ? 'Fetching...' : 'Add Users'}`}
-                      label={getString('users')}
-                      selectItems={userOptions.options}
-                      multiSelectTypeInputProps={{
-                        multiSelectProps: {
-                          tagInputProps: {
-                            placeholder: `${
-                              userOptions.apiStatus === AsyncStatus.FETCHING ? 'Fetching...' : 'Add Users'
-                            }`
-                          },
-                          name: 'spec.approvers.users',
-                          items: userOptions.options,
-                          onQueryChange: (str, ev) => {
-                            // Event propagation to stop the UI side filtering
-                            // Otherwise as we search the dropdown keeps disappearing
-                            ev?.stopPropagation()
-                            setSearchDebounce(EntityType.USER, str)
-                          },
-                          // eslint-disable-next-line react/display-name
-                          tagRenderer: item => (
-                            <Layout.Horizontal key={item.label?.toString()} spacing="small">
-                              <Avatar email={item.label?.toString()} size="xsmall" hoverCard={false} />
-                              <Text>{item.label}</Text>
-                            </Layout.Horizontal>
-                          ),
-                          // eslint-disable-next-line react/display-name
-                          itemRender: (item, { handleClick }) => (
-                            <div key={item.label?.toString()}>
-                              <Menu.Item
-                                text={
-                                  <Layout.Horizontal spacing="small" className={css.align}>
-                                    <Avatar email={item.label?.toString()} size="small" hoverCard={false} />
-                                    <Text>{item.label}</Text>
-                                  </Layout.Horizontal>
-                                }
-                                onClick={handleClick}
-                              />
-                            </div>
-                          )
-                        }
-                      }}
-                    />
-                    <FormInput.MultiSelectTypeInput
-                      className={css.multiSelect}
                       name="spec.approvers.userGroups"
                       placeholder={`${
                         userGroupOptions.apiStatus === AsyncStatus.FETCHING ? 'Fetching...' : 'Add Groups'
@@ -293,7 +206,7 @@ function HarnessApprovalStepMode(
                             // Event propagation to stop the UI side filtering
                             // Otherwise as we search the dropdown keeps disappearing
                             ev?.stopPropagation()
-                            setSearchDebounce(EntityType.USERGROUP, str)
+                            setSearchDebounce(str)
                           },
                           // eslint-disable-next-line react/display-name
                           tagRenderer: item => (

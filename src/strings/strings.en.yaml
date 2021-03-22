@@ -753,7 +753,7 @@ approvalStep:
   minimumCount: 'Number of approvers that are required at this step'
   disallowPipelineExecutor: 'Disallow the pipeline executor from approving the pipeline'
   validation:
-    usersOrUserGroups: 'Please provide users or user groups for approval'
+    userGroups: 'Please provide user groups'
     minimumCountOne: 'Minimum count cannot be less than one'
     minimumCountRequired: 'Minimum count is required'
 delegate:

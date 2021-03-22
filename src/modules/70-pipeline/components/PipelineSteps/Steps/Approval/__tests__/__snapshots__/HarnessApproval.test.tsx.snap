@@ -57,51 +57,6 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
     >
       <label
         class="bp3-label"
-        for="spec.approvers.users"
-      >
-        Users
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
-      <div
-        class="bp3-form-content"
-      >
-        <div
-          class="bp3-popover-wrapper MultiSelect--main bp3-fill"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <div
-              class=""
-            >
-              <div
-                class="bp3-input bp3-tag-input bp3-multi-select"
-              >
-                <div
-                  class="bp3-tag-input-values"
-                >
-                  <input
-                    class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                    name="spec.approvers.users"
-                    placeholder="Search..."
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-form-group"
-      style="resize: vertical;"
-    >
-      <label
-        class="bp3-label"
         for="spec.approvers.userGroups"
       >
         Groups
@@ -902,51 +857,6 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
           />
           Include pipeline execution history
         </label>
-      </div>
-    </div>
-    <div
-      class="bp3-form-group"
-      style="resize: vertical;"
-    >
-      <label
-        class="bp3-label"
-        for="spec.approvers.users"
-      >
-        Users
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
-      <div
-        class="bp3-form-content"
-      >
-        <div
-          class="bp3-popover-wrapper MultiSelect--main bp3-fill"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <div
-              class=""
-            >
-              <div
-                class="bp3-input bp3-tag-input bp3-multi-select"
-              >
-                <div
-                  class="bp3-tag-input-values"
-                >
-                  <input
-                    class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                    name="spec.approvers.users"
-                    placeholder="Search..."
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <div

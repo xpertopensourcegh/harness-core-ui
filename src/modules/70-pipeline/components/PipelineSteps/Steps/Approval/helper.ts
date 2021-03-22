@@ -15,7 +15,7 @@ export function flatObject(object: object): object {
 
 /*
 Process and convert form data to submit call data
-Flatten the usergroups and users objects, and only send the ids
+Flatten the usergroups object, and only send the ids
 */
 export const processFormData = (data: HarnessApprovalData): HarnessApprovalData => {
   const toReturn = {
@@ -24,7 +24,10 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
       ...data.spec,
       approvers: {
         ...data.spec.approvers,
-        minimumCount: Number(data.spec.approvers.minimumCount),
+        minimumCount:
+          getMultiTypeFromValue(data.spec.approvers.minimumCount as string) === MultiTypeInputType.RUNTIME
+            ? data.spec.approvers.minimumCount
+            : Number(data.spec.approvers.minimumCount),
         userGroups:
           getMultiTypeFromValue(data.spec.approvers.userGroups as string) === MultiTypeInputType.RUNTIME
             ? data.spec.approvers.userGroups
@@ -32,12 +35,6 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
             ? (data.spec.approvers.userGroups as MultiSelectOption[]).map((ug: MultiSelectOption) =>
                 ug.value?.toString()
               )
-            : [],
-        users:
-          getMultiTypeFromValue(data.spec.approvers.users as string) === MultiTypeInputType.RUNTIME
-            ? data.spec.approvers.users
-            : Array.isArray(data.spec.approvers.users)
-            ? (data.spec.approvers.users as MultiSelectOption[]).map((us: MultiSelectOption) => us.value?.toString())
             : []
       },
       approverInputs:
@@ -63,25 +60,6 @@ export const processForInitialValues = (data: HarnessApprovalData): HarnessAppro
     ...data,
     spec: {
       ...data.spec,
-      // approvers: {
-      //   ...data.spec.approvers,
-      //   userGroups:
-      //     getMultiTypeFromValue(data.spec.approvers.userGroups as string) === MultiTypeInputType.RUNTIME
-      //       ? data.spec.approvers.userGroups
-      //       : Array.isArray(data.spec.approvers.userGroups)
-      //       ? (data.spec.approvers.userGroups as string[]).map(
-      //           (ug: string) => ({ label: `name-${ug}`, value: ug } as MultiSelectOption)
-      //         )
-      //       : [],
-      //   users:
-      //     getMultiTypeFromValue(data.spec.approvers.users as string) === MultiTypeInputType.RUNTIME
-      //       ? data.spec.approvers.users
-      //       : Array.isArray(data.spec.approvers.users)
-      //       ? (data.spec.approvers.users as string[]).map(
-      //           (us: string) => ({ label: `name-${us}`, value: us } as MultiSelectOption)
-      //         )
-      //       : []
-      // },
       approverInputs:
         getMultiTypeFromValue(data.spec.approverInputs as string) === MultiTypeInputType.RUNTIME
           ? data.spec.approverInputs
@@ -102,7 +80,7 @@ export const processForInitialValues = (data: HarnessApprovalData): HarnessAppro
 
 /*
 Below methods are consumed in HarnessApproval step.
-For users and usergroup API state management
+For usergroup API state management
 */
 export const INIT_API_STATE: APIStateInterface = {
   options: [],

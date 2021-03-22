@@ -8,13 +8,11 @@ import { useStrings } from 'framework/exports'
 import Map from '@common/components/Map/Map'
 import {
   getUserGroupListPromise,
-  getUsersPromise,
+  GetUserGroupListQueryParams,
   ResponsePageUserGroupDTO,
-  ResponsePageUserSearchDTO,
-  UserGroupDTO,
-  UserSearchDTO
+  UserGroupDTO
 } from 'services/cd-ng'
-import { APIStateInterface, AsyncStatus, EntityType, HarnessApprovalDeploymentModeProps } from './types'
+import { APIStateInterface, AsyncStatus, HarnessApprovalDeploymentModeProps } from './types'
 import { INIT_API_STATE, setFailureApiState, setFetchingApiState, setSuccessApiState } from './helper'
 import css from './HarnessApproval.module.scss'
 
@@ -31,52 +29,38 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
   const { getString } = useStrings()
 
   const { accountId } = useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
-  const [userOptions, setUserOptions] = useState<APIStateInterface>(INIT_API_STATE)
   const [userGroupOptions, setUserGroupOptions] = useState<APIStateInterface>(INIT_API_STATE)
   let userOptionsTimerId: number | null = null
 
-  const getOptions = (type: string, searchString = '') => {
-    // get the state object for which the API needs to be called
-    const apiState = type === EntityType.USER ? setUserOptions : setUserGroupOptions
-
+  const getOptions = (searchString = '') => {
     // Begin the API lifecycle
-    setFetchingApiState(apiState)
+    setFetchingApiState(setUserGroupOptions)
 
-    // Get the needed function from services
+    const queryParams: GetUserGroupListQueryParams = { accountIdentifier: accountId }
+    if (searchString) {
+      queryParams.searchTerm = searchString
+    }
 
-    const promise: Promise<ResponsePageUserGroupDTO | ResponsePageUserSearchDTO> =
-      type === EntityType.USER
-        ? getUsersPromise({
-            queryParams: { accountIdentifier: accountId, searchString }
-          })
-        : getUserGroupListPromise({ queryParams: { accountIdentifier: accountId, searchTerm: searchString } })
+    const promise: Promise<ResponsePageUserGroupDTO> = getUserGroupListPromise({
+      queryParams
+    })
     promise
       .then(resolvedData => {
         /*
-          Resolve the promised data based on the type.
-          If the type is 'USER', then we resolve as UserSearchDTO and vice versa for UserGroup.
-          This is done because we're using a common function to get users and usergroups
+          Resolve the promised data based for the user groups.
         */
         let options: MultiSelectOption[] = []
-        if (type === EntityType.USER) {
-          const userData: UserSearchDTO[] = (resolvedData as ResponsePageUserSearchDTO).data?.content || []
-          options =
-            userData.map((user: UserSearchDTO) => ({
-              label: user.name,
-              value: user.uuid
-            })) || []
-        } else {
-          const userGroupData: UserGroupDTO[] = (resolvedData as ResponsePageUserGroupDTO).data?.content || []
-          options =
-            userGroupData.map((userGroup: UserGroupDTO) => ({
-              label: userGroup.name || '',
-              value: userGroup.identifier || ''
-            })) || []
-        }
-        setSuccessApiState(options, apiState)
+        const userGroupData: UserGroupDTO[] = (resolvedData as ResponsePageUserGroupDTO).data?.content || []
+        options =
+          userGroupData.map((userGroup: UserGroupDTO) => ({
+            label: userGroup.name || '',
+            value: userGroup.identifier || ''
+          })) || []
+
+        setSuccessApiState(options, setUserGroupOptions)
       })
       .catch(error => {
-        setFailureApiState(error, apiState)
+        setFailureApiState(error, setUserGroupOptions)
       })
   }
 
@@ -85,23 +69,20 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
     Only call the APIs once on every mount i.e. on status INIT
     After first invokation, the status will change to success/inprogress/error
     */
-    if (userOptions.apiStatus === AsyncStatus.INIT) {
-      getOptions(EntityType.USER)
-    }
 
     if (userGroupOptions.apiStatus === AsyncStatus.INIT) {
-      getOptions(EntityType.USERGROUP)
+      getOptions()
     }
   }
 
   onComponentMount()
 
-  const setSearchDebounce = (type: EntityType, searchString: string) => {
+  const setSearchDebounce = (searchString: string) => {
     if (userOptionsTimerId) {
       clearTimeout(userOptionsTimerId)
     }
     userOptionsTimerId = window.setTimeout(() => {
-      getOptions(type, searchString)
+      getOptions(searchString)
     }, 300)
   }
 
@@ -121,34 +102,6 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
           label={getString('approvalStep.includePipelineExecutionHistory')}
           name="spec.includePipelineExecutionHistory"
           disabled={readonly}
-        />
-      ) : null}
-      {typeof template?.spec?.approvers.users === 'string' &&
-      getMultiTypeFromValue(template?.spec?.approvers.users) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.MultiSelect
-          label={getString('users')}
-          name="spec.approvers.users"
-          style={{ resize: 'vertical' }}
-          placeholder="Add Users"
-          items={userOptions.options}
-          onChange={selectedUsers =>
-            onUpdate?.({
-              ...initialValues,
-              spec: {
-                ...initialValues.spec,
-                approvers: {
-                  ...initialValues.spec.approvers,
-                  users: selectedUsers?.map(selectedUser => selectedUser.value?.toString())
-                }
-              }
-            })
-          }
-          disabled={readonly}
-          multiSelectProps={{
-            onQueryChange: searchString => {
-              setSearchDebounce(EntityType.USER, searchString)
-            }
-          }}
         />
       ) : null}
 
@@ -175,7 +128,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
           disabled={readonly}
           multiSelectProps={{
             onQueryChange: searchString => {
-              setSearchDebounce(EntityType.USERGROUP, searchString)
+              setSearchDebounce(searchString)
             }
           }}
         />
