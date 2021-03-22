@@ -15,7 +15,7 @@
     flex-direction: column;
     row-gap: var(--spacing-small);
 
-    :global(.bp3-icon) {
+    &:global(.bp3-button > .bp3-icon) {
       padding: 0 !important;
       color: var(--right-bar-icon, var(--white)) !important;
     }
