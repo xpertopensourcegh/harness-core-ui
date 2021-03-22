@@ -1,16 +1,8 @@
-import type { ResponseResourceTypeDTO } from 'services/cd-ng'
-import type { ResponseRoleResponse } from 'services/rbac'
+import type { ResponseRoleResponse, ResponseSetString } from 'services/rbac'
 
-export const resourceTypesMockData: ResponseResourceTypeDTO = {
+export const resourceTypesMockData: ResponseSetString = {
   status: 'SUCCESS',
-  data: {
-    resourceTypes: [
-      { name: 'ACCOUNT', validatorTypes: ['STATIC'] },
-      { name: 'ORGANIZATION', validatorTypes: ['STATIC', 'DYNAMIC'] },
-      { name: 'PROJECT', validatorTypes: ['STATIC', 'DYNAMIC'] },
-      { name: 'SECRET', validatorTypes: ['STATIC', 'DYNAMIC'] }
-    ]
-  },
+  data: ['ACCOUNT', 'ORGANIZATION', 'PROJECT', 'SECRET'],
   metaData: {},
   correlationId: '97683e83-6a8a-4e9f-9607-534cc499016f'
 }

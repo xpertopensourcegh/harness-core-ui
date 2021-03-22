@@ -8,9 +8,15 @@ import { useStrings } from 'framework/exports'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
-import { Permission, Role, useGetPermissionList, useGetRole, useUpdateRole } from 'services/rbac'
+import {
+  Permission,
+  Role,
+  useGetPermissionList,
+  useGetRole,
+  useUpdateRole,
+  useGetPermissionResourceTypesList
+} from 'services/rbac'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useGetResourceTypes } from 'services/cd-ng'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -36,7 +42,7 @@ const RoleDetails: React.FC = () => {
     }
   })
 
-  const { data: resourceGroups } = useGetResourceTypes({
+  const { data: resourceGroups } = useGetPermissionResourceTypesList({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
 
@@ -161,7 +167,7 @@ const RoleDetails: React.FC = () => {
         <Layout.Horizontal className={css.body}>
           <Container className={css.resourceList}>
             <Layout.Vertical flex spacing="small">
-              {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
+              {resourceGroups?.data?.map(resourceType => {
                 const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType as ResourceType)
                 return (
                   resourceHandler && (
@@ -197,7 +203,7 @@ const RoleDetails: React.FC = () => {
                   <Button onClick={() => submitChanges(role)} text={getString('applyChanges')} intent="primary" />
                 </Layout.Horizontal>
               </Layout.Horizontal>
-              {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
+              {resourceGroups?.data?.map(resourceType => {
                 return (
                   <div
                     key={resourceType}

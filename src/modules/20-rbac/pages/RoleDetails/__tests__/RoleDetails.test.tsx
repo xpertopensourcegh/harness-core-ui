@@ -10,12 +10,6 @@ import { permissionListMockData, resourceTypesMockData, roleMockData } from './m
 
 jest.useFakeTimers()
 
-jest.mock('services/cd-ng', () => ({
-  useGetResourceTypes: jest.fn().mockImplementation(() => {
-    return { data: resourceTypesMockData, refetch: jest.fn(), error: null }
-  })
-}))
-
 const updateRole = jest.fn()
 jest.mock('services/rbac', () => ({
   useGetRole: jest.fn().mockImplementation(() => {
@@ -24,6 +18,9 @@ jest.mock('services/rbac', () => ({
   useUpdateRole: jest.fn().mockImplementation(() => ({ mutate: updateRole })),
   useGetPermissionList: jest.fn().mockImplementation(() => {
     return { data: permissionListMockData, refetch: jest.fn(), error: null }
+  }),
+  useGetPermissionResourceTypesList: jest.fn().mockImplementation(() => {
+    return { data: resourceTypesMockData, refetch: jest.fn(), error: null }
   })
 }))
 

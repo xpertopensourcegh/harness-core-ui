@@ -27,10 +27,14 @@ const CV_HOME = `/cv/home`
 
 const routes = {
   toAdmin: withAccountId(() => '/admin'),
+  toUser: withAccountId(() => '/user'),
   toLogin: () => '/login',
   toSignup: () => '/signup',
   toSettings: withAccountId(() => '/settings'),
   toResources: withAccountId(() => '/admin/resources'),
+  //user profile
+  toUserProfile: withAccountId(() => '/user/profile'),
+  toUserPreferences: withAccountId(() => '/user/preferences'),
   // account resources
   toResourcesConnectors: withAccountId(() => '/admin/resources/connectors'),
   toCreateConnectorFromYaml: withAccountId(() => '/admin/create-connector-from-yaml'),

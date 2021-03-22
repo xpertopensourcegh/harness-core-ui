@@ -18,7 +18,15 @@ const commonLinkProps: Partial<NavLinkProps> = {
 
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
+  const {
+    CDNG_ENABLED,
+    CVNG_ENABLED,
+    CING_ENABLED,
+    CENG_ENABLED,
+    CFNG_ENABLED,
+    NG_DASHBOARDS,
+    NG_USERPROFILE
+  } = useFeatureFlags()
 
   return (
     <nav className={css.main}>
@@ -108,6 +116,18 @@ export default function L1Nav(): React.ReactElement {
             <Icon name="nav-settings" size={20} />
           </Link>
         </li>
+        {NG_USERPROFILE && (
+          <li className={css.navItem}>
+            <Link className={css.navLink} activeClassName={css.active} to={paths.toUser(params)}>
+              <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
+                <Icon name="main-user" size={20} />
+                <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
+                  <String stringID="account" />
+                </Text>
+              </Layout.Vertical>
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   )
