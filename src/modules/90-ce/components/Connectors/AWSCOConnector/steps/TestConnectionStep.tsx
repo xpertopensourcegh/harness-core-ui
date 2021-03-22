@@ -24,13 +24,13 @@ export enum Status {
 }
 
 interface TestConnectionStepProps extends StepProps<ConnectorInfoDTO> {
-  onSuccess: () => void
+  onSuccess: (data: ConnectorInfoDTO) => void
   onFailure: () => void
 }
 
 const TestConnectionStep: React.FC<StepProps<ConnectorConfigDTO> & TestConnectionStepProps> = props => {
   const { accountId } = useParams<{ accountId: string; orgIdentifier: string }>()
-  const { prevStepData, onSuccess, onFailure } = props
+  const { prevStepData, onFailure } = props
   const [steps, setSteps] = useState<string[]>([])
   const [currentStep] = useState(1)
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.ERROR)
@@ -76,6 +76,10 @@ const TestConnectionStep: React.FC<StepProps<ConnectorConfigDTO> & TestConnectio
   useEffect(() => {
     verifyOptimizationPermissions()
   }, [])
+
+  const handleSuccess = () => {
+    props.onSuccess(connectorDetails)
+  }
   return (
     <Layout.Vertical>
       <ModalErrorHandler bind={setModalErrorHandler} />
@@ -86,7 +90,7 @@ const TestConnectionStep: React.FC<StepProps<ConnectorConfigDTO> & TestConnectio
       </Container>
       <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
       {currentIntent == Intent.SUCCESS && currentStatus === Status.DONE && (
-        <Button intent="primary" text={i18n.testConnection.finish} onClick={onSuccess} className={css.nextButton} />
+        <Button intent="primary" text={i18n.testConnection.finish} onClick={handleSuccess} className={css.nextButton} />
       )}
       {currentStatus === Status.ERROR && (
         <Button

@@ -3,12 +3,12 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { CreateConnectorWizard } from './CreateConnectorWizard'
 import css from './CreateConnectorWizard.module.scss'
 
 export interface UseCreateConnectorModalProps {
-  onSuccess?: (data?: ConnectorRequestBody) => void
+  onSuccess?: (data?: ConnectorInfoDTO) => void
   onClose?: () => void
   permission?: 'CE' | 'CO'
 }
@@ -40,7 +40,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
-  const handleSuccess = (data?: ConnectorRequestBody): void => {
+  const handleSuccess = (data?: ConnectorInfoDTO): void => {
     props.onSuccess?.(data)
   }
 

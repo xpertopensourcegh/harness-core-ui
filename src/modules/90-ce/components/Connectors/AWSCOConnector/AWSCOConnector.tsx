@@ -1,6 +1,6 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
 import OverviewStep from './steps/OverviewStep'
 import type { permission } from './constants'
@@ -18,7 +18,7 @@ interface COAWSConnectorProps extends ConnectorConfig {
   accountId: string
   projectIdentifier: string
   orgIdentifier: string
-  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
+  onSuccess: (data?: ConnectorInfoDTO) => void | Promise<void>
   // onFailure: (data?: ConnectorRequestBody) => void | Promise<void>
 }
 

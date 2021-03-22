@@ -1,7 +1,7 @@
-import React from 'react'
-import { Formik, FormikForm, Layout } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import * as Yup from 'yup'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import createConnectorModal from '@ce/components/Connectors/createConnectorModal'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
@@ -17,53 +17,42 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     accountId: string
   }>()
   const { openConnectorModal } = createConnectorModal({
-    // onSuccess: () => {
-    // },
+    onSuccess: (data: ConnectorInfoDTO | undefined) => {
+      handleConnectorSelection(data as ConnectorInfoDTO)
+    }
     // onClose: () => {
     // }
   })
   const { getString } = useStrings()
+
+  const [selectedConnector, setSelectedConnector] = useState<ConnectorInfoDTO | null>(null)
+
+  const handleConnectorSelection = (data: ConnectorInfoDTO) => {
+    setSelectedConnector(data)
+    const updatedGatewayDetails = { ...props.gatewayDetails }
+    updatedGatewayDetails.cloudAccount = { id: data.identifier?.toString(), name: data.name }
+    updatedGatewayDetails.metadata.cloud_provider_details = { name: data.name } // eslint-disable-line @typescript-eslint/camelcase
+    props.setGatewayDetails(updatedGatewayDetails)
+    props.setCloudAccount(updatedGatewayDetails.cloudAccount.id)
+  }
+
   return (
     <div>
-      <Formik
-        initialValues={{
-          gatewayName: props.gatewayDetails.name,
-          cloudAccount: props.gatewayDetails.cloudAccount
-        }}
-        onSubmit={values => alert(JSON.stringify(values))}
-        render={formik => (
-          <FormikForm>
-            <Layout.Vertical spacing="large">
-              <ConnectorReferenceField
-                name="cloudAccount"
-                category={'CLOUD_COST'}
-                selected={formik.values.cloudAccount.name}
-                label={[
-                  getString('ce.co.gatewayBasics.connect'),
-                  props.gatewayDetails.provider.name,
-                  getString('ce.co.gatewayBasics.account')
-                ].join(' ')}
-                placeholder={getString('ce.co.gatewayBasics.select')}
-                accountIdentifier={accountId}
-                onChange={e => {
-                  formik.setFieldValue('cloudAccount', e.identifier)
-                  props.gatewayDetails.cloudAccount = { id: e.identifier?.toString(), name: e.name }
-                  // eslint-disable-next-line
-                  props.gatewayDetails.metadata.cloud_provider_details = {
-                    name: e.name
-                  }
-                  props.setGatewayDetails(props.gatewayDetails)
-                  formik.setFieldValue('cloudAccount', e)
-                  props.setCloudAccount(props.gatewayDetails.cloudAccount.id)
-                }}
-              />
-            </Layout.Vertical>
-          </FormikForm>
-        )}
-        validationSchema={Yup.object().shape({
-          cloudAccount: Yup.string().trim().required('Cloud Account is required field')
-        })}
-      ></Formik>
+      <Layout.Vertical spacing="large">
+        <ConnectorReferenceField
+          name="cloudAccount"
+          category={'CLOUD_COST'}
+          selected={props.gatewayDetails.cloudAccount.name || selectedConnector?.name}
+          label={[
+            getString('ce.co.gatewayBasics.connect'),
+            props.gatewayDetails.provider.name,
+            getString('ce.co.gatewayBasics.account')
+          ].join(' ')}
+          placeholder={getString('ce.co.gatewayBasics.select')}
+          accountIdentifier={accountId}
+          onChange={handleConnectorSelection}
+        />
+      </Layout.Vertical>
       <span
         onClick={() => openConnectorModal(false, 'CEAws')}
         style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}

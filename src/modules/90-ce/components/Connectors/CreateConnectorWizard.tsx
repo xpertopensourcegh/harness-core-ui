@@ -1,6 +1,6 @@
 import React from 'react'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { permission as permissionType } from './AWSCOConnector/constants'
 import AWSCOConnector from './AWSCOConnector/AWSCOConnector'
 
@@ -12,7 +12,7 @@ interface CreateConnectorWizardProps {
   isEditMode: boolean
   connectorInfo?: ConnectorInfoDTO | void
   hideLightModal: () => void
-  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
+  onSuccess: (data?: ConnectorInfoDTO) => void | Promise<void>
   permission?: permissionType
 }
 
