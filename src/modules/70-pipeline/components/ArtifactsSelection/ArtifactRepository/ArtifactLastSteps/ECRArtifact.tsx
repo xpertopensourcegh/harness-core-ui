@@ -24,14 +24,10 @@ import { useStrings } from 'framework/exports'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import i18n from '../../ArtifactsSelection.i18n'
+import { StringUtils } from '@common/exports'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../ArtifactInterface'
 import { tagOptions } from '../../ArtifactHelper'
 import css from '../ArtifactConnector.module.scss'
-
-const ecrSchema = Yup.object().shape({
-  imagePath: Yup.string().trim().required(i18n.validation.imagePath)
-})
 
 export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,
@@ -43,6 +39,38 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
 }) => {
   const { getString } = useStrings()
 
+  const ecrSchema = Yup.object().shape({
+    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    region: Yup.mixed().required(getString('artifactsSelection.validation.region')),
+    tagType: Yup.string().required(),
+    tagRegex: Yup.string().when('tagType', {
+      is: 'regex',
+      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+    }),
+    tag: Yup.mixed().when('tagType', {
+      is: 'value',
+      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+    })
+  })
+
+  const sideCarSchema = Yup.object().shape({
+    identifier: Yup.string()
+      .trim()
+      .required(getString('artifactsSelection.validation.sidecarId'))
+      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+      .notOneOf(StringUtils.illegalIdentifiers),
+    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    region: Yup.mixed().required(getString('artifactsSelection.validation.region')),
+    tagType: Yup.string().required(),
+    tagRegex: Yup.string().when('tagType', {
+      is: 'regex',
+      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+    }),
+    tag: Yup.mixed().when('tagType', {
+      is: 'value',
+      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+    })
+  })
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])
   const [regions, setRegions] = React.useState<SelectOption[]>([])
@@ -123,8 +151,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       imagePath: '',
       tag: RUNTIME_INPUT_VALUE as string,
       tagType: TagTypes.Value,
-      tagRegex: '',
-      region: { label: '', value: '' }
+      tagRegex: ''
     }
   }
 
@@ -180,10 +207,10 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{i18n.specifyArtifactServer}</div>
+      <div className={css.heading}>{getString('artifactsSelection.specifyArtifactServer')}</div>
       <Formik
         initialValues={getInitialValues()}
-        validationSchema={ecrSchema}
+        validationSchema={context === 2 ? sideCarSchema : ecrSchema}
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
@@ -199,17 +226,17 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               {context === 2 && (
                 <div className={css.imagePathContainer}>
                   <FormInput.Text
-                    label={i18n.existingDocker.sidecarId}
-                    placeholder={i18n.existingDocker.sidecarIdPlaceholder}
+                    label={getString('artifactsSelection.existingDocker.sidecarId')}
+                    placeholder={getString('artifactsSelection.existingDocker.sidecarIdPlaceholder')}
                     name="identifier"
                   />
                 </div>
               )}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
-                  label={i18n.existingDocker.imageName}
+                  label={getString('artifactsSelection.existingDocker.imageName')}
                   name="imagePath"
-                  placeholder={i18n.existingDocker.imageNamePlaceholder}
+                  placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
@@ -282,7 +309,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       },
                       onFocus: () => fetchTags(formik.values.imagePath, formik.values?.region)
                     }}
-                    label={i18n.existingDocker.tag}
+                    label={getString('tagLabel')}
                     name="tag"
                   />
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
@@ -306,9 +333,9 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               {formik.values.tagType === 'regex' ? (
                 <div className={css.imagePathContainer}>
                   <FormInput.MultiTextInput
-                    label={i18n.existingDocker.tagRegex}
+                    label={getString('tagRegex')}
                     name="tagRegex"
-                    placeholder={i18n.existingDocker.enterTagRegex}
+                    placeholder={getString('artifactsSelection.existingDocker.enterTagRegex')}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
@@ -330,7 +357,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               ) : null}
             </div>
 
-            <Button intent="primary" type="submit" text={i18n.existingDocker.save} className={css.saveBtn} />
+            <Button intent="primary" type="submit" text={getString('save')} className={css.saveBtn} />
           </Form>
         )}
       </Formik>

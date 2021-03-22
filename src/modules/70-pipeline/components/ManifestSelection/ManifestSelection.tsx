@@ -10,7 +10,7 @@ import { PipelineContext } from '@pipeline/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 
-import i18n from './ManifestSelection.i18n'
+import { useStrings } from 'framework/exports'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView'
 
@@ -113,6 +113,8 @@ export default function ManifestSelection({
     setFetchedConnectorResponse(connectorResponse)
   }
 
+  const { getString } = useStrings()
+
   React.useEffect(() => {
     refetchConnectorList()
   }, [stage])
@@ -121,7 +123,7 @@ export default function ManifestSelection({
     <Layout.Vertical>
       {/* {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />} //disabled for now */}
       {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
-        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
+        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{getString('manifestSelectionInfo')}</Text>
       )}
 
       <ManifestListView

@@ -21,42 +21,9 @@ import { useStrings } from 'framework/exports'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
-import i18n from '../../ArtifactsSelection.i18n'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../ArtifactInterface'
 import { tagOptions } from '../../ArtifactHelper'
 import css from '../GCRArtifact.module.scss'
-
-const primarySchema = Yup.object().shape({
-  imagePath: Yup.string().trim().required(i18n.validation.imagePath),
-  registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
-  tagType: Yup.string().required(),
-  tagRegex: Yup.string().when('tagType', {
-    is: 'regex',
-    then: Yup.string().trim().required('Tag Regex is required')
-  }),
-  tag: Yup.string().when('tagType', {
-    is: 'value',
-    then: Yup.string().trim().required('Tag is required')
-  })
-})
-
-const sidecarSchema = Yup.object().shape({
-  identifier: Yup.string()
-    .trim()
-    .required(i18n.validation.sidecarId)
-    .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-    .notOneOf(StringUtils.illegalIdentifiers),
-  registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
-  tagType: Yup.string().required(),
-  tagRegex: Yup.string().when('tagType', {
-    is: 'regex',
-    then: Yup.string().trim().required('Tag Regex is required')
-  }),
-  tag: Yup.string().when('tagType', {
-    is: 'value',
-    then: Yup.string().trim().required('Tag is required')
-  })
-})
 
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,
@@ -67,6 +34,40 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   initialValues
 }) => {
   const { getString } = useStrings()
+
+  const primarySchema = Yup.object().shape({
+    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
+    tagType: Yup.string().required(),
+    tagRegex: Yup.string().when('tagType', {
+      is: 'regex',
+      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+    }),
+    tag: Yup.mixed().when('tagType', {
+      is: 'value',
+      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+    })
+  })
+
+  const sidecarSchema = Yup.object().shape({
+    identifier: Yup.string()
+      .trim()
+      .required(getString('artifactsSelection.validation.sidecarId'))
+      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+      .notOneOf(StringUtils.illegalIdentifiers),
+    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
+    tagType: Yup.string().required(),
+    tagRegex: Yup.string().when('tagType', {
+      is: 'regex',
+      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+    }),
+    tag: Yup.mixed().when('tagType', {
+      is: 'value',
+      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+    })
+  })
+
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])
   const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
@@ -181,7 +182,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   ))
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{i18n.specifyArtifactServer}</div>
+      <div className={css.heading}>{getString('artifactsSelection.specifyArtifactServer')}</div>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
@@ -200,8 +201,8 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
               {context === 2 && (
                 <div className={css.dockerSideCard}>
                   <FormInput.Text
-                    label={i18n.existingDocker.sidecarId}
-                    placeholder={i18n.existingDocker.sidecarIdPlaceholder}
+                    label={getString('artifactsSelection.existingDocker.sidecarId')}
+                    placeholder={getString('artifactsSelection.existingDocker.sidecarIdPlaceholder')}
                     name="identifier"
                   />
                 </div>
@@ -231,9 +232,9 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
               </div>
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
-                  label={i18n.existingDocker.imageName}
+                  label={getString('artifactsSelection.existingDocker.imageName')}
                   name="imagePath"
-                  placeholder={i18n.existingDocker.imageNamePlaceholder}
+                  placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
@@ -276,7 +277,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       },
                       onFocus: () => fetchTags(formik.values.imagePath, formik.values?.registryHostname)
                     }}
-                    label={i18n.existingDocker.tag}
+                    label={getString('tagLabel')}
                     name="tag"
                   />
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
@@ -300,9 +301,9 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
               {formik.values.tagType === 'regex' ? (
                 <div className={css.imagePathContainer}>
                   <FormInput.MultiTextInput
-                    label={i18n.existingDocker.tagRegex}
+                    label={getString('tagRegex')}
                     name="tagRegex"
-                    placeholder={i18n.existingDocker.enterTagRegex}
+                    placeholder={getString('artifactsSelection.existingDocker.enterTagRegex')}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
@@ -324,7 +325,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
               ) : null}
             </div>
 
-            <Button intent="primary" type="submit" text={i18n.existingDocker.save} className={css.saveBtn} />
+            <Button intent="primary" type="submit" text={getString('save')} className={css.saveBtn} />
           </Form>
         )}
       </Formik>

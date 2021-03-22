@@ -26,14 +26,19 @@ import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'
 import { getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import factory from '../PipelineSteps/PipelineStepFactory'
-import i18n from './OverrideSets.i18n'
 import css from './OverrideSets.module.scss'
+
+export enum OverrideSetsType {
+  Manifests = 'manifests',
+  Artifacts = 'artifacts',
+  Variables = 'Variables'
+}
 
 export default function OverrideSets({
   selectedTab,
   isPropagating = false
 }: {
-  selectedTab: string
+  selectedTab: OverrideSetsType
   isPropagating?: boolean
   parentStage?: string
 }): JSX.Element {
@@ -80,7 +85,7 @@ export default function OverrideSets({
   }, [])
 
   const createOverrideSet = (idName: string): void => {
-    if (selectedTab === i18n.tabs.artifacts) {
+    if (selectedTab === OverrideSetsType.Artifacts) {
       const artifactOverrideSets = get(stage, serviceDefPath + '.artifactOverrideSets', [])
       const artifactOverrideSetsStruct = {
         overrideSet: {
@@ -91,7 +96,7 @@ export default function OverrideSets({
       artifactOverrideSets.push(artifactOverrideSetsStruct)
       setData(stage as {}, serviceDefPath + '.artifactOverrideSets', artifactOverrideSets)
     }
-    if (selectedTab === i18n.tabs.manifests) {
+    if (selectedTab === OverrideSetsType.Manifests) {
       const manifestOverrideSets = get(stage, serviceDefPath + '.manifestOverrideSets', [])
       const manifestOverrideSetStruct = {
         overrideSet: {
@@ -121,7 +126,7 @@ export default function OverrideSets({
     usePortal: true,
     autoFocus: true,
     canEscapeKeyClose: true,
-    title: i18n.modalTitle,
+    title: getString('overrideSets.createOverrideSet'),
     canOutsideClickClose: true,
     enforceFocus: true,
     onClose: () => {
@@ -241,9 +246,11 @@ export default function OverrideSets({
           noAutoScroll
           summary={
             <>
-              <Text style={{ color: 'var(--grey-400)', lineHeight: '24px' }}>{i18n.configure}</Text>
+              <Text style={{ color: 'var(--grey-400)', lineHeight: '24px' }}>
+                {getString('overrideSets.configure')}
+              </Text>
               <Text style={{ color: 'var(--grey-500)', lineHeight: '24px', paddingBottom: 'var(--spacing-medium)' }}>
-                {i18n.info}
+                {getString('overrideSets.overrideSetInfo')}
               </Text>
             </>
           }
@@ -256,7 +263,7 @@ export default function OverrideSets({
                   onClick={() => setModalState(true)}
                   className={css.overrideBtn}
                 >
-                  {i18n.createOverrideSet}
+                  {getString('overrideSets.createOverrideSetPlus')}
                 </Text>
               )}
               {isPropagating && (
@@ -468,7 +475,7 @@ export default function OverrideSets({
                   <Layout.Vertical spacing="small" padding="large">
                     <Label>Override Set Name</Label>
                     <TextInput
-                      placeholder={i18n.overrideSetPlaceholder}
+                      placeholder={getString('overrideSets.overrideSetPlaceholder')}
                       value={overrideName}
                       onChange={e => {
                         e.preventDefault()
@@ -488,7 +495,9 @@ export default function OverrideSets({
                         }}
                       />
                     </Layout.Horizontal>
-                    {isErrorVisible && <section className={css.error}>{i18n.overrideSetError}</section>}
+                    {isErrorVisible && (
+                      <section className={css.error}>{getString('overrideSets.overrideSetError')}</section>
+                    )}
                   </Layout.Vertical>
                 </Dialog>
               )}

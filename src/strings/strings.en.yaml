@@ -231,6 +231,13 @@ lastRunAtDate: '{{$.lastExecutionTs}}: '
 lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
 emptyDeployments: _ _ _ _ _ _
 recentActivity: Recent Activity
+overrideSets:
+  createOverrideSet: Create Override Set
+  overrideSetPlaceholder: Enter override set name
+  overrideSetError: Override Set cannot be empty
+  createOverrideSetPlus: + Create new override set
+  configure: 'Configure pre-defined override sets (Advanced)'
+  overrideSetInfo: Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
 newUser: New User
 allNotificationFormat: All Notification Format
 lastUpdatedSort: '{{$.lastUpdated}}'
@@ -484,6 +491,21 @@ endedAt: 'Ended at:'
 lastUpdatedBy: Last Updated By
 loggedAt: 'Logged at {{time}}'
 delegateLabel: 'Delegate:'
+order: Order
+artifactsSelection:
+  specifyArtifactServer: Specify the Server
+  existingDocker:
+    sidecarId: Give your sidecar identifier
+    sidecarIdPlaceholder: Specify artifact identifier
+    imageNamePlaceholder: Enter path here
+    imageName: ' Image path'
+    enterTagRegex: Enter Tag Regex
+  validation:
+    imagePath: Image path is a required field
+    region: Region is an required field
+    tag: Tag is required,
+    tagRegex: Tag Regex is required
+    sidecarId: Sidecar identifier is required field
 inputSets:
   inputSetLabel: Input Set
   editTitle: 'Edit Input Set: {{name}}'
@@ -508,11 +530,16 @@ inputSets:
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
+  selectPlaceholder: Select Input Set
+  noRecord: No Input Sets Created
+  selectMultipleInputSets: select multiple input sets
+  helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
   inputSetDeleted: 'Input Set "{{name}}" deleted'
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
 delegateSelectionLogs: delegate selection logs
 assessment: Assessment
 workflowVariableInfo: 'Specify additional overrides for any existing variables or define new variables.'
+manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
 duration: 'Duration:'
 runPipelineForm:
   pipelineRunSuccessFully: Pipeline started successfully

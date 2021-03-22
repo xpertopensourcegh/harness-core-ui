@@ -2,8 +2,8 @@ import React from 'react'
 import { render, findByText, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import OverrideSets from '../OverrideSets'
-let selectedTab = 'Artifacts'
+import OverrideSets, { OverrideSetsType } from '../OverrideSets'
+let selectedTab = OverrideSetsType.Artifacts
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -50,7 +50,7 @@ describe('OverrideSet tests', () => {
   })
 
   test(`created manfests override set without crashing`, async () => {
-    selectedTab = 'Manifests'
+    selectedTab = OverrideSetsType.Manifests
     const { container } = render(
       <TestWrapper>
         <OverrideSets selectedTab={selectedTab} />
@@ -72,7 +72,7 @@ describe('OverrideSet tests', () => {
   })
 
   test(`created manfests override set without crashing`, async () => {
-    selectedTab = 'Variables'
+    selectedTab = OverrideSetsType.Variables
     const { container } = render(
       <TestWrapper>
         <OverrideSets selectedTab={selectedTab} />

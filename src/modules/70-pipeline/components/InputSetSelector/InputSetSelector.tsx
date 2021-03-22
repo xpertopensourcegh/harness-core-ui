@@ -18,7 +18,7 @@ import { useParams } from 'react-router-dom'
 import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
-import i18n from './InputSetSelector.i18n'
+import { useStrings } from 'framework/exports'
 import css from './InputSetSelector.module.scss'
 
 interface InputSetValue extends SelectOption {
@@ -89,7 +89,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   const [searchParam, setSearchParam] = React.useState('')
   const [multiple, setMultiple] = React.useState(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>([])
-
+  const { getString } = useStrings()
   React.useEffect(() => {
     if (value) {
       setSelectedInputSets(value)
@@ -313,14 +313,14 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         {value ? (
           <RenderValue value={value} onChange={onChange} />
         ) : (
-          <span className={css.placeholder}>{i18n.placeholder}</span>
+          <span className={css.placeholder}>{getString('inputSets.selectPlaceholder')}</span>
         )}
       </Button>
       <Layout.Vertical spacing="small" padding="medium" className={css.popoverContainer}>
         <Layout.Horizontal spacing="medium">
           <TextInput
             leftIcon="search"
-            placeholder={i18n.searchInputSet}
+            placeholder={getString('search')}
             className={css.search}
             value={searchParam}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -328,7 +328,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             }}
           />
           <Checkbox
-            label={i18n.selectMultipleInputSets}
+            label={getString('inputSets.selectMultipleInputSets')}
             checked={multiple}
             className={css.checkbox}
             onChange={checkbox => {
@@ -344,7 +344,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             padding="small"
           >
             <Icon name="info-sign" color={Color.BLUE_600}></Icon>
-            <Text font={{ size: 'small' }}>{i18n.helpTextForMultiSelect}</Text>
+            <Text font={{ size: 'small' }}>{getString('inputSets.helpTextForMultiSelect')}</Text>
           </Layout.Horizontal>
         )}
         {!inputSets ? (
@@ -353,8 +353,8 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           <Layout.Vertical>
             {multiple && (
               <Layout.Horizontal padding="small" flex={{ distribution: 'space-between' }}>
-                <Text color={Color.BLACK}>{i18n.inputSet}</Text>
-                <Text color={Color.BLACK}>{i18n.order}</Text>
+                <Text color={Color.BLACK}>{getString('inputSets.inputSetLabel')}</Text>
+                <Text color={Color.BLACK}>{getString('order')}</Text>
               </Layout.Horizontal>
             )}
             {inputSets && inputSets.length > 0 ? (
@@ -376,7 +376,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                 padding="small"
                 margin="small"
               >
-                <Text>{i18n.noRecord}</Text>
+                <Text>{getString('inputSets.noRecord')}</Text>
               </Layout.Horizontal>
             )}
           </Layout.Vertical>

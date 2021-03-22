@@ -21,41 +21,9 @@ import { useStrings } from 'framework/exports'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
-import i18n from '../../ArtifactsSelection.i18n'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../ArtifactInterface'
 import { tagOptions } from '../../ArtifactHelper'
 import css from '../ArtifactConnector.module.scss'
-
-const primarySchema = Yup.object().shape({
-  imagePath: Yup.string().trim().required(i18n.validation.imagePath),
-  tagType: Yup.string().required(),
-  tagRegex: Yup.string().when('tagType', {
-    is: 'regex',
-    then: Yup.string().trim().required('Tag Regex is required')
-  }),
-  tag: Yup.string().when('tagType', {
-    is: 'value',
-    then: Yup.string().trim().required('Tag is required')
-  })
-})
-
-const sidecarSchema = Yup.object().shape({
-  identifier: Yup.string()
-    .trim()
-    .required(i18n.validation.sidecarId)
-    .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-    .notOneOf(StringUtils.illegalIdentifiers),
-  imagePath: Yup.string().trim().required('Image Path is required'),
-  tagType: Yup.string().required(),
-  tagRegex: Yup.string().when('tagType', {
-    is: 'regex',
-    then: Yup.string().trim().required('Tag Regex is required')
-  }),
-  tag: Yup.string().when('tagType', {
-    is: 'value',
-    then: Yup.string().trim().required('Tag is required')
-  })
-})
 
 export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,
@@ -69,6 +37,37 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [tagList, setTagList] = React.useState([])
   const [lastImagePath, setLastImagePath] = React.useState('')
+
+  const primarySchema = Yup.object().shape({
+    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    tagType: Yup.string().required(),
+    tagRegex: Yup.string().when('tagType', {
+      is: 'regex',
+      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+    }),
+    tag: Yup.mixed().when('tagType', {
+      is: 'value',
+      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+    })
+  })
+
+  const sidecarSchema = Yup.object().shape({
+    identifier: Yup.string()
+      .trim()
+      .required(getString('artifactsSelection.validation.sidecarId'))
+      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+      .notOneOf(StringUtils.illegalIdentifiers),
+    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    tagType: Yup.string().required(),
+    tagRegex: Yup.string().when('tagType', {
+      is: 'regex',
+      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+    }),
+    tag: Yup.mixed().when('tagType', {
+      is: 'value',
+      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+    })
+  })
 
   const { data, loading, refetch } = useGetBuildDetailsForDocker({
     queryParams: {
@@ -176,7 +175,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   ))
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{i18n.specifyArtifactServer}</div>
+      <div className={css.heading}>{getString('artifactsSelection.specifyArtifactServer')}</div>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
@@ -195,17 +194,17 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
               {context === 2 && (
                 <div className={css.dockerSideCard}>
                   <FormInput.Text
-                    label={i18n.existingDocker.sidecarId}
-                    placeholder={i18n.existingDocker.sidecarIdPlaceholder}
+                    label={getString('artifactsSelection.existingDocker.sidecarId')}
+                    placeholder={getString('artifactsSelection.existingDocker.sidecarIdPlaceholder')}
                     name="identifier"
                   />
                 </div>
               )}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
-                  label={i18n.existingDocker.imageName}
+                  label={getString('artifactsSelection.existingDocker.imageName')}
                   name="imagePath"
-                  placeholder={i18n.existingDocker.imageNamePlaceholder}
+                  placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
@@ -252,7 +251,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       },
                       onFocus: () => fetchTags(formik.values.imagePath)
                     }}
-                    label={i18n.existingDocker.tag}
+                    label={getString('tagLabel')}
                     name="tag"
                   />
 
@@ -277,9 +276,9 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
               {formik.values.tagType === 'regex' ? (
                 <div className={css.imagePathContainer}>
                   <FormInput.MultiTextInput
-                    label={i18n.existingDocker.tagRegex}
+                    label={getString('tagRegex')}
                     name="tagRegex"
-                    placeholder={i18n.existingDocker.enterTagRegex}
+                    placeholder={getString('artifactsSelection.existingDocker.enterTagRegex')}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
@@ -301,7 +300,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
               ) : null}
             </div>
 
-            <Button intent="primary" type="submit" text={i18n.existingDocker.save} className={css.saveBtn} />
+            <Button intent="primary" type="submit" text={getString('save')} className={css.saveBtn} />
           </Form>
         )}
       </Formik>
