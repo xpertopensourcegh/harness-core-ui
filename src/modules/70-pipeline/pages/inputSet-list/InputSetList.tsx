@@ -9,7 +9,6 @@ import routes from '@common/RouteDefinitions'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/exports'
-import i18n from './InputSetList.i18n'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
 
@@ -76,13 +75,13 @@ const InputSetList: React.FC = (): JSX.Element => {
             content={
               <Menu>
                 <MenuItem
-                  text={i18n.inputSet}
+                  text={getString('inputSets.inputSetLabel')}
                   onClick={() => {
                     goToInputSetForm()
                   }}
                 />
                 <MenuItem
-                  text={i18n.overlayInputSet}
+                  text={getString('inputSets.overlayInputSet')}
                   onClick={() => {
                     showOverlayInputSetForm()
                   }}
@@ -91,14 +90,14 @@ const InputSetList: React.FC = (): JSX.Element => {
             }
             position={Position.BOTTOM}
           >
-            <Button text={i18n.newInputSet} rightIcon="caret-down" intent="primary"></Button>
+            <Button text={getString('inputSets.newInputSet')} rightIcon="caret-down" intent="primary"></Button>
           </Popover>
         }
         toolbar={
           <Layout.Horizontal spacing="small">
             <TextInput
               leftIcon="search"
-              placeholder={i18n.searchInputSet}
+              placeholder={getString('inputSets.searchInputSet')}
               className={css.search}
               value={searchParam}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,8 +114,8 @@ const InputSetList: React.FC = (): JSX.Element => {
         noData={{
           when: () => !inputSet?.data?.content?.length,
           icon: 'yaml-builder-input-sets',
-          message: i18n.aboutInputSets,
-          buttonText: i18n.addInputSet,
+          message: getString('inputSets.aboutInputSets'),
+          buttonText: getString('inputSets.addInputSet'),
           onClick: () => goToInputSetForm()
         }}
       >

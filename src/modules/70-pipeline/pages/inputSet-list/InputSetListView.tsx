@@ -12,7 +12,7 @@ import {
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { TagsPopover } from '@common/components'
-import i18n from './InputSetList.i18n'
+import { useStrings } from 'framework/exports'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
@@ -70,6 +70,7 @@ const RenderColumnDescription: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
 }
 const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
   const data = row.original
+  const { getString } = useStrings()
   return (
     <RunPipelineModal
       pipelineIdentifier={data.pipelineIdentifier || /* istanbul ignore next */ ''}
@@ -81,13 +82,14 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         }
       ]}
     >
-      <Button icon="run-pipeline" className={css.runPipelineBtn} intent="primary" text={i18n.runPipeline} />
+      <Button icon="run-pipeline" className={css.runPipelineBtn} intent="primary" text={getString('runPipeline')} />
     </RunPipelineModal>
   )
 }
 const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
+  const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -100,15 +102,20 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
   })
 
   const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(
-      data.name || /* istanbul ignore next */ '',
-      data.inputSetType === 'OVERLAY_INPUT_SET' ? i18n.overlayInputSet : i18n.inputSet
-    ),
-    titleText: i18n.confirmDeleteTitle(
-      data.inputSetType === 'OVERLAY_INPUT_SET' ? i18n.overlayInputSet : i18n.inputSet
-    ),
-    confirmButtonText: i18n.deleteButton,
-    cancelButtonText: i18n.cancel,
+    contentText: getString('inputSets.confirmDeleteText', {
+      name: data.name,
+      type:
+        data.inputSetType === 'OVERLAY_INPUT_SET' ? getString('inputSets.overlayInputSet') : getString('inputSetsText')
+    }),
+
+    titleText: getString('inputSets.confirmDeleteTitle', {
+      type:
+        data.inputSetType === 'OVERLAY_INPUT_SET'
+          ? getString('inputSets.overlayInputSet')
+          : getString('inputSets.inputSetLabel')
+    }),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */
       if (isConfirmed) {
@@ -118,7 +125,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           })
           /* istanbul ignore else */
           if (deleted.status === 'SUCCESS') {
-            showSuccess(i18n.inputSetDeleted(data.name || /* istanbul ignore next */ ''))
+            showSuccess(getString('inputSets.inputSetDeleted', { name: data.name }))
           }
           ;(column as any).refetchInputSet?.()
         } catch (err) {
@@ -150,7 +157,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
         <Menu style={{ minWidth: 'unset' }}>
           <Menu.Item
             icon="edit"
-            text={i18n.edit}
+            text={getString('edit')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               ;(column as any).goToInputSetDetail?.(data.identifier, data.inputSetType)
@@ -160,7 +167,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           <Menu.Item
             icon="duplicate"
             disabled
-            text={i18n.clone}
+            text={getString('projectCard.clone')}
             onClick={
               /* istanbul ignore next */
               (e: React.MouseEvent) => {
@@ -173,7 +180,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           <Menu.Divider />
           <Menu.Item
             icon="trash"
-            text={i18n.delete}
+            text={getString('delete')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               confirmDelete()
@@ -193,41 +200,42 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   refetchInputSet,
   cloneInputSet
 }): JSX.Element => {
+  const { getString } = useStrings()
   const columns: CustomColumn<InputSetLocal>[] = React.useMemo(
     () => [
       {
-        Header: i18n.inputSet.toUpperCase(),
+        Header: getString('inputSets.inputSetLabel').toUpperCase(),
         accessor: 'name',
         width: '25%',
         Cell: RenderColumnInputSet
       },
       {
-        Header: i18n.description.toUpperCase(),
+        Header: getString('description').toUpperCase(),
         accessor: 'description',
         width: '20%',
         Cell: RenderColumnDescription,
         disableSortBy: true
       },
       {
-        Header: i18n.inputFieldSummary.toUpperCase(),
+        Header: getString('inputSets.inputFieldSummary').toUpperCase(),
         accessor: 'inputFieldSummary',
         width: '10%',
         disableSortBy: true
       },
       {
-        Header: i18n.lastUpdatedBy.toUpperCase(),
+        Header: getString('lastUpdatedBy').toUpperCase(),
         accessor: 'lastUpdatedBy',
         width: '10%',
         disableSortBy: true
       },
       {
-        Header: i18n.createdBy.toUpperCase(),
+        Header: getString('cf.environments.createdBy').toUpperCase(),
         accessor: 'createdBy',
         width: '10%',
         disableSortBy: true
       },
       {
-        Header: i18n.actions.toUpperCase(),
+        Header: getString('action').toUpperCase(),
         accessor: 'identifier',
         width: '15%',
         Cell: RenderColumnActions,

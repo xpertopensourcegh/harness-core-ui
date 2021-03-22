@@ -39,6 +39,7 @@ enterNamePlaceholder: Enter name
 orgsText: Organizations
 getStarted: Get Started
 projectLabel: Project
+action: Action
 orgLabel: Organization
 editPipeline: Edit Pipeline
 craetePipelineSubtitle: Let’s get you started by giving your pipeline a name
@@ -457,8 +458,20 @@ collaboratorsLabel: 'Collaborators'
 viewDetails: 'View Details'
 startedAt: 'Started at:'
 endedAt: 'Ended at:'
+lastUpdatedBy: Last Updated By
 loggedAt: 'Logged at {{time}}'
 delegateLabel: 'Delegate:'
+inputSets:
+  inputSetLabel: Input Set
+  newInputSet: + New Input Set
+  searchInputSet: Search Input Set
+  addInputSet: Add Input Set
+  aboutInputSets: Input sets are collections of variables/values that should be provided to a pipeline before execution.
+  confirmDeleteTitle: 'Delete {{type}}'
+  overlayInputSet: Overlay Input Set
+  inputFieldSummary: Input Field Summary
+  inputSetDeleted: 'Input Set "{{name}}" deleted'
+  confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
 delegateSelectionLogs: delegate selection logs
 assessment: Assessment
 duration: 'Duration:'
@@ -563,6 +576,7 @@ SSH_KEY: 'SSH Key'
 version: Version
 goToHome: Go To Home
 governance: 'Governance'
+runPipeline: Run Pipeline
 generalSettings: 'General Settings'
 accessControl: 'Access Control'
 noPermission: You don't have permission to perform this action

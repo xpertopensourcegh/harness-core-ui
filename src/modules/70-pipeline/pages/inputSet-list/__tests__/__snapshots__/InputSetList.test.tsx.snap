@@ -156,7 +156,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          ACTIONS
+          ACTION
         </div>
         <div
           class="cell"
