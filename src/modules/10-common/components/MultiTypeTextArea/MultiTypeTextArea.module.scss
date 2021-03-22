@@ -1,7 +1,4 @@
 .input {
-  // Next 2 lines are needed in order to make textarea overflow over type picker so the user could drag the corner and resize the textarea
-  position: relative;
-  z-index: 1;
   width: 100%;
   // Prevent horizontal resizing since it is breaking UI
   resize: vertical;
