@@ -10,7 +10,6 @@ import { StringUtils } from '@common/exports'
 import { NameIdDescriptionTags } from '@common/components'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 
-import i18n from './PipelineCreate.i18n'
 import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -44,7 +43,7 @@ export default function CreatePipelines({
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(i18n.pipelineNameRequired),
+              name: Yup.string().trim().required(getString('createPipeline.pipelineNameRequired')),
               identifier: Yup.string().when('name', {
                 is: val => val?.length,
                 then: Yup.string()
@@ -73,7 +72,7 @@ export default function CreatePipelines({
                   intent="primary"
                   className={css.startBtn}
                   type="submit"
-                  text={isEdit ? i18n.save : i18n.start}
+                  text={isEdit ? getString('save') : getString('start')}
                 />
               </FormikForm>
             )}

@@ -4,10 +4,9 @@ import type { ITreeNode } from '@blueprintjs/core'
 import { Text, Color } from '@wings-software/uicore'
 import get from 'lodash-es/get'
 import { StringUtils } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
-import i18n from './PipelineStudio.i18n'
 
 export enum PipelineStudioView {
   ui = 'ui',
@@ -33,6 +32,7 @@ export const IdentifierValidation = () => {
 const getStageTree = (
   stage: StageElement,
   classes: NodeClasses = {},
+  getString: UseStringsReturn['getString'],
   { hideNonRuntimeFields = false, template = {} }: { hideNonRuntimeFields?: boolean; template?: {} } = {}
 ): ITreeNode => {
   const stageNode: ITreeNode = {
@@ -54,14 +54,14 @@ const getStageTree = (
       stageNode.childNodes?.push({
         id: `Stage.${stage.identifier}.Variables`,
         hasCaret: false,
-        label: <Text>{i18n.customVariables}</Text>,
+        label: <Text>{getString('customVariables.title')}</Text>,
         className: classes.secondary
       })
   } else {
     stageNode.childNodes?.push({
       id: `Stage.${stage.identifier}.Variables`,
       hasCaret: false,
-      label: <Text>{i18n.customVariables}</Text>,
+      label: <Text>{getString('customVariables.title')}</Text>,
       className: classes.secondary
     })
   }
@@ -122,7 +122,7 @@ const getStageTree = (
         stageNode.childNodes?.push({
           id: `Stage.${stage.identifier}.Service`,
           hasCaret: false,
-          label: <Text>{i18n.service}</Text>,
+          label: <Text>{getString('service')}</Text>,
           className: classes.secondary,
           isExpanded: true,
           childNodes
@@ -131,7 +131,7 @@ const getStageTree = (
       stageNode.childNodes?.push({
         id: `Stage.${stage.identifier}.Service`,
         hasCaret: false,
-        label: <Text>{i18n.service}</Text>,
+        label: <Text>{getString('service')}</Text>,
         className: classes.secondary,
         isExpanded: true,
         childNodes
@@ -161,7 +161,7 @@ const getStageTree = (
         stageNode.childNodes?.push({
           id: `Stage.${stage.identifier}.Infrastructure`,
           hasCaret: false,
-          label: <Text>{i18n.infrastructure}</Text>,
+          label: <Text>{getString('infrastructureText')}</Text>,
           className: classes.secondary
         })
 
@@ -169,7 +169,7 @@ const getStageTree = (
         stageNode.childNodes?.push({
           id: `Stage.${stage.identifier}.Execution`,
           hasCaret: false,
-          label: <Text>{i18n.execution}</Text>,
+          label: <Text>{getString('executionText')}</Text>,
           className: classes.secondary
         })
     } else {
@@ -177,13 +177,13 @@ const getStageTree = (
         {
           id: `Stage.${stage.identifier}.Infrastructure`,
           hasCaret: false,
-          label: <Text>{i18n.infrastructure}</Text>,
+          label: <Text>{getString('infrastructureText')}</Text>,
           className: classes.secondary
         },
         {
           id: `Stage.${stage.identifier}.Execution`,
           hasCaret: false,
-          label: <Text>{i18n.execution}</Text>,
+          label: <Text>{getString('executionText')}</Text>,
           className: classes.secondary
         }
       )
@@ -195,6 +195,7 @@ const getStageTree = (
 export const getPipelineTree = (
   pipeline: NgPipeline,
   classes: NodeClasses = {},
+  getString: UseStringsReturn['getString'],
   options: { hideNonRuntimeFields?: boolean; template?: { stages: [{ stage: {} }] } } = {}
 ): ITreeNode[] => {
   const returnNodes: ITreeNode[] = [
@@ -203,7 +204,7 @@ export const getPipelineTree = (
       hasCaret: false,
       label: (
         <Text color={Color.GREY_800} style={{ fontWeight: 500 }}>
-          {i18n.pipelineVariables}
+          {getString('customVariables.pipelineVariablesTitle')}
         </Text>
       ),
       className: classes.primary
@@ -216,7 +217,7 @@ export const getPipelineTree = (
         hasCaret: false,
         label: (
           <Text color={Color.GREY_800} style={{ fontWeight: 500 }}>
-            {i18n.customVariables}
+            {getString('customVariables.title')}
           </Text>
         ),
         className: classes.empty
@@ -227,7 +228,7 @@ export const getPipelineTree = (
       hasCaret: false,
       label: (
         <Text color={Color.GREY_800} style={{ fontWeight: 500 }}>
-          {i18n.customVariables}
+          {getString('customVariables.title')}
         </Text>
       ),
       className: classes.empty
@@ -240,7 +241,7 @@ export const getPipelineTree = (
       isExpanded: true,
       label: (
         <Text color={Color.GREY_500} font={{ size: 'normal' }} style={{ fontWeight: 500 }}>
-          {i18n.stages}
+          {getString('stages')}
         </Text>
       ),
       childNodes: []
@@ -248,11 +249,14 @@ export const getPipelineTree = (
     pipeline.stages.forEach((data, index) => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach((nodeP: StageElementWrapper) => {
-          nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, classes))
+          nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, classes, getString))
         })
       } /* istanbul ignore else */ else if (data.stage && options.template?.stages?.[index]?.stage) {
         stages.childNodes?.push(
-          getStageTree(data.stage, classes, { ...options, template: options.template?.stages?.[index]?.stage })
+          getStageTree(data.stage, classes, getString, {
+            ...options,
+            template: options.template?.stages?.[index]?.stage
+          })
         )
       }
     })

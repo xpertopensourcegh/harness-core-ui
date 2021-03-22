@@ -108,7 +108,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   useEffect(() => {
     originalPipeline &&
       updateNodes(
-        getPipelineTree(originalPipeline, stagesTreeNodeClasses, {
+        getPipelineTree(originalPipeline, stagesTreeNodeClasses, getString, {
           hideNonRuntimeFields: true,
           template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
         })

@@ -43,7 +43,6 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useAppStore, useStrings } from 'framework/exports'
 import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
-import i18n from './RunPipelineModal.i18n'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
@@ -301,7 +300,7 @@ function RunPipelineFormBasic({
         const data = response.data
         if (response.status === 'SUCCESS') {
           if (response.data) {
-            showSuccess(i18n.pipelineRunSuccessFully)
+            showSuccess(getString('runPipelineForm.pipelineRunSuccessFully'))
             history.push(
               routes.toExecutionPipelineView({
                 orgIdentifier,
@@ -315,7 +314,7 @@ function RunPipelineFormBasic({
           }
         }
       } catch (error) {
-        showWarning(error?.data?.message || i18n.runPipelineFailed)
+        showWarning(error?.data?.message || getString('runPipelineForm.runPipelineFailed'))
       }
     },
     [
@@ -336,7 +335,7 @@ function RunPipelineFormBasic({
     const parsedPipeline = parse(pipelineResponse?.data?.yamlPipeline || '')
     parsedPipeline &&
       updateNodes(
-        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, {
+        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, getString, {
           hideNonRuntimeFields: true,
           template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
         })
@@ -360,7 +359,7 @@ function RunPipelineFormBasic({
         padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
         flex={{ distribution: 'space-between' }}
       >
-        <Text font="medium">{i18n.pipeline}</Text>
+        <Text font="medium">{getString('pipeline')}</Text>
         {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
           <InputSetSelector
             pipelineIdentifier={pipelineIdentifier}
@@ -420,7 +419,7 @@ function RunPipelineFormBasic({
                           />
                         ) : (
                           <Layout.Horizontal padding="medium" margin="medium">
-                            <Text>{i18n.noRuntimeInput}</Text>
+                            <Text>{getString('runPipelineForm.noRuntimeInput')}</Text>
                           </Layout.Horizontal>
                         )}
                       </FormikForm>
@@ -452,21 +451,21 @@ function RunPipelineFormBasic({
                         intent="primary"
                         type="submit"
                         icon="run-pipeline"
-                        text={i18n.runPipeline}
+                        text={getString('runPipeline')}
                         onClick={event => {
                           event.stopPropagation()
                           submitForm()
                         }}
                       />
                       <Checkbox
-                        label={i18n.skipPreFlightCheck}
+                        label={getString('pre-flight-check.skipCheckBtn')}
                         checked={skipPreFlightCheck}
                         onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
                       />
                       <Tooltip position="top" content={getString('featureNA')}>
                         <Checkbox
                           disabled
-                          label={i18n.notifyOnlyMe}
+                          label={getString('runPipelineForm.notifyOnlyMe')}
                           checked={notifyOnlyMe}
                           onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
                         />
@@ -486,9 +485,9 @@ function RunPipelineFormBasic({
                                   createInputSet(stringify({ inputSet: input }) as any)
                                     .then(response => {
                                       if (response.data?.errorResponse) {
-                                        showError(i18n.inputSetSavedError)
+                                        showError(getString('inputSets.inputSetSavedError'))
                                       } else {
-                                        showSuccess(i18n.inputSetSaved)
+                                        showSuccess(getString('inputSets.inputSetSaved'))
                                       }
                                     })
                                     .catch(e => {
@@ -496,7 +495,7 @@ function RunPipelineFormBasic({
                                     })
                                 }}
                                 validationSchema={Yup.object().shape({
-                                  name: Yup.string().trim().required(i18n.nameIsRequired)
+                                  name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
                                 })}
                                 initialValues={{ pipeline: values, name: '', identifier: '' } as InputSetDTO}
                               >
@@ -511,13 +510,13 @@ function RunPipelineFormBasic({
                                       >
                                         <Button
                                           intent="primary"
-                                          text={i18n.save}
+                                          text={getString('save')}
                                           onClick={event => {
                                             event.stopPropagation()
                                             submitFormIs()
                                           }}
                                         />
-                                        <Button className={Classes.POPOVER_DISMISS} text={i18n.cancel} />
+                                        <Button className={Classes.POPOVER_DISMISS} text={getString('cancel')} />
                                       </Layout.Horizontal>
                                     </>
                                   )
@@ -526,11 +525,11 @@ function RunPipelineFormBasic({
                             </Layout.Vertical>
                           }
                         >
-                          <Button minimal intent="primary" text={i18n.saveAsInputSet} />
+                          <Button minimal intent="primary" text={getString('inputSets.saveAsInputSet')} />
                         </Popover>
                       )}
                       <Button
-                        text={i18n.cancel}
+                        text={getString('cancel')}
                         onClick={() => {
                           if (onClose) {
                             onClose()
@@ -616,23 +615,23 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
                   }),
                   label: pipeline?.name || ''
                 },
-                { url: '#', label: i18n.runPipeline }
+                { url: '#', label: getString('runPipeline') }
               ]}
             />
             <Layout.Horizontal>
-              <Text font="medium">{`${i18n.runPipeline}: ${pipeline?.name}`}</Text>
+              <Text font="medium">{`${getString('runPipeline')}: ${pipeline?.name}`}</Text>
               <div className={css.optionBtns}>
                 <div
                   className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
                   onClick={() => handleModeSwitch(SelectedView.VISUAL)}
                 >
-                  {i18n.VISUAL}
+                  {getString('visual')}
                 </div>
                 <div
                   className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
                   onClick={() => handleModeSwitch(SelectedView.YAML)}
                 >
-                  {i18n.YAML}
+                  {getString('yaml')}
                 </div>
               </div>
             </Layout.Horizontal>

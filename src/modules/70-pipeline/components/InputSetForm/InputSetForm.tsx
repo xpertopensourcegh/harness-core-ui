@@ -437,7 +437,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     const parsedPipeline = parse(pipeline?.data?.yamlPipeline || '')
     parsedPipeline &&
       updateNodes(
-        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, {
+        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, getString, {
           hideNonRuntimeFields: true,
           template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
         })

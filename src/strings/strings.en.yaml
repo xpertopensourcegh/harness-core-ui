@@ -190,6 +190,7 @@ numberOfServices: 'Number of Services'
 saveAndPublish: Save and Publish
 unsavedChanges: Unsaved changes
 status: Status
+start: Start
 filePaths: File Paths
 submit: Submit
 previous: Previous
@@ -378,6 +379,12 @@ review: 'Review'
 enabledLabel: 'Enabled'
 activity: 'Activity'
 store: Store
+canvasButtons:
+  zoomIn: Zoom In
+  zoomOut: Zoom Out
+  zoomToFit: Zoom to Fit
+createPipeline:
+  pipelineNameRequired: Pipeline Name is a required field
 helmVersion: Helm Version
 executionStrategy:
   strategies:
@@ -496,6 +503,7 @@ inputSets:
   inputSetSavedError: Error while saving InputSet
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
+  saveAsInputSet: Save as input set
   aboutInputSets: Input sets are collections of variables/values that should be provided to a pipeline before execution.
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
@@ -504,7 +512,13 @@ inputSets:
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
 delegateSelectionLogs: delegate selection logs
 assessment: Assessment
+workflowVariableInfo: 'Specify additional overrides for any existing variables or define new variables.'
 duration: 'Duration:'
+runPipelineForm:
+  pipelineRunSuccessFully: Pipeline started successfully
+  runPipelineFailed: Failed to run pipeline
+  noRuntimeInput: No Runtime input in pipeline
+  notifyOnlyMe: Notify only me
 skipped: 'Step has been skipped.'
 skipCondition: 'Skip condition:'
 skipConditionValidation: 'Skip condition is required.'

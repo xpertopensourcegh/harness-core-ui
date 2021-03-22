@@ -24,7 +24,7 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               style="font-weight: 500;"
             >
-              Pipeline Variables
+              customVariables.pipelineVariablesTitle
             </p>
           </span>
         </div>
@@ -54,7 +54,7 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               style="font-weight: 500;"
             >
-              Custom Variables
+              customVariables.title
             </p>
           </span>
         </div>

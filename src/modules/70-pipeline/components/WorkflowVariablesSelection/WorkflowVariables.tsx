@@ -15,8 +15,8 @@ import { PipelineContext } from '@pipeline/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import i18n from './WorkflowVariables.i18n'
 
+import { useStrings } from 'framework/exports'
 import css from './WorkflowVariables.module.scss'
 
 export default function WorkflowVariables({
@@ -44,6 +44,7 @@ export default function WorkflowVariables({
     getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
+  const { getString } = useStrings()
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
   const serviceConfig = stage?.stage?.spec?.serviceConfig || {}
@@ -145,7 +146,7 @@ export default function WorkflowVariables({
 
       <section className={css.variablesList}>
         {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
-          <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
+          <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{getString('workflowVariableInfo')}</Text>
         )}
         <StepWidget<{ variables: Variable[]; isPropagating?: boolean; canAddVariable: boolean }>
           factory={factory}

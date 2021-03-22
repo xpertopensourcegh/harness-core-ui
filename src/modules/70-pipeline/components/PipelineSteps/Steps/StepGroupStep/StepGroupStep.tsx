@@ -10,7 +10,7 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepGroupElement } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import i18n from './StepGroupStep.i18n'
+import { useStrings } from 'framework/exports'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface StepGroupWidgetProps {
@@ -24,6 +24,7 @@ function StepGroupWidget(
   formikRef: StepFormikFowardRef<StepGroupElement>
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
+  const { getString } = useStrings()
   return (
     <>
       <Formik<StepGroupElement>
@@ -32,7 +33,7 @@ function StepGroupWidget(
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(i18n.stageNameRequired)
+          name: Yup.string().required(getString('secret.validationName'))
         })}
       >
         {(formik: FormikProps<StepGroupElement>) => {
@@ -40,7 +41,7 @@ function StepGroupWidget(
           return (
             <div className={cx(stepCss.formGroup, stepCss.md)}>
               <FormInput.InputWithIdentifier
-                inputLabel={i18n.displayName}
+                inputLabel={getString('name')}
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
               />
             </div>
@@ -69,7 +70,7 @@ export class StepGroupStep extends PipelineStep<StepGroupElement> {
     return {}
   }
   protected type = StepType.StepGroup
-  protected stepName = i18n.stepGroup
+  protected stepName = 'Step Group'
   protected stepIcon: IconName = 'step-group'
   protected stepPaletteVisible = false
 

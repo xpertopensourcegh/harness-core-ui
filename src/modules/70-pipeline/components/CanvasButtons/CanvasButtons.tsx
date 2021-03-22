@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { Layout, ButtonGroup, Button } from '@wings-software/uicore'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import cx from 'classnames'
-import i18n from './CanvasButtons.i18n'
+import { useStrings } from 'framework/exports'
 import css from './CanvasButtons.module.scss'
 
 export enum CanvasButtonsActions {
@@ -25,6 +25,7 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
   className = '',
   tooltipPosition = 'top'
 }) => {
+  const { getString } = useStrings()
   const zoomToFit = useCallback(
     e => {
       e.stopPropagation()
@@ -73,7 +74,7 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
         <ButtonGroup>
           <Button
             icon="canvas-position"
-            tooltip={i18n.zoomToFit}
+            tooltip={getString('canvasButtons.zoomToFit')}
             tooltipProps={{ position: tooltipPosition as any }}
             onClick={zoomToFit}
           />
@@ -81,7 +82,7 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
         <ButtonGroup>
           <Button
             icon="canvas-selector"
-            tooltip={i18n.reset}
+            tooltip={getString('reset')}
             onClick={zoomReset}
             tooltipProps={{ position: tooltipPosition as any }}
           />
@@ -90,13 +91,13 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
           <ButtonGroup>
             <Button
               icon="zoom-in"
-              tooltip={i18n.zoomIn}
+              tooltip={getString('canvasButtons.zoomIn')}
               onClick={zoomIn}
               tooltipProps={{ position: tooltipPosition as any }}
             />
             <Button
               icon="zoom-out"
-              tooltip={i18n.zoomOut}
+              tooltip={getString('canvasButtons.zoomOut')}
               onClick={zoomOut}
               tooltipProps={{ position: tooltipPosition as any }}
             />

@@ -6,7 +6,7 @@ import cx from 'classnames'
 
 import type { StageElementWrapper } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 
 import { PageError } from '@common/components/Page/PageError'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
@@ -25,7 +25,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
     state: { pipeline: originalPipeline }
   } = usePipelineContext()
   const { variablesPipeline, metadataMap, error, initLoading } = usePipelineVariables()
-
+  const { getString } = useStrings()
   const { openNestedPath } = useNestedAccordion()
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
   const [isSidebarCollapsed, setSidebarCollapsed] = React.useState(false)
@@ -36,7 +36,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    updateNodes(getPipelineTree(originalPipeline, stagesTreeNodeClasses))
+    updateNodes(getPipelineTree(originalPipeline, stagesTreeNodeClasses, getString))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [originalPipeline])
 
