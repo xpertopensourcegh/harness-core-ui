@@ -2,7 +2,7 @@ import React from 'react'
 
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
@@ -42,6 +42,7 @@ const JiraConnector: React.FC<CreateJiraConnectorProps> = props => {
       />
       <JiraDetailsForm
         name={getString('details')}
+        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         {...commonProps}
         onConnectorCreated={props.onConnectorCreated}
         isEditMode={isEditMode}

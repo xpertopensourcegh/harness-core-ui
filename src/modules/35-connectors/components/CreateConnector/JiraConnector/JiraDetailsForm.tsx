@@ -8,7 +8,8 @@ import {
   FormInput,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  FormikForm as Form
+  FormikForm as Form,
+  StepProps
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import {
@@ -30,7 +31,6 @@ import {
   SecretReferenceInterface,
   setupJiraFormData
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import type { StepProps } from '@common/components/WizardWithProgress/WizardWithProgress'
 
 import css from './JiraConnector.module.scss'
 

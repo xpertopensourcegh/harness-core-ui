@@ -1,7 +1,7 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -44,6 +44,7 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
       />
       <StepBitbucketAuthentication
         name={getString('credentials')}
+        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         {...commonProps}
         onConnectorCreated={props.onSuccess}
       />

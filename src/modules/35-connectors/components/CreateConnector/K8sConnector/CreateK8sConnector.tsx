@@ -2,7 +2,7 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildKubPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
@@ -36,6 +36,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
       />
       <Stepk8ClusterDetails
         name={getString('details')}
+        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         onConnectorCreated={props.onSuccess}
         hideModal={props.onClose}
         {...commonProps}

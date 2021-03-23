@@ -14,7 +14,7 @@ import {
   useUpdateConnector,
   ResponseBoolean
 } from 'services/cd-ng'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import {
@@ -103,6 +103,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           name={i18n.wizardStepName.credentials}
+          identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
           setFormData={setFormData}
           formData={formData}
           isEditMode={isEditMode}

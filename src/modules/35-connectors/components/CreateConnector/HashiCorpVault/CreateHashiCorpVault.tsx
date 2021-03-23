@@ -2,7 +2,7 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
@@ -38,7 +38,12 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <VaultConfigForm name={getString('connectors.hashiCorpVault.stepTwoName')} {...props} onSuccess={onSuccess} />
+      <VaultConfigForm
+        name={getString('connectors.hashiCorpVault.stepTwoName')}
+        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
+        {...props}
+        onSuccess={onSuccess}
+      />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep

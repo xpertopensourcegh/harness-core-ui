@@ -18,7 +18,7 @@ import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSCon
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
 import StepGitlabAuthentication from '@connectors/components/CreateConnector/GitlabConnector/StepAuth/StepGitlabAuthentication'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 import {
   buildAWSPayload,
   buildBitbucketPayload,
@@ -360,6 +360,7 @@ const ManifestListView = ({
             />
             <StepHelmAuth
               name={getString('details')}
+              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               accountId={accountId}
               orgIdentifier={orgIdentifier}
               projectIdentifier={projectIdentifier}
@@ -386,6 +387,7 @@ const ManifestListView = ({
             />
             <StepAWSAuthentication
               name={getString('credentials')}
+              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
               accountId={accountId}
@@ -422,6 +424,7 @@ const ManifestListView = ({
             />
             <GcpAuthentication
               name={getString('details')}
+              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
               accountId={accountId}
@@ -510,6 +513,7 @@ const ManifestListView = ({
             {ManifestToConnectorMap[manifestStore] === Connectors.GITLAB ? (
               <StepGitlabAuthentication
                 name={getString('credentials')}
+                identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
                 onConnectorCreated={() => {
                   // Handle on success
                 }}

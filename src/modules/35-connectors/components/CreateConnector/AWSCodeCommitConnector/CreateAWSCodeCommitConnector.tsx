@@ -1,7 +1,7 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
@@ -30,6 +30,7 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
       />
       <AWSCCAuthStep
         name={getString('credentials')}
+        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo as ConnectorInfoDTO}
         onSuccess={props.onSuccess}

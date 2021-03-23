@@ -1,7 +1,7 @@
 import React from 'react'
 import { StepWizard, Color } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -42,7 +42,12 @@ const CreateGithubConnector = (props: CreateConnectorModalProps): JSX.Element =>
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <StepGithubAuthentication name={getString('credentials')} {...commonProps} onConnectorCreated={props.onSuccess} />
+      <StepGithubAuthentication
+        name={getString('credentials')}
+        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
+        {...commonProps}
+        onConnectorCreated={props.onSuccess}
+      />
       <DelegateSelectorStep
         name={getString('delegate.DelegateselectionLabel')}
         isEditMode={props.isEditMode}

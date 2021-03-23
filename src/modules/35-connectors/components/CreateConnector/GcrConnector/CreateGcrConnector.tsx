@@ -3,7 +3,7 @@ import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { CreateConnectorModalProps } from '@connectors/constants'
+import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -27,7 +27,11 @@ const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <GcrAuthentication name={getString('connectors.GCR.stepTwoName')} {...commonProps} />
+      <GcrAuthentication
+        name={getString('connectors.GCR.stepTwoName')}
+        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
+        {...commonProps}
+      />
       <DelegateSelectorStep
         name={getString('delegate.DelegateselectionLabel')}
         isEditMode={props.isEditMode}

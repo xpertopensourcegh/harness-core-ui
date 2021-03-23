@@ -3,7 +3,7 @@ import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildArtifactoryPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
@@ -36,6 +36,7 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
         />
         <StepArtifactoryAuthentication
           name={getString('details')}
+          identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
           {...commonProps}
           onConnectorCreated={props.onSuccess}
         />

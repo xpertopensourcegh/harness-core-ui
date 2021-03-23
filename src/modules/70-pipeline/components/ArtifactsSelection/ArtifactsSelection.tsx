@@ -10,7 +10,7 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
@@ -441,6 +441,7 @@ export default function ArtifactsSelection({
             />
             <GcrAuthentication
               name={getString('connectors.GCR.stepTwoName')}
+              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
             />
@@ -465,6 +466,7 @@ export default function ArtifactsSelection({
             <ConnectorDetailsStep type={Connectors.AWS} name={getString('overview')} isEditMode={false} />
             <StepAWSAuthentication
               name={getString('credentials')}
+              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
               accountId={accountId}
@@ -497,6 +499,7 @@ export default function ArtifactsSelection({
             <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={false} />
             <StepDockerAuthentication
               name={getString('details')}
+              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               accountId={accountId}
               orgIdentifier={orgIdentifier}
               projectIdentifier={projectIdentifier}

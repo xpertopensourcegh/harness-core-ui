@@ -15,7 +15,7 @@ import {
   useUpdateConnector
 } from 'services/cd-ng'
 import { setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { buildAppDynamicsPayload as _buildAppDynamicsPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -89,6 +89,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           name={i18n.wizardStepName.credentials}
+          identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
           isEditMode={isEditMode}
           connectorInfo={props.connectorInfo}
         />

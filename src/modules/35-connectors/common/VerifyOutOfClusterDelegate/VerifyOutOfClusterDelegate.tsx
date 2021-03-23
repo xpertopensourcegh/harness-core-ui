@@ -6,7 +6,7 @@ import { useGetDelegateFromId } from 'services/portal'
 import { useGetTestConnectionResult, ResponseConnectorValidationResult, ConnectorConfigDTO } from 'services/cd-ng'
 
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import {
   GetTestConnectionValidationTextByType,
@@ -220,7 +220,13 @@ const VerifyOutOfClusterDelegate: React.FC<
             <Button
               text={getString('editCredentials')}
               onClick={() => {
-                props.previousStep?.({ ...prevStepData })
+                const isTransitionToCredentialsStepSuccessful = props.gotoStep?.({
+                  stepIdentifier: CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+                  prevStepData
+                })
+                if (!isTransitionToCredentialsStepSuccessful) {
+                  props.previousStep?.({ ...prevStepData })
+                }
                 props.setIsEditMode?.(true) // Remove after all usages
               }}
             />

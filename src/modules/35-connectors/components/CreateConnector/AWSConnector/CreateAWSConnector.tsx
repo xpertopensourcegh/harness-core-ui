@@ -4,7 +4,7 @@ import { pick } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { buildAWSPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -30,6 +30,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
         />
         <StepAWSAuthentication
           name={getString('credentials')}
+          identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
           {...commonProps}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
