@@ -7,6 +7,8 @@ common:
   durationPrefix: 'Duration: '
   pipelineDetails: Pipeline Details
   comments: Comments
+  approve: Approve
+  reject: Reject
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'
@@ -787,6 +789,9 @@ approvalStep:
     userGroups: 'Please provide user groups'
     minimumCountOne: 'Minimum count cannot be less than one'
     minimumCountRequired: 'Minimum count is required'
+  status:
+    APPROVE: Approved
+    REJECT: Rejected
 delegate:
   numberOfDelegates: 'Number of delegates'
   delegateSizeUndefined: 'Delegate Size is undefined'

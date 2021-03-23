@@ -1,12 +1,17 @@
 import React from 'react'
-import { Button } from '@wings-software/uicore'
-import { Collapse } from '@blueprintjs/core'
+import { Button, Icon } from '@wings-software/uicore'
+import { Collapse, IconName } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import type { HarnessApprovalActivity } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 
 import css from '../ApprovalStepDetails.module.scss'
+
+const iconMap: Record<HarnessApprovalActivity['action'], IconName> = {
+  APPROVE: 'tick',
+  REJECT: 'cross'
+}
 
 export interface HarnessApproverProps {
   approvalActivity: HarnessApprovalActivity
@@ -24,7 +29,10 @@ export function HarnessApprover(props: HarnessApproverProps): React.ReactElement
     <div className={css.approver}>
       <div className={css.summary}>
         <div className={css.approverName}>{approvalActivity.user?.name}</div>
-        <div>{approvalActivity.action}</div>
+        <div className={css.status} data-status={approvalActivity.action}>
+          <Icon name={iconMap[approvalActivity.action]} size={12} />
+          <String stringID={`approvalStep.status.${approvalActivity.action}`} />
+        </div>
         <div>{approvalActivity.approvedAt ? new Date(approvalActivity.approvedAt).toLocaleString() : '-'}</div>
         <Button
           icon="chevron-down"
