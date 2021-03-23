@@ -137,7 +137,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
                   id: uuid()
                 })
               )
-            : [{ key: '', value: '', id: uuid() }],
+            : [],
         outputVariables:
           getMultiTypeFromValue(initialValues.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.outputVariables as string)
@@ -146,7 +146,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
                 ...variable,
                 id: uuid()
               }))
-            : [{ name: '', type: 'String', value: '', id: uuid() }]
+            : []
       }
     }
   }
