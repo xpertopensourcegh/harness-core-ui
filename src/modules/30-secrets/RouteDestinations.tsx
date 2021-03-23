@@ -11,7 +11,7 @@ import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/Create
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
 import SecretResourceModalBody from '@secrets/components/SecretResourceModalBody/SecretResourceModalBody'
 
 const AccountSettingsSideNavProps: SidebarContext = {
@@ -24,6 +24,7 @@ const AccountSettingsSideNavProps: SidebarContext = {
 RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
   icon: 'lock',
   label: 'Secrets',
+  category: ResourceTypeGroup.PROJECT_RESOURCES,
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <SecretResourceModalBody {...props} />
 })

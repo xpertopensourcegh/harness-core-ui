@@ -12,17 +12,30 @@ import UsersPage from '@rbac/pages/Users/UsersPage'
 import UserGroups from '@rbac/pages/UserGroups/UsersGroups'
 import Roles from '@rbac/pages/Roles/Roles'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
+import { String } from 'framework/exports'
 import RoleDetails from './pages/RoleDetails/RoleDetails'
 import ResourceGroupDetails from './pages/ResourceGroupDetails/ResourceGroupDetails'
+import RbacFactory from './factories/RbacFactory'
+import { ResourceTypeGroup } from './interfaces/ResourceType'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
   title: 'Settings'
 }
+
+RbacFactory.registerResourceTypeGroup(ResourceTypeGroup.PROJECT_RESOURCES, {
+  icon: 'nav-project',
+  label: <String stringID="projectResources" />
+})
+
+RbacFactory.registerResourceTypeGroup(ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS, {
+  icon: 'settings',
+  label: <String stringID="adminFunctions" />
+})
+
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, orgIdentifier } = useParams()
-
   return <Redirect to={routes.toUsers({ accountId, orgIdentifier })} />
 }
 

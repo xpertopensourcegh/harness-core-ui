@@ -17,6 +17,15 @@
   grid-template-columns: 30% 1fr;
 }
 
+.groupRow {
+  border-bottom: 1px solid var(--grey-200);
+  padding: var(--spacing-large);
+
+  &:last-child {
+    border: 0;
+  }
+}
+
 .permissionList {
   display: grid;
   grid-column-gap: var(--spacing-small);

@@ -19,7 +19,7 @@ import {
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
 import { getPermissionMap } from '@rbac/pages/RoleDetails/utils.tsx'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
@@ -28,6 +28,7 @@ import css from './RoleDetails.module.scss'
 const RoleDetails: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module } = useParams()
   const [resource, setResource] = useState<ResourceType>()
+  const [resourceGroupTypeList, setResourceGroupTypeList] = useState<(ResourceType | ResourceTypeGroup)[]>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [permissions, setPermissions] = useState<string[]>([])
@@ -62,11 +63,14 @@ const RoleDetails: React.FC = () => {
       projectIdentifier
     }
   })
-
   useEffect(() => {
     setPermissions(data?.data?.role.permissions || /* istanbul ignore next */ [])
     setIsUpdated(false)
   }, [data?.data])
+
+  useEffect(() => {
+    setResourceGroupTypeList(RbacFactory.getResourceGroupTypeList((resourceGroups?.data || []) as ResourceType[]))
+  }, [resourceGroups?.data])
 
   const permissionsMap: Map<ResourceType, Permission[]> = getPermissionMap(permissionList?.data)
 
@@ -167,8 +171,8 @@ const RoleDetails: React.FC = () => {
         <Layout.Horizontal className={css.body}>
           <Container className={css.resourceList}>
             <Layout.Vertical flex spacing="small">
-              {resourceGroups?.data?.map(resourceType => {
-                const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType as ResourceType)
+              {resourceGroupTypeList?.map(resourceType => {
+                const resourceHandler = RbacFactory.getResourceGroupTypeHandler(resourceType)
                 return (
                   resourceHandler && (
                     <Card
@@ -203,7 +207,7 @@ const RoleDetails: React.FC = () => {
                   <Button onClick={() => submitChanges(role)} text={getString('applyChanges')} intent="primary" />
                 </Layout.Horizontal>
               </Layout.Horizontal>
-              {resourceGroups?.data?.map(resourceType => {
+              {resourceGroupTypeList?.map(resourceType => {
                 return (
                   <div
                     key={resourceType}
@@ -212,9 +216,9 @@ const RoleDetails: React.FC = () => {
                     }}
                   >
                     <PermissionCard
-                      selected={(resourceType as ResourceType) === resource}
-                      permissions={permissionsMap.get(resourceType as ResourceType)}
-                      resourceType={resourceType as ResourceType}
+                      selected={resourceType === resource}
+                      permissionMap={permissionsMap}
+                      resourceType={resourceType}
                       isDefault={data?.data?.harnessManaged}
                       onChangePermission={onChangePermission}
                       isPermissionEnabled={isPermissionEnabled}

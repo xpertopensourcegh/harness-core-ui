@@ -41,6 +41,8 @@ enterNamePlaceholder: Enter name
 orgsText: Organizations
 getStarted: Get Started
 projectLabel: Project
+projectResources: Project Resources
+adminFunctions: Adminstrative Functions
 action: Action
 orgLabel: Organization
 editPipeline: Edit Pipeline
