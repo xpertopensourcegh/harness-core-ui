@@ -33,7 +33,7 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
   const { initialValues, template, stepViewType = StepViewType.Edit, path, variableNamePrefix = '', domId } = props
   const basePath = path?.length ? `${path}.` : ''
   return (
-    <div className={cx(css.customVariables, 'customVariables')} id={domId}>
+    <div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId}>
       {stepViewType === StepViewType.StageVariable && initialValues.variables.length > 0 && (
         <section className={css.subHeader}>
           <String stringID="name" />
@@ -48,7 +48,6 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
         return (
           <div key={`${variable.name}${index}`} className={css.variableListTable}>
             <Text>{`${variableNamePrefix}${variable.name}`}</Text>
-
             <Text>{variable.type}</Text>
             <div className={css.valueRow}>
               {variable.type === VariableType.Secret ? (
