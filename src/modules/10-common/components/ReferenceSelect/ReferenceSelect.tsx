@@ -66,12 +66,14 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
       >
         {selected ? selectedRenderer || selected.label : <span className={css.placeholder}>{placeholder}</span>}
       </Button>
-      <div>
+      <div className={css.contentContainer}>
         {editRenderer && selected && selected.value && (
           <Layout.Horizontal
             padding="medium"
             style={{
-              borderBottom: '1px solid var(--grey-250)'
+              borderBottom: '1px solid var(--grey-250)',
+              paddingTop: '0',
+              marginBottom: 'var(--spacing-small)'
             }}
           >
             {editRenderer}
@@ -79,9 +81,9 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
         )}
         {createNewLabel && createNewHandler && isNewConnectorLabelVisible && (
           <Layout.Horizontal
-            padding="small"
             style={{
-              borderBottom: '1px solid var(--grey-250)'
+              borderBottom: '1px solid var(--grey-250)',
+              paddingBottom: 'var(--spacing-small)'
             }}
             className={Classes.POPOVER_DISMISS}
           >

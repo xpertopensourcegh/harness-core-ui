@@ -3,5 +3,6 @@
 declare const styles: {
   readonly container: string
   readonly placeholder: string
+  readonly contentContainer: string
 }
 export default styles
