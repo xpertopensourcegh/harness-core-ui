@@ -12,6 +12,7 @@ import {
   useModalHook,
   SelectOption
 } from '@wings-software/uicore'
+import * as Yup from 'yup'
 import { debounce as _debounce } from 'lodash-es'
 import { Dialog, IDialogProps, RadioGroup, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -62,7 +63,24 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     lazy: true
   })
 
-  const debouncedFetchHostedZones = React.useCallback(_debounce(loadHostedZones, 500), [])
+  // const debouncedFetchHostedZones = React.useCallback(_debounce(loadHostedZones, 500), [])
+
+  const debouncedCustomDomainTextChange = React.useCallback(
+    _debounce((value: string, shouldLoadHostedZones: boolean) => {
+      const updatedGatewayDetails = { ...props.gatewayDetails }
+      if (!updatedGatewayDetails.metadata.custom_domain_providers) {
+        updatedGatewayDetails.metadata = {
+          ...props.gatewayDetails.metadata,
+          custom_domain_providers: { others: {} } // eslint-disable-line
+        }
+      }
+      updatedGatewayDetails.customDomains = value.split(',')
+      props.setGatewayDetails(updatedGatewayDetails)
+      props.setHelpTextSections(['usingCustomDomain'])
+      shouldLoadHostedZones && loadHostedZones()
+    }, 500),
+    []
+  )
 
   const initialAccessPointDetails: AccessPoint = {
     cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -178,6 +196,15 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         }}
         enableReinitialize={true}
         onSubmit={values => alert(JSON.stringify(values))}
+        validationSchema={Yup.object().shape({
+          customURL: Yup.string()
+            .trim()
+            .matches(
+              /((https?):\/\/)?(www.)?[a-z0-9-]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#-]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+              'Enter a valid URL'
+            )
+            .required()
+        })}
         render={formik => (
           <FormikForm>
             <Layout.Vertical spacing="medium">
@@ -221,6 +248,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   value="yes"
                   onChange={e => {
                     formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
+                    debouncedCustomDomainTextChange('', false)
                   }}
                   checked={formik.values.usingCustomDomain == 'yes'}
                   className={css.centerAlignedRadio}
@@ -230,10 +258,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   placeholder={'Custom URL (Example: qa.yourcompany.com)'}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     formik.setFieldValue('customURL', e.target.value)
-                    props.gatewayDetails.customDomains = e.target.value.split(',')
-                    props.setGatewayDetails(props.gatewayDetails)
-                    props.setHelpTextSections(['usingCustomDomain'])
-                    debouncedFetchHostedZones()
+                    debouncedCustomDomainTextChange(e.target.value, true)
+                    // debouncedFetchHostedZones()
                   }}
                   style={{ width: '100%' }}
                   disabled={formik.values.usingCustomDomain != 'yes'}
@@ -264,10 +290,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     items={accessPointsList}
                     onChange={e => {
                       formik.setFieldValue('accessPoint', e.value)
-                      props.gatewayDetails.accessPointID = e.value as string
-                      props.gatewayDetails.hostName = generateHostName(e.label as string)
-                      props.setGatewayDetails(props.gatewayDetails)
-                      setGeneratedHostName(props.gatewayDetails.hostName)
+                      const updatedGatewayDetails = { ...props.gatewayDetails }
+                      updatedGatewayDetails.accessPointID = e.value as string
+                      updatedGatewayDetails.hostName = generateHostName(e.label as string)
+                      props.setGatewayDetails(updatedGatewayDetails)
+                      setGeneratedHostName(updatedGatewayDetails.hostName)
                     }}
                     disabled={accessPointsLoading}
                   />
@@ -291,8 +318,20 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         formik.setFieldValue('dnsProvider', e.currentTarget.value)
                         setDNSProvider(e.currentTarget.value)
                         if (e.currentTarget.value == 'others') {
+                          const updatedGatewayDetails = { ...props.gatewayDetails }
+                          updatedGatewayDetails.metadata = {
+                            ...props.gatewayDetails.metadata,
+                            custom_domain_providers: { others: {} } // eslint-disable-line
+                          }
+                          props.setGatewayDetails(updatedGatewayDetails)
                           props.setHelpTextSections(['usingCustomDomain', 'dns-others'])
                         } else {
+                          const updatedGatewayDetails = { ...props.gatewayDetails }
+                          updatedGatewayDetails.metadata = {
+                            ...props.gatewayDetails.metadata,
+                            custom_domain_providers: { route53: {} } // eslint-disable-line
+                          }
+                          props.setGatewayDetails(updatedGatewayDetails)
                           props.setHelpTextSections(['usingCustomDomain'])
                         }
                       }}
@@ -310,11 +349,15 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                           items={hostedZonesList}
                           onChange={e => {
                             formik.setFieldValue('route53Account', e.value)
-                            //eslint-disable-next-line
-                            props.gatewayDetails.metadata.custom_domain_providers = {
-                              route53: { hosted_zone_id: e.value as string } // eslint-disable-line
+                            const updatedGatewayDetails = { ...props.gatewayDetails }
+                            updatedGatewayDetails.metadata = {
+                              ...props.gatewayDetails.metadata,
+                              //eslint-disable-next-line
+                              custom_domain_providers: {
+                                route53: { hosted_zone_id: e.value as string } // eslint-disable-line
+                              }
                             }
-                            props.setGatewayDetails(props.gatewayDetails)
+                            props.setGatewayDetails(updatedGatewayDetails)
                           }}
                         />
                       </>

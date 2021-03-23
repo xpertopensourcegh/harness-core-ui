@@ -36,17 +36,32 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   }
 
   useEffect(() => {
-    if (
-      accessDetails.dnsLink.selected ||
-      accessDetails.ipaddress.selected ||
-      accessDetails.ssh.selected ||
-      accessDetails.backgroundTasks.selected ||
-      accessDetails.rdp.selected
-    ) {
-      props.setValidity(true)
+    let validStatus = false
+    if (accessDetails.dnsLink.selected) {
+      if (props.gatewayDetails.customDomains?.length) {
+        validStatus = props.gatewayDetails.customDomains.every(url =>
+          url.match(
+            /((https?):\/\/)?(www.)?[a-z0-9-]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#-]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
+          )
+        )
+        if (
+          !props.gatewayDetails.metadata.custom_domain_providers?.others &&
+          !props.gatewayDetails.metadata.custom_domain_providers?.route53?.hosted_zone_id
+        ) {
+          validStatus = false
+        }
+      } else {
+        validStatus = true
+      }
     } else {
-      props.setValidity(false)
+      validStatus =
+        accessDetails.ipaddress.selected ||
+        accessDetails.ssh.selected ||
+        accessDetails.backgroundTasks.selected ||
+        accessDetails.rdp.selected
     }
+    props.setValidity(validStatus)
+
     props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
     props.setGatewayDetails(props.gatewayDetails)
     if (accessDetails.dnsLink.selected) {
@@ -70,7 +85,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       return
     }
     setSelectedTabId('')
-  }, [accessDetails])
+  }, [accessDetails, props.gatewayDetails.customDomains, props.gatewayDetails.metadata])
 
   useEffect(() => {
     let helpTextBase = 'setup-access'
