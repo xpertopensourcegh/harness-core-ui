@@ -42,6 +42,7 @@ export enum NodeType {
   STEP_GROUP = 'STEP_GROUP',
   NG_SECTION = 'NG_SECTION',
   FORK = 'NG_FORK',
+  INFRASTRUCTURE_SECTION = 'INFRASTRUCTURE_SECTION',
   DEPLOYMENT_STAGE_STEP = 'DEPLOYMENT_STAGE_STEP'
 }
 
@@ -51,6 +52,7 @@ export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   SERVICE: 'main-services',
   GENERIC_SECTION: 'step-group',
   NG_SECTION: 'step-group',
+  INFRASTRUCTURE_SECTION: 'step-group',
   STEP_GROUP: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
   NG_FORK: 'fork',
@@ -394,7 +396,7 @@ const processNodeData = (
       if (nodeData?.stepType === LITE_ENGINE_TASK) {
         processLiteEngineTask(nodeData, rootNodes)
       } else {
-        const icon = factory.getStepIcon(nodeData?.stepType || '')
+        const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeData?.stepType || '')
         items.push({
           item: {
             name: nodeData?.name || /* istanbul ignore next */ '',
@@ -421,7 +423,7 @@ const processNodeData = (
           )
         })
       } else if (nodeDataNext?.stepType === NodeType.STEP_GROUP) {
-        const icon = factory.getStepIcon(nodeDataNext?.stepType)
+        const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeDataNext?.stepType)
         items.push({
           group: {
             name: nodeDataNext.name || /* istanbul ignore next */ '',
@@ -441,7 +443,8 @@ const processNodeData = (
           }
         })
       } else {
-        const icon = factory.getStepIcon(nodeDataNext?.stepType || '')
+        const icon =
+          StepTypeIconsMap[nodeDataNext?.stepType as NodeType] || factory.getStepIcon(nodeDataNext?.stepType || '')
         items.push({
           item: {
             name: nodeDataNext?.name || /* istanbul ignore next */ '',
@@ -484,7 +487,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === NodeType.NG_SECTION) {
+        if (nodeData.stepType === NodeType.NG_SECTION || nodeData.stepType === NodeType.INFRASTRUCTURE_SECTION) {
           // NOTE: exception if we have only lite task engine in Execution group
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
