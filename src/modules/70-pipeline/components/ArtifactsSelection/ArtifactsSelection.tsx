@@ -36,15 +36,9 @@ import type {
   CreationType,
   ImagePathProps
 } from './ArtifactInterface'
-import { getArtifactIconByType } from './ArtifactHelper'
+import { ENABLED_ARTIFACT_TYPES, getArtifactIconByType } from './ArtifactHelper'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './ArtifactsSelection.module.scss'
-
-const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
-  DockerRegistry: 'Dockerhub',
-  Gcp: 'Gcr',
-  Aws: 'Ecr'
-}
 
 const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = [Connectors.DOCKER, Connectors.GCP, Connectors.AWS]
 
@@ -424,8 +418,8 @@ export default function ArtifactsSelection({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('connectors.specifyArtifactRepoType'),
-      secondStepName: getString('connectors.specifyArtifactRepo'),
-      newConnector: getString('connectors.newArtifactRepository')
+      secondStepName: `${getString('select')} ${ENABLED_ARTIFACT_TYPES[selectedArtifact]} ${getString('repository')}`,
+      newConnector: `${getString('newLabel')} ${selectedArtifact} ${getString('connector')}`
     }
   }
 

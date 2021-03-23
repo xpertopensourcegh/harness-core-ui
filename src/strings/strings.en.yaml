@@ -35,6 +35,7 @@ signUp:
   noAccount: 'No Account?'
 featureFlagsText: Feature Flags
 flag: Flag
+newLabel: New
 continuousFeatures: Continuous Features
 featureNA: This feature is not available as of now
 logView: Log View
@@ -123,7 +124,7 @@ connectionMode: Connection Mode
 credType: Credential Type
 secrets: 'Secrets'
 secretDetails: 'Secret Details'
-noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
+noDeploymentText: Your Pipeline does not have any executions yet. Click the button below to run a pipeline.
 noBuildsText: Your account does not have any builds yet. Click the button below to run a pipeline.
 newConnector: 'New Connector'
 thisConnectorIsSavedAs: 'This Connector is saved as'
@@ -499,7 +500,7 @@ loggedAt: 'Logged at {{time}}'
 delegateLabel: 'Delegate:'
 order: Order
 artifactsSelection:
-  specifyArtifactServer: Specify the Server
+  artifactDetails: Artifact Details
   existingDocker:
     sidecarId: Give your sidecar identifier
     sidecarIdPlaceholder: Specify artifact identifier
@@ -509,7 +510,7 @@ artifactsSelection:
   validation:
     imagePath: Image path is a required field
     region: Region is an required field
-    tag: Tag is required,
+    tag: Tag is required
     tagRegex: Tag Regex is required
     sidecarId: Sidecar identifier is required field
 inputSets:
@@ -1465,7 +1466,7 @@ activityHistory:
   heartbeatFailure: Heart beat Failure
 manifestType:
   manifestIdentifier: Manifest Identifier
-  manifestPlaceholder: Give name to your manifest config
+  manifestPlaceholder: Add Manifest Identifier
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
@@ -1479,10 +1480,16 @@ manifestType:
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
+  pathRequired: Path is required
   path: 'Path'
   pluginPathRequired: Plugin Path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
+  gitFetchTypeLabel: Branch/Commit ID
+  commitId: Commit ID
+  branchPlaceholder: Enter branch name here
+  commitPlaceholder: Enter Commit ID here
+  filePathPlaceholder: Enter overrides file path
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'

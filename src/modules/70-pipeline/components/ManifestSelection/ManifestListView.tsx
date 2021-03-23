@@ -66,7 +66,10 @@ import css from './ManifestSelection.module.scss'
 const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
-  ManifestDataType.HelmChart
+  ManifestDataType.HelmChart,
+  ManifestDataType.Kustomize
+  // ManifestDataType.OpenshiftTemplate,
+  // ManifestDataType.OpenshiftParam
 ]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
@@ -258,8 +261,8 @@ const ManifestListView = ({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('manifestType.specifyManifestRepoType'),
-      secondStepName: getString('manifestType.specifyManifestStore'),
-      newConnector: getString('newConnector')
+      secondStepName: `${getString('select')} ${selectedManifest} ${getString('store')}`,
+      newConnector: `${getString('newLabel')} ${ManifestToConnectorMap[manifestStore]} ${getString('connector')}`
     }
   }
 
@@ -556,14 +559,6 @@ const ManifestListView = ({
     //   selectedManifest === ManifestDataType.HelmChart
     //     ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
     //     : manifestStoreTypes
-
-    /*
-      // This is for openshiftparam
-        const storeTypes =
-      selectedManifest === ManifestDataType.OpenshiftParam
-        ? [ManifestStoreMap.Git, ManifestStoreMap.Local]
-        : manifestStoreTypes
-    */
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart
         ? [...manifestStoreTypes, ManifestStoreMap.Http]
