@@ -768,6 +768,7 @@ secret:
   labelText: 'Text'
   labelFile: 'File'
   labelSecretType: 'Secret type'
+  noSecretsFound: 'No Secrets Found'
 usersPage:
   search: Search by Name or Email
 instanceFieldOptions:
@@ -2503,3 +2504,6 @@ userProfile:
   myProjects: My Projects
   myGroups: My Groups
   myTools: My Collaboration Tools
+entityReference:
+  noRecordFound: 'No Record Found'
+  apply: 'Apply Selected'
