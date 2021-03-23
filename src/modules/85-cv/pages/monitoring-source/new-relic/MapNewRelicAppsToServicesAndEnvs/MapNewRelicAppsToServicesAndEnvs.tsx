@@ -11,7 +11,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { StepLabelProps } from '@cv/components/CVSetupSourcesView/StepLabel/StepLabel'
 import { SelectMetricPack } from '@cv/pages/monitoring-source/SelectMetricPack/SelectMetricPack'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { FooterCTA, SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
+import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import {
   useGetHarnessServices,
   HarnessService,
@@ -316,7 +316,6 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
               }}
             />
           </Layout.Vertical>
-          <FooterCTA />
         </Container>
       }
       footerCTAProps={{
@@ -334,7 +333,7 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
             })
             openDialog()
           } else {
-            onNext({ ...sourceData, mappedServiceAndEnvs: selectedApps, selectedMetricPacks })
+            onNext({ ...sourceData, mappedServicesAndEnvs: selectedApps, selectedMetricPacks })
           }
         },
         onPrevious: () => onPrevious({ ...sourceData, mappedServicesAndEnvs: selectedApps, selectedMetricPacks })

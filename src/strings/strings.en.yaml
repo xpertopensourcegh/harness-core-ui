@@ -2040,6 +2040,7 @@ cv:
     oneMetricPackValidation: At least one Metric Pack must be selected
     oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
     backToMapping: Back to Mapping
+    reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
     appD:
       envDescription: An Environment is the representation of your production or non-production infrastructure.
       appDApplications: APPDYNAMICS APPLICATIONS
@@ -2142,6 +2143,7 @@ cv:
       newRelicAppColumn: NEW RELIC APPLICATION
       selectedApplications: Selected Applications
       oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
+      totalMappedApplications: '{{total}} Application(s) mapped'
 
   activitySources:
     name: 'Name your Change Source'
