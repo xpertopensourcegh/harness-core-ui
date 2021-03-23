@@ -3,9 +3,10 @@ import { omit } from 'lodash-es'
 
 import { usePermissionsContext, PermissionRequestOptions } from '@rbac/interfaces/PermissionsContext'
 import type { PermissionCheck } from 'services/rbac'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 interface PermissionsRequest extends Omit<PermissionCheck, 'permission'> {
-  permissions: string[]
+  permissions: PermissionIdentifier[]
   options?: PermissionRequestOptions
 }
 

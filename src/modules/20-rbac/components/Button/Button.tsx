@@ -5,12 +5,17 @@ import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-sof
 import type { PermissionCheck } from 'services/rbac'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { useStrings } from 'framework/exports'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
-interface ButtonProps extends CoreButtonProps {
-  permission: PermissionCheck
+interface TypedPermissionCheck extends Omit<PermissionCheck, 'permission'> {
+  permission: PermissionIdentifier
 }
 
-const Button: React.FC<ButtonProps> = props => {
+interface ButtonProps extends CoreButtonProps {
+  permission: TypedPermissionCheck
+}
+
+const RbacButton: React.FC<ButtonProps> = props => {
   const { getString } = useStrings()
   const [canDoAction] = usePermission({
     ...omit(props.permission, 'permission'),
@@ -26,4 +31,4 @@ const Button: React.FC<ButtonProps> = props => {
   )
 }
 
-export default Button
+export default RbacButton

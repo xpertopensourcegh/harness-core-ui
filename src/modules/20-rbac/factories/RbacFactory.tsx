@@ -2,6 +2,7 @@ import type React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import type { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 export interface RbacResourceModalProps {
   searchTerm: string
@@ -12,6 +13,9 @@ export interface RbacResourceModalProps {
 export interface ResourceHandler {
   icon: IconName
   label: string | React.ReactElement
+  permissionLabels?: {
+    [key in PermissionIdentifier]?: string | React.ReactElement
+  }
   addResourceModalBody?: (props: RbacResourceModalProps) => React.ReactElement
   category?: ResourceTypeGroup
 }

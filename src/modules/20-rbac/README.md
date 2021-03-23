@@ -8,7 +8,7 @@ There are two distinct parts of the access-control framework: Configuration and 
 
 ## Configuration
 
-The Configuration framework built using the _factory_ pattern. Since each resource type (eg. Secret, Project, Pipeline, Connector etc.) will have their own permissions, UI and service calls, the framework is unaware of these details.
+The Configuration framework built using the _registration_ pattern. Since each resource type (eg. Secret, Project, Pipeline, Connector etc.) will have their own permissions, UI and service calls, the framework is unaware of these details.
 
 Developers from different teams will need to register their resources with the RBAC Factory.
 
@@ -18,10 +18,15 @@ Developers from different teams will need to register their resources with the R
 Example of a registration:
 
 ```typescript
-RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
-  icon: 'nav-project',
-  label: 'Projects',
-  addResourceModalBody: props => <AddProjectResourceModalBody {...props} />
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+
+RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
+  icon: 'nav-org',
+  label: 'Organizations',
+  permissionLabels: {
+    [PermissionIdentifier.CREATE_ORG]: 'Create / Edit'
+  }
+  addResourceModalBody: props => <AddOrganizationResourceModalBody {...props} />
 })
 ```
 
@@ -35,9 +40,14 @@ Similarly, for all resource types, we need the capability to select individual r
 export interface ResourceHandler {
   icon: IconName
   label: string
+  permissionLabels?: {
+    [key in PermissionIdentifier]?: string
+  }
   addResourceModalBody: (props: RbacResourceModalProps) => React.ReactElement
 }
 ```
+
+> **Note** If you are adding a new permission itself, you need to register it in the `PermissionIdentifier` enum in `src/modules/20-rbac/interfaces/PermissionIdentifier.ts`. This enum maintains the list of all valid permissions in the system to keep access-control type-safe.
 
 ## Consumption
 
@@ -46,6 +56,7 @@ Also known as the _Decision Framework_.
 Querying for permissions from the backend involves multiple steps, but it has been abstracted out as a simple hook. The usage is as follows:
 
 ```typescript
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import usePermission from '@rbac/hooks/usePermission'
 
 const SampleComponent = () => {
@@ -61,7 +72,7 @@ const SampleComponent = () => {
       resourceType,
       resourceIdentifier ,
       // The permissions you want to check
-      permissions: ['project.edit', 'project.delete'],
+      permissions: [PermissionIdentifier.CREATE_PROJECT, PermissionIdentifier.DELETE_PROJECT],
       // connfiguration options
       options: {
         skipCache: true

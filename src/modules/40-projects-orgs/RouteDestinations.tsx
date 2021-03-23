@@ -38,6 +38,7 @@ import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import Roles from '@rbac/pages/Roles/Roles'
 import UserGroups from '@rbac/pages/UserGroups/UsersGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -63,6 +64,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'settings',
   label: 'Organizations',
   category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.CREATE_ORG]: 'Create / Edit'
+  },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <OrgResourceModalBody {...props} />
 })
