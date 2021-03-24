@@ -24,7 +24,7 @@ export const CECODashboardPage: React.FC = () => {
       id: '',
       name: ''
     },
-    idleTimeMins: 15,
+    idleTimeMins: 5,
     fullfilment: '',
     filter: '',
     kind: 'instance',

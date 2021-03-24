@@ -11,6 +11,5 @@ declare const styles: {
   readonly analyticsHeader: string
   readonly breadCrumb: string
   readonly fulFilmentIcon: string
-  readonly crossIcon: string
 }
 export default styles

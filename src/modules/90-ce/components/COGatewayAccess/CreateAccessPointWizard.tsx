@@ -27,7 +27,6 @@ interface Props extends StepProps<any> {
   setAccessPoint?: (ap: AccessPoint) => void
   isEditMod?: boolean
   isRuleCreationMode?: boolean
-  disableExitButton: (t: boolean) => void
 }
 interface CreateAccessPointWizardProps {
   accessPoint: AccessPoint
@@ -36,7 +35,6 @@ interface CreateAccessPointWizardProps {
   refreshAccessPoints: () => void
   isEditMod?: boolean
   isRuleCreationMode?: boolean
-  disableExitButton: (t: boolean) => void
 }
 
 interface MapToProviderProps {
@@ -136,10 +134,9 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
       if (result.response) {
         props.accessPoint.id = result.response.id
         setAccessPointID(result.response.id)
-        props.closeModal()
       }
     } catch (e) {
-      showError(e.data?.errors?.join('\n') || e.data?.message || e.message)
+      showError(e.data?.message || e.message)
     }
   }
   return (
@@ -152,7 +149,6 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
         }}
         enableReinitialize
         onSubmit={_ => {
-          props.disableExitButton(true)
           onSave()
         }}
         render={formik => (
@@ -256,7 +252,6 @@ const CreateAccessPointWizard: React.FC<CreateAccessPointWizardProps> = props =>
         name="Map the domain"
         accessPoint={props.accessPoint}
         closeModal={props.closeModal}
-        disableExitButton={props.disableExitButton}
         setAccessPoint={props.setAccessPoint}
         refreshAccessPoints={props.refreshAccessPoints}
       />
