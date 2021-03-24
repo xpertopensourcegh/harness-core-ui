@@ -63,24 +63,41 @@ const COAccessPointList: React.FC = () => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const [createAccessPointModal, hidecreateAccessPointModal] = useModalHook(() => (
-    <Dialog onClose={hidecreateAccessPointModal} {...modalPropsLight}>
-      <CreateAccessPointWizard
-        accessPoint={{
-          account_id: accountId, // eslint-disable-line
-          project_id: projectIdentifier, // eslint-disable-line
-          org_id: orgIdentifier, // eslint-disable-line
-          metadata: {
-            security_groups: [] // eslint-disable-line
-          },
-          type: 'aws'
-        }}
-        closeModal={hidecreateAccessPointModal}
-        setAccessPoint={() => undefined}
-        refreshAccessPoints={() => undefined}
-      />
-    </Dialog>
-  ))
+  const [disableExitButton, setDisableExitButton] = useState<boolean>(false)
+  const [createAccessPointModal, hidecreateAccessPointModal] = useModalHook(
+    () => (
+      <Dialog onClose={hidecreateAccessPointModal} {...modalPropsLight} canOutsideClickClose={false}>
+        <CreateAccessPointWizard
+          accessPoint={{
+            account_id: accountId, // eslint-disable-line
+            project_id: projectIdentifier, // eslint-disable-line
+            org_id: orgIdentifier, // eslint-disable-line
+            metadata: {
+              security_groups: [] // eslint-disable-line
+            },
+            type: 'aws'
+          }}
+          closeModal={hidecreateAccessPointModal}
+          disableExitButton={setDisableExitButton}
+          setAccessPoint={() => undefined}
+          refreshAccessPoints={() => undefined}
+        />
+        {!disableExitButton ? (
+          <Button
+            minimal
+            icon="cross"
+            iconProps={{ size: 18 }}
+            onClick={() => {
+              // props.onClose?.()
+              hidecreateAccessPointModal()
+            }}
+            className={css.crossIcon}
+          />
+        ) : null}
+      </Dialog>
+    ),
+    [disableExitButton]
+  )
   const [selectedAccessPoints, setSelectedAccessPoints] = useState<AccessPoint[]>([])
   const [allAccessPoints, setAllAccessPoints] = useState<AccessPoint[]>([])
   function CheckBoxCell(tableProps: CellProps<AccessPoint>): JSX.Element {
@@ -167,6 +184,7 @@ const COAccessPointList: React.FC = () => {
   //       <CreateAccessPointWizard
   //         accessPoint={row.original}
   //         closeModal={hideModal}
+  //         disableExitButton={() => undefined}
   //         refreshAccessPoints={() => undefined}
   //         isEditMod={true}
   //       />

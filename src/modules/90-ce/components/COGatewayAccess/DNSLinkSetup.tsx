@@ -162,6 +162,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       <CreateAccessPointWizard
         accessPoint={initialAccessPointDetails}
         closeModal={hideModal}
+        disableExitButton={() => undefined}
         setAccessPoint={setAccessPoint}
         refreshAccessPoints={refetch}
         isRuleCreationMode={true}
