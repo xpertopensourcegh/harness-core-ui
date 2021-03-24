@@ -44,8 +44,6 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   const isFailed = isExecutionFailed(step.status)
   const isSkipped = isExecutionSkipped(step.status)
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
-  const taskIds: string[] =
-    step.executableResponses?.map(taskChain => taskChain?.task?.taskId || taskChain.taskChain?.taskId || '') || []
 
   return (
     <div className={css.detailsTab}>
@@ -78,9 +76,21 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
                 <Layout.Vertical spacing="xsmall">
                   {step.delegateInfoList.map((item, index) => (
                     <div key={`${item.id}-${index}`}>
-                      <Text>{item.name}</Text> (
+                      <Text font={{ size: 'small', weight: 'semi-bold' }}>
+                        {getString('delegateForTask', { delegate: item.name, taskName: item.taskName })}
+                      </Text>{' '}
+                      (
                       <Text
-                        onClick={() => openDelegateSelectionLogsModal(taskIds)}
+                        font={{ size: 'small' }}
+                        onClick={() =>
+                          openDelegateSelectionLogsModal([
+                            {
+                              taskId: item.taskId as string,
+                              taskName: item.taskName as string,
+                              delegateName: item.name as string
+                            }
+                          ])
+                        }
                         style={{ cursor: 'pointer' }}
                         color={Color.BLUE_500}
                       >
