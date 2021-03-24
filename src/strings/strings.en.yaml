@@ -190,6 +190,7 @@ addStep: Add Step
 addStepGroup: Add Step Group
 gitTag: Git Tag
 tbd: TBD
+color: Color
 applyChanges: Apply Changes
 createViaYaml: Create via YAML Builder
 notifications: Notifications
@@ -1117,6 +1118,7 @@ repo-provider:
   githubLabel: GitHub
   gitlabLabel: GitLab
   awscodecommit: CodeCommit
+  azureDev: Azure Devops
 executionStatus:
   Failed: FAILED
   Success: SUCCESS
@@ -1389,7 +1391,7 @@ validation:
   limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0
   keyRequired: Key is a required field
   valueRequired: Value is a required field
-  validIdRegex: Identifier can only contain alphanumerics, _ and $
+  validIdRegex: Identifier must start with an alphabet or _ and can then be followed by alphanumerics, _ or $
   # Replace if validIdRegex will apply the same rules
   validStepIdRegex: Identifier can only contain alphanumerics and _
   validKeyRegex: Keys can only contain alphanumerics and _
@@ -1407,6 +1409,7 @@ validation:
   accountName: Account Name is a required field
   authType: 'Auth type is required'
   masterUrl: 'Master URL is required'
+  orgValidation: Organization is required
   serviceAccountToken: 'Service Account Token is required'
   OIDCIssuerUrl: 'OIDC Issuer URL is required'
   OIDCUsername: 'OIDC username is required'
@@ -2327,7 +2330,7 @@ dashboards:
 resourceGroup:
   newResourceGroup: 'New Resource Group'
   updateResourceGroupDialogTitle: 'Update Resource Group'
-  color: 'Color'
+  color: '{{ $.color}}'
   dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
   resourceGroupColumn: 'Resource Group'
   summary: '{{ $.summary }}'
@@ -2516,6 +2519,9 @@ userProfile:
   myProjects: My Projects
   myGroups: My Groups
   myTools: My Collaboration Tools
+  addSCM: Add a Source Code Manager
+  plusSCM: + Add a Source Code Manager
+  selectSCM: Select an Source Code Manager
 entityReference:
   noRecordFound: 'No Record Found'
   apply: 'Apply Selected'
