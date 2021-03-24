@@ -77,6 +77,13 @@ parallelSteps: Parallel Steps
 stepGroup: Step Group
 changeHistory: Change History
 entity: Entity
+entities: Entities
+enableGitExperience: Enable Git Experience
+gitExperienceNewUserText: Git Experience allows you to store the pipeline and other harness configurations in git alongside with your code. With this, Git will act as the single source of truth for all your code and configurations.
+primaryBranch: Primary branch
+selectGitProvider: Select your Git Provider
+selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
+configureHarnessFolder: 'Configure Harness Folder'
 lastTested: Last Tested
 lastUpdated: Last Updated
 lastConnectionSuccess: Last time connection is successful
@@ -185,6 +192,9 @@ editDetails: Edit Details
 verificationJobs: Verification Jobs
 abort: Abort
 conditions: Conditions
+repositories: Repositories
+addRepository: Add Repository
+gitManagement: Git Management
 gitBranch: Git Branch
 addStep: Add Step
 addStepGroup: Add Step Group
@@ -661,7 +671,6 @@ runPipeline: Run Pipeline
 generalSettings: 'General Settings'
 accessControl: 'Access Control'
 noPermission: You don't have permission to perform this action
-gitSync: 'Git Sync'
 templateLibrary: 'Template Library'
 generic_errors:
   INVITE_EXPIRED: This invite link has expired
@@ -1327,7 +1336,6 @@ pipelineSteps:
       configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
       connectorRequiredError: 'Connector is required'
       repositoryNameLabel: 'Repository Name'
-      repositoryNameRequiredError: 'Repository Name is required'
       repositoryUrlWrongUrlError: 'Please enter valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'
@@ -1394,6 +1402,8 @@ validation:
   limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0
   keyRequired: Key is a required field
   valueRequired: Value is a required field
+  repositoryName: 'Repository Name is required'
+  branchName: 'Branch Name is required'
   validIdRegex: Identifier must start with an alphabet or _ and can then be followed by alphanumerics, _ or $
   # Replace if validIdRegex will apply the same rules
   validStepIdRegex: Identifier can only contain alphanumerics and _
@@ -1703,6 +1713,9 @@ connectors:
       crossAccountRoleArn: 'Role ARN is required'
   awsCodeCommit:
     repoUrl: 'AWS CodeCommit Repository URL'
+gitSync:
+  label: 'Git Sync'
+  successfullCreate: 'Git sync repository {{name}} created successfully'
 cf:
   boolean: Boolean
   multivariate: Multivariate

@@ -63,7 +63,7 @@ const getAdditionalParams = ({
 
   return additionalParams
 }
-interface ConnectorSelectedValue {
+export interface ConnectorSelectedValue {
   label: string
   value: string
   scope: Scope
