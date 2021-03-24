@@ -321,6 +321,7 @@ stageDetails: Stage Details
 stageOverview: Stage Overview
 stageNameLabel: Stage Name
 stageName: 'Stage: {{ name }}'
+stage: 'Stage: '
 tagsLabel: Tags
 tagLabel: Tag
 tagsInfo: Specify one or more tags for the Docker image
@@ -717,7 +718,9 @@ barriers:
   syncBarriers: Synchronization Barriers
   flowControl: Flow Control
   addBarrier: + Add Barrier
-
+  tooltips:
+    barrierWaiting: 'Waiting for another barrier '
+    timeout: 'to Timeout'
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'

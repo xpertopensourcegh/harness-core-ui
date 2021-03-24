@@ -169,7 +169,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       data-type={type}
       className={cx(css.main, { [css.almostFullScreen]: isAlmostFullscreen })}
       {...restDrawerProps}
-      {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
+      // {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
       isCloseButtonShown={title ? !isAlmostFullscreen : undefined}
       // BUG: https://github.com/palantir/blueprint/issues/4519
       // you must pass only a single classname, not even an empty string, hence passing a dummy class

@@ -75,7 +75,7 @@ export const RightBar = (): JSX.Element => {
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-  const isFlowControlEnabled = useFeatureFlag('FLOW_CONTROL')
+  const isFlowControlEnabled = useFeatureFlag('NG_BARRIERS')
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
 

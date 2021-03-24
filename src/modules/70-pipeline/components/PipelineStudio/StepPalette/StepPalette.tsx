@@ -146,8 +146,13 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
     /* istanbul ignore else */ if (stepsCategories) {
-      setStepsCategories(stepsCategories)
-      setOriginalCategories(stepsCategories)
+      const flowControlStep = {
+        name: 'Flow Control',
+        stepsData: [{ name: 'Barriers', type: 'BARRIER' }],
+        stepCategories: []
+      }
+      setStepsCategories([...stepsCategories, flowControlStep])
+      setOriginalCategories([...stepsCategories, flowControlStep])
     }
   }, [stepsData?.data?.stepCategories])
 
