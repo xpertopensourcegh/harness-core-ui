@@ -431,7 +431,7 @@ export default function ArtifactsSelection({
             <ConnectorDetailsStep
               type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
               name={getString('overview')}
-              isEditMode={false}
+              isEditMode={isEditMode}
             />
             <GcrAuthentication
               name={getString('connectors.GCR.stepTwoName')}
@@ -457,7 +457,7 @@ export default function ArtifactsSelection({
       case Connectors.AWS:
         return (
           <StepWizard iconProps={{ size: 37 }} title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep type={Connectors.AWS} name={getString('overview')} isEditMode={false} />
+            <ConnectorDetailsStep type={Connectors.AWS} name={getString('overview')} isEditMode={isEditMode} />
             <StepAWSAuthentication
               name={getString('credentials')}
               identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
@@ -490,7 +490,7 @@ export default function ArtifactsSelection({
       default:
         return (
           <StepWizard title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={false} />
+            <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={isEditMode} />
             <StepDockerAuthentication
               name={getString('details')}
               identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
@@ -516,7 +516,7 @@ export default function ArtifactsSelection({
           </StepWizard>
         )
     }
-  }, [connectorView, selectedArtifact])
+  }, [connectorView, selectedArtifact, isEditMode])
 
   const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
@@ -539,6 +539,10 @@ export default function ArtifactsSelection({
   const changeArtifactType = (selected: ConnectorInfoDTO['type']): void => {
     setSelectedArtifact(selected)
   }
+  const handleConnectorViewChange = (isConnectorView: boolean): void => {
+    setConnectorView(isConnectorView)
+    setIsEditMode(false)
+  }
 
   const { expressions } = useVariablesExpression()
   const renderExistingArtifact = (): JSX.Element => {
@@ -555,7 +559,7 @@ export default function ArtifactsSelection({
           changeArtifactType={changeArtifactType}
           newConnectorView={connectorView}
           newConnectorSteps={getNewConnectorSteps()}
-          handleViewChange={isConnectorView => setConnectorView(isConnectorView)}
+          handleViewChange={handleConnectorViewChange}
         />
       </div>
     )
@@ -567,6 +571,7 @@ export default function ArtifactsSelection({
         onClose={() => {
           hideConnectorModal()
           setConnectorView(false)
+          setIsEditMode(false)
         }}
         {...DIALOG_PROPS}
         className={cx(css.modal, Classes.DIALOG)}
@@ -574,7 +579,7 @@ export default function ArtifactsSelection({
         {renderExistingArtifact()}
       </Dialog>
     ),
-    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions]
+    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions, isEditMode]
   )
 
   return (

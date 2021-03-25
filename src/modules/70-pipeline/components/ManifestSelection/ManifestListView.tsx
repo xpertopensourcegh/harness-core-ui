@@ -241,6 +241,7 @@ const ManifestListView = ({
   }
   const handleConnectorViewChange = (isConnectorView: boolean): void => {
     setConnectorView(isConnectorView)
+    setIsEditMode(false)
   }
   const handleStoreChange = (store?: ManifestStores): void => {
     setManifestStore(store || '')
@@ -359,7 +360,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={false}
+              isEditMode={isEditMode}
             />
             <StepHelmAuth
               name={getString('details')}
@@ -386,7 +387,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={false}
+              isEditMode={isEditMode}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -463,7 +464,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={false}
+              isEditMode={isEditMode}
             />
             <GitDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
@@ -544,7 +545,7 @@ const ManifestListView = ({
           </StepWizard>
         )
     }
-  }, [connectorView, manifestStore])
+  }, [connectorView, manifestStore, isEditMode])
 
   const { expressions } = useVariablesExpression()
 
@@ -553,6 +554,7 @@ const ManifestListView = ({
       setConnectorView(false)
       hideConnectorModal()
       setManifestStore('')
+      setIsEditMode(false)
     }
     //S3 and GCS are disabled till BE is ready
     // const storeTypes =
@@ -586,7 +588,7 @@ const ManifestListView = ({
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
       </Dialog>
     )
-  }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions])
+  }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions, isEditMode])
 
   return (
     <Layout.Vertical spacing="small">
