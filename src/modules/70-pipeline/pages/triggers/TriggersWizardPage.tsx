@@ -256,9 +256,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
         newOnEditInitialValues.connectorRef = connectorRef
 
-        if (gitRepoSpecCopy?.repoName) {
-          newOnEditInitialValues.repoName = gitRepoSpecCopy.repoName
-        }
+        newOnEditInitialValues.repoName = gitRepoSpecCopy?.repoName ?? ''
       }
 
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
