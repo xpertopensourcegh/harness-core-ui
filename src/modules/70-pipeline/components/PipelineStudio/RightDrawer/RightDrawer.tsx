@@ -1,7 +1,7 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Icon, Button } from '@wings-software/uicore'
-import { isNil, isEmpty } from 'lodash-es'
+import { isNil, isEmpty, get, set } from 'lodash-es'
 import cx from 'classnames'
 
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
@@ -337,6 +337,84 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               })
             }
           }}
+        />
+      )}
+
+      {type === DrawerTypes.AddProvisionerStep && selectedStageId && data?.paletteData && (
+        <StepPalette
+          selectedStage={selectedStage || {}}
+          stepsFactory={stepsFactory}
+          stageType={stageType as StageTypes}
+          isProvisioner={true}
+          onSelect={(item: StepData) => {
+            const paletteData = data.paletteData
+            if (paletteData?.entity) {
+              const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
+              const newStepData = {
+                step: {
+                  type: item.type,
+                  name: item.name,
+                  identifier: generateRandomString(item.name)
+                }
+              }
+
+              data?.paletteData?.onUpdate?.(newStepData.step)
+
+              if (!get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner')) {
+                set(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner', {
+                  steps: [],
+                  rollbackSteps: []
+                })
+              }
+
+              addStepOrGroup(
+                paletteData.entity,
+                get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner'),
+                newStepData,
+                paletteData.isParallelNodeClicked,
+                paletteData.isRollback
+              )
+
+              updatePipeline(pipeline).then(() => {
+                updatePipelineView({
+                  ...pipelineView,
+                  isDrawerOpened: true,
+                  drawerData: {
+                    type: DrawerTypes.ProvisionerStepConfig,
+                    data: {
+                      stepConfig: {
+                        node: newStepData.step,
+                        onUpdate: data?.paletteData?.onUpdate,
+                        isStepGroup: false,
+                        addOrEdit: 'edit',
+                        hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels
+                      }
+                    }
+                  }
+                })
+              })
+              return
+            }
+            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+          }}
+          onClose={() =>
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: { type: DrawerTypes.AddStep }
+            })
+          }
+        />
+      )}
+      {type === DrawerTypes.ProvisionerStepConfig && data?.stepConfig?.node && (
+        <StepCommands
+          step={data.stepConfig.node}
+          ref={formikRef}
+          stepsFactory={stepsFactory}
+          hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
+          onChange={onSubmitStep}
+          isStepGroup={data.stepConfig.isStepGroup}
+          hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
         />
       )}
     </Drawer>

@@ -38,5 +38,6 @@ export enum StepType {
   TerraformRollback = 'TerraformRollback',
   TerraformDestroy = 'TerraformDestroy',
   TerraformPlan = 'TerraformPlan',
-  TerraformApply = 'TerraformApply'
+  TerraformApply = 'TerraformApply',
+  InfraProvisioning = 'InfraProvisioning'
 }

@@ -25,6 +25,13 @@ import {
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 
+export interface GridStyleInterface {
+  gridSize?: number
+  startX?: number
+  startY?: number
+  gap?: number
+}
+
 const LINE_SEGMENT_LENGTH = 50
 
 export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipelineNodeType {
@@ -46,6 +53,10 @@ export class ExecutionStepModel extends DiagramModel {
       startY: 100,
       gap: 200
     })
+  }
+
+  setGridStyle(style: GridStyleInterface): void {
+    Object.assign(this, style)
   }
 
   renderGraphServiceNodes(

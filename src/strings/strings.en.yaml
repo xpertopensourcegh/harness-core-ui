@@ -1383,6 +1383,8 @@ pipelineSteps:
       selectMethod: Select the best method for Harness to reach your Kubernetes Cluster.
       directConnection: Direct Connection
       viaCloudProvider: Via Cloud Provider
+    provisioner:
+      enableProvisionerLabel: Provision your infrastructure dynamically during the execution of your pipeline
   feature:
     create:
       featureStageName: Feature Flag
