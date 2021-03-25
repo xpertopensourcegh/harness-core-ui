@@ -9,14 +9,14 @@ import css from './DelegateSelectionLogs.module.scss'
 
 const RenderColumnDelegateName: Renderer<CellProps<DelegateSelectionLogParams>> = ({ row }) => {
   const rowdata = row.original
-
+  const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="xsmall" padding="medium" style={{ paddingLeft: 0 }} data-testid={rowdata.delegateId}>
       <Text lineClamp={1} color={Color.GREY_800}>
         {rowdata.delegateName}
       </Text>
       <Text lineClamp={1} color={Color.GREY_400}>
-        {rowdata.delegateId}
+        {getString('taskId', { id: rowdata.delegateId })}
       </Text>
     </Layout.Vertical>
   )

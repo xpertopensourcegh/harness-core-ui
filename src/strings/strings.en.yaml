@@ -118,6 +118,7 @@ kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
 connector: Connector
 profile: Profile
+taskId: 'TaskId: {{id}}'
 preferences: Preferences
 cloudProviders: Cloud Providers
 artifactRepositories: Artifact Repositories
@@ -558,7 +559,7 @@ inputSets:
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
   inputSetDeleted: 'Input Set "{{name}}" deleted'
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
-delegateSelectionLogs: delegate selection logs
+delegateSelectionLogs: Delegate selection logs
 assessment: Assessment
 workflowVariableInfo: 'Specify additional overrides for any existing variables or define new variables.'
 manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
