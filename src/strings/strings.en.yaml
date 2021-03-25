@@ -1025,6 +1025,7 @@ pipeline-triggers:
   newArtifactLabel: 'New Artifact'
   newManifestLabel: 'New Manifest'
   onScheduleLabel: 'On Schedule'
+  cronLabel: 'Cron'
   scheduledLabel: 'Scheduled'
   triggerConfigurationLabel: 'Trigger Configuration'
   pipelineInputLabel: 'Pipeline Input'
@@ -1053,6 +1054,7 @@ pipeline-triggers:
     matchesValue: 'Matches Value is required with Operator.'
     payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
     headerConditions: 'Each header condition requires values for Attribute, Operator, and Matches Value.'
+    cronExpression: 'Valid cron expression is required.'
   toast:
     successfulCreate: 'Successfully created {{name}}.'
     successfulUpdate: 'Successfully updated {{name}}.'
@@ -1127,6 +1129,7 @@ pipeline-triggers:
     SAT: 'SAT'
     SUN: 'SUN'
     expressionBreakdown: 'Expression Breakdown'
+    cronExpression: 'Cron Expression'
 repo-provider:
   bitbucketLabel: BitBucket
   customLabel: Custom
