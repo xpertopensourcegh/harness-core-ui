@@ -50,9 +50,15 @@ export function ReviewNewRelicMapping(): JSX.Element {
           }}
           tableFilterProps={{
             isItemInFilter: (filterString: string, rowObject: TableData) => {
-              return rowObject.applicationName.toLocaleLowerCase().includes(filterString.toLocaleLowerCase())
+              return (
+                rowObject.applicationName.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
+                rowObject.service.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
+                rowObject.environment.toLocaleLowerCase().includes(filterString.toLocaleLowerCase())
+              )
             },
-            placeholder: getString('cv.monitoringSources.appD.searchPlaceholderApplications')
+            placeholder: `${getString('cv.monitoringSources.appD.searchPlaceholderApplications')}, ${getString(
+              'environments'
+            )}, ${getString('or')} ${getString('services')}`
           }}
           tableProps={{
             data: tableData,
@@ -101,6 +107,7 @@ export function ReviewNewRelicMapping(): JSX.Element {
         />
       }
       footerCTAProps={{
+        isSubmit: true,
         onPrevious: () => onPrevious(),
         onNext: async () => {
           const dsConfig: NewRelicDSConfig = {
