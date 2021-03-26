@@ -1044,9 +1044,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 </a>
               </div>
             </div>
-            <div
-              class="logViewer"
-            >
+            <div>
               <div
                 class="noLogs"
               >
