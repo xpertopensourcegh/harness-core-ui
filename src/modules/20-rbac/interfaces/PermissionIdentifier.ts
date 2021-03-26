@@ -1,9 +1,9 @@
 export enum PermissionIdentifier {
-  UPDATE_PROJECT = 'project.edit',
-  DELETE_PROJECT = 'project.delete',
-  UPDATE_SECRET = 'secret.edit',
-  DELETE_SECRET = 'secret.delete',
-  UPDATE_ORG = 'organization.edit',
-  DELETE_ORG = 'organization.delete',
-  CREATE_ORG = 'core.organization.create'
+  UPDATE_PROJECT = 'core_project_edit',
+  DELETE_PROJECT = 'core_project_delete',
+  UPDATE_SECRET = 'core_secret_edit',
+  DELETE_SECRET = 'core_secret_delete',
+  UPDATE_ORG = 'core_organization_edit',
+  DELETE_ORG = 'core_organization_delete',
+  CREATE_ORG = 'core_organization_create'
 }
