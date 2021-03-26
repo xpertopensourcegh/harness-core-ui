@@ -66,8 +66,8 @@ import css from './ManifestSelection.module.scss'
 const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
-  ManifestDataType.HelmChart,
-  ManifestDataType.Kustomize
+  ManifestDataType.HelmChart
+  // ManifestDataType.Kustomize
   // ManifestDataType.OpenshiftTemplate,
   // ManifestDataType.OpenshiftParam
 ]

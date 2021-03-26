@@ -245,7 +245,7 @@ manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
 chartPath: Chart Path
-pluginPath: Plugin Path
+pluginPath: Path to Kustomize plugin
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
@@ -1527,7 +1527,6 @@ manifestType:
   folderPathRequired: Folder Path is required
   pathRequired: Path is required
   path: 'Path'
-  pluginPathRequired: Plugin Path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
   gitFetchTypeLabel: Branch/Commit ID
@@ -1535,6 +1534,7 @@ manifestType:
   branchPlaceholder: Enter branch name here
   commitPlaceholder: Enter Commit ID here
   filePathPlaceholder: Enter overrides file path
+  kustomizeFolderPath: Kustomize Folder Path
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'

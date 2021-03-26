@@ -194,7 +194,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Chart Path
+                  Kustomize Folder Path
                    
                   <span
                     class="bp3-text-muted"
@@ -258,7 +258,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Plugin Path
+                  Path to Kustomize plugin
                    
                   <span
                     class="bp3-text-muted"
@@ -609,7 +609,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Chart Path
+                  Kustomize Folder Path
                    
                   <span
                     class="bp3-text-muted"
@@ -673,7 +673,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Plugin Path
+                  Path to Kustomize plugin
                    
                   <span
                     class="bp3-text-muted"
@@ -1024,7 +1024,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Chart Path
+                  Kustomize Folder Path
                    
                   <span
                     class="bp3-text-muted"
@@ -1088,7 +1088,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Plugin Path
+                  Path to Kustomize plugin
                    
                   <span
                     class="bp3-text-muted"

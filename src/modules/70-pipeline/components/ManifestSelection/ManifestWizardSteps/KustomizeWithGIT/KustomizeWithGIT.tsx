@@ -143,8 +143,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
-          pluginPath: Yup.string().trim().required(getString('manifestType.pluginPathRequired'))
+          folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired'))
         })}
         onSubmit={formData => {
           submitFormData({
@@ -267,7 +266,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   })}
                 >
                   <FormInput.MultiTextInput
-                    label={getString('chartPath')}
+                    label={getString('manifestType.kustomizeFolderPath')}
                     placeholder={getString('manifestType.pathPlaceholder')}
                     name="folderPath"
                     multiTextInputProps={{ expressions }}

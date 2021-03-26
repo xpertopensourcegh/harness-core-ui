@@ -17,7 +17,8 @@
     display: grid;
     grid-template-columns: 20px 1fr;
     gap: var(--spacing-small);
-    align-items: end;
+    align-items: start;
+    margin-top: 2px;
     padding-left: var(--spacing-xsmall);
   }
   .lastColumn {
