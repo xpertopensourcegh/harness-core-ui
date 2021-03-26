@@ -29,7 +29,6 @@ import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
 import Timeline from '@common/components/Timeline/Timeline'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import type { K8SDirectServiceStep } from '../../PipelineSteps/K8sServiceSpec/K8sServiceSpec'
-import i18n from './DeployServiceSpecifications.i18n'
 import css from './DeployServiceSpecifications.module.scss'
 
 const setupMode = {
@@ -37,52 +36,51 @@ const setupMode = {
   DIFFERENT: 'DIFFERENT'
 }
 
-const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
-  {
-    name: i18n.deploymentTypes.kubernetes,
-    icon: 'service-kubernetes',
-    enabled: true
-  },
-  {
-    name: i18n.deploymentTypes.amazonEcs,
-    icon: 'service-ecs',
-    enabled: false
-  },
-  {
-    name: i18n.deploymentTypes.amazonAmi,
-    icon: 'main-service-ami',
-    enabled: false
-  },
-  {
-    name: i18n.deploymentTypes.awsCodeDeploy,
-    icon: 'app-aws-code-deploy',
-    enabled: false
-  },
-  {
-    name: i18n.deploymentTypes.winrm,
-    icon: 'command-winrm',
-    enabled: false
-  },
-  {
-    name: i18n.deploymentTypes.awsLambda,
-    icon: 'app-aws-lambda',
-    enabled: false
-  },
-  {
-    name: i18n.deploymentTypes.pcf,
-    icon: 'service-pivotal',
-    enabled: false
-  },
-  {
-    name: i18n.deploymentTypes.ssh,
-    icon: 'secret-ssh',
-    enabled: false
-  }
-]
-
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
 
+  const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
+    {
+      name: getString('serviceDeploymentTypes.kubernetes'),
+      icon: 'service-kubernetes',
+      enabled: true
+    },
+    {
+      name: getString('serviceDeploymentTypes.amazonEcs'),
+      icon: 'service-ecs',
+      enabled: false
+    },
+    {
+      name: getString('serviceDeploymentTypes.amazonAmi'),
+      icon: 'main-service-ami',
+      enabled: false
+    },
+    {
+      name: getString('serviceDeploymentTypes.awsCodeDeploy'),
+      icon: 'app-aws-code-deploy',
+      enabled: false
+    },
+    {
+      name: getString('serviceDeploymentTypes.winrm'),
+      icon: 'command-winrm',
+      enabled: false
+    },
+    {
+      name: getString('serviceDeploymentTypes.awsLambda'),
+      icon: 'app-aws-lambda',
+      enabled: false
+    },
+    {
+      name: getString('serviceDeploymentTypes.pcf'),
+      icon: 'service-pivotal',
+      enabled: false
+    },
+    {
+      name: getString('serviceDeploymentTypes.ssh'),
+      icon: 'secret-ssh',
+      enabled: false
+    }
+  ]
   const [setupModeType, setSetupMode] = React.useState('')
   const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
   const [isConfigVisible, setConfigVisibility] = React.useState(false)
@@ -399,7 +397,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
           <section className={css.radioColumn}>
             <Radio checked={setupModeType === setupMode.DIFFERENT} onClick={() => initWithServiceDefinition()} />
-            <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.deployDifferentLabel}</Text>
+            <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>
+              {' '}
+              {getString('serviceDeploymentTypes.deployDifferentLabel')}
+            </Text>
           </section>
         </div>
       )}
@@ -452,8 +453,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                           <Card
                             disabled={!type.enabled}
                             interactive={true}
-                            selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                            cornerSelected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                            selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
+                            cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
                             className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
                           >
                             <Icon name={type.icon as IconName} size={26} height={26} />

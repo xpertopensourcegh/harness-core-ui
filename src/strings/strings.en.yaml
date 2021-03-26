@@ -48,6 +48,9 @@ projectLabel: Project
 projectResources: Project Resources
 adminFunctions: Adminstrative Functions
 action: Action
+functions: Functions
+otherWorkloads: Other Workloads
+multipleService: Multiple Services
 orgLabel: Organization
 editPipeline: Edit Pipeline
 craetePipelineSubtitle: Let’s get you started by giving your pipeline a name
@@ -133,6 +136,16 @@ activityHistoryLabel: Activity History
 connectionMode: Connection Mode
 credType: Credential Type
 secrets: 'Secrets'
+serviceDeploymentTypes:
+  kubernetes: '{{$.kubernetesText}}'
+  amazonEcs: '{{$.delegate.cardData.amazonECS.name}}'
+  amazonAmi: AWS AMI
+  awsCodeDeploy: CodeDeploy
+  winrm: WinRM
+  awsLambda: AWS Lambda
+  pcf: PCF
+  ssh: Secure Shell
+  deployDifferentLabel: Deploy different service
 secretDetails: 'Secret Details'
 noDeploymentText: Your Pipeline does not have any executions yet. Click the button below to run a pipeline.
 noBuildsText: Your account does not have any builds yet. Click the button below to run a pipeline.
@@ -483,6 +496,8 @@ filters:
   visibileToOnlyMe: Only me
   visibleToEveryone: Everyone
   apply: Apply
+  filtersLabel: Filters
+  saveFilter: Save Filter
   clearAll: Clear All
   newFilter: New Filter
   typeFilterName: Type filter name
@@ -695,6 +710,13 @@ script: 'Script'
 inline: 'Inline'
 upload: 'Upload'
 remote: 'Remote'
+resourcePage:
+  title: RESOURCES
+  connectors: '{{$.connectors.label}}'
+  secrets: '{{$.secrets}}'
+  delegates: '{{$.delegate.delegates}}'
+  templates: '{{$.templates}}'
+  fileStore: File Store
 stepType: 'Step Type'
 scriptType: 'Script Type'
 shellScriptStep: 'Shell Script'
@@ -711,6 +733,14 @@ outputValue: Output Value
 outputName: Output Name
 notificationMethod: Notification Method
 stepGroupInAnotherStepGroup: Step Group can not be put under another Step Group
+overrideSet:
+  placeholder: Select override sets
+  searchInputSet: '{{$.search}}'
+  noRecord: No override sets available
+  selectMultipleInputSets: select multiple override sets
+  helpTextForMultiSelect: Selected overrides will be applied in the order listed. Drag to reorder the override sets.
+  inputSet: Override Set
+  order: '{{$.order}}'
 pipelines-studio:
   addStep: Add step
   dependenciesGroupTitle: Dependencies
@@ -1336,6 +1366,9 @@ pipelineSteps:
   K8sCanaryDelete: 'K8s Canary Delete'
   k8sScale: 'K8s Scale'
   skipDryRun: 'Skip Dry Run'
+  deploymentTypes:
+    kubernetes: '{{$.kubernetesText}}'
+    gk8engine: Google Kubernetes Engine
   skipSteadyStateCheck: Skip Steady State Check
   workload: 'Workload'
   stepNameRequired: 'Step Name is required'
@@ -1386,7 +1419,7 @@ pipelineSteps:
     errors:
       notags: No tags found with given Image Path
     create:
-      multipleServices: Multiple Services
+      multipleServices: '{{$.multipleService}}'
       deployStageName: Deploy
       deployStageDescription: Use this stage to deploy services, functions or execute workloads
     inputSet:

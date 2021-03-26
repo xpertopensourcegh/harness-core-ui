@@ -3,15 +3,16 @@ import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
-import i18n from './CDResourcesPage.i18n'
+import { useStrings } from 'framework/exports'
 import css from './CDResourcesPage.module.scss'
 
 const CDResourcesPage: React.FC = ({ children }) => {
   const { orgIdentifier, projectIdentifier, accountId } = useParams()
+  const { getString } = useStrings()
   return (
     <>
       <Page.Header
-        title={i18n.title}
+        title={getString('resourcePage.title')}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
@@ -20,7 +21,7 @@ const CDResourcesPage: React.FC = ({ children }) => {
                 activeClassName={css.activeTag}
                 to={routes.toCDResourcesConnectors({ orgIdentifier, projectIdentifier, accountId })}
               >
-                {i18n.connectors}
+                {getString('resourcePage.connectors')}
               </NavLink>
 
               <NavLink
@@ -28,19 +29,19 @@ const CDResourcesPage: React.FC = ({ children }) => {
                 activeClassName={css.activeTag}
                 to={routes.toCDResourcesSecretsListing({ orgIdentifier, projectIdentifier, accountId })}
               >
-                {i18n.secrets}
+                {getString('resourcePage.secrets')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.delegates}
+                {getString('resourcePage.delegates')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.templates}
+                {getString('resourcePage.templates')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.fileStore}
+                {getString('resourcePage.fileStore')}
               </NavLink>
             </Layout.Horizontal>
           </Container>

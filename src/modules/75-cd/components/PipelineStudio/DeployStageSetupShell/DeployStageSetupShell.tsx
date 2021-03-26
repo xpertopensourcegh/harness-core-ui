@@ -15,7 +15,6 @@ import { useStrings } from 'framework/exports'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
-import i18n from './DeployStageSetupShell.i18n'
 import css from './DeployStageSetupShell.module.scss'
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
@@ -27,8 +26,9 @@ export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
 }
 
 export default function DeployStageSetupShell(): JSX.Element {
-  const stageNames: string[] = [i18n.serviceLabel, i18n.infraLabel, i18n.executionLabel]
-  const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.serviceLabel)
+  const { getString } = useStrings()
+  const stageNames: string[] = [getString('service'), getString('infrastructureText'), getString('executionText')]
+  const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('service'))
   const layoutRef = React.useRef<HTMLDivElement>(null)
   const {
     state: {
@@ -45,8 +45,6 @@ export default function DeployStageSetupShell(): JSX.Element {
     getStageFromPipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-
-  const { getString } = useStrings()
 
   React.useEffect(() => {
     if (stageNames.indexOf(selectedStageId) !== -1) {
@@ -85,7 +83,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   React.useEffect(() => {
-    if (selectedTabId === i18n.executionLabel) {
+    if (selectedTabId === getString('executionText')) {
       const { stage: data } = getStageFromPipeline(selectedStageId)
       if (data?.stage) {
         if (!data?.stage?.spec?.execution) {
@@ -123,36 +121,36 @@ export default function DeployStageSetupShell(): JSX.Element {
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
       <Button
-        text={i18n.previous}
+        text={getString('previous')}
         icon="chevron-left"
-        disabled={selectedTabId === i18n.defaultId}
+        disabled={selectedTabId === 'default'}
         onClick={() => {
           updatePipeline(pipeline)
           setSelectedTabId(
-            selectedTabId === i18n.executionLabel
-              ? i18n.infraLabel
-              : selectedTabId === i18n.infraLabel
-              ? i18n.serviceLabel
-              : i18n.defaultId
+            selectedTabId === getString('executionText')
+              ? getString('infrastructureText')
+              : selectedTabId === getString('infrastructureText')
+              ? getString('service')
+              : 'default'
           )
         }}
       />
 
       <Button
-        text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
+        text={selectedTabId === getString('executionText') ? getString('save') : getString('next')}
         intent="primary"
         rightIcon="chevron-right"
         onClick={() => {
           updatePipeline(pipeline)
-          if (selectedTabId === i18n.executionLabel) {
+          if (selectedTabId === getString('executionText')) {
             updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
           } else {
             setSelectedTabId(
-              selectedTabId === i18n.defaultId
-                ? i18n.serviceLabel
-                : selectedTabId === i18n.serviceLabel
-                ? i18n.infraLabel
-                : i18n.executionLabel
+              selectedTabId === 'default'
+                ? getString('service')
+                : selectedTabId === getString('service')
+                ? getString('infrastructureText')
+                : getString('executionText')
             )
           }
         }}
@@ -164,13 +162,13 @@ export default function DeployStageSetupShell(): JSX.Element {
     <section
       ref={layoutRef}
       key={selectedStageId}
-      // className={cx(css.setupShell, { [css.tabsFullHeight]: selectedTabId === i18n.executionLabel })}
+      // className={cx(css.setupShell, { [css.tabsFullHeight]: selectedTabId === getString('executionText') })}
       className={cx(css.setupShell)}
     >
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId} data-tabId={selectedTabId}>
         <Tab
           panelClassName="tabsfoo"
-          id={i18n.defaultId}
+          id={'default'}
           panel={<DeployStageSpecifications>{navBtns}</DeployStageSpecifications>}
           title={
             <span className={css.tab}>
@@ -188,11 +186,11 @@ export default function DeployStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={i18n.serviceLabel}
+          id={getString('service')}
           title={
             <span className={css.tab}>
               <Icon name="service" height={20} size={20} />
-              {i18n.serviceLabel}
+              {getString('service')}
             </span>
           }
           panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
@@ -206,11 +204,11 @@ export default function DeployStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={i18n.infraLabel}
+          id={getString('infrastructureText')}
           title={
             <span className={css.tab}>
               <Icon name="yaml-builder-stages" height={20} size={20} />
-              {i18n.infraLabel}
+              {getString('infrastructureText')}
             </span>
           }
           panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
@@ -224,11 +222,11 @@ export default function DeployStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={i18n.executionLabel}
+          id={getString('executionText')}
           title={
             <span className={css.tab}>
               <Icon name="yaml-builder-steps" height={20} size={20} />
-              {i18n.executionLabel}
+              {getString('executionText')}
             </span>
           }
           className={css.fullHeight}

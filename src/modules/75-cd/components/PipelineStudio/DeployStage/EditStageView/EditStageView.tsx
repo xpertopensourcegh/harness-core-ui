@@ -34,34 +34,7 @@ import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBui
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import Timeline from '@common/components/Timeline/Timeline'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
-const newStageData = [
-  {
-    text: i18n.service,
-    value: 'service',
-    icon: 'service',
-    disabled: false
-  },
-  {
-    text: i18n.multipleService,
-    value: 'multiple-service',
-    icon: 'multi-service',
-    disabled: true
-  },
-  {
-    text: i18n.functions,
-    value: 'functions',
-    icon: 'functions',
-    disabled: true
-  },
-  {
-    text: i18n.otherWorkloads,
-    value: 'other-workloads',
-    icon: 'other-workload',
-    disabled: true
-  }
-]
 
 const skipConditionsNgDocsLink = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
 
@@ -84,11 +57,36 @@ export const EditStageView: React.FC<EditStageView> = ({
       pipeline: { stages = [] }
     }
   } = React.useContext(PipelineContext)
-
+  const { getString } = useStrings()
+  const newStageData = [
+    {
+      text: getString('service'),
+      value: 'service',
+      icon: 'service',
+      disabled: false
+    },
+    {
+      text: getString('multipleService'),
+      value: 'multiple-service',
+      icon: 'multi-service',
+      disabled: true
+    },
+    {
+      text: getString('functions'),
+      value: 'functions',
+      icon: 'functions',
+      disabled: true
+    },
+    {
+      text: getString('otherWorkloads'),
+      value: 'other-workloads',
+      icon: 'other-workload',
+      disabled: true
+    }
+  ]
   const { stepsFactory, getStageFromPipeline } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
-  const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const onTimelineItemClick = (id: string): void => {
     const element = document.querySelector(`#${id}`)
@@ -136,7 +134,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                 iconProps={{ size: 16, color: Color.GREEN_500 }}
                 style={{ paddingBottom: 'var(--spacing-medium)' }}
               >
-                {i18n.aboutYourStage}
+                {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
             )}
             <Container>
@@ -169,7 +167,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                   return errors
                 }}
                 validationSchema={Yup.object().shape({
-                  name: Yup.string().required(i18n.stageNameRequired)
+                  name: Yup.string().required(getString('pipelineSteps.build.create.stageNameRequiredError'))
                 })}
               >
                 {formikProps => {

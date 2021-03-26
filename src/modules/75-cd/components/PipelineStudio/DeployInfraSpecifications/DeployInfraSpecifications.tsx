@@ -18,22 +18,8 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import Timeline from '@common/components/Timeline/Timeline'
-import { String } from 'framework/exports'
-import i18n from './DeployInfraSpecifications.i18n'
+import { String, useStrings } from 'framework/exports'
 import css from './DeployInfraSpecifications.module.scss'
-
-const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
-  {
-    name: i18n.deploymentTypes.kubernetes,
-    icon: 'service-kubernetes',
-    enabled: true
-  },
-  {
-    name: i18n.deploymentTypes.gk8engine,
-    icon: 'google-kubernetes-engine',
-    enabled: false
-  }
-]
 
 const getTimelineNodes = (isProvisionerEnabled: boolean) => [
   {
@@ -65,6 +51,19 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   const [initialValues, setInitialValues] = React.useState<{}>()
   const [updateKey, setUpdateKey] = React.useState(0)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
+  const { getString } = useStrings()
+  const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
+    {
+      name: getString('pipelineSteps.deploymentTypes.kubernetes'),
+      icon: 'service-kubernetes',
+      enabled: true
+    },
+    {
+      name: getString('pipelineSteps.deploymentTypes.gk8engine'),
+      icon: 'google-kubernetes-engine',
+      enabled: false
+    }
+  ]
   const {
     state: {
       pipeline,
@@ -144,8 +143,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             <Card
               disabled={!k8sInfra.enabled}
               interactive={true}
-              selected={k8sInfra.name === i18n.deploymentTypes.kubernetes}
-              cornerSelected={k8sInfra.name === i18n.deploymentTypes.kubernetes}
+              selected={k8sInfra.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
+              cornerSelected={k8sInfra.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
               className={cx({ [css.disabled]: !k8sInfra.enabled }, css.squareCard)}
             >
               <Icon name={k8sInfra.icon as IconName} size={26} height={26} />
@@ -168,13 +167,13 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           <Layout.Horizontal>
             {supportedDeploymentTypes.map(
               (type: { name: string; icon: IconName; enabled: boolean }) =>
-                type.name !== i18n.deploymentTypes.kubernetes && (
+                type.name !== getString('pipelineSteps.deploymentTypes.kubernetes') && (
                   <div key={type.name} className={css.squareCardContainer}>
                     <Card
                       disabled={!type.enabled}
                       interactive={true}
-                      selected={type.name === i18n.deploymentTypes.kubernetes}
-                      cornerSelected={type.name === i18n.deploymentTypes.kubernetes}
+                      selected={type.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
+                      cornerSelected={type.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
                       className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
                     >
                       <Icon name={type.icon as IconName} size={26} height={26} />

@@ -16,7 +16,7 @@ import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { PipelineContext } from '@pipeline/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import i18n from './OverrideSetsInputSelector.i18n'
+import { useStrings } from 'framework/exports'
 import css from './OverrideSetsInputSelector.module.scss'
 
 type InputSetValue = SelectOption | SelectOption[]
@@ -69,6 +69,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
   onChange,
   context
 }): JSX.Element => {
+  const { getString } = useStrings()
   const [searchParam, setSearchParam] = React.useState('')
   const [multiple, setMultiple] = React.useState(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<SelectOption[]>([])
@@ -313,14 +314,14 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
         {value ? (
           <RenderValue value={value} onChange={onChange} />
         ) : (
-          <span className={css.placeholder}>{i18n.placeholder}</span>
+          <span className={css.placeholder}>{getString('overrideSet.placeholder')}</span>
         )}
       </Button>
       <Layout.Vertical spacing="small" padding="medium" className={css.popoverContainer}>
         <Layout.Horizontal spacing="medium">
           <TextInput
             leftIcon="search"
-            placeholder={i18n.searchInputSet}
+            placeholder={getString('overrideSet.searchInputSet')}
             className={css.search}
             value={searchParam}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -328,7 +329,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
             }}
           />
           <Checkbox
-            label={i18n.selectMultipleInputSets}
+            label={getString('overrideSet.selectMultipleInputSets')}
             checked={multiple}
             className={css.checkbox}
             onChange={checkbox => {
@@ -344,7 +345,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
             padding="small"
           >
             <Icon name="info-sign" color={Color.BLUE_600}></Icon>
-            <Text font={{ size: 'small' }}>{i18n.helpTextForMultiSelect}</Text>
+            <Text font={{ size: 'small' }}>{getString('overrideSet.helpTextForMultiSelect')}</Text>
           </Layout.Horizontal>
         )}
         {!inputSets ? (
@@ -353,8 +354,8 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
           <Layout.Vertical>
             {multiple && (
               <Layout.Horizontal padding="small" flex={{ distribution: 'space-between' }}>
-                <Text color={Color.BLACK}>{i18n.inputSet}</Text>
-                <Text color={Color.BLACK}>{i18n.order}</Text>
+                <Text color={Color.BLACK}>{getString('overrideSet.inputSet')}</Text>
+                <Text color={Color.BLACK}>{getString('overrideSet.order')}</Text>
               </Layout.Horizontal>
             )}
             {inputSets && inputSets.length > 0 ? (
@@ -376,7 +377,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
                 padding="small"
                 margin="small"
               >
-                <Text>{i18n.noRecord}</Text>
+                <Text>{getString('overrideSet.noRecord')}</Text>
               </Layout.Horizontal>
             )}
           </Layout.Vertical>

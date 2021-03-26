@@ -1,7 +1,7 @@
 import React from 'react'
 import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { Button, Layout } from '@wings-software/uicore'
-import i18n from './FilterDrawer.i18n'
+import { String } from 'framework/exports'
 import css from './FilterDrawer.module.scss'
 
 class FilterDrawer extends React.Component<{ isFilterPanelOpen: boolean; onClose?: () => void }> {
@@ -24,15 +24,15 @@ class FilterDrawer extends React.Component<{ isFilterPanelOpen: boolean; onClose
         isOpen={this.props.isFilterPanelOpen}
         onClose={this.props.onClose}
         icon="settings"
-        title={i18n.filterTitle}
+        title={<String stringID="filters.filtersLabel" />}
       >
         <div className={Classes.DRAWER_BODY}>
           <div className={Classes.DIALOG_BODY}>{this.props.children}</div>
         </div>
         <div className={Classes.DRAWER_FOOTER}>
           <Layout.Horizontal spacing="medium" flex={true} style={{ justifyContent: 'flex-end' }}>
-            <Button text={i18n.saveFilter} intent="none" className={css.secondaryBtn} />
-            <Button text={i18n.applyFilter} intent="primary" />
+            <Button text={<String stringID="filters.saveFilter" />} intent="none" className={css.secondaryBtn} />
+            <Button text={<String stringID="filters.apply" />} intent="primary" />
           </Layout.Horizontal>
         </div>
       </Drawer>
