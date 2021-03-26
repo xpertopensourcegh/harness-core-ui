@@ -1189,6 +1189,9 @@ pipelineSteps:
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
   deleteNamespace: 'Delete namespace'
+  workspace: Workspace
+  gitFetchType: 'Git Fetch Type'
+  repoName: 'Repo Name'
   stepNameLabel: '{{ $.name }}'
   connectorLabel: 'Container Registry'
   connectorInfo: 'Container Registry to use to download the image use to run commands on'
