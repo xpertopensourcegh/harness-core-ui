@@ -40,11 +40,10 @@ import {
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
-import { loggerFor, ModuleName, UseStringsReturn } from 'framework/exports'
+import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/exports'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import i18n from './KubernetesInfraSpec.18n'
 import css from './KubernetesInfraSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -88,9 +87,12 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   }>()
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
+  const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="medium">
-      <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{i18n.stepName}</Text>
+      <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>
+        {getString('pipelineSteps.kubernetesInfraStep.stepName')}
+      </Text>
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -113,8 +115,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormMultiTypeConnectorField
                   name="connectorRef"
-                  label={i18n.k8ConnectorDropDownLabel}
-                  placeholder={i18n.k8ConnectorDropDownPlaceholder}
+                  label={getString('pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownLabel')}
+                  placeholder={getString('pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownPlaceholder')}
                   // disabled={loading}
                   accountIdentifier={accountId}
                   multiTypeProps={{ expressions }}
@@ -130,7 +132,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Icon name={getIconByType('K8sCluster')}></Icon>
-                        <Text>{i18n.kubernetesConnector}</Text>
+                        <Text>{getString('pipelineSteps.kubernetesInfraStep.kubernetesConnector')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="dockerConnector"
@@ -147,8 +149,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 <FormInput.MultiTextInput
                   name="namespace"
                   className={css.inputWidth}
-                  label={i18n.nameSpaceLabel}
-                  placeholder={i18n.nameSpacePlaceholder}
+                  label={getString('pipelineSteps.kubernetesInfraStep.nameSpaceLabel')}
+                  placeholder={getString('pipelineSteps.kubernetesInfraStep.nameSpacePlaceholder')}
                   multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
@@ -169,8 +171,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 <FormInput.MultiTextInput
                   name="releaseName"
                   className={css.inputWidth}
-                  label={i18n.releaseName}
-                  placeholder={i18n.releaseNamePlaceholder}
+                  label={getString('pipelineSteps.kubernetesInfraStep.releaseName')}
+                  placeholder={getString('pipelineSteps.kubernetesInfraStep.releaseNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
@@ -245,6 +247,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
       connector: connector?.data?.connector
     }
   }
+  const { getString } = useStrings()
   return (
     <Layout.Vertical padding="medium" spacing="small">
       {getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME && (
@@ -255,8 +258,12 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           orgIdentifier={orgIdentifier}
           width={400}
           name="connectorRef"
-          label={i18n.k8ConnectorDropDownLabel}
-          placeholder={loading ? i18n.loading : i18n.k8ConnectorDropDownPlaceholder}
+          label={getString('pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownLabel')}
+          placeholder={
+            loading
+              ? getString('pipelineSteps.kubernetesInfraStep.loading')
+              : getString('pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownPlaceholder')
+          }
           disabled={readonly || loading}
           onChange={(record, scope) => {
             onUpdate?.({
@@ -270,17 +277,17 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
       {getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           name={`${path}.namespace`}
-          label={i18n.nameSpaceLabel}
+          label={getString('pipelineSteps.kubernetesInfraStep.nameSpaceLabel')}
           disabled={readonly}
-          placeholder={i18n.nameSpacePlaceholder}
+          placeholder={getString('pipelineSteps.kubernetesInfraStep.nameSpacePlaceholder')}
         />
       )}
       {getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           name={`${path}.releaseName`}
-          label={i18n.releaseName}
+          label={getString('pipelineSteps.kubernetesInfraStep.releaseName')}
           disabled={readonly}
-          placeholder={i18n.releaseNamePlaceholder}
+          placeholder={getString('pipelineSteps.kubernetesInfraStep.releaseNamePlaceholder')}
         />
       )}
     </Layout.Vertical>
@@ -315,7 +322,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
   protected defaultValues: K8SDirectInfrastructure = {}
 
   protected stepIcon: IconName = 'service-kubernetes'
-  protected stepName: string = i18n.stepName
+  protected stepName = 'Specify your Kubernetes Connector'
   protected stepPaletteVisible = false
   protected invocationMap: Map<
     RegExp,

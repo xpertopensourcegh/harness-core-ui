@@ -678,7 +678,10 @@ noPermission: You don't have permission to perform this action
 templateLibrary: 'Template Library'
 generic_errors:
   INVITE_EXPIRED: This invite link has expired
-
+cdDashboard:
+  welcome: Welcome to Continuous Delivery
+  description: Deploy your services with blazing fast pipelines.
+  creatPipeline: + Create a pipeline
 gitFetchTypes: [{ label: 'Latest from Branch' }, { label: 'Specific Commit ID' }]
 snippets:
   copyToClipboard: Copy to Clipboard
@@ -1171,6 +1174,16 @@ projectContextMenuRenderer:
   gotoCE: 'Go to Continuous Efficiency'
   invite: 'Invite Collaborators'
 pipelineSteps:
+  kubernetesInfraStep:
+    stepName: Specify your Kubernetes Connector
+    kubernetesConnector: Kubernetes Connector
+    k8ConnectorDropDownLabel: '{{$.connector}}'
+    k8ConnectorDropDownPlaceholder: Select a connector
+    nameSpaceLabel: '{{$.pipelineSteps.build.infraSpecifications.namespace}}'
+    releaseName: Release name
+    loading: '{{$.loading}}'
+    releaseNamePlaceholder: Specify a release name
+    nameSpacePlaceholder: Specify a namespace
   environmentTab:
     specifyYourEnvironment: Specify your environment
     selectEnvironment: '- Select Environment -'

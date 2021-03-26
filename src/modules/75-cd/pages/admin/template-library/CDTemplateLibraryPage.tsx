@@ -1,7 +1,12 @@
 import { Button, Container } from '@wings-software/uicore'
 import React from 'react'
 import { Page } from '@common/exports'
-import i18n from './CDTemplateLibraryPage.i18n'
+// This page was place holder, so just added here, it requires complete revamp
+const i18n = {
+  title: 'TEMPLATE LIBRARY',
+  newItem: '+ new item',
+  noData: 'No data found. Click the button below to create a new item.'
+}
 
 const CDTemplateLibraryPage: React.FC = () => {
   const tbd: () => void = () => {
