@@ -2603,6 +2603,12 @@ userProfile:
   mysourceCodeManagers: My Source Code Managers
   basicInformation: Basic Information
   changePassword: Change Password
+  passwordReqs: 'Password must meet the requirements.'
+  passwordMatch: 'Passwords must match.'
+  currentPassword: 'Current Password'
+  requiredField: 'is a required field.'
+  newPassword: 'New Password'
+  confirmPassword: 'Confirm Password'
   twofactorAuth: Two-Factor Authentication
   myProjects: My Projects
   myGroups: My Groups
@@ -2614,3 +2620,8 @@ userProfile:
 entityReference:
   noRecordFound: 'No Record Found'
   apply: 'Apply Selected'
+
+characters: 'characters'
+uppercase: 'uppercase'
+lowercase: 'lowercase'
+specialChar: 'special character'

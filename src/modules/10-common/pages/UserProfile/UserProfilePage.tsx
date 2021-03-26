@@ -4,6 +4,7 @@ import { noop } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/components'
 import { useUserProfile } from '@common/modals/UserProfile/useUserProfile'
+import { useChangePassword } from '@common/modals/useChangePassword/useChangePassword'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
@@ -16,6 +17,7 @@ const user = {
 const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
   const { openUserProfile } = useUserProfile({ onSuccess: noop })
+  const { openPasswordModal } = useChangePassword()
 
   return (
     <Page.Body filled>
@@ -39,8 +41,10 @@ const UserProfilePage: React.FC = () => {
               <Text icon="main-email" iconProps={{ padding: { right: 'medium' } }}>
                 {user.email}
               </Text>
-              <Text icon="lock" iconProps={{ padding: { right: 'medium' } }}>
-                {getString('userProfile.changePassword')}
+              <Text icon="lock">
+                <Button minimal onClick={openPasswordModal} font={{ weight: 'semi-bold' }} className={css.button}>
+                  {getString('userProfile.changePassword')}
+                </Button>
               </Text>
             </Layout.Vertical>
             <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>

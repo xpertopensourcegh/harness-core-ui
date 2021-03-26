@@ -107,7 +107,7 @@ exports[`Project Page List User Profile 1`] = `
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-medium"
+                class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-xsmall"
                 icon="lock"
               >
                 <svg
@@ -125,7 +125,16 @@ exports[`Project Page List User Profile 1`] = `
                   />
                 </svg>
               </span>
-              Change Password
+              <button
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main button StyledProps--font-weight-semi-bold"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Change Password
+                </span>
+              </button>
             </p>
           </div>
           <div
