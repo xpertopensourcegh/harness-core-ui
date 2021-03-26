@@ -197,7 +197,7 @@ exports[`PreflightCheck click on section title open correct section 1`] = `
       </div>
     </div>
     <div
-      class="footer"
+      class="footerInProgress"
     >
       <button
         class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
@@ -341,7 +341,7 @@ exports[`PreflightCheck click on section title open correct section 2`] = `
       </div>
     </div>
     <div
-      class="footer"
+      class="footerInProgress"
     >
       <button
         class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
@@ -742,8 +742,18 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
       </div>
     </div>
     <div
-      class="footerSpaceBetween"
+      class="footerFailure"
     >
+      <button
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Retry
+        </span>
+      </button>
       <button
         class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
@@ -761,7 +771,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
         <span
           class="bp3-button-text"
         >
-          Continue to run pipeline
+          Ignore the errors and continue to run pipeline
         </span>
       </button>
     </div>
@@ -966,7 +976,7 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
       </div>
     </div>
     <div
-      class="footer"
+      class="footerInProgress"
     >
       <button
         class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
@@ -1185,8 +1195,18 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
       </div>
     </div>
     <div
-      class="footerSpaceBetween"
+      class="footerFailure"
     >
+      <button
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Retry
+        </span>
+      </button>
       <button
         class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
@@ -1204,7 +1224,7 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
         <span
           class="bp3-button-text"
         >
-          Continue to run pipeline
+          Ignore the errors and continue to run pipeline
         </span>
       </button>
     </div>

@@ -12,6 +12,7 @@ import {
   PipelineInputResponse,
   PreFlightDTO,
   PreFlightEntityErrorInfo,
+  ResponsePreFlightDTO,
   startPreflightCheckPromise,
   useGetPreflightCheckResponse
 } from 'services/pipeline-ng'
@@ -377,19 +378,22 @@ interface PreFlightCheckFooter {
   preFlightCheckData?: PreFlightDTO
   onContinuePipelineClick: () => void
   onCloseButtonClick: () => void
+  onRetryButtonClick: () => void
 }
 
 const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
   preFlightCheckData,
   onContinuePipelineClick,
-  onCloseButtonClick
+  onCloseButtonClick,
+  onRetryButtonClick
 }) => {
   const { getString } = useStrings()
 
   // If the check is complete
   if (preFlightCheckData?.status === 'SUCCESS' || preFlightCheckData?.status === 'FAILURE') {
     return (
-      <div className={css.footerSpaceBetween}>
+      <div className={css.footerFailure}>
+        <Button intent="primary" text={getString('retry')} onClick={() => onRetryButtonClick()} />
         <Button text={getString('close')} onClick={() => onCloseButtonClick()} />
         <Button
           text={getString('pre-flight-check.continueToRunPipeline')}
@@ -401,7 +405,7 @@ const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
     )
   }
   return (
-    <div className={css.footer}>
+    <div className={css.footerInProgress}>
       <Button text={getString('pre-flight-check.skipCheckBtn')} onClick={() => onContinuePipelineClick()} />
       <Text className={css.footerSmallText}>{getString('pre-flight-check.skipCheckInfo')}</Text>
     </div>
@@ -449,23 +453,26 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
   onContinuePipelineClick
 }) => {
   const [preFlightCheckId, setPreFlightCheckId] = useState<string | undefined>()
+  const [preFlightCheckData, setPreFlightCheckData] = useState<ResponsePreFlightDTO | null>()
 
   // start preflight check
   useEffect(() => {
-    startPreflightCheckPromise({
-      queryParams: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        pipelineIdentifier
-      },
-      body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
-    }).then(response => {
-      setPreFlightCheckId(response.data)
-    })
-  }, [pipeline])
+    if (!preFlightCheckId) {
+      startPreflightCheckPromise({
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          pipelineIdentifier
+        },
+        body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
+      }).then(response => {
+        setPreFlightCheckId(response.data)
+      })
+    }
+  }, [pipeline, preFlightCheckId])
 
-  const { data: preFlightCheck, refetch } = useGetPreflightCheckResponse({
+  const { data: preFlightCheckResponse, refetch } = useGetPreflightCheckResponse({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -475,15 +482,19 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
     lazy: true
   })
 
+  useEffect(() => {
+    setPreFlightCheckData(preFlightCheckResponse)
+  }, [preFlightCheckResponse])
+
   // setting up the polling
   useEffect(() => {
     if (preFlightCheckId) {
-      if (!preFlightCheck || preFlightCheck?.data?.status === 'IN_PROGRESS') {
+      if (!preFlightCheckData || preFlightCheckData?.data?.status === 'IN_PROGRESS') {
         const timerId = window.setTimeout(
           () => {
             refetch()
           },
-          !preFlightCheck ? 1 : POLL_INTERVAL
+          !preFlightCheckData ? 1 : POLL_INTERVAL
         )
 
         return () => {
@@ -491,23 +502,23 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
         }
       }
     }
-  }, [preFlightCheckId, preFlightCheck, refetch])
+  }, [preFlightCheckId, preFlightCheckData, refetch])
 
   // auto close if check pass successfully
   useEffect(() => {
-    if (preFlightCheck?.data?.status === 'SUCCESS') {
+    if (preFlightCheckData?.data?.status === 'SUCCESS') {
       onContinuePipelineClick()
     }
-  }, [preFlightCheck])
+  }, [preFlightCheckData])
 
   // count total, progress, failed
-  const getChecksCount = (preFlightCheckData?: PreFlightDTO) => {
+  const getChecksCount = (preFlight?: PreFlightDTO) => {
     const checkCount = { total: 0, progress: 0, failed: 0 }
-    preFlightCheckData?.pipelineInputWrapperResponse?.pipelineInputResponse?.forEach(item => {
+    preFlight?.pipelineInputWrapperResponse?.pipelineInputResponse?.forEach(item => {
       checkCount.total++
       if (item.success === false) checkCount.failed++
     })
-    preFlightCheckData?.connectorWrapperResponse?.checkResponses?.forEach(item => {
+    preFlight?.connectorWrapperResponse?.checkResponses?.forEach(item => {
       checkCount.total++
       if (item.status === 'IN_PROGRESS') checkCount.progress++
       if (item.status === 'FAILURE') checkCount.failed++
@@ -516,25 +527,32 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
     return checkCount
   }
 
-  const checkCounts = getChecksCount(preFlightCheck?.data)
+  const checkCounts = getChecksCount(preFlightCheckData?.data)
   const progressValue = checkCounts.total > 0 ? 1 - (1 / checkCounts.total) * checkCounts.progress : 0
 
   return (
     <Container className={css.preFlightCheckContainer} padding="medium">
       <HeadLine errorCount={checkCounts.failed} />
-      <ProgressBar intent={preFlightCheck?.data?.status === 'FAILURE' ? 'danger' : 'success'} value={progressValue} />
+      <ProgressBar
+        intent={preFlightCheckData?.data?.status === 'FAILURE' ? 'danger' : 'success'}
+        value={progressValue}
+      />
       <PreFlightCheckSections
         accountId={accountId}
         orgIdentifier={orgIdentifier}
         projectIdentifier={projectIdentifier}
         pipelineIdentifier={pipelineIdentifier}
         module={module}
-        preFlightCheckData={preFlightCheck?.data}
+        preFlightCheckData={preFlightCheckData?.data}
       />
       <PreFlightCheckFooter
-        preFlightCheckData={preFlightCheck?.data}
+        preFlightCheckData={preFlightCheckData?.data}
         onContinuePipelineClick={onContinuePipelineClick}
         onCloseButtonClick={onCloseButtonClick}
+        onRetryButtonClick={() => {
+          setPreFlightCheckData(null)
+          setPreFlightCheckId(undefined)
+        }}
       />
     </Container>
   )

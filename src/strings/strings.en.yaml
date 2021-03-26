@@ -1005,7 +1005,7 @@ pre-flight-check:
   stageColon: 'Stage:'
   couldNotVerifyInputSets: Could not verify input sets
   gettingResults: Getting results
-  continueToRunPipeline: Continue to run pipeline
+  continueToRunPipeline: Ignore the errors and continue to run pipeline
   skipCheckBtn: Skip pre-flight check
   skipCheckInfo: You can skip pre-flight check and continue to run your pipeline
   verifyingPipelineInputs: Verifying pipeline inputs

@@ -10,8 +10,8 @@ declare const styles: {
   readonly sectionsWrapper: string
   readonly sectionPanelWrapper: string
   readonly sectionLabelsWrapper: string
-  readonly footerSpaceBetween: string
-  readonly footer: string
+  readonly footerFailure: string
+  readonly footerInProgress: string
   readonly footerSmallText: string
   readonly locationPopover: string
   readonly locationPopoverContent: string

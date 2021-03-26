@@ -74,13 +74,20 @@
   width: 30% !important;
 }
 
-.footerSpaceBetween {
+.footerFailure {
   display: flex;
-  justify-content: space-between;
   margin: var(--spacing-medium) 0 0 0;
+
+  > * + * {
+    margin-left: var(--spacing-medium) !important;
+  }
+
+  > *:last-child {
+    margin-left: auto !important;
+  }
 }
 
-.footer {
+.footerInProgress {
   display: flex;
   align-items: center;
   margin-top: var(--spacing-xxlarge);
