@@ -10,6 +10,7 @@ import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/exports'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
@@ -18,6 +19,7 @@ export default function CDSideNav(): React.ReactElement {
   const history = useHistory()
   const module = 'cd'
   const { updateAppStore } = useAppStore()
+  const { SERVICE_DASHBOARD_NG } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -51,6 +53,7 @@ export default function CDSideNav(): React.ReactElement {
           <SidebarLink label="Overview" to={routes.toCDProjectOverview(params)} />
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
+          {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
             {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />

@@ -2640,3 +2640,5 @@ characters: 'characters'
 uppercase: 'uppercase'
 lowercase: 'lowercase'
 specialChar: 'special character'
+serviceDashboard:
+  activeServiceInstancesLabel: Active Service Instances
