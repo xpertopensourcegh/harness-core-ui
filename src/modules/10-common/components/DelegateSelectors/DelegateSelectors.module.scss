@@ -1,0 +1,31 @@
+.delegatePopover {
+  position: relative;
+
+  :global(.bp3-input) {
+    display: block;
+    border: 1px solid var(--grey-400);
+    border-radius: 4px;
+    font-size: var(--font-size-normal);
+    padding: 0 var(--spacing-small);
+    min-height: 32px;
+    color: var(--grey-800);
+    box-shadow: none;
+  }
+
+  & :global(.bp3-transition-container),
+  & :global(.bp3-popover) {
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0 0 4px 4px;
+  }
+
+  & :global(.bp3-menu) {
+    max-height: 350px;
+    width: 100%;
+    overflow: auto;
+    box-shadow: none;
+    border: 1px solid var(--grey-400);
+    border-radius: 0 0 4px 4px;
+    padding: 0;
+  }
+}

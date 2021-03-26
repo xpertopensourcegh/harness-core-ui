@@ -6,7 +6,7 @@ exports[`Delegate Selectors test snapshot testing 1`] = `
     data-name="DelegateSelectors"
   >
     <div
-      class="bp3-popover-wrapper TagInput--tagInput bp3-fill"
+      class="bp3-popover-wrapper TagInput--tagInput delegatePopover bp3-fill"
     >
       <div
         class="bp3-popover-target"

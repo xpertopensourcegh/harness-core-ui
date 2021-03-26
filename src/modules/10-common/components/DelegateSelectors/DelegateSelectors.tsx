@@ -5,6 +5,8 @@ import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { useGetDelegateSelectors } from 'services/portal'
 
+import css from './DelegateSelectors.module.scss'
+
 const isValidExpression = (tag: string, showError: any, errorMsg: string) => {
   let validExpression = true
   if (tag.includes('${')) {
@@ -43,6 +45,12 @@ export const DelegateSelectors = (
       ) : (
         <SimpleTagInput
           fill
+          popoverProps={{
+            usePortal: false,
+            minimal: true,
+            position: 'bottom-left',
+            className: css.delegatePopover
+          }}
           items={selectors}
           {...props}
           allowNewTag
