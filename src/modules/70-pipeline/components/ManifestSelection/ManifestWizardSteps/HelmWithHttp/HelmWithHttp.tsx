@@ -153,7 +153,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   <FormInput.Text
                     name="identifier"
                     label={getString('manifestType.manifestIdentifier')}
-                    placeholder={getString('manifestType.manifestPlaceholder')}
+                    placeholder={getString('manifestType.helmManifestPlaceholder')}
                   />
                 </div>
                 <div

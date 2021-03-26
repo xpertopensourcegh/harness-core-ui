@@ -46,7 +46,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="identifier"
-                      placeholder="Add Manifest Identifier"
+                      placeholder="Enter Manifest Identifier"
                       type="text"
                       value=""
                     />

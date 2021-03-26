@@ -33,7 +33,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Helm Repo Connector
+        HttpHelmRepo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -341,7 +341,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Helm Repo Connector
+        HttpHelmRepo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -787,7 +787,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Helm Repo Connector
+        HttpHelmRepo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -1070,7 +1070,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Helm Repo Connector
+        HttpHelmRepo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"

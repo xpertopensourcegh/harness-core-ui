@@ -1545,6 +1545,7 @@ activityHistory:
 manifestType:
   manifestIdentifier: Manifest Identifier
   manifestPlaceholder: Add Manifest Identifier
+  helmManifestPlaceholder: Enter Manifest Identifier
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
@@ -1606,7 +1607,7 @@ connectors:
   title:
     k8sCluster: 'Kubernetes Cluster'
     gcpConnector: 'Google Cloud Provider'
-    helmConnector: 'Helm Repo Connector'
+    helmConnector: 'HttpHelmRepo Connector'
     gitConnector: 'Git Connector'
     githubConnector: 'GitHub Connector'
     gitlabConnector: 'GitLab Connector'
