@@ -140,7 +140,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       if (!stage.stage.spec) {
         stage.stage.spec = {}
       }
-
       if (
         !stage.stage.spec.serviceConfig?.serviceDefinition &&
         setupModeType === setupMode.DIFFERENT &&
@@ -238,7 +237,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       debounceUpdatePipeline(pipeline)
     }
-    if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition) {
+    if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition', {})
       debounceUpdatePipeline(pipeline)
     }
@@ -254,6 +253,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     const useFromStage = stage?.stage?.spec?.serviceConfig?.useFromStage
     const stageOverrides = stage?.stage?.spec?.serviceConfig?.stageOverrides
     const serviceDefinition = stage?.stage?.spec.serviceConfig?.serviceDefinition
+
     if (useFromStage) {
       setSetupMode(setupMode.PROPAGATE)
       if (previousStageList && previousStageList.length > 0) {
@@ -310,6 +310,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         label: `Stage [${item.value as string}] - Service`,
         value: item.value
       })
+      if (stage?.stage?.spec?.serviceConfig?.serviceDefinition) {
+        delete stage.stage.spec.serviceConfig.serviceDefinition
+      }
+      if (stage?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
+        delete stage.stage.spec.serviceConfig.serviceRef
+      }
       updatePipeline(pipeline)
     }
   }

@@ -228,11 +228,11 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       const provisioner = stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
       let isChanged = false
 
-      if (!isNil(provisioner.steps) && provisioner.steps.length === 0) {
+      if (!isNil(provisioner?.steps) && provisioner?.steps.length === 0) {
         delete provisioner.steps
         isChanged = true
       }
-      if (!isNil(provisioner.rollbackSteps) && provisioner.rollbackSteps.length === 0) {
+      if (!isNil(provisioner?.rollbackSteps) && provisioner?.rollbackSteps.length === 0) {
         delete provisioner.rollbackSteps
         isChanged = true
       }
