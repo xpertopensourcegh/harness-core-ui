@@ -48,44 +48,6 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
             </div>
           </div>
           <div
-            class="halfWidth"
-          >
-            <div>
-              <div
-                class="bp3-form-group repoName"
-              >
-                <label
-                  class="bp3-label"
-                  for="repoName"
-                >
-                  Repository Name
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
-                <div
-                  class="bp3-form-content"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="repoName"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              undefined/
-            </div>
-          </div>
-          <div
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-top-small StyledProps--margin-bottom-small"
           >
             <div
@@ -232,7 +194,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="path"
                 >
-                  Path
+                  Template File Path
                    
                   <span
                     class="bp3-text-muted"
@@ -250,7 +212,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                       <input
                         class="bp3-input"
                         name="path"
-                        placeholder="Enter file path"
+                        placeholder="Enter Template File Path"
                         type="text"
                         value=""
                       />
@@ -288,7 +250,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
             </div>
           </div>
           <div
-            class="Accordion--accordion"
+            class="Accordion--accordion advancedStepOpen"
           >
             <div
               class="Accordion--panel"

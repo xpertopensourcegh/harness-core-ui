@@ -27,6 +27,7 @@ import type { OpenShiftTemplateGITDataType } from '../../ManifestInterface'
 import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
@@ -139,7 +140,15 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          path: Yup.string().trim().required(getString('manifestType.folderPathRequired'))
+          path: Yup.string().trim().required(getString('manifestType.osTemplatePathRequired')),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          })
         })}
         onSubmit={formData => {
           submitFormData({
@@ -165,16 +174,17 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                 className={templateCss.halfWidth}
               />
               {connectionType === GitRepoName.Repo && (
-                <div>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Text
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                     disabled
                     name="repoName"
+                    style={{ width: '370px' }}
                   />
                 </div>
               )}
 
-              {connectionType === GitRepoName.Account && (
+              {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <div className={templateCss.halfWidth}>
                   <div>
                     <FormInput.Text
@@ -262,8 +272,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   })}
                 >
                   <FormInput.MultiTextInput
-                    label={getString('manifestType.path')}
-                    placeholder={getString('manifestType.pathPlaceholder')}
+                    label={getString('manifestType.osTemplatePath')}
+                    placeholder={getString('manifestType.osTemplatePathPlaceHolder')}
                     name="path"
                     multiTextInputProps={{ expressions }}
                   />
@@ -283,9 +293,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
               </Layout.Horizontal>
               <Accordion
                 activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
-                className={cx({
-                  [templateCss.advancedStepOpen]: isActiveAdvancedStep
-                })}
+                className={cx(templateCss.advancedStepOpen)}
               >
                 <Accordion.Panel
                   id={getString('advancedTitle')}
@@ -297,7 +305,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
                         multiTypeTextbox={{ expressions }}
-                        className={cx(css.checkbox, css.halfWidth)}
+                        className={cx(templateCss.checkbox, templateCss.halfWidth)}
                       />
                       <Tooltip
                         position="top"

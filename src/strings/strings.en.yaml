@@ -1463,6 +1463,7 @@ validation:
   valueRequired: Value is a required field
   repositoryName: 'Repository Name is required'
   branchName: 'Branch Name is required'
+  commitId: 'CommitId is required'
   validIdRegex: Identifier must start with an alphabet or _ and can then be followed by alphanumerics, _ or $
   # Replace if validIdRegex will apply the same rules
   validStepIdRegex: Identifier can only contain alphanumerics and _
@@ -1561,6 +1562,9 @@ manifestType:
   folderPathRequired: Folder Path is required
   pathRequired: Path is required
   path: 'Path'
+  osTemplatePath: 'Template File Path'
+  osTemplatePathPlaceHolder: 'Enter Template File Path'
+  osTemplatePathRequired: Template File Path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
   gitFetchTypeLabel: Branch/Commit ID

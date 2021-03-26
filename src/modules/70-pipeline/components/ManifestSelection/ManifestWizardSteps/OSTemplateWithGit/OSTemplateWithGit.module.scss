@@ -15,7 +15,7 @@
     grid-template-columns: 4fr 1fr;
   }
   .advancedStepOpen {
-    min-height: 400px;
+    min-height: 200px;
   }
   .repoName {
     margin-bottom: 0 !important;
@@ -25,6 +25,10 @@
 .checkbox {
   margin-right: var(--spacing-medium);
   margin-bottom: 0 !important;
+}
+
+.halfWidth {
+  width: 50%;
 }
 
 .tooltip {
