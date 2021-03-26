@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router'
+import { Link } from 'react-router-dom'
 import {
   Container,
   ExpandingSearchInput,
@@ -13,6 +14,7 @@ import {
 import { useStrings } from 'framework/exports'
 import { Feature, Target, useGetAllFeatures, Variation } from 'services/cf'
 import { ItemContainer } from '@cf/components/ItemContainer/ItemContainer'
+import routes from '@common/RouteDefinitions'
 import { CF_DEFAULT_PAGE_SIZE, FlagsSortByField, getErrorMessage, SortOrder } from '@cf/utils/CFUtils'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -68,7 +70,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   const { data, loading: loadingFeatures, error, refetch } = useGetAllFeatures({ queryParams })
   const [loadingFeaturesInBackground, setLoadingFeaturesInBackground] = useState(false)
 
-  const FlagSettingsHeader = () => {
+  const FlagSettingsHeader: React.FC = () => {
     const textStyle = {
       color: '#4F5162',
       fontSize: '10px',
@@ -213,7 +215,18 @@ const FlagSettingsRow: React.FC<{
             style={{ color: '#22222A', fontWeight: 600, fontSize: '13px', lineHeight: '24px' }}
             padding={{ right: 'xlarge' }}
           >
-            {feature.name}
+            <Link
+              className={css.link}
+              to={routes.toCFFeatureFlagsDetail({
+                accountId: patchParams.accountIdentifier,
+                orgIdentifier: patchParams.orgIdentifier,
+                projectIdentifier: patchParams.projectIdentifier,
+                environmentIdentifier: patchParams.environmentIdentifier,
+                featureFlagIdentifier: feature.identifier
+              })}
+            >
+              {feature.name}
+            </Link>
           </Text>
           {!!feature.description && (
             <Text lineClamp={1} style={{ color: '#4F5162', fontSize: '12px' }} padding={{ right: 'xlarge' }}>

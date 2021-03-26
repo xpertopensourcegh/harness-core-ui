@@ -46,7 +46,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     identifier: featureFlagIdentifier as string,
     queryParams: {
       project: projectIdentifier as string,
-      environment: environmentOption?.value as string,
+      environment: (environmentOption?.value as string) || environmentIdentifier,
       account: accountId,
       org: orgIdentifier
     }
@@ -65,7 +65,9 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   })
 
   useEffect(() => {
-    refetch()
+    if (!loading) {
+      refetch()
+    }
     fetchFlagList()
   }, [environmentOption])
 

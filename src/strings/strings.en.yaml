@@ -1776,6 +1776,36 @@ gitSync:
   label: 'Git Sync'
   successfullCreate: 'Git sync repository {{name}} created successfully'
 cf:
+  creationModal:
+    jsonType: JSON
+    variationSettingsHeading: Variation settings
+    flagType: Flag Type
+    defaultRules: Default rules for the flag
+    flagOn: If the flag is ON, serve
+    flagOff: If the flag is OFF, serve
+    saveAndClose: Save and Close
+    nameIsRequired: Variation name is required
+    valueIsRequired: Variation value is required
+    idIsRequired: Variation identifier is required
+    defaultVariationIsRequired: Default variation is required
+    dataType: Data type
+    defaultRulesTooltip: Define which variation users will see by default when the flag is ON or OFF
+    testFlagOption: Test the Flag
+  editVariation:
+    title: Edit Variations
+    add: + Variation
+    defaultRulesDesc: "Changes will only apply to newly created environments. Existing environments won't be affected"
+    envNote: Changes will only apply to newly created environments. Existing environments won’t be affected.
+    applyToExistingEnvironments: Also apply to existing environments
+  addPrerequisites:
+    addPrerequisitesHeading: Add Prerequisites
+    addPrerequisitesDesc: The following must be met before your flag can be enabled
+    selectFlag: Select a Flag
+    selectVariation: Select a Variation
+    editPrerequisitesHeading: Edit Prerequisites
+  editDetails:
+    editDetailsHeading: Edit Flag Details
+    permaFlag: This is a permanent flag
   boolean: Boolean
   multivariate: Multivariate
   featureNotReady: This feature is not yet ready. Please check back later.
@@ -1801,6 +1831,8 @@ cf:
     environment: environment
     lastEvaluated: Last Evaluated
     variation: Variation
+    variations: Variations
+    prerequisites: Prerequisites
   featureFlags:
     percentageRollout: 'Percentage Rollout'
     turnOnHeading: Turn ON Flag
@@ -1813,7 +1845,6 @@ cf:
     defaultServedOff: '{{defaultVariation}} when flag is OFF'
     createdDate: 'Created: {{date}}'
     modifiedDate: 'Modified: {{date}}'
-    prerequisites: Prerequisites
     prerequisitesDesc: '(what’s required before enabling flags)'
     ifFlagOnServe: 'If the flag is <strong>ON</strong>, serve '
     ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '

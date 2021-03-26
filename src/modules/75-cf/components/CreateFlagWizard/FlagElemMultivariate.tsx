@@ -1,5 +1,7 @@
 import React, { useState, Dispatch, SetStateAction, useCallback } from 'react'
 import * as yup from 'yup'
+import { isEqual } from 'lodash-es'
+import { Classes } from '@blueprintjs/core'
 import {
   Color,
   Formik,
@@ -16,10 +18,10 @@ import {
   FlexExpander
 } from '@wings-software/uicore'
 import { FieldArray } from 'formik'
-import type { FeatureFlagRequestRequestBody } from 'services/cf'
+import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
+import type { FeatureFlagRequestRequestBody, Variation } from 'services/cf'
+import { useStrings } from 'framework/exports'
 import { FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
-import i18n from './FlagWizard.i18n'
-
 import css from './FlagElemVariations.module.scss'
 
 interface FlagElemVariationsProps {
@@ -38,12 +40,6 @@ interface FlagMultivariateSelectOptions {
   value: string
 }
 
-const flagVariationOptions = [
-  { label: i18n.varSettingsFlag.stringType.toUpperCase(), value: FlagTypeVariationsSelect.string },
-  { label: i18n.varSettingsFlag.jsonType.toUpperCase(), value: FlagTypeVariationsSelect.json },
-  { label: i18n.varSettingsFlag.numberType.toUpperCase(), value: FlagTypeVariationsSelect.number }
-]
-
 // FIXME: Change any for StepProps
 const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
   const {
@@ -57,7 +53,13 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     setModalErrorHandler,
     isLoadingCreateFeatureFlag
   } = props
+  const { getString } = useStrings()
 
+  const flagVariationOptions = [
+    { label: getString('string'), value: FlagTypeVariationsSelect.string },
+    { label: getString('cf.creationModal.jsonType'), value: FlagTypeVariationsSelect.json },
+    { label: getString('number'), value: FlagTypeVariationsSelect.number }
+  ]
   const [flagMultiRules, setFlagMultiRules] = useState<FlagMultivariateSelectOptions[]>([
     { id: 'variation1', label: 'Variation 1', value: 'variation1' },
     { id: 'variation2', label: 'Variation 2', value: 'variation2' }
@@ -99,6 +101,21 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     }
   }, [])
 
+  const onFormikEffect: FormikEffectProps['onChange'] = ({ prevValues, nextValues }) => {
+    const { variations } = nextValues
+
+    if (!isEqual(variations, prevValues.variations)) {
+      const selectItems = variations
+        .filter(
+          ({ identifier, name, value }: Variation) =>
+            !!(identifier || '').trim() && !!(name || '').trim() && !!(value || '').trim()
+        )
+        .map(({ identifier, name }: Variation) => ({ id: identifier, label: name, value: identifier }))
+
+      setFlagMultiRules(selectItems)
+    }
+  }
+
   return (
     <Formik
       initialValues={{
@@ -114,12 +131,13 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
       validationSchema={yup.object().shape({
         variations: yup.array().of(
           yup.object().shape({
-            name: yup.string().trim().required(i18n.nameIsRequired),
-            identifier: yup.string().trim().required(i18n.variationIsRequired)
+            name: yup.string().trim().required(getString('cf.creationModal.nameIsRequired')),
+            value: yup.string().trim().required(getString('cf.creationModal.valueIsRequired')),
+            identifier: yup.string().trim().required(getString('cf.creationModal.idIsRequired'))
           })
         ),
-        defaultOnVariation: yup.string().trim().required(i18n.defaultVariationIsRequired),
-        defaultOffVariation: yup.string().trim().required(i18n.defaultVariationIsRequired)
+        defaultOnVariation: yup.string().trim().required(getString('cf.creationModal.defaultVariationIsRequired')),
+        defaultOffVariation: yup.string().trim().required(getString('cf.creationModal.defaultVariationIsRequired'))
       })}
       onSubmit={vals => {
         const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
@@ -128,29 +146,38 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     >
       {formikProps => (
         <Form>
+          <FormikEffect onChange={onFormikEffect} formik={formikProps} />
           <Container flex height="100%" style={{ flexDirection: 'column', alignItems: 'baseline' }}>
-            <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
+            <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%" padding={{ left: 'xsmall' }}>
               <ModalErrorHandler bind={setModalErrorHandler} />
               <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
-                {i18n.varSettingsFlag.variationSettingsHeading}
+                {getString('cf.creationModal.variationSettingsHeading')}
               </Text>
               <Layout.Vertical>
                 <Layout.Horizontal>
-                  <FormInput.Select
-                    name="kind"
-                    label={i18n.varSettingsFlag.flagType}
-                    items={flagTypeOptions}
-                    onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
-                    style={{ width: '45%' }}
-                  />
-                  <Select
-                    value={kindToSelectValue(formikProps.values.kind)}
-                    items={flagVariationOptions}
-                    className={css.spacingSelectVariation}
-                    onChange={kindVariation => {
-                      formikProps.setFieldValue('kind', kindVariation.value)
-                    }}
-                  />
+                  <Container className={Classes.FORM_GROUP} width={180}>
+                    <FormInput.Select
+                      name="kind"
+                      label={getString('cf.creationModal.flagType')}
+                      items={flagTypeOptions}
+                      onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
+                      style={{ width: '188px' }}
+                    />
+                  </Container>
+                  <Container width={20} />
+                  <Container className={Classes.FORM_GROUP} width={180}>
+                    <label className={Classes.LABEL}>{getString('cf.creationModal.dataType')}</label>
+                    <Container className={Classes.FORM_CONTENT}>
+                      <Select
+                        value={kindToSelectValue(formikProps.values.kind)}
+                        items={flagVariationOptions}
+                        className={css.spacingSelectVariation}
+                        onChange={kindVariation => {
+                          formikProps.setFieldValue('kind', kindVariation.value)
+                        }}
+                      />
+                    </Container>
+                  </Container>
                 </Layout.Horizontal>
 
                 <Container>
@@ -159,43 +186,50 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                       return (
                         <>
                           {formikProps.values?.variations?.map((_: HTMLElement, index: number) => (
-                            <Layout.Horizontal key={`flagElem-${index}`}>
-                              <FormInput.Text
-                                name={`variations.${index}.identifier`}
-                                label={`${i18n.varSettingsFlag.variation} ${index + 1}`}
-                                style={{ width: '45%' }}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                  const { value } = e.target
-                                  const cloneRules = [...flagMultiRules]
-
-                                  formikProps.setFieldValue(`variations.${index}.value`, value)
-                                  cloneRules[index].id = cloneRules[index].value = value
-
-                                  if (!formikProps.values?.variations?.[index]?.name) {
-                                    cloneRules[index].label = value
-                                  }
-                                }}
-                              />
-                              <FormInput.Text
-                                name={`variations.${index}.name`}
-                                style={{ width: '45%' }}
-                                label={i18n.name}
-                                placeholder={i18n.namePlaceholder}
-                                className={css.spacingElemVariation}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                  const cloneRules = [...flagMultiRules]
-
-                                  cloneRules[index].label = e.target.value
-                                  setFlagMultiRules(cloneRules)
-                                }}
-                              />
+                            <Layout.Horizontal
+                              key={`flagElem-${index}`}
+                              style={{
+                                background: '#FAFBFC',
+                                boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
+                                borderRadius: '4px',
+                                width: '570px',
+                                marginBottom: 'var(--spacing-small)',
+                                padding: 'var(--spacing-small) var(--spacing-small) 0 var(--spacing-medium)'
+                              }}
+                            >
+                              <Container width={255}>
+                                <FormInput.InputWithIdentifier
+                                  inputName={`variations.${index}.name`}
+                                  idName={`variations.${index}.identifier`}
+                                  inputLabel={getString('name')}
+                                  isIdentifierEditable={true}
+                                />
+                              </Container>
+                              <Container width={20} />
+                              <Container width={255}>
+                                <FormInput.Text name={`variations.${index}.value`} label={getString('valueLabel')} />
+                              </Container>
+                              <Container width={5} />
+                              <Container flex={{ align: 'center-center' }} height={70}>
+                                <Button
+                                  minimal
+                                  icon="trash"
+                                  style={{
+                                    visibility: formikProps.values?.variations.length === 2 ? 'hidden' : 'visible'
+                                  }}
+                                  onClick={() => {
+                                    formikProps.values?.variations.splice(index, 1)
+                                    formikProps.setFieldValue('variations', formikProps.values?.variations)
+                                  }}
+                                />
+                              </Container>
                             </Layout.Horizontal>
                           ))}
                           <Button
                             minimal
                             intent="primary"
                             icon="small-plus"
-                            text={i18n.varSettingsFlag.variation}
+                            text={getString('cf.shared.variation')}
                             margin={{ bottom: 'large' }}
                             style={{ paddingLeft: 0 }}
                             onClick={() => {
@@ -213,17 +247,17 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                   <Text
                     color={Color.BLACK}
                     inline
-                    tooltip={i18n.varSettingsFlag.defaultRulesTooltip}
+                    tooltip={getString('cf.creationModal.defaultRulesTooltip')}
                     rightIconProps={{ size: 10, color: Color.BLUE_500 }}
                     rightIcon="info-sign"
                   >
-                    {i18n.varSettingsFlag.defaultRules}
+                    {getString('cf.creationModal.defaultRules')}
                   </Text>
                   <Layout.Vertical margin={{ top: 'medium' }}>
                     <Container>
                       <Layout.Horizontal>
                         <Text width="150px" className={css.serveTextAlign}>
-                          {i18n.varSettingsFlag.flagOn}
+                          {getString('cf.creationModal.flagOn')}
                         </Text>
                         <FormInput.Select name="defaultOnVariation" items={flagMultiRules} />
                       </Layout.Horizontal>
@@ -231,7 +265,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                     <Container>
                       <Layout.Horizontal>
                         <Text width="150px" className={css.serveTextAlign}>
-                          {i18n.varSettingsFlag.flagOff}
+                          {getString('cf.creationModal.flagOff')}
                         </Text>
                         <FormInput.Select name="defaultOffVariation" items={flagMultiRules} />
                       </Layout.Horizontal>
@@ -242,18 +276,18 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
             </Container>
 
             <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
-              <Button text={i18n.back} onClick={onClickBack} />
+              <Button text={getString('back')} onClick={onClickBack} />
               <Button
                 type="submit"
                 intent="primary"
-                text={i18n.varSettingsFlag.saveAndClose}
+                text={getString('cf.creationModal.saveAndClose')}
                 disabled={isLoadingCreateFeatureFlag}
                 loading={isLoadingCreateFeatureFlag}
               />
               <FlexExpander />
               {/* <Button
                 type="submit"
-                text={i18n.varSettingsFlag.testFlagOption}
+                text={getString('cf.creationModal.testFlagOption')}
                 onClick={() => {
                   nextStep?.({ ...prevStepData })
                 }}

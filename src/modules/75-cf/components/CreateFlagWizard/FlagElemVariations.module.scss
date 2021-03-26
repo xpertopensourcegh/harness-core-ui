@@ -1,12 +1,10 @@
-.input-select-flag-type {
-  width: 35%;
+.inputSelectFlagType {
+  width: 32%;
   padding: 0 var(--spacing-small) 0 0 !important;
 }
 
 .spacing-select-variation {
-  padding: 0 0 0 var(--spacing-small) !important;
   align-self: center;
-  width: 45% !important;
   height: 32px !important;
   input {
     border: 1px solid var(--grey-300) !important;

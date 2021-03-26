@@ -9,3 +9,16 @@
     padding-right: var(--spacing-large) !important;
   }
 }
+
+.link,
+.link:visited,
+.link:focus-visible,
+.link:focus,
+.link:focus-within,
+.link:target,
+.link:hover,
+.link:active {
+  color: inherit !important;
+  all: unset !important;
+  cursor: pointer !important;
+}

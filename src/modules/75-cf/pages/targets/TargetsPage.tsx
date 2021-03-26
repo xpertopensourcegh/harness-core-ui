@@ -55,7 +55,12 @@ const EnvironmentSelect: React.FC<EnvironmentSelectProps> = ({ label, environmen
 
 export const TargetsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
-  const { data: environments, loading: loadingEnvironments, error: errEnvironments } = useEnvironments({
+  const {
+    data: environments,
+    loading: loadingEnvironments,
+    error: errEnvironments,
+    refetch: refetchEnvs
+  } = useEnvironments({
     projectIdentifier,
     accountIdentifier: accountId,
     orgIdentifier
@@ -259,7 +264,7 @@ export const TargetsPage: React.FC = () => {
     return () => {
       clear()
     }
-  }, [])
+  }, [clear])
 
   const content = noTargetExists ? (
     <NoTargetsView
@@ -305,6 +310,10 @@ export const TargetsPage: React.FC = () => {
       }
       loading={loading}
       error={error}
+      retryOnError={() => {
+        refetchEnvs()
+        refetchTargets()
+      }}
     />
   )
 }

@@ -54,7 +54,7 @@ const CFEnvironmentDetailsHeader: React.FC<{
         <Layout.Vertical>
           <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
             <Text style={{ lineHeight: '40px', color: '#22272D', fontSize: '16px' }}>{environment.name}</Text>
-            <IdentifierText identifier={environment.identifier} style={{ margin: 0 }} />
+            <IdentifierText identifier={environment.identifier} style={{ margin: 0 }} allowCopy />
           </Layout.Horizontal>
           {environment.description && <Text font={{ size: 'normal' }}>{environment.description}</Text>}
         </Layout.Vertical>

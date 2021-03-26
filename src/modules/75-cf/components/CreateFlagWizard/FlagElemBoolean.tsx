@@ -14,9 +14,10 @@ import {
   ModalErrorHandler,
   FlexExpander
 } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
+import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
-import i18n from './FlagWizard.i18n'
 import css from './FlagElemVariations.module.scss'
 
 interface FlagElemVariationsProps {
@@ -47,6 +48,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     setModalErrorHandler,
     isLoadingCreateFeatureFlag
   } = props
+  const { getString } = useStrings()
 
   const handleNewFlagType = (newFlagTypeVal: string): void => {
     toggleFlagType(newFlagTypeVal)
@@ -72,6 +74,16 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     previousStep?.({ ...prevStepData })
   }
 
+  const onFormikEffect: FormikEffectProps['onChange'] = ({ prevValues, nextValues }) => {
+    if (prevValues.variations[0].name !== nextValues.variations[0].name) {
+      onTrueFlagChange(nextValues.variations[0].name)
+    }
+
+    if (prevValues.variations[1].name !== nextValues.variations[1].name) {
+      onFalseFlagChange(nextValues.variations[1].name)
+    }
+  }
+
   return (
     <Formik
       initialValues={{
@@ -87,7 +99,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
       validationSchema={yup.object().shape({
         variations: yup.array().of(
           yup.object().shape({
-            name: yup.string().trim().required(i18n.nameIsRequired)
+            name: yup.string().trim().required(getString('cf.creationModal.nameIsRequired'))
           })
         )
       })}
@@ -96,8 +108,9 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
         onWizardStepSubmit(data)
       }}
     >
-      {() => (
+      {formik => (
         <Form>
+          <FormikEffect onChange={onFormikEffect} formik={formik} />
           <Container
             flex
             height="100%"
@@ -106,58 +119,105 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
           >
             <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
               <ModalErrorHandler bind={setModalErrorHandler} />
-              <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
-                {i18n.varSettingsFlag.variationSettingsHeading}
+              <Text
+                style={{ fontSize: '18px', color: Color.GREY_700 }}
+                margin={{ bottom: 'xlarge' }}
+                padding={{ left: 'xsmall' }}
+              >
+                {getString('cf.creationModal.variationSettingsHeading')}
               </Text>
-              <Layout.Vertical>
+              <Layout.Vertical padding={{ left: 'xsmall' }}>
                 <FormInput.Select
                   name="kind"
-                  label={i18n.varSettingsFlag.flagType}
+                  label={getString('cf.creationModal.flagType')}
                   items={flagTypeOptions}
                   onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
                   className={css.inputSelectFlagType}
                 />
-                <Layout.Horizontal spacing="small">
-                  <FormInput.Text
-                    name="variations[0].value"
-                    label={i18n.variation1}
-                    disabled
-                    className={css.disabledInput}
-                  />
-                  <FormInput.Text
-                    name="variations[0].name"
-                    label={i18n.name}
-                    onChange={e => {
-                      onTrueFlagChange((e.currentTarget as HTMLInputElement).value)
-                    }}
-                  />
+
+                <Layout.Horizontal
+                  style={{
+                    background: '#FAFBFC',
+                    boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
+                    borderRadius: '4px',
+                    width: '570px',
+                    marginBottom: 'var(--spacing-small)',
+                    padding: 'var(--spacing-small) var(--spacing-small) 0 var(--spacing-medium)'
+                  }}
+                >
+                  <Container width={255}>
+                    <FormInput.InputWithIdentifier
+                      inputName="variations[0].name"
+                      idName="variations[0].identifier"
+                      inputLabel={getString('name')}
+                      isIdentifierEditable={false}
+                    />
+                  </Container>
+                  <Container width={20} />
+                  <Container width={255}>
+                    <FormInput.Text
+                      name="variations[0].value"
+                      label={getString('valueLabel')}
+                      disabled
+                      className={css.disabledInput}
+                    />
+                  </Container>
                 </Layout.Horizontal>
-                <Layout.Horizontal spacing="small">
+
+                <Layout.Horizontal
+                  style={{
+                    background: '#FAFBFC',
+                    boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
+                    borderRadius: '4px',
+                    width: '570px',
+                    padding: 'var(--spacing-small) var(--spacing-small) 0 var(--spacing-medium)'
+                  }}
+                >
+                  <Container width={255}>
+                    <FormInput.InputWithIdentifier
+                      inputName="variations[1].name"
+                      idName="variations[1].identifier"
+                      inputLabel={getString('name')}
+                      isIdentifierEditable={false}
+                    />
+                  </Container>
+                  <Container width={20} />
+                  <Container width={255}>
+                    <FormInput.Text
+                      name="variations[1].value"
+                      label={getString('valueLabel')}
+                      disabled
+                      className={css.disabledInput}
+                    />
+                  </Container>
+                </Layout.Horizontal>
+
+                {/* <Layout.Horizontal>
+                  <FormInput.InputWithIdentifier
+                    inputName="variations[1].name"
+                    idName="variations[1].identifier"
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={false}
+                  />
+                  <Container width={20} />
                   <FormInput.Text
                     name="variations[1].value"
-                    label={i18n.variation2}
+                    label={getString('valueLabel')}
                     disabled
                     className={css.disabledInput}
                   />
-                  <FormInput.Text
-                    name="variations[1].name"
-                    label={i18n.name}
-                    onChange={e => {
-                      onFalseFlagChange((e.currentTarget as HTMLInputElement).value)
-                    }}
-                  />
-                </Layout.Horizontal>
+                </Layout.Horizontal> */}
 
                 <Container margin={{ bottom: 'xlarge' }}>
                   <Text color={Color.BLACK} margin={{ top: 'medium' }}>
-                    {i18n.varSettingsFlag.defaultRules}
+                    {getString('cf.creationModal.defaultRules')}
                   </Text>
 
                   <Layout.Vertical margin={{ top: 'medium' }}>
                     <Container>
                       <Layout.Horizontal>
                         <Text width="25%" className={css.serveTextAlign}>
-                          {i18n.varSettingsFlag.flagOn}
+                          {getString('cf.creationModal.flagOn')}
                         </Text>
                         <FormInput.Select name="defaultOnVariation" items={flagBooleanRules} />
                       </Layout.Horizontal>
@@ -165,7 +225,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                     <Container>
                       <Layout.Horizontal>
                         <Text width="25%" className={css.serveTextAlign}>
-                          {i18n.varSettingsFlag.flagOff}
+                          {getString('cf.creationModal.flagOff')}
                         </Text>
                         <FormInput.Select name="defaultOffVariation" items={flagBooleanRules} />
                       </Layout.Horizontal>
@@ -176,11 +236,11 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
             </Container>
 
             <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
-              <Button text={i18n.back} onClick={onClickBack} />
+              <Button text={getString('back')} onClick={onClickBack} />
               <Button
                 type="submit"
                 intent="primary"
-                text={i18n.varSettingsFlag.saveAndClose}
+                text={getString('cf.creationModal.saveAndClose')}
                 disabled={isLoadingCreateFeatureFlag}
                 loading={isLoadingCreateFeatureFlag}
               />

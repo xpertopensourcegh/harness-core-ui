@@ -7,8 +7,8 @@ export interface FlagPatchParams {
   environmentIdentifier: string
 }
 
-const makeInstruction = (kind: string, featureFlag: Feature, variation: any, targetIdentifiers: string[]) => {
-  const removeInstructions: Array<{ kind: string; parameters: { variation: any; targets: string[] } }> = []
+const makeInstruction = (kind: string, featureFlag: Feature, variation: string, targetIdentifiers: string[]) => {
+  const removeInstructions: Array<{ kind: string; parameters: { variation: string; targets: string[] } }> = []
   const variationMap = featureFlag.envProperties?.variationMap
 
   // If there's some rules in variationMap for a target that about to be mapped with the featureMap

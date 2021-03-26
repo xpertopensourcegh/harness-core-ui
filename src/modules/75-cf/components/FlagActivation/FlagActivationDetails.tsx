@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { get, isEqual, zip, flatMap, cloneDeep, orderBy } from 'lodash-es'
+import { get, isEqual, flatMap } from 'lodash-es'
 import { Link } from 'react-router-dom'
 import {
   Color,
@@ -9,14 +9,12 @@ import {
   FlexExpander,
   Button,
   Container,
-  Icon,
   Heading,
   Collapse,
   Formik,
   FormikForm as Form,
   FormInput,
-  useModalHook,
-  SelectOption
+  useModalHook
 } from '@wings-software/uicore'
 import moment from 'moment'
 import { FieldArray } from 'formik'
@@ -29,7 +27,6 @@ import { useStrings } from 'framework/exports'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { OptionsMenuButton, MenuDivider } from '@common/components'
 import { Feature, Features, Prerequisite, useDeleteFeatureFlag, usePatchFeature, Variation } from 'services/cf'
-import InputDescOptional from '@cf/components/CreateFlagWizard/common/InputDescOptional'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { useConfirmAction } from '@common/hooks'
 import { getErrorMessage } from '@cf/utils/CFUtils'
@@ -37,7 +34,7 @@ import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
 import { IdentifierText } from '../IdentifierText/IdentifierText'
-import i18n from './FlagActivationDetails.i18n'
+import { EditVariationsModal } from '../EditVariationsModal/EditVariationsModal'
 import css from './FlagActivationDetails.module.scss'
 
 const editCardCollapsedProps = {
@@ -67,21 +64,32 @@ const VariationItem: React.FC<{ variation: Variation; index: number }> = ({ vari
   )
 }
 
-const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => void }> = ({
+const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void }> = ({
   featureFlag,
-  onEditVariations
+  onEditSuccess
 }) => {
+  const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
   const isFlagTypeBoolean = featureFlag.kind === FlagTypeVariations.booleanFlag
   const { variations } = featureFlag
+  const { getString } = useStrings()
 
   return (
     <Layout.Vertical padding="large" margin={{ top: 'large' }} className={css.module}>
       <Layout.Horizontal flex={{ align: 'center-center' }} margin={{ bottom: 'medium' }}>
         <Text style={{ color: '#1C1C28', fontWeight: 600, fontSize: '14px', lineHeight: '22px' }}>
-          {i18n.variations}
+          {getString('cf.shared.variations')}
         </Text>
         <FlexExpander />
-        <Button minimal intent="primary" icon="edit" onClick={onEditVariations} style={{}} />
+        <EditVariationsModal
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          feature={featureFlag}
+          onSuccess={onEditSuccess}
+          minimal
+          intent="primary"
+          icon="edit"
+        />
       </Layout.Horizontal>
 
       <Layout.Vertical className={css.variationsList}>
@@ -91,8 +99,8 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
           style={{ fontSize: '14px', lineHeight: '20px' }}
         >
           <VariationTypeIcon style={{ transform: 'translateY(1px)' }} multivariate={!isFlagTypeBoolean} />
-          {isFlagTypeBoolean ? i18n.boolean : i18n.multivariate} ({variations.length}{' '}
-          {i18n.variations.toLocaleLowerCase()})
+          {isFlagTypeBoolean ? getString('cf.boolean') : getString('cf.multivariate')} ({variations.length}{' '}
+          {getString('cf.shared.variations').toLocaleLowerCase()})
         </Text>
 
         {featureFlag.variations.map((variation, index) => (
@@ -105,17 +113,15 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditVariations: () => v
 
 const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const { featureList, featureFlag, refetchFlag } = props
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const { getString } = useStrings()
   const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
-  const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
   const [isEditingPrerequisites, setEditingPrerequisites] = useState<boolean>(false)
   const featureFlagListURL = routes.toCFFeatureFlags({
     projectIdentifier: projectIdentifier,
     orgIdentifier: orgIdentifier,
     accountId
   })
-  const { showSuccess } = useToaster()
   const { mutate: submitPatch } = usePatchFeature({
     identifier: featureFlag.identifier as string,
     queryParams: {
@@ -126,20 +132,6 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     }
   })
   const history = useHistory()
-  const isBooleanFlag = featureFlag.kind === FlagTypeVariations.booleanFlag
-
-  const setDefaultFlags = (): void => {
-    let localVars: SelectOption[] = []
-    if (featureFlag.variations.length) {
-      // FIXME: Check the TS error about incompatible types
-      localVars = featureFlag.variations.map(elem => {
-        return { label: elem.identifier as string, value: elem.value as any }
-      })
-    }
-    setEditDefaultValuesModal(localVars)
-  }
-  const initialVariations = cloneDeep(featureFlag.variations)
-
   const handlePrerequisiteInteraction = (action: 'edit' | 'delete', prereq: Prerequisite) => () => {
     if (action === 'delete') {
       patch.feature.addInstruction(patch.creators.removePrerequisite(prereq.feature))
@@ -156,229 +148,6 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       openModalPrerequisites()
     }
   }
-
-  const [openModalEditVariations, hideModalEditVariations] = useModalHook(() => {
-    const initialValues = {
-      variations: featureFlag.variations,
-      defaultOnVariation: featureFlag.defaultOnVariation,
-      defaultOffVariation: featureFlag.defaultOffVariation
-    }
-
-    const [initValues, setInitialValues] = useState(initialValues) // eslint-disable-line
-
-    const handleSubmit = (values: typeof initialValues): void => {
-      const { defaultOffVariation, defaultOnVariation } = values
-      let { variations } = values
-
-      variations = variations.map((variation: Variation) => {
-        variation['identifier'] = variation?.value
-        return variation
-      })
-
-      if (!isEqual(variations, initialVariations) && initialVariations.length > variations.length) {
-        const _variations = orderBy(variations, 'name', 'asc')
-        const _initialVariations = orderBy(initialVariations, 'name', 'asc')
-        const _missing = _initialVariations.map(initial => {
-          const isVariantAvailable = _variations.filter(el => el.identifier === initial.identifier)
-          if (isVariantAvailable && isVariantAvailable.length === 0) {
-            return initial?.identifier
-          }
-        })
-
-        patch.feature.addAllInstructions(_missing.filter(x => x !== undefined).map(patch.creators.deleteVariant))
-      }
-      if (!isEqual(variations, initialVariations) && initialVariations.length < variations.length) {
-        patch.feature.addAllInstructions(
-          zip(variations, initialVariations)
-            .filter(([cur, prev]) => !isEqual(cur, prev))
-            .map(tuple => tuple[0] as NonNullable<Variation>)
-            .map(patch.creators.addVariation)
-        )
-      }
-      if (!isEqual(variations, initialVariations) && initialVariations.length === variations.length) {
-        patch.feature.addAllInstructions(
-          zip(variations, initialVariations)
-            .filter(([cur, prev]) => !isEqual(cur, prev))
-            .map(tuple => tuple[0] as NonNullable<Variation>)
-            .map(patch.creators.updateVariation)
-        )
-      }
-      if (!isEqual(defaultOffVariation, initialValues.defaultOffVariation)) {
-        patch.feature.addInstruction(patch.creators.setDefaultOffVariation(defaultOffVariation as string))
-      }
-      if (!isEqual(defaultOnVariation, initialValues.defaultOnVariation)) {
-        patch.feature.addInstruction(patch.creators.setDefaultOnVariation(defaultOnVariation as string))
-      }
-
-      patch.feature
-        .onPatchAvailable(data => {
-          submitPatch(data)
-            .then(() => {
-              patch.feature.reset()
-              refetchFlag()
-              hideModalEditVariations()
-            })
-            .catch(() => {
-              patch.feature.reset()
-            })
-        })
-        .onEmptyPatch(hideModalEditVariations)
-    }
-
-    return (
-      <Dialog onClose={hideModalEditVariations} title={''} isOpen={true} style={{ width: '800px' }}>
-        <Layout.Vertical padding={{ left: 'xlarge', right: 'large' }}>
-          <Heading level={2} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
-            {i18n.editVariations.editVariationHeading}
-          </Heading>
-          <Container>
-            <Formik initialValues={initValues} onSubmit={handleSubmit} enableReinitialize={true}>
-              {formikProps => (
-                <Form>
-                  <Layout.Vertical>
-                    <Container>
-                      {isBooleanFlag ? (
-                        <>
-                          <Layout.Horizontal className={css.variationsContainer}>
-                            <FormInput.Text name="variations[0].identifier" label={i18n.editVariations.true} />
-                            <InputDescOptional
-                              text={i18n.descOptional}
-                              inputName="variations[0].description"
-                              inputPlaceholder={''}
-                              isOpen={featureFlag.variations[0].description ? true : false}
-                            />
-                          </Layout.Horizontal>
-                          <Layout.Horizontal className={css.variationsContainer}>
-                            <FormInput.Text name="variations[1].identifier" label={i18n.editVariations.false} />
-                            <InputDescOptional
-                              text={i18n.descOptional}
-                              inputName="variations[1].description"
-                              inputPlaceholder={''}
-                              isOpen={featureFlag.variations[1].description ? true : false}
-                            />
-                          </Layout.Horizontal>
-                        </>
-                      ) : (
-                        formikProps?.values?.variations?.map((elem, index) => (
-                          <Layout.Horizontal
-                            key={`${elem.identifier}-${index}`}
-                            style={{ alignItems: 'center' }}
-                            spacing="large"
-                          >
-                            <FormInput.Text
-                              name={`variations.${index}.value`}
-                              label={`${i18n.variation} ${index + 1}`}
-                              style={{ marginRight: 'var(--spacing-small)' }}
-                            />
-                            <FormInput.Text
-                              name={`variations.${index}.name`}
-                              label={i18n.nameLabelOptional}
-                              placeholder={i18n.nameLabel}
-                              style={{ marginRight: 'var(--spacing-small)' }}
-                            />
-                            <InputDescOptional
-                              text={i18n.descOptional}
-                              inputName={`variations?.${index}?.description`}
-                              inputPlaceholder={i18n.editVariations.variationAbout}
-                              isOpen={featureFlag.variations[index]?.description ? true : false}
-                            />
-                            <Icon
-                              name="trash"
-                              color={Color.GREY_400}
-                              onClick={() => {
-                                const _variations = initValues.variations
-                                _variations.splice(index, 1)
-                                setInitialValues(oldVal => {
-                                  const obj = {
-                                    ...oldVal,
-                                    variations: _variations
-                                  }
-                                  return obj
-                                })
-                              }}
-                              size={14}
-                              style={{ cursor: 'pointer' }}
-                            />
-                          </Layout.Horizontal>
-                        ))
-                      )}
-                      {!isBooleanFlag && (
-                        <Layout.Horizontal>
-                          <Text
-                            color={Color.BLUE_500}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                              const newVariation = { description: '', identifier: '', name: '', value: '' } as Variation
-                              // initialValues.variations.push(newVariation)
-                              setInitialValues(oldVal => {
-                                const obj = {
-                                  ...oldVal,
-                                  variations: [...oldVal.variations, newVariation]
-                                }
-                                return obj
-                              })
-                            }}
-                          >
-                            {i18n.editVariations.addVariation}
-                          </Text>
-                        </Layout.Horizontal>
-                      )}
-                    </Container>
-
-                    <Container>
-                      <Layout.Vertical margin={{ top: 'xlarge' }}>
-                        <Layout.Horizontal>
-                          <Text
-                            font={{ weight: 'bold' }}
-                            color={Color.BLACK}
-                            margin={{ right: 'xsmall' }}
-                            // rightIcon="info-sign"
-                            // rightIconProps={{ size: 10, color: Color.BLUE_500 }}
-                            // tooltip="To be added..."
-                            tooltipProps={{ isDark: true }}
-                          >
-                            {i18n.editVariations.defaultRules}
-                          </Text>
-                        </Layout.Horizontal>
-
-                        <Text margin={{ bottom: 'large' }}>{i18n.editVariations.defaultRulesDesc}</Text>
-
-                        <Layout.Horizontal className={css.newEnvRulesContainer}>
-                          <Text margin={{ right: 'medium' }} width="150px">
-                            {i18n.editVariations.defaultFlagOn}
-                          </Text>
-                          <FormInput.Select
-                            name="defaultOnVariation"
-                            items={editDefaultValuesModal}
-                            className={css.selectEnv}
-                          />
-                        </Layout.Horizontal>
-
-                        <Layout.Horizontal className={css.newEnvRulesContainer}>
-                          <Text margin={{ right: 'medium' }} width="150px">
-                            {i18n.editVariations.defaultFlagOff}
-                          </Text>
-                          <FormInput.Select
-                            name="defaultOffVariation"
-                            items={editDefaultValuesModal}
-                            className={css.selectEnv}
-                          />
-                        </Layout.Horizontal>
-                      </Layout.Vertical>
-                    </Container>
-                    <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }}>
-                      <Button text={i18n.save} intent="primary" margin={{ right: 'small' }} type="submit" />
-                      <Button onClick={hideModalEditVariations} text={i18n.cancel} />
-                    </Layout.Horizontal>
-                  </Layout.Vertical>
-                </Form>
-              )}
-            </Formik>
-          </Container>
-        </Layout.Vertical>
-      </Dialog>
-    )
-  }, [editDefaultValuesModal, featureFlag.variations])
 
   const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => {
     const initialPrereqValues = {
@@ -445,13 +214,15 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     }
 
     const title = isEditingPrerequisites
-      ? i18n.addPrerequisites.editPrerequisitesHeading
-      : i18n.addPrerequisites.addPrerequisitesHeading
+      ? getString('cf.addPrerequisites.editPrerequisitesHeading')
+      : getString('cf.addPrerequisites.addPrerequisitesHeading')
 
     return (
       <Dialog title={title} onClose={hideModalPrerequisites} isOpen={true}>
         <Layout.Vertical padding={{ left: 'large', right: 'medium' }}>
-          <Text margin={{ top: 'medium', bottom: 'xlarge' }}>{i18n.addPrerequisites.addPrerequisitesDesc}</Text>
+          <Text margin={{ top: 'medium', bottom: 'xlarge' }}>
+            {getString('cf.addPrerequisites.addPrerequisitesDesc')}
+          </Text>
           <Formik initialValues={initialPrereqValues} onSubmit={handleAddPrerequisite}>
             {formikProps => (
               <Form>
@@ -464,7 +235,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                             <Layout.Horizontal flex key={`prereq-${i}`}>
                               <FormInput.Select
                                 name={`prerequisites.${i}.feature`}
-                                placeholder={i18n.addPrerequisites.selectFlag}
+                                placeholder={getString('cf.addPrerequisites.selectFlag')}
                                 items={
                                   featureList?.features?.map((flag: Feature) => ({
                                     label: flag.name,
@@ -474,7 +245,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                               />
                               <FormInput.Select
                                 name={`prerequisites.${i}.variation`}
-                                placeholder={i18n.addPrerequisites.selectVariation}
+                                placeholder={getString('cf.addPrerequisites.selectVariation')}
                                 items={
                                   featureList?.features
                                     ?.find(ff => ff.identifier === elem.feature)
@@ -490,7 +261,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                         <Button
                           minimal
                           intent="primary"
-                          text={i18n.prerequisites}
+                          text={getString('cf.shared.prerequisites')}
                           icon="small-plus"
                           onClick={() => {
                             arrayHelpers.push({ feature: '', variations: [''] })
@@ -501,8 +272,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                   }}
                 </FieldArray>
                 <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }} border={{ bottom: true }}>
-                  <Button text={i18n.save} intent="primary" margin={{ right: 'small' }} type="submit" />
-                  <Button text={i18n.cancel} onClick={hideModalPrerequisites} />
+                  <Button text={getString('save')} intent="primary" margin={{ right: 'small' }} type="submit" />
+                  <Button text={getString('cancel')} onClick={hideModalPrerequisites} />
                 </Layout.Horizontal>
               </Form>
             )}
@@ -573,15 +344,15 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           {() => (
             <Form>
               <Layout.Vertical className={css.editDetailsModalContainer}>
-                <Text>{i18n.editDetails.editDetailsHeading}</Text>
+                <Text>{getString('cf.editDetails.editDetailsHeading')}</Text>
 
-                <FormInput.Text name="name" label={i18n.nameLabel} />
+                <FormInput.Text name="name" label={getString('name')} />
 
-                <FormInput.TextArea name="description" label={i18n.descOptional} />
+                <FormInput.TextArea name="description" label={getString('description')} />
 
                 <FormInput.TagInput
                   name="tags"
-                  label={i18n.editDetails.tags}
+                  label={getString('tagsLabel')}
                   items={[]}
                   labelFor={nameTag => nameTag as string}
                   itemFromNewTag={newTag => newTag}
@@ -591,7 +362,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 <Layout.Horizontal padding={{ top: 'medium', bottom: 'medium' }}>
                   <FormInput.CheckBox
                     name="permanent"
-                    label={i18n.editDetails.permaFlag}
+                    label={getString('cf.editDetails.permaFlag')}
                     className={css.checkboxEditDetails}
                   />
                   {/* <Text
@@ -603,8 +374,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 </Layout.Horizontal>
 
                 <Layout.Horizontal>
-                  <Button intent="primary" text={i18n.save} type="submit" />
-                  <Button minimal text={i18n.cancel} onClick={hideEditDetailsModal} />
+                  <Button intent="primary" text={getString('save')} type="submit" />
+                  <Button minimal text={getString('cancel')} onClick={hideEditDetailsModal} />
                 </Layout.Horizontal>
               </Layout.Vertical>
             </Form>
@@ -697,7 +468,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         paddingLeft: 'var(--spacing-small)'
       }}
     >
-      {getString('cf.featureFlags.prerequisites')}
+      {getString('cf.shared.prerequisites')}
       <span style={{ fontSize: '12px', fontWeight: 400, display: 'inline-block', marginLeft: 'var(--spacing-xsmall)' }}>
         {getString('cf.featureFlags.prerequisitesDesc')}
       </span>
@@ -708,7 +479,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     <>
       <Layout.Horizontal className={css.breadcrumb}>
         <Link style={{ color: '#0092E4', fontSize: '12px' }} to={featureFlagListURL}>
-          {i18n.flag}
+          {getString('flag')}
         </Link>
         <span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}>/</span>
         <FlexExpander />
@@ -754,7 +525,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           </Text>
         )}
 
-        <IdentifierText identifier={featureFlag.identifier} />
+        <IdentifierText identifier={featureFlag.identifier} allowCopy />
 
         {!!featureFlag.tags?.length && (
           <Container className={css.tagsFlagActivationDetails}>
@@ -772,9 +543,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
         <VariationsList
           featureFlag={featureFlag}
-          onEditVariations={() => {
-            openModalEditVariations()
-            setDefaultFlags()
+          onEditSuccess={() => {
+            refetchFlag()
           }}
         />
 
@@ -782,8 +552,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           <Collapse {...editCardCollapsedProps} heading={prerequisitesTitle}>
             {!!featureFlag.prerequisites?.length && (
               <Layout.Horizontal flex margin={{ bottom: 'xsmall' }}>
-                <Text width="50%">{i18n.flag}</Text>
-                <Text width="50%">{i18n.variation}</Text>
+                <Text width="50%">{getString('flag')}</Text>
+                <Text width="50%">{getString('cf.shared.variation')}</Text>
               </Layout.Horizontal>
             )}
             <Layout.Vertical className={css.collapseFeaturesPrerequisites}>
@@ -801,12 +571,12 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                         <Menu style={{ minWidth: 'unset' }}>
                           <Menu.Item
                             icon="edit"
-                            text={i18n.edit}
+                            text={getString('edit')}
                             onClick={handlePrerequisiteInteraction('edit', elem)}
                           />
                           <Menu.Item
                             icon="cross"
-                            text={i18n.delete}
+                            text={getString('delete')}
                             onClick={handlePrerequisiteInteraction('delete', elem)}
                           />
                         </Menu>
@@ -819,7 +589,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 minimal
                 intent="primary"
                 icon="small-plus"
-                text={i18n.prerequisites}
+                text={getString('cf.shared.prerequisites')}
                 onClick={() => {
                   setEditingPrerequisites(false)
                   openModalPrerequisites()
