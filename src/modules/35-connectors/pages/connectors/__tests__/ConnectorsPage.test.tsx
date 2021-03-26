@@ -1,14 +1,6 @@
 import React from 'react'
-import {
-  render,
-  waitFor,
-  queryByText,
-  fireEvent,
-  findByText as findByTextAlt,
-  findByText
-} from '@testing-library/react'
+import { render, waitFor, queryByText, fireEvent, queryByAttribute } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorsPage from '../ConnectorsPage'
 
@@ -32,7 +24,6 @@ jest.mock('services/cd-ng', () => ({
   useDeleteConnector: jest.fn().mockImplementation(() => Promise.resolve())
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
 describe('Connectors Page Test', () => {
   const props = {
     mockData: {
@@ -66,11 +57,12 @@ describe('Connectors Page Test', () => {
   test('Render and check connector rows', async () => {
     const { findByText: findByConnectorText } = setup()
     connectorsData?.data?.content?.forEach(connector => {
-      expect(findByConnectorText(connector?.connector?.name)).toBeDefined()
+      expect(findByConnectorText(connector?.connector?.name)).toBeTruthy()
     })
   })
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Select and apply a filter', async () => {
+
+  /* Connector filters test */
+  test('Select and apply a filter', async () => {
     const renderProps = {
       ...Object.assign(props, {
         filtersMockData: {
@@ -79,27 +71,27 @@ describe('Connectors Page Test', () => {
         }
       })
     }
-    const { container } = render(
+    const { container, getByPlaceholderText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <ConnectorsPage {...renderProps} />
       </TestWrapper>
     )
     await act(async () => {
-      const filterSelectorDropdown = container.querySelectorAll('.bp3-input-action [data-icon="caret-down"]')
-      expect(filterSelectorDropdown[0]).toBeDefined()
-      fireEvent.click(filterSelectorDropdown[0])
-      await waitFor(() => expect(document.body.querySelector(`[class*="bp3-menu"]`)).not.toBeNull())
-      const menu = document.body.querySelector(`[class*="bp3-menu"]`)
-      if (!menu) {
-        throw new Error('brp3 menu not rendered.')
-      }
-      fireEvent.click(menu.children[0])
+      const filterSelector = container.querySelector('.bp3-input-action [data-icon="caret-down"]')
+      fireEvent.click(filterSelector!)
+      await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
+      const menuItems = document.querySelectorAll('[class*="menuItem"]')
+      expect(menuItems?.length).toBe(filters.data.content.length)
+      fireEvent.click(menuItems[0])
+      expect((getByPlaceholderText('Select a saved filter') as HTMLInputElement).value).toBe(
+        filters.data.content[0].name
+      )
+      expect(parseInt((container.querySelector('[class*="fieldCount"]') as HTMLElement).innerHTML)).toBe(1)
     })
     expect(container).toMatchSnapshot()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Render filter panel', async () => {
+  test('Render and check filter panel', async () => {
     const renderProps = {
       ...Object.assign(props, {
         filtersMockData: {
@@ -114,51 +106,36 @@ describe('Connectors Page Test', () => {
       </TestWrapper>
     )
     await act(async () => {
-      const filterBtn = container?.querySelector('#ngfilterbtn')
-      fireEvent.click(filterBtn!)
+      const filterBtn = container.querySelector('#ngfilterbtn')!
+      fireEvent.click(filterBtn)
       await waitFor(() => {
         const portal = document.getElementsByClassName('bp3-portal')[0]
-        expect(portal).toBeDefined()
-        expect(portal).toMatchSnapshot()
+        expect(portal).toBeTruthy()
+        expect(portal).toMatchSnapshot('New Filter')
       })
     })
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Render and check create connector drawer', async () => {
+  test('Render and check create connector panel', async () => {
     const { container } = setup()
     const newConnectorBtn = container?.querySelector('#newConnectorBtn')
     fireEvent.click(newConnectorBtn!)
-    const portal = document.getElementsByClassName('bp3-portal')[0]
-    expect(portal).toBeDefined()
-    const ybOption = await waitFor(() => findByTextAlt(portal as HTMLElement, 'Create via YAML Builder'))
-    expect(ybOption).toBeDefined()
-    fireEvent.click(ybOption)
-    expect(portal).toMatchSnapshot()
+    await act(async () => {
+      const portal = document.getElementsByClassName('bp3-portal')[0]
+      expect(portal).toBeTruthy()
+      expect(portal).toMatchSnapshot('Connectors')
+    })
   })
 
   test('Filter connector by name', async () => {
     const { container } = setup()
-    const input = container.querySelector('#filterConnectorByName')
-    expect(input).toBeDefined()
+    const input = container.querySelector('[class*="ExpandingSearchInput"]')
+    expect(input).toBeTruthy()
     waitFor(() =>
       fireEvent.change(input!, {
         target: { value: 'SomeConnector' }
       })
     )
     expect(container).toMatchSnapshot()
-  })
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Test Create Connector Panel', async () => {
-    const { getByText, getByTestId } = setup()
-    fireEvent.click(getByText('New Connector'))
-    const portal = document.getElementsByClassName('bp3-portal')[0]
-    expect(portal).toBeDefined()
-    const createViaYBBtn = await findByText(portal as HTMLElement, 'YAML')
-    expect(createViaYBBtn).toBeDefined()
-    fireEvent.click(createViaYBBtn)
-    expect(
-      getByTestId('location').innerHTML.endsWith(routes.toCreateConnectorFromYaml({ accountId: 'dummy' }))
-    ).toBeTruthy()
   })
 })
