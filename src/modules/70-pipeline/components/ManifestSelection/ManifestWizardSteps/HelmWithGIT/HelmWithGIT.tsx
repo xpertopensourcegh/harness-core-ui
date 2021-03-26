@@ -159,7 +159,15 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
           folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
+          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          commandFlags: Yup.array().of(
+            Yup.object().shape({
+              flag: Yup.string().when('commandType', {
+                is: val => val?.length,
+                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+              })
+            })
+          )
         })}
         onSubmit={formData => {
           submitFormData({
@@ -253,7 +261,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={getString('manifestType.comitId')}
+                      label={getString('manifestType.commitId')}
                       placeholder={getString('manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="commitId"

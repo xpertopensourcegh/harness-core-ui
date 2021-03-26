@@ -276,7 +276,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 {formik.values?.gitFetchType === gitFetchTypes[1].value && (
                   <FormInput.MultiTextInput
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.comitId')}
+                    label={getString('manifestType.commitId')}
                     placeholder={getString('manifestType.commitPlaceholder')}
                     name="commitId"
                     style={{ width: '370px' }}

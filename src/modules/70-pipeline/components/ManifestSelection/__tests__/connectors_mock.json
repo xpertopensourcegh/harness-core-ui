@@ -79,8 +79,8 @@
           "name": "XYZDocker",
           "identifier": "XYZDockerX",
           "description": "",
-          "orgIdentifier": undefined,
-          "projectIdentifier": undefined,
+          "orgIdentifier": "undefined",
+          "projectIdentifier": "undefined",
           "tags": {},
           "type": "DockerRegistry",
           "spec": {
@@ -102,8 +102,8 @@
           "name": "Docker CTR",
           "identifier": "DockerCTRX",
           "description": "",
-          "orgIdentifier": undefined,
-          "projectIdentifier": undefined,
+          "orgIdentifier": "undefined",
+          "projectIdentifier": "undefined",
           "tags": {},
           "type": "DockerRegistry",
           "spec": {
@@ -125,8 +125,8 @@
           "description": "",
           "identifier": "Nexus_Connector",
           "name": "NexusConnector",
-          "orgIdentifier": undefined,
-          "projectIdentifier": undefined,
+          "orgIdentifier": "org",
+          "projectIdentifier": "",
           "spec": {
             "auth": {
               "type": "UsernamePassword",

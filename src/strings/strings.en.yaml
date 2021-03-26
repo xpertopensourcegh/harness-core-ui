@@ -1187,6 +1187,7 @@ pipelineSteps:
       addPrimary: + Add Primary Artifact
     manifestList:
       manifestFormat: MANIFEST FORMAT
+      manifestType: MANIFEST TYPE
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
   deleteNamespace: 'Delete namespace'
@@ -1534,10 +1535,10 @@ connectors:
   confirmDelete: Are you sure you want to delete the Connector
   testInProgress: Test in progress
   label: 'Connectors'
-  artifactRepository: ' {{ $.artifacts }} {{ $.repository }}'
-  artifactRepoType: '{{ $.artifacts }} {{$.repositoryType}}'
-  specifyArtifactRepoType: 'Specify {{ $.artifacts }} {{ $.repositoryType }}'
-  specifyArtifactRepo: 'Specify {{ $.artifacts }} {{ $.repository }}'
+  artifactRepository: ' Artifact {{ $.repository }}'
+  artifactRepoType: 'Artifact {{$.repositoryType}}'
+  specifyArtifactRepoType: 'Specify Artifact {{ $.repositoryType }}'
+  specifyArtifactRepo: 'Specify Artifact {{ $.repository }}'
   newArtifactRepository: 'New Artifact Repository Connector'
   selectConnectorLabel: Select Artifact Repository Connector
   stepThreeName: 'Test Connection'

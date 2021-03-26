@@ -233,7 +233,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={getString('manifestType.comitId')}
+                      label={getString('manifestType.commitId')}
                       placeholder={getString('manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="commitId"

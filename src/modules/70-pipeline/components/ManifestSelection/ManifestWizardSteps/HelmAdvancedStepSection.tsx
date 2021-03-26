@@ -28,13 +28,6 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
     return (
       <Layout.Horizontal flex spacing="small">
         <String tagName="div" stringID="manifestType.helmCommandFlagLabel" />
-        <Tooltip
-          position="top"
-          content={<div className={helmcss.tooltipContent}>{getString('manifestType.helmCommandFlags')}</div>}
-          className={helmcss.tooltip}
-        >
-          <Icon name="info-sign" color={Color.BLUE_450} size={16} />
-        </Tooltip>
       </Layout.Horizontal>
     )
   }

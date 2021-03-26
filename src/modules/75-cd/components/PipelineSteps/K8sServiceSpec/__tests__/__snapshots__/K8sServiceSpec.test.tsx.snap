@@ -260,7 +260,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                       ID
                     </span>
                     <span>
-                      MANIFEST FORMAT
+                      MANIFEST TYPE
                     </span>
                     <span>
                       STORE

@@ -59,7 +59,7 @@ div.server {
 
 .manifestList {
   display: grid;
-  grid-template-columns: 200px 150px 200px 150px 1fr;
+  grid-template-columns: 200px 200px 200px 1fr 150px;
   &.list-header {
     border-bottom: solid 1px #d9dae5;
     padding-bottom: var(--spacing-medium);

@@ -121,7 +121,15 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
         validationSchema={Yup.object().shape({
           chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
           chartVersion: Yup.string().trim().required(getString('manifestType.http.chartVersionRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
+          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          commandFlags: Yup.array().of(
+            Yup.object().shape({
+              flag: Yup.string().when('commandType', {
+                is: val => val?.length,
+                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+              })
+            })
+          )
         })}
         onSubmit={formData => {
           submitFormData({

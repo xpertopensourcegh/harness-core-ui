@@ -594,7 +594,7 @@ const ManifestListView = ({
     <Layout.Vertical spacing="small">
       <div className={cx(css.manifestList, css.listHeader)}>
         <span>{getString('cf.targets.ID')}</span>
-        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestFormat')}</span>
+        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
         <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
         <span>{getString('location')}</span>
 
