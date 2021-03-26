@@ -33,6 +33,7 @@ signUp:
     middle: ' and our '
     terms: 'Terms of Use'
   noAccount: 'No Account?'
+signOut: Sign Out
 featureFlagsText: Feature Flags
 flag: Flag
 newLabel: New
