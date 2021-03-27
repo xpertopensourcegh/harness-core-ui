@@ -63,7 +63,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
             <th>{getString('endedAt')}</th>
             <td>{step?.endTs ? new Date(step.endTs).toLocaleString() : '-'}</td>
           </tr>
-          {step?.startTs && step?.endTs && (
+          {step?.startTs && step?.endTs && step?.endTs > 0 && (
             <tr>
               <th>{getString('duration')}</th>
               <td>{timeToDisplayText(step.endTs - step.startTs)}</td>
