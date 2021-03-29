@@ -286,7 +286,6 @@
 
 .testsSelectionBreakdown {
   height: 8px;
-  background-color: transparent;
   margin-top: var(--spacing-small);
 
   :global {
@@ -362,8 +361,22 @@
   }
 
   .testSuiteTable {
-    padding: var(--spacing-large) var(--spacing-medium) var(--spacing-small) var(--spacing-xlarge);
+    border-radius: 4px;
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+    margin: var(--spacing-medium);
+    margin-left: var(--spacing-xxxlarge);
     overflow: hidden;
+
+    [role='row'] {
+      border-bottom: 1px solid rgba(143, 144, 166, 0.1);
+      border-radius: 0;
+      box-shadow: none;
+      margin-bottom: 0;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
 
     .testCell {
       > span {
