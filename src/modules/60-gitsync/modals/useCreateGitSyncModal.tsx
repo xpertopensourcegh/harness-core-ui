@@ -3,7 +3,7 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import type { GitSyncConfig } from 'services/cd-ng'
-import GitSyncRepoForm from '../components/GitSyncRepoForm'
+import GitSyncRepoForm from '../components/gitSyncRepoForm/GitSyncRepoForm'
 import css from './useCreateGitSyncModal.module.scss'
 
 export interface UseCreateGitSyncModalProps {
@@ -28,8 +28,8 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
-      width: 1175,
-      minHeight: 620,
+      width: 1080,
+      minHeight: 540,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',

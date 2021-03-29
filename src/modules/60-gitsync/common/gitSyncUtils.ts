@@ -15,8 +15,14 @@ export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): Ic
   }
 }
 
+export const modalTypes = {
+  GIT_SYNC_REP: 'gitSyncRepo',
+  GIT_SYNC_BRANCH: 'gitSyncBranch'
+}
+
 export interface ConnectorCardInterface {
   type: ConnectorInfoDTO['type']
+  disabled?: boolean
   icon: {
     default: IconName
     selected: IconName
@@ -33,6 +39,7 @@ export const gitCards: Array<ConnectorCardInterface> = [
   },
   {
     type: Connectors.GITLAB,
+    disabled: true,
     icon: {
       default: 'gitlab-unselected',
       selected: 'gitlab-selected'
@@ -40,6 +47,7 @@ export const gitCards: Array<ConnectorCardInterface> = [
   },
   {
     type: Connectors.BITBUCKET,
+    disabled: true,
     icon: {
       default: 'bitbucket-unselected',
       selected: 'bitbucket-selected'

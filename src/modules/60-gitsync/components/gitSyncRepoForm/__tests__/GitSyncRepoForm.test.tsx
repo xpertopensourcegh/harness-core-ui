@@ -32,7 +32,7 @@ describe('Git Sync - repo tab', () => {
     )
 
     await waitFor(() => {
-      expect(getByText('Configure Harness Folder')).toBeTruthy()
+      expect(getByText('Select your Git Provider')).toBeTruthy()
     })
 
     expect(container).toMatchSnapshot()

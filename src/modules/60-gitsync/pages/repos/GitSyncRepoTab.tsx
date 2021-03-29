@@ -10,7 +10,7 @@ import { GitSyncConfig, useListGitSync } from 'services/cd-ng'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/exports'
 import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
-import css from './GitSyncRepo.module.scss'
+import css from './GitSyncRepoTab.module.scss'
 
 const GitSyncRepoTab: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -48,6 +48,21 @@ const GitSyncRepoTab: React.FC = () => {
     )
   }
 
+  const RenderColumnMenu: Renderer<CellProps<GitSyncConfig>> = () => {
+    return (
+      <Container className={css.menuContainer}>
+        <Button
+          minimal
+          icon="Options"
+          iconProps={{ size: 20 }}
+          onClick={e => {
+            e.stopPropagation()
+          }}
+        />
+      </Container>
+    )
+  }
+
   const { getString } = useStrings()
 
   const columns: Column<GitSyncConfig>[] = useMemo(
@@ -56,15 +71,23 @@ const GitSyncRepoTab: React.FC = () => {
         Header: getString('repositories').toUpperCase(),
         accessor: 'repo',
         id: 'repo',
-        width: '25%',
+        width: '50%',
         Cell: RenderColumnRepo
       },
       {
         Header: getString('primaryBranch').toUpperCase(),
         accessor: 'branch',
         id: 'branch',
-        width: '35%',
+        width: '45%',
         Cell: RenderColumnBranch
+      },
+      {
+        Header: '',
+        accessor: row => row.identifier,
+        width: '5%',
+        id: 'action',
+        Cell: RenderColumnMenu,
+        disableSortBy: true
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps

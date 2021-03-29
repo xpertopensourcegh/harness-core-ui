@@ -1,7 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly formWrapper: string
+  readonly modalContainer: string
   readonly formBody: string
   readonly cardWrapper: string
   readonly card: string

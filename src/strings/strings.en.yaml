@@ -94,6 +94,8 @@ lastUpdated: Last Updated
 lastConnectionSuccess: Last time connection is successful
 lastActivity: last activity
 noDetails: No details found
+connecectorHelpHeader: What is a Connector?
+connecectorHelpText: Connectors integrate Harness with your cloud platforms, codebase and artifact repos, and collaboration and monitoring tools.
 connectivityStatus: Connectivity Status
 lastStatusCheckAt: 'Last status check at '
 lastSuccessfulStatusCheckAt: 'Last successful status check at '
@@ -1779,7 +1781,7 @@ connectors:
     repoUrl: 'AWS CodeCommit Repository URL'
 gitSync:
   label: 'Git Sync'
-  successfullCreate: 'Git sync repository {{name}} created successfully'
+  successfullCreate: 'Git sync repository created successfully'
 cf:
   creationModal:
     jsonType: JSON
