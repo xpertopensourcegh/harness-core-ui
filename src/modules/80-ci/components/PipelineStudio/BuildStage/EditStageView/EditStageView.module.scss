@@ -32,6 +32,13 @@
   width: 430px;
   padding: var(--spacing-small);
   background-color: var(--white);
+
+  .predefinedValue {
+    display: block !important;
+    text-overflow: ellipsis;
+    margin-top: calc(var(--spacing-small) / -1);
+    margin-bottom: var(--spacing-medium);
+  }
 }
 
 .configureCodebase {
@@ -42,11 +49,6 @@
 
 .repositoryUrl {
   overflow-x: auto;
-}
-
-.predefinedValue {
-  margin-top: calc(var(--spacing-small) / -1);
-  margin-bottom: var(--spacing-medium);
 }
 
 .cloneCodebaseInfo {

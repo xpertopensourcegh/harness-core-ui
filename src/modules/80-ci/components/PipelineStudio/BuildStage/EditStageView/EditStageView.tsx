@@ -264,10 +264,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                         style={{ flexGrow: 1 }}
                       />
                       {connectorUrl.length > 0 ? (
-                        <div className={css.predefinedValue}>
+                        <Text className={css.predefinedValue} width={380} lineClamp={1}>
                           {(connectorUrl[connectorUrl.length - 1] === '/' ? connectorUrl : connectorUrl + '/') +
                             (formikProps.values.repoName ? formikProps.values.repoName : '')}
-                        </div>
+                        </Text>
                       ) : null}
                     </>
                   )}
