@@ -1249,6 +1249,7 @@ pipelineSteps:
       manifestType: MANIFEST TYPE
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
+  paths: 'Paths'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
   gitFetchType: 'Git Fetch Type'
@@ -1479,7 +1480,7 @@ validation:
   valueRequired: Value is a required field
   repositoryName: 'Repository Name is required'
   branchName: 'Branch Name is required'
-  commitId: 'CommitId is required'
+  commitId: 'Commit Id is required'
   validIdRegex: Identifier must start with an alphabet or _ and can then be followed by alphanumerics, _ or $
   # Replace if validIdRegex will apply the same rules
   validStepIdRegex: Identifier can only contain alphanumerics and _
