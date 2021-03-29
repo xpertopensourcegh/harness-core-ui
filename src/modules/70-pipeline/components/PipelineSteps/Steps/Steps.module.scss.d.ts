@@ -16,7 +16,6 @@ declare const styles: {
   readonly withoutAligning: string
   readonly optionalConfiguration: string
   readonly textWithTooltip: string
-  readonly buttonsWrapper: string
   readonly removeBpLabelMargin: string
   readonly removeBpPopoverWrapperTopMargin: string
   readonly bottomSpacing: string

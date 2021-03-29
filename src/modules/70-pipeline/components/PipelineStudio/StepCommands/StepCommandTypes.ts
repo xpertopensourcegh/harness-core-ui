@@ -13,6 +13,7 @@ export interface StepCommandsProps {
   isStepGroup: boolean
   hasStepGroupAncestor?: boolean
   hiddenPanels?: AdvancedPanels[]
+  withoutTabs?: boolean
 }
 
 export enum TabTypes {

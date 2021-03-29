@@ -31,7 +31,7 @@ enum StepCommandTabs {
 }
 
 export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): React.ReactElement {
-  const { step, onChange, isStepGroup, stepsFactory, hiddenPanels, hasStepGroupAncestor } = props
+  const { step, onChange, isStepGroup, stepsFactory, hiddenPanels, hasStepGroupAncestor, withoutTabs } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
@@ -94,6 +94,20 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     }
   }))
 
+  const stepWidgetWithFormikRef = (
+    <StepWidgetWithFormikRef
+      factory={stepsFactory}
+      initialValues={step}
+      onUpdate={onChange}
+      type={isStepGroup ? 'StepGroup' : step.type}
+      ref={stepRef}
+    />
+  )
+
+  if (withoutTabs) {
+    return <div className={cx(css.stepCommand, css.withoutTabs)}>{stepWidgetWithFormikRef}</div>
+  }
+
   return (
     <div className={css.stepCommand}>
       <div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}>
@@ -101,15 +115,7 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
           <Tab
             id={StepCommandTabs.StepConfiguration}
             title={isStepGroup ? getString('stepGroupConfiguration') : getString('stepConfiguration')}
-            panel={
-              <StepWidgetWithFormikRef
-                factory={stepsFactory}
-                initialValues={step}
-                onUpdate={onChange}
-                type={isStepGroup ? 'StepGroup' : step.type}
-                ref={stepRef}
-              />
-            }
+            panel={stepWidgetWithFormikRef}
           />
           <Tab
             id={StepCommandTabs.Advanced}

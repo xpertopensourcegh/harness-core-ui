@@ -11,13 +11,14 @@ import {
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { PipelineContext } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
-import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import {
   getInitialValuesInCorrectFormat,
@@ -28,10 +29,12 @@ import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './Dep
 import type { DependencyProps, DependencyData, DependencyDataUI } from './Dependency'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const DependencyBase = (
+  { initialValues, onUpdate }: DependencyProps,
+  formikRef: StepFormikFowardRef<DependencyData>
+): JSX.Element => {
   const {
     state: { pipelineView },
-    updatePipelineView,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -52,14 +55,6 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
   // const values = getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
-
-  const handleCancelClick = (): void => {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: false,
-      drawerData: { type: DrawerTypes.StepConfig }
-    })
-  }
 
   return (
     <Formik<DependencyDataUI>
@@ -83,9 +78,12 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
         onUpdate?.(schemaValues)
       }}
     >
-      {({ values: formValues }) => (
-        <FormikForm>
-          <div style={{ padding: 'var(--spacing-large)' }}>
+      {formik => {
+        // This is required
+        setFormikRef?.(formikRef, formik)
+
+        return (
+          <FormikForm>
             <div className={css.fieldsSection}>
               <FormInput.InputWithIdentifier
                 inputName="name"
@@ -112,7 +110,9 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
                   </Text>
                 }
                 type={['Gcp', 'Aws', 'DockerRegistry']}
-                width={getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+                width={
+                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+                }
                 name="spec.connectorRef"
                 placeholder={getString('select')}
                 accountIdentifier={accountId}
@@ -133,7 +133,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
                 }}
               />
             </div>
-            <div className={css.fieldsSection}>
+            <div className={css.fieldsSection} style={{ paddingBottom: 0, marginBottom: 0 }}>
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
@@ -178,19 +178,11 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
               />
               <StepCommonFields withoutTimeout />
             </div>
-            <div className={css.buttonsWrapper}>
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('save')}
-                margin={{ right: 'xxlarge' }}
-                data-testid={'submit'}
-              />
-              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
-            </div>
-          </div>
-        </FormikForm>
-      )}
+          </FormikForm>
+        )
+      }}
     </Formik>
   )
 }
+
+export const DependencyBaseWithRef = React.forwardRef(DependencyBase)

@@ -8,6 +8,11 @@
   overflow: auto;
   position: relative;
 
+  &.withoutTabs {
+    height: 100%;
+    padding: var(--spacing-medium) var(--spacing-large);
+  }
+
   .step-tabs {
     height: 100%;
     padding: 0 var(--spacing-large);
@@ -62,11 +67,4 @@
       }
     }
   }
-}
-
-.buttonsWrapper {
-  display: flex;
-  align-items: center;
-  padding-top: var(--spacing-large);
-  margin-top: auto;
 }

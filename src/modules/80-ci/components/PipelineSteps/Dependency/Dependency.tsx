@@ -5,6 +5,7 @@ import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type {
   MultiTypeMapType,
@@ -14,10 +15,10 @@ import type {
   Resources,
   MultiTypeListUIType
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import { DependencyBase } from './DependencyBase'
+import { DependencyBaseWithRef } from './DependencyBase'
 import { DependencyInputSet } from './DependencyInputSet'
 import { DependencyVariables, DependencyVariablesProps } from './DependencyVariables'
-import { inputSetViewValidateFieldsConfig } from './DependencyFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './DependencyFunctionConfigs'
 
 export interface DependencySpec {
   connectorRef: string
@@ -84,6 +85,10 @@ export class Dependency extends PipelineStep<DependencyData> {
     }
   }
 
+  processFormData<DependencyDataUI>(data: DependencyDataUI): DependencyData {
+    return getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(data, transformValuesFieldsConfig)
+  }
+
   validateInputSet(data: DependencyData, template?: DependencyData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
@@ -93,7 +98,7 @@ export class Dependency extends PipelineStep<DependencyData> {
   }
 
   renderStep(props: StepProps<DependencyData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -116,6 +121,13 @@ export class Dependency extends PipelineStep<DependencyData> {
       )
     }
 
-    return <DependencyBase initialValues={initialValues} stepViewType={stepViewType} onUpdate={onUpdate} />
+    return (
+      <DependencyBaseWithRef
+        initialValues={initialValues}
+        stepViewType={stepViewType}
+        onUpdate={onUpdate}
+        ref={formikRef}
+      />
+    )
   }
 }

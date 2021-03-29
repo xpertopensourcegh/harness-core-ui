@@ -21,7 +21,6 @@ import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
-import { StepWidget } from '../../AbstractSteps/StepWidget'
 import SkipCondition from '../SkipCondition/SkipCondition'
 import { StageTypes } from '../Stages/StageTypes'
 
@@ -127,6 +126,45 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           drawerData: { type: DrawerTypes.StepConfig }
         })
       }
+    }
+  }
+
+  const onServiceDependencySubmit = (item: ExecutionWrapper): void => {
+    if (data?.stepConfig?.addOrEdit === 'add' && selectedStageId) {
+      const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
+      const newServiceData = {
+        identifier: item.identifier,
+        name: item.name,
+        type: StepType.Dependency,
+        ...(item.description && { description: item.description }),
+        spec: item.spec
+      }
+      addService(pipelineStage?.stage.spec.serviceDependencies, newServiceData)
+      updatePipeline(pipeline)
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: false,
+        drawerData: { type: DrawerTypes.ConfigureService }
+      })
+      data.stepConfig?.onUpdate?.(newServiceData)
+    } else if (data?.stepConfig?.addOrEdit === 'edit') {
+      const node = data?.stepConfig?.node
+      if (node) {
+        if (item.identifier) node.identifier = item.identifier
+        if (item.name) node.name = item.name
+        if (item.description) node.description = item.description
+        if (item.spec) node.spec = item.spec
+
+        // Delete values if they were already added and now removed
+        if (node.description && !item.description) delete node.description
+
+        updatePipeline(pipeline)
+      }
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: false,
+        drawerData: { type: DrawerTypes.ConfigureService }
+      })
     }
   }
 
@@ -295,48 +333,13 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         />
       ) : null}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
-        <StepWidget
-          initialValues={data.stepConfig.node}
-          type={data.stepConfig.node.type}
-          factory={stepsFactory}
-          onUpdate={item => {
-            if (data.stepConfig?.addOrEdit === 'add') {
-              const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
-              const newServiceData = {
-                identifier: item.identifier,
-                name: item.name,
-                type: StepType.Dependency,
-                ...(item.description && { description: item.description }),
-                spec: item.spec
-              }
-              addService(pipelineStage?.stage.spec.serviceDependencies, newServiceData)
-              updatePipeline(pipeline)
-              updatePipelineView({
-                ...pipelineView,
-                isDrawerOpened: false,
-                drawerData: { type: DrawerTypes.ConfigureService }
-              })
-              data.stepConfig?.onUpdate?.(newServiceData)
-            } else if (data.stepConfig?.addOrEdit === 'edit') {
-              const node = data?.stepConfig?.node
-              if (node) {
-                if (item.identifier) node.identifier = item.identifier
-                if (item.name) node.name = item.name
-                if (item.description) node.description = item.description
-                if (item.spec) node.spec = item.spec
-
-                // Delete values if they were already added and now removed
-                if (node.description && !item.description) delete node.description
-
-                updatePipeline(pipeline)
-              }
-              updatePipelineView({
-                ...pipelineView,
-                isDrawerOpened: false,
-                drawerData: { type: DrawerTypes.ConfigureService }
-              })
-            }
-          }}
+        <StepCommands
+          step={data.stepConfig.node}
+          ref={formikRef}
+          stepsFactory={stepsFactory}
+          onChange={onServiceDependencySubmit}
+          isStepGroup={false}
+          withoutTabs
         />
       )}
 
