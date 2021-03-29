@@ -9,6 +9,7 @@ common:
   comments: Comments
   approve: Approve
   reject: Reject
+  My: My
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'

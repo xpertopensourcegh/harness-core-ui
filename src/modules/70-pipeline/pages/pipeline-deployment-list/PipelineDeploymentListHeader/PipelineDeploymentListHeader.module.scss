@@ -4,9 +4,10 @@
   z-index: 3;
   padding: var(--spacing-large) var(--spacing-xxlarge);
   display: flex;
-  background: var(--grey-100) !important;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--grey-200);
 
   .runText {
     margin-left: var(--spacing-small);
@@ -15,14 +16,12 @@
   .lhs {
     display: flex;
     align-items: center;
-    padding-top: var(--spacing-large);
     column-gap: var(--spacing-medium);
   }
 
   .rhs {
-    padding-top: var(--spacing-large);
-    align-items: center;
     display: flex;
+    align-items: center;
   }
 
   .filterGroup {
@@ -34,16 +33,6 @@
       left: 0;
       font-size: var(--font-size-small);
       color: var(--grey-500);
-    }
-  }
-
-  .search {
-    :global(.bp3-icon) {
-      color: var(--blue-500);
-    }
-
-    input[type='search'] {
-      border-color: transparent;
     }
   }
 

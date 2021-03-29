@@ -45,7 +45,7 @@ interface UseMutateAsGetReturn<
   loading: boolean
   error: TError | null
   cancel(): void
-  fetch: MutateMethod<TData, TQueryParams, TRequestBody, TPathParams>
+  refetch(props?: WrappedUseMutateProps<TData, TError, TRequestBody, TQueryParams, TPathParams>): Promise<void>
 }
 
 async function _fetchData<TData, TError, TQueryParams, TRequestBody, TPathParams>(
@@ -111,5 +111,12 @@ export function useMutateAsGet<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.lazy, props.body, props.queryParams, props.pathParams, props.base, props.mock])
 
-  return { data, initLoading, loading, error, cancel, fetch: mutate }
+  return {
+    data,
+    initLoading,
+    loading,
+    error,
+    cancel,
+    refetch: newProps => fetchData(mutate, newProps || props, setInitLoading, setData)
+  }
 }

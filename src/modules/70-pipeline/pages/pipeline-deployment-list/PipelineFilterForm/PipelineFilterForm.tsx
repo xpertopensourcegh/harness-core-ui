@@ -8,7 +8,7 @@ import {
   BUILD_TYPE,
   DeploymentTypeContext,
   BuildTypeContext
-} from '../../../utils/PipelineExecutionFilterRequestUtils'
+} from '@pipeline/utils/PipelineExecutionFilterRequestUtils'
 
 import css from './PipelineFilterForm.module.scss'
 

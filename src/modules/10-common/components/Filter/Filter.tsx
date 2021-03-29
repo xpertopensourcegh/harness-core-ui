@@ -31,6 +31,7 @@ export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmi
   ref?: FilterFowardRef<U>
   onSuccessfulCrudOperation?: () => Promise<void>
   validationSchema?: Yup.ObjectSchema
+  isOpen?: boolean
 }
 
 export interface FilterRef<U> {
@@ -59,7 +60,8 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
     onClear,
     dataSvcConfig,
     onSuccessfulCrudOperation,
-    validationSchema
+    validationSchema,
+    isOpen
   } = props
   const { getString } = useStrings()
   const filterCRUDRef = React.useRef<FilterCRUDRef<U> | null>(null)
@@ -83,7 +85,7 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
     enforceFocus: true,
-    isOpen: true,
+    isOpen: typeof isOpen === 'undefined' ? true : isOpen,
     size: 700,
     position: 'right'
   }

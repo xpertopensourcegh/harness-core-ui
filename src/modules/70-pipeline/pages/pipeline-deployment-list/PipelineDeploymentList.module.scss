@@ -3,12 +3,6 @@
   flex-direction: column;
   height: 100%;
   background: var(--grey-100) !important;
-
-  // enable only when no data page & for no data pipeline
-  // [class*='bp3-icon'] svg {
-  //   height: 100px;
-  //   width: 100px;
-  // }
 }
 
 .noData {
