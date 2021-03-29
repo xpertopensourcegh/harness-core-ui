@@ -29,6 +29,7 @@ import Wizard from './Wizard/Wizard'
 import WizardWithProgress from './WizardWithProgress/WizardWithProgress'
 import CopyToClipBoard from './CopyToClipBoard/CopyToClipBoard'
 import { OptionsMenuButton, MenuDivider } from './OptionsMenuButton/OptionsMenuButton'
+import { TimeSeriesAreaChart } from './TimeSeriesAreaChart/TimeSeriesAreaChart'
 export {
   AdminSelector,
   AddDrawer,
@@ -65,5 +66,6 @@ export {
   DelegateSelectors,
   WizardWithProgress,
   OptionsMenuButton,
-  MenuDivider
+  MenuDivider,
+  TimeSeriesAreaChart
 }
