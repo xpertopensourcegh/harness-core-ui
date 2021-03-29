@@ -247,6 +247,8 @@ export interface ServiceSavings {
   actual_cost?: number
   actual_savings?: number
   savings_percentage?: number
+  actual_hours?: number
+  idle_hours?: number
   usage_date?: string
 }
 

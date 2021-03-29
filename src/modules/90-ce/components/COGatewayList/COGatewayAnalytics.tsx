@@ -20,7 +20,14 @@ import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
-import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions, getDay } from './Utils'
+import {
+  getInstancesLink,
+  getRelativeTime,
+  getStateTag,
+  getRiskGaugeChartOptions,
+  getDay,
+  roundToPrecision
+} from './Utils'
 import useToggleRuleState from './useToggleRuleState'
 // import SpotvsODChart from './SpotvsODChart'
 import css from './COGatewayList.module.scss'
@@ -36,7 +43,9 @@ function getBarChartOptions(
   categories: string[],
   yAxisText: string,
   savingsData: number[],
-  spendData: number[]
+  spendData: number[],
+  idleHoursData: number[],
+  actualHoursData: number[]
 ): Highcharts.Options {
   return {
     chart: {
@@ -77,8 +86,12 @@ function getBarChartOptions(
       shadow: false
     },
     tooltip: {
-      headerFormat: '<b>{point.x}</b><br/>',
-      pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      formatter() {
+        const total = savingsData[this.point.x] + spendData[this.point.x]
+        const idle = idleHoursData[this.point.x]
+        const actual = actualHoursData[this.point.x]
+        return `<b>${this.x}</b><br/>${this.series.name}: ${this.y}<br/>Total: ${total}<br>Idle Hours: ${idle}<br>Actual Hours: ${actual}`
+      }
     },
     plotOptions: {
       column: {
@@ -117,6 +130,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const [categories, setCategories] = useState<string[]>([])
   const [savingsSeries, setSavingsSeries] = useState<number[]>([])
   const [spendSeries, setSpendSeries] = useState<number[]>([])
+  const [idleHourSeries, setIdleHourSeries] = useState<number[]>([])
+  const [actualHoursSeries, setActualHoursSeries] = useState<number[]>([])
   const { data, loading } = useSavingsOfService({
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
@@ -171,17 +186,23 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     const newCategroies: string[] = []
     const newSavings: number[] = []
     const newSpends: number[] = []
+    const newIdleHours: number[] = []
+    const newActualHours: number[] = []
     const savingsEntries: ServiceSavings[] = graphData?.response ? (graphData.response as ServiceSavings[]) : []
     savingsEntries.forEach(element => {
       newCategroies.push(getDay(element.usage_date as string, DATE_FORMAT))
-      newSavings.push(Math.round((element.actual_savings as number) * 100) / 100)
+      newSavings.push(roundToPrecision(element.actual_savings as number))
       newSpends.push(
-        Math.round((element.potential_cost as number) * 100 - (element.actual_savings as number) * 100) / 100
+        roundToPrecision(element.potential_cost as number) - roundToPrecision(element.actual_savings as number)
       )
+      newActualHours.push(roundToPrecision(element.actual_hours as number))
+      newIdleHours.push(roundToPrecision(element.idle_hours as number))
     })
     setCategories(newCategroies)
     setSavingsSeries(newSavings)
     setSpendSeries(newSpends)
+    setIdleHourSeries(newIdleHours)
+    setActualHoursSeries(newActualHours)
   }, [graphData])
   return (
     <Container>
@@ -319,7 +340,15 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
         ) : categories.length ? (
           <HighchartsReact
             highchart={Highcharts}
-            options={getBarChartOptions('', categories, '', savingsSeries, spendSeries)}
+            options={getBarChartOptions(
+              '',
+              categories,
+              '',
+              savingsSeries,
+              spendSeries,
+              idleHourSeries,
+              actualHoursSeries
+            )}
           />
         ) : (
           <Text style={{ alignSelf: 'center', fontSize: 'var(--font-size-medium)' }}>{getString('ce.co.noData')}</Text>

@@ -236,3 +236,7 @@ export function cleanupForHostName(name: string): string {
   })
   return name
 }
+
+export function roundToPrecision(n: number): number {
+  return Math.round(n * 100) / 100
+}

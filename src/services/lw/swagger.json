@@ -2507,6 +2507,14 @@
           "type": "number",
           "format": "float"
         },
+        "actual_hours": {
+          "type": "number",
+          "format": "float"
+        },
+        "idle_hours": {
+          "type": "number",
+          "format": "float"
+        },
         "usage_date": {
           "type": "string"
         }
