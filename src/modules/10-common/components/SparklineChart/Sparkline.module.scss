@@ -1,0 +1,19 @@
+.sparklineChartContainer {
+  position: relative;
+  background: var(--grey-100);
+  border-radius: var(--spacing-xsmall);
+  .title {
+    position: absolute;
+    width: 100%;
+    font-size: var(--font-size-xsmall);
+    color: var(--grey-color-2);
+    padding: var(--spacing-xsmall);
+    margin-top: var(--spacing-xsmall);
+    text-align: center;
+    height: var(--spacing-large);
+  }
+}
+
+.hover {
+  cursor: pointer;
+}

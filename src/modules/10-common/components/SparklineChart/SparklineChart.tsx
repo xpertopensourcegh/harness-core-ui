@@ -1,0 +1,82 @@
+import React from 'react'
+import { useMemo } from 'react'
+import HighchartsReact from 'highcharts-react-official'
+import Highcharts, { SeriesLineOptions } from 'highcharts'
+import { merge, noop } from 'lodash-es'
+import cx from 'classnames'
+
+import css from './Sparkline.module.scss'
+
+export interface SparklineChartProps {
+  title?: string
+  data: SeriesLineOptions['data']
+  options?: Highcharts.Options
+  sparklineChartContainerStyles?: string
+  titleStyles?: string
+  onClick?: () => void
+}
+
+const getSparklineDefaultOptions = (
+  data: SparklineChartProps['data'],
+  isTitlePresent: boolean
+): Highcharts.Options => ({
+  title: {
+    text: ''
+  },
+  credits: {
+    enabled: false
+  },
+  xAxis: {
+    visible: false,
+    startOnTick: false,
+    endOnTick: false
+  },
+  yAxis: {
+    visible: false,
+    startOnTick: false,
+    endOnTick: false
+  },
+  legend: {
+    enabled: false
+  },
+  series: [
+    {
+      name: '',
+      type: 'line',
+      data
+    }
+  ],
+  tooltip: {
+    enabled: false
+  },
+  plotOptions: {
+    series: {
+      animation: false,
+      lineWidth: 2,
+      shadow: false,
+      marker: {
+        enabled: false
+      },
+      enableMouseTracking: false
+    }
+  },
+  chart: { backgroundColor: '', width: 100, height: 54, margin: [isTitlePresent ? 26 : 10, 10, 10, 10] }
+})
+
+const getParsedOptions = (defaultOptions: Highcharts.Options, options: Highcharts.Options): Highcharts.Options =>
+  merge(defaultOptions, options)
+
+export const SparklineChart: React.FC<SparklineChartProps> = props => {
+  const { title, data, options = {}, sparklineChartContainerStyles = '', titleStyles = '', onClick } = props
+  const defaultOptions = useMemo(() => getSparklineDefaultOptions(data, !!title), [data, title])
+  const parsedOptions = useMemo(() => getParsedOptions(defaultOptions, options), [defaultOptions, options])
+  return (
+    <div
+      className={cx(css.sparklineChartContainer, sparklineChartContainerStyles, { [css.hover]: onClick })}
+      onClick={onClick || noop}
+    >
+      {title ? <div className={cx(css.title, titleStyles)}>{title}</div> : <></>}
+      <HighchartsReact highcharts={Highcharts} options={parsedOptions} />
+    </div>
+  )
+}
