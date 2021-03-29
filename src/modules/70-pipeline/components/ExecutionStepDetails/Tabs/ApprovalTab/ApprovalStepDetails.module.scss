@@ -32,6 +32,19 @@
     .review-msg {
       margin-bottom: var(--spacing-large);
     }
+
+    .jira-ticket {
+      margin-bottom: var(--spacing-large);
+
+      & a {
+        margin-left: var(--spacing-xsmall);
+        color: var(--blue-500);
+      }
+    }
+
+    .criteria-msg {
+      font-weight: bold;
+    }
   }
 }
 
@@ -118,5 +131,64 @@
 
   .comments {
     margin: 0 0 var(--spacing-medium) 0;
+  }
+}
+
+.jira-approval {
+  padding: var(--spacing-medium) var(--spacing-large);
+}
+
+.jira-criteria {
+  font-size: var(--font-size-small);
+  border-bottom: 1px solid var(--grey-200);
+  padding: var(--spacing-medium) 0;
+
+  .title {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .toggle {
+    min-height: auto !important;
+    height: 16px !important;
+    padding: 0;
+    transition-property: background-color, color, border-color, transform !important;
+
+    &.open {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .conditions {
+    list-style-type: disc !important;
+    padding-left: var(--spacing-medium) !important;
+    margin: var(--spacing-small) 0 0 0 !important;
+
+    li:not(:last-child) {
+      margin-bottom: var(--spacing-xsmall);
+    }
+  }
+
+  .collapse-container {
+    padding: var(--spacing-large) 0;
+  }
+
+  .key {
+    display: inline-block;
+    border: 1px solid var(--grey-300);
+    margin: 0 2px;
+    padding: 0 2px;
+    border-radius: 2px;
+    background-color: var(--blue-100);
+  }
+
+  .jexl {
+    margin-top: var(--spacing-small);
+    background-color: var(--grey-100);
+    border: 1px solid var(--grey-250);
+    padding: var(--spacing-medium);
+    border-radius: 4px;
   }
 }

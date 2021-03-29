@@ -7,7 +7,8 @@ import {
   useAddHarnessApprovalActivity,
   ApprovalInstanceResponse,
   HarnessApprovalActivityRequest,
-  HarnessApprovalInstanceDetails
+  HarnessApprovalInstanceDetails,
+  ResponseHarnessApprovalInstanceAuthorization
 } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 import { Duration } from '@common/exports'
@@ -21,12 +22,20 @@ export interface HarnessApprovalProps {
     details: HarnessApprovalInstanceDetails
   }
   isWaiting: boolean
+  getApprovalAuthorizationMock?: {
+    loading: boolean
+    data: ResponseHarnessApprovalInstanceAuthorization
+  }
 }
 
 export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement {
-  const { approvalData, approvalInstanceId, isWaiting } = props
+  const { approvalData, approvalInstanceId, isWaiting, getApprovalAuthorizationMock } = props
 
-  const { data: authData } = useGetHarnessApprovalInstanceAuthorization({ approvalInstanceId, lazy: !isWaiting })
+  const { data: authData } = useGetHarnessApprovalInstanceAuthorization({
+    approvalInstanceId,
+    lazy: !isWaiting,
+    mock: getApprovalAuthorizationMock
+  })
   const { mutate: submitApproval } = useAddHarnessApprovalActivity({ approvalInstanceId })
   const action = React.useRef<HarnessApprovalActivityRequest['action']>('APPROVE')
   const isCurrentUserAuthorized = !!authData?.data?.authorized
@@ -37,7 +46,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
 
   return (
     <React.Fragment>
-      <div className={css.info}>
+      <div className={css.info} data-type="harness">
         {isWaiting ? (
           <div className={css.timer}>
             <Duration

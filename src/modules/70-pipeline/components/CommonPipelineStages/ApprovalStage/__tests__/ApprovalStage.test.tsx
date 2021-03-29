@@ -145,7 +145,7 @@ describe('Approval Stage shell view', () => {
     expect(pipelineContextMockValue.updatePipeline).toBeCalled()
     expect(
       queryByText(
-        /In the JEXL expression, you could use any of the pipeline variables - including the output of any previous stages./
+        /In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages./
       )
     ).toBeTruthy()
 

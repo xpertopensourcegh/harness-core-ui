@@ -4,7 +4,7 @@ import { render, fireEvent, waitFor, queryByAttribute } from '@testing-library/r
 import { TestWrapper } from '@common/utils/testUtils'
 import { useGetHarnessApprovalInstanceAuthorization, useAddHarnessApprovalActivity } from 'services/pipeline-ng'
 import { HarnessApproval, HarnessApprovalProps } from '../HarnessApproval/HarnessApproval'
-import approvalData from './approvalData.json'
+import approvalData from './HarnessApprovalData.json'
 
 jest.mock('@common/components/Duration/Duration', () => ({
   Duration() {

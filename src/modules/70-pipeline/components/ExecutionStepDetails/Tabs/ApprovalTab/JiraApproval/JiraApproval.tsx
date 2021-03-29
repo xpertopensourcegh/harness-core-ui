@@ -1,14 +1,17 @@
 import React from 'react'
 
-import type { ApprovalInstanceResponse } from 'services/pipeline-ng'
+import type { ApprovalInstanceResponse, JiraApprovalInstanceDetails } from 'services/pipeline-ng'
 import { Duration } from '@common/exports'
 import { String } from 'framework/exports'
 
 export interface JiraApprovalProps {
-  approvalData: ApprovalInstanceResponse
+  approvalData: ApprovalInstanceResponse & {
+    details: JiraApprovalInstanceDetails
+  }
   isWaiting: boolean
 }
 
+import { JiraCriteria } from './JiraCriteria'
 import css from '../ApprovalStepDetails.module.scss'
 
 export function JiraApproval(props: JiraApprovalProps): React.ReactElement {
@@ -16,7 +19,7 @@ export function JiraApproval(props: JiraApprovalProps): React.ReactElement {
 
   return (
     <React.Fragment>
-      <div className={css.info}>
+      <div className={css.info} data-type="jira">
         {isWaiting ? (
           <div className={css.timer}>
             <Duration
@@ -29,7 +32,24 @@ export function JiraApproval(props: JiraApprovalProps): React.ReactElement {
             <String stringID="execution.approvals.timeRemainingSuffix" />
           </div>
         ) : null}
-        <div className={css.reviewMsg}>{approvalData.approvalMessage}</div>
+        {approvalData.details?.issue ? (
+          <div className={css.jiraTicket}>
+            <String stringID="execution.approvals.jiraTicket" />
+            <a href={approvalData.details.issue.url} target="_blank" rel="noopener noreferrer">
+              {approvalData.details.issue.key}
+            </a>
+          </div>
+        ) : null}
+
+        <String tagName="div" className={css.criteriaMsg} stringID="execution.approvals.criteriaMsg" />
+      </div>
+      <div className={css.jiraApproval}>
+        {approvalData.details?.approvalCriteria ? (
+          <JiraCriteria type="approval" criteria={approvalData.details.approvalCriteria} />
+        ) : null}
+        {approvalData.details?.rejectionCriteria ? (
+          <JiraCriteria type="rejection" criteria={approvalData.details.rejectionCriteria} />
+        ) : null}
       </div>
     </React.Fragment>
   )

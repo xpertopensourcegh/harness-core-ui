@@ -1,0 +1,33 @@
+{
+  "id": "tHlafNQNR3WAFDzBbhBFMA",
+  "type": "JiraApproval",
+  "approvalMessage": "Please review the following information and approve the pipeline progression",
+  "includePipelineExecutionHistory": true,
+  "deadline": 1615979161158,
+  "details": {
+    "issue": {
+      "url": "https://harness.atlassian.net/browse/CDNG-1234",
+      "key": "CDNG-1234"
+    },
+    "approvalCriteria": {
+      "type": "KeyValues",
+      "matchAnyCondition": false,
+      "conditions": [
+        {
+          "key": "Status",
+          "value": "Resolved",
+          "op": "equals"
+        },
+        {
+          "key": "Status",
+          "value": "In-progress,Open",
+          "op": "not in"
+        }
+      ]
+    },
+    "rejectionCriteria": {
+      "type": "Jexl",
+      "expression": "${changes[0].ref.displayId}-${repository.name.substring(${repository.name.indexOf('-')+1})}"
+    }
+  }
+}

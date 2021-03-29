@@ -3,7 +3,7 @@ import { get } from 'lodash-es'
 import { Spinner } from '@blueprintjs/core'
 
 import type { ExecutionNode } from 'services/cd-ng'
-import { useGetApprovalInstance } from 'services/pipeline-ng'
+import { useGetApprovalInstance, ResponseApprovalInstanceResponse } from 'services/pipeline-ng'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useGlobalEventListener } from '@common/hooks'
@@ -24,15 +24,21 @@ declare global {
 
 export interface ApprovalTabProps {
   step: ExecutionNode
+  mock?: {
+    data?: ResponseApprovalInstanceResponse
+    loading?: boolean
+  }
+  getApprovalAuthorizationMock?: HarnessApprovalProps['getApprovalAuthorizationMock']
 }
 
 export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null {
-  const { step } = props
+  const { step, mock, getApprovalAuthorizationMock } = props
   const approvalInstanceId = get(step, 'executableResponses[0].async.callbackIds[0]') || ''
   const isWaiting = isExecutionWaiting(step.status)
 
   const { data: approvalData, refetch, loading } = useGetApprovalInstance({
-    approvalInstanceId
+    approvalInstanceId,
+    mock
   })
 
   useGlobalEventListener(REFRESH_APPROVAL, () => {
@@ -50,6 +56,7 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
           approvalData={approvalData.data as HarnessApprovalProps['approvalData']}
           approvalInstanceId={approvalInstanceId}
           isWaiting={isWaiting}
+          getApprovalAuthorizationMock={getApprovalAuthorizationMock}
         />
       ) : null}
       {step.stepType === StepType.JiraApproval ? (

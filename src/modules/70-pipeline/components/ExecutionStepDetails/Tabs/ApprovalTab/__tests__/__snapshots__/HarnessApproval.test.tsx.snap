@@ -4,6 +4,7 @@ exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
 <div>
   <div
     class="info"
+    data-type="harness"
   >
     <div
       class="reviewMsg"
@@ -177,6 +178,7 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
 <div>
   <div
     class="info"
+    data-type="harness"
   >
     <div
       class="timer"
@@ -360,6 +362,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
 <div>
   <div
     class="info"
+    data-type="harness"
   >
     <div
       class="timer"

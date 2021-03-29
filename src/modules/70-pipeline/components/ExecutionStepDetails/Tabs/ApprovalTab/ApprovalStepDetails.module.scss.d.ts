@@ -7,6 +7,8 @@ declare const styles: {
   readonly timer: string
   readonly duration: string
   readonly reviewMsg: string
+  readonly jiraTicket: string
+  readonly criteriaMsg: string
   readonly harnessApproval: string
   readonly inputs: string
   readonly heading: string
@@ -20,5 +22,12 @@ declare const styles: {
   readonly open: string
   readonly approverInputs: string
   readonly comments: string
+  readonly jiraApproval: string
+  readonly jiraCriteria: string
+  readonly title: string
+  readonly conditions: string
+  readonly collapseContainer: string
+  readonly key: string
+  readonly jexl: string
 }
 export default styles

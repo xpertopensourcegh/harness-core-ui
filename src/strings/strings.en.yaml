@@ -10,6 +10,7 @@ common:
   approve: Approve
   reject: Reject
   My: My
+  jexlExpression: JEXL Expression
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'
@@ -600,13 +601,13 @@ skipConditionLabel: If the JEXL condition evaluates to true, skip this step
 skipConditionStageLabel: If the JEXL condition evaluates to true, skip this stage
 skipResourceVersion: 'Skip Resource Versioning'
 skipConditionHelpText: |
-  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+  In the {{ $.common.jexlExpression }}, you could use any of the pipeline variables - including the output of any previous steps.
 
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
 skipConditionText: |
-  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous stages.
+  In the {{ $.common.jexlExpression }}, you could use any of the pipeline variables - including the output of any previous stages.
 
   Examples:
   <+steps.step1.output.result> == “success”
@@ -1010,6 +1011,18 @@ execution:
     timeRemainingSuffix: remaining till timeout
     inputsTitle: Approval inputs
     statusMsg: '{{ count }} of {{ total }} approvals complete'
+    criteriaMsg: Approval/Rejection Criteria Listed Below
+    jiraTicket: 'JIRA Ticket Pending Approval:'
+    approvalCriteriaTitle: Approval Criteria
+    rejectionCriteriaTitle: Rejection Criteria
+    allConditionsMsg: 'If all conditions are met for the following:'
+    anyConditionsMsg: 'If any condition is met for the following:'
+    conditions:
+      equals: 'If {{ key }} equals'
+      not_equals: 'If {{ key }} does not equals'
+      contains: 'If {{ key }} contains'
+      in: 'If {{ key }} is in'
+      not_in: 'If {{ key }} is not in'
 pipeline-notifications:
   nameOftheRule: Name of the Rule
   notificationName: Give your notification a name
@@ -2352,13 +2365,13 @@ configureOptions:
   none: 'None'
   regex: 'Regex'
   returnToBasic: 'return to basic'
-  jexlLabel: 'Values (JEXL Expression)'
+  jexlLabel: 'Values ({{ $.common.jexlExpression }})'
   values: 'Values'
   enterTags: 'Enter values'
   validationErrors:
     regExIsRequired: 'Regex value is required'
     regExNotValid: 'Regex value is not valid'
-    jexlExpressionRequired: 'JEXL Expression is required'
+    jexlExpressionRequired: '{{ $.common.jexlExpression }} is required'
     minOneAllowedValue: 'Minimum one allowed value'
   notValidExpression: 'Not a valid input Expression'
   advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'

@@ -805,7 +805,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                               class="StyledProps--font StyledProps--main StyledProps--font-small"
                               style="white-space: break-spaces;"
                             >
-                              In the JEXL expression, you could use any of the pipeline variables - including the output of any previous stages.
+                              In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages.
 
 Examples:
 &lt;+steps.step1.output.result&gt; == “success”
