@@ -16,7 +16,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'
 
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
-import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesThree/StagesTree'
+import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
 import { getPipelineTree } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 

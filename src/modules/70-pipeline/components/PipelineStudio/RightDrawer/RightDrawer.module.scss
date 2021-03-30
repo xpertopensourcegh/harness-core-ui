@@ -60,7 +60,6 @@ $top-offset: 110px;
     background-color: rgba(16, 22, 26, 0.7);
     z-index: 20;
     user-select: none;
-    opacity: 0.94;
   }
 
   :global {
@@ -79,4 +78,5 @@ $top-offset: 110px;
   opacity: 0.5;
   color: var(--white) !important;
   border-radius: 4px 0 0 4px !important;
+  padding: 0 !important;
 }

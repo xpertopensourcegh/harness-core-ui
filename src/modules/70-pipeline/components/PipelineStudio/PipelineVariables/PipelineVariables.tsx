@@ -10,9 +10,9 @@ import { String, useStrings } from 'framework/exports'
 
 import { PageError } from '@common/components/Page/PageError'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { getPipelineTree } from '../PipelineUtils'
-import StagesTree, { stagesTreeNodeClasses } from '../../StagesThree/StagesTree'
 import PipelineCard from './Cards/PipelineCard'
 import StageCard from './Cards/StageCard'
 
