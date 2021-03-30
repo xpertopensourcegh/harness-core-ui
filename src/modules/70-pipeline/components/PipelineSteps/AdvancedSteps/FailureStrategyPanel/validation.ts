@@ -6,10 +6,15 @@ import { getDurationValidationSchema } from '@common/components/MultiTypeDuratio
 
 import { ErrorType, Strategy } from './StrategySelection/StrategyConfig'
 
-function getRetryActionBaseFields(getString: (str: string) => string): Record<string, Yup.Schema<unknown>> {
+const MAX_RETRIES = 10000
+
+function getRetryActionBaseFields(
+  getString: (str: string, vars?: unknown) => string
+): Record<string, Yup.Schema<unknown>> {
   return {
     retryCount: Yup.mixed().test({
       name: 'failureStrategies-retryCount',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       test(value: any) {
         if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
           return true
@@ -19,6 +24,7 @@ function getRetryActionBaseFields(getString: (str: string) => string): Record<st
           .typeError(getString('failureStrategies.validation.retryCountInteger'))
           .integer(getString('failureStrategies.validation.retryCountInteger'))
           .min(1, getString('failureStrategies.validation.retryCountMinimum'))
+          .max(MAX_RETRIES, getString('failureStrategies.validation.retryCountMaximum', { count: MAX_RETRIES }))
           .required(getString('failureStrategies.validation.retryCountRequired'))
 
         try {

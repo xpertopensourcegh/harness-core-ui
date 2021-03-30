@@ -181,7 +181,7 @@ export interface GetDurationValidationSchemaProps {
 export function getDurationValidationSchema(
   props: GetDurationValidationSchemaProps = {}
 ): Yup.StringSchema<string | undefined> {
-  const { minimum, maximum } = props
+  const { minimum = '1s', maximum = '53w' } = props
 
   if (typeof minimum === 'string' && !isValidTimeString(minimum)) {
     throw new Error(`Invalid format "${minimum}" provided for minimum value`)

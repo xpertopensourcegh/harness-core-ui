@@ -648,6 +648,7 @@ failureStrategies:
     retryCountInteger: Retry Count must be a positive integer
     retryCountRequired: Retry Count is required
     retryCountMinimum: Retry Count must be greater or equal to 1
+    retryCountMaximum: Retry Count cannot be more than {{ count }}
     retryIntervalRequired: Retry Interval is Required
     retryIntervalMinimum: At least one retry interval is Required
     timeoutRequired: Timeout is required
