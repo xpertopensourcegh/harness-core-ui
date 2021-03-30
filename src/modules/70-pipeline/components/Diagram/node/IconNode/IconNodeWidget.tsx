@@ -37,6 +37,7 @@ const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
 export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Element => {
   const options = props.node.getOptions()
   const [dropable, setDropable] = React.useState(false)
+  const [dragging, setDragging] = React.useState(false)
   return (
     <div
       className={cx(cssDefault.defaultNode, css.iconNodeContainer)}
@@ -70,11 +71,22 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
           { [cssDefault.selected]: props.node.isSelected() },
           { [cssDefault.selected]: dropable }
         )}
+        draggable={options.draggable}
         style={{
           marginTop: 32 - (options.height || 64) / 2,
           width: options.width,
           height: options.height,
+          opacity: dragging ? 0.4 : 1,
           ...options.customNodeStyle
+        }}
+        onDragStart={event => {
+          setDragging(true)
+          event.dataTransfer.setData(DiagramDrag.NodeDrag, JSON.stringify(props.node.serialize()))
+          event.dataTransfer.dropEffect = 'move'
+        }}
+        onDragEnd={event => {
+          event.preventDefault()
+          setDragging(false)
         }}
       >
         <div>

@@ -182,7 +182,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         {options?.tertiaryIcon && (
           <Icon
             className={css.tertiaryIcon}
-            size={12}
+            size={15}
             name={options?.tertiaryIcon}
             style={options?.tertiaryIconStyle}
             {...options.tertiaryIconProps}

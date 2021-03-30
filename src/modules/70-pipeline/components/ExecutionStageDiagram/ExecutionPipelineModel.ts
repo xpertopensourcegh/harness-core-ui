@@ -1,4 +1,5 @@
 import type { IconName, SelectOption } from '@wings-software/uicore'
+import type { CSSProperties } from 'react'
 
 // TODO: should be replaced with type-shape of the box (like: Stage, Step, Approval)
 export enum ExecutionPipelineNodeType {
@@ -35,6 +36,7 @@ export interface StageOptions extends SelectOption {
 }
 
 export interface ExecutionPipelineItem<T> {
+  iconStyle?: CSSProperties
   iconSize?: number
   identifier: string
   name: string
@@ -42,6 +44,7 @@ export interface ExecutionPipelineItem<T> {
   status: ExecutionPipelineItemStatus
   icon: IconName
   skipCondition?: string
+  barrierFound?: boolean
   showInLabel?: boolean // Default = false
   cssProps?: React.CSSProperties
   data?: T

@@ -23,6 +23,9 @@
   }
   .subheading {
     color: var(--grey-color-1);
+    .stagePadLeft {
+      padding-left: var(--spacing-xsmall);
+    }
   }
   .barriername {
     color: #fff;

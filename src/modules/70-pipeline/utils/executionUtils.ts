@@ -458,7 +458,6 @@ const processNodeData = (
       }
     })
   })
-
   return items
 }
 
@@ -561,10 +560,14 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
   return ExecutionPipelineNodeType.NORMAL
 }
 
-export function getIconDataBasedOnType(nodeData?: ExecutionNode): { icon: IconName; iconSize: number } {
+export function getIconDataBasedOnType(
+  nodeData?: ExecutionNode
+): { icon: IconName; iconSize: number; iconStyle?: { marginBottom: string } } {
   if (nodeData) {
     if (nodeData.stepType === StepType.Barrier) {
-      return nodeData.endTs ? { icon: 'barrier-close', iconSize: 72 } : { icon: 'barrier-open', iconSize: 70 }
+      return nodeData.endTs
+        ? { icon: 'barrier-close', iconSize: 72 }
+        : { icon: 'barrier-open', iconSize: 70, iconStyle: { marginBottom: '38px' } }
     }
     const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeData?.stepType || '')
     return {

@@ -30,6 +30,7 @@ const processExecutionData = (
             identifier: node?.nodeUuid || /* istanbul ignore next */ '',
             name: node?.name || node?.nodeIdentifier || /* istanbul ignore next */ '',
             status: node?.status as any,
+            barrierFound: node?.barrierFound,
             type: ExecutionPipelineNodeType.NORMAL,
             skipCondition: node?.skipInfo?.evaluatedCondition ? node.skipInfo.skipCondition : undefined,
             data: node
@@ -45,6 +46,7 @@ const processExecutionData = (
           identifier: stage?.nodeUuid || /* istanbul ignore next */ '',
           name: stage?.name || stage?.nodeIdentifier || /* istanbul ignore next */ '',
           status: stage?.status as any,
+          barrierFound: stage?.barrierFound,
           type: ExecutionPipelineNodeType.NORMAL,
           skipCondition: stage?.skipInfo?.evaluatedCondition ? stage.skipInfo.skipCondition : undefined,
           data: stage
@@ -106,12 +108,9 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
   }
 
   const renderPopover = ({ data: popoverData }: { data: { stepType: string; name: string } }): JSX.Element => {
-    if (barrierInfoData?.data)
-      return (
-        <BarrierStageTooltip loading={barrierInfoLoading} stageName={popoverData.name} data={barrierInfoData?.data} />
-      )
-
-    return <div />
+    return (
+      <BarrierStageTooltip loading={barrierInfoLoading} stageName={popoverData.name} data={barrierInfoData?.data} />
+    )
   }
 
   return (

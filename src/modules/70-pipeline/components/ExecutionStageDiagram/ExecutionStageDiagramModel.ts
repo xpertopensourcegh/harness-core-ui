@@ -14,7 +14,8 @@ import {
   getArrowsColor,
   GroupState,
   calculateDepthCount,
-  getIconStyleBasedOnStatus
+  getIconStyleBasedOnStatus,
+  getTertiaryIconProps
 } from './ExecutionStageDiagramUtils'
 import * as Diagram from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
@@ -74,17 +75,20 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     if (!node) {
       return { startX, startY, prevNodes: [] }
     }
+
     if (node.item && !node.parallel) {
       const { item: stage } = node
       const { type } = stage
       startX += this.gap
       const isSelected = selectedStageId === stage.identifier
       const statusProps = getStatusProps(stage.status)
+      const tertiaryIconProps = getTertiaryIconProps(stage)
       let nodeRender = this.getNodeFromId(stage.identifier)
       const commonOption: Diagram.DiamondNodeModelOptions = {
         customNodeStyle: getNodeStyles(isSelected, stage.status),
         canDelete: false,
         ...statusProps,
+        ...tertiaryIconProps,
         nodeClassName: cx(
           { [css.runningNode]: stage.status === ExecutionPipelineItemStatus.RUNNING },
           { [css.selected]: stage.status === ExecutionPipelineItemStatus.RUNNING && isSelected }
@@ -140,7 +144,11 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       } else {
         nodeRender.setOptions({
           ...nodeRender.getOptions(),
-          ...commonOption
+          ...commonOption,
+          iconStyle: {
+            ...commonOption.iconStyle,
+            ...stage?.iconStyle
+          }
         })
       }
       nodeRender.setPosition(startX, startY)

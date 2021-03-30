@@ -236,7 +236,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                     endTime={pipelineExecutionSummary.endTs}
                     icon="hourglass"
                     durationText={' '}
-                  />{' '}
+                  />
                   <ExecutionActions
                     executionStatus={pipelineExecutionSummary.status}
                     refetch={refetch}

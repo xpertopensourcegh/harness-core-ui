@@ -7,6 +7,7 @@ declare const styles: {
   readonly timeoutRow: string
   readonly stageName: string
   readonly subheading: string
+  readonly stagePadLeft: string
   readonly barriername: string
   readonly spinner: string
 }
