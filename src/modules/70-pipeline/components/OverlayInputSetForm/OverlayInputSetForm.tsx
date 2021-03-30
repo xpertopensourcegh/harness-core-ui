@@ -365,7 +365,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
             initialValues={{ ...inputSet }}
             enableReinitialize={true}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
+              name: Yup.string().trim().required(getString('inputSets.nameIsRequired')),
+              inputSetReferences: Yup.array().of(Yup.string().required(getString('inputSets.inputSetIsRequired')))
             })}
             onSubmit={values => {
               handleSubmit(values)
