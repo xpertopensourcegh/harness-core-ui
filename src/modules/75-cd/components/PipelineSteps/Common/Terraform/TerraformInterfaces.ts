@@ -1,15 +1,30 @@
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { StepElementConfig } from 'services/cd-ng'
 
-interface VarFileArray {
+export const TerraformStoreTypes = {
+  Inline: 'Inline',
+  Remote: 'Remote'
+}
+export interface PathInterface {
+  path: string
+}
+
+export interface VarFileArray {
   type?: string
-  store?: {
-    spec?: {
-      gitFetchType?: string
-      branch?: string
-      commitId?: string
-      connectorRef?: string
-      paths?: string[]
+  spec?: {
+    store?: {
+      spec?: {
+        gitFetchType?: string
+        branch?: string
+        commitId?: string
+        connectorRef?: {
+          label: string
+          scope: Scope
+          value: string
+        }
+        paths?: PathInterface[]
+        content?: string
+      }
     }
   }
 }
