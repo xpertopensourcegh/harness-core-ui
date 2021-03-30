@@ -23,4 +23,19 @@ describe('FailedBuildCard', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('matches snapshot when commitId is long', () => {
+    const { container } = render(
+      <FailedBuildCard
+        title="Test-Pipeline1"
+        message="Fix image secrets in OSS version, a long msg"
+        username="John Doe"
+        branchName="Master"
+        commitId="123sdf2123123123123"
+        durationMin={32}
+        timestamp={1616003810297}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
 })

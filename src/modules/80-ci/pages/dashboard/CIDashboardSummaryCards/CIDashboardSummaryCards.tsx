@@ -28,7 +28,11 @@ export default function CIDashboardSummaryCards() {
       <SummaryCard
         title="Test Cycle Time Saved"
         text="38m"
-        subContent="445/1200 Tests Executed"
+        subContent={
+          <Text font={{ size: 'small' }} lineClamp={1}>
+            445/1200 Tests Executed
+          </Text>
+        }
         diff={{
           value: 13,
           isIncrease: false,
@@ -64,7 +68,7 @@ export function SummaryCard({ title, text, subContent, diff }: SummaryCardProps)
       <Container className={styles.cardHeader}>{title}</Container>
       <Container className={styles.cardContent}>
         <Container className={styles.contentMain}>
-          <Text>{text}</Text>
+          <Text className={styles.contentMainText}>{text}</Text>
           <Container className={styles.subContent}>{subContent}</Container>
         </Container>
         <Container className={styles.diffContent}>

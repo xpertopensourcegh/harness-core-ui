@@ -34,7 +34,7 @@ export default function FailedBuildCard({
         </Text>
       </Container>
       <Container>
-        <Container className={styles.times}>
+        <Container className={styles.times} margin={{ bottom: 'medium' }}>
           {moment(timestamp).fromNow()}
           <Icon size={14} name="time" className={styles.timeIcon} />
           {`${durationMin}m`}
@@ -46,11 +46,15 @@ export default function FailedBuildCard({
           </div>
           <div className={styles.linkWrap}>
             <Icon size={14} name="git-commit" />
-            <a>{commitId}</a>
+            <a>{shortenCommitId(commitId)}</a>
           </div>
         </Container>
       </Container>
       <div className={styles.leftBorder} />
     </Container>
   )
+}
+
+function shortenCommitId(commitId: string) {
+  return commitId?.length && commitId.length > 7 ? commitId.slice(0, 7) : commitId
 }

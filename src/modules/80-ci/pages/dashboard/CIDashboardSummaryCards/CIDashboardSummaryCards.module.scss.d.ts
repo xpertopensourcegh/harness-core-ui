@@ -6,6 +6,7 @@ declare const styles: {
   readonly cardHeader: string
   readonly cardContent: string
   readonly contentMain: string
+  readonly contentMainText: string
   readonly subContent: string
   readonly diffContent: string
 }

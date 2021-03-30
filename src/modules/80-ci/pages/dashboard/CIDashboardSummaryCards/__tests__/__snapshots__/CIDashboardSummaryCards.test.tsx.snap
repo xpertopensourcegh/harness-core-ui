@@ -20,7 +20,7 @@ exports[`CIDashboardSummaryCards matches snapshot 1`] = `
           class="StyledProps--font StyledProps--main contentMain"
         >
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main contentMainText"
           >
             120
           </p>
@@ -72,14 +72,19 @@ exports[`CIDashboardSummaryCards matches snapshot 1`] = `
           class="StyledProps--font StyledProps--main contentMain"
         >
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main contentMainText"
           >
             38m
           </p>
           <div
             class="StyledProps--font StyledProps--main subContent"
           >
-            445/1200 Tests Executed
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+              style="--text-line-clamp: 1;"
+            >
+              445/1200 Tests Executed
+            </p>
           </div>
         </div>
         <div
@@ -127,7 +132,7 @@ exports[`CIDashboardSummaryCards matches snapshot 1`] = `
           class="StyledProps--font StyledProps--main contentMain"
         >
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main contentMainText"
           >
             98
           </p>
@@ -179,7 +184,7 @@ exports[`CIDashboardSummaryCards matches snapshot 1`] = `
           class="StyledProps--font StyledProps--main contentMain"
         >
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main contentMainText"
           >
             14
           </p>

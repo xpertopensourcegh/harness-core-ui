@@ -1,0 +1,47 @@
+.main {
+  min-width: 200px;
+  max-width: 500px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-large) !important;
+    .title {
+      margin-left: var(--spacing-small);
+      flex: 1;
+    }
+  }
+  .content {
+    flex: 1;
+    overflow: auto;
+    &.contentEmpty {
+      border: 1px solid var(--grey-200);
+      border-radius: 5px;
+      padding: var(--spacing-xlarge) var(--spacing-large) !important;
+    }
+    > div {
+      margin-bottom: var(--spacing-small);
+    }
+    .emptyView {
+      .emptyViewItem {
+        background-color: var(--grey-100);
+        height: 50px;
+        margin-bottom: var(--spacing-small);
+      }
+      .emptyViewCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+        p {
+          margin-top: var(--spacing-medium);
+        }
+      }
+    }
+  }
+  .showMoreLink {
+    align-self: end;
+  }
+}

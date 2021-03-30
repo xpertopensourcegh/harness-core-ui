@@ -229,6 +229,7 @@ saveAndPublish: Save and Publish
 unsavedChanges: Unsaved changes
 status: Status
 start: Start
+seeAll: See All
 filePaths: File Paths
 submit: Submit
 previous: Previous
@@ -2390,6 +2391,11 @@ ci:
     subHeading: Take your software build processes to the next level using our Harness Continuous Integration
     learnMore: Learn more about Continuous Integration
     createProject: Create Project
+    failedBuilds: Failed Builds
+    activeBuilds: Active Builds
+    noRepositories: No Repositories found
+    noFailedBuilds: No Failed Builds found
+    noActiveBuilds: No Active Builds found
   testsReports:
     executionOverview: Test Execution Overview
     numberOfSelectedTests: '# of Selected Tests'

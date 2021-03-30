@@ -1,7 +1,7 @@
 .summaryCards {
   padding: var(--spacing-large) !important;
   display: grid;
-  grid-template-columns: 250px 250px;
+  grid-template-columns: 200px 200px;
   grid-gap: var(--spacing-large);
 }
 
@@ -18,7 +18,8 @@
     align-items: center;
     justify-content: space-between;
     .contentMain {
-      p {
+      min-width: 0;
+      .contentMainText {
         font-size: 25px;
         font-weight: bold;
         margin-bottom: var(--spacing-small);
