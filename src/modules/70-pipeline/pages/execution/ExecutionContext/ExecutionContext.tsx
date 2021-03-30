@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import type { ExecutionNode } from 'services/cd-ng'
+import type { ExecutionNode } from 'services/pipeline-ng'
 import type { PipelineExecutionDetail, GraphLayoutNode } from 'services/pipeline-ng'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 

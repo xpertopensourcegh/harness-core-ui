@@ -28,7 +28,7 @@ import { IdentifierValidation } from '@pipeline/components/PipelineStudio/Pipeli
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface K8sRollingRollbackData extends StepElementConfig {
-  spec: K8sRollingRollbackStepInfo
+  spec: Omit<K8sRollingRollbackStepInfo, 'skipDryRun'> & { skipDryRun: boolean }
 }
 
 export interface K8RollingRollbackVariableStepProps {

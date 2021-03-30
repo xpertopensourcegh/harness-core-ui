@@ -1,5 +1,14 @@
 import React from 'react'
-import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  IconName,
+  Formik,
+  Layout,
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  SelectOption,
+  MultiSelectOption
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
@@ -8,12 +17,7 @@ import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
-import type {
-  CountInstanceSelection,
-  K8sScaleStepInfo,
-  PercentageInstanceSelection,
-  StepElementConfig
-} from 'services/cd-ng'
+import type { CountInstanceSelection, K8sScaleStepInfo, StepElementConfig } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -36,8 +40,11 @@ import { IdentifierValidation } from '@pipeline/components/PipelineStudio/Pipeli
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sScaleData extends StepElementConfig {
-  spec: K8sScaleStepInfo
+  spec: Omit<K8sScaleStepInfo, 'skipSteadyStateCheck'> & { skipSteadyStateCheck: boolean }
   identifier: string
+}
+export interface PercentageInstanceSelectionK8 {
+  percentage: string | boolean | SelectOption | MultiSelectOption[] | undefined
 }
 
 export interface K8sScaleVariableStepProps {
@@ -101,13 +108,13 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
                   ) === MultiTypeInputType.RUNTIME ||
                     getMultiTypeFromValue(
-                      (values?.spec?.instanceSelection?.spec as PercentageInstanceSelection | undefined)?.percentage
+                      (values?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
                     ) === MultiTypeInputType.RUNTIME) && (
                     <ConfigureOptions
                       value={
                         ((values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)
                           ?.count as string) ||
-                        ((values?.spec?.instanceSelection?.spec as PercentageInstanceSelection | undefined)
+                        ((values?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)
                           ?.percentage as string)
                       }
                       type="String"
@@ -194,7 +201,7 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
         (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
       ) === MultiTypeInputType.RUNTIME ||
         getMultiTypeFromValue(
-          (template?.spec?.instanceSelection?.spec as PercentageInstanceSelection | undefined)?.percentage
+          (template?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
         ) === MultiTypeInputType.RUNTIME) && (
         <FormInstanceDropdown
           label={getString('pipelineSteps.instanceLabel')}
@@ -287,7 +294,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
       getMultiTypeFromValue((template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count) ===
         MultiTypeInputType.RUNTIME ||
       getMultiTypeFromValue(
-        (template?.spec?.instanceSelection?.spec as PercentageInstanceSelection | undefined)?.percentage
+        (template?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
       ) === MultiTypeInputType.RUNTIME
     ) {
       const instanceSelection = Yup.object().shape({

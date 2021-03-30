@@ -1,7 +1,7 @@
 import produce from 'immer'
 import { set, findLast, snakeCase } from 'lodash-es'
 
-import type { ExecutionNode, UnitProgress } from 'services/cd-ng'
+import type { ExecutionNode, UnitProgress } from 'services/pipeline-ng'
 import {
   isExecutionComplete,
   isExecutionSuccess,

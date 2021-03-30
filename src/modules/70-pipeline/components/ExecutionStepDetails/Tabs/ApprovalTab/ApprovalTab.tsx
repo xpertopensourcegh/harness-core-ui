@@ -2,7 +2,7 @@ import React from 'react'
 import { get } from 'lodash-es'
 import { Spinner } from '@blueprintjs/core'
 
-import type { ExecutionNode } from 'services/cd-ng'
+import type { ExecutionNode } from 'services/pipeline-ng'
 import { useGetApprovalInstance, ResponseApprovalInstanceResponse } from 'services/pipeline-ng'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'

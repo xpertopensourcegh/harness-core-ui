@@ -39,7 +39,10 @@ import { IdentifierValidation } from '@pipeline/components/PipelineStudio/Pipeli
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sApplyData extends StepElementConfig {
-  spec: K8sApplyStepInfo
+  spec: Omit<K8sApplyStepInfo, 'skipDryRun' | 'skipSteadyStateCheck'> & {
+    skipDryRun: boolean
+    skipSteadyStateCheck?: boolean
+  }
 }
 
 export interface K8sApplyVariableStepProps {

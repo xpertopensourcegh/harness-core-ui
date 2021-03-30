@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs } from '@blueprintjs/core'
 
-import type { ExecutionNode } from 'services/cd-ng'
+import type { ExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
