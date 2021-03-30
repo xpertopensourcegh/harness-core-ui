@@ -193,6 +193,7 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   protected type = StepType.TerraformRollback
   protected defaultValues: TerraformRollbackData = {

@@ -146,6 +146,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sCanaryDeleteStepData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props

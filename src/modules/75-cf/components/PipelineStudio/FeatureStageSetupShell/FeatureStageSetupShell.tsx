@@ -162,7 +162,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
                         // isAddStepOverride: true,
                         isRollback: event.isRollback,
                         isParallelNodeClicked: event.isParallel,
-                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                       }
                     }
                   }
@@ -182,7 +182,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
                         isStepGroup: event.isStepGroup,
                         isUnderStepGroup: event.isUnderStepGroup,
                         addOrEdit: event.addOrEdit,
-                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                       }
                     }
                   }

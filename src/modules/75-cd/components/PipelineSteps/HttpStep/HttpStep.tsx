@@ -21,6 +21,7 @@ import type { HttpStepData, HttpStepFormData, HttpStepHeaderConfig, HttpStepOutp
 export class HttpStep extends PipelineStep<HttpStepData> {
   constructor() {
     super()
+    this._hasDelegateSelectionVisible = true
     this._hasStepVariables = true
   }
 

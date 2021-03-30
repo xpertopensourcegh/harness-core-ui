@@ -106,7 +106,11 @@ export const InfraProvisioningBase = (
                                   onUpdate: executionRef.current?.stepGroupUpdated,
                                   isRollback: event.isRollback,
                                   isParallelNodeClicked: event.isParallel,
-                                  hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
+                                  hiddenAdvancedPanels: [
+                                    AdvancedPanels.FailureStrategy,
+                                    AdvancedPanels.PreRequisites,
+                                    AdvancedPanels.DelegateSelectors
+                                  ]
                                 }
                               }
                             }
@@ -127,7 +131,7 @@ export const InfraProvisioningBase = (
                                   isStepGroup: event.isStepGroup,
                                   isUnderStepGroup: event.isUnderStepGroup,
                                   addOrEdit: event.addOrEdit,
-                                  hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
+                                  hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
                                 }
                               }
                             }

@@ -142,6 +142,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sBGDeployData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props

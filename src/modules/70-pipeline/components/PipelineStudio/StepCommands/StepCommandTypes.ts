@@ -4,7 +4,8 @@ import type { ExecutionWrapper } from 'services/cd-ng'
 export enum AdvancedPanels {
   PreRequisites = 'preRequisites',
   SkipCondition = 'skipCondition',
-  FailureStrategy = 'failureStrategy'
+  FailureStrategy = 'failureStrategy',
+  DelegateSelectors = 'delegateSelectors'
 }
 export interface StepCommandsProps {
   step: ExecutionWrapper
@@ -26,4 +27,5 @@ export interface Values {
   skipCondition?: string
   shouldKeepOpen?: boolean
   failureStrategies?: any[]
+  delegateSelectors?: string[]
 }

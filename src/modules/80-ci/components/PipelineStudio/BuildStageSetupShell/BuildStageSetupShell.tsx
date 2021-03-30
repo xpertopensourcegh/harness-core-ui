@@ -257,7 +257,11 @@ export default function BuildStageSetupShell(): JSX.Element {
                           onUpdate: executionRef.current?.stepGroupUpdated,
                           addOrEdit: 'add',
                           isStepGroup: false,
-                          hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
+                          hiddenAdvancedPanels: [
+                            AdvancedPanels.FailureStrategy,
+                            AdvancedPanels.PreRequisites,
+                            AdvancedPanels.DelegateSelectors
+                          ]
                         }
                       }
                     }
@@ -276,7 +280,11 @@ export default function BuildStageSetupShell(): JSX.Element {
                           // isAddStepOverride: true,
                           isRollback: event.isRollback,
                           isParallelNodeClicked: event.isParallel,
-                          hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
+                          hiddenAdvancedPanels: [
+                            AdvancedPanels.FailureStrategy,
+                            AdvancedPanels.PreRequisites,
+                            AdvancedPanels.DelegateSelectors
+                          ]
                         }
                       }
                     }
@@ -297,7 +305,11 @@ export default function BuildStageSetupShell(): JSX.Element {
                         isStepGroup: event.isStepGroup,
                         isUnderStepGroup: event.isUnderStepGroup,
                         addOrEdit: event.addOrEdit,
-                        hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
+                        hiddenAdvancedPanels: [
+                          AdvancedPanels.FailureStrategy,
+                          AdvancedPanels.PreRequisites,
+                          AdvancedPanels.DelegateSelectors
+                        ]
                       }
                     }
                   }

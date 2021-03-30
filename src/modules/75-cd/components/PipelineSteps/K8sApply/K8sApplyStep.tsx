@@ -263,6 +263,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sApplyData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props

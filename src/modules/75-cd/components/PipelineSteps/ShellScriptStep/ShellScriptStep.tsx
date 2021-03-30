@@ -49,6 +49,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     super()
     this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
 
   renderStep(props: StepProps<ShellScriptData>): JSX.Element {

@@ -54,6 +54,7 @@ export abstract class Step<T> {
   protected abstract stepIcon: IconName
   protected abstract stepName: string
   protected _hasStepVariables = false
+  protected _hasDelegateSelectionVisible = false
   protected isHarnessSpecific = false
   protected invocationMap?: Map<
     RegExp,
@@ -91,6 +92,10 @@ export abstract class Step<T> {
 
   getStepPaletteVisibility(): boolean {
     return this.stepPaletteVisible ?? true
+  }
+
+  get hasDelegateSelectionVisible(): boolean {
+    return this._hasDelegateSelectionVisible
   }
 
   get hasStepVariables(): boolean {

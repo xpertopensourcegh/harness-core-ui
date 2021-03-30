@@ -10,6 +10,7 @@ export class TerraformPlan extends PipelineStep<StepElementConfig> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   protected type = StepType.TerraformPlan
   protected defaultValues: StepElementConfig = {

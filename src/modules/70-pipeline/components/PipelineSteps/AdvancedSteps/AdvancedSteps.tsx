@@ -12,11 +12,14 @@ import {
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
+import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
+
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
 import { Modes } from './common'
+import { StepType } from '../PipelineStepInterface'
 import css from './AdvancedSteps.module.scss'
 
 export interface AdvancedStepsProps extends StepCommandsProps {
@@ -24,12 +27,16 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 }
 
 export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
-  const { step, onChange, hiddenPanels = [], hasStepGroupAncestor, isStepGroup } = props
+  const { step, onChange, hiddenPanels = [], hasStepGroupAncestor, isStepGroup, stepsFactory } = props
   const { getString } = useStrings()
-
+  const stepType = isStepGroup ? StepType.StepGroup : step.type
   return (
     <Formik
-      initialValues={{ skipCondition: step.skipCondition, failureStrategies: step.failureStrategies }}
+      initialValues={{
+        skipCondition: step.skipCondition,
+        failureStrategies: step.failureStrategies,
+        delegateSelectors: step.spec?.delegateSelectors || []
+      }}
       onSubmit={data => {
         onChange({ ...data, tab: TabTypes.Advanced })
       }}
@@ -39,7 +46,6 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
     >
       {(formikProps: FormikProps<Values>) => {
         setFormikRef(formikRef, formikProps)
-
         return (
           <FormikForm className={css.form}>
             <div>
@@ -70,6 +76,14 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                     }
                   />
                 )}
+                {hiddenPanels.indexOf(AdvancedPanels.DelegateSelectors) === -1 &&
+                  stepsFactory.getStep(stepType)?.hasDelegateSelectionVisible && (
+                    <Accordion.Panel
+                      id={AdvancedPanels.DelegateSelectors}
+                      summary={getString('delegate.DelegateSelector')}
+                      details={<DelegateSelectorPanel formikProps={formikProps} />}
+                    />
+                  )}
               </Accordion>
             </div>
           </FormikForm>

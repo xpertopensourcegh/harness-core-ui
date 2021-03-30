@@ -149,6 +149,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sBGSwapServicesData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props

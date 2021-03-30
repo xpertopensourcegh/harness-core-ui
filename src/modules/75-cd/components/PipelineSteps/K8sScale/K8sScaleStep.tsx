@@ -224,6 +224,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props

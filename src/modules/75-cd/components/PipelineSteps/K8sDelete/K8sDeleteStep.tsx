@@ -499,6 +499,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<any>): JSX.Element {
     /* istanbul ignore next */

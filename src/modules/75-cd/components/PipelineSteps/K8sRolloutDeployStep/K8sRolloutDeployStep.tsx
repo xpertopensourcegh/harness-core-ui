@@ -154,6 +154,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8RolloutDeployData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props

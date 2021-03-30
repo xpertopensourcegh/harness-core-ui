@@ -103,6 +103,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
       if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
       if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
+      if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
+        node.spec = {
+          ...(node.spec ? node.spec : {}),
+          delegateSelectors: item.delegateSelectors
+        }
+      }
 
       // Delete values if they were already added and now removed
       if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
@@ -110,6 +116,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
       if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
         delete node.failureStrategies
+      if (node.delegateSelectors && !item.delegateSelectors && item.tab === TabTypes.Advanced)
+        delete node.deletegateSelectors
 
       if (item.spec && item.tab !== TabTypes.Advanced) {
         node.spec = { ...item.spec }

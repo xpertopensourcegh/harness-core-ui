@@ -147,6 +147,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<StepElementConfig>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
