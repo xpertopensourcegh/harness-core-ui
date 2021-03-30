@@ -9,6 +9,7 @@ import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/Ex
 import type { StageOptions, ExecutionPipeline } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { isExecutionPaused, isExecutionRunning } from '@pipeline/utils/statusHelpers'
 import { DynamicPopover } from '@common/exports'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import css from './ExecutionStageDetails.module.scss'
@@ -105,7 +106,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           selectedIdentifier={props.selectedStep}
           itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
           data={data}
-          showEndNode={stage?.status !== 'Running'}
+          showEndNode={!(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))}
           isWhiteBackground
           nodeStyle={{
             width: 64,
