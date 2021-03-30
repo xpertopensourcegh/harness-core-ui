@@ -46,6 +46,7 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
             data: {
               paletteData: {
                 entity: event.entity,
+                stepsMap: event.stepsMap,
                 onUpdate: executionRef.current?.stepGroupUpdated,
                 isRollback: false,
                 isParallelNodeClicked: event.isParallel,
@@ -64,6 +65,7 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
             data: {
               stepConfig: {
                 node: event.node,
+                stepsMap: event.stepsMap,
                 onUpdate: executionRef.current?.stepGroupUpdated,
                 isStepGroup: event.isStepGroup,
                 isUnderStepGroup: event.isUnderStepGroup,

@@ -172,15 +172,31 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     <Drawer
       onClose={async e => {
         e?.persist()
+        const values = formikRef.current?.getValues()
+        if (values && data?.stepConfig?.stepsMap && formikRef.current?.setFieldError) {
+          const stepsMap = data.stepConfig.stepsMap
+          let duplicate = false
+          stepsMap.forEach((_step, key) => {
+            if (key === values.identifier && values.identifier !== data?.stepConfig?.node?.identifier) {
+              duplicate = true
+            }
+          })
+          if (duplicate) {
+            setTimeout(() => {
+              formikRef.current?.setFieldError('identifier', getString('pipelineSteps.duplicateStep'))
+            }, 300)
+            return
+          }
+        }
 
         if (formikRef.current) {
           if (
             // this will not check for form validation when cross icon is clicked to close the modal
             e?.type === 'click' &&
             (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
-            formikRef.current.getValues()
+            values
           ) {
-            onSubmitStep(formikRef.current.getValues())
+            onSubmitStep(values)
           } else {
             // please do not remove the await below.
             // This is required for errors to be populated correctly
@@ -279,6 +295,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                     data: {
                       stepConfig: {
                         node: newStepData.step,
+                        stepsMap: paletteData.stepsMap,
                         onUpdate: data?.paletteData?.onUpdate,
                         isStepGroup: false,
                         addOrEdit: 'edit',
@@ -387,6 +404,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                     data: {
                       stepConfig: {
                         node: newStepData.step,
+                        stepsMap: paletteData.stepsMap,
                         onUpdate: data?.paletteData?.onUpdate,
                         isStepGroup: false,
                         addOrEdit: 'edit',

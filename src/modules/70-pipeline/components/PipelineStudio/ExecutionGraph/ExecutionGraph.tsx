@@ -91,6 +91,7 @@ const renderPopover = ({
 export interface ExecutionGraphAddStepEvent {
   entity: DefaultNodeModel<DefaultNodeModelGenerics> //NOTE: this is a graph element
   isParallel: boolean
+  stepsMap: Map<string, StepState>
   isRollback: boolean
   parentIdentifier?: string
 }
@@ -99,6 +100,7 @@ export interface ExecutionGraphEditStepEvent {
   /** step or dependency model */
   node: ExecutionWrapper | DependenciesWrapper
   isStepGroup: boolean
+  stepsMap: Map<string, StepState>
   isUnderStepGroup?: boolean
   addOrEdit: 'add' | 'edit'
   stepType: StepType | undefined
@@ -178,6 +180,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       addStep({
         entity: event.entity,
         isRollback: state.isRollback,
+        stepsMap: state.states,
         isParallel: isParallelNodeClicked
       })
     } else if (event?.entity) {
@@ -198,6 +201,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       editStep({
         node,
         isStepGroup: true,
+        stepsMap: state.states,
         addOrEdit: 'edit',
         stepType: StepType.STEP
       })
@@ -286,6 +290,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             entity: event.entity,
             isRollback: state.isRollback,
             isParallel: false,
+            stepsMap: state.states,
             parentIdentifier: (event.entity.getParent().getOptions() as StepGroupNodeLayerOptions).identifier
           })
         } else {
@@ -309,6 +314,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             node: node,
             isUnderStepGroup: eventTemp.entity.getParent() instanceof StepGroupNodeLayerModel,
             isStepGroup: false,
+            stepsMap: state.states,
             addOrEdit: 'edit',
             stepType: stepState?.stepType
           })
@@ -334,6 +340,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
           addStep({
             entity: eventTemp.entity,
             isRollback: state.isRollback,
+            stepsMap: state.states,
             isParallel: true
           })
         }
@@ -404,6 +411,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
           node: node,
           isStepGroup: true,
           addOrEdit: 'edit',
+          stepsMap: state.states,
           stepType: StepType.STEP
         })
       }

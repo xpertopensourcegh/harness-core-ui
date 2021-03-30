@@ -10,6 +10,7 @@ import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/Advance
 
 import type { ExecutionWrapper } from 'services/cd-ng'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -17,6 +18,7 @@ export type StepFormikRef<T = unknown> = {
   isDirty(): FormikProps<T>['dirty'] | undefined
   submitForm: FormikProps<T>['submitForm']
   getErrors(): FormikProps<T>['errors']
+  setFieldError(key: string, error: string): void
   getValues(): ExecutionWrapper
 }
 
@@ -58,6 +60,11 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
   }
 
   React.useImperativeHandle(ref, () => ({
+    setFieldError(key: string, error: string) {
+      if (activeTab === StepCommandTabs.StepConfiguration && stepRef.current) {
+        stepRef.current.setFieldError(key, error)
+      }
+    },
     isDirty() {
       if (activeTab === StepCommandTabs.StepConfiguration && stepRef.current) {
         return stepRef.current.dirty
@@ -85,7 +92,9 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     },
     getValues() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const stepObj = stepsFactory.getStep(step.type) as PipelineStep<any>
+      const stepObj = isStepGroup
+        ? (stepsFactory.getStep(StepType.StepGroup) as PipelineStep<any>)
+        : (stepsFactory.getStep(step.type) as PipelineStep<any>)
       return activeTab === StepCommandTabs.StepConfiguration && stepRef.current
         ? (stepObj.processFormData(stepRef.current.values) as ExecutionWrapper)
         : activeTab === StepCommandTabs.Advanced && advancedConfRef.current

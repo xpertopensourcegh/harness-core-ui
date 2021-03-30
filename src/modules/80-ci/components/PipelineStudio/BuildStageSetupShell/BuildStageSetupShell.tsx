@@ -253,6 +253,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                             name: name,
                             identifier: generateRandomString(name)
                           },
+                          stepsMap: event.stepsMap,
                           onUpdate: executionRef.current?.stepGroupUpdated,
                           addOrEdit: 'add',
                           isStepGroup: false,
@@ -270,6 +271,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                       data: {
                         paletteData: {
                           entity: event.entity,
+                          stepsMap: event.stepsMap,
                           onUpdate: executionRef.current?.stepGroupUpdated,
                           // isAddStepOverride: true,
                           isRollback: event.isRollback,
@@ -290,6 +292,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                     data: {
                       stepConfig: {
                         node: event.node,
+                        stepsMap: event.stepsMap,
                         onUpdate: executionRef.current?.stepGroupUpdated,
                         isStepGroup: event.isStepGroup,
                         isUnderStepGroup: event.isUnderStepGroup,

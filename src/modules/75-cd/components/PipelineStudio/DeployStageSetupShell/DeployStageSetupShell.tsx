@@ -251,6 +251,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                     data: {
                       paletteData: {
                         entity: event.entity,
+                        stepsMap: event.stepsMap,
                         onUpdate: executionRef.current?.stepGroupUpdated,
                         // isAddStepOverride: true,
                         isRollback: event.isRollback,
@@ -270,6 +271,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                     data: {
                       stepConfig: {
                         node: event.node,
+                        stepsMap: event.stepsMap,
                         onUpdate: executionRef.current?.stepGroupUpdated,
                         isStepGroup: event.isStepGroup,
                         isUnderStepGroup: event.isUnderStepGroup,

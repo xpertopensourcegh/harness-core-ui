@@ -102,6 +102,7 @@ export const InfraProvisioningBase = (
                               data: {
                                 paletteData: {
                                   entity: event.entity,
+                                  stepsMap: event.stepsMap,
                                   onUpdate: executionRef.current?.stepGroupUpdated,
                                   isRollback: event.isRollback,
                                   isParallelNodeClicked: event.isParallel,
@@ -121,6 +122,7 @@ export const InfraProvisioningBase = (
                               data: {
                                 stepConfig: {
                                   node: event.node,
+                                  stepsMap: event.stepsMap,
                                   onUpdate: executionRef.current?.stepGroupUpdated,
                                   isStepGroup: event.isStepGroup,
                                   isUnderStepGroup: event.isUnderStepGroup,

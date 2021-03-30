@@ -1220,6 +1220,7 @@ projectContextMenuRenderer:
   gotoCE: 'Go to Continuous Efficiency'
   invite: 'Invite Collaborators'
 pipelineSteps:
+  duplicateStep: Step with this identifier already exist
   kubernetesInfraStep:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector

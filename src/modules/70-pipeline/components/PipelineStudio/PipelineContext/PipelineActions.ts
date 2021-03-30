@@ -3,7 +3,7 @@ import type { IDrawerProps } from '@blueprintjs/core'
 import type { ExecutionWrapper, YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type { Diagram } from '@pipeline/exports'
-import type { DependenciesWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
+import type { DependenciesWrapper, StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
 import type { StageTypes } from '../Stages/StageTypes'
 
@@ -64,12 +64,14 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
       isParallelNodeClicked: boolean
       onUpdate?: (stepOrGroup: ExecutionWrapper) => void
       entity: Diagram.DefaultNodeModel
+      stepsMap: Map<string, StepState>
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
     stepConfig?: {
       node: ExecutionWrapper | DependenciesWrapper
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
+      stepsMap: Map<string, StepState>
       onUpdate?: (stepOrGroup: ExecutionWrapper) => void
       isUnderStepGroup?: boolean
       hiddenAdvancedPanels?: AdvancedPanels[]
