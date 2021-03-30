@@ -63,13 +63,13 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
             <th>{getString('endedAt')}</th>
             <td>{step?.endTs ? new Date(step.endTs).toLocaleString() : '-'}</td>
           </tr>
-          {step?.startTs && step?.endTs && step?.endTs > 0 && (
+          {step?.startTs && step?.endTs ? (
             <tr>
               <th>{getString('duration')}</th>
               <td>{timeToDisplayText(step.endTs - step.startTs)}</td>
             </tr>
-          )}
-          {step.delegateInfoList && step.delegateInfoList.length > 0 && (
+          ) : null}
+          {step.delegateInfoList && step.delegateInfoList.length > 0 ? (
             <tr className={css.delegateRow}>
               <th>{getString('delegateLabel')}</th>
               <td>
@@ -102,7 +102,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
                 </Layout.Vertical>
               </td>
             </tr>
-          )}
+          ) : null}
         </tbody>
       </table>
       {module === 'cd' ? (
