@@ -8,7 +8,7 @@ import { String, useStrings } from 'framework/exports'
 import type { FailureStrategyConfig } from 'services/cd-ng'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
-import { allowedStrategiesAsPerStep, ErrorType } from './StrategySelection/StrategyConfig'
+import { allowedStrategiesAsPerStep, ErrorType, errorTypesOrder } from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
 import { Modes } from '../common'
 import css from './FailureStrategyPanel.module.scss'
@@ -106,6 +106,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     iconProps={{ size: 12 }}
                     data-testid="add-failure-strategy"
                     onClick={handleAdd}
+                    disabled={filterTypes.length === errorTypesOrder.length}
                   >
                     <String stringID="add" />
                   </Button>

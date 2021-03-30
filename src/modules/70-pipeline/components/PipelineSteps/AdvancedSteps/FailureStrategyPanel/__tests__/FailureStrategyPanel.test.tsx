@@ -38,6 +38,54 @@ describe('<FailureStratergyPanel /> tests', () => {
     `)
   })
 
+  test('adding all error types disable Add button and prevents new stragery addition', async () => {
+    const { findByTestId } = render(
+      <Basic
+        data={{
+          failureStrategies: [
+            {
+              onFailure: {
+                errors: ['AnyOther'],
+                action: {
+                  type: 'StageRollback'
+                }
+              }
+            },
+            {
+              onFailure: {
+                errors: [
+                  'Authentication',
+                  'Authorization',
+                  'Connectivity',
+                  'Timeout',
+                  'Verification',
+                  'DelegateProvisioning'
+                ],
+                action: {
+                  type: 'Retry',
+                  spec: {
+                    retryCount: 2,
+                    retryIntervals: ['1d'],
+                    onRetryFailure: {
+                      action: {
+                        type: 'MarkAsSuccess'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+        mode={Modes.STEP}
+      />
+    )
+
+    const add = await findByTestId('add-failure-strategy')
+
+    expect(add.getAttribute('class')).toContain('bp3-disabled')
+  })
+
   test('removing a strategy works', async () => {
     const { container, findByTestId, getByTestId } = render(
       <Basic data={{ failureStrategies: [{}, {}] }} mode={Modes.STEP} />

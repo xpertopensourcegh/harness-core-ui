@@ -7,23 +7,13 @@ import { get } from 'lodash-es'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings } from 'framework/exports'
 
-import { ErrorType } from './StrategySelection/StrategyConfig'
+import { ErrorType, errorTypesOrder } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
 
 interface Option {
   label: string
   value: ErrorType
 }
-
-const errorTypesOrder: ErrorType[] = [
-  ErrorType.Authentication,
-  ErrorType.Authorization,
-  ErrorType.Connectivity,
-  ErrorType.Timeout,
-  ErrorType.Verification,
-  ErrorType.DelegateProvisioning,
-  ErrorType.AnyOther
-]
 
 const MultiSelect = BPMultiSelect.ofType<Option>()
 
@@ -86,7 +76,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
       }
 
       if (query) {
-        return item.value.startsWith(query)
+        return item.value.trim().toLowerCase().startsWith(query.trim().toLowerCase())
       }
 
       return true

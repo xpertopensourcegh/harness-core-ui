@@ -40,3 +40,13 @@ export const allowedStrategiesAsPerStep: Record<Modes, Strategy[]> = {
   ],
   [Modes.STAGE]: [Strategy.StageRollback, Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess, Strategy.Abort]
 }
+
+export const errorTypesOrder: ErrorType[] = [
+  ErrorType.Authentication,
+  ErrorType.Authorization,
+  ErrorType.Connectivity,
+  ErrorType.Timeout,
+  ErrorType.Verification,
+  ErrorType.DelegateProvisioning,
+  ErrorType.AnyOther
+]
