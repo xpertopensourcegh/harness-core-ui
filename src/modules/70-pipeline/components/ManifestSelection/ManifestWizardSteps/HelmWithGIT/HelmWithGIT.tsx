@@ -135,7 +135,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         }
       }
     }
-    if (formData?.commandFlags[0].commandType) {
+    if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
       ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
         commandType: commandFlag.commandType,
         flag: commandFlag.flag
