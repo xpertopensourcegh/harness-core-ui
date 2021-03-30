@@ -12,7 +12,7 @@ const isCancellable = <T extends (...args: any[]) => any>(func: T): func is T & 
   return typeof (func as any).cancel === 'function' && typeof (func as any).flush === 'function'
 }
 
-type WrappedUseMutateProps<TData, TError, TQueryParams, TRequestBody, TPathParams> = Omit<
+export type WrappedUseMutateProps<TData, TError, TQueryParams, TRequestBody, TPathParams> = Omit<
   UseMutateProps<TData, TError, TQueryParams, TRequestBody, TPathParams>,
   'path' | 'verb'
 > & {
@@ -31,7 +31,7 @@ type UseMutateWrapper<TData, TError, TQueryParams, TRequestBody, TPathParams> = 
   props: WrappedUseMutateProps<TData, TError, TQueryParams, TRequestBody, TPathParams>
 ) => UseMutateReturn<TData, TError, TRequestBody, TQueryParams, TPathParams>
 
-interface UseMutateAsGetReturn<
+export interface UseMutateAsGetReturn<
   TData = any,
   TError = any,
   TQueryParams = {

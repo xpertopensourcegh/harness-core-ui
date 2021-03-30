@@ -1,0 +1,14 @@
+overwrite: true
+schema: 'src/services/ce/schema.json'
+documents: 'src/queries/ce/**/*.gql'
+generates:
+  src/services/ce/services.ts:
+    hooks:
+      afterOneFileWrite:
+        - prettier --write
+    plugins:
+      - 'typescript-operations'
+      - 'typescript'
+    config:
+      preResolveTypes: true
+      avoidOptionals: true

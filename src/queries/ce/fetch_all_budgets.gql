@@ -1,0 +1,12 @@
+query fetchAllBudgets {
+  budgetList {
+    name
+    id
+    type
+    scopeType
+    appliesTo
+    alertAt
+    budgetedAmount
+    actualAmount
+  }
+}

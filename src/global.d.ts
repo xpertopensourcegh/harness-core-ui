@@ -28,6 +28,11 @@ declare module '*.yml' {
   export default value
 }
 
+declare module '*.gql' {
+  const query: string
+  export default query
+}
+
 declare interface Window {
   apiUrl: string
 }

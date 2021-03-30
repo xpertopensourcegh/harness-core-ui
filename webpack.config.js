@@ -161,6 +161,10 @@ const config = {
             loader: 'yaml-loader'
           }
         ]
+      },
+      {
+        test: /\.gql$/,
+        type: 'asset/source'
       }
     ]
   },
