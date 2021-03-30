@@ -4,12 +4,20 @@ import { NavLink, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
+import { useGlobalEventListener } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import css from './PipelineDetails.module.scss'
+
+// add custom event to the global scope
+declare global {
+  interface WindowEventMap {
+    RENAME_PIPELINE: CustomEvent<string>
+  }
+}
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
@@ -21,10 +29,13 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
     lazy: true
   })
 
+  const [pipelineName, setPipelineName] = React.useState('')
+
   React.useEffect(() => {
     if (pipelineIdentifier !== DefaultNewPipelineId) {
       refetch()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipelineIdentifier])
   const { selectedProject } = useAppStore()
   const project = selectedProject
@@ -41,20 +52,22 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
       },
       {
         url: '#',
-        label: pipelineIdentifier !== DefaultNewPipelineId ? pipeline?.data?.name || '' : getString('pipelineStudio')
+        label: pipelineIdentifier !== DefaultNewPipelineId ? pipelineName || '' : getString('pipelineStudio')
       }
     ],
-    [
-      accountId,
-      getString,
-      module,
-      orgIdentifier,
-      pipeline?.data?.name,
-      pipelineIdentifier,
-      project?.name,
-      projectIdentifier
-    ]
+    [accountId, getString, module, orgIdentifier, pipelineName, pipelineIdentifier, project?.name, projectIdentifier]
   )
+
+  React.useEffect(() => {
+    setPipelineName(pipeline?.data?.name || '')
+  }, [pipeline?.data?.name])
+
+  useGlobalEventListener('RENAME_PIPELINE', event => {
+    if (event.detail) {
+      setPipelineName(event.detail)
+    }
+  })
+
   return (
     <>
       <Page.Header

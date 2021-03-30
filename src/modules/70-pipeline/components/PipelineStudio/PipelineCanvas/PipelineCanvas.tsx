@@ -165,6 +165,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     discardBEUpdateDialog
   ])
 
+  React.useEffect(() => {
+    if (pipeline?.name) {
+      window.dispatchEvent(new CustomEvent('RENAME_PIPELINE', { detail: pipeline?.name }))
+    }
+  }, [pipeline?.name])
+
   const onCloseCreate = React.useCallback(() => {
     if (pipeline?.identifier === DefaultNewPipelineId) {
       history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
