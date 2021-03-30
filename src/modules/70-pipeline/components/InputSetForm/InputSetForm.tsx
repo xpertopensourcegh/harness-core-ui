@@ -371,9 +371,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             type="submit"
                             onClick={e => {
                               e.preventDefault()
-                              if (formikProps?.values?.name?.length && formikProps?.values?.identifier?.length) {
-                                handleSubmit(formikProps.values)
-                              }
+                              formikProps.validateForm().then(() => {
+                                if (formikProps?.values?.name?.length && formikProps?.values?.identifier?.length) {
+                                  handleSubmit(formikProps.values)
+                                }
+                              })
                             }}
                             text={getString('save')}
                           />
