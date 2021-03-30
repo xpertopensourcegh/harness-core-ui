@@ -118,7 +118,6 @@ const IndividualTargets: React.FC<IndividualProps> = ({
           <Button
             minimal
             icon="Options"
-            iconProps={{ size: 24 }}
             tooltip={
               <Menu style={{ minWidth: 'unset' }}>
                 <Menu.Item disabled icon="edit" text={getString('edit')} onClick={handleInteraction('edit')} />

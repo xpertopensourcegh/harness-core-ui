@@ -111,7 +111,6 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
         <Button
           minimal
           icon="Options"
-          iconProps={{ size: 24 }}
           style={{ marginLeft: 'auto' }}
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>

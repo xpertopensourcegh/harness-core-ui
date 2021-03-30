@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
+import { Button, ExpandingSearchInput, Layout, Container } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList, Error } from 'services/cd-ng'
@@ -65,30 +65,32 @@ const OrganizationsPage: React.FC = () => {
         }}
         className={css.orgPage}
       >
-        <Layout.Masonry
-          center
-          gutter={20}
-          items={data?.data?.content || []}
-          renderItem={(org: OrganizationAggregateDTO) => (
-            <OrganizationCard
-              data={org}
-              editOrg={() => openOrganizationModal(org.organizationResponse.organization)}
-              inviteCollab={() =>
-                openCollaboratorModal({ orgIdentifier: org.organizationResponse.organization.identifier })
-              }
-              reloadOrgs={() => refetch()}
-              onClick={() =>
-                history.push(
-                  routes.toOrganizationDetails({
-                    orgIdentifier: org.organizationResponse.organization.identifier as string,
-                    accountId
-                  })
-                )
-              }
-            />
-          )}
-          keyOf={(org: OrganizationAggregateDTO) => org.organizationResponse.organization.identifier as string}
-        />
+        <Container className={css.masonry}>
+          <Layout.Masonry
+            center
+            gutter={20}
+            items={data?.data?.content || []}
+            renderItem={(org: OrganizationAggregateDTO) => (
+              <OrganizationCard
+                data={org}
+                editOrg={() => openOrganizationModal(org.organizationResponse.organization)}
+                inviteCollab={() =>
+                  openCollaboratorModal({ orgIdentifier: org.organizationResponse.organization.identifier })
+                }
+                reloadOrgs={() => refetch()}
+                onClick={() =>
+                  history.push(
+                    routes.toOrganizationDetails({
+                      orgIdentifier: org.organizationResponse.organization.identifier as string,
+                      accountId
+                    })
+                  )
+                }
+              />
+            )}
+            keyOf={(org: OrganizationAggregateDTO) => org.organizationResponse.organization.identifier as string}
+          />
+        </Container>
       </Page.Body>
     </>
   )

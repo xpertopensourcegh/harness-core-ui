@@ -13,7 +13,6 @@ export const OptionsMenuButton: React.FC<OptionsMenuButtonProps> = ({ items, ...
     <Button
       minimal
       icon="Options"
-      iconProps={{ size: 24 }}
       tooltipProps={{ isDark: true, interactionKind: 'click', hasBackdrop: true }}
       tooltip={
         <Menu style={{ minWidth: 'unset' }}>

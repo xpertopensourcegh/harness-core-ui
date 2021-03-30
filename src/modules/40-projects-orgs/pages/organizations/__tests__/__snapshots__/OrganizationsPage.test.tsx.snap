@@ -6,7 +6,7 @@ exports[`Org Page List Create New Org 1`] = `
     class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
       level="2"
     >
       Organizations
@@ -92,557 +92,558 @@ exports[`Org Page List Create New Org 1`] = `
     class="StyledProps--font StyledProps--main pageBody orgPage"
   >
     <div
-      class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 StyledProps--padding-xxxlarge"
-      style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
+      class="StyledProps--font StyledProps--main masonry"
     >
       <div
-        class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
-        style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 StyledProps--padding-xxxlarge"
+        style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
-          data-testid="org-card-bfvbfkbvf"
-          tabindex="0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
+          style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
         >
           <div
-            class="StyledProps--font StyledProps--main overflow"
+            class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
+            data-testid="org-card-bfvbfkbvf"
+            tabindex="0"
           >
             <div
-              class="Card--cardMenu cardMenu"
+              class="StyledProps--font StyledProps--main overflow"
             >
               <div
-                class="Card--dots"
+                class="Card--cardMenu cardMenu"
               >
-                <span
-                  class="bp3-popover-wrapper bp3-dark"
+                <div
+                  class="Card--dots"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-wrapper bp3-dark"
                   >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
-                      type="button"
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="Layout--vertical StyledProps--main title"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  bfvbfkbvf
+                </p>
+                <div
+                  class="Layout--horizontal StyledProps--main description"
+                />
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
+                />
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps--main"
-                        icon="more"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="nav-project"
                       >
                         <svg
-                          data-icon="more"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
+                          height="32"
+                          viewBox="0 0 22 22"
+                          width="32"
                         >
-                          <desc>
-                            more
-                          </desc>
                           <path
-                            d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                            fill-rule="evenodd"
+                            d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                            fill="#56778d"
                           />
                         </svg>
                       </span>
-                    </button>
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div
-              class="Layout--vertical StyledProps--main title"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
-              >
-                bfvbfkbvf
-              </p>
-              <div
-                class="Layout--horizontal StyledProps--main description"
-              />
-              <div
-                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
-              />
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
-              >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                >
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="nav-project"
-                    >
-                      <svg
-                        height="32"
-                        viewBox="0 0 22 22"
-                        width="32"
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-medium"
                       >
-                        <path
-                          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                          fill="#56778d"
-                        />
-                      </svg>
-                    </span>
+                        0
+                      </p>
+                    </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      0
+                      Projects
                     </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small"
-                  >
-                    Projects
-                  </p>
-                </div>
-                <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
-                >
                   <div
-                    class="AvatarGroup--stack"
-                    style="--avatar-over-lap: -13px;"
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                   >
                     <div
-                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
                     >
-                      <span
-                        class="bp3-popover-wrapper Avatar--avatarPopOver"
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                       >
                         <span
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
                         >
-                          <div
-                            class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                            tabindex="0"
+                          <span
+                            class="bp3-popover-target"
                           >
-                            +
-                          </div>
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              +
+                            </div>
+                          </span>
                         </span>
-                      </span>
-                    </div>
-                    <div
-                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                      uuid="lv0efduRhKRCyiXWzS7pOg6g"
-                    >
-                      <span
-                        class="bp3-popover-wrapper Avatar--avatarPopOver"
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        uuid="lv0efduRhKRCyiXWzS7pOg6g"
                       >
                         <span
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
                         >
-                          <div
-                            class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                            tabindex="0"
+                          <span
+                            class="bp3-popover-target"
                           >
-                            A
-                          </div>
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
                         </span>
-                      </span>
-                    </div>
-                    <div
-                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                      uuid="lv0euRhKRCyiXWzS7pOg6g"
-                    >
-                      <span
-                        class="bp3-popover-wrapper Avatar--avatarPopOver"
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        uuid="lv0euRhKRCyiXWzS7pOg6g"
                       >
                         <span
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
                         >
-                          <div
-                            class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                            tabindex="0"
+                          <span
+                            class="bp3-popover-target"
                           >
-                            A
-                          </div>
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                    >
+                      2 Members
+                    </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small"
-                  >
-                    2 Members
-                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
-        style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
-      >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
-          data-testid="org-card-Harness"
-          tabindex="0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
+          style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
         >
           <div
-            class="StyledProps--font StyledProps--main overflow"
+            class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
+            data-testid="org-card-Harness"
+            tabindex="0"
           >
             <div
-              class="Card--cardMenu cardMenu"
+              class="StyledProps--font StyledProps--main overflow"
             >
               <div
-                class="Card--dots"
+                class="Card--cardMenu cardMenu"
               >
-                <span
-                  class="bp3-popover-wrapper bp3-dark"
+                <div
+                  class="Card--dots"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-wrapper bp3-dark"
                   >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
-                      type="button"
+                    <span
+                      class="bp3-popover-target"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-more StyledProps--main"
-                        icon="more"
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                        type="button"
                       >
-                        <svg
-                          data-icon="more"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
                         >
-                          <desc>
-                            more
-                          </desc>
-                          <path
-                            d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
-            </div>
-            <div
-              class="Layout--vertical StyledProps--main title"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
-              >
-                Harness
-              </p>
               <div
-                class="Layout--horizontal StyledProps--main description"
+                class="Layout--vertical StyledProps--main title"
               >
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
-                  style="--text-line-clamp: 2;"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
                 >
                   Harness
                 </p>
-              </div>
-              <div
-                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
-              >
-                <span
-                  class="Tag--main"
-                >
-                  <span
-                    class="bp3-tag"
-                    style="max-width: 80px;"
-                  >
-                    <span
-                      class="bp3-text-overflow-ellipsis bp3-fill"
-                    >
-                      ce:module
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="Tag--main"
-                >
-                  <span
-                    class="bp3-tag"
-                    style="max-width: 80px;"
-                  >
-                    <span
-                      class="bp3-text-overflow-ellipsis bp3-fill"
-                    >
-                      prod
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="Tag--main"
-                >
-                  <span
-                    class="bp3-tag"
-                    style="max-width: 80px;"
-                  >
-                    <span
-                      class="bp3-text-overflow-ellipsis bp3-fill"
-                    >
-                      cv:module
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="bp3-popover-wrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      tabindex="0"
-                    >
-                      +2
-                    </p>
-                  </span>
-                </span>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
-              >
                 <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                  class="Layout--horizontal StyledProps--main description"
                 >
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="nav-project"
-                    >
-                      <svg
-                        height="32"
-                        viewBox="0 0 22 22"
-                        width="32"
-                      >
-                        <path
-                          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                          fill="#56778d"
-                        />
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-medium"
-                    >
-                      5
-                    </p>
-                  </div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
+                    style="--text-line-clamp: 2;"
                   >
-                    Projects
+                    Harness
                   </p>
                 </div>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
+                >
+                  <span
+                    class="Tag--main"
+                  >
+                    <span
+                      class="bp3-tag"
+                      style="max-width: 80px;"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        ce:module
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    class="Tag--main"
+                  >
+                    <span
+                      class="bp3-tag"
+                      style="max-width: 80px;"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        prod
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    class="Tag--main"
+                  >
+                    <span
+                      class="bp3-tag"
+                      style="max-width: 80px;"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        cv:module
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        tabindex="0"
+                      >
+                        +2
+                      </p>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
                 >
                   <div
-                    class="AvatarGroup--stack"
-                    style="--avatar-over-lap: -13px;"
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <div
-                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                     >
                       <span
-                        class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="nav-project"
                       >
-                        <span
-                          class="bp3-popover-target"
+                        <svg
+                          height="32"
+                          viewBox="0 0 22 22"
+                          width="32"
                         >
-                          <div
-                            class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                            tabindex="0"
-                          >
-                            +
-                          </div>
-                        </span>
+                          <path
+                            d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                            fill="#56778d"
+                          />
+                        </svg>
                       </span>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                      >
+                        5
+                      </p>
                     </div>
-                    <div
-                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                      uuid="lv0euRhKRCyiXWzS7pOg6g"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      <span
-                        class="bp3-popover-wrapper Avatar--avatarPopOver"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                            tabindex="0"
-                          >
-                            A
-                          </div>
-                        </span>
-                      </span>
-                    </div>
+                      Projects
+                    </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                   >
-                    1 Members
-                  </p>
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              +
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        uuid="lv0euRhKRCyiXWzS7pOg6g"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                    >
+                      1 Members
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
-        style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
-      >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
-          data-testid="org-card-default"
-          tabindex="0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
+          style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
         >
           <div
-            class="StyledProps--font StyledProps--main overflow"
+            class="bp3-card bp3-interactive bp3-elevation-2 Card--card card Card--interactive"
+            data-testid="org-card-default"
+            tabindex="0"
           >
             <div
-              class="Card--cardMenu cardMenu"
+              class="StyledProps--font StyledProps--main overflow"
             >
               <div
-                class="Card--dots"
-              >
-                <span
-                  class="bp3-popover-wrapper bp3-dark"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-more StyledProps--main"
-                        icon="more"
-                      >
-                        <svg
-                          data-icon="more"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            more
-                          </desc>
-                          <path
-                            d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div
-              class="Layout--vertical StyledProps--main title"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
-              >
-                Default
-              </p>
-              <div
-                class="Layout--horizontal StyledProps--main description"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
-                  style="--text-line-clamp: 2;"
-                >
-                  Default Organization
-                </p>
-              </div>
-              <div
-                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
-              />
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
+                class="Card--cardMenu cardMenu"
               >
                 <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                  class="Card--dots"
                 >
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
                   >
                     <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="nav-project"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        height="32"
-                        viewBox="0 0 22 22"
-                        width="32"
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                        type="button"
                       >
-                        <path
-                          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                          fill="#56778d"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
                     </span>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-medium"
-                    >
-                      7
-                    </p>
-                  </div>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="Layout--vertical StyledProps--main title"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  Default
+                </p>
+                <div
+                  class="Layout--horizontal StyledProps--main description"
+                >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
+                    style="--text-line-clamp: 2;"
                   >
-                    Projects
+                    Default Organization
                   </p>
                 </div>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
+                />
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
                 >
                   <div
-                    class="AvatarGroup--stack"
-                    style="--avatar-over-lap: -13px;"
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <div
-                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                     >
                       <span
-                        class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="nav-project"
+                      >
+                        <svg
+                          height="32"
+                          viewBox="0 0 22 22"
+                          width="32"
+                        >
+                          <path
+                            d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                            fill="#56778d"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                      >
+                        7
+                      </p>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                    >
+                      Projects
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                       >
                         <span
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
                         >
-                          <div
-                            class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                            tabindex="0"
+                          <span
+                            class="bp3-popover-target"
                           >
-                            +
-                          </div>
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              +
+                            </div>
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                    >
+                      0 Members
+                    </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small"
-                  >
-                    0 Members
-                  </p>
                 </div>
               </div>
             </div>

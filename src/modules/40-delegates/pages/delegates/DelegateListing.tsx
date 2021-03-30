@@ -127,7 +127,6 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateInner>>> = ({ row, c
         <Button
           minimal
           icon="Options"
-          iconProps={{ size: 24 }}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)

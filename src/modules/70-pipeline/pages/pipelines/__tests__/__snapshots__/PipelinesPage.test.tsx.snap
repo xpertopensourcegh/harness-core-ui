@@ -400,24 +400,23 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-more StyledProps--main"
-                            icon="more"
+                            class="bp3-icon StyledProps--main"
+                            data-icon="Options"
                           >
                             <svg
-                              data-icon="more"
+                              fill="none"
                               height="16"
-                              viewBox="0 0 16 16"
+                              viewBox="0 0 4 16"
                               width="16"
                             >
-                              <desc>
-                                more
-                              </desc>
                               <path
-                                d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                                clip-rule="evenodd"
+                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                                fill="currentColor"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -785,24 +784,23 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-more StyledProps--main"
-                            icon="more"
+                            class="bp3-icon StyledProps--main"
+                            data-icon="Options"
                           >
                             <svg
-                              data-icon="more"
+                              fill="none"
                               height="16"
-                              viewBox="0 0 16 16"
+                              viewBox="0 0 4 16"
                               width="16"
                             >
-                              <desc>
-                                more
-                              </desc>
                               <path
-                                d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                                clip-rule="evenodd"
+                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                                fill="currentColor"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -1160,24 +1158,23 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-more StyledProps--main"
-                            icon="more"
+                            class="bp3-icon StyledProps--main"
+                            data-icon="Options"
                           >
                             <svg
-                              data-icon="more"
+                              fill="none"
                               height="16"
-                              viewBox="0 0 16 16"
+                              viewBox="0 0 4 16"
                               width="16"
                             >
-                              <desc>
-                                more
-                              </desc>
                               <path
-                                d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                                clip-rule="evenodd"
+                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                                fill="currentColor"
                                 fill-rule="evenodd"
                               />
                             </svg>

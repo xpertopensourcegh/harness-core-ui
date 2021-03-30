@@ -686,7 +686,6 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
           <Button
             minimal
             icon="Options"
-            iconProps={{ size: 24 }}
             tooltip={
               <Menu style={{ minWidth: 'unset' }}>
                 <Menu.Item icon="edit" text={getString('edit')} onClick={openEditModal} />

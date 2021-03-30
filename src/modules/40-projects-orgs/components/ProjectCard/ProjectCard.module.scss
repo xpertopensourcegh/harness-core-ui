@@ -14,6 +14,11 @@
     border-radius: 5px;
     margin-bottom: var(--spacing-medium);
   }
+
+  .moduleRendererContainer {
+    max-height: 154px;
+    overflow: scroll;
+  }
 }
 
 .started {
@@ -41,4 +46,5 @@
 }
 .projectAvatarGroup {
   justify-content: flex-end;
+  margin-left: -7px;
 }

@@ -1,50 +1,49 @@
-.filterTab {
-  text-align: center;
-  padding: 21px;
-  border-bottom: 3px solid transparent;
+.projectsPage {
+  --page-header-height: 137px;
 
-  &.selected {
-    border-bottom-color: var(--blue-500);
+  .filterTab {
+    text-align: center;
+    padding: 21px;
+    border-bottom: 3px solid transparent;
+
+    &.selected {
+      border-bottom-color: var(--blue-500);
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
-  &:hover {
-    text-decoration: none;
-  }
-}
-.pageContainer {
-  background: var(--grey-100) !important;
-  height: calc(100vh - 128px);
-}
+  .orgSelect {
+    background-color: var(--grey-200) !important;
+    border: none !important;
 
-.orgSelect {
-  padding-left: 0px !important;
-  padding-right: var(--spacing-xlarge) !important;
-  border-right: 1px solid var(--grey-300) !important;
-  margin-right: var(--spacing-xlarge) !important;
+    &:hover {
+      background-color: var(--grey-250) !important;
+    }
+  }
+
+  .header {
+    padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
+    border-bottom: 1px solid var(--grey-300);
+    background: var(--white) !important;
+  }
+
+  .headerLayout {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .search {
+    & > input:focus {
+      width: 300px !important;
+    }
+  }
 }
 
 .customselect {
-  max-height: 180px;
+  max-height: 220px;
   overflow: auto;
-  max-width: 180px;
-}
-
-.header {
-  padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
-  border-bottom: 1px solid var(--grey-300);
-  background: var(--white) !important;
-  height: 64px;
-}
-
-.headerLayout {
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.search {
-  margin-right: var(--spacing-small) !important;
-  height: var(--spacing-xxlarge) !important;
-  & > input:focus {
-    width: 350px !important;
-  }
+  max-width: 200px;
 }

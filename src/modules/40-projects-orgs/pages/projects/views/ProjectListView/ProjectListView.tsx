@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react'
-import ReactTimeago from 'react-timeago'
 import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
@@ -42,11 +41,9 @@ const RenderColumnProject: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) 
             <TagsPopover tags={data.projectResponse.project.tags} />
           ) : null}
         </Layout.Horizontal>
-        {data.projectResponse.project.description ? (
-          <Text color={Color.GREY_400} lineClamp={1} className={css.project}>
-            {data.projectResponse.project.description}
-          </Text>
-        ) : null}
+        <Text color={Color.GREY_400} lineClamp={1} className={css.project} font={{ size: 'small' }}>
+          {data.projectResponse.project.identifier}
+        </Text>
       </Layout.Vertical>
     </Layout.Horizontal>
   )
@@ -69,26 +66,25 @@ const RenderColumnModules: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) 
           <Icon name={getModuleIcon(module as ModuleName)} size={20} key={module} />
         ))
       ) : (
-        <String stringID="moduleRenderer.start" />
+        <Text color={Color.GREY_350} font={{ size: 'small' }}>
+          <String stringID="moduleRenderer.start" />
+        </Text>
       )}
     </Layout.Horizontal>
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) => {
-  const data = row.original
-  return (
-    <Layout.Horizontal spacing="small">
-      <Icon name="activity" />
-      {data.projectResponse.lastModifiedAt ? <ReactTimeago date={data.projectResponse.lastModifiedAt} /> : null}
-    </Layout.Horizontal>
-  )
-}
 const RenderColumnAdmin: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
   const data = row.original
   return (
     <AvatarGroup
-      avatars={data.admins?.length ? data.admins : [{}]}
+      avatars={
+        data.admins?.length
+          ? data.admins.map(admin => {
+              return { name: admin.name, email: admin.email }
+            })
+          : [{}]
+      }
       onAdd={event => {
         event.stopPropagation()
         const { collaborators } = column as any
@@ -100,14 +96,21 @@ const RenderColumnAdmin: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colu
 const RenderColumnCollabrators: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
   const data = row.original
   return (
-    <AvatarGroup
-      avatars={data.collaborators?.length ? data.collaborators : [{}]}
-      onAdd={event => {
-        event.stopPropagation()
-        const { collaborators } = column as any
-        collaborators(data.projectResponse.project)
-      }}
-    />
+    <Layout.Horizontal flex={{ alignItems: 'center', inline: true }}>
+      <AvatarGroup
+        avatars={data.collaborators?.length ? data.collaborators : [{}]}
+        onAdd={event => {
+          event.stopPropagation()
+          const { collaborators } = column as any
+          collaborators(data.projectResponse.project)
+        }}
+      />
+      {!data.collaborators?.length ? (
+        <Text font={{ size: 'small' }} color={Color.GREY_350}>
+          No Collaborators
+        </Text>
+      ) : null}
+    </Layout.Horizontal>
   )
 }
 const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
@@ -131,7 +134,6 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
         <Button
           minimal
           icon="Options"
-          iconProps={{ size: 24 }}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
@@ -160,50 +162,43 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const columns: CustomColumn<ProjectAggregateDTO>[] = useMemo(
     () => [
       {
-        Header: getString('projectLabel').toUpperCase(),
+        Header: getString('projectLabel'),
         id: 'name',
         accessor: row => row.projectResponse.project.name,
-        width: '25%',
+        width: '30%',
         Cell: RenderColumnProject
       },
       {
-        Header: getString('orgLabel').toUpperCase(),
+        Header: getString('orgLabel'),
         id: 'orgName',
         accessor: row => row.projectResponse.project.orgIdentifier,
-        width: '15%',
+        width: '20%',
         Cell: RenderColumnOrganization
       },
       {
-        Header: getString('modules').toUpperCase(),
-        id: 'modules',
-        accessor: row => row.projectResponse.project.modules,
-        width: '20%',
-        Cell: RenderColumnModules,
-        disableSortBy: true
-      },
-      {
-        Header: getString('lastActivity').toUpperCase(),
-        id: 'status',
-        accessor: row => row.projectResponse.lastModifiedAt,
-        width: '15%',
-        Cell: RenderColumnActivity
-      },
-      {
-        Header: getString('adminLabel').toUpperCase(),
+        Header: getString('adminLabel'),
         id: 'admin',
         accessor: row => row.projectResponse.project.color,
-        width: '10%',
+        width: '15%',
         Cell: RenderColumnAdmin,
         collaborators: collaborators,
         disableSortBy: true
       },
       {
-        Header: getString('collaboratorsLabel').toUpperCase(),
+        Header: getString('collaboratorsLabel'),
         id: 'collaborators',
         accessor: row => row.projectResponse.createdAt,
-        width: '10%',
+        width: '15%',
         Cell: RenderColumnCollabrators,
         collaborators: collaborators,
+        disableSortBy: true
+      },
+      {
+        Header: getString('modules'),
+        id: 'modules',
+        accessor: row => row.projectResponse.project.modules,
+        width: '15%',
+        Cell: RenderColumnModules,
         disableSortBy: true
       },
       {

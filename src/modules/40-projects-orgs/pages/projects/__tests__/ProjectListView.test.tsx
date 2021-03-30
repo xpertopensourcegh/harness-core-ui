@@ -63,7 +63,7 @@ describe('Project List', () => {
     container = renderObj.container
     getAllByText = renderObj.getAllByText
     getByTestId = renderObj.getByTestId
-    await waitFor(() => getAllByText('PROJECT'))
+    await waitFor(() => getAllByText('Project'))
   })
   test('render', async () => {
     expect(container).toMatchSnapshot()

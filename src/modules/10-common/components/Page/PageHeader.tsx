@@ -23,7 +23,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, content, toolbar,
       padding={{ left: 'large', right: 'large' }}
     >
       {typeof title === 'string' ? (
-        <Heading level={2} color={Color.GREY_800}>
+        <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
           {title}
         </Heading>
       ) : (

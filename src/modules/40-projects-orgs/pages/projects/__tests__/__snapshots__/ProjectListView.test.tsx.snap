@@ -13,38 +13,10 @@ exports[`Project List render 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 25%;"
+        style="width: 30%;"
         title="Toggle SortBy"
       >
-        PROJECT
-        <span
-          class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-          icon="double-caret-vertical"
-        >
-          <svg
-            data-icon="double-caret-vertical"
-            height="15"
-            viewBox="0 0 16 16"
-            width="15"
-          >
-            <desc>
-              double-caret-vertical
-            </desc>
-            <path
-              d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-      </div>
-      <div
-        class="cell"
-        colspan="1"
-        role="columnheader"
-        style="width: 15%;"
-        title="Toggle SortBy"
-      >
-        ORGANIZATION
+        Project
         <span
           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
           icon="double-caret-vertical"
@@ -70,17 +42,9 @@ exports[`Project List render 1`] = `
         colspan="1"
         role="columnheader"
         style="width: 20%;"
-      >
-        MODULES
-      </div>
-      <div
-        class="cell"
-        colspan="1"
-        role="columnheader"
-        style="width: 15%;"
         title="Toggle SortBy"
       >
-        LAST ACTIVITY
+        Organization
         <span
           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
           icon="double-caret-vertical"
@@ -105,17 +69,25 @@ exports[`Project List render 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 10%;"
+        style="width: 15%;"
       >
-        ADMIN
+        Admin
       </div>
       <div
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 10%;"
+        style="width: 15%;"
       >
-        COLLABORATORS
+        Collaborators
+      </div>
+      <div
+        class="cell"
+        colspan="1"
+        role="columnheader"
+        style="width: 15%;"
+      >
+        Modules
       </div>
       <div
         class="cell"
@@ -133,7 +105,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 25%;"
+        style="width: 30%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -189,7 +161,7 @@ exports[`Project List render 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
               style="--text-line-clamp: 1;"
             >
               test
@@ -200,7 +172,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
+        style="width: 20%;"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main org StyledProps--color StyledProps--color-black"
@@ -210,7 +182,76 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 20%;"
+        style="width: 15%;"
+      >
+        <div
+          class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
+        >
+          <div
+            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="AvatarGroup--stack"
+            style="--avatar-over-lap: -13px;"
+          >
+            <div
+              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+            >
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                    tabindex="0"
+                  >
+                    +
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
+          >
+            No Collaborators
+          </p>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -256,91 +297,6 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="activity"
-          >
-            <svg
-              height="16"
-              width="16"
-            >
-              <path
-                d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                fill="#1D76FF"
-              />
-            </svg>
-          </span>
-          dummy date
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
         style="width: 5%;"
       >
         <div
@@ -362,36 +318,17 @@ exports[`Project List render 1`] = `
                   data-icon="Options"
                 >
                   <svg
-                    height="24"
-                    width="24"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 4 16"
+                    width="16"
                   >
-                    <defs>
-                      <path
-                        d="M0 0h24v24H0z"
-                        id="Options_svg__a"
-                      />
-                    </defs>
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <mask
-                        fill="#fff"
-                        id="Options_svg__b"
-                      >
-                        <use
-                          xlink:href="#Options_svg__a"
-                        />
-                      </mask>
-                      <path
-                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                        mask="url(#Options_svg__b)"
-                        stroke="#25A6F7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="rotate(90 12 12)"
-                      />
-                    </g>
+                    />
                   </svg>
                 </span>
               </button>
@@ -407,7 +344,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 25%;"
+        style="width: 30%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -463,10 +400,10 @@ exports[`Project List render 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
               style="--text-line-clamp: 1;"
             >
-              UI for the Payment
+              Online_Banking
             </p>
           </div>
         </div>
@@ -474,7 +411,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
+        style="width: 20%;"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main org StyledProps--color StyledProps--color-black"
@@ -484,7 +421,76 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 20%;"
+        style="width: 15%;"
+      >
+        <div
+          class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
+        >
+          <div
+            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="AvatarGroup--stack"
+            style="--avatar-over-lap: -13px;"
+          >
+            <div
+              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+            >
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                    tabindex="0"
+                  >
+                    +
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
+          >
+            No Collaborators
+          </p>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -566,91 +572,6 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="activity"
-          >
-            <svg
-              height="16"
-              width="16"
-            >
-              <path
-                d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                fill="#1D76FF"
-              />
-            </svg>
-          </span>
-          dummy date
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
         style="width: 5%;"
       >
         <div
@@ -672,36 +593,17 @@ exports[`Project List render 1`] = `
                   data-icon="Options"
                 >
                   <svg
-                    height="24"
-                    width="24"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 4 16"
+                    width="16"
                   >
-                    <defs>
-                      <path
-                        d="M0 0h24v24H0z"
-                        id="Options_svg__a"
-                      />
-                    </defs>
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <mask
-                        fill="#fff"
-                        id="Options_svg__b"
-                      >
-                        <use
-                          xlink:href="#Options_svg__a"
-                        />
-                      </mask>
-                      <path
-                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                        mask="url(#Options_svg__b)"
-                        stroke="#25A6F7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="rotate(90 12 12)"
-                      />
-                    </g>
+                    />
                   </svg>
                 </span>
               </button>
@@ -717,7 +619,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 25%;"
+        style="width: 30%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -773,10 +675,10 @@ exports[`Project List render 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
               style="--text-line-clamp: 1;"
             >
-              Online users
+              Portal
             </p>
           </div>
         </div>
@@ -784,7 +686,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
+        style="width: 20%;"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main org StyledProps--color StyledProps--color-black"
@@ -794,7 +696,76 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 20%;"
+        style="width: 15%;"
+      >
+        <div
+          class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
+        >
+          <div
+            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="AvatarGroup--stack"
+            style="--avatar-over-lap: -13px;"
+          >
+            <div
+              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+            >
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                    tabindex="0"
+                  >
+                    +
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
+          >
+            No Collaborators
+          </p>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -840,91 +811,6 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="activity"
-          >
-            <svg
-              height="16"
-              width="16"
-            >
-              <path
-                d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                fill="#1D76FF"
-              />
-            </svg>
-          </span>
-          dummy date
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
         style="width: 5%;"
       >
         <div
@@ -946,36 +832,17 @@ exports[`Project List render 1`] = `
                   data-icon="Options"
                 >
                   <svg
-                    height="24"
-                    width="24"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 4 16"
+                    width="16"
                   >
-                    <defs>
-                      <path
-                        d="M0 0h24v24H0z"
-                        id="Options_svg__a"
-                      />
-                    </defs>
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <mask
-                        fill="#fff"
-                        id="Options_svg__b"
-                      >
-                        <use
-                          xlink:href="#Options_svg__a"
-                        />
-                      </mask>
-                      <path
-                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                        mask="url(#Options_svg__b)"
-                        stroke="#25A6F7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="rotate(90 12 12)"
-                      />
-                    </g>
+                    />
                   </svg>
                 </span>
               </button>
@@ -991,7 +858,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 25%;"
+        style="width: 30%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1013,13 +880,19 @@ exports[`Project List render 1`] = `
                 Project 1
               </p>
             </div>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
+              style="--text-line-clamp: 1;"
+            >
+              Project_1
+            </p>
           </div>
         </div>
       </div>
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
+        style="width: 20%;"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main org StyledProps--color StyledProps--color-black"
@@ -1029,14 +902,31 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 20%;"
+        style="width: 15%;"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
-          <span>
-            No modules enabled
-          </span>
+          <div
+            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
+          </div>
         </div>
       </div>
       <div
@@ -1045,83 +935,54 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
         >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="activity"
+          <div
+            class="AvatarGroup--stack"
+            style="--avatar-over-lap: -13px;"
           >
-            <svg
-              height="16"
-              width="16"
+            <div
+              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
             >
-              <path
-                d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                fill="#1D76FF"
-              />
-            </svg>
-          </span>
-          dummy date
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                    tabindex="0"
+                  >
+                    +
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
+          >
+            No Collaborators
+          </p>
         </div>
       </div>
       <div
         class="cell"
         role="cell"
-        style="width: 10%;"
+        style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
           >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
+            <span>
+              No modules-specific data
             </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
+          </p>
         </div>
       </div>
       <div
@@ -1148,36 +1009,17 @@ exports[`Project List render 1`] = `
                   data-icon="Options"
                 >
                   <svg
-                    height="24"
-                    width="24"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 4 16"
+                    width="16"
                   >
-                    <defs>
-                      <path
-                        d="M0 0h24v24H0z"
-                        id="Options_svg__a"
-                      />
-                    </defs>
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <mask
-                        fill="#fff"
-                        id="Options_svg__b"
-                      >
-                        <use
-                          xlink:href="#Options_svg__a"
-                        />
-                      </mask>
-                      <path
-                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                        mask="url(#Options_svg__b)"
-                        stroke="#25A6F7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="rotate(90 12 12)"
-                      />
-                    </g>
+                    />
                   </svg>
                 </span>
               </button>
@@ -1193,7 +1035,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 25%;"
+        style="width: 30%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1249,10 +1091,10 @@ exports[`Project List render 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
               style="--text-line-clamp: 1;"
             >
-              Demo project
+              Project_Demo
             </p>
           </div>
         </div>
@@ -1260,7 +1102,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
+        style="width: 20%;"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main org StyledProps--color StyledProps--color-black"
@@ -1270,14 +1112,31 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 20%;"
+        style="width: 15%;"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
         >
-          <span>
-            No modules enabled
-          </span>
+          <div
+            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
+          </div>
         </div>
       </div>
       <div
@@ -1286,83 +1145,54 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
         >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="activity"
+          <div
+            class="AvatarGroup--stack"
+            style="--avatar-over-lap: -13px;"
           >
-            <svg
-              height="16"
-              width="16"
+            <div
+              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
             >
-              <path
-                d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                fill="#1D76FF"
-              />
-            </svg>
-          </span>
-          dummy date
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                    tabindex="0"
+                  >
+                    +
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
+          >
+            No Collaborators
+          </p>
         </div>
       </div>
       <div
         class="cell"
         role="cell"
-        style="width: 10%;"
+        style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
           >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
+            <span>
+              No modules-specific data
             </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
+          </p>
         </div>
       </div>
       <div
@@ -1389,36 +1219,17 @@ exports[`Project List render 1`] = `
                   data-icon="Options"
                 >
                   <svg
-                    height="24"
-                    width="24"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 4 16"
+                    width="16"
                   >
-                    <defs>
-                      <path
-                        d="M0 0h24v24H0z"
-                        id="Options_svg__a"
-                      />
-                    </defs>
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <mask
-                        fill="#fff"
-                        id="Options_svg__b"
-                      >
-                        <use
-                          xlink:href="#Options_svg__a"
-                        />
-                      </mask>
-                      <path
-                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                        mask="url(#Options_svg__b)"
-                        stroke="#25A6F7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="rotate(90 12 12)"
-                      />
-                    </g>
+                    />
                   </svg>
                 </span>
               </button>
@@ -1434,7 +1245,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 25%;"
+        style="width: 30%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1490,10 +1301,10 @@ exports[`Project List render 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
               style="--text-line-clamp: 1;"
             >
-              Drone
+              Drone_Data_Supplier
             </p>
           </div>
         </div>
@@ -1501,7 +1312,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
+        style="width: 20%;"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main org StyledProps--color StyledProps--color-black"
@@ -1511,7 +1322,76 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 20%;"
+        style="width: 15%;"
+      >
+        <div
+          class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
+        >
+          <div
+            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="AvatarGroup--stack"
+            style="--avatar-over-lap: -13px;"
+          >
+            <div
+              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+            >
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                    tabindex="0"
+                  >
+                    +
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
+          >
+            No Collaborators
+          </p>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -1701,91 +1581,6 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="activity"
-          >
-            <svg
-              height="16"
-              width="16"
-            >
-              <path
-                d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                fill="#1D76FF"
-              />
-            </svg>
-          </span>
-          dummy date
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
         style="width: 5%;"
       >
         <div
@@ -1807,36 +1602,17 @@ exports[`Project List render 1`] = `
                   data-icon="Options"
                 >
                   <svg
-                    height="24"
-                    width="24"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 4 16"
+                    width="16"
                   >
-                    <defs>
-                      <path
-                        d="M0 0h24v24H0z"
-                        id="Options_svg__a"
-                      />
-                    </defs>
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <mask
-                        fill="#fff"
-                        id="Options_svg__b"
-                      >
-                        <use
-                          xlink:href="#Options_svg__a"
-                        />
-                      </mask>
-                      <path
-                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                        mask="url(#Options_svg__b)"
-                        stroke="#25A6F7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="rotate(90 12 12)"
-                      />
-                    </g>
+                    />
                   </svg>
                 </span>
               </button>
@@ -1852,7 +1628,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 25%;"
+        style="width: 30%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1908,10 +1684,10 @@ exports[`Project List render 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font Text--lineclamp StyledProps--main project StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
               style="--text-line-clamp: 1;"
             >
-              Swagger 2.0
+              Swagger
             </p>
           </div>
         </div>
@@ -1919,7 +1695,7 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
+        style="width: 20%;"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main org StyledProps--color StyledProps--color-black"
@@ -1929,7 +1705,76 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 20%;"
+        style="width: 15%;"
+      >
+        <div
+          class="AvatarGroup--stack"
+          style="--avatar-over-lap: -13px;"
+        >
+          <div
+            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                  tabindex="0"
+                >
+                  +
+                </div>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="AvatarGroup--stack"
+            style="--avatar-over-lap: -13px;"
+          >
+            <div
+              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+            >
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                    tabindex="0"
+                  >
+                    +
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
+          >
+            No Collaborators
+          </p>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -1975,91 +1820,6 @@ exports[`Project List render 1`] = `
       <div
         class="cell"
         role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="activity"
-          >
-            <svg
-              height="16"
-              width="16"
-            >
-              <path
-                d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                fill="#1D76FF"
-              />
-            </svg>
-          </span>
-          dummy date
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 10%;"
-      >
-        <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
         style="width: 5%;"
       >
         <div
@@ -2081,36 +1841,17 @@ exports[`Project List render 1`] = `
                   data-icon="Options"
                 >
                   <svg
-                    height="24"
-                    width="24"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 4 16"
+                    width="16"
                   >
-                    <defs>
-                      <path
-                        d="M0 0h24v24H0z"
-                        id="Options_svg__a"
-                      />
-                    </defs>
-                    <g
-                      fill="none"
+                    <path
+                      clip-rule="evenodd"
+                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                      fill="currentColor"
                       fill-rule="evenodd"
-                    >
-                      <mask
-                        fill="#fff"
-                        id="Options_svg__b"
-                      >
-                        <use
-                          xlink:href="#Options_svg__a"
-                        />
-                      </mask>
-                      <path
-                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                        mask="url(#Options_svg__b)"
-                        stroke="#25A6F7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="rotate(90 12 12)"
-                      />
-                    </g>
+                    />
                   </svg>
                 </span>
               </button>

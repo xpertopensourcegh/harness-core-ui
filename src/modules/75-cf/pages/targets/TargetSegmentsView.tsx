@@ -50,7 +50,6 @@ const UsedByCell: React.FC<any> = withSegment(({ segment, actions }: TableData) 
         <Button
           minimal
           icon="Options"
-          iconProps={{ size: 24 }}
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>
               <Menu.Item icon="edit" text={getString('edit')} onClick={() => onEdit(segment.identifier)} />

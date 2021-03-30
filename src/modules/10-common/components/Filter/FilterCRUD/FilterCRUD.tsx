@@ -247,7 +247,6 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
           id={`filtermenu-${filter?.identifier}`}
           minimal
           icon="Options"
-          iconProps={{ size: 20 }}
           onClick={e => {
             e.stopPropagation()
           }}

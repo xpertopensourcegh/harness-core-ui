@@ -3,6 +3,11 @@
   height: calc(100vh - 128px);
 }
 
+.masonry {
+  width: 1155px;
+  margin: 0 auto !important;
+}
+
 .search {
   margin-right: var(--spacing-small) !important;
   height: var(--spacing-xxlarge) !important;

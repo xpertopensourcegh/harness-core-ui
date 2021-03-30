@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button, Text, Layout, SelectOption, Link, ExpandingSearchInput } from '@wings-software/uicore'
+import {
+  Button,
+  Text,
+  Layout,
+  SelectOption,
+  Link,
+  ExpandingSearchInput,
+  Color,
+  Container
+} from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
@@ -101,7 +110,7 @@ const ProjectsListPage: React.FC = () => {
   }
 
   return (
-    <>
+    <Container className={css.projectsPage}>
       <Page.Header
         title={i18n.projects}
         content={
@@ -116,112 +125,110 @@ const ProjectsListPage: React.FC = () => {
         }
       />
 
-      <>
-        <Layout.Horizontal className={css.header}>
-          <Layout.Horizontal width="55%">
-            <Button
-              intent="primary"
-              text={i18n.newProject}
-              icon="plus"
-              onClick={() => openProjectModal()}
-              // disabled={!canCreate}
-            />
-          </Layout.Horizontal>
+      <Layout.Horizontal spacing="large" className={css.header}>
+        <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
 
-          <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
-            <Layout.Horizontal flex>
-              <ExpandingSearchInput
-                placeholder={i18n.search}
-                onChange={text => {
-                  setSearchParam(text.trim())
-                }}
-                className={css.search}
-              />
-            </Layout.Horizontal>
-
-            <Text>{i18n.tabOrgs}</Text>
-            <CustomSelect
-              items={organizations}
-              filterable={false}
-              itemRenderer={(item, { handleClick }) => (
-                <div key={item.value.toString()}>
-                  <Menu.Item text={item.label} onClick={handleClick} />
-                </div>
-              )}
-              onItemSelect={item => {
-                orgFilter = item
-                history.push({
-                  pathname: routes.toProjects({ accountId }),
-                  search: `?orgId=${orgFilter.value.toString()}`
-                })
-              }}
-              popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-            >
-              <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
-            </CustomSelect>
-
-            <Layout.Horizontal inline>
-              <Button
-                minimal
-                icon="grid-view"
-                intent={view === Views.GRID ? 'primary' : 'none'}
-                onClick={() => {
-                  setView(Views.GRID)
-                }}
-              />
-              <Button
-                minimal
-                icon="list"
-                intent={view === Views.LIST ? 'primary' : 'none'}
-                onClick={() => {
-                  setView(Views.LIST)
-                }}
-              />
-            </Layout.Horizontal>
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-        <Page.Body
-          loading={loading}
-          retryOnError={() => refetch()}
-          error={(error?.data as Error)?.message || error?.message}
-          noData={
-            !searchParam && openProjectModal
-              ? {
-                  when: () => !data?.data?.content?.length,
-                  icon: 'nav-project',
-                  message: getString('projectDescription'),
-                  buttonText: getString('addProject'),
-                  onClick: () => openProjectModal?.()
-                }
-              : {
-                  when: () => !data?.data?.content?.length,
-                  icon: 'nav-project',
-                  message: getString('noProjects')
-                }
-          }
-          className={css.pageContainer}
+        <CustomSelect
+          items={organizations}
+          filterable={false}
+          itemRenderer={(item, { handleClick }) => (
+            <div key={item.value.toString()}>
+              <Menu.Item text={item.label} onClick={handleClick} />
+            </div>
+          )}
+          onItemSelect={item => {
+            orgFilter = item
+            history.push({
+              pathname: routes.toProjects({ accountId }),
+              search: `?orgId=${orgFilter.value.toString()}`
+            })
+          }}
+          popoverProps={{ minimal: true, popoverClassName: css.customselect }}
         >
-          {view === Views.GRID ? (
-            <ProjectsGridView
-              data={data}
-              showEditProject={showEditProject}
-              collaborators={showCollaborators}
-              reloadPage={refetch}
-              gotoPage={(pageNumber: number) => setPage(pageNumber)}
-            />
-          ) : null}
-          {view === Views.LIST ? (
-            <ProjectsListView
-              data={data}
-              showEditProject={showEditProject}
-              collaborators={showCollaborators}
-              reloadPage={refetch}
-              gotoPage={(pageNumber: number) => setPage(pageNumber)}
-            />
-          ) : null}
-        </Page.Body>
-      </>
-    </>
+          <Button
+            inline
+            round
+            rightIcon="chevron-down"
+            className={css.orgSelect}
+            text={
+              <Layout.Horizontal spacing="xsmall">
+                <Text color={Color.BLACK}>{i18n.tabOrgs}</Text>
+                <Text>{orgFilter.label}</Text>
+              </Layout.Horizontal>
+            }
+          />
+        </CustomSelect>
+
+        <div style={{ flex: 1 }}></div>
+
+        <ExpandingSearchInput
+          placeholder={i18n.search}
+          onChange={text => {
+            setSearchParam(text.trim())
+          }}
+          className={css.search}
+        />
+
+        <Layout.Horizontal>
+          <Button
+            minimal
+            icon="grid-view"
+            intent={view === Views.GRID ? 'primary' : 'none'}
+            onClick={() => {
+              setView(Views.GRID)
+            }}
+          />
+          <Button
+            minimal
+            icon="list"
+            intent={view === Views.LIST ? 'primary' : 'none'}
+            onClick={() => {
+              setView(Views.LIST)
+            }}
+          />
+        </Layout.Horizontal>
+      </Layout.Horizontal>
+
+      <Page.Body
+        loading={loading}
+        retryOnError={() => refetch()}
+        error={(error?.data as Error)?.message || error?.message}
+        noData={
+          !searchParam && openProjectModal
+            ? {
+                when: () => !data?.data?.content?.length,
+                icon: 'nav-project',
+                message: getString('projectDescription'),
+                buttonText: getString('addProject'),
+                onClick: () => openProjectModal?.()
+              }
+            : {
+                when: () => !data?.data?.content?.length,
+                icon: 'nav-project',
+                message: getString('noProjects')
+              }
+        }
+      >
+        {view === Views.GRID ? (
+          <ProjectsGridView
+            data={data}
+            showEditProject={showEditProject}
+            collaborators={showCollaborators}
+            reloadPage={refetch}
+            gotoPage={(pageNumber: number) => setPage(pageNumber)}
+          />
+        ) : null}
+        {view === Views.LIST ? (
+          <ProjectsListView
+            data={data}
+            showEditProject={showEditProject}
+            collaborators={showCollaborators}
+            reloadPage={refetch}
+            gotoPage={(pageNumber: number) => setPage(pageNumber)}
+          />
+        ) : null}
+      </Page.Body>
+    </Container>
   )
 }
 

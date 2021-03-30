@@ -640,7 +640,7 @@ const CFSegmentDetailsPage = () => {
           <Text color={Color.BLUE_500} onClick={history.goBack} style={{ cursor: 'pointer' }}>
             Targets: Segments /
           </Text>
-          <Icon name="Options" size={24} />
+          <Icon name="Options" />
         </Container>
         <Container
           width="100%"

@@ -1,10 +1,7 @@
-.centerContainer {
-  overflow: scroll;
-  height: calc(100%) !important;
-}
-
 .masonry {
-  height: calc(100vh - 128px - 64px);
+  min-height: calc(100vh - var(--page-header-height) - 64px);
+  width: 1155px;
+  margin: 0 auto !important;
 }
 
 .pagination {

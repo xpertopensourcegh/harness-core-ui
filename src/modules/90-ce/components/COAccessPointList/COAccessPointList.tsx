@@ -187,7 +187,6 @@ const COAccessPointList: React.FC = () => {
   //         <Button
   //           minimal
   //           icon="Options"
-  //           iconProps={{ size: 24 }}
   //           onClick={e => {
   //             e.stopPropagation()
   //             setMenuOpen(true)

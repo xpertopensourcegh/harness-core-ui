@@ -82,7 +82,7 @@ describe('Secrets List', () => {
     expect(container.querySelectorAll('div.row').length).toBe(4)
   })
   test('Edit SSH', async () => {
-    const menu = container?.querySelectorAll("[id='Options_svg__a']")[0]
+    const menu = container?.querySelector("[data-icon='Options']")
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
     const edit = getByText(popover as HTMLElement, 'Edit')
@@ -93,7 +93,7 @@ describe('Secrets List', () => {
     expect(form).toBeTruthy()
   })
   test('Delete SSH', async () => {
-    const menu = container?.querySelectorAll("[id='Options_svg__a']")[0]
+    const menu = container?.querySelector("[data-icon='Options']")
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
     const deleteButton = getByText(popover as HTMLElement, 'Delete')

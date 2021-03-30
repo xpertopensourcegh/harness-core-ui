@@ -382,10 +382,12 @@ exports[`About Project test create project  1`] = `
                     Project Name
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
-                  />
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall"
+                  >
+                    
+                  </p>
                   <div
-                    class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
                     <div
                       class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
@@ -395,41 +397,13 @@ exports[`About Project test create project  1`] = `
                     class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium"
                   >
                     <div
-                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-right-large"
+                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
-                      <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
-                      >
-                        <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                        >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
-                          >
-                            <span
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
-                              >
-                                +
-                              </div>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small"
                       >
                         Admin 
                       </p>
-                    </div>
-                    <div
-                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                    >
                       <div
                         class="AvatarGroup--stack projectAvatarGroup"
                         style="--avatar-over-lap: -13px;"
@@ -454,11 +428,39 @@ exports[`About Project test create project  1`] = `
                           </span>
                         </div>
                       </div>
+                    </div>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                    >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small"
                       >
                         Collaborators 
                       </p>
+                      <div
+                        class="AvatarGroup--stack projectAvatarGroup"
+                        style="--avatar-over-lap: -13px;"
+                      >
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        >
+                          <span
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                +
+                              </div>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -469,7 +471,7 @@ exports[`About Project test create project  1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules enabled
+                  No modules-specific data
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1090,16 +1092,18 @@ exports[`About Project test create project  2`] = `
                     dummy name
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
-                  />
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall"
+                  >
+                    dummy_name
+                  </p>
                   <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-medium"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-small"
                     style="--text-line-clamp: 2;"
                   >
                      This is new description
                   </p>
                   <div
-                    class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
                     <div
                       class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
@@ -1109,41 +1113,13 @@ exports[`About Project test create project  2`] = `
                     class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium"
                   >
                     <div
-                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-right-large"
+                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
-                      <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
-                      >
-                        <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                        >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
-                          >
-                            <span
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
-                              >
-                                +
-                              </div>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small"
                       >
                         Admin 
                       </p>
-                    </div>
-                    <div
-                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                    >
                       <div
                         class="AvatarGroup--stack projectAvatarGroup"
                         style="--avatar-over-lap: -13px;"
@@ -1168,11 +1144,39 @@ exports[`About Project test create project  2`] = `
                           </span>
                         </div>
                       </div>
+                    </div>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                    >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small"
                       >
                         Collaborators 
                       </p>
+                      <div
+                        class="AvatarGroup--stack projectAvatarGroup"
+                        style="--avatar-over-lap: -13px;"
+                      >
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        >
+                          <span
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                +
+                              </div>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1183,7 +1187,7 @@ exports[`About Project test create project  2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules enabled
+                  No modules-specific data
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"

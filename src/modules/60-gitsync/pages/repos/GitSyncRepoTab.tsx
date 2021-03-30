@@ -54,7 +54,6 @@ const GitSyncRepoTab: React.FC = () => {
         <Button
           minimal
           icon="Options"
-          iconProps={{ size: 20 }}
           onClick={e => {
             e.stopPropagation()
           }}

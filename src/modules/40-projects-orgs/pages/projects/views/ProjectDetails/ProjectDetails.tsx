@@ -141,7 +141,6 @@ const ProjectDetails: React.FC = () => {
               <Button
                 minimal
                 icon="Options"
-                iconProps={{ size: 24 }}
                 onClick={e => {
                   e.stopPropagation()
                   setMenuOpen(true)
@@ -160,7 +159,7 @@ const ProjectDetails: React.FC = () => {
         }
         className={css.header}
       />
-      <Page.Body filled className={css.pageHeight}>
+      <Page.Body>
         <Layout.Horizontal>
           <div>
             <Container padding="xxlarge" className={css.enabledModules}>

@@ -153,7 +153,6 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
         <Button
           minimal
           icon="Options"
-          iconProps={{ size: 24 }}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)

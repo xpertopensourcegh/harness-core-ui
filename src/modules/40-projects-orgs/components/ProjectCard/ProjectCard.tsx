@@ -106,20 +106,36 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
               {getString('projectCard.projectName')}
             </Text>
           ) : null}
-          {harnessManagedOrg ? null : <Text font={{ size: 'small', weight: 'bold' }}>{organization?.name}</Text>}
+          <Text font={{ size: 'small' }} margin={{ top: 'xsmall' }}>
+            {data.identifier}
+          </Text>
+          {harnessManagedOrg || isPreview ? null : (
+            <Container
+              padding="xsmall"
+              margin={{ top: 'xsmall' }}
+              border={{ color: Color.GREY_200 }}
+              flex={{ inline: true }}
+            >
+              <Text font={{ size: 'small' }} margin={{ right: 'xsmall' }}>{`${getString('orgLabel')}:`}</Text>
+              <Text font={{ size: 'small', weight: 'bold' }}>{organization?.name}</Text>
+            </Container>
+          )}
           {data.description ? (
-            <Text font="small" lineClamp={2} padding={{ top: 'medium' }}>
+            <Text font="small" lineClamp={2} padding={{ top: 'small' }}>
               {data.description}
             </Text>
           ) : null}
           {data.tags && (
-            <Container padding={{ top: 'medium' }}>
+            <Container padding={{ top: 'small' }}>
               <TagsRenderer tags={data.tags} length={2} width={150} />
             </Container>
           )}
 
           <Layout.Horizontal padding={{ top: 'medium' }}>
-            <Layout.Vertical padding={{ right: 'large' }} spacing="small">
+            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
+              <Text font="small">{`${getString('adminLabel')} ${
+                adminList?.length ? `(${adminList?.length})` : ``
+              }`}</Text>
               <AvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={adminList?.length ? adminList : [{}]}
@@ -128,11 +144,11 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
               />
-              <Text padding={{ left: 'xsmall' }} font="xsmall">{`${getString('adminLabel')} ${
-                adminList?.length ? `(${adminList?.length})` : ``
-              }`}</Text>
             </Layout.Vertical>
-            <Layout.Vertical spacing="small">
+            <Layout.Vertical spacing="xsmall">
+              <Text font="small">{`${getString('collaboratorsLabel')} ${
+                collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
+              }`}</Text>
               <AvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={collaboratorsList?.length ? collaboratorsList : [{}]}
@@ -142,9 +158,6 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
               />
-              <Text padding={{ left: 'xsmall' }} font="xsmall">{`${getString('collaboratorsLabel')} ${
-                collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
-              }`}</Text>
             </Layout.Vertical>
           </Layout.Horizontal>
         </Container>

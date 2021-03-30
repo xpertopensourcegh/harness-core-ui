@@ -60,7 +60,7 @@ describe('Project Details', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
+    const menu = container.querySelector("[data-icon='Options']")
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
     const edit = getByText(popover as HTMLElement, 'Edit')
@@ -84,7 +84,7 @@ describe('Project Details', () => {
         </TestWrapper>
       )
       expect(container).toMatchSnapshot()
-      const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
+      const menu = container.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const invite = getByText(popover as HTMLElement, 'Invite Collaborators')

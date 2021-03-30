@@ -94,7 +94,7 @@ configureHarnessFolder: 'Configure Harness Folder'
 lastTested: Last Tested
 lastUpdated: Last Updated
 lastConnectionSuccess: Last time connection is successful
-lastActivity: last activity
+lastActivity: Last Activity
 noDetails: No details found
 connecectorHelpHeader: What is a Connector?
 connecectorHelpText: Connectors integrate Harness with your cloud platforms, codebase and artifact repos, and collaboration and monitoring tools.
@@ -1207,7 +1207,7 @@ executionStatus:
 executionList:
   servicesDeployedText: 'Services Deployed ({{size}})'
 moduleRenderer:
-  start: No modules enabled
+  start: No modules-specific data
   newPipeLine: Create New Pipeline
   viewPipelines: View Pipelines
   setupChanges: Set Up Change Sources
@@ -1904,7 +1904,7 @@ cf:
     ID: ID
     name: name
     targetSegment: Target Segment
-    lastActivity: 'Last Activity'
+    lastActivity: '{{ $.lastActivity }}'
     createdDate: Created Date
     create: + Target(s)
     list: Add a target

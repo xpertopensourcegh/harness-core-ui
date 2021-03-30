@@ -6,7 +6,6 @@ declare const styles: {
   readonly title: string
   readonly header: string
   readonly enabledModules: string
-  readonly pageHeight: string
   readonly activityCard: string
   readonly projectDetailsAvatarGroup: string
 }

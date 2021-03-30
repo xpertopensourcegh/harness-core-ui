@@ -125,7 +125,7 @@ describe('Project Page List', () => {
     test('Invite Collaborators', async () => {
       const menu = container
         .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
-        ?.querySelector("[icon='more']")
+        ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
@@ -143,7 +143,7 @@ describe('Project Page List', () => {
       deleteProject.mockReset()
       const menu = container
         .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
-        ?.querySelector("[icon='more']")
+        ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'Delete')
@@ -160,7 +160,7 @@ describe('Project Page List', () => {
     test('Edit Project', async () => {
       const menu = container
         .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
-        ?.querySelector("[icon='more']")
+        ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const edit = getByText(popover as HTMLElement, 'Edit')

@@ -75,7 +75,7 @@ describe('Role Details Page', () => {
     test('Edit Role', async () => {
       const menu = container
         .querySelector(`[data-testid="role-card-${rolesMockList.data?.content?.[0].role.identifier}"]`)
-        ?.querySelector("[icon='more']")
+        ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const edit = getByText(popover as HTMLElement, 'Edit')
@@ -91,7 +91,7 @@ describe('Role Details Page', () => {
       deleteRole.mockReset()
       const menu = container
         .querySelector(`[data-testid="role-card-${rolesMockList.data?.content?.[0].role.identifier}"]`)
-        ?.querySelector("[icon='more']")
+        ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'Delete')

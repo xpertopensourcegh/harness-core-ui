@@ -205,8 +205,8 @@ describe('Pipeline List View Test cases', () => {
 
   test('should be able to open menu and run pipeline', async () => {
     // click on first row
-    const menu = listView.querySelectorAll("[icon='more']")[0]
-    fireEvent.click(menu)
+    const menu = listView.querySelector("[data-icon='more']")
+    fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'Run'))
     const runPipelineBtn = getByText(menuContent as HTMLElement, 'Run')
@@ -217,8 +217,8 @@ describe('Pipeline List View Test cases', () => {
 
   test('should be able to open menu and open pipeline studio ', async () => {
     // click on first row
-    const menu = listView.querySelectorAll("[icon='more']")[0]
-    fireEvent.click(menu)
+    const menu = listView.querySelector("[data-icon='more']")
+    fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'Launch Studio'))
     const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Launch Studio')
@@ -231,8 +231,8 @@ describe('Pipeline List View Test cases', () => {
 
   test('should be able to open menu and delete pipeline ', async () => {
     // click on first row
-    const menu = listView.querySelectorAll("[icon='more']")[0]
-    fireEvent.click(menu)
+    const menu = listView.querySelector("[data-icon='more']")
+    fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'Delete'))
     const deleteBtn = getByText(menuContent as HTMLElement, 'Delete')
@@ -274,8 +274,8 @@ describe('Pipeline Card View Test Cases', () => {
 
   test('should be able to open menu and run pipeline', async () => {
     // click on first row
-    const menu = cardView.querySelectorAll("[icon='more']")[0]
-    fireEvent.click(menu)
+    const menu = cardView.querySelector("[data-icon='Options']")
+    fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'Run'))
     const runPipelineBtn = getByText(menuContent as HTMLElement, 'Run')
@@ -286,8 +286,8 @@ describe('Pipeline Card View Test Cases', () => {
 
   test('should be able to open menu and open pipeline studio ', async () => {
     // click on first row
-    const menu = cardView.querySelectorAll("[icon='more']")[0]
-    fireEvent.click(menu)
+    const menu = cardView.querySelector("[data-icon='Options']")
+    fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'Launch Studio'))
     const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Launch Studio')
@@ -300,8 +300,8 @@ describe('Pipeline Card View Test Cases', () => {
 
   test('should be able to open menu and delete pipeline ', async () => {
     // click on first row
-    const menu = cardView.querySelectorAll("[icon='more']")[0]
-    fireEvent.click(menu)
+    const menu = cardView.querySelector("[data-icon='Options']")
+    fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'Delete'))
     const deleteBtn = getByText(menuContent as HTMLElement, 'Delete')

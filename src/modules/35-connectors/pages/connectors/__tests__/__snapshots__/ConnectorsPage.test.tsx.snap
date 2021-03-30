@@ -729,36 +729,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -977,36 +958,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -1192,36 +1154,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -1452,36 +1395,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -1693,36 +1617,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -1922,36 +1827,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -2197,36 +2083,17 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -2838,36 +2705,17 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                   data-icon="Options"
                                 >
                                   <svg
-                                    height="20"
-                                    width="20"
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 4 16"
+                                    width="16"
                                   >
-                                    <defs>
-                                      <path
-                                        d="M0 0h24v24H0z"
-                                        id="Options_svg__a"
-                                      />
-                                    </defs>
-                                    <g
-                                      fill="none"
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                                      fill="currentColor"
                                       fill-rule="evenodd"
-                                    >
-                                      <mask
-                                        fill="#fff"
-                                        id="Options_svg__b"
-                                      >
-                                        <use
-                                          xlink:href="#Options_svg__a"
-                                        />
-                                      </mask>
-                                      <path
-                                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                                        mask="url(#Options_svg__b)"
-                                        stroke="#25A6F7"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        transform="rotate(90 12 12)"
-                                      />
-                                    </g>
+                                    />
                                   </svg>
                                 </span>
                               </button>
@@ -2924,36 +2772,17 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                   data-icon="Options"
                                 >
                                   <svg
-                                    height="20"
-                                    width="20"
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 4 16"
+                                    width="16"
                                   >
-                                    <defs>
-                                      <path
-                                        d="M0 0h24v24H0z"
-                                        id="Options_svg__a"
-                                      />
-                                    </defs>
-                                    <g
-                                      fill="none"
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                                      fill="currentColor"
                                       fill-rule="evenodd"
-                                    >
-                                      <mask
-                                        fill="#fff"
-                                        id="Options_svg__b"
-                                      >
-                                        <use
-                                          xlink:href="#Options_svg__a"
-                                        />
-                                      </mask>
-                                      <path
-                                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                                        mask="url(#Options_svg__b)"
-                                        stroke="#25A6F7"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        transform="rotate(90 12 12)"
-                                      />
-                                    </g>
+                                    />
                                   </svg>
                                 </span>
                               </button>
@@ -3410,36 +3239,17 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                   data-icon="Options"
                                 >
                                   <svg
-                                    height="20"
-                                    width="20"
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 4 16"
+                                    width="16"
                                   >
-                                    <defs>
-                                      <path
-                                        d="M0 0h24v24H0z"
-                                        id="Options_svg__a"
-                                      />
-                                    </defs>
-                                    <g
-                                      fill="none"
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                                      fill="currentColor"
                                       fill-rule="evenodd"
-                                    >
-                                      <mask
-                                        fill="#fff"
-                                        id="Options_svg__b"
-                                      >
-                                        <use
-                                          xlink:href="#Options_svg__a"
-                                        />
-                                      </mask>
-                                      <path
-                                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                                        mask="url(#Options_svg__b)"
-                                        stroke="#25A6F7"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        transform="rotate(90 12 12)"
-                                      />
-                                    </g>
+                                    />
                                   </svg>
                                 </span>
                               </button>
@@ -3496,36 +3306,17 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                   data-icon="Options"
                                 >
                                   <svg
-                                    height="20"
-                                    width="20"
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 4 16"
+                                    width="16"
                                   >
-                                    <defs>
-                                      <path
-                                        d="M0 0h24v24H0z"
-                                        id="Options_svg__a"
-                                      />
-                                    </defs>
-                                    <g
-                                      fill="none"
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                                      fill="currentColor"
                                       fill-rule="evenodd"
-                                    >
-                                      <mask
-                                        fill="#fff"
-                                        id="Options_svg__b"
-                                      >
-                                        <use
-                                          xlink:href="#Options_svg__a"
-                                        />
-                                      </mask>
-                                      <path
-                                        d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                                        mask="url(#Options_svg__b)"
-                                        stroke="#25A6F7"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        transform="rotate(90 12 12)"
-                                      />
-                                    </g>
+                                    />
                                   </svg>
                                 </span>
                               </button>
@@ -4118,36 +3909,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -4366,36 +4138,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -4581,36 +4334,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -4841,36 +4575,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -5082,36 +4797,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -5311,36 +5007,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>
@@ -5586,36 +5263,17 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       data-icon="Options"
                     >
                       <svg
-                        height="20"
-                        width="20"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
                       >
-                        <defs>
-                          <path
-                            d="M0 0h24v24H0z"
-                            id="Options_svg__a"
-                          />
-                        </defs>
-                        <g
-                          fill="none"
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
                           fill-rule="evenodd"
-                        >
-                          <mask
-                            fill="#fff"
-                            id="Options_svg__b"
-                          >
-                            <use
-                              xlink:href="#Options_svg__a"
-                            />
-                          </mask>
-                          <path
-                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                            mask="url(#Options_svg__b)"
-                            stroke="#25A6F7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            transform="rotate(90 12 12)"
-                          />
-                        </g>
+                        />
                       </svg>
                     </span>
                   </button>

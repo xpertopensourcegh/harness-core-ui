@@ -77,7 +77,6 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
         data-testid={`resourceGroupDetailsEditMenu${data.resourceGroup?.identifier}`}
         minimal
         icon="Options"
-        iconProps={{ size: 20 }}
         onClick={e => {
           e.stopPropagation()
           setMenuOpen(true)

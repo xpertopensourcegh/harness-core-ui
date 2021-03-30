@@ -21,7 +21,6 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
         <Layout.Masonry
           center
           gutter={25}
-          className={css.centerContainer}
           items={data?.data?.content || []}
           renderItem={(projectDTO: ProjectAggregateDTO) => (
             <ProjectCard
