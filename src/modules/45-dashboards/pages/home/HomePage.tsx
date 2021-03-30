@@ -44,19 +44,6 @@ interface DashboardInterface {
   favorite_count?: number | undefined
 }
 
-const i18n: { [key: string]: string } = {
-  'AWS Cost Dashboard':
-    'AWS Cost Dashboard allows you to view your AWS cloud costs at a glance, understand what is costing the most, and analyze cost trends',
-  'GCP Cost Dashboard':
-    'GCP Cost Dashboard allows you to view your GCP cloud costs at a glance, understand what is costing the most, and analyze cost trends',
-  'Cluster Cost Dashboard':
-    'Cluster Cost Dashboard allows you to view your cluster cloud costs at a glance, understand what is costing the most, and analyze cost trends',
-  'Multi-cloud Cost Overview Dashboard':
-    'Multi-cloud Cost Dashboard provides a unified view of your cloud cost data across the cloud environment',
-  'AWS Reservation Efficiency':
-    'AWS reservation efficiency report contains the detail of how reserved instances are utilized. It tracks your AWS usage across your AWS account and provides detail of how efficient is your reserved instance usage'
-}
-
 const FirstStep = (props: any): JSX.Element => {
   const { getString } = useStrings()
   const { accountId } = useParams()
@@ -212,13 +199,6 @@ const HomePage: React.FC = () => {
 
   React.useEffect(() => {
     if (dashboardList) {
-      if (dashboardList?.resource?.list) {
-        dashboardList?.resource?.list.map((x: DashboardInterface) => {
-          if (x.type === 'SHARED') {
-            x['description'] = i18n[x['title']]
-          }
-        })
-      }
       _setDashboardList(dashboardList?.resource?.list)
       setFilteredList(dashboardList?.resource?.list)
     }
@@ -406,11 +386,6 @@ const HomePage: React.FC = () => {
                       {dashboard?.description && (
                         <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
                           {dashboard?.description}
-                        </Text>
-                      )}
-                      {!dashboard?.description && (
-                        <Text color={Color.GREY_350} style={{ lineHeight: '20px' }}>
-                          {i18n[dashboard?.title]}
                         </Text>
                       )}
                       <Layout.Horizontal spacing="medium">
