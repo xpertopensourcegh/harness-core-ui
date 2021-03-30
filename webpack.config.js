@@ -27,7 +27,7 @@ const config = {
     chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
     pathinfo: false
   },
-  devtool: DEV ? 'cheap-module-source-map' : 'none',
+  devtool: DEV ? 'cheap-module-source-map' : false,
   devServer: {
     contentBase: false,
     port: 8181,
@@ -56,10 +56,11 @@ const config = {
     modules: false,
     children: false
   },
+  cache: DEV ? { type: 'filesystem' } : false,
   module: {
     rules: [
       {
-        test: /\.mjs$/,
+        test: /\.m?js$/,
         include: /node_modules/,
         type: 'javascript/auto'
       },
@@ -92,9 +93,9 @@ const config = {
               importLoaders: 1,
               modules: {
                 mode: 'local',
-                localIdentName: DEV ? '[name]_[local]_[hash:base64:6]' : '[hash:base64:6]'
-              },
-              localsConvention: 'camelCaseOnly'
+                localIdentName: DEV ? '[name]_[local]_[hash:base64:6]' : '[hash:base64:6]',
+                exportLocalsConvention: 'camelCaseOnly'
+              }
             }
           },
           {
@@ -157,10 +158,7 @@ const config = {
         type: 'json',
         use: [
           {
-            loader: 'yaml-loader',
-            options: {
-              asJson: true
-            }
+            loader: 'yaml-loader'
           }
         ]
       }
@@ -189,6 +187,7 @@ const commonPlugins = [
   }),
   new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
   new webpack.DefinePlugin({
+    'process.env': '{}', // required for @blueprintjs/core
     __DEV__: DEV
   }),
   new MonacoWebpackPlugin({
@@ -198,7 +197,7 @@ const commonPlugins = [
 ]
 
 const devOnlyPlugins = [
-  new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' }),
+  new ForkTsCheckerWebpackPlugin(),
   new CircularDependencyPlugin({
     exclude: /node_modules/,
     failOnError: true
