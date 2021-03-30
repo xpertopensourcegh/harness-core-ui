@@ -66,7 +66,7 @@ export const DelegateSelectors = (
           }}
           validateNewTag={(tag: string) => {
             const pattern = new RegExp('^[a-z0-9-${}]+$', 'i')
-            const validTag = new RegExp('^[a-z0-9-${}._]+$', 'i').test(tag)
+            const validTag = new RegExp('^[a-z0-9-${}._<>+]+$', 'i').test(tag)
             const tagChars = tag.split('')
             const validExpression = isValidExpression(
               tag,

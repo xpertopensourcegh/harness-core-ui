@@ -116,8 +116,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
       if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
         delete node.failureStrategies
-      if (node.delegateSelectors && !item.delegateSelectors && item.tab === TabTypes.Advanced)
-        delete node.deletegateSelectors
+      if (
+        node.spec?.delegateSelectors &&
+        node.spec.delegateSelectors.length > 0 &&
+        (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
+        item.tab === TabTypes.Advanced
+      ) {
+        delete node.spec.delegateSelectors
+      }
 
       if (item.spec && item.tab !== TabTypes.Advanced) {
         node.spec = { ...item.spec }
