@@ -120,7 +120,6 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
         initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
           chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
-          chartVersion: Yup.string().trim().required(getString('manifestType.http.chartVersionRequired')),
           helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
