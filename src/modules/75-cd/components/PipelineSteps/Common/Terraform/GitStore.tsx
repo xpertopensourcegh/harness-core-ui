@@ -39,6 +39,10 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
     accountId: string
   }>()
 
+  React.useEffect(() => {
+    formik.setFieldValue('spec.configuration.spec.configFiles.store.type', 'Git')
+  }, [])
+
   const connectorValue = formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
 
   return (

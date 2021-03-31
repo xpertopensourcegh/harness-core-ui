@@ -20,6 +20,7 @@ import { HelmRollback } from './HelmRollback/HelmRollback'
 import { TerraformRollback } from './TerraformRollback/TerraformRollback'
 import { TerraformDestroy } from './TerraformDestroy/TerraformDestroy'
 import { TerraformPlan } from './TerraformPlan/TerraformPlan'
+import { TerraformApply } from './TerraformApply/TerraformApply'
 import { InfraProvisioning } from './InfraProvisioning/InfraProvisioning'
 
 factory.registerStep(new HttpStep())
@@ -41,5 +42,6 @@ factory.registerStep(new HelmDeploy())
 factory.registerStep(new HelmRollback())
 factory.registerStep(new TerraformRollback())
 factory.registerStep(new TerraformDestroy())
+factory.registerStep(new TerraformApply())
 factory.registerStep(new TerraformPlan())
 factory.registerStep(new InfraProvisioning())

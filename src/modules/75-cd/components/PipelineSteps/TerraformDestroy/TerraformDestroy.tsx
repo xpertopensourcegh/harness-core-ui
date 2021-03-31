@@ -8,7 +8,8 @@ import {
   Accordion,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
@@ -74,7 +75,11 @@ function TerraformDestroyWidget(
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-
+  const configurationTypes: SelectOption[] = [
+    { label: getString('inline'), value: ConfigurationTypes.Inline },
+    { label: getString('pipelineSteps.configTypes.0.label'), value: ConfigurationTypes.InheritFromPlan },
+    { label: getString('pipelineSteps.configTypes.1.label'), value: ConfigurationTypes.InheritFromApply }
+  ]
   return (
     <>
       <Formik<TerraformData>
@@ -133,7 +138,7 @@ function TerraformDestroyWidget(
                     isIdentifierEditable={isEmpty(initialValues.identifier)}
                   />
                 </div>
-                <BaseForm formik={formik} />
+                <BaseForm formik={formik} configurationTypes={configurationTypes} />
 
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField

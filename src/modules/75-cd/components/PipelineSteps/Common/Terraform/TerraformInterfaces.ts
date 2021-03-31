@@ -21,7 +21,10 @@ export interface EnvironmentVar {
 }
 
 export interface BackendConfig {
-  content?: string
+  type: string
+  spec: {
+    content?: string
+  }
 }
 export interface VarFileArray {
   type?: string
@@ -50,7 +53,7 @@ export interface TerraformData extends StepElementConfig {
         workspace?: string
         configFiles?: {
           store?: {
-            type: string
+            type?: string
             spec?: {
               gitFetchType?: string
               branch?: string

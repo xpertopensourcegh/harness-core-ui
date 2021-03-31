@@ -12,6 +12,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface BaseFormProps {
   formik: FormikProps<TerraformData>
+  configurationTypes: SelectOption[]
 }
 
 export default function GitStore(props: BaseFormProps): React.ReactElement {

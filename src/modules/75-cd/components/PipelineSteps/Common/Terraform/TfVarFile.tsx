@@ -232,7 +232,19 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     intent={'primary'}
                     text={getString('addFile')}
                     onClick={() => {
-                      props.onSubmit(formik.values)
+                      const tfValues = formik.values
+                      if (formik.values.type === TerraformStoreTypes.Remote) {
+                        const payload = {
+                          ...tfValues,
+                          store: {
+                            type: 'Git',
+                            ...formik.values.store
+                          }
+                        }
+                        props.onSubmit(payload)
+                      } else {
+                        props.onSubmit(formik.values)
+                      }
                     }}
                   />
                   <Button text={getString('cancel')} onClick={props.onHide} />
