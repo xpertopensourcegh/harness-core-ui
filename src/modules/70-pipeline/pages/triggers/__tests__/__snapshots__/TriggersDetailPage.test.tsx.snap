@@ -254,6 +254,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+              style="overflow-x: hidden;"
             >
               <p
                 class="StyledProps--font StyledProps--main"

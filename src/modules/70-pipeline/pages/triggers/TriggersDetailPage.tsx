@@ -239,7 +239,7 @@ export default function TriggersDetailPage(): JSX.Element {
                 </Card>
                 <Card interactive={false} elevation={0} selected={false} className={css.inputSet}>
                   <Text font={{ size: 'medium', weight: 'bold' }}>{getString('details')}</Text>
-                  <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
+                  <Layout.Vertical style={{ overflowX: 'hidden' }} spacing="medium" padding={{ top: 'medium' }}>
                     {conditionsArr.length ? (
                       <>
                         <Text>{getString('conditions')}</Text>
