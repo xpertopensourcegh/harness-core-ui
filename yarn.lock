@@ -4172,12 +4172,12 @@
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.3.0.tgz#2730c770f5f1f132767c63dcaaa4ec28f8c56a6c"
   integrity sha512-k2p2VrONcYVX1wRRrf0f3X2VGltLWcv+JzXRBDmvCxGlCeESx4OXw91TsWeKOkp784uNoVQo313vxJFHXPPwfw==
 
-"@wings-software/css-types-loader@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@wings-software/css-types-loader/1.0.0/22e4e051e3b71f40b5da558d628afebfdf8a50018cd2781098757f01d94e7eef#704b8a903e5d5fb2038992a8e61d65d556753b7c"
-  integrity "sha1-cEuKkD5dX7IDiZKo5h1l1VZ1O3w= sha512-ws4LZQsfj2oTdZu+fl/4f2HJEyelY5WahbnkjFBkUySEL8YRx2GBzuFgJ8w2jUmoIChQbMgZsAto7G0ZVxvzDA=="
+"@wings-software/css-types-loader@^2.1.0":
+  version "2.1.0"
+  resolved "https://npm.pkg.github.com/download/@wings-software/css-types-loader/2.1.0/d3e96804e38fb3a1cfcf5b7db7161d9b14b6a37cdac1035db572957a576040f5#4f151c80368fa3d947af0ac38199af22f9a21feb"
+  integrity sha512-vwpG6w1r+U+T5ou33dX5jo5NU5OreDWyhCbNCkDI0J2MJE/WMlY5yrpqsbven49qAFwneENr50vqVLw2qsdzfQ==
   dependencies:
-    loader-utils "^1.2.3"
+    loader-utils "^2.0.0"
 
 "@wings-software/jarvis@0.11.0":
   version "0.11.0"

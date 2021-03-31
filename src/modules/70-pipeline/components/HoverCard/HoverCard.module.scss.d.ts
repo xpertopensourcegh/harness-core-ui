@@ -9,5 +9,10 @@ declare const styles: {
   readonly statusLabel: string
   readonly timeElapsed: string
   readonly time: string
+  readonly section: string
+  readonly borderSectionEnd: string
+  readonly sectionHeading: string
+  readonly sectionData: string
+  readonly sectionGrid: string
 }
 export default styles

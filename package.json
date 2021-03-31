@@ -147,7 +147,7 @@
     "@types/yup": "^0.29.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
-    "@wings-software/css-types-loader": "^1.0.0",
+    "@wings-software/css-types-loader": "^2.1.0",
     "@wings-software/jarvis": "0.11.0",
     "@wings-software/swagger-ts": "1.55003.0",
     "babel-loader": "^8.2.2",

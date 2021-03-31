@@ -10,12 +10,11 @@ declare const styles: {
   readonly stageName: string
   readonly subheading: string
   readonly stagePadLeft: string
-  readonly barriername: string
   readonly spinner: string
   readonly section: string
-  readonly sectionData: string
-  readonly sectionHeading: string
-  readonly sectionGrid: string
   readonly borderSectionEnd: string
+  readonly sectionHeading: string
+  readonly sectionData: string
+  readonly sectionGrid: string
 }
 export default styles
