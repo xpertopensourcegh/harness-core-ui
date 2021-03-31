@@ -4220,10 +4220,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity "sha1-HCsjPS4B2HH61bzncb5aUvSTg1Q= sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ=="
 
-"@wings-software/uicore@0.1.102":
-  version "0.1.102"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.102/562d02b53da1945c7f8e4c5250d8464952837a96df779fa40cc78b64a45bc655#a4b18d945b982ceaa96e4489131e523bedaa337a"
-  integrity sha512-vRlmhtIzZQylg0sFDNkZ2+C5SeWufzrTT38PqcpLq2yNMVQZ1tVwlJMBBD/oYQX4mgZcvXGY/l8ECqKogbed7w==
+"@wings-software/uicore@^0.1.103":
+  version "0.1.103"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.103/c7908f5b74422907f577e2ea864c2f2285034d50f58cb0f94c4bec521f329fb1#0bd4a73c6be47d824964c37c248956a340b0937f"
+  integrity sha512-t/73Ghuq0QvlPzFoRSW7FVb3LeVtd1HKyUsXLY7+3qRh+TVll1e0y1kWpfOE6qawU1RYXq6U6W5tQdBaEaLFxA==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"

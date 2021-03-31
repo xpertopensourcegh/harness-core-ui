@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty, debounce } from 'lodash-es'
+import { isEmpty, debounce, get } from 'lodash-es'
 import { useExecutionLayoutContext, ExecutionStageDiagram } from '@pipeline/exports'
 import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from '@pipeline/exports'
 import { GraphLayoutNode, useGetBarriersExecutionInfo } from 'services/pipeline-ng'
@@ -10,10 +10,12 @@ import {
   ProcessLayoutNodeMapResponse,
   ExecutionPathParams
 } from '@pipeline/utils/executionUtils'
+import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { DynamicPopover } from '@common/exports'
+import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
-import BarrierStageTooltip from './components/BarrierStageTooltip'
+import CDInfo from './components/CD/CDInfo'
 import css from './ExecutionGraph.module.scss'
 
 const processExecutionData = (
@@ -92,24 +94,38 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
 
   const onMouseEnter = (event: any) => {
     const stage = event.stage
+    dynamicPopoverHandler?.show(
+      event.stageTarget,
+      {
+        event,
+        data: stage
+      },
+      { useArrows: true, darkMode: false }
+    )
     const isFinished = stage?.data?.endTs
     const hasStarted = stage?.data?.startTs
     if (!isFinished && hasStarted) {
       setStageSetupIdId(stage?.data?.nodeUuid)
-      dynamicPopoverHandler?.show(
-        event.stageTarget,
-        {
-          event,
-          data: stage
-        },
-        { useArrows: true }
-      )
     }
   }
 
-  const renderPopover = ({ data: popoverData }: { data: { stepType: string; name: string } }): JSX.Element => {
+  const renderPopover = ({
+    data: popoverData
+  }: {
+    data: {
+      identifier: string
+      stepType: string
+      name: string
+      status: ExecutionStatus
+      data: { failureInfo?: { message: string } }
+    }
+  }): JSX.Element => {
     return (
-      <BarrierStageTooltip loading={barrierInfoLoading} stageName={popoverData.name} data={barrierInfoData?.data} />
+      <HoverCard barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData}>
+        {get(popoverData, 'data.module', '') === 'cd' && (
+          <CDInfo barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData} />
+        )}
+      </HoverCard>
     )
   }
 

@@ -11,6 +11,7 @@ import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPop
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { isExecutionPaused, isExecutionRunning } from '@pipeline/utils/statusHelpers'
 import { DynamicPopover } from '@common/exports'
+import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import css from './ExecutionStageDetails.module.scss'
 export interface ExecutionStageDetailsProps {
@@ -64,39 +65,44 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     const currentStage = event.stage
     const isFinished = currentStage?.data?.endTs
     const hasStarted = currentStage?.data?.startTs
+    const status = currentStage?.data?.status
+    dynamicPopoverHandler?.show(
+      event.stageTarget,
+      {
+        event,
+        data: currentStage
+      },
+      { useArrows: true, darkMode: false }
+    )
     if (!isFinished && hasStarted) {
-      if (currentStage?.data?.stepType === StepType.Barrier) {
+      if (currentStage?.data?.stepType === StepType.Barrier && status !== 'Success') {
         setBarrierSetupId(currentStage?.data?.setupId)
-
-        dynamicPopoverHandler?.show(
-          event.stageTarget,
-          {
-            event,
-            data: currentStage
-          },
-          { useArrows: true }
-        )
       }
     }
   }
 
   const renderPopover = ({
-    data: stageInfo
+    data: stepInfo
   }: {
-    data: { data: { stepType: string; startTs: number } }
+    data: { data: { stepType: string; startTs: number; status: string; stepParameters: { identifier: string } } }
   }): JSX.Element => {
-    switch (stageInfo?.data?.stepType) {
-      case StepType.Barrier:
-        return (
+    return (
+      <HoverCard
+        barrier={{
+          barrierInfoLoading,
+          barrierData: barrierInfo?.data
+        }}
+        data={stepInfo}
+      >
+        {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status !== 'Success' && (
           <BarrierStepTooltip
             loading={barrierInfoLoading}
-            data={barrierInfo?.data}
-            startTs={stageInfo?.data?.startTs}
+            data={{ ...barrierInfo?.data, stepParameters: stepInfo?.data?.stepParameters }}
+            startTs={stepInfo?.data?.startTs}
           />
-        )
-      default:
-        return <div />
-    }
+        )}
+      </HoverCard>
+    )
   }
 
   return (

@@ -325,7 +325,7 @@ export const focusRunningNode = <T>(engine: DiagramEngine, data: ExecutionPipeli
 export const getTertiaryIconProps = <T>(stage: ExecutionPipelineItem<T>): { tertiaryIcon?: IconName } => {
   const tertiaryIconProps: { tertiaryIcon?: IconName } = {}
   if (stage?.barrierFound) {
-    tertiaryIconProps.tertiaryIcon = 'barrier-open-wih-links'
+    tertiaryIconProps.tertiaryIcon = 'barrier-open-with-links'
   }
   return tertiaryIconProps
 }

@@ -1,12 +1,21 @@
 .barrierList {
   display: grid;
-  padding: var(--spacing-large);
+  padding: var(--spacing-small) 0;
   grid-row-gap: var(--spacing-large);
   .barrierRow {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 50px 1fr 50px;
     .row {
       grid-template-rows: 1fr 1fr;
+      .barrierData {
+        span {
+          display: inline;
+        }
+      }
+    }
+    .timeout {
+      padding: 0 var(--spacing-xsmall);
+      justify-content: end;
     }
     .timeoutRow {
       background: var(--pipeline-barrier);
@@ -27,11 +36,25 @@
       padding-left: var(--spacing-xsmall);
     }
   }
-  .barriername {
-    color: #fff;
-  }
 }
 
 .spinner {
   padding: var(--spacing-large);
+}
+.section {
+  padding: var(--spacing-small) 0;
+  &.borderSectionEnd {
+    border-bottom: 1px solid var(--grey-350);
+  }
+  .sectionHeading {
+    font-weight: 500;
+  }
+  .sectionData {
+    font-size: var(--font-size-small);
+    color: var(--grey-color-1);
+  }
+  &.section-grid {
+    display: grid;
+    grid-template-columns: 35px 1fr;
+  }
 }

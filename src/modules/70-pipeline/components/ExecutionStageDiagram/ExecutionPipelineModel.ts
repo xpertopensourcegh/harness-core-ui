@@ -36,6 +36,7 @@ export interface StageOptions extends SelectOption {
 }
 
 export interface ExecutionPipelineItem<T> {
+  [x: string]: any
   iconStyle?: CSSProperties
   iconSize?: number
   identifier: string

@@ -88,7 +88,7 @@ export function StageNode(props: StageNodeProps): React.ReactElement {
       <div className={css.infoPopover}>
         <div className={css.title}>{stage.nodeIdentifier}</div>
         <ExecutionStatusLabel status={stage.status} />
-        {stage?.startTs && (
+        {!!stage?.startTs && (
           <Duration
             padding={{ left: 'small' }}
             durationText=" "

@@ -1,7 +1,7 @@
 .barrierInfo {
   display: grid;
   grid-template-columns: 22px 2fr 1fr;
-  color: #fff;
+  border-bottom: 1px solid var(--grey-350);
   .barrierDetails {
     display: grid;
     grid-template-rows: 1fr 1fr;

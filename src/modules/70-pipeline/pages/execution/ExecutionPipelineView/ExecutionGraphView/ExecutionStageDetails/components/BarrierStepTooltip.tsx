@@ -19,7 +19,7 @@ export default function BarrierStepTooltip(props: BarrierStepTooltipProps): Reac
     : { value: moment.duration(timeDiff, 'milliseconds').get('seconds'), unit: 'sec' }
   const altUnit = 'min'
   const altDuration = moment.duration(props.data?.timeoutIn, 'milliseconds').get('minutes')
-  return props.loading || !props.data ? (
+  return props.loading ? (
     <div className={css.spinner}>
       <Spinner size={40} />
     </div>
@@ -32,7 +32,7 @@ export default function BarrierStepTooltip(props: BarrierStepTooltipProps): Reac
         <div>{props.data?.name}</div>
         <div>
           <String stringID="barriers.tooltips.barrierWaiting" />
-          {props.data?.name}
+          {props.data?.stepParameters?.identifier}
         </div>
       </div>
       <div className={css.barrierDetails}>

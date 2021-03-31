@@ -75,7 +75,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     if (!node) {
       return { startX, startY, prevNodes: [] }
     }
-
     if (node.item && !node.parallel) {
       const { item: stage } = node
       const { type } = stage

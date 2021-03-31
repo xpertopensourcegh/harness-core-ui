@@ -67,6 +67,11 @@ modules: Modules
 account: 'Account'
 repository: 'Repository'
 location: LOCATION
+timeMinutes: min
+whenCondition: When Condition
+serviceOrServices: 'Service(s)'
+environmentOrEnvironments: 'Environment(s)'
+artifactOrArtifacts: 'Artifact(s)'
 artifactRepository: ARTIFACT REPOSITORY
 more: '+{{number}} more'
 yes: 'Yes'
