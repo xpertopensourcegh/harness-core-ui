@@ -8,10 +8,12 @@ import {
   ApprovalInstanceResponse,
   HarnessApprovalActivityRequest,
   HarnessApprovalInstanceDetails,
-  ResponseHarnessApprovalInstanceAuthorization
+  ResponseHarnessApprovalInstanceAuthorization,
+  ResponseApprovalInstanceResponse
 } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 import { Duration } from '@common/exports'
+import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 
 import { HarnessApprover } from './HarnessApprover'
 import css from '../ApprovalStepDetails.module.scss'
@@ -22,6 +24,7 @@ export interface HarnessApprovalProps {
     details: HarnessApprovalInstanceDetails
   }
   isWaiting: boolean
+  updateState(data: ResponseApprovalInstanceResponse): void
   getApprovalAuthorizationMock?: {
     loading: boolean
     data: ResponseHarnessApprovalInstanceAuthorization
@@ -29,7 +32,7 @@ export interface HarnessApprovalProps {
 }
 
 export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement {
-  const { approvalData, approvalInstanceId, isWaiting, getApprovalAuthorizationMock } = props
+  const { approvalData, approvalInstanceId, isWaiting, updateState, getApprovalAuthorizationMock } = props
 
   const { data: authData } = useGetHarnessApprovalInstanceAuthorization({
     approvalInstanceId,
@@ -41,7 +44,8 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
   const isCurrentUserAuthorized = !!authData?.data?.authorized
 
   async function handleSubmit(data: HarnessApprovalActivityRequest): Promise<void> {
-    await submitApproval({ ...data, action: action.current })
+    const newState = await submitApproval({ ...data, action: action.current })
+    updateState(newState)
   }
 
   return (
@@ -73,7 +77,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
         {(approvalData.details.approvalActivities || []).map((row, i) => (
           <HarnessApprover key={i} approvalActivity={row} />
         ))}
-        {isWaiting && isCurrentUserAuthorized ? (
+        {isWaiting && isExecutionWaiting(approvalData.status) && isCurrentUserAuthorized ? (
           <Formik<HarnessApprovalActivityRequest>
             initialValues={{
               approverInputs: (approvalData.details.approverInputs || []).map(({ name, defaultValue }) => ({

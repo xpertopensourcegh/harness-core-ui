@@ -32,8 +32,14 @@ describe('<HarnessApproval /> tests', () => {
     const commonProps: HarnessApprovalProps = {
       isWaiting: true,
       approvalInstanceId: 'TEST_ID',
-      approvalData: approvalData as any
+      approvalData: approvalData as any,
+      updateState: jest.fn()
     }
+
+    beforeEach(() => {
+      ;(commonProps.updateState as jest.Mock).mockClear()
+    })
+
     test('shows form if user is authorized', async () => {
       ;(useGetHarnessApprovalInstanceAuthorization as jest.Mock).mockImplementation(() => ({
         data: { data: { authorized: true } }
@@ -76,7 +82,7 @@ describe('<HarnessApproval /> tests', () => {
         </TestWrapper>
       )
 
-      const queryByName = (id: string) => queryByAttribute('name', container, id)
+      const queryByName = (id: string): HTMLElement | null => queryByAttribute('name', container, id)
 
       const approve = await findByText('Approve', { selector: '.bp3-button-text > span' })
 
@@ -87,7 +93,7 @@ describe('<HarnessApproval /> tests', () => {
       fireEvent.click(approve)
 
       await waitFor(() =>
-        expect(mutate).toBeCalledWith({
+        expect(mutate).toHaveBeenCalledWith({
           action: 'APPROVE',
           approverInputs: [
             { name: 'var1', value: 'value1' },
@@ -96,6 +102,8 @@ describe('<HarnessApproval /> tests', () => {
           comments: 'my comments'
         })
       )
+
+      await waitFor(() => expect(commonProps.updateState).toHaveBeenCalled())
     })
 
     test('Rejecting works', async () => {
@@ -110,7 +118,7 @@ describe('<HarnessApproval /> tests', () => {
         </TestWrapper>
       )
 
-      const queryByName = (id: string) => queryByAttribute('name', container, id)
+      const queryByName = (id: string): HTMLElement | null => queryByAttribute('name', container, id)
 
       const reject = await findByText('Reject', { selector: '.bp3-button-text > span' })
 
@@ -121,7 +129,7 @@ describe('<HarnessApproval /> tests', () => {
       fireEvent.click(reject)
 
       await waitFor(() =>
-        expect(mutate).toBeCalledWith({
+        expect(mutate).toHaveBeenCalledWith({
           action: 'REJECT',
           approverInputs: [
             { name: 'var1', value: 'value1' },
@@ -130,6 +138,7 @@ describe('<HarnessApproval /> tests', () => {
           comments: 'my comments'
         })
       )
+      await waitFor(() => expect(commonProps.updateState).toHaveBeenCalled())
     })
   })
 
@@ -137,7 +146,8 @@ describe('<HarnessApproval /> tests', () => {
     const commonProps: HarnessApprovalProps = {
       isWaiting: false,
       approvalInstanceId: 'TEST_ID',
-      approvalData: approvalData as any
+      approvalData: approvalData as any,
+      updateState: jest.fn()
     }
     test('form is not shown', async () => {
       const { container, getByText } = render(

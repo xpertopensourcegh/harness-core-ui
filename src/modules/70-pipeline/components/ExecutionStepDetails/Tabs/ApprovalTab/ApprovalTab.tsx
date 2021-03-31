@@ -6,7 +6,7 @@ import type { ExecutionNode } from 'services/pipeline-ng'
 import { useGetApprovalInstance, ResponseApprovalInstanceResponse } from 'services/pipeline-ng'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { useGlobalEventListener } from '@common/hooks'
+import { useGlobalEventListener, useDeepCompareEffect } from '@common/hooks'
 
 import { HarnessApproval, HarnessApprovalProps } from './HarnessApproval/HarnessApproval'
 import { JiraApproval, JiraApprovalProps } from './JiraApproval/JiraApproval'
@@ -36,10 +36,18 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
   const approvalInstanceId = get(step, 'executableResponses[0].async.callbackIds[0]') || ''
   const isWaiting = isExecutionWaiting(step.status)
 
-  const { data: approvalData, refetch, loading } = useGetApprovalInstance({
+  // store the data in state because the approve/reject call returns the updated state
+  // hence we can save one additional call to the server
+  const [approvalData, setApprovalData] = React.useState<ResponseApprovalInstanceResponse | null>(null)
+
+  const { data, refetch, loading } = useGetApprovalInstance({
     approvalInstanceId,
     mock
   })
+
+  useDeepCompareEffect(() => {
+    setApprovalData(data)
+  }, [data])
 
   useGlobalEventListener(REFRESH_APPROVAL, () => {
     refetch()
@@ -56,6 +64,7 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
           approvalData={approvalData.data as HarnessApprovalProps['approvalData']}
           approvalInstanceId={approvalInstanceId}
           isWaiting={isWaiting}
+          updateState={setApprovalData}
           getApprovalAuthorizationMock={getApprovalAuthorizationMock}
         />
       ) : null}
