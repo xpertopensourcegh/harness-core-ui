@@ -135,7 +135,7 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
           getString={getString}
           hideValuesRow={hideValuesRow}
         />
-      </Layout.Horizontal>{' '}
+      </Layout.Horizontal>
     </Container>
   )
 }

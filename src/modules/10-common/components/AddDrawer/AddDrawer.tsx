@@ -6,6 +6,14 @@ import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import css from './AddDrawer.module.scss'
 
+const getAllItemsCount = (originalData: CategoryInterface[]): number | undefined => {
+  if (originalData?.some(data => data?.items?.length)) {
+    let count = 0
+    originalData.forEach(data => (count += data?.items?.length || 0))
+    return count
+  }
+}
+
 const enableScheduleTriggers = false
 
 const defaultPageDrawerProps: IDrawerProps = {
@@ -263,7 +271,8 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                 }}
                 key={primaryTypes.SHOW_ALL}
               >
-                {addDrawerMap.showAllLabel || getString('showAll')} ({originalData?.length})
+                {addDrawerMap.showAllLabel || getString('showAll')} (
+                {getAllItemsCount(originalData) || originalData?.length})
               </section>
               {showRecentlyUsed ? <section>{getString('recentlyUsed')} (0)</section> : null}
             </section>

@@ -261,9 +261,28 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
                 Conditions
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
+                style="--text-line-clamp: 1;"
               >
-                &lt;cron expression&gt;
+                sourceBranch equals ng-trigger-demo
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
+                style="--text-line-clamp: 1;"
+              >
+                targetBranch in master, main
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
+                style="--text-line-clamp: 1;"
+              >
+                \${eventPayload.pull_request.user.id} equals 56320710
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
+                style="--text-line-clamp: 1;"
+              >
+                \${eventPayload.pull_request.head.ref} regex ^ng-trigger-demo
               </p>
               <hr />
               <p

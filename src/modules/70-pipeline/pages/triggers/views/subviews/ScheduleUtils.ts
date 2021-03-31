@@ -223,8 +223,6 @@ export const getSlashValue = ({
   } else if (selectedScheduleTab === scheduleTabsId.MONTHLY && id === 'month' && startMonth) {
     // cron expression: startMonth / monthInterval
     return `${startMonth}/${value}`
-  } else if (selectedScheduleTab === scheduleTabsId.DAILY && id === 'dayOfMonth' && !isNaN(parseInt(value))) {
-    return `1/${value}`
   }
   return value
 }

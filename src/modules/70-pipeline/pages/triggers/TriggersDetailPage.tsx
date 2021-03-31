@@ -24,7 +24,21 @@ enum SelectedView {
   VISUAL = 'VISUAL',
   YAML = 'YAML'
 }
+export interface ConditionInterface {
+  key: string
+  operator: string
+  value: string
+}
 
+const getTriggerConditionsStr = (payloadConditions: ConditionInterface[]): string[] => {
+  const arr: string[] = []
+  payloadConditions.forEach(condition => {
+    const { key, operator, value } = condition
+
+    arr.push(`${key} ${operator} ${value}`)
+  })
+  return arr
+}
 export default function TriggersDetailPage(): JSX.Element {
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
 
@@ -104,7 +118,16 @@ export default function TriggersDetailPage(): JSX.Element {
   useDocumentTitle([getString('pipelines'), getString('pipeline-triggers.triggersLabel')])
   const triggerObj = parse(triggerResponse?.data?.yaml || '')?.trigger as NGTriggerConfig
   const pipelineInputSet = triggerObj?.target?.spec?.runtimeInputYaml as NgPipeline
-
+  let conditionsArr: string[] = []
+  const headerConditionsArr: string[] = triggerObj?.source?.spec?.spec?.headerConditions?.length
+    ? getTriggerConditionsStr(triggerObj.source.spec.spec.headerConditions)
+    : []
+  const payloadConditionsArr: string[] = triggerObj?.source?.spec?.spec?.payloadConditions?.length
+    ? getTriggerConditionsStr(triggerObj.source.spec.spec.payloadConditions)
+    : []
+  conditionsArr = conditionsArr.concat(headerConditionsArr)
+  conditionsArr = conditionsArr.concat(payloadConditionsArr)
+  const cronExpression = triggerObj?.source?.spec?.spec?.expression
   return (
     <>
       <Container
@@ -217,9 +240,25 @@ export default function TriggersDetailPage(): JSX.Element {
                 <Card interactive={false} elevation={0} selected={false} className={css.inputSet}>
                   <Text font={{ size: 'medium', weight: 'bold' }}>{getString('details')}</Text>
                   <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
-                    <Text>{getString('conditions')}</Text>
-                    <Text font={{ weight: 'bold' }}>{'<cron expression>'}</Text>
-                    <hr />
+                    {conditionsArr.length ? (
+                      <>
+                        <Text>{getString('conditions')}</Text>
+                        {conditionsArr.map(conditionStr => (
+                          <Text key={conditionStr} font={{ weight: 'bold' }} lineClamp={1}>
+                            {conditionStr}
+                          </Text>
+                        ))}
+                      </>
+                    ) : null}
+                    {cronExpression ? (
+                      <>
+                        <Text>{getString('pipeline-triggers.schedulePanel.cronExpression')}</Text>
+                        <Text font={{ weight: 'bold' }} lineClamp={1}>
+                          {cronExpression}
+                        </Text>
+                      </>
+                    ) : null}
+                    {conditionsArr?.length || cronExpression ? <hr /> : null}
                     <Text>{getString('pipeline-triggers.pipelineExecutionInput')}</Text>
                     {!isEmpty(pipelineInputSet) && <pre>{pipelineInputSet}</pre>}
                   </Layout.Vertical>

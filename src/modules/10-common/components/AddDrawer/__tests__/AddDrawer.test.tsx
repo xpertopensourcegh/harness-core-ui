@@ -89,7 +89,7 @@ describe('AddDrawer Triggers tests', () => {
       //   Show all again
       const showAllButton = queryByText(
         document.body,
-        `${result.current.getString('pipeline-triggers.showAllTriggers')} (3)`
+        `${result.current.getString('pipeline-triggers.showAllTriggers')} (6)`
       )
       if (!showAllButton) {
         throw Error('open button was not found.')

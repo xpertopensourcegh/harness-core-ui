@@ -4,6 +4,7 @@ import type { NgPipeline } from 'services/cd-ng'
 import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from 'services/pipeline-ng'
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 
@@ -190,9 +191,17 @@ const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
   return truthyValuesLength > 0 && truthyValuesLength < 3
 }
 
+const isIdentifierIllegal = (identifier: string): boolean =>
+  regexIdentifier.test(identifier) && illegalIdentifiers.includes(identifier)
+
 const checkValidTriggerConfiguration = (formikValues: FlatValidWebhookFormikValuesInterface): boolean => {
   const sourceRepo = formikValues['sourceRepo']
+  const identifier = formikValues['identifier']
   const connectorURLType = formikValues.connectorRef?.connector?.spec?.type
+
+  if (isIdentifierIllegal(identifier)) {
+    return false
+  }
 
   if (sourceRepo !== CUSTOM) {
     if (!formikValues['connectorRef'] || !formikValues['event'] || !formikValues['actions']) return false
@@ -230,6 +239,8 @@ const checkValidPayloadConditions = (formikValues: FlatValidWebhookFormikValuesI
   }
   return true
 }
+const checkValidOverview = (formikValues: FlatValidScheduleFormikValuesInterface): boolean =>
+  isIdentifierIllegal(formikValues?.identifier) ? false : true
 
 const checkValidCronExpression = (formikValues: FlatValidScheduleFormikValuesInterface): boolean =>
   isCronValid(formikValues?.expression || '')
@@ -265,6 +276,7 @@ const getPanels = ({
       {
         id: 'Trigger Overview',
         tabTitle: getString('pipeline-triggers.triggerOverviewPanel.title'),
+        checkValidPanel: checkValidOverview,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },
       {
@@ -307,7 +319,13 @@ export const getValidationSchema = (
   if (triggerType === TriggerTypes.WEBHOOK) {
     return object().shape({
       name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
-      identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),
+      identifier: string().when('name', {
+        is: val => val?.length,
+        then: string()
+          .required(getString('validation.identifierRequired'))
+          .matches(regexIdentifier, getString('validation.validIdRegex'))
+          .notOneOf(illegalIdentifiers)
+      }),
       event: string().test(
         getString('pipeline-triggers.validation.event'),
         getString('pipeline-triggers.validation.event'),
@@ -434,7 +452,13 @@ export const getValidationSchema = (
     // Scheduled
     return object().shape({
       name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
-      identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),
+      identifier: string().when('name', {
+        is: val => val?.length,
+        then: string()
+          .required(getString('validation.identifierRequired'))
+          .matches(regexIdentifier, getString('validation.validIdRegex'))
+          .notOneOf(illegalIdentifiers)
+      }),
       expression: string().test(
         getString('pipeline-triggers.validation.cronExpression'),
         getString('pipeline-triggers.validation.cronExpression'),

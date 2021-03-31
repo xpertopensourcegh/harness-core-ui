@@ -40,7 +40,7 @@ const Toothpick: React.FC<ToothpickPropsInterface> = props => {
   } = props
 
   return (
-    <Container className={className ? className : ''}>
+    <Container data-name="toothpick" className={className ? className : ''}>
       {label && <Text className={css.label}>{label}</Text>}
       <Container className={css.toothpick}>
         <Select

@@ -20,7 +20,7 @@
     width: 100px;
   }
 
-  [class*='toothpick'] > [class*='Select']:first-of-type {
+  [data-name='toothpick'] > div > [class*='Select']:first-of-type {
     width: 115px;
   }
 
