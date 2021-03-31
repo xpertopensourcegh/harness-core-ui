@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-import { Button, ExpandingSearchInput, Layout, Container } from '@wings-software/uicore'
+import { ExpandingSearchInput, Layout, Container } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList, Error } from 'services/cd-ng'
@@ -11,6 +11,8 @@ import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/Org
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import { useStrings } from 'framework/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
 import i18n from './OrganizationsPage.i18n'
 import css from './OrganizationsPage.module.scss'
 
@@ -35,7 +37,18 @@ const OrganizationsPage: React.FC = () => {
       <Page.Header
         title={
           <Layout.Horizontal padding="small">
-            <Button intent="primary" icon="plus" text={i18n.newOrganization} onClick={() => openOrganizationModal()} />
+            <RbacButton
+              intent="primary"
+              icon="plus"
+              text={i18n.newOrganization}
+              onClick={() => openOrganizationModal()}
+              permission={{
+                permission: PermissionIdentifier.UPDATE_ORG,
+                resourceScope: {
+                  accountIdentifier: accountId
+                }
+              }}
+            />
           </Layout.Horizontal>
         }
         toolbar={

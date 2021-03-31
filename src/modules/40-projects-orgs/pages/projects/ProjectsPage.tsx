@@ -1,19 +1,11 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import {
-  Button,
-  Text,
-  Layout,
-  SelectOption,
-  Link,
-  ExpandingSearchInput,
-  Color,
-  Container
-} from '@wings-software/uicore'
+import { Link, useHistory } from 'react-router-dom'
+import { Button, Text, Layout, SelectOption, ExpandingSearchInput, Color, Container } from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
+import RbacButton from '@rbac/components/Button/Button'
 
 import { useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
@@ -24,6 +16,7 @@ import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useColl
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -47,12 +40,6 @@ const ProjectsListPage: React.FC = () => {
   const [page, setPage] = useState(0)
   const history = useHistory()
   let orgFilter = allOrgsSelectOption
-
-  // const [canCreate] = usePermission({
-  //   actions: ['create'],
-  //   accountIdentifier: accountId,
-  //   resourceType: ResourceType.PROJECT
-  // })
 
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
@@ -113,20 +100,21 @@ const ProjectsListPage: React.FC = () => {
     <Container className={css.projectsPage}>
       <Page.Header
         title={i18n.projects}
-        content={
-          <Link
-            withoutHref
-            onClick={() => {
-              history.push(routes.toProjectsGetStarted({ accountId }))
-            }}
-          >
-            {i18n.getNewProjectStarted}
-          </Link>
-        }
+        content={<Link to={routes.toProjectsGetStarted({ accountId })}>{i18n.getNewProjectStarted}</Link>}
       />
-
       <Layout.Horizontal spacing="large" className={css.header}>
-        <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
+        <RbacButton
+          intent="primary"
+          text={i18n.newProject}
+          icon="plus"
+          onClick={() => openProjectModal()}
+          permission={{
+            permission: PermissionIdentifier.UPDATE_PROJECT,
+            resourceScope: {
+              accountIdentifier: accountId
+            }
+          }}
+        />
 
         <CustomSelect
           items={organizations}

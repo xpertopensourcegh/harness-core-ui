@@ -8,6 +8,8 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { useToaster } from '@common/exports'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useStrings } from 'framework/exports'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
@@ -53,6 +55,17 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
       }
     }
   })
+
+  const [canUpdate, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId
+      },
+      permissions: [PermissionIdentifier.UPDATE_ORG, PermissionIdentifier.DELETE_ORG]
+    },
+    [data]
+  )
+
   const handleEdit = (e: React.MouseEvent): void => {
     e.stopPropagation()
     setMenuOpen(false)
@@ -85,9 +98,19 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
           <CardBody.Menu
             menuContent={
               <Menu>
-                <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} disabled={isHarnessManaged} />
+                <Menu.Item
+                  icon="edit"
+                  text={i18n.edit}
+                  onClick={handleEdit}
+                  disabled={isHarnessManaged || !canUpdate}
+                />
                 <Menu.Item icon="new-person" text={i18n.invite} onClick={handleInvite} />
-                <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} disabled={isHarnessManaged} />
+                <Menu.Item
+                  icon="trash"
+                  text={i18n.delete}
+                  onClick={handleDelete}
+                  disabled={isHarnessManaged || !canDelete}
+                />
               </Menu>
             }
             menuPopoverProps={{

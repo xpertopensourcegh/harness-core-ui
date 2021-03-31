@@ -26,7 +26,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'nav-org',
   label: 'Organizations',
   permissionLabels: {
-    [PermissionIdentifier.CREATE_ORG]: 'Create / Edit'
+    [PermissionIdentifier.UPDATE_ORG]: 'Create / Edit'
   }
   category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
   addResourceModalBody: props => <AddOrganizationResourceModalBody {...props} />

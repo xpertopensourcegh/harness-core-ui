@@ -11,8 +11,6 @@ import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsP
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
-import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
   const params = useParams<OrgPathProps>()
@@ -26,11 +24,6 @@ const AccountSettingsSideNavProps: SidebarContext = {
   title: 'Settings',
   icon: 'nav-settings'
 }
-
-RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
-  icon: 'lock',
-  label: 'Connectors'
-})
 
 export default (
   <>

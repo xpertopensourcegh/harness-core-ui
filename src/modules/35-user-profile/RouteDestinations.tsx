@@ -6,8 +6,7 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+
 import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage'
 import UserPreferencesPage from '@user-profile/pages/UserPreferences/UserPreferences'
 import UserNav from '@user-profile/navigation/UserNav/UserNav'
@@ -20,11 +19,6 @@ const RedirectToUserHome = (): React.ReactElement => {
 const UserProfileSideNavProps: SidebarContext = {
   navComponent: UserNav
 }
-
-RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
-  icon: 'lock',
-  label: 'Connectors'
-})
 
 export default (
   <>

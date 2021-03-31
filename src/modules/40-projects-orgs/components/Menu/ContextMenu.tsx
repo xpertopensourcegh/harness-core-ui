@@ -5,6 +5,8 @@ import { Layout, Color, Text, Icon } from '@wings-software/uicore'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { ModuleName, useStrings } from 'framework/exports'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 interface ContextMenuProps {
   project: Project
@@ -21,17 +23,16 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
 
-  // const [canEdit, canDelete] = usePermission(
-  //   {
-  //     accountIdentifier: accountId,
-  //     projectIdentifier: project.identifier,
-  //     orgIdentifier: project.orgIdentifier,
-  //     resourceIdentifier: project.identifier,
-  //     resourceType: ResourceType.PROJECT,
-  //     actions: ['edit', 'delete']
-  //   },
-  //   [project]
-  // )
+  const [canUpdate, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier: project.orgIdentifier
+      },
+      permissions: [PermissionIdentifier.UPDATE_PROJECT, PermissionIdentifier.DELETE_PROJECT]
+    },
+    [project]
+  )
 
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
@@ -166,22 +167,12 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCE}
         />
       ) : null}
-      <Menu.Item
-        icon="edit"
-        text={getString('edit')}
-        onClick={handleEdit}
-        // disabled={!canEdit}
-      />
+      <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={!canUpdate} />
       <Menu.Item icon="new-person" text={getString('projectContextMenuRenderer.invite')} onClick={handleCollaborate} />
 
       <>
         <Menu.Divider />
-        <Menu.Item
-          icon="trash"
-          text={getString('delete')}
-          onClick={handleDelete}
-          // disabled={!canDelete}
-        />
+        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canDelete} />
       </>
     </Menu>
   )

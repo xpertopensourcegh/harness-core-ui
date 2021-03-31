@@ -45,18 +45,6 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { openDialog } = useDeleteProjectDialog(data, onDeleted)
 
-  // const [canInvite] = usePermission(
-  //   {
-  //     accountIdentifier: accountId,
-  //     projectIdentifier: data.identifier,
-  //     orgIdentifier: data.orgIdentifier,
-  //     resourceIdentifier: data.identifier,
-  //     resourceType: ResourceType.PROJECT,
-  //     actions: ['invite']
-  //   },
-  //   [data]
-  // )
-
   return (
     <Card
       className={cx(css.projectCard, props.className)}

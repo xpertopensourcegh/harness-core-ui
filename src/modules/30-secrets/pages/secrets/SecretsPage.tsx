@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uicore'
-import { Menu, Position } from '@blueprintjs/core'
+import { Layout, Popover, Icon, TextInput, Container } from '@wings-software/uicore'
+import { Menu, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
@@ -13,6 +13,8 @@ import { useStrings } from 'framework/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import i18n from './SecretsPage.i18n'
@@ -29,6 +31,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
   const { getString } = useStrings()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [page, setPage] = useState(0)
+  const [openPopOver, setOpenPopOver] = useState<boolean>(false)
   useDocumentTitle([getString('resources'), getString('secrets')])
 
   const { data: secretsResponse, loading, error, refetch } = useListSecretsV2({
@@ -43,6 +46,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
     debounce: 300,
     mock
   })
+
   const { openCreateSecretModal } = useCreateUpdateSecretModal({
     onSuccess: /* istanbul ignore next */ () => {
       refetch()
@@ -58,33 +62,59 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
     <div className={css.page}>
       <Layout.Horizontal flex className={css.header}>
         <Layout.Horizontal spacing="small">
-          <Popover minimal position={Position.BOTTOM_LEFT}>
-            <Button intent="primary" text={i18n.newSecret.button} icon="plus" rightIcon="chevron-down" />
-            <Menu large>
-              <Menu.Item
-                text={i18n.newSecret.text}
-                labelElement={<Icon name="text" />}
-                onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
-              />
-              <Menu.Item
-                text={i18n.newSecret.file}
-                labelElement={<Icon name="document" color="blue600" />}
-                onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
-              />
-              <Menu.Item
-                text={i18n.newSecret.ssh}
-                labelElement={<Icon name="secret-ssh" />}
-                onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
-              />
-            </Menu>
+          <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
+            <RbacButton
+              intent="primary"
+              text={i18n.newSecret.button}
+              icon="plus"
+              rightIcon="chevron-down"
+              permission={{
+                permission: PermissionIdentifier.UPDATE_SECRET,
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
+                }
+              }}
+              onClick={() => {
+                setOpenPopOver(true)
+              }}
+            />
+            {openPopOver && (
+              <Menu large>
+                <Menu.Item
+                  text={i18n.newSecret.text}
+                  labelElement={<Icon name="text" />}
+                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
+                />
+                <Menu.Item
+                  text={i18n.newSecret.file}
+                  labelElement={<Icon name="document" color="blue600" />}
+                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
+                />
+                <Menu.Item
+                  text={i18n.newSecret.ssh}
+                  labelElement={<Icon name="secret-ssh" />}
+                  onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
+                />
+              </Menu>
+            )}
           </Popover>
-          <Button
+          <RbacButton
             text={getString('createViaYaml')}
             onClick={
               /* istanbul ignore next */ () => {
                 history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
               }
             }
+            permission={{
+              permission: PermissionIdentifier.UPDATE_SECRET,
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              }
+            }}
           />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small">

@@ -14,6 +14,8 @@ import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { useVerifyModal } from '@secrets/modals/CreateSSHCredModal/useVerifyModal'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
@@ -110,6 +112,18 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: (column as any).refreshSecrets })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: (column as any).refreshSecrets })
 
+  const [canUpdate, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      permissions: [PermissionIdentifier.UPDATE_SECRET, PermissionIdentifier.DELETE_SECRET]
+    },
+    []
+  )
+
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(data.name || ''),
     titleText: i18n.confirmDeleteTitle,
@@ -159,8 +173,8 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
           }}
         />
         <Menu>
-          <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-          <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
+          <Menu.Item icon="edit" text="Edit" onClick={handleEdit} disabled={!canUpdate} />
+          <Menu.Item icon="trash" text="Delete" onClick={handleDelete} disabled={!canDelete} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

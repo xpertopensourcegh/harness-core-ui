@@ -13,6 +13,8 @@ import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
 import SecretResourceModalBody from '@secrets/components/SecretResourceModalBody/SecretResourceModalBody'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { String } from 'framework/exports'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -25,6 +27,11 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
   icon: 'lock',
   label: 'Secrets',
   category: ResourceTypeGroup.PROJECT_RESOURCES,
+  permissionLabels: {
+    [PermissionIdentifier.UPDATE_SECRET]: <String stringID="permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_SECRET]: <String stringID="permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_SECRET]: <String stringID="permissionLabels.delete" />
+  },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <SecretResourceModalBody {...props} />
 })

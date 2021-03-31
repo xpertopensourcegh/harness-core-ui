@@ -39,6 +39,7 @@ import Roles from '@rbac/pages/Roles/Roles'
 import UserGroups from '@rbac/pages/UserGroups/UsersGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { String } from 'framework/exports'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -56,6 +57,11 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
   icon: 'nav-project',
   label: 'Projects',
   category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_PROJECT]: <String stringID="permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_PROJECT]: <String stringID="permissionLabels.delete" />
+  },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <AddProjectResourceModalBody {...props} />
 })
@@ -65,7 +71,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   label: 'Organizations',
   category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
-    [PermissionIdentifier.CREATE_ORG]: 'Create / Edit'
+    [PermissionIdentifier.UPDATE_ORG]: <String stringID="permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_ORG]: <String stringID="permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_ORG]: <String stringID="permissionLabels.delete" />
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <OrgResourceModalBody {...props} />

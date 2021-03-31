@@ -15,16 +15,9 @@ exports[`Project Page List Create Project and Close 1`] = `
         Projects
       </h2>
       <a
-        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
-        href="javascript:void()"
-        role="button"
-        tabindex="0"
+        href="/account/testAcc/projects/get-started"
       >
-        <span
-          class="bp3-button-text"
-        >
-          Get Started
-        </span>
+        Get Started
       </a>
     </div>
     <div
@@ -3678,16 +3671,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         Projects
       </h2>
       <a
-        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
-        href="javascript:void()"
-        role="button"
-        tabindex="0"
+        href="/account/testAcc/projects/get-started"
       >
-        <span
-          class="bp3-button-text"
-        >
-          Get Started
-        </span>
+        Get Started
       </a>
     </div>
     <div
@@ -7341,16 +7327,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         Projects
       </h2>
       <a
-        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
-        href="javascript:void()"
-        role="button"
-        tabindex="0"
+        href="/account/testAcc/projects/get-started"
       >
-        <span
-          class="bp3-button-text"
-        >
-          Get Started
-        </span>
+        Get Started
       </a>
     </div>
     <div
@@ -11004,16 +10983,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
         Projects
       </h2>
       <a
-        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
-        href="javascript:void()"
-        role="button"
-        tabindex="0"
+        href="/account/testAcc/projects/get-started"
       >
-        <span
-          class="bp3-button-text"
-        >
-          Get Started
-        </span>
+        Get Started
       </a>
     </div>
     <div

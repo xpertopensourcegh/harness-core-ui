@@ -15,17 +15,17 @@ interface ButtonProps extends CoreButtonProps {
   permission: TypedPermissionCheck
 }
 
-const RbacButton: React.FC<ButtonProps> = props => {
+const RbacButton: React.FC<ButtonProps> = ({ permission, ...restProps }) => {
   const { getString } = useStrings()
   const [canDoAction] = usePermission({
-    ...omit(props.permission, 'permission'),
-    permissions: [props.permission.permission || '']
+    ...omit(permission, 'permission'),
+    permissions: [permission.permission || '']
   })
 
   return (
     <CoreButton
-      {...props}
-      disabled={props.disabled || !canDoAction}
+      {...restProps}
+      disabled={restProps.disabled || !canDoAction}
       tooltip={!canDoAction ? getString('noPermission') : undefined}
     />
   )
