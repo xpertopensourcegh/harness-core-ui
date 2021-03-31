@@ -192,7 +192,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                     name="validation"
                     label={getString('configureOptions.validation')}
                     items={[
-                      { label: getString('configureOptions.none'), value: Validation.None },
+                      { label: getString('none'), value: Validation.None },
                       { label: getString('allowedValues'), value: Validation.AllowedValues },
                       { label: getString('configureOptions.regex'), value: Validation.Regex }
                     ]}

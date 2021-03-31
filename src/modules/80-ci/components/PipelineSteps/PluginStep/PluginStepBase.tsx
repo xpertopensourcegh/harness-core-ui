@@ -148,7 +148,7 @@ export const PluginStepBase = (
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.settingsLabel')}
+                      {getString('settingsLabel')}
                       <Button
                         icon="question"
                         minimal

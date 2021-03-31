@@ -6,6 +6,7 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps, withAccountId } from '@common/utils/routeUtils'
 
 import AdminPage from '@common/pages/AccountSettings/AdminPage'
+import Configuration from '@common/pages/AuthenticationSettings/Configuration/Configuration'
 import GovernancePage from '@common/pages/governance/GovernancePage'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import UserNav from '@common/navigation/UserNav/UserNav'
@@ -28,6 +29,11 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 const RedirectToUserHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
   return <Redirect to={routes.toUserProfile(params)} />
+}
+
+const RedirectToConfiguration = (): React.ReactElement => {
+  const params = useParams<AccountPathProps>()
+  return <Redirect to={routes.toAccountConfiguration(params)} />
 }
 
 const AccountSettingsSideNavProps: SidebarContext = {
@@ -66,6 +72,20 @@ export default (
       exact
     >
       <UserPreferencesPage />
+    </RouteWithLayout>
+    <Route
+      sidebarProps={AccountSettingsSideNavProps}
+      path={routes.toAuthenticationSettings({ ...accountPathProps })}
+      exact
+    >
+      <RedirectToConfiguration />
+    </Route>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={routes.toAccountConfiguration({ ...accountPathProps })}
+      exact
+    >
+      <Configuration />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}

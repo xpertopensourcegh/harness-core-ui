@@ -1,0 +1,10 @@
+.container {
+  flex-flow: column;
+  flex-wrap: wrap;
+  .card {
+    width: 49%;
+    margin-bottom: var(--spacing-small);
+    background-color: var(--grey-100);
+    padding: var(--spacing-medium);
+  }
+}

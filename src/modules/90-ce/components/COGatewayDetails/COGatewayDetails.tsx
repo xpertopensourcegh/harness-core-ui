@@ -158,7 +158,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 ) : (
                   <Icon name="symbol-circle" className={css.symbol} size={16} />
                 )}
-                <Text className={css.tabTitle}>1. {getString('ce.co.autoStoppingRule.configuration.pageName')}</Text>
+                <Text className={css.tabTitle}>1. {getString('configuration')}</Text>
               </Layout.Horizontal>
             }
             panel={

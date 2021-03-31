@@ -63,7 +63,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           name={`${isEmpty(path) ? '' : `${path}.`}spec.settings`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.settingsLabel')}
+              {getString('settingsLabel')}
               <Button
                 icon="question"
                 minimal

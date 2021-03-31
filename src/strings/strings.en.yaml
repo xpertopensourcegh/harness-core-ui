@@ -705,6 +705,42 @@ cdDashboard:
   welcome: Welcome to Continuous Delivery
   description: Deploy your services with blazing fast pipelines.
   creatPipeline: + Create a pipeline
+hours: hours
+authenticationSettings:
+  accountOrOAuthLogin: Login via a Harness Account or Public OAuth Providers
+  usePublicOAuth: Use Public OAuth Providers
+  loginViaSAML: Login via SAML
+  authorizationEnabledFor: 'Authorization enabled for:'
+  authorizationNotEnabled: Authorization not enabled
+  options: Options
+  SAMLProvider: SAML Provider
+  allowUsersWIthEmails: 'Only allow users with the following email domains:'
+  useHarnessUsernameAndPassword: Use Harness username and password
+  enforcePasswordStrength: Enforce password strength
+  passwordMustFulfillReq: 'Passwords must fulfill the following requirements:'
+  atLeast8Chars: At least 8 characters
+  periodicallyExpirePassword: Periodically expire passwords
+  periodicallyExpirePasswordNote: Updated password expiration policy will only apply to newly created or changed user passwords.
+  enforceLockoutPolicy: Enforce lockout policy
+  failedLoginsBeforeLockedAccount: Failed logins before user is locked out of account
+  enforceTwoFA: Enforce Two Factor Authentication
+  passwordStrength: Password Strength
+  minLength: Minimum Length
+  haveOneUppercase: Have at least 1 uppercase letter (A-Z)
+  haveOneLowercase: Have at least 1 lowercase letter (a-z)
+  haveOneDigit: Have at least 1 digit (0-9)
+  haveOneSpecialChar: Have at least 1 special character
+  passwordExpiration: Password Expiration
+  daysBeforePasswordExpires: Days before password expires
+  daysBeforeUserNotified: Days before user is notified of expiration
+  lockoutPolicy: Lockout Policy
+  failedLoginsBeforeLocked: Failed logins before user is locked out
+  lockoutDuration: Lockout duration
+  notifyUsersWhenTheyLocked: Notify users when they are locked out
+  notifyUsersWHenUserLocked: Notify user groups when a user is locked out
+  selectUserGroup: Select User Group(s)
+  allowLoginFromTheseDomains: Allow login from these domains
+  domainNameRequired: At least one domain name is required
 gitFetchTypes: [{ label: 'Latest from Branch' }, { label: 'Specific Commit ID' }]
 snippets:
   copyToClipboard: Copy to Clipboard
@@ -853,6 +889,7 @@ approvalStep:
   status:
     APPROVE: Approved
     REJECT: Rejected
+connected: Connected
 delegate:
   numberOfDelegates: 'Number of delegates'
   delegateSizeUndefined: 'Delegate Size is undefined'
@@ -884,7 +921,6 @@ delegate:
   selectEnvType: Select environment types...
   selectEnvs: Select environments...
   pendingApproval: Pending Approval
-  connected: Connected
   notConnected: Not Connected
   newConfiguration: New Delegate Configuration
   delegates: 'Delegates'
@@ -1223,6 +1259,7 @@ projectContextMenuRenderer:
   gotoCI: 'Go to Continuous Integration'
   gotoCE: 'Go to Continuous Efficiency'
   invite: 'Invite Collaborators'
+settingsLabel: 'Settings'
 pipelineSteps:
   duplicateStep: Step with this identifier already exist
   kubernetesInfraStep:
@@ -1290,7 +1327,6 @@ pipelineSteps:
   cacheFromLabel: 'Cache From'
   autoTagLabel: 'Auto-Tag'
   autoTagSuffixLabel: 'Auto-Tag Suffix'
-  settingsLabel: 'Settings'
   settingsInfo: Plugin specific settings. Please refer to the plugin's documentation page
   dockerRegistryInfo: Docker registry. For example, "plugins/s3"
   dockerfileLabel: 'Dockerfile'
@@ -1485,6 +1521,7 @@ pipelineSteps:
       whatIsFor: What is your flag used for?
 
 validation:
+  thisIsARequiredField: This is a required field
   nameRequired: Name is a required field
   stepNameRequired: Step Name is a required field
   identifierRequired: Identifier is a required field
@@ -1569,6 +1606,7 @@ validation:
   urlIsNotValid: 'URL is not valid'
   notificationNameDuplicate: Notification with same name already exists
   artifactServerRequired: Artifact Server is a required field
+  minLengthRequired: Minimum Length is a required field
 
 yamlBuilder:
   enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
@@ -2378,12 +2416,12 @@ cv:
       preDepText: Create a new pre-deployment test verification job
       prodDepText: Create a new production deployment verification job
       postDepText: Create a new post-deployment test verification job
+none: 'None'
 configureOptions:
   configureOptions: 'configure options'
   defaultValue: 'Default value'
   requiredDuringExecution: 'Required during execution'
   validation: 'Validation'
-  none: 'None'
   regex: 'Regex'
   returnToBasic: 'return to basic'
   jexlLabel: 'Values ({{ $.common.jexlExpression }})'
@@ -2523,6 +2561,7 @@ resourceGroup:
   builtInResourceGroup: 'Built in resource-group'
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
+configuration: Configuration
 ce:
   headingText: 'Continuous Efficiency'
   homepage:
@@ -2557,8 +2596,6 @@ ce:
         description: 'Select the cloud account type'
         helpText:
           selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'
-      configuration:
-        pageName: 'Configuration'
       review:
         configDetails: 'Configuration Details'
       setupAccess:

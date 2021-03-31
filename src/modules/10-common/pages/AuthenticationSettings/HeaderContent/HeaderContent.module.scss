@@ -1,0 +1,22 @@
+.tags {
+  font-size: var(--font-size-normal);
+  padding: var(--spacing-xsmall) var(--spacing-small);
+  background: none;
+  color: var(--blue-500);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  &:hover {
+    text-decoration: none;
+    color: var(--blue-500);
+  }
+}
+
+.activeTag {
+  background: var(--grey-800);
+  color: var(--white);
+  border-radius: 20px;
+  &:hover {
+    text-decoration: none;
+    color: var(--white);
+  }
+}

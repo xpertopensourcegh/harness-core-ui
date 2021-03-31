@@ -1,0 +1,8 @@
+.passwordChecksDiv {
+  background-color: var(--grey-100) !important ;
+  .editIcon {
+    position: absolute;
+    right: var(--spacing-xxlarge);
+    cursor: pointer;
+  }
+}

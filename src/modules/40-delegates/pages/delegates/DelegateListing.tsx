@@ -36,7 +36,7 @@ const RenderConnectivityColumn: Renderer<CellProps<DelegateInner>> = ({ row }) =
   const text = isApprovalRequired
     ? getString('delegate.pendingApproval')
     : isConnected
-    ? getString('delegate.connected')
+    ? getString('connected')
     : getString('delegate.notConnected')
   const color: Color = isApprovalRequired ? Color.YELLOW_500 : isConnected ? Color.GREEN_600 : Color.GREY_400
 

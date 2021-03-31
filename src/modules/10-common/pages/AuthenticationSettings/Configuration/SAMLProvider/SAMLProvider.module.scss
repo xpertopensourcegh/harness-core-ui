@@ -1,0 +1,16 @@
+.card {
+  display: flex !important;
+  align-items: center;
+  margin: var(--spacing-none) var(--spacing-xxxlarge) var(--spacing-small);
+  padding: var(--spacing-medium);
+  border-radius: 4px;
+
+  .testButton {
+    border: 1px solid var(--blue-500) !important;
+    border-radius: 4px;
+  }
+}
+
+.button {
+  padding: var(--spacing-none) !important;
+}

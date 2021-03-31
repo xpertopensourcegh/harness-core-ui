@@ -1,0 +1,25 @@
+.shadow {
+  box-shadow: var(--card-box-shadow);
+}
+
+.summary {
+  padding: var(--spacing-xlarge) var(--spacing-xxlarge) !important;
+  background-color: var(--white);
+  height: 66px;
+}
+
+.details {
+  background-color: var(--white) !important;
+  padding-top: var(--spacing-none) !important;
+}
+
+.nestedSummary {
+  padding: var(--spacing-large) !important;
+  background-color: var(--white);
+}
+
+.nestedDetails {
+  background-color: var(--white) !important;
+  padding-top: var(--spacing-none) !important;
+  padding-bottom: var(--spacing-small) !important;
+}
