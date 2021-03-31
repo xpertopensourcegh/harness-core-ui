@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading } from '@wings-software/uicore'
-
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
+
+import { useToaster } from '@common/components'
 import { useStrings } from 'framework/exports'
 import { useTestNotificationSetting, PagerDutySettingDTO } from 'services/notifications'
 import type { PagerDutyNotificationConfiguration } from '@notifications/interfaces/Notifications'
@@ -33,6 +35,7 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})
+  const { showSuccess, showError } = useToaster()
 
   const handleTest = async (testData: PagerDutyNotificationData): Promise<void> => {
     try {
@@ -43,13 +46,15 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
         recipient: testData.key,
         notificationId: 'asd'
       } as PagerDutySettingDTO)
-      if (resp.status === 'SUCCESS') {
-        if (resp.data) setTestStatus(TestStatus.SUCCESS)
-        else setTestStatus(TestStatus.FAILED)
+      if (resp.status === 'SUCCESS' && resp.data) {
+        showSuccess(getString('pipeline-notifications.pagerDutyTestSuccess'))
+        setTestStatus(TestStatus.SUCCESS)
       } else {
+        showError(getString('somethingWentWrong'))
         setTestStatus(TestStatus.FAILED)
       }
     } catch (err) {
+      showError(err.data.message)
       setTestStatus(TestStatus.ERROR)
     }
   }
@@ -88,11 +93,19 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
               <FormikForm>
                 <FormInput.Text name={'key'} label={i18n.labelPDKey} />
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
-                  <Button minimal text={i18n.buttonTest} onClick={() => handleTest(formik.values)} />
-                  {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={css.green} /> : null}
-                  {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
+                  <Button text={i18n.buttonTest} onClick={() => handleTest(formik.values)} />
+                  {testStatus === TestStatus.SUCCESS ? (
+                    <Icon name="tick" className={cx(css.statusIcon, css.green)} />
+                  ) : null}
+                  {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
+                    <Icon name="cross" className={cx(css.statusIcon, css.red)} />
+                  ) : null}
                 </Layout.Horizontal>
-                <FormInput.MultiInput name={'userGroups'} label={i18n.labelPDUserGroups} />
+                <FormInput.MultiInput
+                  name={'userGroups'}
+                  label={i18n.labelPDUserGroups}
+                  tagsProps={{ placeholder: getString('pipeline-notifications.userGroupsPlaceholder') }}
+                />
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
                     <Button text={getString('back')} onClick={props.onBack} />

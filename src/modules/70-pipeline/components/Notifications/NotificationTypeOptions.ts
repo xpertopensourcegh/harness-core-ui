@@ -14,9 +14,9 @@ export const NotificationTypeSelectOptions: SelectOption[] = [
   {
     label: NotificationType.Email,
     value: NotificationType.Email
+  },
+  {
+    label: NotificationType.PagerDuty,
+    value: NotificationType.PagerDuty
   }
-  // {
-  //   label: NotificationType.PagerDuty,
-  //   value: NotificationType.PagerDuty
-  // }
 ]

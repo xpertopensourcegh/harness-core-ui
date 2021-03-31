@@ -1083,6 +1083,7 @@ pipeline-notifications:
   slackTestSuccess: Slack test is successfully executed
   pagerDutykey: PagerDuty Key (Optional)
   pagerDutyuserGroups: Notify these user groups
+  pagerDutyTestSuccess: Pager Duty test is successfully executed
   userGroupsPlaceholder: Type and press enter to add user group
 pre-flight-check:
   preFlightCheckTitle: 'Pre-flight check'

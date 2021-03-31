@@ -218,7 +218,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
             style="align-items: center;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
@@ -254,7 +254,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
                   <input
                     class="bp3-input-ghost"
                     data-mentions="multi-input-userGroups}"
-                    placeholder="Type and press enter to create a tag"
+                    placeholder="Type and press enter to add user group"
                     value=""
                   />
                 </div>
