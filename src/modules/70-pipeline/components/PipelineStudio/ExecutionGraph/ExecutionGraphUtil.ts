@@ -348,7 +348,8 @@ export const isLinkUnderStepGroup = (link: DefaultLinkModel): boolean => {
   const targetNode = link.getTargetPort().getNode() as DefaultNodeModel
   if (
     sourceNode.getParent() instanceof StepGroupNodeLayerModel &&
-    targetNode.getParent() instanceof StepGroupNodeLayerModel
+    targetNode.getParent() instanceof StepGroupNodeLayerModel &&
+    sourceNode.getParent() === targetNode.getParent()
   ) {
     return true
   }

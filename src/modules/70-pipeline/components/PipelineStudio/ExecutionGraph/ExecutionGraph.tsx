@@ -362,7 +362,11 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       const sourceLayer = eventTemp.entity.getSourcePort().getNode().getParent()
       const targetLayer = eventTemp.entity.getTargetPort().getNode().getParent()
       // check if the link is under step group then directly show add Step
-      if (sourceLayer instanceof StepGroupNodeLayerModel && targetLayer instanceof StepGroupNodeLayerModel) {
+      if (
+        sourceLayer instanceof StepGroupNodeLayerModel &&
+        targetLayer instanceof StepGroupNodeLayerModel &&
+        sourceLayer === targetLayer
+      ) {
         onPopoverSelection(false, false, event)
       } else if (linkRender) {
         handleAdd(false, linkRender, event)
