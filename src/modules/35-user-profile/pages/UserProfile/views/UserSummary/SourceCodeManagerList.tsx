@@ -1,8 +1,8 @@
 import React from 'react'
 import { Text, Layout, Color, Button } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
+import { useSourceCodeModal } from '@user-profile/modals/SourceCodeManager/useSourceCodeManager'
 import { useStrings } from 'framework/exports'
-import { useSourceCodeModal } from '@common/modals/SourceCodeManager/useSourceCodeManager'
 
 const SourceCodeManagerList: React.FC = () => {
   const { getString } = useStrings()

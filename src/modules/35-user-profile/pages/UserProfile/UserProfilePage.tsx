@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text, Layout, Container, Avatar, Color, Switch, Button } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
+import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
+import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/components'
-import { useUserProfile } from '@common/modals/UserProfile/useUserProfile'
-import { useChangePassword } from '@common/modals/useChangePassword/useChangePassword'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 

@@ -7,6 +7,7 @@ import secretsRoutes from '@secrets/RouteDestinations'
 import rbacRoutes from '@rbac/RouteDestinations'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
 import connectorRoutes from '@connectors/RouteDestinations'
+import userProfileRoutes from '@user-profile/RouteDestinations'
 import '@pipeline/RouteDestinations'
 import CDRoutes from '@cd/RouteDestinations'
 import CIRoutes from '@ci/RouteDestinations'
@@ -18,7 +19,7 @@ import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 export default function RouteDestinations(): React.ReactElement {
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_USERPROFILE } = useFeatureFlags()
   return (
     <Switch>
       {...commonRoutes.props.children}
@@ -27,6 +28,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
       {...connectorRoutes.props.children}
+      {...NG_USERPROFILE ? userProfileRoutes.props.children : []}
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}

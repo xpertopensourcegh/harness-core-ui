@@ -7,6 +7,7 @@ rules:
         - modules/20-rbac/*
         - modules/30-secrets/*
         - modules/35-connectors/*
+        - modules/35-user-profile/*
         - modules/40-delegates/*
         - modules/40-projects-orgs/*
         - modules/45-dashboards/*
@@ -21,6 +22,7 @@ rules:
         - '@rbac/*'
         - '@secrets/*'
         - '@connectors/*'
+        - '@user-profile/*'
         - '@delegates/*'
         - '@projects-orgs/*'
         - '@dashboards/*'

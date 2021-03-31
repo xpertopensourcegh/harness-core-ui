@@ -15,7 +15,7 @@ import {
 import * as Yup from 'yup'
 import { useStrings } from 'framework/exports'
 import { regexName } from '@common/utils/StringUtils'
-import css from '@common/modals/SourceCodeManager/useSourceCodeManager.module.scss'
+import css from '../useSourceCodeManager.module.scss'
 
 interface SourceCodeManagerData {
   onSubmit: () => void
