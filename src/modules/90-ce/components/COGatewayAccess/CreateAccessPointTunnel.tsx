@@ -23,7 +23,7 @@ import {
   useAllRegions,
   useAllSecurityGroups,
   useAllVPCs,
-  useAccessPointCores
+  useAccessPointResources
 } from 'services/lw'
 import { useStrings } from 'framework/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -78,7 +78,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     },
     lazy: true
   })
-  const { data: apCoresResponse, refetch: apCoresReload } = useAccessPointCores({
+  const { data: apCoresResponse, refetch: apCoresReload } = useAccessPointResources({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line

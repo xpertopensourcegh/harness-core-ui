@@ -21,6 +21,7 @@ import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'
 import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
+import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'
 import { getRelativeTime } from '../COGatewayList/Utils'
 import css from './COAcessPointList.module.scss'
 const modalPropsLight: IDialogProps = {
@@ -209,7 +210,7 @@ const COAccessPointList: React.FC = () => {
   //   )
   // }
 
-  const { data, error, loading } = useAllAccessPoints({
+  const { data, error, loading, refetch } = useAllAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -224,6 +225,9 @@ const COAccessPointList: React.FC = () => {
     }
     setAllAccessPoints(data?.response as AccessPoint[])
   }, [data?.response, loading])
+
+  const refreshList = () => refetch()
+
   return (
     <Container background={Color.WHITE} height="100vh">
       <Breadcrumbs
@@ -248,16 +252,12 @@ const COAccessPointList: React.FC = () => {
                     icon="plus"
                     onClick={() => createAccessPointModal()}
                   />
-                  {selectedAccessPoints.length ? (
-                    <Button
-                      intent="primary"
-                      icon="trash"
-                      text={`Delete Selected (${selectedAccessPoints.length})`}
-                      onClick={() => alert('deleting')}
-                      color={Color.BLUE_300}
-                      minimal
-                    />
-                  ) : null}
+                  <DeleteAccessPoint
+                    accessPoints={selectedAccessPoints}
+                    orgID={orgIdentifier}
+                    projectID={projectIdentifier}
+                    refresh={refreshList}
+                  />
                 </Layout.Horizontal>
                 <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
                   <Layout.Horizontal flex>

@@ -4,6 +4,11 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig } from '../config'
+export interface DeleteAccessPointPayload {
+  ids?: string[]
+  with_resources?: boolean
+}
+
 export interface Service {
   id?: number
   name: string
@@ -1340,8 +1345,6 @@ export const useAllSecurityGroups = ({ org_id, project_id, account_id, ...props 
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
-export interface CreateAccessPointResponse {}
-
 export interface CreateAccessPointPathParams {
   org_id: string
   project_id: string
@@ -1382,6 +1385,46 @@ export const useCreateAccessPoint = ({ org_id, project_id, ...props }: UseCreate
   useMutate<CreateAccessPointResponse, void, void, AccessPoint, CreateAccessPointPathParams>(
     'POST',
     (paramsInPath: CreateAccessPointPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
+  )
+
+export interface DeleteAccessPointsPathParams {
+  org_id: string
+  project_id: string
+}
+
+export type DeleteAccessPointsProps = Omit<
+  MutateProps<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>,
+  'path' | 'verb'
+> &
+  DeleteAccessPointsPathParams
+
+/**
+ * Delete Access Points
+ */
+export const DeleteAccessPoints = ({ org_id, project_id, ...props }: DeleteAccessPointsProps) => (
+  <Mutate<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>
+    verb="DELETE"
+    path="/orgs/${org_id}/projects/${project_id}/services/access_points"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteAccessPointsProps = Omit<
+  UseMutateProps<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>,
+  'path' | 'verb'
+> &
+  DeleteAccessPointsPathParams
+
+/**
+ * Delete Access Points
+ */
+export const useDeleteAccessPoints = ({ org_id, project_id, ...props }: UseDeleteAccessPointsProps) =>
+  useMutate<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>(
+    'DELETE',
+    (paramsInPath: DeleteAccessPointsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
   )
@@ -2162,50 +2205,50 @@ export const useGetServiceDiagnostics = ({
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, service_id }, ...props }
   )
 
-export interface AccessPointCoresQueryParams {
+export interface AccessPointResourcesQueryParams {
   cloud_account_id: string
   region: string
 }
 
-export interface AccessPointCoresPathParams {
+export interface AccessPointResourcesPathParams {
   org_id: string
   project_id: string
   account_id: string
 }
 
-export type AccessPointCoresProps = Omit<
-  GetProps<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>,
+export type AccessPointResourcesProps = Omit<
+  GetProps<AccessPointCoresResponse, void, AccessPointResourcesQueryParams, AccessPointResourcesPathParams>,
   'path'
 > &
-  AccessPointCoresPathParams
+  AccessPointResourcesPathParams
 
 /**
  * Lists all resources that can be used as access point
  *
  * Lists all resources that can be used as access point. Eg : alb in the case of AWS account
  */
-export const AccessPointCores = ({ org_id, project_id, account_id, ...props }: AccessPointCoresProps) => (
-  <Get<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/access_points/core"
+export const AccessPointResources = ({ org_id, project_id, account_id, ...props }: AccessPointResourcesProps) => (
+  <Get<AccessPointCoresResponse, void, AccessPointResourcesQueryParams, AccessPointResourcesPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/access_points/supported_resources"
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
-export type UseAccessPointCoresProps = Omit<
-  UseGetProps<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>,
+export type UseAccessPointResourcesProps = Omit<
+  UseGetProps<AccessPointCoresResponse, void, AccessPointResourcesQueryParams, AccessPointResourcesPathParams>,
   'path'
 > &
-  AccessPointCoresPathParams
+  AccessPointResourcesPathParams
 
 /**
  * Lists all resources that can be used as access point
  *
  * Lists all resources that can be used as access point. Eg : alb in the case of AWS account
  */
-export const useAccessPointCores = ({ org_id, project_id, account_id, ...props }: UseAccessPointCoresProps) =>
-  useGet<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>(
-    (paramsInPath: AccessPointCoresPathParams) =>
-      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/access_points/core`,
+export const useAccessPointResources = ({ org_id, project_id, account_id, ...props }: UseAccessPointResourcesProps) =>
+  useGet<AccessPointCoresResponse, void, AccessPointResourcesQueryParams, AccessPointResourcesPathParams>(
+    (paramsInPath: AccessPointResourcesPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/access_points/supported_resources`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )

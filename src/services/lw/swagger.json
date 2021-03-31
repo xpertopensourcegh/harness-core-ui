@@ -13,7 +13,7 @@
   "tags": [
     {
       "name": "services",
-      "description": "Autostopping APIs"
+      "description": "Auto-stopping APIs"
     }
   ],
   "schemes": ["https"],
@@ -969,13 +969,49 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "schema": {
-                "$ref": "#/definitions/CreateAccessPointResponse"
-              }
+              "$ref": "#/definitions/CreateAccessPointResponse"
             }
           },
           "400": {
             "description": "Invalid status value"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete Access Points",
+        "operationId": "DeleteAccessPoints",
+        "tags": ["Delete Access Points"],
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accessPoint",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteAccessPointPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -1790,7 +1826,7 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/access_points/core": {
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/access_points/supported_resources": {
       "parameters": [
         {
           "name": "org_id",
@@ -1830,10 +1866,10 @@
         }
       ],
       "get": {
-        "tags": ["accessPointCores"],
+        "tags": ["Access Point Resources"],
         "summary": "Lists all resources that can be used as access point",
         "description": "Lists all resources that can be used as access point. Eg : alb in the case of AWS account",
-        "operationId": "AccessPointCores",
+        "operationId": "AccessPointResources",
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -1850,6 +1886,20 @@
     }
   },
   "definitions": {
+    "DeleteAccessPointPayload": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "with_resources": {
+          "type": "boolean"
+        }
+      }
+    },
     "Service": {
       "type": "object",
       "required": ["name", "fulfilment", "kind", "org_id", "cloud_account_id"],

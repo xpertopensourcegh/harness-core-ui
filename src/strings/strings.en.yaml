@@ -2669,6 +2669,7 @@ ce:
 
     accessPoint:
       ap: 'Access Point'
+      aps: 'Access Points'
       new: 'New Access Point'
       dnsProvider: 'DNS Provider'
       asssociatedRules: 'Associated Rules'
@@ -2707,6 +2708,9 @@ ce:
         securityGroup: 'Atleast one security group is mandatory'
       hostedZone:
         noResult: 'Access point name does not match any of the existing domains'
+      delete:
+        withResource: 'Delete with all cloud resources'
+        success: 'Deleted successfully'
     dnsSetup:
       autoURL: 'Auto generated URL'
       customURL: 'Custom URL (Example: qa.yourcompany.com)'
