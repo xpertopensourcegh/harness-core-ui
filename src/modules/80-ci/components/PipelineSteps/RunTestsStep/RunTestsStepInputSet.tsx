@@ -22,7 +22,6 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
   }>()
 
   const buildToolOptions = [
-    { label: 'Gradle', value: 'gradle' },
     { label: 'Bazel', value: 'bazel' },
     { label: 'Maven', value: 'maven' }
   ]
