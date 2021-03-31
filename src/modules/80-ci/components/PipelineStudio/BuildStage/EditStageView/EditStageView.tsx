@@ -244,7 +244,9 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                       formikProps.setFieldValue('connectorRef', {
                         label: value.name || '',
                         value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
-                        scope: scope
+                        scope: scope,
+                        live: value?.status?.status === 'SUCCESS',
+                        connector: value
                       })
                     }}
                   />

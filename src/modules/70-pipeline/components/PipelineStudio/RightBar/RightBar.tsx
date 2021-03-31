@@ -395,6 +395,7 @@ export const RightBar = (): JSX.Element => {
                           label: value.name || '',
                           value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
                           scope: scope,
+                          live: value?.status?.status === 'SUCCESS',
                           connector: value
                         })
                       }}
