@@ -146,7 +146,14 @@ const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = 
   metadataMap,
   initialValues
 }) => {
-  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+  return (
+    <VariablesListTable
+      className={stepCss.topSpacingLarge}
+      data={variablesData.spec}
+      originalData={initialValues.spec}
+      metadataMap={metadataMap}
+    />
+  )
 }
 
 const K8sRolloutDeployRef = React.forwardRef(K8RolloutDeployWidget)
