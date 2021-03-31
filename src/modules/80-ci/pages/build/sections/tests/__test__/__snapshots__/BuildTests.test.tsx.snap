@@ -38618,7 +38618,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
                 class="linesWrapper"
               >
                 <div
-                  class="line"
+                  class="line selected"
                   style="height: 0.37122969837587005%;"
                 />
                 <div
@@ -38881,7 +38881,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="linesWrapper"
               >
                 <div
-                  class="line"
+                  class="line selected"
                   style="height: 0.37122969837587005%;"
                 />
                 <div

@@ -42,6 +42,10 @@
     li[data-status='skipped'] {
       background-color: var(--grey-300);
     }
+
+    li[data-status='empty'] {
+      background-color: #f3f3fa;
+    }
   }
 }
 
@@ -101,10 +105,17 @@
     border-radius: 100px;
     background-color: #d9dae6;
 
-    &:first-child {
+    &.selected {
       background-color: #00ade4;
-      margin-bottom: 2px;
       opacity: 0.7;
+    }
+
+    &:first-child {
+      margin-bottom: 2px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }

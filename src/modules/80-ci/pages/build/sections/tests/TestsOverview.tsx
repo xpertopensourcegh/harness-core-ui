@@ -65,8 +65,15 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
             </Text>
             <span className={cx(css.statsNumber)}>{selectedTests}</span>
             <div className={css.linesWrapper}>
-              <div className={css.line} style={{ height: `${selectedTests / (totalTests / 100)}%` }}></div>
-              <div className={css.line} style={{ height: `${skippedTests / (totalTests / 100)}%` }}></div>
+              {totalTests > 0 && (
+                <div
+                  className={cx(css.line, css.selected)}
+                  style={{ height: `${selectedTests / (totalTests / 100)}%` }}
+                ></div>
+              )}
+              {skippedTests > 0 && (
+                <div className={css.line} style={{ height: `${skippedTests / (totalTests / 100)}%` }}></div>
+              )}
             </div>
           </Text>
         </Layout.Horizontal>

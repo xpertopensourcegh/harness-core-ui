@@ -12,6 +12,7 @@ declare const styles: {
   readonly overview: string
   readonly linesWrapper: string
   readonly line: string
+  readonly selected: string
   readonly reportsOverview: string
   readonly graphWrapper: string
   readonly graphContainer: string

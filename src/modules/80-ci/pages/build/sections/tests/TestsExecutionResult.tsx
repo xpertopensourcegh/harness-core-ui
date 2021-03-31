@@ -11,12 +11,16 @@ interface TestsExecutionResultProps {
   tests: NonNullable<TestReportSummary['tests']>
 }
 
+const NUMBER_OF_ITEMS_TO_FILL_THE_SPACE = 330
+
 export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ totalTests, tests }) => {
   const { getString } = useStrings()
 
   const failedTests = tests.filter(({ status }) => status === TestStatus.FAILED || status === TestStatus.ERROR).length
   const skippedTests = tests?.filter(({ status }) => status === TestStatus.SKIPPED).length
   const passedTests = totalTests - failedTests - skippedTests
+
+  const amountOfEmptyItemsToRender = NUMBER_OF_ITEMS_TO_FILL_THE_SPACE - totalTests
 
   return (
     <div className={cx(css.widgetWrapper, css.executionResult)}>
@@ -71,11 +75,16 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
         </Container>
         <Container className={css.graphContainer}>
           <ul className={css.graph}>
-            {tests.map((test, index) => (
+            {tests?.map((test, index) => (
               <li key={(test.name as string) + index} data-status={test.status}>
                 <Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */>&nbsp;</Text>
               </li>
             ))}
+            {amountOfEmptyItemsToRender > -1 &&
+              // eslint-disable-next-line prefer-spread
+              Array.apply(null, Array(amountOfEmptyItemsToRender)).map((_item, index) => (
+                <li data-status={'empty'} key={index} />
+              ))}
           </ul>
         </Container>
       </Container>
