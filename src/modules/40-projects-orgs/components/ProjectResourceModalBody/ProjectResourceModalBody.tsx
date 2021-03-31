@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Color, Container, Layout, Text, Icon } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ResourceHandlerTable from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
 import { Project, useGetProjectList } from 'services/cd-ng'
@@ -22,13 +21,18 @@ const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
   )
 }
 
-const ProjectResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm, onSelectChange, selectedData }) => {
-  const { accountId } = useParams()
+const ProjectResourceModalBody: React.FC<RbacResourceModalProps> = ({
+  searchTerm,
+  onSelectChange,
+  selectedData,
+  resourceScope
+}) => {
+  const { accountIdentifier } = resourceScope
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
   const { data, loading } = useGetProjectList({
     queryParams: {
-      accountIdentifier: accountId,
+      accountIdentifier,
       searchTerm,
       pageIndex: page,
       pageSize: 5

@@ -3,7 +3,6 @@ import { pick, values } from 'lodash-es'
 import debounce from 'p-debounce'
 import produce from 'immer'
 
-import { deepCompareKeys } from '@blueprintjs/core/lib/esnext/common/utils'
 import { useGetAccessControlList, PermissionCheck, AccessControl } from 'services/rbac'
 
 type Permissions = Map<string, boolean>
@@ -32,6 +31,16 @@ export function usePermissionsContext(): PermissionsContextProps {
 
 interface PermissionsProviderProps {
   debounceWait?: number
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function shallowCompare(obj1: any, obj2: any, keys: Array<string | number | symbol>): boolean {
+  for (const key of keys) {
+    if (obj1[key] !== obj2[key]) {
+      return false
+    }
+  }
+  return true
 }
 
 const keysToCompare = [
@@ -71,7 +80,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
     }
 
     // check if this request is already queued
-    if (!pendingRequests.find(req => deepCompareKeys(req, permissionRequest, keysToCompare))) {
+    if (!pendingRequests.find(req => shallowCompare(req, permissionRequest, keysToCompare))) {
       pendingRequests.push(permissionRequest)
     }
 
@@ -88,7 +97,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
       return produce(oldPermissions, draft => {
         // find the current request in aggregated response
         const hasAccess = !!res.data?.accessControlList?.find((perm: AccessControl) =>
-          deepCompareKeys(perm, permissionRequest, keysToCompare)
+          shallowCompare(perm, permissionRequest, keysToCompare)
         )?.accessible
 
         // update current request in the map
@@ -103,7 +112,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
 
   function cancelRequest(permissionRequest: PermissionCheck): void {
     // remove any matching requests
-    pendingRequests = pendingRequests.filter(req => !deepCompareKeys(req, permissionRequest, keysToCompare))
+    pendingRequests = pendingRequests.filter(req => !shallowCompare(req, permissionRequest, keysToCompare))
   }
 
   return (

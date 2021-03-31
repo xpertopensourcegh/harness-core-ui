@@ -56,5 +56,5 @@ module.exports = {
       lines: 70
     }
   },
-  transformIgnorePatterns: ['node_modules/(?!(date-fns|lodash-es)/)']
+  transformIgnorePatterns: ['node_modules/(?!(date-fns|lodash-es|p-debounce)/)']
 }

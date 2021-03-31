@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Color, Container, Layout, Text, Icon } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ResourceHandlerTable from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
 import { useListSecretsV2, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
@@ -38,13 +37,18 @@ const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   )
 }
 
-const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({ searchTerm, onSelectChange, selectedData }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({
+  searchTerm,
+  onSelectChange,
+  selectedData,
+  resourceScope
+}) => {
+  const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
   const { data, loading } = useListSecretsV2({
     queryParams: {
-      accountIdentifier: accountId,
+      accountIdentifier,
       searchTerm,
       pageIndex: page,
       pageSize: 10,

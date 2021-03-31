@@ -3,11 +3,13 @@ import type { IconName } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import type { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
 
 export interface RbacResourceModalProps {
   searchTerm: string
   selectedData: string[]
   onSelectChange: (items: string[]) => void
+  resourceScope: ResourceScope
 }
 
 export interface ResourceHandler {

@@ -7,7 +7,10 @@ import OrgResourceModalBody from '../OrgResourceModalBody'
 const props = {
   searchTerm: '',
   onSelectChange: jest.fn(),
-  selectedData: []
+  selectedData: [],
+  resourceScope: {
+    accountIdentifier: ''
+  }
 }
 
 jest.mock('services/cd-ng', () => ({

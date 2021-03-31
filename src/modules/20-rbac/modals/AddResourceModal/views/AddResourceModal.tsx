@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Color, Container, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './AddResourceModal.module.scss'
 
 interface RoleModalData {
@@ -14,6 +16,7 @@ interface RoleModalData {
 
 const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClose, selectedData }) => {
   const resourceHandler = RbacFactory.getResourceTypeHandler(resource)
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [selectedItems, setSelectedItems] = useState<string[]>(selectedData)
@@ -40,7 +43,12 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
             onSelectChange: items => {
               setSelectedItems(items)
             },
-            selectedData: selectedItems
+            selectedData: selectedItems,
+            resourceScope: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              projectIdentifier
+            }
           })}
         </Container>
         <Layout.Horizontal spacing="small">
