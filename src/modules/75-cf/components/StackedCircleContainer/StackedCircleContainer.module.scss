@@ -1,0 +1,48 @@
+ul.stack {
+  --size: 45px;
+  --itemContainerSize: 42px;
+  --background: #bda5f2; // target: #47D5DF
+  --color: var(--white);
+
+  display: inline-flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  flex-direction: row-reverse;
+  overflow: hidden;
+
+  .itemContainer {
+    height: var(--size);
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    /* Forces flex items to be smaller than their
+       contents to simulate stacking effect */
+    width: var(--itemContainerSize);
+
+    .item,
+    .other,
+    > * {
+      &,
+      [class*='bp3-popover-target'],
+      [class*='bp3-popover-target'] > * {
+        all: unset;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: var(--background);
+        /*   border: 1px solid white; */
+        box-shadow: 0 0 1px 1px var(--white) !important;
+        border-radius: 50% !important;
+        color: var(--color);
+        display: block !important;
+        font-size: var(--font-size-normal);
+        font-weight: 100;
+        height: var(--size) !important;
+        width: var(--size) !important;
+        line-height: var(--size) !important;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -5,13 +5,13 @@ import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf
 import AppStorage from 'framework/utils/AppStorage'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
+import { useStrings } from 'framework/exports'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
 import FlagElemTest from './FlagElemTest'
 import { FlagTypeVariations, FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
-import i18n from './FlagWizard.i18n'
 import css from './FlagWizard.module.scss'
 
 interface FlagWizardProps {
@@ -22,12 +22,12 @@ interface FlagWizardProps {
   goBackToTypeSelections: () => void
 }
 
-const flagTypeOptions: SelectOption[] = [
-  { label: i18n.varSettingsFlag.boolVal, value: FlagTypeVariations.booleanFlag },
-  { label: i18n.varSettingsFlag.multiVal, value: FlagTypeVariationsSelect.string }
-]
-
 const FlagWizard: React.FC<FlagWizardProps> = props => {
+  const { getString } = useStrings()
+  const flagTypeOptions: SelectOption[] = [
+    { label: getString('cf.boolean'), value: FlagTypeVariations.booleanFlag },
+    { label: getString('cf.multivariate'), value: FlagTypeVariationsSelect.string }
+  ]
   const { flagTypeView, environmentIdentifier, toggleFlagType, hideModal, goBackToTypeSelections } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { showError } = useToaster()
@@ -73,10 +73,13 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
 
   return (
     <StepWizard className={css.flagWizardContainer} onCompleteWizard={onWizardStepSubmit}>
-      <FlagElemAbout name={i18n.aboutFlag.aboutFlagHeading} goBackToTypeSelections={goBackToTypeSelections} />
+      <FlagElemAbout
+        name={getString('cf.creationModal.aboutFlag.aboutFlagHeading')}
+        goBackToTypeSelections={goBackToTypeSelections}
+      />
       {flagTypeView === FlagTypeVariations.booleanFlag ? (
         <FlagElemBoolean
-          name={i18n.varSettingsFlag.variationSettingsHeading}
+          name={getString('cf.creationModal.variationSettingsHeading')}
           toggleFlagType={toggleFlagType}
           flagTypeOptions={flagTypeOptions}
           onWizardStepSubmit={onWizardStepSubmit}
@@ -86,7 +89,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
         />
       ) : (
         <FlagElemMultivariate
-          name={i18n.varSettingsFlag.variationSettingsHeading}
+          name={getString('cf.creationModal.variationSettingsHeading')}
           toggleFlagType={toggleFlagType}
           flagTypeOptions={flagTypeOptions}
           onWizardStepSubmit={onWizardStepSubmit}
@@ -95,7 +98,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
           isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}
         />
       )}
-      <FlagElemTest name={i18n.testTheFlag.testFlagHeading} fromWizard={true} hideModal={hideModal} />
+      <FlagElemTest name={getString('cf.testTheFlag.testFlagHeading')} fromWizard={true} hideModal={hideModal} />
     </StepWizard>
   )
 }

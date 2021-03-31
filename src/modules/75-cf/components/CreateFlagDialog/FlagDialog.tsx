@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Dialog } from '@blueprintjs/core'
 import { Color, useModalHook, Button, Container, Text, Icon } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
 import { FlagTypeVariations } from './FlagDialogUtils'
 import FlagWizard from '../CreateFlagWizard/FlagWizard'
 import FlagTypeElement from '../CreateFlagType/FlagTypeElement'
-import i18n from './FlagDialog.i18n'
 import css from './FlagDialog.module.scss'
 
 export interface FlagModalProps {
@@ -13,6 +13,7 @@ export interface FlagModalProps {
 }
 
 const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
+  const { getString } = useStrings()
   const [flagTypeClicked, setFlagTypeClicked] = useState(false)
   const [flagTypeView, setFlagTypeView] = useState('')
 
@@ -53,16 +54,16 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
         ) : (
           <Container className={css.typeFlagContainer} padding="huge">
             <Text color={Color.WHITE} margin={{ bottom: 'small' }} style={{ fontSize: '24px' }}>
-              {i18n.typeOfFlag}
+              {getString('cf.featureFlags.typeOfFlag')}
             </Text>
             <Text font="small" color={Color.WHITE} margin={{ bottom: 'xxxlarge' }}>
-              {i18n.startVariation}
+              {getString('cf.featureFlags.startVariation')}
             </Text>
             <Container className={css.typeFlagBtns}>
               <FlagTypeElement
                 type={FlagTypeVariations.booleanFlag}
-                text={i18n.boolean}
-                textDesc={i18n.booleanBtnText}
+                text={getString('cf.boolean')}
+                textDesc={getString('cf.featureFlags.booleanBtnText')}
                 typeOfFlagFnc={booleanFlagBtn}
               >
                 <Icon name="full-circle" color={Color.BLUE_800} />
@@ -71,8 +72,8 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
 
               <FlagTypeElement
                 type={FlagTypeVariations.multiFlag}
-                text={i18n.multi}
-                textDesc={i18n.multiBtnText}
+                text={getString('cf.multivariate')}
+                textDesc={getString('cf.featureFlags.multiBtnText')}
                 typeOfFlagFnc={multiFlagBtn}
               >
                 <Icon name="full-circle" color={Color.BLUE_800} />
@@ -100,7 +101,13 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
   )
 
   return (
-    <Button disabled={disabled} text={i18n.newFlag} intent="primary" onClick={showModal} className={css.openModalBtn} />
+    <Button
+      disabled={disabled}
+      text={getString('cf.featureFlags.newFlag')}
+      intent="primary"
+      onClick={showModal}
+      className={css.openModalBtn}
+    />
   )
 }
 

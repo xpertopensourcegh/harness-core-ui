@@ -1,0 +1,22 @@
+.collapse {
+  --layout-spacing: 0;
+
+  & > div {
+    border: none;
+    padding: 0;
+  }
+}
+
+.modal {
+  width: 600px;
+  padding: var(--spacing-medium);
+
+  :global {
+    .bp3-heading {
+      font-weight: 600 !important;
+      font-size: var(--font-size-normal);
+      line-height: 20px;
+      color: #1c1c28;
+    }
+  }
+}

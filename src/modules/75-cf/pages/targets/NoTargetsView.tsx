@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
 import { NoData } from '@cf/components/NoData/NoData'
 import { useStrings } from 'framework/exports'
-import { NewTargets } from '../NewTarget'
+import { NewTargets } from './NewTarget'
 import imageURL from './target.svg'
 
 export interface NoTargetsViewProps {

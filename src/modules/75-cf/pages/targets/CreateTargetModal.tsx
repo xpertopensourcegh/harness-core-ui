@@ -105,12 +105,12 @@ const FileUpload: React.FC<{ onChange: (targets: TargetData[]) => void }> = ({ o
   const uploadContainerHeight = 260
   const [targets, setTargets] = useState<TargetData[]>([])
   const [tagItems, setTagItems] = useState<{ label: string; value: string }[]>([])
-  const handleRemove = () => {
+  const handleRemove = (): void => {
     setTargets([])
     onChange([])
     setTagItems([])
   }
-  const handleUpload = (file: File) => {
+  const handleUpload = (file: File): void => {
     file
       .text()
       .then((str: string) => {
@@ -213,28 +213,28 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
   const [targets, setTargets] = useState<TargetData[]>([emptyTarget()])
   const addDisabled = filterTargets(targets).length === 0
   const { getString } = useStrings()
-  const getPageString = (key: string) => getString(`cf.targets.${key}`)
+  const getPageString = (key: string): string => getString(`cf.targets.${key}`)
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setIsList((e.target as HTMLInputElement).value === LIST)
     setTargets([emptyTarget()])
   }
 
-  const handleTargetAdd = () => {
+  const handleTargetAdd = (): void => {
     setTargets([...targets, emptyTarget()])
   }
 
-  const handleTargetRemove = (index: number) => {
+  const handleTargetRemove = (index: number): void => {
     targets.splice(index, 1)
     setTargets([...targets])
   }
 
-  const handleTargetChange = (idx: number, newData: TargetData) => {
+  const handleTargetChange = (idx: number, newData: TargetData): void => {
     targets[idx] = newData
     setTargets([...targets])
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     const filteredTargets = filterTargets(targets)
     if (filteredTargets.length) {
       onSubmitTargets(filteredTargets, () => {
@@ -244,7 +244,7 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
     }
   }
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     setIsList(true)
     setTargets([emptyTarget()])
     hideModal()

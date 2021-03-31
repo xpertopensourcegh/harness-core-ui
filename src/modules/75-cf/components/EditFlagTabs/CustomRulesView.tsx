@@ -33,7 +33,6 @@ import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
 import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'
 import PercentageRollout from './PercentageRollout'
-import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
 
 export interface RuleData {
@@ -179,6 +178,7 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
             onChange={({ value }) => {
               onAttributeChange(value as string)
             }}
+            allowCreatingNewItems
           />
         </div>
         <div style={{ flex: '0.8' }}>
@@ -361,7 +361,11 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                         index={idx}
                         isLast={idx === rule.clauses.length - 1}
                         isSingleClause={rule.clauses.length === 1}
-                        label={idx === 0 ? i18n.tabTargeting.onRequest : i18n.and.toLocaleLowerCase()}
+                        label={
+                          idx === 0
+                            ? getString('cf.featureFlags.rules.onRequest')
+                            : getString('cf.clause.operators.and').toLocaleLowerCase()
+                        }
                         attribute={clause?.attribute || ''}
                         operator={operators.find(x => x.value === clause.op) || operators[0]}
                         values={clause.values ?? []}
@@ -385,7 +389,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                             minWidth: '80px'
                           }}
                         >
-                          {i18n.tabTargeting.serve.toLocaleLowerCase()}
+                          {getString('cf.featureFlags.rules.serve').toLocaleLowerCase()}
                         </Text>
                         <div style={{ flexGrow: 0 }}>
                           <Select
@@ -656,7 +660,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
 
   const component = (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-      <Text>{i18n.serveVariation.serve}</Text>
+      <Text>{getString('cf.featureFlags.serve')}</Text>
       <div style={{ maxWidth: '210px', margin: `0 var(--spacing-${editing ? 'small' : 'xsmall'})` }}>
         {editing ? (
           <Select
@@ -842,7 +846,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
     setTempRules([...tempRules.slice(0, index), ...tempRules.slice(index + 1)])
   }
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = (result: DropResult): void => {
     if (result.destination) {
       const from = result.source.index
       const to = result.destination.index
@@ -853,7 +857,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
 
   return (
     <>
-      <Text className={cx(css.ruleTitle, css.custom)}>{i18n.customRules.header}</Text>
+      <Text className={cx(css.ruleTitle, css.custom)}>{getString('cf.featureFlags.rules.customRules')}</Text>
       <Layout.Vertical>
         {servings.length > 0 && (
           <Layout.Horizontal spacing="small">

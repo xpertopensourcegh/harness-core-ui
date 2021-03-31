@@ -15,7 +15,6 @@ import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
 import type { Feature } from 'services/cf'
 import CustomRulesView from './CustomRulesView'
-import i18n from './Tabs.i18n'
 import { DefaultRulesView } from './DefaultRulesView'
 import css from '../FlagActivation/FlagActivation.module.scss'
 
@@ -42,9 +41,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
   const [, hideTargetModal] = useModalHook(() => (
     <Dialog onClose={hideTargetModal} title="" isOpen={true}>
       <Layout.Vertical>
-        <Text>
-          {i18n.tabTargeting.serve} {i18n.tabTargeting.following}:
-        </Text>
+        <Text>{getString('cf.featureFlags.rules.serveToFollowing')}</Text>
 
         <Formik initialValues={{}} onSubmit={() => alert('To be implemented...')}>
           {() => (
@@ -55,8 +52,8 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
         </Formik>
 
         <Layout.Horizontal>
-          <Button intent="primary" text={i18n.save} onClick={() => alert('To be implemented...')} />
-          <Button minimal text={i18n.cancel} onClick={hideTargetModal} />
+          <Button intent="primary" text={getString('save')} onClick={() => alert('To be implemented...')} />
+          <Button minimal text={getString('cancel')} onClick={hideTargetModal} />
         </Layout.Horizontal>
       </Layout.Vertical>
     </Dialog>
@@ -107,7 +104,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
         </Text>
         <FlexExpander />
         <Button
-          text={i18n.tabTargeting.editRules}
+          text={getString('cf.featureFlags.rules.editRules')}
           icon="edit"
           onClick={onEditBtnHandler}
           style={{

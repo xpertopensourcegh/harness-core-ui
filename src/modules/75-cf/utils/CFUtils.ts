@@ -133,4 +133,9 @@ export enum FlagsSortByField {
   // TODO: backend needs to support Last Evaluated & Variation, etc..
 }
 
-export const getErrorMessage = (error: any) => get(error, 'data.error', get(error, 'data.message', error?.message))
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getErrorMessage = (error: any): string =>
+  get(error, 'data.error', get(error, 'data.message', error?.message))
+
+export const TARGET_PRIMARY_COLOR = '#47D5DF'
+export const SEGMENT_PRIMARY_COLOR = '#BDA5F2'

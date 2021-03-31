@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { Button, Color, Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Color, Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import { useEnvironments } from '@cf/hooks/environment'
@@ -15,8 +15,7 @@ import {
   DEFAULT_ENV,
   getErrorMessage,
   NO_ENVIRONMENT_IDENTIFIER,
-  SEGMENT_PRIMARY_COLOR,
-  TARGET_PRIMARY_COLOR
+  SEGMENT_PRIMARY_COLOR
 } from '@cf/utils/CFUtils'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
 import { useStrings } from 'framework/exports'
@@ -25,15 +24,15 @@ import { useToaster } from '@common/exports'
 import { OptionsMenuButton } from '@common/components'
 import { EnvironmentSelect } from '@cf/components/EnvironmentSelect/EnvironmentSelect'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
-import { Segment, Target, useDeleteTarget, useGetAllTargets } from 'services/cf'
 import {
   makeStackedCircleShortName,
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
-import { NoTargetsView } from './NoTargetsView'
-import { NewTargets } from './NewTarget'
+import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
+import { NoSegmentsView } from './NoSegmentsView'
+import { NewSegmentButton } from './NewSegmentButton'
 
-export const TargetsPage: React.FC = () => {
+export const SegmentsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const {
     data: environments,
@@ -50,23 +49,29 @@ export const TargetsPage: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(
     () => ({
-      account: accountId,
-      org: orgIdentifier,
       project: projectIdentifier,
       environment: (environment?.value || '') as string,
       pageNumber,
-      pageSize: CF_DEFAULT_PAGE_SIZE
+      pageSize: CF_DEFAULT_PAGE_SIZE,
+      account: accountId,
+      org: orgIdentifier
     }),
     [accountId, orgIdentifier, projectIdentifier, environment?.value, pageNumber]
   )
-  const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: refetchTargets } = useGetAllTargets({
+  const {
+    data: segmentsData,
+    loading: loadingSegments,
+    error: errSegments,
+    refetch: refetchSegments
+  } = useGetAllSegments({
     queryParams
   })
   const history = useHistory()
-  const loading = loadingEnvironments || loadingTargets
-  const error = errEnvironments || errTargets
-  const noTargetExists = targetsData?.targets?.length === 0
-  const title = getString('cf.targets.title')
+  const loading = loadingEnvironments || loadingSegments
+  const error = errEnvironments || errSegments
+  const noSegmentExists = segmentsData?.segments?.length === 0
+  const title = getString('cf.shared.segments')
+
   const header = (
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
       <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
@@ -83,34 +88,31 @@ export const TargetsPage: React.FC = () => {
   )
   const toolbar = (
     <Layout.Horizontal>
-      <NewTargets
+      <NewSegmentButton
         accountId={accountId}
         orgIdentifier={orgIdentifier}
         projectIdentifier={projectIdentifier}
         environmentIdentifier={environment?.value}
         onCreated={() => {
           setPageNumber(0)
-          refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
+          refetchSegments({ queryParams: { ...queryParams, pageNumber: 0 } })
         }}
       />
     </Layout.Horizontal>
   )
-  const gotoTargeDetailPage = useCallback(
-    (identifier: string): void => {
-      history.push(
-        routes.toCFTargetDetails({
-          accountId,
-          orgIdentifier,
-          projectIdentifier,
-          environmentIdentifier: environment.value || NO_ENVIRONMENT_IDENTIFIER,
-          targetIdentifier: identifier as string
-        })
-      )
-    },
-    [history, accountId, orgIdentifier, projectIdentifier, environment.value]
-  )
+  const gotoTargeDetailPage = (identifier: string): void => {
+    history.push(
+      routes.toCFSegmentDetails({
+        segmentIdentifier: identifier as string,
+        environmentIdentifier: environment.value || NO_ENVIRONMENT_IDENTIFIER,
+        projectIdentifier,
+        orgIdentifier,
+        accountId
+      })
+    )
+  }
   const { showSuccess, showError, clear } = useToaster()
-  const deleteTargetParams = useMemo(
+  const deleteSegmentParams = useMemo(
     () => ({
       account: accountId,
       org: orgIdentifier,
@@ -119,28 +121,33 @@ export const TargetsPage: React.FC = () => {
     }),
     [accountId, orgIdentifier, projectIdentifier, environment?.value]
   )
-  const { mutate: deleteTarget } = useDeleteTarget({
-    queryParams: deleteTargetParams
+  const { mutate: deleteSegment } = useDeleteSegment({
+    queryParams: deleteSegmentParams
   })
 
-  const columns: Column<Target>[] = useMemo(
+  const columns: Column<Segment>[] = useMemo(
     () => [
       {
-        Header: getString('cf.shared.target').toUpperCase(),
+        Header: getString('cf.shared.segment').toUpperCase(),
         id: 'name',
         accessor: 'name',
-        width: '40%',
-        Cell: function NameCell(cell: Cell<Target>) {
+        width: '45%',
+        Cell: function NameCell(cell: Cell<Segment>) {
+          const description = (cell.row.original as { description?: string })?.description
+
           return (
             <Layout.Horizontal spacing="xsmall" style={{ alignItems: 'center' }}>
               <StackedCircleContainer
                 items={[{ name: cell.row.original.name, identifier: cell.row.original.identifier }]}
                 keyOfItem={item => item.identifier}
                 renderItem={item => <Text>{makeStackedCircleShortName(item.name)}</Text>}
-                backgroundColor={() => TARGET_PRIMARY_COLOR}
+                backgroundColor={() => SEGMENT_PRIMARY_COLOR}
                 margin={{ right: 'small' }}
               />
-              <Text color={Color.GREY_900}>{cell.row.original.name}</Text>
+              <Container>
+                <Text style={{ fontWeight: 600, lineHeight: '24px', color: '#22222A' }}>{cell.row.original.name}</Text>
+                {description && <Text>{description}</Text>}
+              </Container>
             </Layout.Horizontal>
           )
         }
@@ -149,57 +156,17 @@ export const TargetsPage: React.FC = () => {
         Header: getString('identifier').toUpperCase(),
         id: 'identifier',
         accessor: 'identifier',
-        width: '15%',
-        Cell: function IdCell(cell: Cell<Target>) {
-          return <Text>{cell.row.original.identifier}</Text>
-        }
-      },
-      {
-        Header: getString('cf.shared.segments').toUpperCase(),
-        id: 'targetSegment',
-        accessor: 'attributes',
         width: '25%',
-        Cell: function AttrCell(cell: Cell<Target & { segments: Segment[] }>) {
-          return (
-            <>
-              {cell.row.original.segments?.length ? (
-                <StackedCircleContainer
-                  items={cell.row.original.segments}
-                  keyOfItem={item => item.identifier}
-                  renderItem={item => (
-                    <Button noStyling tooltip={item.name}>
-                      {makeStackedCircleShortName(item.name)}
-                    </Button>
-                  )}
-                  renderOtherItem={otherItems => (
-                    <Button
-                      tooltip={
-                        <Container padding="large">
-                          {otherItems.map(item => (
-                            <Text key={item.identifier}>{item.name}</Text>
-                          ))}
-                        </Container>
-                      }
-                      noStyling
-                    >
-                      +{otherItems.length}
-                    </Button>
-                  )}
-                  backgroundColor={item => (item === true ? 'var(--blue-450)' : SEGMENT_PRIMARY_COLOR)}
-                />
-              ) : (
-                <Text>{getString('cf.targets.noneDefined')}</Text>
-              )}
-            </>
-          )
+        Cell: function IdCell(cell: Cell<Segment>) {
+          return <Text>{cell.row.original.identifier}</Text>
         }
       },
       {
         Header: getString('cf.targets.createdDate').toUpperCase(),
         id: 'createdAt',
         accessor: 'createdAt',
-        width: '20%',
-        Cell: function CreateAtCell(cell: Cell<Target>) {
+        width: '30%',
+        Cell: function CreateAtCell(cell: Cell<Segment>) {
           const deleteTargetConfirm = useConfirmAction({
             title: getString('cf.targets.deleteTarget'),
             message: (
@@ -216,9 +183,9 @@ export const TargetsPage: React.FC = () => {
               clear()
 
               try {
-                deleteTarget(cell.row.original.identifier as string)
+                deleteSegment(cell.row.original.identifier as string)
                   .then(() => {
-                    refetchTargets()
+                    refetchSegments()
                     showSuccess(
                       <Text color={Color.WHITE}>
                         <span
@@ -271,7 +238,7 @@ export const TargetsPage: React.FC = () => {
         }
       }
     ],
-    [getString, clear, deleteTarget, gotoTargeDetailPage, refetchTargets, showError, showSuccess]
+    [getString]
   )
 
   useEffect(() => {
@@ -280,20 +247,20 @@ export const TargetsPage: React.FC = () => {
     }
   }, [clear])
 
-  const content = noTargetExists ? (
-    <NoTargetsView
+  const content = noSegmentExists ? (
+    <NoSegmentsView
       environmentIdentifier={environment?.value}
-      onNewTargetsCreated={() => {
-        setPageNumber(0)
-        refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
-      }}
       hasEnvironment={!!environments.length}
+      onNewSegmentCreated={() => {
+        setPageNumber(0)
+        refetchSegments({ queryParams: { ...queryParams, pageNumber: 0 } })
+      }}
     />
   ) : (
     <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
-      <Table<Target>
+      <Table<Segment>
         columns={columns}
-        data={targetsData?.targets || []}
+        data={segmentsData?.segments || []}
         onRowClick={target => {
           gotoTargeDetailPage(target.identifier as string)
         }}
@@ -306,18 +273,18 @@ export const TargetsPage: React.FC = () => {
       pageTitle={title}
       header={header}
       headerStyle={{ display: 'flex' }}
-      toolbar={!error && !noTargetExists && toolbar}
+      toolbar={!error && !noSegmentExists && toolbar}
       content={(!error && content) || null}
       pagination={
-        !!targetsData?.targets?.length && (
+        !!segmentsData?.segments?.length && (
           <Pagination
-            itemCount={targetsData?.itemCount || 0}
-            pageSize={targetsData?.pageSize || 0}
-            pageCount={targetsData?.pageCount || 0}
+            itemCount={segmentsData?.itemCount || 0}
+            pageSize={segmentsData?.pageSize || 0}
+            pageCount={segmentsData?.pageCount || 0}
             pageIndex={pageNumber}
             gotoPage={index => {
               setPageNumber(index)
-              refetchTargets({ queryParams: { ...queryParams, pageNumber: index } })
+              // refetchSegments({ queryParams: { ...queryParams, pageNumber: index } })
             }}
           />
         )
@@ -326,7 +293,7 @@ export const TargetsPage: React.FC = () => {
       error={error}
       retryOnError={() => {
         refetchEnvs()
-        refetchTargets()
+        refetchSegments()
       }}
     />
   )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Formik,
   FormikForm as Form,
@@ -15,8 +15,8 @@ import {
 import type { FormikProps } from 'formik'
 import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
+import { useStrings } from 'framework/exports'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
-import i18n from './FlagWizard.i18n'
 import css from './FlagElemAbout.module.scss'
 
 const collapseProps = {
@@ -33,6 +33,7 @@ interface FlagElemAboutProps {
 type AboutFormProps = FormikProps<any> & FlagElemAboutProps & { isEdit: boolean }
 
 const AboutForm: React.FC<AboutFormProps> = props => {
+  const { getString } = useStrings()
   const [descOpened, setDescOpened] = useState<boolean>(Boolean(props.values.description.length))
   const [tagsOpened, setTagsOpened] = useState<boolean>(Boolean(props.values.tags.length))
   return (
@@ -40,14 +41,17 @@ const AboutForm: React.FC<AboutFormProps> = props => {
       <Container className={css.aboutFlagContainer}>
         <Container style={{ flexGrow: 1, overflow: 'auto' }}>
           <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
-            {i18n.aboutFlag.aboutFlagHeading}
+            {getString('cf.creationModal.aboutFlag.aboutFlagHeading')}
           </Text>
           <Container margin={{ bottom: 'large' }} width="60%">
             <FormInput.InputWithIdentifier
               inputName="name"
               idName="identifier"
               isIdentifierEditable={props.isEdit ? false : true}
-              inputGroupProps={{ placeholder: i18n.aboutFlag.ffNamePlaceholder }}
+              inputGroupProps={{
+                placeholder: getString('cf.creationModal.aboutFlag.ffNamePlaceholder'),
+                inputGroup: { autoFocus: true }
+              }}
             />
           </Container>
           <Container>
@@ -55,7 +59,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
               <Collapse
                 {...collapseProps}
                 onToggleOpen={setDescOpened}
-                heading={i18n.descOptional}
+                heading={getString('description')}
                 isOpen={Boolean(props.values.description.length) || descOpened}
               >
                 <FormInput.TextArea name="description" />
@@ -65,7 +69,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
               <Collapse
                 {...collapseProps}
                 onToggleOpen={setTagsOpened}
-                heading={i18n.aboutFlag.tagsOptional}
+                heading={getString('cf.creationModal.aboutFlag.tagsOptional')}
                 isOpen={Boolean(props.values.tags.length) || tagsOpened}
               >
                 <FormInput.TagInput
@@ -77,7 +81,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
                   tagInputProps={{
                     showClearAllButton: true,
                     allowNewTag: true,
-                    placeholder: i18n.aboutFlag.tagsPlaceholder
+                    placeholder: getString('cf.creationModal.aboutFlag.tagsPlaceholder')
                   }}
                 />
               </Collapse>
@@ -85,10 +89,10 @@ const AboutForm: React.FC<AboutFormProps> = props => {
           </Container>
           <Container margin={{ top: 'xlarge' }}>
             <Layout.Horizontal>
-              <FormInput.CheckBox name="permanent" label={i18n.aboutFlag.permaFlag} />
+              <FormInput.CheckBox name="permanent" label={getString('cf.creationModal.aboutFlag.permaFlag')} />
               <Text
                 margin={{ left: 'xsmall' }}
-                tooltip={i18n.aboutFlag.permaFlagTooltip}
+                tooltip={getString('cf.creationModal.aboutFlag.permaFlagTooltip')}
                 tooltipProps={{
                   isDark: true,
                   portalClassName: css.tooltipAboutFlag
@@ -101,7 +105,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
         <Layout.Horizontal spacing="small" margin={{ top: 'large' }}>
           <Button
             type="button"
-            text={i18n.back}
+            text={getString('back')}
             onMouseDown={e => {
               Utils.stopEvent(e)
               props.goBackToTypeSelections()
@@ -111,7 +115,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
             type="submit"
             intent="primary"
             rightIcon="chevron-right"
-            text={i18n.next}
+            text={getString('next')}
             onClick={() => props.handleSubmit()}
           />
         </Layout.Horizontal>
@@ -122,12 +126,9 @@ const AboutForm: React.FC<AboutFormProps> = props => {
 
 // FIXME: Change any for StepProps
 const FlagElemAbout: React.FC<StepProps<any> & FlagElemAboutProps> = props => {
+  const { getString } = useStrings()
   const { nextStep, prevStepData, goBackToTypeSelections } = props
   const isEdit = Boolean(prevStepData)
-
-  useEffect(() => {
-    ;(document.querySelector('input[name="name"]') as HTMLInputElement)?.focus()
-  }, [])
 
   return (
     <>
@@ -141,11 +142,11 @@ const FlagElemAbout: React.FC<StepProps<any> & FlagElemAboutProps> = props => {
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.aboutFlag.nameRequired),
+          name: Yup.string().trim().required(getString('cf.creationModal.aboutFlag.nameRequired')),
           identifier: Yup.string()
             .trim()
-            .required(i18n.aboutFlag.idRequired)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.aboutFlag.ffRegex)
+            .required(getString('cf.creationModal.aboutFlag.idRequired'))
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('cf.creationModal.aboutFlag.ffRegex'))
             .notOneOf(illegalIdentifiers)
         })}
         onSubmit={vals => {

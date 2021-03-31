@@ -12,7 +12,7 @@ import {
   Color,
   DateInput
 } from '@wings-software/uicore'
-import i18n from './FlagFilterDrawer.i18n'
+import { useStrings } from 'framework/exports'
 import css from './FlagFilterDrawer.module.scss'
 
 // TODO: Check these ...SelectOptions fields
@@ -45,6 +45,7 @@ interface FlagFilterDrawerProps {
 }
 
 const FlagFilterDrawer: React.FC<FlagFilterDrawerProps> = props => {
+  const { getString } = useStrings()
   const { isSaveFiltersOn, setIsSaveFiltersOn } = props
   const [isBtnsFilterDisabled, setIsBtnsFilterDisabled] = useState(true)
 
@@ -70,65 +71,82 @@ const FlagFilterDrawer: React.FC<FlagFilterDrawerProps> = props => {
               <FormInput.Select
                 name="env"
                 items={envSelectOptions}
-                label={i18n.environment}
-                placeholder={i18n.envDefault}
+                label={getString('cf.featureFlags.flagFilters.environment')}
+                placeholder={getString('cf.featureFlags.flagFilters.envDefault')}
               />
 
               <Layout.Horizontal flex>
-                <FormInput.Select name="term" items={termSelectOptions} label={i18n.term} placeholder={i18n.any} />
+                <FormInput.Select
+                  name="term"
+                  items={termSelectOptions}
+                  label={getString('cf.featureFlags.flagFilters.term')}
+                  placeholder={getString('cf.featureFlags.flagFilters.any')}
+                />
 
                 <FormInput.Select
                   name="switch"
                   items={switchSelectOptions}
-                  label={i18n.switchOnOff}
-                  placeholder={i18n.any}
+                  label={getString('cf.featureFlags.flagFilters.switchOnOff')}
+                  placeholder={getString('cf.featureFlags.flagFilters.any')}
                 />
 
                 <FormInput.Select
                   name="status"
                   items={statusSelectOptions}
-                  label={i18n.status}
-                  placeholder={i18n.any}
+                  label={getString('cf.featureFlags.flagFilters.status')}
+                  placeholder={getString('cf.featureFlags.flagFilters.any')}
                 />
               </Layout.Horizontal>
 
               {/* TODO: Check the UIKit for some alternative, it doesn't render nicely inside Drawer */}
               <Layout.Horizontal margin={{ top: 'medium', bottom: 'medium' }}>
-                <DateInput placeholder={i18n.any} />
+                <DateInput placeholder={getString('cf.featureFlags.flagFilters.any')} />
                 <FlexExpander />
-                <DateInput placeholder={i18n.any} />
+                <DateInput placeholder={getString('cf.featureFlags.flagFilters.any')} />
               </Layout.Horizontal>
 
               <FormInput.TagInput
                 name="owner"
-                label={i18n.owner}
+                label={getString('cf.featureFlags.flagFilters.owner')}
                 items={['placeholder1', 'placeholder2']}
                 labelFor={nameIcon => nameIcon as string}
                 itemFromNewTag={newTag => newTag}
                 tagInputProps={{
                   allowNewTag: true,
-                  placeholder: i18n.ownerOrPinPlaceholder
+                  placeholder: getString('cf.featureFlags.flagFilters.ownerOrPinPlaceholder')
                 }}
                 onChange={items => onChangeOwner(items)}
               />
 
-              <FormInput.Text name="creator" placeholder={i18n.creatorPlaceholder} label={i18n.creator} />
+              <FormInput.Text
+                name="creator"
+                placeholder={getString('name')}
+                label={getString('cf.featureFlags.flagFilters.creator')}
+              />
 
               <FormInput.TagInput
                 name="tags"
-                label={i18n.tags}
+                label={getString('tagsLabel')}
                 items={['placeholder1', 'placeholder2']}
                 labelFor={nameIcon => nameIcon as string}
                 itemFromNewTag={newTag => newTag}
                 tagInputProps={{
                   allowNewTag: true,
-                  placeholder: i18n.tagsPlaceholder
+                  placeholder: getString('cf.featureFlags.flagFilters.tagsPlaceholder')
                 }}
               />
 
-              <FormInput.Text name="pinnedBy" placeholder={i18n.ownerOrPinPlaceholder} label={i18n.flagsBy} />
+              <FormInput.Text
+                name="pinnedBy"
+                placeholder={getString('cf.featureFlags.flagFilters.ownerOrPinPlaceholder')}
+                label={getString('cf.featureFlags.flagFilters.flagsBy')}
+              />
 
-              <FormInput.Text name="target" placeholder={i18n.individualTargets} label={i18n.target} />
+              <FormInput.Text
+                name="target"
+                placeholder={getString('cf.featureFlags.flagFilters.individualTargets')}
+                label={getString('cf.featureFlags.flagFilters.target')}
+              />
 
               <FlexExpander />
 
@@ -136,13 +154,13 @@ const FlagFilterDrawer: React.FC<FlagFilterDrawerProps> = props => {
                 <Button
                   type="submit"
                   intent="primary"
-                  text={i18n.apply.toUpperCase()}
+                  text={getString('cf.featureFlags.flagFilters.apply').toUpperCase()}
                   margin={{ right: 'medium' }}
                   disabled={isBtnsFilterDisabled}
                 />
                 <Button
                   minimal
-                  text={i18n.saveFilters}
+                  text={getString('cf.featureFlags.flagFilters.saveFilters')}
                   disabled={isBtnsFilterDisabled}
                   onClick={() => onBtnSaveFilter(true)}
                 />
@@ -162,32 +180,52 @@ const FlagFilterDrawer: React.FC<FlagFilterDrawerProps> = props => {
             <Layout.Vertical height="100%" padding="large" className={css.saveFilterContainer}>
               <RadioGroup name="radioGroupOne">
                 <Layout.Horizontal>
-                  <Radio name="radioProp" label={i18n.overwriteRadio} font={{ weight: 'bold' }} width="35%" />
+                  <Radio
+                    name="radioProp"
+                    label={getString('cf.featureFlags.flagFilters.overwriteRadio')}
+                    font={{ weight: 'bold' }}
+                    width="35%"
+                  />
                   <FormInput.Text name="overwriteExisting" style={{ width: '45%' }} />
                 </Layout.Horizontal>
 
                 <Layout.Horizontal>
-                  <Radio name="radioProp" label={i18n.createFilter} font={{ weight: 'bold' }} width="35%" />
+                  <Radio
+                    name="radioProp"
+                    label={getString('cf.featureFlags.flagFilters.createFilter')}
+                    font={{ weight: 'bold' }}
+                    width="35%"
+                  />
                   <FormInput.Text name="createNew" style={{ width: '45%' }} />
                 </Layout.Horizontal>
               </RadioGroup>
 
-              <FormInput.CheckBox name="defaultFilter" disabled defaultChecked label={i18n.defaultFilter} />
-              <Text>{i18n.defaultFilterText}</Text>
+              <FormInput.CheckBox
+                name="defaultFilter"
+                disabled
+                defaultChecked
+                label={getString('cf.featureFlags.flagFilters.defaultFilter')}
+              />
+              <Text>{getString('cf.featureFlags.flagFilters.defaultFilterText')}</Text>
 
               <RadioGroup name="radioGroupTwo">
-                <Text color={Color.BLACK}>{i18n.filterVisible}</Text>
+                <Text color={Color.BLACK}>{getString('cf.featureFlags.flagFilters.filterVisible')}</Text>
                 <Layout.Vertical>
-                  <Radio name="radioPropVisible" label={i18n.onlyMe} />
-                  <Radio name="radioPropVisible" label={i18n.everyone} />
+                  <Radio name="radioPropVisible" label={getString('cf.featureFlags.flagFilters.onlyMe')} />
+                  <Radio name="radioPropVisible" label={getString('cf.featureFlags.flagFilters.everyone')} />
                 </Layout.Vertical>
               </RadioGroup>
 
               <Layout.Horizontal flex className={css.flagFilterBtns}>
-                <Button type="submit" intent="primary" text={i18n.save.toUpperCase()} margin={{ right: 'medium' }} />
+                <Button
+                  type="submit"
+                  intent="primary"
+                  text={getString('cf.featureFlags.flagFilters.save').toUpperCase()}
+                  margin={{ right: 'medium' }}
+                />
                 <Button
                   minimal
-                  text={i18n.cancel}
+                  text={getString('cf.featureFlags.flagFilters.cancel')}
                   disabled={isBtnsFilterDisabled}
                   onClick={() => onBtnSaveFilter(false)}
                 />

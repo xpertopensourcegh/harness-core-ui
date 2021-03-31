@@ -136,7 +136,7 @@ const CreateTargetSegmentModal: React.FC<CreateTargetSegmentProps> = ({ project,
     )
   }, [])
 
-  return <Button intent="primary" text={`+ ${getString('cf.segments.create')}`} onClick={openModal} />
+  return <Button intent="primary" text={getString('cf.segments.create')} onClick={openModal} />
 }
 
 export default CreateTargetSegmentModal

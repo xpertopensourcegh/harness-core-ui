@@ -28,18 +28,14 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 
 import CFHomePage from '@cf/pages/home/CFHomePage'
-import CFDashboardPage from '@cf/pages/dashboard/CFDashboardPage'
 import CFFeatureFlagsPage from '@cf/pages/feature-flags/CFFeatureFlagsPage'
 import CFFeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'
-import CFTargetsPage from '@cf/pages/targets/CFTargetsPage'
 import CFSegmentDetailsPage from '@cf/pages/segment-details/CFSegmentDetailsPage'
 import CFEnvironmentsPage from '@cf/pages/environments/CFEnvironmentsPage'
 import CFEnvironmentDetails from '@cf/pages/environment-details/CFEnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cf/components/SideNav/SideNav'
-import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
-import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { useAppStore, ModuleName } from 'framework/exports'
@@ -57,10 +53,10 @@ import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
-import ResourcesPage from './pages/Resources/ResourcesPage'
 import { TargetsPage } from './pages/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
+import { SegmentsPage } from './pages/segments/SegmentsPage'
 
 import './components/PipelineStudio/FeatureFlagStage'
 
@@ -122,14 +118,6 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CFSideNavProps}
-      path={routes.toCFProjectOverview({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <CFDashboardPage />
-    </RouteWithLayout>
-
-    <RouteWithLayout
-      sidebarProps={CFSideNavProps}
       path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
       exact
     >
@@ -180,7 +168,7 @@ export default (
       path={routes.toCFSegments({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CFTargetsPage />
+      <SegmentsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -371,26 +359,6 @@ export default (
     >
       <RedirectToResourcesHome />
     </Route>
-
-    <RouteWithLayout
-      exact
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
-    >
-      <ResourcesPage>
-        <ConnectorsPage />
-      </ResourcesPage>
-    </RouteWithLayout>
-
-    <RouteWithLayout
-      exact
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
-    >
-      <ResourcesPage>
-        <SecretsPage />
-      </ResourcesPage>
-    </RouteWithLayout>
 
     <RouteWithLayout
       exact

@@ -15,8 +15,8 @@ import {
 import { isEmpty } from 'lodash-es'
 import type { IconName } from '@blueprintjs/core'
 import cx from 'classnames'
+import { useStrings } from 'framework/exports'
 import { FlagTypeSdk, FlagTypeLanguage } from '../CreateFlagDialog/FlagDialogUtils'
-import i18n from './FlagWizard.i18n'
 import css from './FlagElemTest.module.scss'
 
 interface CardData {
@@ -29,19 +29,6 @@ interface CardLanguageData {
   value: string
   icon: string
 }
-
-const selectCardData: CardData[] = [
-  {
-    text: i18n.testTheFlag.sdkClient,
-    value: FlagTypeSdk.client,
-    icon: 'desktop'
-  },
-  {
-    text: i18n.testTheFlag.sdkServer,
-    value: FlagTypeSdk.server,
-    icon: 'service-nexus'
-  }
-]
 
 // FIXME: Need to change values because we need dynamic code samples
 const selectClientLanguageData: CardLanguageData[] = [
@@ -81,6 +68,7 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
   const [selectedLanguage, setSelectedLanguage] = useState<CardLanguageData | undefined>(undefined)
   const [selectLanguageSdk, setSelectLanguageSdk] = useState('')
   const [btnPosition, setBtnPosition] = useState(true)
+  const { getString } = useStrings()
 
   const renderInstallLanguage = (): string => {
     if (selectLanguageSdk === FlagTypeLanguage.jira) {
@@ -131,6 +119,19 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
     previousStep?.({ ...prevStepData })
   }
 
+  const selectCardData: CardData[] = [
+    {
+      text: getString('cf.testTheFlag.sdkClient'),
+      value: FlagTypeSdk.client,
+      icon: 'desktop'
+    },
+    {
+      text: getString('cf.testTheFlag.sdkServer'),
+      value: FlagTypeSdk.server,
+      icon: 'service-nexus'
+    }
+  ]
+
   return (
     <Formik
       initialValues={{ selectedIcon: '' }}
@@ -141,7 +142,7 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
         // }
         // TODO: When the user is on edit targeting page only submit the Formik from this step
 
-        if (confirm(i18n.confirmClose)) {
+        if (confirm(getString('cf.testTheFlag.confirmClose'))) {
           hideModal?.()
         }
       }}
@@ -156,15 +157,15 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
               className={cx(css.testFfHeadline, !btnPosition && css.borderBottom)}
             >
               {fromWizard
-                ? i18n.testTheFlag.testFlagHeading.toUpperCase()
-                : i18n.testTheFlag.testFlagTargetHeading.toUpperCase()}
+                ? getString('cf.testTheFlag.testFlagHeading').toUpperCase()
+                : getString('cf.testTheFlag.testFlagTargetHeading').toUpperCase()}
             </Text>
             <Container>
               <Text color={Color.BLACK} margin={{ top: 'large', bottom: 'large' }}>
-                {i18n.testTheFlag.setupAppText}
+                {getString('cf.testTheFlag.setupAppText')}
               </Text>
               <Text color={Color.BLACK} margin={{ bottom: 'small' }}>
-                {i18n.testTheFlag.selectSdk}
+                {getString('cf.testTheFlag.selectSdk')}
               </Text>
               <CardSelect
                 data={selectCardData}
@@ -195,7 +196,7 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
             {/* FIXME: Check the setSelectedCard useState method */}
             {isEmpty(selectedCard) ? null : (
               <Container>
-                <Text margin={{ top: 'medium', bottom: 'small' }}>{i18n.testTheFlag.selectSdkLanguage}</Text>
+                <Text margin={{ top: 'medium', bottom: 'small' }}>{getString('cf.testTheFlag.selectSdkLanguage')}</Text>
                 <CardSelect
                   data={isClient ? selectClientLanguageData : selectServerLanguageData}
                   selected={selectedLanguage}
@@ -215,37 +216,37 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
                 <Layout.Vertical>
                   <Container margin={{ top: 'large', bottom: 'large' }} className={css.testCodeBlock}>
                     <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-                      1. {i18n.testTheFlag.installNode}
+                      1. {getString('cf.testTheFlag.installNode')}
                     </Text>
                     <CodeBlock allowCopy format="pre" snippet={renderInstallLanguage()} />
                   </Container>
                   <Container margin={{ top: 'large', bottom: 'large' }} className={css.testCodeBlock}>
                     <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-                      2. {i18n.testTheFlag.initClient}
+                      2. {getString('cf.testTheFlag.initClient')}
                     </Text>
                     <CodeBlock allowCopy format="pre" snippet={renderInstallSdk()} />
                   </Container>
                   <Container margin={{ top: 'large', bottom: 'large' }} className={css.testCodeBlock}>
                     <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-                      3. {i18n.testTheFlag.codeSample}
+                      3. {getString('cf.testTheFlag.codeSample')}
                     </Text>
                     <CodeBlock allowCopy format="pre" snippet={renderCodeSample()} />
-                    <Text margin={{ top: 'large' }}>{i18n.testTheFlag.codeSampleNote}</Text>
+                    <Text margin={{ top: 'large' }}>{getString('cf.testTheFlag.codeSampleNote')}</Text>
                   </Container>
                 </Layout.Vertical>
                 <Container margin={{ top: 'large', bottom: 'large' }}>
                   <Text font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
-                    {i18n.testTheFlag.verifyText}
+                    {getString('cf.testTheFlag.verifyText')}
                   </Text>
-                  <Button intent="primary" text={i18n.testTheFlag.verify} onClick={onVerifyFlag} />
+                  <Button intent="primary" text={getString('cf.testTheFlag.verify')} onClick={onVerifyFlag} />
                 </Container>
               </>
             )}
             <Layout.Horizontal
               className={cx(css.btnsGroup, btnPosition && css.btnsGroupPosa, !btnPosition && css.borderTop)}
             >
-              {fromWizard && <Button text={i18n.back} onClick={onClickBack} margin={{ right: 'small' }} />}
-              <Button text={i18n.close} type="submit" />
+              {fromWizard && <Button text={getString('back')} onClick={onClickBack} margin={{ right: 'small' }} />}
+              <Button text={getString('close')} type="submit" />
             </Layout.Horizontal>
           </Layout.Vertical>
         </Form>

@@ -62,6 +62,7 @@ newRole: New Role
 editRole: Edit Role
 userGroups: User Groups
 created: Created
+create: Create
 resourceGroups: Resource Groups
 modules: Modules
 account: 'Account'
@@ -499,7 +500,7 @@ orgDetails:
   resourcesDescription: Manage connectors, secrets, delegates, templates here. Setup account level Git Experience here.
   gitSyncDescription: Connect to your Git repository and track your changes
 createSecretYAML:
-  create: Create
+  create: '{{ $.create }}'
   newSecret: New Secret
   createSecret: Create Secret from YAML
   secretCreated: Secret created successfully
@@ -1884,6 +1885,31 @@ cf:
     dataType: Data type
     defaultRulesTooltip: Define which variation users will see by default when the flag is ON or OFF
     testFlagOption: Test the Flag
+    aboutFlag:
+      aboutFlagHeading: About the flag
+      permaFlag: This is a permanent flag
+      nameRequired: Flag name is required
+      idRequired: Flag identifier is required
+      ffNamePlaceholder: Enter Feature Flag name...
+      ffRegex: Identifier can only contain alphanumerics, _ and $
+      tagsOptional: Tags (optional)
+      tagsPlaceholder: Add Tags
+      permaFlagTooltip: A flag is permanent if you wish to keep it in your code for the long term. We won't remind you to these types of flags.
+  testTheFlag:
+    testFlagHeading: Test the flag
+    setupAppText: "Let's set up your application and code so that it can communicate with our platform"
+    selectSdk: Select Your SDK
+    sdkClient: Client
+    sdkServer: Server
+    selectSdkLanguage: Select the language
+    installNode: Install Node.js dependency
+    initClient: Initialize Client SDK
+    codeSample: Place this sample code we generated of your feature flag into your code
+    codeSampleNote: Please note that in the above example, it is whatever gets generated. This is just an example. This area can contain some minor notes if necessary.
+    verify: '{{ $.verify }}'
+    verifyText: "Once you're done, run your application so that we can verify that we are able to receive analytic events for your feature."
+    testFlagTargetHeading: Testing feature flag on production environment
+    confirmClose: Are you sure you want to close this modal?
   editVariation:
     title: Edit Variations
     add: + Variation
@@ -1898,7 +1924,7 @@ cf:
     editPrerequisitesHeading: Edit Prerequisites
   editDetails:
     editDetailsHeading: Edit Flag Details
-    permaFlag: This is a permanent flag
+    permaFlag: '{{ $.cf.creationModal.aboutFlag.permaFlag }}'
   boolean: Boolean
   multivariate: Multivariate
   featureNotReady: This feature is not yet ready. Please check back later.
@@ -1910,6 +1936,7 @@ cf:
     learnMore: Learn more about Feature Flags
   clause:
     operators:
+      and: and
       startsWith: 'starts with'
       endsWith: 'ends with'
       match: 'match'
@@ -1920,13 +1947,22 @@ cf:
       matchSegment: 'Match Segment'
   shared:
     individual: Individual
+    target: '{{ $.pipelineSteps.targetLabel }}'
+    segment: Segment
     segments: Segments
     environment: environment
     lastEvaluated: Last Evaluated
     variation: Variation
     variations: Variations
     prerequisites: Prerequisites
+    selectEnvironment: Select environment
   featureFlags:
+    newFlag: + Flag
+    typeOfFlag: Select the Type of Flag You Want to Create
+    startVariation: Start by selecting the variation type that the flag will use
+    booleanBtnText: This is a simple ON/OFF toggle
+    multi: '{{ $.cf.multivariate }}'
+    multiBtnText: This is suitable for experiments
     percentageRollout: 'Percentage Rollout'
     turnOnHeading: Turn ON Flag
     turnOffHeading: Turn OFF Flag
@@ -1964,6 +2000,48 @@ cf:
     flagOn: Flag Targeting is ON
     flagWillTurnOn: Turn flag on for this environment upon save
     flagWillTurnOff: Turn flag off for this environment upon save
+    targeting: Targeting
+    activity: '{{ $.activity }}'
+    rules:
+      editRules: Edit Rules
+      flagOn: '{{ $.cf.creationModal.flagOn }}'
+      flagOff: '{{ $.cf.creationModal.flagOff }}'
+      defaultRules: Default Rules
+      customRules: Custom Rules (Serve specific targets differently)
+      serveVariationToTarget: '{{ $.cf.featureFlags.serveVariationToTargetLabel }}'
+      add: '{{ $.add }}'
+      toTarget: '{{ $.cf.featureFlags.toTarget }}'
+      following: to following
+      serveToFollowing: 'serve to following:'
+      onRequest: On Request
+      onRequestVariation: 'On Request, check for condition and serve variation'
+    flagFilters:
+      environment: '{{ $.environment }}'
+      envDefault: Production (Default)
+      any: Any
+      term: Term
+      switchOnOff: Switch (ON/OFF)
+      status: '{{ $.status }}'
+      createdDate: '{{ $.cf.targets.createdDate }}'
+      modifiedDate: Modified Date
+      owner: Owner
+      ownerOrPinPlaceholder: Individual or Team
+      creator: Creator
+      tagsPlaceholder: '{{ $.valueLabel }}'
+      flagsBy: Only list flags pinned by
+      target: '{{ $.pipelineSteps.targetLabel }}'
+      individualTargets: Individual Target or Target Segment
+      apply: '{{ $.filters.apply }}'
+      saveFilters: Save Filters
+      overwriteRadio: Overwrite Existing
+      createFilter: Create New Filter
+      defaultFilter: Default Filter
+      defaultFilterText: This filter will be applied by default when this listing is viewed everytime
+      filterVisible: Who can see this filter?
+      onlyMe: Only Me
+      everyone: '{{ $.filters.visibleToEveryone }}'
+      save: '{{ $.save }}'
+      cancel: '{{ $.cancel }}'
   targets:
     title: Targets
     ID: ID
@@ -2022,15 +2100,19 @@ cf:
     selected: '{{ counter }} selected'
     empty: No Segment found
   segments:
-    create: 'Segment'
-    targetDefinition: 'Target Definition'
-    usingSegment: 'Flags using this segment'
-    modalTitle: 'Create a Segment'
-    displayIcon: 'Display Icon'
-    uploadImage: 'Upload an image'
+    create: + Segment
+    targetDefinition: Target Definition
+    usingSegment: Flags using this segment
+    modalTitle: Create a Segment
+    displayIcon: Display Icon
+    uploadImage: Upload an image
     delete:
       message: 'Are you sure you want to delete Segment: {{segmentName}}'
-      title: 'Delete Segment'
+      title: Delete Segment
+    nameRequired: Segment name is required
+    idRequired: Segment identifier is required
+    noSegment: There are currently no segments
+    noSegmentForEnv: There are currently no segments for this environment
   environments:
     title: '{{ $.environments }}'
     empty: 'There are currently no environments'
@@ -2050,9 +2132,9 @@ cf:
       message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
       title: 'SDK Keys'
       addKey: '+ Add Key'
-      clientType: 'Client'
+      clientType: '{{ $.cf.testTheFlag.sdkClient }}'
       clientId: 'Client ID'
-      serverType: 'Server'
+      serverType: '{{ $.cf.testTheFlag.sdkServer }}'
       deleteTitle: 'Confirm Key Delete'
       deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'
       keyType: 'Key Type'
@@ -2079,6 +2161,13 @@ cf:
   noEnvironment:
     title: No Environment Available
     message: Create an environment and let’s start configuring the targeting rules of your flag
+  pipeline:
+    default: Default Setting # Placeholder, not a real text
+    stages:
+      setup:
+        title: Flag Setup # Placeholder, not a real text
+      execution:
+        title: Flag Execution # Placeholder, not a real text
 cv:
   continuousVerification: Continuous Verification
   dashboard:

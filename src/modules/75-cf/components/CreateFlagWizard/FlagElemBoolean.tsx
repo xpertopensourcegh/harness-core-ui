@@ -151,6 +151,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                       idName="variations[0].identifier"
                       inputLabel={getString('name')}
                       isIdentifierEditable={false}
+                      inputGroupProps={{ inputGroup: { autoFocus: true } }}
                     />
                   </Container>
                   <Container width={20} />
@@ -191,23 +192,6 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                     />
                   </Container>
                 </Layout.Horizontal>
-
-                {/* <Layout.Horizontal>
-                  <FormInput.InputWithIdentifier
-                    inputName="variations[1].name"
-                    idName="variations[1].identifier"
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={false}
-                  />
-                  <Container width={20} />
-                  <FormInput.Text
-                    name="variations[1].value"
-                    label={getString('valueLabel')}
-                    disabled
-                    className={css.disabledInput}
-                  />
-                </Layout.Horizontal> */}
-
                 <Container margin={{ bottom: 'xlarge' }}>
                   <Text color={Color.BLACK} margin={{ top: 'medium' }}>
                     {getString('cf.creationModal.defaultRules')}
@@ -247,7 +231,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
               <FlexExpander />
               {/* <Button
                 type="button"
-                text={i18n.varSettingsFlag.testFlagOption}
+                text={getString('cf.creationModal.testFlagOption')}
                 rightIcon="chevron-right"
                 minimal
                 className={css.testFfBtn}

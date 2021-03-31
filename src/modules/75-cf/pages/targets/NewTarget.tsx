@@ -56,7 +56,7 @@ export const NewTargets: React.FC<NewTargetsProps> = ({
     )
   }
 
-  const handleTargetCreation = (ts: TargetData[], hideModal: () => void) => {
+  const handleTargetCreation = (ts: TargetData[], hideModal: () => void): void => {
     setLoadingBulk(true)
     bulkTargetCreation(ts)
       .then(results => {
@@ -83,7 +83,7 @@ export const NewTargets: React.FC<NewTargetsProps> = ({
       .finally(() => setLoadingBulk(false))
   }
 
-  const handleTargetUpload = (file: File, hideModal: () => void) => {
+  const handleTargetUpload = (file: File, hideModal: () => void): void => {
     file
       .text()
       .then((str: string) => {

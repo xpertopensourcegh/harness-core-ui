@@ -156,7 +156,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       })
     }
 
-    const handleAddPrerequisite = (prereqValues: typeof initialPrereqValues) => {
+    const handleAddPrerequisite = (prereqValues: typeof initialPrereqValues): void => {
       const validPreqs = prereqValues.prerequisites
         .reduce((acc, next) => {
           const prIndex = acc.findIndex(p => p.feature === next.feature)
@@ -442,7 +442,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       }
     }
   })
-  const renderTime = (time: number, style?: React.CSSProperties) => (
+  const renderTime = (time: number, style?: React.CSSProperties): React.ReactNode => (
     <Text
       style={{
         fontWeight: 500,

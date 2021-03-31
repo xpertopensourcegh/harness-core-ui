@@ -45,7 +45,6 @@ import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialog
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
 import { useEnvironments } from '../../hooks/environment'
-import i18n from './CFFeatureFlagsPage.i18n'
 import imageURL from './flag.svg'
 import css from './CFFeatureFlagsPage.module.scss'
 
@@ -198,7 +197,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
           tooltip={
             data?.tags?.length ? (
               <>
-                <Text>{i18n.tags.toUpperCase()}</Text>
+                <Text>{getString('tagsLabel').toUpperCase()}</Text>
                 {data.tags.map((elem, i) => (
                   <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
                 ))}
@@ -432,7 +431,7 @@ const CFFeatureFlagsPage: React.FC = () => {
   const columns: Column<Feature>[] = useMemo(
     () => [
       {
-        Header: i18n.featureFlag.toUpperCase(),
+        Header: getString('featureFlagsText').toUpperCase(),
         accessor: row => row.name,
         width: '45%',
         Cell: function WrapperRenderColumnFlag(cell: Cell<Feature>) {
@@ -461,7 +460,7 @@ const CFFeatureFlagsPage: React.FC = () => {
         }
       },
       {
-        Header: i18n.details.toUpperCase(),
+        Header: getString('details').toUpperCase(),
         accessor: row => row.kind,
         width: '20%',
         Cell: RenderColumnDetails
@@ -480,7 +479,7 @@ const CFFeatureFlagsPage: React.FC = () => {
         Cell: RenderColumnCreatedDate
       },
       {
-        Header: i18n.lastUpdated.toUpperCase(),
+        Header: getString('lastUpdated').toUpperCase(),
         accessor: row => row.modifiedAt,
         width: '15%',
         Cell: RenderColumnLastUpdated
@@ -522,7 +521,7 @@ const CFFeatureFlagsPage: React.FC = () => {
         <Select
           items={environments}
           className={css.ffPageBtnsSelect}
-          inputProps={{ placeholder: i18n.selectEnv }}
+          inputProps={{ placeholder: getString('cf.shared.selectEnvironment') }}
           onChange={onEnvironmentChanged}
           value={environment?.value ? environment : environments[0] || null}
           disabled={loading}

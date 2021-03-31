@@ -272,7 +272,10 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                           {getString('cf.creationModal.flagOn')}
                         </Text>
                         <FormInput.Select name="defaultOnVariation" items={defaultRules} style={{ marginBottom: 0 }} />
-                        <Container flex style={{ alignItems: 'center', transform: 'translateX(45px)' }}>
+                        <Container
+                          flex
+                          style={{ alignItems: 'center', transform: 'translateX(45px)', display: 'none' }}
+                        >
                           <FormInput.CheckBox
                             name="defaultOnAppliedToCurrentEnvironment"
                             label={getString('cf.editVariation.applyToExistingEnvironments')}
@@ -286,7 +289,10 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                           {getString('cf.creationModal.flagOff')}
                         </Text>
                         <FormInput.Select name="defaultOffVariation" items={defaultRules} style={{ marginBottom: 0 }} />
-                        <Container flex style={{ alignItems: 'center', transform: 'translateX(45px)' }}>
+                        <Container
+                          flex
+                          style={{ alignItems: 'center', transform: 'translateX(45px)', display: 'none' }}
+                        >
                           <FormInput.CheckBox
                             name="defaultOffAppliedToCurrentEnvironment"
                             label={getString('cf.editVariation.applyToExistingEnvironments')}

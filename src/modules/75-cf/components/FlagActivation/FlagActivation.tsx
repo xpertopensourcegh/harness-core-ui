@@ -39,7 +39,6 @@ import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
 import patch, { ClauseData, getDiff } from '../../utils/instructions'
-import i18n from './FlagActivation.i18n'
 import css from './FlagActivation.module.scss'
 
 interface FlagActivationProps {
@@ -379,7 +378,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                   font={{ weight: 'bold' }}
                   style={{ color: '#1C1C28', fontSize: '14px' }}
                 >
-                  {i18n.env.toUpperCase()}
+                  {getString('environment').toUpperCase()}
                 </Text>
                 <Select
                   items={environments}
@@ -404,7 +403,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                     >
                       <Tab
                         id={FFDetailPageTab.TARGETING}
-                        title={<Text className={css.tabTitle}>{i18n.targeting}</Text>}
+                        title={<Text className={css.tabTitle}>{getString('cf.featureFlags.targeting')}</Text>}
                         panel={
                           <TabTargeting
                             formikProps={formikProps}
@@ -420,7 +419,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                       />
                       <Tab
                         id={FFDetailPageTab.ACTIVITY}
-                        title={<Text className={css.tabTitle}>{i18n.activity}</Text>}
+                        title={<Text className={css.tabTitle}>{getString('cf.featureFlags.activity')}</Text>}
                         panel={<TabActivity flagData={flagData} />}
                       />
                     </Tabs>

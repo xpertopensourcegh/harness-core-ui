@@ -141,6 +141,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
                     idName="identifier"
                     isIdentifierEditable
                     inputLabel={getEnvString('create.nameLabel')}
+                    inputGroupProps={{ inputGroup: { autoFocus: true } }}
                   />
                   <Layout.Vertical>
                     <Container className={css.collapse}>

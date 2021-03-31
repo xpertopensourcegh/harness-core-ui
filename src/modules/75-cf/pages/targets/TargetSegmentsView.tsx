@@ -94,7 +94,7 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
 }) => {
   const { showError, showSuccess } = useToaster()
   const { getString } = useStrings()
-  const getPageString = (key: string) => getString(`cf.targets.${key}`)
+  const getPageString = (key: string): string => getString(`cf.targets.${key}`)
   const { mutate: deleteSegment } = useDeleteSegment({
     queryParams: {
       account: accountId,
@@ -105,7 +105,7 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
   })
   const history = useHistory()
 
-  const handleRowClick = ({ identifier }: { identifier: string }) => {
+  const handleRowClick = ({ identifier }: { identifier: string }): void => {
     history.push(
       routes.toCFSegmentDetails({
         segmentIdentifier: identifier,
@@ -117,9 +117,9 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
     )
   }
 
-  const handleEdit = (identifier: string) => handleRowClick({ identifier })
+  const handleEdit = (identifier: string): void => handleRowClick({ identifier })
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string): void => {
     deleteSegment(id)
       .then(() => {
         showSuccess(`Successfuly deleted segment with id ${id}`)

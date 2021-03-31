@@ -6,7 +6,6 @@ import type { Distribution, Variation, WeightedVariation } from 'services/cf'
 import { CFVariationColors } from '@cf/constants'
 import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'
 import PercentageRollout from './PercentageRollout'
-import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
 
 const ROLLOUT_PERCENTAGE_VALUE = 'percentage'
@@ -53,7 +52,7 @@ export const DefaultRulesView: React.FC<DefaultRulesProps> = ({
 
   return (
     <>
-      <Text className={css.ruleTitle}>{i18n.defaultRules}</Text>
+      <Text className={css.ruleTitle}>{getString('cf.featureFlags.rules.defaultRules')}</Text>
       <Container className={css.rulesContainer}>
         <Layout.Horizontal margin={{ bottom: 'medium' }} style={{ alignItems: 'center' }}>
           <Text

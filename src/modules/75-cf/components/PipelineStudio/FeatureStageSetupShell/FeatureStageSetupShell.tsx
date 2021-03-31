@@ -11,15 +11,19 @@ import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext
 import { PipelineContext, ExecutionGraph } from '@pipeline/exports'
 
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { useStrings } from 'framework/exports'
 //import { useStrings } from 'framework/exports'
 import FeatureInfraSpecifications from '../FeatureInfraSpecifications/FeatureInfraSpecifications'
 import FeatureStageSpecifications from '../FeatureStageSpecifications/FeatureStageSpecifications'
-import i18n from './FeatureStageSetupShell.i18n'
 import css from './FeatureStageSetupShell.module.scss'
 
 export default function FeatureStageSetupShell(): JSX.Element {
-  const stageNames: string[] = [i18n.infraLabel, i18n.executionLabel]
-  const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.infraLabel)
+  const { getString } = useStrings()
+  const stageNames: string[] = [
+    getString('cf.pipeline.stages.setup.title'),
+    getString('cf.pipeline.stages.execution.title')
+  ]
+  const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('cf.pipeline.stages.setup.title'))
   const layoutRef = React.useRef<HTMLDivElement>(null)
   const {
     state: {
@@ -74,25 +78,33 @@ export default function FeatureStageSetupShell(): JSX.Element {
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
       <Button
-        text={i18n.previous}
+        text={getString('previous')}
         icon="chevron-left"
-        disabled={selectedTabId === i18n.defaultId}
+        disabled={selectedTabId === getString('cf.pipeline.default')}
         onClick={() => {
           updatePipeline(pipeline)
-          setSelectedTabId(selectedTabId === i18n.executionLabel ? i18n.infraLabel : i18n.defaultId)
+          setSelectedTabId(
+            selectedTabId === getString('cf.pipeline.stages.execution.title')
+              ? getString('cf.pipeline.stages.setup.title')
+              : getString('cf.pipeline.default')
+          )
         }}
       />
 
       <Button
-        text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
+        text={selectedTabId === getString('cf.pipeline.stages.execution.title') ? getString('save') : getString('next')}
         intent="primary"
         rightIcon="chevron-right"
         onClick={() => {
           updatePipeline(pipeline)
-          if (selectedTabId === i18n.executionLabel) {
+          if (selectedTabId === getString('cf.pipeline.stages.execution.title')) {
             updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
           } else {
-            setSelectedTabId(selectedTabId === i18n.defaultId ? i18n.infraLabel : i18n.executionLabel)
+            setSelectedTabId(
+              selectedTabId === getString('cf.pipeline.default')
+                ? getString('cf.pipeline.stages.setup.title')
+                : getString('cf.pipeline.stages.execution.title')
+            )
           }
         }}
       />
@@ -103,12 +115,14 @@ export default function FeatureStageSetupShell(): JSX.Element {
     <section
       ref={layoutRef}
       key={selectedStageId}
-      className={cx(css.setupShell, { [css.tabsFullHeight]: selectedTabId === i18n.executionLabel })}
+      className={cx(css.setupShell, {
+        [css.tabsFullHeight]: selectedTabId === getString('cf.pipeline.stages.execution.title')
+      })}
     >
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId} data-tabId={selectedTabId}>
         <Tab
           panelClassName="tabsfoo"
-          id={i18n.defaultId}
+          id={getString('cf.pipeline.default')}
           panel={<FeatureStageSpecifications>{navBtns}</FeatureStageSpecifications>}
           title={
             <span className={css.tab}>
@@ -118,21 +132,21 @@ export default function FeatureStageSetupShell(): JSX.Element {
           }
         />
         <Tab
-          id={i18n.infraLabel}
+          id={getString('cf.pipeline.stages.setup.title')}
           title={
             <span className={css.tab}>
               <Icon name="yaml-builder-stages" height={20} size={20} />
-              {i18n.infraLabel}
+              {getString('cf.pipeline.stages.setup.title')}
             </span>
           }
           panel={<FeatureInfraSpecifications>{navBtns}</FeatureInfraSpecifications>}
         />
         <Tab
-          id={i18n.executionLabel}
+          id={getString('cf.pipeline.stages.execution.title')}
           title={
             <span className={css.tab}>
               <Icon name="yaml-builder-steps" height={20} size={20} />
-              {i18n.executionLabel}
+              {getString('cf.pipeline.stages.execution.title')}
             </span>
           }
           className={css.fullHeight}

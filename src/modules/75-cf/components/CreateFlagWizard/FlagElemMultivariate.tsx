@@ -203,6 +203,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                                   idName={`variations.${index}.identifier`}
                                   inputLabel={getString('name')}
                                   isIdentifierEditable={true}
+                                  inputGroupProps={{ inputGroup: { autoFocus: index === 0 } }}
                                 />
                               </Container>
                               <Container width={20} />
