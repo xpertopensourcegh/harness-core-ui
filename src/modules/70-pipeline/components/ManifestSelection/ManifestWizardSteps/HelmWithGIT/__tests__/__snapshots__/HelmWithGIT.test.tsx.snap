@@ -338,7 +338,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"
@@ -755,7 +755,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"
@@ -1172,7 +1172,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"

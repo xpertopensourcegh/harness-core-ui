@@ -691,7 +691,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                     />
                   </div>
                   <div
-                    class="bp3-collapse"
+                    class="bp3-collapse Accordion--collapse"
                     style="height: auto; overflow-y: visible; transition: none;"
                   >
                     <div
@@ -747,7 +747,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                     />
                   </div>
                   <div
-                    class="bp3-collapse"
+                    class="bp3-collapse Accordion--collapse"
                     style="height: auto; overflow-y: visible; transition: none;"
                   >
                     <div

@@ -587,7 +587,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"
@@ -673,7 +673,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"

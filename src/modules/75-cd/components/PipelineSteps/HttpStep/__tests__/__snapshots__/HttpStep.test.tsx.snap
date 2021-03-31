@@ -27,7 +27,7 @@ exports[`Http Step edit mode works 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -245,7 +245,7 @@ exports[`Http Step edit mode works 1`] = `
                         class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <div
-                          class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                          class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                         >
                           <div
                             class="bp3-popover-target"
@@ -769,7 +769,7 @@ exports[`Http Step edit mode works 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1008,7 +1008,7 @@ exports[`Http Step renders runtime inputs 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -1649,7 +1649,7 @@ exports[`Http Step renders runtime inputs 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1690,7 +1690,7 @@ exports[`Http Step should render edit view as new step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -1875,7 +1875,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                         class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <div
-                          class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                          class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                         >
                           <div
                             class="bp3-popover-target"
@@ -2233,7 +2233,7 @@ exports[`Http Step should render edit view as new step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"

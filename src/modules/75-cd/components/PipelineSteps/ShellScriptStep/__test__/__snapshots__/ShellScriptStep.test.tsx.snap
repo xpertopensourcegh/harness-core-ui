@@ -333,7 +333,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -680,7 +680,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -708,7 +708,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -736,7 +736,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -777,7 +777,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -1126,7 +1126,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1154,7 +1154,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1182,7 +1182,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1223,7 +1223,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -1572,7 +1572,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1600,7 +1600,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1628,7 +1628,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -1669,7 +1669,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -2016,7 +2016,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -2044,7 +2044,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -2072,7 +2072,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -2113,7 +2113,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
           style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
@@ -2458,7 +2458,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -2486,7 +2486,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"
@@ -2514,7 +2514,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           />
         </div>
         <div
-          class="bp3-collapse"
+          class="bp3-collapse Accordion--collapse"
         >
           <div
             aria-hidden="false"

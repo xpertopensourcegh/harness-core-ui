@@ -588,7 +588,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             />
           </div>
           <div
-            class="bp3-collapse"
+            class="bp3-collapse Accordion--collapse"
             style="height: auto; overflow-y: visible; transition: none;"
           >
             <div
@@ -934,7 +934,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             />
           </div>
           <div
-            class="bp3-collapse"
+            class="bp3-collapse Accordion--collapse"
           >
             <div
               aria-hidden="false"
@@ -962,7 +962,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             />
           </div>
           <div
-            class="bp3-collapse"
+            class="bp3-collapse Accordion--collapse"
           >
             <div
               aria-hidden="false"
@@ -990,7 +990,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             />
           </div>
           <div
-            class="bp3-collapse"
+            class="bp3-collapse Accordion--collapse"
           >
             <div
               aria-hidden="false"
@@ -1018,7 +1018,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             />
           </div>
           <div
-            class="bp3-collapse"
+            class="bp3-collapse Accordion--collapse"
           >
             <div
               aria-hidden="false"

@@ -581,7 +581,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                             />
                           </div>
                           <div
-                            class="bp3-collapse"
+                            class="bp3-collapse Accordion--collapse"
                             style="height: 0px;"
                           >
                             <div
@@ -619,7 +619,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                     />
                                   </div>
                                   <div
-                                    class="bp3-collapse"
+                                    class="bp3-collapse Accordion--collapse"
                                     style="height: 0px;"
                                   >
                                     <div
@@ -1961,7 +1961,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                             />
                           </div>
                           <div
-                            class="bp3-collapse"
+                            class="bp3-collapse Accordion--collapse"
                             style="height: auto; overflow-y: visible; transition: none;"
                           >
                             <div
@@ -1999,7 +1999,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                     />
                                   </div>
                                   <div
-                                    class="bp3-collapse"
+                                    class="bp3-collapse Accordion--collapse"
                                     style="height: auto; overflow-y: visible; transition: none;"
                                   >
                                     <div

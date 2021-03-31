@@ -436,7 +436,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
               />
             </div>
             <div
-              class="bp3-collapse"
+              class="bp3-collapse Accordion--collapse"
               style="height: auto; overflow-y: visible; transition: none;"
             >
               <div
@@ -492,7 +492,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
               />
             </div>
             <div
-              class="bp3-collapse"
+              class="bp3-collapse Accordion--collapse"
               style="height: auto; overflow-y: visible; transition: none;"
             >
               <div
@@ -1016,7 +1016,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
               />
             </div>
             <div
-              class="bp3-collapse"
+              class="bp3-collapse Accordion--collapse"
               style="height: auto; overflow-y: visible; transition: none;"
             >
               <div
@@ -1072,7 +1072,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
               />
             </div>
             <div
-              class="bp3-collapse"
+              class="bp3-collapse Accordion--collapse"
               style="height: auto; overflow-y: visible; transition: none;"
             >
               <div

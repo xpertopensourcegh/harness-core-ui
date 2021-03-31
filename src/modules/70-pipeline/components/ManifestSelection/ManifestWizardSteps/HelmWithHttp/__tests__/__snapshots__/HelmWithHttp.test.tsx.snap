@@ -276,7 +276,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"

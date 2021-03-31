@@ -670,7 +670,7 @@ exports[`Restore Cache S3 Step Edit View edit mode works 1`] = `
                     class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                      class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -3141,7 +3141,7 @@ exports[`Restore Cache S3 Step Edit View should render properly 1`] = `
                     class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                      class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"

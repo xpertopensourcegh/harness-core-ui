@@ -336,7 +336,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"
@@ -751,7 +751,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"
@@ -1166,7 +1166,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                 />
               </div>
               <div
-                class="bp3-collapse"
+                class="bp3-collapse Accordion--collapse"
               >
                 <div
                   aria-hidden="false"

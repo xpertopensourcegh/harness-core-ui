@@ -217,7 +217,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -312,7 +312,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -407,7 +407,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -507,7 +507,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -602,7 +602,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -860,7 +860,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -955,7 +955,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1050,7 +1050,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1150,7 +1150,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1245,7 +1245,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiTypeInput--select Select--main bp3-fill"
+                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
