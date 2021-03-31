@@ -5,26 +5,38 @@ export const TerraformStoreTypes = {
   Inline: 'Inline',
   Remote: 'Remote'
 }
+
+export const ConfigurationTypes = {
+  Inline: 'Inline',
+  InheritFromPlan: 'InheritFromPlan',
+  InheritFromApply: 'InheritFromApply'
+}
 export interface PathInterface {
   path: string
 }
 
+export interface EnvironmentVar {
+  key: string
+  value: string
+}
+
+export interface BackendConfig {
+  content?: string
+}
 export interface VarFileArray {
   type?: string
-  spec?: {
-    store?: {
-      spec?: {
-        gitFetchType?: string
-        branch?: string
-        commitId?: string
-        connectorRef?: {
-          label: string
-          scope: Scope
-          value: string
-        }
-        paths?: PathInterface[]
-        content?: string
+  store?: {
+    spec?: {
+      gitFetchType?: string
+      branch?: string
+      commitId?: string
+      connectorRef?: {
+        label: string
+        scope: Scope
+        value: string
       }
+      paths?: PathInterface[]
+      content?: string
     }
   }
 }
@@ -55,6 +67,9 @@ export interface TerraformData extends StepElementConfig {
         varFiles?: VarFileArray[]
       }
     }
+    backendConfig?: BackendConfig
+    targets?: string[]
+    environmentVariables?: EnvironmentVar[]
   }
 }
 

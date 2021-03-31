@@ -20,12 +20,12 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const remoteRender = (varFile: VarFileArray) => {
     return (
       <>
-        <Text className={css.branch}>{varFile?.spec?.store?.spec?.branch}</Text>
+        <Text className={css.branch}>{varFile?.store?.spec?.branch}</Text>
         <Layout.Horizontal className={css.path}>
           {varFile?.type === getString('remote') && <Icon name="remote" />}
           {varFile?.type === getString('inline') && <Icon name="Inline" />}
-          {varFile?.spec?.store?.spec?.paths && varFile?.spec?.store?.spec?.paths?.[0].path && (
-            <Text>{varFile?.spec?.store?.spec?.paths?.[0].path}</Text>
+          {varFile?.store?.spec?.paths && varFile?.store?.spec?.paths?.[0].path && (
+            <Text>{varFile?.store?.spec?.paths?.[0].path}</Text>
           )}
         </Layout.Horizontal>
       </>
@@ -36,7 +36,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     return (
       <Layout.Horizontal className={css.path}>
         {varFile?.type === getString('inline') && <Icon name="Inline" />}
-        <Text className={css.branch}>{varFile?.spec?.store?.spec?.content}</Text>
+        <Text className={css.branch}>{varFile?.store?.spec?.content}</Text>
       </Layout.Horizontal>
     )
   }
@@ -48,7 +48,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
           <Layout.Vertical>
             {formik?.values?.spec?.configuration?.spec?.varFiles?.map((varFile: VarFileArray, i) => (
               <>
-                <Layout.Horizontal className={css.tfContainer} key={varFile?.spec?.store?.spec?.connectorRef?.value}>
+                <Layout.Horizontal className={css.tfContainer} key={varFile?.store?.spec?.connectorRef?.value}>
                   {varFile?.type === getString('remote') && remoteRender(varFile)}
                   {varFile?.type === getString('inline') && inlineRender(varFile)}
 

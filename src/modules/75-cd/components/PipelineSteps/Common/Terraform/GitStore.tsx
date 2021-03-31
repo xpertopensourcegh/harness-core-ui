@@ -12,6 +12,8 @@ import {
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { TerraformData } from './TerraformInterfaces'
@@ -29,6 +31,7 @@ const gitFetchTypes: SelectOption[] = [
 export default function GitStore(props: GitStoreProps): React.ReactElement {
   const { formik } = props
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -41,7 +44,11 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
   return (
     <>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.MultiTextInput name="spec.workspace" label={getString('pipelineSteps.workspace')} />
+        <FormInput.MultiTextInput
+          name="spec.configuration.spec.workspace"
+          label={getString('pipelineSteps.workspace')}
+          multiTextInputProps={{ expressions }}
+        />
         {getMultiTypeFromValue(formik.values.spec?.configuration?.spec?.workspace) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formik.values?.spec?.configuration?.spec?.workspace as string}
@@ -79,6 +86,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
         projectIdentifier={projectIdentifier}
         orgIdentifier={orgIdentifier}
         style={{ marginBottom: 10 }}
+        multiTypeProps={{ expressions }}
       />
       <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.Select
@@ -94,6 +102,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
             label={getString('pipelineSteps.deploy.inputSet.branch')}
             placeholder={getString('manifestType.branchPlaceholder')}
             name="spec.configuration.spec.configFiles.store.spec.branch"
+            multiTextInputProps={{ expressions }}
           />
           {getMultiTypeFromValue(formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch) ===
             MultiTypeInputType.RUNTIME && (
@@ -116,6 +125,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
             label={getString('manifestType.commitId')}
             placeholder={getString('manifestType.commitPlaceholder')}
             name="spec.configuration.spec.configFiles.store.spec.commitId"
+            multiTextInputProps={{ expressions }}
           />
           {getMultiTypeFromValue(formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
             MultiTypeInputType.RUNTIME && (
@@ -139,6 +149,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
           label={getString('chartPath')}
           placeholder={getString('manifestType.pathPlaceholder')}
           name="spec.configuration.spec.configFiles.store.spec.folderPath"
+          multiTextInputProps={{ expressions }}
         />
         {getMultiTypeFromValue(formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath) ===
           MultiTypeInputType.RUNTIME && (
@@ -162,6 +173,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
             label={getString('pipelineSteps.repoName')}
             name="spec. configuration.spec.configFiles.store.spec.repoName"
             placeholder={getString('pipelineSteps.repoName')}
+            multiTextInputProps={{ expressions }}
           />
         </div>
       )}

@@ -245,6 +245,7 @@ buildText: Build
 pipeline: Pipeline
 pipelineStudio: Pipeline Studio
 stages: Stages
+addFile: Add File
 buildsText: Builds
 newService: New Service
 editService: Edit Service
@@ -1253,7 +1254,17 @@ pipelineSteps:
       manifestType: MANIFEST TYPE
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
+  configTypes: [{ label: 'Inherit From Plan' }, { label: 'Inherit From Apply' }]
+  content: 'Content'
+  InheritFromPlan: 'InheritFromPlan'
+  InheritFromApply: 'InheritFromApply'
   commitIdValue: 'CommitId'
+  configFiles: 'Config Files'
+  terraformVarFiles: 'Terraform Var Files'
+  backendConfig: 'Backend Config'
+  storeType: 'Store Type'
+  configurationTypeRequired: 'Configuration Type is required.'
+  configurationType: 'Configuration Type'
   remoteFile: 'Remote File'
   addTFVarFileLabel: 'Add TF Var file'
   paths: 'Paths'
@@ -1263,7 +1274,7 @@ pipelineSteps:
   repoName: 'Repo Name'
   stepNameLabel: '{{ $.name }}'
   storeTypeRequired: 'Store Type is required.'
-  addTerraformVarFile: '+ Add Terraform Var File'
+  addTerraformVarFile: 'Add Terraform Var File'
   connectorLabel: 'Container Registry'
   connectorInfo: 'Container Registry to use to download the image use to run commands on'
   dependencyConnectorInfo: Container Registry to use to pull the service dependency image from
