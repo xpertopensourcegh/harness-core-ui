@@ -5,14 +5,13 @@ import { Layout, Text, Icon, Color, IconName, Container } from '@wings-software/
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { DateRange } from '@blueprintjs/datetime'
+import { useStrings } from 'framework/exports'
 import Table from '@common/components/Table/Table'
 
 import type { ResponsePageActivity, Activity, ResponseConnectivityCheckSummary } from 'services/cd-ng'
 
 import { Page } from '@common/exports'
-import { ActivityStatus } from '@connectors/constants'
-
-import i18n from './ActivityList.i18n'
+import { ActivityStatus, ActivityType } from '@connectors/constants'
 import css from '../ActivityHistory/ActivityHistory.module.scss'
 
 interface ActivityListProps {
@@ -41,28 +40,35 @@ function getIconForActivity(data: Activity): IconName {
   }
 }
 
-function getStatusText(data: AllActivity): string | undefined {
-  if (data.type === 'CONNECTIVITY_CHECK') {
-    return `${i18n.HeartbeatFailure} (${data.failureCount})`
-  }
-  if (data.type === 'ENTITY_CREATION') {
-    return i18n.CreatedSuccessfully
-  }
-  if (data.type === 'ENTITY_UPDATE') {
-    return i18n.UpdatedSuccessfully
-  }
+const GetStatusText: React.FC<AllActivity> = (data: AllActivity) => {
+  const { getString } = useStrings()
+  let status = ''
+
   if (data.activityStatus === ActivityStatus.FAILED) {
-    return i18n.ConnectionFailed
+    status = getString('activityHistory.connectionFailed')
   } else if (data.activityStatus === ActivityStatus.SUCCESS) {
-    return i18n.ConnectionSuccessful
+    status = getString('activityHistory.connectionSuccessful')
   }
+
+  if (data.type === ActivityType.CONNECTIVITY_CHECK) {
+    status = `${getString('activityHistory.heartbeatFailure')} (${data.failureCount})`
+  }
+  if (data.type === ActivityType.ENTITY_CREATION) {
+    status = getString('activityHistory.createdSuccessfully')
+  }
+  if (data.type === ActivityType.ENTITY_UPDATE) {
+    status = getString('activityHistory.updatedSuccessfully')
+  }
+
+  return <Text color={Color.DARK_600}>{status}</Text>
 }
 
 const RenderColumnTime: Renderer<CellProps<Activity>> = ({ row }) => {
+  const { getString } = useStrings()
   const data = row.original
   return (
     <Layout.Vertical spacing="xsmall">
-      <Text color={Color.DARK_600}>{i18n.ActivityLog}</Text>
+      <Text color={Color.DARK_600}>{getString('activityLog')}</Text>
       <Text font={{ size: 'small' }} color={Color.GREY_450}>
         {moment(data.activityTime).format('DD MMM YYYY')}
       </Text>
@@ -90,7 +96,7 @@ const RenderColumnStatus: Renderer<CellProps<AllActivity>> = ({ row }) => {
       />
 
       <Layout.Vertical>
-        <Text color={Color.DARK_600}>{getStatusText(data)}</Text>
+        {GetStatusText(data)}
         <Text font={{ size: 'small' }} color={Color.GREY_450}>
           {data.detail?.activityStatusMessage}
         </Text>
@@ -101,22 +107,23 @@ const RenderColumnStatus: Renderer<CellProps<AllActivity>> = ({ row }) => {
 
 const ActivityList: React.FC<ActivityListProps> = props => {
   const { accountId } = useParams()
+  const { getString } = useStrings()
   const columns: Column<Activity>[] = useMemo(
     () => [
       {
-        Header: i18n.Heading.TIME,
+        Header: getString('timeLabel')?.toUpperCase(),
         accessor: 'activityTime',
         width: '25%',
         Cell: RenderColumnTime
       },
       {
-        Header: i18n.Heading.ACTIVITY,
+        Header: getString('activity')?.toUpperCase(),
         accessor: 'description',
         width: '50%',
         Cell: RenderColumnActivity
       },
       {
-        Header: i18n.Heading.STATUS,
+        Header: getString('status')?.toUpperCase(),
         accessor: 'activityStatus',
         width: '25%',
         Cell: RenderColumnStatus
@@ -139,12 +146,12 @@ const ActivityList: React.FC<ActivityListProps> = props => {
     dataArray = activity.concat([
       {
         accountIdentifier: accountId,
-        type: 'CONNECTIVITY_CHECK',
+        type: ActivityType.CONNECTIVITY_CHECK,
         activityTime: connectivity?.startTime as number,
-        description: i18n.ConnectivityCheck,
+        description: getString('activityHistory.connectivityCheck'),
         activityStatus: 'FAILED',
         detail: {
-          activityStatusMessage: i18n.ConnectivityCheckFailed
+          activityStatusMessage: getString('activityHistory.connectivityCheckFailed')
         },
         failureCount: connectivity?.failureCount
       }
@@ -159,7 +166,7 @@ const ActivityList: React.FC<ActivityListProps> = props => {
         <Table<AllActivity> columns={columns} data={dataArray || []} />
       ) : (
         <Container height={'200px'}>
-          <Page.NoDataCard icon="nav-dashboard" message={i18n.noData} />
+          <Page.NoDataCard icon="nav-dashboard" message={getString('activityHistory.noData')} />
         </Container>
       )}
     </Layout.Vertical>

@@ -5,6 +5,7 @@ import { Position } from '@blueprintjs/core'
 import { DateRangePicker, DateRange, IDateRangeShortcut } from '@blueprintjs/datetime'
 import { Container, Color, Layout, Popover, Button, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { useStrings } from 'framework/exports'
 import {
   GetActivitiesSummaryQueryParams,
   useListActivities,
@@ -18,7 +19,6 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import ActivityList from '../ActivityList/ActivityList'
 import ActivityGraph from '../ActivityGraph/ActivityGraph'
 
-import i18n from './ActivityHistory.i18n'
 import css from './ActivityHistory.module.scss'
 
 interface ActivityHistoryprops {
@@ -39,46 +39,6 @@ export const yesterday = () => moment().subtract(1, 'days')
 const startOfDay = (time: moment.Moment) => time.startOf('day').toDate()
 const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
 
-export function buildDateRangeShortcuts(): IDateRangeShortcut[] {
-  return ([
-    {
-      dateRange: [startOfDay(today()), startOfDay(today())],
-      label: i18n.shortcuts.Today,
-      includeTime: true
-    },
-    {
-      dateRange: [startOfDay(yesterday()), startOfDay(yesterday())],
-      label: i18n.shortcuts.Yesterday,
-      includeTime: true
-    },
-    {
-      dateRange: [startOfDay(today().subtract(1, 'days')), endOfDay(today())],
-      label: i18n.shortcuts.Last2Days,
-      includeTime: true
-    },
-    {
-      dateRange: [startOfDay(today().subtract(2, 'days')), endOfDay(today())],
-      label: i18n.shortcuts.Last3Days,
-      includeTime: true
-    },
-    {
-      dateRange: [startOfDay(today().subtract(6, 'days')), endOfDay(today())],
-      label: i18n.shortcuts.LastWeek,
-      includeTime: true
-    },
-    {
-      dateRange: [startOfDay(today().subtract(30, 'days')), endOfDay(today())],
-      label: i18n.shortcuts.LastMonth,
-      includeTime: true
-    },
-    {
-      dateRange: [startOfDay(today().subtract(60, 'days')), endOfDay(today())],
-      label: i18n.shortcuts.Last2Months,
-      includeTime: true
-    }
-  ] as unknown) as IDateRangeShortcut[]
-}
-
 const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
   const [showConnectivityChecks, setShowConnectivityChecks] = useState<boolean>(true)
   const [showOtherActivity, setShowOtherActivity] = useState<boolean>(true)
@@ -86,6 +46,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
   const [isDateRangePickerOpen, setIsDateRangePickerOpen] = useState<boolean>(false)
   const [dataFormat, setDataFormat] = useState<GetActivitiesSummaryQueryParams['timeGroupType']>('HOUR')
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { getString } = useStrings()
   const closeDateRangePicker = useCallback(() => setIsDateRangePickerOpen(false), [])
   const { data: activityList, loading, refetch: refetchActivities } = useListActivities({
     queryParams: {
@@ -99,6 +60,44 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
     },
     mock: props.mockActivitykData
   })
+
+  const dateRangeShortcuts = [
+    {
+      dateRange: [startOfDay(today()), startOfDay(today())],
+      label: getString('common.datePickerShortcuts.Today'),
+      includeTime: true
+    },
+    {
+      dateRange: [startOfDay(yesterday()), startOfDay(yesterday())],
+      label: getString('common.datePickerShortcuts.Yesterday'),
+      includeTime: true
+    },
+    {
+      dateRange: [startOfDay(today().subtract(1, 'days')), endOfDay(today())],
+      label: getString('common.datePickerShortcuts.Last2Days'),
+      includeTime: true
+    },
+    {
+      dateRange: [startOfDay(today().subtract(2, 'days')), endOfDay(today())],
+      label: getString('common.datePickerShortcuts.Last3Days'),
+      includeTime: true
+    },
+    {
+      dateRange: [startOfDay(today().subtract(6, 'days')), endOfDay(today())],
+      label: getString('common.datePickerShortcuts.LastWeek'),
+      includeTime: true
+    },
+    {
+      dateRange: [startOfDay(today().subtract(30, 'days')), endOfDay(today())],
+      label: getString('common.datePickerShortcuts.LastMonth'),
+      includeTime: true
+    },
+    {
+      dateRange: [startOfDay(today().subtract(60, 'days')), endOfDay(today())],
+      label: getString('common.datePickerShortcuts.Last2Months'),
+      includeTime: true
+    }
+  ] as IDateRangeShortcut[]
 
   const {
     data: connectivitySummary,
@@ -148,7 +147,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
             className={css.dateRangePicker}
             maxDate={new Date()}
             defaultValue={dateRange}
-            shortcuts={buildDateRangeShortcuts()}
+            shortcuts={dateRangeShortcuts}
             onChange={range => {
               if (range[0] && range[1]) {
                 setShowConnectivityChecks(true)

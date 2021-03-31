@@ -23,7 +23,6 @@ import {
 import { String, useStrings } from 'framework/exports'
 import { NameIdDescriptionTags } from '@common/components'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
-import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
 
@@ -118,13 +117,13 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
             handleSubmit(formData)
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required(i18n.validation.name),
+            name: Yup.string().trim().required(getString('validation.connectorName')),
             identifier: Yup.string().when('name', {
               is: val => val?.length,
               then: Yup.string()
                 .trim()
-                .required(i18n.validation.identifier)
-                .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
+                .required(getString('validation.identifierRequired'))
+                .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
                 .notOneOf(StringUtils.illegalIdentifiers)
             })
           })}

@@ -23,7 +23,6 @@ import {
   VaultMetadataRequestSpecDTO
 } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import i18n from '../CreateHashiCorpVault.i18n'
 import VaultConnectorFormFields from './VaultConnectorFormFields'
 import type { CreateHashiCorpVaultProps, StepSecretManagerProps } from '../CreateHashiCorpVault'
 
@@ -130,27 +129,31 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
           ...prevStepData?.spec
         }}
         validationSchema={Yup.object().shape({
-          vaultUrl: Yup.string().trim().required(i18n.validationVaultUrl),
+          vaultUrl: Yup.string().trim().required(getString('validation.vaultUrl')),
           secretEngineName: Yup.string().when('engineType', {
             is: 'manual',
-            then: Yup.string().trim().required(i18n.validationEngine)
+            then: Yup.string().trim().required(getString('validation.secretEngineName'))
           }),
           secretEngineVersion: Yup.number().when('engineType', {
             is: 'manual',
-            then: Yup.number().positive(i18n.validationVersionNumber).required(i18n.validationVersion)
+            then: Yup.number()
+              .positive(getString('validation.engineVersionNumber'))
+              .required(getString('validation.engineVersion'))
           }),
           secretEngine: Yup.string().when('engineType', {
             is: 'fetch',
-            then: Yup.string().trim().required(i18n.validationSecretEngine)
+            then: Yup.string().trim().required(getString('validation.secretEngine'))
           }),
-          renewalIntervalMinutes: Yup.number().positive(i18n.validationRenewalNumber).required(i18n.validationRenewal),
+          renewalIntervalMinutes: Yup.number()
+            .positive(getString('validation.renewalNumber'))
+            .required(getString('validation.renewalInterval')),
           authToken: Yup.string()
             .nullable()
             .when('accessType', {
               is: 'TOKEN',
               then: Yup.string()
                 .trim()
-                .test('authToken', i18n.validationAuthToken, function (value) {
+                .test('authToken', getString('validation.authToken'), function (value) {
                   if ((prevStepData?.spec as VaultConnectorDTO)?.accessType === 'TOKEN') return true
                   else if (value?.length > 0) return true
                   return false
@@ -158,13 +161,13 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
             }),
           appRoleId: Yup.string().when('accessType', {
             is: 'APP_ROLE',
-            then: Yup.string().trim().required(i18n.validationAppRole)
+            then: Yup.string().trim().required(getString('validation.appRole'))
           }),
           secretId: Yup.string().when('accessType', {
             is: 'APP_ROLE',
             then: Yup.string()
               .trim()
-              .test('secretId', i18n.validationSecretId, function (value) {
+              .test('secretId', getString('validation.secretId'), function (value) {
                 if ((prevStepData?.spec as VaultConnectorDTO)?.accessType === 'APP_ROLE') return true
                 else if (value?.length > 0) return true
                 return false
@@ -185,7 +188,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
                 accessType={(prevStepData?.spec as VaultConnectorDTO)?.accessType}
               />
               <Layout.Horizontal spacing="medium">
-                <Button text={i18n.buttonBack} onClick={() => previousStep?.(prevStepData)} />
+                <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
                 <Button
                   type="submit"
                   intent="primary"

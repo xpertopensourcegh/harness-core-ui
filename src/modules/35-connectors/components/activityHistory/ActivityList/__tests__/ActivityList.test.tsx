@@ -1,6 +1,6 @@
 import React from 'react'
-import { MemoryRouter } from 'react-router'
 import { render } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import ActivityList from '../ActivityList'
 import connectivitySummary from '../../ActivityHistory/__tests__/mockData/connectivitySummary.json'
 import activityData from '../../ActivityHistory/__tests__/mockData/activityData.json'
@@ -8,7 +8,7 @@ import activityData from '../../ActivityHistory/__tests__/mockData/activityData.
 describe('Activity List', () => {
   test('render all activity', () => {
     const { container, getByText } = render(
-      <MemoryRouter>
+      <TestWrapper path="/account/:accountId/resources/connectors/dmfjhkd" pathParams={{ accountId: 'dummy' }}>
         <ActivityList
           activityList={activityData as any}
           connectivitySummary={connectivitySummary as any}
@@ -19,14 +19,14 @@ describe('Activity List', () => {
           showConnectivityChecks={true}
           showOtherActivity={true}
         />
-      </MemoryRouter>
+      </TestWrapper>
     )
     expect(getByText('Connectivity Check')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
   test('render only connectivity check activity', () => {
     const { container } = render(
-      <MemoryRouter>
+      <TestWrapper path="/account/:accountId/resources/connectors/dmfjhkd" pathParams={{ accountId: 'dummy' }}>
         <ActivityList
           activityList={activityData as any}
           connectivitySummary={connectivitySummary as any}
@@ -37,7 +37,7 @@ describe('Activity List', () => {
           showConnectivityChecks={true}
           showOtherActivity={false}
         />
-      </MemoryRouter>
+      </TestWrapper>
     )
 
     expect(container).toMatchSnapshot()

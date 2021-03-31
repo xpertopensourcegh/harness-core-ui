@@ -11,6 +11,14 @@ common:
   reject: Reject
   My: My
   jexlExpression: JEXL Expression
+  datePickerShortcuts:
+    Today: 'Today'
+    Yesterday: 'Yesterday'
+    Last2Days: 'Last 2 Days'
+    Last3Days: 'Last 3 Days'
+    LastWeek: 'Last Week'
+    LastMonth: 'Last Month'
+    Last2Months: 'Last 2 Months'
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'
@@ -243,6 +251,7 @@ dateLabel: Date
 timeLabel: Time
 startTime: Start time
 services: Services
+token: Token
 artifacts: Artifacts
 manifests: Manifests
 environments: Environments
@@ -1535,6 +1544,7 @@ pipelineSteps:
 validation:
   thisIsARequiredField: This is a required field
   nameRequired: Name is a required field
+  connectorName: Connector name is a required field
   stepNameRequired: Step Name is a required field
   identifierRequired: Identifier is a required field
   identifierDuplicate: Stage with same identifier already exists
@@ -1582,6 +1592,16 @@ validation:
   installationId: 'GitHub Installation ID is required'
   applicationId: 'GitHub Application ID is required'
   UrlRequired: URL is required
+  vaultUrl: Vault URL is required
+  secretId: Secret ID is required
+  secretEngineName: Secret Engine Name is required
+  secretEngine: Secret Engine is required
+  engineVersionNumber: Secret Engine Version can only be a positive number
+  engineVersion: Secret Engine Version is required
+  renewalNumber: 'Renewal interval can only be a positive number'
+  renewalInterval: 'Renewal interval is required'
+  authToken: 'Auth Token is required'
+  appRole: 'App Role ID is required'
   sshKey: SSH key is required
   kerberosKey: Kerberos key is required
   privateKey: 'GitHub Private Key is required'
@@ -1630,6 +1650,13 @@ activityHistory:
   successfulActivity: Successful Activity
   failedActivity: Failed Activity
   heartbeatFailure: Heart beat Failure
+  connectivityCheck: Connectivity Check
+  connectivityCheckFailed: Connectivity Check Failed
+  connectionFailed: Connection Failed
+  connectionSuccessful: Connection Successful
+  createdSuccessfully: Created Successfully
+  updatedSuccessfully: Updated Successfully
+  noData: No Activity Found
 manifestType:
   manifestIdentifier: Manifest Identifier
   manifestPlaceholder: Add Manifest Identifier
@@ -1789,13 +1816,18 @@ connectors:
       OIDC: 'OpenID Connect'
       clientKeyCertificate: 'Client Key Certificate'
   hashiCorpVault:
+    appRoleId: 'App Role ID'
+    baseSecretPath: 'Base Secret Path (optional)'
+    secretId: 'Secret ID'
     stepTwoName: 'HashiCorp Vault Details'
     vaultUrl: 'Vault URL'
     engineName: 'Secret Engine Name'
     engineVersion: 'Secret Engine Version'
     renewal: 'Renewal Interval (minutes)'
     readOnly: 'Read Only'
+    readOnlyVault: 'Read-only Vault'
     default: 'Default'
+    defaultVault: 'Use as Default Secrets Manager'
   nexus:
     nexusServerUrl: 'Nexus Repository URL'
   artifactory:

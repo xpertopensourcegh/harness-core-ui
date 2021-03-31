@@ -12,9 +12,8 @@ import {
   VaultConnectorDTO
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
+import { useStrings } from 'framework/exports'
 import type { VaultConfigFormData } from './VaultConfigForm'
-
-import i18n from '../CreateHashiCorpVault.i18n'
 
 const accessTypeOptions: IOptionProps[] = [
   {
@@ -53,6 +52,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { showError } = useToaster()
+  const { getString } = useStrings()
   const [secretEngineOptions, setSecretEngineOptions] = useState<SelectOption[]>([])
   const { mutate: getMetadata } = useGetMetadata({ queryParams: { accountIdentifier: accountId } })
 
@@ -108,30 +108,30 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
 
   return (
     <>
-      <FormInput.Text name="vaultUrl" label={i18n.labelVaultUrl} />
-      <FormInput.Text name="basePath" label={i18n.labelBaseSecretPath} />
+      <FormInput.Text name="vaultUrl" label={getString('connectors.hashiCorpVault.vaultUrl')} />
+      <FormInput.Text name="basePath" label={getString('connectors.hashiCorpVault.baseSecretPath')} />
       <FormInput.RadioGroup
         name="accessType"
-        label={i18n.labelAuth}
+        label={getString('authentication')}
         radioGroup={{ inline: true }}
         items={accessTypeOptions}
       />
       {formik?.values['accessType'] === 'APP_ROLE' ? (
         <Layout.Horizontal spacing="medium">
-          <FormInput.Text name="appRoleId" label={i18n.labelAppRoleId} />
+          <FormInput.Text name="appRoleId" label={getString('connectors.hashiCorpVault.appRoleId')} />
           <FormInput.Text
             name="secretId"
-            label={i18n.labelSecretId}
-            placeholder={isEditing && accessType === 'APP_ROLE' ? i18n.placeholderEncrypted : ''}
+            label={getString('connectors.hashiCorpVault.secretId')}
+            placeholder={isEditing && accessType === 'APP_ROLE' ? getString('encrypted') : ''}
             inputGroup={{ type: 'password' }}
           />
         </Layout.Horizontal>
       ) : (
         <FormInput.Text
           name="authToken"
-          label={i18n.labelToken}
+          label={getString('token')}
           inputGroup={{ type: 'password' }}
-          placeholder={isEditing && accessType === 'TOKEN' ? i18n.placeholderEncrypted : ''}
+          placeholder={isEditing && accessType === 'TOKEN' ? getString('encrypted') : ''}
         />
       )}
       <FormInput.RadioGroup
@@ -158,14 +158,22 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
       ) : null}
       {formik.values['engineType'] === 'manual' ? (
         <Layout.Horizontal spacing="medium">
-          <FormInput.Text name="secretEngineName" label={i18n.labelSecretEngineName} />
-          <FormInput.Text name="secretEngineVersion" label={i18n.labelSecretEngineVersion} />
+          <FormInput.Text name="secretEngineName" label={getString('connectors.hashiCorpVault.engineName')} />
+          <FormInput.Text name="secretEngineVersion" label={getString('connectors.hashiCorpVault.engineVersion')} />
         </Layout.Horizontal>
       ) : null}
 
-      <FormInput.Text name="renewalIntervalMinutes" label={i18n.labelRenewal} />
-      <FormInput.CheckBox name="readOnly" label={i18n.labelReadOnly} padding={{ left: 'xxlarge' }} />
-      <FormInput.CheckBox name="default" label={i18n.labelDefault} padding={{ left: 'xxlarge' }} />
+      <FormInput.Text name="renewalIntervalMinutes" label={getString('connectors.hashiCorpVault.renewal')} />
+      <FormInput.CheckBox
+        name="readOnly"
+        label={getString('connectors.hashiCorpVault.readOnlyVault')}
+        padding={{ left: 'xxlarge' }}
+      />
+      <FormInput.CheckBox
+        name="default"
+        label={getString('connectors.hashiCorpVault.defaultVault')}
+        padding={{ left: 'xxlarge' }}
+      />
     </>
   )
 }

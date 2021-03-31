@@ -22,6 +22,10 @@ interface ActivityStatusType {
   [key: string]: Activity['activityStatus']
 }
 
+interface ActivityType {
+  [key: string]: Activity['type']
+}
+
 export interface CreateConnectorModalProps {
   onClose: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
@@ -92,6 +96,13 @@ export const EntityTypes: ReferenceEntityType = {
 export const ActivityStatus: ActivityStatusType = {
   SUCCESS: 'SUCCESS',
   FAILED: 'FAILED'
+}
+
+export const ActivityType: ActivityType = {
+  CONNECTIVITY_CHECK: 'CONNECTIVITY_CHECK',
+  ENTITY_USAGE: 'ENTITY_USAGE',
+  ENTITY_CREATION: 'ENTITY_CREATION',
+  ENTITY_UPDATE: 'ENTITY_UPDATE'
 }
 
 export const connectorUrlType = {
