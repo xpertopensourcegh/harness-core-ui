@@ -273,73 +273,75 @@ const COAccessPointList: React.FC = () => {
                 </Layout.Horizontal>
               </Layout.Horizontal>
             </>
-            <Page.Body className={css.pageContainer}>
-              <Table<AccessPoint>
-                data={allAccessPoints || []}
-                className={css.table}
-                columns={[
-                  {
-                    //eslint-disable-next-line
-                    Header: () => {
-                      return (
-                        <input
-                          type="checkbox"
-                          checked={data?.response?.length == selectedAccessPoints.length}
-                          onChange={e => {
-                            if (e.currentTarget.checked) {
-                              setSelectedAccessPoints([...allAccessPoints])
-                            } else if (!e.currentTarget.checked) {
-                              setSelectedAccessPoints([])
-                            }
-                          }}
-                        />
-                      )
+            {allAccessPoints.length > 0 && (
+              <Page.Body className={css.pageContainer}>
+                <Table<AccessPoint>
+                  data={allAccessPoints || []}
+                  className={css.table}
+                  columns={[
+                    {
+                      //eslint-disable-next-line
+                      Header: () => {
+                        return (
+                          <input
+                            type="checkbox"
+                            checked={data?.response?.length == selectedAccessPoints.length}
+                            onChange={e => {
+                              if (e.currentTarget.checked) {
+                                setSelectedAccessPoints([...allAccessPoints])
+                              } else if (!e.currentTarget.checked) {
+                                setSelectedAccessPoints([])
+                              }
+                            }}
+                          />
+                        )
+                      },
+                      id: 'check',
+                      width: '5%',
+                      Cell: CheckBoxCell
                     },
-                    id: 'check',
-                    width: '5%',
-                    Cell: CheckBoxCell
-                  },
-                  {
-                    accessor: 'host_name',
-                    Header: getString('name').toUpperCase(),
-                    width: '20%',
-                    Cell: NameCell
-                  },
-                  {
-                    accessor: 'cloud_account_id',
-                    Header: getString('ce.co.accessPoint.cloudAccount').toUpperCase(),
-                    width: '20%',
-                    Cell: CloudAccountCell
-                  },
-                  {
-                    accessor: 'id',
-                    Header: getString('ce.co.accessPoint.dnsProvider').toUpperCase(),
-                    width: '15%',
-                    Cell: DNSCell,
-                    disableSortBy: true
-                  },
-                  {
-                    accessor: 'name',
-                    Header: getString('ce.co.accessPoint.asssociatedRules').toUpperCase(),
-                    width: '15%',
-                    Cell: RulesCell
-                  },
-                  {
-                    accessor: 'status',
-                    Header: getString('ce.co.accessPoint.lastActivity').toUpperCase(),
-                    width: '20%',
-                    Cell: ActivityCell
-                  }
-                  // {
-                  //   id: 'menu',
-                  //   accessor: row => row.id,
-                  //   width: '5%',
-                  //   Cell: RenderColumnMenu,
-                  //   disableSortBy: true
-                  // }
-                ]}
-              />
-            </Page.Body>
+                    {
+                      accessor: 'host_name',
+                      Header: getString('name').toUpperCase(),
+                      width: '20%',
+                      Cell: NameCell
+                    },
+                    {
+                      accessor: 'cloud_account_id',
+                      Header: getString('ce.co.accessPoint.cloudAccount').toUpperCase(),
+                      width: '20%',
+                      Cell: CloudAccountCell
+                    },
+                    {
+                      accessor: 'id',
+                      Header: getString('ce.co.accessPoint.dnsProvider').toUpperCase(),
+                      width: '15%',
+                      Cell: DNSCell,
+                      disableSortBy: true
+                    },
+                    {
+                      accessor: 'name',
+                      Header: getString('ce.co.accessPoint.asssociatedRules').toUpperCase(),
+                      width: '15%',
+                      Cell: RulesCell
+                    },
+                    {
+                      accessor: 'status',
+                      Header: getString('ce.co.accessPoint.lastActivity').toUpperCase(),
+                      width: '20%',
+                      Cell: ActivityCell
+                    }
+                    // {
+                    //   id: 'menu',
+                    //   accessor: row => row.id,
+                    //   width: '5%',
+                    //   Cell: RenderColumnMenu,
+                    //   disableSortBy: true
+                    // }
+                  ]}
+                />
+              </Page.Body>
+            )}
           </>
         ) : (
           <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
