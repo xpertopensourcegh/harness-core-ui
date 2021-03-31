@@ -65,7 +65,6 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
         identifier: initialValues.identifier,
         helmVersion: initialValues.spec?.helmVersion,
         chartName: initialValues.spec?.chartName,
-        chartVersion: initialValues.spec?.chartVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
           commandType: commandFlag.commandType,
@@ -130,8 +129,15 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
           chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
-          chartVersion: Yup.string().trim().required(getString('manifestType.http.chartVersionRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
+          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          commandFlags: Yup.array().of(
+            Yup.object().shape({
+              flag: Yup.string().when('commandType', {
+                is: val => val?.length,
+                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+              })
+            })
+          )
         })}
         onSubmit={formData => {
           submitFormData({

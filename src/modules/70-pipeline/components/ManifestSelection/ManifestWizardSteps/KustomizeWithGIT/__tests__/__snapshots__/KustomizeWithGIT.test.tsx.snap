@@ -185,7 +185,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
           >
             <div
-              class="halfWidth"
+              class="folderPath"
             >
               <div
                 class="bp3-form-group"
@@ -247,9 +247,37 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   </div>
                 </div>
               </div>
+              <span
+                class="bp3-popover-wrapper tooltip"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    icon="info-sign"
+                    tabindex="0"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM7 3h2v2H7V3zm3 10H6v-1h1V7H6V6h3v6h1v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </span>
             </div>
             <div
-              class="halfWidth"
+              class="folderPath"
             >
               <div
                 class="bp3-form-group"
@@ -311,6 +339,34 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   </div>
                 </div>
               </div>
+              <span
+                class="bp3-popover-wrapper tooltip"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    icon="info-sign"
+                    tabindex="0"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM7 3h2v2H7V3zm3 10H6v-1h1V7H6V6h3v6h1v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </span>
             </div>
           </div>
           <div
@@ -600,7 +656,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
           >
             <div
-              class="halfWidth"
+              class="folderPath"
             >
               <div
                 class="bp3-form-group"
@@ -662,9 +718,37 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   </div>
                 </div>
               </div>
+              <span
+                class="bp3-popover-wrapper tooltip"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    icon="info-sign"
+                    tabindex="0"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM7 3h2v2H7V3zm3 10H6v-1h1V7H6V6h3v6h1v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </span>
             </div>
             <div
-              class="halfWidth"
+              class="folderPath"
             >
               <div
                 class="bp3-form-group"
@@ -726,6 +810,34 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   </div>
                 </div>
               </div>
+              <span
+                class="bp3-popover-wrapper tooltip"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    icon="info-sign"
+                    tabindex="0"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM7 3h2v2H7V3zm3 10H6v-1h1V7H6V6h3v6h1v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </span>
             </div>
           </div>
           <div
@@ -1015,7 +1127,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
           >
             <div
-              class="halfWidth"
+              class="folderPath"
             >
               <div
                 class="bp3-form-group"
@@ -1077,9 +1189,37 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   </div>
                 </div>
               </div>
+              <span
+                class="bp3-popover-wrapper tooltip"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    icon="info-sign"
+                    tabindex="0"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM7 3h2v2H7V3zm3 10H6v-1h1V7H6V6h3v6h1v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </span>
             </div>
             <div
-              class="halfWidth"
+              class="folderPath"
             >
               <div
                 class="bp3-form-group"
@@ -1141,6 +1281,34 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   </div>
                 </div>
               </div>
+              <span
+                class="bp3-popover-wrapper tooltip"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    icon="info-sign"
+                    tabindex="0"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM7 3h2v2H7V3zm3 10H6v-1h1V7H6V6h3v6h1v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </span>
             </div>
           </div>
           <div

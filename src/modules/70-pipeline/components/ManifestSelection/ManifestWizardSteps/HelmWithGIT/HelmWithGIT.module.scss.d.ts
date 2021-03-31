@@ -3,6 +3,7 @@
 declare const styles: {
   readonly helmGitForm: string
   readonly halfWidth: string
+  readonly folderPath: string
   readonly helmAdvancedSteps: string
   readonly commandFlags: string
   readonly delBtn: string

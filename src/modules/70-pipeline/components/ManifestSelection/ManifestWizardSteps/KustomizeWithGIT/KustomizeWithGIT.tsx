@@ -260,7 +260,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
 
               <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
                 <div
-                  className={cx(helmcss.halfWidth, {
+                  className={cx(helmcss.folderPath, {
                     [helmcss.runtimeInput]:
                       getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME
                   })}
@@ -283,10 +283,19 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       onChange={value => formik.setFieldValue('folderPath', value)}
                     />
                   )}
+                  <Tooltip
+                    position="top"
+                    content={
+                      <div className={helmcss.tooltipContent}>{getString('manifestType.kustomizePathHelperText')} </div>
+                    }
+                    className={helmcss.tooltip}
+                  >
+                    <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                  </Tooltip>
                 </div>
 
                 <div
-                  className={cx(helmcss.halfWidth, {
+                  className={cx(helmcss.folderPath, {
                     [helmcss.runtimeInput]:
                       getMultiTypeFromValue(formik.values?.pluginPath) === MultiTypeInputType.RUNTIME
                   })}
@@ -309,6 +318,15 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       onChange={value => formik.setFieldValue('pluginPath', value)}
                     />
                   )}
+                  <Tooltip
+                    position="top"
+                    content={
+                      <div className={helmcss.tooltipContent}>{getString('manifestType.pluginPathHelperText')} </div>
+                    }
+                    className={helmcss.tooltip}
+                  >
+                    <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                  </Tooltip>
                 </div>
               </Layout.Horizontal>
               <Accordion
@@ -332,9 +350,11 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       <Tooltip
                         position="top"
                         content={
-                          <div className={css.tooltipContent}>{getString('manifestType.helmSkipResourceVersion')} </div>
+                          <div className={helmcss.tooltipContent}>
+                            {getString('manifestType.helmSkipResourceVersion')}{' '}
+                          </div>
                         }
-                        className={css.tooltip}
+                        className={helmcss.tooltip}
                       >
                         <Icon name="info-sign" color={Color.BLUE_450} size={16} />
                       </Tooltip>

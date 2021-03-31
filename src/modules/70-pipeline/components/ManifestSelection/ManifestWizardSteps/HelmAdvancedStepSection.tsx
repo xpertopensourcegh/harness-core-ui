@@ -81,15 +81,16 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
                         />
-
-                        <Button
-                          minimal
-                          icon="trash"
-                          className={cx({
-                            [helmcss.delBtn]: index === 0
-                          })}
-                          onClick={() => remove(index)}
-                        />
+                        {index !== 0 && (
+                          <Button
+                            minimal
+                            icon="trash"
+                            className={cx({
+                              [helmcss.delBtn]: index === 0
+                            })}
+                            onClick={() => remove(index)}
+                          />
+                        )}
                       </Layout.Horizontal>
                     </div>
                   </Layout.Horizontal>

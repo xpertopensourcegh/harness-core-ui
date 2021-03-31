@@ -131,15 +131,16 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
           chartName: formData?.chartName,
           chartVersion: formData?.chartVersion,
           helmVersion: formData?.helmVersion,
-          skipResourceVersioning: formData?.skipResourceVersioning,
-          commandFlags: formData?.commandFlags[0].commandType
-            ? formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-                commandType: commandFlag.commandType,
-                flag: commandFlag.flag
-              }))
-            : []
+          skipResourceVersioning: formData?.skipResourceVersioning
         }
       }
+    }
+
+    if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+        commandType: commandFlag.commandType,
+        flag: commandFlag.flag
+      }))
     }
 
     handleSubmit(manifestObj)
@@ -153,10 +154,21 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
+          identifier: Yup.string()
+            .trim()
+            .required(getString('validation.identifierRequired'))
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex')),
           folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
           chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
-          chartVersion: Yup.string().trim().required(getString('manifestType.http.chartVersionRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
+          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          commandFlags: Yup.array().of(
+            Yup.object().shape({
+              flag: Yup.string().when('commandType', {
+                is: val => val?.length,
+                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+              })
+            })
+          )
         })}
         onSubmit={formData => {
           submitFormData({

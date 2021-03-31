@@ -67,9 +67,9 @@ const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
   ManifestDataType.HelmChart
-  // ManifestDataType.Kustomize
+  // ManifestDataType.Kustomize,
   // ManifestDataType.OpenshiftTemplate,
-  //ManifestDataType.OpenshiftParam
+  // ManifestDataType.OpenshiftParam
 ]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,

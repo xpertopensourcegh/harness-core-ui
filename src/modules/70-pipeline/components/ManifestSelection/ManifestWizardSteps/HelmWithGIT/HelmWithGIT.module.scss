@@ -4,8 +4,19 @@
   .halfWidth {
     width: 45%;
   }
+  .folderPath {
+    display: flex;
+    width: 45%;
+    justify-content: flex-start;
+    align-items: center;
+    :global {
+      .bp3-form-group {
+        min-width: 310px;
+      }
+    }
+  }
   .helmAdvancedSteps {
-    margin-bottom: 80px !important;
+    margin-bottom: 100px !important;
   }
   .commandFlags {
     margin-top: var(--spacing-large);
@@ -29,16 +40,16 @@
 }
 
 .checkbox {
-  margin-right: var(--spacing-medium);
   margin-bottom: 0 !important;
 }
 
 .tooltip {
   > * {
-    width: 50%;
+    width: 60%;
+    margin-left: var(--spacing-medium);
   }
 }
 
 .tooltipContent {
-  width: 200px;
+  width: 250px;
 }
