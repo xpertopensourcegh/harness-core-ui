@@ -14,8 +14,6 @@ const getAllItemsCount = (originalData: CategoryInterface[]): number | undefined
   }
 }
 
-const enableScheduleTriggers = false
-
 const defaultPageDrawerProps: IDrawerProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
@@ -117,10 +115,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
 
   useEffect(() => {
     if (addDrawerMap.categories) {
-      let stepsCategories = addDrawerMap.categories
-      if (!enableScheduleTriggers) {
-        stepsCategories = stepsCategories.filter(category => category.categoryValue !== 'Scheduled')
-      }
+      const stepsCategories = addDrawerMap.categories
       setCategories(stepsCategories)
       setOriginalCategories(stepsCategories)
     }
