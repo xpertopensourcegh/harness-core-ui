@@ -26,7 +26,7 @@ import { useStrings } from 'framework/exports'
 import { IsSingleValued, useOperatorsFromYaml } from '@cf/constants'
 import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
 import { AuditLogObjectType } from '@cf/utils/CFUtils'
-import { Clause, Feature, useGetAllTargets, useGetSegment, usePatchSegment } from 'services/cf'
+import { Clause, Feature, Target, useGetAllTargets, useGetSegment, usePatchSegment } from 'services/cf'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './CFSegmentDetailsPage.module.scss'
 
@@ -440,6 +440,8 @@ type SegmentMutation =
 
 type MutationType = 'included' | 'excluded' | 'rules'
 
+const toIdentifiers = (targets?: Target[]): string[] => targets?.map(target => target.identifier) || []
+
 const tempSegmentReducer = (state: TempSegment, action: SegmentMutation) => {
   switch (action.type) {
     case 'included':
@@ -528,16 +530,16 @@ const CFSegmentDetailsPage = () => {
   const targets = rawTargets?.targets?.map(t => t.identifier || '') || []
 
   const [tempSegment, dispatch] = useReducer(tempSegmentReducer, {
-    included: [...(data?.included || [])],
-    excluded: [...(data?.excluded || [])],
+    included: [...(data?.included || [])].map(target => target.identifier),
+    excluded: [...(data?.excluded || [])].map(target => target.identifier),
     rules: [...(data?.rules || [])]
   })
 
   useEffect(() => {
     dispatch(
       setTempSegment({
-        included: [...(data?.included || [])],
-        excluded: [...(data?.excluded || [])],
+        included: toIdentifiers([...(data?.included || [])]),
+        excluded: toIdentifiers([...(data?.excluded || [])]),
         rules: [...(data?.rules || [])]
       })
     )
@@ -555,8 +557,8 @@ const CFSegmentDetailsPage = () => {
 
   const handleValid = () => {
     const instructions = []
-    const [addedToInc, removedFromInc] = getDiff(data?.included || [], tempSegment.included)
-    const [addedToExc, removedFromExc] = getDiff(data?.excluded || [], tempSegment.excluded)
+    const [addedToInc, removedFromInc] = getDiff(toIdentifiers(data?.included), tempSegment.included)
+    const [addedToExc, removedFromExc] = getDiff(toIdentifiers(data?.excluded), tempSegment.excluded)
 
     removedFromExc.length > 0 && instructions.push(patch.creators.removeFromExcludeList(removedFromExc))
     removedFromInc.length > 0 && instructions.push(patch.creators.removeFromIncludeList(removedFromInc))
@@ -604,8 +606,8 @@ const CFSegmentDetailsPage = () => {
     patch.segment.reset()
     dispatch(
       setTempSegment({
-        included: [...(data?.included || [])],
-        excluded: [...(data?.excluded || [])],
+        included: toIdentifiers([...(data?.included || [])]),
+        excluded: toIdentifiers([...(data?.excluded || [])]),
         rules: [...(data?.rules || [])]
       })
     )

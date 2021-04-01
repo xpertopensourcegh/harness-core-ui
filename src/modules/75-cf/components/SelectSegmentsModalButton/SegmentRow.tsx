@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import { Text, Container, Layout, Color } from '@wings-software/uicore'
+import { Container } from '@wings-software/uicore'
 import { SegmentItem } from '@cf/pages/target-details/segments/SegmentItem'
-import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import { useStrings } from 'framework/exports'
 import type { Segment } from 'services/cf'
 import { ItemContainer } from '../ItemContainer/ItemContainer'
 
@@ -13,9 +11,9 @@ export interface SegmentRowProps {
 }
 
 export const SegmentRow: React.FC<SegmentRowProps> = ({ segment, checked, onChecked }) => {
-  const { getString } = useStrings()
-  const tags: string[] = ((segment as unknown) as { tags: string[] })?.tags || []
-  const segmentHasFlags = !!segment?.included?.length
+  // const { getString } = useStrings()
+  // const tags: string[] = ((segment as unknown) as { tags: string[] })?.tags || []
+  // const segmentHasFlags = !!segment?.included?.length
   const [isChecked, setIsChecked] = useState(checked)
   const toggleCheck = () => {
     setIsChecked(previous => {
@@ -46,6 +44,7 @@ export const SegmentRow: React.FC<SegmentRowProps> = ({ segment, checked, onChec
         style={{ boxShadow: 'none', flexGrow: 1, paddingLeft: 'var(--spacing-xsmall)' }}
         padding="none"
       />
+      {/* Disable since backend does not support this info yet
       <Container width={70}>
         <Text
           inline
@@ -64,7 +63,7 @@ export const SegmentRow: React.FC<SegmentRowProps> = ({ segment, checked, onChec
       </Container>
       <Text width={175} color={segmentHasFlags ? Color.BLUE_500 : undefined}>
         {getString('cf.selectSegmentModal.flagsUsingSegment', { counter: segment?.included?.length })}
-      </Text>
+      </Text> */}
     </ItemContainer>
   )
 }

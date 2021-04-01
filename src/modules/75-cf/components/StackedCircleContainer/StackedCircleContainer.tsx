@@ -7,7 +7,7 @@ import { SEGMENT_PRIMARY_COLOR } from '@cf/utils/CFUtils'
 import css from './StackedCircleContainer.module.scss'
 
 const DEFAULT_DIAMETER = 30
-const DEFAULT_CONTAINER_SIZE = 35
+const DEFAULT_CONTAINER_SIZE = 26
 const DEFAULT_MAX_SHOWN_ITEMS = 3
 
 export interface StackedCircleContainerProps<T> extends Omit<ContainerProps, 'color'> {

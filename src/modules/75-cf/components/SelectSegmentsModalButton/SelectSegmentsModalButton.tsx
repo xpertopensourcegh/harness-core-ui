@@ -14,7 +14,7 @@ import {
 } from '@wings-software/uicore'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
-import { Segment, useGetAllSegments } from 'services/cf'
+import { Segment, useGetTargetAvailableSegments } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { SegmentRow } from './SegmentRow'
@@ -30,6 +30,7 @@ export interface SelectSegmentsModalButtonProps extends Omit<ButtonProps, 'onCli
   orgIdentifier: string
   projectIdentifier: string
   environmentIdentifier: string
+  targetIdentifier?: string
 
   modalTitle: string
   submitButtonTitle?: string
@@ -43,6 +44,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
   orgIdentifier,
   projectIdentifier,
   environmentIdentifier,
+  targetIdentifier,
   modalTitle,
   submitButtonTitle,
   cancelButtonTitle,
@@ -79,7 +81,11 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
         pageNumber
       ]
     )
-    const { data, loading: loadingSegments, error, refetch } = useGetAllSegments({ queryParams, lazy: true })
+    const { data, loading: loadingSegments, error, refetch } = useGetTargetAvailableSegments({
+      identifier: targetIdentifier as string,
+      queryParams,
+      lazy: true
+    })
     const [checkedSegments, setCheckedSegments] = useState<Record<string, Segment>>({})
     const checkOrUncheckSegment = useCallback(
       (checked: boolean, segment: Segment) => {
@@ -167,7 +173,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
               <>
                 <Layout.Horizontal
                   style={{ position: 'sticky', top: 0, background: 'var(--white)', zIndex: 1 }}
-                  padding={{ top: 'xsmall', left: 'huge', right: 'huge', bottom: 'small' }}
+                  padding={{ top: 'xsmall', left: 'large', right: 'huge', bottom: 'small' }}
                 >
                   <Text
                     tabIndex={0}
@@ -186,12 +192,13 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
                       )
                     }}
                   >
-                    {getString('cf.segments.create').toUpperCase()}
+                    {getString('cf.shared.segment').toUpperCase()}
                   </Text>
                   <FlexExpander />
+                  {/* Disable since backend does not support this info yet
                   <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}>
                     {getString('cf.selectSegmentModal.flagsUsingThisSegment')}
-                  </Text>
+                  </Text> */}
                 </Layout.Horizontal>
 
                 <Layout.Vertical

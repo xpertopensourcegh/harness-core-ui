@@ -89,6 +89,7 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
             orgIdentifier={orgIdentifier}
             projectIdentifier={projectIdentifier}
             environmentIdentifier={environmentIdentifier}
+            targetIdentifier={targetIdentifier}
             modalTitle={getString('cf.targetDetail.addTargetToSegment')}
             onSubmit={addTargetToSegments}
           />
@@ -145,6 +146,7 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
             orgIdentifier={orgIdentifier}
             projectIdentifier={projectIdentifier}
             environmentIdentifier={environmentIdentifier}
+            targetIdentifier={targetIdentifier}
             modalTitle={getString('cf.targetDetail.excludeTargetFromSegment')}
             submitButtonTitle={getString('cf.targetDetail.exclude')}
             onSubmit={excludeTargetFromSegments}

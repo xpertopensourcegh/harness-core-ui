@@ -137,6 +137,15 @@ export interface Feature {
   defaultOnVariation: string
   defaultOffVariation: string
   permanent: boolean
+  results?: {
+    variationIdentifier?: string
+    variationName?: string
+    count?: number
+  }[]
+  status?: {
+    status?: 'active' | 'inactive' | 'never-requested'
+    lastAccess?: string
+  }
   envProperties?: {
     environment: string
     variationMap?: VariationMap[]
@@ -184,6 +193,29 @@ export interface Target {
   anonymous?: boolean
   attributes?: { [key: string]: any }
   createdAt?: number
+  segments?: Segment[]
+}
+
+export interface Segment {
+  /**
+   * Unique identifier for the segment.
+   */
+  identifier: string
+  /**
+   * Name of the segment.
+   */
+  name: string
+  environment?: string
+  tags?: Tag[]
+  included?: Target[]
+  excluded?: Target[]
+  /**
+   * An array of rules that can cause a user to be included in this segment.
+   */
+  rules?: Clause[]
+  createdAt?: number
+  modifiedAt?: number
+  version?: number
 }
 
 export type Targets = Pagination & {
@@ -200,28 +232,6 @@ export interface TargetDetail {
   includedSegments?: TargetDetailSegment[]
   excludedSegments?: TargetDetailSegment[]
   ruleSegments?: TargetDetailSegment[]
-}
-
-export interface Segment {
-  /**
-   * Unique identifier for the segment.
-   */
-  identifier: string
-  /**
-   * Name of the segment.
-   */
-  name: string
-  environment?: string
-  tags?: Tag[]
-  included?: string[]
-  excluded?: string[]
-  /**
-   * An array of rules that can cause a user to be included in this segment.
-   */
-  rules?: Clause[]
-  createdAt?: number
-  modifiedAt?: number
-  version?: number
 }
 
 export type Segments = Pagination & {
@@ -327,6 +337,8 @@ export type FeatureFlagRequestRequestBody = {
 export type FeaturePatchRequestRequestBody = PatchOperation
 
 export type TargetRequestRequestBody = Target
+
+export type TargetPatchRequestRequestBody = PatchOperation
 
 export interface SegmentRequestRequestBody {
   identifier?: string
@@ -2738,6 +2750,114 @@ export const useDeleteTarget = (props: UseDeleteTargetProps) =>
     void
   >('DELETE', `/admin/targets`, { base: getConfig('cf'), ...props })
 
+export interface PatchTargetQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface PatchTargetPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type PatchTargetProps = Omit<
+  MutateProps<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >,
+  'path' | 'verb'
+> &
+  PatchTargetPathParams
+
+/**
+ * Patch target.
+ *
+ * Used to modify target with certain id and account id.
+ */
+export const PatchTarget = ({ identifier, ...props }: PatchTargetProps) => (
+  <Mutate<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >
+    verb="PATCH"
+    path="/admin/targets/${identifier}"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UsePatchTargetProps = Omit<
+  UseMutateProps<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >,
+  'path' | 'verb'
+> &
+  PatchTargetPathParams
+
+/**
+ * Patch target.
+ *
+ * Used to modify target with certain id and account id.
+ */
+export const usePatchTarget = ({ identifier, ...props }: UsePatchTargetProps) =>
+  useMutate<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >('PATCH', (paramsInPath: PatchTargetPathParams) => `/admin/targets/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
 export interface GetTargetSegmentsQueryParams {
   /**
    * Account
@@ -2820,6 +2940,93 @@ export const useGetTargetSegments = ({ identifier, ...props }: UseGetTargetSegme
     pathParams: { identifier },
     ...props
   })
+
+export interface GetTargetAvailableSegmentsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface GetTargetAvailableSegmentsPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetTargetAvailableSegmentsProps = Omit<
+  GetProps<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetAvailableSegmentsPathParams
+
+/**
+ * Retrieve the available segments that the target can be included in or excluded from.
+ *
+ * This returns the segments that the target can be added to. This list will exclude any segments that the |
+ *   target currently belongs to.
+ *
+ */
+export const GetTargetAvailableSegments = ({ identifier, ...props }: GetTargetAvailableSegmentsProps) => (
+  <Get<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >
+    path="/admin/targets/${identifier}/available_segments"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetTargetAvailableSegmentsProps = Omit<
+  UseGetProps<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetAvailableSegmentsPathParams
+
+/**
+ * Retrieve the available segments that the target can be included in or excluded from.
+ *
+ * This returns the segments that the target can be added to. This list will exclude any segments that the |
+ *   target currently belongs to.
+ *
+ */
+export const useGetTargetAvailableSegments = ({ identifier, ...props }: UseGetTargetAvailableSegmentsProps) =>
+  useGet<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >(
+    (paramsInPath: GetTargetAvailableSegmentsPathParams) =>
+      `/admin/targets/${paramsInPath.identifier}/available_segments`,
+    { base: getConfig('cf'), pathParams: { identifier }, ...props }
+  )
 
 export interface CreateSegmentQueryParams {
   /**
