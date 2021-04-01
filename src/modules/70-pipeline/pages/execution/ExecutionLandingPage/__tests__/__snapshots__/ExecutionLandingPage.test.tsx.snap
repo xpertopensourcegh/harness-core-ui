@@ -94,9 +94,19 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
               href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/dashboard"
             />
             <span
-              class="separator"
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
             >
-              /
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
             </span>
           </div>
           <div>
@@ -107,9 +117,19 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
               Pipelines
             </a>
             <span
-              class="separator"
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
             >
-              /
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
             </span>
           </div>
           <div>
@@ -120,9 +140,19 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
               Pipeline
             </a>
             <span
-              class="separator"
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
             >
-              /
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
             </span>
           </div>
           <div>

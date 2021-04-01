@@ -4,17 +4,20 @@
   }
 
   .breadcrumb {
-    color: var(--pipeline-select-blue);
+    color: var(--blue-500);
     text-decoration: none;
     &:hover {
       text-decoration: none;
-      color: var(--pipeline-select-blue);
+      color: var(--blue-500);
     }
   }
   .lastBreadcrumb {
     color: #9293ab;
   }
   .separator {
-    padding: 0px var(--spacing-small);
+    padding: 0px var(--spacing-xsmall) 2px var(--spacing-xsmall) !important;
+    path {
+      fill: var(--blue-500) !important;
+    }
   }
 }

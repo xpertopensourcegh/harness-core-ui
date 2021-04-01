@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
+import { Icon } from '@wings-software/uicore'
 import css from './Breadcrumbs.module.scss'
 
 export interface Breadcrumb {
@@ -23,7 +24,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ links = [], className 
               {link.label}
             </Link>
           )}
-          {index !== links.length - 1 && <span className={css.separator}>/</span>}
+          {index !== links.length - 1 && <Icon size={11} name="main-chevron-right" className={css.separator} />}
         </div>
       ))}
     </div>

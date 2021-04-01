@@ -331,7 +331,7 @@ export const RightBar = (): JSX.Element => {
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         icon="pipeline-variables"
         iconProps={{ size: 20 }}
-        text={getString('variableLabel')}
+        text={getString('variablesText')}
         data-testid="input-variable"
       />
       <div />

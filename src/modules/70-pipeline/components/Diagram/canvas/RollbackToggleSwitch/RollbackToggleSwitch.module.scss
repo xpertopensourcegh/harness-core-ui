@@ -36,11 +36,13 @@
         border-radius: 0px !important;
         background-color: transparent !important;
         border-color: transparent !important;
+        padding: var(--spacing-xsmall);
       }
       &:global(.bp3-button.bp3-active) {
         background-color: var(--white) !important;
         border: 1px solid var(--grey-350) !important;
         border-radius: 7px !important;
+        padding: var(--spacing-xsmall);
       }
     }
 

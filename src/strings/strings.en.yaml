@@ -214,7 +214,7 @@ pipelines: Pipelines
 inputs: Inputs
 commits: Commits
 tests: Tests
-pipelineBreadcrumb: '{{$.pipelines}}: Pipeline Studio'
+pipelineBreadcrumb: '{{$.pipelines}}'
 performance: Performance
 quality: quality
 infrastructureText: Infrastructure
@@ -398,7 +398,7 @@ requestBodyLabel: Request Body
 assertionLabel: Assertion
 outputLabel: Output
 typeLabel: Type
-variableLabel: 'Variable'
+variableLabel: Variable
 variableNameLabel: Variable Name
 imageLabel: Image
 imagePlaceholder: maven:3.6.3-jdk-8
