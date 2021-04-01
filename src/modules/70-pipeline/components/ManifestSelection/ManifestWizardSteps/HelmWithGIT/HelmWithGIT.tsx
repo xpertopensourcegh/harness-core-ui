@@ -27,10 +27,7 @@ import { gitFetchTypes, GitRepoName, helmVersions, ManifestStoreMap } from '../.
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
-const commandFlagOptions = [
-  { label: 'Version ', value: 'Version' },
-  { label: 'Template ', value: 'Template' }
-]
+const commandFlagOptions = [{ label: 'Template ', value: 'Template' }]
 interface HelmWithGITPropType {
   stepName: string
   expressions: string[]
@@ -69,7 +66,10 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues?.spec?.store.spec.repoName || ''
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
       return repoName
     }

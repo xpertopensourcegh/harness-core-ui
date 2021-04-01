@@ -112,7 +112,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues?.spec?.store.spec.repoName || ''
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
       return repoName
     }

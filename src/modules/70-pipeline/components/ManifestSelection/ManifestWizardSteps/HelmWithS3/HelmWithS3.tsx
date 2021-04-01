@@ -40,12 +40,10 @@ interface HelmWithHttpPropType {
 
 const commandFlagOptionsV2 = [
   { label: 'Fetch', value: 'Fetch' },
-  { label: 'Version ', value: 'Version' },
   { label: 'Template ', value: 'Template' }
 ]
 const commandFlagOptionsV3 = [
   { label: 'Pull', value: 'Pull' },
-  { label: 'Version ', value: 'Version' },
   { label: 'Template ', value: 'Template' }
 ]
 
