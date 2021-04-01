@@ -10,6 +10,7 @@ import {
 } from './ExecutionPipelineModel'
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
+import { ExecutionPipelineNodeType } from './ExecutionPipelineModel'
 import css from './ExecutionStageDiagram.module.scss'
 
 export const calculateDepthCount = <T>(items: Array<ExecutionPipelineNode<T>>): number => {
@@ -102,13 +103,15 @@ export const getArrowsColor = (status: ExecutionPipelineItemStatus, isParallel =
 }
 
 export const getStatusProps = (
-  status: ExecutionPipelineItemStatus
+  status: ExecutionPipelineItemStatus,
+  stepType: ExecutionPipelineNodeType
 ): {
   secondaryIcon?: IconName
   secondaryIconProps: Omit<IconProps, 'name'>
   secondaryIconStyle: React.CSSProperties
 } => {
-  const secondaryIconStyle: React.CSSProperties = { top: -7, right: -7 }
+  const secondaryIconStyle: React.CSSProperties =
+    stepType === ExecutionPipelineNodeType.DIAMOND ? {} : { top: -7, right: -7 }
   let secondaryIcon: IconName | undefined = undefined
   const secondaryIconProps: Omit<IconProps, 'name'> = { size: 16 }
   /* istanbul ignore else */ if (status) {

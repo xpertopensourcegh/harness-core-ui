@@ -4,6 +4,7 @@ import { Tabs } from '@blueprintjs/core'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 
 import { ApprovalTab } from './Tabs/ApprovalTab/ApprovalTab'
 import ExecutionStepDetailsTab from './Tabs/ExecutionStepDetailsTab/ExecutionStepDetailsTab'
@@ -22,7 +23,7 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
 
   return (
     <Tabs id="step-details" className={css.tabs} renderActiveTabPanelOnly>
-      {isApprovalStep ? (
+      {isApprovalStep && !isExecutionSkipped(step.status) ? (
         <Tabs.Tab id="details" title={getString('approvalStage.title')} panel={<ApprovalTab step={step} />} />
       ) : (
         <Tabs.Tab id="details" title={getString('details')} panel={<ExecutionStepDetailsTab step={step} />} />

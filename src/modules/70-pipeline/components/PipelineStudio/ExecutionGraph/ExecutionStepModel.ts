@@ -192,7 +192,7 @@ export class ExecutionStepModel extends DiagramModel {
           ? new DiamondNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
-              icon: 'command-approval',
+              icon: factory.getStepIcon(stepType),
               draggable: true,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,

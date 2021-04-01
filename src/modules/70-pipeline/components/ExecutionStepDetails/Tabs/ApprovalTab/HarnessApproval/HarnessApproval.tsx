@@ -39,7 +39,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
     lazy: !isWaiting,
     mock: getApprovalAuthorizationMock
   })
-  const { mutate: submitApproval } = useAddHarnessApprovalActivity({ approvalInstanceId })
+  const { mutate: submitApproval, loading: submitting } = useAddHarnessApprovalActivity({ approvalInstanceId })
   const action = React.useRef<HarnessApprovalActivityRequest['action']>('APPROVE')
   const isCurrentUserAuthorized = !!authData?.data?.authorized
 
@@ -105,14 +105,19 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
                 <div className={css.inputs}>
                   <String tagName="div" className={css.heading} stringID="execution.approvals.inputsTitle" />
                   {values.approverInputs?.map((row, i) => (
-                    <FormInput.Text key={i} label={row.name} name={`approverInputs[${i}].value`} />
+                    <FormInput.Text
+                      key={i}
+                      label={row.name}
+                      name={`approverInputs[${i}].value`}
+                      disabled={submitting}
+                    />
                   ))}
-                  <FormInput.TextArea label="comments" name="comments" />
+                  <FormInput.TextArea label="comments" name="comments" disabled={submitting} />
                   <div className={css.actions}>
-                    <Button intent="primary" onClick={handleApproveClick}>
+                    <Button intent="primary" onClick={handleApproveClick} disabled={submitting}>
                       <String stringID="common.approve" />
                     </Button>
-                    <Button icon="cross" onClick={handleRejectClick}>
+                    <Button icon="cross" onClick={handleRejectClick} disabled={submitting}>
                       <String stringID="common.reject" />
                     </Button>
                   </div>

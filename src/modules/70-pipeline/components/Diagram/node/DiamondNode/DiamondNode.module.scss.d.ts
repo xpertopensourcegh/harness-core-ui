@@ -5,6 +5,9 @@ declare const styles: {
   readonly diamondPortIn: string
   readonly diamondPortOut: string
   readonly diamondClose: string
+  readonly secondaryIcon: string
+  readonly tertiaryIcon: string
+  readonly сonditional: string
   readonly inComplete: string
 }
 export default styles

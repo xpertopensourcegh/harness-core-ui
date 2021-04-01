@@ -46,6 +46,36 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
         {props.node.getInPorts().map(port => generatePort(port, props))}
         {props.node.getOutPorts().map(port => generatePort(port, props))}
+        {options?.tertiaryIcon && (
+          <Icon
+            className={css.tertiaryIcon}
+            size={15}
+            name={options?.tertiaryIcon}
+            style={options?.tertiaryIconStyle}
+            {...options.tertiaryIconProps}
+          />
+        )}
+        {options.secondaryIcon && (
+          <Icon
+            className={css.secondaryIcon}
+            size={8}
+            name={options.secondaryIcon}
+            style={options.secondaryIconStyle}
+            {...options.secondaryIconProps}
+          />
+        )}
+        {options.skipCondition && (
+          <div className={css.сonditional}>
+            <Text
+              tooltip={`Skip condition:\n${options.skipCondition}`}
+              tooltipProps={{
+                isDark: true
+              }}
+            >
+              <Icon size={26} name={'conditional-skip-new'} color="white" />
+            </Text>
+          </div>
+        )}
         {options.canDelete && (
           <Button
             className={cx(cssDefault.closeNode, css.diamondClose)}

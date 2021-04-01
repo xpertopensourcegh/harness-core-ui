@@ -80,7 +80,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const { type } = stage
       startX += this.gap
       const isSelected = selectedStageId === stage.identifier
-      const statusProps = getStatusProps(stage.status)
+      const statusProps = getStatusProps(stage.status, type)
       const tertiaryIconProps = getTertiaryIconProps(stage)
       let nodeRender = this.getNodeFromId(stage.identifier)
       const commonOption: Diagram.DiamondNodeModelOptions = {

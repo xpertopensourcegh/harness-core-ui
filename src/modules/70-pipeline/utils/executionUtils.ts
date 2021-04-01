@@ -13,6 +13,7 @@ import {
 } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { isApprovalStep } from './stepUtils'
 
 export const LITE_ENGINE_TASK = 'liteEngineTask'
 export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
@@ -553,7 +554,7 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
   if (stepType === StepType.Barrier) {
     return ExecutionPipelineNodeType.ICON
   }
-  if (stepType === StepType.HarnessApproval || stepType === StepType.JiraApproval) {
+  if (isApprovalStep(stepType)) {
     return ExecutionPipelineNodeType.DIAMOND
   }
 
