@@ -16,7 +16,7 @@ import {
   getMultiTypeFromValue
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
+import { useStrings, String } from 'framework/exports'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -266,8 +266,8 @@ function HarnessApprovalStepMode(
                           return (
                             <div>
                               <div className={css.headerRow}>
-                                <span className={css.label}>Variable name</span>
-                                <span className={css.label}>Default value</span>
+                                <String className={css.label} stringID="variableNameLabel" />
+                                <String className={css.label} stringID="configureOptions.defaultValue" />
                               </div>
                               {(formik.values.spec.approverInputs as ApproverInputsSubmitCallInterface[]).map(
                                 (_unused: ApproverInputsSubmitCallInterface, i: number) => (

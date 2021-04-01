@@ -3,14 +3,14 @@ import { Button } from '@wings-software/uicore'
 import { Collapse } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import type { KeyValueCriteriaSpec, JexlCriteria, ConditionDTO } from 'services/pipeline-ng'
+import type { KeyValueCriteriaSpec, JexlCriteriaSpec, ConditionDTO } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 
 import css from '../ApprovalStepDetails.module.scss'
 
 export interface JiraCriteriaProps {
   type: 'approval' | 'rejection'
-  criteria: KeyValueCriteriaSpec | JexlCriteria
+  criteria: KeyValueCriteriaSpec | JexlCriteriaSpec
 }
 
 const titles: Record<JiraCriteriaProps['type'], string> = {
@@ -18,10 +18,9 @@ const titles: Record<JiraCriteriaProps['type'], string> = {
   rejection: 'execution.approvals.rejectionCriteriaTitle'
 }
 
-const conditionStr: Record<ConditionDTO['op'], string> = {
+const conditionStr: Record<ConditionDTO['operator'], string> = {
   equals: 'execution.approvals.conditions.equals',
   'not equals': 'execution.approvals.conditions.not_equals',
-  contains: 'execution.approvals.conditions.contains',
   in: 'execution.approvals.conditions.in',
   'not in': 'execution.approvals.conditions.not_in'
 }
@@ -60,7 +59,7 @@ export function JiraCriteria(props: JiraCriteriaProps): React.ReactElement {
             <ul className={css.conditions}>
               {(criteria.conditions || []).map((condition: ConditionDTO, i: number) => (
                 <li key={i}>
-                  <String stringID={conditionStr[condition.op]} vars={condition} />
+                  <String stringID={conditionStr[condition.operator]} vars={condition} />
                   {condition.value.split(',').map((key, j) => (
                     <span className={css.key} key={j}>
                       {key}

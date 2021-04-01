@@ -3,8 +3,8 @@ import { Tabs } from '@blueprintjs/core'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
-import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { isExecutionSkipped } from '@pipeline/utils/statusHelpers'
+import { isExecutionWaiting, isExecutionSuccess, isExecutionFailed } from '@pipeline/utils/statusHelpers'
+import { isApprovalStep } from '@pipeline/utils/stepUtils'
 
 import { ApprovalTab } from './Tabs/ApprovalTab/ApprovalTab'
 import ExecutionStepDetailsTab from './Tabs/ExecutionStepDetailsTab/ExecutionStepDetailsTab'
@@ -19,11 +19,13 @@ export interface StepDetailTabs {
 export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
   const { step } = props
   const { getString } = useStrings()
-  const isApprovalStep = step.stepType === StepType.HarnessApproval || step.stepType === StepType.JiraApproval
+  const isApproval = isApprovalStep(step.stepType)
+  const shouldShowApproval =
+    isExecutionWaiting(step.status) || isExecutionSuccess(step.status) || isExecutionFailed(step.status)
 
   return (
     <Tabs id="step-details" className={css.tabs} renderActiveTabPanelOnly>
-      {isApprovalStep && !isExecutionSkipped(step.status) ? (
+      {isApproval && shouldShowApproval ? (
         <Tabs.Tab id="details" title={getString('approvalStage.title')} panel={<ApprovalTab step={step} />} />
       ) : (
         <Tabs.Tab id="details" title={getString('details')} panel={<ExecutionStepDetailsTab step={step} />} />

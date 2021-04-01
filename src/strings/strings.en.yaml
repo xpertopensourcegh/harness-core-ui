@@ -1081,7 +1081,6 @@ execution:
     conditions:
       equals: 'If {{ key }} equals'
       not_equals: 'If {{ key }} does not equals'
-      contains: 'If {{ key }} contains'
       in: 'If {{ key }} is in'
       not_in: 'If {{ key }} is not in'
 pipeline-notifications:

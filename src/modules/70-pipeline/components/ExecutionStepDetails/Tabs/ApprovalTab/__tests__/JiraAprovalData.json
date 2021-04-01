@@ -16,12 +16,12 @@
         {
           "key": "Status",
           "value": "Resolved",
-          "op": "equals"
+          "operator": "equals"
         },
         {
           "key": "Status",
           "value": "In-progress,Open",
-          "op": "not in"
+          "operator": "not in"
         }
       ]
     },
