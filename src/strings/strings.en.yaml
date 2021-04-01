@@ -83,6 +83,7 @@ environmentOrEnvironments: 'Environment(s)'
 artifactOrArtifacts: 'Artifact(s)'
 artifactRepository: ARTIFACT REPOSITORY
 more: '+{{number}} more'
+addFile: Add File
 yes: 'Yes'
 no: 'No'
 or: or
@@ -260,7 +261,6 @@ buildText: Build
 pipeline: Pipeline
 pipelineStudio: Pipeline Studio
 stages: Stages
-addFile: Add File
 buildsText: Builds
 newService: New Service
 editService: Edit Service
@@ -1282,7 +1282,6 @@ projectContextMenuRenderer:
   invite: 'Invite Collaborators'
 settingsLabel: 'Settings'
 pipelineSteps:
-  duplicateStep: Step with this identifier already exist
   kubernetesInfraStep:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector
@@ -1312,6 +1311,7 @@ pipelineSteps:
       manifestType: MANIFEST TYPE
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
+  destroy: 'Destroy'
   configTypes: [{ label: 'Inherit From Plan' }, { label: 'Inherit From Apply' }]
   content: 'Content'
   InheritFromPlan: 'InheritFromPlan'
@@ -1325,6 +1325,7 @@ pipelineSteps:
   configurationType: 'Configuration Type'
   remoteFile: 'Remote File'
   addTFVarFileLabel: 'Add TF Var file'
+  commandRequired: 'Command is required.'
   paths: 'Paths'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace

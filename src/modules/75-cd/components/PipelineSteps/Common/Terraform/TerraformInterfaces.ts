@@ -11,6 +11,11 @@ export const ConfigurationTypes = {
   InheritFromPlan: 'InheritFromPlan',
   InheritFromApply: 'InheritFromApply'
 }
+
+export const CommandTypes = {
+  Apply: 'Apply',
+  Destroy: 'Destroy'
+}
 export interface PathInterface {
   path: string
 }

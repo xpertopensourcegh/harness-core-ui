@@ -6,25 +6,24 @@ import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } fr
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { ConfigurationTypes, TerraformData } from './TerraformInterfaces'
+import type { TerraformData } from './TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface BaseFormProps {
   formik: FormikProps<TerraformData>
   configurationTypes: SelectOption[]
+  showCommand?: boolean
 }
 
-export default function GitStore(props: BaseFormProps): React.ReactElement {
+export default function BaseForm(props: BaseFormProps): React.ReactElement {
   const {
-    formik: { values, setFieldValue }
+    formik: { values, setFieldValue },
+    configurationTypes,
+    showCommand
   } = props
   const { getString } = useStrings()
-  const configurationTypes: SelectOption[] = [
-    { label: getString('inline'), value: ConfigurationTypes.Inline },
-    { label: getString('pipelineSteps.configTypes.0.label'), value: ConfigurationTypes.InheritFromPlan },
-    { label: getString('pipelineSteps.configTypes.1.label'), value: ConfigurationTypes.InheritFromApply }
-  ]
+
   return (
     <>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -47,14 +46,26 @@ export default function GitStore(props: BaseFormProps): React.ReactElement {
         )}
       </div>
 
-      <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.Select
-          items={configurationTypes}
-          name="spec.configuration.type"
-          label={getString('pipelineSteps.configurationType')}
-          placeholder={getString('pipelineSteps.configurationType')}
-        />
-      </div>
+      {!showCommand && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.Select
+            items={configurationTypes}
+            name="spec.configuration.type"
+            label={getString('pipelineSteps.configurationType')}
+            placeholder={getString('pipelineSteps.configurationType')}
+          />
+        </div>
+      )}
+      {showCommand && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.Select
+            items={configurationTypes}
+            name="spec.configuration.command"
+            label={getString('commandLabel')}
+            placeholder={getString('commandLabel')}
+          />
+        </div>
+      )}
     </>
   )
 }
