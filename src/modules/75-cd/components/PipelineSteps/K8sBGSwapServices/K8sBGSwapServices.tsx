@@ -127,7 +127,7 @@ const K8sBGSwapInputStep: React.FC<K8sBGSwapProps> = ({ inputSetData }) => {
     <>
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}.timeout`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={inputSetData?.readonly}
         />
