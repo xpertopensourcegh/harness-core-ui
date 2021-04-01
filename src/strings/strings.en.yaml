@@ -885,6 +885,7 @@ secret:
   labelFile: 'File'
   labelSecretType: 'Secret type'
   noSecretsFound: 'No Secrets Found'
+  configureSecret: 'Configure Secret'
 usersPage:
   search: Search by Name or Email
 instanceFieldOptions:
