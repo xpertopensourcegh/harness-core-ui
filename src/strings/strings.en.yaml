@@ -1666,6 +1666,9 @@ activityHistory:
   updatedSuccessfully: Updated Successfully
   noData: No Activity Found
 manifestType:
+  gitConnectorLabel: 'Git'
+  bitBucketLabel: 'Bitbucket'
+  httpHelmRepoConnectorLabel: 'HttpHelmRepo'
   manifestIdentifier: Manifest Identifier
   manifestPlaceholder: Add Manifest Identifier
   helmManifestPlaceholder: Enter Manifest Identifier

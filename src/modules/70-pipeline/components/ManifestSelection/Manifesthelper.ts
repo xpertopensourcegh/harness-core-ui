@@ -76,15 +76,15 @@ export const getManifestIconByType = (type: string | undefined): IconName => {
 export const getManifestStoreTitle = (type: string): string => {
   switch (type) {
     case ManifestStoreMap.Git:
-      return 'connectors.title.gitConnector'
+      return 'manifestType.gitConnectorLabel'
     case ManifestStoreMap.Github:
-      return 'connectors.title.githubConnector'
+      return 'repo-provider.githubLabel'
     case ManifestStoreMap.GitLab:
-      return 'connectors.title.gitlabConnector'
+      return 'repo-provider.gitlabLabel'
     case ManifestStoreMap.Bitbucket:
-      return 'connectors.title.bitbucketConnector'
+      return 'manifestType.bitBucketLabel'
     case ManifestStoreMap.Http:
-      return 'connectors.title.helmConnector'
+      return 'manifestType.httpHelmRepoConnectorLabel'
     case ManifestStoreMap.S3:
       return 'connectors.S3'
     case ManifestStoreMap.Gcs:
