@@ -130,6 +130,12 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       }
     }
 
+    if (formData?.gitFetchType === 'Branch') {
+      delete manifestObj.manifest?.spec?.store?.spec?.commitId
+    } else if (formData?.gitFetchType === 'Commit') {
+      delete manifestObj.manifest?.spec?.store?.spec?.branch
+    }
+
     handleSubmit(manifestObj)
   }
 

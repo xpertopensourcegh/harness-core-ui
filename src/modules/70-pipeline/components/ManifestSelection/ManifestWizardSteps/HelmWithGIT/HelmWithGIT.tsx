@@ -135,6 +135,12 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         }
       }
     }
+    if (formData?.gitFetchType === 'Branch') {
+      delete manifestObj.manifest?.spec?.store?.spec?.commitId
+    } else if (formData?.gitFetchType === 'Commit') {
+      delete manifestObj.manifest?.spec?.store?.spec?.branch
+    }
+
     if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
       ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
         commandType: commandFlag.commandType,
