@@ -5,6 +5,42 @@ exports[`Test TerraformApply should render edit view 1`] = `
   <div
     class="OverlaySpinner--overlaySpinner"
   >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="bp3-form-group"
+          data-id="spec.provisionerIdentifier-0"
+        >
+          <label
+            class="bp3-label"
+            for="spec.provisionerIdentifier"
+          >
+            Provisioner Identifier
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.provisionerIdentifier"
+                type="text"
+                value="<+input>"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     <p
       class="StyledProps--font StyledProps--main"
     >
