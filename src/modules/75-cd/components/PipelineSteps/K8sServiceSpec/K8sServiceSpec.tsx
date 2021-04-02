@@ -499,7 +499,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         }
                         selectProps={{
                           usePortal: true,
-                          addClearBtn: true,
+                          addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
                           noResults: (
                             <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                           ),
@@ -848,6 +848,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                 template: { variables: (template?.variables || []) as AllNGVariables[] },
                 path
               }}
+              readonly={readonly}
             />
           }
         />

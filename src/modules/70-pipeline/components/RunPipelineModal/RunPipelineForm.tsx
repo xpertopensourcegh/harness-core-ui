@@ -552,7 +552,7 @@ function RunPipelineFormBasic({
   )
 
   return executionView ? (
-    child
+    <div className={css.runFormExecutionView}>{child}</div>
   ) : (
     <RunPipelineFormWrapper
       accountId={accountId}

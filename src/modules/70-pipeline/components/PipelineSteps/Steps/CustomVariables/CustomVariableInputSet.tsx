@@ -6,6 +6,7 @@ import { String } from 'framework/exports'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepViewType } from '@pipeline/exports'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
+import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
@@ -27,10 +28,19 @@ export interface CustomVariableInputSetProps extends CustomVariableInputSetExtra
   initialValues: CustomVariablesData
   onUpdate?: (data: CustomVariablesData) => void
   stepViewType?: StepViewType
+  inputSetData?: InputSetData<CustomVariablesData>
 }
 
 export function CustomVariableInputSet(props: CustomVariableInputSetProps): React.ReactElement {
-  const { initialValues, template, stepViewType = StepViewType.Edit, path, variableNamePrefix = '', domId } = props
+  const {
+    initialValues,
+    template,
+    stepViewType = StepViewType.Edit,
+    path,
+    variableNamePrefix = '',
+    domId,
+    inputSetData
+  } = props
   const basePath = path?.length ? `${path}.` : ''
   return (
     <div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId}>
@@ -53,7 +63,12 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
               {variable.type === VariableType.Secret ? (
                 <MultiTypeSecretInput isMultiType={false} name={`${basePath}variables[${index}].value`} label="" />
               ) : (
-                <FormInput.Text className="variableInput" name={`${basePath}variables[${index}].value`} label="" />
+                <FormInput.Text
+                  className="variableInput"
+                  name={`${basePath}variables[${index}].value`}
+                  label=""
+                  disabled={inputSetData?.readonly}
+                />
               )}
             </div>
           </div>
