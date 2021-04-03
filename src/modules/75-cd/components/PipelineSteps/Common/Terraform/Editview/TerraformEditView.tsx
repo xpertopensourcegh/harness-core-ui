@@ -13,7 +13,6 @@ import {
 import * as Yup from 'yup'
 import cx from 'classnames'
 
-import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
 import {
@@ -53,7 +52,7 @@ export default function TerraformEditView(
   props: TerraformProps,
   formikRef: StepFormikFowardRef<TerraformData>
 ): React.ReactElement {
-  const { stepType } = props
+  const { stepType, isNewStep = true } = props
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -104,10 +103,7 @@ export default function TerraformEditView(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
                 {stepType !== StepType.TerraformPlan && (
                   <BaseForm formik={formik} configurationTypes={configurationTypes} />

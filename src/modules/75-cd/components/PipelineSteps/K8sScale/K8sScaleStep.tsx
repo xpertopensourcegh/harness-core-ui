@@ -59,13 +59,14 @@ interface K8sScaleProps {
   initialValues: K8sScaleData
   onUpdate?: (data: K8sScaleData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   template?: K8sScaleData
   readonly?: boolean
   path?: string
 }
 
 function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRef<K8sScaleData>): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
 
   return (
@@ -94,10 +95,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInstanceDropdown
@@ -234,7 +232,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -259,6 +257,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     return (
       <K8ScaleDeployWidgetWithRef
         initialValues={initialValues}
+        isNewStep={isNewStep}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         ref={formikRef}

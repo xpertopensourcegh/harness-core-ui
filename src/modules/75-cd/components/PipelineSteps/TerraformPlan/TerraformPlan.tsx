@@ -68,7 +68,7 @@ export class TerraformPlan extends PipelineStep<TerraformData> {
     return errors
   }
   renderStep(props: StepProps<TerraformData, unknown>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -93,6 +93,7 @@ export class TerraformPlan extends PipelineStep<TerraformData> {
       <TerraformPlanWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
         stepType={StepType.TerraformPlan}

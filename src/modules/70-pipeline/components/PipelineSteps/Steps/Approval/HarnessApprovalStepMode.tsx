@@ -51,7 +51,7 @@ function HarnessApprovalStepMode(
   props: HarnessApprovalStepModeProps,
   formikRef: StepFormikFowardRef<HarnessApprovalData>
 ) {
-  const { onUpdate } = props
+  const { onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId } = useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
@@ -157,7 +157,7 @@ function HarnessApprovalStepMode(
 
         return (
           <React.Fragment>
-            <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+            <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
             <Accordion activeId="step-1" className={stepCss.accordion}>
               <Accordion.Panel
                 id="step-1"

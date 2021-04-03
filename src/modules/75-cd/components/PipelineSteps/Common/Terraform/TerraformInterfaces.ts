@@ -19,6 +19,7 @@ export interface TerraformProps {
   initialValues: TerraformData
   onUpdate?: (data: TerraformData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: TerraformData
     path?: string

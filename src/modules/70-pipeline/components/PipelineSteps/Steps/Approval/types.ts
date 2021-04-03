@@ -32,6 +32,7 @@ export interface HarnessApprovalDeploymentModeProps {
 
 export interface HarnessApprovalStepModeProps {
   stepViewType?: StepViewType
+  isNewStep?: boolean
   initialValues: HarnessApprovalData
   onUpdate?: (data: HarnessApprovalData) => void
 }
