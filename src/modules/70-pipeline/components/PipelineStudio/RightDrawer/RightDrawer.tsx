@@ -258,6 +258,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={onSubmitStep}
@@ -367,6 +368,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           onChange={onServiceDependencySubmit}
           isStepGroup={false}
@@ -445,6 +447,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={onSubmitStep}

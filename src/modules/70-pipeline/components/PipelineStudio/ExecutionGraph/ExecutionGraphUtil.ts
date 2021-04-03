@@ -63,7 +63,7 @@ export interface StepState {
 }
 
 export const getDefaultStepGroupState = (): StepState => ({
-  isSaved: true,
+  isSaved: false,
   isStepGroupCollapsed: false,
   isStepGroupRollback: false,
   isStepGroup: true,
@@ -71,10 +71,10 @@ export const getDefaultStepGroupState = (): StepState => ({
   stepType: StepType.STEP_GROUP
 })
 
-export const getDefaultStepState = (): StepState => ({ isSaved: true, isStepGroup: false, stepType: StepType.STEP })
+export const getDefaultStepState = (): StepState => ({ isSaved: false, isStepGroup: false, stepType: StepType.STEP })
 
 export const getDefaultDependencyServiceState = (): StepState => ({
-  isSaved: true,
+  isSaved: false,
   isStepGroup: false,
   stepType: StepType.SERVICE
 })
@@ -255,7 +255,7 @@ export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
 export const getDependenciesState = (services: DependenciesWrapper[], mapState: StepStateMap): void => {
   // we have one service group
   mapState.set(STATIC_SERVICE_GROUP_NAME, {
-    isSaved: true,
+    isSaved: false,
     isStepGroupCollapsed: false,
     isStepGroupRollback: false,
     isStepGroup: true,
@@ -267,9 +267,26 @@ export const getDependenciesState = (services: DependenciesWrapper[], mapState: 
     mapState.set(service.identifier, getDefaultDependencyServiceState())
   })
 }
+
+export const updateDependenciesState = (services: DependenciesWrapper[], mapState: StepStateMap): void => {
+  // we have one service group
+  const serviceGroupData = mapState.get(STATIC_SERVICE_GROUP_NAME)
+  if (serviceGroupData) {
+    mapState.set(STATIC_SERVICE_GROUP_NAME, {
+      ...serviceGroupData,
+      isSaved: true
+    })
+  }
+  services.forEach((service: DependenciesWrapper) => {
+    const serviceData = mapState.get(service.identifier)
+    if (serviceData) {
+      mapState.set(service.identifier, { ...serviceData, isSaved: true })
+    }
+  })
+}
 export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
   if (node.step) {
-    mapState.set(node.step.identifier, { isSaved: true, isStepGroup: false, stepType: StepType.STEP })
+    mapState.set(node.step.identifier, getDefaultStepState())
   } else if (node.steps) {
     node.steps.forEach((step: ExecutionWrapper) => {
       getStepsState(step, mapState)
@@ -295,6 +312,42 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
       getStepsState(step, mapState)
     })
     mapState.set(node.stepGroup.identifier, mapState.get(node.stepGroup.identifier) || getDefaultStepGroupState())
+  }
+}
+export const updateStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
+  if (node.step && mapState.get(node.step.identifier)) {
+    const data = mapState.get(node.step.identifier)
+    if (data) {
+      mapState.set(node.step.identifier, { ...data, isSaved: true })
+    }
+  } else if (node.steps) {
+    node.steps.forEach((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+    if (node.rollbackSteps) {
+      node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+        updateStepsState(step, mapState)
+      })
+    }
+  } else if (node.rollbackSteps) {
+    node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+  } else if (node.parallel) {
+    node.parallel.forEach((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+  } else if (node.stepGroup) {
+    node.stepGroup.steps?.forEach?.((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+    node.stepGroup.rollbackSteps?.forEach?.((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+    const groupData = mapState.get(node.stepGroup.identifier)
+    if (groupData) {
+      mapState.set(node.stepGroup.identifier, { ...groupData, isSaved: true })
+    }
   }
 }
 
