@@ -63,7 +63,6 @@ otherWorkloads: Other Workloads
 multipleService: Multiple Services
 orgLabel: Organization
 editPipeline: Edit Pipeline
-craetePipelineSubtitle: Let’s get you started by giving your pipeline a name
 users: Users
 roles: Roles
 newRole: New Role
@@ -362,6 +361,7 @@ addNotification: + Add Notification
 noSearchResultsFoundPeriod: No results found.
 createOrSelectSecret: Create or Select a Secret
 description: Description
+optionalField: '{{name}} (optional)'
 recentlyUsed: Recently Used
 applications: Applications
 stageDetails: Stage Details

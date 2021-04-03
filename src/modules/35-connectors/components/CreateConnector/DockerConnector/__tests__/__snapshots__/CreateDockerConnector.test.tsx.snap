@@ -223,7 +223,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description
+                        Description (optional)
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -254,7 +254,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags
+                        Tags (optional)
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -1074,7 +1074,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description
+                        Description (optional)
                       </label>
                       <div
                         class="bp3-form-group"
@@ -1100,7 +1100,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags
+                        Tags (optional)
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
