@@ -86,7 +86,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         )
         break
       case DrawerTypes.PipelineNotifications:
-        title = getString('notifications')
+        title = getString('notifications.name')
         break
       default:
         title = null

@@ -3,6 +3,7 @@ import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { UseStringsReturn } from 'framework/exports'
 import {
   DiagramModel,
   CreateNewModel,
@@ -66,7 +67,7 @@ export class ExecutionStepModel extends DiagramModel {
     factory: AbstractStepFactory,
     stepStates: StepStateMap,
     prevNodes?: DefaultNodeModel[],
-    getString?: (key: string, vars?: Record<string, any>) => string
+    getString?: UseStringsReturn['getString']
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     const serviceState = stepStates.get(STATIC_SERVICE_GROUP_NAME)
     if (serviceState && serviceState.isStepGroupCollapsed) {
@@ -181,7 +182,7 @@ export class ExecutionStepModel extends DiagramModel {
     allowAdd?: boolean,
     isParallelNode = false,
     isStepGroupNode = false,
-    getString?: (key: string, vars?: Record<string, any>) => string
+    getString?: UseStringsReturn['getString']
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node.step) {
       const stepType = node?.step?.type
@@ -456,7 +457,7 @@ export class ExecutionStepModel extends DiagramModel {
     factory: AbstractStepFactory,
     { nodeListeners, linkListeners, layerListeners }: Listeners,
     isRollback: boolean,
-    getString: (key: string, vars?: Record<string, any>) => string
+    getString: UseStringsReturn['getString']
   ): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()

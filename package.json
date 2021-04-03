@@ -43,14 +43,18 @@
     "postservices:ci": "prettier --write src/services/ci/index.tsx",
     "services:cv": "restful-react import --config restful-react.config.js cv",
     "postservices": "prettier --write src/services/**/*.tsx",
-    "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack",
+    "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack --progress",
     "coverage": "yarn test --coverage",
     "grouped-coverage": "yarn coverage && jest-grouped-coverage -i coverage/coverage-summary.json -c coverage-groups.json",
     "docker": "sh -c 'docker build -t harness/nextgenui:\"$0\" . && docker push harness/nextgenui:\"$0\"'",
     "setup-github-registry": "sh scripts/setup-github-registry.sh",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "generate-graphql-types": "graphql-codegen --config graphql-codegen.yml"
+    "generate-graphql-types": "graphql-codegen --config graphql-codegen.yml",
+    "strings": "npm-run-all strings:*",
+    "strings:check": "node scripts/strings/yamlStringsCheck.mjs",
+    "strings:genTypes": "node scripts/strings/generateTypesCli.mjs",
+    "strings:loaders": "node scripts/strings/generateStrings.mjs"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",
@@ -217,7 +221,7 @@
       "prettier --check"
     ],
     "strings.*.yaml": [
-      "node scripts/yaml-strings-check.js"
+      "yarn strings:check"
     ],
     "webpack.devServerProxy.config.js": [
       "exit 1"
@@ -231,5 +235,19 @@
       "pre-commit": "lint-staged",
       "commit-msg": "node ./scripts/lint-commit-message.js \"$(cat $HUSKY_GIT_PARAMS)\""
     }
+  },
+  "i18nSettings": {
+    "extensionToLanguageMap": {
+      "es": [
+        "es"
+      ],
+      "en": [
+        "en",
+        "en-US",
+        "en-IN",
+        "en-UK"
+      ]
+    },
+    "commonChunkLimit": "70-pipeline"
   }
 }

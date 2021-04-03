@@ -56,8 +56,8 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
   ]
 
   const gitFetchTypes: SelectOption[] = [
-    { label: getString('gitFetchTypes.0.label'), value: getString('pipelineSteps.deploy.inputSet.branch') },
-    { label: getString('gitFetchTypes.1.label'), value: getString('pipelineSteps.commitIdValue') }
+    { label: getString('gitFetchTypes.fromBranch'), value: getString('pipelineSteps.deploy.inputSet.branch') },
+    { label: getString('gitFetchTypes.fromCommit'), value: getString('pipelineSteps.commitIdValue') }
   ]
 
   return (

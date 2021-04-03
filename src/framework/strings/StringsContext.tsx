@@ -1,9 +1,13 @@
 import React from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type StringsMap = Record<string, any>
+import type { StringsMap } from 'stringTypes'
+import type { HarnessModules } from './languageLoader'
 
-export const StringsContext = React.createContext<StringsMap>({})
+export type StringKeys = keyof StringsMap
+
+export type { HarnessModules, StringsMap }
+
+export const StringsContext = React.createContext<StringsMap>({} as StringsMap)
 
 export function useStringsContext(): StringsMap {
   return React.useContext(StringsContext)

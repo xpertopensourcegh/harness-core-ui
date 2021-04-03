@@ -1,0 +1,22 @@
+secrets: Secrets
+pipeline: Pipeline
+production: Production
+addVariable: Add Variable
+editVariable: Edit variable
+editVariableType: Edit variable type
+removeThisVariable: Remove This Variable
+durationPrefix: 'Duration: '
+pipelineDetails: Pipeline Details
+comments: Comments
+approve: Approve
+reject: Reject
+My: My
+jexlExpression: JEXL Expression
+datePickerShortcuts:
+  Today: Today
+  Yesterday: Yesterday
+  Last2Days: Last 2 Days
+  Last3Days: Last 3 Days
+  LastWeek: Last Week
+  LastMonth: Last Month
+  Last2Months: Last 2 Months

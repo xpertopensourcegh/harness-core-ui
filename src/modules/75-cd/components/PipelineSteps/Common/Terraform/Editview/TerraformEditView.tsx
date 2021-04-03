@@ -84,7 +84,7 @@ export default function TerraformEditView(
 
   const configurationTypes: SelectOption[] = [
     { label: getString('inline'), value: ConfigurationTypes.Inline },
-    { label: getString('pipelineSteps.configTypes.0.label'), value: ConfigurationTypes.InheritFromPlan }
+    { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
   ]
   return (
     <>

@@ -389,7 +389,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                             minWidth: '80px'
                           }}
                         >
-                          {getString('cf.featureFlags.rules.serve').toLocaleLowerCase()}
+                          {getString('cf.featureFlags.serve').toLocaleLowerCase()}
                         </Text>
                         <div style={{ flexGrow: 0 }}>
                           <Select
@@ -495,7 +495,7 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
         <Text style={{ fontSize: '14px', lineHeight: '24px' }}>
           <span
             dangerouslySetInnerHTML={{
-              __html: getString(`cf.featureFlags.${isPercentage ? 'servePercentageRollout' : 'serve'}`)
+              __html: getString(isPercentage ? 'cf.featureFlags.servePercentageRollout' : 'cf.featureFlags.serve')
             }}
           />
           {!isPercentage && (
@@ -516,13 +516,16 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
           <span
             dangerouslySetInnerHTML={{
               __html: unescapeI18nSupportedTags(
-                getString(`cf.featureFlags.${isPercentage ? 'ifClauseServePercentageRollout' : 'ifClauseServe'}`, {
-                  attribute: firstClause.attribute,
-                  operator: operators.find(op => op.value === firstClause.op)?.label,
-                  values: firstClause.values
-                    .map(val => `<strong>${val}</strong>`)
-                    .join(getString('cf.featureFlags.commaSeparator'))
-                })
+                getString(
+                  isPercentage ? 'cf.featureFlags.ifClauseServePercentageRollout' : 'cf.featureFlags.ifClauseServe',
+                  {
+                    attribute: firstClause.attribute,
+                    operator: operators.find(op => op.value === firstClause.op)?.label,
+                    values: firstClause.values
+                      .map(val => `<strong>${val}</strong>`)
+                      .join(getString('cf.featureFlags.commaSeparator'))
+                  }
+                )
               )
             }}
           />

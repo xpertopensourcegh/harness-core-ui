@@ -4,7 +4,7 @@ import { Collapse } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import type { KeyValueCriteriaSpec, JexlCriteriaSpec, ConditionDTO } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String, StringKeys } from 'framework/exports'
 
 import css from '../ApprovalStepDetails.module.scss'
 
@@ -13,12 +13,12 @@ export interface JiraCriteriaProps {
   criteria: KeyValueCriteriaSpec | JexlCriteriaSpec
 }
 
-const titles: Record<JiraCriteriaProps['type'], string> = {
+const titles: Record<JiraCriteriaProps['type'], StringKeys> = {
   approval: 'execution.approvals.approvalCriteriaTitle',
   rejection: 'execution.approvals.rejectionCriteriaTitle'
 }
 
-const conditionStr: Record<ConditionDTO['operator'], string> = {
+const conditionStr: Record<ConditionDTO['operator'], StringKeys> = {
   equals: 'execution.approvals.conditions.equals',
   'not equals': 'execution.approvals.conditions.not_equals',
   in: 'execution.approvals.conditions.in',

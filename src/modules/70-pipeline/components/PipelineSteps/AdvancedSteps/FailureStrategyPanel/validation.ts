@@ -2,15 +2,14 @@ import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 
+import type { UseStringsReturn } from 'framework/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 import { ErrorType, Strategy } from './StrategySelection/StrategyConfig'
 
 const MAX_RETRIES = 10000
 
-function getRetryActionBaseFields(
-  getString: (str: string, vars?: unknown) => string
-): Record<string, Yup.Schema<unknown>> {
+function getRetryActionBaseFields(getString: UseStringsReturn['getString']): Record<string, Yup.Schema<unknown>> {
   return {
     retryCount: Yup.mixed().test({
       name: 'failureStrategies-retryCount',
@@ -42,14 +41,16 @@ function getRetryActionBaseFields(
   }
 }
 
-function getManualInterventionBaseFields(getString: (str: string) => string): Record<string, Yup.Schema<unknown>> {
+function getManualInterventionBaseFields(
+  getString: UseStringsReturn['getString']
+): Record<string, Yup.Schema<unknown>> {
   return {
     timeout: getDurationValidationSchema().required(getString('failureStrategies.validation.timeoutRequired'))
   }
 }
 
 export function getFailureStrategiesValidationSchema(
-  getString: (str: string) => string
+  getString: UseStringsReturn['getString']
 ): Yup.NotRequiredArraySchema<unknown> {
   return Yup.array().of(
     Yup.object()

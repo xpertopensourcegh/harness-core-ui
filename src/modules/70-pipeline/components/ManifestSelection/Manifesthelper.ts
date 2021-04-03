@@ -1,6 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { StringKeys } from 'framework/exports'
 import type { HelmVersionOptions, ManifestStores, ManifestTypes } from './ManifestInterface'
 
 export const ManifestDataType: { [key: string]: ManifestTypes } = {
@@ -73,7 +74,7 @@ export const getManifestIconByType = (type: string | undefined): IconName => {
       return 'cog'
   }
 }
-export const getManifestStoreTitle = (type: string): string => {
+export const getManifestStoreTitle = (type: string): StringKeys => {
   switch (type) {
     case ManifestStoreMap.Git:
       return 'manifestType.gitConnectorLabel'

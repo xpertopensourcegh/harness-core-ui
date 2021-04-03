@@ -5,7 +5,7 @@ import { connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 
 import { errorCheck } from '@common/utils/formikHelpers'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 
 import { ErrorType, errorTypesOrder } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
@@ -51,7 +51,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
     return errorTypesOrder
       .filter(e => !filterTypesSet.has(e))
-      .map(e => ({ value: e, label: getString(`failureStrategies.errorTypeLabels.${e}`) }))
+      .map(e => ({ value: e, label: getString(`failureStrategies.errorTypeLabels.${e}` as StringKeys) })) // TODO: fix this properly
     // eslint-disable-next-line react-hooks/exhaustive-deps
   })()
 
@@ -85,7 +85,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
   const selectedOptions: Option[] = selectedValues.map((key: ErrorType) => ({
     value: key,
-    label: getString(`failureStrategies.errorTypeLabels.${key}`)
+    label: getString(`failureStrategies.errorTypeLabels.${key}` as StringKeys) // TODO: fix this properly
   }))
 
   function onRemove(value: string): void {

@@ -76,7 +76,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
     try {
       modalErrorHandler?.hide()
       const response = await createGitSyncRepo(data)
-      showSuccess(getString('gitSync.successfullCreate'))
+      showSuccess(getString('gitsync.successfullCreate'))
       props.onSuccess?.(response)
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)

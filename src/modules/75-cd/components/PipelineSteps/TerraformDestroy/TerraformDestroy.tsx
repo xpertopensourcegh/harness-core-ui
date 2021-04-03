@@ -11,6 +11,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepViewType } from '@pipeline/exports'
+import type { StringKeys } from 'framework/exports'
 import TerraformInputStep from '../Common/Terraform/Editview/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
 import type { TerraformData, TerraformVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
@@ -42,7 +43,7 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
   validateInputSet(
     data: TerraformData,
     template?: TerraformData,
-    getString?: (key: string, vars?: Record<string, any>) => string
+    getString?: (key: StringKeys, vars?: Record<string, any>) => string
   ): FormikErrors<TerraformData> {
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

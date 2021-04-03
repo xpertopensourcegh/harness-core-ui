@@ -97,7 +97,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
         />
         <Text style={{ fontSize: '12px', color: '#6B6D85' }} padding={{ left: 'small' }}>
           {isFlagSwitchChanged
-            ? getString(`cf.featureFlags.flagWillTurn${switchOff ? 'Off' : 'On'}`)
+            ? getString(switchOff ? 'cf.featureFlags.flagWillTurnOff' : 'cf.featureFlags.flagWillTurnOn')
             : switchOff
             ? getString('cf.featureFlags.flagOff')
             : getString('cf.featureFlags.flagOn')}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 
-import { String } from 'framework/exports'
+import { String, StringKeys } from 'framework/exports'
 
 import { Strategy } from './StrategyConfig'
 import css from './StrategySelection.module.scss'
@@ -23,14 +23,14 @@ export interface StrategyIconProps {
   checked?: boolean
 }
 
-const getStringID = (strategy: Strategy): string => {
+const getStringID = (strategy: Strategy): StringKeys => {
   switch (strategy) {
     case Strategy.Retry:
       return 'retry'
     case Strategy.Abort:
       return 'abort'
     default:
-      return `failureStrategies.strategiesLabel.${strategy}`
+      return `failureStrategies.strategiesLabel.${strategy}` as StringKeys
   }
 }
 

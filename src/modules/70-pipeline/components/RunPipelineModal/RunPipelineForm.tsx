@@ -361,7 +361,7 @@ function RunPipelineFormBasic({
         padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
         flex={{ distribution: 'space-between' }}
       >
-        <Text font="medium">{getString('pipeline')}</Text>
+        <Text font="medium">{getString('common.pipeline')}</Text>
         {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
           <InputSetSelector
             pipelineIdentifier={pipelineIdentifier}

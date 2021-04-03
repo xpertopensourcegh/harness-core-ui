@@ -8,7 +8,7 @@ import { FormikProps, yupToFormErrors, FormikErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
@@ -207,7 +207,7 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
   validateInputSet(
     data: TerraformRollbackData,
     template?: TerraformRollbackData,
-    getString?: (key: string, vars?: Record<string, any>) => string
+    getString?: (key: StringKeys, vars?: Record<string, any>) => string
   ): FormikErrors<TerraformRollbackData> {
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
