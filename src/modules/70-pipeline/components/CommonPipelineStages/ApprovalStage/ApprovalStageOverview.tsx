@@ -16,7 +16,6 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
 import type { ApprovalStageOverviewProps } from './types'
@@ -54,8 +53,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
     debounce((values: StageElementWrapper): void => {
       // approvalType is just used in the UI, to populate the default steps for different approval types
       // For BE, the stage type is always 'Approval' and approval type is defined inside the step
-      delete values.spec.approvalType
-      values.type = StageTypes.APPROVAL
       updateStage({ ...stage?.stage, ...values })
     }, 300),
     [stage?.stage, updateStage]
@@ -80,7 +77,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   )
 
   return (
-    <div className={css.approvalStageOverviewWrapper}>
+    <div className={cx(css.approvalStageOverviewWrapper, css.stageSection)}>
       <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
       <div className={css.content} ref={scrollRef}>
         <Accordion className={cx(css.sectionCard, css.shadow)} activeId="stageOverview">
@@ -112,9 +109,9 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                         identifier: values?.identifier,
                         description: values?.description,
                         skipCondition: values?.skipCondition,
+                        approvalType: values?.approvalType,
                         spec: {
-                          ...cloneOriginalData.spec,
-                          approvalType: values?.approvalType
+                          ...cloneOriginalData.spec
                         }
                       })
                     }
@@ -128,9 +125,9 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                         identifier: values?.identifier,
                         description: values?.description,
                         skipCondition: values?.skipCondition,
+                        approvalType: values?.approvalType,
                         spec: {
-                          ...cloneOriginalData.spec,
-                          approvalType: values?.approvalType
+                          ...cloneOriginalData.spec
                         }
                       })
                     }

@@ -4,6 +4,7 @@ import { StepGroupStep } from './Steps/StepGroupStep/StepGroupStep'
 import { CustomVariables } from './Steps/CustomVariables/CustomVariables'
 import { BarrierStep } from './Steps/Barrier/Barrier'
 import { HarnessApproval } from './Steps/Approval/HarnessApproval'
+import { JiraApproval } from './Steps/JiraApproval/JiraApproval'
 
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
@@ -16,6 +17,7 @@ factory.registerStep(new BarrierStep())
 factory.registerStep(new StepGroupStep())
 factory.registerStep(new CustomVariables())
 factory.registerStep(new HarnessApproval())
+factory.registerStep(new JiraApproval())
 
 // build steps
 export default factory

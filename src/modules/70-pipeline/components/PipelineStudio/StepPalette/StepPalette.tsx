@@ -89,7 +89,6 @@ const dataSourceFactory = (stageType: StageTypes, isProvisioner?: boolean): any 
     case StageTypes.DEPLOY:
       return isProvisioner ? useGetProvisionerSteps : useGetSteps
     case StageTypes.APPROVAL:
-      // Replace this with approval step palette API
       return useGetSteps
     case StageTypes.FEATURE:
       return useGetFeatureSteps

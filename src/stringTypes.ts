@@ -1221,6 +1221,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'approvalStep.addUserGroups': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'approvalStep.approverInputs': string
   /**
    * @deprecated migrate this string to module level file
@@ -1230,6 +1234,14 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'approvalStep.disallowPipelineExecutor': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'approvalStep.fetchUserGroupsFailed': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'approvalStep.fetchingUserGroups': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -1253,7 +1265,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'approvalStep.userGroups': string
+  'approvalStep.validation.approvalMessage': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -2673,10 +2685,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'execution.approvals.approvalCriteriaTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'execution.approvals.conditions.equals': string
   /**
    * @deprecated migrate this string to module level file
@@ -2702,10 +2710,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'execution.approvals.jiraTicket': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.rejectionCriteriaTitle': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3457,6 +3461,98 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'jiraApprovalStep.allConditions': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.anyCondition': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.approvalCriteria': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.connectToJira': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.connectorRef': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.fetchingFields': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.issueKey': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.issueType': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.jexlExpressionApprovalCriteria': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.jexlExpressionLabelApproval': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.jexlExpressionLabelRejection': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.jexlExpressionPlaceholder': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.jexlExpressionRejectionCriteria': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.jiraField': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.match': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.project': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.rejectionCriteria': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.validations.approvalCriteriaCondition': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.validations.connectorRef': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.validations.expression': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.validations.issueKey': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.validations.issueType': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'jiraApprovalStep.validations.project': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   kerberos: string
   /**
    * @deprecated migrate this string to module level file
@@ -3922,6 +4018,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   noSearchResultsFoundPeriod: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  noUserGroupsFound: string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -6,7 +6,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group approvalMessage"
+      class="bp3-form-group approvalMessage md"
     >
       <label
         class="bp3-label"
@@ -37,7 +37,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
             checked=""
@@ -47,19 +47,18 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           <span
             class="bp3-control-indicator"
           />
-          Include pipeline execution history
+          Include pipeline execution history in approval details
         </label>
       </div>
     </div>
     <div
-      class="bp3-form-group"
-      style="resize: vertical;"
+      class="bp3-form-group multiSelect"
     >
       <label
         class="bp3-label"
         for="spec.approvers.userGroups"
       >
-        Groups
+        User Groups
          
         <span
           class="bp3-text-muted"
@@ -86,7 +85,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
                   <input
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
-                    placeholder="Search..."
+                    placeholder="Add User Groups"
                     value=""
                   />
                 </div>
@@ -97,7 +96,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
       </div>
     </div>
     <div
-      class="bp3-form-group"
+      class="bp3-form-group md"
     >
       <label
         class="bp3-label"
@@ -132,7 +131,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
             checked=""
@@ -142,7 +141,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           <span
             class="bp3-control-indicator"
           />
-          Disallow the pipeline executor from approving the pipeline
+          Disallow the executor from approving the pipeline
         </label>
       </div>
     </div>
@@ -814,7 +813,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group approvalMessage"
+      class="bp3-form-group approvalMessage md"
     >
       <label
         class="bp3-label"
@@ -845,7 +844,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
             checked=""
@@ -855,19 +854,18 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
           <span
             class="bp3-control-indicator"
           />
-          Include pipeline execution history
+          Include pipeline execution history in approval details
         </label>
       </div>
     </div>
     <div
-      class="bp3-form-group"
-      style="resize: vertical;"
+      class="bp3-form-group multiSelect"
     >
       <label
         class="bp3-label"
         for="spec.approvers.userGroups"
       >
-        Groups
+        User Groups
          
         <span
           class="bp3-text-muted"
@@ -894,7 +892,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
                   <input
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
-                    placeholder="Search..."
+                    placeholder="Add User Groups"
                     value=""
                   />
                 </div>
@@ -905,7 +903,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
       </div>
     </div>
     <div
-      class="bp3-form-group"
+      class="bp3-form-group md"
     >
       <label
         class="bp3-label"
@@ -940,7 +938,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
             checked=""
@@ -950,7 +948,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
           <span
             class="bp3-control-indicator"
           />
-          Disallow the pipeline executor from approving the pipeline
+          Disallow the executor from approving the pipeline
         </label>
       </div>
     </div>
