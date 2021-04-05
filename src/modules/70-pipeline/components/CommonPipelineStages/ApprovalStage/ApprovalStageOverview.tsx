@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react'
 import cx from 'classnames'
+import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce } from 'lodash-es'
 import { Accordion, Container, FormikForm, FormInput, Heading } from '@wings-software/uicore'
@@ -17,6 +18,7 @@ import { usePipelineVariables } from '@pipeline/components/PipelineVariablesCont
 import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import type { AllNGVariables } from '@pipeline/utils/types'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
 import type { ApprovalStageOverviewProps } from './types'
 import css from './ApprovalStageOverview.module.scss'
@@ -96,7 +98,16 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                     approvalType: cloneOriginalData?.stage.approvalType,
                     skipCondition: cloneOriginalData?.stage.skipCondition
                   }}
-                  validationSchema={{}}
+                  validationSchema={{
+                    name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
+                    identifier: Yup.string().when('name', {
+                      is: val => val?.length,
+                      then: Yup.string()
+                        .required(getString('validation.identifierRequired'))
+                        .matches(regexIdentifier, getString('validation.validIdRegex'))
+                        .notOneOf(illegalIdentifiers)
+                    })
+                  }}
                   validate={values => {
                     const errors: { name?: string } = {}
                     if (isDuplicateStageId(values.identifier, stages)) {

@@ -37,6 +37,7 @@ import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBui
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import Timeline from '@common/components/Timeline/Timeline'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import css from './EditStageView.module.scss'
 
 const skipConditionsNgDocsLink = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
@@ -170,7 +171,14 @@ export const EditStageView: React.FC<EditStageView> = ({
                   return errors
                 }}
                 validationSchema={Yup.object().shape({
-                  name: Yup.string().required(getString('pipelineSteps.build.create.stageNameRequiredError'))
+                  name: Yup.string().trim().required(getString('pipelineSteps.build.create.stageNameRequiredError')),
+                  identifier: Yup.string().when('name', {
+                    is: val => val?.length,
+                    then: Yup.string()
+                      .required(getString('validation.identifierRequired'))
+                      .matches(regexIdentifier, getString('validation.validIdRegex'))
+                      .notOneOf(illegalIdentifiers)
+                  })
                 })}
               >
                 {formikProps => {
