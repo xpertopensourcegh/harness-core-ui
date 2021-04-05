@@ -481,8 +481,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <FormInput.Select
                       selectProps={{
                         usePortal: true,
-                        addClearBtn: true
+                        addClearBtn: true && !readonly
                       }}
+                      disabled={readonly}
                       value={
                         initialValues?.artifacts?.primary?.spec?.region
                           ? {
@@ -640,8 +641,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         <FormInput.Select
                           selectProps={{
                             usePortal: true,
-                            addClearBtn: true
+                            addClearBtn: true && !readonly
                           }}
+                          disabled={readonly}
                           value={
                             initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
                               ? {
@@ -691,7 +693,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             }
                             selectProps={{
                               usePortal: true,
-                              addClearBtn: true,
+                              addClearBtn: true && !readonly,
                               noResults: (
                                 <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                               ),
@@ -802,7 +804,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           />
                         </FormGroup>
                       )}
-
                       {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
                         <FormGroup labelFor={'folderPath'} label={getString('chartPath')}>
                           <FormInput.Text
