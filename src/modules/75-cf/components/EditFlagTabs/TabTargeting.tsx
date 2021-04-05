@@ -128,6 +128,7 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
       <Layout.Vertical>
         {showCustomRules && (
           <CustomRulesView
+            feature={feature}
             editing={isEditRulesOn}
             formikProps={formikProps}
             target={targetData}
