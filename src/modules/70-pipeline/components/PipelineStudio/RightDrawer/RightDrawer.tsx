@@ -105,7 +105,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
       if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
         node.spec = {
-          ...(node.spec ? node.spec : {}),
+          ...(item.spec ? item.spec : {}),
           delegateSelectors: item.delegateSelectors
         }
       }
