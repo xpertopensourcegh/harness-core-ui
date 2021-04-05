@@ -21,7 +21,10 @@ import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
 import { useStrings, String } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
+import type {
+  CustomVariablesData,
+  CustomVariableEditableExtraProps
+} from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
@@ -263,7 +266,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                 <div className={css.stageSection}>
                   <div className={cx(css.stageDetails)}>
                     {context ? (
-                      <StepWidget<CustomVariablesData>
+                      <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
                         factory={stepsFactory}
                         initialValues={{
                           variables: ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
@@ -276,9 +279,13 @@ export const EditStageView: React.FC<EditStageView> = ({
                         }}
                         customStepProps={{
                           yamlProperties:
-                            getStageFromPipeline(data?.stage?.identifier, variablesPipeline)?.stage?.variables?.map?.(
+                            getStageFromPipeline(
+                              data?.stage?.identifier,
+                              variablesPipeline
+                            )?.stage?.stage?.variables?.map?.(
                               (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
-                            ) || []
+                            ) || [],
+                          enableValidation: true
                         }}
                       />
                     ) : null}

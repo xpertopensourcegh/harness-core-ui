@@ -20,3 +20,6 @@ datePickerShortcuts:
   LastWeek: Last Week
   LastMonth: Last Month
   Last2Months: Last 2 Months
+validation:
+  nameIsRequired: Name is required
+  valueIsRequired: Value is required

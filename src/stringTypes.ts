@@ -24,6 +24,8 @@ export interface StringsMap {
   'common.reject': string
   'common.removeThisVariable': string
   'common.secrets': string
+  'common.validation.nameIsRequired': string
+  'common.validation.valueIsRequired': string
   'notifications.name': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
