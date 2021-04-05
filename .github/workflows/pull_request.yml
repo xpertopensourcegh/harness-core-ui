@@ -273,13 +273,19 @@ jobs:
 
       - name: Run Strings Check
         run: |
-          limit=1785
+          wget --header "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" https://raw.githubusercontent.com/wings-software/nextgenui/${{ github.base_ref }}/src/strings/strings.en.yaml
+
+          limit=$(cat strings.en.yaml | wc -l)
           lines=$(cat src/strings/strings.en.yaml | wc -l)
+
+          echo "Limit: $limit"
+          echo "Lines: $lines"
           if [ "$lines" -gt "$limit" ]; then
             echo "No Addition allowed in src/strings/strings.en.yaml. Please use module level string files instead."
             exit 1
           fi
 
+          rm -f strings.en.yaml
           yarn strings
 
           changed=$(git diff --name-only)
