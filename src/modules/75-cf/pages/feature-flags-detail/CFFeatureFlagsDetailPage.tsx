@@ -40,13 +40,14 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
       setEnvironmentOption(environments?.length > 0 ? environments[index] : null)
     }
   }, [environments?.length, envsLoading, environmentIdentifier])
+  const environmentId = (environmentOption?.value as string) || environmentIdentifier
 
-  const { data: featureFlag, loading: loadingFlag, error: errorFlag, refetch } = useGetFeatureFlag({
+  const { data: featureFlag, loading: loadingFlag, error: errorFlag, refetch: fetchFeatureFlag } = useGetFeatureFlag({
     lazy: true,
     identifier: featureFlagIdentifier as string,
     queryParams: {
       project: projectIdentifier as string,
-      environment: (environmentOption?.value as string) || environmentIdentifier,
+      environment: environmentId === 'undefined' ? '' : environmentId,
       account: accountId,
       org: orgIdentifier
     }
@@ -65,9 +66,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   })
 
   useEffect(() => {
-    if (!loading) {
-      refetch()
-    }
+    fetchFeatureFlag()
     fetchFlagList()
   }, [environmentOption])
 
@@ -89,7 +88,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   useEffect(() => {
     if (environmentOption) {
-      refetch()
+      fetchFeatureFlag()
       if (environment) {
         onEnvChange(environment as SelectOption)
       }
@@ -105,7 +104,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
       <Layout.Horizontal width={450} className={css.flagContainer}>
         <Layout.Vertical width="100%">
           {featureFlag && (
-            <FlagActivationDetails featureFlag={featureFlag} featureList={featureList} refetchFlag={refetch} />
+            <FlagActivationDetails featureFlag={featureFlag} featureList={featureList} refetchFlag={fetchFeatureFlag} />
           )}
         </Layout.Vertical>
       </Layout.Horizontal>
@@ -118,7 +117,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
         <Layout.Vertical width="100%">
           {!loading && featureFlag && !noEnvironmentExists && (
             <FlagActivation
-              refetchFlag={refetch}
+              refetchFlag={fetchFeatureFlag}
               project={projectIdentifier as string}
               environments={environments}
               environment={environmentOption}

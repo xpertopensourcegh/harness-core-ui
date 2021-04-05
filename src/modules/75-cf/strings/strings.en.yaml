@@ -1,3 +1,18 @@
+shared:
+  individual: Individual
+  target: '{{ $.pipelineSteps.targetLabel }}'
+  segment: Segment
+  segments: Segments
+  environment: environment
+  lastEvaluated: Last Evaluated
+  variation: Variation
+  variations: Variations
+  prerequisites: Prerequisites
+  selectEnvironment: Select environment
+  evaluations: Evaluations
+  flags: Flags
+  rules: Rules
+  archived: archived
 creationModal:
   jsonType: JSON
   variationSettingsHeading: Variation settings
@@ -73,17 +88,6 @@ clause:
     equalSensitive: 'equals (sensitive)'
     in: 'in'
     matchSegment: 'Match Segment'
-shared:
-  individual: Individual
-  target: '{{ $.pipelineSteps.targetLabel }}'
-  segment: Segment
-  segments: Segments
-  environment: environment
-  lastEvaluated: Last Evaluated
-  variation: Variation
-  variations: Variations
-  prerequisites: Prerequisites
-  selectEnvironment: Select environment
 featureFlags:
   newFlag: + Flag
   typeOfFlag: Select the Type of Flag You Want to Create
@@ -130,6 +134,8 @@ featureFlags:
   flagWillTurnOff: Turn flag off for this environment upon save
   targeting: Targeting
   activity: '{{ $.activity }}'
+  results: Results
+  makeSure: Make sure your code is deployed
   rules:
     editRules: Edit Rules
     flagOn: '{{ $.cf.creationModal.flagOn }}'
@@ -170,6 +176,10 @@ featureFlags:
     everyone: '{{ $.filters.visibleToEveryone }}'
     save: '{{ $.save }}'
     cancel: '{{ $.cancel }}'
+  metrics:
+    noMetrics: No metrics
+    evaluations: '{{ count }} evaluations'
+    evaluationStatistics: Evaluation Statistic
 targets:
   title: Targets
   ID: ID
@@ -231,6 +241,7 @@ segments:
   create: + Segment
   targetDefinition: Target Definition
   usingSegment: Flags using this segment
+  usingSegmentWithCount: Flags using this segment ({{ count }})
   modalTitle: Create a Segment
   displayIcon: Display Icon
   uploadImage: Upload an image
@@ -285,7 +296,7 @@ auditLogs:
   createdMessageFF: 'created feature flag'
   createdMessageFFUpdate: 'updated feature flag'
   createdMessageSegment: 'created segment'
-  jsonDifference: JSON DIFFERENCE
+  yamlDifference: YAML Difference
 noEnvironment:
   title: No Environment Available
   message: Create an environment and let’s start configuring the targeting rules of your flag
@@ -296,3 +307,9 @@ pipeline:
       title: Flag Setup # Placeholder, not a real text
     execution:
       title: Flag Execution # Placeholder, not a real text
+segmentDetail:
+  directlyAdded: Directly Added
+  autoAdded: Automatically Added Through Conditions
+  removeFomFlag: Remove from Flag
+  noFlagsUseThisSegment: No Flags use this segment.
+  addToFlag: + Add to Fla

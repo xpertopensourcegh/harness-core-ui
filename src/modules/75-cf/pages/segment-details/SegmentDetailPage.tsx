@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Container, Layout, Text, Avatar, Intent, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-import { useDeleteTarget, useGetTarget } from 'services/cf'
+import { useDeleteSegment, useGetSegment } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
@@ -11,9 +11,9 @@ import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage } from '@
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
 import { useConfirmAction } from '@common/hooks'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
-import { TargetSettings } from './target-settings/TargetSettings'
-import { FlagSettings } from './flag-settings/FlagSettings'
-import css from './TargetDetailPage.module.scss'
+import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
+import { SegmentSettings } from './segment-settings/SegmentSettings'
+import css from './SegmentDetailPage.module.scss'
 
 export const fullSizeContentStyle: React.CSSProperties = {
   position: 'fixed',
@@ -23,14 +23,14 @@ export const fullSizeContentStyle: React.CSSProperties = {
   height: 'calc(100% - 135px)'
 }
 
-export const TargetDetailPage: React.FC = () => {
+export const SegmentDetailPage: React.FC = () => {
   const { getString } = useStrings()
   const { showError, showSuccess, clear } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams<
+  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, segmentIdentifier } = useParams<
     Record<string, string>
   >()
-  const { data: target, loading: targetLoading, refetch, error: targetError } = useGetTarget({
-    identifier: targetIdentifier,
+  const { data: segment, loading: segmentLoading, refetch, error: segmentError } = useGetSegment({
+    identifier: segmentIdentifier,
     queryParams: {
       account: accountId,
       org: orgIdentifier,
@@ -46,8 +46,8 @@ export const TargetDetailPage: React.FC = () => {
   })
   const breadcrumbs = [
     {
-      title: getString('cf.targets.title'),
-      url: routes.toCFTargets({
+      title: getString('cf.shared.segments'),
+      url: routes.toCFSegments({
         accountId,
         orgIdentifier,
         projectIdentifier
@@ -55,21 +55,21 @@ export const TargetDetailPage: React.FC = () => {
     }
   ]
   const history = useHistory()
-  const { mutate: deleteTarget } = useDeleteTarget({
+  const { mutate: deleteSegment } = useDeleteSegment({
     queryParams: {
       project: projectIdentifier,
-      environment: target?.environment as string,
+      environment: segment?.environment as string,
       account: accountId,
       org: orgIdentifier
     }
   })
-  const deleteTargetConfirm = useConfirmAction({
-    title: getString('cf.targets.deleteTarget'),
+  const deleteSegmentConfirm = useConfirmAction({
+    title: getString('cf.segments.delete.title'),
     message: (
       <Text>
         <span
           dangerouslySetInnerHTML={{
-            __html: getString('cf.targets.deleteTargetMessage', { name: target?.name })
+            __html: getString('cf.segments.delete.message', { segmentName: segment?.name })
           }}
         ></span>
       </Text>
@@ -79,10 +79,10 @@ export const TargetDetailPage: React.FC = () => {
       clear()
 
       try {
-        deleteTarget(target?.identifier as string)
+        deleteSegment(segment?.identifier as string)
           .then(() => {
             history.push(
-              routes.toCFTargets({
+              routes.toCFSegments({
                 projectIdentifier,
                 orgIdentifier,
                 accountId
@@ -93,7 +93,7 @@ export const TargetDetailPage: React.FC = () => {
               <Text color={Color.WHITE}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: target?.name })
+                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: segment?.name })
                   }}
                 />
               </Text>
@@ -108,11 +108,11 @@ export const TargetDetailPage: React.FC = () => {
     }
   })
 
-  const loading = targetLoading || envLoading
-  const error = targetError || envError
+  const loading = segmentLoading || envLoading
+  const error = segmentError || envError
 
   if (loading) {
-    if (!target) {
+    if (!segment) {
       return <PageSpinner />
     }
 
@@ -134,7 +134,7 @@ export const TargetDetailPage: React.FC = () => {
       />
     )
 
-    if (!target) {
+    if (!segment) {
       return ErrorComponent
     }
 
@@ -144,11 +144,11 @@ export const TargetDetailPage: React.FC = () => {
   return (
     <DetailPageTemplate
       breadcrumbs={breadcrumbs}
-      title={target?.name}
-      titleIcon={<Avatar name={target?.name} size="medium" {...DISABLE_AVATAR_PROPS} className={css.avatar} />}
+      title={segment?.name}
+      titleIcon={<Avatar name={segment?.name} size="medium" {...DISABLE_AVATAR_PROPS} className={css.avatar} />}
       subTittle={getString('cf.targetDetail.createdOnDate', {
-        date: formatDate(target?.createdAt as number),
-        time: formatTime(target?.createdAt as number)
+        date: formatDate(segment?.createdAt as number),
+        time: formatTime(segment?.createdAt as number)
       })}
       headerExtras={
         <>
@@ -158,7 +158,7 @@ export const TargetDetailPage: React.FC = () => {
                 {
                   icon: 'cross',
                   text: getString('delete'),
-                  onClick: deleteTargetConfirm
+                  onClick: deleteSegmentConfirm
                 }
               ]}
             />
@@ -175,8 +175,8 @@ export const TargetDetailPage: React.FC = () => {
     >
       <Layout.Vertical height="100%" style={{ flexGrow: 1, background: 'var(--white)' }}>
         <Layout.Horizontal height="100%">
-          <TargetSettings target={target} />
-          <FlagSettings target={target} />
+          <FlagsUseSegment segment={segment} />
+          <SegmentSettings segment={segment} />
         </Layout.Horizontal>
       </Layout.Vertical>
     </DetailPageTemplate>

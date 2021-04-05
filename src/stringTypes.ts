@@ -314,7 +314,6 @@ export interface StringsMap {
   'cf.auditLogs.eventSummary': string
   'cf.auditLogs.flagCreated': string
   'cf.auditLogs.flagUpdated': string
-  'cf.auditLogs.jsonDifference': string
   'cf.auditLogs.last7days': string
   'cf.auditLogs.moduleFF': string
   'cf.auditLogs.searchPlaceholder': string
@@ -324,6 +323,7 @@ export interface StringsMap {
   'cf.auditLogs.unknown': string
   'cf.auditLogs.user': string
   'cf.auditLogs.viewEventSummary': string
+  'cf.auditLogs.yamlDifference': string
   'cf.boolean': string
   'cf.clause.operators.and': string
   'cf.clause.operators.contains': string
@@ -439,12 +439,17 @@ export interface StringsMap {
   'cf.featureFlags.ifClauseServePercentageRollout': string
   'cf.featureFlags.ifFlagOffServe': string
   'cf.featureFlags.ifFlagOnServe': string
+  'cf.featureFlags.makeSure': string
+  'cf.featureFlags.metrics.evaluationStatistics': string
+  'cf.featureFlags.metrics.evaluations': string
+  'cf.featureFlags.metrics.noMetrics': string
   'cf.featureFlags.modifiedDate': string
   'cf.featureFlags.multi': string
   'cf.featureFlags.multiBtnText': string
   'cf.featureFlags.newFlag': string
   'cf.featureFlags.percentageRollout': string
   'cf.featureFlags.prerequisitesDesc': string
+  'cf.featureFlags.results': string
   'cf.featureFlags.rules.add': string
   'cf.featureFlags.rules.customRules': string
   'cf.featureFlags.rules.defaultRules': string
@@ -481,6 +486,11 @@ export interface StringsMap {
   'cf.pipeline.default': string
   'cf.pipeline.stages.execution.title': string
   'cf.pipeline.stages.setup.title': string
+  'cf.segmentDetail.addToFlag': string
+  'cf.segmentDetail.autoAdded': string
+  'cf.segmentDetail.directlyAdded': string
+  'cf.segmentDetail.noFlagsUseThisSegment': string
+  'cf.segmentDetail.removeFomFlag': string
   'cf.segments.create': string
   'cf.segments.delete.message': string
   'cf.segments.delete.title': string
@@ -493,15 +503,20 @@ export interface StringsMap {
   'cf.segments.targetDefinition': string
   'cf.segments.uploadImage': string
   'cf.segments.usingSegment': string
+  'cf.segments.usingSegmentWithCount': string
   'cf.selectSegmentModal.empty': string
   'cf.selectSegmentModal.flagsUsingSegment': string
   'cf.selectSegmentModal.flagsUsingThisSegment': string
   'cf.selectSegmentModal.searchSegmentPlaceholder': string
   'cf.selectSegmentModal.selected': string
+  'cf.shared.archived': string
   'cf.shared.environment': string
+  'cf.shared.evaluations': string
+  'cf.shared.flags': string
   'cf.shared.individual': string
   'cf.shared.lastEvaluated': string
   'cf.shared.prerequisites': string
+  'cf.shared.rules': string
   'cf.shared.segment': string
   'cf.shared.segments': string
   'cf.shared.selectEnvironment': string

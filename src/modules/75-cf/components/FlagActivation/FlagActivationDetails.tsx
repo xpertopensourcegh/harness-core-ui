@@ -89,6 +89,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
           minimal
           intent="primary"
           icon="edit"
+          disabled={featureFlag.archived}
         />
       </Layout.Horizontal>
 
@@ -291,8 +292,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       permanent: featureFlag.permanent
     }
 
-    // TODO: Uncomment when tags are ready on Backend
-    // const getTag = (tagName: string) => singleFlag?.tags?.find(tag => tag.name === tagName)
+    const getTag = (tagName: string) => featureFlag.tags?.find(tag => tag.name === tagName)
 
     const handleSubmit = (values: typeof initialValues): void => {
       const { name, description, tags, permanent } = values
@@ -305,23 +305,21 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       }
 
       if (!isEqual(tags, initialValues.tags)) {
-        // TODO: Uncomment when tags are ready on Backend
-        // initialValues.tags
-        //   ?.filter(tag => tags?.includes(tag))
-        //   .map(getTag)
-        //   .forEach((tag: any) => {
-        //     patch.feature.addInstruction(patch.creators.removeTag(tag.name, tag.value))
-        //   })
-        // tags
-        //   ?.filter((tag: any) => !initialValues.tags?.includes(tag))
-        //   .forEach((tag: any) => {
-        //     console.log(tag)
-        //     patch.feature.addInstruction(patch.creators.addTag(tag, tag))
-        //   })
+        initialValues.tags
+          ?.filter(tag => tags?.includes(tag))
+          .map(getTag)
+          .forEach((tag: any) => {
+            patch.feature.addInstruction(patch.creators.removeTag(tag.name, tag.value))
+          })
+        tags
+          ?.filter((tag: any) => !initialValues.tags?.includes(tag))
+          .forEach((tag: any) => {
+            patch.feature.addInstruction(patch.creators.addTag(tag, tag))
+          })
       }
 
       if (permanent !== initialValues.permanent) {
-        // TODO: not implemented on backend yet
+        patch.feature.addInstruction(patch.creators.updatePermanent(permanent))
       }
 
       patch.feature
@@ -329,6 +327,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           submitPatch(data)
             .then(() => {
               patch.feature.reset()
+              hideEditDetailsModal()
               refetchFlag()
             })
             .catch(() => {
@@ -383,12 +382,21 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Formik>
       </Dialog>
     )
-  })
+  }, [featureFlag])
   const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
     queryParams: {
       project: projectIdentifier as string,
       account: accountId,
       org: orgIdentifier
+    }
+  })
+  const { mutate: archiveFeatureFlag } = usePatchFeature({
+    identifier: featureFlag.identifier,
+    queryParams: {
+      account: accountId,
+      org: orgIdentifier,
+      project: projectIdentifier,
+      environment: '' // TODO: is environment really needed?
     }
   })
   const archiveFlag = useConfirmAction({
@@ -403,8 +411,22 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       </Text>
     ),
     intent: Intent.DANGER,
-    action: () => {
-      alert('To be implemented') // TODO: Backend is not yet support archiving flag.
+    action: async () => {
+      archiveFeatureFlag({
+        instructions: [
+          {
+            kind: 'updateArchived',
+            parameters: {
+              archived: true
+            }
+          }
+        ]
+      })
+        .then(() => {
+          showSuccess('good to go')
+          refetchFlag()
+        })
+        .catch(error => showError(getErrorMessage(error)))
     }
   })
   const deleteFlag = useConfirmAction({
@@ -488,14 +510,14 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             {
               icon: 'edit',
               text: getString('edit'),
-              onClick: openEditDetailsModal
+              onClick: openEditDetailsModal,
+              disabled: featureFlag.archived
             },
             {
-              disabled: true,
               icon: 'archive',
               text: getString('archive'),
               onClick: archiveFlag,
-              title: getString('cf.featureNotReady')
+              disabled: featureFlag.archived
             },
             MenuDivider,
             {
@@ -518,6 +540,11 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           }}
         >
           {featureFlag.name}
+          {featureFlag.archived && (
+            <Text inline color={Color.GREY_400} padding={{ left: 'xsmall' }} font={{ size: 'small' }}>
+              ({getString('cf.shared.archived')})
+            </Text>
+          )}
         </Heading>
         {featureFlag.description && (
           <Text margin={{ bottom: 'small' }} style={{ fontSize: '13px', lineHeight: '20px', color: '#22222A' }}>
@@ -572,11 +599,13 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                             icon="edit"
                             text={getString('edit')}
                             onClick={handlePrerequisiteInteraction('edit', elem)}
+                            disabled={featureFlag.archived}
                           />
                           <Menu.Item
                             icon="cross"
                             text={getString('delete')}
                             onClick={handlePrerequisiteInteraction('delete', elem)}
+                            disabled={featureFlag.archived}
                           />
                         </Menu>
                       }
@@ -593,6 +622,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                   setEditingPrerequisites(false)
                   openModalPrerequisites()
                 }}
+                disabled={featureFlag.archived}
               />
             </Layout.Vertical>
           </Collapse>

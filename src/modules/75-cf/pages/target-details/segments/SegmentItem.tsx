@@ -16,7 +16,7 @@ export const SegmentItem: React.FC<SegmentItemProps> = ({ name, description, onR
   const { getString } = useStrings()
 
   return (
-    <ItemContainer {...props}>
+    <ItemContainer style={{ paddingRight: 'var(--spacing-xsmall)' }} {...props}>
       <Layout.Horizontal spacing="xsmall" style={{ alignItems: 'center' }}>
         <Avatar
           name={name}
