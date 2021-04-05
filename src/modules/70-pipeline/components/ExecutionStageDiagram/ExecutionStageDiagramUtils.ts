@@ -64,7 +64,7 @@ export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<
       num = HEADER_DEPTH
       num += calculateGroupHeaderDepth(node.group.items, HEADER_DEPTH)
       maxNum = Math.max(maxNum, num)
-    } else if (node.parallel && node.parallel[0].group) {
+    } else if (node.parallel && node.parallel[0]?.group) {
       num = HEADER_DEPTH
       num += calculateGroupHeaderDepth(node.parallel[0].group.items, HEADER_DEPTH)
       maxNum = Math.max(maxNum, num)

@@ -49,6 +49,10 @@ export class StepGroupNodeLayerModel<
     this.addModel(this.endNode)
   }
 
+  setOptions(options: StepGroupNodeLayerOptions): void {
+    this.options = { ...this.options, ...options }
+  }
+
   addModel(model: G['CHILDREN']): void {
     if (!(model instanceof NodeModel)) {
       throw new Error('Can only add nodes to this layer')

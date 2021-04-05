@@ -298,16 +298,19 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           this.getGroupLayer(node.group.identifier) ||
           new Diagram.StepGroupNodeLayerModel({
             identifier: node.group.identifier,
-            childrenDistance: this.gapY,
-            id: node.group.identifier,
-            depth: depthY,
-            headerDepth: headerDepth + GROUP_HEADER_DEPTH,
-            label: node.group.name,
-            containerCss: node.group.containerCss,
-            textCss: node.group.textCss,
-            skipCondition: node.group.skipCondition,
-            showRollback: false
+            id: node.group.identifier
           })
+        stepGroupLayer.setOptions({
+          childrenDistance: this.gapY,
+          depth: depthY,
+          headerDepth: headerDepth + GROUP_HEADER_DEPTH,
+          label: node.group.name,
+          containerCss: node.group.containerCss,
+          textCss: node.group.textCss,
+          skipCondition: node.group.skipCondition,
+          showRollback: false
+        })
+
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
           startX += this.gapX
           stepGroupLayer.startNode.setPosition(startX, startY)
