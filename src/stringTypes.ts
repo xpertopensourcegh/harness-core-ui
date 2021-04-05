@@ -758,10 +758,14 @@ export interface StringsMap {
   'cv.dashboard.learnMore': string
   'cv.dashboard.notStarted': string
   'cv.dashboard.subHeading': string
+  'cv.failures': string
   'cv.getRiskAssessment': string
   'cv.harnessEnvironment': string
   'cv.harnessService': string
   'cv.hostNamePlaceholder': string
+  'cv.methodLabel': string
+  'cv.metricVerificationModal.modalTitle': string
+  'cv.metricVerificationModal.viewCalls': string
   'cv.monitoringSources.appD.appDApplications': string
   'cv.monitoringSources.appD.appDTier': string
   'cv.monitoringSources.appD.connectToMonitoringSource': string
@@ -781,7 +785,6 @@ export interface StringsMap {
   'cv.monitoringSources.appD.mappedToHarnessEnvironment': string
   'cv.monitoringSources.appD.mappedToHarnessService': string
   'cv.monitoringSources.appD.mappingToHarnessService': string
-  'cv.monitoringSources.appD.metricsVerificationModalTitle': string
   'cv.monitoringSources.appD.noAppsMsg': string
   'cv.monitoringSources.appD.noData': string
   'cv.monitoringSources.appD.noTiersMsg': string
@@ -900,12 +903,20 @@ export interface StringsMap {
   'cv.onboarding.verificationJobs.keepGoing': string
   'cv.onboarding.verificationJobs.subHeading': string
   'cv.overviewPage.recentChangeVerifications': string
+  'cv.request': string
+  'cv.response': string
+  'cv.responseBody': string
   'cv.riskCardTooltip.allServicesGreen': string
   'cv.riskCardTooltip.header': string
   'cv.riskScore': string
   'cv.selectCreateService': string
   'cv.selectOrCreateEnv': string
   'cv.setup': string
+  'cv.statusCode': string
+  'cv.thirdPartyCalls.modalTitle': string
+  'cv.thirdPartyCalls.noCallsWereMade': string
+  'cv.thirdPartyCalls.requestMade': string
+  'cv.thirdPartyCalls.timeTaken': string
   'cv.verification': string
   'cv.verificationErrored': string
   'cv.verificationJobs.configure.heading': string

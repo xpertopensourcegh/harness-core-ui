@@ -1,4 +1,18 @@
 continuousVerification: Continuous Verification
+methodLabel: Method Label
+request: Request
+response: Response
+responseBody: Response Body
+statusCode: Status Code
+failures: Failures
+thirdPartyCalls:
+  modalTitle: Calls to
+  timeTaken: Time Taken
+  requestMade: Request Made
+  noCallsWereMade: No calls were made
+metricVerificationModal:
+  viewCalls: View calls to {{type}}
+  modalTitle: Metric Pack Connection Test
 dashboard:
   subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
   learnMore: Learn more about Continuous Verification
@@ -187,7 +201,6 @@ monitoringSources:
     errorsFound: errors found
     verificationsInProgress: Verification in progress
     noData: No data
-    metricsVerificationModalTitle: Metric Pack Connection Test
     searchPlaceholderApplications: Search for Applications
     validationsPassed: Validation passed
     validationsFailed: Validation failed
@@ -269,7 +282,6 @@ monitoringSources:
     selectedApplications: Selected Applications
     oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
     totalMappedApplications: '{{total}} Application(s) mapped'
-
 activitySources:
   name: 'Name your Change Source'
   harnessCD:
