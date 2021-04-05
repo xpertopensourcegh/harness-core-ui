@@ -1,31 +1,25 @@
 import React, { useMemo } from 'react'
-import { useParams } from 'react-router-dom'
 import { Button, Layout, Text, Container, Icon } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from '@common/components/Table/Table'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 
-import { GitSyncConfig, useListGitSync } from 'services/cd-ng'
+import type { GitSyncConfig } from 'services/cd-ng'
 
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/exports'
 import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
+import { useGitSyncStore } from '@gitsync/common/GitSyncStoreContext'
 import css from './GitSyncRepoTab.module.scss'
 
 const GitSyncRepoTab: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
-
-  //Note: right now we support git-sync only at project level
-  const { data: dataAllGitSync, loading, refetch } = useListGitSync({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-  })
+  const { gitSyncRepos, refreshStore } = useGitSyncStore()
 
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: async () => {
-      refetch()
+      refreshStore()
     },
     onClose: async () => {
-      refetch()
+      refreshStore()
     }
   })
 
@@ -90,11 +84,9 @@ const GitSyncRepoTab: React.FC = () => {
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [dataAllGitSync?.length]
+    [gitSyncRepos?.length]
   )
-  return loading ? (
-    <PageSpinner />
-  ) : (
+  return (
     <Container padding="large">
       <Button
         intent="primary"
@@ -104,7 +96,7 @@ const GitSyncRepoTab: React.FC = () => {
         id="newRepoBtn"
         margin={{ left: 'xlarge', bottom: 'small' }}
       />
-      <Table<GitSyncConfig> className={css.table} columns={columns} data={dataAllGitSync || []} />
+      <Table<GitSyncConfig> className={css.table} columns={columns} data={gitSyncRepos || []} />
     </Container>
   )
 }
