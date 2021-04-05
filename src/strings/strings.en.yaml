@@ -1782,4 +1782,9 @@ uppercase: 'uppercase'
 lowercase: 'lowercase'
 specialChar: 'special character'
 serviceDashboard:
-  activeServiceInstancesLabel: Active Service Instances
+  activeServiceInstancesLabel: 'Active Service Instances'
+  servicesInLast: 'Services in Last {{period}}'
+  day: '1 day'
+  week: '1 week'
+  month: '1 month'
+  months: '6 months'

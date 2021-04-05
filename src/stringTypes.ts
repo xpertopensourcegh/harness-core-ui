@@ -6441,6 +6441,26 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'serviceDashboard.day': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'serviceDashboard.month': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'serviceDashboard.months': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'serviceDashboard.servicesInLast': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'serviceDashboard.week': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'serviceDeploymentTypes.amazonAmi': string
   /**
    * @deprecated migrate this string to module level file
