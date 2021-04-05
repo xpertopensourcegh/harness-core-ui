@@ -19,25 +19,32 @@ const moduleLayers = getLayers()
 
 // TODO: remove this after migration
 const oldStrings = await fs.promises.readFile(path.resolve(process.cwd(), 'src/strings/strings.en.yaml'), 'utf-8')
-const oldParseContent = yaml.parse(oldStrings)
+const oldParsedContent = yaml.parse(oldStrings)
 
 const values = {
-  ...(onlyNew ? {} : oldParseContent || {}) // TODO: remove this after migration
+  ...(onlyNew ? {} : oldParsedContent || {}) // TODO: remove this after migration
 }
 
-function validateReferences(str, path, restricedModules = []) {
-  const matches = str.matchAll(REFERENCE_REGEX)
+function validateReferences(str, path, restricedModules = [], isOld) {
+  const REFERENCE_REGEX1 = /\{\{\s*\$\.(.+?)\s*\}\}/g
 
-  for (const match of matches) {
-    const [ref, strPath] = match
+  // REFERENCE_REGEX.lastIndex = 0
+
+  let match = null
+
+  // console.log(REFERENCE_REGEX1.exec(str))
+  while ((match = REFERENCE_REGEX1.exec(str))) {
+    const [, ref] = match
 
     restricedModules.forEach(mod => {
-      if (strPath.startsWith(mod)) {
+      if (ref.startsWith(mod)) {
         errors.push([chalk.red('error'), `"${path}" has reference to restricted module "${mod}": "${ref}"`])
       }
     })
 
-    if (!_.has(values, strPath)) {
+    const refValue = _.get(values, ref)
+
+    if (typeof refValue !== 'string') {
       errors.push([chalk.red('error'), `"${path}" has incorrect reference: "${ref}"`])
     }
   }
@@ -56,7 +63,7 @@ function validateStrings(data, parentPath = [], restricedModules = [], isOld) {
 
     if (typeof value === 'string') {
       // only variable values
-      if (value.startsWith('{{') && value.endsWith('}}')) {
+      if (value.includes('{{') && value.includes('}}')) {
         validateReferences(value, strPath, restricedModules)
         return
       }
@@ -69,12 +76,11 @@ function validateStrings(data, parentPath = [], restricedModules = [], isOld) {
         ])
       } else {
         valuesMap.set(value, strPath)
-        validateReferences(value, strPath)
       }
     } else if (Array.isArray(value)) {
       errors.push([chalk.red('error'), `Array is not supported in strings YAML file. Path: "${strPath}"`])
     } else {
-      validateStrings(value, [...parentPath, key], restricedModules)
+      validateStrings(value, [...parentPath, key], restricedModules, isOld)
     }
   })
 }
@@ -96,7 +102,8 @@ for (const [i, layer] of moduleLayers.entries()) {
   }
 }
 
-validateStrings(oldParseContent, [], [], true)
+console.log(chalk.bold(`Analyzing old strings...`))
+validateStrings(oldParsedContent, [], [], true)
 
 if (errors.length > 0) {
   console.log(chalk.red(`\n❌ ${errors.length} issues found\n`))

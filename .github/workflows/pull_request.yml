@@ -273,6 +273,13 @@ jobs:
 
       - name: Run Strings Check
         run: |
+          limit=1785
+          lines=$(cat src/strings/strings.en.yaml | wc -l)
+          if [ "$lines" -gt "$limit" ]; then
+            echo "No Addition allowed in src/strings/strings.en.yaml. Please use module level string files instead."
+            exit 1
+          fi
+
           yarn strings
 
           changed=$(git diff --name-only)

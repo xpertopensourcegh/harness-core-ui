@@ -15,8 +15,6 @@ for (const { dirName, moduleName } of flattenedLayers) {
   const restrictedLayers = layers.slice(layerIndex)
   const restrictedDirs = _.flatten(restrictedLayers).filter(mod => dirName !== mod.dirName)
 
-  console.log(restrictedLayers)
-
   const config = {
     rules: {
       'no-restricted-imports': [

@@ -2,4 +2,4 @@
 
 ## Achitectures
 
-- [String Externalization and Internaltionalization](./architectures/Strings.md)
+- [String Externalization and Internationalization](./architectures/Strings.md)

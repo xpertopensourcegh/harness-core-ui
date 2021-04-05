@@ -57,6 +57,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
   }, [token])
 
   useEffect(() => {
+    // load strings for all the common modules
     window.dispatchEvent(
       new CustomEvent<HarnessModules[]>('LOAD_STRINGS_CHUNK', {
         detail: [
