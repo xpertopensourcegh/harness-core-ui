@@ -81,28 +81,41 @@ export const getDefaultDependencyServiceState = (): StepState => ({
 
 export type StepStateMap = Map<string, StepState>
 
-export const calculateDepthCount = (node: ExecutionWrapper, stepStates: StepStateMap): number => {
-  let depth = 0.7 // half of gap
-  if (node?.stepGroup) {
+export const calculateDepthPS = (
+  node: ExecutionWrapper,
+  stepStates: StepStateMap,
+  spaceAfterGroup: number,
+  SPACE_AFTER_GROUP: number
+): number => {
+  const depth = 1
+  let groupMaxDepth = 0
+  if (node.stepGroup) {
     const stepState = stepStates.get(node.stepGroup.identifier)
-    // If Group is collapsed then send the same depth
+    // collapsed group
     if (stepState && stepState.isStepGroupCollapsed) {
-      return depth
+      return 1
     }
-    depth = 1
+    // expanded group
     if (node.stepGroup.steps?.length > 0) {
-      let maxParallelSteps = 0
-      node.stepGroup.steps.forEach((nodeP: ExecutionWrapper) => {
-        if (nodeP.parallel?.length > 0 && nodeP.parallel?.length > maxParallelSteps) {
-          maxParallelSteps = nodeP.parallel.length
+      groupMaxDepth = 0
+      node.stepGroup.steps.forEach((nodeG: ExecutionWrapper) => {
+        let depthInner = 0
+        if (nodeG?.parallel) {
+          // parallel
+          nodeG?.parallel.forEach((nodeP: ExecutionWrapper) => {
+            depthInner += calculateDepthPS(nodeP, stepStates, SPACE_AFTER_GROUP, SPACE_AFTER_GROUP)
+          })
+        } else {
+          // step
+          depthInner = 1
         }
+        groupMaxDepth = Math.max(groupMaxDepth, depthInner)
       })
-      if (maxParallelSteps > 0) {
-        depth += 0.5 * (maxParallelSteps - 1)
-      }
     }
+    groupMaxDepth += spaceAfterGroup
   }
-  return depth
+
+  return Math.max(groupMaxDepth, depth)
 }
 
 export const getDependencyFromNode = (

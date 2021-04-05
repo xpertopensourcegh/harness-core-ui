@@ -5,7 +5,9 @@ import type { RollbackToggleSwitchProps } from '../canvas/RollbackToggleSwitch/R
 
 export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   label?: string
+  childrenDistance?: number
   depth?: number
+  headerDepth?: number
   allowAdd?: boolean
   identifier?: string
   showRollback?: boolean
