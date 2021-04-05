@@ -23,13 +23,13 @@ export const getHarnessApprovalEditModeProps = () => ({
 export const getHarnessApprovalDeploymentModeProps = () => ({
   initialValues: {
     spec: {
-      approvalMessage: RUNTIME_INPUT_VALUE,
-      includePipelineExecutionHistory: RUNTIME_INPUT_VALUE,
-      approverInputs: RUNTIME_INPUT_VALUE,
+      approvalMessage: '',
+      includePipelineExecutionHistory: false,
+      approverInputs: [],
       approvers: {
         userGroups: [],
-        minimumCount: RUNTIME_INPUT_VALUE,
-        disallowPipelineExecutor: RUNTIME_INPUT_VALUE
+        minimumCount: 0,
+        disallowPipelineExecutor: false
       }
     }
   },

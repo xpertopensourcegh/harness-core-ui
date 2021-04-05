@@ -35,6 +35,7 @@ export enum StepType {
   HelmRollback = 'HelmRollback',
   HarnessApproval = 'HarnessApproval',
   JiraApproval = 'JiraApproval',
+  JiraCreate = 'JiraCreate',
   TerraformRollback = 'TerraformRollback',
   TerraformDestroy = 'TerraformDestroy',
   TerraformPlan = 'TerraformPlan',

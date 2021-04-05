@@ -14,8 +14,8 @@ export interface JiraCriteriaProps {
 }
 
 const titles: Record<JiraCriteriaProps['type'], StringKeys> = {
-  approval: 'jiraApprovalStep.approvalCriteria',
-  rejection: 'jiraApprovalStep.rejectionCriteria'
+  approval: 'pipeline.jiraApprovalStep.approvalCriteria',
+  rejection: 'pipeline.jiraApprovalStep.rejectionCriteria'
 }
 
 const conditionStr: Record<ConditionDTO['operator'], StringKeys> = {

@@ -239,6 +239,57 @@ export interface StringsMap {
   'dashboards.sideNav.noDashboard': string
   'gitsync.label': string
   'gitsync.successfullCreate': string
+  'pipeline.approvalStep.addUserGroups': string
+  'pipeline.approvalStep.approverInputs': string
+  'pipeline.approvalStep.approvers': string
+  'pipeline.approvalStep.disallowPipelineExecutor': string
+  'pipeline.approvalStep.fetchUserGroupsFailed': string
+  'pipeline.approvalStep.fetchingUserGroups': string
+  'pipeline.approvalStep.includePipelineExecutionHistory': string
+  'pipeline.approvalStep.message': string
+  'pipeline.approvalStep.minimumCount': string
+  'pipeline.approvalStep.status.APPROVE': string
+  'pipeline.approvalStep.status.REJECT': string
+  'pipeline.approvalStep.validation.approvalMessage': string
+  'pipeline.approvalStep.validation.minimumCountOne': string
+  'pipeline.approvalStep.validation.minimumCountRequired': string
+  'pipeline.approvalStep.validation.userGroups': string
+  'pipeline.enterDescription': string
+  'pipeline.jiraApprovalStep.allConditions': string
+  'pipeline.jiraApprovalStep.anyCondition': string
+  'pipeline.jiraApprovalStep.approvalCriteria': string
+  'pipeline.jiraApprovalStep.connectToJira': string
+  'pipeline.jiraApprovalStep.connectorRef': string
+  'pipeline.jiraApprovalStep.fetchingFields': string
+  'pipeline.jiraApprovalStep.issueKey': string
+  'pipeline.jiraApprovalStep.issueType': string
+  'pipeline.jiraApprovalStep.jexlExpressionApprovalCriteria': string
+  'pipeline.jiraApprovalStep.jexlExpressionLabelApproval': string
+  'pipeline.jiraApprovalStep.jexlExpressionLabelRejection': string
+  'pipeline.jiraApprovalStep.jexlExpressionPlaceholder': string
+  'pipeline.jiraApprovalStep.jexlExpressionRejectionCriteria': string
+  'pipeline.jiraApprovalStep.jiraField': string
+  'pipeline.jiraApprovalStep.match': string
+  'pipeline.jiraApprovalStep.project': string
+  'pipeline.jiraApprovalStep.rejectionCriteria': string
+  'pipeline.jiraApprovalStep.validations.approvalCriteriaCondition': string
+  'pipeline.jiraApprovalStep.validations.connectorRef': string
+  'pipeline.jiraApprovalStep.validations.expression': string
+  'pipeline.jiraApprovalStep.validations.issueKey': string
+  'pipeline.jiraApprovalStep.validations.issueType': string
+  'pipeline.jiraApprovalStep.validations.project': string
+  'pipeline.jiraCreateStep.addFields': string
+  'pipeline.jiraCreateStep.fetchingFields': string
+  'pipeline.jiraCreateStep.fieldSelectorAdd': string
+  'pipeline.jiraCreateStep.fields': string
+  'pipeline.jiraCreateStep.fieldsSelectorPlaceholder': string
+  'pipeline.jiraCreateStep.issueKey': string
+  'pipeline.jiraCreateStep.provideFieldList': string
+  'pipeline.jiraCreateStep.selectFieldListHelp': string
+  'pipeline.jiraCreateStep.selectFieldsHeading': string
+  'pipeline.jiraCreateStep.selectFromFieldList': string
+  'pipeline.jiraCreateStep.summaryPlaceholder': string
+  'pipeline.jiraCreateStep.validations.summary': string
   'cd.CDTrialModal.description': string
   'cd.CDTrialModal.learnMore': string
   'cd.CDTrialModal.setupHeader': string
@@ -1220,66 +1271,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'approvalStage.title': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.addUserGroups': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.approverInputs': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.approvers': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.disallowPipelineExecutor': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.fetchUserGroupsFailed': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.fetchingUserGroups': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.includePipelineExecutionHistory': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.message': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.minimumCount': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.status.APPROVE': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.status.REJECT': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.validation.approvalMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.validation.minimumCountOne': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.validation.minimumCountRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStep.validation.userGroups': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3460,98 +3451,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   invalidYamlText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.allConditions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.anyCondition': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.approvalCriteria': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.connectToJira': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.connectorRef': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.fetchingFields': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.issueKey': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.issueType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.jexlExpressionApprovalCriteria': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.jexlExpressionLabelApproval': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.jexlExpressionLabelRejection': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.jexlExpressionPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.jexlExpressionRejectionCriteria': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.jiraField': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.match': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.project': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.rejectionCriteria': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.validations.approvalCriteriaCondition': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.validations.connectorRef': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.validations.expression': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.validations.issueKey': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.validations.issueType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'jiraApprovalStep.validations.project': string
   /**
    * @deprecated migrate this string to module level file
    */

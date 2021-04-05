@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval-deploymentform 1`] = `
+exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-deploymentform 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -229,36 +229,6 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
         </div>
       </div>
     </div>
-    <div
-      class="bp3-form-group deploymentViewMedium"
-    >
-      <label
-        class="bp3-label"
-        for="spec.issueKey"
-      >
-        Key/Issue ID
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
-      <div
-        class="bp3-form-content"
-      >
-        <div
-          class="bp3-input-group"
-        >
-          <input
-            autocomplete="off"
-            class="bp3-input"
-            name="spec.issueKey"
-            placeholder="Key/Issue ID"
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
     <p
       class="StyledProps--font StyledProps--main"
     >
@@ -281,7 +251,7 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
 </div>
 `;
 
-exports[`Jira Approval tests Basic snapshot - input variable view: jira-approval-input variable view 1`] = `
+exports[`Jira Create tests Basic snapshot - input variable view: jira-create-input variable view 1`] = `
 <div>
   <div
     class="variablesListTable"
@@ -337,7 +307,7 @@ exports[`Jira Approval tests Basic snapshot - input variable view: jira-approval
 </div>
 `;
 
-exports[`Jira Approval tests Basic snapshot - inputset mode but no runtime values: jira-approval-inputset-noruntime 1`] = `
+exports[`Jira Create tests Basic snapshot - inputset mode but no runtime values: jira-create-inputset-noruntime 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -364,7 +334,7 @@ exports[`Jira Approval tests Basic snapshot - inputset mode but no runtime value
 </div>
 `;
 
-exports[`Jira Approval tests Basic snapshot - inputset mode: input set with errors 1`] = `
+exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -603,41 +573,6 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
         </div>
       </div>
     </div>
-    <div
-      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
-    >
-      <label
-        class="bp3-label"
-        for="spec.issueKey"
-      >
-        Key/Issue ID
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
-      <div
-        class="bp3-form-content"
-      >
-        <div
-          class="bp3-input-group bp3-intent-danger"
-        >
-          <input
-            autocomplete="off"
-            class="bp3-input"
-            name="spec.issueKey"
-            placeholder="Key/Issue ID"
-            type="text"
-            value=""
-          />
-        </div>
-        <div
-          class="bp3-form-helper-text"
-        >
-          Key Issue/ID is required.
-        </div>
-      </div>
-    </div>
     <p
       class="StyledProps--font StyledProps--main"
     >
@@ -648,8 +583,7 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
   "spec": {
     "connectorRef": "JIRA Connector is required.",
     "projectKey": "Project is required.",
-    "issueType": "Issue Type is required.",
-    "issueKey": "Key Issue/ID is required."
+    "issueType": "Issue Type is required."
   }
 }
     </pre>

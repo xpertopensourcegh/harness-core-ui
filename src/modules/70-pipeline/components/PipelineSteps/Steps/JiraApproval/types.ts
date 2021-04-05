@@ -64,6 +64,7 @@ export interface JiraApprovalStepModeProps {
   stepViewType?: StepViewType
   initialValues: JiraApprovalData
   onUpdate?: (data: JiraApprovalData) => void
+  isNewStep?: boolean
 }
 
 export interface ApprovalRejectionCriteriaProps {
@@ -99,6 +100,7 @@ export interface JiraFormContentInterface {
   projectMetaResponse: ResponseJiraIssueCreateMetadataNG | null
   projectsFetchError?: GetDataError<Failure | Error> | null
   projectMetadataFetchError?: GetDataError<Failure | Error> | null
+  isNewStep?: boolean
 }
 
 export interface JiraDeploymentModeFormContentInterface extends JiraApprovalDeploymentModeProps {

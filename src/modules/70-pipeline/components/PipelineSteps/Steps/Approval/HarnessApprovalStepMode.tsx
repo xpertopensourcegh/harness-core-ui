@@ -81,7 +81,7 @@ const FormContent = ({
       <Accordion activeId="step-1" className={stepCss.accordion}>
         <Accordion.Panel
           id="step-1"
-          summary={getString('approvalStep.message')}
+          summary={getString('pipeline.approvalStep.message')}
           details={
             <div>
               <FormMultiTypeTextAreaField
@@ -95,14 +95,14 @@ const FormContent = ({
                 className={cx(css.execHistoryCheckbox, css.md)}
                 multiTypeTextbox={{ expressions }}
                 name="spec.includePipelineExecutionHistory"
-                label={getString('approvalStep.includePipelineExecutionHistory')}
+                label={getString('pipeline.approvalStep.includePipelineExecutionHistory')}
               />
             </div>
           }
         />
         <Accordion.Panel
           id="step-2"
-          summary={getString('approvalStep.approvers')}
+          summary={getString('pipeline.approvalStep.approvers')}
           details={
             <div>
               <FormInput.MultiSelectTypeInput
@@ -111,20 +111,20 @@ const FormContent = ({
                 label={getString('userGroups')}
                 selectItems={
                   fetchingUserGroups
-                    ? [{ label: getString('approvalStep.fetchingUserGroups'), value: '', disabled: true }]
+                    ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
                     : userGroupOptions
                 }
                 multiSelectTypeInputProps={{
                   multiSelectProps: {
                     tagInputProps: {
                       placeholder: fetchingUserGroups
-                        ? getString('approvalStep.fetchingUserGroups')
+                        ? getString('pipeline.approvalStep.fetchingUserGroups')
                         : userGroupsFetchError?.message
-                        ? getString('approvalStep.fetchUserGroupsFailed')
-                        : getString('approvalStep.addUserGroups')
+                        ? getString('pipeline.approvalStep.fetchUserGroupsFailed')
+                        : getString('pipeline.approvalStep.addUserGroups')
                     },
                     items: fetchingUserGroups
-                      ? [{ label: getString('approvalStep.fetchingUserGroups'), value: '', disabled: true }]
+                      ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
                       : userGroupOptions,
                     // eslint-disable-next-line react/display-name
                     tagRenderer: item => (
@@ -154,7 +154,7 @@ const FormContent = ({
               <FormInput.MultiTextInput
                 className={css.md}
                 name="spec.approvers.minimumCount"
-                label={getString('approvalStep.minimumCount')}
+                label={getString('pipeline.approvalStep.minimumCount')}
                 multiTextInputProps={{
                   textProps: {
                     type: 'number'
@@ -165,14 +165,14 @@ const FormContent = ({
                 className={cx(css.execHistoryCheckbox, css.md)}
                 multiTypeTextbox={{ expressions }}
                 name="spec.approvers.disallowPipelineExecutor"
-                label={getString('approvalStep.disallowPipelineExecutor')}
+                label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
               />
             </div>
           }
         />
         <Accordion.Panel
           id="step-3"
-          summary={getString('approvalStep.approverInputs')}
+          summary={getString('pipeline.approvalStep.approverInputs')}
           details={
             <div className={stepCss.formGroup}>
               <FieldArray
@@ -259,10 +259,10 @@ function HarnessApprovalStepMode(
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
-          approvalMessage: Yup.string().required(getString('approvalStep.validation.approvalMessage')),
+          approvalMessage: Yup.string().required(getString('pipeline.approvalStep.validation.approvalMessage')),
           approvers: Yup.object().shape({
-            userGroups: Yup.string().required(getString('approvalStep.validation.userGroups')),
-            minimumCount: Yup.string().required(getString('approvalStep.validation.minimumCountRequired'))
+            userGroups: Yup.string().required(getString('pipeline.approvalStep.validation.userGroups')),
+            minimumCount: Yup.string().required(getString('pipeline.approvalStep.validation.minimumCountRequired'))
           })
         })
       })}

@@ -59,7 +59,8 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       isEmpty(data?.spec?.approvalMessage)
     ) {
       errors.spec = {
-        approvalMessage: getString?.('approvalStep.validation.approvalMessage')
+        ...errors.spec,
+        approvalMessage: getString?.('pipeline.approvalStep.validation.approvalMessage')
       }
     }
 
@@ -69,8 +70,9 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       isEmpty(data?.spec?.approvers.userGroups)
     ) {
       errors.spec = {
+        ...errors.spec,
         approvers: {
-          userGroups: getString?.('approvalStep.validation.userGroups')
+          userGroups: getString?.('pipeline.approvalStep.validation.userGroups')
         }
       }
     }
@@ -81,14 +83,16 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     ) {
       if (!data?.spec?.approvers.minimumCount) {
         errors.spec = {
+          ...errors.spec,
           approvers: {
-            minimumCount: getString?.('approvalStep.validation.minimumCountRequired')
+            minimumCount: getString?.('pipeline.approvalStep.validation.minimumCountRequired')
           }
         }
       } else if (data?.spec?.approvers.minimumCount < 1) {
         errors.spec = {
+          ...errors.spec,
           approvers: {
-            minimumCount: getString?.('approvalStep.validation.minimumCountOne')
+            minimumCount: getString?.('pipeline.approvalStep.validation.minimumCountOne')
           }
         }
       }

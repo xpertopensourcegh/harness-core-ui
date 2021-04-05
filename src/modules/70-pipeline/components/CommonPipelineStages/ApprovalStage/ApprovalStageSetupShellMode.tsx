@@ -6,6 +6,7 @@ import { useStrings } from 'framework/exports'
 import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
 import type { StageElementConfig, StageElementWrapper } from 'services/cd-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import css from './ApprovalStageSetupShellMode.module.scss'
@@ -30,7 +31,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     updatePipelineView
   } = React.useContext(PipelineContext)
 
-  const { stage: selectedStage } = getStageFromPipeline(selectedStageId) as StageElementWrapper
+  const { stage: selectedStage = {} } = getStageFromPipeline(selectedStageId) as StageElementWrapper
 
   const ActionButtons = () => {
     return (
@@ -71,7 +72,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
 
   const { data: yamlSnippet } = useGetInitialStageYamlSnippet({
     queryParams: {
-      approvalType: selectedStage.stage.approvalType || 'HarnessApproval'
+      approvalType: selectedStage.stage.approvalType || StepType.HarnessApproval
     }
   })
 

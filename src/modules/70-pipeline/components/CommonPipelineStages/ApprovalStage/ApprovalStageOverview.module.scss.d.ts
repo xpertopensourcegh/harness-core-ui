@@ -12,7 +12,6 @@ declare const styles: {
   readonly noPadVertical: string
   readonly disabled: string
   readonly stageDetails: string
-  readonly stageOverridesTab: string
   readonly inputContainer: string
   readonly sideDescription: string
   readonly removeLink: string

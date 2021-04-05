@@ -32,7 +32,9 @@ export function HarnessApprover(props: HarnessApproverProps): React.ReactElement
         <div className={css.status} data-status={approvalActivity.action}>
           <Icon name={iconMap[approvalActivity.action]} size={12} />
           <String
-            stringID={`approvalStep.status.${approvalActivity.action}` as StringKeys /* TODO: fix this properly */}
+            stringID={
+              `pipeline.approvalStep.status.${approvalActivity.action}` as StringKeys /* TODO: fix this properly */
+            }
           />
         </div>
         <div>{approvalActivity.approvedAt ? new Date(approvalActivity.approvedAt).toLocaleString() : '-'}</div>

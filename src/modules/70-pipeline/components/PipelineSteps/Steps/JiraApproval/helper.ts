@@ -1,6 +1,6 @@
 import { getMultiTypeFromValue, MultiSelectOption, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
-import type { JiraIssueTypeNG } from 'services/cd-ng'
+import type { JiraFieldAllowedValueNG, JiraIssueTypeNG } from 'services/cd-ng'
 import {
   ApprovalRejectionCriteria,
   ApprovalRejectionCriteriaCondition,
@@ -239,3 +239,9 @@ export const getGenuineValue = (value: SelectOption | JiraProjectSelectOption | 
   }
   return undefined
 }
+
+export const setAllowedValuesOptions = (allowedValues: JiraFieldAllowedValueNG[]) =>
+  allowedValues.map(allowedValue => ({
+    label: allowedValue.value || allowedValue.name || allowedValue.id || '',
+    value: allowedValue.value || allowedValue.name || allowedValue.id || ''
+  }))

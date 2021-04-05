@@ -74,15 +74,15 @@ const UGMultiSelect = ({
       disabled={readonly}
       items={
         fetchingUserGroups
-          ? [{ label: getString('approvalStep.fetchingUserGroups'), value: '', disabled: true }]
+          ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
           : userGroupOptions
       }
       multiSelectProps={{
         placeholder: fetchingUserGroups
-          ? getString('approvalStep.fetchingUserGroups')
+          ? getString('pipeline.approvalStep.fetchingUserGroups')
           : userGroupsFetchError?.message
-          ? getString('approvalStep.fetchUserGroupsFailed')
-          : getString('approvalStep.addUserGroups'),
+          ? getString('pipeline.approvalStep.fetchUserGroupsFailed')
+          : getString('pipeline.approvalStep.addUserGroups'),
         // eslint-disable-next-line react/display-name
         tagRenderer: item => (
           <Layout.Horizontal key={item.label?.toString()} spacing="small">
@@ -160,7 +160,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
       {getMultiTypeFromValue(template?.spec?.approvalMessage) === MultiTypeInputType.RUNTIME ? (
         <FormInput.TextArea
           className={cx(css.approvalMessage, css.md)}
-          label={getString('approvalStep.message')}
+          label={getString('pipeline.approvalStep.message')}
           name={`${prefix}spec.approvalMessage`}
           disabled={readonly}
         />
@@ -168,7 +168,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
       {getMultiTypeFromValue(template?.spec?.includePipelineExecutionHistory) === MultiTypeInputType.RUNTIME ? (
         <FormInput.CheckBox
           className={cx(css.execHistoryCheckbox, css.md)}
-          label={getString('approvalStep.includePipelineExecutionHistory')}
+          label={getString('pipeline.approvalStep.includePipelineExecutionHistory')}
           name={`${prefix}spec.includePipelineExecutionHistory`}
           disabled={readonly}
         />
@@ -187,7 +187,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
       {typeof template?.spec?.approvers.minimumCount === 'string' &&
       getMultiTypeFromValue(template?.spec?.approvers.minimumCount) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Text
-          label={getString('approvalStep.minimumCount')}
+          label={getString('pipeline.approvalStep.minimumCount')}
           name={`${prefix}spec.approvers.minimumCount`}
           disabled={readonly}
           className={css.md}
@@ -207,7 +207,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
       {getMultiTypeFromValue(template?.spec?.approvers.disallowPipelineExecutor) === MultiTypeInputType.RUNTIME ? (
         <FormInput.CheckBox
           className={cx(css.execHistoryCheckbox, css.md)}
-          label={getString('approvalStep.disallowPipelineExecutor')}
+          label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
           name={`${prefix}spec.approvers.disallowPipelineExecutor`}
           disabled={readonly}
         />
@@ -217,7 +217,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
       getMultiTypeFromValue(template?.spec.approverInputs) === MultiTypeInputType.RUNTIME ? (
         <Map
           name={`${isEmpty(path) ? '' : `${path}.`}spec.approverInputs`}
-          label={getString('approvalStep.approverInputs')}
+          label={getString('pipeline.approvalStep.approverInputs')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
           valueLabel="Defaault value"

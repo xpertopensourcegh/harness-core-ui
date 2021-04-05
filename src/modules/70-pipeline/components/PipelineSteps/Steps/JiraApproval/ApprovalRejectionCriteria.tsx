@@ -13,7 +13,7 @@ import {
   ApprovalRejectionCriteriaType,
   ConditionsInterface
 } from './types'
-import { filterOutMultiOperators, operatorValues, removeDuplicateFieldKeys } from './helper'
+import { filterOutMultiOperators, operatorValues, removeDuplicateFieldKeys, setAllowedValuesOptions } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './ApprovalRejectionCriteria.module.scss'
 
@@ -61,23 +61,23 @@ export const Conditions = ({
 }: ConditionsInterface) => {
   const { getString } = useStrings()
   if (isFetchingFields) {
-    return <div className={css.fetching}>{getString('jiraApprovalStep.fetchingFields')}</div>
+    return <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>
   }
   return (
     <div>
       <Layout.Horizontal className={css.alignConditions} spacing="xxxlarge">
-        <span>{getString('jiraApprovalStep.match')}</span>
+        <span>{getString('pipeline.jiraApprovalStep.match')}</span>
         <Radio
           onClick={() => onChange({ ...values, spec: { ...values.spec, matchAnyCondition: false } })}
           checked={!values.spec.matchAnyCondition}
         >
-          {getString('jiraApprovalStep.allConditions')}
+          {getString('pipeline.jiraApprovalStep.allConditions')}
         </Radio>
         <Radio
           onClick={() => onChange({ ...values, spec: { ...values.spec, matchAnyCondition: true } })}
           checked={values.spec.matchAnyCondition}
         >
-          {getString('jiraApprovalStep.anyCondition')}
+          {getString('pipeline.jiraApprovalStep.anyCondition')}
         </Radio>
       </Layout.Horizontal>
 
@@ -88,7 +88,7 @@ export const Conditions = ({
             return (
               <div>
                 <div className={css.headers}>
-                  <span>{getString('jiraApprovalStep.jiraField')}</span>
+                  <span>{getString('pipeline.jiraApprovalStep.jiraField')}</span>
                   <span>{getString('pipeline-triggers.conditionsPanel.operator')}</span>
                   <span>{getString('valueLabel')}</span>
                 </div>
@@ -152,11 +152,11 @@ export const Jexl = (props: ApprovalRejectionCriteriaProps) => {
       name={`spec.${props.mode}.spec.expression`}
       label={
         props.mode === 'approvelCriteria'
-          ? getString('jiraApprovalStep.jexlExpressionLabelApproval')
-          : getString('jiraApprovalStep.jexlExpressionLabelRejection')
+          ? getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')
+          : getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')
       }
       className={css.jexlExpression}
-      placeholder={getString('jiraApprovalStep.jexlExpressionPlaceholder')}
+      placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
       multiTypeTextArea={{
         expressions
       }}
@@ -191,10 +191,7 @@ export const ApprovalRejectionCriteria: React.FC<ApprovalRejectionCriteriaProps>
             label: fieldName,
             value: fieldName
           })
-          allowedValuesForFieldsToSet[fieldName] = field.allowedValues.map(allowedValue => ({
-            label: allowedValue.value || allowedValue.name || allowedValue.id || '',
-            value: allowedValue.value || allowedValue.name || allowedValue.id || ''
-          }))
+          allowedValuesForFieldsToSet[fieldName] = setAllowedValuesOptions(field.allowedValues)
         }
       }
     })

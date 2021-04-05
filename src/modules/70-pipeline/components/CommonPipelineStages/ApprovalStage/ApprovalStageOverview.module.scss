@@ -48,11 +48,6 @@
   .stageDetails {
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
-
-    .stageOverridesTab {
-      justify-content: end;
-      display: grid;
-    }
     :global {
       .customVariables {
         width: 700px !important;

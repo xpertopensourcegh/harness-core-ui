@@ -3,17 +3,16 @@ import { render, act, fireEvent, queryByAttribute, waitFor } from '@testing-libr
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { TestStepWidget, factory } from '../../__tests__/StepTestUtil'
-import { JiraApproval } from '../JiraApproval'
-import { getDefaultCriterias } from '../helper'
+import { JiraCreate } from '../JiraCreate'
 import {
-  getJiraApprovalInputVariableModeProps,
-  getJiraApprovalDeploymentModeProps,
+  getJiraCreateDeploymentModeProps,
+  getJiraCreateEditModeProps,
+  getJiraCreateEditModePropsWithValues,
+  getJiraCreateInputVariableModeProps,
   mockConnectorResponse,
   mockProjectMetadataResponse,
-  mockProjectsResponse,
-  getJiraApprovalEditModeProps,
-  getJiraApprovalEditModePropsWithValues
-} from './JiraApprovalTestHelper'
+  mockProjectsResponse
+} from './JiraCreateTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
@@ -25,79 +24,78 @@ jest.mock('services/cd-ng', () => ({
   useGetJiraIssueCreateMetadata: () => mockProjectMetadataResponse
 }))
 
-describe('Jira Approval tests', () => {
+describe('Jira Create tests', () => {
   beforeEach(() => {
-    factory.registerStep(new JiraApproval())
+    factory.registerStep(new JiraCreate())
   })
 
   test('Basic snapshot - inputset mode', async () => {
-    const props = getJiraApprovalDeploymentModeProps()
+    const props = getJiraCreateDeploymentModeProps()
     const { container, getByText, queryByText } = render(
       <TestStepWidget
         template={props.inputSetData?.template}
         initialValues={props.initialValues}
-        type={StepType.JiraApproval}
+        type={StepType.JiraCreate}
         stepViewType={StepViewType.InputSet}
         inputSetData={props.inputSetData}
       />
     )
-
     fireEvent.click(getByText('Submit'))
     await waitFor(() => queryByText('Errors'))
     expect(container).toMatchSnapshot('input set with errors')
   })
 
   test('Basic snapshot - deploymentform mode', async () => {
-    const props = getJiraApprovalDeploymentModeProps()
+    const props = getJiraCreateDeploymentModeProps()
     const { container } = render(
       <TestStepWidget
         template={props.inputSetData?.template}
         initialValues={props.initialValues}
-        type={StepType.JiraApproval}
+        type={StepType.JiraCreate}
         stepViewType={StepViewType.DeploymentForm}
         inputSetData={props.inputSetData}
       />
     )
 
-    expect(container).toMatchSnapshot('jira-approval-deploymentform')
+    expect(container).toMatchSnapshot('jira-create-deploymentform')
   })
 
   test('Basic snapshot - inputset mode but no runtime values', async () => {
-    const props = getJiraApprovalDeploymentModeProps()
+    const props = getJiraCreateDeploymentModeProps()
     const { container } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraApproval}
-        template={{ spec: { approvalCriteria: getDefaultCriterias(), rejectionCriteria: getDefaultCriterias() } }}
+        type={StepType.JiraCreate}
+        template={{ spec: {} }}
         stepViewType={StepViewType.InputSet}
         inputSetData={props.inputSetData}
       />
     )
-    expect(container).toMatchSnapshot('jira-approval-inputset-noruntime')
+    expect(container).toMatchSnapshot('jira-create-inputset-noruntime')
   })
 
   test('Basic snapshot - input variable view', () => {
-    const props = getJiraApprovalInputVariableModeProps()
+    const props = getJiraCreateInputVariableModeProps()
     const { container } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraApproval}
-        template={{ spec: { approvalCriteria: getDefaultCriterias(), rejectionCriteria: getDefaultCriterias() } }}
+        type={StepType.JiraCreate}
+        template={{ spec: {} }}
         stepViewType={StepViewType.InputVariable}
         customStepProps={props.customStepProps}
       />
     )
 
-    expect(container).toMatchSnapshot('jira-approval-input variable view')
+    expect(container).toMatchSnapshot('jira-create-input variable view')
   })
 
   test('Basic functions - edit stage view validations', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const props = getJiraApprovalEditModeProps()
+    const props = getJiraCreateEditModeProps()
     const { container, queryByText, getByText } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraApproval}
+        type={StepType.JiraCreate}
         stepViewType={StepViewType.Edit}
         ref={ref}
       />
@@ -109,7 +107,7 @@ describe('Jira Approval tests', () => {
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira approval step' } })
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira create step' } })
 
     act(() => {
       fireEvent.click(getByText('Timeout'))
@@ -124,39 +122,88 @@ describe('Jira Approval tests', () => {
 
     expect(queryByText('Project is required.')).toBeTruthy()
     expect(queryByText('Issue Type is required.')).toBeTruthy()
-    expect(queryByText('Key Issue/ID is required.')).toBeTruthy()
 
-    fireEvent.click(getByText('Approval Criteria'))
-    expect(queryByText('Expression value is required.')).toBeTruthy()
-    fireEvent.click(getByText('Conditions'))
-    await waitFor(() => getByText('Atleast one condition is required.'))
+    fireEvent.click(getByText('JIRA Fields'))
+    expect(queryByText('Summary is required.')).toBeTruthy()
   })
 
-  test('Open a saved jira approval step - edit stage view', async () => {
+  test('Open a saved step - edit stage view', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const props = getJiraApprovalEditModePropsWithValues()
-    const { container, getByText, queryByDisplayValue } = render(
+    const onUpdate = jest.fn()
+    const props = { ...getJiraCreateEditModePropsWithValues(), onUpdate }
+    onUpdate.mockReset()
+    const {
+      container,
+      getByText,
+      queryByPlaceholderText,
+      getByPlaceholderText,
+      queryByDisplayValue,
+      queryByText
+    } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraApproval}
+        type={StepType.JiraCreate}
         stepViewType={StepViewType.Edit}
         ref={ref}
       />
     )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira approval step' } })
-    expect(queryByDisplayValue('5s')).toBeTruthy()
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira createe step' } })
+    expect(queryByDisplayValue('1d')).toBeTruthy()
 
     fireEvent.click(getByText('Connect to JIRA'))
     expect(queryByDisplayValue('pid1')).toBeTruthy()
-    expect(queryByDisplayValue('tdc-2345')).toBeTruthy()
     expect(queryByDisplayValue('itd1')).toBeTruthy()
 
-    fireEvent.click(getByText('Approval Criteria'))
-    expect(queryByDisplayValue('somevalue for f1')).toBeTruthy()
+    fireEvent.click(getByText('JIRA Fields'))
+    fireEvent.change(getByPlaceholderText('Enter a Title or Summary'), { target: { value: 'summary' } })
+    expect(queryByDisplayValue('value1')).toBeTruthy()
+    expect(queryByDisplayValue('2233')).toBeTruthy()
+    expect(queryByDisplayValue('23-march')).toBeTruthy()
 
-    fireEvent.click(getByText('Rejection Criteria'))
-    expect(queryByDisplayValue("<+status> == 'Blocked'")).toBeTruthy()
+    act(() => {
+      fireEvent.click(getByText('+ Fields'))
+    })
+
+    await waitFor(() =>
+      expect(queryByText('Select your project and issue type to list available fields to choose from.')).toBeTruthy()
+    )
+    const dialogContainer = document.body.querySelector('.bp3-portal')
+    const icon = dialogContainer?.querySelectorAll('[icon="caret-down"]')
+
+    // Project dropdown
+    fireEvent.click(icon![0])
+    fireEvent.click(getByText('p1'))
+
+    fireEvent.click(icon![1])
+    fireEvent.click(getByText('it1'))
+
+    fireEvent.click(getByText('f1'))
+
+    const button = dialogContainer?.querySelector('.bp3-button-text')
+    fireEvent.click(button!)
+
+    // The selected field is now added to the main form
+    expect(queryByPlaceholderText('f1')).toBeTruthy()
+
+    act(() => {
+      fireEvent.click(getByText('+ Fields'))
+    })
+    const provideFieldListElement = getByText('Provide Field List')
+    fireEvent.click(provideFieldListElement)
+
+    const dialogContainerPostUpdate = document.body.querySelector('.bp3-portal')
+    act(() => {
+      fireEvent.click(getByText('Field'))
+    })
+    fireEvent.change(getByPlaceholderText('Issue Key'), { target: { value: 'issueKey1' } })
+    fireEvent.change(getByPlaceholderText('Value'), { target: { value: 'issueKey1Value' } })
+    const addButton = dialogContainerPostUpdate?.querySelector('.bp3-button-text')
+    fireEvent.click(addButton!)
+
+    expect(queryByDisplayValue('issueKey1')).toBeTruthy()
+    expect(queryByDisplayValue('issueKey1Value')).toBeTruthy()
+    await act(() => ref.current?.submitForm())
   })
 })

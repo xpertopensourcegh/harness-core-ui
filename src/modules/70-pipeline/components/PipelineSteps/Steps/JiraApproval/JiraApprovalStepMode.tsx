@@ -140,12 +140,12 @@ const FormContent = ({
       <Accordion activeId="step-1" className={stepCss.accordion}>
         <Accordion.Panel
           id="step-1"
-          summary={getString('jiraApprovalStep.connectToJira')}
+          summary={getString('pipeline.jiraApprovalStep.connectToJira')}
           details={
             <div>
               <FormMultiTypeConnectorField
                 name="spec.connectorRef"
-                label={getString('jiraApprovalStep.connectorRef')}
+                label={getString('pipeline.jiraApprovalStep.connectorRef')}
                 className={css.connector}
                 placeholder={getString('select')}
                 accountIdentifier={accountId}
@@ -162,7 +162,7 @@ const FormContent = ({
               />
               <FormInput.MultiTypeInput
                 selectItems={fetchingProjects ? [{ label: 'Fetching Projects...', value: '' }] : projectOptions}
-                label={getString('jiraApprovalStep.project')}
+                label={getString('pipeline.jiraApprovalStep.project')}
                 name="spec.projectKey"
                 placeholder={fetchingProjects ? 'Fetching Projects...' : 'Projects'}
                 className={css.md}
@@ -180,7 +180,7 @@ const FormContent = ({
                     ? [{ label: 'Fetching Issue Types...', value: '' }]
                     : setIssueTypeOptions(projectMetadata?.issuetypes)
                 }
-                label={getString('jiraApprovalStep.issueType')}
+                label={getString('pipeline.jiraApprovalStep.issueType')}
                 name="spec.issueType"
                 placeholder={fetchingProjectMetadata ? 'Fetching Issue Types...' : 'Issue Type'}
                 className={css.md}
@@ -193,7 +193,7 @@ const FormContent = ({
                 }}
               />
               <FormInput.MultiTextInput
-                label={getString('jiraApprovalStep.issueKey')}
+                label={getString('pipeline.jiraApprovalStep.issueKey')}
                 name="spec.issueKey"
                 placeholder="Enter Issue Key/ID"
                 className={css.md}
@@ -203,7 +203,7 @@ const FormContent = ({
         />
         <Accordion.Panel
           id="step-2"
-          summary={getString('jiraApprovalStep.approvalCriteria')}
+          summary={getString('pipeline.jiraApprovalStep.approvalCriteria')}
           details={
             <ApprovalRejectionCriteria
               statusList={statusList}
@@ -219,7 +219,7 @@ const FormContent = ({
 
         <Accordion.Panel
           id="step-3"
-          summary={getString('jiraApprovalStep.rejectionCriteria')}
+          summary={getString('pipeline.jiraApprovalStep.rejectionCriteria')}
           details={
             <ApprovalRejectionCriteria
               statusList={statusList}
@@ -291,18 +291,20 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
-          connectorRef: Yup.string().required(getString('jiraApprovalStep.validations.connectorRef')),
-          projectKey: Yup.string().required(getString('jiraApprovalStep.validations.project')),
-          issueType: Yup.string().required(getString('jiraApprovalStep.validations.issueType')),
-          issueKey: Yup.string().required(getString('jiraApprovalStep.validations.issueKey')),
+          connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
+          projectKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.project')),
+          issueType: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueType')),
+          issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
           approvalCriteria: Yup.object().shape({
             spec: Yup.object().when('type', {
               is: ApprovalRejectionCriteriaType.KeyValues,
               then: Yup.object().shape({
-                conditions: Yup.array().required(getString('jiraApprovalStep.validations.approvalCriteriaCondition'))
+                conditions: Yup.array().required(
+                  getString('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')
+                )
               }),
               otherwise: Yup.object().shape({
-                expression: Yup.string().required(getString('jiraApprovalStep.validations.expression'))
+                expression: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.expression'))
               })
             })
           })

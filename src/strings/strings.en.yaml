@@ -867,51 +867,7 @@ instanceFieldOptions:
   instanceText: 'Instance Count'
   percentagePlaceHolder: 'Percentage'
   instanceHolder: 'Count'
-approvalStep:
-  message: 'Approval Message'
-  approvers: 'Approvers'
-  approverInputs: 'Inputs to be provided by approver'
-  includePipelineExecutionHistory: 'Include pipeline execution history in approval details'
-  addUserGroups: Add User Groups
-  fetchingUserGroups: Fetching user groups
-  fetchUserGroupsFailed: Failed to fetch user groups
-  minimumCount: 'Number of approvers that are required at this step'
-  disallowPipelineExecutor: 'Disallow the executor from approving the pipeline'
-  validation:
-    approvalMessage: Approval message is required.
-    userGroups: 'Please provide user groups.'
-    minimumCountOne: 'Minimum count cannot be less than one.'
-    minimumCountRequired: 'Minimum count is required.'
-  status:
-    APPROVE: Approved
-    REJECT: Rejected
 connected: Connected
-jiraApprovalStep:
-  connectToJira: Connect to JIRA
-  connectorRef: JIRA Connector
-  project: JIRA Project
-  issueType: Issue Type
-  issueKey: Key/Issue ID
-  approvalCriteria: Approval Criteria
-  rejectionCriteria: Rejection Criteria
-  jexlExpressionLabelApproval: If the JEXL Expression evaluates to true, approve this step
-  jexlExpressionLabelRejection: If the JEXL Expression evaluates to true, reject this step
-  jexlExpressionPlaceholder: |
-    Example: <+issue.Status> == "Done"
-  fetchingFields: Fetching fields...
-  match: Match
-  allConditions: All conditions
-  anyCondition: Any condition
-  jiraField: JIRA Field
-  jexlExpressionApprovalCriteria: JEXL Expression for approval criteria
-  jexlExpressionRejectionCriteria: JEXL Expression for rejection criteria
-  validations:
-    connectorRef: JIRA Connector is required.
-    project: Project is required.
-    issueKey: Key Issue/ID is required.
-    issueType: Issue Type is required.
-    approvalCriteriaCondition: Atleast one condition is required.
-    expression: Expression value is required.
 delegate:
   numberOfDelegates: 'Number of delegates'
   delegateSizeUndefined: 'Delegate Size is undefined'

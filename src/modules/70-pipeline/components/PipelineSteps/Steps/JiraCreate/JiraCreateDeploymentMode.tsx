@@ -8,15 +8,12 @@ import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDurat
 import { JiraProjectBasicNG, JiraProjectNG, useGetJiraIssueCreateMetadata, useGetJiraProjects } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { getGenuineValue, setIssueTypeOptions } from './helper'
-import type {
-  JiraApprovalDeploymentModeProps,
-  JiraDeploymentModeFormContentInterface,
-  JiraProjectSelectOption
-} from './types'
-import css from './JiraApproval.module.scss'
+import { getGenuineValue, setIssueTypeOptions } from '../JiraApproval/helper'
+import type { JiraProjectSelectOption } from '../JiraApproval/types'
+import type { JiraCreateDeploymentModeProps, JiraCreateDeploymentModeFormContentInterface } from './types'
+import css from './JiraCreate.module.scss'
 
-const FormContent = (formContentProps: JiraDeploymentModeFormContentInterface) => {
+const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterface) => {
   const {
     inputSetData,
     onUpdate,
@@ -167,46 +164,11 @@ const FormContent = (formContentProps: JiraDeploymentModeFormContentInterface) =
           }}
         />
       ) : null}
-
-      {getMultiTypeFromValue(template?.spec.issueKey) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text
-          label={getString('pipeline.jiraApprovalStep.issueKey')}
-          className={css.deploymentViewMedium}
-          name={`${prefix}spec.issueKey`}
-          disabled={readonly}
-          placeholder={getString('pipeline.jiraApprovalStep.issueKey')}
-        />
-      ) : null}
-
-      {getMultiTypeFromValue(template?.spec.approvalCriteria.spec.expression) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.TextArea
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')}
-          className={css.deploymentViewMedium}
-          name={`${prefix}spec.approvalCriteria.spec.expression`}
-          disabled={readonly}
-          placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
-        />
-      ) : null}
-
-      {getMultiTypeFromValue(template?.spec.rejectionCriteria.spec.expression) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.TextArea
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')}
-          className={css.deploymentViewMedium}
-          name={`${prefix}spec.rejectionCriteria.spec.expression`}
-          disabled={readonly}
-          placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
-        />
-      ) : null}
     </React.Fragment>
   )
 }
 
-/*
-Used for iput sets and deployment form
-Provide values for all runtime fields in approval step
-Open the same form in readonly view while viewing already run executions
-*/
-export default function JiraApprovalDeploymentMode(props: JiraApprovalDeploymentModeProps): JSX.Element {
+export default function JiraCreateDeploymentMode(props: JiraCreateDeploymentModeProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()

@@ -10,41 +10,41 @@ import { getDurationValidationSchema } from '@common/components/MultiTypeDuratio
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
 import { flatObject } from '../ApprovalCommons'
-import type { JiraApprovalData, JiraApprovalVariableListModeProps } from './types'
-import { getDefaultCriterias, processFormData, processInitialValues } from './helper'
-import JiraApprovalDeploymentMode from './JiraApprovalDeploymentMode'
-import JiraApprovalStepModeWithRef from './JiraApprovalStepMode'
+import type { JiraCreateVariableListModeProps, JiraCreateData } from './types'
+import { processFormData, processInitialValues } from './helper'
+import JiraCreateStepModeWithRef from './JiraCreateStepMode'
+import JiraCreateDeploymentMode from './JiraCreateDeploymentMode'
 
-export class JiraApproval extends PipelineStep<JiraApprovalData> {
+export class JiraCreate extends PipelineStep<JiraCreateData> {
   constructor() {
     super()
     this._hasStepVariables = true
   }
 
   protected isHarnessSpecific = true
-  protected type = StepType.JiraApproval
-  protected stepName = 'Jira Approval'
+  protected type = StepType.JiraCreate
+  protected stepName = 'Jira Create'
   protected stepIcon: IconName = 'service-jira'
   // initialValues on mount
-  protected defaultValues: JiraApprovalData = {
+  protected defaultValues: JiraCreateData = {
     identifier: '',
     timeout: '1d',
     spec: {
       connectorRef: '',
       projectKey: '',
       issueType: '',
-      issueKey: '',
-      approvalCriteria: getDefaultCriterias(),
-      rejectionCriteria: getDefaultCriterias()
+      summary: '',
+      description: '',
+      fields: []
     }
   }
 
   validateInputSet(
-    data: JiraApprovalData,
-    template: JiraApprovalData,
+    data: JiraCreateData,
+    template: JiraCreateData,
     getString?: UseStringsReturn['getString']
-  ): FormikErrors<JiraApprovalData> {
-    const errors: FormikErrors<JiraApprovalData> = {}
+  ): FormikErrors<JiraCreateData> {
+    const errors: FormikErrors<JiraCreateData> = {}
 
     if (
       typeof template?.spec?.connectorRef === 'string' &&
@@ -78,28 +78,6 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
       }
     }
 
-    if (
-      typeof template?.spec?.issueKey === 'string' &&
-      getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.issueKey)
-    ) {
-      errors.spec = {
-        ...errors.spec,
-        issueKey: getString?.('pipeline.jiraApprovalStep.validations.issueKey')
-      }
-    }
-
-    if (
-      typeof template?.spec?.approvalCriteria.spec.expression === 'string' &&
-      getMultiTypeFromValue(template?.spec?.approvalCriteria.spec.expression) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.approvalCriteria.spec.expression)
-    ) {
-      errors.spec = {
-        ...errors.spec,
-        approvalCriteria: { spec: { expression: getString?.('pipeline.jiraApprovalStep.validations.expression') } }
-      }
-    }
-
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
@@ -119,20 +97,20 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     return errors
   }
 
-  renderStep(this: JiraApproval, props: StepProps<JiraApprovalData>): JSX.Element {
+  renderStep(this: JiraCreate, props: StepProps<JiraCreateData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <JiraApprovalDeploymentMode
+        <JiraCreateDeploymentMode
           stepViewType={stepViewType}
           initialValues={initialValues}
-          onUpdate={(values: JiraApprovalData) => onUpdate?.(values)}
+          onUpdate={(values: JiraCreateData) => onUpdate?.(values)}
           inputSetData={inputSetData}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
-      const customStepPropsTyped = customStepProps as JiraApprovalVariableListModeProps
+      const customStepPropsTyped = customStepProps as JiraCreateVariableListModeProps
       return (
         <VariablesListTable
           data={flatObject(customStepPropsTyped.variablesData)}
@@ -142,11 +120,14 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
       )
     }
     return (
-      <JiraApprovalStepModeWithRef
+      <JiraCreateStepModeWithRef
         ref={formikRef}
         stepViewType={stepViewType}
         initialValues={processInitialValues(initialValues)}
-        onUpdate={(values: JiraApprovalData) => onUpdate?.(processFormData(values))}
+        onUpdate={(values: JiraCreateData) => {
+          const forUpdate = processFormData(values)
+          onUpdate?.(forUpdate)
+        }}
         isNewStep={isNewStep}
       />
     )

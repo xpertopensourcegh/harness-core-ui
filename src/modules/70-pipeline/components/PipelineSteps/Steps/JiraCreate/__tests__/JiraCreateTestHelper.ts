@@ -9,71 +9,45 @@ import type {
   ResponseListJiraProjectBasicNG,
   ResponsePageConnectorResponse
 } from 'services/cd-ng'
-import { ApprovalRejectionCriteriaType, JiraApprovalDeploymentModeProps, JiraApprovalStepModeProps } from '../types'
-import { getDefaultCriterias } from '../helper'
+import type { JiraCreateDeploymentModeProps, JiraCreateStepModeProps } from '../types'
 
-export const getJiraApprovalEditModeProps = (): JiraApprovalStepModeProps => ({
+export const getJiraCreateEditModeProps = (): JiraCreateStepModeProps => ({
   initialValues: {
     timeout: '5s',
     spec: {
       connectorRef: '',
       projectKey: '',
-      issueKey: '',
       issueType: '',
-      approvalCriteria: getDefaultCriterias(),
-      rejectionCriteria: getDefaultCriterias()
+      fields: []
     }
   },
   onUpdate: jest.fn()
 })
 
-export const getJiraApprovalEditModePropsWithValues = (): JiraApprovalStepModeProps => ({
+export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps => ({
   initialValues: {
-    timeout: '5s',
+    timeout: '1d',
     spec: {
       connectorRef: 'c1d1',
       projectKey: 'pid1',
-      issueKey: 'tdc-2345',
       issueType: 'itd1',
-      approvalCriteria: {
-        type: ApprovalRejectionCriteriaType.KeyValues,
-        spec: {
-          matchAnyCondition: true,
-          conditions: [
-            {
-              key: 'Status',
-              operator: 'in',
-              value: 'Done,todo'
-            },
-            {
-              key: 'f1',
-              operator: 'equals',
-              value: 'somevalue for f1'
-            }
-          ]
-        }
-      },
-      rejectionCriteria: {
-        type: ApprovalRejectionCriteriaType.Jexl,
-        spec: {
-          expression: "<+status> == 'Blocked'"
-        }
-      }
+      fields: [
+        { name: 'f1', value: 'value1' },
+        { name: 'f2', value: 2233 },
+        { name: 'date', value: '23-march' }
+      ]
     }
-  },
-  onUpdate: jest.fn()
+  }
 })
 
-export const getJiraApprovalDeploymentModeProps = (): JiraApprovalDeploymentModeProps => ({
+export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProps => ({
   stepViewType: StepViewType.InputSet,
   initialValues: {
     spec: {
       connectorRef: '',
       projectKey: '',
-      issueKey: '',
       issueType: '',
-      approvalCriteria: getDefaultCriterias(),
-      rejectionCriteria: getDefaultCriterias()
+      fields: []
     }
   },
   inputSetData: {
@@ -82,17 +56,15 @@ export const getJiraApprovalDeploymentModeProps = (): JiraApprovalDeploymentMode
       spec: {
         connectorRef: RUNTIME_INPUT_VALUE,
         projectKey: RUNTIME_INPUT_VALUE,
-        issueKey: RUNTIME_INPUT_VALUE,
         issueType: RUNTIME_INPUT_VALUE,
-        approvalCriteria: getDefaultCriterias(),
-        rejectionCriteria: getDefaultCriterias()
+        fields: []
       }
     }
   },
   onUpdate: jest.fn()
 })
 
-export const getJiraApprovalInputVariableModeProps = () => ({
+export const getJiraCreateInputVariableModeProps = () => ({
   initialValues: {
     spec: {}
   },
@@ -123,12 +95,6 @@ export const getJiraApprovalInputVariableModeProps = () => ({
           localName: 'step.approval.spec.projectKey'
         }
       },
-      'step-issueKey': {
-        yamlProperties: {
-          fqn: 'pipeline.stages.qaStage.execution.steps.approval.spec.issueKey',
-          localName: 'step.approval.spec.issueKey'
-        }
-      },
       'step-issueType': {
         yamlProperties: {
           fqn: 'pipeline.stages.qaStage.execution.steps.approval.spec.issueType',
@@ -137,15 +103,14 @@ export const getJiraApprovalInputVariableModeProps = () => ({
       }
     },
     variablesData: {
-      type: StepType.JiraApproval,
-      identifier: 'jira_approval',
+      type: StepType.JiraCreate,
+      identifier: 'jira_create',
       name: 'step-name',
       description: 'Description',
       timeout: 'step-timeout',
       spec: {
         connectorRef: 'step-connectorRef',
         projectKey: 'step-projectKey',
-        issueKey: 'step-issueKey',
         issueType: 'step-issueType'
       }
     }
