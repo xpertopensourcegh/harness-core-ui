@@ -3,15 +3,16 @@ import { Button } from '@wings-software/uicore'
 import { Collapse } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import type { KeyValueCriteriaSpec, JexlCriteriaSpec, ConditionDTO } from 'services/pipeline-ng'
+import type {
+  KeyValueCriteriaSpec,
+  JexlCriteriaSpec,
+  ConditionDTO,
+  CriteriaSpecWrapperDTO,
+  CriteriaSpecDTO
+} from 'services/pipeline-ng'
 import { String, StringKeys } from 'framework/exports'
 
 import css from '../ApprovalStepDetails.module.scss'
-
-export interface JiraCriteriaProps {
-  type: 'approval' | 'rejection'
-  criteria: KeyValueCriteriaSpec | JexlCriteriaSpec
-}
 
 const titles: Record<JiraCriteriaProps['type'], StringKeys> = {
   approval: 'pipeline.jiraApprovalStep.approvalCriteria',
@@ -23,6 +24,22 @@ const conditionStr: Record<ConditionDTO['operator'], StringKeys> = {
   'not equals': 'execution.approvals.conditions.not_equals',
   in: 'execution.approvals.conditions.in',
   'not in': 'execution.approvals.conditions.not_in'
+}
+
+function isJexlCriteria(type: CriteriaSpecWrapperDTO['type'], criteria: CriteriaSpecDTO): criteria is JexlCriteriaSpec {
+  return criteria && type === 'Jexl'
+}
+
+function isKeyValuesCriteria(
+  type: CriteriaSpecWrapperDTO['type'],
+  criteria: CriteriaSpecDTO
+): criteria is KeyValueCriteriaSpec {
+  return criteria && type === 'KeyValues'
+}
+
+export interface JiraCriteriaProps {
+  type: 'approval' | 'rejection'
+  criteria: CriteriaSpecWrapperDTO
 }
 
 export function JiraCriteria(props: JiraCriteriaProps): React.ReactElement {
@@ -46,18 +63,18 @@ export function JiraCriteria(props: JiraCriteriaProps): React.ReactElement {
         />
       </div>
       <Collapse isOpen={expanded}>
-        {criteria.type === 'KeyValues' ? (
+        {isKeyValuesCriteria(criteria.type, criteria.spec) ? (
           <div className={css.collapseContainer}>
             <String
               tagName="div"
               stringID={
-                criteria.matchAnyCondition
+                criteria.spec.matchAnyCondition
                   ? 'execution.approvals.anyConditionsMsg'
                   : 'execution.approvals.allConditionsMsg'
               }
             />
             <ul className={css.conditions}>
-              {(criteria.conditions || []).map((condition: ConditionDTO, i: number) => (
+              {(criteria.spec.conditions || []).map((condition: ConditionDTO, i: number) => (
                 <li key={i}>
                   <String stringID={conditionStr[condition.operator]} vars={condition} />
                   {condition.value.split(',').map((key, j) => (
@@ -70,10 +87,10 @@ export function JiraCriteria(props: JiraCriteriaProps): React.ReactElement {
             </ul>
           </div>
         ) : null}
-        {criteria.type === 'Jexl' ? (
+        {isJexlCriteria(criteria.type, criteria.spec) ? (
           <div className={css.collapseContainer}>
             <String stringID="common.jexlExpression" />
-            <div className={css.jexl}>{criteria.expression}</div>
+            <div className={css.jexl}>{criteria.spec.expression}</div>
           </div>
         ) : null}
       </Collapse>
