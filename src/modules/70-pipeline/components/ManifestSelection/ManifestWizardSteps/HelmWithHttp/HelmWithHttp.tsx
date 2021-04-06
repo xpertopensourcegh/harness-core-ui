@@ -117,13 +117,13 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       <Formik
         initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
-          chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
+          helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
                 is: val => val?.length,
-                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+                then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
           )
@@ -149,8 +149,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                 <div className={helmcss.halfWidth}>
                   <FormInput.Text
                     name="identifier"
-                    label={getString('manifestType.manifestIdentifier')}
-                    placeholder={getString('manifestType.helmManifestPlaceholder')}
+                    label={getString('pipeline.manifestType.manifestIdentifier')}
+                    placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                   />
                 </div>
                 <div
@@ -162,8 +162,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   <FormInput.MultiTextInput
                     name="chartName"
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.http.chartName')}
-                    placeholder={getString('manifestType.http.chartNamePlaceHolder')}
+                    label={getString('pipeline.manifestType.http.chartName')}
+                    placeholder={getString('pipeline.manifestType.http.chartNamePlaceHolder')}
                   />
                   {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -190,8 +190,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   <FormInput.MultiTextInput
                     name="chartVersion"
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.http.chartVersion')}
-                    placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
+                    label={getString('pipeline.manifestType.http.chartVersion')}
+                    placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

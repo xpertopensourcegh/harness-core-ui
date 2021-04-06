@@ -104,7 +104,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipelineSteps.deploy.inputSet.branch')}
-            placeholder={getString('manifestType.branchPlaceholder')}
+            placeholder={getString('pipeline.manifestType.branchPlaceholder')}
             name="spec.configuration.spec.configFiles.store.spec.branch"
             multiTextInputProps={{ expressions }}
           />
@@ -126,8 +126,8 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
       {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType === gitFetchTypes[1].value && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            label={getString('manifestType.commitId')}
-            placeholder={getString('manifestType.commitPlaceholder')}
+            label={getString('pipeline.manifestType.commitId')}
+            placeholder={getString('pipeline.manifestType.commitPlaceholder')}
             name="spec.configuration.spec.configFiles.store.spec.commitId"
             multiTextInputProps={{ expressions }}
           />
@@ -151,7 +151,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
       <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.MultiTextInput
           label={getString('chartPath')}
-          placeholder={getString('manifestType.pathPlaceholder')}
+          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
           name="spec.configuration.spec.configFiles.store.spec.folderPath"
           multiTextInputProps={{ expressions }}
         />

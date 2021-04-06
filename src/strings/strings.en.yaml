@@ -255,7 +255,7 @@ manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
 chartPath: Chart Path
-pluginPath: Path to Kustomize plugin
+pluginPath: Kustomize plugin path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
@@ -1616,48 +1616,6 @@ activityHistory:
   createdSuccessfully: Created Successfully
   updatedSuccessfully: Updated Successfully
   noData: No Activity Found
-manifestType:
-  gitConnectorLabel: 'Git'
-  bitBucketLabel: 'Bitbucket'
-  httpHelmRepoConnectorLabel: 'HttpHelmRepo'
-  manifestIdentifier: Manifest Identifier
-  manifestPlaceholder: Add Manifest Identifier
-  helmManifestPlaceholder: Enter Manifest Identifier
-  manifestSource: Manifest Source
-  manifestDetails: Manifest Details
-  manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
-  specifyManifestRepoType: 'Specify {{ $.manifestsText }} {{ $.typeLabel }}'
-  specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'
-  selectManifestStore: '{{$.select}} {{ $.manifestsText }} {{$.store}}'
-  helmSkipResourceVersion: By selecting this option, Harness will no longer version ConfigMaps and Secrets for this Service.
-  pluginPathHelperText: Enter the path to the dedicated directory for the plugin on the Delegate host(s). For example, '$HOME/plugin'. The default directory is named $XDG_CONFIG_HOME/kustomize/plugin and its value is $HOME/.config
-  kustomizePathHelperText: Enter the path from the root of the Source Provider repo to the folder containing kustomization.yaml
-  helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
-  helmCommandFlagLabel: Helm Command Flags (optional)
-  helmCommandType: Command Type
-  helmVersionRequired: 'Helm Version is required'
-  commandFlagRequired: 'Command Flag is required'
-  folderPathRequired: Folder Path is required
-  pathRequired: Path is required
-  path: 'Path'
-  osTemplatePath: 'Template File Path'
-  osTemplatePathPlaceHolder: 'Enter Template File Path'
-  osTemplatePathRequired: Template File Path is required
-  pathPlaceholder: Enter file path
-  bucketName: Bucket Name
-  gitFetchTypeLabel: Branch/Commit ID
-  commitId: Commit ID
-  branchPlaceholder: Enter branch name here
-  commitPlaceholder: Enter Commit ID here
-  filePathPlaceholder: Enter overrides file path
-  kustomizeFolderPath: Kustomize Folder Path
-  http:
-    chartName: 'Helm Chart Name'
-    chartVersion: 'Helm Chart Version'
-    chartNameRequired: 'Chart Name is required'
-    chartNamePlaceHolder: 'Enter Chart Name'
-    chartVersionPlaceHolder: 'Enter Chart Version'
-    chartVersionRequired: 'Chart Version is required'
 none: 'None'
 configureOptions:
   configureOptions: 'configure options'

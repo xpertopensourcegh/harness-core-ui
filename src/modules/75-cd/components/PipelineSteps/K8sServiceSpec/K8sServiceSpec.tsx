@@ -121,6 +121,18 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
     <div className={css.serviceDefinition}>
       <Accordion
         className={css.cardSection}
+        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+      >
+        <Accordion.Panel
+          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          addDomId={true}
+          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          details={<ManifestSelection isPropagating={isPropagating} />}
+        />
+      </Accordion>
+
+      <Accordion
+        className={css.cardSection}
         activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
       >
         <Accordion.Panel
@@ -131,17 +143,6 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         />
       </Accordion>
 
-      <Accordion
-        className={css.cardSection}
-        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-      >
-        <Accordion.Panel
-          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          addDomId={true}
-          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          details={<ManifestSelection isPropagating={isPropagating} />}
-        />
-      </Accordion>
       <Accordion className={css.cardSection} activeId={getString('variablesText')}>
         <Accordion.Panel
           id={getString('variablesText')}
@@ -788,7 +789,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <Layout.Vertical key={identifier}>
                       <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
                       {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                        <FormGroup labelFor={'connectorRef'} label={getString('manifestType.selectManifestStore')}>
+                        <FormGroup
+                          labelFor={'connectorRef'}
+                          label={getString('pipeline.manifestType.selectManifestStore')}
+                        >
                           <ConnectorReferenceField
                             disabled={readonly}
                             name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}

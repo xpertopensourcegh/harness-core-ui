@@ -104,7 +104,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
         MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           name="spec.configuration.spec.configFiles.store.spec.branch"
-          placeholder={getString('manifestType.branchPlaceholder')}
+          placeholder={getString('pipeline.manifestType.branchPlaceholder')}
           disabled={readonly}
         />
       )}
@@ -113,7 +113,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
         MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           name="spec.configuration.spec.configFiles.store.spec.commitId"
-          placeholder={getString('manifestType.commitPlaceholder')}
+          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
         />
       )}
@@ -122,7 +122,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
         MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           name="spec.configuration.spec.configFiles.store.spec.commitId"
-          placeholder={getString('manifestType.commitPlaceholder')}
+          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
         />
       )}
@@ -132,7 +132,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       ) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           name="spec.configuration.spec.configFiles.store.spec.folderPath"
-          placeholder={getString('manifestType.pathPlaceholder')}
+          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
           disabled={readonly}
         />
       )}

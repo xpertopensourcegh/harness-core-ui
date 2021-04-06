@@ -143,7 +143,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          path: Yup.string().trim().required(getString('manifestType.osTemplatePathRequired')),
+          path: Yup.string().trim().required(getString('pipeline.manifestType.osTemplatePathRequired')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
             then: Yup.string().trim().required(getString('validation.branchName'))
@@ -172,8 +172,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
             <div className={templateCss.templateForm}>
               <FormInput.Text
                 name="identifier"
-                label={getString('manifestType.manifestIdentifier')}
-                placeholder={getString('manifestType.manifestPlaceholder')}
+                label={getString('pipeline.manifestType.manifestIdentifier')}
+                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={templateCss.halfWidth}
               />
               {connectionType === GitRepoName.Repo && (
@@ -205,7 +205,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                 <div className={templateCss.halfWidth}>
                   <FormInput.Select
                     name="gitFetchType"
-                    label={getString('manifestType.gitFetchTypeLabel')}
+                    label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                     items={gitFetchTypes}
                   />
                 </div>
@@ -219,7 +219,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   >
                     <FormInput.MultiTextInput
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      placeholder={getString('manifestType.branchPlaceholder')}
+                      placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="branch"
                     />
@@ -246,8 +246,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={getString('manifestType.commitId')}
-                      placeholder={getString('manifestType.commitPlaceholder')}
+                      label={getString('pipeline.manifestType.commitId')}
+                      placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="commitId"
                     />
@@ -275,8 +275,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   })}
                 >
                   <FormInput.MultiTextInput
-                    label={getString('manifestType.osTemplatePath')}
-                    placeholder={getString('manifestType.osTemplatePathPlaceHolder')}
+                    label={getString('pipeline.manifestType.osTemplatePath')}
+                    placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
                     name="path"
                     multiTextInputProps={{ expressions }}
                   />
@@ -313,7 +313,9 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                       <Tooltip
                         position="top"
                         content={
-                          <div className={css.tooltipContent}>{getString('manifestType.helmSkipResourceVersion')} </div>
+                          <div className={css.tooltipContent}>
+                            {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
+                          </div>
                         }
                         className={css.tooltip}
                       >

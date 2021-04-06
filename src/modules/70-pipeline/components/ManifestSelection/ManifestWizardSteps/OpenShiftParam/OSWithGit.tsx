@@ -189,8 +189,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
             <div className={templateCss.templateForm}>
               <FormInput.Text
                 name="identifier"
-                label={getString('manifestType.manifestIdentifier')}
-                placeholder={getString('manifestType.manifestPlaceholder')}
+                label={getString('pipeline.manifestType.manifestIdentifier')}
+                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={templateCss.halfWidth}
               />
               {connectionType === GitRepoName.Repo && (
@@ -223,7 +223,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                   <div className={templateCss.halfWidth}>
                     <FormInput.Select
                       name="gitFetchType"
-                      label={getString('manifestType.gitFetchTypeLabel')}
+                      label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                       items={gitFetchTypes}
                     />
                   </div>
@@ -237,7 +237,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     >
                       <FormInput.MultiTextInput
                         label={getString('pipelineSteps.deploy.inputSet.branch')}
-                        placeholder={getString('manifestType.branchPlaceholder')}
+                        placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                         multiTextInputProps={{ expressions }}
                         name="branch"
                       />
@@ -264,8 +264,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                       })}
                     >
                       <FormInput.MultiTextInput
-                        label={getString('manifestType.commitId')}
-                        placeholder={getString('manifestType.commitPlaceholder')}
+                        label={getString('pipeline.manifestType.commitId')}
+                        placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                         multiTextInputProps={{ expressions }}
                         name="commitId"
                       />

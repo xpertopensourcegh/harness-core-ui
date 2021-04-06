@@ -25,6 +25,7 @@ export interface StringsMap {
   'common.reject': string
   'common.removeThisVariable': string
   'common.secrets': string
+  'common.specify': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
   'notifications.name': string
@@ -294,6 +295,45 @@ export interface StringsMap {
   'pipeline.jiraCreateStep.selectFromFieldList': string
   'pipeline.jiraCreateStep.summaryPlaceholder': string
   'pipeline.jiraCreateStep.validations.summary': string
+  'pipeline.manifestType.bitBucketLabel': string
+  'pipeline.manifestType.branchPlaceholder': string
+  'pipeline.manifestType.bucketName': string
+  'pipeline.manifestType.commandFlagRequired': string
+  'pipeline.manifestType.commitId': string
+  'pipeline.manifestType.commitPlaceholder': string
+  'pipeline.manifestType.filePathPlaceholder': string
+  'pipeline.manifestType.folderPathRequired': string
+  'pipeline.manifestType.gitConnectorLabel': string
+  'pipeline.manifestType.gitFetchTypeLabel': string
+  'pipeline.manifestType.helmCommandFlagLabel': string
+  'pipeline.manifestType.helmCommandFlags': string
+  'pipeline.manifestType.helmCommandType': string
+  'pipeline.manifestType.helmSkipResourceVersion': string
+  'pipeline.manifestType.helmVersionRequired': string
+  'pipeline.manifestType.http.chartName': string
+  'pipeline.manifestType.http.chartNamePlaceHolder': string
+  'pipeline.manifestType.http.chartNameRequired': string
+  'pipeline.manifestType.http.chartVersion': string
+  'pipeline.manifestType.http.chartVersionPlaceHolder': string
+  'pipeline.manifestType.http.chartVersionRequired': string
+  'pipeline.manifestType.httpHelmRepoConnectorLabel': string
+  'pipeline.manifestType.kustomizeFolderPath': string
+  'pipeline.manifestType.kustomizePathHelperText': string
+  'pipeline.manifestType.manifestDetails': string
+  'pipeline.manifestType.manifestIdentifier': string
+  'pipeline.manifestType.manifestPlaceholder': string
+  'pipeline.manifestType.manifestRepoType': string
+  'pipeline.manifestType.manifestSource': string
+  'pipeline.manifestType.osTemplatePath': string
+  'pipeline.manifestType.osTemplatePathPlaceHolder': string
+  'pipeline.manifestType.osTemplatePathRequired': string
+  'pipeline.manifestType.path': string
+  'pipeline.manifestType.pathPlaceholder': string
+  'pipeline.manifestType.pathRequired': string
+  'pipeline.manifestType.pluginPathHelperText': string
+  'pipeline.manifestType.selectManifestStore': string
+  'pipeline.manifestType.specifyManifestRepoType': string
+  'pipeline.manifestType.specifyManifestStore': string
   'cd.CDTrialModal.description': string
   'cd.CDTrialModal.learnMore': string
   'cd.CDTrialModal.setupHeader': string
@@ -3597,166 +3637,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   manifestSelectionInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.bitBucketLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.branchPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.bucketName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.commandFlagRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.commitId': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.commitPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.filePathPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.folderPathRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.gitConnectorLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.gitFetchTypeLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.helmCommandFlagLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.helmCommandFlags': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.helmCommandType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.helmManifestPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.helmSkipResourceVersion': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.helmVersionRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.http.chartName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.http.chartNamePlaceHolder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.http.chartNameRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.http.chartVersion': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.http.chartVersionPlaceHolder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.http.chartVersionRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.httpHelmRepoConnectorLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.kustomizeFolderPath': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.kustomizePathHelperText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.manifestDetails': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.manifestIdentifier': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.manifestPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.manifestRepoType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.manifestSource': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.osTemplatePath': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.osTemplatePathPlaceHolder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.osTemplatePathRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.path': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.pathPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.pathRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.pluginPathHelperText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.selectManifestStore': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.specifyManifestRepoType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'manifestType.specifyManifestStore': string
   /**
    * @deprecated migrate this string to module level file
    */

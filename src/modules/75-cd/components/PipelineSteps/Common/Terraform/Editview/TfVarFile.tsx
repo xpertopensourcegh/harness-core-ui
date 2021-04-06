@@ -144,7 +144,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                       <div className={cx(stepCss.formGroup, stepCss.md)}>
                         <FormInput.MultiTextInput
                           label={getString('pipelineSteps.deploy.inputSet.branch')}
-                          placeholder={getString('manifestType.branchPlaceholder')}
+                          placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                           name="store.spec.branch"
                           multiTextInputProps={{ expressions }}
                         />
@@ -166,8 +166,8 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     {formik.values?.store?.spec?.gitFetchType === gitFetchTypes[1].value && (
                       <div className={cx(stepCss.formGroup, stepCss.md)}>
                         <FormInput.MultiTextInput
-                          label={getString('manifestType.commitId')}
-                          placeholder={getString('manifestType.commitPlaceholder')}
+                          label={getString('pipeline.manifestType.commitId')}
+                          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                           name="store.spec.commitId"
                           multiTextInputProps={{ expressions }}
                         />
