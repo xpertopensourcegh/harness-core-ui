@@ -16,54 +16,64 @@ async function makeLangLoaderFile(modules, extensionEntries) {
  * This file is auto-generated. Please do not modify this file manually.
  * Use the command \`yarn strings\` to regenerate this file.
  */
-export type HarnessModules = '${modules.map(({ moduleRef }) => moduleRef).join("' | '")}'
-export type LangMapPromise = Promise<Record<string, any>>\n`
-
-  content = extensionEntries.reduce((str, [ext, langs]) => {
-    str += `
-function get_${ext}_chunk_by_module(chunk: HarnessModules): LangMapPromise {
-  switch (chunk) {`
-    modules.forEach(({ moduleRef, moduleName }) => {
-      str += `
-    case '${moduleRef}':
-      return import(
-        /* webpackChunkName: "${moduleRef}.${ext}" */
-        /* webpackMode: "lazy" */
-        '@${moduleName}/strings/strings.${ext}.yaml'
-      )`
-    })
-
-    str += `
-    default:
-      return Promise.resolve({})
-  }
-}
 `
 
-    return str
-  }, content)
+  modules.forEach(({ moduleName, moduleRef }) => {
+    content += `import ${moduleRef} from '@${moduleName}/strings/strings.en.yaml'\n`
+  })
+
+  // `export type HarnessModules = '${modules.map(({ moduleRef }) => moduleRef).join("' | '")}'
+  // export type LangMapPromise = Promise<Record<string, any>>\n`
+
+  //   content = extensionEntries.reduce((str, [ext, langs]) => {
+  //     str += `
+  // function get_${ext}_chunk_by_module(chunk: HarnessModules): LangMapPromise {
+  //   switch (chunk) {`
+  //     modules.forEach(({ moduleRef, moduleName }) => {
+  //       str += `
+  //     case '${moduleRef}':
+  //       return import(
+  //         /* webpackChunkName: "${moduleRef}.${ext}" */
+  //         /* webpackMode: "lazy" */
+  //         '@${moduleName}/strings/strings.${ext}.yaml'
+  //       )`
+  //     })
+
+  //     str += `
+  //     default:
+  //       return Promise.resolve({})
+  //   }
+  // }
+  // `
+
+  //     return str
+  //   }, content)
 
   content += `
-export default function languageLoader(langId: string, chunk: HarnessModules): LangMapPromise {
-  switch (langId) {`
-
-  content = extensionEntries.reduce((str, [ext, langs]) => {
-    langs.forEach(lang => {
-      str += `
-    case '${lang}':`
-    })
-
-    str += `
-      return get_${ext}_chunk_by_module(chunk)`
-
-    return str
-  }, content)
-
-  content += `
-    default:
-      return get_en_chunk_by_module(chunk)
-  }
+export default function languageLoader() {
+  return { ${modules.map(({ moduleRef }) => moduleRef).join(', ')} }
 }`
+  // `
+  // export default function languageLoader(langId: string, chunk: HarnessModules): LangMapPromise {
+  //   switch (langId) {`
+
+  //   content = extensionEntries.reduce((str, [ext, langs]) => {
+  //     langs.forEach(lang => {
+  //       str += `
+  //     case '${lang}':`
+  //     })
+
+  //     str += `
+  //       return get_${ext}_chunk_by_module(chunk)`
+
+  //     return str
+  //   }, content)
+
+  //   content += `
+  //     default:
+  //       return get_en_chunk_by_module(chunk)
+  //   }
+  // }`
 
   content = await runPrettier(content, 'typescript')
 

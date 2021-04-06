@@ -17,26 +17,10 @@ import CERoutes from '@ce/RouteDestinations'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
-import type { HarnessModules } from 'framework/strings/StringsContext'
 
 export default function RouteDestinations(): React.ReactElement {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_USERPROFILE } = useFeatureFlags()
 
-  React.useEffect(() => {
-    const data: HarnessModules[] = []
-
-    if (CDNG_ENABLED) data.push('cd')
-    if (CVNG_ENABLED) data.push('cv')
-    if (CING_ENABLED) data.push('ci')
-    if (CENG_ENABLED) data.push('ce')
-    if (CFNG_ENABLED) data.push('cf')
-
-    window.dispatchEvent(
-      new CustomEvent<HarnessModules[]>('LOAD_STRINGS_CHUNK', {
-        detail: data
-      })
-    )
-  }, [CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED])
   return (
     <Switch>
       {...commonRoutes.props.children}

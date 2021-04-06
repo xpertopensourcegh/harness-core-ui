@@ -13,7 +13,6 @@ import RouteDestinations from 'modules/RouteDestinations'
 // eslint-disable-next-line aliased-module-imports
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
-import type { HarnessModules } from 'framework/strings/StringsContext'
 import { StringsContextProvider } from 'framework/strings/StringsContextProvider'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 
@@ -55,27 +54,6 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
       window.location.href = getLoginPageURL()
     }
   }, [token])
-
-  useEffect(() => {
-    // load strings for all the common modules
-    window.dispatchEvent(
-      new CustomEvent<HarnessModules[]>('LOAD_STRINGS_CHUNK', {
-        detail: [
-          'common',
-          'notifications',
-          'rbac',
-          'secrets',
-          'connectors',
-          'userProfile',
-          'delegates',
-          'projectsOrgs',
-          'dashboards',
-          'gitsync',
-          'pipeline'
-        ]
-      })
-    )
-  }, [])
 
   return (
     <RestfulProvider
