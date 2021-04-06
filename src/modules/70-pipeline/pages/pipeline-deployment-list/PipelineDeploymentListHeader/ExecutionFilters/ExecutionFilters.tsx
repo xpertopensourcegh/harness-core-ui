@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import type { SelectOption } from '@wings-software/uicore'
@@ -73,7 +74,12 @@ export function ExecutionFilters(): React.ReactElement {
   })
 
   const { mutate: deleteFilter } = useDeleteFilter({
-    queryParams: { accountIdentifier: accountId, type: 'PipelineExecution' }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      type: 'PipelineExecution'
+    }
   })
 
   const isFetchingMetaData = isFetchingEnvironments || isFetchingServices
