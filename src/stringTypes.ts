@@ -3,6 +3,7 @@
  * Use the command `yarn strings` to regenerate this file.
  */
 export interface StringsMap {
+  'common.ID': string
   'common.My': string
   'common.addVariable': string
   'common.approve': string

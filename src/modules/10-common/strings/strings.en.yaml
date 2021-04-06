@@ -11,6 +11,7 @@ comments: Comments
 approve: Approve
 reject: Reject
 My: My
+ID: ID
 jexlExpression: JEXL Expression
 datePickerShortcuts:
   Today: Today

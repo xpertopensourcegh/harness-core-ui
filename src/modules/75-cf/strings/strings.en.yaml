@@ -182,7 +182,7 @@ featureFlags:
     evaluationStatistics: Evaluation Statistic
 targets:
   title: Targets
-  ID: ID
+  ID: '{{ $.common.ID }}'
   name: name
   targetSegment: Target Segment
   lastActivity: '{{ $.lastActivity }}'
