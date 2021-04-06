@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Button, Layout, Text, Container, Icon } from '@wings-software/uicore'
+import { Button, Layout, Text, Container, Icon, Color } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from '@common/components/Table/Table'
 
@@ -23,22 +23,39 @@ const GitSyncRepoTab: React.FC = () => {
     }
   })
 
+  const RenderColumnReponame: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
+    const data = row.original
+
+    return (
+      <Layout.Horizontal spacing="small">
+        <Icon name={getGitConnectorIcon(data.gitConnectorType)} size={30}></Icon>
+        <div className={css.wrapper}>
+          <Text className={css.name} color={Color.BLACK} title={data.name}>
+            {data.name}
+          </Text>
+          <Text className={css.name} color={Color.GREY_400} title={data.identifier}>
+            {data.identifier}
+          </Text>
+        </div>
+      </Layout.Horizontal>
+    )
+  }
+
   const RenderColumnRepo: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
     const data = row.original
     return (
-      <Layout.Horizontal spacing="small">
-        <Icon name={getGitConnectorIcon(data.gitConnectorType)} />
-        <Text>{data.repo}</Text>
-      </Layout.Horizontal>
+      <div className={css.wrapper}>
+        <Text className={css.name}>{data.repo}</Text>
+      </div>
     )
   }
 
   const RenderColumnBranch: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
     const data = row.original
     return (
-      <Layout.Horizontal spacing="small">
-        <Text>{data.branch}</Text>
-      </Layout.Horizontal>
+      <div className={css.wrapper}>
+        <Text className={css.name}>{data.branch}</Text>
+      </div>
     )
   }
 
@@ -61,7 +78,14 @@ const GitSyncRepoTab: React.FC = () => {
   const columns: Column<GitSyncConfig>[] = useMemo(
     () => [
       {
-        Header: getString('repositories').toUpperCase(),
+        Header: getString('name').toUpperCase(),
+        accessor: 'repo',
+        id: 'reponame',
+        width: '20%',
+        Cell: RenderColumnReponame
+      },
+      {
+        Header: getString('gitsync.repositoryPath').toUpperCase(),
         accessor: 'repo',
         id: 'repo',
         width: '50%',
@@ -71,7 +95,7 @@ const GitSyncRepoTab: React.FC = () => {
         Header: getString('primaryBranch').toUpperCase(),
         accessor: 'branch',
         id: 'branch',
-        width: '45%',
+        width: '25%',
         Cell: RenderColumnBranch
       },
       {

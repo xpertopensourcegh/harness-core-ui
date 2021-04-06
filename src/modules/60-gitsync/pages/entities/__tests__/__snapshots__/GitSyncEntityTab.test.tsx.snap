@@ -43,7 +43,7 @@ exports[`Git Sync - entity tab rendering landing view 1`] = `
               <span
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-left-small StyledProps--color StyledProps--color-blue600 StyledProps--inline"
               >
-                https://github.com/wings-software/triggerNgDemo
+                gitSyncRepoTest
               </span>
               <div
                 class="OverlaySpinner--overlaySpinner"
@@ -183,7 +183,7 @@ exports[`Git Sync - entity tab rendering landing view 1`] = `
               <span
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-left-small StyledProps--color StyledProps--color-blue600 StyledProps--inline"
               >
-                https://www.github.com/testRepo.git
+                gitSyncRepo
               </span>
               <div
                 class="OverlaySpinner--overlaySpinner"
@@ -337,7 +337,7 @@ exports[`Git Sync - entity tab rendering landing view 2`] = `
               <span
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-left-small StyledProps--color StyledProps--color-blue600 StyledProps--inline"
               >
-                https://github.com/wings-software/triggerNgDemo
+                gitSyncRepoTest
               </span>
               <div
                 class="OverlaySpinner--overlaySpinner"
@@ -477,7 +477,7 @@ exports[`Git Sync - entity tab rendering landing view 2`] = `
               <span
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-left-small StyledProps--color StyledProps--color-blue600 StyledProps--inline"
               >
-                https://www.github.com/testRepo.git
+                gitSyncRepo
               </span>
               <div
                 class="OverlaySpinner--overlaySpinner"

@@ -241,6 +241,7 @@ export interface StringsMap {
   'dashboards.sideNav.noDashboard': string
   'gitsync.entitiesByRepositories': string
   'gitsync.label': string
+  'gitsync.repositoryPath': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
   'gitsync.successfullCreate': string

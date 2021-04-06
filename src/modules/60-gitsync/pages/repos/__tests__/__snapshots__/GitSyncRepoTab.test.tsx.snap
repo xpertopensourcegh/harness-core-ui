@@ -46,10 +46,10 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 50%;"
+          style="width: 20%;"
           title="Toggle SortBy"
         >
-          REPOSITORIES
+          NAME
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -74,7 +74,35 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 45%;"
+          style="width: 50%;"
+          title="Toggle SortBy"
+        >
+          REPOSITORY PATH
+          <span
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+            icon="double-caret-vertical"
+          >
+            <svg
+              data-icon="double-caret-vertical"
+              height="15"
+              viewBox="0 0 16 16"
+              width="15"
+            >
+              <desc>
+                double-caret-vertical
+              </desc>
+              <path
+                d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 25%;"
           title="Toggle SortBy"
         >
           PRIMARY BRANCH
@@ -114,7 +142,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 50%;"
+          style="width: 20%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -124,17 +152,43 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
               data-icon="github"
             >
               <svg
-                height="16"
+                height="30"
                 viewBox="0 0 24 24"
-                width="16"
+                width="30"
               >
                 <path
                   d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
                 />
               </svg>
             </span>
+            <div
+              class="wrapper"
+            >
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
+                title="gitSyncRepoTest"
+              >
+                gitSyncRepoTest
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
+                title="606312ffef03c30721080b85"
+              >
+                606312ffef03c30721080b85
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 50%;"
+        >
+          <div
+            class="wrapper"
+          >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               https://github.com/wings-software/triggerNgDemo
             </p>
@@ -143,13 +197,13 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 45%;"
+          style="width: 25%;"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               master
             </p>
@@ -196,7 +250,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 50%;"
+          style="width: 20%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -206,17 +260,43 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
               data-icon="github"
             >
               <svg
-                height="16"
+                height="30"
                 viewBox="0 0 24 24"
-                width="16"
+                width="30"
               >
                 <path
                   d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
                 />
               </svg>
             </span>
+            <div
+              class="wrapper"
+            >
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
+                title="gitSyncRepo"
+              >
+                gitSyncRepo
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
+                title="6062f6e4ef03c30721080b81"
+              >
+                6062f6e4ef03c30721080b81
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 50%;"
+        >
+          <div
+            class="wrapper"
+          >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               https://www.github.com/testRepo.git
             </p>
@@ -225,13 +305,13 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 45%;"
+          style="width: 25%;"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               feature
             </p>
@@ -322,10 +402,10 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 50%;"
+          style="width: 20%;"
           title="Toggle SortBy"
         >
-          REPOSITORIES
+          NAME
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -350,7 +430,35 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 45%;"
+          style="width: 50%;"
+          title="Toggle SortBy"
+        >
+          REPOSITORY PATH
+          <span
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+            icon="double-caret-vertical"
+          >
+            <svg
+              data-icon="double-caret-vertical"
+              height="15"
+              viewBox="0 0 16 16"
+              width="15"
+            >
+              <desc>
+                double-caret-vertical
+              </desc>
+              <path
+                d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 25%;"
           title="Toggle SortBy"
         >
           PRIMARY BRANCH
@@ -390,7 +498,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
         <div
           class="cell"
           role="cell"
-          style="width: 50%;"
+          style="width: 20%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -400,17 +508,43 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
               data-icon="github"
             >
               <svg
-                height="16"
+                height="30"
                 viewBox="0 0 24 24"
-                width="16"
+                width="30"
               >
                 <path
                   d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
                 />
               </svg>
             </span>
+            <div
+              class="wrapper"
+            >
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
+                title="gitSyncRepoTest"
+              >
+                gitSyncRepoTest
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
+                title="606312ffef03c30721080b85"
+              >
+                606312ffef03c30721080b85
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 50%;"
+        >
+          <div
+            class="wrapper"
+          >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               https://github.com/wings-software/triggerNgDemo
             </p>
@@ -419,13 +553,13 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
         <div
           class="cell"
           role="cell"
-          style="width: 45%;"
+          style="width: 25%;"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               master
             </p>
@@ -472,7 +606,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
         <div
           class="cell"
           role="cell"
-          style="width: 50%;"
+          style="width: 20%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -482,17 +616,43 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
               data-icon="github"
             >
               <svg
-                height="16"
+                height="30"
                 viewBox="0 0 24 24"
-                width="16"
+                width="30"
               >
                 <path
                   d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
                 />
               </svg>
             </span>
+            <div
+              class="wrapper"
+            >
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
+                title="gitSyncRepo"
+              >
+                gitSyncRepo
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
+                title="6062f6e4ef03c30721080b81"
+              >
+                6062f6e4ef03c30721080b81
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 50%;"
+        >
+          <div
+            class="wrapper"
+          >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               https://www.github.com/testRepo.git
             </p>
@@ -501,13 +661,13 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
         <div
           class="cell"
           role="cell"
-          style="width: 45%;"
+          style="width: 25%;"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main name"
             >
               feature
             </p>

@@ -10,7 +10,7 @@ jest.mock('services/cd-ng', () => ({
   useListGitSyncEntitiesSummaryForRepoAndTypes: jest.fn().mockImplementation(() => ({ mutate: fetchEntities }))
 }))
 
-const mockRepoName = 'https://www.github.com/testRepo.git'
+const mockRepoName = 'gitSyncRepo'
 
 describe('Git Sync - entity tab', () => {
   test('rendering landing view', async () => {

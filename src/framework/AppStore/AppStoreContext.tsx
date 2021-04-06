@@ -46,7 +46,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     queryParams: ({ routingId: accountId } as unknown) as void // BE accepts this queryParam, but not declared in swagger
   })
 
-  const { data: isGitSyncEnabled, refetch: refetchIsGitSyncEnabled } = useIsGitSyncEnabled({
+  const { data: isGitSyncEnabled, loading: loadingGitSync, refetch: refetchIsGitSyncEnabled } = useIsGitSyncEnabled({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
@@ -91,13 +91,13 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   }, [featureFlags])
 
   React.useEffect(() => {
-    if (isGitSyncEnabled) {
+    if (!loadingGitSync) {
       setState(prevState => ({
         ...prevState,
-        isGitSyncEnabled
+        isGitSyncEnabled: !!isGitSyncEnabled
       }))
     }
-  }, [isGitSyncEnabled])
+  }, [isGitSyncEnabled, loadingGitSync])
 
   React.useEffect(() => {
     if (projectIdentifier && orgIdentifier) {

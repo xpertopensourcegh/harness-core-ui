@@ -48,7 +48,7 @@ const GitSyncEntityTab: React.FC = () => {
     return (
       <Layout.Horizontal flex className={css.header}>
         <Text font={{ size: 'medium', weight: 'semi-bold' }} margin={{ left: 'small' }} color={Color.BLUE_600} inline>
-          {gitRepo.repo}
+          {gitRepo.name}
         </Text>
 
         <Formik
@@ -80,9 +80,10 @@ const GitSyncEntityTab: React.FC = () => {
         {getString('gitsync.entitiesByRepositories')}
       </Text>
 
-      {gitSyncRepos?.map((gitRepo: GitSyncConfig) => {
+      {gitSyncRepos?.map((gitRepo: GitSyncConfig, index: number) => {
+        // Todo: once BE maintains unique identifier, it can be used as key
         return (
-          <Container className={css.collapseFeatures} key={gitRepo.identifier || ''}>
+          <Container className={css.collapseFeatures} key={(gitRepo?.identifier || '') + index}>
             <Collapse {...collapseProps} heading={getCollapseHeading(gitRepo)}>
               <EntitiesPreview selectedProduct={Products.CI} repo={gitRepo} />
             </Collapse>
