@@ -477,6 +477,17 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       />
                     </FormGroup>
                   )}
+
+                  {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
+                    MultiTypeInputType.RUNTIME && (
+                    <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
+                      <FormInput.Text
+                        disabled={readonly}
+                        style={{ width: 400 }}
+                        name={`${path}.artifacts.primary.spec.registryHostname`}
+                      />
+                    </FormGroup>
+                  )}
                   {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME && (
                     <FormInput.Select
                       selectProps={{
@@ -565,7 +576,12 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               )}
               {template?.artifacts?.sidecars?.map(
                 (
-                  { sidecar: { identifier = '', spec: { connectorRef = '', imagePath = '' } = {} } = {} }: any,
+                  {
+                    sidecar: {
+                      identifier = '',
+                      spec: { connectorRef = '', imagePath = '', registryHostname = '' } = {}
+                    } = {}
+                  }: any,
                   index: number
                 ) => {
                   const currentSidecarSpec = initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec
@@ -633,6 +649,15 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           <FormInput.Text
                             disabled={readonly}
                             name={`${path}.artifacts.sidecars[${index}].sidecar.spec.imagePath`}
+                          />
+                        </FormGroup>
+                      )}
+                      {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (
+                        <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
+                          <FormInput.Text
+                            disabled={readonly}
+                            style={{ width: 400 }}
+                            name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
                           />
                         </FormGroup>
                       )}
