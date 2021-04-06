@@ -1020,6 +1020,20 @@ export interface StringsMap {
   'ce.co.accessPoint.validation.subnets': string
   'ce.co.accessPoint.validation.vpc': string
   'ce.co.autoStopping': string
+  'ce.co.autoStoppingRule.configuration.asgSelectionInfoText': string
+  'ce.co.autoStoppingRule.configuration.step1.subTitle': string
+  'ce.co.autoStoppingRule.configuration.step1.title': string
+  'ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg': string
+  'ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance': string
+  'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg': string
+  'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance': string
+  'ce.co.autoStoppingRule.configuration.step2.subTitle': string
+  'ce.co.autoStoppingRule.configuration.step2.title': string
+  'ce.co.autoStoppingRule.configuration.step3.policyNotEnabled': string
+  'ce.co.autoStoppingRule.configuration.step3.subTitle': string
+  'ce.co.autoStoppingRule.configuration.step3.title': string
+  'ce.co.autoStoppingRule.configuration.step4.subTitle': string
+  'ce.co.autoStoppingRule.configuration.step4.title': string
   'ce.co.autoStoppingRule.confirm.deleteDialogText': string
   'ce.co.autoStoppingRule.confirm.deleteServiceTitle': string
   'ce.co.autoStoppingRule.confirm.disable': string
@@ -1027,11 +1041,18 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.confirm.disableTitle': string
   'ce.co.autoStoppingRule.confirm.enableDialogText': string
   'ce.co.autoStoppingRule.confirm.enableTitle': string
-  'ce.co.autoStoppingRule.helpText.idleTime.description': string
-  'ce.co.autoStoppingRule.helpText.idleTime.title': string
   'ce.co.autoStoppingRule.helpText.readMore': string
-  'ce.co.autoStoppingRule.helpText.spotVsOD.description': string
-  'ce.co.autoStoppingRule.helpText.spotVsOD.title': string
+  'ce.co.autoStoppingRule.helpText.step1.description': string
+  'ce.co.autoStoppingRule.helpText.step1.title': string
+  'ce.co.autoStoppingRule.helpText.step2.description.additionalInfo': string
+  'ce.co.autoStoppingRule.helpText.step2.description.heading': string
+  'ce.co.autoStoppingRule.helpText.step2.description.info': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg': string
+  'ce.co.autoStoppingRule.helpText.step2.title': string
+  'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string
+  'ce.co.autoStoppingRule.helpText.step3.description.heading': string
+  'ce.co.autoStoppingRule.helpText.step3.description.info': string
+  'ce.co.autoStoppingRule.helpText.step3.title': string
   'ce.co.autoStoppingRule.providerSelector.description': string
   'ce.co.autoStoppingRule.providerSelector.helpText.selectProvider': string
   'ce.co.autoStoppingRule.providerSelector.title': string

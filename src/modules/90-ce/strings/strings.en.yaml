@@ -14,23 +14,53 @@ co:
   noData: 'No data available. Please check after sometime'
   autoStoppingRule:
     helpText:
-      idleTime:
+      step1:
         title: 'Idle Time'
         description:
           'Set the number of minutes you want AutoStopping to wait before optimizing idle instances. AutoStopping
           will shut down (for on-demand) or snapshot and terminate (for spot) the instances after the idle time
           period has elapsed.'
-      spotVsOD:
-        title: 'Spot vs On-Demand instances'
+      step2:
+        title: 'Resources managed the the AutoStopping Rule'
         description:
-          'Your Linux on t3.2xlarge instance in US East (N. Virginia) region costs $240 on-demand and $72 on spot.
-          That’s 70% savings!'
+          heading: 'You can add resources in the form of'
+          resourceList:
+            asg: 'Auto scaling groups'
+          info: 'You can search for instances that you have in your AWS account. These instances will be motnitored by the rule to see if they are idle.'
+          additionalInfo: 'You can also add Auto Scaling groups which have target groups in them. But you can add only one ASG to a rule.'
+      step3:
+        title: 'Choose instance fulfilment'
+        description:
+          heading: 'Your Linux on t3.2xlarge instance in US East (N. Virginia) region costs $240 on-demand and $72 on spot. That’s 70% savings!'
+          info: 'With On-Demand Instances, you pay for compute capacity by the second with no long-term commitments. You have full control over its lifecycle—you decide when to launch, stop, hibernate, start, reboot, or terminate it.'
+          additionalInfo: 'A Spot Instance is an unused EC2 instance that is available for less than the On-Demand price. Because Spot Instances enable you to request unused EC2 instances at steep discounts, you can lower your Amazon EC2 costs significantly.'
       readMore: 'Read More...'
     providerSelector:
       title: 'Let’s get you started'
       description: 'Select the cloud account type'
       helpText:
         selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'
+    configuration:
+      asgSelectionInfoText: 'Only ASGs with non-empty target groups will be shown here'
+      step1:
+        title: 'Define your AutoStopping rule'
+        subTitle: 'Provide a friendly name to identify the rule and determine the idle time.'
+      step2:
+        title: 'Resources to be managed by the AutoStopping rules'
+        subTitle: 'You can manage multiple instances or a Auto Scaling group using AutoStopping rule.'
+        additionalResourceInfo:
+          instance: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule.'
+          asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
+        addResourceCta:
+          instance: 'Add an instance'
+          asg: 'Add a auto-scaling group'
+      step3:
+        title: 'Choose the instance fulfilment type you would like for the instances chosen'
+        subTitle: 'The selected Auto Scaling group has been created using mixed instances as shown below. You can choose to go with the same or convert all of them to spot or on demand.'
+        policyNotEnabled: 'Mixed instance policy is not enabled'
+      step4:
+        title: 'Set up Routing, Health check and Advanced Configuration'
+        subTitle: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule'
     review:
       configDetails: 'Configuration Details'
     setupAccess:
