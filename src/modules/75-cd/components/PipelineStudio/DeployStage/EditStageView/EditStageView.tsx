@@ -12,8 +12,7 @@ import {
   Label,
   Layout,
   ExpressionInput,
-  Accordion,
-  Color
+  Accordion
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -133,11 +132,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                 {getString('stageOverview')}
               </div>
             ) : (
-              <Text
-                icon="cd-main"
-                iconProps={{ size: 16, color: Color.GREEN_500 }}
-                style={{ paddingBottom: 'var(--spacing-medium)' }}
-              >
+              <Text icon="cd-main" iconProps={{ size: 16 }} style={{ paddingBottom: 'var(--spacing-medium)' }}>
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
             )}
