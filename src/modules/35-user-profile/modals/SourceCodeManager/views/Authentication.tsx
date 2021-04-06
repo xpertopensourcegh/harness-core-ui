@@ -4,17 +4,13 @@ import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType } from '@secrets/components/TextReference/TextReference'
+import { AuthTypes } from '@user-profile/utils/utils'
 import type { SCMData } from './SourceCodeManagerForm'
 import css from './Authentication.module.scss'
 
 interface AuthenticationData {
   formikProps: FormikProps<SCMData>
   authOptions: SelectOption[]
-}
-export enum AuthTypes {
-  USERNAME_PASSWORD = 'UsernamePassword',
-  PAT = 'PAT',
-  SSH_KEY = 'SSH_KEY'
 }
 
 const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions }) => {
@@ -35,8 +31,17 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
             <SecretInput name="password" label={getString('password')} />
           </>
         ) : null}
+        {formikProps.values.authType === AuthTypes.USERNAME_TOKEN ? (
+          <>
+            <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
+            <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
+          </>
+        ) : null}
         {formikProps.values.authType === AuthTypes.SSH_KEY ? (
           <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+        ) : null}
+        {formikProps.values.authType === AuthTypes.KERBEROS ? (
+          <SecretInput name="kerberosKey" type="SSHKey" label={getString('kerberos')} />
         ) : null}
       </Container>
     </>
