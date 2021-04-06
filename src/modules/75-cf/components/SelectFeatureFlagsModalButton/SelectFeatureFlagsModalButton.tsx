@@ -14,13 +14,13 @@ import {
 } from '@wings-software/uicore'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
-import { Segment, useGetTargetAvailableSegments } from 'services/cf'
+import { Feature, useGetAllFeatures } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'
-import { SegmentRow } from './SegmentRow'
+import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 
-export interface SelectSegmentsModalButtonProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
+export interface SelectFeatureFlagsModalButtonProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
@@ -31,10 +31,10 @@ export interface SelectSegmentsModalButtonProps extends Omit<ButtonProps, 'onCli
   submitButtonTitle?: string
   cancelButtonTitle?: string
 
-  onSubmit: (selectedSegments: Segment[]) => Promise<{ error: any } | any>
+  onSubmit: (selectedFeatureFlags: Feature[]) => Promise<{ error: any } | any>
 }
 
-export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps> = ({
+export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButtonProps> = ({
   accountId,
   orgIdentifier,
   projectIdentifier,
@@ -67,14 +67,13 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
       }),
       [queryString, sortOrder, sortByField, pageNumber]
     )
-    const { data, loading: loadingSegments, error, refetch } = useGetTargetAvailableSegments({
-      identifier: targetIdentifier as string,
+    const { data, loading: loadingSegments, error, refetch } = useGetAllFeatures({
       queryParams,
       lazy: true
     })
-    const [checkedSegments, setCheckedSegments] = useState<Record<string, Segment>>({})
+    const [checkedSegments, setCheckedSegments] = useState<Record<string, Feature>>({})
     const checkOrUncheckSegment = useCallback(
-      (checked: boolean, segment: Segment) => {
+      (checked: boolean, segment: Feature) => {
         if (checked) {
           checkedSegments[segment.identifier] = segment
         } else {
@@ -137,7 +136,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
             <TextInput
               leftIcon="search"
               width="100%"
-              placeholder={getString('cf.selectSegmentModal.searchSegmentPlaceholder')}
+              placeholder={getString('cf.selectFlagsModal.searchPlaceholder')}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)}
               autoFocus
             />
@@ -178,13 +177,12 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
                       )
                     }}
                   >
-                    {getString('cf.shared.segment').toUpperCase()}
+                    {getString('flag').toUpperCase()}
                   </Text>
                   <FlexExpander />
-                  {/* Disable since backend does not support this info yet
                   <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}>
-                    {getString('cf.segments.usingSegment').toLocaleUpperCase()}
-                  </Text> */}
+                    {getString('cf.shared.variation').toLocaleUpperCase()}
+                  </Text>
                 </Layout.Horizontal>
 
                 <Layout.Vertical
@@ -192,18 +190,16 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
                   padding={{ top: 'xsmall', right: 'xsmall', bottom: 'large' }}
                   style={{ paddingLeft: '1px' }}
                 >
-                  {!!data?.segments?.length &&
-                    data?.segments?.map(segment => (
-                      <SegmentRow
-                        key={segment.identifier}
-                        segment={segment}
+                  {!!data?.features?.length &&
+                    data?.features?.map(feature => (
+                      <FeatureFlagRow
+                        key={feature.identifier}
+                        feature={feature}
                         checked={false}
                         onChecked={checkOrUncheckSegment}
                       />
                     ))}
-                  {data?.segments?.length === 0 && (
-                    <NoDataFoundRow message={getString('cf.selectSegmentModal.empty')} />
-                  )}
+                  {data?.features?.length === 0 && <NoDataFoundRow message={getString('cf.selectFlagsModal.empty')} />}
                 </Layout.Vertical>
               </>
             )}

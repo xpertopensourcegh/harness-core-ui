@@ -1,13 +1,14 @@
 import React from 'react'
 import { useParams } from 'react-router'
-import { Button, Container, FlexExpander, Heading, Layout, Text } from '@wings-software/uicore'
+import { Container, FlexExpander, Heading, Layout, Text } from '@wings-software/uicore'
 import type { HeadingProps } from '@wings-software/uicore/dist/components/Heading/Heading'
 import { useStrings } from 'framework/exports'
-import { Segment, SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags } from 'services/cf'
+import { Feature, Segment, SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags } from 'services/cf'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { getErrorMessage, SegmentFlagType } from '@cf/utils/CFUtils'
 import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton } from '@common/components'
+import { SelectFeatureFlagsModalButton } from '@cf/components/SelectFeatureFlagsModalButton/SelectFeatureFlagsModalButton'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { DetailHeading } from '../DetailHeading'
@@ -26,6 +27,16 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
       environment: environmentIdentifier
     }
   })
+  const addSegmentToFlags = async (_featureFlags: Feature[]): Promise<void> => {
+    // Note: Due to https://harness.atlassian.net/browse/FFM-603 not done, we make
+    // multiple patch APIs instead of one
+    return await Promise.all(
+      // segments.map(segment => _useAddTargetsToExcludeList(segment.identifier, [targetIdentifier]))
+      []
+    ).then(() => {
+      refetchFlags()
+    })
+  }
 
   return (
     <Container width={480} height="100%" style={{ background: '#F8FAFB', overflow: 'auto', minWidth: '480px' }}>
@@ -36,7 +47,18 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
           })}
         </DetailHeading>
         <FlexExpander />
-        <Button minimal intent="primary" text={getString('cf.segmentDetail.addToFlag')} style={{ display: 'none' }} />
+        <SelectFeatureFlagsModalButton
+          text={getString('cf.segmentDetail.addToFlag')}
+          minimal
+          intent="primary"
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          environmentIdentifier={environmentIdentifier}
+          modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
+          submitButtonTitle={getString('add')}
+          onSubmit={addSegmentToFlags}
+        />
       </Layout.Horizontal>
       <Container
         width="100%"

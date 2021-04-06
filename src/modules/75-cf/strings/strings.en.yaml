@@ -13,6 +13,7 @@ shared:
   flags: Flags
   rules: Rules
   archived: archived
+  selected: '{{ counter }} selected'
 creationModal:
   jsonType: JSON
   variationSettingsHeading: Variation settings
@@ -231,11 +232,11 @@ targetDetail:
   removeFromExcludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from exclusion segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
   noFlagConfigured: No feature flags configured for this target
   searchPlaceholder: Search Feature Flags...
+  deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
 selectSegmentModal:
   searchSegmentPlaceholder: Search for Segment by Name or Description
   flagsUsingSegment: '{{ counter }} flag'
   flagsUsingThisSegment: FLAGS USING THIS SEGMENT
-  selected: '{{ counter }} selected'
   empty: No Segment found
 segments:
   create: + Segment
@@ -312,4 +313,8 @@ segmentDetail:
   autoAdded: Automatically Added Through Conditions
   removeFomFlag: Remove from Flag
   noFlagsUseThisSegment: No Flags use this segment.
-  addToFlag: + Add to Fla
+  addToFlag: + Add to Flag
+  addSegmentToFlag: Add Segment to Flag
+selectFlagsModal:
+  empty: No feature flags found.
+  searchPlaceholder: Search for Flag by name or description

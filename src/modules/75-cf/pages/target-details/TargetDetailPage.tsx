@@ -93,7 +93,7 @@ export const TargetDetailPage: React.FC = () => {
               <Text color={Color.WHITE}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: target?.name })
+                    __html: getString('cf.targetDetail.deleteTargetSuccess', { name: target?.name })
                   }}
                 />
               </Text>

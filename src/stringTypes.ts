@@ -531,6 +531,7 @@ export interface StringsMap {
   'cf.pipeline.default': string
   'cf.pipeline.stages.execution.title': string
   'cf.pipeline.stages.setup.title': string
+  'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
   'cf.segmentDetail.autoAdded': string
   'cf.segmentDetail.directlyAdded': string
@@ -549,11 +550,12 @@ export interface StringsMap {
   'cf.segments.uploadImage': string
   'cf.segments.usingSegment': string
   'cf.segments.usingSegmentWithCount': string
+  'cf.selectFlagsModal.empty': string
+  'cf.selectFlagsModal.searchPlaceholder': string
   'cf.selectSegmentModal.empty': string
   'cf.selectSegmentModal.flagsUsingSegment': string
   'cf.selectSegmentModal.flagsUsingThisSegment': string
   'cf.selectSegmentModal.searchSegmentPlaceholder': string
-  'cf.selectSegmentModal.selected': string
   'cf.shared.archived': string
   'cf.shared.environment': string
   'cf.shared.evaluations': string
@@ -565,6 +567,7 @@ export interface StringsMap {
   'cf.shared.segment': string
   'cf.shared.segments': string
   'cf.shared.selectEnvironment': string
+  'cf.shared.selected': string
   'cf.shared.target': string
   'cf.shared.variation': string
   'cf.shared.variations': string
@@ -574,6 +577,7 @@ export interface StringsMap {
   'cf.targetDetail.attributes': string
   'cf.targetDetail.autoAdded': string
   'cf.targetDetail.createdOnDate': string
+  'cf.targetDetail.deleteTargetSuccess': string
   'cf.targetDetail.environmentLine': string
   'cf.targetDetail.exclude': string
   'cf.targetDetail.excludeTargetFromSegment': string
