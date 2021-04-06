@@ -1135,12 +1135,10 @@ pipeline-triggers:
     event: 'Event'
     actions: Actions
     anyActions: Any Actions
-    viewToken: 'View Token'
-    copyToken: 'Copy Token'
     copiedToken: 'Successfully copied secure token'
     regenerateToken: 'Regenerate Token'
     regeneratedToken: 'Successfully regenerated secure token'
-    secureTokenRegenerateWarning: 'When the existing secure token is regenerated and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
+    secureTokenRegenerateWarning: 'When the existing secure token is regenerated or removed and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
     recurrenceLabel: Recurrence
     selectTimezonePlaceholder: Select timezone
   conditionsPanel:
