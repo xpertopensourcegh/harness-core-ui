@@ -16,7 +16,8 @@ import {
   getIconStyleBasedOnStatus,
   getTertiaryIconProps,
   calculateGroupHeaderDepth,
-  calculateDepth
+  calculateDepth,
+  containGroup
 } from './ExecutionStageDiagramUtils'
 import * as Diagram from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
@@ -289,8 +290,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
 
         let depthY = calculateDepth(node, groupStage, 0, SPACE_AFTER_GROUP)
         const headerDepth = calculateGroupHeaderDepth(node.group.items, GROUP_HEADER_DEPTH)
-        //NOTE: decrease depth if topDepth is not 0 (for root group)
-        if (isRootGroup && headerDepth === 0) {
+        //NOTE: decrease depth if its a  (1)root group that (3)has group (2)group is not at first level
+        if (isRootGroup && headerDepth === 0 && containGroup(node.group.items)) {
           depthY -= GROUP_HEADER_DEPTH
         }
 

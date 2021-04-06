@@ -13,6 +13,15 @@ import type { DefaultNodeModel } from '../Diagram'
 import { ExecutionPipelineNodeType } from './ExecutionPipelineModel'
 import css from './ExecutionStageDiagram.module.scss'
 
+export const containGroup = <T>(nodes: Array<ExecutionPipelineNode<T>>): boolean => {
+  let contain = false
+  nodes.forEach(node => {
+    if (node.group) contain = true
+    else if (node.parallel) contain = contain || containGroup(node.parallel)
+  })
+  return contain
+}
+
 export const calculateDepth = <T>(
   node: ExecutionPipelineNode<T>,
   groupStatesMap: Map<string, GroupState<T>>,
