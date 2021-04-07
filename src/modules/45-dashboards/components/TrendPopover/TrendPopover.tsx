@@ -18,10 +18,10 @@ enum TIME_RANGE_ENUMS {
 const useTimeRangeOptions = (): Record<TIME_RANGE_ENUMS, string> => {
   const { getString } = useStrings()
   return {
-    [TIME_RANGE_ENUMS.SIX_MONTHS]: getString('serviceDashboard.months'),
-    [TIME_RANGE_ENUMS.ONE_MONTH]: getString('serviceDashboard.month'),
-    [TIME_RANGE_ENUMS.ONE_WEEK]: getString('serviceDashboard.week'),
-    [TIME_RANGE_ENUMS.ONE_DAY]: getString('serviceDashboard.day')
+    [TIME_RANGE_ENUMS.SIX_MONTHS]: getString('dashboards.serviceDashboard.months'),
+    [TIME_RANGE_ENUMS.ONE_MONTH]: getString('dashboards.serviceDashboard.month'),
+    [TIME_RANGE_ENUMS.ONE_WEEK]: getString('dashboards.serviceDashboard.week'),
+    [TIME_RANGE_ENUMS.ONE_DAY]: getString('dashboards.serviceDashboard.day')
   }
 }
 
@@ -70,9 +70,10 @@ const Trend: React.FC<TrendPopoverProps> = props => {
   const { getString } = useStrings()
   const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useMemo(useTimeRangeOptions, [])
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const title = useMemo(() => getString('serviceDashboard.servicesInLast', { period: TIME_RANGE_OPTIONS[mode] }), [
-    mode
-  ])
+  const title = useMemo(
+    () => getString('dashboards.serviceDashboard.servicesInLast', { period: TIME_RANGE_OPTIONS[mode] }),
+    [mode]
+  )
   const data = useMemo(() => getData(propData, mode), [propData, mode])
   return (
     <Layout.Vertical padding="medium" className={css.trend}>
@@ -96,7 +97,7 @@ const Trend: React.FC<TrendPopoverProps> = props => {
 export const TrendPopover: React.FC<TrendPopoverProps> = props => {
   const { data, children } = props
   return (
-    <Popover interactionKind={PopoverInteractionKind.CLICK} position={Position.RIGHT} isOpen>
+    <Popover interactionKind={PopoverInteractionKind.CLICK} position={Position.RIGHT}>
       {children}
       <Trend data={data} />
     </Popover>

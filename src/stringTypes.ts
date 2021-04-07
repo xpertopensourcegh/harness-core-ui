@@ -241,6 +241,15 @@ export interface StringsMap {
   'dashboards.createModal.submitFail': string
   'dashboards.createModal.view': string
   'dashboards.homePage.title': string
+  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
+  'dashboards.serviceDashboard.day': string
+  'dashboards.serviceDashboard.month': string
+  'dashboards.serviceDashboard.months': string
+  'dashboards.serviceDashboard.nonProd': string
+  'dashboards.serviceDashboard.prod': string
+  'dashboards.serviceDashboard.serviceInstances': string
+  'dashboards.serviceDashboard.servicesInLast': string
+  'dashboards.serviceDashboard.week': string
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
@@ -6252,30 +6261,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   serviceAccount: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'serviceDashboard.activeServiceInstancesLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'serviceDashboard.day': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'serviceDashboard.month': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'serviceDashboard.months': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'serviceDashboard.servicesInLast': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'serviceDashboard.week': string
   /**
    * @deprecated migrate this string to module level file
    */

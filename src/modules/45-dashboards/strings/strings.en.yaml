@@ -19,3 +19,13 @@ createModal:
   descriptionPlaceholder: 'Provide dashboard purpose'
   # submit: 'Submit'
   submitFail: 'Dashboard creation failed, Please try again.'
+serviceDashboard:
+  activeServiceInstancesLabel: 'Active Service Instances'
+  servicesInLast: 'Services in Last {{period}}'
+  day: '1 day'
+  week: '1 week'
+  month: '1 month'
+  months: '6 months'
+  serviceInstances: 'Service Instances'
+  nonProd: 'Non Prod'
+  prod: 'Prod'
