@@ -420,11 +420,6 @@ review: 'Review'
 enabledLabel: 'Enabled'
 activity: 'Activity'
 store: Store
-permissionLabels:
-  createEdit: Create / Edit
-  view: View
-  pipelineExecution: Use in Pipeline Execution
-  delete: '{{ $.delete}}'
 canvasButtons:
   zoomIn: Zoom In
   zoomOut: Zoom Out

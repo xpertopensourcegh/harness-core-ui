@@ -29,6 +29,11 @@ export interface StringsMap {
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
   'notifications.name': string
+  'rbac.permissionLabels.access': string
+  'rbac.permissionLabels.createEdit': string
+  'rbac.permissionLabels.delete': string
+  'rbac.permissionLabels.pipelineExecution': string
+  'rbac.permissionLabels.view': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -4047,22 +4052,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   performance: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'permissionLabels.createEdit': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'permissionLabels.delete': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'permissionLabels.pipelineExecution': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'permissionLabels.view': string
   /**
    * @deprecated migrate this string to module level file
    */
