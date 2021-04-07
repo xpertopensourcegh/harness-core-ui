@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Intent, IToaster, IToasterProps, Position, Toaster } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import { Utils } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
@@ -154,7 +155,30 @@ export function formatNumber(n: number): string {
   return suffix ? round(n / Math.pow(1000, base), 2) + suffix : '' + n
 }
 
-export enum SegmentFlagType {
+export enum EntityAddingMode {
   DIRECT = 'DIRECT',
   CONDITION = 'CONDITION'
+}
+
+export const useFeatureFlagTypeToStringMapping = (): { string: string; boolean: string; int: string; json: string } => {
+  const { getString } = useStrings()
+  const typeMapping = useMemo(
+    () => ({
+      string: getString('string'),
+      boolean: getString('cf.boolean'),
+      int: getString('number'),
+      json: getString('cf.creationModal.jsonType')
+    }),
+    [getString]
+  )
+
+  return typeMapping
+}
+
+/** This utility shows a toaster without being bound to any component.
+ * It's useful to show cross-page/component messages */
+export function showToaster(message: string, props?: IToasterProps): IToaster {
+  const toaster = Toaster.create({ position: Position.TOP })
+  toaster.show({ message, intent: Intent.SUCCESS, ...props })
+  return toaster
 }

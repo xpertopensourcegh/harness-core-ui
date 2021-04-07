@@ -503,6 +503,7 @@ export interface StringsMap {
   'cf.editVariation.applyToExistingEnvironments': string
   'cf.editVariation.defaultRulesDesc': string
   'cf.editVariation.envNote': string
+  'cf.editVariation.subTitle': string
   'cf.editVariation.title': string
   'cf.environments.adminEnvironments': string
   'cf.environments.apiKeys.addKey': string
@@ -526,11 +527,11 @@ export interface StringsMap {
   'cf.environments.empty': string
   'cf.environments.modifiedBy': string
   'cf.environments.title': string
+  'cf.featureFlagDetail.variationCount': string
   'cf.featureFlags.activity': string
   'cf.featureFlags.andClause': string
   'cf.featureFlags.archiveFlag': string
   'cf.featureFlags.archiveFlagMessage': string
-  'cf.featureFlags.archiveFlagSuccess': string
   'cf.featureFlags.booleanBtnText': string
   'cf.featureFlags.bucketBy': string
   'cf.featureFlags.bucketOverflow': string
@@ -543,7 +544,6 @@ export interface StringsMap {
   'cf.featureFlags.defaultWillBeServed': string
   'cf.featureFlags.deleteFlag': string
   'cf.featureFlags.deleteFlagMessage': string
-  'cf.featureFlags.deleteFlagSuccess': string
   'cf.featureFlags.flagFilters.any': string
   'cf.featureFlags.flagFilters.apply': string
   'cf.featureFlags.flagFilters.cancel': string
@@ -617,6 +617,16 @@ export interface StringsMap {
   'cf.featureNotReady': string
   'cf.homepage.learnMore': string
   'cf.homepage.slogan': string
+  'cf.messages.flagArchived': string
+  'cf.messages.flagCreated': string
+  'cf.messages.flagDeleted': string
+  'cf.messages.flagUpdated': string
+  'cf.messages.segmentCreated': string
+  'cf.messages.segmentDeleted': string
+  'cf.messages.segmentUpdated': string
+  'cf.messages.targetCreated': string
+  'cf.messages.targetDeleted': string
+  'cf.messages.targetUpdated': string
   'cf.multivariate': string
   'cf.noEnvironment.message': string
   'cf.noEnvironment.title': string
@@ -657,6 +667,7 @@ export interface StringsMap {
   'cf.shared.flags': string
   'cf.shared.individual': string
   'cf.shared.lastEvaluated': string
+  'cf.shared.pleaseSelectVariation': string
   'cf.shared.prerequisites': string
   'cf.shared.rules': string
   'cf.shared.segment': string

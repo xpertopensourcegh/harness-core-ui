@@ -39,7 +39,9 @@ import {
   CF_DEFAULT_PAGE_SIZE,
   featureFlagHasCustomRules,
   FeatureFlagActivationStatus,
-  getErrorMessage
+  getErrorMessage,
+  useFeatureFlagTypeToStringMapping,
+  showToaster
 } from '../../utils/CFUtils'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
@@ -161,6 +163,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
             // Empty onChange() to avoid React warning
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onChange={() => {}}
+            disabled={data.archived}
           />
         </Button>
       </Container>
@@ -178,6 +181,11 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
             lineClamp={2}
           >
             {data.name}
+            {data.archived && (
+              <Text inline color={Color.GREY_400} padding={{ left: 'xsmall' }} font={{ size: 'small' }}>
+                ({getString('cf.shared.archived')})
+              </Text>
+            )}
           </Text>
           {data.description && (
             <Text
@@ -226,13 +234,20 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   const index = data.variations.findIndex(
     d => d.identifier === (isOn ? data.defaultOnVariation : data.defaultOffVariation)
   )
+  const isFlagTypeBoolean = data.kind === FlagTypeVariations.booleanFlag
+  const typeToString = useFeatureFlagTypeToStringMapping()
 
   return (
     <Layout.Vertical>
       <Layout.Horizontal>
         <Text>
           <VariationTypeIcon multivariate={data.kind !== FlagTypeVariations.booleanFlag} />
-          {getString(data.kind === FlagTypeVariations.booleanFlag ? 'cf.boolean' : 'cf.multivariate')}
+          {getString(isFlagTypeBoolean ? 'cf.boolean' : 'cf.multivariate')}
+          {!isFlagTypeBoolean && (
+            <Text inline color={Color.GREY_400} padding={{ left: 'xsmall' }}>
+              ({typeToString[data.kind] || ''})
+            </Text>
+          )}
         </Text>
       </Layout.Horizontal>
       {!hasCustomRules && (
@@ -272,7 +287,7 @@ interface ColumnMenuProps {
 
 const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, environment }) => {
   const data = row.original
-  const { showError, showSuccess, clear } = useToaster()
+  const { showError, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
   const history = useHistory()
   const { getString } = useStrings()
@@ -299,15 +314,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
         clear()
         await mutate(data.identifier)
           .then(() => {
-            showSuccess(
-              <Text color={Color.WHITE}>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: data.name })
-                  }}
-                />
-              </Text>
-            )
+            showToaster(getString('cf.messages.flagDeleted'))
             refetch?.()
           })
           .catch(error => {

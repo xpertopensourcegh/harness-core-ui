@@ -17,12 +17,13 @@ import {
   Color,
   SelectOption
 } from '@wings-software/uicore'
-import { getErrorMessage } from '@cf/utils/CFUtils'
+import { getErrorMessage, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import { Feature, usePatchFeature, Variation } from 'services/cf'
 import patch from '../../utils/instructions'
+import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 
 export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
@@ -61,6 +62,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
     const [defaultRules, setDefaultRules] = useState<SelectOption[]>(
       initialValues.variations.map(({ identifier, name }) => ({ label: name as string, value: identifier }))
     )
+    const typeToStringMapping = useFeatureFlagTypeToStringMapping()
     const { mutate: submitPatch } = usePatchFeature({
       identifier: feature.identifier as string,
       queryParams: {
@@ -157,6 +159,14 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
             }}
           >
             {getString('cf.editVariation.title')}
+            {feature.kind !== FlagTypeVariations.booleanFlag && (
+              <Text color={Color.GREY_400} padding={{ left: 'xsmall' }}>
+                {getString('cf.editVariation.subTitle', {
+                  type: typeToStringMapping[feature.kind] || '',
+                  count: feature.variations.length
+                })}
+              </Text>
+            )}
           </Text>
         }
         style={{ width: 800, height: 560 }}

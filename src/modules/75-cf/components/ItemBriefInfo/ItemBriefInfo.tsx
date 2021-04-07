@@ -4,16 +4,24 @@ import { OptionsMenuButton } from '@common/components'
 import { useStrings } from 'framework/exports'
 import { DISABLE_AVATAR_PROPS } from '@cf/utils/CFUtils'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
-import css from './SegmentItem.module.scss'
+import css from './ItemBriefInfo.module.scss'
 
-interface SegmentItemProps extends ItemContainerProps {
+interface ItemBriefInfoProps extends ItemContainerProps {
   name: string
   description: string
   onRemoveClick?: () => void
   noAvatar?: boolean
+  disabled?: boolean
 }
 
-export const SegmentItem: React.FC<SegmentItemProps> = ({ name, description, onRemoveClick, noAvatar, ...props }) => {
+export const ItemBriefInfo: React.FC<ItemBriefInfoProps> = ({
+  name,
+  description,
+  onRemoveClick,
+  noAvatar,
+  disabled,
+  ...props
+}) => {
   const { getString } = useStrings()
 
   return (
@@ -30,11 +38,16 @@ export const SegmentItem: React.FC<SegmentItemProps> = ({ name, description, onR
         <Container style={{ flexGrow: 1 }} padding={{ left: 'xsmall' }}>
           <Text
             margin={{ bottom: description?.length ? 'xsmall' : undefined }}
-            style={{ color: '#22222A', fontSize: '12px', fontWeight: 500, lineHeight: '16px' }}
+            style={{
+              color: disabled ? 'var(--grey-400)' : '#22222A',
+              fontSize: '12px',
+              fontWeight: 600,
+              lineHeight: '16px'
+            }}
           >
             {name}
           </Text>
-          <Text style={{ color: '#22222A' }}>{description}</Text>
+          <Text style={{ color: disabled ? 'var(--grey-350)' : '#22222ac7', fontSize: '12px' }}>{description}</Text>
         </Container>
         {onRemoveClick && (
           <OptionsMenuButton

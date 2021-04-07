@@ -14,6 +14,18 @@ shared:
   rules: Rules
   archived: archived
   selected: '{{ counter }} selected'
+  pleaseSelectVariation: Please select a variation first.
+messages:
+  flagCreated: Flag created.
+  flagUpdated: Flag updated.
+  flagDeleted: Flag deleted.
+  flagArchived: Flag archived.
+  targetCreated: Target(s) created.
+  targetUpdated: Target updated.
+  targetDeleted: Target deleted.
+  segmentCreated: Segment created.
+  segmentUpdated: Segment updated.
+  segmentDeleted: Segment deleted.
 creationModal:
   jsonType: JSON
   variationSettingsHeading: Variation settings
@@ -56,6 +68,7 @@ testTheFlag:
   confirmClose: Are you sure you want to close this modal?
 editVariation:
   title: Edit Variations
+  subTitle: '{{ type }} ( {{ count }} variations)'
   add: + Variation
   defaultRulesDesc: "Changes will only apply to newly created environments. Existing environments won't be affected"
   envNote: Changes will only apply to newly created environments. Existing environments won’t be affected.
@@ -127,8 +140,6 @@ featureFlags:
   deleteFlagMessage: Are you sure you want to delete flag <strong>{{name}}</strong>? This action cannot be undone.
   archiveFlag: Archive Flag
   archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
-  deleteFlagSuccess: Flag <strong>{{name}}</strong> deleted.
-  archiveFlagSuccess: Flag <strong>{{name}}</strong> archived.
   flagOff: Flag Targeting is OFF
   flagOn: Flag Targeting is ON
   flagWillTurnOn: Turn flag on for this environment upon save
@@ -181,6 +192,8 @@ featureFlags:
     noMetrics: No metrics
     evaluations: '{{ count }} evaluations'
     evaluationStatistics: Evaluation Statistic
+featureFlagDetail:
+  variationCount: '{{ count }} variations'
 targets:
   title: Targets
   ID: '{{ $.common.ID }}'

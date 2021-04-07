@@ -6,7 +6,7 @@ import AppStorage from 'framework/utils/AppStorage'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
-import { getErrorMessage } from '@cf/utils/CFUtils'
+import { getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -62,6 +62,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
               accountId
             })
           )
+          showToaster(getString('cf.messages.flagCreated'))
         })
         .catch(error => {
           showError(getErrorMessage(error), 0)
