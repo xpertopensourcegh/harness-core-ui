@@ -182,6 +182,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                     disabled
                     name="repoName"
+                    isOptional={true}
                     style={{ width: '370px' }}
                   />
                 </div>
@@ -193,6 +194,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     <FormInput.Text
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                       name="repoName"
+                      isOptional={true}
                       className={templateCss.repoName}
                     />
                   </div>

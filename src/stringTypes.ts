@@ -4514,10 +4514,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipeline-triggers.triggerConfigurationPanel.copyToken': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipeline-triggers.triggerConfigurationPanel.event': string
   /**
    * @deprecated migrate this string to module level file
@@ -4555,10 +4551,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipeline-triggers.triggerConfigurationPanel.triggerName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.viewToken': string
   /**
    * @deprecated migrate this string to module level file
    */

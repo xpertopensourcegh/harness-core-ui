@@ -210,6 +210,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                         items: regions
                       }
                     }}
+                    isOptional={true}
                     label={getString('pipelineSteps.regionLabel')}
                   />
 
@@ -239,6 +240,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                     label={getString('pipeline.manifestType.bucketName')}
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="bucketName"
+                    isOptional={true}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (

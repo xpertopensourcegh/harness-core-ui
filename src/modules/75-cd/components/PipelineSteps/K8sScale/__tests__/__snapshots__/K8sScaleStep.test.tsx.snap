@@ -380,7 +380,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
             class="bp3-label"
             for="spec.workload"
           >
-            Workload
+            Workload (optional)
              
             <span
               class="bp3-text-muted"
@@ -793,7 +793,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
             class="bp3-label"
             for="spec.workload"
           >
-            Workload
+            Workload (optional)
              
             <span
               class="bp3-text-muted"
@@ -1219,7 +1219,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.workload"
           >
-            Workload
+            Workload (optional)
              
             <span
               class="bp3-text-muted"
@@ -1658,7 +1658,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
             class="bp3-label"
             for="spec.workload"
           >
-            Workload
+            Workload (optional)
              
             <span
               class="bp3-text-muted"
@@ -2042,7 +2042,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
             class="bp3-label"
             for="spec.workload"
           >
-            Workload
+            Workload (optional)
              
             <span
               class="bp3-text-muted"
@@ -2430,7 +2430,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
             class="bp3-label"
             for="spec.workload"
           >
-            Workload
+            Workload (optional)
              
             <span
               class="bp3-text-muted"

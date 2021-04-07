@@ -128,7 +128,11 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                 </div>
 
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput label={getString('pipelineSteps.workload')} name={'spec.workload'} />
+                  <FormInput.MultiTextInput
+                    label={getString('pipelineSteps.workload')}
+                    name={'spec.workload'}
+                    isOptional={true}
+                  />
                   {getMultiTypeFromValue(values.spec.workload) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
                       value={values.spec.workload as string}

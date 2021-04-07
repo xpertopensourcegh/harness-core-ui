@@ -19,6 +19,8 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
+
 import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
@@ -126,7 +128,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
-          )
+          ),
+          ...IdentifierValidation()
         })}
         onSubmit={formData => {
           submitFormData({
@@ -192,6 +195,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                     multiTextInputProps={{ expressions }}
                     label={getString('pipeline.manifestType.http.chartVersion')}
                     placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

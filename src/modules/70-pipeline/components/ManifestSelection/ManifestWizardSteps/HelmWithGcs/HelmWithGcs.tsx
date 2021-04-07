@@ -174,6 +174,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="bucketName"
                     multiTextInputProps={{ expressions }}
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -201,6 +202,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                     multiTextInputProps={{ expressions }}
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="folderPath"
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -254,6 +256,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                     multiTextInputProps={{ expressions }}
                     label={getString('pipeline.manifestType.http.chartVersion')}
                     placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

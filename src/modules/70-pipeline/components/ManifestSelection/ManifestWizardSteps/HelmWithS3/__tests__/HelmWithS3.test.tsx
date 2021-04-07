@@ -1,95 +1,63 @@
 import React from 'react'
 import { render, queryByAttribute, fireEvent, act, wait } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import HelmWithGcs from '../HelmWithGcs'
+import HelmWithS3 from '../HelmWithS3'
 
 const props = {
   stepName: 'Manifest details',
   expressions: [],
   handleSubmit: jest.fn()
 }
+
+jest.mock('services/portal', () => ({
+  useListAwsRegions: () => ({
+    data: {},
+    refetch: jest.fn()
+  })
+}))
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
-      identifier: '',
+      identifier: 'test',
+      bucketName: 'test-bucket',
+      region: { label: '', value: '' },
+      folderPath: 'testfolder',
       helmVersion: 'V2',
-      chartName: '',
-      chartVersion: '',
+      chartName: 'testChart',
+      chartVersion: 'v1',
       skipResourceVersioning: false,
-      bucketName: '',
-      folderPath: '',
       commandFlags: [{ commandType: undefined, flag: undefined, id: 'id1' }]
     }
     const { container } = render(
       <TestWrapper>
-        <HelmWithGcs {...props} initialValues={initialValues} />
+        <HelmWithS3 {...props} initialValues={initialValues} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
   })
 
-  test(`renders while adding step first time`, () => {
+  test(`submits with the right payload`, async () => {
     const initialValues = {
       identifier: '',
-      helmVersion: 'V2',
-      chartName: '',
-      chartVersion: '',
-      skipResourceVersioning: false,
       bucketName: '',
+      region: { label: '', value: '' },
       folderPath: '',
-      commandFlags: [{ commandType: undefined, flag: undefined, id: 'id2' }]
-    }
-
-    const { container } = render(
-      <TestWrapper>
-        <HelmWithGcs initialValues={initialValues} {...props} />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
-
-  test(`renders correctly in edit case`, () => {
-    const initialValues = {
-      identifier: 'id3',
-      helmVersion: 'V2',
-      chartName: '',
-      chartVersion: '',
-      skipResourceVersioning: false,
-      bucketName: '',
-      folderPath: '',
-      commandFlags: [{ commandType: undefined, flag: undefined, id: 'a1' }]
-    }
-
-    const { container } = render(
-      <TestWrapper>
-        <HelmWithGcs initialValues={initialValues} {...props} />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
-
-  test('submits with the right payload', async () => {
-    const initialValues = {
-      identifier: '',
       helmVersion: '',
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
-      bucketName: '',
-      folderPath: '',
-      commandFlags: [{ commandType: undefined, flag: undefined, id: 'a1' }]
+      commandFlags: [{ commandType: undefined, flag: undefined, id: 'id1' }]
     }
-
     const { container } = render(
       <TestWrapper>
-        <HelmWithGcs initialValues={initialValues} {...props} />
+        <HelmWithS3 {...props} initialValues={initialValues} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'test-folder ' } })
       fireEvent.change(queryByNameAttribute('bucketName')!, { target: { value: 'testbucket' } })
+      fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'testFolder' } })
       fireEvent.change(queryByNameAttribute('chartName')!, { target: { value: 'testchart' } })
       fireEvent.change(queryByNameAttribute('chartVersion')!, { target: { value: 'v1' } })
     })
@@ -103,7 +71,11 @@ describe('helm with http tests', () => {
               spec: {
                 bucketName: 'testbucket',
                 connectorRef: '',
-                folderPath: 'test-folder '
+                folderPath: 'testFolder',
+                region: {
+                  label: '',
+                  value: ''
+                }
               },
               type: undefined
             },

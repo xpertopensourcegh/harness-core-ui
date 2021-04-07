@@ -215,6 +215,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                       name="repoName"
                       className={helmcss.repoName}
+                      isOptional={true}
                     />
                   </div>
                   <div
