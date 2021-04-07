@@ -141,15 +141,12 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
                 return (
                   <div>
                     <div className={css.headerRow}>
-                      <String className={css.label} stringID="pipeline.jiraCreateStep.issueKey" />
+                      <String className={css.label} stringID="keyLabel" />
                       <String className={css.label} stringID="valueLabel" />
                     </div>
                     {formik.values.fieldList?.map((_unused: JiraCreateFieldType, i: number) => (
                       <div className={css.headerRow} key={i}>
-                        <FormInput.Text
-                          name={`fieldList[${i}].name`}
-                          placeholder={getString('pipeline.jiraCreateStep.issueKey')}
-                        />
+                        <FormInput.Text name={`fieldList[${i}].name`} placeholder={getString('keyLabel')} />
                         <FormInput.MultiTextInput
                           name={`fieldList[${i}].value`}
                           label=""

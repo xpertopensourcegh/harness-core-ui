@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog, Position } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FieldArray, FormikProps } from 'formik'
@@ -9,11 +9,11 @@ import {
   Formik,
   Accordion,
   FormInput,
-  Popover,
   useModalHook,
   Text,
   MultiTypeInputType,
-  Button
+  Button,
+  SelectOption
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/exports'
@@ -22,42 +22,27 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import {
-  JiraProjectBasicNG,
-  JiraProjectNG,
-  JiraFieldNG,
-  useGetJiraProjects,
-  useGetJiraIssueCreateMetadata
-} from 'services/cd-ng'
+import { JiraProjectBasicNG, JiraFieldNG, useGetJiraProjects, useGetJiraStatuses, JiraStatusNG } from 'services/cd-ng'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { FormMultiTypeTextAreaField } from '@common/components'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
-import { getGenuineValue, setAllowedValuesOptions, setIssueTypeOptions } from '../JiraApproval/helper'
-import { JiraFieldSelector } from './JiraFieldSelector'
-import { JiraDynamicFieldsSelector } from './JiraDynamicFieldsSelector'
-import {
-  JiraCreateData,
-  JiraCreateStepModeProps,
-  JiraCreateFormContentInterface,
-  JiraCreateFormFieldSelector,
-  JiraCreateFieldType,
-  JiraFieldNGWithValue
-} from './types'
-import { resetForm, getInitialValueForSelectedField, getKVFields } from './helper'
+import { getGenuineValue, setAllowedValuesOptions } from '../JiraApproval/helper'
+import type { JiraCreateFieldType } from '../JiraCreate/types'
+import { JiraDynamicFieldsSelector } from '../JiraCreate/JiraDynamicFieldsSelector'
+import type { JiraUpdateFormContentInterface, JiraUpdateData, JiraUpdateStepModeProps } from './types'
+
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-import css from './JiraCreate.module.scss'
+import css from '../JiraCreate/JiraCreate.module.scss'
 
 const FormContent = ({
   formik,
   refetchProjects,
-  refetchProjectMetadata,
   projectsResponse,
-  projectMetaResponse,
-  fetchingProjects,
-  fetchingProjectMetadata,
+  refetchStatuses,
+  fetchingStatuses,
+  statusResponse,
   isNewStep
-}: JiraCreateFormContentInterface) => {
+}: JiraUpdateFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
@@ -68,23 +53,9 @@ const FormContent = ({
     projectIdentifier,
     orgIdentifier
   }
-  const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
-  const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
-  const [fieldsSelector, setFieldsSelector] = useState<JiraCreateFormFieldSelector>(
-    JiraCreateFormFieldSelector.EXPRESSION
-  )
-  const [fieldsPopoverOpen, setFieldsPopoverOpen] = useState(false)
-
+  const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
-  const projectKeyFixedValue =
-    typeof formik.values.spec.projectKey === 'object'
-      ? (formik.values.spec.projectKey as JiraProjectSelectOption).key
-      : undefined
-  const issueTypeFixedValue =
-    typeof formik.values.spec.issueType === 'object'
-      ? (formik.values.spec.issueType as JiraProjectSelectOption).key
-      : undefined
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -95,61 +66,19 @@ const FormContent = ({
           connectorRef: connectorRefFixedValue.toString()
         }
       })
+
+      refetchStatuses({
+        queryParams: {
+          ...commonParams,
+          connectorRef: connectorRefFixedValue.toString()
+        }
+      })
     } else {
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
-      formik.setFieldValue('spec.fields', getKVFields(formik.values))
       formik.setFieldValue('spec.selectedFields', [])
     }
   }, [connectorRefFixedValue])
-
-  useEffect(() => {
-    // If project value changes in form, fetch metadata
-    if (connectorRefFixedValue && projectKeyFixedValue) {
-      refetchProjectMetadata({
-        queryParams: {
-          ...commonParams,
-          connectorRef: connectorRefFixedValue.toString(),
-          projectKey: projectKeyFixedValue.toString()
-        }
-      })
-    } else {
-      // This means we've cleared the value or marked runtime/expression
-      // Flush the selected additional fields, and move everything to key value fields
-      formik.setFieldValue('spec.fields', getKVFields(formik.values))
-      formik.setFieldValue('spec.selectedFields', [])
-    }
-  }, [projectKeyFixedValue])
-
-  useEffect(() => {
-    // If issuetype changes in form, set status and field list
-    if (issueTypeFixedValue) {
-      const issueTypeData = projectMetadata?.issuetypes[issueTypeFixedValue]
-      const fieldListToSet: JiraFieldNG[] = []
-      const fieldKeys = Object.keys(issueTypeData?.fields || {})
-      const formikSelectedFields: JiraFieldNGWithValue[] = []
-      fieldKeys.forEach(keyy => {
-        const field = issueTypeData?.fields[keyy]
-        if (field && keyy !== 'Summary' && keyy !== 'Description') {
-          fieldListToSet.push(field)
-
-          const savedValueForThisField = getInitialValueForSelectedField(formik.values.spec.fields, field)
-          if (savedValueForThisField) {
-            formikSelectedFields.push({ ...field, value: savedValueForThisField })
-          } else if (field.required) {
-            formikSelectedFields.push({ ...field, value: '' })
-          }
-        }
-      })
-      setIssueTypeFieldList(fieldListToSet)
-      formik.setFieldValue('spec.selectedFields', formikSelectedFields)
-    } else {
-      // This means we've cleared the value or marked runtime/expression
-      // Flush the selected additional fields, and move everything to key value fields
-      formik.setFieldValue('spec.fields', getKVFields(formik.values))
-      formik.setFieldValue('spec.selectedFields', [])
-    }
-  }, [issueTypeFixedValue, projectMetadata])
 
   useEffect(() => {
     let options: JiraProjectSelectOption[] = []
@@ -165,11 +94,17 @@ const FormContent = ({
   }, [projectsResponse?.data])
 
   useEffect(() => {
-    if (projectKeyFixedValue && projectMetaResponse?.data?.projects) {
-      const projectMD: JiraProjectNG = projectMetaResponse?.data?.projects[projectKeyFixedValue]
-      setProjectMetadata(projectMD)
-    }
-  }, [projectMetaResponse?.data])
+    // get status by connector ref response
+    let options: SelectOption[] = []
+    const statusResponseList: JiraStatusNG[] = statusResponse?.data || []
+    options =
+      statusResponseList.map((status: JiraStatusNG) => ({
+        label: status.name || '',
+        value: status.id || ''
+      })) || []
+
+    setStatusOptions(options)
+  }, [statusResponse?.data])
 
   const [showDynamicFieldsModal, hideDynamicFieldsModal] = useModalHook(() => {
     return (
@@ -197,27 +132,9 @@ const FormContent = ({
     )
   }, [projectOptions, connectorRefFixedValue])
 
-  const setFieldOptions = () => {
-    if (
-      projectMetadata &&
-      !isEmpty(issueTypeFieldList) &&
-      connectorRefFixedValue &&
-      projectKeyFixedValue &&
-      issueTypeFixedValue
-    ) {
-      // This means we have concrete values of connector, project and issue type.
-      // Open the field selector
-      setFieldsSelector(JiraCreateFormFieldSelector.FIXED)
-      setFieldsPopoverOpen(true)
-    } else {
-      setFieldsSelector(JiraCreateFormFieldSelector.EXPRESSION)
-      showDynamicFieldsModal()
-    }
-  }
-
   const AddFieldsButton = () => (
     <Text
-      onClick={() => setFieldOptions()}
+      onClick={() => showDynamicFieldsModal()}
       style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
       intent="primary"
     >
@@ -251,70 +168,52 @@ const FormContent = ({
                 type="Jira"
                 enableConfigureOptions={false}
                 selected={formik?.values?.spec.connectorRef as string}
-                onChange={_unused => {
-                  // Clear dependent fields
-                  resetForm(formik, 'connectorRef')
-                }}
               />
-              <FormInput.MultiTypeInput
-                selectItems={fetchingProjects ? [{ label: 'Fetching Projects...', value: '' }] : projectOptions}
-                label={getString('pipeline.jiraApprovalStep.project')}
-                name="spec.projectKey"
-                placeholder={fetchingProjects ? 'Fetching Projects...' : 'Projects'}
+              <FormInput.MultiTextInput
+                label={getString('pipeline.jiraApprovalStep.issueKey')}
+                name="spec.issueKey"
+                placeholder={getString('pipeline.jiraApprovalStep.issueKey')}
                 className={css.md}
-                disabled={fetchingProjects}
-                multiTypeInputProps={{
-                  onChange: _unused => {
-                    // Clear dependent fields
-                    resetForm(formik, 'projectKey')
-                  }
-                }}
-              />
-              <FormInput.MultiTypeInput
-                selectItems={
-                  fetchingProjectMetadata
-                    ? [{ label: 'Fetching Issue Types...', value: '' }]
-                    : setIssueTypeOptions(projectMetadata?.issuetypes)
-                }
-                label={getString('pipeline.jiraApprovalStep.issueType')}
-                name="spec.issueType"
-                placeholder={fetchingProjectMetadata ? 'Fetching Issue Types...' : 'Issue Type'}
-                className={css.md}
-                disabled={fetchingProjectMetadata}
-                multiTypeInputProps={{
-                  onChange: _unused => {
-                    // Clear dependent fields
-                    resetForm(formik, 'issueType')
-                  }
-                }}
               />
             </div>
           }
         />
         <Accordion.Panel
           id="step-2"
-          summary={getString('pipeline.jiraCreateStep.fields')}
+          summary={getString('pipeline.jiraUpdateStep.statusTransitionAccordion')}
           details={
             <div>
+              <FormInput.MultiTypeInput
+                selectItems={statusOptions}
+                label={getString('status')}
+                name="spec.transitionTo.status"
+                placeholder={
+                  fetchingStatuses ? getString('pipeline.jiraUpdateStep.fetchingStatus') : getString('status')
+                }
+                className={css.md}
+                multiTypeInputProps={{
+                  expressions
+                }}
+              />
+
               <FormInput.MultiTextInput
-                label={getString('summary')}
-                name="spec.summary"
-                placeholder={getString('pipeline.jiraCreateStep.summaryPlaceholder')}
+                label={getString('pipeline.jiraUpdateStep.transitionLabel')}
+                name="spec.transitionTo.transition"
+                placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
                 className={css.md}
                 multiTextInputProps={{
                   expressions
                 }}
               />
+            </div>
+          }
+        />
 
-              <FormMultiTypeTextAreaField
-                name="spec.description"
-                label={getString('description')}
-                isOptional={true}
-                className={cx(css.descriptionField, css.md)}
-                multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
-                placeholder={getString('pipeline.enterDescription')}
-              />
-
+        <Accordion.Panel
+          id="step-3"
+          summary={getString('pipeline.jiraCreateStep.fields')}
+          details={
+            <div>
               {formik.values.spec.selectedFields?.map((selectedField: JiraFieldNG, index: number) => {
                 if (
                   selectedField.schema.type === 'string' ||
@@ -409,32 +308,7 @@ const FormContent = ({
                 />
               ) : null}
 
-              {fieldsSelector === JiraCreateFormFieldSelector.FIXED ? (
-                <Popover
-                  position={Position.LEFT_TOP}
-                  usePortal={true}
-                  isOpen={fieldsPopoverOpen}
-                  content={
-                    <div className={css.jiraFieldSelectorSection}>
-                      <Text className={css.fieldsPopoverHeading}>{getString('pipeline.jiraCreateStep.addFields')}</Text>
-                      <Text>{getString('pipeline.jiraCreateStep.selectFieldsHeading')}</Text>
-                      <JiraFieldSelector
-                        fields={issueTypeFieldList}
-                        selectedFields={formik.values.spec.selectedFields || []}
-                        addSelectedFields={(fieldsToBeAdded: JiraFieldNG[]) => {
-                          setFieldsPopoverOpen(false)
-                          formik.setFieldValue('spec.selectedFields', fieldsToBeAdded)
-                        }}
-                        onCancel={() => setFieldsPopoverOpen(false)}
-                      />
-                    </div>
-                  }
-                >
-                  <AddFieldsButton />
-                </Popover>
-              ) : (
-                <AddFieldsButton />
-              )}
+              <AddFieldsButton />
             </div>
           }
         />
@@ -443,7 +317,7 @@ const FormContent = ({
   )
 }
 
-function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormikFowardRef<JiraCreateData>) {
+function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormikFowardRef<JiraUpdateData>) {
   const { onUpdate, isNewStep } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
@@ -469,21 +343,20 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
   })
 
   const {
-    refetch: refetchProjectMetadata,
-    data: projectMetaResponse,
-    error: projectMetadataFetchError,
-    loading: fetchingProjectMetadata
-  } = useGetJiraIssueCreateMetadata({
+    refetch: refetchStatuses,
+    data: statusResponse,
+    error: statusFetchError,
+    loading: fetchingStatuses
+  } = useGetJiraStatuses({
     lazy: true,
     queryParams: {
       ...commonParams,
-      connectorRef: '',
-      projectKey: ''
+      connectorRef: ''
     }
   })
 
   return (
-    <Formik<JiraCreateData>
+    <Formik<JiraUpdateData>
       onSubmit={values => {
         onUpdate?.(values)
       }}
@@ -494,25 +367,23 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
-          projectKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.project')),
-          issueType: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueType')),
-          summary: Yup.string().required(getString('pipeline.jiraCreateStep.validations.summary'))
+          issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey'))
         })
       })}
     >
-      {(formik: FormikProps<JiraCreateData>) => {
+      {(formik: FormikProps<JiraUpdateData>) => {
         setFormikRef(formikRef, formik)
         return (
           <FormContent
             formik={formik}
             refetchProjects={refetchProjects}
-            refetchProjectMetadata={refetchProjectMetadata}
+            refetchStatuses={refetchStatuses}
             fetchingProjects={fetchingProjects}
-            fetchingProjectMetadata={fetchingProjectMetadata}
-            projectMetaResponse={projectMetaResponse}
+            fetchingStatuses={fetchingStatuses}
+            statusResponse={statusResponse}
             projectsResponse={projectsResponse}
             projectsFetchError={projectsFetchError}
-            projectMetadataFetchError={projectMetadataFetchError}
+            statusFetchError={statusFetchError}
             isNewStep={isNewStep}
           />
         )
@@ -521,5 +392,5 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
   )
 }
 
-const JiraCreateStepModeWithRef = React.forwardRef(JiraCreateStepMode)
-export default JiraCreateStepModeWithRef
+const JiraUpdateStepModeWithRef = React.forwardRef(JiraUpdateStepMode)
+export default JiraUpdateStepModeWithRef

@@ -18,11 +18,11 @@ approvalStep:
     APPROVE: Approved
     REJECT: Rejected
 jiraApprovalStep:
-  connectToJira: Connect to JIRA
-  connectorRef: JIRA Connector
-  project: JIRA Project
+  connectToJira: Connect to Jira
+  connectorRef: Jira Connector
+  project: Jira Project
   issueType: Issue Type
-  issueKey: Key/Issue ID
+  issueKey: Issue Key
   approvalCriteria: Approval Criteria
   rejectionCriteria: Rejection Criteria
   jexlExpressionLabelApproval: If the JEXL Expression evaluates to true, approve this step
@@ -33,20 +33,20 @@ jiraApprovalStep:
   match: Match
   allConditions: All conditions
   anyCondition: Any condition
-  jiraField: JIRA Field
+  jiraField: Jira Field
   jexlExpressionApprovalCriteria: JEXL Expression for approval criteria
   jexlExpressionRejectionCriteria: JEXL Expression for rejection criteria
   validations:
-    connectorRef: JIRA Connector is required.
+    connectorRef: Jira Connector is required.
     project: Project is required.
     issueKey: Issue Key is required.
     issueType: Issue Type is required.
     approvalCriteriaCondition: Atleast one condition is required.
     expression: Expression value is required.
 jiraCreateStep:
-  fields: JIRA Fields
+  fields: Jira Fields
   summaryPlaceholder: Enter a Title or Summary
-  addFields: Add JIRA Fields
+  addFields: Add Jira Fields
   selectFieldsHeading: Select fields you would like to add.
   fieldSelectorAdd: + Fields
   selectFromFieldList: Select from Field List
@@ -54,9 +54,14 @@ jiraCreateStep:
   selectFieldListHelp: Select your project and issue type to list available fields to choose from.
   fetchingFields: Fetching your fields
   fieldsSelectorPlaceholder: Your fields will be populated here
-  issueKey: Issue Key
   validations:
     summary: Summary is required.
+jiraUpdateStep:
+  statusTransitionAccordion: Status and Transition (Optional)
+  transitionLabel: Transition Name (Optional)
+  fetchingStatus: Fetching status list...
+  validations:
+    status: Status is required.
 manifestType:
   gitConnectorLabel: 'Git'
   bitBucketLabel: 'Bitbucket'

@@ -3,16 +3,17 @@ import { render, act, fireEvent, queryByAttribute, waitFor } from '@testing-libr
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { TestStepWidget, factory } from '../../__tests__/StepTestUtil'
-import { JiraCreate } from '../JiraCreate'
+import { JiraUpdate } from '../JiraUpdate'
 import {
-  getJiraCreateDeploymentModeProps,
-  getJiraCreateEditModeProps,
-  getJiraCreateEditModePropsWithValues,
-  getJiraCreateInputVariableModeProps,
+  getJiraUpdateDeploymentModeProps,
+  getJiraUpdateEditModeProps,
+  getJiraUpdateEditModePropsWithValues,
+  getJiraUpdateInputVariableModeProps,
   mockConnectorResponse,
   mockProjectMetadataResponse,
-  mockProjectsResponse
-} from './JiraCreateTestHelper'
+  mockProjectsResponse,
+  mockStatusResponse
+} from './JiraUpdateTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
@@ -21,21 +22,22 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 jest.mock('services/cd-ng', () => ({
   useGetConnector: () => mockConnectorResponse,
   useGetJiraProjects: () => mockProjectsResponse,
-  useGetJiraIssueCreateMetadata: () => mockProjectMetadataResponse
+  useGetJiraIssueCreateMetadata: () => mockProjectMetadataResponse,
+  useGetJiraStatuses: () => mockStatusResponse
 }))
 
-describe('Jira Create tests', () => {
+describe('Jira Update tests', () => {
   beforeEach(() => {
-    factory.registerStep(new JiraCreate())
+    factory.registerStep(new JiraUpdate())
   })
 
   test('Basic snapshot - inputset mode', async () => {
-    const props = getJiraCreateDeploymentModeProps()
+    const props = getJiraUpdateDeploymentModeProps()
     const { container, getByText, queryByText } = render(
       <TestStepWidget
         template={props.inputSetData?.template}
         initialValues={props.initialValues}
-        type={StepType.JiraCreate}
+        type={StepType.JiraUpdate}
         stepViewType={StepViewType.InputSet}
         inputSetData={props.inputSetData}
       />
@@ -46,56 +48,56 @@ describe('Jira Create tests', () => {
   })
 
   test('Basic snapshot - deploymentform mode', async () => {
-    const props = getJiraCreateDeploymentModeProps()
+    const props = getJiraUpdateDeploymentModeProps()
     const { container } = render(
       <TestStepWidget
         template={props.inputSetData?.template}
         initialValues={props.initialValues}
-        type={StepType.JiraCreate}
+        type={StepType.JiraUpdate}
         stepViewType={StepViewType.DeploymentForm}
         inputSetData={props.inputSetData}
       />
     )
 
-    expect(container).toMatchSnapshot('jira-create-deploymentform')
+    expect(container).toMatchSnapshot('jira-update-deploymentform')
   })
 
   test('Basic snapshot - inputset mode but no runtime values', async () => {
-    const props = getJiraCreateDeploymentModeProps()
+    const props = getJiraUpdateDeploymentModeProps()
     const { container } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraCreate}
-        template={{ spec: {} }}
+        type={StepType.JiraUpdate}
+        template={{ spec: { transitionTo: {} } }}
         stepViewType={StepViewType.InputSet}
         inputSetData={props.inputSetData}
       />
     )
-    expect(container).toMatchSnapshot('jira-create-inputset-noruntime')
+    expect(container).toMatchSnapshot('jira-update-inputset-noruntime')
   })
 
   test('Basic snapshot - input variable view', () => {
-    const props = getJiraCreateInputVariableModeProps()
+    const props = getJiraUpdateInputVariableModeProps()
     const { container } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraCreate}
+        type={StepType.JiraUpdate}
         template={{ spec: {} }}
         stepViewType={StepViewType.InputVariable}
         customStepProps={props.customStepProps}
       />
     )
 
-    expect(container).toMatchSnapshot('jira-create-input variable view')
+    expect(container).toMatchSnapshot('jira-update-input variable view')
   })
 
   test('Basic functions - edit stage view validations', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const props = getJiraCreateEditModeProps()
+    const props = getJiraUpdateEditModeProps()
     const { container, queryByText, getByText } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraCreate}
+        type={StepType.JiraUpdate}
         stepViewType={StepViewType.Edit}
         ref={ref}
       />
@@ -107,7 +109,7 @@ describe('Jira Create tests', () => {
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira create step' } })
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira update step' } })
 
     act(() => {
       fireEvent.click(getByText('Timeout'))
@@ -119,18 +121,13 @@ describe('Jira Create tests', () => {
 
     fireEvent.click(getByText('Connect to Jira'))
     await act(() => ref.current?.submitForm())
-
-    expect(queryByText('Project is required.')).toBeTruthy()
-    expect(queryByText('Issue Type is required.')).toBeTruthy()
-
-    fireEvent.click(getByText('Jira Fields'))
-    expect(queryByText('Summary is required.')).toBeTruthy()
+    expect(queryByText('Issue Key is required.')).toBeTruthy()
   })
 
   test('Open a saved step - edit stage view', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const onUpdate = jest.fn()
-    const props = { ...getJiraCreateEditModePropsWithValues(), onUpdate }
+    const props = { ...getJiraUpdateEditModePropsWithValues(), onUpdate }
     onUpdate.mockReset()
     const {
       container,
@@ -142,22 +139,23 @@ describe('Jira Create tests', () => {
     } = render(
       <TestStepWidget
         initialValues={props.initialValues}
-        type={StepType.JiraCreate}
+        type={StepType.JiraUpdate}
         stepViewType={StepViewType.Edit}
         ref={ref}
       />
     )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira createe step' } })
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira update step' } })
     expect(queryByDisplayValue('1d')).toBeTruthy()
 
     fireEvent.click(getByText('Connect to Jira'))
-    expect(queryByDisplayValue('pid1')).toBeTruthy()
-    expect(queryByDisplayValue('itd1')).toBeTruthy()
+    expect(queryByDisplayValue('<+issueKey>')).toBeTruthy()
+
+    fireEvent.click(getByText('Status and Transition (Optional)'))
+    expect(queryByDisplayValue('Done')).toBeTruthy()
 
     fireEvent.click(getByText('Jira Fields'))
-    fireEvent.change(getByPlaceholderText('Enter a Title or Summary'), { target: { value: 'summary' } })
     expect(queryByDisplayValue('value1')).toBeTruthy()
     expect(queryByDisplayValue('2233')).toBeTruthy()
     expect(queryByDisplayValue('23-march')).toBeTruthy()

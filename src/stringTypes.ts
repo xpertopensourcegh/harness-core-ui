@@ -303,13 +303,16 @@ export interface StringsMap {
   'pipeline.jiraCreateStep.fieldSelectorAdd': string
   'pipeline.jiraCreateStep.fields': string
   'pipeline.jiraCreateStep.fieldsSelectorPlaceholder': string
-  'pipeline.jiraCreateStep.issueKey': string
   'pipeline.jiraCreateStep.provideFieldList': string
   'pipeline.jiraCreateStep.selectFieldListHelp': string
   'pipeline.jiraCreateStep.selectFieldsHeading': string
   'pipeline.jiraCreateStep.selectFromFieldList': string
   'pipeline.jiraCreateStep.summaryPlaceholder': string
   'pipeline.jiraCreateStep.validations.summary': string
+  'pipeline.jiraUpdateStep.fetchingStatus': string
+  'pipeline.jiraUpdateStep.statusTransitionAccordion': string
+  'pipeline.jiraUpdateStep.transitionLabel': string
+  'pipeline.jiraUpdateStep.validations.status': string
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
   'pipeline.manifestType.bucketName': string

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval-deploymentform 1`] = `
+exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-deploymentform 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -110,9 +110,9 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
     >
       <label
         class="bp3-label"
-        for="spec.projectKey"
+        for="spec.issueKey"
       >
-        Jira Project
+        Issue Key
          
         <span
           class="bp3-text-muted"
@@ -122,48 +122,16 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
         class="bp3-form-content"
       >
         <div
-          class="bp3-popover-wrapper Select--main bp3-fill"
+          class="bp3-input-group"
         >
-          <div
-            class="bp3-popover-target"
-          >
-            <div
-              class="bp3-input-group"
-            >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.projectKey"
-                placeholder="Jira Project"
-                style="padding-right: 0px;"
-                type="text"
-                value=""
-              />
-              <span
-                class="bp3-input-action"
-              >
-                <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
-                >
-                  <svg
-                    data-icon="caret-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      caret-down
-                    </desc>
-                    <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="spec.issueKey"
+            placeholder="Issue Key"
+            type="text"
+            value=""
+          />
         </div>
       </div>
     </div>
@@ -172,7 +140,7 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
     >
       <label
         class="bp3-label"
-        for="spec.issueType"
+        for="spec.transitionTo.status"
       >
         Issue Type
          
@@ -195,8 +163,8 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
               <input
                 autocomplete="off"
                 class="bp3-input"
-                name="spec.issueType"
-                placeholder="Issue Type"
+                name="spec.transitionTo.status"
+                placeholder="Status"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -232,16 +200,6 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
     <div
       class="bp3-form-group deploymentViewMedium"
     >
-      <label
-        class="bp3-label"
-        for="spec.issueKey"
-      >
-        Issue Key
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
       <div
         class="bp3-form-content"
       >
@@ -251,8 +209,8 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
           <input
             autocomplete="off"
             class="bp3-input"
-            name="spec.issueKey"
-            placeholder="Issue Key"
+            name="spec.transitionTo.transitionName"
+            placeholder="Transition Name (Optional)"
             type="text"
             value=""
           />
@@ -281,7 +239,7 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
 </div>
 `;
 
-exports[`Jira Approval tests Basic snapshot - input variable view: jira-approval-input variable view 1`] = `
+exports[`Jira Update tests Basic snapshot - input variable view: jira-update-input variable view 1`] = `
 <div>
   <div
     class="variablesListTable"
@@ -337,7 +295,7 @@ exports[`Jira Approval tests Basic snapshot - input variable view: jira-approval
 </div>
 `;
 
-exports[`Jira Approval tests Basic snapshot - inputset mode but no runtime values: jira-approval-inputset-noruntime 1`] = `
+exports[`Jira Update tests Basic snapshot - inputset mode but no runtime values: jira-update-inputset-noruntime 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -364,7 +322,7 @@ exports[`Jira Approval tests Basic snapshot - inputset mode but no runtime value
 </div>
 `;
 
-exports[`Jira Approval tests Basic snapshot - inputset mode: input set with errors 1`] = `
+exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -474,140 +432,6 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
     >
       <label
         class="bp3-label"
-        for="spec.projectKey"
-      >
-        Jira Project
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
-      <div
-        class="bp3-form-content"
-      >
-        <div
-          class="bp3-popover-wrapper Select--main bp3-fill"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <div
-              class="bp3-input-group bp3-intent-danger"
-            >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.projectKey"
-                placeholder="Jira Project"
-                style="padding-right: 0px;"
-                type="text"
-                value=""
-              />
-              <span
-                class="bp3-input-action"
-              >
-                <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
-                >
-                  <svg
-                    data-icon="caret-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      caret-down
-                    </desc>
-                    <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-helper-text"
-        >
-          Project is required.
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
-    >
-      <label
-        class="bp3-label"
-        for="spec.issueType"
-      >
-        Issue Type
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
-      <div
-        class="bp3-form-content"
-      >
-        <div
-          class="bp3-popover-wrapper Select--main bp3-fill"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <div
-              class="bp3-input-group bp3-intent-danger"
-            >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.issueType"
-                placeholder="Issue Type"
-                style="padding-right: 0px;"
-                type="text"
-                value=""
-              />
-              <span
-                class="bp3-input-action"
-              >
-                <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
-                >
-                  <svg
-                    data-icon="caret-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      caret-down
-                    </desc>
-                    <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-helper-text"
-        >
-          Issue Type is required.
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
-    >
-      <label
-        class="bp3-label"
         for="spec.issueKey"
       >
         Issue Key
@@ -638,6 +462,93 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
         </div>
       </div>
     </div>
+    <div
+      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.transitionTo.status"
+      >
+        Issue Type
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-popover-wrapper Select--main bp3-fill"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <div
+              class="bp3-input-group bp3-intent-danger"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.transitionTo.status"
+                placeholder="Status"
+                style="padding-right: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="bp3-input-action"
+              >
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    width="14"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-helper-text"
+        >
+          Status is required.
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="spec.transitionTo.transitionName"
+            placeholder="Transition Name (Optional)"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
     <p
       class="StyledProps--font StyledProps--main"
     >
@@ -647,9 +558,10 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
       {
   "spec": {
     "connectorRef": "Jira Connector is required.",
-    "projectKey": "Project is required.",
-    "issueType": "Issue Type is required.",
-    "issueKey": "Issue Key is required."
+    "issueKey": "Issue Key is required.",
+    "transitionTo": {
+      "status": "Status is required."
+    }
   }
 }
     </pre>

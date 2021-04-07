@@ -119,7 +119,7 @@ describe('Jira Approval tests', () => {
     await act(() => ref.current?.submitForm())
     expect(queryByText('Min Timeout is 10 Seconds')).toBeTruthy()
 
-    fireEvent.click(getByText('Connect to JIRA'))
+    fireEvent.click(getByText('Connect to Jira'))
     await act(() => ref.current?.submitForm())
 
     expect(queryByText('Project is required.')).toBeTruthy()
@@ -148,7 +148,7 @@ describe('Jira Approval tests', () => {
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira approval step' } })
     expect(queryByDisplayValue('5s')).toBeTruthy()
 
-    fireEvent.click(getByText('Connect to JIRA'))
+    fireEvent.click(getByText('Connect to Jira'))
     expect(queryByDisplayValue('pid1')).toBeTruthy()
     expect(queryByDisplayValue('tdc-2345')).toBeTruthy()
     expect(queryByDisplayValue('itd1')).toBeTruthy()
