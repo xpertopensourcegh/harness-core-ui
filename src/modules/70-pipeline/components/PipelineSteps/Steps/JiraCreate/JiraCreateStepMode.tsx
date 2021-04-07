@@ -110,8 +110,7 @@ const FormContent = ({
         queryParams: {
           ...commonParams,
           connectorRef: connectorRefFixedValue.toString(),
-          projectKey: projectKeyFixedValue.toString(),
-          fetchStatus: true
+          projectKey: projectKeyFixedValue.toString()
         }
       })
     } else {

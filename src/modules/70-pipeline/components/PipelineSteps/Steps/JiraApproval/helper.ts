@@ -79,7 +79,7 @@ const getInitialApprovalRejectionConditionValues = (
   // The value in YAML is always a string.
   // We'll figure out the component from operator and key
   const { operator, value, key } = condition
-  if (operator === 'equals' || (operator === 'not equals' && key !== 'Status')) {
+  if ((operator === 'equals' || operator === 'not equals') && key !== 'Status') {
     // Simple text input, need to revisit this condition
     return value?.toString()
   }

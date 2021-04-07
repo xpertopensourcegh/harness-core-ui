@@ -61,8 +61,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         queryParams: {
           ...commonParams,
           connectorRef: connectorRefFixedValue.toString(),
-          projectKey: projectKeyFixedValue.toString(),
-          fetchStatus: true
+          projectKey: projectKeyFixedValue.toString()
         }
       })
     }
@@ -202,8 +201,7 @@ export default function JiraCreateDeploymentMode(props: JiraCreateDeploymentMode
     queryParams: {
       ...commonParams,
       connectorRef: '',
-      projectKey: '',
-      fetchStatus: true
+      projectKey: ''
     }
   })
 

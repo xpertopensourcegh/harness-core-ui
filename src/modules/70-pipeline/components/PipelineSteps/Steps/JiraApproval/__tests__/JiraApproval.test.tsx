@@ -124,7 +124,7 @@ describe('Jira Approval tests', () => {
 
     expect(queryByText('Project is required.')).toBeTruthy()
     expect(queryByText('Issue Type is required.')).toBeTruthy()
-    expect(queryByText('Key Issue/ID is required.')).toBeTruthy()
+    expect(queryByText('Issue Key is required.')).toBeTruthy()
 
     fireEvent.click(getByText('Approval Criteria'))
     expect(queryByText('Expression value is required.')).toBeTruthy()

@@ -45,8 +45,7 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
         queryParams: {
           ...commonParams,
           connectorRef,
-          projectKey: selectedProjectKey,
-          fetchStatus: true
+          projectKey: selectedProjectKey
         }
       })
     }
@@ -238,8 +237,7 @@ export const JiraDynamicFieldsSelector = (props: JiraDynamicFieldsSelectorInterf
     queryParams: {
       ...commonParams,
       connectorRef: '',
-      projectKey: '',
-      fetchStatus: true
+      projectKey: ''
     }
   })
 

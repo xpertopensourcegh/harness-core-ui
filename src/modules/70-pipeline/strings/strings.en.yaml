@@ -39,7 +39,7 @@ jiraApprovalStep:
   validations:
     connectorRef: JIRA Connector is required.
     project: Project is required.
-    issueKey: Key Issue/ID is required.
+    issueKey: Issue Key is required.
     issueType: Issue Type is required.
     approvalCriteriaCondition: Atleast one condition is required.
     expression: Expression value is required.

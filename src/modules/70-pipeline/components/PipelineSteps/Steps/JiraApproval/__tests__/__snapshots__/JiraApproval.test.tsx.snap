@@ -634,7 +634,7 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
         <div
           class="bp3-form-helper-text"
         >
-          Key Issue/ID is required.
+          Issue Key is required.
         </div>
       </div>
     </div>
@@ -649,7 +649,7 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
     "connectorRef": "JIRA Connector is required.",
     "projectKey": "Project is required.",
     "issueType": "Issue Type is required.",
-    "issueKey": "Key Issue/ID is required."
+    "issueKey": "Issue Key is required."
   }
 }
     </pre>
