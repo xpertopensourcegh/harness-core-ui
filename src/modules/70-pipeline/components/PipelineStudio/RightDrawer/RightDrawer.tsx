@@ -73,7 +73,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         title = (
           <div className={css.title}>
             <Icon name="failure-strategy" size={40} />
-            {getString('stageName', selectedStage?.stage)} / {getString('failureStrategy.title')}
+            {getString('stageName', selectedStage?.stage)} / {getString('pipeline.failureStrategies.title')}
           </div>
         )
         break

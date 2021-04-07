@@ -14,6 +14,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/framework/app/App.tsx',
+    '!src/**/*.d.ts',
     '!src/**/*.test.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',
     '!src/**/__tests__/**',

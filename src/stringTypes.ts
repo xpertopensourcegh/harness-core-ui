@@ -5,6 +5,7 @@
 export interface StringsMap {
   'common.ID': string
   'common.My': string
+  'common.PermissibleActions': string
   'common.addVariable': string
   'common.approve': string
   'common.comments': string
@@ -19,12 +20,14 @@ export interface StringsMap {
   'common.editVariable': string
   'common.editVariableType': string
   'common.jexlExpression': string
+  'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
   'common.production': string
   'common.reject': string
   'common.removeThisVariable': string
   'common.secrets': string
+  'common.selectStrategy': string
   'common.specify': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
@@ -275,6 +278,42 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
   'pipeline.enterDescription': string
+  'pipeline.failureStrategies.defaultStageText': string
+  'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
+  'pipeline.failureStrategies.errorTypeLabels.Authentication': string
+  'pipeline.failureStrategies.errorTypeLabels.Authorization': string
+  'pipeline.failureStrategies.errorTypeLabels.Connectivity': string
+  'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning': string
+  'pipeline.failureStrategies.errorTypeLabels.Timeout': string
+  'pipeline.failureStrategies.errorTypeLabels.Verification': string
+  'pipeline.failureStrategies.fieldLabels.onRetryFailureLabel': string
+  'pipeline.failureStrategies.fieldLabels.onTimeoutLabel': string
+  'pipeline.failureStrategies.fieldLabels.retryCountLabel': string
+  'pipeline.failureStrategies.fieldLabels.retryIntervalsLabel': string
+  'pipeline.failureStrategies.helpText': string
+  'pipeline.failureStrategies.onFailureOfType': string
+  'pipeline.failureStrategies.performAction': string
+  'pipeline.failureStrategies.selectStrategy': string
+  'pipeline.failureStrategies.strategiesLabel.Abort': string
+  'pipeline.failureStrategies.strategiesLabel.Ignore': string
+  'pipeline.failureStrategies.strategiesLabel.ManualIntervention': string
+  'pipeline.failureStrategies.strategiesLabel.MarkAsSuccess': string
+  'pipeline.failureStrategies.strategiesLabel.Retry': string
+  'pipeline.failureStrategies.strategiesLabel.StageRollback': string
+  'pipeline.failureStrategies.strategiesLabel.StepGroupRollback': string
+  'pipeline.failureStrategies.title': string
+  'pipeline.failureStrategies.validation.actionRequired': string
+  'pipeline.failureStrategies.validation.errorsMinimum': string
+  'pipeline.failureStrategies.validation.errorsRequired': string
+  'pipeline.failureStrategies.validation.onRetryFailureRequired': string
+  'pipeline.failureStrategies.validation.onTimeoutRequired': string
+  'pipeline.failureStrategies.validation.retryCountInteger': string
+  'pipeline.failureStrategies.validation.retryCountMaximum': string
+  'pipeline.failureStrategies.validation.retryCountMinimum': string
+  'pipeline.failureStrategies.validation.retryCountRequired': string
+  'pipeline.failureStrategies.validation.retryIntervalMinimum': string
+  'pipeline.failureStrategies.validation.retryIntervalRequired': string
+  'pipeline.failureStrategies.validation.timeoutRequired': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
   'pipeline.jiraApprovalStep.approvalCriteria': string
@@ -2991,134 +3030,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'failureStrategies.errorTypeLabels.AnyOther': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.errorTypeLabels.Authentication': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.errorTypeLabels.Authorization': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.errorTypeLabels.Connectivity': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.errorTypeLabels.DelegateProvisioning': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.errorTypeLabels.Timeout': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.errorTypeLabels.Verification': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.fieldLabels.onRetryFailureLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.fieldLabels.onTimeoutLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.fieldLabels.retryCountLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.fieldLabels.retryIntervalsLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.strategiesLabel.Ignore': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.strategiesLabel.ManualIntervention': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.strategiesLabel.MarkAsSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.strategiesLabel.StageRollback': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.strategiesLabel.StepGroupRollback': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.actionRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.errorsMinimum': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.errorsRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.onRetryFailureRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.onTimeoutRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.retryCountInteger': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.retryCountMaximum': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.retryCountMinimum': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.retryCountRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.retryIntervalMinimum': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.retryIntervalRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategies.validation.timeoutRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategy.defaultStageText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategy.helpText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'failureStrategy.title': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  failureTypeSelectLabel: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   featureFlagsText: string
   /**
    * @deprecated migrate this string to module level file
@@ -4056,10 +3967,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   pathStyle: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  performAction: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6248,10 +6155,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   selectStage: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  selectStrategy: string
   /**
    * @deprecated migrate this string to module level file
    */

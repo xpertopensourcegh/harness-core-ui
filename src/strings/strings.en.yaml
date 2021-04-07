@@ -600,49 +600,6 @@ skipConditionText: |
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
-selectStrategy: Select a Strategy
-failureStrategy:
-  title: Failure Strategy
-  helpText: |
-    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-  defaultStageText: |
-    On all errors other than those specified in failure strategies defined here, perform action:
-failureTypeSelectLabel: On failure of type
-performAction: Perform Action
-failureStrategies:
-  fieldLabels:
-    retryCountLabel: Retry count
-    retryIntervalsLabel: Retry intervals
-    onTimeoutLabel: Post timeout action
-    onRetryFailureLabel: Post retry failure action
-  strategiesLabel:
-    Ignore: Ignore Failure
-    StageRollback: Rollback Stage
-    StepGroupRollback: Rollback Step Group
-    ManualIntervention: Manual Intervention
-    MarkAsSuccess: Mark As Success
-  errorTypeLabels:
-    Authentication: Authentication Errors
-    Authorization: Authorization Errors
-    Connectivity: Connectivity Errors
-    Timeout: Timeout Errors
-    Verification: Verification Errors
-    DelegateProvisioning: Delegate Provisioning Errors
-    AnyOther: Any Other
-  validation:
-    errorsRequired: At least one failure type is required
-    errorsMinimum: '{{ $.failureStrategies.validation.errorsRequired }}'
-    actionRequired: Action is required
-    retryCountInteger: Retry Count must be a positive integer
-    retryCountRequired: Retry Count is required
-    retryCountMinimum: Retry Count must be greater or equal to 1
-    retryCountMaximum: Retry Count cannot be more than {{ count }}
-    retryIntervalRequired: Retry Interval is Required
-    retryIntervalMinimum: At least one retry interval is Required
-    timeoutRequired: Timeout is required
-    onRetryFailureRequired: Retry failure action is required
-    onTimeoutRequired: Timeout failure action is required
-
 preRequisitesTitle: Pre-requisites
 advancedTitle: Advanced
 responseMapping: Response Mapping

@@ -10,8 +10,11 @@ pipelineDetails: Pipeline Details
 comments: Comments
 approve: Approve
 reject: Reject
+PermissibleActions: Permissible Actions
 My: My
 ID: ID
+selectStrategy: Select a Strategy
+performAction: Perform Action
 jexlExpression: JEXL Expression
 datePickerShortcuts:
   Today: Today

@@ -306,7 +306,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             onClick={openFailureStrategyPanel}
             icon="failure-strategy"
           >
-            {getString('failureStrategy.title')}
+            {getString('pipeline.failureStrategies.title')}
           </Button>
         </React.Fragment>
       </Tabs>

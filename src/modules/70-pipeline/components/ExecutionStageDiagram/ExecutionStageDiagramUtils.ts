@@ -165,6 +165,12 @@ export const getStatusProps = (
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
+      case ExecutionPipelineItemStatus.WAITING:
+        secondaryIcon = 'execution-warning'
+        secondaryIconProps.size = 20
+        secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
+        secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        break
       case ExecutionPipelineItemStatus.SUCCESS:
       case ExecutionPipelineItemStatus.SUCCEEDED:
         secondaryIcon = 'execution-success'
