@@ -249,6 +249,7 @@ export interface StringsMap {
   'connectors.title.gitlabConnector': string
   'connectors.title.hashicorpVault': string
   'connectors.title.helmConnector': string
+  'connectors.title.jira': string
   'connectors.title.k8sCluster': string
   'connectors.title.nexus': string
   'connectors.title.secretManager': string

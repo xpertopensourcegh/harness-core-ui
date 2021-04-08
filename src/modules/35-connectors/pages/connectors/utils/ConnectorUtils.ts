@@ -711,6 +711,7 @@ export const buildJiraPayload = (formData: FormData) => {
     orgIdentifier: formData.orgIdentifier,
     type: Connectors.Jira,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       jiraUrl: formData.jiraUrl,
 
       username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
@@ -752,6 +753,7 @@ export const buildHelmPayload = (formData: FormData) => {
     tags: formData.tags,
     type: Connectors.HttpHelmRepo,
     spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       helmRepoUrl: formData.helmRepoUrl,
       auth:
         formData.authType === AuthTypes.USER_PASSWORD

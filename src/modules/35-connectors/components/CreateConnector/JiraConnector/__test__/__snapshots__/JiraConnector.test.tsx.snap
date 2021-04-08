@@ -70,7 +70,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Connector
+        Jira
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -115,6 +115,21 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -415,7 +430,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Connector
+        Jira
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -478,6 +493,21 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"

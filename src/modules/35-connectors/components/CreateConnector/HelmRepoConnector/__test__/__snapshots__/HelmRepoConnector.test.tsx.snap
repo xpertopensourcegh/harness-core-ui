@@ -33,7 +33,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HttpHelmRepo Connector
+        Http Helm Repo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -78,6 +78,21 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -341,7 +356,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HttpHelmRepo Connector
+        Http Helm Repo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -404,6 +419,21 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -786,7 +816,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HttpHelmRepo Connector
+        Http Helm Repo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -831,6 +861,21 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1069,7 +1114,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HttpHelmRepo Connector
+        Http Helm Repo Connector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1132,6 +1177,21 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
