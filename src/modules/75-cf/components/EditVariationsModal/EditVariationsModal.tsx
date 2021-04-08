@@ -17,13 +17,13 @@ import {
   Color,
   SelectOption
 } from '@wings-software/uicore'
-import { getErrorMessage, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
+import { getErrorMessage, isNumeric, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import { Feature, usePatchFeature, Variation } from 'services/cf'
 import patch from '../../utils/instructions'
-import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
+import { FlagTypeVariations, FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
 
 export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
@@ -160,7 +160,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
           >
             {getString('cf.editVariation.title')}
             {feature.kind !== FlagTypeVariations.booleanFlag && (
-              <Text color={Color.GREY_400} padding={{ left: 'xsmall' }}>
+              <Text color={Color.GREY_400} margin={{ top: 'xsmall' }}>
                 {getString('cf.editVariation.subTitle', {
                   type: typeToStringMapping[feature.kind] || '',
                   count: feature.variations.length
@@ -172,13 +172,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
         style={{ width: 800, height: 560 }}
       >
         <Formik
-          initialValues={{
-            variations: feature.variations,
-            defaultOnVariation: feature.defaultOnVariation,
-            defaultOffVariation: feature.defaultOffVariation,
-            defaultOnAppliedToCurrentEnvironment: false,
-            defaultOffAppliedToCurrentEnvironment: false
-          }}
+          initialValues={initialValues}
           validationSchema={yup.object().shape({
             variations: yup.array().of(
               yup.object().shape({
@@ -188,6 +182,35 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
               })
             )
           })}
+          validate={(values: typeof initialValues) => {
+            const isTypeNumber = feature.kind === FlagTypeVariationsSelect.number
+            let variationErrors: Array<{ value?: string }> | undefined = []
+
+            // Values must be number when type is number and valid JSON when type is JSON
+            if (isTypeNumber || feature.kind === FlagTypeVariationsSelect.json) {
+              variationErrors = values.variations.map((variation: Variation) => {
+                if (isTypeNumber) {
+                  return isNumeric(variation.value) ? {} : { value: getString('cf.creationModal.mustBeNumber') }
+                } else {
+                  try {
+                    JSON.parse(variation.value)
+                  } catch (_e) {
+                    return { value: getString('cf.creationModal.mustBeValidJSON') }
+                  }
+                  return {}
+                }
+              })
+              variationErrors = variationErrors.find((error: { value?: string }) => error.value)
+                ? variationErrors
+                : undefined
+            }
+
+            const result = {
+              ...(variationErrors ? { variations: variationErrors } : undefined)
+            }
+
+            return result
+          }}
           validateOnChange
           validateOnBlur
           onSubmit={onSubmit}
@@ -196,7 +219,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
             <Form>
               <FormikEffect onChange={onFormikEffect} formik={formikProps} />
               <Container padding="xlarge">
-                <Container height={410} style={{ overflow: 'auto' }} padding="xsmall">
+                <Container height={390} style={{ overflow: 'auto' }} padding="xsmall">
                   {formikProps.values?.variations?.map((_: Variation, index: number) => (
                     <Layout.Horizontal
                       key={`flagElem-${index}`}

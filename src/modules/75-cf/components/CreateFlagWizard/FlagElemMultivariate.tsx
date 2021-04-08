@@ -21,6 +21,7 @@ import { FieldArray } from 'formik'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import type { FeatureFlagRequestRequestBody, Variation } from 'services/cf'
 import { useStrings } from 'framework/exports'
+import { isNumeric } from '@cf/utils/CFUtils'
 import { FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
 import css from './FlagElemVariations.module.scss'
 
@@ -115,19 +116,20 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
       setFlagMultiRules(selectItems)
     }
   }
+  const initialValues = {
+    kind: FlagTypeVariationsSelect.string,
+    variations: [
+      { identifier: '', name: '', value: '' },
+      { identifier: '', name: '', value: '' }
+    ],
+    defaultOnVariation: '',
+    defaultOffVariation: '',
+    ...prevStepData
+  }
 
   return (
     <Formik
-      initialValues={{
-        kind: FlagTypeVariationsSelect.string,
-        variations: [
-          { identifier: '', name: '', value: '' },
-          { identifier: '', name: '', value: '' }
-        ],
-        defaultOnVariation: '',
-        defaultOffVariation: '',
-        ...prevStepData
-      }}
+      initialValues={initialValues}
       validationSchema={yup.object().shape({
         variations: yup.array().of(
           yup.object().shape({
@@ -139,8 +141,37 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
         defaultOnVariation: yup.string().trim().required(getString('cf.creationModal.defaultVariationIsRequired')),
         defaultOffVariation: yup.string().trim().required(getString('cf.creationModal.defaultVariationIsRequired'))
       })}
+      validate={(values: typeof initialValues) => {
+        const isTypeNumber = values.kind === FlagTypeVariationsSelect.number
+        let variationErrors: Array<{ value?: string }> | undefined = []
+
+        // Values must be number when type is number and valid JSON when type is JSON
+        if (isTypeNumber || values.kind === FlagTypeVariationsSelect.json) {
+          variationErrors = values.variations.map((variation: Variation) => {
+            if (isTypeNumber) {
+              return isNumeric(variation.value) ? {} : { value: getString('cf.creationModal.mustBeNumber') }
+            } else {
+              try {
+                JSON.parse(variation.value)
+              } catch (_e) {
+                return { value: getString('cf.creationModal.mustBeValidJSON') }
+              }
+              return {}
+            }
+          })
+          variationErrors = variationErrors?.find(error => error.value) ? variationErrors : undefined
+        }
+
+        const result = {
+          ...(variationErrors ? { variations: variationErrors } : undefined)
+        }
+
+        return result
+      }}
       onSubmit={vals => {
         const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
+        // TODO: Convert values in data.variations to proper type when backend supports it
+        // Right now everything is string
         onWizardStepSubmit(data)
       }}
     >

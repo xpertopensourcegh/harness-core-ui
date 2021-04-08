@@ -38,6 +38,8 @@ creationModal:
   valueIsRequired: Variation value is required
   idIsRequired: Variation identifier is required
   defaultVariationIsRequired: Default variation is required
+  mustBeNumber: Value must be a number
+  mustBeValidJSON: Value must be a valid JSON object.
   dataType: Data type
   defaultRulesTooltip: Define which variation users will see by default when the flag is ON or OFF
   testFlagOption: Test the Flag
@@ -68,7 +70,7 @@ testTheFlag:
   confirmClose: Are you sure you want to close this modal?
 editVariation:
   title: Edit Variations
-  subTitle: '{{ type }} ( {{ count }} variations)'
+  subTitle: '{{ type }} ({{ count }} variations)'
   add: + Variation
   defaultRulesDesc: "Changes will only apply to newly created environments. Existing environments won't be affected"
   envNote: Changes will only apply to newly created environments. Existing environments won’t be affected.

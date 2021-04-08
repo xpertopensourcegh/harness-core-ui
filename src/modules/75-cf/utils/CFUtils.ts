@@ -182,3 +182,5 @@ export function showToaster(message: string, props?: IToasterProps): IToaster {
   toaster.show({ message, intent: Intent.SUCCESS, ...props })
   return toaster
 }
+
+export const isNumeric = (value: string): boolean => /^-?\d+$/.test(value)

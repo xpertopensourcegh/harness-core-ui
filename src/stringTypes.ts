@@ -493,6 +493,8 @@ export interface StringsMap {
   'cf.creationModal.flagType': string
   'cf.creationModal.idIsRequired': string
   'cf.creationModal.jsonType': string
+  'cf.creationModal.mustBeNumber': string
+  'cf.creationModal.mustBeValidJSON': string
   'cf.creationModal.nameIsRequired': string
   'cf.creationModal.saveAndClose': string
   'cf.creationModal.testFlagOption': string
