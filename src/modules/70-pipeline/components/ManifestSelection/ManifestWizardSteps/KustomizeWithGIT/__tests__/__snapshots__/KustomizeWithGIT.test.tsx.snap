@@ -60,7 +60,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  GIT Fetch Type
+                  Git Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -531,7 +531,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  GIT Fetch Type
+                  Git Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -1002,7 +1002,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  GIT Fetch Type
+                  Git Fetch Type
                    
                   <span
                     class="bp3-text-muted"

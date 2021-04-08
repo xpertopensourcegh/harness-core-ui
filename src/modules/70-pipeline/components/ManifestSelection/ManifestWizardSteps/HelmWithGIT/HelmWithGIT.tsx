@@ -164,7 +164,15 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.folderPathRequired')),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({

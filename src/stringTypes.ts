@@ -395,6 +395,7 @@ export interface StringsMap {
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
   'pipeline.manifestType.bucketName': string
+  'pipeline.manifestType.chartPathRequired': string
   'pipeline.manifestType.commandFlagRequired': string
   'pipeline.manifestType.commitId': string
   'pipeline.manifestType.commitPlaceholder': string
@@ -416,6 +417,7 @@ export interface StringsMap {
   'pipeline.manifestType.httpHelmRepoConnectorLabel': string
   'pipeline.manifestType.kustomizeFolderPath': string
   'pipeline.manifestType.kustomizePathHelperText': string
+  'pipeline.manifestType.kustomizePathRequired': string
   'pipeline.manifestType.manifestDetails': string
   'pipeline.manifestType.manifestIdentifier': string
   'pipeline.manifestType.manifestPlaceholder': string
@@ -5020,10 +5022,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.gcsConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.gitFetchType': string
   /**
    * @deprecated migrate this string to module level file
    */

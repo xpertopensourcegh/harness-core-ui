@@ -156,7 +156,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
             .trim()
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex')),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.folderPathRequired')),
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(

@@ -152,7 +152,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.folderPathRequired'))
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired'))
         })}
         onSubmit={formData => {
           submitFormData({

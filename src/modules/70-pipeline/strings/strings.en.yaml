@@ -83,6 +83,8 @@ manifestType:
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
+  chartPathRequired: Chart Path is required
+  kustomizePathRequired: Kustomize Path is required
   pathRequired: Path is required
   path: 'Path'
   osTemplatePath: 'Template File Path'
@@ -90,7 +92,7 @@ manifestType:
   osTemplatePathRequired: Template File Path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
-  gitFetchTypeLabel: GIT Fetch Type
+  gitFetchTypeLabel: Git Fetch Type
   commitId: Commit ID
   branchPlaceholder: Enter branch name here
   commitPlaceholder: Enter Commit ID here

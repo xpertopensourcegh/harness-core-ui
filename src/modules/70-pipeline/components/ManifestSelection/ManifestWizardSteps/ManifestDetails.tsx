@@ -195,6 +195,14 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
           paths: Yup.array(
             Yup.object().shape({
               path: Yup.string().trim().required(getString('pipeline.manifestType.pathRequired'))

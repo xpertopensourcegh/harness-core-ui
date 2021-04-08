@@ -1234,7 +1234,6 @@ pipelineSteps:
   paths: 'Paths'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
-  gitFetchType: 'Git Fetch Type'
   repoName: 'Repo Name'
   stepNameLabel: '{{ $.name }}'
   storeTypeRequired: 'Store Type is required.'

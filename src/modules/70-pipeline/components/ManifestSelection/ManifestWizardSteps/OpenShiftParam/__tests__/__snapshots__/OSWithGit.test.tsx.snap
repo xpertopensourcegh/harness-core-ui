@@ -60,7 +60,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  GIT Fetch Type
+                  Git Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -396,7 +396,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  GIT Fetch Type
+                  Git Fetch Type
                    
                   <span
                     class="bp3-text-muted"

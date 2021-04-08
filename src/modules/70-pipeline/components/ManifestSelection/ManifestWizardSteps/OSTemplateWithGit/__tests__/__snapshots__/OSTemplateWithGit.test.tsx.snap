@@ -60,7 +60,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  GIT Fetch Type
+                  Git Fetch Type
                    
                   <span
                     class="bp3-text-muted"
