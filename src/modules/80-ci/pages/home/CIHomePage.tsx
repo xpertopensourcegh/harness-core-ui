@@ -8,7 +8,7 @@ const CIHomePage: React.FC = () => {
 
   return (
     <HomePageTemplate
-      title={getString('ci.continuousIntegration')}
+      title={getString('ci.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('ci.dashboard.subHeading')}
       documentText={getString('ci.dashboard.learnMore')}

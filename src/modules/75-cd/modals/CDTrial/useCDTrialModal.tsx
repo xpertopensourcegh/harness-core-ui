@@ -23,18 +23,19 @@ export const useCDTrialModal = ({ onSuccess, onCloseModal }: UseCDTrialModalProp
         isOpen={true}
         onClose={() => {
           hideModal()
-          onCloseModal ? onCloseModal() : null
+          onCloseModal?.()
         }}
         className={cx(css.dialog, Classes.DIALOG, css.cdTrial)}
       >
         <CDTrial handleSubmit={onSuccess} closeModal={onCloseModal ? onCloseModal : hideModal} />
         <Button
+          aria-label="close modal"
           minimal
           icon="cross"
           iconProps={{ size: 18 }}
           onClick={() => {
             hideModal()
-            onCloseModal ? onCloseModal() : null
+            onCloseModal?.()
           }}
           className={css.crossIcon}
         />

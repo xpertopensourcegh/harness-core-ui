@@ -1,4 +1,4 @@
-continuousIntegration: 'Continuous Integration'
+continuous: 'Continuous Integration'
 dashboard:
   subHeading: Take your software build processes to the next level using our Harness Continuous Integration
   learnMore: Learn more about Continuous Integration

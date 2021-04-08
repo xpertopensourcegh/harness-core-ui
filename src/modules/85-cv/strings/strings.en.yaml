@@ -1,4 +1,4 @@
-continuousVerification: Continuous Verification
+continuous: Continuous Verification
 methodLabel: Method Label
 request: Request
 response: Response
@@ -18,7 +18,6 @@ dashboard:
   learnMore: Learn more about Continuous Verification
   createProject: '{{$.ci.dashboard.createProject}}'
   notStarted: Not started
-continuous: 'CONTINUOUS'
 verification: 'VERIFICATION'
 hostNamePlaceholder: '${host}'
 harnessService: 'Harness Service'

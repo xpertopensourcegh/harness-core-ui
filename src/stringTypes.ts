@@ -31,6 +31,26 @@ export interface StringsMap {
   'common.plusNumber': string
   'common.production': string
   'common.projectViewer': string
+  'common.purpose.cd.delivery': string
+  'common.purpose.cd.description': string
+  'common.purpose.cd.subtitle': string
+  'common.purpose.ce.description': string
+  'common.purpose.ce.efficiency': string
+  'common.purpose.ce.subtitle': string
+  'common.purpose.cf.description': string
+  'common.purpose.cf.features': string
+  'common.purpose.cf.subtitle': string
+  'common.purpose.ci.description': string
+  'common.purpose.ci.integration': string
+  'common.purpose.ci.subtitle': string
+  'common.purpose.continuous': string
+  'common.purpose.cv.description': string
+  'common.purpose.cv.subtitle': string
+  'common.purpose.moduleSuccess': string
+  'common.purpose.selectAModule': string
+  'common.purpose.setup': string
+  'common.purpose.startATrial': string
+  'common.purpose.welcome': string
   'common.reject': string
   'common.removeThisVariable': string
   'common.role': string
@@ -440,7 +460,7 @@ export interface StringsMap {
   'cd.CDTrialModal.setupLater': string
   'cd.CDTrialModal.setupSubtitle': string
   'cd.CDTrialModal.subheader': string
-  'cd.continuousIntegration': string
+  'cd.continuous': string
   'cd.dashboard.createProject': string
   'cd.dashboard.learnMore': string
   'cd.dashboard.orSelectExisting': string
@@ -478,6 +498,7 @@ export interface StringsMap {
   'cf.clause.operators.match': string
   'cf.clause.operators.matchSegment': string
   'cf.clause.operators.startsWith': string
+  'cf.continuous': string
   'cf.creationModal.aboutFlag.aboutFlagHeading': string
   'cf.creationModal.aboutFlag.ffNamePlaceholder': string
   'cf.creationModal.aboutFlag.ffRegex': string
@@ -747,7 +768,7 @@ export interface StringsMap {
   'cf.testTheFlag.testFlagTargetHeading': string
   'cf.testTheFlag.verify': string
   'cf.testTheFlag.verifyText': string
-  'ci.continuousIntegration': string
+  'ci.continuous': string
   'ci.dashboard.activeBuilds': string
   'ci.dashboard.createProject': string
   'ci.dashboard.failedBuilds': string
@@ -911,7 +932,6 @@ export interface StringsMap {
   'cv.connectors.unableToCreateConnector': string
   'cv.connectors.unableToUpdateConnector': string
   'cv.continuous': string
-  'cv.continuousVerification': string
   'cv.dashboard.createProject': string
   'cv.dashboard.learnMore': string
   'cv.dashboard.notStarted': string
@@ -1252,7 +1272,7 @@ export interface StringsMap {
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
   'ce.co.sshSetup': string
-  'ce.headingText': string
+  'ce.continuous': string
   'ce.homepage.learnMore': string
   'ce.homepage.slogan': string
   /**
@@ -2031,10 +2051,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   continueWithoutSavingTitle: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  continuousFeatures: string
   /**
    * @deprecated migrate this string to module level file
    */

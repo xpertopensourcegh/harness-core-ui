@@ -1,3 +1,4 @@
+continuous: Continuous Features
 shared:
   individual: Individual
   target: '{{ $.pipelineSteps.targetLabel }}'

@@ -7,11 +7,11 @@ import { NameIdDescriptionTags } from '@common/components'
 import { StringUtils } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
-import cdImage from './images/illustration.png'
+import cdImage from '../images/illustration.png'
 
 interface CDTrialModalData {
   handleSubmit: (values: NgPipeline) => void
-  closeModal?: () => void
+  closeModal: () => void
 }
 
 const CDTrial: React.FC<CDTrialModalData> = props => {
@@ -22,7 +22,7 @@ const CDTrial: React.FC<CDTrialModalData> = props => {
     <Layout.Vertical padding={{ top: 'large', left: 'xxxlarge' }}>
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Icon name="cd-main" size={20} padding={{ right: 'small' }} />
-        <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{getString('cd.continuousIntegration')}</Text>
+        <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{getString('cd.continuous')}</Text>
       </Layout.Horizontal>
       <Layout.Horizontal>
         <Text
@@ -88,7 +88,7 @@ const CDTrial: React.FC<CDTrialModalData> = props => {
                       intent="none"
                       text={getString('cd.CDTrialModal.setupLater')}
                       type="reset"
-                      onClick={() => closeModal && closeModal()}
+                      onClick={closeModal}
                     />
                   </Layout.Horizontal>
                   <Layout.Horizontal padding={{ top: 'large' }}>

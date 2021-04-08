@@ -26,7 +26,6 @@ signOut: Sign Out
 featureFlagsText: Feature Flags
 flag: Flag
 newLabel: New
-continuousFeatures: Continuous Features
 featureNA: This feature is not available as of now
 logView: Log View
 projectsText: Projects
