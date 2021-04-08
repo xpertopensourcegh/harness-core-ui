@@ -42,7 +42,17 @@ RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
 })
 ```
 
-The `RbacFactory` maintains a map of `ResourceType` enum to `ResourceHandler` interface implementations along with a map from `ResourceCategory` to `ResourceCategoryHandler`. A ResourceCategory is used for grouping of resources that belong to the same category for eg. secrets, connectors are part of Project Resources. A resource can either be put into a category or it could be standalone, in the later case we treat it as it's own category and no other explicit registration is required to make it a category. The map returned from Rbac Factory is used by the access-control UI to render the corresponding features. For eg. the icon and label are used to render the resources list in the Resource Group Details page.
+The `RbacFactory` maintains a map of `ResourceType` enum to `ResourceHandler` interface implementations along with a map from `ResourceCategory` to `ResourceCategoryHandler`. The map returned from Rbac Factory is used by the access-control UI to render the corresponding features. For eg. the icon and label are used to render the resources list in the Resource Group Details page.
+
+### Grouping / Categories
+
+<img width="1023" alt="Screenshot 2021-04-08 at 10 01 04 AM" src="https://user-images.githubusercontent.com/47316575/113968792-70f7e800-9851-11eb-8564-101b267ac290.png">
+
+A `ResourceCategory` is used for grouping of resources that belong to the same category for eg. Secrets and Connectors are part of Project Resources. A resource can either be put into a category or it could be standalone, in the later case we treat it as it's own category and no other explicit registration is required to make it a category.
+
+### Resource Selection for Resource Groups
+
+<img width="700" alt="Screenshot 2021-04-08 at 10 03 20 AM" src="https://user-images.githubusercontent.com/47316575/113968935-adc3df00-9851-11eb-8919-88159a204692.png">
 
 Similarly, for all resource types, we need the capability to select individual resources for a resource group. This is done by delegating the UI via the `addResourceModalBody` prop. This allows teams to render their own UI within the modal, while the overall access-control interface still remains consistent.
 
@@ -95,7 +105,7 @@ const SampleComponent = () => {
         resourceIdentifier
       }
       // The permissions you want to check
-      permissions: [PermissionIdentifier.CREATE_PROJECT, PermissionIdentifier.DELETE_PROJECT],
+      permissions: [PermissionIdentifier.UPDATE_PROJECT, PermissionIdentifier.DELETE_PROJECT],
       // connfiguration options
       options: {
         skipCache: true
@@ -147,6 +157,7 @@ function SampleComponent() {
 
 - Permissions returned are boolean in nature
 - Permissions are returned in the same order as requested in the `permissions` array
+- All permissions are assumed to be true/accessible until the backend explicitely returns false. This means if the API call is pending, in-progress or failed, the framework will return true. This is according to the product spec.
 - Fetched permissions are stored in `PermissionsContext`, which is available in `AppContext`. However, **direct access via context should be avoided**. The internal data structure does not support a O(1) look-ups.
 - The hook implements cache-first approach. Fetched permissions are cached and any requests are first checked in the cache. We make a network call only if it's a cache miss. You can switch to a network-first approach by passing `skipCache` as true in options.
 - Multiple requests across components are automatically collected together to avoid network thrashing.
