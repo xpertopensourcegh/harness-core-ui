@@ -28,7 +28,7 @@ newRelicConnectorDetails: New Relic Connector Details
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'
-  helmConnector: 'Http Helm Repo Connector'
+  helmConnector: 'Http Helm Repo'
   gitConnector: 'Git Connector'
   githubConnector: 'GitHub Connector'
   gitlabConnector: 'GitLab Connector'
