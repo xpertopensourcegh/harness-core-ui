@@ -9,6 +9,7 @@ export interface StringsMap {
   'common.accViewer': string
   'common.addVariable': string
   'common.approve': string
+  'common.changePlan': string
   'common.comments': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -57,6 +58,7 @@ export interface StringsMap {
   'common.secrets': string
   'common.selectStrategy': string
   'common.specify': string
+  'common.trialInProgress': string
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.nameIsRequired': string
@@ -459,7 +461,6 @@ export interface StringsMap {
   'cd.CDTrialModal.setupHeader': string
   'cd.CDTrialModal.setupLater': string
   'cd.CDTrialModal.setupSubtitle': string
-  'cd.CDTrialModal.subheader': string
   'cd.continuous': string
   'cd.dashboard.createProject': string
   'cd.dashboard.learnMore': string
@@ -768,15 +769,18 @@ export interface StringsMap {
   'cf.testTheFlag.testFlagTargetHeading': string
   'cf.testTheFlag.verify': string
   'cf.testTheFlag.verifyText': string
+  'ci.ciTrialHomePage.startTrial.description': string
+  'ci.ciTrialHomePage.startTrial.startBtn.description': string
+  'ci.ciTrialHomePage.trialInProgress.description': string
   'ci.continuous': string
   'ci.dashboard.activeBuilds': string
   'ci.dashboard.createProject': string
   'ci.dashboard.failedBuilds': string
-  'ci.dashboard.learnMore': string
   'ci.dashboard.noActiveBuilds': string
   'ci.dashboard.noFailedBuilds': string
   'ci.dashboard.noRepositories': string
   'ci.dashboard.subHeading': string
+  'ci.learnMore': string
   'ci.testsReports.className': string
   'ci.testsReports.commitId': string
   'ci.testsReports.consoleOutput': string

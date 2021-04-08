@@ -11,7 +11,7 @@ const CIHomePage: React.FC = () => {
       title={getString('ci.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('ci.dashboard.subHeading')}
-      documentText={getString('ci.dashboard.learnMore')}
+      documentText={getString('ci.learnMore')}
     />
   )
 }

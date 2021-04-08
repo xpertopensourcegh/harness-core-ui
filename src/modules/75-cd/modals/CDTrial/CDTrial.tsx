@@ -37,7 +37,7 @@ const CDTrial: React.FC<CDTrialModalData> = props => {
             display: 'inline-block'
           }}
         >
-          {getString('cd.CDTrialModal.subheader')}
+          {getString('common.trialInProgress')}
         </Text>
       </Layout.Horizontal>
       <Layout.Horizontal padding={{ top: 'large' }}>

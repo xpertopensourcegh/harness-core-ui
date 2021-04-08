@@ -70,3 +70,5 @@ purpose:
     features: Features
     subtitle: Decouple release from deployment and rollout features safely and quickly.
     description: CF description placeholder
+trialInProgress: Trial in-progress
+changePlan: Change Plan
