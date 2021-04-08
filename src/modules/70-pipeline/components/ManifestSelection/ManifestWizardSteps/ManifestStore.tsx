@@ -107,7 +107,13 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
       <Formik
         initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
-          connectorRef: Yup.string().trim().required(getString('validation.gitServerRequired'))
+          connectorRef: Yup.string()
+            .trim()
+            .required(
+              `${ManifestToConnectorMap[selectedManifest]} ${getString(
+                'pipelineSteps.build.create.connectorRequiredError'
+              )}`
+            )
         })}
         onSubmit={formData => {
           submitFirstStep({ ...formData, store: selectedManifest })

@@ -455,7 +455,7 @@ const ManifestListView = ({
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
               isStep={true}
-              isLastStep={true}
+              isLastStep={false}
               type={Connectors.GCP}
             />
           </StepWizard>

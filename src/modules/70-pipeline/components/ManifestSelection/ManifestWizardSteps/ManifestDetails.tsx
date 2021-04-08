@@ -155,7 +155,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   }
 
   const submitFormData = (formData: ManifestDetailDataType & { store?: string; connectorRef?: string }): void => {
-    const manifestObj = {
+    const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -164,8 +164,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
               repoName: formData?.repoName,
               paths:
                 typeof formData?.paths === 'string'
@@ -176,8 +174,16 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         }
       }
     }
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+      } else if (formData?.gitFetchType === 'Commit') {
+        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+      }
+    }
+
     if (selectedManifest === ManifestDataType.K8sManifest) {
-      ;(manifestObj.manifest.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
+      ;(manifestObj.manifest?.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
     }
     handleSubmit(manifestObj)
   }
