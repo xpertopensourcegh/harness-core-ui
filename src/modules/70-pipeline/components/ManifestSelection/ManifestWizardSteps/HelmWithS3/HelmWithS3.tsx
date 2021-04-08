@@ -66,14 +66,15 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       accountId
     }
   })
+
   React.useEffect(() => {
     const regionValues = (regionData?.resource || []).map(region => ({
       value: region.value,
       label: region.name
     }))
+
     setRegions(regionValues as SelectOption[])
   }, [regionData?.resource])
-
   /* Code related to region */
 
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -98,6 +99,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
           // id: uuid(commandFlag, nameSpace())
         })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
       }
+
       return values
     }
     return {
@@ -151,6 +153,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        enableReinitialize={true}
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
