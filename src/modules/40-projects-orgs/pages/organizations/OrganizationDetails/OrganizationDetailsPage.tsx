@@ -75,6 +75,7 @@ const OrganizationDetailsPage: React.FC = () => {
                   event.stopPropagation()
                   openCollaboratorModal({ orgIdentifier })
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall">{i18n.admin}</Text>
             </Layout.Vertical>
@@ -85,6 +86,7 @@ const OrganizationDetailsPage: React.FC = () => {
                   event.stopPropagation()
                   openCollaboratorModal({ orgIdentifier })
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall">{i18n.collaborators}</Text>
             </Layout.Vertical>

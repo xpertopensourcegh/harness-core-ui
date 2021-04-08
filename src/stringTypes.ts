@@ -273,6 +273,7 @@ export interface StringsMap {
   'userProfile.selectSCM': string
   'userProfile.twofactorAuth': string
   'projectsOrgs.createProject': string
+  'projectsOrgs.noCollaborators': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string

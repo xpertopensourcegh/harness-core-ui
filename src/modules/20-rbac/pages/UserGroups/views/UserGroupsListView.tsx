@@ -41,25 +41,12 @@ const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row
 
 const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }) => {
   const data = row.original
-  const { getString } = useStrings()
   const avatars =
     data.users?.map(user => {
       return { email: user.email, name: user.name }
     }) || []
 
-  const remainingLength = avatars.length - 5
-
-  return (
-    <Layout.Horizontal spacing="large" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <AvatarGroup
-        avatars={avatars.slice(0, 5)}
-        onAdd={event => {
-          event.stopPropagation()
-        }}
-      />
-      {remainingLength > 0 && <Text>{getString('common.plusNumber', { number: remainingLength })}</Text>}
-    </Layout.Horizontal>
-  )
+  return <AvatarGroup avatars={avatars} restrictLengthTo={6} />
 }
 const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
   const data = row.original.roleAssignmentsMetadataDTO?.map(item => ({

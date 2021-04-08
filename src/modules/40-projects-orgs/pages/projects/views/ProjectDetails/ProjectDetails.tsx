@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Color, Container, Icon, Layout, Popover, Text, AvatarGroup } from '@wings-software/uicore'
+import { AvatarGroup, Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'
@@ -112,6 +112,7 @@ const ProjectDetails: React.FC = () => {
                   event.stopPropagation()
                   showCollaborators(projectData as Project)
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall" padding={{ left: 'xsmall' }}>
                 {`${getString('adminLabel')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
@@ -125,6 +126,7 @@ const ProjectDetails: React.FC = () => {
                   event.stopPropagation()
                   showCollaborators(projectData as Project)
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall" padding={{ left: 'xsmall' }}>{`${getString('collaboratorsLabel')} ${
                 data?.data?.collaborators?.length ? `(${data?.data?.collaborators?.length})` : ``

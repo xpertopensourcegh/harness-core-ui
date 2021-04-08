@@ -155,6 +155,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                   event.stopPropagation()
                   inviteCollab?.()
                 }}
+                restrictLengthTo={3}
               />
               <Text font="small">{`${orgMembers?.length || 0} ${getString('members')}`}</Text>
             </Layout.Vertical>

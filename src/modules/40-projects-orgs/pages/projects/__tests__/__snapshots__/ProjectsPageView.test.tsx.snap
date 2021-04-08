@@ -332,32 +332,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -365,32 +369,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -700,32 +708,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -733,32 +745,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1240,32 +1256,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1273,32 +1293,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1573,32 +1597,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1606,32 +1634,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1962,32 +1994,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1995,32 +2031,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2351,32 +2391,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2384,32 +2428,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3407,32 +3455,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3440,32 +3492,36 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3988,32 +4044,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -4021,32 +4081,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -4356,32 +4420,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -4389,32 +4457,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -4896,32 +4968,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -4929,32 +5005,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -5229,32 +5309,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -5262,32 +5346,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -5618,32 +5706,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -5651,32 +5743,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -6007,32 +6103,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -6040,32 +6140,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -7063,32 +7167,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -7096,32 +7204,36 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -7644,32 +7756,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -7677,32 +7793,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -8012,32 +8132,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -8045,32 +8169,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -8552,32 +8680,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -8585,32 +8717,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -8885,32 +9021,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -8918,32 +9058,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -9274,32 +9418,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -9307,32 +9455,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -9663,32 +9815,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -9696,32 +9852,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -10719,32 +10879,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -10752,32 +10916,36 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -11300,32 +11468,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -11333,32 +11505,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -11668,32 +11844,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -11701,32 +11881,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -12208,32 +12392,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -12241,32 +12429,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -12541,32 +12733,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -12574,32 +12770,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -12930,32 +13130,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -12963,32 +13167,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -13319,32 +13527,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -13352,32 +13564,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -14375,32 +14591,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Admin 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -14408,32 +14628,36 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
                         Collaborators 
                       </p>
                       <div
-                        class="AvatarGroup--stack projectAvatarGroup"
-                        style="--avatar-over-lap: -13px;"
+                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                       >
                         <div
-                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          class="AvatarGroup--stack projectAvatarGroup"
+                          style="--avatar-over-lap: -13px;"
                         >
-                          <span
-                            class="bp3-popover-wrapper Avatar--avatarPopOver"
+                          <div
+                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper Avatar--avatarPopOver"
                             >
-                              <div
-                                class="Avatar--AvatarInner"
-                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                tabindex="0"
+                              <span
+                                class="bp3-popover-target"
                               >
-                                +
-                              </div>
+                                <div
+                                  class="Avatar--AvatarInner"
+                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                  tabindex="0"
+                                >
+                                  +
+                                </div>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>

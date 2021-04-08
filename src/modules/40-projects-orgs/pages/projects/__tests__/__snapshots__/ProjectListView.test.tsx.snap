@@ -185,37 +185,7 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
             class="AvatarGroup--stack"
@@ -239,6 +209,44 @@ exports[`Project List render 1`] = `
                   </div>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
           <p
@@ -424,37 +432,7 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
             class="AvatarGroup--stack"
@@ -478,6 +456,44 @@ exports[`Project List render 1`] = `
                   </div>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
           <p
@@ -699,37 +715,7 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
             class="AvatarGroup--stack"
@@ -753,6 +739,44 @@ exports[`Project List render 1`] = `
                   </div>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
           <p
@@ -905,37 +929,7 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
             class="AvatarGroup--stack"
@@ -959,6 +953,44 @@ exports[`Project List render 1`] = `
                   </div>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
           <p
@@ -1115,37 +1147,7 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
             class="AvatarGroup--stack"
@@ -1169,6 +1171,44 @@ exports[`Project List render 1`] = `
                   </div>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
           <p
@@ -1325,37 +1365,7 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
             class="AvatarGroup--stack"
@@ -1379,6 +1389,44 @@ exports[`Project List render 1`] = `
                   </div>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
           <p
@@ -1708,37 +1756,7 @@ exports[`Project List render 1`] = `
         style="width: 15%;"
       >
         <div
-          class="AvatarGroup--stack"
-          style="--avatar-over-lap: -13px;"
-        >
-          <div
-            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-          >
-            <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                  tabindex="0"
-                >
-                  +
-                </div>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="cell"
-        role="cell"
-        style="width: 15%;"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
             class="AvatarGroup--stack"
@@ -1762,6 +1780,44 @@ exports[`Project List render 1`] = `
                   </div>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="cell"
+        role="cell"
+        style="width: 15%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-inline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
           <p
