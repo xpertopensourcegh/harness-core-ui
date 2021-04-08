@@ -131,7 +131,7 @@ co:
     new: 'New Access Point'
     dnsProvider: 'DNS Provider'
     asssociatedRules: 'Associated Rules'
-    lastActivity: '{{$.cf.targets.lastActivity}}'
+    lastActivity: 'last activity'
     mapDomain: 'Map the domain'
     error: 'Could not create access point'
     success: 'Access Point Created Succesfully'
