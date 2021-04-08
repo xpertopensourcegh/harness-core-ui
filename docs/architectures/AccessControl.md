@@ -28,7 +28,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   permissionLabels: {
     [PermissionIdentifier.UPDATE_ORG]: 'Create / Edit'
   }
-  category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   addResourceModalBody: props => <AddOrganizationResourceModalBody {...props} />
 })
 ```
@@ -36,17 +36,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
 Example of a resource category registration:
 
 ```typescript
-RbacFactory.registerResourceTypeGroup(ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS, {
+RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
   icon: 'settings',
   label: <String stringID="adminFunctions" />
 })
 ```
 
-The `RbacFactory` maintains a map of `ResourceType` enum to `ResourceHandler` interface implementations along with a map from `ResourceTypeGroup` to `ResourceTypeGroupHandler`. A ResourceTypeGroup is used for grouping of resources that belong to the same category for eg. secrets, connectors are part of Project Resources. A resource can either be put into a category or it could be standalone, in the later case we treat it as it's own category and no other explicit registration is required to make it a category. The map returned from Rbac Factory is used by the access-control UI to render the corresponding features. For eg. the icon and label are used to render the resources list in the Resource Group Details page.
+The `RbacFactory` maintains a map of `ResourceType` enum to `ResourceHandler` interface implementations along with a map from `ResourceCategory` to `ResourceCategoryHandler`. A ResourceCategory is used for grouping of resources that belong to the same category for eg. secrets, connectors are part of Project Resources. A resource can either be put into a category or it could be standalone, in the later case we treat it as it's own category and no other explicit registration is required to make it a category. The map returned from Rbac Factory is used by the access-control UI to render the corresponding features. For eg. the icon and label are used to render the resources list in the Resource Group Details page.
 
 Similarly, for all resource types, we need the capability to select individual resources for a resource group. This is done by delegating the UI via the `addResourceModalBody` prop. This allows teams to render their own UI within the modal, while the overall access-control interface still remains consistent.
 
-`ResourceHandler` and `ResourceTypeGroupHandler` interfaces are implemented as follows (as of March 2021):
+`ResourceHandler` and `ResourceCategoryHandler` interfaces are implemented as follows (as of March 2021):
 
 ```typescript
 export interface ResourceHandler {
@@ -56,12 +56,12 @@ export interface ResourceHandler {
     [key in PermissionIdentifier]?: string | React.ReactElement
   }
   addResourceModalBody?: (props: RbacResourceModalProps) => React.ReactElement
-  category?: ResourceTypeGroup
+  category?: ResourceCategory
 }
 ```
 
 ```typescript
-export interface ResourceTypeGroupHandler {
+export interface ResourceCategoryHandler {
   icon: IconName
   label: string | React.ReactElement
   resourceTypes?: Set<ResourceType>

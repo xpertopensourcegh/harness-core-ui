@@ -8,7 +8,7 @@ export enum ResourceType {
   CONNECTOR = 'CONNECTOR'
 }
 
-export enum ResourceTypeGroup {
+export enum ResourceCategory {
   PROJECT_RESOURCES = 'PROJECT_RESOURCES',
   ADMINSTRATIVE_FUNCTIONS = 'ADMINSTRATIVE_FUNCTIONS'
 }
