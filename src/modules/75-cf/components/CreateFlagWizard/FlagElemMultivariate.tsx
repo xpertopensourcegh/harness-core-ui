@@ -21,8 +21,7 @@ import { FieldArray } from 'formik'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import type { FeatureFlagRequestRequestBody, Variation } from 'services/cf'
 import { useStrings } from 'framework/exports'
-import { isNumeric } from '@cf/utils/CFUtils'
-import { FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
+import { FeatureFlagMutivariateKind, useValidateVariationValues } from '@cf/utils/CFUtils'
 import css from './FlagElemVariations.module.scss'
 
 interface FlagElemVariationsProps {
@@ -55,11 +54,11 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     isLoadingCreateFeatureFlag
   } = props
   const { getString } = useStrings()
-
+  const validateVariationValues = useValidateVariationValues()
   const flagVariationOptions = [
-    { label: getString('string'), value: FlagTypeVariationsSelect.string },
-    { label: getString('cf.creationModal.jsonType'), value: FlagTypeVariationsSelect.json },
-    { label: getString('number'), value: FlagTypeVariationsSelect.number }
+    { label: getString('string'), value: FeatureFlagMutivariateKind.string },
+    { label: getString('cf.creationModal.jsonType'), value: FeatureFlagMutivariateKind.json },
+    { label: getString('number'), value: FeatureFlagMutivariateKind.number }
   ]
   const [flagMultiRules, setFlagMultiRules] = useState<FlagMultivariateSelectOptions[]>([
     { id: 'variation1', label: 'Variation 1', value: 'variation1' },
@@ -93,9 +92,9 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
 
   const kindToSelectValue = useCallback(kind => {
     switch (kind) {
-      case FlagTypeVariationsSelect.number:
+      case FeatureFlagMutivariateKind.number:
         return flagVariationOptions[2]
-      case FlagTypeVariationsSelect.json:
+      case FeatureFlagMutivariateKind.json:
         return flagVariationOptions[1]
       default:
         return flagVariationOptions[0]
@@ -117,7 +116,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     }
   }
   const initialValues = {
-    kind: FlagTypeVariationsSelect.string,
+    kind: FeatureFlagMutivariateKind.string,
     variations: [
       { identifier: '', name: '', value: '' },
       { identifier: '', name: '', value: '' }
@@ -142,31 +141,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
         defaultOffVariation: yup.string().trim().required(getString('cf.creationModal.defaultVariationIsRequired'))
       })}
       validate={(values: typeof initialValues) => {
-        const isTypeNumber = values.kind === FlagTypeVariationsSelect.number
-        let variationErrors: Array<{ value?: string }> | undefined = []
-
-        // Values must be number when type is number and valid JSON when type is JSON
-        if (isTypeNumber || values.kind === FlagTypeVariationsSelect.json) {
-          variationErrors = values.variations.map((variation: Variation) => {
-            if (isTypeNumber) {
-              return isNumeric(variation.value) ? {} : { value: getString('cf.creationModal.mustBeNumber') }
-            } else {
-              try {
-                JSON.parse(variation.value)
-              } catch (_e) {
-                return { value: getString('cf.creationModal.mustBeValidJSON') }
-              }
-              return {}
-            }
-          })
-          variationErrors = variationErrors?.find(error => error.value) ? variationErrors : undefined
-        }
-
-        const result = {
-          ...(variationErrors ? { variations: variationErrors } : undefined)
-        }
-
-        return result
+        return validateVariationValues(values.variations, values.kind)
       }}
       onSubmit={vals => {
         const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }

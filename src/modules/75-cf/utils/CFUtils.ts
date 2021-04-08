@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Intent, IToaster, IToasterProps, Position, Toaster } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import { Utils } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-import type { Feature } from 'services/cf'
+import type { Feature, Variation } from 'services/cf'
 
 const LOCALE = 'en'
 
@@ -36,6 +36,12 @@ export function formatDate(timestamp: number, dateStyle = 'medium'): string {
 export enum FFDetailPageTab {
   TARGETING = 'targeting',
   ACTIVITY = 'activity'
+}
+
+export enum FeatureFlagMutivariateKind {
+  json = 'json',
+  string = 'string',
+  number = 'int'
 }
 
 export const CF_LOCAL_STORAGE_ENV_KEY = 'cf_selected_env'
@@ -184,3 +190,44 @@ export function showToaster(message: string, props?: IToasterProps): IToaster {
 }
 
 export const isNumeric = (value: string): boolean => /^-?\d+$/.test(value)
+
+export type UseValidateVariationValuesResult = (
+  variations: Variation[],
+  featureFlagKind: string
+) => { variations?: Array<{ value?: string }> }
+
+export function useValidateVariationValues(): UseValidateVariationValuesResult {
+  const { getString } = useStrings()
+  const validateVariationValues = useCallback<UseValidateVariationValuesResult>(
+    (variations, featureFlagKind) => {
+      const isTypeNumber = featureFlagKind === FeatureFlagMutivariateKind.number
+      let variationErrors: Array<{ value?: string }> | undefined = undefined
+
+      // Values must be number when type is number and valid JSON when type is JSON
+      if (isTypeNumber || featureFlagKind === FeatureFlagMutivariateKind.json) {
+        variationErrors = variations.map((variation: Variation) => {
+          if (isTypeNumber) {
+            return isNumeric(variation.value) ? {} : { value: getString('cf.creationModal.mustBeNumber') }
+          } else {
+            try {
+              JSON.parse(variation.value)
+            } catch (_e) {
+              return { value: getString('cf.creationModal.mustBeValidJSON') }
+            }
+            return {}
+          }
+        })
+        variationErrors = variationErrors.find((error: { value?: string }) => error.value) ? variationErrors : undefined
+      }
+
+      const result = {
+        ...(variationErrors ? { variations: variationErrors } : undefined)
+      }
+
+      return result
+    },
+    [getString]
+  )
+
+  return validateVariationValues
+}

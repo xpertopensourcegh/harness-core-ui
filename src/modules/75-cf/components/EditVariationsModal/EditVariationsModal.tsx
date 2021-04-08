@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Dialog, Intent } from '@blueprintjs/core'
 import * as yup from 'yup'
-import { isEqual, zip, orderBy } from 'lodash-es'
+import { isEqual, zip, orderBy, clone } from 'lodash-es'
 import {
   Button,
   useModalHook,
@@ -17,13 +17,13 @@ import {
   Color,
   SelectOption
 } from '@wings-software/uicore'
-import { getErrorMessage, isNumeric, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
+import { getErrorMessage, useFeatureFlagTypeToStringMapping, useValidateVariationValues } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import { Feature, usePatchFeature, Variation } from 'services/cf'
 import patch from '../../utils/instructions'
-import { FlagTypeVariations, FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
+import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 
 export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
@@ -50,12 +50,13 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
 }) => {
   const ModalComponent: React.FC = () => {
     const { getString } = useStrings()
+    const validateVariationValues = useValidateVariationValues()
     const { showError, clear } = useToaster()
     const [loading, setLoading] = useState(false)
     const initialValues = {
       defaultOnVariation: feature.defaultOnVariation,
       defaultOffVariation: feature.defaultOffVariation,
-      variations: feature.variations,
+      variations: clone(feature.variations),
       defaultOnAppliedToCurrentEnvironment: false,
       defaultOffAppliedToCurrentEnvironment: false
     }
@@ -183,33 +184,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
             )
           })}
           validate={(values: typeof initialValues) => {
-            const isTypeNumber = feature.kind === FlagTypeVariationsSelect.number
-            let variationErrors: Array<{ value?: string }> | undefined = []
-
-            // Values must be number when type is number and valid JSON when type is JSON
-            if (isTypeNumber || feature.kind === FlagTypeVariationsSelect.json) {
-              variationErrors = values.variations.map((variation: Variation) => {
-                if (isTypeNumber) {
-                  return isNumeric(variation.value) ? {} : { value: getString('cf.creationModal.mustBeNumber') }
-                } else {
-                  try {
-                    JSON.parse(variation.value)
-                  } catch (_e) {
-                    return { value: getString('cf.creationModal.mustBeValidJSON') }
-                  }
-                  return {}
-                }
-              })
-              variationErrors = variationErrors.find((error: { value?: string }) => error.value)
-                ? variationErrors
-                : undefined
-            }
-
-            const result = {
-              ...(variationErrors ? { variations: variationErrors } : undefined)
-            }
-
-            return result
+            return validateVariationValues(values.variations, feature.kind)
           }}
           validateOnChange
           validateOnBlur
@@ -261,8 +236,9 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                           icon="trash"
                           style={{ visibility: formikProps.values?.variations.length === 2 ? 'hidden' : 'visible' }}
                           onClick={() => {
-                            formikProps.values?.variations.splice(index, 1)
-                            formikProps.setFieldValue('variations', formikProps.values?.variations)
+                            const _variations = clone(formikProps.values?.variations)
+                            _variations.splice(index, 1)
+                            formikProps.setFieldValue('variations', _variations)
                           }}
                         />
                       </Container>
