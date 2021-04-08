@@ -7,6 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { ModuleName, useStrings } from 'framework/exports'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 interface ContextMenuProps {
   project: Project
@@ -28,6 +29,10 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
       resourceScope: {
         accountIdentifier: accountId,
         orgIdentifier: project.orgIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PROJECT,
+        resourceIdentifier: project.identifier
       },
       permissions: [PermissionIdentifier.UPDATE_PROJECT, PermissionIdentifier.DELETE_PROJECT]
     },

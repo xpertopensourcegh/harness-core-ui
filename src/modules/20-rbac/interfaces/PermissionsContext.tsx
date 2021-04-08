@@ -13,7 +13,7 @@ export interface PermissionRequestOptions {
 
 export interface PermissionsContextProps {
   permissions: Permissions
-  requestPermission: (permissionRequest: PermissionCheck, options?: PermissionRequestOptions) => void
+  requestPermission: (permissionRequest?: PermissionCheck, options?: PermissionRequestOptions) => void
   checkPermission: (permissionRequest: PermissionCheck) => boolean
   cancelRequest: (permissionRequest: PermissionCheck) => void
 }
@@ -69,10 +69,13 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
   // this function is called from `usePermission` hook for every resource user is interested in
   // collect all requests until `debounceWait` is triggered
   async function requestPermission(
-    permissionRequest: PermissionCheck,
+    permissionRequest?: PermissionCheck,
     options?: PermissionRequestOptions
   ): Promise<void> {
+    if (!permissionRequest) return
+
     const { skipCache = false } = options || {}
+
     // exit early if we already fetched this permission before
     // disabling this will disable caching, because it will make a fresh request and update in the store
     if (!skipCache && permissions.has(getStringKeyFromObjectValues(permissionRequest, keysToCompare))) {
@@ -107,7 +110,10 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
   }
 
   function checkPermission(permissionRequest: PermissionCheck): boolean {
-    return !!permissions.get(getStringKeyFromObjectValues(permissionRequest, keysToCompare))
+    const permission = permissions.get(getStringKeyFromObjectValues(permissionRequest, keysToCompare))
+    // only use map value if it's defined. absence of data doesn't mean permission denied.
+    if (typeof permission === 'boolean') return permission
+    else return true
   }
 
   function cancelRequest(permissionRequest: PermissionCheck): void {

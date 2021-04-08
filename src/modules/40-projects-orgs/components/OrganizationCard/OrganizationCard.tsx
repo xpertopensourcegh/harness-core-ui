@@ -10,6 +10,7 @@ import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useStrings } from 'framework/exports'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
@@ -60,6 +61,10 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
     {
       resourceScope: {
         accountIdentifier: accountId
+      },
+      resource: {
+        resourceType: ResourceType.ORGANIZATION,
+        resourceIdentifier: data.identifier
       },
       permissions: [PermissionIdentifier.UPDATE_ORG, PermissionIdentifier.DELETE_ORG]
     },
