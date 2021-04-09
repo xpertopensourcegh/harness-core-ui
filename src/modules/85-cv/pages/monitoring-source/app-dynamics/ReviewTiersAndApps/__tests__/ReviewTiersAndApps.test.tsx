@@ -42,7 +42,11 @@ const applications = {
         service: 'service-1-2'
       }
     }
-  }
+  },
+  shouldNotBeRenderedApp: {
+    name: 'shouldNotBeRenderedApp',
+    environment: 'dev'
+  } // this app should not be rendered since it has no tiers and should not be sent in submit payload
 }
 
 describe('ReviewTiersAndApps', () => {

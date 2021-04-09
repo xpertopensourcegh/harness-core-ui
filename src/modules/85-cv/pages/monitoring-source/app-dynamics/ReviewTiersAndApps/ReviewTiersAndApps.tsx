@@ -90,13 +90,16 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
   useEffect(() => {
     if (stepData.applications) {
       const apps = Object.values(stepData.applications) as ApplicationRecord[]
-      const update = apps.map(app => {
+      const update: TableData[] = []
+
+      apps.map(app => {
         const ret: TableData = {}
         const tiers = Object.values(app?.tiers ?? {})
         ret.name = app.name
         ret.tiers = tiers.length
         ret.totalTiers = app.totalTiers
         ret.environment = app.environment!
+        if (!tiers.length) return
         if (!Number.isInteger(app.totalTiers)) {
           updateTiersNumber(app.name)
         }
@@ -112,7 +115,7 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
         ) {
           ret.validationStatus = ValidationStatus.SUCCESS
         }
-        return ret
+        update.push(ret)
       })
       setTableData(update)
     }
