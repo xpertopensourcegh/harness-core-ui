@@ -68,10 +68,10 @@ describe('Unit tests for NewRelicMonitoringSources', () => {
       })
     ).toEqual({
       accountId: '1234_accountId',
-      identifier: 'MyNewRelicSource1234_org-1234_project',
+      identifier: 'NewRelic',
       isEdit: false,
       mappedServicesAndEnvs: new Map(),
-      monitoringSourceName: 'MyNewRelicSource1234_org-1234_project',
+      monitoringSourceName: 'NewRelic',
       orgIdentifier: '1234_org',
       productName: 'apm',
       projectIdentifier: '1234_project',
