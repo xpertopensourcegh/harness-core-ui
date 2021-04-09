@@ -72,7 +72,7 @@ exports[`MapApplications matches snapshot 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-bottom-large"
         >
-          xx
+          Map the AppDynamics Application to a Harness Environment
         </p>
         <div
           class="StyledProps--font StyledProps--main mappingDetails"
@@ -105,7 +105,7 @@ exports[`MapApplications matches snapshot 1`] = `
           <p
             class="StyledProps--font StyledProps--main"
           >
-            xx
+            maps to
           </p>
           <p
             class="StyledProps--font StyledProps--main"
@@ -134,7 +134,7 @@ exports[`MapApplications matches snapshot 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-bottom-large"
           >
-            xx
+            Metric Packs
           </p>
           <div
             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
@@ -166,7 +166,7 @@ exports[`MapApplications matches snapshot 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-bottom-large"
         >
-          xx
+          Map AppDynamics Application Tiers to Harness Services
         </p>
         <div
           class="StyledProps--font StyledProps--main main"
@@ -198,7 +198,7 @@ exports[`MapApplications matches snapshot 1`] = `
               </span>
               <input
                 class="bp3-input"
-                placeholder="xx"
+                placeholder="Search for Tiers"
                 type="text"
                 value=""
               />
@@ -229,7 +229,7 @@ exports[`MapApplications matches snapshot 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
               >
-                xx
+                APPDYNAMICS TIER
               </p>
             </div>
             <div
@@ -238,7 +238,7 @@ exports[`MapApplications matches snapshot 1`] = `
               role="columnheader"
               style="width: 40%;"
             >
-              xx
+              MAPPING TO HARNESS SERVICE
             </div>
             <div
               class="cell"
@@ -249,7 +249,7 @@ exports[`MapApplications matches snapshot 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
               >
-                XX
+                VALIDATION
               </p>
             </div>
           </div>

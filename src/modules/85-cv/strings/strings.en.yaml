@@ -177,7 +177,7 @@ monitoringSources:
   oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
   backToMapping: Back to Mapping
   reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
-  appDName: App Dynamics
+  appDName: AppDynamics
   newRelicName: New Relic
   appD:
     envDescription: An Environment is the representation of your production or non-production infrastructure.
