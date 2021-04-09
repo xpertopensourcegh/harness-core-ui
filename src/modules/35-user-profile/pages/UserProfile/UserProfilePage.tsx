@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, Layout, Container, Avatar, Color, Switch, Button } from '@wings-software/uicore'
-import { noop } from 'lodash-es'
 import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
 import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
 import { useStrings } from 'framework/exports'
@@ -11,10 +10,11 @@ import css from './UserProfile.module.scss'
 
 const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
-  const { openUserProfile } = useUserProfile({ onSuccess: noop })
   const { openPasswordModal } = useChangePassword()
 
   const { data, loading, error, refetch } = useGetUserInfo({})
+
+  const { openUserProfile } = useUserProfile({ onSuccess: refetch })
 
   const user = data?.data
 

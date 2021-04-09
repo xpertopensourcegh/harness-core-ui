@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
-import type { User } from 'services/cd-ng'
+import type { UserInfo } from 'services/cd-ng'
 import EditUserProfile from './views/EditUserProfile'
 import css from './useUserProfile.module.scss'
 
@@ -12,12 +12,12 @@ export interface UseUserProfileProps {
 }
 
 export interface UseUserProfileReturn {
-  openUserProfile: (user: User) => void
+  openUserProfile: (user: UserInfo) => void
   closeUserProfile: () => void
 }
 
 export const useUserProfile = ({ onSuccess }: UseUserProfileProps): UseUserProfileReturn => {
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState<UserInfo>()
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -53,7 +53,7 @@ export const useUserProfile = ({ onSuccess }: UseUserProfileProps): UseUserProfi
   )
 
   const open = useCallback(
-    (_user: User) => {
+    (_user: UserInfo) => {
       setUser(_user)
       showModal()
     },
@@ -61,7 +61,7 @@ export const useUserProfile = ({ onSuccess }: UseUserProfileProps): UseUserProfi
   )
 
   return {
-    openUserProfile: (_user: User) => open(_user),
+    openUserProfile: (_user: UserInfo) => open(_user),
     closeUserProfile: hideModal
   }
 }
