@@ -52,7 +52,7 @@ const executionContext: ExecutionContextParams = {
       outcomes: [],
       stepType: 'K8sRollingDeploy',
       status: 'Failed',
-      failureInfo: { errorMessage: 'Failed to complete K8s task. Please check execution logs.' },
+      failureInfo: { message: 'Failed to complete K8s task. Please check execution logs.' },
       nodeRunInfo: { whenCondition: '<+OnStageSuccess>', evaluatedCondition: true },
       delegateInfoList: [
         {
