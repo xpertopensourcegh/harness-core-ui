@@ -4,9 +4,3 @@ dashboard:
   learnMore: Learn more about Continuous Delivery
   createProject: '{{$.projectsOrgs.createProject}}'
   orSelectExisting: '{{$.orSelectExisting}}'
-CDTrialModal:
-  description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
-  setupHeader: Setup Pipeline
-  setupSubtitle: Let’s get you started on your pipeline.
-  setupLater: Setup Later
-  learnMore: Learn More

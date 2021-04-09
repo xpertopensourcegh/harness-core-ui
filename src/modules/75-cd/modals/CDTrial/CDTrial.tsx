@@ -43,7 +43,7 @@ const CDTrial: React.FC<CDTrialModalData> = props => {
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container width="57%" padding={{ right: 'xxxlarge' }}>
           <Text style={{ fontSize: 'normal', width: 380, display: 'inline-block', marginLeft: 30, lineHeight: 2 }}>
-            {getString('cd.CDTrialModal.description')}
+            {getString('pipeline.selectOrCreateForm.description')}
           </Text>
           <img src={cdImage} style={{ marginLeft: -40, marginTop: -30 }} width={800} height={400} />
         </Container>
@@ -76,17 +76,17 @@ const CDTrial: React.FC<CDTrialModalData> = props => {
               return (
                 <Form>
                   <Text style={{ color: Color.BLACK, paddingBottom: 8, fontWeight: 600, fontSize: 'large' }}>
-                    {getString('cd.CDTrialModal.setupHeader')}
+                    {getString('pipeline.createPipeline.setupHeader')}
                   </Text>
                   <Text style={{ fontSize: 'normal', color: Color.BLACK, paddingBottom: 40 }}>
-                    {getString('cd.CDTrialModal.setupSubtitle')}
+                    {getString('pipeline.createPipeline.setupSubtitle')}
                   </Text>
                   <NameIdDescriptionTags formikProps={formikProps} />
                   <Layout.Horizontal padding={{ top: 'large' }} spacing="medium">
                     <Button intent="primary" text={getString('start')} type="submit" />
                     <Button
                       intent="none"
-                      text={getString('cd.CDTrialModal.setupLater')}
+                      text={getString('pipeline.createPipeline.setupLater')}
                       type="reset"
                       onClick={closeModal}
                     />
@@ -100,7 +100,7 @@ const CDTrial: React.FC<CDTrialModalData> = props => {
                           rightIcon="chevron-right"
                           rightIconProps={{ color: Color.BLUE_700 }}
                         >
-                          {getString('cd.CDTrialModal.learnMore')}
+                          {getString('pipeline.createPipeline.learnMore')}
                         </Text>
                       </Layout.Horizontal>
                     </Link>

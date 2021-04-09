@@ -141,6 +141,7 @@ exports[`TrialHomePageTemplate snapshot test should render trial in progress whe
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue600"
             data-icon="steps-spinner"
+            style="margin-bottom: 7px;"
           >
             <svg
               height="20"

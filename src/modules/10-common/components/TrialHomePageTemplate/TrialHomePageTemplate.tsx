@@ -66,7 +66,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
             // setIsLoading(false)
           }}
         />
-        {isLoading && <Icon name="steps-spinner" size={20} color={Color.BLUE_600} />}
+        {isLoading && <Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginBottom: 7 }} />}
       </Layout.Horizontal>
       <Link to={changePlan.url}>{changePlan.description}</Link>
     </Layout.Vertical>

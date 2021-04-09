@@ -36,7 +36,6 @@ co:
           additionalInfo: 'A Spot Instance is an unused EC2 instance that is available for less than the On-Demand price. Because Spot Instances enable you to request unused EC2 instances at steep discounts, you can lower your Amazon EC2 costs significantly.'
       readMore: 'Read More...'
     providerSelector:
-      title: 'Let’s get you started'
       description: 'Select the cloud account type'
       helpText:
         selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'

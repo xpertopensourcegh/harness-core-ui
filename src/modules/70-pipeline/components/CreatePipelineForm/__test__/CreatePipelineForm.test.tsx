@@ -1,26 +1,42 @@
 import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 
-import CDTrial from '../CDTrial/CDTrial'
+import { CreatePipelineForm } from '../CreatePipelineForm'
 
-describe('CDTrial Modal', () => {
+const closeModalMock = jest.fn()
+describe('CreatePipelineForm', () => {
   const props = {
     handleSubmit: jest.fn(),
-    closeModal: jest.fn
+    closeModal: closeModalMock
   }
   describe('Rendering', () => {
-    test('should render CDTrial', () => {
+    test('should render CreatePipelineForm', () => {
       const { container } = render(
         <TestWrapper
           path="/account/:accountId"
           pathParams={{ accountId: 'testAcc' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >
-          <CDTrial {...props} />
+          <CreatePipelineForm {...props} />
         </TestWrapper>
       )
+      expect(container).toMatchSnapshot()
+    })
+
+    test('should closeModal when click Setup Later', async () => {
+      const { container, getByText } = render(
+        <TestWrapper
+          path="/account/:accountId"
+          pathParams={{ accountId: 'testAcc' }}
+          defaultAppStoreValues={defaultAppStoreValues}
+        >
+          <CreatePipelineForm {...props} />
+        </TestWrapper>
+      )
+      fireEvent.click(getByText('Setup Later'))
+      await waitFor(() => expect(closeModalMock).toBeCalled())
       expect(container).toMatchSnapshot()
     })
 
@@ -31,7 +47,7 @@ describe('CDTrial Modal', () => {
           pathParams={{ accountId: 'testAcc' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >
-          <CDTrial {...props} />
+          <CreatePipelineForm {...props} />
         </TestWrapper>
       )
       fireEvent.click(getByText('Start'))
