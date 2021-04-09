@@ -297,6 +297,7 @@ environments:
     noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
 auditLogs:
   title: Audit Logs
+  summaryHeading: 'Module: Feature Flags • Project: {{project}} • Environment: {{environment}}'
   last7days: Last 7 days
   searchPlaceholder: Search Activity
   viewEventSummary: View Event Summary
@@ -314,6 +315,37 @@ auditLogs:
   createdMessageFFUpdate: 'updated feature flag'
   createdMessageSegment: 'created segment'
   yamlDifference: YAML Difference
+  changeDetails: Change details
+  events:
+    updateClause: A clause was updated for a rule
+    reorderRules: Rules reordered
+    updateDefaultServe:
+      bucketBy: Default serve updated for bucket by '{{bucketBy}}'
+      variation: Default serve updated with variation '{{variation}}'
+    addTargetsToVariationTargetMap: Target '{{target}}' was added for Variation '{{variation}}'
+    updateDescription: Description updated to '{{description}}'
+    updateName: Name updated to '{{name}}'
+    updatePermanent: Permanent set to '{{permanent}}'
+    addRule: A rule was added with clauses '{{clauses}}'
+    updateRule: Rule updated
+    removeRule: Rule removed
+    addVariation: Variation '{{variation}}' added
+    updateVariation: Variation '{{variation}}' updated
+    deleteVariation: Variation '{{variation}}' deleted
+    setDefaultOnVariation: Default on variation set to '{{variation}}'
+    setDefaultOffVariation: Default off variation set to '{{variation}}'
+    addSegmentToVariationTargetMap: Segment '{{segment}}' added for Variation '{{variation}}'
+    setFeatureFlagStateOn: Flag turned on
+    setFeatureFlagStateOff: Flag turned off
+    tagUpdated: Tags updated
+    addPrerequisite: Prerequisite '{{name}}' added
+    removePrerequisite: Prerequisite '{{name}}' removed
+    updatePrerequisite: Prerequisite '{{name}}' updated
+    removeTargetsToVariationTargetMap: Variation '{{variation}}' removed for targets '{{targets}}'
+    clearVariationTargetMapping: Variation target mapping removed
+    updateOffVariation: Off variation updated to '{{variation}}'
+    removeClause: A clause was removed
+
 noEnvironment:
   title: No Environment Available
   message: Create an environment and let’s start configuring the targeting rules of your flag

@@ -10,6 +10,7 @@ import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
 import { useConfirmAction } from '@common/hooks'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
@@ -44,9 +45,10 @@ export const TargetDetailPage: React.FC = () => {
     projectIdentifier,
     environmentIdentifier
   })
+  const title = getString('cf.targets.title')
   const breadcrumbs = [
     {
-      title: getString('cf.targets.title'),
+      title,
       url: routes.toCFTargets({
         accountId,
         orgIdentifier,
@@ -98,6 +100,8 @@ export const TargetDetailPage: React.FC = () => {
       }
     }
   })
+
+  useDocumentTitle(title)
 
   const loading = targetLoading || envLoading
   const error = targetError || envError

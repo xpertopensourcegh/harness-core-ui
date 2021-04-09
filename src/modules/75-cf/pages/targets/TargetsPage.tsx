@@ -308,7 +308,7 @@ export const TargetsPage: React.FC = () => {
       header={header}
       headerStyle={{ display: 'flex' }}
       toolbar={!error && !noEnvironmentExists && !noTargetExists && toolbar}
-      content={(!error && content) || null}
+      content={((!error || noEnvironmentExists) && content) || null}
       pagination={
         !noEnvironmentExists &&
         !!targetsData?.targets?.length && (
@@ -325,7 +325,7 @@ export const TargetsPage: React.FC = () => {
         )
       }
       loading={loading}
-      error={error}
+      error={noEnvironmentExists ? undefined : error}
       retryOnError={() => {
         refetchEnvs()
         refetchTargets()

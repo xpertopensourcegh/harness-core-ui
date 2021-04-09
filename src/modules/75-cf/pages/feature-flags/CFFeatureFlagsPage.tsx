@@ -16,6 +16,7 @@ import {
   Color
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
+import { noop } from 'lodash-es'
 import { /*Drawer,*/ Position, Switch, Classes } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
@@ -151,18 +152,17 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
       <Container onMouseDown={Utils.stopEvent} onClick={Utils.stopEvent}>
         <Button
           noStyling
-          tooltip={switchTooltip}
+          tooltip={data.archived ? undefined : switchTooltip}
           tooltipProps={{ interactionKind: 'click', hasBackdrop: true, position: Position.TOP_LEFT }}
           className={css.toggleFlagButton}
+          disabled={data.archived}
         >
           <Switch
             style={{ alignSelf: 'baseline', marginLeft: '-10px' }}
             alignIndicator="right"
             className={Classes.LARGE}
             checked={status}
-            // Empty onChange() to avoid React warning
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onChange={() => {}}
+            onChange={noop}
             disabled={data.archived}
           />
         </Button>

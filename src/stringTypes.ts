@@ -485,17 +485,46 @@ export interface StringsMap {
   'cf.addPrerequisites.selectFlag': string
   'cf.addPrerequisites.selectVariation': string
   'cf.auditLogs.action': string
+  'cf.auditLogs.changeDetails': string
   'cf.auditLogs.createdMessageFF': string
   'cf.auditLogs.createdMessageFFUpdate': string
   'cf.auditLogs.createdMessageSegment': string
   'cf.auditLogs.empty': string
   'cf.auditLogs.eventSummary': string
+  'cf.auditLogs.events.addPrerequisite': string
+  'cf.auditLogs.events.addRule': string
+  'cf.auditLogs.events.addSegmentToVariationTargetMap': string
+  'cf.auditLogs.events.addTargetsToVariationTargetMap': string
+  'cf.auditLogs.events.addVariation': string
+  'cf.auditLogs.events.clearVariationTargetMapping': string
+  'cf.auditLogs.events.deleteVariation': string
+  'cf.auditLogs.events.removeClause': string
+  'cf.auditLogs.events.removePrerequisite': string
+  'cf.auditLogs.events.removeRule': string
+  'cf.auditLogs.events.removeTargetsToVariationTargetMap': string
+  'cf.auditLogs.events.reorderRules': string
+  'cf.auditLogs.events.setDefaultOffVariation': string
+  'cf.auditLogs.events.setDefaultOnVariation': string
+  'cf.auditLogs.events.setFeatureFlagStateOff': string
+  'cf.auditLogs.events.setFeatureFlagStateOn': string
+  'cf.auditLogs.events.tagUpdated': string
+  'cf.auditLogs.events.updateClause': string
+  'cf.auditLogs.events.updateDefaultServe.bucketBy': string
+  'cf.auditLogs.events.updateDefaultServe.variation': string
+  'cf.auditLogs.events.updateDescription': string
+  'cf.auditLogs.events.updateName': string
+  'cf.auditLogs.events.updateOffVariation': string
+  'cf.auditLogs.events.updatePermanent': string
+  'cf.auditLogs.events.updatePrerequisite': string
+  'cf.auditLogs.events.updateRule': string
+  'cf.auditLogs.events.updateVariation': string
   'cf.auditLogs.flagCreated': string
   'cf.auditLogs.flagUpdated': string
   'cf.auditLogs.last7days': string
   'cf.auditLogs.moduleFF': string
   'cf.auditLogs.searchPlaceholder': string
   'cf.auditLogs.segmentCreated': string
+  'cf.auditLogs.summaryHeading': string
   'cf.auditLogs.timePST': string
   'cf.auditLogs.title': string
   'cf.auditLogs.unknown': string

@@ -10,6 +10,7 @@ import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
 import { useConfirmAction } from '@common/hooks'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
 import { SegmentSettings } from './segment-settings/SegmentSettings'
@@ -44,9 +45,10 @@ export const SegmentDetailPage: React.FC = () => {
     projectIdentifier,
     environmentIdentifier
   })
+  const title = getString('cf.shared.segments')
   const breadcrumbs = [
     {
-      title: getString('cf.shared.segments'),
+      title,
       url: routes.toCFSegments({
         accountId,
         orgIdentifier,
@@ -98,6 +100,8 @@ export const SegmentDetailPage: React.FC = () => {
       }
     }
   })
+
+  useDocumentTitle(title)
 
   const loading = segmentLoading || envLoading
   const error = segmentError || envError

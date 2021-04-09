@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Intent, IToaster, IToasterProps, Position, Toaster } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import { Utils } from '@wings-software/uicore'
@@ -73,28 +73,49 @@ export const featureFlagHasCustomRules = (featureFlag: Feature) => {
   return featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length
 }
 
-export enum FeatureFlagBucketBy {
+enum FeatureFlagBucketBy {
   IDENTIFIER = 'identifier',
   NAME = 'name'
 }
 
 export const useBucketByItems = () => {
   const { getString } = useStrings()
-  const bucketByItems = useMemo(
-    () => [
+  const [additions, setAdditions] = useState<string[]>([])
+  const addBucketByItem = useCallback(
+    (item: string) => {
+      const _item = (item || '').trim()
+
+      if (
+        _item &&
+        _item !== FeatureFlagBucketBy.NAME &&
+        _item !== FeatureFlagBucketBy.IDENTIFIER &&
+        !additions.includes(_item)
+      ) {
+        setAdditions([...additions, _item])
+      }
+    },
+    [additions, setAdditions]
+  )
+  const bucketByItems = useMemo(() => {
+    const _items = [
       {
         label: getString('identifier'),
-        value: FeatureFlagBucketBy.IDENTIFIER
+        value: FeatureFlagBucketBy.IDENTIFIER as string
       },
       {
         label: getString('name'),
-        value: FeatureFlagBucketBy.NAME
+        value: FeatureFlagBucketBy.NAME as string
       }
-    ],
-    [getString]
-  )
+    ]
 
-  return bucketByItems
+    if (additions.length) {
+      additions.forEach(addition => _items.push({ label: addition, value: addition }))
+    }
+
+    return _items
+  }, [getString, additions])
+
+  return { bucketByItems, addBucketByItem }
 }
 
 // This util unescape <strong/> sequences in i18n output to support bold text
@@ -189,7 +210,7 @@ export function showToaster(message: string, props?: IToasterProps): IToaster {
   return toaster
 }
 
-export const isNumeric = (value: string): boolean => /^-?\d+$/.test(value)
+export const isNumeric = (input: string): boolean => /^-{0,1}\d*\.{0,1}\d+$/.test(input)
 
 export type UseValidateVariationValuesResult = (
   variations: Variation[],

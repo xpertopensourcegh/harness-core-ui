@@ -274,7 +274,7 @@ export const SegmentsPage: React.FC = () => {
       header={header}
       headerStyle={{ display: 'flex' }}
       toolbar={!error && !noEnvironmentExists && !noSegmentExists && toolbar}
-      content={(!error && content) || null}
+      content={((!error || noEnvironmentExists) && content) || null}
       pagination={
         !noEnvironmentExists &&
         !!segmentsData?.segments?.length && (
@@ -290,7 +290,7 @@ export const SegmentsPage: React.FC = () => {
         )
       }
       loading={loading}
-      error={error}
+      error={noEnvironmentExists ? undefined : error}
       retryOnError={() => {
         refetchEnvs()
         refetchSegments()
