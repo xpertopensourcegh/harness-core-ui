@@ -750,6 +750,8 @@ export const buildHelmPayload = (formData: FormData) => {
     name: formData.name,
     description: formData.description,
     identifier: formData.identifier,
+    projectIdentifier: formData.projectIdentifier,
+    orgIdentifier: formData.orgIdentifier,
     tags: formData.tags,
     type: Connectors.HttpHelmRepo,
     spec: {
