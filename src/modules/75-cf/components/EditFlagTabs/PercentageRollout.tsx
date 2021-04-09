@@ -91,6 +91,10 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
     addBucketByItem(value)
   }
 
+  useEffect(() => {
+    addBucketByItem(bucketBy as string)
+  }, [bucketBy, addBucketByItem])
+
   return (
     <Container margin={{ left: editing ? 'small' : 'xsmall' }} style={style}>
       <Layout.Horizontal

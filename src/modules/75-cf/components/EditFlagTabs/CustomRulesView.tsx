@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   AvatarGroup,
@@ -145,6 +145,10 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   const bucketBySelectValue = useMemo(() => {
     return bucketByItems.find(item => item.value === attribute)
   }, [bucketByItems, attribute])
+
+  useEffect(() => {
+    addBucketByItem(attribute as string)
+  }, [attribute, addBucketByItem])
 
   const actions = [
     <Icon
@@ -437,6 +441,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                         <PercentageRollout
                           editing={true}
                           variations={variations}
+                          bucketBy={rule.clauses?.[index]?.attribute}
                           weightedVariations={rule.serve.distribution?.variations || []}
                           onSetPercentageValues={handleRolloutChange}
                           style={{ marginLeft: 'var(--spacing-small)' }}
