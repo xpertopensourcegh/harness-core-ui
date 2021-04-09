@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
 import { omit, pick } from 'lodash-es'
 
+import { useDeepCompareEffect } from '@common/hooks'
 import { usePermissionsContext, PermissionRequestOptions } from '@rbac/interfaces/PermissionsContext'
 import type { PermissionCheck, ResourceScope } from 'services/rbac'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -66,7 +66,7 @@ export function usePermission(permissionsRequest: PermissionsRequest, deps: Arra
   const { requestPermission, checkPermission, cancelRequest } = usePermissionsContext()
   const { options } = permissionsRequest
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (NG_RBAC_ENABLED) {
       // generate PermissionRequest for every action user requested
       permissionsRequest.permissions.forEach(permission => {
