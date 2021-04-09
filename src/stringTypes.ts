@@ -280,6 +280,8 @@ export interface StringsMap {
   'userProfile.addSCM': string
   'userProfile.basicInformation': string
   'userProfile.changePassword': string
+  'userProfile.confirmDelete': string
+  'userProfile.confirmDeleteTitle': string
   'userProfile.confirmPassword': string
   'userProfile.currentPassword': string
   'userProfile.editProfile': string
@@ -292,8 +294,14 @@ export interface StringsMap {
   'userProfile.passwordReqs': string
   'userProfile.plusSCM': string
   'userProfile.requiredField': string
+  'userProfile.scmCreateFail': string
+  'userProfile.scmCreateSuccess': string
+  'userProfile.scmDeleteFailure': string
+  'userProfile.scmDeleteSuccess': string
   'userProfile.selectSCM': string
   'userProfile.twofactorAuth': string
+  'userProfile.userEditFail': string
+  'userProfile.userEditSuccess': string
   'projectsOrgs.createProject': string
   'projectsOrgs.noCollaborators': string
   'dashboards.createModal.dataSource': string

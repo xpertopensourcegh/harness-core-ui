@@ -27,14 +27,16 @@ export const useUserProfile = ({ onSuccess }: UseUserProfileProps): UseUserProfi
         }}
         className={cx(css.dialog, Classes.DIALOG)}
       >
-        <EditUserProfile
-          user={user}
-          onSubmit={() => {
-            onSuccess()
-            hideModal()
-          }}
-          onClose={hideModal}
-        />
+        {user && (
+          <EditUserProfile
+            user={user}
+            onSubmit={() => {
+              onSuccess()
+              hideModal()
+            }}
+            onClose={hideModal}
+          />
+        )}
 
         <Button
           minimal

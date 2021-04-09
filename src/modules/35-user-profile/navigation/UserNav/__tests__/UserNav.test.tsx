@@ -31,17 +31,5 @@ describe('User Profile Page', () => {
         })
       )
     ).toBeTruthy()
-  }),
-    test('To User Preferences', () => {
-      const preferences = getByText('Preferences')
-      fireEvent.click(preferences)
-
-      expect(
-        getByTestId('location').innerHTML.endsWith(
-          routes.toUserPreferences({
-            accountId: 'testAcc'
-          })
-        )
-      ).toBeTruthy()
-    })
+  })
 })

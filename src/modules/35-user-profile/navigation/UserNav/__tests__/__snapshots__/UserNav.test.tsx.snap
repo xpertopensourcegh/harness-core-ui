@@ -13,16 +13,6 @@ exports[`User Profile Page To Profile 1`] = `
         Profile
       </p>
     </a>
-    <a
-      class="link"
-      href="/account/testAcc/user/preferences"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        Preferences
-      </p>
-    </a>
     <div
       class="signout"
     >
