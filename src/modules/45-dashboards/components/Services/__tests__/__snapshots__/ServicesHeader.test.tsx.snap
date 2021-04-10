@@ -36,14 +36,14 @@ exports[`ServiceHeader render 1`] = `
           <span
             class="lastBreadcrumb"
           >
-            Services
+            services
           </span>
         </div>
       </div>
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Services
+        services
       </p>
     </div>
   </div>
@@ -80,7 +80,7 @@ exports[`ServiceHeader render 1`] = `
         <span
           class="bp3-button-text"
         >
-          New Service
+          newService
         </span>
       </button>
     </div>

@@ -13,7 +13,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
       >
-        Add a Source Code Manager
+        userProfile.addSCM
       </p>
       <div
         class="OverlaySpinner--overlaySpinner"
@@ -37,7 +37,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    name
                      
                     <span
                       class="bp3-text-muted"
@@ -63,7 +63,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                Select a Source Code Manager
+                userProfile.selectSCM
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -123,7 +123,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--color StyledProps--color-grey900"
                       >
-                        BitBucket
+                        repo-provider.bitbucketLabel
                       </p>
                     </div>
                   </div>
@@ -135,7 +135,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Change
+                    change
                   </span>
                 </button>
               </div>
@@ -150,7 +150,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                 <span
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-black100"
                 >
-                  Authentication
+                  authentication
                 </span>
                 <div
                   class="bp3-form-group authTypeSelect"
@@ -174,7 +174,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="Username and Password"
+                            value="usernamePassword"
                           />
                           <span
                             class="bp3-input-action"
@@ -218,7 +218,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                       class="label"
                     >
                       <label>
-                        Username
+                        username
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
@@ -242,7 +242,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
-                                  value="Plaintext"
+                                  value="plaintext"
                                 />
                                 <span
                                   class="bp3-input-action"
@@ -307,7 +307,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                     <label
                       class="bp3-label"
                     >
-                      Password
+                      password
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -344,7 +344,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Configure Secret
+                            secret.configureSecret
                           </div>
                           <div>
                             &lt;selected_secret&gt;
@@ -395,7 +395,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Add
+                  add
                 </span>
               </button>
               <button
@@ -405,7 +405,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Cancel
+                  cancel
                 </span>
               </button>
             </div>
@@ -520,7 +520,7 @@ exports[`User Profile Page User Profile 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
             >
-              Basic Information
+              userProfile.basicInformation
             </p>
             <p
               class="StyledProps--font StyledProps--main"
@@ -573,7 +573,7 @@ exports[`User Profile Page User Profile 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Change Password
+                  userProfile.changePassword
                 </span>
               </button>
             </p>
@@ -584,7 +584,7 @@ exports[`User Profile Page User Profile 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
             >
-              Two-Factor Authentication
+              userProfile.twofactorAuth
             </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -635,7 +635,7 @@ exports[`User Profile Page User Profile 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  Summary
+                  summary
                 </p>
               </div>
             </div>
@@ -655,7 +655,7 @@ exports[`User Profile Page User Profile 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
                   >
-                    My Source Code Managers
+                    userProfile.mysourceCodeManagers
                   </p>
                   <div
                     class="table"
@@ -895,7 +895,7 @@ exports[`User Profile Page User Profile 1`] = `
                       <span
                         class="bp3-button-text"
                       >
-                        + Add a Source Code Manager
+                        userProfile.plusSCM
                       </span>
                     </button>
                   </div>

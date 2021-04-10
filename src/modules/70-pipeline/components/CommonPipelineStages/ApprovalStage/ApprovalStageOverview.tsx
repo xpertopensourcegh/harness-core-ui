@@ -43,7 +43,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const onTimelineItemClick = (id: string): void => {
     const element = document.querySelector(`#${id}`)
-    if (scrollRef.current && element) {
+    if (scrollRef.current && typeof scrollRef.current.scrollTo === 'function' && element) {
       const elementTop = element.getBoundingClientRect().top
       const parentTop = scrollRef.current.getBoundingClientRect().top
       scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })

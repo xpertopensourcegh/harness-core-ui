@@ -53,7 +53,7 @@ jiraCreateStep:
   summaryPlaceholder: Enter a Title or Summary
   addFields: Add Jira Fields
   selectFieldsHeading: Select fields you would like to add.
-  fieldSelectorAdd: + Fields
+  fieldSelectorAdd: '+ Fields'
   selectFromFieldList: Select from Field List
   provideFieldList: Provide Field List
   selectFieldListHelp: Select your project and issue type to list available fields to choose from.

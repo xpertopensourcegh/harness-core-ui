@@ -18,7 +18,7 @@ exports[`ServiceInstancesWidget render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
           >
-            Services
+            services
           </p>
           <div
             class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
@@ -57,7 +57,7 @@ exports[`ServiceInstancesWidget render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
           >
-            Service Instances
+            dashboards.serviceDashboard.serviceInstances
           </p>
           <p
             class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
@@ -76,7 +76,7 @@ exports[`ServiceInstancesWidget render 1`] = `
                 class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel"
                 style="width: 100px;"
               >
-                Non Prod
+                dashboards.serviceDashboard.nonProd
                  (
                 120
                 )
@@ -101,7 +101,7 @@ exports[`ServiceInstancesWidget render 1`] = `
                 class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel"
                 style="width: 100px;"
               >
-                Prod
+                dashboards.serviceDashboard.prod
                  (
                 20
                 )

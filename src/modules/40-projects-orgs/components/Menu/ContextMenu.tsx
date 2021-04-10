@@ -172,7 +172,13 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCE}
         />
       ) : null}
-      <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={!canUpdate} />
+      <Menu.Item
+        icon="edit"
+        text={getString('edit')}
+        onClick={handleEdit}
+        disabled={!canUpdate}
+        data-testid={'edit-project'}
+      />
       <Menu.Item icon="new-person" text={getString('projectContextMenuRenderer.invite')} onClick={handleCollaborate} />
 
       <>

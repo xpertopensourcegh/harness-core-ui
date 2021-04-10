@@ -35,7 +35,7 @@ describe('CreatePipelineForm', () => {
           <CreatePipelineForm {...props} />
         </TestWrapper>
       )
-      fireEvent.click(getByText('Setup Later'))
+      fireEvent.click(getByText('pipeline.createPipeline.setupLater'))
       await waitFor(() => expect(closeModalMock).toBeCalled())
       expect(container).toMatchSnapshot()
     })
@@ -50,8 +50,8 @@ describe('CreatePipelineForm', () => {
           <CreatePipelineForm {...props} />
         </TestWrapper>
       )
-      fireEvent.click(getByText('Start'))
-      await waitFor(() => expect(getByText('Pipeline Name is a required field')).toBeDefined())
+      fireEvent.click(getByText('start'))
+      await waitFor(() => expect(getByText('createPipeline.pipelineNameRequired')).toBeDefined())
       expect(container).toMatchSnapshot()
     })
   })

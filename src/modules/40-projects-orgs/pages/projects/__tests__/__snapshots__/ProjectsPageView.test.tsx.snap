@@ -277,7 +277,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -334,7 +334,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -371,7 +371,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -571,7 +571,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -653,7 +653,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -710,7 +710,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -747,7 +747,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -947,7 +947,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -1119,7 +1119,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -1201,7 +1201,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -1258,7 +1258,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -1295,7 +1295,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -1495,7 +1495,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -1577,7 +1577,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -1599,7 +1599,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -1636,7 +1636,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -1676,7 +1676,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1939,7 +1939,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -1996,7 +1996,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -2033,7 +2033,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -2073,7 +2073,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -2336,7 +2336,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -2393,7 +2393,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -2430,7 +2430,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -2630,7 +2630,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -2802,7 +2802,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -2974,7 +2974,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>
@@ -3146,7 +3146,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        FEATURE FLAGS IN LAST 7 DAYS
+                        projectCard.cfRendererText
                       </p>
                     </div>
                   </div>
@@ -3318,7 +3318,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        COST SAVINGS IN LAST 7 DAYS
+                        projectCard.ceRendererText
                       </p>
                     </div>
                   </div>
@@ -3400,7 +3400,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -3457,7 +3457,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -3494,7 +3494,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -3694,7 +3694,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>
@@ -3989,7 +3989,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -4046,7 +4046,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -4083,7 +4083,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -4283,7 +4283,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -4365,7 +4365,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -4422,7 +4422,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -4459,7 +4459,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -4659,7 +4659,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -4831,7 +4831,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -4913,7 +4913,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -4970,7 +4970,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -5007,7 +5007,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -5207,7 +5207,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -5289,7 +5289,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -5311,7 +5311,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -5348,7 +5348,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -5388,7 +5388,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -5651,7 +5651,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -5708,7 +5708,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -5745,7 +5745,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -5785,7 +5785,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -6048,7 +6048,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -6105,7 +6105,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -6142,7 +6142,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -6342,7 +6342,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -6514,7 +6514,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -6686,7 +6686,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>
@@ -6858,7 +6858,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        FEATURE FLAGS IN LAST 7 DAYS
+                        projectCard.cfRendererText
                       </p>
                     </div>
                   </div>
@@ -7030,7 +7030,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        COST SAVINGS IN LAST 7 DAYS
+                        projectCard.ceRendererText
                       </p>
                     </div>
                   </div>
@@ -7112,7 +7112,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -7169,7 +7169,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -7206,7 +7206,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -7406,7 +7406,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>
@@ -7701,7 +7701,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -7758,7 +7758,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -7795,7 +7795,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -7995,7 +7995,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -8077,7 +8077,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -8134,7 +8134,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -8171,7 +8171,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -8371,7 +8371,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -8543,7 +8543,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -8625,7 +8625,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -8682,7 +8682,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -8719,7 +8719,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -8919,7 +8919,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -9001,7 +9001,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -9023,7 +9023,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -9060,7 +9060,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -9100,7 +9100,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -9363,7 +9363,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -9420,7 +9420,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -9457,7 +9457,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -9497,7 +9497,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -9760,7 +9760,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -9817,7 +9817,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -9854,7 +9854,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -10054,7 +10054,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -10226,7 +10226,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -10398,7 +10398,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>
@@ -10570,7 +10570,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        FEATURE FLAGS IN LAST 7 DAYS
+                        projectCard.cfRendererText
                       </p>
                     </div>
                   </div>
@@ -10742,7 +10742,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        COST SAVINGS IN LAST 7 DAYS
+                        projectCard.ceRendererText
                       </p>
                     </div>
                   </div>
@@ -10824,7 +10824,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -10881,7 +10881,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -10918,7 +10918,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -11118,7 +11118,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>
@@ -11413,7 +11413,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -11470,7 +11470,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -11507,7 +11507,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -11707,7 +11707,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -11789,7 +11789,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -11846,7 +11846,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -11883,7 +11883,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -12083,7 +12083,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -12255,7 +12255,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -12337,7 +12337,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -12394,7 +12394,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -12431,7 +12431,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -12631,7 +12631,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -12713,7 +12713,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -12735,7 +12735,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -12772,7 +12772,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -12812,7 +12812,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -13075,7 +13075,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -13132,7 +13132,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -13169,7 +13169,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -13209,7 +13209,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -13472,7 +13472,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -13529,7 +13529,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -13566,7 +13566,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -13766,7 +13766,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        DEPLOYMENTS IN LAST 7 DAYS
+                        projectCard.cdRendererText
                       </p>
                     </div>
                   </div>
@@ -13938,7 +13938,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        VERIFICATIONS IN LAST 7 DAYS
+                        projectCard.cvRendererText
                       </p>
                     </div>
                   </div>
@@ -14110,7 +14110,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>
@@ -14282,7 +14282,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        FEATURE FLAGS IN LAST 7 DAYS
+                        projectCard.cfRendererText
                       </p>
                     </div>
                   </div>
@@ -14454,7 +14454,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        COST SAVINGS IN LAST 7 DAYS
+                        projectCard.ceRendererText
                       </p>
                     </div>
                   </div>
@@ -14536,7 +14536,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
                     >
-                      Organization:
+                      orgLabel:
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
@@ -14593,7 +14593,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -14630,7 +14630,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -14830,7 +14830,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                       >
-                        BUILDS IN LAST 7 DAYS
+                        projectCard.ciRendererText
                       </p>
                     </div>
                   </div>

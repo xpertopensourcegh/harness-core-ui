@@ -24,7 +24,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              Manifest Identifier
+              pipeline.manifestType.manifestIdentifier
                
               <span
                 class="bp3-text-muted"
@@ -40,7 +40,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Enter Manifest Identifier"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -60,7 +60,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Git Fetch Type
+                  pipeline.manifestType.gitFetchTypeLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -126,7 +126,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  Branch
+                  pipelineSteps.deploy.inputSet.branch
                    
                   <span
                     class="bp3-text-muted"
@@ -144,7 +144,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                       <input
                         class="bp3-input"
                         name="branch"
-                        placeholder="Enter branch name here"
+                        placeholder="pipeline.manifestType.branchPlaceholder"
                         type="text"
                         value=""
                       />
@@ -194,7 +194,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="path"
                 >
-                  Template File Path
+                  pipeline.manifestType.osTemplatePath
                    
                   <span
                     class="bp3-text-muted"
@@ -212,7 +212,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                       <input
                         class="bp3-input"
                         name="path"
-                        placeholder="Enter Template File Path"
+                        placeholder="pipeline.manifestType.osTemplatePathPlaceHolder"
                         type="text"
                         value=""
                       />
@@ -255,17 +255,17 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -312,7 +312,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -322,7 +322,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"

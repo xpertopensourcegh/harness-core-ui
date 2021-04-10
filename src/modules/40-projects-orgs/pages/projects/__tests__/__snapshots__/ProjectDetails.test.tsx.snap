@@ -169,7 +169,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
         >
-          Admin (1)
+          adminLabel (1)
         </p>
       </div>
       <div
@@ -306,7 +306,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
         >
-          Collaborators (5)
+          collaboratorsLabel (5)
         </p>
       </div>
       <span
@@ -574,7 +574,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                     >
-                      DEPLOYMENTS IN LAST 7 DAYS
+                      PROJECTCARD.CDRENDERERTEXT
                     </p>
                   </div>
                 </div>
@@ -589,14 +589,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
                     >
                       <span>
-                        Create New Pipeline
+                        moduleRenderer.newPipeLine
                       </span>
                     </a>
                     <a
                       href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/pipelines"
                     >
                       <span>
-                        View Pipelines
+                        moduleRenderer.viewPipelines
                       </span>
                     </a>
                   </div>
@@ -817,7 +817,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                     >
-                      VERIFICATIONS IN LAST 7 DAYS
+                      PROJECTCARD.CVRENDERERTEXT
                     </p>
                   </div>
                 </div>
@@ -832,14 +832,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/admin/setup"
                     >
                       <span>
-                        Set Up Change Sources
+                        moduleRenderer.setupChanges
                       </span>
                     </a>
                     <a
                       href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/admin/setup?step=2"
                     >
                       <span>
-                        Set Up Monitoring Sources
+                        moduleRenderer.monitoringSources
                       </span>
                     </a>
                   </div>
@@ -1060,7 +1060,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                     >
-                      BUILDS IN LAST 7 DAYS
+                      PROJECTCARD.CIRENDERERTEXT
                     </p>
                   </div>
                 </div>
@@ -1075,14 +1075,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
                     >
                       <span>
-                        Create New Pipeline
+                        moduleRenderer.newPipeLine
                       </span>
                     </a>
                     <a
                       href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/pipelines"
                     >
                       <span>
-                        View Pipelines
+                        moduleRenderer.viewPipelines
                       </span>
                     </a>
                   </div>
@@ -1303,7 +1303,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                     >
-                      COST SAVINGS IN LAST 7 DAYS
+                      PROJECTCARD.CERENDERERTEXT
                     </p>
                   </div>
                 </div>
@@ -1544,7 +1544,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
                     >
-                      FEATURE FLAGS IN LAST 7 DAYS
+                      PROJECTCARD.CFRENDERERTEXT
                     </p>
                   </div>
                 </div>
@@ -1680,7 +1680,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
         >
-          Admin (1)
+          adminLabel (1)
         </p>
       </div>
       <div
@@ -1817,7 +1817,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
         >
-          Collaborators (5)
+          collaboratorsLabel (5)
         </p>
       </div>
       <span

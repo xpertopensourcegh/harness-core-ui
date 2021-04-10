@@ -121,7 +121,7 @@ exports[`About Project test create project  1`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    Color
+                    color
                      
                     <span
                       class="bp3-text-muted"
@@ -181,7 +181,7 @@ exports[`About Project test create project  1`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    Organization
+                    orgLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -268,7 +268,7 @@ exports[`About Project test create project  1`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Description
+                      description
                     </p>
                   </div>
                   <div
@@ -320,7 +320,7 @@ exports[`About Project test create project  1`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Tags
+                      tagsLabel
                     </p>
                   </div>
                   <div
@@ -352,7 +352,7 @@ exports[`About Project test create project  1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Save and Continue
+                  saveAndContinue
                 </span>
               </button>
             </div>
@@ -379,7 +379,7 @@ exports[`About Project test create project  1`] = `
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                     style="--text-line-clamp: 1;"
                   >
-                    Project Name
+                    projectCard.projectName
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall"
@@ -402,7 +402,7 @@ exports[`About Project test create project  1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -439,7 +439,7 @@ exports[`About Project test create project  1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -479,7 +479,7 @@ exports[`About Project test create project  1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -798,7 +798,7 @@ exports[`About Project test create project  2`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    Color
+                    color
                      
                     <span
                       class="bp3-text-muted"
@@ -858,7 +858,7 @@ exports[`About Project test create project  2`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    Organization
+                    orgLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -945,7 +945,7 @@ exports[`About Project test create project  2`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Description
+                      description
                     </p>
                   </div>
                   <div
@@ -1014,7 +1014,7 @@ exports[`About Project test create project  2`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Tags
+                      tagsLabel
                     </p>
                   </div>
                   <div
@@ -1070,7 +1070,7 @@ exports[`About Project test create project  2`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Save and Continue
+                  saveAndContinue
                 </span>
               </button>
             </div>
@@ -1126,7 +1126,7 @@ exports[`About Project test create project  2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Admin 
+                        adminLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -1163,7 +1163,7 @@ exports[`About Project test create project  2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                       >
-                        Collaborators 
+                        collaboratorsLabel 
                       </p>
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -1203,7 +1203,7 @@ exports[`About Project test create project  2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
-                  No modules-specific data
+                  moduleRenderer.start
                 </p>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1501,7 +1501,7 @@ exports[`About Project test edit project  1`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    Color
+                    color
                      
                     <span
                       class="bp3-text-muted"
@@ -1561,7 +1561,7 @@ exports[`About Project test edit project  1`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    Organization
+                    orgLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -1649,7 +1649,7 @@ exports[`About Project test edit project  1`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Description
+                      description
                     </p>
                   </div>
                   <div
@@ -1719,7 +1719,7 @@ exports[`About Project test edit project  1`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Tags
+                      tagsLabel
                     </p>
                   </div>
                   <div
@@ -1751,7 +1751,7 @@ exports[`About Project test edit project  1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Save and Continue
+                  saveAndContinue
                 </span>
               </button>
             </div>
@@ -1865,7 +1865,7 @@ exports[`About Project test edit project  2`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    Color
+                    color
                      
                     <span
                       class="bp3-text-muted"
@@ -1925,7 +1925,7 @@ exports[`About Project test edit project  2`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    Organization
+                    orgLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -2013,7 +2013,7 @@ exports[`About Project test edit project  2`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Description
+                      description
                     </p>
                   </div>
                   <div
@@ -2083,7 +2083,7 @@ exports[`About Project test edit project  2`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Tags
+                      tagsLabel
                     </p>
                   </div>
                   <div
@@ -2115,7 +2115,7 @@ exports[`About Project test edit project  2`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Save and Continue
+                  saveAndContinue
                 </span>
               </button>
             </div>

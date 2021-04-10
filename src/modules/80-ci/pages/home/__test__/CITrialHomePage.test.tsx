@@ -19,7 +19,7 @@ describe('CITrialHomePage snapshot test', () => {
         <CITrialHomePage />
       </TestWrapper>
     )
-    fireEvent.click(getByText('Start 14 day CI Enterprise trial'))
+    fireEvent.click(getByText('ci.ciTrialHomePage.startTrial.startBtn.description'))
     await waitFor(() => expect(container).toMatchSnapshot())
   })
 })

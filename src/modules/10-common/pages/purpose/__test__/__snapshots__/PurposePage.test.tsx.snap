@@ -25,7 +25,7 @@ exports[`PurposePage should render module description and continue button when s
       <h1
         class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--padding-top-xxlarge"
       >
-        Welcome user name, Let’s get you started!
+        common.purpose.welcome
       </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
@@ -86,12 +86,12 @@ exports[`PurposePage should render module description and continue button when s
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                     >
-                      CONTINUOUS
+                      common.purpose.continuous
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                     >
-                      Delivery
+                      common.purpose.cd.delivery
                     </p>
                   </div>
                 </div>
@@ -99,7 +99,7 @@ exports[`PurposePage should render module description and continue button when s
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                   style="min-height: 70px;"
                 >
-                  Deploy your services with blazingly fast pipelines.
+                  common.purpose.cd.subtitle
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
@@ -124,13 +124,13 @@ exports[`PurposePage should render module description and continue button when s
                       />
                     </svg>
                   </span>
-                  Start A Trial
+                  common.purpose.startATrial
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 10px;"
                 >
-                  15 min setup
+                  common.purpose.setup
                 </p>
               </div>
               <div
@@ -179,12 +179,12 @@ exports[`PurposePage should render module description and continue button when s
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                     >
-                      CONTINUOUS
+                      common.purpose.continuous
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                     >
-                      Verification
+                      cv.admin.notifications.create.stepThree.verification
                     </p>
                   </div>
                 </div>
@@ -192,20 +192,20 @@ exports[`PurposePage should render module description and continue button when s
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                   style="min-height: 70px;"
                 >
-                  Deploy in peace - verify activities that take place in your system. Identify risk early.
+                  common.purpose.cv.subtitle
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
                   style="text-align: center; border-radius: 4px; width: 100px;"
                 >
                   
-                  Start A Trial
+                  common.purpose.startATrial
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 10px;"
                 >
-                  15 min setup
+                  common.purpose.setup
                 </p>
               </div>
               <div
@@ -254,12 +254,12 @@ exports[`PurposePage should render module description and continue button when s
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                     >
-                      CONTINUOUS
+                      common.purpose.continuous
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                     >
-                      Integration
+                      common.purpose.ci.integration
                     </p>
                   </div>
                 </div>
@@ -267,20 +267,20 @@ exports[`PurposePage should render module description and continue button when s
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                   style="min-height: 70px;"
                 >
-                  Commit, build, and test your code at a whole new level.
+                  common.purpose.ci.subtitle
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
                   style="text-align: center; border-radius: 4px; width: 100px;"
                 >
                   
-                  Start A Trial
+                  common.purpose.startATrial
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 10px;"
                 >
-                  15 min setup
+                  common.purpose.setup
                 </p>
               </div>
               <div
@@ -329,12 +329,12 @@ exports[`PurposePage should render module description and continue button when s
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                     >
-                      CONTINUOUS
+                      common.purpose.continuous
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                     >
-                      Efficiency
+                      common.purpose.ce.efficiency
                     </p>
                   </div>
                 </div>
@@ -342,20 +342,20 @@ exports[`PurposePage should render module description and continue button when s
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                   style="min-height: 70px;"
                 >
-                  Spot and quickly debug inefficiencies and optimize them to reduce costs.
+                  common.purpose.ce.subtitle
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
                   style="text-align: center; border-radius: 4px; width: 100px;"
                 >
                   
-                  Start A Trial
+                  common.purpose.startATrial
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 10px;"
                 >
-                  15 min setup
+                  common.purpose.setup
                 </p>
               </div>
               <div
@@ -404,12 +404,12 @@ exports[`PurposePage should render module description and continue button when s
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                     >
-                      CONTINUOUS
+                      common.purpose.continuous
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                     >
-                      Features
+                      common.purpose.cf.features
                     </p>
                   </div>
                 </div>
@@ -417,20 +417,20 @@ exports[`PurposePage should render module description and continue button when s
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
                   style="min-height: 70px;"
                 >
-                  Decouple release from deployment and rollout features safely and quickly.
+                  common.purpose.cf.subtitle
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
                   style="text-align: center; border-radius: 4px; width: 100px;"
                 >
                   
-                  Start A Trial
+                  common.purpose.startATrial
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 10px;"
                 >
-                  15 min setup
+                  common.purpose.setup
                 </p>
               </div>
             </div>
@@ -484,19 +484,19 @@ exports[`PurposePage should render module description and continue button when s
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                 >
-                  Continuous Delivery
+                  cd.continuous
                 </p>
               </div>
               <span
                 style="line-height: 2; font-size: 10px;"
               >
-                CD description placeholder
+                common.purpose.cd.description
               </span>
               <a
                 href="/account/undefined/cd/home"
                 style="width: 100px; border-radius: 4px; line-height: 2.5; text-align: center; color: white;"
               >
-                Continue
+                continue
               </a>
             </div>
           </div>

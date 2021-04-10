@@ -60,7 +60,7 @@ describe('Role Details Page', () => {
       expect(organizationView).toBeTruthy()
       if (organizationView) fireEvent.click(organizationView)
 
-      const applyChanges = getByText('Apply Changes')
+      const applyChanges = getByText('applyChanges')
       expect(applyChanges).toBeTruthy()
 
       await act(async () => {

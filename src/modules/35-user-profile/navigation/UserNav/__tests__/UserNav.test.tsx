@@ -22,7 +22,7 @@ describe('User Profile Page', () => {
   test('To Profile', () => {
     expect(container).toMatchSnapshot()
 
-    const userProfile = getByText('Profile')
+    const userProfile = getByText('profile')
     fireEvent.click(userProfile)
     expect(
       getByTestId('location').innerHTML.endsWith(

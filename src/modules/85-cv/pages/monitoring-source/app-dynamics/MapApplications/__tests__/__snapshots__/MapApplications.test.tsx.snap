@@ -72,7 +72,7 @@ exports[`MapApplications matches snapshot 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-bottom-large"
         >
-          Map the AppDynamics Application to a Harness Environment
+          cv.monitoringSources.appD.mapApplicationsToEnv
         </p>
         <div
           class="StyledProps--font StyledProps--main mappingDetails"
@@ -105,7 +105,7 @@ exports[`MapApplications matches snapshot 1`] = `
           <p
             class="StyledProps--font StyledProps--main"
           >
-            maps to
+            cv.admin.mapsTo
           </p>
           <p
             class="StyledProps--font StyledProps--main"
@@ -134,7 +134,7 @@ exports[`MapApplications matches snapshot 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-bottom-large"
           >
-            Metric Packs
+            metricPacks
           </p>
           <div
             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
@@ -166,7 +166,7 @@ exports[`MapApplications matches snapshot 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-bottom-large"
         >
-          Map AppDynamics Application Tiers to Harness Services
+          cv.monitoringSources.appD.mapTiersToServices
         </p>
         <div
           class="StyledProps--font StyledProps--main main"
@@ -198,7 +198,7 @@ exports[`MapApplications matches snapshot 1`] = `
               </span>
               <input
                 class="bp3-input"
-                placeholder="Search for Tiers"
+                placeholder="cv.monitoringSources.appD.searchTiersPlaceHolder"
                 type="text"
                 value=""
               />
@@ -229,7 +229,7 @@ exports[`MapApplications matches snapshot 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
               >
-                APPDYNAMICS TIER
+                cv.monitoringSources.appD.appDTier
               </p>
             </div>
             <div
@@ -238,7 +238,7 @@ exports[`MapApplications matches snapshot 1`] = `
               role="columnheader"
               style="width: 40%;"
             >
-              MAPPING TO HARNESS SERVICE
+              cv.monitoringSources.appD.mappingToHarnessService
             </div>
             <div
               class="cell"
@@ -249,7 +249,7 @@ exports[`MapApplications matches snapshot 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
               >
-                VALIDATION
+                CV.MONITORINGSOURCES.APPD.VALIDATION
               </p>
             </div>
           </div>

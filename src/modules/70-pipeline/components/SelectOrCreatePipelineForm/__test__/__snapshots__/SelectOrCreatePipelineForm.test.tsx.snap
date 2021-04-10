@@ -13,13 +13,13 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
         >
-          Create or Select a Pipeline
+          pipeline.selectOrCreatePipeline.setupHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 40px;"
         >
-          Let’s get you started
+          common.letsGetYouStarted
         </p>
         <div
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-small"
@@ -28,7 +28,7 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
             class="StyledProps--font StyledProps--main"
             style="color: black;"
           >
-            Select an existing Pipeline
+            pipeline.selectOrCreatePipeline.selectAPipeline
           </p>
           <div
             class="bp3-popover-wrapper select"
@@ -103,7 +103,7 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
             <span
               class="bp3-button-text"
             >
-              Continue
+              continue
             </span>
           </button>
           <button
@@ -114,7 +114,7 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
             <span
               class="bp3-button-text"
             >
-              Create a new pipeline
+              pipeline.createANewPipeline
             </span>
           </button>
         </div>
@@ -137,13 +137,13 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
         >
-          Create or Select a Pipeline
+          pipeline.selectOrCreatePipeline.setupHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 40px;"
         >
-          Let’s get you started
+          common.letsGetYouStarted
         </p>
         <div
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-small"
@@ -152,7 +152,7 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
             class="StyledProps--font StyledProps--main"
             style="color: black;"
           >
-            Select an existing Pipeline
+            pipeline.selectOrCreatePipeline.selectAPipeline
           </p>
           <div
             class="bp3-popover-wrapper select"
@@ -227,7 +227,7 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
             <span
               class="bp3-button-text"
             >
-              Continue
+              continue
             </span>
           </button>
           <button
@@ -238,7 +238,7 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
             <span
               class="bp3-button-text"
             >
-              Create a new pipeline
+              pipeline.createANewPipeline
             </span>
           </button>
         </div>

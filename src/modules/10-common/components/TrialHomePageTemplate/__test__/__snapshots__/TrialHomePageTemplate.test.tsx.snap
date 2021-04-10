@@ -234,7 +234,7 @@ exports[`TrialHomePageTemplate snapshot test should render trial in progress whe
           class="StyledProps--font StyledProps--main"
           style="color: white; text-align: center; width: 120px; height: 18px; border-radius: 3px; display: inline-block;"
         >
-          Trial in-progress
+          common.trialInProgress
         </p>
       </div>
       <div

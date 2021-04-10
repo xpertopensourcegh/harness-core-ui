@@ -10,7 +10,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
         class="breadcrumb"
         href="/account/testAcc/ce/orgs/undefined/projects/undefined/autostopping-rules"
       >
-        AutoStopping Rules
+        ce.co.breadCrumb.rules
       </a>
       <span
         class="bp3-icon StyledProps--main separator"
@@ -61,13 +61,13 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
           <p
             class="StyledProps--font StyledProps--main"
           >
-            Select the cloud provider account in which the workloads you want AutoStopping to manage are running.
+            ce.co.autoStoppingRule.providerSelector.helpText.selectProvider
           </p>
           <p
             class="StyledProps--font StyledProps--main"
             style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
           >
-            Read More...
+            ce.co.autoStoppingRule.helpText.readMore
           </p>
         </div>
       </div>
@@ -83,13 +83,13 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
       <h1
         class="StyledProps--font StyledProps--font-h1 StyledProps--main title"
       >
-        Let’s get you started
+        common.letsGetYouStarted
       </h1>
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main"
         level="2"
       >
-        Select the cloud account type
+        ce.co.autoStoppingRule.providerSelector.description
       </h2>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"

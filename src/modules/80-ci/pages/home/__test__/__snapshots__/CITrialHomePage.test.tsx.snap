@@ -17,7 +17,7 @@ exports[`CITrialHomePage snapshot test should call button event when click 1`] =
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
           style="font-size: 30px;"
         >
-          Continuous Integration
+          ci.continuous
         </h1>
       </div>
       <div
@@ -27,12 +27,12 @@ exports[`CITrialHomePage snapshot test should call button event when click 1`] =
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
           style="width: 500px; line-height: 2;"
         >
-          Take your software build processes to the next level using our Harness Continuous Integration.
+          ci.ciTrialHomePage.startTrial.description
         </p>
         <a
           href="/"
         >
-          Learn more about Continuous Integration
+          ci.learnMore
         </a>
         <div
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -74,7 +74,7 @@ exports[`CITrialHomePage snapshot test should call button event when click 1`] =
             <span
               class="bp3-button-text"
             >
-              Start 14 day CI Enterprise trial
+              ci.ciTrialHomePage.startTrial.startBtn.description
             </span>
           </button>
           <span
@@ -142,7 +142,7 @@ exports[`CITrialHomePage snapshot test should call button event when click 1`] =
         <a
           href="/"
         >
-          Change Plan
+          common.changePlan
         </a>
       </div>
     </div>
@@ -167,13 +167,13 @@ exports[`CITrialHomePage snapshot test should call button event when click 2`] =
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
           style="font-size: 30px;"
         >
-          Continuous Integration
+          ci.continuous
         </h1>
         <p
           class="StyledProps--font StyledProps--main"
           style="color: white; text-align: center; width: 120px; height: 18px; border-radius: 3px; display: inline-block;"
         >
-          Trial in-progress
+          common.trialInProgress
         </p>
       </div>
       <div
@@ -183,7 +183,7 @@ exports[`CITrialHomePage snapshot test should call button event when click 2`] =
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
           style="width: 500px; line-height: 2;"
         >
-          Your Harness journey begins with the creation of a Project. A Project lets you map users, resources into an end to end deployment pipeline workflow. Get started by creating your first Project below.
+          ci.ciTrialHomePage.trialInProgress.description
         </p>
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
@@ -193,7 +193,7 @@ exports[`CITrialHomePage snapshot test should call button event when click 2`] =
           <span
             class="bp3-button-text"
           >
-            + Create Project
+            createProject
           </span>
         </button>
       </div>
@@ -219,7 +219,7 @@ exports[`CITrialHomePage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
           style="font-size: 30px;"
         >
-          Continuous Integration
+          ci.continuous
         </h1>
       </div>
       <div
@@ -229,12 +229,12 @@ exports[`CITrialHomePage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
           style="width: 500px; line-height: 2;"
         >
-          Take your software build processes to the next level using our Harness Continuous Integration.
+          ci.ciTrialHomePage.startTrial.description
         </p>
         <a
           href="/"
         >
-          Learn more about Continuous Integration
+          ci.learnMore
         </a>
         <div
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -248,14 +248,14 @@ exports[`CITrialHomePage snapshot test should render properly 1`] = `
             <span
               class="bp3-button-text"
             >
-              Start 14 day CI Enterprise trial
+              ci.ciTrialHomePage.startTrial.startBtn.description
             </span>
           </button>
         </div>
         <a
           href="/"
         >
-          Change Plan
+          common.changePlan
         </a>
       </div>
     </div>

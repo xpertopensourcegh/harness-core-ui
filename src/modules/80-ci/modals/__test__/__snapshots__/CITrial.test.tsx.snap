@@ -48,7 +48,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        Continuous Integration
+        ci.continuous
       </p>
     </div>
     <div
@@ -58,7 +58,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
         class="StyledProps--font StyledProps--main"
         style="color: white; text-align: center; width: 120px; border-radius: 3px; margin-left: 30px; margin-top: 6px; display: inline-block;"
       >
-        Trial in-progress
+        common.trialInProgress
       </p>
     </div>
     <div
@@ -72,7 +72,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
           class="StyledProps--font StyledProps--main"
           style="width: 380px; display: inline-block; margin-left: 30px; line-height: 2;"
         >
-          Take your software build processes to the next level using our Harness Continuous Integration.
+          ci.ciTrialHomePage.startTrial.description
         </p>
         <img
           height="400"
@@ -96,13 +96,13 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
                 class="StyledProps--font StyledProps--main"
                 style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
               >
-                Setup Pipeline
+                pipeline.createPipeline.setupHeader
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
                 style="color: black; padding-bottom: 40px;"
               >
-                Let’s get you started on your pipeline.
+                pipeline.createPipeline.setupSubtitle
               </p>
               <div
                 class="StyledProps--font StyledProps--main main"
@@ -165,7 +165,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      name
                        
                       <span
                         class="bp3-text-muted"
@@ -195,7 +195,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Description (optional)
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -226,7 +226,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Tags (optional)
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -261,7 +261,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
                   <span
                     class="bp3-button-text"
                   >
-                    Start
+                    start
                   </span>
                 </button>
                 <button
@@ -271,7 +271,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
                   <span
                     class="bp3-button-text"
                   >
-                    Setup Later
+                    pipeline.createPipeline.setupLater
                   </span>
                 </button>
               </div>
@@ -288,7 +288,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--font-normal"
                       style="display: flex; align-items: center;"
                     >
-                      Learn More
+                      pipeline.createPipeline.learnMore
                       <span
                         class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-blue700"
                         icon="chevron-right"
@@ -369,7 +369,7 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        Continuous Integration
+        ci.continuous
       </p>
     </div>
     <div
@@ -379,7 +379,7 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
         class="StyledProps--font StyledProps--main"
         style="color: white; text-align: center; width: 120px; border-radius: 3px; margin-left: 30px; margin-top: 6px; display: inline-block;"
       >
-        Trial in-progress
+        common.trialInProgress
       </p>
     </div>
     <div
@@ -393,7 +393,7 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
           class="StyledProps--font StyledProps--main"
           style="width: 380px; display: inline-block; margin-left: 30px; line-height: 2;"
         >
-          Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+          pipeline.selectOrCreateForm.description
         </p>
         <img
           height="400"
@@ -417,13 +417,13 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
                 class="StyledProps--font StyledProps--main"
                 style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
               >
-                Create or Select a Pipeline
+                pipeline.selectOrCreatePipeline.setupHeader
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
                 style="color: black; padding-bottom: 40px;"
               >
-                Let’s get you started
+                common.letsGetYouStarted
               </p>
               <div
                 class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-small"
@@ -432,7 +432,7 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
                   class="StyledProps--font StyledProps--main"
                   style="color: black;"
                 >
-                  Select an existing Pipeline
+                  pipeline.selectOrCreatePipeline.selectAPipeline
                 </p>
                 <div
                   class="bp3-popover-wrapper select"
@@ -507,7 +507,7 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                 </button>
                 <button
@@ -518,7 +518,7 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
                   <span
                     class="bp3-button-text"
                   >
-                    Create a new pipeline
+                    pipeline.createANewPipeline
                   </span>
                 </button>
               </div>

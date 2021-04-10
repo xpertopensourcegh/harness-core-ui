@@ -16,7 +16,7 @@ exports[`Project List render 1`] = `
         style="width: 30%;"
         title="Toggle SortBy"
       >
-        Project
+        projectLabel
         <span
           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
           icon="double-caret-vertical"
@@ -44,7 +44,7 @@ exports[`Project List render 1`] = `
         style="width: 20%;"
         title="Toggle SortBy"
       >
-        Organization
+        orgLabel
         <span
           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
           icon="double-caret-vertical"
@@ -71,7 +71,7 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        Admin
+        adminLabel
       </div>
       <div
         class="cell"
@@ -79,7 +79,7 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        Collaborators
+        collaboratorsLabel
       </div>
       <div
         class="cell"
@@ -87,7 +87,7 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        Modules
+        modules
       </div>
       <div
         class="cell"
@@ -252,7 +252,7 @@ exports[`Project List render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           >
-            No Collaborators
+            projectsOrgs.noCollaborators
           </p>
         </div>
       </div>
@@ -499,7 +499,7 @@ exports[`Project List render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           >
-            No Collaborators
+            projectsOrgs.noCollaborators
           </p>
         </div>
       </div>
@@ -782,7 +782,7 @@ exports[`Project List render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           >
-            No Collaborators
+            projectsOrgs.noCollaborators
           </p>
         </div>
       </div>
@@ -996,7 +996,7 @@ exports[`Project List render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           >
-            No Collaborators
+            projectsOrgs.noCollaborators
           </p>
         </div>
       </div>
@@ -1012,7 +1012,7 @@ exports[`Project List render 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
           >
             <span>
-              No modules-specific data
+              moduleRenderer.start
             </span>
           </p>
         </div>
@@ -1214,7 +1214,7 @@ exports[`Project List render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           >
-            No Collaborators
+            projectsOrgs.noCollaborators
           </p>
         </div>
       </div>
@@ -1230,7 +1230,7 @@ exports[`Project List render 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
           >
             <span>
-              No modules-specific data
+              moduleRenderer.start
             </span>
           </p>
         </div>
@@ -1432,7 +1432,7 @@ exports[`Project List render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           >
-            No Collaborators
+            projectsOrgs.noCollaborators
           </p>
         </div>
       </div>
@@ -1823,7 +1823,7 @@ exports[`Project List render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           >
-            No Collaborators
+            projectsOrgs.noCollaborators
           </p>
         </div>
       </div>

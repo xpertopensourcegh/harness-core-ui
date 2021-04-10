@@ -55,7 +55,7 @@ describe('Unit tests for NewRelicMonitoringSources', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('.bp3-tabs')).not.toBeNull())
-    expect(getAllByText('Define your Monitoring Source').length).toBe(2)
+    expect(getAllByText('cv.onboarding.monitoringSources.defineMonitoringSource').length).toBe(2)
   })
 
   test('Ensure edit flow is handled', async () => {

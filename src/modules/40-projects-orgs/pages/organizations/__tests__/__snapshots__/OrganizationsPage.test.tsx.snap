@@ -80,7 +80,7 @@ exports[`Org Page List Create New Org 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="Search Organizations by name and tags"
+            placeholder="orgs.searchPlaceHolder"
             type="search"
             value=""
           />
@@ -197,7 +197,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      Projects
+                      projectsText
                     </p>
                   </div>
                   <div
@@ -274,7 +274,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      2 Members
+                      2 members
                     </p>
                   </div>
                 </div>
@@ -407,7 +407,7 @@ exports[`Org Page List Create New Org 1`] = `
                         class="StyledProps--font StyledProps--main"
                         tabindex="0"
                       >
-                        +2
+                        plus2
                       </p>
                     </span>
                   </span>
@@ -445,7 +445,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      Projects
+                      projectsText
                     </p>
                   </div>
                   <div
@@ -502,7 +502,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      1 Members
+                      1 members
                     </p>
                   </div>
                 </div>
@@ -616,7 +616,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      Projects
+                      projectsText
                     </p>
                   </div>
                   <div
@@ -653,7 +653,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      0 Members
+                      0 members
                     </p>
                   </div>
                 </div>

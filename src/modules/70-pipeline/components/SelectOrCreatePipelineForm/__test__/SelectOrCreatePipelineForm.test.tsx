@@ -45,8 +45,8 @@ describe('SelectOrCreatePipelineForm', () => {
           <SelectOrCreatePipelineForm {...props} />
         </TestWrapper>
       )
-      expect(getByText('Let’s get you started')).toBeDefined()
-      expect(getByText('Select an existing Pipeline')).toBeDefined()
+      expect(getByText('common.letsGetYouStarted')).toBeDefined()
+      expect(getByText('pipeline.selectOrCreatePipeline.selectAPipeline')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
 
@@ -60,8 +60,8 @@ describe('SelectOrCreatePipelineForm', () => {
           <SelectOrCreatePipelineForm {...props} />
         </TestWrapper>
       )
-      fireEvent.click(getByText('Continue'))
-      await waitFor(() => expect(getByText('Please select a pipeline')).toBeDefined())
+      fireEvent.click(getByText('continue'))
+      await waitFor(() => expect(getByText('pipeline.selectOrCreatePipeline.selectAPipeline')).toBeDefined())
     })
 
     test('should open create pipeline modal when click Create a New Pipeline', async () => {
@@ -74,7 +74,7 @@ describe('SelectOrCreatePipelineForm', () => {
           <SelectOrCreatePipelineForm {...props} />
         </TestWrapper>
       )
-      fireEvent.click(getByText('Create a new pipeline'))
+      fireEvent.click(getByText('pipeline.createANewPipeline'))
       await waitFor(() => expect(openCreatPipeLineModalMock).toBeCalled())
       expect(container).toMatchSnapshot()
     })

@@ -235,13 +235,13 @@ exports[`Organization Details Render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
             >
-              Resources
+              resources
             </p>
           </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-small"
           >
-            Manage connectors, secrets, delegates, templates here. Setup account level Git Experience here.
+            orgDetails.resourcesDescription
           </p>
         </div>
       </div>

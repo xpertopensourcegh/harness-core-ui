@@ -83,7 +83,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          LAST ACTIVITY
+          LASTACTIVITY
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -111,7 +111,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           style="width: 20%;"
           title="Toggle SortBy"
         >
-          LAST UPDATED
+          LASTUPDATED
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -227,7 +227,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                 >
                   <span>
-                    Delegate Tags
+                    delegate.delegateTags
                   </span>
                   :
                 </span>
@@ -396,7 +396,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                 >
                   <span>
-                    URL
+                    UrlLabel
                   </span>
                   :
                 </span>
@@ -544,7 +544,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                 >
                   <span>
-                    URL
+                    UrlLabel
                   </span>
                   :
                 </span>
@@ -697,7 +697,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                 >
                   <span>
-                    URL
+                    UrlLabel
                   </span>
                   :
                 </span>
@@ -850,7 +850,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                 >
                   <span>
-                    URL
+                    UrlLabel
                   </span>
                   :
                 </span>
@@ -1014,7 +1014,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                 >
                   <span>
-                    URL
+                    UrlLabel
                   </span>
                   :
                 </span>
@@ -1194,7 +1194,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
                 >
                   <span>
-                    URL
+                    UrlLabel
                   </span>
                   :
                 </span>

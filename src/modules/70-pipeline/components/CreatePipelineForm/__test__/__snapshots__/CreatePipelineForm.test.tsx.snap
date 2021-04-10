@@ -13,13 +13,13 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
         >
-          Setup Pipeline
+          pipeline.createPipeline.setupHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 40px;"
         >
-          Let’s get you started on your pipeline.
+          pipeline.createPipeline.setupSubtitle
         </p>
         <div
           class="StyledProps--font StyledProps--main main"
@@ -82,7 +82,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
                 class="bp3-label"
                 for="name"
               >
-                Name
+                name
                  
                 <span
                   class="bp3-text-muted"
@@ -112,7 +112,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -143,7 +143,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -178,7 +178,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
             <span
               class="bp3-button-text"
             >
-              Start
+              start
             </span>
           </button>
           <button
@@ -188,7 +188,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
             <span
               class="bp3-button-text"
             >
-              Setup Later
+              pipeline.createPipeline.setupLater
             </span>
           </button>
         </div>
@@ -205,7 +205,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--font-normal"
                 style="display: flex; align-items: center;"
               >
-                Learn More
+                pipeline.createPipeline.learnMore
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-blue700"
                   icon="chevron-right"
@@ -248,13 +248,13 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
         >
-          Setup Pipeline
+          pipeline.createPipeline.setupHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 40px;"
         >
-          Let’s get you started on your pipeline.
+          pipeline.createPipeline.setupSubtitle
         </p>
         <div
           class="StyledProps--font StyledProps--main main"
@@ -317,7 +317,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                name
                  
                 <span
                   class="bp3-text-muted"
@@ -347,7 +347,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -378,7 +378,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -413,7 +413,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
             <span
               class="bp3-button-text"
             >
-              Start
+              start
             </span>
           </button>
           <button
@@ -423,7 +423,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
             <span
               class="bp3-button-text"
             >
-              Setup Later
+              pipeline.createPipeline.setupLater
             </span>
           </button>
         </div>
@@ -440,7 +440,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--font-normal"
                 style="display: flex; align-items: center;"
               >
-                Learn More
+                pipeline.createPipeline.learnMore
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-blue700"
                   icon="chevron-right"
@@ -483,13 +483,13 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
         >
-          Setup Pipeline
+          pipeline.createPipeline.setupHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main"
           style="color: black; padding-bottom: 40px;"
         >
-          Let’s get you started on your pipeline.
+          pipeline.createPipeline.setupSubtitle
         </p>
         <div
           class="StyledProps--font StyledProps--main main"
@@ -552,7 +552,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                name
                  
                 <span
                   class="bp3-text-muted"
@@ -575,7 +575,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  Pipeline Name is a required field
+                  createPipeline.pipelineNameRequired
                 </div>
               </div>
             </div>
@@ -587,7 +587,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -618,7 +618,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -653,7 +653,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
             <span
               class="bp3-button-text"
             >
-              Start
+              start
             </span>
           </button>
           <button
@@ -663,7 +663,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
             <span
               class="bp3-button-text"
             >
-              Setup Later
+              pipeline.createPipeline.setupLater
             </span>
           </button>
         </div>
@@ -680,7 +680,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--font-normal"
                 style="display: flex; align-items: center;"
               >
-                Learn More
+                pipeline.createPipeline.learnMore
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-blue700"
                   icon="chevron-right"

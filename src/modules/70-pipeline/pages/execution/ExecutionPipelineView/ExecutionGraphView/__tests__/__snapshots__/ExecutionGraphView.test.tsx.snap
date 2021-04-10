@@ -547,7 +547,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         role="tab"
                         tabindex="0"
                       >
-                        Details
+                        details
                       </div>
                       <div
                         aria-controls="bp3-tab-panel_step-details_INPUT"
@@ -592,7 +592,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                           <tbody>
                             <tr>
                               <th>
-                                Started at:
+                                startedAt
                               </th>
                               <td>
                                 DUMMY DATE
@@ -600,7 +600,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                             </tr>
                             <tr>
                               <th>
-                                Ended at:
+                                endedAt
                               </th>
                               <td>
                                 DUMMY DATE
@@ -608,7 +608,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                             </tr>
                             <tr>
                               <th>
-                                Duration:
+                                duration
                               </th>
                               <td />
                             </tr>

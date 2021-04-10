@@ -20,17 +20,17 @@ exports[`MostActiveServicesWidget render 1`] = `
             <p
               class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--intent-primary"
             >
-              All
+              all
             </p>
             <p
               class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             >
-              Prod
+              dashboards.serviceDashboard.prod
             </p>
             <p
               class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             >
-              Non Prod
+              dashboards.serviceDashboard.nonProd
             </p>
           </div>
           <span
@@ -47,7 +47,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Last 6 months
+                  dashboards.serviceDashboard.months
                 </span>
                 <span
                   class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -87,7 +87,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-white"
           >
-            Deployments
+            deploymentsText
           </p>
         </div>
         <div
@@ -96,7 +96,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
           >
-            Errors
+            errors
           </p>
         </div>
       </div>

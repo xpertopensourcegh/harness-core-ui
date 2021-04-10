@@ -16,7 +16,7 @@ describe('PurposePage', () => {
         <PurposePage />
       </TestWrapper>
     )
-    fireEvent.click(getByText('Delivery'))
+    fireEvent.click(getByText('common.purpose.cd.delivery'))
     await waitFor(() => expect(container).toMatchSnapshot())
   })
 })

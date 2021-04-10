@@ -144,6 +144,7 @@ describe('<FailureStratergyPanel /> tests', () => {
     const getErrorTypeField = (): HTMLElement =>
       queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
     const menuItemSelector = '.bp3-menu-item > div'
+    const authErrorTxt = 'pipeline.failureStrategies.errorTypeLabels.Authentication'
 
     const add = await findByTestId('add-failure-strategy')
 
@@ -156,13 +157,13 @@ describe('<FailureStratergyPanel /> tests', () => {
 
     fireEvent.change(getErrorTypeField(), { target: { value: 'auth' } })
 
-    const opt1 = await findByText('Authentication Errors', { selector: menuItemSelector })
+    const opt1 = await findByText(authErrorTxt, { selector: menuItemSelector })
 
     fireEvent.click(opt1)
 
     fireEvent.focus(getErrorTypeField())
 
-    await expect(() => findByText('Authentication Errors', { selector: menuItemSelector })).rejects.toThrow()
+    await expect(() => findByText(authErrorTxt, { selector: menuItemSelector })).rejects.toThrow()
 
     const code = await findByTestId('code-output')
 
@@ -216,7 +217,7 @@ describe('<FailureStratergyPanel /> tests', () => {
 
     fireEvent.change(getErrorTypeField(), { target: { value: 'any' } })
 
-    const opt1 = await findByText('Any Other', { selector: menuItemSelector })
+    const opt1 = await findByText('pipeline.failureStrategies.errorTypeLabels.AnyOther', { selector: menuItemSelector })
 
     fireEvent.click(opt1)
 

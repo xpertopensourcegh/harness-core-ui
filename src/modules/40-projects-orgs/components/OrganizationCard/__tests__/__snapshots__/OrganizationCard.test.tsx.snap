@@ -123,7 +123,7 @@ exports[`Organization Card test initializes ok  1`] = `
                 class="StyledProps--font StyledProps--main"
                 tabindex="0"
               >
-                +2
+                plus2
               </p>
             </span>
           </span>
@@ -161,7 +161,7 @@ exports[`Organization Card test initializes ok  1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-small"
             >
-              Projects
+              projectsText
             </p>
           </div>
           <div
@@ -238,7 +238,7 @@ exports[`Organization Card test initializes ok  1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-small"
             >
-              2 Members
+              2 members
             </p>
           </div>
         </div>

@@ -16,7 +16,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control"
           >
-            Access Control
+            accessControl
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -39,7 +39,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control/roles"
           >
-            Roles
+            roles
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -146,7 +146,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Created
+          created
         </p>
         dummy date
       </div>
@@ -156,7 +156,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Last Updated
+          lastUpdated
         </p>
         dummy date
       </div>
@@ -250,7 +250,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-left-medium"
             >
-              Update Role permissions
+              roleDetails.updateRolePermissions
             </p>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
@@ -264,7 +264,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Apply Changes
+                  applyChanges
                 </span>
               </button>
             </div>
@@ -534,7 +534,7 @@ exports[`Role Details Page render data 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control"
           >
-            Access Control
+            accessControl
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -557,7 +557,7 @@ exports[`Role Details Page render data 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control/roles"
           >
-            Roles
+            roles
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -664,7 +664,7 @@ exports[`Role Details Page render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Created
+          created
         </p>
         dummy date
       </div>
@@ -674,7 +674,7 @@ exports[`Role Details Page render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Last Updated
+          lastUpdated
         </p>
         dummy date
       </div>
@@ -768,7 +768,7 @@ exports[`Role Details Page render data 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-left-medium"
             >
-              Update Role permissions
+              roleDetails.updateRolePermissions
             </p>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
@@ -782,7 +782,7 @@ exports[`Role Details Page render data 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Apply Changes
+                  applyChanges
                 </span>
               </button>
             </div>

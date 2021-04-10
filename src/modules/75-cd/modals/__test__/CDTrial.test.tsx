@@ -34,9 +34,24 @@ describe('CDTrial Modal', () => {
           <CDTrial {...props} />
         </TestWrapper>
       )
-      fireEvent.click(getByText('Start'))
-      await waitFor(() => expect(getByText('Pipeline Name is a required field')).toBeDefined())
       expect(container).toMatchSnapshot()
+      fireEvent.click(getByText('pipeline.createPipeline.setupLater'))
+      await waitFor(() => expect(container).toMatchSnapshot())
+    })
+
+    test('should validate input', async () => {
+      const { container, getByText } = render(
+        <TestWrapper
+          path="/account/:accountId"
+          pathParams={{ accountId: 'testAcc' }}
+          defaultAppStoreValues={defaultAppStoreValues}
+        >
+          <CDTrial {...props} />
+        </TestWrapper>
+      )
+      fireEvent.click(getByText('start'))
+      await waitFor(() => expect(container).toMatchSnapshot())
+      expect(getByText('createPipeline.pipelineNameRequired')).toBeDefined()
     })
   })
 })

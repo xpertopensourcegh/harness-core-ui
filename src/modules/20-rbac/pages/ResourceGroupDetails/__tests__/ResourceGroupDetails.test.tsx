@@ -57,15 +57,15 @@ describe('Resource Groups Page', () => {
     expect(container).toMatchSnapshot()
   })
   test('test projects selection and save', async () => {
-    const { getByText, container } = renderObj
+    const { getByText, getAllByText, container } = renderObj
     const project = queryByAttribute('data-testid', container, 'CHECK-BOX-PROJECT')
     expect(project).toBeTruthy()
     fireEvent.click(project!)
     await waitFor(() => {
-      expect(getByText('All Projects')).toBeDefined()
+      expect(getAllByText('resourceGroup.all')[0]).toBeDefined()
     })
     act(() => {
-      fireEvent.click(getByText('Apply Changes'))
+      fireEvent.click(getByText('applyChanges'))
     })
     expect(updateResourceGroupDetails).toBeCalledWith({
       accountIdentifier: 'kmpySmUISimoRrJL6NL73w',

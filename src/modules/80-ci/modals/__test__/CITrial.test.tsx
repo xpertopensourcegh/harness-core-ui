@@ -36,9 +36,7 @@ describe('CITrial Modal', () => {
           <CITrial {...props} />
         </TestWrapper>
       )
-      expect(
-        getByText('Take your software build processes to the next level using our Harness Continuous Integration.')
-      ).toBeDefined()
+      expect(getByText('ci.ciTrialHomePage.startTrial.description')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
 
@@ -52,11 +50,7 @@ describe('CITrial Modal', () => {
           <CITrial {...props} isSelect={true} />
         </TestWrapper>
       )
-      expect(
-        getByText(
-          'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.'
-        )
-      ).toBeDefined()
+      expect(getByText('pipeline.selectOrCreateForm.description')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })

@@ -22,7 +22,7 @@ describe('Test DeployService Step', () => {
     const { container } = render(
       <DeployService type={StepType.DeployService} initialValues={{}} stepViewType={StepViewType.Edit} />
     )
-    fireEvent.click(getByText(container, '+ New Service'))
+    fireEvent.click(getByText(container, 'pipelineSteps.serviceTab.newService'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
     fillAtForm([
@@ -34,7 +34,7 @@ describe('Test DeployService Step', () => {
       }
     ])
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "service:
@@ -51,7 +51,7 @@ describe('Test DeployService Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText(container, 'Edit Service'))
+    fireEvent.click(getByText(container, 'editService'))
     const dialog = findDialogContainer()
     fillAtForm([
       {
@@ -62,7 +62,7 @@ describe('Test DeployService Step', () => {
       }
     ])
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "service:
@@ -93,7 +93,7 @@ describe('Test DeployService Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText(container, 'Edit Service'))
+    fireEvent.click(getByText(container, 'editService'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
     fillAtForm([
@@ -105,7 +105,7 @@ describe('Test DeployService Step', () => {
       }
     ])
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "service:

@@ -70,7 +70,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Jira
+        connectors.title.jira
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -84,7 +84,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -105,7 +105,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -120,7 +120,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -135,7 +135,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -149,7 +149,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -228,7 +228,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -258,7 +258,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -289,7 +289,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -326,7 +326,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -430,7 +430,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Jira
+        connectors.title.jira
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -462,7 +462,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -483,7 +483,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -498,7 +498,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -513,7 +513,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -528,7 +528,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -549,7 +549,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                     class="bp3-label"
                     for="jiraUrl"
                   >
-                    URL
+                    UrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -615,7 +615,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                         class="label"
                       >
                         <label>
-                          Username
+                          username
                         </label>
                         <div
                           class="bp3-form-group labelSelect"
@@ -640,7 +640,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="Plaintext"
+                                    value="plaintext"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -706,7 +706,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                       <label
                         class="bp3-label"
                       >
-                        Password
+                        password
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -743,7 +743,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Create or Select a Secret
+                              createOrSelectSecret
                             </div>
                           </p>
                         </a>
@@ -782,7 +782,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -792,7 +792,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

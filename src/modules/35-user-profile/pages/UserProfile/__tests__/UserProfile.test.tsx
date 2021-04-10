@@ -86,10 +86,10 @@ describe('User Profile Page', () => {
         clickSubmit(form!)
       })
 
-      expect(queryByText(document.body, 'User details updated successfully')).toBeTruthy()
+      expect(queryByText(document.body, 'userProfile.userEditSuccess')).toBeTruthy()
     }),
     test('Change Password', async () => {
-      const password = getByText('Change Password')
+      const password = getByText('userProfile.changePassword')
       act(() => {
         fireEvent.click(password!)
       })
@@ -105,7 +105,7 @@ describe('User Profile Page', () => {
       })
     }),
     test('Add SCM', async () => {
-      const addSCM = getByText('+ Add a Source Code Manager')
+      const addSCM = getByText('userProfile.plusSCM')
       expect(addSCM).toBeTruthy()
       act(() => {
         fireEvent.click(addSCM!)
@@ -119,22 +119,22 @@ describe('User Profile Page', () => {
       await act(async () => {
         fireEvent.click(deleteIcon!)
       })
-      await waitFor(() => getAllByText(document.body, 'Delete Source Code Manager')[0])
+      await waitFor(() => getAllByText(document.body, 'userProfile.confirmDeleteTitle')[0])
       const form = findDialogContainer()
       expect(form).toBeTruthy()
-      const deleteBtn = queryByText(form!, 'Delete')
+      const deleteBtn = queryByText(form!, 'delete')
       await act(async () => {
         fireEvent.click(deleteBtn!)
       })
-      expect(queryByText(document.body, 'Source Code Manager "BB UP" deleted successfully')).toBeTruthy()
+      expect(queryByText(document.body, 'userProfile.scmDeleteSuccess')).toBeTruthy()
     }),
     test('Add BitBucket SCM', async () => {
-      const addSCM = getByText('+ Add a Source Code Manager')
+      const addSCM = getByText('userProfile.plusSCM')
       expect(addSCM).toBeTruthy()
       act(() => {
         fireEvent.click(addSCM!)
       })
-      await waitFor(() => queryByText(document.body, 'Add a Source Code Manager'))
+      await waitFor(() => queryByText(document.body, 'userProfile.addSCM'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
 
@@ -151,7 +151,7 @@ describe('User Profile Page', () => {
 
       setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'usernametextField', value: 'user name' })
 
-      const password = queryByText(form!, 'Create or Select a Secret')
+      const password = queryByText(form!, 'createOrSelectSecret')
 
       act(() => {
         fireEvent.click(password!)
@@ -169,7 +169,7 @@ describe('User Profile Page', () => {
         fireEvent.click(secret!)
       })
 
-      const applySelected = queryByText(document.body, 'Apply Selected')
+      const applySelected = queryByText(document.body, 'entityReference.apply')
       act(() => {
         fireEvent.click(applySelected!)
       })

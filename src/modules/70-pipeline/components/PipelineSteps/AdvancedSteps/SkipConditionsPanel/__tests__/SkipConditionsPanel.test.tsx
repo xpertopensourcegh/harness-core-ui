@@ -16,6 +16,6 @@ describe('Skip Conditions Panel tests', () => {
       </TestWrapper>
     )
 
-    expect(queryByText('If the JEXL condition evaluates to true, skip this step')).toBeTruthy()
+    expect(queryByText('skipConditionLabel')).toBeTruthy()
   })
 })
