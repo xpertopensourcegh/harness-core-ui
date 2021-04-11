@@ -1,9 +1,10 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Icon, Button } from '@wings-software/uicore'
-import { isNil, isEmpty, get, set, omit } from 'lodash-es'
+import { isNil, isEmpty, get, set } from 'lodash-es'
 import cx from 'classnames'
 
+import produce from 'immer'
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 
 import { useStrings } from 'framework/exports'
@@ -126,59 +127,57 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   const onSubmitStep = async (item: ExecutionWrapper): Promise<void> => {
-    // const node = data?.stepConfig?.node
-    // const stepId = node?.identifier
-    const node: ExecutionWrapper = data?.stepConfig?.node ? { ...omit(data.stepConfig.node, 'spec') } : {}
-
-    if (node) {
-      // Add/replace values only if they are presented
-      if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
-      if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
-      if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
-      if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
-      if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
-      if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
-      if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
-        node.spec = {
-          ...(item.spec ? item.spec : {}),
-          delegateSelectors: item.delegateSelectors
+    if (data?.stepConfig?.node) {
+      const processNode = produce<ExecutionWrapper>(data.stepConfig.node, node => {
+        // Add/replace values only if they are presented
+        if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
+        if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
+        if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
+        if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+        if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
+        if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
+        if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
+          node.spec = {
+            ...(node.spec ? node.spec : {}),
+            delegateSelectors: item.delegateSelectors
+          }
         }
-      }
 
-      // Delete values if they were already added and now removed
-      if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
-      if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
-      if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
-      if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
-        delete node.failureStrategies
-      if (
-        node.spec?.delegateSelectors &&
-        node.spec.delegateSelectors.length > 0 &&
-        (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
-        item.tab === TabTypes.Advanced
-      ) {
-        delete node.spec.delegateSelectors
-      }
+        // Delete values if they were already added and now removed
+        if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
+        if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
+        if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
+        if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
+          delete node.failureStrategies
+        if (
+          node.spec?.delegateSelectors &&
+          node.spec.delegateSelectors.length > 0 &&
+          (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
+          item.tab === TabTypes.Advanced
+        ) {
+          delete node.spec.delegateSelectors
+        }
 
-      if (item.spec && item.tab !== TabTypes.Advanced) {
-        node.spec = { ...item.spec }
-      }
+        if (item.spec && item.tab !== TabTypes.Advanced) {
+          node.spec = { ...item.spec }
+        }
+      })
       if (data?.stepConfig?.node?.identifier && selectedStage?.stage?.spec?.execution) {
         const processingNodeIdentifier = data?.stepConfig?.node?.identifier
-        updateStepWithinStage(selectedStage.stage.spec.execution, processingNodeIdentifier, node)
+        updateStepWithinStage(selectedStage.stage.spec.execution, processingNodeIdentifier, processNode)
         await updateStage(selectedStage.stage)
-        data?.stepConfig?.onUpdate?.(node)
+        data?.stepConfig?.onUpdate?.(processNode)
       }
+    }
 
-      // TODO: temporary fix for FF
-      // can be removed once the unified solution across modules is implemented
-      if (stageType === StageTypes.FEATURE) {
-        updatePipelineView({
-          ...pipelineView,
-          isDrawerOpened: false,
-          drawerData: { type: DrawerTypes.StepConfig }
-        })
-      }
+    // TODO: temporary fix for FF
+    // can be removed once the unified solution across modules is implemented
+    if (stageType === StageTypes.FEATURE) {
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: false,
+        drawerData: { type: DrawerTypes.StepConfig }
+      })
     }
   }
 
