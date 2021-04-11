@@ -22,6 +22,7 @@ export interface StringsMap {
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
+  'common.execute': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
   'common.logs.delegateSelectionLogs': string
@@ -71,7 +72,9 @@ export interface StringsMap {
   'rbac.permissionLabels.access': string
   'rbac.permissionLabels.createEdit': string
   'rbac.permissionLabels.delete': string
+  'rbac.permissionLabels.execute': string
   'rbac.permissionLabels.pipelineExecution': string
+  'rbac.permissionLabels.runtimeAccess': string
   'rbac.permissionLabels.view': string
   'rbac.roleBinding': string
   'rbac.userGroupPage.confirmDelete': string

@@ -5,7 +5,10 @@ export enum ResourceType {
   ORGANIZATION = 'ORGANIZATION',
   PROJECT = 'PROJECT',
   SECRET = 'SECRET',
-  CONNECTOR = 'CONNECTOR'
+  CONNECTOR = 'CONNECTOR',
+  PIPELINE = 'PIPELINE',
+  SERVICE = 'SERVICE',
+  ENVIRONMENT = 'ENVIRONMENT'
 }
 
 export enum ResourceCategory {

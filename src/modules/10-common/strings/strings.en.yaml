@@ -20,6 +20,7 @@ jexlExpression: JEXL Expression
 logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
+execute: Execute
 datePickerShortcuts:
   Today: Today
   Yesterday: Yesterday
