@@ -499,7 +499,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -943,7 +943,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -1389,7 +1389,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -1835,7 +1835,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -2277,7 +2277,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"

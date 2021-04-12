@@ -5,9 +5,8 @@ import { isNil, isEmpty, get, set } from 'lodash-es'
 import cx from 'classnames'
 
 import produce from 'immer'
-import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
-
 import { useStrings } from 'framework/exports'
+import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
 import { processFormData as processFormDataHarnessApproval } from '@pipeline/components/PipelineSteps/Steps/Approval/helper'
 import { processFormData as processFormDataJiraApproval } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/helper'
@@ -398,9 +397,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
       {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.FailureStrategy && selectedStageId ? (
-        <FailureStrategy
+        <FailureStrategyWithRef
           selectedStage={selectedStage}
           isReadonly={isReadonly}
+          ref={formikRef}
           onUpdate={({ failureStrategies }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
             if (pipelineStage && pipelineStage.stage) {
