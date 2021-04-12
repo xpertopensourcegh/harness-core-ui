@@ -1187,7 +1187,6 @@ pipelineSteps:
   kubernetesInfraStep:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector
-    k8ConnectorDropDownLabel: '{{$.connector}}'
     k8ConnectorDropDownPlaceholder: Select a connector
     nameSpaceLabel: '{{$.pipelineSteps.build.infraSpecifications.namespace}}'
     releaseName: Release name

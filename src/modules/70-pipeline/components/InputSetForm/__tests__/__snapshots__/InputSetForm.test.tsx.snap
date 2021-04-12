@@ -700,7 +700,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                             <label
                                               class="bp3-label"
                                             >
-                                              pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownLabel
+                                              connector
                                                
                                               <span
                                                 class="bp3-text-muted"
@@ -2111,7 +2111,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                             <label
                                               class="bp3-label"
                                             >
-                                              pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownLabel
+                                              connector
                                                
                                               <span
                                                 class="bp3-text-muted"

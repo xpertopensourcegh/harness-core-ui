@@ -5161,10 +5161,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
