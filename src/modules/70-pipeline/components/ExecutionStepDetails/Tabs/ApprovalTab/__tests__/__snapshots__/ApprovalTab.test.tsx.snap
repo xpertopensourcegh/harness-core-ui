@@ -6,21 +6,36 @@ exports[`<ApprovalTab /> tests renders harness approval step 1`] = `
     class="approvalTab"
   >
     <div
-      class="info"
-      data-type="harness"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main harnessApproval StyledProps--padding-large"
     >
       <div
-        class="reviewMsg"
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
       >
-        Please review the following information and approve the pipeline progression
-      </div>
-      <div>
-        execution.approvals.statusMsg
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          <span>
+            startedAt
+          </span>
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+        >
+          XX:YY
+        </p>
       </div>
     </div>
     <div
       class="harnessApproval"
     >
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        <span>
+          pipeline.approvalStep.approvers
+        </span>
+        :
+      </p>
       <div
         class="approver"
       >
@@ -200,11 +215,6 @@ exports[`<ApprovalTab /> tests renders jira step 1`] = `
         >
           CDNG-1234
         </a>
-      </div>
-      <div
-        class="criteriaMsg"
-      >
-        execution.approvals.criteriaMsg
       </div>
     </div>
     <div

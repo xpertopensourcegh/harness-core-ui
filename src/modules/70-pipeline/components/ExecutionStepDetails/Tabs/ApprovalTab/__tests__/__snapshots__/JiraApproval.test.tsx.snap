@@ -30,11 +30,6 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
         CDNG-1234
       </a>
     </div>
-    <div
-      class="criteriaMsg"
-    >
-      execution.approvals.criteriaMsg
-    </div>
   </div>
   <div
     class="jiraApproval"
@@ -202,11 +197,6 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
       >
         CDNG-1234
       </a>
-    </div>
-    <div
-      class="criteriaMsg"
-    >
-      execution.approvals.criteriaMsg
     </div>
   </div>
   <div

@@ -163,6 +163,7 @@ describe('Jira Create tests', () => {
     expect(queryByDisplayValue('value1')).toBeTruthy()
     expect(queryByDisplayValue('2233')).toBeTruthy()
     expect(queryByDisplayValue('23-march')).toBeTruthy()
+    expect(queryByDisplayValue('summaryval')).toBeNull()
 
     act(() => {
       fireEvent.click(getByText('pipeline.jiraCreateStep.fieldSelectorAdd'))

@@ -3,21 +3,36 @@
 exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
 <div>
   <div
-    class="info"
-    data-type="harness"
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main harnessApproval StyledProps--padding-large"
   >
     <div
-      class="reviewMsg"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
     >
-      Please review the following information and approve the pipeline progression
-    </div>
-    <div>
-      execution.approvals.statusMsg
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        <span>
+          startedAt
+        </span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+      >
+        XX:YY
+      </p>
     </div>
   </div>
   <div
     class="harnessApproval"
   >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      <span>
+        pipeline.approvalStep.approvers
+      </span>
+      :
+    </p>
     <div
       class="approver"
     >
@@ -202,6 +217,14 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
   <div
     class="harnessApproval"
   >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      <span>
+        pipeline.approvalStep.approvers
+      </span>
+      :
+    </p>
     <div
       class="approver"
     >
@@ -386,6 +409,14 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
   <div
     class="harnessApproval"
   >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      <span>
+        pipeline.approvalStep.approvers
+      </span>
+      :
+    </p>
     <div
       class="approver"
     >

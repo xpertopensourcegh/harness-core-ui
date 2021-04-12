@@ -15,6 +15,13 @@ jest.mock('@common/components/Duration/Duration', () => ({
     return <div>MOCK DURATION</div>
   }
 }))
+
+jest.mock('moment', () => {
+  const original = jest.requireActual('moment')
+  original().__proto__.format = () => 'XX:YY'
+  return original
+})
+
 describe('<ApprovalTab /> tests', () => {
   const dateToString = jest.spyOn(Date.prototype, 'toLocaleString')
 

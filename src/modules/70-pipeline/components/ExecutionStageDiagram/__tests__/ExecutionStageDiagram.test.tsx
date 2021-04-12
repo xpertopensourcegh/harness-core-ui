@@ -186,7 +186,7 @@ jest.mock('resize-observer-polyfill', () => {
 })
 
 // eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Test Execution StageDiagram', () => {
+describe('Test Execution StageDiagram', () => {
   beforeAll(() => {
     jest.spyOn(global.Math, 'random').mockReturnValue(0.12345)
   })

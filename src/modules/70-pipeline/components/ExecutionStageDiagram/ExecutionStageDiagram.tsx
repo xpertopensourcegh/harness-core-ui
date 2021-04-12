@@ -267,7 +267,9 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
               )}
             </ExecutionContext.Consumer>
           </div>
-          {groupStage && groupStage.size > 0 && (
+          {groupStage && groupStage.size > 1 && (
+            // Do not render groupStage if the size is less than 1
+            // In approval stage, we do not have service/innfra/execution sections
             <div className={css.groupLabels}>
               {[...groupStage]
                 .filter(item => item[1].showInLabel)

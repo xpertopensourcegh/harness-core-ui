@@ -12,6 +12,12 @@ jest.mock('@common/components/Duration/Duration', () => ({
   }
 }))
 
+jest.mock('moment', () => {
+  const original = jest.requireActual('moment')
+  original().__proto__.format = () => 'XX:YY'
+  return original
+})
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
 jest.mock('services/pipeline-ng', () => ({
   useGetHarnessApprovalInstanceAuthorization: jest.fn(() => ({ data: {}, loading: false })),

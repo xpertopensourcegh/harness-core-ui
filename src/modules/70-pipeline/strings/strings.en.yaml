@@ -1,7 +1,7 @@
 enterDescription: Enter Description
 approvalStep:
   message: 'Approval Message'
-  approvers: 'Approvers'
+  approvers: 'Approver(s)'
   approverInputs: 'Inputs to be provided by approver'
   includePipelineExecutionHistory: 'Include pipeline execution history in approval details'
   addUserGroups: Add User Groups
