@@ -23,7 +23,7 @@ const RenderColumnPipeline: Renderer<CellProps<ServiceResponseDTO>> = ({ row }) 
 }
 
 const ServiceResourceModal: React.FC<RbacResourceModalProps> = ({
-  // searchTerm,
+  searchTerm,
   onSelectChange,
   selectedData,
   resourceScope
@@ -33,10 +33,10 @@ const ServiceResourceModal: React.FC<RbacResourceModalProps> = ({
   const [page, setPage] = useState(0)
 
   const { data: servicesResponse, loading: isFetchingServices } = useGetServiceList({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, page, size: 10 }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, searchTerm, page, size: 10 }
   })
 
-  const serviceData = servicesResponse?.data?.content
+  const serviceData = servicesResponse?.data?.content?.map(serviceContent => serviceContent.service)
 
   if (isFetchingServices) return <PageSpinner />
 
@@ -47,7 +47,7 @@ const ServiceResourceModal: React.FC<RbacResourceModalProps> = ({
         selectedData={selectedData}
         columns={[
           {
-            Header: getString('common.pipeline'),
+            Header: getString('service'),
             id: 'name',
             accessor: 'name' as any,
             Cell: RenderColumnPipeline,

@@ -26,7 +26,7 @@ exports[`Service Resource Modal Body test initializes ok  1`] = `
           role="columnheader"
           style="width: 150px;"
         >
-          common.pipeline
+          service
         </div>
       </div>
       <div

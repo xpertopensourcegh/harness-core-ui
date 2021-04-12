@@ -4,29 +4,37 @@
     "totalPages": 1,
     "totalItems": 2,
     "pageItemCount": 2,
-    "pageSize": 100,
+    "pageSize": 10,
     "content": [
       {
-        "accountId": "kmpySmUISimoRrJL6NL73w",
-        "identifier": "manager",
-        "orgIdentifier": "org_1",
-        "projectIdentifier": "proj_1",
-        "name": "manager",
-        "description": null,
-        "deleted": false,
-        "tags": {},
-        "version": 8
+        "service": {
+          "accountId": "kmpySmUISimoRrJL6NL73w",
+          "identifier": "manager",
+          "orgIdentifier": "org_1",
+          "projectIdentifier": "proj_1",
+          "name": "manager",
+          "description": null,
+          "deleted": false,
+          "tags": {},
+          "version": 8
+        },
+        "createdAt": null,
+        "lastModifiedAt": null
       },
       {
-        "accountId": "kmpySmUISimoRrJL6NL73w",
-        "identifier": "ManagerServiceLatest",
-        "orgIdentifier": "org_1",
-        "projectIdentifier": "proj_1",
-        "name": "ManagerService",
-        "description": null,
-        "deleted": false,
-        "tags": {},
-        "version": 23
+        "service": {
+          "accountId": "kmpySmUISimoRrJL6NL73w",
+          "identifier": "ManagerServiceLatest",
+          "orgIdentifier": "org_1",
+          "projectIdentifier": "proj_1",
+          "name": "ManagerService",
+          "description": null,
+          "deleted": false,
+          "tags": {},
+          "version": 23
+        },
+        "createdAt": null,
+        "lastModifiedAt": null
       }
     ],
     "pageIndex": 0,

@@ -22,8 +22,20 @@ const RenderColumnPipeline: Renderer<CellProps<EnvironmentResponseDTO>> = ({ row
   )
 }
 
+const RenderEnvType: Renderer<CellProps<EnvironmentResponseDTO>> = ({ row }) => {
+  const rowdata = row.original
+
+  return (
+    <Layout.Vertical spacing="small">
+      <Text color={Color.GREY_800} iconProps={{ size: 16 }}>
+        {rowdata.type}
+      </Text>
+    </Layout.Vertical>
+  )
+}
+
 const EnvironmentResourceModal: React.FC<RbacResourceModalProps> = ({
-  // searchTerm,
+  searchTerm,
   onSelectChange,
   selectedData,
   resourceScope
@@ -33,24 +45,35 @@ const EnvironmentResourceModal: React.FC<RbacResourceModalProps> = ({
   const [page, setPage] = useState(0)
 
   const { data: environmentsResponse, loading: isFetchingEnvironments } = useGetEnvironmentList({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, page, size: 10 }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, searchTerm, page, size: 10 }
   })
 
-  const serviceData = environmentsResponse?.data?.content
+  const environmentsData = environmentsResponse?.data?.content?.map(
+    environmentContent => environmentContent.environment
+  )
 
   if (isFetchingEnvironments) return <PageSpinner />
 
-  return serviceData?.length ? (
+  return environmentsData?.length ? (
     <Container>
       <ResourceHandlerTable
-        data={serviceData as ResourceHandlerTableData[]}
+        data={environmentsData as ResourceHandlerTableData[]}
         selectedData={selectedData}
         columns={[
           {
-            Header: getString('common.pipeline'),
+            Header: getString('environment'),
             id: 'name',
             accessor: 'name' as any,
             Cell: RenderColumnPipeline,
+            width: '60%',
+            disableSortBy: true
+          },
+          {
+            Header: getString('envType'),
+            id: 'type',
+            accessor: 'type',
+            Cell: RenderEnvType,
+            width: '20%',
             disableSortBy: true
           }
         ]}
