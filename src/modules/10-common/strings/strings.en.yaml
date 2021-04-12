@@ -17,6 +17,8 @@ ID: ID
 selectStrategy: Select a Strategy
 performAction: Perform Action
 jexlExpression: JEXL Expression
+input: Input
+refresh: Refresh
 logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs

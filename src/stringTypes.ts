@@ -23,6 +23,7 @@ export interface StringsMap {
   'common.editVariable': string
   'common.editVariableType': string
   'common.execute': string
+  'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
   'common.logs.delegateSelectionLogs': string
@@ -54,6 +55,7 @@ export interface StringsMap {
   'common.purpose.setup': string
   'common.purpose.startATrial': string
   'common.purpose.welcome': string
+  'common.refresh': string
   'common.reject': string
   'common.removeThisVariable': string
   'common.role': string
@@ -358,6 +360,9 @@ export interface StringsMap {
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
   'pipeline.enterDescription': string
+  'pipeline.execution.currentExecution': string
+  'pipeline.execution.retryStepCount': string
+  'pipeline.execution.stepTitlePrefix': string
   'pipeline.failureStrategies.defaultStageText': string
   'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
