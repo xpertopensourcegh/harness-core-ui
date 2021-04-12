@@ -91,7 +91,10 @@ export class Dependency extends PipelineStep<DependencyData> {
 
   validateInputSet(data: DependencyData, template?: DependencyData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, {
+        getString,
+        type: StepType.Dependency
+      })
     }
 
     return {}

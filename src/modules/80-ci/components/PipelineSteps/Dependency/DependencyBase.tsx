@@ -25,6 +25,7 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './DependencyFunctionConfigs'
 import type { DependencyProps, DependencyData, DependencyDataUI } from './Dependency'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -67,6 +68,7 @@ export const DependencyBase = (
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
           serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+          type: StepType.Dependency,
           getString
         })
       }}

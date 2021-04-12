@@ -8,6 +8,7 @@ import { StringUtils } from '@common/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import type { StringKeys } from 'framework/exports'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 export enum Types {
   Text,
@@ -223,16 +224,26 @@ function generateSchemaForOutputVariables(
   }
 }
 
-function generateSchemaForLimitMemory({ getString }: GenerateSchemaDependencies): Lazy {
-  return yup.lazy(value =>
-    getMultiTypeFromValue(value as string) === MultiTypeInputType.FIXED
+function generateSchemaForLimitMemory({ getString, isRequired = false }: GenerateSchemaDependencies): Lazy {
+  return yup.lazy(value => {
+    if (isRequired) {
+      return getMultiTypeFromValue(value as string) === MultiTypeInputType.FIXED
+        ? yup
+            .string()
+            .required()
+            // ^$ in the end is to pass empty string because otherwise it will fail
+            // .matches(/^\d+$|^\d+(E|P|T|G|M|K|Ei|Pi|Ti|Gi|Mi|Ki)$|^$/, getString('validation.matchPattern'))
+            .matches(/^\d+(\.\d+)?$|^\d+(\.\d+)?(G|M|Gi|Mi)$|^$/, getString('validation.matchPattern'))
+        : yup.string().required()
+    }
+    return getMultiTypeFromValue(value as string) === MultiTypeInputType.FIXED
       ? yup
           .string()
           // ^$ in the end is to pass empty string because otherwise it will fail
           // .matches(/^\d+$|^\d+(E|P|T|G|M|K|Ei|Pi|Ti|Gi|Mi|Ki)$|^$/, getString('validation.matchPattern'))
           .matches(/^\d+(\.\d+)?$|^\d+(\.\d+)?(G|M|Gi|Mi)$|^$/, getString('validation.matchPattern'))
       : yup.string()
-  )
+  })
 }
 
 function generateSchemaForLimitCPU({ getString }: GenerateSchemaDependencies): Lazy {
@@ -306,12 +317,20 @@ export function generateSchemaFields(
 export function validate(values: any, config: Field[], dependencies: GenerateSchemaDependencies): FormikErrors<any> {
   const errors = {}
   const schemaFields = generateSchemaFields(config, dependencies)
-
   schemaFields.forEach(({ name, validationRule, isActive = true }) => {
     if (!isActive) return
 
     try {
-      validationRule.validateSync(get(values, name))
+      if (dependencies.type === StepType.Dependency && name === 'spec.limitMemory') {
+        const cpuVal = get(values, 'spec.limitCPU')
+        if (cpuVal) {
+          generateSchemaForLimitMemory({ getString: dependencies.getString, isRequired: true }).validateSync(
+            get(values, name)
+          )
+        }
+      } else {
+        validationRule.validateSync(get(values, name))
+      }
     } catch (error) {
       set(errors, name, error.message)
     }

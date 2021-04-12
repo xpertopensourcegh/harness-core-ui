@@ -143,6 +143,89 @@ describe('Dependency', () => {
       await act(() => ref.current?.submitForm())
       expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })
+
+    test('edit mode works when memory present but cpu is not', async () => {
+      const initialValues = {
+        identifier: 'My_Dependency_Step',
+        name: 'My Dependency Step',
+        description: 'Description',
+        spec: {
+          connectorRef: 'account.connectorRef',
+          image: 'image',
+          envVariables: {
+            key1: 'value1',
+            key2: 'value2',
+            key3: 'value3'
+          },
+          entrypoint: ['entrypoint1', 'entrypoint2', 'entrypoint3'],
+          args: ['arg1', 'arg2', 'arg3'],
+          // TODO: Right now we do not support Image Pull Policy but will do in the future
+          // pull: 'always',
+          resources: {
+            limits: {
+              memory: '128Mi'
+            }
+          }
+        }
+      }
+      const onUpdate = jest.fn()
+      const ref = React.createRef<StepFormikRef<unknown>>()
+      const { container } = render(
+        <TestStepWidget
+          initialValues={initialValues}
+          type={StepType.Dependency}
+          stepViewType={StepViewType.Edit}
+          onUpdate={onUpdate}
+          ref={ref}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+      await act(() => ref.current?.submitForm())
+      expect(onUpdate).toHaveBeenCalledWith(initialValues)
+    })
+
+    test('edit mode fails when cpu present but memory is not', async () => {
+      const initialValues = {
+        identifier: 'My_Dependency_Step',
+        name: 'My Dependency Step',
+        description: 'Description',
+        spec: {
+          connectorRef: 'account.connectorRef',
+          image: 'image',
+          envVariables: {
+            key1: 'value1',
+            key2: 'value2',
+            key3: 'value3'
+          },
+          entrypoint: ['entrypoint1', 'entrypoint2', 'entrypoint3'],
+          args: ['arg1', 'arg2', 'arg3'],
+          // TODO: Right now we do not support Image Pull Policy but will do in the future
+          // pull: 'always',
+          resources: {
+            limits: {
+              memory: '',
+              cpu: '0.1'
+            }
+          }
+        }
+      }
+      const onUpdate = jest.fn()
+      const ref = React.createRef<StepFormikRef<unknown>>()
+      const { container } = render(
+        <TestStepWidget
+          initialValues={initialValues}
+          type={StepType.Dependency}
+          stepViewType={StepViewType.Edit}
+          onUpdate={onUpdate}
+          ref={ref}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+      await act(() => ref.current?.submitForm())
+      expect(onUpdate).not.toHaveBeenCalled()
+    })
   })
 
   describe('InputSet View', () => {
