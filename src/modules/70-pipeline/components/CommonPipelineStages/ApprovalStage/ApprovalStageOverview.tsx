@@ -32,6 +32,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
       }
     },
     stepsFactory,
+    isReadonly,
     updateStage,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
@@ -221,7 +222,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                   })
                 }}
               >
-                <SkipConditionsPanel mode={Modes.STAGE} />
+                <SkipConditionsPanel isReadonly={isReadonly} mode={Modes.STAGE} />
               </Formik>
             }
           />

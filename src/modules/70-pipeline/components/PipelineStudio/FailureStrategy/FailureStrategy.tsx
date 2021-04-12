@@ -17,12 +17,13 @@ import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 
 export interface FailureStrategyProps {
   selectedStage?: StageElementWrapperConfig
+  isReadonly: boolean
   onUpdate(data: { failureStrategies: FailureStrategyConfig[] }): void
 }
 
 export default function FailureStrategy(props: FailureStrategyProps): React.ReactElement {
   const { getString } = useStrings()
-  const { selectedStage, onUpdate } = props
+  const { selectedStage, onUpdate, isReadonly } = props
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(debounce(onUpdate, 300), [onUpdate])
 
@@ -48,7 +49,7 @@ export default function FailureStrategy(props: FailureStrategyProps): React.Reac
     >
       {formik => (
         <div className={Classes.DIALOG_BODY}>
-          <FailureStrategyPanel mode={Modes.STAGE} formikProps={formik} />
+          <FailureStrategyPanel isReadonly={isReadonly} mode={Modes.STAGE} formikProps={formik} />
         </div>
       )}
     </Formik>

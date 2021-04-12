@@ -61,6 +61,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     stepsFactory,
     getStageFromPipeline,
     updatePipelineView,
+    isReadonly,
     updatePipeline
   } = React.useContext(PipelineContext)
 
@@ -234,6 +235,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <ExecutionGraph
               allowAddGroup={false}
               hasRollback={false}
+              isReadonly={isReadonly}
               hasDependencies={true}
               stepsFactory={stepsFactory}
               stage={selectedStage!}

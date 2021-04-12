@@ -10,7 +10,7 @@ describe('Skip Conditions Panel tests', () => {
       <TestWrapper>
         <Formik initialValues={{}} onSubmit={() => void 0}>
           {() => {
-            return <SkipConditionsPanel />
+            return <SkipConditionsPanel isReadonly={false} />
           }}
         </Formik>
       </TestWrapper>

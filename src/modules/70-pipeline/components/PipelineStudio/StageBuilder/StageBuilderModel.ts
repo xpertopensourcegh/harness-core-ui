@@ -31,6 +31,7 @@ export class StageBuilderModel extends DiagramModel {
     startX: number,
     startY: number,
     stagesMap: StagesMap,
+    isReadonly: boolean,
     selectedStageId?: string,
     splitPaneSize?: number,
     prevNodes?: DefaultNodeModel[],
@@ -53,8 +54,8 @@ export class StageBuilderModel extends DiagramModel {
             name: node.stage.name,
             width: 57,
             isInComplete: node.stage.name === EmptyStageName,
-            canDelete: selectedStageId === node.stage.identifier ? false : true,
-            draggable: true,
+            canDelete: selectedStageId === node.stage.identifier || isReadonly ? false : true,
+            draggable: !isReadonly,
             height: 57,
             skipCondition: node.stage.skipCondition,
             iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
@@ -67,10 +68,10 @@ export class StageBuilderModel extends DiagramModel {
             name: node.stage.name,
             isInComplete: node.stage.name === EmptyStageName,
             width: 114,
-            draggable: true,
-            canDelete: selectedStageId === node.stage.identifier ? false : true,
+            draggable: !isReadonly,
+            canDelete: selectedStageId === node.stage.identifier || isReadonly ? false : true,
             skipCondition: node.stage.skipCondition,
-            allowAdd: allowAdd === true,
+            allowAdd: allowAdd === true && !isReadonly,
             height: 50,
             iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
             icon: type.icon
@@ -80,7 +81,7 @@ export class StageBuilderModel extends DiagramModel {
       nodeRender.setPosition(startX, startY)
       /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
-          this.connectedParentToNode(nodeRender, prevNode, !isParallelNodes)
+          this.connectedParentToNode(nodeRender, prevNode, !isParallelNodes && !isReadonly)
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
@@ -147,6 +148,7 @@ export class StageBuilderModel extends DiagramModel {
               newX,
               newY,
               stagesMap,
+              isReadonly,
               selectedStageId,
               splitPaneSize,
               prevNodes,
@@ -180,6 +182,7 @@ export class StageBuilderModel extends DiagramModel {
           startX,
           startY,
           stagesMap,
+          isReadonly,
           selectedStageId,
           splitPaneSize,
           prevNodes,
@@ -197,6 +200,7 @@ export class StageBuilderModel extends DiagramModel {
     listeners: Listeners,
     stagesMap: StagesMap,
     getString: UseStringsReturn['getString'],
+    isReadonly: boolean,
     selectedStageId?: string,
     splitPaneSize?: number
   ): void {
@@ -232,6 +236,7 @@ export class StageBuilderModel extends DiagramModel {
         startX,
         startY,
         stagesMap,
+        isReadonly,
         selectedStageId,
         splitPaneSize,
         prevNodes,
@@ -243,15 +248,22 @@ export class StageBuilderModel extends DiagramModel {
         prevNodes = resp.prevNodes
       }
     })
-    createNode.setPosition(startX + this.gapX, startY)
-    stopNode.setPosition(startX + 2 * this.gapX, startY)
-    prevNodes.forEach((prevNode: DefaultNodeModel) => {
-      this.connectedParentToNode(createNode, prevNode, false)
-    })
-    this.connectedParentToNode(stopNode, createNode, false)
-    this.addNode(stopNode)
-    this.addNode(createNode)
-
+    if (isReadonly) {
+      stopNode.setPosition(startX + this.gapX, startY)
+      prevNodes.forEach((prevNode: DefaultNodeModel) => {
+        this.connectedParentToNode(stopNode, prevNode, false)
+      })
+      this.addNode(stopNode)
+    } else {
+      createNode.setPosition(startX + this.gapX, startY)
+      stopNode.setPosition(startX + 2 * this.gapX, startY)
+      prevNodes.forEach((prevNode: DefaultNodeModel) => {
+        this.connectedParentToNode(createNode, prevNode, false)
+      })
+      this.connectedParentToNode(stopNode, createNode, false)
+      this.addNode(stopNode)
+      this.addNode(createNode)
+    }
     const nodes = this.getActiveNodeLayer().getNodes()
     for (const key in nodes) {
       const node = nodes[key]

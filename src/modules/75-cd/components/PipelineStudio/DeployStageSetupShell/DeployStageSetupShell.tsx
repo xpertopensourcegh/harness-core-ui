@@ -41,6 +41,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       pipelineView
     },
     stagesMap,
+    isReadonly,
     stepsFactory,
     updatePipeline,
     getStageFromPipeline,
@@ -236,6 +237,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <ExecutionGraph
               allowAddGroup={true}
               hasRollback={true}
+              isReadonly={isReadonly}
               hasDependencies={false}
               stepsFactory={stepsFactory}
               originalStage={originalStage}

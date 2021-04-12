@@ -44,6 +44,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       },
       pipelineView
     },
+    isReadonly,
     updatePipeline,
     updateStage,
     updatePipelineView,
@@ -295,6 +296,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
           step={data.stepConfig.node}
+          isReadonly={isReadonly}
           ref={formikRef}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
@@ -380,6 +382,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.FailureStrategy && selectedStageId ? (
         <FailureStrategy
           selectedStage={selectedStage}
+          isReadonly={isReadonly}
           onUpdate={({ failureStrategies }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
             if (pipelineStage && pipelineStage.stage) {
@@ -392,6 +395,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
       {type === DrawerTypes.SkipCondition && selectedStageId ? (
         <SkipCondition
+          isReadonly={isReadonly}
           selectedStage={selectedStage || {}}
           onUpdate={({ skipCondition }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
@@ -405,6 +409,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           step={data.stepConfig.node}
+          isReadonly={isReadonly}
           ref={formikRef}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
@@ -485,6 +490,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isReadonly={isReadonly}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}

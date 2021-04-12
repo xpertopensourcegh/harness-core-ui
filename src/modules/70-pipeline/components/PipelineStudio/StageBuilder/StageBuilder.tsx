@@ -126,6 +126,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       pipelineView,
       isInitialized
     },
+    isReadonly,
     stagesMap,
     updatePipeline,
     updatePipelineView,
@@ -232,7 +233,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       }
     }
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString)
+    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString, isReadonly)
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
     }
@@ -514,7 +515,15 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const model = React.useMemo(() => new StageBuilderModel(), [])
   const [splitPaneSize, setSplitPaneSize] = React.useState(DefaultSplitPaneSize)
 
-  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString, selectedStageId, splitPaneSize)
+  model.addUpdateGraph(
+    pipeline,
+    { nodeListeners, linkListeners },
+    stagesMap,
+    getString,
+    isReadonly,
+    selectedStageId,
+    splitPaneSize
+  )
   const setSplitPaneSizeDeb = debounce(setSplitPaneSize, 200)
   // load model into engine
   engine.setModel(model)
