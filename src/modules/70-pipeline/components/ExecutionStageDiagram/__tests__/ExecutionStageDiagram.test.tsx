@@ -158,7 +158,8 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
       }
     ],
     identifier: 'Test_Pipline',
-    status: ExecutionPipelineItemStatus.ERROR
+    status: ExecutionPipelineItemStatus.ERROR,
+    allNodes: []
   },
   selectedIdentifier: 'qaStage',
   showStageSelection: true,

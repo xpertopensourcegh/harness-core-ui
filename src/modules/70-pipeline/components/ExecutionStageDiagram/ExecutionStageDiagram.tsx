@@ -204,7 +204,6 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
 
   //Load model into engine
   engine.setModel(model)
-
   autoPosition && focusRunningNode(engine, data)
 
   return (
