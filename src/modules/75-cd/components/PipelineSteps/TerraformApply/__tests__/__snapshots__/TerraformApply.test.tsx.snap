@@ -63,7 +63,7 @@ exports[`Test TerraformApply should render edit view 1`] = `
 </div>
 `;
 
-exports[`Test TerraformApply should render edit view as edit step 1`] = `
+exports[`Test TerraformApply should render edit view as edit step - Inheritfromplan 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -707,7 +707,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
                             type="text"
-                            value=""
+                            value="testworkspace"
                           />
                         </div>
                         <span

@@ -24,13 +24,12 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { PathInterface, TerraformData, TerraformStoreTypes, VarFileArray } from '../TerraformInterfaces'
+import { PathInterface, TerraformStoreTypes, VarFileArray } from '../TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformVarfile.module.scss'
 
 interface TfVarFileProps {
-  formik: FormikProps<TerraformData>
   onHide: () => void
   onSubmit: (values: any) => void
 }
@@ -59,7 +58,6 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
     { label: getString('gitFetchTypes.fromBranch'), value: getString('pipelineSteps.deploy.inputSet.branch') },
     { label: getString('gitFetchTypes.fromCommit'), value: getString('pipelineSteps.commitIdValue') }
   ]
-
   return (
     <Dialog
       isOpen={true}
@@ -102,7 +100,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     placeholder={getString('pipelineSteps.storeType')}
                   />
                 </div>
-                {formik.values.type === TerraformStoreTypes.Remote && (
+                {formik.values.type?.toLowerCase() === TerraformStoreTypes.Remote.toLowerCase() && (
                   <>
                     <FormMultiTypeConnectorField
                       label={
@@ -223,7 +221,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     </MultiTypeFieldSelector>
                   </>
                 )}
-                {formik.values.type === TerraformStoreTypes.Inline && (
+                {formik.values.type?.toLowerCase() === TerraformStoreTypes.Inline.toLowerCase() && (
                   <FormInput.TextArea name="store.spec.content" label={getString('pipelineSteps.content')} />
                 )}
                 <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>

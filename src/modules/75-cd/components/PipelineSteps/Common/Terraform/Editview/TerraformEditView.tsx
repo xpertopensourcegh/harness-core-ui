@@ -36,6 +36,7 @@ import BaseForm from './BaseForm'
 
 import TfVarFileList from './TFVarFileList'
 import {
+  CommandTypes,
   ConfigurationTypes,
   onSubmitTerraformData,
   TerraformData,
@@ -86,6 +87,22 @@ export default function TerraformEditView(
     { label: getString('inline'), value: ConfigurationTypes.Inline },
     { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
   ]
+
+  let configTypes: SelectOption[] = configurationTypes
+
+  if (stepType === StepType.TerraformDestroy) {
+    configTypes = [
+      { label: getString('inline'), value: ConfigurationTypes.Inline },
+      { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan },
+      { label: getString('pipelineSteps.configTypes.fromApply'), value: ConfigurationTypes.InheritFromApply }
+    ]
+  } else if (stepType === StepType.TerraformPlan) {
+    configTypes = [
+      { label: getString('filters.apply'), value: CommandTypes.Apply },
+      { label: getString('pipelineSteps.destroy'), value: CommandTypes.Destroy }
+    ]
+  }
+
   return (
     <>
       <Formik<TerraformData>
@@ -105,11 +122,9 @@ export default function TerraformEditView(
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
-                {stepType !== StepType.TerraformPlan && (
-                  <BaseForm formik={formik} configurationTypes={configurationTypes} />
-                )}
+                {stepType !== StepType.TerraformPlan && <BaseForm formik={formik} configurationTypes={configTypes} />}
                 {stepType === StepType.TerraformPlan && (
-                  <BaseForm formik={formik} configurationTypes={configurationTypes} showCommand={true} />
+                  <BaseForm formik={formik} configurationTypes={configTypes} showCommand={true} />
                 )}
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField

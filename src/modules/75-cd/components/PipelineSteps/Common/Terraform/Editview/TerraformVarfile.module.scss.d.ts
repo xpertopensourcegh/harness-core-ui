@@ -7,5 +7,6 @@ declare const styles: {
   readonly dialog: string
   readonly pathRow: string
   readonly label: string
+  readonly addMarginTop: string
 }
 export default styles

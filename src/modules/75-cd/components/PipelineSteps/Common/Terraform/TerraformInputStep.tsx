@@ -10,12 +10,13 @@ import { useStrings } from 'framework/exports'
 
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
-import type { TerraformProps } from '../TerraformInterfaces'
-import ConfigInputs from '../InputSteps/ConfigSection'
+import type { TerraformProps } from './TerraformInterfaces'
+import ConfigInputs from './InputSteps/ConfigSection'
 
 export default function TerraformInputStep(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
   const { inputSetData, readonly } = props
+
   return (
     <FormikForm>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (

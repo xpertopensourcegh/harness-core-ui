@@ -6,7 +6,8 @@ import type {
   MultiTypeListType,
   MultiTypeListUIType,
   MultiTypeMapType,
-  MultiTypeMapUIType
+  MultiTypeMapUIType,
+  SelectOption
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
@@ -19,6 +20,7 @@ export interface TerraformProps {
   initialValues: TerraformData
   onUpdate?: (data: TerraformData) => void
   stepViewType?: StepViewType
+  configTypes?: SelectOption[]
   isNewStep?: boolean
   inputSetData?: {
     template?: TerraformData

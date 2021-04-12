@@ -45,16 +45,16 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
       name="spec.configuration.spec.varFiles"
       render={({ push, remove }) => {
         return (
-          <Layout.Vertical>
+          <div>
             {formik?.values?.spec?.configuration?.spec?.varFiles?.map((varFile: VarFileArray, i) => (
-              <>
+              <div className={css.addMarginTop} key={`${varFile?.store?.spec?.connectorRef?.label} ${i}`}>
                 <Layout.Horizontal className={css.tfContainer} key={varFile?.store?.spec?.connectorRef?.value}>
                   {varFile?.type === getString('remote') && remoteRender(varFile)}
                   {varFile?.type === getString('inline') && inlineRender(varFile)}
 
                   <Button minimal icon="trash" data-testid={`remove-tfvar-file-${i}`} onClick={() => remove(i)} />
                 </Layout.Horizontal>
-              </>
+              </div>
             ))}
             <Button
               icon="plus"
@@ -68,7 +68,6 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
 
             {showTfModal && (
               <TfVarFile
-                formik={formik}
                 onHide={() => {
                   // push(i)
                   setShowTfModal(false)
@@ -79,7 +78,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 }}
               />
             )}
-          </Layout.Vertical>
+          </div>
         )
       }}
     />
