@@ -7,7 +7,7 @@ import ResourceHandlerTable, {
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/exports'
-import { ServiceResponseDTO, useGetServiceListForProjectV2 } from 'services/cd-ng'
+import { ServiceResponseDTO, useGetServiceList } from 'services/cd-ng'
 
 const RenderColumnPipeline: Renderer<CellProps<ServiceResponseDTO>> = ({ row }) => {
   const rowdata = row.original
@@ -32,7 +32,7 @@ const ServiceResourceModal: React.FC<RbacResourceModalProps> = ({
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
 
-  const { data: servicesResponse, loading: isFetchingServices } = useGetServiceListForProjectV2({
+  const { data: servicesResponse, loading: isFetchingServices } = useGetServiceList({
     queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, page, size: 10 }
   })
 

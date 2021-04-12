@@ -14,7 +14,7 @@ const props = {
 }
 
 jest.mock('services/cd-ng', () => ({
-  useGetEnvironmentListForProjectV2: jest.fn().mockImplementation(() => {
+  useGetEnvironmentList: jest.fn().mockImplementation(() => {
     return { data: mockData, loading: false }
   })
 }))

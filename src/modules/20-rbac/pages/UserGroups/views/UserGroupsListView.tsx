@@ -61,6 +61,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = 
       <Button
         text={getString('common.plusNumber', { number: getString('common.role') })}
         minimal
+        data-testid={`addRole-${row.original.userGroupDTO.identifier}`}
         className={css.roleButton}
         onClick={event => {
           event.stopPropagation()
@@ -130,6 +131,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
         <Button
           minimal
           icon="Options"
+          data-testid={`menu-${data.identifier}`}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
@@ -190,7 +192,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
       className={css.table}
       columns={columns}
       data={data?.data?.content || []}
-      onRowClick={userGroup =>
+      onRowClick={userGroup => {
         history.push(
           routes.toUserGroupDetails({
             accountId,
@@ -199,7 +201,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
             userGroupIdentifier: userGroup.userGroupDTO.identifier
           })
         )
-      }
+      }}
       pagination={{
         itemCount: data?.data?.totalItems || 0,
         pageSize: data?.data?.pageSize || 10,

@@ -7,7 +7,7 @@ import ResourceHandlerTable, {
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/exports'
-import { EnvironmentResponseDTO, useGetEnvironmentListForProjectV2 } from 'services/cd-ng'
+import { EnvironmentResponseDTO, useGetEnvironmentList } from 'services/cd-ng'
 
 const RenderColumnPipeline: Renderer<CellProps<EnvironmentResponseDTO>> = ({ row }) => {
   const rowdata = row.original
@@ -32,7 +32,7 @@ const EnvironmentResourceModal: React.FC<RbacResourceModalProps> = ({
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
 
-  const { data: environmentsResponse, loading: isFetchingEnvironments } = useGetEnvironmentListForProjectV2({
+  const { data: environmentsResponse, loading: isFetchingEnvironments } = useGetEnvironmentList({
     queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, page, size: 10 }
   })
 

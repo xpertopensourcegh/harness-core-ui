@@ -46,6 +46,7 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                     <Layout.Horizontal>
                       <Checkbox
                         data-testid={`CHECK-BOX-${resourceCategory}`}
+                        key={resourceCategory}
                         disabled={disableAddingResources}
                         onChange={e => {
                           if (resourceTypes) {

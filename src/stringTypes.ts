@@ -70,6 +70,7 @@ export interface StringsMap {
   'notifications.name': string
   'rbac.activeUsers': string
   'rbac.addRole': string
+  'rbac.addUser': string
   'rbac.pendingUsers': string
   'rbac.permissionLabels.access': string
   'rbac.permissionLabels.createEdit': string
