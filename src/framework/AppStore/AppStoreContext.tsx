@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
-import { Project, useGetProject, useIsGitSyncEnabled } from 'services/cd-ng'
+import { Project, useGetProject, useGetUserInfo, useIsGitSyncEnabled, UserInfo } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
@@ -16,15 +16,16 @@ export type FeatureFlagMap = Record<string, boolean>
 export interface AppStoreContextProps {
   readonly selectedProject?: Project
   readonly isGitSyncEnabled?: boolean
-
+  readonly currentUserInfo: UserInfo
   /** feature flags */
   readonly featureFlags: FeatureFlagMap
 
-  updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void
+  updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject' | 'currentUserInfo'>>): void
 }
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
   featureFlags: {},
+  currentUserInfo: {},
   isGitSyncEnabled: false,
   updateAppStore: () => void 0
 })
@@ -37,6 +38,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
     featureFlags: {},
+    currentUserInfo: {},
     isGitSyncEnabled: false
   })
 
@@ -58,6 +60,8 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     },
     lazy: true
   })
+
+  const { data: userInfo, loading: userInfoLoading } = useGetUserInfo({})
 
   React.useEffect(() => {
     setState(prevState => ({
@@ -113,10 +117,22 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, orgIdentifier])
 
-  function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void {
+  React.useEffect(() => {
+    if (userInfo?.data) {
+      const user = userInfo.data
+      setState(prevState => ({
+        ...prevState,
+        currentUserInfo: user
+      }))
+    }
+    //TODO: Logout if we don't have userInfo???
+  }, [userInfo?.data])
+
+  function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject' | 'currentUserInfo'>>): void {
     setState(prevState => ({
       ...prevState,
-      selectedProject: data.selectedProject || prevState?.selectedProject
+      selectedProject: data.selectedProject || prevState?.selectedProject,
+      currentUserInfo: data.currentUserInfo || prevState?.currentUserInfo
     }))
   }
 
@@ -127,7 +143,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
         updateAppStore
       }}
     >
-      {featureFlagsLoading ? <PageSpinner /> : props.children}
+      {featureFlagsLoading || userInfoLoading ? <PageSpinner /> : props.children}
     </AppStoreContext.Provider>
   )
 }

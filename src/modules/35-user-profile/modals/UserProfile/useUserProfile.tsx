@@ -7,7 +7,7 @@ import EditUserProfile from './views/EditUserProfile'
 import css from './useUserProfile.module.scss'
 
 export interface UseUserProfileProps {
-  onSuccess: () => void
+  onSuccess?: () => void
   onCloseModal?: () => void
 }
 
@@ -31,7 +31,7 @@ export const useUserProfile = ({ onSuccess }: UseUserProfileProps): UseUserProfi
           <EditUserProfile
             user={user}
             onSubmit={() => {
-              onSuccess()
+              onSuccess?.()
               hideModal()
             }}
             onClose={hideModal}

@@ -2,8 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 import { NavLink as Link, useParams } from 'react-router-dom'
 import type { NavLinkProps } from 'react-router-dom'
-import { Text, Icon, Layout, Color } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { Text, Icon, Layout, Color, Avatar } from '@wings-software/uicore'
+import { String, useAppStore } from 'framework/exports'
 
 import paths from '@common/RouteDefinitions'
 
@@ -27,6 +27,8 @@ export default function L1Nav(): React.ReactElement {
     NG_DASHBOARDS,
     NG_USERPROFILE
   } = useFeatureFlags()
+
+  const { currentUserInfo: user } = useAppStore()
 
   return (
     <nav className={css.main}>
@@ -120,7 +122,7 @@ export default function L1Nav(): React.ReactElement {
           <li className={css.navItem}>
             <Link className={css.navLink} activeClassName={css.active} to={paths.toUser(params)}>
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
-                <Icon name="main-user" size={20} />
+                <Avatar email={user.email} size="small" hoverCard={false} />
                 <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
                   <String stringID="account" />
                 </Text>

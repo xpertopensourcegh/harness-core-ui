@@ -511,7 +511,7 @@ exports[`User Profile Page User Profile 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-semi-bold"
             >
-              dummy
+              dummyname
             </p>
           </div>
           <div

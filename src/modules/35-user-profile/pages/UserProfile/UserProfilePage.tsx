@@ -2,9 +2,8 @@ import React from 'react'
 import { Text, Layout, Container, Avatar, Color, Switch, Button } from '@wings-software/uicore'
 import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
 import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
-import { useStrings } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import { Page } from '@common/components'
-import { useGetUserInfo } from 'services/cd-ng'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
@@ -12,15 +11,9 @@ const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
   const { openPasswordModal } = useChangePassword()
 
-  const { data, loading, error, refetch } = useGetUserInfo({})
+  const { currentUserInfo: user } = useAppStore()
 
-  const { openUserProfile } = useUserProfile({ onSuccess: refetch })
-
-  const user = data?.data
-
-  /* istanbul ignore next */ if (error) return <Page.Error message={error.message} onClick={() => refetch()} />
-  /* istanbul ignore next */ if (loading) return <Page.Spinner />
-  /* istanbul ignore next */ if (!user) return <Page.NoDataCard message={getString('noData')} icon="nav-project" />
+  const { openUserProfile } = useUserProfile({})
 
   return (
     <Page.Body filled>
