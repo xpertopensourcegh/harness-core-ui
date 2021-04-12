@@ -233,8 +233,10 @@ const COAccessPointList: React.FC = () => {
     setAllAccessPoints(data?.response as AccessPoint[])
   }, [data?.response, loading])
 
-  const refreshList = () => refetch()
-
+  const refreshList = () => {
+    refetch()
+    setSelectedAccessPoints([])
+  }
   return (
     <Container background={Color.WHITE} height="100vh">
       <Breadcrumbs
