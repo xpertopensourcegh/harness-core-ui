@@ -25,9 +25,9 @@ import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { StringUtils } from '@common/exports'
-import { ImagePathProps, ImagePathTypes, TagTypes } from '../../ArtifactInterface'
-import { tagOptions } from '../../ArtifactHelper'
-import css from '../ArtifactConnector.module.scss'
+import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
+import { tagOptions } from '../../../ArtifactHelper'
+import css from '../../ArtifactConnector.module.scss'
 
 export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,

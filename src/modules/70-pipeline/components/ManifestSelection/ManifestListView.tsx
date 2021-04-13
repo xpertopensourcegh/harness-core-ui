@@ -97,7 +97,8 @@ const ManifestListView = ({
   isPropagating,
   overrideSetIdentifier,
   connectors,
-  refetchConnectors
+  refetchConnectors,
+  isReadonly
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = useState(false)
@@ -697,7 +698,7 @@ const ManifestListView = ({
                     </span>
                   )}
 
-                  {!overrideSetIdentifier?.length && (
+                  {!overrideSetIdentifier?.length && !isReadonly && (
                     <span className={css.lastColumn}>
                       <Layout.Horizontal spacing="medium" className={css.actionGrid}>
                         <Icon
@@ -727,7 +728,7 @@ const ManifestListView = ({
             })}
         </section>
 
-        {!overrideSetIdentifier?.length && (
+        {!overrideSetIdentifier?.length && !isReadonly && (
           <Text
             intent="primary"
             style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}

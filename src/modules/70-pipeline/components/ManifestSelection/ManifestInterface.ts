@@ -36,6 +36,7 @@ export interface ManifestListViewProps {
   overrideSetIdentifier?: string
   connectors: PageConnectorResponse | undefined
   refetchConnectors: () => void
+  isReadonly: boolean
 }
 
 export interface ManifestStepInitData {

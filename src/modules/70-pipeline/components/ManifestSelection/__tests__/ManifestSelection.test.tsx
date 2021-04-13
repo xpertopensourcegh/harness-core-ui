@@ -80,7 +80,8 @@ describe('ManifestSelection tests', () => {
       isForPredefinedSets: false,
       overrideSetIdentifier: '',
       connectors: undefined,
-      refetchConnectors: jest.fn()
+      refetchConnectors: jest.fn(),
+      isReadonly: false
     }
     const { container } = render(
       <TestWrapper>
@@ -101,7 +102,8 @@ describe('ManifestSelection tests', () => {
       isForPredefinedSets: false,
       overrideSetIdentifier: '',
       connectors: connectorsData.data as any,
-      refetchConnectors: jest.fn()
+      refetchConnectors: jest.fn(),
+      isReadonly: false
     }
     const { container } = render(
       <TestWrapper>
@@ -122,7 +124,8 @@ describe('ManifestSelection tests', () => {
       isForPredefinedSets: false,
       overrideSetIdentifier: 'overrideSetIdentifier',
       connectors: connectorsData.data as any,
-      refetchConnectors: jest.fn()
+      refetchConnectors: jest.fn(),
+      isReadonly: false
     }
     const { container } = render(
       <TestWrapper>
@@ -143,7 +146,8 @@ describe('ManifestSelection tests', () => {
       isForPredefinedSets: false,
       overrideSetIdentifier: '',
       connectors: connectorsData.data as any,
-      refetchConnectors: jest.fn()
+      refetchConnectors: jest.fn(),
+      isReadonly: false
     }
     const { container } = render(
       <TestWrapper>
@@ -169,7 +173,8 @@ describe('ManifestSelection tests', () => {
       isForPredefinedSets: false,
       overrideSetIdentifier: '',
       connectors: connectorsData.data as any,
-      refetchConnectors: jest.fn()
+      refetchConnectors: jest.fn(),
+      isReadonly: false
     }
     const { container } = render(
       <TestWrapper>

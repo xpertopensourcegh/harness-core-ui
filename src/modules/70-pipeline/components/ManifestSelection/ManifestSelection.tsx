@@ -29,7 +29,8 @@ export default function ManifestSelection({
       }
     },
     getStageFromPipeline,
-    updateStage
+    updateStage,
+    isReadonly
   } = React.useContext(PipelineContext)
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
@@ -137,6 +138,7 @@ export default function ManifestSelection({
         overrideSetIdentifier={overrideSetIdentifier}
         connectors={fetchedConnectorResponse}
         refetchConnectors={refetchConnectorList}
+        isReadonly={isReadonly}
       />
     </Layout.Vertical>
   )

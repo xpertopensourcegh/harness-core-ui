@@ -11,33 +11,35 @@ import {
   Text,
   RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import memoize from 'lodash-es/memoize'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
-import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
+import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
-import { ImagePathProps, ImagePathTypes, TagTypes } from '../../ArtifactInterface'
-import { tagOptions } from '../../ArtifactHelper'
-import css from '../GCRArtifact.module.scss'
+import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
+import { tagOptions } from '../../../ArtifactHelper'
+import css from '../../ArtifactConnector.module.scss'
 
-export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,
   context,
-  expressions,
   handleSubmit,
+  expressions,
   prevStepData,
   initialValues
 }) => {
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const [tagList, setTagList] = React.useState([])
+  const [lastImagePath, setLastImagePath] = React.useState('')
 
   const primarySchema = Yup.object().shape({
     imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
-    registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
@@ -56,7 +58,6 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
       .notOneOf(StringUtils.illegalIdentifiers),
     imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
-    registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
@@ -68,19 +69,15 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     })
   })
 
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const [tagList, setTagList] = React.useState([])
-  const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
-  const { data, loading, refetch } = useGetBuildDetailsForGcr({
+  const { data, loading, refetch } = useGetBuildDetailsForDocker({
     queryParams: {
-      imagePath: lastQueryData.imagePath,
+      imagePath: lastImagePath,
       connectorRef: prevStepData?.connectorId?.value
         ? prevStepData?.connectorId?.value
         : prevStepData?.identifier || '',
       accountIdentifier: accountId,
       orgIdentifier,
-      projectIdentifier,
-      registryHostname: lastQueryData.registryHostname
+      projectIdentifier
     },
     lazy: true
   })
@@ -90,19 +87,19 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       setTagList(data?.data?.buildDetailsList as [])
     }
   }, [data])
-  React.useEffect(() => {
-    lastQueryData.registryHostname.length && lastQueryData.imagePath.length && refetch()
-  }, [lastQueryData])
 
+  React.useEffect(() => {
+    refetch()
+  }, [lastImagePath])
   const getSelectItems = React.useCallback(() => {
     const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
     return list
   }, [tagList])
+
   const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
 
   const getInitialValues = (): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
-
     if (specValues) {
       const values = {
         ...specValues,
@@ -114,26 +111,22 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       if (context === 2 && initialValues?.identifier) {
         values.identifier = initialValues?.identifier
       }
+
       return values
     }
 
     return {
       identifier: '',
       imagePath: '',
-      tag: RUNTIME_INPUT_VALUE as string,
+      tag: RUNTIME_INPUT_VALUE,
       tagType: TagTypes.Value,
-      tagRegex: '',
-      registryHostname: ''
+      tagRegex: ''
     }
   }
 
-  const fetchTags = (imagePath = '', registryHostname = '') => {
-    if (
-      imagePath.length &&
-      registryHostname.length &&
-      (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
-    ) {
-      setLastQueryData({ imagePath, registryHostname })
+  const fetchTags = (imagePath = '') => {
+    if (imagePath.length && lastImagePath !== imagePath) {
+      setLastImagePath(imagePath)
     }
   }
 
@@ -157,13 +150,13 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       spec: {
         connectorRef: formData?.connectorId,
         imagePath: formData?.imagePath,
-        registryHostname: formData?.registryHostname,
         ...tagData
       }
     }
     if (context === 2) {
       artifactObj.identifier = formData?.identifier
     }
+
     handleSubmit(artifactObj)
   }
 
@@ -207,29 +200,6 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   />
                 </div>
               )}
-              <div className={css.dockerSideCard}>
-                <FormInput.MultiTextInput
-                  label={getString('connectors.GCR.registryHostname')}
-                  placeholder={getString('UrlLabel')}
-                  name="registryHostname"
-                  multiTextInputProps={{ expressions }}
-                />
-                {getMultiTypeFromValue(formik.values.registryHostname) === MultiTypeInputType.RUNTIME && (
-                  <div className={css.configureOptions}>
-                    <ConfigureOptions
-                      value={formik.values.imagePath as string}
-                      type="String"
-                      variableName="registryHostname"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('registryHostname', value)
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={getString('artifactsSelection.existingDocker.imageName')}
@@ -271,15 +241,20 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       expressions,
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
+                        noResults: (
+                          <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                        ),
                         items: tags,
+                        addClearBtn: true,
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true
                       },
-                      onFocus: () => fetchTags(formik.values.imagePath, formik.values?.registryHostname)
+                      onFocus: () => fetchTags(formik.values.imagePath)
                     }}
                     label={getString('tagLabel')}
                     name="tag"
                   />
+
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
