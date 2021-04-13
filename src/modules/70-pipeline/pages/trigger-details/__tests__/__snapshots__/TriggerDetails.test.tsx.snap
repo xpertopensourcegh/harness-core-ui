@@ -125,6 +125,8 @@ exports[`Trigger Details tests render snapshot view 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
-  />
+  >
+    <div />
+  </div>
 </div>
 `;

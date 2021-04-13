@@ -21,6 +21,8 @@ import {
   enabledFalseUpdateTriggerMockResponseYaml,
   GenerateWebhookTokenResponse
 } from './webhookMockResponses'
+
+import { GetTriggerScheduleResponse } from './ScheduleMockResponses'
 import {
   GetPipelineResponse,
   GetTemplateFromPipelineResponse,
@@ -120,6 +122,37 @@ describe('TriggersWizardPage Triggers tests', () => {
       await waitFor(() =>
         expect(() =>
           queryByText(document.body, result.current.getString('pipelineSteps.build.create.repositoryNameLabel'))
+        ).not.toBeNull()
+      )
+      expect(container).toMatchSnapshot()
+    })
+
+    test('OnEdit Render - Schedule ', async () => {
+      jest
+        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+        .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTrigger')
+        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+        mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+      await waitFor(() => expect(() => queryByText(document.body, result.current.getString('name'))).not.toBeNull())
+      expect(container).toMatchSnapshot()
+      const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Schedule"]')
+      if (!tab2) {
+        throw Error('No Schedule tab')
+      }
+      fireEvent.click(tab2)
+      await waitFor(() =>
+        expect(() =>
+          queryByText(document.body, result.current.getString('pipeline-triggers.schedulePanel.enterCustomCron'))
         ).not.toBeNull()
       )
       expect(container).toMatchSnapshot()
