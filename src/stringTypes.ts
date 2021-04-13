@@ -7,6 +7,7 @@ export interface StringsMap {
   'common.My': string
   'common.PermissibleActions': string
   'common.accViewer': string
+  'common.accessKey': string
   'common.addVariable': string
   'common.approve': string
   'common.changePlan': string
@@ -58,7 +59,15 @@ export interface StringsMap {
   'common.refresh': string
   'common.reject': string
   'common.removeThisVariable': string
+  'common.repo_provider.awscodecommit': string
+  'common.repo_provider.azureDev': string
+  'common.repo_provider.bitbucketLabel': string
+  'common.repo_provider.codecommit': string
+  'common.repo_provider.customLabel': string
+  'common.repo_provider.githubLabel': string
+  'common.repo_provider.gitlabLabel': string
   'common.role': string
+  'common.secretKey': string
   'common.secrets': string
   'common.selectStrategy': string
   'common.specify': string
@@ -285,6 +294,7 @@ export interface StringsMap {
   'connectors.title.splunk': string
   'connectors.updating': string
   'userProfile.addSCM': string
+  'userProfile.awsCredentials': string
   'userProfile.basicInformation': string
   'userProfile.changePassword': string
   'userProfile.confirmDelete': string
@@ -305,6 +315,8 @@ export interface StringsMap {
   'userProfile.scmCreateSuccess': string
   'userProfile.scmDeleteFailure': string
   'userProfile.scmDeleteSuccess': string
+  'userProfile.scmValidation.accessKey': string
+  'userProfile.scmValidation.secretKey': string
   'userProfile.selectSCM': string
   'userProfile.twofactorAuth': string
   'userProfile.userEditFail': string
@@ -5800,30 +5812,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   removeLabel: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'repo-provider.awscodecommit': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'repo-provider.azureDev': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'repo-provider.bitbucketLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'repo-provider.customLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'repo-provider.githubLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'repo-provider.gitlabLabel': string
   /**
    * @deprecated migrate this string to module level file
    */

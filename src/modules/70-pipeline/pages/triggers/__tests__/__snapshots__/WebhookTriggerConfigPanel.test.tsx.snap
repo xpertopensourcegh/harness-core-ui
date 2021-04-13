@@ -207,7 +207,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="repo-provider.customLabel"
+                          value="common.repo_provider.customLabel"
                         />
                         <span
                           class="bp3-input-action"
@@ -453,7 +453,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="repo-provider.customLabel"
+                          value="common.repo_provider.customLabel"
                         />
                         <span
                           class="bp3-input-action"
@@ -711,7 +711,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="repo-provider.customLabel"
+                          value="common.repo_provider.customLabel"
                         />
                         <span
                           class="bp3-input-action"
@@ -1046,7 +1046,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="repo-provider.githubLabel"
+                          value="common.repo_provider.githubLabel"
                         />
                         <span
                           class="bp3-input-action"

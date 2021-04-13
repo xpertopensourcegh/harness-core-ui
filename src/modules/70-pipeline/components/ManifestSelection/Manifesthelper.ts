@@ -79,9 +79,9 @@ export const getManifestStoreTitle = (type: string): StringKeys => {
     case ManifestStoreMap.Git:
       return 'pipeline.manifestType.gitConnectorLabel'
     case ManifestStoreMap.Github:
-      return 'repo-provider.githubLabel'
+      return 'common.repo_provider.githubLabel'
     case ManifestStoreMap.GitLab:
-      return 'repo-provider.gitlabLabel'
+      return 'common.repo_provider.gitlabLabel'
     case ManifestStoreMap.Bitbucket:
       return 'pipeline.manifestType.bitBucketLabel'
     case ManifestStoreMap.Http:

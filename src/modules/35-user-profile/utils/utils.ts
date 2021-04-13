@@ -4,6 +4,7 @@ import type { SCMData } from '@user-profile/modals/SourceCodeManager/views/Sourc
 import type { SourceCodeManagerAuthentication } from 'services/cd-ng'
 
 export enum ConnectionType {
+  HTTPS = 'HTTPS',
   HTTP = 'Http',
   SSH = 'Ssh'
 }
@@ -12,7 +13,8 @@ export enum AuthTypes {
   USERNAME_PASSWORD = 'UsernamePassword',
   USERNAME_TOKEN = 'UsernameToken',
   KERBEROS = 'Kerberos',
-  SSH_KEY = 'SSH_KEY'
+  SSH_KEY = 'SSH_KEY',
+  AWSCredentials = 'AWSCredentials'
 }
 
 export enum SourceCodeTypes {
@@ -20,7 +22,7 @@ export enum SourceCodeTypes {
   GITHUB = 'GITHUB',
   GITLAB = 'GITLAB',
   AZURE_DEVOPS = 'AZURE_DEVOPS',
-  AWS_CODECOMMIT = 'AWS_CODECOMMIT'
+  AWS_CODE_COMMIT = 'AWS_CODE_COMMIT'
 }
 
 export const getIconBySCM = (item: SourceCodeTypes): IconName => {
@@ -31,7 +33,7 @@ export const getIconBySCM = (item: SourceCodeTypes): IconName => {
       return 'github'
     case SourceCodeTypes.GITLAB:
       return 'service-gotlab'
-    case SourceCodeTypes.AWS_CODECOMMIT:
+    case SourceCodeTypes.AWS_CODE_COMMIT:
       return 'service-aws-code-deploy'
     default:
       return 'bitbucket'
@@ -80,6 +82,19 @@ export const getAuthentication = (values: SCMData): SourceCodeManagerAuthenticat
           type: AuthTypes.KERBEROS,
           spec: {
             kerberosKeyRef: values.kerberosKey?.referenceString
+          }
+        }
+      }
+    case AuthTypes.AWSCredentials:
+      return {
+        type: ConnectionType.HTTPS,
+        spec: {
+          type: AuthTypes.AWSCredentials,
+          spec: {
+            ...(values.accessKey?.type === ValueType.TEXT
+              ? { accessKey: values.accessKey.value }
+              : { accessKeyRef: values.accessKey?.value }),
+            secretKeyRef: values.secretKey?.referenceString
           }
         }
       }

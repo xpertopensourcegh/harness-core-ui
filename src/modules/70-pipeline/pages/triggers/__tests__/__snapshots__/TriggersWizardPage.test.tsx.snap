@@ -377,7 +377,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="repo-provider.githubLabel"
+                                    value="common.repo_provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1075,7 +1075,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="repo-provider.githubLabel"
+                                    value="common.repo_provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1876,7 +1876,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="repo-provider.githubLabel"
+                                    value="common.repo_provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"

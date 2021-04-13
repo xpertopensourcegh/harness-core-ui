@@ -804,7 +804,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              repo-provider.githubLabel
+              common.repo_provider.githubLabel
             </p>
           </div>
           <div
@@ -857,7 +857,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              repo-provider.gitlabLabel
+              common.repo_provider.gitlabLabel
             </p>
           </div>
           <div

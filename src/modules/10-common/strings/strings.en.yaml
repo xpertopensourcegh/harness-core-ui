@@ -76,3 +76,13 @@ purpose:
 trialInProgress: Trial in-progress
 changePlan: Change Plan
 letsGetYouStarted: Let’s get you started
+accessKey: Access Key
+secretKey: Secret Key
+repo_provider:
+  bitbucketLabel: BitBucket
+  customLabel: Custom
+  githubLabel: GitHub
+  gitlabLabel: GitLab
+  codecommit: CodeCommit
+  awscodecommit: AWS Code Commit
+  azureDev: Azure Devops

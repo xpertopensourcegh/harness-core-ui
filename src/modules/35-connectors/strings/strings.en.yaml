@@ -187,8 +187,8 @@ helmRepo:
   helmRepoUrl: 'Helm Repository URL'
 aws:
   awsAccessKey: AWS Access Key
-  accessKey: Access Key
-  secretKey: Secret Key
+  accessKey: '{{ $.common.accessKey }}'
+  secretKey: '{{ $.common.secretKey }}'
   enableCrossAcc: Enable cross-account access
   crossAccURN: Cross account role URN
   externalId: External Id (Optional)

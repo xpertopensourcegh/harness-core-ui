@@ -45,7 +45,7 @@ export const mockResponse: ResponseBoolean = {
 export const createBitBucket = {
   status: 'SUCCESS',
   data: {
-    userIdentifier: 'lv0euRhKRCyiXWzS7pOg6g',
+    userIdentifier: 'userId',
     name: 'BB UP',
     type: 'BITBUCKET',
     authentication: {
@@ -57,14 +57,14 @@ export const createBitBucket = {
     }
   },
   metaData: null,
-  correlationId: 'd635564d-c97d-47a6-8e86-eb0f96837fc9'
+  correlationId: ''
 }
 
 export const sourceCodeManagers: ResponseListSourceCodeManagerDTO = {
   status: 'SUCCESS',
   data: [
     {
-      userIdentifier: 'lv0euRhKRCyiXWzS7pOg6g',
+      userIdentifier: 'userId',
       name: 'BB UP',
       createdAt: 1617868887547,
       lastModifiedAt: 1617868887547,
@@ -78,7 +78,7 @@ export const sourceCodeManagers: ResponseListSourceCodeManagerDTO = {
       }
     },
     {
-      userIdentifier: 'lv0euRhKRCyiXWzS7pOg6g',
+      userIdentifier: 'userId',
       name: 'New Git lab',
       createdAt: 1617868975336,
       lastModifiedAt: 1617868975336,
@@ -92,7 +92,7 @@ export const sourceCodeManagers: ResponseListSourceCodeManagerDTO = {
       type: 'GITLAB'
     },
     {
-      userIdentifier: 'lv0euRhKRCyiXWzS7pOg6g',
+      userIdentifier: 'userId',
       name: 'jnvjgnjngjbn',
       createdAt: 1617868814533,
       lastModifiedAt: 1617868814533,
@@ -104,6 +104,20 @@ export const sourceCodeManagers: ResponseListSourceCodeManagerDTO = {
           spec: { username: 'ngjnbjgnbjngb', usernameRef: null, passwordRef: 'account.selected_secret' }
         }
       }
+    },
+    {
+      userIdentifier: 'userId',
+      name: 'aws',
+      createdAt: 1618233694345,
+      lastModifiedAt: 1618233694345,
+      authentication: {
+        type: 'HTTPS',
+        spec: {
+          type: 'AWSCredentials',
+          spec: { accessKey: 'aws', accessKeyRef: null, secretKeyRef: 'account.bxshbxhsbxhs' }
+        }
+      },
+      type: 'AWS_CODE_COMMIT'
     }
   ],
   metaData: undefined,

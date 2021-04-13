@@ -43,6 +43,12 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
         {formikProps.values.authType === AuthTypes.KERBEROS ? (
           <SecretInput name="kerberosKey" type="SSHKey" label={getString('kerberos')} />
         ) : null}
+        {formikProps.values.authType === AuthTypes.AWSCredentials ? (
+          <>
+            <TextReference name="accessKey" label={getString('common.accessKey')} type={ValueType.TEXT} />
+            <SecretInput name="secretKey" label={getString('common.secretKey')} />
+          </>
+        ) : null}
       </Container>
     </>
   )

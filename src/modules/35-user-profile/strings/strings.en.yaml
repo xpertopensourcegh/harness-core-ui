@@ -23,3 +23,7 @@ confirmDeleteTitle: Delete Source Code Manager
 confirmDelete: Are you sure you want to delete the Source Code Manager "{{ name }}"
 userEditSuccess: User details updated successfully
 userEditFail: Could not update user details
+awsCredentials: AWS Credentials
+scmValidation:
+  accessKey: Access Key is a required field
+  secretKey: Secret Key is a required field

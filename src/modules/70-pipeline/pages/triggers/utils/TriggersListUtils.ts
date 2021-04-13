@@ -75,27 +75,27 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
       categoryValue: 'Webhook',
       items: [
         {
-          itemLabel: getString('repo-provider.githubLabel'),
+          itemLabel: getString('common.repo_provider.githubLabel'),
           value: GitSourceProviders.GITHUB.value,
           iconName: GitSourceProviders.GITHUB.iconName
         },
         {
-          itemLabel: getString('repo-provider.gitlabLabel'),
+          itemLabel: getString('common.repo_provider.gitlabLabel'),
           value: GitSourceProviders.GITLAB.value,
           iconName: GitSourceProviders.GITLAB.iconName
         },
         {
-          itemLabel: getString('repo-provider.bitbucketLabel'),
+          itemLabel: getString('common.repo_provider.bitbucketLabel'),
           value: GitSourceProviders.BITBUCKET.value,
           iconName: GitSourceProviders.BITBUCKET.iconName
         },
         {
-          itemLabel: getString('repo-provider.awscodecommit'),
+          itemLabel: getString('common.repo_provider.codecommit'),
           value: GitSourceProviders.AWS_CODECOMMIT.value,
           iconName: GitSourceProviders.AWS_CODECOMMIT.iconName
         },
         {
-          itemLabel: getString('repo-provider.customLabel'),
+          itemLabel: getString('common.repo_provider.customLabel'),
           value: GitSourceProviders.CUSTOM.value,
           iconName: GitSourceProviders.CUSTOM.iconName
         }
@@ -105,11 +105,11 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
 })
 
 export const getSourceRepoOptions = (getString: (str: StringKeys) => string): { label: string; value: string }[] => [
-  { label: getString('repo-provider.githubLabel'), value: GitSourceProviders.GITHUB.value },
-  { label: getString('repo-provider.gitlabLabel'), value: GitSourceProviders.GITLAB.value },
-  { label: getString('repo-provider.bitbucketLabel'), value: GitSourceProviders.BITBUCKET.value },
-  { label: getString('repo-provider.awscodecommit'), value: GitSourceProviders.AWS_CODECOMMIT.value },
-  { label: getString('repo-provider.customLabel'), value: GitSourceProviders.CUSTOM.value }
+  { label: getString('common.repo_provider.githubLabel'), value: GitSourceProviders.GITHUB.value },
+  { label: getString('common.repo_provider.gitlabLabel'), value: GitSourceProviders.GITLAB.value },
+  { label: getString('common.repo_provider.bitbucketLabel'), value: GitSourceProviders.BITBUCKET.value },
+  { label: getString('common.repo_provider.codecommit'), value: GitSourceProviders.AWS_CODECOMMIT.value },
+  { label: getString('common.repo_provider.customLabel'), value: GitSourceProviders.CUSTOM.value }
 ]
 
 export const getCategoryItems = (getString: (key: StringKeys) => string): AddDrawerMapInterface =>

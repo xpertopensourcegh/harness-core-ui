@@ -39,6 +39,8 @@ export interface SCMData {
   sshKey?: SecretReference
   kerberosKey?: SecretReference
   accessToken?: SecretReference
+  accessKey?: TextReferenceInterface
+  secretKey?: SecretReference
 }
 interface SourceCodeType {
   text: string
@@ -56,16 +58,16 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
   const { mutate: saveSourceCodeManager } = useSaveSourceCodeManagers({})
 
   const sourceCodeManagers: SourceCodeType[] = [
-    { text: getString('repo-provider.githubLabel'), value: SourceCodeTypes.GITHUB, icon: 'github' },
+    { text: getString('common.repo_provider.githubLabel'), value: SourceCodeTypes.GITHUB, icon: 'github' },
     {
-      text: getString('repo-provider.bitbucketLabel'),
+      text: getString('common.repo_provider.bitbucketLabel'),
       value: SourceCodeTypes.BITBUCKET,
       icon: 'bitbucket-blue'
     },
-    { text: getString('repo-provider.gitlabLabel'), value: SourceCodeTypes.GITLAB, icon: 'service-gotlab' },
+    { text: getString('common.repo_provider.gitlabLabel'), value: SourceCodeTypes.GITLAB, icon: 'service-gotlab' },
     {
-      text: getString('repo-provider.awscodecommit'),
-      value: SourceCodeTypes.AWS_CODECOMMIT,
+      text: getString('common.repo_provider.awscodecommit'),
+      value: SourceCodeTypes.AWS_CODE_COMMIT,
       icon: 'service-aws-code-deploy'
     }
   ]
@@ -76,6 +78,8 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
       case SourceCodeTypes.GITHUB:
       case SourceCodeTypes.GITLAB:
         return AuthTypes.USERNAME_PASSWORD
+      case SourceCodeTypes.AWS_CODE_COMMIT:
+        return AuthTypes.AWSCredentials
       default:
         return undefined
     }
@@ -120,6 +124,13 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
             value: AuthTypes.KERBEROS
           }
         ]
+      case SourceCodeTypes.AWS_CODE_COMMIT:
+        return [
+          {
+            label: getString('userProfile.awsCredentials'),
+            value: AuthTypes.AWSCredentials
+          }
+        ]
       default:
         return []
     }
@@ -153,19 +164,28 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
           }
           break
         }
+        case SourceCodeTypes.AWS_CODE_COMMIT: {
+          dataToSubmit = {
+            type: SourceCodeTypes.AWS_CODE_COMMIT,
+            name: values.name,
+            authentication: getAuthentication(values)
+          }
+          break
+        }
         default:
           return undefined
       }
 
       try {
-        if (dataToSubmit) {
+        /* istanbul ignore else */ if (dataToSubmit) {
           const saved = await saveSourceCodeManager(dataToSubmit)
-          if (saved) {
+          /* istanbul ignore else */ if (saved) {
             onSubmit()
             showSuccess(getString('userProfile.scmCreateSuccess'))
-          } else showError(getString('userProfile.scmCreateFail'))
+          } /* istanbul ignore next */ else showError(getString('userProfile.scmCreateFail'))
         }
       } catch (e) {
+        /* istanbul ignore next */
         modalErrorHandler?.showDanger(e.data?.message || e.message)
       }
     } else modalErrorHandler?.showDanger(getString('userProfile.selectSCM'))
@@ -209,6 +229,16 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
             sshKey: Yup.object().when(['authType'], {
               is: AuthTypes.SSH_KEY,
               then: Yup.object().required(getString('validation.sshKey')),
+              otherwise: Yup.object().nullable()
+            }),
+            accessKey: Yup.string().when(['authType'], {
+              is: AuthTypes.AWSCredentials,
+              then: Yup.string().trim().required(getString('userProfile.scmValidation.accessKey')),
+              otherwise: Yup.string().nullable()
+            }),
+            secretKey: Yup.object().when(['authType'], {
+              is: AuthTypes.AWSCredentials,
+              then: Yup.object().required(getString('userProfile.scmValidation.secretKey')),
               otherwise: Yup.object().nullable()
             })
           })}
