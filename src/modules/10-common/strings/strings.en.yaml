@@ -23,6 +23,9 @@ logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
 execute: Execute
+namespace: Namespace
+cluster: Cluster
+releaseName: Release name
 datePickerShortcuts:
   Today: Today
   Yesterday: Yesterday

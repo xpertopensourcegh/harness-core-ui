@@ -419,7 +419,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         </div>
       )}
       {setupModeType === setupMode.DIFFERENT ? (
-        <div className={css.serviceOverrides}>
+        <div className={cx(css.serviceOverrides, { [css.heightStageOverrides2]: stageIndex > 0 })}>
           <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
           <div className={css.overFlowScroll} ref={scrollRef}>
             <div className={css.contentSection}>

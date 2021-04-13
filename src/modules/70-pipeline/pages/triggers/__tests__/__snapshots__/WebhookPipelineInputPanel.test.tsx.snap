@@ -342,7 +342,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                         class="bp3-label"
                                         for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                       >
-                                        pipelineSteps.kubernetesInfraStep.nameSpaceLabel
+                                        common.namespace
                                          
                                         <span
                                           class="bp3-text-muted"
@@ -358,7 +358,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                             autocomplete="off"
                                             class="bp3-input"
                                             name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                            placeholder="pipelineSteps.kubernetesInfraStep.nameSpacePlaceholder"
+                                            placeholder="cd.steps.common.namespacePlaceholder"
                                             type="text"
                                             value="<+input>"
                                           />
@@ -372,7 +372,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                         class="bp3-label"
                                         for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                       >
-                                        pipelineSteps.kubernetesInfraStep.releaseName
+                                        common.releaseName
                                          
                                         <span
                                           class="bp3-text-muted"
@@ -388,7 +388,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                             autocomplete="off"
                                             class="bp3-input"
                                             name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                            placeholder="pipelineSteps.kubernetesInfraStep.releaseNamePlaceholder"
+                                            placeholder="cd.steps.common.releaseNamePlaceholder"
                                             type="text"
                                             value="<+input>"
                                           />

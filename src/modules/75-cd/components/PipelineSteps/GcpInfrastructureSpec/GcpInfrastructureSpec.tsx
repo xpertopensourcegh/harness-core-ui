@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Menu } from '@blueprintjs/core'
 import {
   IconName,
   Text,
@@ -9,10 +10,12 @@ import {
   FormInput,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Icon
+  Icon,
+  SelectOption,
+  Label
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, isEmpty, get } from 'lodash-es'
+import { debounce, noop, isEmpty, get, memoize } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepViewType, StepProps } from '@pipeline/exports'
@@ -20,13 +23,18 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import {
-  K8SDirectInfrastructure,
   useGetConnector,
   ConnectorInfoDTO,
   getConnectorListV2Promise,
-  ConnectorResponse
+  ConnectorResponse,
+  K8sGcpInfrastructure,
+  useGetClusterNamesForGcp,
+  getClusterNamesForGcpPromise
 } from 'services/cd-ng'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import {
+  ConnectorReferenceDTO,
+  FormMultiTypeConnectorField
+} from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getScopeFromDTO,
   getIdentifierFromValue,
@@ -44,18 +52,19 @@ import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/e
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import css from './KubernetesInfraSpec.module.scss'
+
+import css from './GcpInfrastructureSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
-type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
-interface KubernetesInfraSpecEditableProps {
-  initialValues: K8SDirectInfrastructure
-  onUpdate?: (data: K8SDirectInfrastructure) => void
+type K8sGcpInfrastructureTemplate = { [key in keyof K8sGcpInfrastructure]: string }
+interface GcpInfrastructureSpecEditableProps {
+  initialValues: K8sGcpInfrastructure
+  onUpdate?: (data: K8sGcpInfrastructure) => void
   stepViewType?: StepViewType
   readonly?: boolean
-  template?: K8SDirectInfrastructureTemplate
+  template?: K8sGcpInfrastructureTemplate
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: K8SDirectInfrastructure
+  variablesData: K8sGcpInfrastructure
 }
 
 const getConnectorValue = (connector?: ConnectorResponse): string =>
@@ -76,7 +85,11 @@ const getConnectorName = (connector?: ConnectorResponse): string =>
       : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
   }` || ''
 
-const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = ({
+interface K8sGcpInfrastructureUI extends Omit<K8sGcpInfrastructure, 'cluster'> {
+  cluster?: { label?: string; value?: string } | string | any
+}
+
+const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps> = ({
   initialValues,
   onUpdate,
   readonly
@@ -86,22 +99,82 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     orgIdentifier: string
     accountId: string
   }>()
+  const [clusterOptions, setClusterOptions] = useState<SelectOption[]>([])
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
+
+  const {
+    data: clusterNamesData,
+    refetch: refetchClusterNames,
+    loading: loadingClusterNames
+  } = useGetClusterNamesForGcp({
+    lazy: true,
+    debounce: 300
+  })
+
+  useEffect(() => {
+    const options = clusterNamesData?.data?.clusterNames?.map(name => ({ label: name, value: name })) || []
+    setClusterOptions(options)
+  }, [clusterNamesData])
+
+  useEffect(() => {
+    if (initialValues.connectorRef && getMultiTypeFromValue(initialValues.connectorRef) === MultiTypeInputType.FIXED) {
+      refetchClusterNames({
+        queryParams: {
+          accountIdentifier: accountId,
+          projectIdentifier,
+          orgIdentifier,
+          connectorRef: initialValues.connectorRef
+        }
+      })
+    }
+  }, [initialValues.connectorRef])
+
+  const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
+    <div key={item.label.toString()}>
+      <Menu.Item
+        text={
+          <Layout.Horizontal spacing="small">
+            <Text>{item.label}</Text>
+          </Layout.Horizontal>
+        }
+        disabled={loadingClusterNames}
+        onClick={handleClick}
+      />
+    </div>
+  ))
+
+  const getInitialValues = () => {
+    const values: K8sGcpInfrastructureUI = {
+      ...initialValues
+    }
+
+    if (getMultiTypeFromValue(initialValues.cluster) === MultiTypeInputType.FIXED) {
+      values.cluster = { label: initialValues.cluster, value: initialValues.cluster }
+    }
+
+    return values
+  }
+
+  const getClusterValue = (cluster: { label?: string; value?: string } | string | any): string => {
+    return typeof cluster === 'string' ? (cluster as string) : cluster?.value
+  }
+
   return (
     <Layout.Vertical spacing="medium">
       <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>
-        {getString('pipelineSteps.kubernetesInfraStep.stepName')}
+        {getString('cd.steps.kubernetesGcpStep.stepName')}
       </Text>
-      <Formik
+      <Formik<K8sGcpInfrastructureUI>
         enableReinitialize
-        initialValues={initialValues}
+        initialValues={getInitialValues()}
         validate={value => {
-          const data: K8SDirectInfrastructure = {
+          const data: K8sGcpInfrastructure = {
             namespace: value.namespace,
             releaseName: value.releaseName,
             connectorRef: undefined,
+            cluster: getClusterValue(value.cluster),
             allowSimultaneousDeployments: value.allowSimultaneousDeployments
           }
           if (value.connectorRef) {
@@ -114,10 +187,10 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         {formik => {
           return (
             <FormikForm>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormMultiTypeConnectorField
                   name="connectorRef"
-                  label={getString('connector')}
+                  label={<Label className={css.connectorLabel}>{getString('connector')}</Label>}
                   placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
                   disabled={readonly}
                   accountIdentifier={accountId}
@@ -126,15 +199,38 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   orgIdentifier={orgIdentifier}
                   width={450}
                   enableConfigureOptions={false}
-                  style={{ marginBottom: 'var(--spacing-small)' }}
+                  style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-medium)' }}
+                  type={'Gcp'}
+                  onChange={(value: any, _valueType, type) => {
+                    if (type === MultiTypeInputType.FIXED && value.record) {
+                      const { record, scope } = (value as unknown) as { record: ConnectorReferenceDTO; scope: Scope }
+                      const connectorRef =
+                        scope === Scope.ORG || scope === Scope.ACCOUNT
+                          ? `${scope}.${record.identifier}`
+                          : record.identifier
+                      refetchClusterNames({
+                        queryParams: {
+                          accountIdentifier: accountId,
+                          projectIdentifier,
+                          orgIdentifier,
+                          connectorRef
+                        }
+                      })
+                    } else {
+                      setClusterOptions([])
+                    }
+
+                    // NOTE: clear cluster on connector change
+                    // formik.setFieldValue('cluster', '')
+                  }}
                 />
-                {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
+                {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Icon name={getIconByType('K8sCluster')}></Icon>
-                        <Text>{getString('pipelineSteps.kubernetesInfraStep.kubernetesConnector')}</Text>
+                        <Icon name={getIconByType('Gcp')}></Icon>
+                        <Text>{getString('pipelineSteps.gcpConnectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="dockerConnector"
@@ -147,15 +243,51 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal className={css.formRow} spacing="medium">
+                <FormInput.MultiTypeInput
+                  name="cluster"
+                  className={css.inputWidth}
+                  selectItems={clusterOptions}
+                  disabled={loadingClusterNames || readonly}
+                  placeholder={
+                    loadingClusterNames
+                      ? getString('loading')
+                      : getString('cd.steps.common.selectOrEnterClusterPlaceholder')
+                  }
+                  multiTypeInputProps={{
+                    expressions,
+                    selectProps: {
+                      items: clusterOptions,
+                      itemRenderer: itemRenderer,
+                      allowCreatingNewItems: true
+                    }
+                  }}
+                  label={getString('common.cluster')}
+                />
+                {getMultiTypeFromValue(getClusterValue(formik.values.cluster)) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={getClusterValue(formik.values.cluster)}
+                    type="String"
+                    variableName="cluster"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      formik.setFieldValue('cluster', value)
+                    }}
+                  />
+                )}
+              </Layout.Horizontal>
+              <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormInput.MultiTextInput
                   name="namespace"
                   className={css.inputWidth}
                   label={getString('common.namespace')}
                   placeholder={getString('cd.steps.common.namespacePlaceholder')}
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                  disabled={readonly}
                 />
-                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
+                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.namespace as string}
                     type="String"
@@ -169,15 +301,16 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormInput.MultiTextInput
                   name="releaseName"
                   className={css.inputWidth}
                   label={getString('common.releaseName')}
                   placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                  disabled={readonly}
                 />
-                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
+                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.releaseName as string}
                     type="String"
@@ -207,7 +340,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   )
 }
 
-const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & { path: string }> = ({
+const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProps & { path: string }> = ({
   onUpdate,
   initialValues,
   template,
@@ -219,6 +352,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
     orgIdentifier: string
     accountId: string
   }>()
+  const [clusterOptions, setClusterOptions] = useState<SelectOption[]>([])
   const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
   const initialScope = getScopeFromValue(initialValues.connectorRef || '')
 
@@ -233,12 +367,20 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
     debounce: 300
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME &&
       getMultiTypeFromValue(initialValues?.connectorRef) !== MultiTypeInputType.RUNTIME
     ) {
       refetch()
+      refetchClusterNames({
+        queryParams: {
+          accountIdentifier: accountId,
+          projectIdentifier,
+          orgIdentifier,
+          connectorRef: initialValues.connectorRef
+        }
+      })
     }
   }, [initialValues.connectorRef])
 
@@ -258,6 +400,35 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
     }
   }
   const { getString } = useStrings()
+
+  const {
+    data: clusterNamesData,
+    refetch: refetchClusterNames,
+    loading: loadingClusterNames
+  } = useGetClusterNamesForGcp({
+    lazy: true,
+    debounce: 300
+  })
+
+  useEffect(() => {
+    const options = clusterNamesData?.data?.clusterNames?.map(name => ({ label: name, value: name })) || []
+    setClusterOptions(options)
+  }, [clusterNamesData])
+
+  const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
+    <div key={item.label.toString()}>
+      <Menu.Item
+        text={
+          <Layout.Horizontal spacing="small">
+            <Text>{item.label}</Text>
+          </Layout.Horizontal>
+        }
+        disabled={loadingClusterNames}
+        onClick={handleClick}
+      />
+    </div>
+  ))
+
   return (
     <Layout.Vertical padding="medium" spacing="small">
       {getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME && (
@@ -271,13 +442,53 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           label={getString('connector')}
           placeholder={loading ? getString('loading') : getString('cd.steps.common.selectConnectorPlaceholder')}
           disabled={readonly || loading}
+          type={'Gcp'}
           onChange={(record, scope) => {
+            const connectorRefValue =
+              scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
+
             onUpdate?.({
               ...initialValues,
-              connectorRef:
-                scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
+              connectorRef: connectorRefValue
+            })
+
+            refetchClusterNames({
+              queryParams: {
+                accountIdentifier: accountId,
+                projectIdentifier,
+                orgIdentifier,
+                connectorRef: connectorRefValue
+              }
             })
           }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME && (
+        <FormInput.Select
+          name={`${path}.cluster`}
+          disabled={loadingClusterNames}
+          placeholder={
+            loadingClusterNames ? getString('loading') : getString('cd.steps.common.selectOrEnterClusterPlaceholder')
+          }
+          items={clusterOptions}
+          label={getString('common.cluster')}
+          selectProps={{
+            itemRenderer: itemRenderer,
+            allowCreatingNewItems: true
+          }}
+          onChange={(_, event) => {
+            event?.stopPropagation()
+          }}
+          value={
+            loadingClusterNames
+              ? { label: getString('loading'), value: getString('loading') }
+              : initialValues?.cluster
+              ? {
+                  label: initialValues?.cluster,
+                  value: initialValues?.cluster
+                }
+              : { label: '', value: '' }
+          }
         />
       )}
       {getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME && (
@@ -300,7 +511,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
   )
 }
 
-const KubernetesInfraSpecVariablesForm: React.FC<KubernetesInfraSpecEditableProps> = ({
+const GcpInfrastructureSpecVariablesForm: React.FC<GcpInfrastructureSpecEditableProps> = ({
   metadataMap,
   variablesData,
   initialValues
@@ -315,19 +526,21 @@ const KubernetesInfraSpecVariablesForm: React.FC<KubernetesInfraSpecEditableProp
   ) : null
 }
 
-interface K8SDirectInfrastructureStep extends K8SDirectInfrastructure {
+interface GcpInfrastructureSpecStep extends K8sGcpInfrastructure {
   name?: string
   identifier?: string
 }
-const KubernetesDirectRegex = /^.+stage\.spec\.infrastructure\.infrastructureDefinition\.spec\.connectorRef$/
-const KubernetesDirectType = 'KubernetesDirect'
-export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureStep> {
-  lastFetched: number
-  protected type = StepType.KubernetesDirect
-  protected defaultValues: K8SDirectInfrastructure = {}
 
-  protected stepIcon: IconName = 'service-kubernetes'
-  protected stepName = 'Specify your Kubernetes Connector'
+const KubernetesGcpConnectorRegex = /^.+infrastructure\.infrastructureDefinition\.spec\.connectorRef$/
+const KubernetesGcpClusterRegex = /^.+infrastructure\.infrastructureDefinition\.spec\.cluster$/
+const KubernetesGcpType = 'KubernetesGcp'
+export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecStep> {
+  lastFetched: number
+  protected type = StepType.KubernetesGcp
+  protected defaultValues: K8sGcpInfrastructure = {}
+
+  protected stepIcon: IconName = 'service-gcp'
+  protected stepName = 'Specify your GCP Connector'
   protected stepPaletteVisible = false
   protected invocationMap: Map<
     RegExp,
@@ -337,10 +550,12 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
   constructor() {
     super()
     this.lastFetched = new Date().getTime()
-    this.invocationMap.set(KubernetesDirectRegex, this.getConnectorsListForYaml.bind(this))
+    this.invocationMap.set(KubernetesGcpConnectorRegex, this.getConnectorsListForYaml.bind(this))
+    this.invocationMap.set(KubernetesGcpClusterRegex, this.getClusterListForYaml.bind(this))
 
     this._hasStepVariables = true
   }
+
   protected getConnectorsListForYaml(
     path: string,
     yaml: string,
@@ -359,7 +574,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     }
     if (pipelineObj) {
       const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
-      if (obj.type === KubernetesDirectType) {
+      if (obj?.type === KubernetesGcpType) {
         return getConnectorListV2Promise({
           queryParams: {
             accountIdentifier: accountId,
@@ -367,7 +582,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
             projectIdentifier,
             includeAllConnectorsAvailableAtScope: true
           },
-          body: { types: ['K8sCluster', 'Gcp', 'Aws'], filterType: 'Connector' }
+          body: { types: ['Gcp'], filterType: 'Connector' }
         }).then(response => {
           const data =
             response?.data?.content?.map(connector => ({
@@ -385,27 +600,77 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     })
   }
 
+  protected getClusterListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.cluster', ''))
+      if (
+        obj?.type === KubernetesGcpType &&
+        obj?.spec?.connectorRef &&
+        getMultiTypeFromValue(obj.spec?.connectorRef) === MultiTypeInputType.FIXED
+      ) {
+        return getClusterNamesForGcpPromise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            connectorRef: obj.spec?.connectorRef
+          }
+        }).then(response => {
+          const data =
+            response?.data?.clusterNames?.map(clusterName => ({
+              label: clusterName,
+              insertText: clusterName,
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
+
   validateInputSet(
-    data: K8SDirectInfrastructure,
-    template?: K8SDirectInfrastructureTemplate,
+    data: K8sGcpInfrastructure,
+    template?: K8sGcpInfrastructureTemplate,
     getString?: UseStringsReturn['getString']
   ): object {
-    const errors: K8SDirectInfrastructureTemplate = {}
+    const errors: K8sGcpInfrastructureTemplate = {}
+    if (isEmpty(data.cluster) && getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME) {
+      errors.cluster = getString?.('fieldRequired', { field: getString('common.cluster') })
+    }
     if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
-      errors.namespace = getString?.('fieldRequired', { field: 'Namespace' })
+      errors.namespace = getString?.('fieldRequired', { field: getString('common.namespace') })
     }
     if (isEmpty(data.releaseName) && getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME) {
-      errors.releaseName = getString?.('fieldRequired', { field: 'Release Name' })
+      errors.releaseName = getString?.('fieldRequired', { field: getString('common.releaseName') })
     }
     return errors
   }
 
-  renderStep(props: StepProps<K8SDirectInfrastructure>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly = false } = props
+  renderStep(props: StepProps<K8sGcpInfrastructure>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <KubernetesInfraSpecInputForm
-          {...(customStepProps as KubernetesInfraSpecEditableProps)}
+        <GcpInfrastructureSpecInputForm
+          {...(customStepProps as GcpInfrastructureSpecEditableProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
@@ -416,22 +681,21 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
       )
     } else if (stepViewType === StepViewType.InputVariable) {
       return (
-        <KubernetesInfraSpecVariablesForm
+        <GcpInfrastructureSpecVariablesForm
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           template={inputSetData?.template}
-          {...(customStepProps as KubernetesInfraSpecEditableProps)}
+          {...(customStepProps as GcpInfrastructureSpecEditableProps)}
           initialValues={initialValues}
         />
       )
     }
 
     return (
-      <KubernetesInfraSpecEditable
+      <GcpInfrastructureSpecEditable
         onUpdate={onUpdate}
-        readonly={readonly}
         stepViewType={stepViewType}
-        {...(customStepProps as KubernetesInfraSpecEditableProps)}
+        {...(customStepProps as GcpInfrastructureSpecEditableProps)}
         initialValues={initialValues}
       />
     )

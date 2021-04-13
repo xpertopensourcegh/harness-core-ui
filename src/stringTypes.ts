@@ -11,6 +11,7 @@ export interface StringsMap {
   'common.addVariable': string
   'common.approve': string
   'common.changePlan': string
+  'common.cluster': string
   'common.comments': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -29,6 +30,7 @@ export interface StringsMap {
   'common.letsGetYouStarted': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
+  'common.namespace': string
   'common.orgViewer': string
   'common.performAction': string
   'common.pipeline': string
@@ -58,6 +60,7 @@ export interface StringsMap {
   'common.purpose.welcome': string
   'common.refresh': string
   'common.reject': string
+  'common.releaseName': string
   'common.removeThisVariable': string
   'common.repo_provider.awscodecommit': string
   'common.repo_provider.azureDev': string
@@ -519,6 +522,11 @@ export interface StringsMap {
   'cd.dashboard.learnMore': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.steps.common.namespacePlaceholder': string
+  'cd.steps.common.releaseNamePlaceholder': string
+  'cd.steps.common.selectConnectorPlaceholder': string
+  'cd.steps.common.selectOrEnterClusterPlaceholder': string
+  'cd.steps.kubernetesGcpStep.stepName': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string
   'cf.addPrerequisites.editPrerequisitesHeading': string
@@ -5167,31 +5175,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.kubernetesInfraStep.kubernetesConnector': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.kubernetesInfraStep.loading': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.kubernetesInfraStep.nameSpaceLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.kubernetesInfraStep.nameSpacePlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.kubernetesInfraStep.releaseName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.kubernetesInfraStep.releaseNamePlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */

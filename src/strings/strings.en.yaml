@@ -1174,12 +1174,6 @@ pipelineSteps:
   kubernetesInfraStep:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector
-    k8ConnectorDropDownPlaceholder: Select a connector
-    nameSpaceLabel: '{{$.pipelineSteps.build.infraSpecifications.namespace}}'
-    releaseName: Release name
-    loading: '{{$.loading}}'
-    releaseNamePlaceholder: Specify a release name
-    nameSpacePlaceholder: Specify a namespace
   environmentTab:
     specifyYourEnvironment: Specify your environment
     selectEnvironment: '- Select Environment -'
@@ -1398,7 +1392,7 @@ pipelineSteps:
       propagate: 'Propagate from an existing stage'
       newConfiguration: 'New Configuration'
       newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
-      namespace: 'Namespace'
+      namespace: '{{$.common.namespace}}'
   deploy:
     errors:
       notags: No tags found with given Image Path

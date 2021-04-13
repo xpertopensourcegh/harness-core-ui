@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Icon, Text, Accordion } from '@wings-software/uicore'
+import { Layout, Card, Icon, Text, Accordion, Button } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
-import { debounce, get, isEmpty, isNil, set } from 'lodash-es'
+import { debounce, get, isEmpty, isNil, omit, set } from 'lodash-es'
 import cx from 'classnames'
 import { StepWidget, StepViewType, PipelineContext } from '@pipeline/exports'
 import {
   ExecutionWrapper,
   getProvisionerExecutionStrategyYamlPromise,
   K8SDirectInfrastructure,
+  K8sGcpInfrastructure,
   NgPipeline,
   PipelineInfrastructure,
   StageElementWrapper
@@ -16,12 +17,25 @@ import {
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
+import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfrastructureSpec/GcpInfrastructureSpec'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import Timeline from '@common/components/Timeline/Timeline'
 import { String, useStrings } from 'framework/exports'
 import css from './DeployInfraSpecifications.module.scss'
 
-const getTimelineNodes = (isProvisionerEnabled: boolean) => [
+interface DeploymentTypeItem {
+  name: string
+  icon: IconName
+  type: string
+  enabled: boolean
+}
+
+interface DeploymentTypeGroup {
+  name: string
+  items: DeploymentTypeItem[]
+}
+
+const getTimelineNodes = (clusterEnabled: boolean, provisionerEnabled: boolean) => [
   {
     label: 'Environment',
     id: 'environment'
@@ -30,7 +44,7 @@ const getTimelineNodes = (isProvisionerEnabled: boolean) => [
     label: 'Infrastructure definition',
     id: 'infrastructureDefinition',
     childItems: [
-      ...(isProvisionerEnabled
+      ...(clusterEnabled && provisionerEnabled
         ? [
             {
               label: 'Dynamic provisioning',
@@ -38,32 +52,52 @@ const getTimelineNodes = (isProvisionerEnabled: boolean) => [
             }
           ]
         : []),
-      {
-        label: 'Cluster details',
-        id: 'clusterDetails-panel'
-      }
+      ...(clusterEnabled
+        ? [
+            {
+              label: 'Cluster details',
+              id: 'clusterDetails-panel'
+            }
+          ]
+        : [])
     ]
   }
 ]
 
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
-  const [initialValues, setInitialValues] = React.useState<{}>()
+  const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] = React.useState<
+    K8SDirectInfrastructure | K8sGcpInfrastructure
+  >({})
+  const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
   const [updateKey, setUpdateKey] = React.useState(0)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()
-  const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
+  const deploymentTypes: DeploymentTypeGroup[] = [
     {
-      name: getString('pipelineSteps.deploymentTypes.kubernetes'),
-      icon: 'service-kubernetes',
-      enabled: true
+      name: getString('pipelineSteps.deploy.infrastructure.directConnection'),
+      items: [
+        {
+          name: getString('pipelineSteps.deploymentTypes.kubernetes'),
+          icon: 'service-kubernetes',
+          type: 'KubernetesDirect',
+          enabled: true
+        }
+      ]
     },
     {
-      name: getString('pipelineSteps.deploymentTypes.gk8engine'),
-      icon: 'google-kubernetes-engine',
-      enabled: false
+      name: getString('pipelineSteps.deploy.infrastructure.viaCloudProvider'),
+      items: [
+        {
+          name: getString('pipelineSteps.deploymentTypes.gk8engine'),
+          icon: 'google-kubernetes-engine',
+          type: 'KubernetesGcp',
+          enabled: true
+        }
+      ]
     }
   ]
+
   const {
     state: {
       pipeline,
@@ -76,7 +110,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     updatePipeline,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-
   const debounceUpdatePipeline = React.useRef(
     debounce((pipelineData: NgPipeline) => {
       return updatePipeline(pipelineData)
@@ -84,10 +117,30 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   ).current
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
+
+  const resetInfrastructureDefinition = (type?: string, shouldUpdate = false) => {
+    const spec = get(stage, 'stage.spec', {})
+    spec.infrastructure = {
+      ...spec.infrastructure,
+      infrastructureDefinition: {}
+    }
+
+    if (type) {
+      spec.infrastructure.infrastructureDefinition.type = type
+    }
+
+    if (shouldUpdate) {
+      const initialInfraDefValues = getInfrastructureDefaultValue(stage, type)
+      setInitialInfrastructureDefinitionValues(initialInfraDefValues)
+
+      updatePipeline(pipeline)
+    }
+  }
+
   const infraSpec = get(stage, 'stage.spec.infrastructure', null)
   if (isNil(infraSpec)) {
-    const pipelineData = get(stage, 'stage.spec', {})
-    pipelineData['infrastructure'] = {
+    const spec = get(stage, 'stage.spec', {})
+    spec['infrastructure'] = {
       environmentRef: '',
       infrastructureDefinition: {},
       allowSimultaneousDeployments: false
@@ -95,38 +148,28 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   }
 
   React.useEffect(() => {
-    setInitialValues(getInitialInfraConnectorValues())
+    const type = stage?.stage?.spec?.infrastructure?.infrastructureDefinition?.type
+    setSelectedDeploymentType(type)
+    const initialInfraDefValues = getInfrastructureDefaultValue(stage, type)
+    setInitialInfrastructureDefinitionValues(initialInfraDefValues)
     setUpdateKey(Math.random())
   }, [stage])
 
-  const getInitialInfraConnectorValues = (): K8SDirectInfrastructure => {
-    const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDefinition', null)
-    const connectorRef = infrastructure?.spec?.connectorRef
-    const namespace = infrastructure?.spec?.namespace
-    const releaseName = infrastructure?.spec?.releaseName
-    return {
-      connectorRef,
-      namespace,
-      releaseName
-    }
-  }
-
-  const onUpdateDefinition = (value: K8SDirectInfrastructure): void => {
+  const onUpdateInfrastructureDefinition = (
+    extendedSpec: K8SDirectInfrastructure | K8sGcpInfrastructure,
+    type: string
+  ): void => {
     const infrastructure = get(stage, 'stage.spec.infrastructure', null)
     if (infrastructure) {
-      const infraStruct = {
-        type: 'KubernetesDirect',
-        spec: {
-          connectorRef: value.connectorRef,
-          namespace: value.namespace,
-          releaseName: value.releaseName
-        }
+      infrastructure['infrastructureDefinition'] = {
+        type,
+        spec: omit(extendedSpec, 'allowSimultaneousDeployments')
       }
-      infrastructure['infrastructureDefinition'] = infraStruct
-      infrastructure['allowSimultaneousDeployments'] = value.allowSimultaneousDeployments || false
+      infrastructure['allowSimultaneousDeployments'] = extendedSpec.allowSimultaneousDeployments || false
       debounceUpdatePipeline(pipeline)
     }
   }
+
   const onTimelineItemClick = (id: string) => {
     const element = document.querySelector(`#${id}`)
     if (scrollRef.current && element) {
@@ -135,68 +178,82 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
     }
   }
+
+  const filterSelectedDeploymentType = (
+    deploymentTypeGroups: DeploymentTypeGroup[],
+    selDeploymentType: string
+  ): DeploymentTypeGroup[] => {
+    const groups = deploymentTypeGroups.filter(group => group?.items?.find(type => type.type === selDeploymentType))
+    if (groups[0]) {
+      groups[0].items = groups[0].items.filter(type => type.type === selDeploymentType)
+      return groups
+    }
+
+    return deploymentTypeGroups
+  }
+
   const renderInfraSelection = (): JSX.Element => {
-    const k8sInfra = supportedDeploymentTypes[0]
+    const visibleDeploymentTypes = selectedDeploymentType
+      ? filterSelectedDeploymentType(deploymentTypes, selectedDeploymentType)
+      : deploymentTypes
+
     return (
-      <div className={css.infraSelection}>
-        <div>
-          <div className={css.connectionType}>
-            <String stringID="pipelineSteps.deploy.infrastructure.directConnection" />
-          </div>
-          <div key={k8sInfra.name} className={css.squareCardContainer}>
-            <Card
-              disabled={!k8sInfra.enabled}
-              interactive={true}
-              selected={k8sInfra.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
-              cornerSelected={k8sInfra.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
-              className={cx({ [css.disabled]: !k8sInfra.enabled }, css.squareCard)}
-            >
-              <Icon name={k8sInfra.icon as IconName} size={26} height={26} />
-            </Card>
-            <Text
-              style={{
-                fontSize: '12px',
-                color: k8sInfra.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                textAlign: 'center'
+      <>
+        <div className={css.deploymentTypeGroups}>
+          {visibleDeploymentTypes.map(deploymentTypeGroup => {
+            return (
+              <div className={css.deploymentTypeGroup} key={deploymentTypeGroup.name}>
+                <div className={css.connectionType}>{deploymentTypeGroup.name}</div>
+                <Layout.Horizontal>
+                  {deploymentTypeGroup.items.map(deploymentType => (
+                    <>
+                      <div key={deploymentType.name} className={css.squareCardContainer}>
+                        <Card
+                          disabled={!deploymentType.enabled || isReadonly}
+                          interactive={true}
+                          selected={deploymentType.type === selectedDeploymentType}
+                          onClick={() => {
+                            if (selectedDeploymentType !== deploymentType.type) {
+                              setSelectedDeploymentType(deploymentType.type)
+                              resetInfrastructureDefinition(deploymentType.type, true)
+                            }
+                          }}
+                          cornerSelected={deploymentType.type === selectedDeploymentType}
+                          className={cx({ [css.disabled]: !deploymentType.enabled }, css.squareCard)}
+                        >
+                          <Icon name={deploymentType.icon as IconName} size={26} height={26} />
+                        </Card>
+                        <Text
+                          style={{
+                            fontSize: '12px',
+                            color: deploymentType.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                            textAlign: 'center'
+                          }}
+                        >
+                          {deploymentType.name}
+                        </Text>
+                      </div>
+                    </>
+                  ))}
+                </Layout.Horizontal>
+              </div>
+            )
+          })}
+          {selectedDeploymentType ? (
+            <Button
+              className={css.changeButton}
+              disabled={isReadonly}
+              minimal
+              intent="primary"
+              onClick={() => {
+                setSelectedDeploymentType(undefined)
+                resetInfrastructureDefinition(undefined, true)
               }}
-            >
-              {k8sInfra.name}
-            </Text>
-          </div>
+              text={getString('change')}
+            />
+          ) : null}
         </div>
-        <div>
-          <div className={css.connectionType}>
-            <String stringID="pipelineSteps.deploy.infrastructure.viaCloudProvider" />
-          </div>
-          <Layout.Horizontal>
-            {supportedDeploymentTypes.map(
-              (type: { name: string; icon: IconName; enabled: boolean }) =>
-                type.name !== getString('pipelineSteps.deploymentTypes.kubernetes') && (
-                  <div key={type.name} className={css.squareCardContainer}>
-                    <Card
-                      disabled={!type.enabled}
-                      interactive={true}
-                      selected={type.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
-                      cornerSelected={type.name === getString('pipelineSteps.deploymentTypes.kubernetes')}
-                      className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
-                    >
-                      <Icon name={type.icon as IconName} size={26} height={26} />
-                    </Card>
-                    <Text
-                      style={{
-                        fontSize: '12px',
-                        color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {type.name}
-                    </Text>
-                  </div>
-                )
-            )}
-          </Layout.Horizontal>
-        </div>
-      </div>
+      </>
     )
   }
 
@@ -273,9 +330,106 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     return { provisioner, provisionerEnabled, provisionerSnippetLoading, originalProvisioner }
   }
 
+  const getInfrastructureDefaultValue = (
+    stageData: StageElementWrapper | undefined,
+    deploymentType: string | undefined
+  ): K8SDirectInfrastructure | K8sGcpInfrastructure => {
+    const infrastructure = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition', null)
+    const type = infrastructure?.type || deploymentType
+    const allowSimultaneousDeployments = get(stageData, 'stage.spec.infrastructure.allowSimultaneousDeployments', false)
+
+    switch (type) {
+      case 'KubernetesDirect': {
+        const connectorRef = infrastructure?.spec?.connectorRef
+        const namespace = infrastructure?.spec?.namespace
+        const releaseName = infrastructure?.spec?.releaseName
+        return {
+          connectorRef,
+          namespace,
+          releaseName,
+          allowSimultaneousDeployments
+        }
+      }
+      case 'KubernetesGcp': {
+        const connectorRef = infrastructure?.spec?.connectorRef
+        const namespace = infrastructure?.spec?.namespace
+        const releaseName = infrastructure?.spec?.releaseName
+        const cluster = infrastructure?.spec?.cluster
+
+        return {
+          connectorRef,
+          namespace,
+          releaseName,
+          cluster,
+          allowSimultaneousDeployments
+        }
+      }
+      default: {
+        return {}
+      }
+    }
+  }
+
+  const getClusterConfigurationStep = (type: string) => {
+    switch (type) {
+      case 'KubernetesDirect': {
+        return (
+          <StepWidget<K8SDirectInfrastructure>
+            factory={factory}
+            key={updateKey}
+            readonly={isReadonly}
+            initialValues={initialInfrastructureDefinitionValues}
+            type={StepType.KubernetesDirect}
+            stepViewType={StepViewType.Edit}
+            onUpdate={value =>
+              onUpdateInfrastructureDefinition(
+                {
+                  connectorRef: value.connectorRef,
+                  namespace: value.namespace,
+                  releaseName: value.releaseName,
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
+                },
+                'KubernetesDirect'
+              )
+            }
+          />
+        )
+      }
+      case 'KubernetesGcp': {
+        return (
+          <StepWidget<GcpInfrastructureSpec>
+            factory={factory}
+            key={updateKey}
+            readonly={isReadonly}
+            initialValues={initialInfrastructureDefinitionValues as GcpInfrastructureSpec}
+            type={StepType.KubernetesGcp}
+            stepViewType={StepViewType.Edit}
+            onUpdate={value =>
+              onUpdateInfrastructureDefinition(
+                {
+                  connectorRef: value.connectorRef,
+                  cluster: value.cluster,
+                  namespace: value.namespace,
+                  releaseName: value.releaseName,
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
+                },
+                'KubernetesGcp'
+              )
+            }
+          />
+        )
+      }
+      default: {
+        return <div>Undefined deployment type</div>
+      }
+    }
+  }
   return (
     <div className={css.serviceOverrides}>
-      <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes(isProvisionerEnabled)} />
+      <Timeline
+        onNodeClick={onTimelineItemClick}
+        nodes={getTimelineNodes(!!selectedDeploymentType, isProvisionerEnabled)}
+      />
 
       <div className={css.contentSection} ref={scrollRef}>
         <Layout.Vertical>
@@ -314,7 +468,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             {renderInfraSelection()}
           </div>
         </Card>
-        {isProvisionerEnabled ? (
+        {!!selectedDeploymentType && isProvisionerEnabled ? (
           <Accordion className={css.sectionCard} activeId="dynamicProvisioning">
             <Accordion.Panel
               id="dynamicProvisioning"
@@ -340,33 +494,18 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             />
           </Accordion>
         ) : null}
-        <Accordion className={css.sectionCard} activeId="clusterDetails">
-          <Accordion.Panel
-            id="clusterDetails"
-            addDomId={true}
-            summary={'Cluster details'}
-            details={
-              <StepWidget<K8SDirectInfrastructure>
-                factory={factory}
-                readonly={isReadonly}
-                key={updateKey}
-                initialValues={
-                  {
-                    ...initialValues,
-                    allowSimultaneousDeployments: get(
-                      stage,
-                      'stage.spec.infrastructure.allowSimultaneousDeployments',
-                      false
-                    )
-                  } || {}
-                }
-                type={StepType.KubernetesDirect}
-                stepViewType={StepViewType.Edit}
-                onUpdate={value => onUpdateDefinition(value)}
-              />
-            }
-          />
-        </Accordion>
+
+        {selectedDeploymentType ? (
+          <Accordion className={css.sectionCard} activeId="clusterDetails">
+            <Accordion.Panel
+              id="clusterDetails"
+              addDomId={true}
+              summary={'Cluster details'}
+              details={getClusterConfigurationStep(selectedDeploymentType)}
+            />
+          </Accordion>
+        ) : null}
+
         <div className={css.navigationButtons}> {props.children}</div>
       </div>
     </div>
