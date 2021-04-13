@@ -27,6 +27,9 @@ import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { PageError } from '@common/components/Page/PageError'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -164,6 +167,22 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
 
   const { pipelineExecutionSummary = {} } = data?.data || {}
 
+  const [canEdit, canExecute] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier as string
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [orgIdentifier, projectIdentifier, accountId, pipelineIdentifier]
+  )
+
   return (
     <ExecutionContext.Provider
       value={{
@@ -253,6 +272,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                       executionIdentifier,
                       module
                     }}
+                    canEdit={canEdit}
+                    canExecute={canExecute}
                   />
                 </div>
               </div>

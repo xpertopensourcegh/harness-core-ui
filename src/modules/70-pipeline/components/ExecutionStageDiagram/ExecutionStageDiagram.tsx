@@ -9,6 +9,9 @@ import { Select } from '@blueprintjs/select'
 import ExecutionContext from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ExecutionPipeline, ExecutionPipelineItem, StageOptions } from './ExecutionPipelineModel'
 import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
 import ExecutionActions from '../ExecutionActions/ExecutionActions'
@@ -202,6 +205,22 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     showEndNode
   ])
 
+  const [canEdit, canExecute] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier as string
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [orgIdentifier, projectIdentifier, accountId, pipelineIdentifier]
+  )
+
   //Load model into engine
   engine.setModel(model)
   autoPosition && focusRunningNode(engine, data)
@@ -263,6 +282,8 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                   }}
                   noMenu
                   stageId={selectedStage.value}
+                  canEdit={canEdit}
+                  canExecute={canExecute}
                 />
               )}
             </ExecutionContext.Consumer>

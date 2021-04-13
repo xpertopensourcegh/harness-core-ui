@@ -12,6 +12,9 @@ import { String, StringKeys } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
 import BuildInfo from './ExecutionDetails/BuildInfo/BuildInfo'
@@ -47,6 +50,22 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
         return []
     }
   }
+
+  const [canEdit, canExecute] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineExecution.pipelineIdentifier as string
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [orgIdentifier, projectIdentifier, accountId, pipelineExecution.pipelineIdentifier]
+  )
 
   return (
     <Card elevation={0} className={css.card} interactive>
@@ -124,6 +143,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   projectIdentifier,
                   module
                 }}
+                canEdit={canEdit}
+                canExecute={canExecute}
               />
             </div>
           </div>
