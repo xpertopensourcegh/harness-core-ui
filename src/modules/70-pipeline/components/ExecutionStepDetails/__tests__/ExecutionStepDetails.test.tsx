@@ -16,6 +16,11 @@ jest.mock('services/pipeline-ng', () => ({
   useAddHarnessApprovalActivity: jest.fn(() => ({ mutate: jest.fn() })),
   useGetExecutionNode: jest.fn(() => ({ data: {}, loading: false }))
 }))
+jest.mock('@common/components/Duration/Duration', () => ({
+  Duration() {
+    return <div>MOCK DURATION</div>
+  }
+}))
 
 const TEST_PATH = routes.toExecutionPipelineView({
   ...accountPathProps,

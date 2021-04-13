@@ -999,6 +999,16 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                   -
                 </td>
               </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
               <tr
                 class="delegateRow"
               >
@@ -1376,6 +1386,16 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   -
                 </td>
               </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
           <div
@@ -1738,6 +1758,16 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                   -
                 </td>
               </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
           <div
@@ -2098,6 +2128,16 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 </th>
                 <td>
                   -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -2692,6 +2732,16 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 </th>
                 <td>
                   -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
                 </td>
               </tr>
             </tbody>

@@ -610,7 +610,14 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                               <th>
                                 duration
                               </th>
-                              <td />
+                              <td>
+                                <span
+                                  class="StyledProps--font StyledProps--main timer StyledProps--inline"
+                                >
+                                  
+                                  
+                                </span>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
