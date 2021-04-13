@@ -14,6 +14,7 @@ import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
+import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 import CDInfo from './components/CD/CDInfo'
 import css from './ExecutionGraph.module.scss'
@@ -28,12 +29,15 @@ const processExecutionData = (
       item.parallel.forEach(node => {
         parallel.push({
           item: {
-            icon: getIconFromStageModule(node?.module),
+            icon: getIconFromStageModule(node?.module, node.nodeType),
             identifier: node?.nodeUuid || /* istanbul ignore next */ '',
             name: node?.name || node?.nodeIdentifier || /* istanbul ignore next */ '',
             status: node?.status as any,
             barrierFound: node?.barrierFound,
-            type: ExecutionPipelineNodeType.NORMAL,
+            type:
+              node?.nodeType === StageTypes.APPROVAL
+                ? ExecutionPipelineNodeType.DIAMOND
+                : ExecutionPipelineNodeType.NORMAL,
             skipCondition: node?.skipInfo?.evaluatedCondition ? node.skipInfo.skipCondition : undefined,
             data: node
           }
@@ -44,12 +48,15 @@ const processExecutionData = (
       const stage = item.stage
       items.push({
         item: {
-          icon: getIconFromStageModule(stage?.module),
+          icon: getIconFromStageModule(stage?.module, stage?.nodeType),
           identifier: stage?.nodeUuid || /* istanbul ignore next */ '',
           name: stage?.name || stage?.nodeIdentifier || /* istanbul ignore next */ '',
           status: stage?.status as any,
           barrierFound: stage?.barrierFound,
-          type: ExecutionPipelineNodeType.NORMAL,
+          type:
+            stage?.nodeType === StageTypes.APPROVAL
+              ? ExecutionPipelineNodeType.DIAMOND
+              : ExecutionPipelineNodeType.NORMAL,
           skipCondition: stage?.skipInfo?.evaluatedCondition ? stage.skipInfo.skipCondition : undefined,
           data: stage
         }

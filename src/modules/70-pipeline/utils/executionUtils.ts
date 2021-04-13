@@ -13,6 +13,7 @@ import {
 } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import { isApprovalStep } from './stepUtils'
 
 export const LITE_ENGINE_TASK = 'liteEngineTask'
@@ -280,7 +281,13 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
   return null
 }
 
-export function getIconFromStageModule(stageModule: 'cd' | 'ci' | string | undefined): IconName {
+export function getIconFromStageModule(stageModule: 'cd' | 'ci' | string | undefined, stageType?: string): IconName {
+  if (stageType) {
+    const icon = stagesCollection.getStageAttributes(stageType, (key: string) => key)?.icon
+    if (icon) {
+      return icon
+    }
+  }
   switch (stageModule) {
     case 'cd':
       return 'pipeline-deploy'

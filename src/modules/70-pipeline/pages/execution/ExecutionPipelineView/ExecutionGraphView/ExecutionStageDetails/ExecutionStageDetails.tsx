@@ -32,7 +32,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
     label: item[1].nodeIdentifier || /* istanbul ignore next */ '',
     value: item[1].nodeUuid || /* istanbul ignore next */ '',
-    icon: { name: getIconFromStageModule(item[1].module) },
+    icon: { name: getIconFromStageModule(item[1].module, item[1].nodeType) },
     disabled: item[1].status === 'NotStarted'
   }))
   const { executionIdentifier } = useParams<ExecutionPathParams>()
@@ -128,7 +128,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           selectedStage={{
             label: stage?.nodeIdentifier || /* istanbul ignore next */ '',
             value: stage?.nodeUuid || /* istanbul ignore next */ '',
-            icon: { name: getIconFromStageModule(stage?.module) }
+            icon: { name: getIconFromStageModule(stage?.module, stage?.nodeType) }
           }}
           itemMouseEnter={onMouseEnter}
           itemMouseLeave={() => {

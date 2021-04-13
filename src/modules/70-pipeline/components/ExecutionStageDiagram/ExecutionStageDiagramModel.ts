@@ -101,8 +101,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           { [css.runningNode]: stage.status === ExecutionPipelineItemStatus.RUNNING },
           { [css.selected]: stage.status === ExecutionPipelineItemStatus.RUNNING && isSelected }
         ),
-        width: nodeStyle.width,
-        height: nodeStyle.height,
         iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
         icon: stage.icon,
         skipCondition: stage?.skipCondition
@@ -121,6 +119,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                   ...commonOption.customNodeStyle,
                   border: 'none'
                 },
+                width: nodeStyle.width,
+                height: nodeStyle.height,
                 name: stage.name,
                 icon: stage.icon,
                 iconSize: stage.iconSize,
@@ -133,6 +133,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 identifier: stage.identifier,
                 id: stage.identifier,
                 ...commonOption,
+                width: 64,
+                height: 64,
                 customNodeStyle: {
                   // Without this doesn't look straight
                   marginTop: '2.5px',
@@ -145,6 +147,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 id: stage.identifier,
                 name: stage.name,
                 ...commonOption,
+                width: nodeStyle.width,
+                height: nodeStyle.height,
                 showPorts: !verticalStepGroup
               })
 
