@@ -361,6 +361,15 @@ export interface StringsMap {
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
   'pipeline.enterDescription': string
+  'pipeline.execution.actions.abortPipeline': string
+  'pipeline.execution.actions.abortStage': string
+  'pipeline.execution.actions.downloadLogs': string
+  'pipeline.execution.actions.pausePipeline': string
+  'pipeline.execution.actions.pauseStage': string
+  'pipeline.execution.actions.rerunPipeline': string
+  'pipeline.execution.actions.rerunStage': string
+  'pipeline.execution.actions.resumePipeline': string
+  'pipeline.execution.actions.resumeStage': string
   'pipeline.execution.currentExecution': string
   'pipeline.execution.retryStepCount': string
   'pipeline.execution.stepTitlePrefix': string
@@ -2926,26 +2935,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'execution.actionMessages.resumedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actions.abort': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actions.downloadLogs': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actions.pause': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actions.rerun': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actions.resume': string
   /**
    * @deprecated migrate this string to module level file
    */

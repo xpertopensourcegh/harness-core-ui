@@ -169,3 +169,13 @@ execution:
   stepTitlePrefix: 'Step: '
   retryStepCount: 'Retry #{{ num }}'
   currentExecution: Current Execution
+  actions:
+    resumePipeline: Resume Pipeline
+    rerunPipeline: Re-run Pipeline
+    pausePipeline: Pause Pipeline
+    abortPipeline: Abort Pipeline
+    resumeStage: Resume Stage
+    rerunStage: Re-run Stage
+    pauseStage: Pause Stage
+    abortStage: Abort Stage
+    downloadLogs: Download logs

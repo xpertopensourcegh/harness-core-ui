@@ -8,7 +8,7 @@ import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionComplete, isExecutionActive, isExecutionPaused } from '@pipeline/utils/statusHelpers'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './ExecutionActions.module.scss'
@@ -39,10 +39,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   const { executionStatus, params, noMenu, stageId } = props
   const { orgIdentifier, executionIdentifier, accountId, projectIdentifier, pipelineIdentifier, module } = params
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { mutate: stageInterrupt } = useHandleStageInterrupt({
     planExecutionId: executionIdentifier,
-    nodeExecutionId: stageId!
+    nodeExecutionId: stageId || ''
   })
   const { showSuccess } = useToaster()
   const history = useHistory()
@@ -157,39 +156,32 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   // TODO: disable not implemented features in ci module
   const disableInCIModule = module === 'ci'
 
+  const resumeText: StringKeys = stageId
+    ? 'pipeline.execution.actions.resumeStage'
+    : 'pipeline.execution.actions.resumePipeline'
+  const rerunText: StringKeys = stageId
+    ? 'pipeline.execution.actions.rerunStage'
+    : 'pipeline.execution.actions.rerunPipeline'
+  const pauseText: StringKeys = stageId
+    ? 'pipeline.execution.actions.pauseStage'
+    : 'pipeline.execution.actions.pausePipeline'
+  const abortText: StringKeys = stageId
+    ? 'pipeline.execution.actions.abortStage'
+    : 'pipeline.execution.actions.abortPipeline'
+
   return (
     <div className={css.main} onClick={killEvent}>
       {!disableInCIModule && canResume ? (
-        <Button
-          icon="play"
-          tooltip={getString('execution.actions.resume')}
-          onClick={resumePipeline}
-          {...commonButtonProps}
-        />
+        <Button icon="play" tooltip={getString(resumeText)} onClick={resumePipeline} {...commonButtonProps} />
       ) : null}
-      {canRerun ? (
-        <Button
-          icon="repeat"
-          tooltip={getString('execution.actions.rerun')}
-          onClick={reRunPipeline}
-          {...commonButtonProps}
-        />
+      {!stageId && canRerun ? (
+        <Button icon="repeat" tooltip={getString(rerunText)} onClick={reRunPipeline} {...commonButtonProps} />
       ) : null}
       {!disableInCIModule && canPause ? (
-        <Button
-          icon="pause"
-          tooltip={getString('execution.actions.pause')}
-          onClick={pausePipeline}
-          {...commonButtonProps}
-        />
+        <Button icon="pause" tooltip={getString(pauseText)} onClick={pausePipeline} {...commonButtonProps} />
       ) : null}
       {canAbort ? (
-        <Button
-          icon="stop"
-          tooltip={getString('execution.actions.abort')}
-          onClick={abortPipeline}
-          {...commonButtonProps}
-        />
+        <Button icon="stop" tooltip={getString(abortText)} onClick={abortPipeline} {...commonButtonProps} />
       ) : null}
       {noMenu ? null : (
         <Popover position="bottom-right" minimal>
@@ -201,19 +193,15 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             >
               {getString('editPipeline')}
             </Link>
-            <MenuItem text={getString('execution.actions.rerun')} disabled={!canRerun} onClick={reRunPipeline} />
+            {stageId ? null : <MenuItem text={getString(rerunText)} disabled={!canRerun} onClick={reRunPipeline} />}
+            <MenuItem text={getString(pauseText)} onClick={pausePipeline} disabled={disableInCIModule || !canPause} />
+            <MenuItem text={getString(abortText)} onClick={abortPipeline} disabled={!canAbort} />
             <MenuItem
-              text={getString('execution.actions.pause')}
-              onClick={pausePipeline}
-              disabled={disableInCIModule || !canPause}
-            />
-            <MenuItem text={getString('execution.actions.abort')} onClick={abortPipeline} disabled={!canAbort} />
-            <MenuItem
-              text={getString('execution.actions.resume')}
+              text={getString(resumeText)}
               onClick={resumePipeline}
               disabled={disableInCIModule || !canResume}
             />
-            <MenuItem text={getString('execution.actions.downloadLogs')} disabled />
+            {stageId ? null : <MenuItem text={getString('pipeline.execution.actions.downloadLogs')} disabled />}
           </Menu>
         </Popover>
       )}
