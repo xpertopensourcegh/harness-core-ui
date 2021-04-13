@@ -146,8 +146,15 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                 <Card className={cx(css.sectionCard, css.shadow)}>
                   <NameIdDescriptionTags
                     formikProps={formikProps}
+                    descriptionProps={{
+                      disabled: isReadonly
+                    }}
                     identifierProps={{
-                      isIdentifierEditable: false
+                      isIdentifierEditable: false,
+                      inputGroupProps: { disabled: isReadonly }
+                    }}
+                    tagsProps={{
+                      disabled: isReadonly
                     }}
                   />
                 </Card>
@@ -156,7 +163,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                   {getString('approvalStage.approvalTypeHeading')}
                 </div>
                 <Card className={cx(css.sectionCard, css.shadow, css.approvalCards)}>
-                  <ApprovalTypeCards formikProps={formikProps} />
+                  <ApprovalTypeCards formikProps={formikProps} isReadonly={isReadonly} />
                 </Card>
               </FormikForm>
             )}
@@ -171,6 +178,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
             details={
               <StepWidget<CustomVariablesData>
                 factory={stepsFactory}
+                readonly={isReadonly}
                 initialValues={{
                   variables: ((cloneOriginalData?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                   canAddVariable: true

@@ -307,3 +307,27 @@ describe('Jira Approval Stage shell view', () => {
     })
   })
 })
+
+describe('Approval Stage readonly view', () => {
+  beforeEach(() => {
+    jest
+      .spyOn(services, 'useGetInitialStageYamlSnippet')
+      .mockReturnValue(mockYamlSnippetResponse as UseGetReturn<any, services.Failure, any, unknown>)
+  })
+
+  test('if readonly view works', async () => {
+    const pipelineContextMockValue = getDummyPipelineContextValue()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={{ ...pipelineContextMockValue, isReadonly: true }}>
+          <ApprovalStageSetupShellMode />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    act(() => {
+      fireEvent.click(getByText('approvalStage.setupShellOverview'))
+    })
+
+    expect(container).toMatchSnapshot('readonly view apprvoal step overview')
+  })
+})
