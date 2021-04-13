@@ -32,14 +32,15 @@ export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps 
       projectKey: 'pid1',
       issueType: 'itd1',
       fields: [
-        { name: 'f1', value: 'value1' },
+        { name: 'f21', value: 'value1' },
         { name: 'f2', value: 2233 },
         { name: 'date', value: '23-march' },
         { name: 'Summary', value: 'summaryval' },
         { name: 'Description', value: 'descriptionval' }
       ]
     }
-  }
+  },
+  onUpdate: jest.fn()
 })
 
 export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProps => ({

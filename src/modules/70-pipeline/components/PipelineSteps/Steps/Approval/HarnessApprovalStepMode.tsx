@@ -32,7 +32,7 @@ import type {
   ApproverInputsSubmitCallInterface,
   HarnessApprovalFormContentProps
 } from './types'
-import { isArrayOfStrings } from './helper'
+import { isArrayOfStrings, processFormData } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './HarnessApproval.module.scss'
 
@@ -251,9 +251,7 @@ function HarnessApprovalStepMode(
 
   return (
     <Formik<HarnessApprovalData>
-      onSubmit={values => {
-        onUpdate?.(values)
-      }}
+      onSubmit={values => onUpdate?.(processFormData(values))}
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({

@@ -30,6 +30,7 @@ import { getGenuineValue, setAllowedValuesOptions } from '../JiraApproval/helper
 import type { JiraCreateFieldType } from '../JiraCreate/types'
 import { JiraDynamicFieldsSelector } from '../JiraCreate/JiraDynamicFieldsSelector'
 import type { JiraUpdateFormContentInterface, JiraUpdateData, JiraUpdateStepModeProps } from './types'
+import { processFormData } from './helper'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from '../JiraCreate/JiraCreate.module.scss'
@@ -357,9 +358,7 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
 
   return (
     <Formik<JiraUpdateData>
-      onSubmit={values => {
-        onUpdate?.(values)
-      }}
+      onSubmit={values => onUpdate?.(processFormData(values))}
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({

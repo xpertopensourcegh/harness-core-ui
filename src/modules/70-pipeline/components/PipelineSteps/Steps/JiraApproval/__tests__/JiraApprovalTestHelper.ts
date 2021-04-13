@@ -29,7 +29,7 @@ export const getJiraApprovalEditModeProps = (): JiraApprovalStepModeProps => ({
 
 export const getJiraApprovalEditModePropsWithValues = (): JiraApprovalStepModeProps => ({
   initialValues: {
-    timeout: '5s',
+    timeout: '10m',
     spec: {
       connectorRef: 'c1d1',
       projectKey: 'pid1',

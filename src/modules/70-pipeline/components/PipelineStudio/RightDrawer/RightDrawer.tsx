@@ -8,14 +8,6 @@ import produce from 'immer'
 import { useStrings } from 'framework/exports'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
-import { processFormData as processFormDataHarnessApproval } from '@pipeline/components/PipelineSteps/Steps/Approval/helper'
-import { processFormData as processFormDataJiraApproval } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/helper'
-import { processFormData as processFormDataJiraCreate } from '@pipeline/components/PipelineSteps/Steps/JiraCreate/helper'
-import { processFormData as processFormDataJiraUpdate } from '@pipeline/components/PipelineSteps/Steps/JiraUpdate/helper'
-import type { HarnessApprovalData } from '@pipeline/components/PipelineSteps/Steps/Approval/types'
-import type { JiraApprovalData } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/types'
-import type { JiraCreateData } from '@pipeline/components/PipelineSteps/Steps/JiraCreate/types'
-import type { JiraUpdateData } from '@pipeline/components/PipelineSteps/Steps/JiraUpdate/types'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -256,17 +248,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
             values
           ) {
-            if (values.type === StepType.HarnessApproval) {
-              onSubmitStep(processFormDataHarnessApproval(values as HarnessApprovalData))
-            } else if (values.type === StepType.JiraApproval) {
-              onSubmitStep(processFormDataJiraApproval(values as JiraApprovalData))
-            } else if (values.type === StepType.JiraCreate) {
-              onSubmitStep(processFormDataJiraCreate(values as JiraCreateData))
-            } else if (values.type === StepType.JiraUpdate) {
-              onSubmitStep(processFormDataJiraUpdate(values as JiraUpdateData))
-            } else {
-              onSubmitStep(values)
-            }
+            onSubmitStep(values)
           } else {
             // please do not remove the await below.
             // This is required for errors to be populated correctly

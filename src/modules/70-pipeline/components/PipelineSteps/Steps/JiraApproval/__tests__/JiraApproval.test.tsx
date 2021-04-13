@@ -141,12 +141,13 @@ describe('Jira Approval tests', () => {
         type={StepType.JiraApproval}
         stepViewType={StepViewType.Edit}
         ref={ref}
+        onUpdate={props.onUpdate}
       />
     )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira approval step' } })
-    expect(queryByDisplayValue('5s')).toBeTruthy()
+    expect(queryByDisplayValue('10m')).toBeTruthy()
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     expect(queryByDisplayValue('pid1')).toBeTruthy()
@@ -158,5 +159,42 @@ describe('Jira Approval tests', () => {
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.rejectionCriteria'))
     expect(queryByDisplayValue("<+status> == 'Blocked'")).toBeTruthy()
+
+    await act(() => ref.current?.submitForm())
+    expect(props.onUpdate).toBeCalledWith({
+      identifier: 'jira_approval_step',
+      timeout: '10m',
+      spec: {
+        connectorRef: 'cid1',
+        projectKey: 'pid1',
+        issueKey: 'tdc-2345',
+        issueType: 'itd1',
+        approvalCriteria: {
+          type: 'KeyValues',
+          spec: {
+            matchAnyCondition: true,
+            conditions: [
+              {
+                key: 'Status',
+                operator: 'in',
+                value: 'Done,todo'
+              },
+              {
+                key: 'f1',
+                operator: 'equals',
+                value: 'somevalue for f1'
+              }
+            ]
+          }
+        },
+        rejectionCriteria: {
+          type: 'Jexl',
+          spec: {
+            expression: "<+status> == 'Blocked'"
+          }
+        }
+      },
+      name: 'jira approval step'
+    })
   })
 })

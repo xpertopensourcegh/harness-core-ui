@@ -46,6 +46,9 @@ export const processFieldsForSubmit = (values: JiraCreateData): JiraCreateFieldT
     // The return value should be comma separated string or a number
     toReturn.push({ name, value })
   })
+  values.spec.fields?.forEach((kvField: JiraCreateFieldType) => {
+    toReturn.push(kvField)
+  })
   return toReturn
 }
 

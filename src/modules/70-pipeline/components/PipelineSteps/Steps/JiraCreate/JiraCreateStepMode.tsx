@@ -44,7 +44,7 @@ import {
   JiraCreateFieldType,
   JiraFieldNGWithValue
 } from './types'
-import { resetForm, getInitialValueForSelectedField, getKVFields } from './helper'
+import { resetForm, getInitialValueForSelectedField, getKVFields, processFormData } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraCreate.module.scss'
 
@@ -503,7 +503,7 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
   return (
     <Formik<JiraCreateData>
       onSubmit={values => {
-        onUpdate?.(values)
+        onUpdate?.(processFormData(values))
       }}
       initialValues={props.initialValues}
       enableReinitialize={true}

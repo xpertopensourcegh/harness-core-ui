@@ -29,7 +29,7 @@ import {
   JiraFormContentInterface,
   ApprovalRejectionCriteriaType
 } from './types'
-import { getGenuineValue, resetForm, setIssueTypeOptions } from './helper'
+import { getGenuineValue, resetForm, setIssueTypeOptions, processFormData } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraApproval.module.scss'
 
@@ -300,9 +300,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
 
   return (
     <Formik<JiraApprovalData>
-      onSubmit={values => {
-        onUpdate?.(values)
-      }}
+      onSubmit={values => onUpdate?.(processFormData(values))}
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({

@@ -8,7 +8,8 @@ import {
   getHarnessApprovalDeploymentModeProps,
   getHarnessApprovalInputVariableModeProps,
   mockUserGroupsResponse,
-  getHarnessApprovalEditModeProps
+  getHarnessApprovalEditModeProps,
+  getHarnessApprovalEditModePropsWithValues
 } from './HarnessApprovalTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
@@ -118,5 +119,60 @@ describe('Harness Approval tests', () => {
     fireEvent.click(getByText('pipeline.approvalStep.approvers'))
     await act(() => ref.current?.submitForm())
     expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy()
+  })
+
+  test('On submit call', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getHarnessApprovalEditModePropsWithValues()
+    const { queryByDisplayValue, queryByText, getByText } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.HarnessApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={props.onUpdate}
+      />
+    )
+
+    expect(queryByDisplayValue('10m')).toBeTruthy()
+    expect(queryByDisplayValue('harness approval step')).toBeTruthy()
+
+    // Open first accordion
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.message'))
+    })
+    expect(queryByDisplayValue('Approving pipeline <+pname>')).toBeTruthy()
+
+    // Open second accordion
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.approvers'))
+    })
+    expect(queryByDisplayValue('1')).toBeTruthy()
+    expect(queryByText('ug1')).toBeTruthy()
+    expect(queryByText('ug2')).toBeTruthy()
+
+    // Open third accordion
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.approverInputs'))
+    })
+    expect(queryByDisplayValue('somekey')).toBeTruthy()
+    expect(queryByDisplayValue('somevalue')).toBeTruthy()
+
+    await act(() => ref.current?.submitForm())
+    expect(props.onUpdate).toBeCalledWith({
+      identifier: 'hhaass',
+      timeout: '10m',
+      spec: {
+        approvalMessage: 'Approving pipeline <+pname>',
+        includePipelineExecutionHistory: true,
+        approverInputs: [{ name: 'somekey', defaultValue: 'somevalue' }],
+        approvers: {
+          userGroups: ['ug1', 'ug2'],
+          minimumCount: 1,
+          disallowPipelineExecutor: true
+        }
+      },
+      name: 'harness approval step'
+    })
   })
 })

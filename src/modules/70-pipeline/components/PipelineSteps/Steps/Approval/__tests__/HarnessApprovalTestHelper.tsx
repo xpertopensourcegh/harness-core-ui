@@ -2,6 +2,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { ResponsePageUserGroupDTO } from 'services/cd-ng'
+import type { HarnessApprovalStepModeProps } from '../types'
 
 export const getHarnessApprovalEditModeProps = () => ({
   initialValues: {
@@ -14,6 +15,30 @@ export const getHarnessApprovalEditModeProps = () => ({
         userGroups: [],
         minimumCount: '',
         disallowPipelineExecutor: ''
+      }
+    }
+  },
+  onUpdate: jest.fn()
+})
+
+export const getHarnessApprovalEditModePropsWithValues = (): HarnessApprovalStepModeProps => ({
+  initialValues: {
+    timeout: '10m',
+    name: 'harness approval step',
+    identifier: 'hhaass',
+    spec: {
+      approvalMessage: 'Approving pipeline <+pname>',
+      includePipelineExecutionHistory: true,
+      approverInputs: [
+        {
+          name: 'somekey',
+          defaultValue: 'somevalue'
+        }
+      ],
+      approvers: {
+        userGroups: ['ug1', 'ug2'],
+        minimumCount: 1,
+        disallowPipelineExecutor: true
       }
     }
   },
@@ -139,7 +164,7 @@ export const mockUsersResponse = {
   error: null,
   data: {
     status: 'SUCCESS',
-    content: [{ name: 'u1', uuid: 'uv1' }],
+    content: [{ name: 'ug11', uuid: 'uv1' }],
     metaData: (null as unknown) as undefined,
     correlationId: 'someId'
   }
@@ -152,7 +177,11 @@ export const mockUserGroupsResponse: UseGetMockData<ResponsePageUserGroupDTO> = 
     status: 'SUCCESS',
     metaData: (null as unknown) as undefined,
     data: {
-      content: [{ name: 'ug1', identifier: 'ugv1' }]
+      content: [
+        { name: 'ug1', identifier: 'ug1' },
+        { name: 'ug2', identifier: 'ug2' },
+        { name: 'ug3', identifier: 'ug3' }
+      ]
     }
   }
 }

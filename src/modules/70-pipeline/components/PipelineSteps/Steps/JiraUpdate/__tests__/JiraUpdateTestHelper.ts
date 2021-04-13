@@ -39,12 +39,13 @@ export const getJiraUpdateEditModePropsWithValues = (): JiraUpdateStepModeProps 
         transitionName: ''
       },
       fields: [
-        { name: 'f1', value: 'value1' },
+        { name: 'f21', value: 'value1' },
         { name: 'f2', value: 2233 },
         { name: 'date', value: '23-march' }
       ]
     }
-  }
+  },
+  onUpdate: jest.fn()
 })
 
 export const getJiraUpdateDeploymentModeProps = (): JiraUpdateDeploymentModeProps => ({

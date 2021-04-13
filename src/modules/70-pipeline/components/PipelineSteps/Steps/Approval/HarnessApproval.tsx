@@ -118,6 +118,10 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     return errors
   }
 
+  processFormData(values: HarnessApprovalData) {
+    return processFormData(values)
+  }
+
   renderStep(this: HarnessApproval, props: StepProps<HarnessApprovalData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
@@ -146,7 +150,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         initialValues={processForInitialValues(initialValues)}
-        onUpdate={values => onUpdate?.(processFormData(values))}
+        onUpdate={values => onUpdate?.(values)}
       />
     )
   }

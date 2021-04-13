@@ -129,9 +129,7 @@ describe('Jira Create tests', () => {
 
   test('Open a saved step - edit stage view', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const onUpdate = jest.fn()
-    const props = { ...getJiraCreateEditModePropsWithValues(), onUpdate }
-    onUpdate.mockReset()
+    const props = { ...getJiraCreateEditModePropsWithValues() }
     const {
       container,
       getByText,
@@ -145,6 +143,7 @@ describe('Jira Create tests', () => {
         type={StepType.JiraCreate}
         stepViewType={StepViewType.Edit}
         ref={ref}
+        onUpdate={props.onUpdate}
       />
     )
 
@@ -206,5 +205,23 @@ describe('Jira Create tests', () => {
     expect(queryByDisplayValue('issueKey1')).toBeTruthy()
     expect(queryByDisplayValue('issueKey1Value')).toBeTruthy()
     await act(() => ref.current?.submitForm())
+    expect(props.onUpdate).toBeCalledWith({
+      identifier: 'jira_createe_step',
+      timeout: '1d',
+      spec: {
+        connectorRef: 'cid1',
+        projectKey: 'pid1',
+        issueType: 'itd1',
+        fields: [
+          { name: 'Summary', value: 'summary' },
+          { name: 'Description', value: 'descriptionval' },
+          { name: 'f1', value: '' },
+          { name: 'f21', value: 'value1' },
+          { name: 'f2', value: 2233 },
+          { name: 'date', value: '23-march' }
+        ]
+      },
+      name: 'jira createe step'
+    })
   })
 })

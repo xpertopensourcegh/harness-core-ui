@@ -86,6 +86,10 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
     return errors
   }
 
+  processFormData(values: JiraUpdateData) {
+    return processFormData(values)
+  }
+
   renderStep(this: JiraUpdate, props: StepProps<JiraUpdateData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
@@ -113,10 +117,7 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
         ref={formikRef}
         stepViewType={stepViewType}
         initialValues={processInitialValues(initialValues)}
-        onUpdate={(values: JiraUpdateData) => {
-          const forUpdate = processFormData(values)
-          onUpdate?.(forUpdate)
-        }}
+        onUpdate={(values: JiraUpdateData) => onUpdate?.(values)}
         isNewStep={isNewStep}
       />
     )
