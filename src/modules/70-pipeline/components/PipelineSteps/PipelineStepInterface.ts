@@ -41,5 +41,6 @@ export enum StepType {
   TerraformDestroy = 'TerraformDestroy',
   TerraformPlan = 'TerraformPlan',
   TerraformApply = 'TerraformApply',
-  InfraProvisioning = 'InfraProvisioning'
+  InfraProvisioning = 'InfraProvisioning',
+  ResourceConstraint = 'ResourceConstraint'
 }

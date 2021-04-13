@@ -89,7 +89,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     const pipelineData = get(stage, 'stage.spec', {})
     pipelineData['infrastructure'] = {
       environmentRef: '',
-      infrastructureDefinition: {}
+      infrastructureDefinition: {},
+      allowSimultaneousDeployments: false
     }
   }
 
@@ -122,6 +123,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         }
       }
       infrastructure['infrastructureDefinition'] = infraStruct
+      infrastructure['allowSimultaneousDeployments'] = value.allowSimultaneousDeployments || false
       debounceUpdatePipeline(pipeline)
     }
   }
@@ -348,7 +350,16 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                 factory={factory}
                 readonly={isReadonly}
                 key={updateKey}
-                initialValues={initialValues || {}}
+                initialValues={
+                  {
+                    ...initialValues,
+                    allowSimultaneousDeployments: get(
+                      stage,
+                      'stage.spec.infrastructure.allowSimultaneousDeployments',
+                      false
+                    )
+                  } || {}
+                }
                 type={StepType.KubernetesDirect}
                 stepViewType={StepViewType.Edit}
                 onUpdate={value => onUpdateDefinition(value)}

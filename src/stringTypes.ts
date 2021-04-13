@@ -493,11 +493,16 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.resourceConstraints.currentlyExecuting': string
+  'pipeline.resourceConstraints.infoText': string
+  'pipeline.resourceConstraints.title': string
+  'pipeline.resourceConstraints.yourPipeline': string
   'pipeline.selectOrCreateForm.description': string
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
-  'cd.continuous': string
+  'cd.allowSimultaneousDeployments': string
+  'cd.continuousIntegration': string
   'cd.dashboard.createProject': string
   'cd.dashboard.learnMore': string
   'cd.dashboard.orSelectExisting': string

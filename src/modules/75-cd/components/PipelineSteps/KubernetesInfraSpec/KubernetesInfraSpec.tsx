@@ -9,10 +9,11 @@ import {
   FormInput,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Icon
+  Icon,
+  Checkbox
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, isEmpty, get } from 'lodash-es'
+import { debounce, noop, isEmpty, get, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepViewType, StepProps } from '@pipeline/exports'
@@ -96,12 +97,13 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
       </Text>
       <Formik
         enableReinitialize
-        initialValues={initialValues}
+        initialValues={omit(initialValues, 'allowSimultaneousDeployments')}
         validate={value => {
           const data: K8SDirectInfrastructure = {
             namespace: value.namespace,
             releaseName: value.releaseName,
-            connectorRef: undefined
+            connectorRef: undefined,
+            allowSimultaneousDeployments: initialValues.allowSimultaneousDeployments
           }
           if (value.connectorRef) {
             data.connectorRef = (value.connectorRef as any)?.value || value.connectorRef
@@ -190,6 +192,23 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     }}
                   />
                 )}
+              </Layout.Horizontal>
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                <Checkbox
+                  className={css.simultaneuosDeployment}
+                  label={getString('cd.allowSimultaneousDeployments')}
+                  checked={initialValues?.allowSimultaneousDeployments || false}
+                  onChange={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    const connectorRef = (formik.values.connectorRef as any)?.value || formik.values.connectorRef
+                    delayedOnUpdate({
+                      ...formik.values,
+                      connectorRef,
+                      allowSimultaneousDeployments: e.currentTarget.checked
+                    })
+                  }}
+                />
               </Layout.Horizontal>
             </FormikForm>
           )

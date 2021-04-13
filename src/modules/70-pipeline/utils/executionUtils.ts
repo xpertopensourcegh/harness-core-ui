@@ -574,7 +574,7 @@ export function getStageType(node?: GraphLayoutNode): 'ci' | 'cd' | 'unknown' {
 }
 
 export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipelineNodeType {
-  if (stepType === StepType.Barrier) {
+  if (stepType === StepType.Barrier || stepType === StepType.ResourceConstraint) {
     return ExecutionPipelineNodeType.ICON
   }
   if (isApprovalStep(stepType)) {
@@ -592,6 +592,9 @@ export function getIconDataBasedOnType(
       return nodeData.status === 'Success'
         ? { icon: 'barrier-close', iconSize: 72 }
         : { icon: 'barrier-open', iconSize: 70, iconStyle: { marginBottom: '38px' } }
+    }
+    if (nodeData.stepType === StepType.ResourceConstraint) {
+      return { icon: 'traffic-lights', iconSize: 40 }
     }
     const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeData?.stepType || '')
     return {

@@ -543,6 +543,12 @@ export const StepToNodeModelDataMap: { [key: string]: { model: any; defaultProps
       icon: 'barrier-open'
     }
   },
+  ResourceConstraint: {
+    model: IconNodeModel,
+    defaultProps: {
+      icon: 'traffic-lights'
+    }
+  },
   Default: {
     model: DefaultNodeModel,
     defaultProps: {}

@@ -1,4 +1,5 @@
-continuous: Continuous Delivery
+continuousIntegration: 'Continuous Delivery'
+allowSimultaneousDeployments: Allow simultaneous deployments on the same infrastructure
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery
   learnMore: Learn more about Continuous Delivery
