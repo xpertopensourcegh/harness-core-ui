@@ -917,6 +917,23 @@ export const buildAppDynamicsPayload = (formData: FormData, accountId: string) =
   }
 })
 
+export const buildNewRelicPayload = (formData: FormData) => ({
+  connector: {
+    name: formData.name,
+    identifier: formData.identifier,
+    type: Connectors.NEW_RELIC,
+    projectIdentifier: formData.projectIdentifier,
+    orgIdentifier: formData.orgIdentifier,
+    spec: {
+      delegateSelectors: formData.delegateSelectors || {},
+      newRelicAccountId: formData.newRelicAccountId,
+      apiKeyRef: formData.apiKeyRef.referenceString,
+      url: formData.url?.value,
+      accountId: formData.accountId
+    }
+  }
+})
+
 export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
   connector: {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
