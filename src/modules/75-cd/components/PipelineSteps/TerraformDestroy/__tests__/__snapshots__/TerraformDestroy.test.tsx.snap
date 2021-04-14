@@ -579,7 +579,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      chartPath
+                      cd.folderPath
                        
                       <span
                         class="bp3-text-muted"
@@ -1434,7 +1434,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      chartPath
+                      cd.folderPath
                        
                       <span
                         class="bp3-text-muted"
@@ -3304,7 +3304,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      chartPath
+                      cd.folderPath
                        
                       <span
                         class="bp3-text-muted"

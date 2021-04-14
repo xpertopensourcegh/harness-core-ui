@@ -13,3 +13,4 @@ steps:
     namespacePlaceholder: Specify a namespace
   kubernetesGcpStep:
     stepName: Specify your GCP Connector
+folderPath: Folder Path

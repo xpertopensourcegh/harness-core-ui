@@ -935,7 +935,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      chartPath
+                      cd.folderPath
                        
                       <span
                         class="bp3-text-muted"

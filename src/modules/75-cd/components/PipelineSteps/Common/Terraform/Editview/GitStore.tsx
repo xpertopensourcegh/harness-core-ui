@@ -150,7 +150,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
       )}
       <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.MultiTextInput
-          label={getString('chartPath')}
+          label={getString('cd.folderPath')}
           placeholder={getString('pipeline.manifestType.pathPlaceholder')}
           name="spec.configuration.spec.configFiles.store.spec.folderPath"
           multiTextInputProps={{ expressions }}

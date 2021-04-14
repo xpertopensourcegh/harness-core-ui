@@ -46,7 +46,6 @@ export function StepWidget<T = unknown, U = unknown>(
     ) : null
   } else {
     const values = step?.getDefaultValues(initialValues, stepViewType)
-
     return (
       <>
         {step.renderStep({
