@@ -36,7 +36,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   }
 
   renderStep(props: StepProps<ContinousVerificationData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -61,6 +61,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
       <ContinousVerificationWidgetWithRef
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

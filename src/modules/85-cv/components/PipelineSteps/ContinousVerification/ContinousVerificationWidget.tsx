@@ -26,12 +26,13 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface ContinousVerificationWidgetProps {
   initialValues: ContinousVerificationFormData
+  isNewStep?: boolean
   onUpdate?: (data: ContinousVerificationFormData) => void
   stepViewType?: StepViewType
 }
 
 export function ContinousVerificationWidget(
-  { initialValues, onUpdate }: ContinousVerificationWidgetProps,
+  { initialValues, onUpdate, isNewStep }: ContinousVerificationWidgetProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element {
   const [jobContents, setJobContents] = useState<VerificationJobDTO[]>([])
@@ -98,7 +99,11 @@ export function ContinousVerificationWidget(
           setFormikRef(formikRef, formik)
           return (
             <Accordion activeId="step-1" className={stepCss.accordion}>
-              <Accordion.Panel id="step-1" summary={getString('basic')} details={<BaseContinousVerification />} />
+              <Accordion.Panel
+                id="step-1"
+                summary={getString('basic')}
+                details={<BaseContinousVerification formik={formik} isNewStep={isNewStep} />}
+              />
               <Accordion.Panel
                 id="step-2"
                 summary={getString('cv.connectors.cdng.defineVerificationJob')}

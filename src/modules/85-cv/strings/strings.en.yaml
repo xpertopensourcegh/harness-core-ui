@@ -159,7 +159,7 @@ onboarding:
   defaultChangeSource: Default change source that is already created for you
   changeSourceTypes:
     HarnessCDNextGen:
-      name: HarnessCD Next Gen
+      name: Harness CD Next Gen
       icon: cd-main
   monitoringSources:
     addMoreSources: Add more Monitoring Sources

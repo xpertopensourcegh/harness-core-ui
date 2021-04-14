@@ -92,6 +92,7 @@ function TypeTableCell(tableProps: CellProps<TableData>): JSX.Element {
     <Container>
       {tableProps.value === 'KUBERNETES' && <Icon name="service-kubernetes" size={18} />}
       {tableProps.value === 'HARNESS_CD10' && <Icon name="cd-main" size={18} />}
+      {tableProps.value === 'CDNG' && <Icon name="cd-main" size={18} />}
     </Container>
   )
 }
