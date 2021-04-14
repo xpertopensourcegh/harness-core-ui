@@ -16,7 +16,6 @@ import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { StringsContextProvider } from 'framework/strings/StringsContextProvider'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 
-import '@common/services'
 import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
