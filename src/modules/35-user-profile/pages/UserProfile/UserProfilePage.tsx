@@ -37,18 +37,22 @@ const UserProfilePage: React.FC = () => {
               <Text icon="main-email" iconProps={{ padding: { right: 'medium' } }}>
                 {user.email}
               </Text>
-              <Text icon="lock" iconProps={{ padding: { right: 'medium' } }}>
-                <Button minimal onClick={openPasswordModal} font={{ weight: 'semi-bold' }} className={css.button}>
-                  {getString('userProfile.changePassword')}
-                </Button>
-              </Text>
+              {__DEV__ ? (
+                <Text icon="lock" iconProps={{ padding: { right: 'medium' } }}>
+                  <Button minimal onClick={openPasswordModal} font={{ weight: 'semi-bold' }} className={css.button}>
+                    {getString('userProfile.changePassword')}
+                  </Button>
+                </Text>
+              ) : null}
             </Layout.Vertical>
-            <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
-              <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
-                {getString('userProfile.twofactorAuth')}
-              </Text>
-              <Switch />
-            </Layout.Horizontal>
+            {__DEV__ ? (
+              <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
+                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+                  {getString('userProfile.twofactorAuth')}
+                </Text>
+                <Switch />
+              </Layout.Horizontal>
+            ) : null}
           </Layout.Vertical>
         </Container>
         <Container width="70%" className={css.overview}>

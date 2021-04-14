@@ -543,59 +543,6 @@ exports[`User Profile Page User Profile 1`] = `
               </span>
               dummy@harness.io
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              <span
-                class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-medium"
-                icon="lock"
-              >
-                <svg
-                  data-icon="lock"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    lock
-                  </desc>
-                  <path
-                    d="M13.96 7H12V3.95C12 1.77 10.21 0 8 0S4 1.77 4 3.95V7H1.96c-.55 0-.96.35-.96.9v6.91c0 .54.41 1.19.96 1.19h12c.55 0 1.04-.65 1.04-1.19V7.9c0-.55-.49-.9-1.04-.9zM6 7V3.95c0-1.09.9-1.97 2-1.97s2 .88 2 1.97V7H6z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main button StyledProps--font-weight-semi-bold"
-                type="button"
-              >
-                <span
-                  class="bp3-button-text"
-                >
-                  userProfile.changePassword
-                </span>
-              </button>
-            </p>
-          </div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main authentication StyledProps--padding-large StyledProps--flex"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
-            >
-              userProfile.twofactorAuth
-            </p>
-            <label
-              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
-            >
-              <input
-                type="checkbox"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-            </label>
           </div>
         </div>
       </div>
