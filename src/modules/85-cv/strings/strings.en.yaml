@@ -110,6 +110,7 @@ admin:
       health: Health Verification
     confirmDeleteTitle: Delete Verification Job
     confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
+    cantBeCopied: 'Webhook url cant be copied for default jobs.'
 connectors:
   connectorDetailsHeader: '{{type}} Connector Details'
   addConnectorDetails: Add {{type}} Verification Provider
@@ -155,6 +156,11 @@ connectors:
       canary: CANARY
       health: HEALTH
 onboarding:
+  defaultChangeSource: Default change source that is already created for you
+  changeSourceTypes:
+    HarnessCDNextGen:
+      name: HarnessCD Next Gen
+      icon: cd-main
   monitoringSources:
     addMoreSources: Add more Monitoring Sources
     addedStatus: You have added {{sourceCount}} Monitoring Source

@@ -45,6 +45,11 @@ function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconP
         name: 'service-kubernetes',
         size: 15
       }
+    case 'CDNG':
+      return {
+        name: 'cd-main',
+        size: 15
+      }
     default:
       return {} as IconProps
   }

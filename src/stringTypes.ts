@@ -998,6 +998,7 @@ export interface StringsMap {
   'cv.admin.notifications.name': string
   'cv.admin.notifications.newNotification': string
   'cv.admin.notifications.updateSuccess': string
+  'cv.admin.verificationJobs.cantBeCopied': string
   'cv.admin.verificationJobs.confirmDeleteContent': string
   'cv.admin.verificationJobs.confirmDeleteTitle': string
   'cv.admin.verificationJobs.jobTypes.blueGreen': string
@@ -1166,6 +1167,9 @@ export interface StringsMap {
   'cv.noAnalysis': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
+  'cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon': string
+  'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name': string
+  'cv.onboarding.defaultChangeSource': string
   'cv.onboarding.monitoringSources.addConnector': string
   'cv.onboarding.monitoringSources.addMoreSources': string
   'cv.onboarding.monitoringSources.addedStatus': string
