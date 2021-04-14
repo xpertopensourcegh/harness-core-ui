@@ -160,7 +160,12 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
               startY: 50
             }}
           />
-          <DynamicPopover darkMode={true} render={renderPopover} bind={setDynamicPopoverHandler as any} />
+          <DynamicPopover
+            darkMode={true}
+            render={renderPopover}
+            bind={setDynamicPopoverHandler as any}
+            closeOnMouseOut
+          />
         </>
       )}
     </div>

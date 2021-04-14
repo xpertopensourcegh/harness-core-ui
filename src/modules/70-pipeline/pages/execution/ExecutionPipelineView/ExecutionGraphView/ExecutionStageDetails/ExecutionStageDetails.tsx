@@ -172,6 +172,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         darkMode={true}
         render={renderPopover}
         bind={setDynamicPopoverHandler as any}
+        closeOnMouseOut
       />
     </div>
   )

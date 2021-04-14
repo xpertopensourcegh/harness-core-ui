@@ -26,10 +26,11 @@ export interface DynamicPopoverProps<T> {
   darkMode?: boolean
   useArrows?: boolean
   bind: (dynamicPopoverHandler: DynamicPopoverHandlerBinding<T>) => void
+  closeOnMouseOut?: boolean
 }
 
 export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
-  const { bind, render, className = '', darkMode = false, useArrows = true } = props
+  const { bind, render, className = '', darkMode = false, useArrows = true, closeOnMouseOut } = props
   const [darkModeState, setDarkMode] = useState<boolean>(darkMode)
   const [useArrowsState, setArrowVisibility] = useState<boolean>(useArrows)
 
@@ -39,6 +40,8 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
   const [referenceElement, setReferenceElement] = useState<Element | PopperJS.VirtualElement | null>(null)
   const [visible, setVisibility] = useState<boolean>(false)
   const [hideCallback, setHideCallBack] = useState<() => void | undefined>()
+  const timerRef = React.useRef<number | null>(null)
+  const mouseInRef = React.useRef<boolean>(false)
 
   const { styles, attributes, forceUpdate } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
@@ -53,6 +56,9 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
     () =>
       ({
         show: (ref, dataTemp, options, callback) => {
+          if (timerRef.current) {
+            window.clearTimeout(timerRef.current)
+          }
           setVisibility(true)
           setData(dataTemp)
 
@@ -72,16 +78,28 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
           })
         },
         hide: () => {
-          setVisibility(false)
+          if (timerRef.current) {
+            window.clearTimeout(timerRef.current)
+          }
+
+          if (!mouseInRef.current) {
+            timerRef.current = window.setTimeout(() => setVisibility(false), 300)
+          }
         }
       } as DynamicPopoverHandlerBinding<T>),
-    []
+    [setVisibility]
   )
 
   React.useEffect(() => {
     if (!visible && hideCallback) {
       hideCallback()
       setHideCallBack(undefined)
+    }
+
+    return () => {
+      if (timerRef.current) {
+        window.clearTimeout(timerRef.current)
+      }
     }
   }, [hideCallback, visible])
 
@@ -97,6 +115,21 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
           className={cx(css.dynamicPopover, { [css.dark]: darkModeState }, className)}
           style={styles.popper}
           {...attributes.popper}
+          onMouseEnter={() => {
+            if (closeOnMouseOut) {
+              mouseInRef.current = true
+              if (timerRef.current) {
+                window.clearTimeout(timerRef.current)
+              }
+              setVisibility(true)
+            }
+          }}
+          onMouseLeave={() => {
+            if (closeOnMouseOut) {
+              mouseInRef.current = false
+              handler.hide()
+            }
+          }}
         >
           {data && render(data)}
           {useArrowsState && (
