@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import ReactTimeago from 'react-timeago'
@@ -89,17 +89,23 @@ export const SegmentsPage: React.FC = () => {
       )}
     </Layout.Horizontal>
   )
-  const gotoSegmentDetailPage = (identifier: string): void => {
-    history.push(
-      routes.toCFSegmentDetails({
-        segmentIdentifier: identifier as string,
-        environmentIdentifier: environment.value || NO_ENVIRONMENT_IDENTIFIER,
-        projectIdentifier,
-        orgIdentifier,
-        accountId
-      })
-    )
-  }
+  const gotoSegmentDetailPage = useCallback(
+    (identifier: string): void => {
+      const _environmentIdentifier =
+        environment?.value || (environments?.[0].value as string) || NO_ENVIRONMENT_IDENTIFIER
+
+      history.push(
+        routes.toCFSegmentDetails({
+          segmentIdentifier: identifier as string,
+          environmentIdentifier: _environmentIdentifier,
+          projectIdentifier,
+          orgIdentifier,
+          accountId
+        })
+      )
+    },
+    [history, accountId, orgIdentifier, projectIdentifier, environment?.value, environments]
+  )
   const toolbar = (
     <Layout.Horizontal>
       <NewSegmentButton
@@ -237,10 +243,14 @@ export const SegmentsPage: React.FC = () => {
   )
 
   useEffect(() => {
+    if (environments?.[0] && !environment?.value) {
+      setEnvironment(environments[0] as typeof environment)
+    }
+
     return () => {
       clear()
     }
-  }, [clear])
+  }, [clear, environments, environment, environment?.value, setEnvironment])
 
   const content = noEnvironmentExists ? (
     <Container flex={{ align: 'center-center' }} height="100%">

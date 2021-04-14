@@ -271,10 +271,14 @@ export const TargetsPage: React.FC = () => {
   )
 
   useEffect(() => {
+    if (environments?.[0] && !environment?.label) {
+      setEnvironment(environments[0] as typeof environment)
+    }
+
     return () => {
       clear()
     }
-  }, [clear])
+  }, [clear, environments, environment, environment?.label, setEnvironment])
 
   const content = noEnvironmentExists ? (
     <Container flex={{ align: 'center-center' }} height="100%">
