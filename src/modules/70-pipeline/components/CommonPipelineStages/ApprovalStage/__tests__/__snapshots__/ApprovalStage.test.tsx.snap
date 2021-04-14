@@ -763,11 +763,11 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-input-group bp3-disabled"
+                                class="bp3-input-group"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
-                                  disabled=""
                                   name="skipCondition"
                                   type="text"
                                   value=""

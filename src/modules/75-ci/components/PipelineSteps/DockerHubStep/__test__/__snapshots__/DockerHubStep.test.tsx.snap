@@ -296,6 +296,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.repo"
                         type="text"
@@ -453,6 +454,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.tags[0].value"
                               type="text"
@@ -530,6 +532,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.tags[1].value"
                               type="text"
@@ -607,6 +610,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.tags[2].value"
                               type="text"
@@ -743,6 +747,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.dockerfile"
                         type="text"
@@ -835,6 +840,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.context"
                         type="text"
@@ -1033,6 +1039,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.labels[0].value"
                                   type="text"
@@ -1143,6 +1150,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.labels[1].value"
                                   type="text"
@@ -1253,6 +1261,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.labels[2].value"
                                   type="text"
@@ -1488,6 +1497,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.buildArgs[0].value"
                                   type="text"
@@ -1598,6 +1608,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.buildArgs[1].value"
                                   type="text"
@@ -1708,6 +1719,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.buildArgs[2].value"
                                   type="text"
@@ -1837,6 +1849,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.target"
                         type="text"
@@ -1939,6 +1952,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -2005,6 +2019,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"
@@ -3925,6 +3940,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.repo"
                         type="text"
@@ -4082,6 +4098,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.tags[0].value"
                               type="text"
@@ -4218,6 +4235,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.dockerfile"
                         type="text"
@@ -4310,6 +4328,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.context"
                         type="text"
@@ -4508,6 +4527,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.labels[0].value"
                                   type="text"
@@ -4743,6 +4763,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.buildArgs[0].value"
                                   type="text"
@@ -4872,6 +4893,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.target"
                         type="text"
@@ -4974,6 +4996,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -5040,6 +5063,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"

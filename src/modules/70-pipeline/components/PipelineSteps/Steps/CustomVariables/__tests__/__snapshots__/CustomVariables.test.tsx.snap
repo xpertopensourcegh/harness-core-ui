@@ -70,6 +70,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                   class="bp3-input-group MultiTypeInput--input"
                 >
                   <input
+                    autocomplete="off"
                     class="bp3-input"
                     name="variables[0].value"
                     type="text"
@@ -288,6 +289,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="variables[0].value"
                   type="text"
@@ -480,6 +482,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="variables[1].value"
                   type="number"
@@ -726,6 +729,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="variables[0].value"
                   type="text"
@@ -918,6 +922,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="variables[1].value"
                   type="number"
@@ -1433,6 +1438,7 @@ exports[`Custom Variables should render variables 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="variables[0].value"
                   type="text"
@@ -1625,6 +1631,7 @@ exports[`Custom Variables should render variables 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="variables[1].value"
                   type="number"

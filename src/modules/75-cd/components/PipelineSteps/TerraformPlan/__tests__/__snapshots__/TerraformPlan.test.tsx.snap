@@ -152,6 +152,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -380,6 +381,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
                             type="text"
@@ -627,6 +629,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.configFiles.store.spec.folderPath"
                             placeholder="pipeline.manifestType.pathPlaceholder"
@@ -905,6 +908,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -1133,6 +1137,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
                             type="text"
@@ -1380,6 +1385,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.configFiles.store.spec.folderPath"
                             placeholder="pipeline.manifestType.pathPlaceholder"
@@ -1658,6 +1664,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -1886,6 +1893,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
                             type="text"
@@ -2133,6 +2141,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.configFiles.store.spec.folderPath"
                             placeholder="pipeline.manifestType.pathPlaceholder"
@@ -2413,6 +2422,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -2641,6 +2651,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
                             type="text"
@@ -2888,6 +2899,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.configFiles.store.spec.folderPath"
                             placeholder="pipeline.manifestType.pathPlaceholder"

@@ -190,6 +190,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                               class="bp3-input-group MultiTypeInput--input"
                             >
                               <input
+                                autocomplete="off"
                                 class="bp3-input"
                                 name="namespace"
                                 type="text"
@@ -432,6 +433,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                               class="bp3-input-group MultiTypeInput--input"
                             >
                               <input
+                                autocomplete="off"
                                 class="bp3-input"
                                 name="namespace"
                                 type="text"

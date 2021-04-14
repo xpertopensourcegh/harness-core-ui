@@ -395,6 +395,7 @@ exports[`Http Step edit mode works 1`] = `
                                   class="bp3-input-group MultiTypeInput--input"
                                 >
                                   <input
+                                    autocomplete="off"
                                     class="bp3-input"
                                     name="spec.headers[0].value"
                                     type="text"
@@ -1815,6 +1816,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.url"
                             type="text"
@@ -2107,6 +2109,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.assertion"
                             type="text"

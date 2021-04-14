@@ -532,6 +532,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="namespace"
                       placeholder="cd.steps.common.namespacePlaceholder"
@@ -597,6 +598,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="releaseName"
                       placeholder="cd.steps.common.releaseNamePlaceholder"
@@ -1378,6 +1380,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="namespace"
                       placeholder="cd.steps.common.namespacePlaceholder"
@@ -1443,6 +1446,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="releaseName"
                       placeholder="cd.steps.common.releaseNamePlaceholder"

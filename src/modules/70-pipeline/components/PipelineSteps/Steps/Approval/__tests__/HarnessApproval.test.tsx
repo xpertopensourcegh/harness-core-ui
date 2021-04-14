@@ -118,7 +118,7 @@ describe('Harness Approval tests', () => {
 
     fireEvent.click(getByText('pipeline.approvalStep.approvers'))
     await act(() => ref.current?.submitForm())
-    expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy()
+    await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy())
   })
 
   test('On submit call', async () => {

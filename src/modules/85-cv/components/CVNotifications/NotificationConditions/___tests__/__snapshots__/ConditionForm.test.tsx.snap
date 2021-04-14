@@ -94,6 +94,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                             </button>
                           </span>
                           <input
+                            autocomplete="off"
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             name="services"
                             value=""
@@ -172,6 +173,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                             </button>
                           </span>
                           <input
+                            autocomplete="off"
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             name="environments"
                             value=""

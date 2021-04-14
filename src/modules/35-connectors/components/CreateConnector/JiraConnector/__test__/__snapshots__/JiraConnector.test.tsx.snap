@@ -565,6 +565,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="jiraUrl"
                           type="text"

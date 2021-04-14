@@ -183,6 +183,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="spec.deleteResources.spec.manifestPaths[0].value"
                       placeholder="pipelineSteps.manifestPathsPlaceHolder"
@@ -264,6 +265,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="spec.deleteResources.spec.manifestPaths[1].value"
                       placeholder="pipelineSteps.manifestPathsPlaceHolder"
@@ -897,6 +899,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="spec.deleteResources.spec.resourceNames[0].value"
                       placeholder="pipelineSteps.deleteResourcesPlaceHolder"
@@ -978,6 +981,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                     class="bp3-input-group MultiTypeInput--input"
                   >
                     <input
+                      autocomplete="off"
                       class="bp3-input"
                       name="spec.deleteResources.spec.resourceNames[1].value"
                       placeholder="pipelineSteps.deleteResourcesPlaceHolder"

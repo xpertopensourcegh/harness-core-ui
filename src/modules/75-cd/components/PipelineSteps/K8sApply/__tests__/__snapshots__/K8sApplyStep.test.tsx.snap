@@ -187,6 +187,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.filePaths[0].value"
                           placeholder="Enter overrides file path"
@@ -268,6 +269,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.filePaths[1].value"
                           placeholder="Enter overrides file path"

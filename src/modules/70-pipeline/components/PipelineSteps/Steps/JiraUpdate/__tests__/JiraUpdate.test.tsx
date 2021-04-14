@@ -121,7 +121,7 @@ describe('Jira Update tests', () => {
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     await act(() => ref.current?.submitForm())
-    expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
+    await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy())
   })
 
   test('Open a saved step - edit stage view', async () => {

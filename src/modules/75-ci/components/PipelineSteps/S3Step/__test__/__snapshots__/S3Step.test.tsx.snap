@@ -294,6 +294,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.region"
                         placeholder="pipelineSteps.regionPlaceholder"
@@ -387,6 +388,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.bucket"
                         type="text"
@@ -479,6 +481,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.sourcePath"
                         type="text"
@@ -580,6 +583,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.endpoint"
                         placeholder="pipelineSteps.endpointPlaceholder"
@@ -673,6 +677,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.target"
                         placeholder="pipelineSteps.artifactsTargetPlaceholder"
@@ -776,6 +781,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -842,6 +848,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"
@@ -2494,6 +2501,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.region"
                         placeholder="pipelineSteps.regionPlaceholder"
@@ -2587,6 +2595,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.bucket"
                         type="text"
@@ -2679,6 +2688,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.sourcePath"
                         type="text"
@@ -2780,6 +2790,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.endpoint"
                         placeholder="pipelineSteps.endpointPlaceholder"
@@ -2873,6 +2884,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.target"
                         placeholder="pipelineSteps.artifactsTargetPlaceholder"
@@ -2976,6 +2988,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -3042,6 +3055,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"

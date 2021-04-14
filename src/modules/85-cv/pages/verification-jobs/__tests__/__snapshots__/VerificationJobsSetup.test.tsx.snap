@@ -394,6 +394,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                                         class="bp3-tag-input-values"
                                       >
                                         <input
+                                          autocomplete="off"
                                           class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                           name="dataSource"
                                           placeholder="Search..."

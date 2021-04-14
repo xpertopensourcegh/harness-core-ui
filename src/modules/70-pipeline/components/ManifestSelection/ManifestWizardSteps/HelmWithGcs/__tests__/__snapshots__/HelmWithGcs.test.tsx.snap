@@ -80,6 +80,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -148,6 +149,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -212,6 +214,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
                         placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
@@ -280,6 +283,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
                         placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"
@@ -567,6 +571,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -635,6 +640,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -699,6 +705,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
                         placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
@@ -767,6 +774,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
                         placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"
@@ -1054,6 +1062,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -1122,6 +1131,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -1186,6 +1196,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
                         placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
@@ -1254,6 +1265,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
                         placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"

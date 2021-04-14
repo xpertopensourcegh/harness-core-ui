@@ -611,6 +611,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                                           class="bp3-tag-input-values"
                                         >
                                           <input
+                                            autocomplete="off"
                                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                             disabled=""
                                             name="actions"
@@ -1828,6 +1829,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                             </button>
                                           </span>
                                           <input
+                                            autocomplete="off"
                                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                             name="actions"
                                             value=""
@@ -2546,6 +2548,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                           class="bp3-tag-input-values"
                                         >
                                           <input
+                                            autocomplete="off"
                                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                             disabled=""
                                             name="actions"

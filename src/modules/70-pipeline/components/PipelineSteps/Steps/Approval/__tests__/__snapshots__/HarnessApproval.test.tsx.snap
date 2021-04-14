@@ -80,6 +80,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
                   class="bp3-tag-input-values"
                 >
                   <input
+                    autocomplete="off"
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
                     placeholder="pipeline.approvalStep.addUserGroups"
@@ -426,6 +427,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
                   class="bp3-tag-input-values"
                 >
                   <input
+                    autocomplete="off"
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
                     placeholder="pipeline.approvalStep.addUserGroups"

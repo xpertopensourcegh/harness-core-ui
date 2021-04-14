@@ -142,6 +142,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
                         placeholder="pipeline.manifestType.branchPlaceholder"
@@ -210,6 +211,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -302,6 +304,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -613,6 +616,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
                         placeholder="pipeline.manifestType.branchPlaceholder"
@@ -681,6 +685,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -773,6 +778,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -1084,6 +1090,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
                         placeholder="pipeline.manifestType.branchPlaceholder"
@@ -1152,6 +1159,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"
@@ -1244,6 +1252,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
                         placeholder="pipeline.manifestType.pathPlaceholder"

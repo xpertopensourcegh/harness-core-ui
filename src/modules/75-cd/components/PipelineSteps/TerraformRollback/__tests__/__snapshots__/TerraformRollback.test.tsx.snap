@@ -147,6 +147,7 @@ exports[`Test TerraformRollback should render edit view as edit step 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -372,6 +373,7 @@ exports[`Test TerraformRollback should render edit view as new step 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"

@@ -142,6 +142,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
                         placeholder="pipeline.manifestType.branchPlaceholder"
@@ -478,6 +479,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
                         placeholder="pipeline.manifestType.branchPlaceholder"

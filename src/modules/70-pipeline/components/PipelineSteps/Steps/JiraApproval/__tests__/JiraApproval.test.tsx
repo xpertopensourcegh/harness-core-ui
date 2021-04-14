@@ -122,12 +122,16 @@ describe('Jira Approval tests', () => {
     fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     await act(() => ref.current?.submitForm())
 
-    expect(queryByText('pipeline.jiraApprovalStep.validations.project')).toBeTruthy()
-    expect(queryByText('pipeline.jiraApprovalStep.validations.issueType')).toBeTruthy()
-    expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
+    await waitFor(() => {
+      expect(queryByText('pipeline.jiraApprovalStep.validations.project')).toBeTruthy()
+      expect(queryByText('pipeline.jiraApprovalStep.validations.issueType')).toBeTruthy()
+      expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
+    })
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
-    expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeTruthy()
+    await waitFor(() =>
+      expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeTruthy()
+    )
 
     fireEvent.click(getByText('common.jexlExpression'))
     await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy())

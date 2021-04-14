@@ -359,6 +359,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.image"
                         placeholder="imagePlaceholder"
@@ -658,6 +659,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.reportPaths[0].value"
                               placeholder="pipelineSteps.reportPathsPlaceholder"
@@ -736,6 +738,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.reportPaths[1].value"
                               placeholder="pipelineSteps.reportPathsPlaceholder"
@@ -814,6 +817,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.reportPaths[2].value"
                               placeholder="pipelineSteps.reportPathsPlaceholder"
@@ -892,6 +896,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.reportPaths[3].value"
                               placeholder="pipelineSteps.reportPathsPlaceholder"
@@ -970,6 +975,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.reportPaths[4].value"
                               placeholder="pipelineSteps.reportPathsPlaceholder"
@@ -1204,6 +1210,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.envVariables[0].value"
                                   type="text"
@@ -1314,6 +1321,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.envVariables[1].value"
                                   type="text"
@@ -1424,6 +1432,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.envVariables[2].value"
                                   type="text"
@@ -1618,6 +1627,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.outputVariables[0].value"
                               type="text"
@@ -1695,6 +1705,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.outputVariables[1].value"
                               type="text"
@@ -1772,6 +1783,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.outputVariables[2].value"
                               type="text"
@@ -1849,6 +1861,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.outputVariables[3].value"
                               type="text"
@@ -1986,6 +1999,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -2052,6 +2066,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"
@@ -3891,6 +3906,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.image"
                         placeholder="imagePlaceholder"
@@ -4188,6 +4204,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.reportPaths[0].value"
                               placeholder="pipelineSteps.reportPathsPlaceholder"
@@ -4422,6 +4439,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.envVariables[0].value"
                                   type="text"
@@ -4616,6 +4634,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                             class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
+                              autocomplete="off"
                               class="bp3-input"
                               name="spec.outputVariables[0].value"
                               type="text"
@@ -4753,6 +4772,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -4819,6 +4839,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"

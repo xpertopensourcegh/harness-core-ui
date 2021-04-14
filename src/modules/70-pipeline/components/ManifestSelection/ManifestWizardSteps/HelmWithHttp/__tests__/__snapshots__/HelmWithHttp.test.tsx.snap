@@ -80,6 +80,7 @@ exports[`helm with http tests renders correctly in edit mode with connectorref 1
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
                         placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
@@ -148,6 +149,7 @@ exports[`helm with http tests renders correctly in edit mode with connectorref 1
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
                         placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"
@@ -435,6 +437,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
                         placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
@@ -503,6 +506,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
                         placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"

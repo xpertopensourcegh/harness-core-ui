@@ -120,11 +120,13 @@ describe('Jira Create tests', () => {
     fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     await act(() => ref.current?.submitForm())
 
-    expect(queryByText('pipeline.jiraApprovalStep.validations.project')).toBeTruthy()
-    expect(queryByText('pipeline.jiraApprovalStep.validations.issueType')).toBeTruthy()
+    await waitFor(() => {
+      expect(queryByText('pipeline.jiraApprovalStep.validations.project')).toBeTruthy()
+      expect(queryByText('pipeline.jiraApprovalStep.validations.issueType')).toBeTruthy()
+    })
 
     fireEvent.click(getByText('pipeline.jiraCreateStep.fields'))
-    expect(queryByText('pipeline.jiraCreateStep.validations.summary')).toBeTruthy()
+    await waitFor(() => expect(queryByText('pipeline.jiraCreateStep.validations.summary')).toBeTruthy())
   })
 
   test('Open a saved step - edit stage view', async () => {

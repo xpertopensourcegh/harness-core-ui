@@ -361,6 +361,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.image"
                         placeholder="pluginImagePlaceholder"
@@ -569,6 +570,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.settings[0].value"
                                   type="text"
@@ -679,6 +681,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.settings[1].value"
                                   type="text"
@@ -789,6 +792,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.settings[2].value"
                                   type="text"
@@ -928,6 +932,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -994,6 +999,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"
@@ -2450,6 +2456,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.image"
                         placeholder="pluginImagePlaceholder"
@@ -2658,6 +2665,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="spec.settings[0].value"
                                   type="text"
@@ -2797,6 +2805,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
                           placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -2863,6 +2872,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
                         class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
                           placeholder="pipelineSteps.limitCPUPlaceholder"

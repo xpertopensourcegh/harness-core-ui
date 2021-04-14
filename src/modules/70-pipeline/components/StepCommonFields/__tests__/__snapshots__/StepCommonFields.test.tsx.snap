@@ -73,6 +73,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitMemory"
                         placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -139,6 +140,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitCPU"
                         placeholder="pipelineSteps.limitCPUPlaceholder"
@@ -359,6 +361,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitMemory"
                         placeholder="pipelineSteps.limitMemoryPlaceholder"
@@ -425,6 +428,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitCPU"
                         placeholder="pipelineSteps.limitCPUPlaceholder"

@@ -339,6 +339,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="sharedPaths[0].value"
                                   type="text"
@@ -533,6 +534,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                                 class="bp3-input-group"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="skipCondition"
                                   type="text"
@@ -911,6 +913,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                                 class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="sharedPaths[0].value"
                                   type="text"
@@ -1105,6 +1108,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                                 class="bp3-input-group"
                               >
                                 <input
+                                  autocomplete="off"
                                   class="bp3-input"
                                   name="skipCondition"
                                   type="text"

@@ -142,6 +142,7 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
                         placeholder="pipeline.manifestType.branchPlaceholder"
@@ -210,6 +211,7 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="path"
                         placeholder="pipeline.manifestType.osTemplatePathPlaceHolder"
@@ -493,6 +495,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
                         placeholder="pipeline.manifestType.branchPlaceholder"
@@ -561,6 +564,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="path"
                         placeholder="pipeline.manifestType.osTemplatePathPlaceHolder"
