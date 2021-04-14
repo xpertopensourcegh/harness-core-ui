@@ -215,7 +215,19 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
       toolbar={
         hasEnvs && (
           <Layout.Horizontal>
-            <EnvironmentDialog disabled={loading} onCreate={() => refetch()} />
+            <EnvironmentDialog
+              disabled={loading}
+              onCreate={response => {
+                history.push(
+                  routes.toCFEnvironmentDetails({
+                    environmentIdentifier: response?.data?.identifier as string,
+                    projectIdentifier,
+                    orgIdentifier,
+                    accountId
+                  })
+                )
+              }}
+            />
           </Layout.Horizontal>
         )
       }
