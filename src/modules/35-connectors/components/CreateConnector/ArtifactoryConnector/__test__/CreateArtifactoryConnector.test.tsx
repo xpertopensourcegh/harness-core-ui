@@ -94,12 +94,15 @@ describe('Create Artifactory connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: {
-        ...mockConnector,
-        name: updatedName
-      }
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: {
+          ...mockConnector,
+          name: updatedName
+        }
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({

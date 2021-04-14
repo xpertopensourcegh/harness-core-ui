@@ -7,12 +7,14 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 export interface GitSyncStoreProps {
   readonly gitSyncRepos: GitSyncConfig[]
+  readonly loadingRepos: boolean
   updateStore(data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void
   refreshStore(): void
 }
 
 export const GitSyncStoreContext = React.createContext<GitSyncStoreProps>({
   gitSyncRepos: [],
+  loadingRepos: false,
   updateStore: noop,
   refreshStore: noop
 })
@@ -26,22 +28,37 @@ export const GitSyncStoreProvider: React.FC = props => {
 
   //Note: right now we support git-sync only at project level
   const { data: dataAllGitSync, loading: loadingRepos, refetch } = useListGitSync({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    lazy: true
   })
 
   const [storeData, setStoreData] = React.useState<Omit<GitSyncStoreProps, 'updateStore' | 'strings'>>({
     gitSyncRepos: [],
+    loadingRepos,
     refreshStore: refetch
   })
 
   useEffect(() => {
-    if (projectIdentifier) {
+    if (!loadingRepos) {
       setStoreData(prevStateData => ({
         ...prevStateData,
+        loadingRepos: false,
         gitSyncRepos: dataAllGitSync || []
       }))
     }
-  }, [dataAllGitSync, projectIdentifier])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingRepos])
+
+  useEffect(() => {
+    if (projectIdentifier) {
+      refetch()
+      setStoreData(prevStateData => ({
+        ...prevStateData,
+        loadingRepos: true
+      }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectIdentifier])
 
   const updateStore = useCallback(
     () => (data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void => {

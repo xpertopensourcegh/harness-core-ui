@@ -164,9 +164,12 @@ describe('Create Gitlab connector Wizard', () => {
     })
 
     expect(updateConnector).toBeCalledTimes(1)
-    expect(updateConnector).toBeCalledWith({
-      connector: sshAuthWithAPIAccessToken
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: sshAuthWithAPIAccessToken
+      },
+      { queryParams: {} }
+    )
   })
 
   test('should be able to edit  usernamePassword without API access', async () => {
@@ -201,9 +204,12 @@ describe('Create Gitlab connector Wizard', () => {
     })
 
     expect(updateConnector).toBeCalledTimes(1)
-    expect(updateConnector).toBeCalledWith({
-      connector: usernamePassword
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernamePassword
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({

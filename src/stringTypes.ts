@@ -25,6 +25,15 @@ export interface StringsMap {
   'common.editVariable': string
   'common.editVariableType': string
   'common.execute': string
+  'common.git.branchSelectHeader': string
+  'common.git.commitMessage': string
+  'common.git.existingBranchCommitLabel': string
+  'common.git.filePath': string
+  'common.git.newBranchCommitLabel': string
+  'common.git.saveResourceLabel': string
+  'common.git.selectRepoLabel': string
+  'common.git.startPRLabel': string
+  'common.git.validation.filePath': string
   'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string

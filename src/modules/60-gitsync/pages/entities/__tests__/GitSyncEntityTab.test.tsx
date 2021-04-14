@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor, act, fireEvent } from '@testing-library/react'
-import { GitSyncTestWrapper } from '@gitsync/common/gitSyncTestUtils'
+import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 import GitSyncEntityTab from '../GitSyncEntityTab'
 import mockData from './mockData/entitiesMockResponse.json'
 

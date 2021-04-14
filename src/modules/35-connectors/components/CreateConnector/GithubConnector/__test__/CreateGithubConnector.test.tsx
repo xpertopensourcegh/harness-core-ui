@@ -162,7 +162,7 @@ describe('Create Github connector Wizard', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should form for edit http and authtype username-token with API access', async () => {
+  test('should render form for edit http and authtype username-token with API access', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
@@ -193,9 +193,12 @@ describe('Create Github connector Wizard', () => {
     })
 
     expect(updateConnector).toBeCalledTimes(1)
-    expect(updateConnector).toBeCalledWith({
-      connector: usernameTokenWithAPIAccessGithubApp
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernameTokenWithAPIAccessGithubApp
+      },
+      { queryParams: {} } // gitSync disabled for account level
+    )
   })
 
   test('should form for edit http and authtype username-token with API access', async () => {
@@ -228,9 +231,12 @@ describe('Create Github connector Wizard', () => {
       clickSubmit(container)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: usernameTokenWithAPIAccessToken
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernameTokenWithAPIAccessToken
+      },
+      { queryParams: {} } // gitSync disabled for account level
+    )
   })
 
   backButtonTest({

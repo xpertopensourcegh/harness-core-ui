@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, findByText, waitFor } from '@testing-library/react'
-import { GitSyncTestWrapper } from '@gitsync/common/gitSyncTestUtils'
+import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 import GitSyncRepoTab from '../GitSyncRepoTab'
 
 const createGitSynRepo = jest.fn()

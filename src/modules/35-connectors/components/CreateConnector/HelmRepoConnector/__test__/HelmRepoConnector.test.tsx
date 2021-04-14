@@ -93,20 +93,23 @@ describe('Create Helm Connector  Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'devConnector description',
-        identifier: 'devConnector',
-        name: 'dummy name',
-        spec: {
-          delegateSelectors: [],
-          auth: { type: 'Anonymous' },
-          helmRepoUrl: 'https://index.docker.io/v2/'
-        },
-        tags: {},
-        type: 'HttpHelmRepo'
-      }
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: {
+          description: 'devConnector description',
+          identifier: 'devConnector',
+          name: 'dummy name',
+          spec: {
+            delegateSelectors: [],
+            auth: { type: 'Anonymous' },
+            helmRepoUrl: 'https://index.docker.io/v2/'
+          },
+          tags: {},
+          type: 'HttpHelmRepo'
+        }
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({

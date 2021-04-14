@@ -14,7 +14,8 @@ import {
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
-import { getEntityHeaderText, getTableColumns, Entities } from './EntityHelper'
+import { Entities } from '@common/interfaces/GitSyncInterface'
+import { getEntityHeaderText, getTableColumns } from './EntityHelper'
 import EntitiesListing from './EntitiesListing'
 import css from './GitSyncEntityTab.module.scss'
 

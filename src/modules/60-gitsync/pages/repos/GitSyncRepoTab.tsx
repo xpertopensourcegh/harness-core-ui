@@ -8,7 +8,7 @@ import type { GitSyncConfig } from 'services/cd-ng'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/exports'
 import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
-import { useGitSyncStore } from '@gitsync/common/GitSyncStoreContext'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './GitSyncRepoTab.module.scss'
 
 const GitSyncRepoTab: React.FC = () => {

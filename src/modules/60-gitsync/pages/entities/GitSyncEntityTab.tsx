@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { noop } from 'lodash-es'
-import { useGitSyncStore } from '@gitsync/common/GitSyncStoreContext'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { GitSyncConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import EntitiesPreview from './EntitiesPreview'

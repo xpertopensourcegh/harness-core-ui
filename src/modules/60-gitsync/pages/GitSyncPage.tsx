@@ -2,10 +2,9 @@ import React, { ReactNode } from 'react'
 import { Layout, Text, Color, Icon } from '@wings-software/uicore'
 import { useParams, Link, NavLink } from 'react-router-dom'
 import { Page } from '@common/exports'
-
 import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
-import { GitSyncStoreProvider } from '@gitsync/common/GitSyncStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 
 import NewUserView from './newUser/NewUserView'
 import css from './GitSyncPage.module.scss'

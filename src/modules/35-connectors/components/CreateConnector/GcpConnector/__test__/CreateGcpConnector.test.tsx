@@ -71,7 +71,7 @@ describe('Create GCP connector Wizard', () => {
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
-
+    // step 2 - GCP auth step
     expect(queryByText(container, 'connectors.GCP.delegateOutClusterInfo')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
@@ -79,24 +79,20 @@ describe('Create GCP connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    // updating connector
+    // step 3 - delegate selection step
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    const delegateSelector = container.querySelector('[data-name="DelegateSelectors"]')
-    expect(delegateSelector).toBeTruthy()
-
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-
-    expect(updateConnector).toBeCalledWith({
-      connector: {
-        ...encryptedKeyMock,
-        name: 'dummy name'
-      }
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: {
+          ...encryptedKeyMock,
+          name: 'dummy name'
+        }
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({

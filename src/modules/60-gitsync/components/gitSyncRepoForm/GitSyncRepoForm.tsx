@@ -12,13 +12,14 @@ import {
   Icon,
   FormInput,
   IconName,
-  Card
+  Card,
+  SelectOption
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { noop, pick } from 'lodash-es'
 import { useToaster, StringUtils } from '@common/exports'
-import { usePostGitSync, GitSyncConfig } from 'services/cd-ng'
+import { usePostGitSync, GitSyncConfig, getListOfBranchesByConnectorPromise } from 'services/cd-ng'
 
 import { useStrings } from 'framework/exports'
 import { Connectors } from '@connectors/constants'
@@ -59,6 +60,8 @@ interface GitSyncFormInterface {
 const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
+  const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
 
@@ -189,9 +192,35 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         label: value.name || '',
                         value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
                         scope: scope,
+                        live: value?.status?.status === 'SUCCESS',
                         connector: value
                       })
                       setFieldValue('repo', value?.spec?.url)
+
+                      if (value?.spec?.type === GitUrlType.REPO) {
+                        setLoadingBranchList(true)
+                        getListOfBranchesByConnectorPromise({
+                          queryParams: {
+                            identifier: value?.identifier,
+                            accountIdentifier: accountId,
+                            orgIdentifier,
+                            projectIdentifier,
+                            repoURL: value?.spec?.url
+                          }
+                        }).then(response => {
+                          setLoadingBranchList(false)
+                          setBranchSelectOptions(
+                            response.data?.length
+                              ? response.data.map((branch: string) => {
+                                  return {
+                                    label: branch || '',
+                                    value: branch || ''
+                                  }
+                                })
+                              : []
+                          )
+                        })
+                      }
                     }}
                   />
 
@@ -202,7 +231,12 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       (formValues.gitConnector as ConnectorSelectedValue)?.connector?.spec?.type === GitUrlType.REPO
                     }
                   />
-                  <FormInput.Text name="branch" label={getString('connectors.git.branchName')} />
+                  <FormInput.Select
+                    name="branch"
+                    disabled={loadingBranchList}
+                    items={branchSelectOptions}
+                    label={getString('connectors.git.branchName')}
+                  />
                 </Container>
 
                 <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
