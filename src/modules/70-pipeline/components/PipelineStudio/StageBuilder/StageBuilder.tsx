@@ -30,7 +30,8 @@ import {
   EmptyNodeSeparator,
   StageState,
   resetDiagram,
-  removeNodeFromPipeline
+  removeNodeFromPipeline,
+  mayBeStripCIProps
 } from './StageBuilderUtil'
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
@@ -151,7 +152,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     onCloseDialog: async (isConfirmed: boolean) => {
       if (deleteId && isConfirmed) {
         const isRemove = removeNodeFromPipeline(getStageFromPipeline(deleteId), pipeline, stageMap)
-        if (isRemove) {
+        const isStripped = mayBeStripCIProps(pipeline)
+        if (isRemove || isStripped) {
           updatePipeline(pipeline)
           showSuccess(getString('deleteStageSuccess'))
         } else {
