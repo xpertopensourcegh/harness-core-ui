@@ -38,7 +38,7 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
       }
     }
   }
-  protected stepIcon: IconName = 'terraform-apply'
+  protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Destroy'
   validateInputSet(
     data: TerraformData,

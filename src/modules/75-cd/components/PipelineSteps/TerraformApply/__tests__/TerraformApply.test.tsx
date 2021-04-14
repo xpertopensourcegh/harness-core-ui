@@ -225,7 +225,7 @@ describe('Test TerraformApply', () => {
             }
           }
         }}
-        type={StepType.TerraformDestroy}
+        type={StepType.TerraformApply}
         stepViewType={StepViewType.InputVariable}
       />
     )

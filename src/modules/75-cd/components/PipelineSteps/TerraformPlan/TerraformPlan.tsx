@@ -38,7 +38,7 @@ export class TerraformPlan extends PipelineStep<TerraformData> {
       }
     }
   }
-  protected stepIcon: IconName = 'terraform-plan'
+  protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Plan'
   validateInputSet(
     data: TerraformData,

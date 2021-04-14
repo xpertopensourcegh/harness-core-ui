@@ -38,7 +38,7 @@ export class TerraformApply extends PipelineStep<TerraformData> {
       }
     }
   }
-  protected stepIcon: IconName = 'terraform-apply'
+  protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Apply'
   /* istanbul ignore else */
   validateInputSet(
@@ -48,6 +48,7 @@ export class TerraformApply extends PipelineStep<TerraformData> {
   ): FormikErrors<TerraformData> {
     /* istanbul ignore else */
     const errors = {} as any
+    /* istanbul ignore else */
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
@@ -72,7 +73,6 @@ export class TerraformApply extends PipelineStep<TerraformData> {
   }
   renderStep(props: StepProps<TerraformData, unknown>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
-
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
