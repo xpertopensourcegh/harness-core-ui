@@ -131,7 +131,6 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
       </HoverCard>
     )
   }
-
   return (
     <div className={css.main}>
       {!isEmpty(props.selectedStage) && data.items?.length > 0 && (

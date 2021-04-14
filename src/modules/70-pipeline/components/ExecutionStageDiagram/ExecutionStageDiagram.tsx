@@ -4,9 +4,10 @@ import classNames from 'classnames'
 import { noop } from 'lodash-es'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import { Button, Layout } from '@wings-software/uicore'
+import { Button, Layout, Icon } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
-import ExecutionContext from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { Tooltip } from '@blueprintjs/core'
+import ExecutionContext, { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -110,6 +111,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     PipelineType<ExecutionPathParams>
   >()
 
+  const { pipelineStagesMap } = useExecutionContext()
   const [autoPosition, setAutoPosition] = React.useState(true)
 
   const [groupStage, setGroupStage] = React.useState<Map<string, GroupState<T>>>()
@@ -119,6 +121,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     setGroupStage(stageData)
   }, [data])
 
+  const currentStage = pipelineStagesMap.get(selectedStage?.value || '')
   const updateGroupStage = (event: Diagram.DefaultNodeEvent): void => {
     const group = groupStage?.get(event.entity.getIdentifier())
     if (group && groupStage) {
@@ -309,6 +312,13 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                     {item[1].name}
                   </span>
                 ))}
+            </div>
+          )}
+          {currentStage?.failureInfo?.message && (
+            <div>
+              <Tooltip content={currentStage?.failureInfo?.message} portalClassName={css.errorTooltip}>
+                <Icon data-testId="stage-error-tooltip" className={css.stageError} name="warning-sign" size={18} />
+              </Tooltip>
             </div>
           )}
         </Layout.Horizontal>
