@@ -1013,6 +1013,28 @@ export interface StringsMap {
   'cv.changesPage.viewKubernetesEvents': string
   'cv.connectors.addConnectorDetails': string
   'cv.connectors.appD.controllerUrlValidation': string
+  'cv.connectors.cdng.baseline': string
+  'cv.connectors.cdng.baselineDefaultLabel.lastSuccess': string
+  'cv.connectors.cdng.configureVerificationJob': string
+  'cv.connectors.cdng.continousVerificationStep': string
+  'cv.connectors.cdng.createCVJob': string
+  'cv.connectors.cdng.defineVerificationJob': string
+  'cv.connectors.cdng.deploymentTag': string
+  'cv.connectors.cdng.displayName': string
+  'cv.connectors.cdng.duration': string
+  'cv.connectors.cdng.error': string
+  'cv.connectors.cdng.jobName': string
+  'cv.connectors.cdng.jobTypes.blueGreen': string
+  'cv.connectors.cdng.jobTypes.canary': string
+  'cv.connectors.cdng.jobTypes.health': string
+  'cv.connectors.cdng.jobTypes.test': string
+  'cv.connectors.cdng.loadingJobs': string
+  'cv.connectors.cdng.noJobsConfigured': string
+  'cv.connectors.cdng.selectTheJobNameFirst': string
+  'cv.connectors.cdng.trafficsplit': string
+  'cv.connectors.cdng.verificationSensitivityLabel.high': string
+  'cv.connectors.cdng.verificationSensitivityLabel.low': string
+  'cv.connectors.cdng.verificationSensitivityLabel.medium': string
   'cv.connectors.connectorDetailsHeader': string
   'cv.connectors.newRelic.accountIdFieldLabel': string
   'cv.connectors.newRelic.accountIdTooltip': string

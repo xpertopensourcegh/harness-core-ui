@@ -128,6 +128,32 @@ connectors:
     accountIdTooltip: For steps to get New Relic Account ID
     products:
       fullStackObservability: 'Full Stack Observability: APM'
+  cdng:
+    jobName: Job Name
+    deploymentTag: Deployment Tag
+    defineVerificationJob: Define Verification Job
+    configureVerificationJob: Configure Verification Jobs
+    duration: duration
+    baseline: Baseline
+    trafficsplit: Traffic Split
+    continousVerificationStep: Verify Step Details
+    displayName: Display Name
+    createCVJob: Please create a CV Job
+    loadingJobs: Loading jobs...
+    noJobsConfigured: No CV Jobs are configured.
+    selectTheJobNameFirst: Please select the job name first by clicking on Define Verification Job Panel
+    error: Something went wrong , please try again by clicking on CV step again
+    verificationSensitivityLabel:
+      high: High
+      medium: Medium
+      low: Low
+    baselineDefaultLabel:
+      lastSuccess: Last Successful job run
+    jobTypes:
+      test: TEST
+      blueGreen: BLUE_GREEN
+      canary: CANARY
+      health: HEALTH
 onboarding:
   monitoringSources:
     addMoreSources: Add more Monitoring Sources
