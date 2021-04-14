@@ -7,7 +7,9 @@ import {
   GetSecretV2QueryParams,
   ConnectorConfigDTO,
   AwsCredential,
-  ErrorDetail
+  ErrorDetail,
+  Connector,
+  AppDynamicsConnectorDTO
 } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -62,6 +64,11 @@ export const GitUrlType = {
 export const GitConnectionType = {
   HTTP: 'Http',
   SSH: 'Ssh'
+}
+
+export const AppDynamicsAuthType = {
+  USERNAME_PASSWORD: 'UsernamePassword',
+  API_CLIENT_TOKEN: 'ApiClientToken'
 }
 
 export interface SecretReferenceInterface {
@@ -902,20 +909,31 @@ export const buildArtifactoryPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-export const buildAppDynamicsPayload = (formData: FormData, accountId: string) => ({
-  connector: {
-    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
-    type: Connectors.APP_DYNAMICS,
-    spec: {
-      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
-      username: formData.username,
-      accountname: formData.accountName,
-      passwordRef: formData.password.referenceString,
-      controllerUrl: formData.url,
-      accountId
+export const buildAppDynamicsPayload = (formData: FormData, accountId: string): Connector => {
+  const payload: Connector = {
+    connector: {
+      ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+      type: Connectors.APP_DYNAMICS,
+      spec: {
+        delegateSelectors: formData.delegateSelectors ?? {},
+        authType: formData.authType,
+        accountname: formData.accountName,
+        controllerUrl: formData.url,
+        accountId
+      } as AppDynamicsConnectorDTO
     }
   }
-})
+
+  if (formData.authType === AppDynamicsAuthType.USERNAME_PASSWORD) {
+    payload.connector!.spec.username = formData.username
+    payload.connector!.spec.passwordRef = formData.password.referenceString
+  } else if (formData.authType === AppDynamicsAuthType.API_CLIENT_TOKEN) {
+    payload.connector!.spec.clientId = formData.clientId
+    payload.connector!.spec.clientSecretRef = formData.clientSecretRef.referenceString
+  }
+
+  return payload
+}
 
 export const buildNewRelicPayload = (formData: FormData) => ({
   connector: {

@@ -116,8 +116,22 @@ connectors:
   addConnectorDetails: Add {{type}} Verification Provider
   unableToCreateConnector: Unable to create connector
   unableToUpdateConnector: Unable to update connector
+  connectAndSave: Connect and Save
+  connectorDetails: Connector Details
+  verifyConnection: Verify connection
+  createdSuccessfully: 'Connector {{name}} created successfully'
+  updatedSuccessfully: 'Connector {{name}} updated successfully'
   appD:
-    controllerUrlValidation: Controller URL is a required field
+    connectionDetailsHeader: AppDynamics Connection Details
+    apiClient: API Client
+    clientId: Client Id
+    clientSecret: Client Secret
+    controllerURL: Controller URL
+    accountName: Account Name
+    validation:
+      controllerURL: Controller URL is a required field
+      clientId: Client Id is a required field
+      clientSecret: Client Secret is a required field
   newRelic:
     subTitle: To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
     urlFieldLabel: New Relic URL

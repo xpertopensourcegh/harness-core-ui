@@ -1180,7 +1180,15 @@ export interface StringsMap {
   'cv.changesPage.eventCount': string
   'cv.changesPage.viewKubernetesEvents': string
   'cv.connectors.addConnectorDetails': string
-  'cv.connectors.appD.controllerUrlValidation': string
+  'cv.connectors.appD.accountName': string
+  'cv.connectors.appD.apiClient': string
+  'cv.connectors.appD.clientId': string
+  'cv.connectors.appD.clientSecret': string
+  'cv.connectors.appD.connectionDetailsHeader': string
+  'cv.connectors.appD.controllerURL': string
+  'cv.connectors.appD.validation.clientId': string
+  'cv.connectors.appD.validation.clientSecret': string
+  'cv.connectors.appD.validation.controllerURL': string
   'cv.connectors.cdng.baseline': string
   'cv.connectors.cdng.baselineDefaultLabel.lastSuccess': string
   'cv.connectors.cdng.configureVerificationJob': string
@@ -1203,7 +1211,10 @@ export interface StringsMap {
   'cv.connectors.cdng.verificationSensitivityLabel.high': string
   'cv.connectors.cdng.verificationSensitivityLabel.low': string
   'cv.connectors.cdng.verificationSensitivityLabel.medium': string
+  'cv.connectors.connectAndSave': string
+  'cv.connectors.connectorDetails': string
   'cv.connectors.connectorDetailsHeader': string
+  'cv.connectors.createdSuccessfully': string
   'cv.connectors.newRelic.accountIdFieldLabel': string
   'cv.connectors.newRelic.accountIdTooltip': string
   'cv.connectors.newRelic.accountIdValidation': string
@@ -1215,6 +1226,8 @@ export interface StringsMap {
   'cv.connectors.newRelic.urlValidation': string
   'cv.connectors.unableToCreateConnector': string
   'cv.connectors.unableToUpdateConnector': string
+  'cv.connectors.updatedSuccessfully': string
+  'cv.connectors.verifyConnection': string
   'cv.continuous': string
   'cv.dashboard.createProject': string
   'cv.dashboard.learnMore': string
