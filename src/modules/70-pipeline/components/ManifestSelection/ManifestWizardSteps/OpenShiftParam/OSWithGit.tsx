@@ -220,7 +220,12 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                   >{`${accountUrl}/${formik.values?.repoName}`}</div>
                 </div>
               )}
-              {prevStepData?.store === ManifestStoreMap.Git && (
+              {[
+                ManifestStoreMap.Git,
+                ManifestStoreMap.Github,
+                ManifestStoreMap.GitLab,
+                ManifestStoreMap.Bitbucket
+              ].includes(prevStepData?.store) && (
                 <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                   <div className={templateCss.halfWidth}>
                     <FormInput.Select
