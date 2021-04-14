@@ -37,7 +37,7 @@
       "@cf/*": ["modules/75-cf/*"],
       "@ci/*": ["modules/75-ci/*"],
       "@cv/*": ["modules/85-cv/*"],
-      "@ce/*": ["modules/90-ce/*"]
+      "@ce/*": ["modules/75-ce/*"]
     }
   },
   "include": ["src/"],

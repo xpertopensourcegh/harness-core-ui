@@ -4,12 +4,12 @@ rules:
     - patterns:
         - lodash.*
         - modules/75-cd/*
+        - modules/75-ce/*
         - modules/75-cf/*
         - modules/85-cv/*
-        - modules/90-ce/*
         - '@cd/*'
+        - '@ce/*'
         - '@cf/*'
         - '@cv/*'
-        - '@ce/*'
       paths:
         - lodash

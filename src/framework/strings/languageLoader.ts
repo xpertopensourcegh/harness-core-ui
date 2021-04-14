@@ -15,10 +15,10 @@ import dashboards from '@dashboards/strings/strings.en.yaml'
 import gitsync from '@gitsync/strings/strings.en.yaml'
 import pipeline from '@pipeline/strings/strings.en.yaml'
 import cd from '@cd/strings/strings.en.yaml'
+import ce from '@ce/strings/strings.en.yaml'
 import cf from '@cf/strings/strings.en.yaml'
 import ci from '@ci/strings/strings.en.yaml'
 import cv from '@cv/strings/strings.en.yaml'
-import ce from '@ce/strings/strings.en.yaml'
 
 export default function languageLoader() {
   return {
@@ -34,9 +34,9 @@ export default function languageLoader() {
     gitsync,
     pipeline,
     cd,
+    ce,
     cf,
     ci,
-    cv,
-    ce
+    cv
   }
 }
