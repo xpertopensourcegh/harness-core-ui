@@ -20,7 +20,7 @@
     "lint": "eslint  --rulesdir ./scripts/eslint-rules --ext .ts --ext .tsx src",
     "typecheck": "tsc",
     "strings-check": "node ./scripts/yaml-strings-check.js",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist && rm -rf node_modules/.cache",
     "dev": "NODE_ENV=development webpack serve --progress",
     "watch": "yarn clean && NODE_ENV=development webpack --watch",
     "services": "npm-run-all services:*",
