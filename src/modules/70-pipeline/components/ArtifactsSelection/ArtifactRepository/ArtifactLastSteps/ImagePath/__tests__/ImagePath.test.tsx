@@ -2,7 +2,7 @@ import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { ECRArtifact } from '../ECRArtifact'
+import { ImagePath } from '../ImagePath'
 
 const props = {
   name: 'Artifact details',
@@ -11,30 +11,24 @@ const props = {
   handleSubmit: jest.fn()
 }
 
-const mockRegions = {
-  resource: [{ name: 'region1', value: 'region1' }]
-}
-
-jest.mock('services/portal', () => ({
-  useListAwsRegions: jest.fn().mockImplementation(() => {
-    return { data: mockRegions, refetch: jest.fn(), error: null, loading: false }
+jest.mock('services/cd-ng', () => ({
+  useGetBuildDetailsForDocker: jest.fn().mockImplementation(() => {
+    return { data: { buildDetailsList: [] }, refetch: jest.fn(), error: null, loading: false }
   })
 }))
-
-describe('ECR Artifact tests', () => {
+describe('DockerRegistry Image Path Artifact tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
       identifier: '',
       imagePath: '',
       tag: '',
       tagType: TagTypes.Value,
-      tagRegex: '',
-      region: { name: '', value: '' }
+      tagRegex: ''
     }
 
     const { container } = render(
       <TestWrapper>
-        <ECRArtifact key={'key'} initialValues={initialValues} {...props} />
+        <ImagePath key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -46,13 +40,12 @@ describe('ECR Artifact tests', () => {
       imagePath: 'library/nginx',
       tag: '',
       tagType: TagTypes.Value,
-      tagRegex: '',
-      region: { name: '', value: '' }
+      tagRegex: ''
     }
 
     const { container } = render(
       <TestWrapper>
-        <ECRArtifact key={'key'} initialValues={initialValues} {...props} />
+        <ImagePath key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -64,13 +57,12 @@ describe('ECR Artifact tests', () => {
       imagePath: 'library/nginx',
       tag: '',
       tagRegex: 'someregex',
-      tagType: TagTypes.Regex,
-      region: { name: 'region', value: 'region' }
+      tagType: TagTypes.Regex
     }
 
     const { container } = render(
       <TestWrapper>
-        <ECRArtifact key={'key'} initialValues={initialValues} {...props} />
+        <ImagePath key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -80,9 +72,9 @@ describe('ECR Artifact tests', () => {
     const initialValues = {
       identifier: '',
       spec: {
-        region: 'region1'
+        imagePath: ''
       },
-      type: 'ECR',
+      type: 'DockerRegistry',
       imagePath: '',
       tag: '',
       tagType: TagTypes.Value,
@@ -91,7 +83,7 @@ describe('ECR Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ECRArtifact key={'key'} initialValues={initialValues} {...props} />
+        <ImagePath key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -108,7 +100,6 @@ describe('ECR Artifact tests', () => {
         spec: {
           connectorRef: '',
           imagePath: 'image-path',
-          region: 'region1',
           tagRegex: 'tag'
         }
       })
@@ -117,20 +108,20 @@ describe('ECR Artifact tests', () => {
 
   test('submits with the right payload with Tagregex data ', async () => {
     const initialValues = {
-      identifier: 'id2',
+      identifier: '',
       spec: {
-        region: 'region1'
+        imagePath: ''
       },
-      type: 'ECR',
+      type: 'DockerRegistry',
       imagePath: '',
       tag: '',
-      tagType: TagTypes.Regex,
+      tagType: TagTypes.Value,
       tagRegex: ''
     }
 
     const { container } = render(
       <TestWrapper>
-        <ECRArtifact key={'key'} initialValues={initialValues} {...props} />
+        <ImagePath key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -147,7 +138,6 @@ describe('ECR Artifact tests', () => {
         spec: {
           connectorRef: '',
           imagePath: 'image-path',
-          region: 'region1',
           tagRegex: 'tagregex'
         }
       })

@@ -76,7 +76,7 @@ import ServiceResourceModal from '@pipeline/components/RbacResourceModals/Servic
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
-  icon: 'pipeline',
+  icon: 'pipeline-deployment',
   label: 'Pipeline',
   permissionLabels: {
     [PermissionIdentifier.VIEW_PIPELINE]: <String stringID="rbac.permissionLabels.view" />,
@@ -89,7 +89,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.SERVICE, {
-  icon: 'lock',
+  icon: 'service-deployment',
   label: 'Service',
   permissionLabels: {
     [PermissionIdentifier.VIEW_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
@@ -102,7 +102,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SERVICE, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
-  icon: 'lock',
+  icon: 'environment',
   label: 'Environment',
   permissionLabels: {
     [PermissionIdentifier.VIEW_ENVIRONMENT]: <String stringID="rbac.permissionLabels.view" />,

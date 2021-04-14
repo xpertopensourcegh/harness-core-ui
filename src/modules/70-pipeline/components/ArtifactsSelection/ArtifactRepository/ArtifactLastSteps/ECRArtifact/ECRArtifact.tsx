@@ -125,7 +125,6 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
 
   const getInitialValues = (): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
-
     if (specValues) {
       const values = {
         ...specValues,
