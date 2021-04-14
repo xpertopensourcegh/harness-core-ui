@@ -13,6 +13,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
       >
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+          data-test="newConnectorButton"
           id="newConnectorBtn"
           type="button"
         >
@@ -43,6 +44,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
         </button>
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-left-small"
+          data-test="createViaYamlButton"
           id="newYamlConnectorBtn"
           type="button"
         >
@@ -234,6 +236,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
       >
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+          data-test="newConnectorButton"
           id="newConnectorBtn"
           type="button"
         >
@@ -264,6 +267,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
         </button>
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-left-small"
+          data-test="createViaYamlButton"
           id="newYamlConnectorBtn"
           type="button"
         >

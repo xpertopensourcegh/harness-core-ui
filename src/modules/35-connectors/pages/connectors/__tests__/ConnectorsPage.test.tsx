@@ -2,6 +2,7 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent, queryByAttribute } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as usePermission from '@rbac/hooks/usePermission'
 import ConnectorsPage from '../ConnectorsPage'
 
 import { connectorsData, catalogueData, statisticsMockData, filters } from './mockData'
@@ -137,5 +138,23 @@ describe('Connectors Page Test', () => {
       })
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
+    jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
+    const { container } = setup()
+    const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')
+    const createViaYamlButton = container.querySelector('[data-test="createViaYamlButton"]')
+    expect(newConnectorButton?.getAttribute('disabled')).toBe(null)
+    expect(createViaYamlButton?.getAttribute('disabled')).toBe(null)
+  })
+
+  test('should verify that new connector button and create via yaml button are disabled if connector edit permission is not provided', async () => {
+    jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [false])
+    const { container } = setup()
+    const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')
+    const createViaYamlButton = container.querySelector('[data-test="createViaYamlButton"]')
+    expect(newConnectorButton?.getAttribute('disabled')).toBe('')
+    expect(createViaYamlButton?.getAttribute('disabled')).toBe('')
   })
 })

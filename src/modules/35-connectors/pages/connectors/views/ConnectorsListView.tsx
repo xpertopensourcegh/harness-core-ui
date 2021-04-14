@@ -25,6 +25,9 @@ import { ConnectorStatus, Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { usePermission } from '@rbac/hooks/usePermission'
 import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
@@ -363,6 +366,22 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
 
+  const [canUpdate, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: data.connector?.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR, PermissionIdentifier.DELETE_CONNECTOR]
+    },
+    []
+  )
+
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('connectors.confirmDelete')} ${data.connector?.name}`,
     titleText: getString('connectors.confirmDeleteTitle'),
@@ -422,8 +441,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
             }}
           />
           <Menu style={{ minWidth: 'unset' }}>
-            <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-            <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
+            <Menu.Item icon="edit" text="Edit" onClick={handleEdit} disabled={!canUpdate} />
+            <Menu.Item icon="trash" text="Delete" onClick={handleDelete} disabled={!canDelete} />
           </Menu>
         </Popover>
       </Layout.Horizontal>

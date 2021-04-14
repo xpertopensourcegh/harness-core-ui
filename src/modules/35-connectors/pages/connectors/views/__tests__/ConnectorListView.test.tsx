@@ -10,6 +10,7 @@ import {
   filters
 } from '@connectors/pages/connectors/__tests__/mockData'
 import { useGetTestConnectionResult } from 'services/cd-ng'
+import * as usePermission from '@rbac/hooks/usePermission'
 import ConnectorsListView from '../ConnectorsListView'
 
 jest.mock('react-timeago', () => () => 'dummy date')
@@ -218,5 +219,17 @@ describe('Connectors List Test', () => {
       fireEvent.click(getEditButton()!)
     })
     expect(openConnectorModal).toBeCalledWith(true, currentConnector.type, currentConnector)
+  })
+
+  test('Edit and delete methods should be called with correct data', async () => {
+    jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [false])
+    const { container } = setup()
+    const menuIcon = getMenuIcon(container.querySelectorAll('div[role="row"]')[1])
+    act(() => {
+      fireEvent.click(menuIcon!)
+    })
+    const [editButton, deleteButton] = [getEditButton(), getDeleteButton()]
+    expect(editButton!.parentElement?.getAttribute('class')).toContain('disabled')
+    expect(deleteButton!.parentElement?.getAttribute('class')).toContain('disabled')
   })
 })
