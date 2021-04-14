@@ -4,6 +4,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { useStrings } from 'framework/exports'
 import * as pipelineNg from 'services/pipeline-ng'
+import { InputTypes, fillAtForm } from '@common/utils/JestFormHelper'
 import { useToaster } from '@common/exports'
 import * as cdng from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -404,6 +405,62 @@ describe('TriggersWizardPage Triggers tests', () => {
 
       fireEvent.click(updateButton)
       await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
+    })
+
+    test('OnEdit Schedule submit', async () => {
+      jest
+        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+        .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTrigger')
+        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+        mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useUpdateTrigger').mockReturnValue({
+        mutate: mockUpdate as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+      await waitFor(() => expect(() => queryByText(document.body, result.current.getString('name'))).not.toBeNull())
+      expect(container).toMatchSnapshot()
+      const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Schedule"]')
+      if (!tab2) {
+        throw Error('No Schedule tab')
+      }
+      fireEvent.click(tab2)
+      await waitFor(() =>
+        expect(() =>
+          queryByText(document.body, result.current.getString('pipeline-triggers.schedulePanel.enterCustomCron'))
+        ).not.toBeNull()
+      )
+      fillAtForm([
+        {
+          container: container,
+          type: InputTypes.TEXTFIELD,
+          fieldId: 'expression',
+          value: '4 3 * * MON'
+        }
+      ])
+      await waitFor(() => expect(() => queryByText(document.body, '4 3 * * MON')).not.toBeNull())
+      const tab3 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Pipeline Input"]')
+      if (!tab3) {
+        throw Error('No Pipeline Input tab')
+      }
+      fireEvent.click(tab3)
+
+      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      if (!updateButton) {
+        throw Error('Cannot find Update Trigger button')
+      }
+
+      fireEvent.click(updateButton)
+      await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
+      // does not equal for comparison due to yaml spaces
     })
   })
 

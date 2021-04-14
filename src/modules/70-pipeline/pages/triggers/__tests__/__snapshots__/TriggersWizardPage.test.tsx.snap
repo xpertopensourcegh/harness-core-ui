@@ -702,6 +702,423 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
 </div>
 `;
 
+exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Schedule submit 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    
+    <section
+      class="wizardShell tabs"
+    >
+      <section
+        class="extendedNav"
+      >
+        <div
+          class="sideItems"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            style="align-items: baseline;"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+              level="2"
+            >
+              Trigger: test-schedule
+            </h2>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              enabledLabel
+            </p>
+            <label
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+            >
+              <input
+                checked=""
+                data-name="enabled-switch"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              
+            </label>
+          </div>
+        </div>
+        <div
+          class="sideItems"
+        />
+      </section>
+      <div
+        class="headerLine"
+      />
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
+      >
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Trigger Overview"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="Trigger Overview"
+                    id="bp3-tab-title_Wizard_Trigger Overview"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      1. 
+                      pipeline-triggers.triggerOverviewPanel.title
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Schedule"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Schedule"
+                    id="bp3-tab-title_Wizard_Schedule"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      2. 
+                      pipeline-triggers.schedulePanel.title
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Pipeline Input"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Pipeline Input"
+                    id="bp3-tab-title_Wizard_Pipeline Input"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      3. 
+                      pipeline-triggers.pipelineInputLabel
+                    </span>
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_Wizard_Trigger Overview"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_Wizard_Trigger Overview"
+                  role="tabpanel"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
+                  >
+                    <h2>
+                      pipeline-triggers.triggerOverviewPanel.title
+                    </h2>
+                    <div
+                      class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                    >
+                      <div
+                        class="InputWithIdentifier--txtNameContainer"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                            :
+                          </p>
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                              >
+                                <span
+                                  class="bp3-editable-text-content"
+                                  style="height: 1px; line-height: 1px; min-width: 0;"
+                                >
+                                  testschedule
+                                </span>
+                              </div>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="name-0"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="name"
+                          >
+                            name
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="name"
+                                type="text"
+                                value="test-schedule"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 0px;"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                        </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="description-1"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              name="description"
+                            >
+                              desc
+                            </textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                        </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="undefined-2"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input bp3-tag-input"
+                            >
+                              <div
+                                class="bp3-tag-input-values"
+                              >
+                                <span
+                                  class="bp3-tag"
+                                  data-tag-index="0"
+                                >
+                                  <span
+                                    class="bp3-text-overflow-ellipsis bp3-fill"
+                                  >
+                                    tag1
+                                  </span>
+                                  <button
+                                    class="bp3-tag-remove"
+                                    type="button"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-small-cross"
+                                      icon="small-cross"
+                                    >
+                                      <svg
+                                        data-icon="small-cross"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                      >
+                                        <desc>
+                                          small-cross
+                                        </desc>
+                                        <path
+                                          d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </button>
+                                </span>
+                                <input
+                                  class="bp3-input-ghost"
+                                  data-mentions="kv-tag-input-tags}"
+                                  value=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+              >
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    continue
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <p
+                  class="StyledProps--font StyledProps--main cancel"
+                >
+                  cancel
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="footerLine"
+      />
+    </section>
+  </div>
+</div>
+`;
+
 exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - GitHub Show all fields filled 1`] = `
 <div>
   <div
@@ -2512,7 +2929,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                               class="bp3-input bp3-fill"
                               name="description"
                             >
-                              description
+                              desc
                             </textarea>
                           </div>
                         </div>
@@ -2547,40 +2964,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                     class="bp3-text-overflow-ellipsis bp3-fill"
                                   >
                                     tag1
-                                  </span>
-                                  <button
-                                    class="bp3-tag-remove"
-                                    type="button"
-                                  >
-                                    <span
-                                      class="bp3-icon bp3-icon-small-cross"
-                                      icon="small-cross"
-                                    >
-                                      <svg
-                                        data-icon="small-cross"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                      >
-                                        <desc>
-                                          small-cross
-                                        </desc>
-                                        <path
-                                          d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </button>
-                                </span>
-                                <span
-                                  class="bp3-tag"
-                                  data-tag-index="1"
-                                >
-                                  <span
-                                    class="bp3-text-overflow-ellipsis bp3-fill"
-                                  >
-                                    tag2:2
                                   </span>
                                   <button
                                     class="bp3-tag-remove"
