@@ -21,7 +21,7 @@ export enum SourceCodeTypes {
   BITBUCKET = 'BITBUCKET',
   GITHUB = 'GITHUB',
   GITLAB = 'GITLAB',
-  AZURE_DEVOPS = 'AZURE_DEVOPS',
+  AZURE_DEV_OPS = 'AZURE_DEV_OPS',
   AWS_CODE_COMMIT = 'AWS_CODE_COMMIT'
 }
 
@@ -35,6 +35,8 @@ export const getIconBySCM = (item: SourceCodeTypes): IconName => {
       return 'service-gotlab'
     case SourceCodeTypes.AWS_CODE_COMMIT:
       return 'service-aws-code-deploy'
+    case SourceCodeTypes.AZURE_DEV_OPS:
+      return 'service-azure'
     default:
       return 'bitbucket'
   }

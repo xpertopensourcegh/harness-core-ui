@@ -20,7 +20,7 @@ import { useStrings } from 'framework/exports'
 import { regexName } from '@common/utils/StringUtils'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import { SourceCodeManagerDTO, useSaveSourceCodeManagers } from 'services/cd-ng'
-import { AuthTypes, getAuthentication, SourceCodeTypes } from '@user-profile/utils/utils'
+import { AuthTypes, getAuthentication, getIconBySCM, SourceCodeTypes } from '@user-profile/utils/utils'
 import type { TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
 import { useToaster } from '@common/exports'
 import Authentication from './Authentication'
@@ -58,17 +58,30 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
   const { mutate: saveSourceCodeManager } = useSaveSourceCodeManagers({})
 
   const sourceCodeManagers: SourceCodeType[] = [
-    { text: getString('common.repo_provider.githubLabel'), value: SourceCodeTypes.GITHUB, icon: 'github' },
+    {
+      text: getString('common.repo_provider.githubLabel'),
+      value: SourceCodeTypes.GITHUB,
+      icon: getIconBySCM(SourceCodeTypes.GITHUB)
+    },
     {
       text: getString('common.repo_provider.bitbucketLabel'),
       value: SourceCodeTypes.BITBUCKET,
-      icon: 'bitbucket-blue'
+      icon: getIconBySCM(SourceCodeTypes.BITBUCKET)
     },
-    { text: getString('common.repo_provider.gitlabLabel'), value: SourceCodeTypes.GITLAB, icon: 'service-gotlab' },
+    {
+      text: getString('common.repo_provider.gitlabLabel'),
+      value: SourceCodeTypes.GITLAB,
+      icon: getIconBySCM(SourceCodeTypes.GITLAB)
+    },
     {
       text: getString('common.repo_provider.awscodecommit'),
       value: SourceCodeTypes.AWS_CODE_COMMIT,
-      icon: 'service-aws-code-deploy'
+      icon: getIconBySCM(SourceCodeTypes.AWS_CODE_COMMIT)
+    },
+    {
+      text: getString('common.repo_provider.azureDev'),
+      value: SourceCodeTypes.AZURE_DEV_OPS,
+      icon: getIconBySCM(SourceCodeTypes.AZURE_DEV_OPS)
     }
   ]
 
@@ -77,6 +90,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
       case SourceCodeTypes.BITBUCKET:
       case SourceCodeTypes.GITHUB:
       case SourceCodeTypes.GITLAB:
+      case SourceCodeTypes.AZURE_DEV_OPS:
         return AuthTypes.USERNAME_PASSWORD
       case SourceCodeTypes.AWS_CODE_COMMIT:
         return AuthTypes.AWSCredentials
@@ -131,6 +145,21 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
             value: AuthTypes.AWSCredentials
           }
         ]
+      case SourceCodeTypes.AZURE_DEV_OPS:
+        return [
+          {
+            label: getString('usernamePassword'),
+            value: AuthTypes.USERNAME_PASSWORD
+          },
+          {
+            label: getString('usernameToken'),
+            value: AuthTypes.USERNAME_TOKEN
+          },
+          {
+            label: getString('SSH_KEY'),
+            value: AuthTypes.SSH_KEY
+          }
+        ]
       default:
         return []
     }
@@ -167,6 +196,14 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
         case SourceCodeTypes.AWS_CODE_COMMIT: {
           dataToSubmit = {
             type: SourceCodeTypes.AWS_CODE_COMMIT,
+            name: values.name,
+            authentication: getAuthentication(values)
+          }
+          break
+        }
+        case SourceCodeTypes.AZURE_DEV_OPS: {
+          dataToSubmit = {
+            type: SourceCodeTypes.AZURE_DEV_OPS,
             name: values.name,
             authentication: getAuthentication(values)
           }
@@ -252,7 +289,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
               <Form>
                 <Layout.Vertical spacing="medium">
                   <ModalErrorHandler bind={setModalErrorHandler} />
-                  <Container width={300}>
+                  <Container width={400}>
                     <FormInput.Text name="name" label={getString('name')} />
                   </Container>
                   <Text color={Color.BLACK}>{getString('userProfile.selectSCM')}</Text>
@@ -290,6 +327,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                         intent="primary"
                         onClick={() => {
                           setSelected(undefined)
+                          formikProps.setFieldValue('authType', null)
                         }}
                       />
                     ) : null}

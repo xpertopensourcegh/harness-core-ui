@@ -27,7 +27,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
             >
               <div
                 class="StyledProps--font StyledProps--main"
-                style="width: 300px;"
+                style="width: 400px;"
               >
                 <div
                   class="bp3-form-group"
