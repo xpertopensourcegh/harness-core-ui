@@ -263,7 +263,7 @@ segments:
   displayIcon: Display Icon
   uploadImage: Upload an image
   delete:
-    message: 'Are you sure you want to delete Segment: {{segmentName}}'
+    message: 'Are you sure you want to delete segment <strong>{{segmentName}}</strong>? This action cannot be undone.'
     title: Delete Segment
   nameRequired: Segment name is required
   idRequired: Segment identifier is required
@@ -345,7 +345,6 @@ auditLogs:
     clearVariationTargetMapping: Variation target mapping removed
     updateOffVariation: Off variation updated to '{{variation}}'
     removeClause: A clause was removed
-
 noEnvironment:
   title: No Environment Available
   message: Create an environment and let’s start configuring the targeting rules of your flag

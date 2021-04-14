@@ -89,7 +89,7 @@ export const SegmentsPage: React.FC = () => {
       )}
     </Layout.Horizontal>
   )
-  const gotoTargeDetailPage = (identifier: string): void => {
+  const gotoSegmentDetailPage = (identifier: string): void => {
     history.push(
       routes.toCFSegmentDetails({
         segmentIdentifier: identifier as string,
@@ -108,7 +108,7 @@ export const SegmentsPage: React.FC = () => {
         projectIdentifier={projectIdentifier}
         environmentIdentifier={environment?.value}
         onCreated={segmentIdentifier => {
-          gotoTargeDetailPage(segmentIdentifier)
+          gotoSegmentDetailPage(segmentIdentifier)
           showToaster(getString('cf.messages.segmentCreated'))
         }}
       />
@@ -170,13 +170,13 @@ export const SegmentsPage: React.FC = () => {
         accessor: 'createdAt',
         width: '30%',
         Cell: function CreateAtCell(cell: Cell<Segment>) {
-          const deleteTargetConfirm = useConfirmAction({
-            title: getString('cf.targets.deleteTarget'),
+          const deleteSegmentConfirm = useConfirmAction({
+            title: getString('cf.segments.delete.title'),
             message: (
               <Text>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: getString('cf.targets.deleteTargetMessage', { name: cell.row.original.name })
+                    __html: getString('cf.segments.delete.message', { segmentName: cell.row.original.name })
                   }}
                 ></span>
               </Text>
@@ -217,13 +217,13 @@ export const SegmentsPage: React.FC = () => {
                       icon: 'edit',
                       text: getString('edit'),
                       onClick: () => {
-                        gotoTargeDetailPage(cell.row.original.identifier as string)
+                        gotoSegmentDetailPage(cell.row.original.identifier as string)
                       }
                     },
                     {
                       icon: 'cross',
                       text: getString('delete'),
-                      onClick: deleteTargetConfirm
+                      onClick: deleteSegmentConfirm
                     }
                   ]}
                 />
@@ -250,9 +250,8 @@ export const SegmentsPage: React.FC = () => {
     <NoSegmentsView
       environmentIdentifier={environment?.value}
       hasEnvironment={!!environments.length}
-      onNewSegmentCreated={() => {
-        setPageNumber(0)
-        refetchSegments({ queryParams: { ...queryParams, pageNumber: 0 } })
+      onNewSegmentCreated={segmentIdentifier => {
+        gotoSegmentDetailPage(segmentIdentifier)
         showToaster(getString('cf.messages.segmentCreated'))
       }}
     />
@@ -261,8 +260,8 @@ export const SegmentsPage: React.FC = () => {
       <Table<Segment>
         columns={columns}
         data={segmentsData?.segments || []}
-        onRowClick={target => {
-          gotoTargeDetailPage(target.identifier as string)
+        onRowClick={segment => {
+          gotoSegmentDetailPage(segment.identifier as string)
         }}
       />
     </Container>

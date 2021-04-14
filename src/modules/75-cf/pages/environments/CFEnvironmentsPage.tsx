@@ -4,7 +4,7 @@ import type { Column } from 'react-table'
 import { get } from 'lodash-es'
 import { Menu, Position } from '@blueprintjs/core'
 import { Button, Container, Layout, Pagination, Text } from '@wings-software/uicore'
-import { EnvironmentResponseDTO, useDeleteEnvironment, useGetEnvironmentListForProject } from 'services/cd-ng'
+import { EnvironmentResponseDTO, useDeleteEnvironmentV2, useGetEnvironmentListForProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useToaster } from '@common/exports'
 import { IdentifierText } from '@cf/components/IdentifierText/IdentifierText'
@@ -146,9 +146,9 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
   const { data: envData, loading, error, refetch } = useGetEnvironmentListForProject({
     queryParams
   })
-  const { mutate: deleteEnvironment } = useDeleteEnvironment({
+  const { mutate: deleteEnvironment } = useDeleteEnvironmentV2({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
     }

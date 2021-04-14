@@ -9,7 +9,7 @@ import imageURL from './segment.svg'
 export interface NoSegmentsViewProps {
   environmentIdentifier?: string
   hasEnvironment: boolean
-  onNewSegmentCreated: () => void
+  onNewSegmentCreated: (segmentIdentifier: string) => void
 }
 
 export const NoSegmentsView: React.FC<NoSegmentsViewProps> = ({
