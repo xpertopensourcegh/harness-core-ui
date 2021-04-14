@@ -24,7 +24,7 @@ import type {
   ModulePathParams
 } from '@common/interfaces/RouteInterfaces'
 
-import DeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
+import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
 import CIHomePage from '@ci/pages/home/CIHomePage'
 import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from '@ci/pages/pipeline-studio/CIPipelineStudio'
@@ -71,9 +71,9 @@ import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import PipelineResourceModal from '@cd/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
-import ServiceResourceModal from '@cd/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
-import EnvironmentResourceModal from '@cd/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
+import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
+import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
+import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
   icon: 'pipeline',

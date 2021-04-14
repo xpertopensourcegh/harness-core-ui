@@ -7,7 +7,7 @@ import { Button } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/exports'
 
-import css from './ShellScript.module.scss'
+import css from './ShellScriptMonaco.module.scss'
 
 export type ScriptType = 'Bash' | 'PowerShell'
 

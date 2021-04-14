@@ -10,9 +10,6 @@ declare const styles: {
   readonly environmentVarHeader: string
   readonly label: string
   readonly outputVarHeader: string
-  readonly monacoWrapper: string
-  readonly expandBtn: string
-  readonly monacoDialog: string
   readonly variablesList: string
   readonly minConfigBtn: string
 }
