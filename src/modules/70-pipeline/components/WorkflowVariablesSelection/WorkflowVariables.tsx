@@ -23,21 +23,25 @@ import type {
 import { useStrings } from 'framework/exports'
 import css from './WorkflowVariables.module.scss'
 
-export default function WorkflowVariables({
-  isForOverrideSets = false,
-  identifierName,
-  isForPredefinedSets = false,
-  overrideSetIdentifier = '',
-  isPropagating = false,
-  factory
-}: {
+export interface WorkflowVariablesProps {
   isForOverrideSets?: boolean
   identifierName?: string
   isForPredefinedSets?: boolean
   overrideSetIdentifier?: string
   isPropagating?: boolean
   factory: AbstractStepFactory
-}): JSX.Element {
+  readonly?: boolean
+}
+
+export default function WorkflowVariables({
+  isForOverrideSets = false,
+  identifierName,
+  isForPredefinedSets = false,
+  overrideSetIdentifier = '',
+  isPropagating = false,
+  factory,
+  readonly
+}: WorkflowVariablesProps): JSX.Element {
   const {
     state: {
       pipeline,
@@ -160,6 +164,7 @@ export default function WorkflowVariables({
             isPropagating,
             canAddVariable: !overrideSetIdentifier?.length
           }}
+          readonly={readonly}
           type={StepType.CustomVariable}
           onUpdate={({ variables }: { variables: Variable[] }) => {
             updateVariables(variables)

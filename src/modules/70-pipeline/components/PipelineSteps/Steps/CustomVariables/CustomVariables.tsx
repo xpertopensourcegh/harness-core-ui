@@ -43,7 +43,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
   renderStep(
     props: StepProps<CustomVariablesData, CustomVariableEditableExtraProps | CustomVariableInputSetExtraProps>
   ): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, customStepProps, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, customStepProps, inputSetData, readonly } = props
 
     if (stepViewType === StepViewType.InputSet) {
       return (
@@ -63,6 +63,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
           initialValues={initialValues}
           onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
+          readonly={readonly}
           {...customStepProps}
         />
       )
@@ -73,6 +74,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
         initialValues={initialValues}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         stepViewType={stepViewType}
+        readonly={readonly}
         {...customStepProps}
       />
     )

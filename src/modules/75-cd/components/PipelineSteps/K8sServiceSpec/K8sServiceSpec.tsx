@@ -113,7 +113,8 @@ const setupMode = {
 }
 const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues: { stageIndex = 0, setupModeType },
-  factory
+  factory,
+  readonly
 }) => {
   const { getString } = useStrings()
   const isPropagating = stageIndex > 0 && setupModeType === setupMode.PROPAGATE
@@ -148,7 +149,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           id={getString('variablesText')}
           addDomId={true}
           summary={getString('variablesText')}
-          details={<WorkflowVariables factory={factory as any} isPropagating={isPropagating} />}
+          details={<WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />}
         />
       </Accordion>
     </div>
@@ -1193,7 +1194,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   }
 
   renderStep(props: StepProps<K8SDirectServiceStep>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, factory, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, factory, customStepProps, readonly } = props
 
     if (stepViewType === StepViewType.InputVariable) {
       return (
@@ -1202,6 +1203,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           initialValues={initialValues}
           stepsFactory={factory}
           onUpdate={onUpdate}
+          readonly={readonly}
         />
       )
     }
@@ -1215,7 +1217,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           stepViewType={stepViewType}
           template={inputSetData?.template}
           path={inputSetData?.path}
-          readonly={inputSetData?.readonly}
+          readonly={inputSetData?.readonly || readonly}
           factory={factory}
         />
       )
@@ -1229,6 +1231,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         path={inputSetData?.path}
+        readonly={readonly}
       />
     )
   }

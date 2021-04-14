@@ -41,10 +41,20 @@ export interface CustomVariableEditableProps extends CustomVariableEditableExtra
   initialValues: CustomVariablesData
   onUpdate?: (data: CustomVariablesData) => void
   stepViewType?: StepViewType
+  readonly?: boolean
 }
 
 export function CustomVariableEditable(props: CustomVariableEditableProps): React.ReactElement {
-  const { initialValues, onUpdate, variableNamePrefix = '', domId, heading, className, yamlProperties } = props
+  const {
+    initialValues,
+    onUpdate,
+    variableNamePrefix = '',
+    domId,
+    heading,
+    className,
+    yamlProperties,
+    readonly
+  } = props
   const uids = React.useRef<string[]>([])
 
   const [selectedVariable, setSelectedVariable] = React.useState<VariableState | null>(null)
@@ -92,7 +102,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                 {values.canAddVariable ? (
                   <div className={css.headerRow}>
                     {heading ? heading : <div />}
-                    <Button minimal intent="primary" icon="plus" onClick={addNew}>
+                    <Button minimal intent="primary" icon="plus" onClick={addNew} disabled={readonly}>
                       <String stringID="common.addVariable" />
                     </Button>
                   </div>
@@ -131,17 +141,18 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                       <div className={css.valueRow}>
                         <div>
                           {variable.type === VariableType.Secret ? (
-                            <MultiTypeSecretInput name={`variables[${index}].value`} label="" />
+                            <MultiTypeSecretInput name={`variables[${index}].value`} label="" disabled={readonly} />
                           ) : (
                             <FormInput.MultiTextInput
                               className="variableInput"
                               name={`variables[${index}].value`}
                               label=""
+                              disabled={readonly}
                               multiTextInputProps={{
                                 defaultValueToReset: '',
                                 expressions,
                                 textProps: {
-                                  disabled: !initialValues.canAddVariable,
+                                  disabled: !initialValues.canAddVariable || readonly,
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
                                 }
                               }}
@@ -167,6 +178,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 icon="edit"
                                 tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
                                 data-testid={`edit-variable-${index}`}
+                                disabled={readonly}
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
                                 }}
@@ -175,6 +187,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 icon="trash"
                                 data-testid={`delete-variable-${index}`}
                                 tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
+                                disabled={readonly}
                                 onClick={() => handleRemove(index)}
                               />
                             </section>

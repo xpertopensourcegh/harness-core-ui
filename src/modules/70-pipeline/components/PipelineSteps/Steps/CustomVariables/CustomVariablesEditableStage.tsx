@@ -27,7 +27,7 @@ const getValidationSchema = (getString: UseStringsReturn['getString']): Yup.Sche
   })
 
 export function CustomVariablesEditableStage(props: CustomVariableEditableProps): React.ReactElement {
-  const { initialValues, onUpdate, domId, className, yamlProperties, enableValidation } = props
+  const { initialValues, onUpdate, domId, className, yamlProperties, enableValidation, readonly } = props
   const uids = React.useRef<string[]>([])
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
@@ -85,6 +85,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                       <TextInputWithCopyBtn
                         name={`variables[${index}].name`}
                         label=""
+                        disabled={readonly}
                         localName={yamlData.localName}
                         fullName={yamlData.fqn}
                       />
@@ -93,6 +94,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                           name={`variables[${index}].type`}
                           items={getVaribaleTypeOptions(getString)}
                           label=""
+                          disabled={readonly}
                           placeholder={getString('typeLabel')}
                         />
                       ) : (
@@ -100,17 +102,18 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                       )}
                       <div className={css.valueColumn}>
                         {variable.type === VariableType.Secret ? (
-                          <MultiTypeSecretInput name={`variables[${index}].value`} label="" />
+                          <MultiTypeSecretInput name={`variables[${index}].value`} label="" disabled={readonly} />
                         ) : (
                           <FormInput.MultiTextInput
                             className="variableInput"
                             name={`variables[${index}].value`}
                             label=""
+                            disabled={readonly}
                             multiTextInputProps={{
                               defaultValueToReset: '',
                               expressions,
                               textProps: {
-                                disabled: !initialValues.canAddVariable,
+                                disabled: !initialValues.canAddVariable || readonly,
                                 type: variable.type === VariableType.Number ? 'number' : 'text'
                               }
                             }}
@@ -135,6 +138,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                             {!variable.new ? (
                               <Button
                                 icon="edit"
+                                disabled={readonly}
                                 tooltip={<String className={css.tooltip} stringID="common.editVariableType" />}
                                 data-testid={`edit-variable-${index}`}
                                 onClick={() => handleEdit(index)}
@@ -143,6 +147,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                             ) : null}
                             <Button
                               icon="trash"
+                              disabled={readonly}
                               data-testid={`delete-variable-${index}`}
                               tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
                               onClick={() => handleRemove(index)}
@@ -155,7 +160,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                   )
                 })}
                 {values.canAddVariable ? (
-                  <Button minimal intent="primary" icon="plus" onClick={handleAdd}>
+                  <Button minimal intent="primary" icon="plus" onClick={handleAdd} disabled={readonly}>
                     <String stringID="common.addVariable" />
                   </Button>
                 ) : /* istanbul ignore next */ null}

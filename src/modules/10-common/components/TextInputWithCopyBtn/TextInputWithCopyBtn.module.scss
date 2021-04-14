@@ -57,6 +57,16 @@
     color: var(--blue-500) !important;
     border-radius: 0 2px 2px 0 !important;
   }
+
+  &.disabled {
+    .popoverWrapper::after {
+      background-color: var(--grey-100);
+    }
+
+    .input input[type='text'] {
+      background-color: var(--grey-100);
+    }
+  }
 }
 
 .menu {
