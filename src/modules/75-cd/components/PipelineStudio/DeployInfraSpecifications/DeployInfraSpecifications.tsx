@@ -161,11 +161,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   ): void => {
     const infrastructure = get(stage, 'stage.spec.infrastructure', null)
     if (infrastructure) {
-      infrastructure['infrastructureDefinition'] = {
+      infrastructure.infrastructureDefinition = {
+        ...infrastructure.infrastructureDefinition,
         type,
         spec: omit(extendedSpec, 'allowSimultaneousDeployments')
       }
-      infrastructure['allowSimultaneousDeployments'] = extendedSpec.allowSimultaneousDeployments || false
+      infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments || false
       debounceUpdatePipeline(pipeline)
     }
   }

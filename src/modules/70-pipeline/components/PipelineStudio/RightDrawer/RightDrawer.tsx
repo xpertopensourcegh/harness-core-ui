@@ -126,7 +126,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
-  const onSubmitStep = async (item: ExecutionWrapper): Promise<void> => {
+  const onSubmitStep = async (item: ExecutionWrapper, drawerType: DrawerTypes): Promise<void> => {
     if (data?.stepConfig?.node) {
       const processNode = produce<ExecutionWrapper>(data.stepConfig.node, node => {
         // Add/replace values only if they are presented
@@ -162,11 +162,25 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           node.spec = { ...item.spec }
         }
       })
-      if (data?.stepConfig?.node?.identifier && selectedStage?.stage?.spec?.execution) {
-        const processingNodeIdentifier = data?.stepConfig?.node?.identifier
-        updateStepWithinStage(selectedStage.stage.spec.execution, processingNodeIdentifier, processNode)
-        await updateStage(selectedStage.stage)
-        data?.stepConfig?.onUpdate?.(processNode)
+      if (data?.stepConfig?.node?.identifier) {
+        if (drawerType === DrawerTypes.StepConfig && selectedStage?.stage?.spec?.execution) {
+          const processingNodeIdentifier = data?.stepConfig?.node?.identifier
+          updateStepWithinStage(selectedStage.stage.spec.execution, processingNodeIdentifier, processNode)
+          await updateStage(selectedStage.stage)
+          data?.stepConfig?.onUpdate?.(processNode)
+        } else if (
+          drawerType === DrawerTypes.ProvisionerStepConfig &&
+          selectedStage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
+        ) {
+          const processingNodeIdentifier = data?.stepConfig?.node?.identifier
+          updateStepWithinStage(
+            selectedStage.stage.spec.infrastructure.infrastructureDefinition.provisioner,
+            processingNodeIdentifier,
+            processNode
+          )
+          await updateStage(selectedStage.stage)
+          data?.stepConfig?.onUpdate?.(processNode)
+        }
       }
     }
 
@@ -248,7 +262,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
             values
           ) {
-            onSubmitStep(values)
+            onSubmitStep(values, type)
           } else {
             // please do not remove the await below.
             // This is required for errors to be populated correctly
@@ -300,7 +314,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
-          onChange={onSubmitStep}
+          onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
         />
@@ -494,7 +508,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
-          onChange={onSubmitStep}
+          onChange={value => onSubmitStep(value, DrawerTypes.ProvisionerStepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
         />
