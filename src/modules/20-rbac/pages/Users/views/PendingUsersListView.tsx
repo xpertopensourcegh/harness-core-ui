@@ -98,6 +98,7 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
         <Button
           minimal
           icon="Options"
+          data-testid={`menu-${data.id}`}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
