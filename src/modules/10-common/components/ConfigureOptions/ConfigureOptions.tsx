@@ -208,9 +208,11 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             minimal
                             intent="primary"
                             tooltip={
-                              <Layout.Horizontal padding="medium">
-                                <String stringID="configureOptions.advancedHelp" useRichText={true} />
-                              </Layout.Horizontal>
+                              values.isAdvanced ? undefined : (
+                                <Layout.Horizontal padding="medium">
+                                  <String stringID="configureOptions.advancedHelp" useRichText={true} />
+                                </Layout.Horizontal>
+                              )
                             }
                             tooltipProps={{ position: Position.RIGHT }}
                             text={

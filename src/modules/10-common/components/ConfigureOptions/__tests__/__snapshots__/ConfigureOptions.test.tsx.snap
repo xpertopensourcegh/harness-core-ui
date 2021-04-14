@@ -406,25 +406,16 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
           <span
             class="advancedBtn"
           >
-            <span
-              class="bp3-popover-wrapper"
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+              type="button"
             >
               <span
-                class="bp3-popover-target"
+                class="bp3-button-text"
               >
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    configureOptions.returnToBasic
-                  </span>
-                </button>
+                configureOptions.returnToBasic
               </span>
-            </span>
+            </button>
           </span>
           <div
             class="bp3-form-group secondColumn"
