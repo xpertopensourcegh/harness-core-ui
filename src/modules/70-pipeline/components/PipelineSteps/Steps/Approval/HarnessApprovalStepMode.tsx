@@ -22,7 +22,6 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { FormMultiTypeCheckboxField } from '@common/components'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useGetUserGroupList } from 'services/cd-ng'
@@ -91,9 +90,8 @@ const FormContent = ({
                 multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
                 placeholder="Please add relevant information for this step"
               />
-              <FormMultiTypeCheckboxField
+              <FormInput.CheckBox
                 className={cx(css.execHistoryCheckbox, css.md)}
-                multiTypeTextbox={{ expressions }}
                 name="spec.includePipelineExecutionHistory"
                 label={getString('pipeline.approvalStep.includePipelineExecutionHistory')}
               />
@@ -115,6 +113,7 @@ const FormContent = ({
                     : userGroupOptions
                 }
                 multiSelectTypeInputProps={{
+                  expressions,
                   multiSelectProps: {
                     allowCreatingNewItems: true,
                     tagInputProps: {
@@ -157,14 +156,14 @@ const FormContent = ({
                 name="spec.approvers.minimumCount"
                 label={getString('pipeline.approvalStep.minimumCount')}
                 multiTextInputProps={{
+                  expressions,
                   textProps: {
                     type: 'number'
                   }
                 }}
               />
-              <FormMultiTypeCheckboxField
+              <FormInput.CheckBox
                 className={cx(css.execHistoryCheckbox, css.md)}
-                multiTypeTextbox={{ expressions }}
                 name="spec.approvers.disallowPipelineExecutor"
                 label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
               />

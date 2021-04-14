@@ -56,15 +56,15 @@ export const processFormData = (values: JiraApprovalData): JiraApprovalData => {
       ...values.spec,
       connectorRef:
         getMultiTypeFromValue(values.spec.connectorRef as SelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec.connectorRef as SelectOption).value?.toString()
+          ? (values.spec.connectorRef as SelectOption)?.value?.toString()
           : values.spec.connectorRef,
       projectKey:
         getMultiTypeFromValue(values.spec.projectKey as JiraProjectSelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec.projectKey as JiraProjectSelectOption).key?.toString()
+          ? (values.spec.projectKey as JiraProjectSelectOption)?.key?.toString()
           : values.spec.projectKey,
       issueType:
         getMultiTypeFromValue(values.spec.issueType as JiraProjectSelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec.issueType as JiraProjectSelectOption).key?.toString()
+          ? (values.spec.issueType as JiraProjectSelectOption)?.key?.toString()
           : values.spec.issueType,
       issueKey: values.spec.issueKey,
       approvalCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.approvalCriteria),
@@ -98,9 +98,10 @@ const getInitialApprovalRejectionConditionValues = (
 }
 
 export const getDefaultCriterias = (): ApprovalRejectionCriteria => ({
-  type: ApprovalRejectionCriteriaType.Jexl,
+  type: ApprovalRejectionCriteriaType.KeyValues,
   spec: {
-    expression: ''
+    matchAnyCondition: true,
+    conditions: []
   }
 })
 

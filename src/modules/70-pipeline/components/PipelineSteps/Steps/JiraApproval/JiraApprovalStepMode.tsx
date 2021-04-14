@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { Formik, Accordion, FormInput } from '@wings-software/uicore'
+import { Formik, Accordion, FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 import {
@@ -180,6 +180,8 @@ const FormContent = ({
                 className={css.md}
                 disabled={fetchingProjects}
                 multiTypeInputProps={{
+                  // Keeping it fixed for now as this may change in future, and the support for other value types is already provided
+                  allowableTypes: [MultiTypeInputType.FIXED],
                   onChange: _unused => {
                     // Clear dependent fields
                     resetForm(formik, 'projectKey')
@@ -204,6 +206,8 @@ const FormContent = ({
                 className={css.md}
                 disabled={fetchingProjectMetadata}
                 multiTypeInputProps={{
+                  // Keeping it fixed for now as this may change in future, and the support for other value types is already provided
+                  allowableTypes: [MultiTypeInputType.FIXED],
                   onChange: _unused => {
                     // Clear dependent fields
                     resetForm(formik, 'issueType')

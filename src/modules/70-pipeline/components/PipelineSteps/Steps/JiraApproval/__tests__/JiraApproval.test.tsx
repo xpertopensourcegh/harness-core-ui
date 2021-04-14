@@ -127,9 +127,10 @@ describe('Jira Approval tests', () => {
     expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
-    expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy()
-    fireEvent.click(getByText('conditions'))
-    await waitFor(() => getByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition'))
+    expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeTruthy()
+
+    fireEvent.click(getByText('common.jexlExpression'))
+    await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy())
   })
 
   test('Open a saved jira approval step - edit stage view', async () => {
