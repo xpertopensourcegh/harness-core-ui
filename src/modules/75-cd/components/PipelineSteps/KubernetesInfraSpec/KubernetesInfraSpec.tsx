@@ -121,7 +121,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
                   disabled={readonly}
                   accountIdentifier={accountId}
-                  multiTypeProps={{ expressions }}
+                  multiTypeProps={{ expressions, disabled: readonly }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={450}
@@ -151,6 +151,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 <FormInput.MultiTextInput
                   name="namespace"
                   className={css.inputWidth}
+                  disabled={readonly}
                   label={getString('common.namespace')}
                   placeholder={getString('cd.steps.common.namespacePlaceholder')}
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
@@ -174,6 +175,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   name="releaseName"
                   className={css.inputWidth}
                   label={getString('common.releaseName')}
+                  disabled={readonly}
                   placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                 />

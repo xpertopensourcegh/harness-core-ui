@@ -224,7 +224,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     // formik.setFieldValue('cluster', '')
                   }}
                 />
-                {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
                     value={formik.values.connectorRef as string}
                     type={
@@ -256,6 +256,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   }
                   multiTypeInputProps={{
                     expressions,
+                    disabled: readonly,
                     selectProps: {
                       items: clusterOptions,
                       itemRenderer: itemRenderer,
@@ -264,19 +265,20 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   }}
                   label={getString('common.cluster')}
                 />
-                {getMultiTypeFromValue(getClusterValue(formik.values.cluster)) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={getClusterValue(formik.values.cluster)}
-                    type="String"
-                    variableName="cluster"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      formik.setFieldValue('cluster', value)
-                    }}
-                  />
-                )}
+                {getMultiTypeFromValue(getClusterValue(formik.values.cluster)) === MultiTypeInputType.RUNTIME &&
+                  !readonly && (
+                    <ConfigureOptions
+                      value={getClusterValue(formik.values.cluster)}
+                      type="String"
+                      variableName="cluster"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('cluster', value)
+                      }}
+                    />
+                  )}
               </Layout.Horizontal>
               <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormInput.MultiTextInput
@@ -287,7 +289,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                   disabled={readonly}
                 />
-                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
                     value={formik.values.namespace as string}
                     type="String"
@@ -310,7 +312,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                   disabled={readonly}
                 />
-                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
                     value={formik.values.releaseName as string}
                     type="String"
@@ -666,7 +668,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
   }
 
   renderStep(props: StepProps<K8sGcpInfrastructure>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <GcpInfrastructureSpecInputForm
@@ -694,6 +696,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
     return (
       <GcpInfrastructureSpecEditable
         onUpdate={onUpdate}
+        readonly={readonly}
         stepViewType={stepViewType}
         {...(customStepProps as GcpInfrastructureSpecEditableProps)}
         initialValues={initialValues}

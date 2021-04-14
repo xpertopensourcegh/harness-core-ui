@@ -327,6 +327,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                           items={expressions}
                           name="skipCondition"
                           value={data?.stage.skipCondition}
+                          disabled={isReadonly}
                           inputProps={{ disabled: isReadonly }}
                           onChange={str => {
                             onChange?.({ ...data?.stage, skipCondition: str } as any)
