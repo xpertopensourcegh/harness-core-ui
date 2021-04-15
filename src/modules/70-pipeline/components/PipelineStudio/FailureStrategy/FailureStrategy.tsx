@@ -8,6 +8,7 @@ import type { ExecutionWrapper, FailureStrategyConfig, StageElementWrapperConfig
 import { useStrings } from 'framework/exports'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
 import {
+  Domain,
   ErrorType,
   Strategy
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
@@ -61,10 +62,11 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
     }
   }))
 
-  return (
-    <Formik
-      initialValues={{
-        failureStrategies: selectedStage?.stage?.failureStrategies || [
+  const domain = selectedStage?.stage?.type as Domain
+  const fallbackValues =
+    domain === 'CI'
+      ? []
+      : [
           {
             onFailure: {
               errors: [ErrorType.AnyOther],
@@ -74,6 +76,10 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
             }
           }
         ]
+  return (
+    <Formik
+      initialValues={{
+        failureStrategies: selectedStage?.stage?.failureStrategies || fallbackValues
       }}
       validationSchema={Yup.object().shape({
         failureStrategies: getFailureStrategiesValidationSchema(getString).required().min(1)
@@ -81,15 +87,11 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
       onSubmit={onUpdate}
       validate={debouncedUpdate}
     >
-      {formik => {
-        formikRef.current = formik
-
-        return (
-          <div className={Classes.DIALOG_BODY}>
-            <FailureStrategyPanel isReadonly={isReadonly} mode={Modes.STAGE} formikProps={formik} />
-          </div>
-        )
-      }}
+      {formik => (
+        <div className={Classes.DIALOG_BODY}>
+          <FailureStrategyPanel isReadonly={isReadonly} mode={Modes.STAGE} domain={domain} formikProps={formik} />
+        </div>
+      )}
     </Formik>
   )
 }

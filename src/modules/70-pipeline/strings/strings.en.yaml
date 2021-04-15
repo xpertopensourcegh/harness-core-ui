@@ -134,6 +134,7 @@ failureStrategies:
     MarkAsSuccess: Mark As Success
   errorTypeLabels:
     Authentication: Authentication Errors
+    Application: Application Errors
     Authorization: Authorization Errors
     Connectivity: Connectivity Errors
     Timeout: Timeout Errors

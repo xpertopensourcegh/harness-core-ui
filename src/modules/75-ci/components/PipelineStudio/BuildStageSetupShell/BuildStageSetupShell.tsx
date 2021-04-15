@@ -99,12 +99,12 @@ export default function BuildStageSetupShell(): JSX.Element {
     setSelectedTabId(data)
   }
 
-  function openSkipConditionPanel(): void {
+  const openDrawer: (drawerType: DrawerTypes) => void = drawerType => {
     updatePipelineView({
       ...pipelineView,
       isDrawerOpened: true,
       drawerData: {
-        type: DrawerTypes.SkipCondition
+        type: drawerType
       }
     })
   }
@@ -310,11 +310,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                         isStepGroup: event.isStepGroup,
                         isUnderStepGroup: event.isUnderStepGroup,
                         addOrEdit: event.addOrEdit,
-                        hiddenAdvancedPanels: [
-                          AdvancedPanels.FailureStrategy,
-                          AdvancedPanels.PreRequisites,
-                          AdvancedPanels.DelegateSelectors
-                        ]
+                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                       }
                     }
                   }
@@ -323,15 +319,27 @@ export default function BuildStageSetupShell(): JSX.Element {
             />
           }
         />
-        <Button
-          minimal
-          onClick={openSkipConditionPanel}
-          iconProps={{ margin: 'xsmall' }}
-          className={css.skipCondition}
-          icon="conditional-skip"
-        >
-          {getString('skipConditionTitle')}
-        </Button>
+        <>
+          <div className={css.spacer} />
+          <Button
+            minimal
+            onClick={() => openDrawer(DrawerTypes.SkipCondition)}
+            iconProps={{ margin: 'xsmall' }}
+            className={css.skipCondition}
+            icon="conditional-skip"
+          >
+            {getString('skipConditionTitle')}
+          </Button>
+          <Button
+            minimal
+            iconProps={{ size: 28, margin: 'xsmall' }}
+            // className={css.failureStrategy}
+            onClick={() => openDrawer(DrawerTypes.FailureStrategy)}
+            icon="failure-strategy"
+          >
+            {getString('pipeline.failureStrategies.title')}
+          </Button>
+        </>
       </Tabs>
     </section>
   )

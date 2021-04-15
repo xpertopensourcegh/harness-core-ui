@@ -42,7 +42,8 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     hiddenPanels,
     hasStepGroupAncestor,
     withoutTabs,
-    isNewStep = true
+    isNewStep = true,
+    domain = 'Deployment'
   } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
@@ -151,6 +152,7 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
                 isStepGroup={isStepGroup}
                 hasStepGroupAncestor={hasStepGroupAncestor}
                 ref={advancedConfRef}
+                domain={domain}
               />
             }
           />

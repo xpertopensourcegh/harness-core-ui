@@ -7,7 +7,7 @@ import { get } from 'lodash-es'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings, StringKeys } from 'framework/exports'
 
-import { ErrorType, errorTypesOrder } from './StrategySelection/StrategyConfig'
+import { ErrorType, errorTypesOrderForCI, errorTypesOrderForCD } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
 
 interface Option {
@@ -17,6 +17,7 @@ interface Option {
 
 const stringsMap: Record<ErrorType, StringKeys> = {
   [ErrorType.AnyOther]: 'pipeline.failureStrategies.errorTypeLabels.AnyOther',
+  // [ErrorType.Application]: 'pipeline.failureStrategies.errorTypeLabels.Application',
   [ErrorType.Authentication]: 'pipeline.failureStrategies.errorTypeLabels.Authentication',
   [ErrorType.Authorization]: 'pipeline.failureStrategies.errorTypeLabels.Authorization',
   [ErrorType.Connectivity]: 'pipeline.failureStrategies.errorTypeLabels.Connectivity',
@@ -40,6 +41,7 @@ export interface FailureTypeMultiSelectProps {
   label: string
   name: string
   filterTypes?: ErrorType[]
+  minimal?: boolean
 }
 
 export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSelectProps {
@@ -47,7 +49,7 @@ export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSe
 }
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {
-  const { name, label, formik, filterTypes } = props
+  const { name, label, formik, minimal, filterTypes = [] } = props
   const { getString } = useStrings()
 
   const hasError = errorCheck(name, formik)
@@ -60,8 +62,8 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
     selectedValuesSet.forEach(val => filterTypesSet.delete(val))
 
-    return errorTypesOrder.filter(e => !filterTypesSet.has(e)).map(e => ({ value: e, label: getString(stringsMap[e]) }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const errorTypes = minimal ? errorTypesOrderForCI : errorTypesOrderForCD
+    return errorTypes.filter(e => !filterTypesSet.has(e)).map(e => ({ value: e, label: getString(stringsMap[e]) }))
   })()
 
   function handleItemSelect(item: Option): void {

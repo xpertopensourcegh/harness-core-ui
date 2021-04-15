@@ -52,12 +52,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
+  const domain = selectedStage?.stage?.type
   let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const { getString } = useStrings()
   const isAlmostFullscreen = AlmostFullScreenDrawers.includes(type)
   let title: React.ReactNode | null = null
-
   if (data?.stepConfig?.isStepGroup) {
     stepData = stepsFactory.getStepData(StepType.StepGroup)
   }
@@ -317,6 +317,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
+          domain={domain}
         />
       )}
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
@@ -430,6 +431,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={onServiceDependencySubmit}
           isStepGroup={false}
           withoutTabs
+          domain={domain}
         />
       )}
 
@@ -511,6 +513,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={value => onSubmitStep(value, DrawerTypes.ProvisionerStepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
+          domain={domain}
         />
       )}
     </Drawer>

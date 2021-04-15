@@ -399,6 +399,7 @@ export interface StringsMap {
   'pipeline.execution.stepTitlePrefix': string
   'pipeline.failureStrategies.defaultStageText': string
   'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
+  'pipeline.failureStrategies.errorTypeLabels.Application': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
   'pipeline.failureStrategies.errorTypeLabels.Connectivity': string

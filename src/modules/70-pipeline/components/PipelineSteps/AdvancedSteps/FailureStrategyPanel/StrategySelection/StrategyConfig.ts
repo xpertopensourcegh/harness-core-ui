@@ -12,6 +12,7 @@ export enum Strategy {
 }
 
 export enum ErrorType {
+  // Application = 'Application',
   AnyOther = 'AnyOther',
   Authentication = 'Authentication',
   Connectivity = 'Connectivity',
@@ -21,34 +22,66 @@ export enum ErrorType {
   DelegateProvisioning = 'DelegateProvisioning'
 }
 
-export const allowedStrategiesAsPerStep: Record<Modes, Strategy[]> = {
-  [Modes.STEP]: [
-    Strategy.ManualIntervention,
-    Strategy.StageRollback,
-    Strategy.Ignore,
-    Strategy.Retry,
-    Strategy.MarkAsSuccess,
-    Strategy.Abort
-  ],
-  [Modes.STEP_GROUP]: [
-    Strategy.ManualIntervention,
-    Strategy.StageRollback,
-    Strategy.Ignore,
-    Strategy.StepGroupRollback,
-    Strategy.Retry,
-    Strategy.MarkAsSuccess,
-    Strategy.Abort
-  ],
-  [Modes.STAGE]: [Strategy.StageRollback, Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess, Strategy.Abort]
+export type Domain = 'CI' | 'Deployment'
+
+export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strategy[]> = (domain = 'Deployment') => {
+  switch (domain) {
+    case 'CI':
+      return {
+        [Modes.STEP]: [
+          Strategy.ManualIntervention,
+          Strategy.Ignore,
+          Strategy.Retry,
+          Strategy.MarkAsSuccess,
+          Strategy.Abort
+        ],
+        [Modes.STEP_GROUP]: [
+          Strategy.ManualIntervention,
+          Strategy.Ignore,
+          Strategy.Retry,
+          Strategy.MarkAsSuccess,
+          Strategy.Abort
+        ],
+        [Modes.STAGE]: [Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess, Strategy.Abort]
+      }
+    case 'Deployment':
+    default:
+      return {
+        [Modes.STEP]: [
+          Strategy.ManualIntervention,
+          Strategy.StageRollback,
+          Strategy.Ignore,
+          Strategy.Retry,
+          Strategy.MarkAsSuccess,
+          Strategy.Abort
+        ],
+        [Modes.STEP_GROUP]: [
+          Strategy.ManualIntervention,
+          Strategy.StageRollback,
+          Strategy.Ignore,
+          Strategy.StepGroupRollback,
+          Strategy.Retry,
+          Strategy.MarkAsSuccess,
+          Strategy.Abort
+        ],
+        [Modes.STAGE]: [Strategy.StageRollback, Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess, Strategy.Abort]
+      }
+  }
 }
 
-export const errorTypesOrder: ErrorType[] = [
+export const errorTypesOrderForCD: ErrorType[] = [
   ErrorType.Authentication,
+  // ErrorType.Application,
   ErrorType.Authorization,
   ErrorType.Connectivity,
   ErrorType.Timeout,
   ErrorType.Verification,
   ErrorType.DelegateProvisioning,
+  ErrorType.AnyOther
+]
+export const errorTypesOrderForCI: ErrorType[] = [
+  // ErrorType.Application,
+  ErrorType.Timeout,
   ErrorType.AnyOther
 ]
 
