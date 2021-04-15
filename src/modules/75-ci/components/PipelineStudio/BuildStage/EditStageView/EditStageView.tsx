@@ -289,7 +289,6 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 type="submit"
                 intent="primary"
                 text={getString('pipelineSteps.build.create.setupStage')}
-                onClick={() => formikProps.submitForm()}
                 margin={{ top: 'small' }}
               />
             </FormikForm>

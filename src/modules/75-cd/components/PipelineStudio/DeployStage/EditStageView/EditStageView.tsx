@@ -254,9 +254,6 @@ export const EditStageView: React.FC<EditStageView> = ({
                             type="submit"
                             intent="primary"
                             text={getString('pipelineSteps.build.create.setupStage')}
-                            onClick={() => {
-                              formikProps.submitForm()
-                            }}
                           />
                         </div>
                       )}
