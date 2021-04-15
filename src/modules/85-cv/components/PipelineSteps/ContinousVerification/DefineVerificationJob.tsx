@@ -56,7 +56,7 @@ export default function DefineVerificationJob(props: {
 
   return (
     <>
-      {!error && !loading && jobContents && jobContents.length > 0 && (
+      {!error && !loading && cvJobNames && cvJobNames.length > 0 && (
         <div className={cx(stepCss.formGroup)}>
           <FormInput.Select
             name="spec.verificationJobRef"
@@ -64,14 +64,15 @@ export default function DefineVerificationJob(props: {
             items={cvJobNames}
             value={(formValues as ContinousVerificationFormData).spec?.verificationJobRef as SelectOption}
             onChange={el => {
-              const selectedJob = { verificationJobRef: el }
-              const newSpecs = { ...formValues.spec, ...selectedJob }
+              //whenever selectedJob is changed then resetting the specs, so that jobConfig data can be fetched from selected job
+              const updatedSpecs = { verificationJobRef: el, spec: {} }
+              const newSpecs = { ...formValues.spec, ...updatedSpecs }
               setFieldValue('spec', newSpecs)
             }}
           />
         </div>
       )}
-      {!error && !loading && jobContents && jobContents.length === 0 && (
+      {!error && !loading && cvJobNames && cvJobNames.length === 0 && (
         <Layout.Horizontal spacing="xsmall">
           <Text>{getString('cv.connectors.cdng.noJobsConfigured')}</Text>
           <Link

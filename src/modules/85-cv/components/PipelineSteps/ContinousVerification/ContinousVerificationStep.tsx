@@ -16,7 +16,7 @@ import {
   durationOptions,
   trafficSplitPercentageOptions,
   VerificationSensitivityOptions
-} from './ConfigureVerificationJob'
+} from './constants'
 
 const ConnectorRefRegex = /^.+step\.spec\.executionTarget\.connectorRef$/
 

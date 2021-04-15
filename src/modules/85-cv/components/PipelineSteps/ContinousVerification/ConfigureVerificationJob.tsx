@@ -14,28 +14,15 @@ import {
 } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
 import { useStrings } from 'framework/exports'
 import type { ContinousVerificationFormData } from './continousVerificationTypes'
+import {
+  baseLineOptions,
+  durationOptions,
+  IdentifierTypes,
+  JobTypes,
+  trafficSplitPercentageOptions,
+  VerificationSensitivityOptions
+} from './constants'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-
-export const durationOptions: SelectOption[] = [
-  { label: '5 min', value: '5m' },
-  { label: '10 min', value: '10m' },
-  { label: '15 min', value: '15m' },
-  { label: '30 min', value: '30m' }
-]
-
-export const trafficSplitPercentageOptions: SelectOption[] = [
-  { label: '5%', value: 5 },
-  { label: '10%', value: 10 },
-  { label: '15%', value: 15 }
-]
-
-export const VerificationSensitivityOptions: SelectOption[] = [
-  { label: 'High', value: 'HIGH' },
-  { label: 'Medium', value: 'MEDIUM' },
-  { label: 'Low', value: 'LOW' }
-]
-
-export const baseLineOptions: SelectOption[] = [{ label: 'Last Successful job run', value: 'LAST' }]
 
 export default function ConfigureVerificationJob(props: {
   formik: FormikProps<ContinousVerificationFormData>
@@ -188,11 +175,15 @@ export default function ConfigureVerificationJob(props: {
       const duration = getFieldDataFromForm('duration', durationOptions)
       const trafficsplit = getFieldDataFromForm('trafficSplitPercentage', trafficSplitPercentageOptions)
       const baseline = getFieldDataFromForm('baselineVerificationJobInstanceId', baseLineOptions)
-      const serviceRef = selectedJob.serviceIdentifier
-      const envRef = selectedJob.envIdentifier
+      const serviceRef =
+        selectedJob.serviceIdentifier === RUNTIME_INPUT_VALUE
+          ? IdentifierTypes.serviceIdentifier
+          : selectedJob.serviceIdentifier
+      const envRef =
+        selectedJob.envIdentifier === RUNTIME_INPUT_VALUE ? IdentifierTypes.envIdentifier : selectedJob.envIdentifier
 
       const updatedSpecs = {
-        type: selectedJob.type,
+        type: selectedJob.type && JobTypes[selectedJob.type],
         spec: {
           ...formValues.spec.spec,
           sensitivity,
