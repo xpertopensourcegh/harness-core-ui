@@ -39,6 +39,7 @@ interface K8sBGSwapProps {
   onUpdate?: (data: K8sBGSwapServicesData) => void
   stepViewType?: StepViewType
   isNewStep?: boolean
+  readonly?: boolean
   inputSetData?: {
     template?: K8sBGSwapServicesData
     path?: string
@@ -58,7 +59,7 @@ function K8sBGSwapWidget(
   props: K8sBGSwapProps,
   formikRef: StepFormikFowardRef<K8sBGSwapServicesData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -85,7 +86,11 @@ function K8sBGSwapWidget(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isNewStep}
+                    inputGroupProps={{ disabled: readonly }}
+                  />
                 </div>
 
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
@@ -93,7 +98,7 @@ function K8sBGSwapWidget(
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -150,7 +155,16 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sBGSwapServicesData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -177,6 +191,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
+        readonly={readonly}
       />
     )
   }

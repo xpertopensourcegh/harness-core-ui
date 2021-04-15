@@ -54,7 +54,7 @@ function K8CanaryDeployWidget(
   props: K8sCanaryDeployProps,
   formikRef: StepFormikFowardRef<K8sCanaryDeployData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
 
   return (
@@ -82,12 +82,17 @@ function K8CanaryDeployWidget(
           return (
             <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                <FormInput.InputWithIdentifier
+                  inputLabel={getString('name')}
+                  isIdentifierEditable={isNewStep}
+                  inputGroupProps={{ disabled: readonly }}
+                />
               </div>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInstanceDropdown
                   name={'spec.instanceSelection'}
                   label={getString('pipelineSteps.instanceLabel')}
+                  readonly={readonly}
                 />
                 {(getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
                   getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
@@ -114,7 +119,7 @@ function K8CanaryDeployWidget(
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
                   className={stepCss.duration}
-                  multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, disabled: readonly }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -131,7 +136,11 @@ function K8CanaryDeployWidget(
                 )}
               </div>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
+                <FormMultiTypeCheckboxField
+                  name="spec.skipDryRun"
+                  label={getString('pipelineSteps.skipDryRun')}
+                  disabled={readonly}
+                />
               </div>
             </Layout.Vertical>
           )
@@ -190,7 +199,16 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8CanaryDeployInputStep
@@ -218,6 +236,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
+        readonly={readonly}
       />
     )
   }

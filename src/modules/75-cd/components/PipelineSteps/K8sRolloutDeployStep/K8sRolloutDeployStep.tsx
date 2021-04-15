@@ -35,6 +35,7 @@ interface K8RolloutDeployProps {
   initialValues: K8RolloutDeployData
   onUpdate?: (data: K8RolloutDeployData) => void
   stepViewType?: StepViewType
+  readonly?: boolean
   isNewStep?: boolean
   inputSetData?: {
     template?: K8RolloutDeployData
@@ -47,7 +48,7 @@ function K8RolloutDeployWidget(
   props: K8RolloutDeployProps,
   formikRef: StepFormikFowardRef<K8RolloutDeployData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
   return (
@@ -72,13 +73,17 @@ function K8RolloutDeployWidget(
           return (
             <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                <FormInput.InputWithIdentifier
+                  inputLabel={getString('name')}
+                  isIdentifierEditable={isNewStep}
+                  inputGroupProps={{ disabled: readonly }}
+                />
               </div>
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
-                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -99,6 +104,7 @@ function K8RolloutDeployWidget(
                   multiTypeTextbox={{ expressions }}
                   name="spec.skipDryRun"
                   label={getString('pipelineSteps.skipDryRun')}
+                  disabled={readonly}
                 />
               </div>
             </Layout.Vertical>
@@ -162,7 +168,16 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8RolloutDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -190,6 +205,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
+        readonly={readonly}
       />
     )
   }

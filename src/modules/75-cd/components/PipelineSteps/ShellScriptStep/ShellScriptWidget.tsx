@@ -25,12 +25,13 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 interface ShellScriptWidgetProps {
   initialValues: ShellScriptFormData
   onUpdate?: (data: ShellScriptFormData) => void
+  readonly?: boolean
   stepViewType?: StepViewType
   isNewStep?: boolean
 }
 
 export function ShellScriptWidget(
-  { initialValues, onUpdate, isNewStep = true }: ShellScriptWidgetProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: ShellScriptWidgetProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element {
   const { getString } = useStrings()
@@ -80,22 +81,22 @@ export function ShellScriptWidget(
             <Accordion.Panel
               id="step-1"
               summary={getString('basic')}
-              details={<BaseShellScript isNewStep={isNewStep} formik={formik} />}
+              details={<BaseShellScript isNewStep={isNewStep} formik={formik} readonly={readonly} />}
             />
             <Accordion.Panel
               id="step-2"
               summary={getString('scriptInputVariables')}
-              details={<ShellScriptInput formik={formik} />}
+              details={<ShellScriptInput formik={formik} readonly={readonly} />}
             />
             <Accordion.Panel
               id="step-4"
               summary={getString('scriptOutputVariables')}
-              details={<ShellScriptOutput formik={formik} />}
+              details={<ShellScriptOutput formik={formik} readonly={readonly} />}
             />
             <Accordion.Panel
               id="step-3"
               summary={getString('executionTarget')}
-              details={<ExecutionTarget formik={formik} />}
+              details={<ExecutionTarget formik={formik} readonly={readonly} />}
             />
           </Accordion>
         )

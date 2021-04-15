@@ -86,6 +86,7 @@ export interface K8sDeleteVariableStepProps {
 interface K8sDeleteProps {
   initialValues: K8sDeleteFormData
   onUpdate?: (data: K8sDeleteFormData) => void
+  isDisabled?: boolean
   stepViewType?: StepViewType
   isNewStep?: boolean
   inputSetData?: {
@@ -99,7 +100,7 @@ function K8sDeleteDeployWidget(
   props: K8sDeleteProps,
   formikRef: StepFormikFowardRef<K8sDeleteData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, isNewStep = true, isDisabled } = props
   const { getString } = useStrings()
 
   const accessTypeOptions = React.useMemo(() => {
@@ -295,14 +296,18 @@ function K8sDeleteDeployWidget(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isNewStep}
+                    inputGroupProps={{ disabled: isDisabled }}
+                  />
                 </div>
                 <div className={stepCss.formGroup}>
                   <FormInput.RadioGroup
                     label={getString('pipelineSteps.deleteResourcesBy')}
                     name="spec.deleteResources.type"
                     items={accessTypeOptions}
-                    radioGroup={{ inline: true }}
+                    radioGroup={{ inline: true, disabled: isDisabled }}
                     onChange={e => {
                       const currentValue = e.currentTarget?.value
 
@@ -330,7 +335,7 @@ function K8sDeleteDeployWidget(
                                   placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
                                   name={`spec.deleteResources.spec.resourceNames[${index}].value`}
                                   style={{ width: '430px' }}
-                                  multiTextInputProps={{ expressions }}
+                                  multiTextInputProps={{ expressions, textProps: { disabled: isDisabled } }}
                                 />
                                 {/* istanbul ignore next */}
                                 {formikProps.values?.spec?.deleteResources?.spec?.resourceNames && (
@@ -341,6 +346,7 @@ function K8sDeleteDeployWidget(
                                       /* istanbul ignore next */
                                       arrayHelpers.remove(index)
                                     }}
+                                    disabled={isDisabled}
                                   />
                                 )}
                               </Layout.Horizontal>
@@ -356,6 +362,7 @@ function K8sDeleteDeployWidget(
                                 /* istanbul ignore next */
                                 arrayHelpers.push({ value: '', id: uuid() })
                               }}
+                              disabled={isDisabled}
                             />
                           </span>
                         </Layout.Vertical>
@@ -371,6 +378,7 @@ function K8sDeleteDeployWidget(
                       label={getString('pipelineSteps.deleteNamespace')}
                       style={{ paddingLeft: 'var(--spacing-small)', fontSize: 'var(--font-size-small)' }}
                       multiTypeTextbox={{ expressions }}
+                      disabled={isDisabled}
                     />
                   </div>
                 )}
@@ -396,13 +404,19 @@ function K8sDeleteDeployWidget(
                                   style={{ width: '430px' }}
                                   multiTextInputProps={{
                                     expressions,
-                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                    disabled: isDisabled
                                   }}
                                 />
 
                                 {/* istanbul ignore next */}
                                 {formikProps.values?.spec?.deleteResources?.spec?.manifestPaths && (
-                                  <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                                  <Button
+                                    minimal
+                                    icon="minus"
+                                    onClick={() => arrayHelpers.remove(index)}
+                                    disabled={isDisabled}
+                                  />
                                 )}
                               </Layout.Horizontal>
                             )
@@ -413,6 +427,7 @@ function K8sDeleteDeployWidget(
                               text={getString('addFileText')}
                               className={css.addBtn}
                               intent="primary"
+                              disabled={isDisabled}
                               onClick={() => arrayHelpers.push({ value: '', id: uuid() })}
                             />
                           </span>
@@ -426,7 +441,7 @@ function K8sDeleteDeployWidget(
                     <FormMultiTypeDurationField
                       name="timeout"
                       label={getString('pipelineSteps.timeoutLabel')}
-                      multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                      multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: isDisabled }}
                     />
                     {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
@@ -502,7 +517,16 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
   renderStep(props: StepProps<any>): JSX.Element {
     /* istanbul ignore next */
 
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       /* istanbul ignore next */
@@ -533,6 +557,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
         isNewStep={isNewStep}
         readonly={!!inputSetData?.readonly}
         ref={formikRef}
+        isDisabled={readonly}
         onUpdate={onUpdate}
       />
     )

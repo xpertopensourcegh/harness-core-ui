@@ -66,7 +66,7 @@ interface K8sScaleProps {
 }
 
 function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRef<K8sScaleData>): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
 
   return (
@@ -95,12 +95,17 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isNewStep}
+                    inputGroupProps={{ disabled: readonly }}
+                  />
                 </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInstanceDropdown
                     name={'spec.instanceSelection'}
                     label={getString('pipelineSteps.instanceLabel')}
+                    readonly={readonly}
                   />
                   {(getMultiTypeFromValue(
                     (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
@@ -132,6 +137,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     label={getString('pipelineSteps.workload')}
                     name={'spec.workload'}
                     isOptional={true}
+                    disabled={readonly}
                   />
                   {getMultiTypeFromValue(values.spec.workload) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -153,7 +159,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -173,6 +179,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   <FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
                     label={getString('pipelineSteps.skipSteadyStateCheck')}
+                    disabled={readonly}
                   />
                 </div>
               </Layout.Vertical>
@@ -236,7 +243,16 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -265,6 +281,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         ref={formikRef}
+        readonly={readonly}
       />
     )
   }

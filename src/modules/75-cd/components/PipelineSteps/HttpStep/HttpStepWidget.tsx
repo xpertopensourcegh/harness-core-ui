@@ -23,16 +23,17 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 export interface HttpStepWidgetProps {
   initialValues: HttpStepFormData
   isNewStep?: boolean
+  isDisabled?: boolean
   onUpdate?: (data: HttpStepFormData) => void
   stepViewType?: StepViewType
-  readonly?: boolean
+  readonly: boolean
 }
 
 export function HttpStepWidget(
   props: HttpStepWidgetProps,
   formikRef: StepFormikFowardRef<HttpStepData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep } = props
+  const { initialValues, onUpdate, isNewStep, isDisabled } = props
   const { getString } = useStrings()
 
   return (
@@ -73,12 +74,12 @@ export function HttpStepWidget(
               <Accordion.Panel
                 id="step-1"
                 summary={getString('basic')}
-                details={<HttpStepBase formik={formik} isNewStep={isNewStep} />}
+                details={<HttpStepBase formik={formik} isNewStep={isNewStep} readonly={isDisabled} />}
               />
               <Accordion.Panel
                 id="step-2"
                 summary={getString('responseMapping')}
-                details={<ResponseMapping formik={formik} />}
+                details={<ResponseMapping formik={formik} readonly={isDisabled} />}
               />
             </Accordion>
           </React.Fragment>

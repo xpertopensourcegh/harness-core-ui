@@ -28,21 +28,32 @@ export const httpStepType: SelectOption[] = [
 export default function HttpStepBase(props: {
   formik: FormikProps<HttpStepFormData>
   isNewStep?: boolean
+  readonly?: boolean
 }): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const {
     formik: { values: formValues, setFieldValue },
-    isNewStep = true
+    isNewStep = true,
+    readonly
   } = props
 
   return (
     <div className={stepCss.stepPanel}>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.InputWithIdentifier isIdentifierEditable={isNewStep} inputLabel={getString('name')} />
+        <FormInput.InputWithIdentifier
+          isIdentifierEditable={isNewStep}
+          inputLabel={getString('name')}
+          inputGroupProps={{ disabled: readonly }}
+        />
       </div>
       <div className={stepCss.formGroup}>
-        <FormInput.MultiTextInput name="spec.url" label={getString('UrlLabel')} multiTextInputProps={{ expressions }} />
+        <FormInput.MultiTextInput
+          name="spec.url"
+          label={getString('UrlLabel')}
+          disabled={readonly}
+          multiTextInputProps={{ expressions, disabled: readonly }}
+        />
         {getMultiTypeFromValue(formValues.spec.url) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.url}
@@ -58,7 +69,8 @@ export default function HttpStepBase(props: {
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormInput.MultiTypeInput
           selectItems={httpStepType}
-          multiTypeInputProps={{ expressions }}
+          disabled={readonly}
+          multiTypeInputProps={{ expressions, disabled: readonly }}
           label={getString('methodLabel')}
           name="spec.method"
         />
@@ -92,16 +104,24 @@ export default function HttpStepBase(props: {
                   </div>
                   {formValues.spec.headers.map(({ id }: HttpStepHeaderConfig, i: number) => (
                     <div className={css.headerRow} key={id}>
-                      <FormInput.Text name={`spec.headers[${i}].key`} />
+                      <FormInput.Text name={`spec.headers[${i}].key`} disabled={readonly} />
                       <FormInput.MultiTextInput
                         name={`spec.headers[${i}].value`}
+                        disabled={readonly}
                         multiTextInputProps={{
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                          expressions
+                          expressions,
+                          disabled: readonly
                         }}
                         label=""
                       />
-                      <Button minimal icon="trash" data-testid={`remove-header-${i}`} onClick={() => remove(i)} />
+                      <Button
+                        minimal
+                        icon="trash"
+                        data-testid={`remove-header-${i}`}
+                        onClick={() => remove(i)}
+                        disabled={readonly}
+                      />
                     </div>
                   ))}
                   <Button
@@ -110,6 +130,7 @@ export default function HttpStepBase(props: {
                     intent="primary"
                     data-testid="add-header"
                     onClick={() => push({ key: '', value: '', id: uuid() })}
+                    disabled={readonly}
                   >
                     Add
                   </Button>
@@ -123,7 +144,7 @@ export default function HttpStepBase(props: {
         <FormMultiTypeTextAreaField
           name="spec.requestBody"
           label={getString('requestBodyLabel')}
-          multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
+          multiTypeTextArea={{ enableConfigureOptions: false, expressions, disabled: readonly }}
         />
         {getMultiTypeFromValue(formValues.spec.requestBody) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -141,7 +162,8 @@ export default function HttpStepBase(props: {
         <FormInput.MultiTextInput
           name="spec.assertion"
           label={getString('assertionLabel')}
-          multiTextInputProps={{ expressions }}
+          disabled={readonly}
+          multiTextInputProps={{ expressions, disabled: readonly }}
         />
         {getMultiTypeFromValue(formValues.spec.assertion) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -159,7 +181,7 @@ export default function HttpStepBase(props: {
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
         />
         {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions

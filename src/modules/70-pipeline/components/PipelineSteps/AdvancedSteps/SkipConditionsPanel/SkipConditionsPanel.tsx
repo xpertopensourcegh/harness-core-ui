@@ -24,7 +24,7 @@ export default function SkipConditionsPanel(props: SkipConditionPanelProps): Rea
         <String stringID={labelStringID} />
       </Text>
       <FormInput.ExpressionInput
-        expressionInputProps={{ inputProps: { disabled: props.isReadonly } }}
+        expressionInputProps={{ disabled: props.isReadonly, inputProps: { disabled: props.isReadonly } }}
         items={expressions}
         name="skipCondition"
         label=""

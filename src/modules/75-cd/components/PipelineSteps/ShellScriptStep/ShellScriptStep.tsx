@@ -53,7 +53,16 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   }
 
   renderStep(props: StepProps<ShellScriptData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -83,6 +92,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         stepViewType={stepViewType}
         isNewStep={isNewStep}
+        readonly={readonly}
         ref={formikRef}
       />
     )
