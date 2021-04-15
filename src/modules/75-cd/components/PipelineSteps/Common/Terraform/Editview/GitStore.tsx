@@ -61,10 +61,14 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}
-            onChange={value => formik.setFieldValue('values.spec.configuration.spec.workspace', value)}
+            onChange={value => {
+              /* istanbul ignore else */
+              formik.setFieldValue('values.spec.configuration.spec.workspace', value)
+            }}
           />
         )}
       </div>
+
       <FormMultiTypeConnectorField
         label={
           <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -77,7 +81,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
             />
           </Text>
         }
-        type={'Git'}
+        type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
         width={
           getMultiTypeFromValue(formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
           MultiTypeInputType.RUNTIME
