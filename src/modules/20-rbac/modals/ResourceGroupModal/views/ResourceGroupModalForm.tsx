@@ -11,7 +11,6 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import {
@@ -51,18 +50,9 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
       projectIdentifier
     }
   })
-  const handleSubmit = async (
-    values: Pick<ResourceGroupDTO, 'name' | 'color' | 'tags' | 'description' | 'identifier'>
-  ): Promise<void> => {
+  const handleSubmit = async (values: ResourceGroupDTO): Promise<void> => {
     const dataToSubmit: ResourceGroupRequestRequestBody = {
-      resourcegroup: {
-        ...pick(values, ['name', 'description', 'color', 'tags']),
-        resourceSelectors: [],
-        identifier: values.identifier,
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      }
+      resourcegroup: values
     }
     try {
       if (!editMode) {
@@ -86,13 +76,16 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
   return (
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical spacing="large">
-        <Formik
+        <Formik<ResourceGroupDTO>
           initialValues={{
             identifier: '',
             name: '',
             description: '',
             tags: {},
             color: DEFAULT_COLOR,
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
             ...(editMode && data)
           }}
           validationSchema={Yup.object().shape({

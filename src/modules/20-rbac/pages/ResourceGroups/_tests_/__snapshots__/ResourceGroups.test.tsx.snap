@@ -9,7 +9,7 @@ exports[`Resource Groups Page render data 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--padding-left-large"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         data-testid="addNewResourceGroup"
         type="button"
       >
@@ -35,7 +35,7 @@ exports[`Resource Groups Page render data 1`] = `
         <span
           class="bp3-button-text"
         >
-          New Resource Group
+          resourceGroup.newResourceGroup
         </span>
       </button>
     </div>
@@ -43,11 +43,11 @@ exports[`Resource Groups Page render data 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--margin-right-small"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
         data-name=""
       >
         <span
-          class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
+          class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
           icon="search"
         >
           <svg
@@ -68,7 +68,7 @@ exports[`Resource Groups Page render data 1`] = `
         <input
           class="bp3-input "
           dir="auto"
-          placeholder="Search by Name or Email"
+          placeholder="rbac.usersPage.search"
           type="search"
           value=""
         />
@@ -95,7 +95,7 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
             title="Toggle SortBy"
           >
-            Resource Group
+            resourceGroup.resourceGroupColumn
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -123,7 +123,7 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
             title="Toggle SortBy"
           >
-            Summary
+            resourceGroup.summary
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -151,7 +151,7 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
             title="Toggle SortBy"
           >
-            Last Updated
+            lastUpdated
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -214,7 +214,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All 
+              resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -241,7 +241,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenuss33"
                   type="button"
                 >
@@ -250,36 +250,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -320,7 +301,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All , All 
+              resourceGroup.all, resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -347,7 +328,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenustarte"
                   type="button"
                 >
@@ -356,36 +337,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -426,7 +388,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All 
+              resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -453,7 +415,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenuswarfdfds34343"
                   type="button"
                 >
@@ -462,36 +424,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -532,7 +475,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All 
+              resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -559,7 +502,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenutestttttte34343"
                   type="button"
                 >
@@ -568,36 +511,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -638,7 +562,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All 
+              resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -665,7 +589,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenutterer"
                   type="button"
                 >
@@ -674,36 +598,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -744,7 +649,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All , All 
+              resourceGroup.all, resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -771,7 +676,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenutestvery1"
                   type="button"
                 >
@@ -780,36 +685,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -850,7 +736,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All 
+              resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -877,7 +763,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenutest create 3"
                   type="button"
                 >
@@ -886,36 +772,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -956,7 +823,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All , All 
+              resourceGroup.all, resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -983,7 +850,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenutest_554"
                   type="button"
                 >
@@ -992,36 +859,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -1062,7 +910,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All , All 
+              resourceGroup.all, resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -1074,7 +922,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              Built in resource-group
+              resourceGroup.builtInResourceGroup
             </p>
           </div>
           <div
@@ -1120,7 +968,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All , All 
+              resourceGroup.all, resourceGroup.all
             </p>
           </div>
           <div
@@ -1147,7 +995,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="resourceGroupDetailsEditMenutest_with_desc"
                   type="button"
                 >
@@ -1156,36 +1004,17 @@ exports[`Resource Groups Page render data 1`] = `
                     data-icon="Options"
                   >
                     <svg
-                      height="20"
-                      width="20"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
                     >
-                      <defs>
-                        <path
-                          d="M0 0h24v24H0z"
-                          id="Options_svg__a"
-                        />
-                      </defs>
-                      <g
-                        fill="none"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
                         fill-rule="evenodd"
-                      >
-                        <mask
-                          fill="#fff"
-                          id="Options_svg__b"
-                        >
-                          <use
-                            xlink:href="#Options_svg__a"
-                          />
-                        </mask>
-                        <path
-                          d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                          mask="url(#Options_svg__b)"
-                          stroke="#25A6F7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform="rotate(90 12 12)"
-                        />
-                      </g>
+                      />
                     </svg>
                   </span>
                 </button>
@@ -1217,7 +1046,7 @@ exports[`Resource Groups Page render data 1`] = `
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               disabled=""
               tabindex="-1"
               type="button"
@@ -1229,7 +1058,7 @@ exports[`Resource Groups Page render data 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
