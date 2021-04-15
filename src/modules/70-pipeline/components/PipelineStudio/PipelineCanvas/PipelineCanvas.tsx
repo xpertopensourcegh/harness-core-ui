@@ -308,7 +308,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
                     },
                     resource: {
                       resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipeline.identifier
+                      resourceIdentifier: pipeline?.identifier
                     },
                     permission: PermissionIdentifier.EDIT_PIPELINE
                   }}
@@ -364,7 +364,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
                     },
                     resource: {
                       resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipeline.identifier as string
+                      resourceIdentifier: pipeline?.identifier as string
                     },
                     permission: PermissionIdentifier.EXECUTE_PIPELINE
                   }}
