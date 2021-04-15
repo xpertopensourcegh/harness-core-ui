@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Button, Text } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
@@ -20,13 +20,13 @@ export default function UserNav(): React.ReactElement {
   })
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const history = useHistory()
 
   const signOut = async (): Promise<void> => {
     try {
       await logout()
       AppStorage.clear()
-      history.push(routes.toLogin())
+      window.location.href = '/#/login'
+      return
     } catch (err) {
       showError(get(err, 'responseMessages[0].message', getString('somethingWentWrong')))
     }
