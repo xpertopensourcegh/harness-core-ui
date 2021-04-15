@@ -244,7 +244,18 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
           )}
           {emptyEnvs && (
             <Container flex={{ align: 'center-center' }} height="100%">
-              <NoEnvironment onCreated={() => refetch()} />
+              <NoEnvironment
+                onCreated={response =>
+                  history.push(
+                    routes.toCFEnvironmentDetails({
+                      environmentIdentifier: response?.data?.identifier as string,
+                      projectIdentifier,
+                      orgIdentifier,
+                      accountId
+                    })
+                  )
+                }
+              />
             </Container>
           )}
         </>
