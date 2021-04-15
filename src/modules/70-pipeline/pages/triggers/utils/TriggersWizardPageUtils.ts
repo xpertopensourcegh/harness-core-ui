@@ -1,6 +1,6 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
-import type { NgPipeline } from 'services/cd-ng'
+import type { NgPipeline, ConnectorInfoDTO } from 'services/cd-ng'
 import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from 'services/pipeline-ng'
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
@@ -30,6 +30,8 @@ export interface ConnectorRefInterface {
   identifier: string
   repoName?: string
   value?: string
+  connector?: ConnectorInfoDTO
+  label?: string
 }
 
 export interface FlatOnEditValuesInterface {

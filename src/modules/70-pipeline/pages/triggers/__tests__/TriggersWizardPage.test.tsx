@@ -18,6 +18,7 @@ import {
   GetTriggerEmptyActionsResponse,
   GetTriggerWithPushEventResponse,
   GetTriggerWithMergeRequestEventResponse,
+  GetSchemaYaml,
   updateTriggerMockResponseYaml,
   enabledFalseUpdateTriggerMockResponseYaml,
   GenerateWebhookTokenResponse
@@ -54,6 +55,17 @@ describe('TriggersWizardPage Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('OnEdit Render - GitHub Show all fields filled', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -93,6 +105,17 @@ describe('TriggersWizardPage Triggers tests', () => {
     test('OnEdit Render - GitHub with repo org level connector', async () => {
       // anyAction checked due to empty actions,
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(RepoConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -161,6 +184,17 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Invalid yaml shows error message', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -204,6 +238,17 @@ describe('TriggersWizardPage Triggers tests', () => {
     })
     test('Submit shows all onEdit values were parsed into FormikValues for re-submission', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -250,6 +295,17 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit values with Enabled False', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -303,6 +359,17 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit shows toast to fill out actions', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -357,6 +424,17 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit does not require push because empty actions response', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -467,6 +545,17 @@ describe('TriggersWizardPage Triggers tests', () => {
   describe('Missed Tests', () => {
     test('OnEdit Render - Show all fields filled with any actions checked', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -492,7 +581,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       jest
         .spyOn(pipelineNg, 'useGetActionsList')
         .mockReturnValue(GetActionsListResponse as UseGetReturn<any, any, any, any>)
-      const { container } = render(<WrapperComponent />)
+      render(<WrapperComponent />)
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
         expect(() =>
@@ -502,7 +591,8 @@ describe('TriggersWizardPage Triggers tests', () => {
           )
         ).not.toBeNull()
       )
-      expect(container).toMatchSnapshot()
+      expect(document.querySelector('[name="actions"]')).toHaveProperty('disabled', true)
+      expect(document.querySelector('[name="anyAction"]')).toHaveProperty('checked', true)
     })
   })
 })
