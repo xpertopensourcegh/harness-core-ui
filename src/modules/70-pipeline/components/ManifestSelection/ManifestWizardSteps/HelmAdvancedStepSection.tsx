@@ -67,7 +67,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
               <Layout.Vertical>
                 {formik.values?.commandFlags?.map((commandFlag: CommandFlags, index: number) => (
                   <Layout.Horizontal
-                    key={commandFlag.id || commandFlag.commandType}
+                    key={commandFlag.id || commandFlag.flag}
                     spacing="xxlarge"
                     flex
                     margin={{ top: 'small' }}

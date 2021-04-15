@@ -1,3 +1,4 @@
+import type { SelectOption } from '@wings-software/uicore'
 import type {
   ConnectorInfoDTO,
   ManifestConfig,
@@ -62,7 +63,7 @@ export interface ManifestLastStepProps {
   selectedManifest: string
 }
 export interface CommandFlags {
-  commandType: string | undefined
+  commandType: string | SelectOption | undefined
   flag: string | undefined
   id?: string
 }
