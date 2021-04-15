@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
-import { isEqual, get } from 'lodash-es'
+import { isEqual, get, omit } from 'lodash-es'
 import debounce from 'p-debounce'
 import produce from 'immer'
 
@@ -98,7 +98,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
         return produce(oldPermissions, draft => {
           // find the current request in aggregated response
           const hasAccess = !!res.data?.accessControlList?.find((perm: AccessControl) =>
-            isEqual(perm, permissionRequest)
+            isEqual(omit(perm, 'permitted'), permissionRequest)
           )?.permitted
 
           // update current request in the map
