@@ -60,8 +60,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
   label: 'Projects',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.VIEW_PROJECT]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.CREATE_PROJECT]: <String stringID="rbac.permissionLabels.create" />,
     [PermissionIdentifier.DELETE_PROJECT]: <String stringID="rbac.permissionLabels.delete" />
   },
   // eslint-disable-next-line react/display-name
@@ -73,8 +74,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   label: 'Organizations',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_ORG]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.VIEW_ORG]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.UPDATE_ORG]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.CREATE_ORG]: <String stringID="rbac.permissionLabels.create" />,
     [PermissionIdentifier.DELETE_ORG]: <String stringID="rbac.permissionLabels.delete" />
   },
   // eslint-disable-next-line react/display-name

@@ -43,7 +43,7 @@ const OrganizationsPage: React.FC = () => {
               text={i18n.newOrganization}
               onClick={() => openOrganizationModal()}
               permission={{
-                permission: PermissionIdentifier.UPDATE_ORG,
+                permission: PermissionIdentifier.CREATE_ORG,
                 resourceScope: {
                   accountIdentifier: accountId
                 }

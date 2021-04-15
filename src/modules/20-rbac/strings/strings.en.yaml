@@ -1,5 +1,6 @@
 permissionLabels:
   createEdit: Create / Edit
+  create: '{{ $.create }}'
   view: View
   pipelineExecution: Use in Pipeline Execution
   delete: '{{ $.delete}}'
