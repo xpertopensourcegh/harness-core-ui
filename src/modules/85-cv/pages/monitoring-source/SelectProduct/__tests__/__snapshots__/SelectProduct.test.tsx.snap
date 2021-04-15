@@ -226,6 +226,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                       >
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          data-testid="cr-field-connectorRef"
                           style="width: 272px;"
                           type="button"
                         >

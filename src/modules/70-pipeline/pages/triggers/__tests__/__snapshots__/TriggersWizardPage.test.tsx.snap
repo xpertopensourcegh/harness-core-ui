@@ -857,6 +857,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             >
                               <button
                                 class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                data-testid="cr-field-connectorRef"
                                 style="width: 324px;"
                                 type="button"
                               >
@@ -885,6 +886,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     >
                                       <span
                                         class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                        data-testid="crf-status"
                                         icon="full-circle"
                                       >
                                         <svg
@@ -1677,6 +1679,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             >
                               <button
                                 class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                data-testid="cr-field-connectorRef"
                                 style="width: 324px;"
                                 type="button"
                               >
@@ -1705,6 +1708,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     >
                                       <span
                                         class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                        data-testid="crf-status"
                                         icon="full-circle"
                                       >
                                         <svg

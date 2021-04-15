@@ -59,6 +59,7 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
     <>
       <Button
         minimal
+        data-testid={`cr-field-${name}`}
         className={css.container}
         style={{ width }}
         withoutCurrentColor={true}

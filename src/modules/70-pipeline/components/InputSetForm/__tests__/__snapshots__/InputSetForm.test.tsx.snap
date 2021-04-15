@@ -711,6 +711,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                             >
                                               <button
                                                 class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                                data-testid="cr-field-connectorRef"
                                                 style="width: 400px;"
                                                 type="button"
                                               >
@@ -739,6 +740,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                     >
                                                       <span
                                                         class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        data-testid="crf-status"
                                                         icon="full-circle"
                                                       >
                                                         <svg
@@ -2122,6 +2124,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                             >
                                               <button
                                                 class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                                data-testid="cr-field-connectorRef"
                                                 style="width: 400px;"
                                                 type="button"
                                               >
@@ -2150,6 +2153,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                     >
                                                       <span
                                                         class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        data-testid="crf-status"
                                                         icon="full-circle"
                                                       >
                                                         <svg

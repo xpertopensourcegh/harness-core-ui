@@ -76,6 +76,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-connectorRef"
                       style="width: 300px;"
                       type="button"
                     >
@@ -104,6 +105,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                           >
                             <span
                               class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
                               icon="full-circle"
                             >
                               <svg
@@ -319,6 +321,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-connectorRef"
                       style="width: 300px;"
                       type="button"
                     >
@@ -347,6 +350,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                           >
                             <span
                               class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
                               icon="full-circle"
                             >
                               <svg

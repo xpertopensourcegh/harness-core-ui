@@ -441,6 +441,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >
@@ -1299,6 +1300,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >
@@ -3175,6 +3177,7 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >
@@ -3933,6 +3936,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >

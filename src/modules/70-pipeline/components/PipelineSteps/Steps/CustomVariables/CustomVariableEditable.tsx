@@ -156,6 +156,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
                                 }
                               }}
+                              data-testid="variables-test"
                             />
                           )}
                           {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (

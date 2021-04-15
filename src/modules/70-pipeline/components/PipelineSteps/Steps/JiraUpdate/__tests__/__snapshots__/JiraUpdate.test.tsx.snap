@@ -22,6 +22,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
       >
         <button
           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+          data-testid="cr-field-spec.conectorRef"
           style="width: 400px;"
           type="button"
         >
@@ -50,6 +51,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
               >
                 <span
                   class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                  data-testid="crf-status"
                   icon="full-circle"
                 >
                   <svg
@@ -344,6 +346,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
       >
         <button
           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+          data-testid="cr-field-spec.conectorRef"
           style="width: 400px;"
           type="button"
         >
@@ -372,6 +375,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
               >
                 <span
                   class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                  data-testid="crf-status"
                   icon="full-circle"
                 >
                   <svg

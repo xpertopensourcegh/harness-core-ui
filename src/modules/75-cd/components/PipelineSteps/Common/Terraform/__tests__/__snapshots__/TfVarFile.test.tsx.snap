@@ -371,6 +371,7 @@ exports[`Terraform var file creation testing form with right payload - for remot
               >
                 <button
                   class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  data-testid="cr-field-store.spec.connectorRef"
                   style="width: 232px;"
                   type="button"
                 >

@@ -233,6 +233,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-gitConnector"
                       style="width: 350px;"
                       type="button"
                     >
@@ -691,6 +692,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-gitConnector"
                       style="width: 350px;"
                       type="button"
                     >

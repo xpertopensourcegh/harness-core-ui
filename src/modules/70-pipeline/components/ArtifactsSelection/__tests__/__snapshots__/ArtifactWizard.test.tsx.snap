@@ -457,6 +457,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
                       >
                         <button
                           class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          data-testid="cr-field-connectorId"
                           style="width: 382px;"
                           type="button"
                         >
@@ -474,6 +475,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
                               >
                                 <span
                                   class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                  data-testid="crf-status"
                                   icon="full-circle"
                                 >
                                   <svg

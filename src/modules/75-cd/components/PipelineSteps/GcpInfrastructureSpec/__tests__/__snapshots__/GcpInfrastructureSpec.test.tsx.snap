@@ -25,6 +25,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
         >
           <button
             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+            data-testid="cr-field-connectorRef"
             style="width: 400px;"
             type="button"
           >
@@ -53,6 +54,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
                 >
                   <span
                     class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                    data-testid="crf-status"
                     icon="full-circle"
                   >
                     <svg
@@ -294,6 +296,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-connectorRef"
                       style="width: 422px;"
                       type="button"
                     >
@@ -322,6 +325,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                           >
                             <span
                               class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
                               icon="full-circle"
                             >
                               <svg
@@ -1142,6 +1146,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-connectorRef"
                       style="width: 422px;"
                       type="button"
                     >
@@ -1170,6 +1175,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                           >
                             <span
                               class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
                               icon="full-circle"
                             >
                               <svg

@@ -98,7 +98,11 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                           placeholder={getString('typeLabel')}
                         />
                       ) : (
-                        <String className={css.valueString} stringID={labelStringMap[variable.type as VariableType]} />
+                        <String
+                          className={css.valueString}
+                          stringID={labelStringMap[variable.type as VariableType]}
+                          data-testid={`variables[${index}].type`}
+                        />
                       )}
                       <div className={css.valueColumn}>
                         {variable.type === VariableType.Secret ? (
@@ -160,7 +164,15 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                   )
                 })}
                 {values.canAddVariable ? (
-                  <Button minimal intent="primary" icon="plus" onClick={handleAdd} disabled={readonly}>
+                  <Button
+                    test-id={'add-variable'}
+                    minimal
+                    intent="primary"
+                    icon="plus"
+                    onClick={handleAdd}
+                    disabled={readonly}
+                    data-testid={'add-variable'}
+                  >
                     <String stringID="common.addVariable" />
                   </Button>
                 ) : /* istanbul ignore next */ null}

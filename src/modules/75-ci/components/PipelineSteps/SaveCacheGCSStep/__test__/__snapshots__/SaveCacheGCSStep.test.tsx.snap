@@ -127,6 +127,7 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-spec.connectorRef"
                       style="width: 532px;"
                       type="button"
                     >
@@ -155,6 +156,7 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                           >
                             <span
                               class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
                               icon="full-circle"
                             >
                               <svg
@@ -2373,6 +2375,7 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-spec.connectorRef"
                       style="width: 532px;"
                       type="button"
                     >
@@ -2401,6 +2404,7 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                           >
                             <span
                               class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
                               icon="full-circle"
                             >
                               <svg
@@ -3425,6 +3429,7 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
           >
             <button
               class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+              data-testid="cr-field-spec.connectorRef"
               style="width: 560px;"
               type="button"
             >
@@ -3453,6 +3458,7 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                   >
                     <span
                       class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                      data-testid="crf-status"
                       icon="full-circle"
                     >
                       <svg

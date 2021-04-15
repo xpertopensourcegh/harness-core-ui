@@ -473,6 +473,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >
@@ -1229,6 +1230,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >
@@ -1985,6 +1987,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >
@@ -2743,6 +2746,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >

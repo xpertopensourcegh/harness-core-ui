@@ -126,6 +126,7 @@ export function getSelectedRenderer(selected: ConnectorSelectedValue): JSX.Eleme
       <div className={css.rightStatus}>
         <Icon
           className={cx(css.status, { [css.redStatus]: !selected?.live }, { [css.greenStatus]: selected?.live })}
+          data-testid={`crf-status`}
           name="full-circle"
           size={6}
           style={{ paddingRight: 'var(--spacing-xsmall)' }}

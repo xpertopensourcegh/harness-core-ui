@@ -798,6 +798,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
                           >

@@ -460,6 +460,8 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                     >
                       <button
                         class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                        data-testid="add-variable"
+                        test-id="add-variable"
                         type="button"
                       >
                         <span

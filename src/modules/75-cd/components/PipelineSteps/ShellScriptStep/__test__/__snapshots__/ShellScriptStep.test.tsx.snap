@@ -183,6 +183,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
             >
               <button
                 class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main value"
+                data-testid="create-or-select-secret"
                 type="button"
               >
                 <span

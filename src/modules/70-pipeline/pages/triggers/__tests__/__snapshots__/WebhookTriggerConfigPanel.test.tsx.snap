@@ -1095,6 +1095,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   >
                     <button
                       class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      data-testid="cr-field-connectorRef"
                       style="width: 324px;"
                       type="button"
                     >
