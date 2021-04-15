@@ -47,7 +47,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
             <FormInput.InputWithIdentifier
               inputName="name"
               idName="identifier"
-              isIdentifierEditable={props.isEdit ? false : true}
+              isIdentifierEditable={true}
               inputGroupProps={{
                 placeholder: getString('cf.creationModal.aboutFlag.ffNamePlaceholder'),
                 inputGroup: { autoFocus: true }

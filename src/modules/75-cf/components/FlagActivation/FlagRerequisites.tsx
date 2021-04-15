@@ -52,7 +52,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
       project: projectIdentifier as string,
       account: accountId,
       org: orgIdentifier,
-      queryString: searchTerm
+      name: searchTerm
     }),
     [searchTerm]
   )
@@ -160,12 +160,12 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
       const _searchTerm = (e?.target as HTMLInputElement)?.value || ''
       if (_searchTerm !== searchTerm) {
         setSearchTerm(_searchTerm)
-        fetchFlags({ queryParams: { ...queryParams, queryString: _searchTerm } })
+        fetchFlags({ queryParams: { ...queryParams, name: _searchTerm } })
       }
     }
     const updateSelectFromVariation = (entry: PrerequisiteEntry): void => {
       setSearchTerm(entry.feature)
-      fetchFlags({ queryParams: { ...queryParams, queryString: entry.feature } })
+      fetchFlags({ queryParams: { ...queryParams, name: entry.feature } })
     }
 
     return (

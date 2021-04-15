@@ -72,7 +72,7 @@ export const SegmentsPage: React.FC = () => {
   const loading = loadingEnvironments || loadingSegments
   const error = errEnvironments || errSegments
   const noSegmentExists = segmentsData?.segments?.length === 0
-  const noEnvironmentExists = environments?.length === 0
+  const noEnvironmentExists = !loadingEnvironments && environments?.length === 0
   const title = getString('cf.shared.segments')
 
   const header = (

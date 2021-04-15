@@ -32,7 +32,7 @@ const TargetList: React.FC<TargetListProps> = ({ targets, onAdd, onRemove, onCha
   const handleChange = (idx: number, attr: keyof TargetData) => (e: any) => {
     onChange(idx, { ...targets[idx], [attr]: e.target.value })
   }
-  const fieldWidth = 290
+  const fieldWidth = 285
 
   return (
     <Layout.Vertical spacing="xsmall" margin={{ top: 'small', bottom: 'medium' }} style={{ paddingLeft: '28px' }}>

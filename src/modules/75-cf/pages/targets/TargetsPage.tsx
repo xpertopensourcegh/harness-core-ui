@@ -68,7 +68,7 @@ export const TargetsPage: React.FC = () => {
   const loading = loadingEnvironments || loadingTargets
   const error = errEnvironments || errTargets
   const noTargetExists = targetsData?.targets?.length === 0
-  const noEnvironmentExists = environments?.length === 0
+  const noEnvironmentExists = !loadingEnvironments && environments?.length === 0
   const title = getString('cf.targets.title')
   const header = (
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
