@@ -1047,7 +1047,7 @@ export const getConnectorDisplayName = (type: string) => {
     case Connectors.AZUREVAULT:
       return 'Azure Vault'
     case Connectors.HttpHelmRepo:
-      return 'Http Helm Repo'
+      return 'HTTP Helm Repo'
     case Connectors.AWSSM:
       return 'AWS Secret Manager'
     default:

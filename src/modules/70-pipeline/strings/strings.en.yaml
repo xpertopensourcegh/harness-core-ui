@@ -70,7 +70,7 @@ jiraUpdateStep:
 manifestType:
   gitConnectorLabel: 'Git'
   bitBucketLabel: 'Bitbucket'
-  httpHelmRepoConnectorLabel: 'Http Helm'
+  httpHelmRepoConnectorLabel: 'HTTP Helm'
   manifestIdentifier: Manifest Identifier
   manifestPlaceholder: Enter Manifest Identifier
   manifestSource: Manifest Source
