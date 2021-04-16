@@ -54,7 +54,7 @@ describe('Create Splunk connector Wizard', () => {
 
     // step 2
     expect(queryByText(container, 'Username')).toBeDefined()
-    fireEvent.click(getByText('Connect and Save')) // trying to create coonector with step 2 data
+    fireEvent.click(getByText('cv.connectors.connectAndSave')) // trying to create coonector with step 2 data
 
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="url"]')!, {
@@ -62,7 +62,7 @@ describe('Create Splunk connector Wizard', () => {
       })
     })
     expect(container).toMatchSnapshot()
-    const backBtn = getByText('Back')
+    const backBtn = getByText('back')
     fireEvent.click(backBtn)
     // Coonector name should be retained in step 1
     expect(queryByText(container, 'dummy name')).toBeDefined()

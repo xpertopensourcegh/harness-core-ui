@@ -20,7 +20,7 @@ exports[`Create Splunk connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Connector Details
+          cv.connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -41,7 +41,7 @@ exports[`Create Splunk connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -71,7 +71,7 @@ exports[`Create Splunk connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify connection
+          cv.connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -332,7 +332,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Connector Details
+          cv.connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -353,7 +353,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -383,7 +383,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify connection
+          cv.connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -401,7 +401,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-medium"
             >
-              Splunk Connection Details
+              cv.connectors.splunk.connectorDetailsHeader
             </p>
             <div
               class="bp3-form-group"
@@ -411,7 +411,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="url"
               >
-                Url
+                UrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -441,7 +441,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="username"
               >
-                Username
+                username
                  
                 <span
                   class="bp3-text-muted"
@@ -476,7 +476,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
                   <label
                     class="bp3-label"
                   >
-                    Password
+                    password
                   </label>
                   <div
                     class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -532,7 +532,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -542,7 +542,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
               <span
                 class="bp3-button-text"
               >
-                Connect and Save
+                cv.connectors.connectAndSave
               </span>
             </button>
           </div>
@@ -591,7 +591,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Connector Details
+          cv.connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -612,7 +612,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -642,7 +642,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify connection
+          cv.connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -660,7 +660,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-medium"
             >
-              Splunk Connection Details
+              cv.connectors.splunk.connectorDetailsHeader
             </p>
             <div
               class="bp3-form-group"
@@ -670,7 +670,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="url"
               >
-                Url
+                UrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -700,7 +700,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="username"
               >
-                Username
+                username
                  
                 <span
                   class="bp3-text-muted"
@@ -740,7 +740,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
                   <label
                     class="bp3-label"
                   >
-                    Password
+                    password
                   </label>
                   <div
                     class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -801,7 +801,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -811,7 +811,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
               <span
                 class="bp3-button-text"
               >
-                Connect and Save
+                cv.connectors.connectAndSave
               </span>
             </button>
           </div>

@@ -4,10 +4,9 @@ import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Page } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
-import i18n from './ActivityDashboardPage.i18n'
 import { ActivityTimeline } from './ActivityTimeline/ActivityTimeline'
 import type { Activity } from './ActivityTimeline/ActivityTrack/ActivityTrackUtils'
 import { DeploymentSummaryCardView } from './SummaryCardViews/DeploymentSummaryCardView/DeploymentSummaryCardView'
@@ -95,10 +94,14 @@ function AggregateActivityCard(props: AggregateActivityCardPrps): JSX.Element {
   )
 }
 
-function generateActivityTracks(startTime: number, endTime: number): ActivityTrackProps[] {
+function generateActivityTracks(
+  startTime: number,
+  endTime: number,
+  getString: UseStringsReturn['getString']
+): ActivityTrackProps[] {
   return [
     {
-      trackName: i18n.activityTrackTitle.deployment,
+      trackName: getString('deploymentText'),
       trackIcon: {
         name: 'cd-main',
         size: 22
@@ -111,7 +114,7 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       activities: []
     },
     {
-      trackName: i18n.activityTrackTitle.infrastructure,
+      trackName: getString('infrastructureText'),
       trackIcon: {
         name: 'service-kubernetes',
         size: 22
@@ -124,7 +127,7 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       activities: []
     },
     {
-      trackName: i18n.activityTrackTitle.otherChanges,
+      trackName: getString('cv.activityTimeline.otherChanges'),
       trackIcon: {
         name: 'config-change',
         size: 22
@@ -141,11 +144,12 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
 
 function transformGetApi(
   timelineEndTime: number,
-  response: RestResponseListActivityDashboardDTO | null
+  response: RestResponseListActivityDashboardDTO | null,
+  getString: UseStringsReturn['getString']
 ): ActivityTrackProps[] {
   if (!response?.resource?.length) return []
   const { resource: activities } = response
-  const timelineActivityData = generateActivityTracks(timelineStartTime, timelineEndTime)
+  const timelineActivityData = generateActivityTracks(timelineStartTime, timelineEndTime, getString)
   const activityTypeToTrackIndex = {
     DEPLOYMENT: 0,
     CONFIG: 1,
@@ -244,7 +248,7 @@ export default function ActivityDashboardPage(): JSX.Element {
   //   )
   // )
   const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
-    generateActivityTracks(timelineStartTime, moment(timelineStartTime).startOf('month').valueOf())
+    generateActivityTracks(timelineStartTime, moment(timelineStartTime).startOf('month').valueOf(), getString)
   )
   const { loading, error, refetch: refetchActivities, data } = useListActivitiesForDashboard({
     queryParams: {
@@ -257,7 +261,7 @@ export default function ActivityDashboardPage(): JSX.Element {
   })
 
   useEffect(() => {
-    setTimelineData(transformGetApi(timelineEndTime, data))
+    setTimelineData(transformGetApi(timelineEndTime, data, getString))
   }, [data, timelineEndTime])
 
   return (

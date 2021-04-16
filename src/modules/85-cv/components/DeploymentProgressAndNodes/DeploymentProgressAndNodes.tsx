@@ -5,8 +5,8 @@ import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import TestsSummaryView from '@cv/pages/dashboard/deployment-drilldown/TestsSummaryView'
 import BlueGreenVerificationChart, { NodeData } from '@cv/pages/services/BlueGreenVerificationChart'
+import { useStrings } from 'framework/exports'
 import CVProgressBar from '../CVProgressBar/CVProgressBar'
-import i18n from './DeploymentProgressAndNodes.i18n'
 import css from './DeploymentProgressAndNodes.module.scss'
 
 export interface DeploymentProgressAndNodesProps {
@@ -18,6 +18,7 @@ export interface DeploymentProgressAndNodesProps {
 export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProps): JSX.Element {
   const { deploymentSummary, onSelectNode, className } = props
   const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
+  const { getString } = useStrings()
   const deploymentNodesData = useMemo(() => {
     if (deploymentSummary?.additionalInfo?.type === 'CANARY') {
       const {
@@ -59,11 +60,15 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
       <CVProgressBar value={deploymentSummary?.progressPercentage ?? 0} status={deploymentSummary?.status} />
       {deploymentSummary && (
         <>
-          <Text font={{ size: 'small' }} data-name={i18n.startedOnText} margin={{ top: 'xsmall', bottom: 'xsmall' }}>
-            {i18n.startedOnText}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
+          <Text
+            font={{ size: 'small' }}
+            data-name={getString('cv.startedOn')}
+            margin={{ top: 'xsmall', bottom: 'xsmall' }}
+          >
+            {getString('cv.startedOn')}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
           </Text>
-          <Text font={{ size: 'small' }} data-name={i18n.durationText}>
-            {i18n.durationText}: {moment.duration(deploymentSummary.durationMs, 'ms').humanize()}
+          <Text font={{ size: 'small' }} data-name={getString('duration')}>
+            {getString('duration')}: {moment.duration(deploymentSummary.durationMs, 'ms').humanize()}
           </Text>
         </>
       )}

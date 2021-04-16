@@ -274,17 +274,17 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             </div>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
-              data-name="Started On"
+              data-name="cv.startedOn"
             >
-              Started On
+              cv.startedOn
               : 
               Nov 9, 2020 8:54 PM
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-              data-name="Duration"
+              data-name="duration"
             >
-              Duration
+              duration
               : 
               a minute
             </p>

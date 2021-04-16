@@ -1083,6 +1083,20 @@ export interface StringsMap {
   'ci.testsReports.totalWithColon': string
   'ci.testsReports.updatedTests': string
   'ci.testsReports.willBeDisplayedIfAvailable': string
+  'cv.abbreviatedCategories.errors': string
+  'cv.abbreviatedCategories.infrastructure': string
+  'cv.abbreviatedCategories.performance': string
+  'cv.activityChanges.cumulative': string
+  'cv.activityChanges.minRemaining': string
+  'cv.activityChanges.minutesRemaining': string
+  'cv.activityChanges.postDeployVerifications': string
+  'cv.activityChanges.postProdDeployment': string
+  'cv.activityChanges.preProdVerifications': string
+  'cv.activityChanges.preProduction': string
+  'cv.activityChanges.prodVerifications': string
+  'cv.activityChanges.productionDeployment': string
+  'cv.activityChanges.riskAfterChange': string
+  'cv.activityChanges.riskBeforeChange': string
   'cv.activitySources.harnessCD.application.infoText': string
   'cv.activitySources.harnessCD.application.noData': string
   'cv.activitySources.harnessCD.application.searchPlaceholder': string
@@ -1124,6 +1138,9 @@ export interface StringsMap {
   'cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToService': string
   'cv.activitySources.kubernetes.workloadToServiceTableColumns.workload': string
   'cv.activitySources.name': string
+  'cv.activityTimeline.beforeChange': string
+  'cv.activityTimeline.noChanges': string
+  'cv.activityTimeline.otherChanges': string
   'cv.admin.activitySources.addActivitySource': string
   'cv.admin.activitySources.dialogDeleteContent': string
   'cv.admin.activitySources.dialogDeleteTitle': string
@@ -1226,20 +1243,24 @@ export interface StringsMap {
   'cv.connectors.newRelic.subTitle': string
   'cv.connectors.newRelic.urlFieldLabel': string
   'cv.connectors.newRelic.urlValidation': string
+  'cv.connectors.splunk.connectorDetailsHeader': string
   'cv.connectors.unableToCreateConnector': string
   'cv.connectors.unableToUpdateConnector': string
   'cv.connectors.updatedSuccessfully': string
   'cv.connectors.verifyConnection': string
   'cv.continuous': string
+  'cv.currentProductionRisk': string
   'cv.dashboard.createProject': string
   'cv.dashboard.learnMore': string
   'cv.dashboard.notStarted': string
   'cv.dashboard.subHeading': string
+  'cv.evaluationPeriod': string
   'cv.failures': string
   'cv.getRiskAssessment': string
   'cv.harnessEnvironment': string
   'cv.harnessService': string
   'cv.hostNamePlaceholder': string
+  'cv.initiated': string
   'cv.methodLabel': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
@@ -1348,6 +1369,9 @@ export interface StringsMap {
   'cv.noAnalysis': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
+  'cv.onboarding.activitySources.changeSourceInfo': string
+  'cv.onboarding.activitySources.dontHaveChangeSource': string
+  'cv.onboarding.activitySources.infrastructureProvider': string
   'cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon': string
   'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name': string
   'cv.onboarding.defaultChangeSource': string
@@ -1357,10 +1381,13 @@ export interface StringsMap {
   'cv.onboarding.monitoringSources.defineMonitoringSource': string
   'cv.onboarding.monitoringSources.firstTimeSetupText': string
   'cv.onboarding.monitoringSources.metricPacksToMonitor': string
+  'cv.onboarding.monitoringSources.monitoringSourceInfo': string
   'cv.onboarding.monitoringSources.monitoringSourceSubheading': string
+  'cv.onboarding.monitoringSources.select': string
   'cv.onboarding.monitoringSources.selectConnector': string
   'cv.onboarding.monitoringSources.selectMetricPacks': string
   'cv.onboarding.monitoringSources.selectProduct': string
+  'cv.onboarding.monitoringSources.skipToMonitoringSource': string
   'cv.onboarding.monitoringSources.specifyConnector': string
   'cv.onboarding.progress.heading': string
   'cv.onboarding.progress.mapServices': string
@@ -1381,7 +1408,9 @@ export interface StringsMap {
   'cv.onboarding.verificationJobs.heading': string
   'cv.onboarding.verificationJobs.infoText': string
   'cv.onboarding.verificationJobs.keepGoing': string
+  'cv.onboarding.verificationJobs.setupInfo': string
   'cv.onboarding.verificationJobs.subHeading': string
+  'cv.overall': string
   'cv.overviewPage.recentChangeVerifications': string
   'cv.request': string
   'cv.response': string
@@ -1392,12 +1421,12 @@ export interface StringsMap {
   'cv.selectCreateService': string
   'cv.selectOrCreateEnv': string
   'cv.setup': string
+  'cv.startedOn': string
   'cv.statusCode': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
   'cv.thirdPartyCalls.requestMade': string
   'cv.thirdPartyCalls.timeTaken': string
-  'cv.verification': string
   'cv.verificationErrored': string
   'cv.verificationJobs.configure.heading': string
   'cv.verificationJobs.configure.postDepText': string
@@ -1419,6 +1448,8 @@ export interface StringsMap {
   'cv.verificationJobs.validation.environment': string
   'cv.verificationJobs.validation.service': string
   'cv.verificationJobs.validation.type': string
+  'cv.verificationStatus': string
+  'cv.verifications': string
   /**
    * @deprecated migrate this string to module level file
    */

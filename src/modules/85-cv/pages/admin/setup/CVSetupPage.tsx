@@ -24,7 +24,6 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProgressStatus from './ProgressStatus/ProgressStatus'
 import OnboardedSourceSummary from './OnboardedSourceSummary/OnboardedSourceSummary'
 import { SetupIndexDBData, Step, getCardLabelByType, getIconBySourceType } from './SetupUtils'
-import i18n from './CVSetupPage.i18n'
 import css from './CVSetupPage.module.scss'
 
 export const StepIndex = new Map([
@@ -98,7 +97,6 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
   const { getString } = useStrings()
   const [showSummary, setShowSummary] = useState(Boolean(props.step))
   const { CVNG_CDNG_INTEGRATION } = useFeatureFlags()
-
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   const DefaultChangeSource = useMemo(
@@ -128,12 +126,12 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
           ) : (
             <>
               <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
-                {i18n.changeSource.content.heading.start}
+                {getString('common.letsGetYouStarted')}
               </Text>
-              <Text>{i18n.changeSource.content.info}</Text>
+              <Text>{getString('cv.activitySources.harnessCD.select')}</Text>
               <Layout.Horizontal margin={{ top: 'xxlarge' }}>
                 <Layout.Vertical margin={{ right: 'xxlarge' }}>
-                  <Text>{i18n.harness} </Text>
+                  <Text>{getString('harness').toLocaleUpperCase()} </Text>
                   <div className={css.items}>
                     {ChangeSourcesHarness.map((item, index) => {
                       return (
@@ -161,7 +159,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                   </div>
                 </Layout.Vertical>
                 <Layout.Vertical>
-                  <Text>{i18n.infrastructureProvider} </Text>
+                  <Text>{getString('cv.onboarding.activitySources.infrastructureProvider').toLocaleUpperCase()} </Text>
                   <div className={css.items}>
                     {ChangeSources.map((item, index) => {
                       return (
@@ -196,7 +194,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                   </Text>
                   <Layout.Horizontal margin={{ top: 'xxlarge' }}>
                     <Layout.Vertical margin={{ right: 'xxlarge' }}>
-                      <Text>{i18n.harness} </Text>
+                      <Text>{getString('harness')} </Text>
                       <div className={css.items}>
                         {DefaultChangeSource.map((item, index) => {
                           return (
@@ -218,7 +216,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
         </div>
       </Container>
       <Layout.Horizontal style={{ margin: 'auto', width: '70%' }}>
-        <Text margin={{ right: 'xsmall' }}>{i18n.changeSource.noActivitySource}</Text>
+        <Text margin={{ right: 'xsmall' }}>{getString('cv.onboarding.activitySources.dontHaveChangeSource')}</Text>
 
         <Link
           withoutHref
@@ -228,7 +226,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
             props.setMonitoringSource(Status.ACTIVE)
           }}
         >
-          {i18n.changeSource.skip}
+          {getString('cv.onboarding.monitoringSources.skipToMonitoringSource')}
         </Link>
       </Layout.Horizontal>
     </Container>
@@ -266,9 +264,9 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
           ) : (
             <>
               <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
-                {i18n.monitoringSource.content.heading}
+                {getString('cv.navLinks.adminSideNavLinks.monitoringSources').toLocaleUpperCase()}
               </Text>
-              <Text>{i18n.monitoringSource.content.info}</Text>
+              <Text>{getString('cv.onboarding.monitoringSources.select')}</Text>
               <div className={css.items}>
                 {MonitoringSources.map((item, index) => {
                   return (
@@ -551,10 +549,10 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                       font={{ size: 'medium', weight: 'bold' }}
                       color={activeStep === Step.CHANGE_SOURCE ? Color.BLACK : Color.GREY_500}
                     >
-                      {i18n.changeSource.heading}
+                      {getString('cv.navLinks.adminSideNavLinks.activitySources').toLocaleUpperCase()}
                     </Text>
                     <Text font={{ weight: 'light' }} color={Color.GREY_400}>
-                      {i18n.changeSource.info}
+                      {getString('cv.onboarding.activitySources.changeSourceInfo')}
                     </Text>
                   </Layout.Vertical>
                 </Layout.Horizontal>
@@ -579,10 +577,10 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                       font={{ size: 'medium', weight: 'bold' }}
                       color={activeStep === Step.MONITORING_SOURCE ? Color.BLACK : Color.GREY_500}
                     >
-                      {i18n.monitoringSource.heading}
+                      {getString('cv.navLinks.adminSideNavLinks.monitoringSources').toLocaleUpperCase()}
                     </Text>
                     <Text font={{ weight: 'light' }} color={Color.GREY_400}>
-                      {i18n.monitoringSource.info}
+                      {getString('cv.onboarding.monitoringSources.monitoringSourceInfo')}
                     </Text>
                   </Layout.Vertical>
                 </Layout.Horizontal>
@@ -601,10 +599,10 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                       font={{ size: 'medium', weight: 'bold' }}
                       color={activeStep === Step.VERIFICATION_JOBS ? Color.BLACK : Color.GREY_500}
                     >
-                      {i18n.verificationJob.heading}
+                      {getString('verificationJobs').toLocaleUpperCase()}
                     </Text>
                     <Text font={{ weight: 'light' }} color={Color.GREY_400} padding={{ top: 10 }}>
-                      {i18n.verificationJob.info}
+                      {getString('cv.onboarding.verificationJobs.setupInfo')}
                     </Text>
                   </Layout.Vertical>
                 </Layout.Horizontal>

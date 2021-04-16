@@ -11,11 +11,9 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import routes from '@common/RouteDefinitions'
-import { useStrings } from 'framework/exports'
-import { MetricCategoryNames } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import { CategoryRisk, RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
-import i18n from './CategoryRiskCards.i18n'
 import getRiskGaugeChartOptions from './RiskGauge'
 import RiskCardTooltip from './RiskCardTooltip/RiskCardTooltip'
 import css from './CategoryRiskCards.module.scss'
@@ -75,23 +73,24 @@ function getOverallRisk(data: CategoryRiskCardsProps['data']): number {
 }
 
 function transformCategoryRiskResponse(
-  data: CategoryRiskCardsProps['data']
+  data: CategoryRiskCardsProps['data'],
+  getString: UseStringsReturn['getString']
 ): Array<{ categoryName: string; riskScore: number }> {
   if (!data || !data.resource || !data.resource.categoryRisks?.length) {
     return [
-      { categoryName: MetricCategoryNames.PERFORMANCE, riskScore: -1 },
-      { categoryName: MetricCategoryNames.ERRORS, riskScore: -1 },
-      { categoryName: MetricCategoryNames.INFRASTRUCTURE, riskScore: -1 }
+      { categoryName: getString('performance'), riskScore: -1 },
+      { categoryName: getString('errors'), riskScore: -1 },
+      { categoryName: getString('infrastructureText'), riskScore: -1 }
     ]
   }
   const { categoryRisks } = data.resource
   return categoryRisks
     .sort((categoryA, categoryB) => {
-      if (categoryA?.category === MetricCategoryNames.PERFORMANCE) {
+      if (categoryA?.category === getString('performance')) {
         return -1
       }
-      if (categoryA?.category === MetricCategoryNames.ERRORS) {
-        return categoryB?.category === MetricCategoryNames.PERFORMANCE ? 1 : -1
+      if (categoryA?.category === getString('errors')) {
+        return categoryB?.category === getString('performance') ? 1 : -1
       }
       return 1
     })
@@ -103,6 +102,7 @@ function transformCategoryRiskResponse(
 
 export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
   const { riskScore = 0, categoryName = '', className } = props
+  const { getString } = useStrings()
   return (
     <Container className={cx(css.categoryRiskCard, className)} onClick={props.onClick}>
       <Container className={css.riskInfoContainer}>
@@ -111,7 +111,7 @@ export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
         </Text>
         <Container className={css.riskScoreContainer}>
           <RiskScoreTile riskScore={riskScore} />
-          <Text className={css.riskScoreText}>{i18n.riskScoreText}</Text>
+          <Text className={css.riskScoreText}>{getString('cv.riskScore')}</Text>
         </Container>
       </Container>
       <Container className={css.chartContainer}>
@@ -157,7 +157,7 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
   return overallRiskScore === -1 ? (
     <Container className={cx(css.overallRiskScoreCard, className)} background={Color.GREY_250}>
       <Text color={Color.BLACK} className={css.overallRiskScoreNoData}>
-        {i18n.noAnalysisText}
+        {getString('cv.noAnalysis')}
       </Text>
     </Container>
   ) : (
@@ -170,10 +170,10 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
       </Text>
       <Layout.Vertical>
         <Text font={{ weight: 'bold' }} color={Color.BLACK}>
-          {i18n.overallText}
+          {getString('cv.overall')}
         </Text>
         <Text style={{ fontSize: 12 }} color={Color.GREY_250}>
-          {i18n.riskScoreText}
+          {getString('cv.riskScore')}
         </Text>
       </Layout.Vertical>
     </Container>
@@ -207,7 +207,8 @@ export function CategoryRiskCardsWithApi(props: CategoryRiskCardsWithApiProps): 
 export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
   const { className, data, loading, error } = props
   const overallRiskScore = useMemo(() => getOverallRisk(data), [data])
-  const categoriesAndRisk = useMemo(() => transformCategoryRiskResponse(data), [data])
+  const { getString } = useStrings()
+  const categoriesAndRisk = useMemo(() => transformCategoryRiskResponse(data, getString), [data])
 
   if (loading) {
     return (
@@ -232,7 +233,7 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
     <Container className={css.main}>
       <Container className={css.timeRange}>
         <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-          {i18n.productionRisk}
+          {getString('cv.currentProductionRisk')}
         </Text>
         {isNumber(overallRiskScore) &&
           overallRiskScore > -1 &&
@@ -240,7 +241,7 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
           startTimeEpoch &&
           new Date(endTimeEpoch).getTime() > 0 &&
           new Date(startTimeEpoch).getTime() > 0 && (
-            <Text style={{ fontSize: 12 }}>{`${i18n.evaluationPeriodText} ${moment(startTimeEpoch).format(
+            <Text style={{ fontSize: 12 }}>{`${getString('cv.evaluationPeriod')}: ${moment(startTimeEpoch).format(
               'MMM D, YYYY h:mma'
             )} - ${moment(endTimeEpoch).format('h:mma')}`}</Text>
           )}

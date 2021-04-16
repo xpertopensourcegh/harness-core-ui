@@ -6,16 +6,12 @@ import cx from 'classnames'
 import { isNumber } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import { useStrings } from 'framework/exports'
-import {
-  MetricCategoryNames,
-  MetricCategoriesWithRiskScore
-} from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
+import { useStrings, UseStringsReturn } from 'framework/exports'
+import { MetricCategoriesWithRiskScore } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import { useGetRecentActivityVerificationResults, ActivityVerificationResultDTO, CategoryRisk } from 'services/cv'
-import i18n from './RecentActivityChanges.i18n'
 import ActivityType from '../ActivityType/ActivityType'
 import css from './RecentActivityChanges.module.scss'
 
@@ -27,142 +23,153 @@ interface ActivityVerificationProgressWithRiskProps {
   remainingTime?: number
 }
 
-const ACTIVITY_COLUMN_NAMES = Object.values(i18n.activityChangesColumnNames).map(columnName => (
-  <Text
-    width={columnName === i18n.activityChangesColumnNames.otherChanges ? 200 : 300}
-    key={columnName}
-    font={{ weight: 'bold', size: 'small' }}
-    style={{ textTransform: 'uppercase' }}
-  >
-    {columnName}
-  </Text>
-))
+function getActivityColumnNames(getString: UseStringsReturn['getString']) {
+  return [
+    getString('cv.activityTimeline.otherChanges'),
+    getString('cv.activityChanges.riskBeforeChange'),
+    getString('cv.verificationStatus'),
+    getString('cv.activityChanges.riskAfterChange')
+  ].map(columnName => (
+    <Text
+      width={columnName === getString('cv.activityTimeline.otherChanges') ? 200 : 300}
+      key={columnName}
+      font={{ weight: 'bold', size: 'small' }}
+      style={{ textTransform: 'uppercase' }}
+    >
+      {columnName}
+    </Text>
+  ))
+}
 
-const LOADING_SKELETON_DATA: ActivityVerificationResultDTO[] = [
-  {
-    activityType: 'DEPLOYMENT',
-    activityName: 'Configuration Change',
-    serviceIdentifier: 'Manager',
-    preActivityRisks: [
-      {
-        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
-        risk: 55
-      },
-      {
-        category: MetricCategoryNames.ERRORS as CategoryRisk['category'],
-        risk: 25
-      },
-      {
-        category: MetricCategoryNames.PERFORMANCE as CategoryRisk['category'],
-        risk: 30
-      }
-    ],
-    progressPercentage: 43,
-    activityStartTime: new Date().getTime(),
-    status: 'IN_PROGRESS',
-    postActivityRisks: [
-      {
-        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
-        risk: 55
-      },
-      {
-        category: MetricCategoryNames.ERRORS as CategoryRisk['category'],
-        risk: 25
-      },
-      {
-        category: MetricCategoryNames.PERFORMANCE as CategoryRisk['category'],
-        risk: 30
-      }
-    ]
-  },
-  {
-    activityType: 'INFRASTRUCTURE',
-    activityName: 'Infrastruture Update',
-    serviceIdentifier: 'Delegate',
-    preActivityRisks: [
-      {
-        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
-        risk: 55
-      },
-      {
-        category: MetricCategoryNames.ERRORS as CategoryRisk['category'],
-        risk: 25
-      },
-      {
-        category: MetricCategoryNames.PERFORMANCE as CategoryRisk['category'],
-        risk: 30
-      }
-    ],
-    progressPercentage: 43,
-    activityStartTime: new Date().getTime(),
-    status: 'IN_PROGRESS',
-    postActivityRisks: [
-      {
-        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
-        risk: 55
-      },
-      {
-        category: MetricCategoryNames.ERRORS as CategoryRisk['category'],
-        risk: 25
-      },
-      {
-        category: MetricCategoryNames.PERFORMANCE as CategoryRisk['category'],
-        risk: 30
-      }
-    ]
-  },
-  {
-    activityType: 'INFRASTRUCTURE',
-    activityName: 'Database Upgrade',
-    serviceIdentifier: 'MongoDB',
-    preActivityRisks: [
-      {
-        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
-        risk: 55
-      },
-      {
-        category: MetricCategoryNames.ERRORS as CategoryRisk['category'],
-        risk: 25
-      },
-      {
-        category: MetricCategoryNames.PERFORMANCE as CategoryRisk['category'],
-        risk: 30
-      }
-    ],
-    progressPercentage: 43,
-    activityStartTime: new Date().getTime(),
-    status: 'IN_PROGRESS',
-    postActivityRisks: [
-      {
-        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
-        risk: 55
-      },
-      {
-        category: MetricCategoryNames.ERRORS as CategoryRisk['category'],
-        risk: 25
-      },
-      {
-        category: MetricCategoryNames.PERFORMANCE as CategoryRisk['category'],
-        risk: 30
-      }
-    ]
-  }
-]
+function getLoadingData(getString: UseStringsReturn['getString']): ActivityVerificationResultDTO[] {
+  return [
+    {
+      activityType: 'DEPLOYMENT',
+      activityName: 'Configuration Change',
+      serviceIdentifier: 'Manager',
+      preActivityRisks: [
+        {
+          category: getString('infrastructureText') as CategoryRisk['category'],
+          risk: 55
+        },
+        {
+          category: getString('errors') as CategoryRisk['category'],
+          risk: 25
+        },
+        {
+          category: getString('performance') as CategoryRisk['category'],
+          risk: 30
+        }
+      ],
+      progressPercentage: 43,
+      activityStartTime: new Date().getTime(),
+      status: 'IN_PROGRESS',
+      postActivityRisks: [
+        {
+          category: getString('infrastructureText') as CategoryRisk['category'],
+          risk: 55
+        },
+        {
+          category: getString('errors') as CategoryRisk['category'],
+          risk: 25
+        },
+        {
+          category: getString('performance') as CategoryRisk['category'],
+          risk: 30
+        }
+      ]
+    },
+    {
+      activityType: 'INFRASTRUCTURE',
+      activityName: 'Infrastruture Update',
+      serviceIdentifier: 'Delegate',
+      preActivityRisks: [
+        {
+          category: getString('infrastructureText') as CategoryRisk['category'],
+          risk: 55
+        },
+        {
+          category: getString('errors') as CategoryRisk['category'],
+          risk: 25
+        },
+        {
+          category: getString('performance') as CategoryRisk['category'],
+          risk: 30
+        }
+      ],
+      progressPercentage: 43,
+      activityStartTime: new Date().getTime(),
+      status: 'IN_PROGRESS',
+      postActivityRisks: [
+        {
+          category: getString('infrastructureText') as CategoryRisk['category'],
+          risk: 55
+        },
+        {
+          category: getString('errors') as CategoryRisk['category'],
+          risk: 25
+        },
+        {
+          category: getString('performance') as CategoryRisk['category'],
+          risk: 30
+        }
+      ]
+    },
+    {
+      activityType: 'INFRASTRUCTURE',
+      activityName: 'Database Upgrade',
+      serviceIdentifier: 'MongoDB',
+      preActivityRisks: [
+        {
+          category: getString('infrastructureText') as CategoryRisk['category'],
+          risk: 55
+        },
+        {
+          category: getString('errors') as CategoryRisk['category'],
+          risk: 25
+        },
+        {
+          category: getString('performance') as CategoryRisk['category'],
+          risk: 30
+        }
+      ],
+      progressPercentage: 43,
+      activityStartTime: new Date().getTime(),
+      status: 'IN_PROGRESS',
+      postActivityRisks: [
+        {
+          category: getString('infrastructureText') as CategoryRisk['category'],
+          risk: 55
+        },
+        {
+          category: getString('errors') as CategoryRisk['category'],
+          risk: 25
+        },
+        {
+          category: getString('performance') as CategoryRisk['category'],
+          risk: 30
+        }
+      ]
+    }
+  ]
+}
 
-const EmptyCategoryRiskArray = [
-  {
-    category: MetricCategoryNames.ERRORS as CategoryRisk['category'],
-    risk: -1
-  },
-  {
-    category: MetricCategoryNames.PERFORMANCE as CategoryRisk['category'],
-    risk: -1
-  },
-  {
-    category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
-    risk: -1
-  }
-]
+function getEmptyRiskArray(getString: UseStringsReturn['getString']) {
+  return [
+    {
+      category: getString('errors') as CategoryRisk['category'],
+      risk: -1
+    },
+    {
+      category: getString('performance') as CategoryRisk['category'],
+      risk: -1
+    },
+    {
+      category: getString('infrastructureText') as CategoryRisk['category'],
+      risk: -1
+    }
+  ]
+}
 
 function activityTypeToIcon(activityType: ActivityVerificationResultDTO['activityType']): IconName {
   switch (activityType) {
@@ -187,15 +194,19 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
   if (!isNumber(progressPercentage)) {
     progressStatus = ''
   } else if (status === 'NOT_STARTED') {
-    progressStatus = i18n.verificationProgressText.initiated
+    progressStatus = getString('cv.initiated')
   } else if (status === 'IN_PROGRESS') {
-    progressStatus = `${i18n.verificationProgressText.inProgress} (${
+    progressStatus = `${getString('inProgress')} (${
       remainingTime ? Math.floor(remainingTime / (1000 * 60)) : ''
-    } ${i18n.verificationProgressText.remainingTime})`
+    } ${getString('cv.activityChanges.minutesRemaining').toLocaleLowerCase()})`
   } else if (status === 'VERIFICATION_FAILED') {
-    progressStatus = `${i18n.verificationProgressText.verification} ${i18n.verificationProgressText.failed} (${i18n.verificationProgressText.riskScore}: ${overallRisk})`
+    progressStatus = `${getString('cv.admin.notifications.create.stepThree.verification')} ${getString(
+      'failed'
+    ).toLocaleLowerCase()} (${getString('cv.riskScore')}: ${overallRisk})`
   } else if (status === 'VERIFICATION_PASSED') {
-    progressStatus = `${i18n.verificationProgressText.verification} ${i18n.verificationProgressText.passed} (${i18n.verificationProgressText.riskScore}: ${overallRisk})`
+    progressStatus = `${getString('cv.admin.notifications.create.stepThree.verification')} ${getString(
+      'passed'
+    ).toLocaleLowerCase()} (${getString('cv.riskScore')}: ${overallRisk})`
   } else if (status === 'ERROR') {
     progressStatus = getString('cv.verificationErrored')
   }
@@ -207,7 +218,7 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
       </Text>
       <CVProgressBar value={progressPercentage} riskScore={overallRisk} />
       {activityStartTime && (
-        <Text style={{ fontSize: 12 }}>{`${i18n.verificationProgressText.startedOn} ${new Date(
+        <Text style={{ fontSize: 12 }}>{`${getString('cv.startedOn')} ${new Date(
           activityStartTime
         ).toLocaleString()}`}</Text>
       )}
@@ -232,13 +243,13 @@ export default function RecentActivityChanges(): JSX.Element {
   if (error?.message) {
     return (
       <ul className={css.activityList}>
-        <li className={css.headerRow}>{ACTIVITY_COLUMN_NAMES}</li>
+        <li className={css.headerRow}>{getActivityColumnNames(getString)}</li>
         <NoDataCard
           icon="error"
           iconSize={30}
           message={error.message}
           className={css.noData}
-          buttonText={i18n.retryText}
+          buttonText={getString('retry')}
           onClick={() => refetchActivities()}
         />
       </ul>
@@ -248,7 +259,7 @@ export default function RecentActivityChanges(): JSX.Element {
   if (!loading && !data?.resource?.length) {
     return (
       <ul className={css.activityList}>
-        <li className={css.headerRow}>{ACTIVITY_COLUMN_NAMES}</li>
+        <li className={css.headerRow}>{getActivityColumnNames(getString)}</li>
         <li className={css.emptyBar}>
           <div style={{ width: 205 }}>
             <Link
@@ -267,23 +278,29 @@ export default function RecentActivityChanges(): JSX.Element {
               {getString('cv.setup')}
             </Link>
           </div>
-          <MetricCategoriesWithRiskScore categoriesWithRiskScores={EmptyCategoryRiskArray} className={css.dataColumn} />
+          <MetricCategoriesWithRiskScore
+            categoriesWithRiskScores={getEmptyRiskArray(getString)}
+            className={css.dataColumn}
+          />
           <div style={{ width: 290 }}>
             {getString('cv.dashboard.notStarted')}
             <div style={{ width: 200 }}>
               <CVProgressBar value={0} riskScore={0} />
             </div>
           </div>
-          <MetricCategoriesWithRiskScore categoriesWithRiskScores={EmptyCategoryRiskArray} className={css.dataColumn} />
+          <MetricCategoriesWithRiskScore
+            categoriesWithRiskScores={getEmptyRiskArray(getString)}
+            className={css.dataColumn}
+          />
         </li>
       </ul>
     )
   }
 
-  const recentActivities = !loading ? data?.resource : LOADING_SKELETON_DATA
+  const recentActivities = !loading ? data?.resource : getLoadingData(getString)
   return (
     <ul className={css.activityList}>
-      <li className={css.headerRow}>{ACTIVITY_COLUMN_NAMES}</li>
+      <li className={css.headerRow}>{getActivityColumnNames(getString)}</li>
       {recentActivities?.map(recentActivity => {
         const {
           activityName,
@@ -318,7 +335,7 @@ export default function RecentActivityChanges(): JSX.Element {
               iconProps={{ name: activityTypeToIcon(activityType), size: 25 }}
             />
             <MetricCategoriesWithRiskScore
-              categoriesWithRiskScores={preActivityRisks || EmptyCategoryRiskArray}
+              categoriesWithRiskScores={preActivityRisks || getEmptyRiskArray(getString)}
               className={css.dataColumn}
             />
             <Container className={css.columnWrapp}>
@@ -331,7 +348,7 @@ export default function RecentActivityChanges(): JSX.Element {
               />
             </Container>
             <MetricCategoriesWithRiskScore
-              categoriesWithRiskScores={postActivityRisks || EmptyCategoryRiskArray}
+              categoriesWithRiskScores={postActivityRisks || getEmptyRiskArray(getString)}
               className={css.dataColumn}
             />
           </li>

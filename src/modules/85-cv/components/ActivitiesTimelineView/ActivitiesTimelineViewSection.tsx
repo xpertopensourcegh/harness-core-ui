@@ -8,8 +8,8 @@ import {
   RestResponseListActivityDashboardDTO,
   useListActivitiesForDashboard
 } from 'services/cv'
+import { useStrings } from 'framework/exports'
 import ActivitiesTimelineView, { ActivitiesTimelineViewProps, EventData } from './ActivitiesTimelineView'
-import i18n from './ActivitiesTimelineView.i18n'
 import css from './ActivitiesTimelineView.module.scss'
 
 export interface ActivitesTimelineViewSectionProps {
@@ -36,6 +36,7 @@ export default function ActivitesTimelineViewSection({
   const [otherChanges, setOtherChanges] = useState<Array<EventData>>()
   const [preselectedActivity, setPreselectedActivity] = useState<EventData>()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
 
   const { data, refetch: getActivities, loading, error } = useListActivitiesForDashboard({
     lazy: true,
@@ -68,7 +69,7 @@ export default function ActivitesTimelineViewSection({
           }
           if (selectedActivityId === activity.activityId) {
             eventData.headerLabels = {
-              primary: `2 ${i18n.hours} ${i18n.beforeChange}`
+              primary: `2 ${getString('hours')} ${getString('cv.activityTimeline.beforeChange').toLocaleUpperCase()}`
             }
             setPreselectedActivity(eventData)
           }
@@ -103,7 +104,7 @@ export default function ActivitesTimelineViewSection({
         <NoDataCard
           icon="error"
           iconSize={30}
-          buttonText={i18n.retry}
+          buttonText={getString('retry')}
           message={error.message}
           onClick={() =>
             getActivities({
@@ -129,8 +130,8 @@ export default function ActivitesTimelineViewSection({
         <NoDataCard
           icon="warning-sign"
           iconSize={30}
-          buttonText={i18n.retry}
-          message={i18n.noDataText}
+          buttonText={getString('retry')}
+          message={getString('cv.activityTimeline.noChanges')}
           onClick={() =>
             getActivities({
               queryParams: {

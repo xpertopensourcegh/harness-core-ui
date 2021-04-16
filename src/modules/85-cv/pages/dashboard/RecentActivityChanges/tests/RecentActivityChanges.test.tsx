@@ -3,11 +3,9 @@ import { render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import { cloneDeep } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
-import { MetricCategoryNames } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import RecentActivityChanges from '../RecentActivityChanges'
-import i18n from '../RecentActivityChanges.i18n'
 
 const MockData = [
   {
@@ -16,15 +14,15 @@ const MockData = [
     serviceIdentifier: 'Manager',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 30
       }
     ],
@@ -35,15 +33,15 @@ const MockData = [
     remainingTimeMs: 10,
     postActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 15
       }
     ]
@@ -54,15 +52,15 @@ const MockData = [
     serviceIdentifier: 'Manager',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 30
       }
     ],
@@ -73,15 +71,15 @@ const MockData = [
     remainingTimeMs: 10,
     postActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 15
       }
     ]
@@ -92,15 +90,15 @@ const MockData = [
     serviceIdentifier: 'Manager',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 30
       }
     ],
@@ -111,15 +109,15 @@ const MockData = [
     remainingTimeMs: 10,
     postActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 15
       }
     ]
@@ -130,15 +128,15 @@ const MockData = [
     serviceIdentifier: 'Manager',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 30
       }
     ],
@@ -149,15 +147,15 @@ const MockData = [
     remainingTimeMs: 10,
     postActivityRisks: [
       {
-        category: MetricCategoryNames.INFRASTRUCTURE,
+        category: 'infrastructureText',
         risk: 55
       },
       {
-        category: MetricCategoryNames.ERRORS,
+        category: 'errors',
         risk: 25
       },
       {
-        category: MetricCategoryNames.PERFORMANCE,
+        category: 'performance',
         risk: 15
       }
     ]
@@ -277,7 +275,7 @@ describe('Unit tests for RecentActivityChanges', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    const retryButton = getByText(i18n.retryText)
+    const retryButton = getByText('retry')
     expect(retryButton).not.toBeNull()
     retryButton.click()
     await waitFor(() => expect(refetchFunc).toHaveBeenCalledTimes(1))
@@ -329,10 +327,7 @@ describe('Unit tests for RecentActivityChanges', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(
-      getAllByText(`${i18n.verificationProgressText.inProgress} (0 ${i18n.verificationProgressText.remainingTime})`)
-        .length
-    ).toBe(3)
+    expect(getAllByText(`inProgress (0 cv.activitychanges.minutesremaining)`).length).toBe(3)
     const progressMeter = container.querySelector(`[class*="${Classes.PROGRESS_METER}"]`)
     expect(progressMeter?.getAttribute('style')).toEqual('width: 43%;')
     expect(progressMeter?.getAttribute('class')).toContain('heatmapColor6')
@@ -344,7 +339,7 @@ describe('Unit tests for RecentActivityChanges', () => {
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
-          accountId: i18n.verificationProgressText.initiated,
+          accountId: 'Initiated',
           projectIdentifier: '1234_project',
           orgIdentifier: '1234_ORG'
         }}
@@ -353,7 +348,7 @@ describe('Unit tests for RecentActivityChanges', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(getByText(`${i18n.verificationProgressText.initiated}`)).not.toBeNull()
+    expect(getByText(`cv.initiated`)).not.toBeNull()
     const progressMeter = container.querySelector(`[class*="${Classes.PROGRESS_METER}"]`)
     expect(progressMeter?.getAttribute('style')).toEqual('width: 0%;')
     expect(progressMeter?.getAttribute('class')).toContain('heatmapColor1')
@@ -374,11 +369,7 @@ describe('Unit tests for RecentActivityChanges', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(
-      getByText(
-        `${i18n.verificationProgressText.verification} ${i18n.verificationProgressText.failed} (${i18n.verificationProgressText.riskScore}: 90)`
-      )
-    )
+    expect(getByText(`cv.admin.notifications.create.stepThree.verification failed (cv.riskScore: 90)`))
     const progressMeter = container.querySelector(`[class*="${Classes.PROGRESS_METER}"]`)
     expect(progressMeter?.getAttribute('style')).toEqual('width: 45%;')
     expect(progressMeter?.getAttribute('class')).toContain('heatmapColor9')
@@ -418,11 +409,7 @@ describe('Unit tests for RecentActivityChanges', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(
-      getByText(
-        `${i18n.verificationProgressText.verification} ${i18n.verificationProgressText.passed} (${i18n.verificationProgressText.riskScore}: 5)`
-      )
-    )
+    expect(getByText(`cv.admin.notifications.create.stepThree.verification passed (cv.riskScore: 5)`))
     const progressMeter = container.querySelector(`[class*="${Classes.PROGRESS_METER}"]`)
     expect(progressMeter?.getAttribute('style')).toEqual('width: 100%;')
     expect(progressMeter?.getAttribute('class')).toContain('heatmapColor1')

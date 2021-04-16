@@ -11,13 +11,13 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
       >
-        Verification in-progress (1 minutes remaining)
+        cv.admin.notifications.create.stepThree.verification inProgress (1 cv.activitychanges.minutesremaining)
       </p>
       <p
         class="StyledProps--font StyledProps--main"
         style="font-size: 12px;"
       >
-        Started On: XX:YY
+        cv.startedOn: XX:YY
       </p>
     </div>
     <div
@@ -26,7 +26,7 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Risk Before Change
+        cv.activityChanges.riskBeforeChange
       </p>
       <div
         class="StyledProps--font StyledProps--main"
@@ -42,7 +42,7 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Risk After Change
+        cv.activityChanges.riskAfterChange
       </p>
       <div
         class="StyledProps--font StyledProps--main"
@@ -67,9 +67,9 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Cumulative
+        cv.activityChanges.cumulative
         <br />
-        Risk
+        risk
       </p>
       <button
         class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"

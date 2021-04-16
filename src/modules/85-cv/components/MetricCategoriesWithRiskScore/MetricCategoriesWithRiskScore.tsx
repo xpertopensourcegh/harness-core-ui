@@ -2,8 +2,8 @@ import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import classnames from 'classnames'
 import type { CategoryRisk } from 'services/cv'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import { RiskScoreTile, RiskScoreTileProps } from '../RiskScoreTile/RiskScoreTile'
-import i18n from './MetricCategoriesWithRiskScore.i18n'
 import css from './MetricCategoriesWithRiskScore.module.scss'
 
 export interface CategoriesWithRiskScoreProps {
@@ -13,38 +13,29 @@ export interface CategoriesWithRiskScoreProps {
   riskScoreTileProps?: Omit<RiskScoreTileProps, 'riskScore'>
 }
 
-export const MetricCategoryNames = {
-  ERRORS: i18n.categoryRiskLabels.errors,
-  INFRASTRUCTURE: i18n.categoryRiskLabels.infrastructure,
-  PERFORMANCE: i18n.categoryRiskLabels.performance
-}
-
-function getAbbreviatedMetricCategories(category: string): string {
+function getAbbreviatedMetricCategories(category: string, getString: UseStringsReturn['getString']): string {
   switch (category) {
-    case MetricCategoryNames.ERRORS:
-    case i18n.categoryRiskLabels.errors:
-      return i18n.categoryRiskAbbreviatedLabels.errors
-    case MetricCategoryNames.INFRASTRUCTURE:
-    case i18n.categoryRiskLabels.infrastructure:
-      return i18n.categoryRiskAbbreviatedLabels.infrastructure
-    case MetricCategoryNames.PERFORMANCE:
-    case i18n.categoryRiskLabels.performance:
-      return i18n.categoryRiskAbbreviatedLabels.performance
+    case getString('errors'):
+      return getString('cv.abbreviatedCategories.errors')
+    case getString('infrastructureText'):
+      return getString('cv.abbreviatedCategories.infrastructure')
+    case getString('performance'):
+      return getString('cv.abbreviatedCategories.performance')
     default:
       return ' '
   }
 }
 
-function sortCategories(categoryRiskScores?: CategoryRisk[]): void {
+function sortCategories(getString: UseStringsReturn['getString'], categoryRiskScores?: CategoryRisk[]): void {
   if (!categoryRiskScores) {
     return
   }
   categoryRiskScores.sort((a, b) => {
-    if (a?.category === MetricCategoryNames.PERFORMANCE) {
+    if (a?.category === getString('performance')) {
       return -1
     }
-    if (a?.category === MetricCategoryNames.ERRORS) {
-      return b?.category === MetricCategoryNames.PERFORMANCE ? 1 : -1
+    if (a?.category === getString('errors')) {
+      return b?.category === getString('performance') ? 1 : -1
     }
     return 1
   })
@@ -57,7 +48,8 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
     infoContainerClassName,
     riskScoreTileProps
   } = props
-  sortCategories(categoriesAndRiskScore)
+  const { getString } = useStrings()
+  sortCategories(getString, categoriesAndRiskScore)
   return (
     <Container className={className}>
       <Container className={css.main}>
@@ -65,7 +57,7 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
           const { category, risk = -1 } = riskScoreMapping
           return !category ? undefined : (
             <Container key={category} className={classnames(css.infoContainer, infoContainerClassName)}>
-              <Text style={{ fontSize: 12 }}>{getAbbreviatedMetricCategories(category)}</Text>
+              <Text style={{ fontSize: 12 }}>{getAbbreviatedMetricCategories(category, getString)}</Text>
               <RiskScoreTile riskScore={risk} isSmall {...riskScoreTileProps} />
             </Container>
           )

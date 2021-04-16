@@ -4,7 +4,6 @@ import type { UseGetReturn } from 'restful-react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import { CategoryRiskCards, CategoryRiskCardsWithApi } from '../CategoryRiskCards'
-import i18n from '../CategoryRiskCards.i18n'
 
 jest.mock('../RiskCardTooltip/RiskCardTooltip', () => (props: any) => <div>{props.children}</div>)
 
@@ -55,8 +54,8 @@ describe('Category Risk Cards unit tests', () => {
         <CategoryRiskCards data={InvalidTimestampMockApiData} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(i18n.overallText))
-    getByText(i18n.productionRisk)
+    await waitFor(() => getByText('cv.overall'))
+    getByText('cv.currentProductionRisk')
     expect(container.querySelector('[class*="timeRange"]')?.children.length).toBe(1)
   })
 
@@ -66,7 +65,7 @@ describe('Category Risk Cards unit tests', () => {
         <CategoryRiskCards data={InvalidTimestampMockApiData} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(i18n.overallText))
+    await waitFor(() => getByText('cv.overall'))
 
     const categoryRiskCards = container.querySelectorAll('[class*="categoryRiskCard"]')
     expect(categoryRiskCards.length).toBe(3)
@@ -99,7 +98,7 @@ describe('Category Risk Cards unit tests', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="overallRiskScoreCard"]')).not.toBeNull())
-    getByText('No Analysis')
+    getByText('cv.noAnalysis')
     expect(container.querySelectorAll('[class*="categoryRiskCard"]').length).toBe(3)
     expect(container.querySelectorAll('[class*="noRiskScore"]').length).toBe(3)
   })

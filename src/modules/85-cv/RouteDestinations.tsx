@@ -20,11 +20,8 @@ import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-d
 import CVServicesPage from '@cv/pages/services/CVServicesPage'
 import ActivitySourceSetup from '@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
-import CVGeneralSettingsPage from '@cv/pages/admin/general-settings/CVGeneralSettingsPage'
-import CVGovernancePage from '@cv/pages/admin/governance/CVGovernancePage'
 import CVSetupPage from '@cv/pages/admin/setup/CVSetupPage'
 import MonitoringSource from '@cv/pages/monitoring-source/MonitoringSource'
-import CVAccessControlPage from '@cv/pages/admin/access-control/CVAccessControlPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cv/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
@@ -146,20 +143,6 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminGeneralSettings({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVGeneralSettingsPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminGovernance({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVGovernancePage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
       path={routes.toCVAdminSetup({ ...accountPathProps, ...projectPathProps })}
     >
       <CVSetupPage />
@@ -272,14 +255,6 @@ export default (
       })}
     >
       <SecretDetails />
-    </RouteWithLayout>
-
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminAccessControl({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVAccessControlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

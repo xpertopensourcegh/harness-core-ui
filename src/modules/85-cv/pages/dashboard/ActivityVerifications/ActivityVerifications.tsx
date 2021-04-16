@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Container, Text, Link } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
@@ -6,20 +6,8 @@ import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
-import i18n from './ActivityVerifications.i18n'
 import VerificationItem from './VerificationItem'
 import css from './ActivityVerifications.module.scss'
-
-const RECENT_VERIFICATIONS_COLUMN_NAMES = Object.values(i18n.activityVerificationsColumns).map(columnName => (
-  <Text
-    width={columnName === i18n.activityVerificationsColumns.deployments ? 200 : 300}
-    key={columnName}
-    font={{ weight: 'bold', size: 'small' }}
-    style={{ textTransform: 'uppercase' }}
-  >
-    {columnName}
-  </Text>
-))
 
 export default function ActivityVerifications(): JSX.Element {
   const history = useHistory()
@@ -34,10 +22,30 @@ export default function ActivityVerifications(): JSX.Element {
     } as any // Size not supported ?
   })
 
+  const recentVerificationColumnNames = useMemo(
+    () =>
+      [
+        getString('deploymentText'),
+        getString('cv.activityChanges.preProduction'),
+        getString('cv.activityChanges.productionDeployment'),
+        getString('cv.activityChanges.postProdDeployment')
+      ].map(columnName => (
+        <Text
+          width={columnName === getString('deploymentText') ? 200 : 300}
+          key={columnName}
+          font={{ weight: 'bold', size: 'small' }}
+          style={{ textTransform: 'uppercase' }}
+        >
+          {columnName}
+        </Text>
+      )),
+    []
+  )
+
   if (!loading && !data?.resource?.length) {
     return (
       <ul className={css.activityList}>
-        <li className={css.headerRow}>{RECENT_VERIFICATIONS_COLUMN_NAMES}</li>
+        <li className={css.headerRow}>{recentVerificationColumnNames}</li>
         <li className={css.emptyBar}>
           <div style={{ width: 210 }}>
             <Link
@@ -53,23 +61,23 @@ export default function ActivityVerifications(): JSX.Element {
                 )
               }}
             >
-              {i18n.setup}
+              {getString('cv.setup')}
             </Link>
           </div>
           <div style={{ width: 295 }}>
-            {i18n.verificationResultText.verificationNotStarted}
+            {getString('cv.dashboard.notStarted')}
             <div style={{ width: 200 }}>
               <CVProgressBar value={0} riskScore={0} />
             </div>
           </div>
           <div style={{ width: 295 }}>
-            {i18n.verificationResultText.verificationNotStarted}
+            {getString('cv.dashboard.notStarted')}
             <div style={{ width: 200 }}>
               <CVProgressBar value={0} riskScore={0} />
             </div>
           </div>
           <div style={{ width: 300 }}>
-            {i18n.verificationResultText.verificationNotStarted}
+            {getString('cv.dashboard.notStarted')}
             <div style={{ width: 200 }}>
               <CVProgressBar value={0} riskScore={0} />
             </div>
@@ -83,7 +91,7 @@ export default function ActivityVerifications(): JSX.Element {
     <Container className={css.main}>
       <Text className={css.headerText}>{getString('cv.overviewPage.recentChangeVerifications')}</Text>
       <ul className={css.activityList}>
-        <li className={css.headerRow}>{RECENT_VERIFICATIONS_COLUMN_NAMES}</li>
+        <li className={css.headerRow}>{recentVerificationColumnNames}</li>
         {data?.resource?.map(item => {
           const { serviceIdentifier, tag } = item
           return (
@@ -93,8 +101,8 @@ export default function ActivityVerifications(): JSX.Element {
               onSelect={phase =>
                 history.push(
                   routes.toCVDeploymentPage({
-                    projectIdentifier: projectIdentifier as string,
-                    orgIdentifier: orgIdentifier as string,
+                    projectIdentifier,
+                    orgIdentifier,
                     deploymentTag: encodeURIComponent(tag!),
                     serviceIdentifier: encodeURIComponent(serviceIdentifier!),
                     accountId

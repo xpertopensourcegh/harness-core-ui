@@ -23,7 +23,6 @@ import {
   setSecretField
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { PageSpinner } from '@common/components'
-import i18n from './CreateSplunkConnector.i18n'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import css from '../AppDynamicsConnector/CreateAppDynamicsConnector.module.scss'
 
@@ -68,7 +67,9 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
     const res = await (isEditMode ? updateConnector : createConnector)(payload)
     if (res && res.status === 'SUCCESS') {
       showSuccess(
-        isEditMode ? i18n.showSuccessUpdated(payload?.name || '') : i18n.showSuccessCreated(payload?.name || '')
+        isEditMode
+          ? getString('cv.connectors.updatedSuccessfully', payload?.name || '')
+          : getString('cv.connectors.createdSuccessfully', payload?.name || '')
       )
       if (res.data) {
         setSuccessfullyCreated(true)
@@ -79,7 +80,9 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
         props.setIsEditMode(true)
       }
     } else {
-      throw new Error(i18n.errorCreate)
+      throw new Error(
+        getString(isEditMode ? 'cv.connectors.unableToUpdateConnector' : 'cv.connectors.unableToCreateConnector')
+      )
     }
     return res.data?.connector
   }
@@ -91,7 +94,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
       <StepWizard>
         <ConnectorDetailsStep
           type={Connectors.SPLUNK}
-          name={i18n.wizardStepName.connectorDetails}
+          name={getString('cv.connectors.connectorDetails')}
           setFormData={setFormData}
           formData={formData}
           mock={props.mockIdentifierValidate}
@@ -102,7 +105,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           accountId={props.accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
-          name={i18n.wizardStepName.credentials}
+          name={getString('credentials')}
           identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
           setFormData={setFormData}
           formData={formData}
@@ -120,7 +123,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           buildPayload={buildSplunkPayload}
         />
         <VerifyOutOfClusterDelegate
-          name={i18n.verifyConnection}
+          name={getString('cv.connectors.verifyConnection')}
           url={formData?.url}
           connectorIdentifier={formData?.identifier}
           onClose={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
@@ -137,6 +140,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
 export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
   const { nextStep, prevStepData, connectorInfo } = props
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+  const { getString } = useStrings()
   const [initialValues, setInitialValues] = useState<SplunkFormInterface>({
     url: '',
     username: '',
@@ -186,14 +190,14 @@ export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element 
       {() => (
         <FormikForm className={css.connectionForm}>
           <Layout.Vertical spacing="large" className={css.appDContainer}>
-            <Text font="medium">{i18n.connectionDetailsHeader}</Text>
-            <FormInput.Text label={i18n.Url} name="url" />
-            <FormInput.Text name="username" label={i18n.Username} />
-            <SecretInput name="passwordRef" label={i18n.Password} />
+            <Text font="medium">{getString('cv.connectors.splunk.connectorDetailsHeader')}</Text>
+            <FormInput.Text label={getString('UrlLabel')} name="url" />
+            <FormInput.Text name="username" label={getString('username')} />
+            <SecretInput name="passwordRef" label={getString('password')} />
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
-            <Button onClick={() => props.previousStep?.()} text={i18n.back} />
-            <Button type="submit" text={i18n.connectAndSave} />
+            <Button onClick={() => props.previousStep?.()} text={getString('back')} />
+            <Button type="submit" text={getString('cv.connectors.connectAndSave')} />
           </Layout.Horizontal>
         </FormikForm>
       )}

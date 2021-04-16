@@ -5,6 +5,30 @@ response: Response
 responseBody: Response Body
 statusCode: Status Code
 failures: Failures
+startedOn: Started On
+initiated: Initiated
+verifications: Verifications
+verificationStatus: Verification Status
+activityChanges:
+  riskBeforeChange: Risk Before Change
+  riskAfterChange: Risk After Change
+  cumulative: Cumulative
+  minutesRemaining: Minutes remaining
+  preProduction: Pre Production
+  productionDeployment: Production Deployment
+  postProdDeployment: Post-Production Deployment
+  preProdVerifications: Pre Production Verifications
+  prodVerifications: Production Verifications
+  postDeployVerifications: Post Deployment Verifications
+  minRemaining: min remaining
+activityTimeline:
+  beforeChange: Before Change
+  noChanges: No Changes
+  otherChanges: Other Changes
+abbreviatedCategories:
+  performance: Perf
+  infrastructure: Infra
+  errors: 'Err'
 thirdPartyCalls:
   modalTitle: Calls to
   timeTaken: Time Taken
@@ -18,16 +42,18 @@ dashboard:
   learnMore: Learn more about Continuous Verification
   createProject: '{{$.ci.dashboard.createProject}}'
   notStarted: Not started
-verification: 'VERIFICATION'
 hostNamePlaceholder: '${host}'
 harnessService: 'Harness Service'
 harnessEnvironment: 'Harness Environment'
 selectOrCreateEnv: 'Select or create an environment'
 verificationErrored: 'Verification errored'
 getRiskAssessment: 'Get risk assessment'
-setup: 'Setup Continuous Verification'
-riskScore: 'Risk Score'
-noAnalysis: 'No Analysis'
+setup: Setup Continuous Verification
+riskScore: Risk Score
+noAnalysis: No Analysis
+overall: Overall
+currentProductionRisk: Current Production Risk
+evaluationPeriod: Evaluation period
 overviewPage:
   recentChangeVerifications: 'Recent Change Verifications'
 riskCardTooltip:
@@ -143,6 +169,8 @@ connectors:
     accountIdTooltip: For steps to get New Relic Account ID
     products:
       fullStackObservability: 'Full Stack Observability: APM'
+  splunk:
+    connectorDetailsHeader: Splunk Connection Details
   cdng:
     jobName: Job Name
     deploymentTag: Deployment Tag
@@ -177,9 +205,12 @@ onboarding:
       icon: cd-main
   monitoringSources:
     addMoreSources: Add more Monitoring Sources
+    select: Select your Monitoring Source
     addedStatus: You have added {{sourceCount}} Monitoring Source
     defineMonitoringSource: Define your Monitoring Source
     monitoringSourceSubheading: Which Monitoring Source are you setting up for this deployment?
+    skipToMonitoringSource: Skip to Monitoring Sources
+    monitoringSourceInfo: Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
     specifyConnector: Specify your {{type}} connector
     firstTimeSetupText: First time? You can setup a new connector to {{type}}. It takes 2 minutes.
     selectConnector: Select your {{type}} connector
@@ -188,10 +219,14 @@ onboarding:
     selectMetricPacks: Select Metric Pack(s)
     metricPacksToMonitor: Select metric packs you want to monitor.
   activitySources:
+    changeSourceInfo: Change Sources provide the details of deployment and infrastructure change
+    infrastructureProvider: Infrastructure Provider
+    dontHaveChangeSource: Don’t have a Change Source?
     addMoreSources: Add more Change Sources
     addedStatus: You have added {{sourceCount}} Change Source
   verificationJobs:
     heading: Almost there
+    setupInfo: Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
     infoText: Verification jobs trigger automatically whenever a relevant change is sourced from a Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
     subHeading: Default health verification jobs are applied automatically.
     createJobQues: Would you like to create a new verification job?

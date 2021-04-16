@@ -5,7 +5,6 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import ActivityTimelineViewSection from '../ActivitiesTimelineViewSection'
-import i18n from '../ActivitiesTimelineView.i18n'
 
 const mockRefetch = jest.fn()
 const testWrapperProps: TestWrapperProps = {
@@ -43,7 +42,7 @@ describe('Unit tests for ActivityTimelineViewSection', () => {
 
     expect(container.querySelector('[class*="errorAndNoData"]')).not.toBeNull()
     expect(getByText('mock error')).not.toBeNull()
-    const retryButton = getByText(i18n.retry)
+    const retryButton = getByText('retry')
     expect(retryButton).not.toBeNull()
 
     retryButton.click()
@@ -67,7 +66,7 @@ describe('Unit tests for ActivityTimelineViewSection', () => {
         <ActivityTimelineViewSection startTime={-1} endTime={-1} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText(i18n.noDataText)).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.activityTimeline.noChanges')).not.toBeNull())
   })
 
   test('Ensure that when error card is rendered when error is returned', async () => {
@@ -85,6 +84,6 @@ describe('Unit tests for ActivityTimelineViewSection', () => {
         <ActivityTimelineViewSection startTime={-1} endTime={-1} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText(i18n.noDataText)).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.activityTimeline.noChanges')).not.toBeNull())
   })
 })

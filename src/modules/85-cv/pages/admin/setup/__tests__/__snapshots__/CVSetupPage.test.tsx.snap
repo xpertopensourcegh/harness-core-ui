@@ -48,12 +48,12 @@ exports[`CVSetupPage check next and previous 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  CHANGE SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.ACTIVITYSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Change Sources provide the details of deployment and infrastructure change
+                  cv.onboarding.activitySources.changeSourceInfo
                 </p>
               </div>
             </div>
@@ -79,12 +79,12 @@ exports[`CVSetupPage check next and previous 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  MONITORING SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.MONITORINGSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  cv.onboarding.monitoringSources.monitoringSourceInfo
                 </p>
               </div>
             </div>
@@ -107,12 +107,12 @@ exports[`CVSetupPage check next and previous 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  VERIFICATION JOBS
+                  VERIFICATIONJOBS
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
+                  cv.onboarding.verificationJobs.setupInfo
                 </p>
               </div>
             </div>
@@ -169,12 +169,12 @@ exports[`CVSetupPage check next and previous 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
-                Let’s get you started
+                common.letsGetYouStarted
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Select your Change Source
+                cv.activitySources.harnessCD.select
               </p>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
@@ -253,7 +253,7 @@ exports[`CVSetupPage check next and previous 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    INFRASTRUCTURE PROVIDER
+                    CV.ONBOARDING.ACTIVITYSOURCES.INFRASTRUCTUREPROVIDER
                      
                   </p>
                   <div
@@ -310,7 +310,7 @@ exports[`CVSetupPage check next and previous 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
-              Don’t have a Change Source? 
+              cv.onboarding.activitySources.dontHaveChangeSource
             </p>
             <a
               class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
@@ -321,7 +321,7 @@ exports[`CVSetupPage check next and previous 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Skip to Monitoring Sources
+                cv.onboarding.monitoringSources.skipToMonitoringSource
               </span>
             </a>
           </div>
@@ -394,12 +394,12 @@ exports[`CVSetupPage check next and previous 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  CHANGE SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.ACTIVITYSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Change Sources provide the details of deployment and infrastructure change
+                  cv.onboarding.activitySources.changeSourceInfo
                 </p>
               </div>
             </div>
@@ -425,12 +425,12 @@ exports[`CVSetupPage check next and previous 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  MONITORING SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.MONITORINGSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  cv.onboarding.monitoringSources.monitoringSourceInfo
                 </p>
               </div>
             </div>
@@ -453,12 +453,12 @@ exports[`CVSetupPage check next and previous 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  VERIFICATION JOBS
+                  VERIFICATIONJOBS
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
+                  cv.onboarding.verificationJobs.setupInfo
                 </p>
               </div>
             </div>
@@ -572,12 +572,12 @@ exports[`CVSetupPage check next and previous 2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
-                Select your Monitoring Source 
+                CV.NAVLINKS.ADMINSIDENAVLINKS.MONITORINGSOURCES
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                cv.onboarding.monitoringSources.select
               </p>
               <div
                 class="items"
@@ -759,12 +759,12 @@ exports[`CVSetupPage check next and previous 3`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  CHANGE SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.ACTIVITYSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Change Sources provide the details of deployment and infrastructure change
+                  cv.onboarding.activitySources.changeSourceInfo
                 </p>
               </div>
             </div>
@@ -790,12 +790,12 @@ exports[`CVSetupPage check next and previous 3`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  MONITORING SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.MONITORINGSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  cv.onboarding.monitoringSources.monitoringSourceInfo
                 </p>
               </div>
             </div>
@@ -818,12 +818,12 @@ exports[`CVSetupPage check next and previous 3`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  VERIFICATION JOBS
+                  VERIFICATIONJOBS
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
+                  cv.onboarding.verificationJobs.setupInfo
                 </p>
               </div>
             </div>
@@ -908,12 +908,12 @@ exports[`CVSetupPage check next and previous 3`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
-                Let’s get you started
+                common.letsGetYouStarted
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Select your Change Source
+                cv.activitySources.harnessCD.select
               </p>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
@@ -992,7 +992,7 @@ exports[`CVSetupPage check next and previous 3`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    INFRASTRUCTURE PROVIDER
+                    CV.ONBOARDING.ACTIVITYSOURCES.INFRASTRUCTUREPROVIDER
                      
                   </p>
                   <div
@@ -1049,7 +1049,7 @@ exports[`CVSetupPage check next and previous 3`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
-              Don’t have a Change Source? 
+              cv.onboarding.activitySources.dontHaveChangeSource
             </p>
             <a
               class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
@@ -1060,7 +1060,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               <span
                 class="bp3-button-text"
               >
-                Skip to Monitoring Sources
+                cv.onboarding.monitoringSources.skipToMonitoringSource
               </span>
             </a>
           </div>
@@ -1119,12 +1119,12 @@ exports[`CVSetupPage render initial state 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  CHANGE SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.ACTIVITYSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Change Sources provide the details of deployment and infrastructure change
+                  cv.onboarding.activitySources.changeSourceInfo
                 </p>
               </div>
             </div>
@@ -1150,12 +1150,12 @@ exports[`CVSetupPage render initial state 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  MONITORING SOURCES
+                  CV.NAVLINKS.ADMINSIDENAVLINKS.MONITORINGSOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  cv.onboarding.monitoringSources.monitoringSourceInfo
                 </p>
               </div>
             </div>
@@ -1178,12 +1178,12 @@ exports[`CVSetupPage render initial state 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  VERIFICATION JOBS
+                  VERIFICATIONJOBS
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
+                  cv.onboarding.verificationJobs.setupInfo
                 </p>
               </div>
             </div>
@@ -1240,12 +1240,12 @@ exports[`CVSetupPage render initial state 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
-                Let’s get you started
+                common.letsGetYouStarted
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Select your Change Source
+                cv.activitySources.harnessCD.select
               </p>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
@@ -1324,7 +1324,7 @@ exports[`CVSetupPage render initial state 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    INFRASTRUCTURE PROVIDER
+                    CV.ONBOARDING.ACTIVITYSOURCES.INFRASTRUCTUREPROVIDER
                      
                   </p>
                   <div
@@ -1381,7 +1381,7 @@ exports[`CVSetupPage render initial state 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
-              Don’t have a Change Source? 
+              cv.onboarding.activitySources.dontHaveChangeSource
             </p>
             <a
               class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
@@ -1392,7 +1392,7 @@ exports[`CVSetupPage render initial state 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Skip to Monitoring Sources
+                cv.onboarding.monitoringSources.skipToMonitoringSource
               </span>
             </a>
           </div>

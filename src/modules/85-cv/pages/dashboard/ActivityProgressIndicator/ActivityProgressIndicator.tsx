@@ -3,7 +3,7 @@ import { Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import type { ActivityVerificationSummary } from 'services/cv'
-import i18n from './ActivityProgressIndicator.i18n'
+import { useStrings } from 'framework/exports'
 import css from './ActivityProgressIndicator.module.scss'
 
 interface ActivityProgressIndicatorProps {
@@ -30,6 +30,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   const notStarted = !props.data || aggregatedStatus === 'NOT_STARTED'
   const isInProgress = props.data && aggregatedStatus === 'IN_PROGRESS'
   const [progressValue, setProgressValue] = useState(isInProgress ? 0 : 100)
+  const { getString } = useStrings()
   useEffect(() => {
     if (isInProgress) {
       const timeoutRefNumber = setTimeout(() => {
@@ -42,7 +43,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   if (notStarted) {
     return (
       <Container className={cx(props.className, css.notStarted)}>
-        <Text style={SMALL_FONT_SIZE}>{i18n.verificationNotStarted}</Text>
+        <Text style={SMALL_FONT_SIZE}>{getString('cv.dashboard.notStarted')}</Text>
         <CVProgressBar />
       </Container>
     )
@@ -54,12 +55,18 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   let progressDescription: string
 
   if (isInProgress) {
-    progressDescription = `${i18n.inProgress} (${minutesRemaining} ${i18n.minutesRemaining})`
+    progressDescription = `${getString('inProgress').toLocaleLowerCase()} (${minutesRemaining} ${getString(
+      'cv.activityChanges.minutesRemaining'
+    ).toLocaleLowerCase()})`
     if (progressCount! > 1) {
-      progressDescription = `${progressCount}/${total} ${i18n.verifications} ${progressDescription}`
+      progressDescription = `${progressCount}/${total} ${getString(
+        'cv.verifications'
+      ).toLocaleLowerCase()} ${progressDescription}`
     }
   } else {
-    progressDescription = `${passed}/${total} ${i18n.verifications} ${i18n.passedVerification}`
+    progressDescription = `${passed}/${total} ${getString('cv.verifications').toLocaleLowerCase()} ${getString(
+      'passed'
+    ).toLocaleLowerCase()}`
   }
 
   return (
@@ -70,12 +77,12 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
       <CVProgressBar status={aggregatedStatus} value={progressValue} />
       <Container flex>
         {startTime !== undefined && startTime !== null && (
-          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${i18n.startOn} ${new Date(
+          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${getString('cv.startedOn')} ${new Date(
             startTime
           ).toLocaleString()}`}</Text>
         )}
         {duration !== undefined && duration !== null && (
-          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${duration} ${i18n.abbreviatedMinute}`}</Text>
+          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${duration} ${getString('timeMinutes')}`}</Text>
         )}
       </Container>
     </Container>

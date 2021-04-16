@@ -322,11 +322,6 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
             createAlertRule(payload)
           }
         }}
-        // validationSchema={Yup.object().shape({
-        //   to: Yup.string().trim().required(i18n.validationTo),
-        //   subject: Yup.string().trim().required(i18n.validationSubject),
-        //   body: Yup.string().trim().required(i18n.validationBody)
-        // })}
       >
         {formik => {
           return (

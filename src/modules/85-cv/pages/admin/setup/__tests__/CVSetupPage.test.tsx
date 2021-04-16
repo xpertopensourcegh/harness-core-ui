@@ -33,8 +33,8 @@ describe('CVSetupPage', () => {
       </TestWrapper>
     )
     await waitFor(() => queryByText(container, 'Setup'))
-    expect(getByText('CHANGE SOURCES')).toBeDefined()
-    expect(getByText('Let’s get you started')).toBeDefined()
+    expect(getByText('cv.onboarding.activitySources.changeSourceInfo')).toBeDefined()
+    expect(getByText('common.letsGetYouStarted')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
   test('check next and previous', async () => {
@@ -61,15 +61,15 @@ describe('CVSetupPage', () => {
       const nextBtn = getByText('next')
       fireEvent.click(nextBtn)
     })
-    expect(getByText('MONITORING SOURCES')).toBeDefined()
-    expect(getByText('Select your Monitoring Source')).toBeDefined()
+    expect(getByText('cv.onboarding.monitoringSources.monitoringSourceInfo')).toBeDefined()
+    expect(getByText('cv.onboarding.monitoringSources.select')).toBeDefined()
     expect(container).toMatchSnapshot()
 
     act(() => {
       const prevBtn = getByText('previous')
       fireEvent.click(prevBtn)
     })
-    expect(getByText('Let’s get you started')).toBeDefined()
+    expect(getByText('common.letsGetYouStarted')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -78,7 +78,7 @@ describe('CVSetupPage', () => {
     jest.spyOn(cvService, 'useGetAvailableMonitoringSources').mockReturnValue({
       data: {}
     } as UseGetReturn<any, any, any, any>)
-    const { container, getByText, rerender } = render(
+    const { container, getByText, rerender, getAllByText } = render(
       <TestWrapper
         path="/cv/account/:accountId/org/:orgIdentifier/project/:projectIdentifier/admin/setup"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummyOrgId', projectIdentifier: 'dummyProjectId' }}
@@ -93,10 +93,22 @@ describe('CVSetupPage', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('CHANGE SOURCES')?.getAttribute('class')).toContain('--color-black'))
+    await waitFor(() =>
+      expect(getByText('CV.NAVLINKS.ADMINSIDENAVLINKS.ACTIVITYSOURCES')?.getAttribute('class')).toContain(
+        '--color-black'
+      )
+    )
     fireEvent.click(getByText('next'))
-    await waitFor(() => expect(getByText('MONITORING SOURCES')?.getAttribute('class')).toContain('--color-black'))
-    await waitFor(() => expect(getByText('CHANGE SOURCES')?.getAttribute('class')).toContain('--color-grey500'))
+    await waitFor(() =>
+      expect(getByText('cv.onboarding.monitoringSources.monitoringSourceInfo')?.getAttribute('class')).toContain(
+        '--color-grey400'
+      )
+    )
+    await waitFor(() =>
+      expect(getByText('CV.NAVLINKS.ADMINSIDENAVLINKS.ACTIVITYSOURCES')?.getAttribute('class')).toContain(
+        '--color-grey500'
+      )
+    )
     expect(container.querySelectorAll('button')[1].getAttribute('disabled')).toEqual('')
 
     jest.spyOn(cvService, 'useGetAvailableMonitoringSources').mockReturnValue({
@@ -124,8 +136,13 @@ describe('CVSetupPage', () => {
     )
 
     // ensure you are still on same step, this might not actually be desired, but will revisit later
-    await waitFor(() => expect(getByText('MONITORING SOURCES')?.getAttribute('class')).toContain('--color-black'))
+    await waitFor(() =>
+      expect(getAllByText('CV.NAVLINKS.ADMINSIDENAVLINKS.MONITORINGSOURCES')[0]?.getAttribute('class')).toContain(
+        '--color-black'
+      )
+    )
     fireEvent.click(getByText('next'))
-    await waitFor(() => expect(getByText('VERIFICATION JOBS')?.getAttribute('class')).toContain('--color-black'))
+    expect(container)
+    await waitFor(() => expect(getByText('VERIFICATIONJOBS')?.getAttribute('class')).toContain('--color-black'))
   })
 })

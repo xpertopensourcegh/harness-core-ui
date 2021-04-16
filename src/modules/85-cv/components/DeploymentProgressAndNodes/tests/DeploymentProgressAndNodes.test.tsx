@@ -2,7 +2,6 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
-import i18n from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView.i18n'
 import { TestWrapper } from '@common/utils/testUtils'
 import { DeploymentProgressAndNodes, DeploymentProgressAndNodesProps } from '../DeploymentProgressAndNodes'
 
@@ -136,7 +135,7 @@ describe('Deployment progress and nodes unit tests', () => {
         <DeploymentProgressAndNodes {...BaselineDeploymentMockData} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(i18n.baselineTest))
+    await waitFor(() => getByText('Baseline test'))
 
     expect(container.querySelector('[class*="bp3-intent-success"]'))
     expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 100%;')

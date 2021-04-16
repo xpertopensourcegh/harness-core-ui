@@ -3,13 +3,13 @@ import { Container, Text, Button, Color } from '@wings-software/uicore'
 import { Collapse } from '@blueprintjs/core'
 import classnames from 'classnames'
 import moment from 'moment'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import {
   MetricCategoriesWithRiskScore,
   CategoriesWithRiskScoreProps
 } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import type { VerificationResult } from 'services/cv'
-import i18n from './ActivityChangesDrilldownView.i18n'
 import styles from './VerificationStatusBar.module.scss'
 
 export interface VerificationStatusBarProps {
@@ -32,22 +32,29 @@ export default function VerificationStatusBar({
   dropDownContent
 }: VerificationStatusBarProps) {
   const [expanded, setExpanded] = useState(false)
+  const { getString } = useStrings()
   return (
     <>
       <Container className={styles.main}>
         <Container className={classnames(styles.column, styles.statusGroup)}>
-          <Text color={Color.BLACK}>{`${i18n.verification} ${mapStatus(status, remainingTimeMs)}`}</Text>
-          <Text style={{ fontSize: 12 }}>{`${i18n.startedOn}: ${moment(startTime).format('MMM D, h:mm:ss a')}`}</Text>
+          <Text color={Color.BLACK}>{`${getString('cv.admin.notifications.create.stepThree.verification')} ${mapStatus(
+            status,
+            getString,
+            remainingTimeMs
+          )}`}</Text>
+          <Text style={{ fontSize: 12 }}>{`${getString('cv.startedOn')}: ${moment(startTime).format(
+            'MMM D, h:mm:ss a'
+          )}`}</Text>
         </Container>
         <Container className={classnames(styles.column, styles.risksGroup)}>
-          <Text>{i18n.riskBeforeChanges}</Text>
+          <Text>{getString('cv.activityChanges.riskBeforeChange')}</Text>
           <MetricCategoriesWithRiskScore
             infoContainerClassName={styles.infoContainer}
             categoriesWithRiskScores={scoresBeforeChanges}
           />
         </Container>
         <Container className={classnames(styles.column, styles.risksGroup)}>
-          <Text>{i18n.riskAfterChanges}</Text>
+          <Text>{getString('cv.activityChanges.riskAfterChange')}</Text>
           <MetricCategoriesWithRiskScore
             infoContainerClassName={styles.infoContainer}
             categoriesWithRiskScores={scoresAfterChanges}
@@ -56,9 +63,9 @@ export default function VerificationStatusBar({
         <Container className={classnames(styles.column, styles.cumulativeRisk)}>
           <RiskScoreTile riskScore={cumulativeRisk} isLarge />
           <Text>
-            {i18n.cumulative}
+            {getString('cv.activityChanges.cumulative')}
             <br />
-            {i18n.risk}
+            {getString('risk')}
           </Text>
           {!!dropDownContent && (
             <Button
@@ -75,16 +82,22 @@ export default function VerificationStatusBar({
   )
 }
 
-export function mapStatus(status: VerificationResult['status'], remainingTimeMs?: number): string {
+export function mapStatus(
+  status: VerificationResult['status'],
+  getString: UseStringsReturn['getString'],
+  remainingTimeMs?: number
+): string {
   switch (status) {
     case 'IN_PROGRESS':
-      return `${i18n.inProgress} (${Math.floor(remainingTimeMs! / (1000 * 60))} ${i18n.minutesRemaining})`
+      return `${getString('inProgress')} (${Math.floor(remainingTimeMs! / (1000 * 60))} ${getString(
+        'cv.activityChanges.minutesRemaining'
+      ).toLocaleLowerCase()})`
     case 'VERIFICATION_PASSED':
-      return i18n.passed
+      return getString('passed').toLocaleLowerCase()
     case 'VERIFICATION_FAILED':
     case 'ERROR':
-      return i18n.failed
+      return getString('failed').toLocaleLowerCase()
     default:
-      return i18n.notStarted
+      return getString('executionStatus.NotStarted').toLocaleLowerCase()
   }
 }

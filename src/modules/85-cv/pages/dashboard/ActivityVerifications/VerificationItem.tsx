@@ -11,9 +11,9 @@ import {
   VerificationResult
 } from 'services/cv'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import ActivityType from '../ActivityType/ActivityType'
 import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
-import i18n from './ActivityVerifications.i18n'
 import { InstancePhase } from '../deployment-drilldown/DeploymentDrilldownSideNav'
 import css from './ActivityVerifications.module.scss'
 
@@ -100,10 +100,11 @@ function ItemTooltip(props: {
   phase: 'PRE_PROD' | 'PROD' | 'POST_DEPLOY'
   children: JSX.Element
 }): React.ReactElement {
+  const { getString } = useStrings()
   const label =
-    (props.phase === 'PRE_PROD' && i18n.verificationTooltip.preProdVerifications) ||
-    (props.phase === 'PROD' && i18n.verificationTooltip.prodVerifications) ||
-    i18n.verificationTooltip.postDeployVerifications
+    (props.phase === 'PRE_PROD' && getString('cv.activityChanges.preProdVerifications')) ||
+    (props.phase === 'PROD' && getString('cv.activityChanges.prodVerifications')) ||
+    getString('cv.activityChanges.postDeployVerifications')
   return (
     <Tooltip
       className={css.tooltipTarget}
@@ -129,7 +130,7 @@ function ItemTooltip(props: {
                   props.contentData?.total ?? 0
                 } ${label}`}</Text>
                 <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
-                  {i18n.verificationTooltip.risk}
+                  {getString('risk')}
                 </Text>
               </Container>
               {props.contentData?.verificationResults?.map((item, index) => (
@@ -140,13 +141,13 @@ function ItemTooltip(props: {
                         {item.jobName}
                       </Text>
                       <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
-                        {mapTooltipItemStatus(item.status, item.remainingTimeMs)}
+                        {mapTooltipItemStatus(item.status, getString, item.remainingTimeMs)}
                       </Text>
                     </Container>
                     <CVProgressBar status={item.status} value={item.progressPercentage} />
                     <Container className={css.tooltipDateGroup}>
                       <Text color={Color.GREY_400} style={{ fontSize: 12, marginRight: 2 }}>
-                        {i18n.verificationTooltip.startedOn}:
+                        {getString('cv.startedOn')}:
                       </Text>
                       <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                         {moment(item.startTime).format('MMM D, h:mm:ss a')}
@@ -165,17 +166,21 @@ function ItemTooltip(props: {
   )
 }
 
-export function mapTooltipItemStatus(status: VerificationResult['status'], remainingTimeMs?: number) {
+export function mapTooltipItemStatus(
+  status: VerificationResult['status'],
+  getString: UseStringsReturn['getString'],
+  remainingTimeMs?: number
+) {
   switch (status) {
     case 'ERROR':
-      return i18n.verificationTooltip.statusError
+      return getString('error')
     case 'IN_PROGRESS':
-      return Math.floor(remainingTimeMs! / 60000) + i18n.verificationTooltip.minRemaining
+      return Math.floor(remainingTimeMs! / 60000) + getString('cv.activityChanges.minRemaining')
     case 'NOT_STARTED':
-      return i18n.verificationTooltip.statusNotStarted
+      return getString('cv.dashboard.notStarted')
     case 'VERIFICATION_FAILED':
-      return i18n.verificationTooltip.statusFailed
+      return getString('failed')
     case 'VERIFICATION_PASSED':
-      return i18n.verificationTooltip.statusPassed
+      return getString('passed')
   }
 }
