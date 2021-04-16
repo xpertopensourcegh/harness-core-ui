@@ -3,7 +3,7 @@ import { Container, Layout, Text, FieldArray, Select, SelectOption } from '@wing
 import { useParams } from 'react-router-dom'
 import { useGetRoleList } from 'services/rbac'
 import { useStrings } from 'framework/exports'
-import { useGetResourceGroupList } from 'services/cd-ng'
+import { useGetResourceGroupList } from 'services/platform'
 import type { RoleOption } from './UserRoleAssigment'
 import css from './RoleAssignmentForm.module.scss'
 
@@ -40,8 +40,8 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
   const resourceGroups: SelectOption[] =
     resourceGroupList?.data?.content?.map(response => {
       return {
-        label: response.resourceGroup.name,
-        value: response.resourceGroup.identifier
+        label: response.resourceGroup.name || '',
+        value: response.resourceGroup.identifier || ''
       }
     }) || []
 

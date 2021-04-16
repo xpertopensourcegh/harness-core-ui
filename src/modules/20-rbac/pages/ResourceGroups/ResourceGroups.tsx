@@ -5,7 +5,7 @@ import { useStrings } from 'framework/exports'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { useResourceGroupModal } from '@rbac/modals/ResourceGroupModal/useResourceGroupModal'
-import { useGetResourceGroupList } from 'services/cd-ng'
+import { useGetResourceGroupList } from 'services/platform'
 import ResourceGroupListView from '@rbac/components/ResourceGroupList/ResourceGroupListView'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 

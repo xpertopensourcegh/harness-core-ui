@@ -18,7 +18,7 @@ import {
   useCreateResourceGroup,
   ResourceGroupRequestRequestBody,
   useUpdateResourceGroup
-} from 'services/cd-ng'
+} from 'services/platform'
 import { useStrings } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DEFAULT_COLOR } from '@common/constants/Utils'

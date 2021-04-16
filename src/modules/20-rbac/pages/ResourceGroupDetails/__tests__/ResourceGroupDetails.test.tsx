@@ -21,7 +21,7 @@ const updateResourceGroupDetailsMock = (data: any): Promise<{ status: string }> 
   updateResourceGroupDetails(data.resourcegroup)
   return Promise.resolve({ status: 'SUCCESS' })
 }
-jest.mock('services/cd-ng', () => ({
+jest.mock('services/platform', () => ({
   useGetResourceTypes: jest.fn().mockImplementation(() => {
     return { data: resourceTypes, refetch: jest.fn(), error: null, loading: false }
   }),

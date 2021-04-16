@@ -48,8 +48,8 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('log-service')")
   },
-  notifications: {
-    output: 'src/services/notifications/index.tsx',
+  platform: {
+    output: 'src/services/platform/index.tsx',
     url: 'http://localhost:9005/api/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,

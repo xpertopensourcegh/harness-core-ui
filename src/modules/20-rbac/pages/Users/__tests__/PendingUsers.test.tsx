@@ -42,14 +42,17 @@ jest.mock('services/rbac', () => ({
   useCreateRoleAssignments: jest.fn().mockImplementation(() => ({ mutate: createRoleMock }))
 }))
 
+jest.mock('services/platform', () => ({
+  useGetResourceGroupList: jest.fn().mockImplementation(() => {
+    return { data: resourceGroupsMockData, refetch: jest.fn(), error: null }
+  })
+}))
+
 jest.mock('services/cd-ng', () => ({
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: deletePendingUserMock })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
   useGetUsers: jest.fn().mockImplementation(() => {
     return { data: usersMockData, refetch: jest.fn(), error: null }
-  }),
-  useGetResourceGroupList: jest.fn().mockImplementation(() => {
-    return { data: resourceGroupsMockData, refetch: jest.fn(), error: null }
   })
 }))
 

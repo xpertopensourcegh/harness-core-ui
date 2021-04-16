@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 
 import { useToaster } from '@common/components'
-import { useTestNotificationSetting, SlackSettingDTO } from 'services/notifications'
+import { useTestNotificationSetting, SlackSettingDTO } from 'services/platform'
 import { SlackNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useStrings } from 'framework/exports'

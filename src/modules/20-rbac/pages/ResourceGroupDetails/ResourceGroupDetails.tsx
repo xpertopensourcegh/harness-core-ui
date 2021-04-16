@@ -13,7 +13,7 @@ import {
   ResourceGroupRequestRequestBody,
   ResourceGroupDTO,
   useGetResourceTypes
-} from 'services/cd-ng'
+} from 'services/platform'
 import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
@@ -58,7 +58,7 @@ const ResourceGroupDetails: React.FC = () => {
   useEffect(() => {
     setResourceCategoryMap(
       RbacFactory.getResourceCategoryList(
-        (resourceTypeData?.data?.resourceTypes.map(val => val.name) || []) as ResourceType[]
+        (resourceTypeData?.data?.resourceTypes?.map(val => val.name) || []) as ResourceType[]
       )
     )
   }, [resourceTypeData?.data])
@@ -172,7 +172,7 @@ const ResourceGroupDetails: React.FC = () => {
                 },
                 {
                   url: '#',
-                  label: resourceGroup.name
+                  label: resourceGroup.name || ''
                 }
               ]}
             />

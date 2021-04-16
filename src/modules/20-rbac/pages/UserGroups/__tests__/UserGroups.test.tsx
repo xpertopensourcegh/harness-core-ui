@@ -41,6 +41,12 @@ jest.mock('services/rbac', () => ({
   useCreateRoleAssignments: jest.fn().mockImplementation(() => ({ mutate: createRoleMock }))
 }))
 
+jest.mock('services/platform', () => ({
+  useGetResourceGroupList: jest.fn().mockImplementation(() => {
+    return { data: resourceGroupsMockData, refetch: jest.fn(), error: null }
+  })
+}))
+
 jest.mock('services/cd-ng', () => ({
   useGetUserGroupAggregateList: jest.fn().mockImplementation(() => {
     return { data: userGroupsAggregate, refetch: jest.fn(), error: null, loading: false }
@@ -49,9 +55,6 @@ jest.mock('services/cd-ng', () => ({
   usePostUserGroup: jest.fn().mockImplementation(() => ({ mutate: createUserGroupMock })),
   useGetUsers: jest.fn().mockImplementation(() => {
     return { data: usersMockData, refetch: jest.fn(), error: null }
-  }),
-  useGetResourceGroupList: jest.fn().mockImplementation(() => {
-    return { data: resourceGroupsMockData, refetch: jest.fn(), error: null }
   })
 }))
 

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { Cell, CellValue, ColumnInstance, Renderer, Row, TableInstance } from 'react-table'
 import { useStrings } from 'framework/exports'
-import { ResourceGroupDTO, ResourceGroupResponse, useDeleteResourceGroup } from 'services/cd-ng'
+import { ResourceGroupDTO, ResourceGroupResponse, useDeleteResourceGroup } from 'services/platform'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 

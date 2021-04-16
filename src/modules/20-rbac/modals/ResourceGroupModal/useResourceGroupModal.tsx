@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
-import type { ResourceGroupDTO } from 'services/cd-ng'
+import type { ResourceGroupDTO } from 'services/platform'
 import ResourceGroupModalFrom from './views/ResourceGroupModalForm'
 
 export interface UseResourceGroupModalProps {
