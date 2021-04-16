@@ -223,6 +223,14 @@ export function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): 
         if (updatedTabInfo) currentState.tabsInfo[activeTabIndex] = updatedTabInfo
         return { activeTabIndex: newTabIndex, sourceData: updatedData as any, tabsInfo: [...currentState.tabsInfo] }
       })
+
+      // on first page and hit previous, go back to previous page
+      if (newTabIndex === -1) {
+        dbInstance.clear(CVObjectStoreNames.ONBOARDING_SOURCES)
+        history.goBack()
+        return
+      }
+
       try {
         await dbInstance.put(CVObjectStoreNames.ONBOARDING_SOURCES, {
           sourceID: indexedDBEntryKey,

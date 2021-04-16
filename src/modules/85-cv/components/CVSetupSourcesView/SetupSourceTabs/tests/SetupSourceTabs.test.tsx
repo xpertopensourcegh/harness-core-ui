@@ -56,6 +56,25 @@ function MockComponentThatHitsSubmit(props: any): JSX.Element {
   )
 }
 
+function MockComponentThatHitPrevious(): JSX.Element {
+  const { sourceData, onPrevious } = useContext(SetupSourceTabsContext)
+  return (
+    <Container className="1">
+      {sourceData && Object.keys(sourceData).length && (
+        <Text className="parsedJSONData">{JSON.stringify(sourceData)}</Text>
+      )}
+      <Button
+        onClick={() => {
+          onPrevious()
+        }}
+        className="previous"
+      >
+        PREVIOUS
+      </Button>
+    </Container>
+  )
+}
+
 describe('Unit tests for SetupSourceTabs', () => {
   test('Ensure typeToSetupSourceType returns correct value', async () => {
     expect(typeToSetupSourceType('HARNESS_CD10')).toEqual(ONBOARDING_ENTITIES.CHANGE_SOURCE)
@@ -453,5 +472,66 @@ describe('Unit tests for SetupSourceTabs', () => {
       expect(container.querySelectorAll('[role="tab"]')[3].getAttribute('aria-selected')).toEqual('true')
     )
     expect(container.querySelector('[class*="4"]')).not.toBeNull()
+  })
+
+  test('Ensure that when user clicks previous on the first tab, they are taken to the previous screen', async () => {
+    const mockPut = jest.fn().mockResolvedValue(undefined)
+    const mockClear = jest.fn()
+    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
+      dbInstance: {
+        put: mockPut,
+        get: jest.fn(),
+        clear: mockClear
+      } as any,
+      isInitializingDB: false
+    })
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminMonitoringSources({
+          accountId: '1234_accountId',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_org'
+        })}
+      >
+        <SetupSourceTabs data={{}} tabTitles={TabTitles} determineMaxTab={determineMaxTab}>
+          {[
+            <MockComponentThatHitPrevious key={1} />,
+            <Container key={2} className="2" />,
+            <Container key={3} className="3" />,
+            <Container key={4} className="4" />,
+            <MockComponentThatHitsSubmit
+              key={5}
+              tab={4}
+              switchData={{
+                solo: {},
+                dolo: {},
+                semi: {},
+                auto: {},
+                m: {},
+                type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                monitoringSources: [
+                  {
+                    type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                    name: 'some name',
+                    identifier: 'ident',
+                    routeUrl: 'dsfsf'
+                  }
+                ]
+              }}
+            />
+          ]}
+        </SetupSourceTabs>
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="1"]')))
+    const previousButton = container.querySelector('[class*="previous"]')
+    if (!previousButton) {
+      throw Error('Previous button was not rendered')
+    }
+
+    fireEvent.click(previousButton)
+    await waitFor(() => expect(mockClear).toHaveBeenCalled())
   })
 })
