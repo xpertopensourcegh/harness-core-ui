@@ -66,12 +66,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
             render={({ push, remove }) => (
               <Layout.Vertical>
                 {formik.values?.commandFlags?.map((commandFlag: CommandFlags, index: number) => (
-                  <Layout.Horizontal
-                    key={commandFlag.id || commandFlag.flag}
-                    spacing="xxlarge"
-                    flex
-                    margin={{ top: 'small' }}
-                  >
+                  <Layout.Horizontal key={commandFlag.id} spacing="xxlarge" flex margin={{ top: 'small' }}>
                     <div className={helmcss.halfWidth}>
                       <FormInput.MultiTypeInput
                         name={`commandFlags[${index}].commandType`}
