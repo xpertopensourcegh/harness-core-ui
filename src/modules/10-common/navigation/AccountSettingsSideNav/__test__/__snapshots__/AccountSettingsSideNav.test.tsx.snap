@@ -28,6 +28,16 @@ exports[`Resources Page render 1`] = `
     </a>
     <a
       class="link"
+      href="/account/dummy/admin/access-control"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Access Control
+      </p>
+    </a>
+    <a
+      class="link"
       href="/account/dummy/admin/organizations"
     >
       <p

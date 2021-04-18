@@ -3,7 +3,6 @@ import { Color, Icon, IconName, Layout, Text } from '@wings-software/uicore'
 import { Card } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useStrings } from 'framework/exports'
 import css from './OrgNavCardRenderer.module.scss'
 
@@ -18,7 +17,6 @@ const OrgNavCardRenderer: React.FC = () => {
   const { orgIdentifier, accountId } = useParams()
   const history = useHistory()
   const { getString } = useStrings()
-  const { NG_RBAC_ENABLED } = useFeatureFlags()
 
   const getOptions = (): OrgNavCardProps[] => {
     //TODO: ENABLE ONCE READY
@@ -34,6 +32,12 @@ const OrgNavCardRenderer: React.FC = () => {
         title: getString('resources'),
         description: getString('orgDetails.resourcesDescription'),
         route: routes.toOrgResources({ orgIdentifier, accountId })
+      },
+      {
+        icon: 'resources-icon',
+        title: getString('accessControl'),
+        description: getString('orgDetails.accessControlDescription'),
+        route: routes.toAccessControl({ orgIdentifier, accountId })
       }
       // {
       //   icon: 'resources-icon',
@@ -42,14 +46,6 @@ const OrgNavCardRenderer: React.FC = () => {
       //   route: routes.toOrgGitSync({ orgIdentifier, accountId })
       // }
     ]
-
-    NG_RBAC_ENABLED &&
-      options.push({
-        icon: 'resources-icon',
-        title: getString('accessControl'),
-        description: getString('orgDetails.accessControlDescription'),
-        route: routes.toAccessControl({ orgIdentifier, accountId })
-      })
 
     return options
   }

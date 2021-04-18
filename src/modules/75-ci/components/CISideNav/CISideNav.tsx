@@ -20,7 +20,7 @@ export default function CISideNav(): React.ReactElement {
   const module = 'ci'
   const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
-  const { GIT_SYNC_NG, NG_RBAC_ENABLED } = useFeatureFlags()
+  const { GIT_SYNC_NG } = useFeatureFlags()
   return (
     <Layout.Vertical spacing="small">
       <ProjectSelector
@@ -63,13 +63,11 @@ export default function CISideNav(): React.ReactElement {
                 to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier })}
               />
             ) : null}
-            {NG_RBAC_ENABLED && (
-              <AdminSelectorLink
-                label="Access Control"
-                iconName="user"
-                to={routes.toAccessControl({ orgIdentifier, projectIdentifier, module, accountId })}
-              />
-            )}
+            <AdminSelectorLink
+              label="Access Control"
+              iconName="user"
+              to={routes.toAccessControl({ orgIdentifier, projectIdentifier, module, accountId })}
+            />
             {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
             <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
             <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled /> */}

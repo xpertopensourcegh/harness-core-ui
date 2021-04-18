@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { Text, Layout, Button, Popover, AvatarGroup } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import {
   UserGroupAggregateDTO,
   useDeleteUserGroup,
@@ -16,7 +16,7 @@ import { useStrings } from 'framework/exports'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
-import routes from '@common/RouteDefinitions'
+// import routes from '@common/RouteDefinitions'
 import css from './UserGroupsListView.module.scss'
 
 interface UserGroupsListViewProps {
@@ -147,9 +147,9 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
 
 const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
   const { data, gotoPage, reload, openRoleAssignmentModal } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  // const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { getString } = useStrings()
-  const history = useHistory()
+  // const history = useHistory()
 
   const columns: Column<UserGroupAggregateDTO>[] = useMemo(
     () => [
@@ -192,16 +192,17 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
       className={css.table}
       columns={columns}
       data={data?.data?.content || []}
-      onRowClick={userGroup => {
-        history.push(
-          routes.toUserGroupDetails({
-            accountId,
-            orgIdentifier,
-            projectIdentifier,
-            userGroupIdentifier: userGroup.userGroupDTO.identifier
-          })
-        )
-      }}
+      // TODO: enable when page is ready
+      // onRowClick={userGroup => {
+      //   history.push(
+      //     routes.toUserGroupDetails({
+      //       accountId,
+      //       orgIdentifier,
+      //       projectIdentifier,
+      //       userGroupIdentifier: userGroup.userGroupDTO.identifier
+      //     })
+      //   )
+      // }}
       pagination={{
         itemCount: data?.data?.totalItems || 0,
         pageSize: data?.data?.pageSize || 10,

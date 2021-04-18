@@ -11,7 +11,7 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 export default function AccountSettingsSideNav(): React.ReactElement {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { NG_RBAC_ENABLED, NG_AUTH_SETTINGS } = useFeatureFlags()
+  const { NG_AUTH_SETTINGS } = useFeatureFlags()
   return (
     <Layout.Vertical spacing="small">
       {NG_AUTH_SETTINGS && (
@@ -22,7 +22,7 @@ export default function AccountSettingsSideNav(): React.ReactElement {
       {/* TODO: ENABLE WHEN READY */}
       {/* <SidebarLink label="Governance" to={routes.toGovernance({ accountId })} /> */}
       {/* <SidebarLink label="Git Sync" to={routes.toGitSync({ accountId })} /> */}
-      {NG_RBAC_ENABLED && <SidebarLink to={routes.toAccessControl({ accountId })} label="Access Control" />}
+      <SidebarLink to={routes.toAccessControl({ accountId })} label="Access Control" />
       <SidebarLink label="Organizations" to={routes.toOrganizations({ accountId })} />
     </Layout.Vertical>
   )

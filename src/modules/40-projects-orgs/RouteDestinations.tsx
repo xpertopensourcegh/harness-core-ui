@@ -21,7 +21,7 @@ import OrganizationsPage from '@projects-orgs/pages/organizations/OrganizationsP
 import OrganizationDetailsPage from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
-import ProjectDetailsSideNav from '@projects-orgs/components/SideNav/SideNav'
+import ProjectDetailsSideNav from '@projects-orgs/components/ProjectsSideNav/ProjectsSideNav'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import AddProjectResourceModalBody from '@projects-orgs/components/ProjectResourceModalBody/ProjectResourceModalBody'
 import OrgResourceModalBody from '@projects-orgs/components/OrgResourceModalBody/OrgResourceModalBody'
