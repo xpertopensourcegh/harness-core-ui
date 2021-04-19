@@ -18856,6 +18856,17 @@ export const useLogout1 = ({ userId, ...props }: UseLogout1Props) =>
     { base: getConfig('api'), pathParams: { userId }, ...props }
   )
 
+export type RefreshTokenProps = Omit<GetProps<RestResponseString, unknown, void, void>, 'path'>
+
+export const RefreshToken = (props: RefreshTokenProps) => (
+  <Get<RestResponseString, unknown, void, void> path="/users/refresh-token" base={getConfig('api')} {...props} />
+)
+
+export type UseRefreshTokenProps = Omit<UseGetProps<RestResponseString, unknown, void, void>, 'path'>
+
+export const useRefreshToken = (props: UseRefreshTokenProps) =>
+  useGet<RestResponseString, unknown, void, void>(`/users/refresh-token`, { base: getConfig('api'), ...props })
+
 export interface GetDelegateTagsQueryParams {
   accountId?: string
 }

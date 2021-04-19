@@ -15,17 +15,14 @@ import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { StringsContextProvider } from 'framework/strings/StringsContextProvider'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
+import { getLoginPageURL } from 'framework/utils/SessionUtils'
+import AppStorage from 'framework/utils/AppStorage'
 
 import './App.scss'
+import { useRefreshToken } from 'services/portal'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
-// pick current path, but remove `/ng/`
-const getLoginPageURL = (): string => {
-  const redirectUrl = encodeURIComponent(window.location.href)
-
-  return `${window.location.pathname.replace(/\/ng\//, '/')}#/login?returnUrl=${redirectUrl}`
-}
 // set up Immer
 setAutoFreeze(false)
 enableMapSet()
@@ -48,11 +45,32 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
     return { headers }
   }, [token])
 
+  const { data: refreshTokenResponse, refetch: refreshToken, loading: refreshingToken } = useRefreshToken({
+    lazy: true,
+    requestOptions: getRequestOptions()
+  })
+
   useEffect(() => {
     if (!token) {
       window.location.href = getLoginPageURL()
     }
   }, [token])
+
+  useEffect(() => {
+    if (refreshTokenResponse) {
+      AppStorage.set('token', refreshTokenResponse)
+      AppStorage.set('lastTokenSetTime', +new Date())
+    }
+  }, [refreshTokenResponse])
+
+  const checkAndRefreshToken = (): void => {
+    const currentTime = +new Date()
+    const lastTokenSetTime = SessionToken.getLastTokenSetTime() as number
+    const refreshInterval = 60 * 60 * 1000 // one hour in milliseconds
+    if (currentTime - lastTokenSetTime > refreshInterval && !refreshingToken) {
+      refreshToken()
+    }
+  }
 
   return (
     <RestfulProvider
@@ -64,10 +82,14 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
           // check response body to confirm invalid token
           // response.json().then(body => {
           //   if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
+          AppStorage.clear()
           window.location.href = getLoginPageURL()
+          return
           // }
           // })
         }
+
+        checkAndRefreshToken()
       }}
     >
       <StringsContextProvider initialStrings={props.strings}>

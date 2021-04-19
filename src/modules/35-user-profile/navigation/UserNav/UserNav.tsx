@@ -10,6 +10,7 @@ import { useStrings } from 'framework/exports'
 import { useLogout1 } from 'services/portal'
 import AppStorage from 'framework/utils/AppStorage'
 import { useToaster } from '@common/exports'
+import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import css from './UserNav.module.scss'
 
 export default function UserNav(): React.ReactElement {
@@ -25,7 +26,7 @@ export default function UserNav(): React.ReactElement {
     try {
       await logout()
       AppStorage.clear()
-      window.location.href = '/#/login'
+      window.location.href = getLoginPageURL(false)
       return
     } catch (err) {
       showError(get(err, 'responseMessages[0].message', getString('somethingWentWrong')))
