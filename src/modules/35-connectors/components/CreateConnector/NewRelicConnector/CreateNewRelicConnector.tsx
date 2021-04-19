@@ -57,7 +57,7 @@ function AccountIdTooltip(): JSX.Element {
       content={
         <>
           <Text style={{ display: 'inline-block', marginRight: 'var(--spacing-xsmall)' }} color={Color.GREY_350}>
-            {getString('cv.connectors.newRelic.accountIdTooltip')}
+            {getString('connectors.newRelic.accountIdTooltip')}
           </Text>
           <a
             target="_blank"
@@ -156,17 +156,17 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
   return (
     <Container className={css.credentials}>
       <Text icon="service-newrelic" iconProps={{ size: 45 }} className={css.newRelicTitle}>
-        {getString('cv.connectors.connectorDetailsHeader', NewRelicLabel)}
+        {getString('connectors.connectorDetailsHeader', NewRelicLabel)}
       </Text>
-      <Text className={css.heading}>{getString('cv.connectors.addConnectorDetails', NewRelicLabel)}</Text>
-      <Text className={css.subHeading}>{getString('cv.connectors.newRelic.subTitle', NewRelicLabel)}</Text>
+      <Text className={css.heading}>{getString('connectors.addConnectorDetails', NewRelicLabel)}</Text>
+      <Text className={css.subHeading}>{getString('connectors.newRelic.subTitle', NewRelicLabel)}</Text>
       <Formik
         enableReinitialize
         initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({
-          url: Yup.string().trim().required(getString('cv.connectors.newRelic.urlValidation')),
-          newRelicAccountId: Yup.string().trim().required(getString('cv.connectors.newRelic.accountIdValidation')),
-          apiKeyRef: Yup.string().trim().required(getString('cv.connectors.newRelic.encryptedKeyValidation'))
+          url: Yup.string().trim().required(getString('connectors.newRelic.urlValidation')),
+          newRelicAccountId: Yup.string().trim().required(getString('connectors.newRelic.accountIdValidation')),
+          apiKeyRef: Yup.string().trim().required(getString('connectors.newRelic.encryptedKeyValidation'))
         })}
         onSubmit={(formData: ConnectorConfigDTO) => {
           nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
@@ -180,19 +180,19 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
                 items={endPointOptions}
                 value={(formikProps.values as any).url}
                 onChange={updatedOption => formikProps.setFieldValue('url', updatedOption)}
-                label={getString('cv.connectors.newRelic.urlFieldLabel')}
+                label={getString('connectors.newRelic.urlFieldLabel')}
                 name="url"
               />
               <FormInput.Text
                 label={
                   <Container className={css.identifierLabel}>
-                    <Text inline>{getString('cv.connectors.newRelic.accountIdFieldLabel')}</Text>
+                    <Text inline>{getString('connectors.newRelic.accountIdFieldLabel')}</Text>
                     <AccountIdTooltip />
                   </Container>
                 }
                 name="newRelicAccountId"
               />
-              <SecretInput label={getString('cv.connectors.newRelic.encryptedAPIKeyLabel')} name="apiKeyRef" />
+              <SecretInput label={getString('connectors.newRelic.encryptedAPIKeyLabel')} name="apiKeyRef" />
             </Layout.Vertical>
             <Layout.Horizontal spacing="large">
               <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
@@ -233,9 +233,7 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
       }
     } else {
       throw new Error(
-        isEditMode
-          ? getString('cv.connectors.unableToUpdateConnector')
-          : getString('cv.connectors.unableToCreateConnector')
+        isEditMode ? getString('connectors.unableToUpdateConnector') : getString('connectors.unableToCreateConnector')
       )
     }
     return res.data?.connector

@@ -78,20 +78,20 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
     switch (connectorType) {
       case Connectors.GIT:
         return urlType === GitUrlType.ACCOUNT
-          ? getString('connectors.git.gitAccountUrl')
-          : getString('connectors.git.gitRepoUrl')
+          ? getString('common.git.gitAccountUrl')
+          : getString('common.git.gitRepoUrl')
       case Connectors.GITHUB:
         return urlType === GitUrlType.ACCOUNT
-          ? getString('connectors.git.gitHubAccountUrl')
-          : getString('connectors.git.gitHubRepoUrl')
+          ? getString('common.git.gitHubAccountUrl')
+          : getString('common.git.gitHubRepoUrl')
       case Connectors.GITLAB:
         return urlType === GitUrlType.ACCOUNT
-          ? getString('connectors.git.gitLabAccountUrl')
-          : getString('connectors.git.gitLabRepoUrl')
+          ? getString('common.git.gitLabAccountUrl')
+          : getString('common.git.gitLabRepoUrl')
       case Connectors.BITBUCKET:
         return urlType === GitUrlType.ACCOUNT
-          ? getString('connectors.git.bitbucketAccountUrl')
-          : getString('connectors.git.bitbucketRepoUrl')
+          ? getString('common.git.bitbucketAccountUrl')
+          : getString('common.git.bitbucketRepoUrl')
       default:
         return ''
     }
@@ -102,16 +102,16 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
       case Connectors.GIT:
       case Connectors.GITHUB:
         return connectionType === GitConnectionType.HTTP
-          ? getString('connectors.git.gitHubUrlPlaceholder')
-          : getString('connectors.git.gitHubUrlPlaceholderSSH')
+          ? getString('common.git.gitHubUrlPlaceholder')
+          : getString('common.git.gitHubUrlPlaceholderSSH')
       case Connectors.GITLAB:
         return connectionType === GitConnectionType.HTTP
-          ? getString('connectors.git.gitLabUrlPlaceholder')
-          : getString('connectors.git.gitLabUrlPlaceholderSSH')
+          ? getString('common.git.gitLabUrlPlaceholder')
+          : getString('common.git.gitLabUrlPlaceholderSSH')
       case Connectors.BITBUCKET:
         return connectionType === GitConnectionType.HTTP
-          ? getString('connectors.git.bitbucketUrlPlaceholder')
-          : getString('connectors.git.bitbucketPlaceholderSSH')
+          ? getString('common.git.bitbucketUrlPlaceholder')
+          : getString('common.git.bitbucketPlaceholderSSH')
       default:
         return ''
     }
@@ -202,14 +202,14 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
-                  <Text>{getString('connectors.git.urlType')}</Text>
+                  <Text>{getString('common.git.urlType')}</Text>
                   <FormInput.RadioGroup
                     style={{ fontSize: 'normal' }}
                     radioGroup={{ inline: true }}
                     name="urlType"
                     items={urlTypeOptions}
                   />
-                  <Text>{getString('connectors.git.connectionType')}</Text>
+                  <Text>{getString('common.git.connectionType')}</Text>
                   <FormInput.RadioGroup
                     style={{ fontSize: 'normal' }}
                     name="connectionType"

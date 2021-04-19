@@ -86,7 +86,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
           <label
             class="bp3-label"
           >
-            cv.connectors.cdng.duration
+            cv.verificationJobs.validation.duration
              
             <span
               class="bp3-text-muted"
@@ -124,7 +124,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
           <label
             class="bp3-label"
           >
-            cv.connectors.cdng.baseline
+            cv.verificationJobs.validation.baseline
              
             <span
               class="bp3-text-muted"
@@ -385,7 +385,7 @@ exports[`Test ContinousVerificationStep Step should render edit view as edit ste
           <div
             class="Accordion--label"
           >
-            cv.connectors.cdng.defineVerificationJob
+            connectors.cdng.defineVerificationJob
           </div>
           <div
             class="Accordion--chevron"
@@ -413,7 +413,7 @@ exports[`Test ContinousVerificationStep Step should render edit view as edit ste
           <div
             class="Accordion--label"
           >
-            cv.connectors.cdng.configureVerificationJob
+            connectors.cdng.configureVerificationJob
           </div>
           <div
             class="Accordion--chevron"
@@ -638,7 +638,7 @@ exports[`Test ContinousVerificationStep Step should render edit view as new step
           <div
             class="Accordion--label"
           >
-            cv.connectors.cdng.defineVerificationJob
+            connectors.cdng.defineVerificationJob
           </div>
           <div
             class="Accordion--chevron"
@@ -666,7 +666,7 @@ exports[`Test ContinousVerificationStep Step should render edit view as new step
           <div
             class="Accordion--label"
           >
-            cv.connectors.cdng.configureVerificationJob
+            connectors.cdng.configureVerificationJob
           </div>
           <div
             class="Accordion--chevron"

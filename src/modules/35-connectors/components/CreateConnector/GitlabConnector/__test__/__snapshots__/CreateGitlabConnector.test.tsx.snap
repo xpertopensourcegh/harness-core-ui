@@ -547,7 +547,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.urlType
+                    common.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -590,7 +590,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.connectionType
+                    common.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -638,7 +638,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-label"
                       for="url"
                     >
-                      connectors.git.gitLabAccountUrl
+                      common.git.gitLabAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -654,7 +654,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="connectors.git.gitLabUrlPlaceholder"
+                          placeholder="common.git.gitLabUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -944,7 +944,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -1178,7 +1178,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1440,7 +1440,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.urlType
+                    common.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1483,7 +1483,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.connectionType
+                    common.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1531,7 +1531,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-label"
                       for="url"
                     >
-                      connectors.git.gitLabAccountUrl
+                      common.git.gitLabAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -1547,7 +1547,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="connectors.git.gitLabUrlPlaceholderSSH"
+                          placeholder="common.git.gitLabUrlPlaceholderSSH"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -1834,7 +1834,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    connectors.authTitle
+                    authentication
                   </p>
                   <div
                     class="bp3-form-group bp3-intent-danger"
@@ -1917,7 +1917,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2201,7 +2201,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2457,7 +2457,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2738,7 +2738,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    connectors.authTitle
+                    authentication
                   </p>
                   <div
                     class="bp3-form-group"
@@ -2849,14 +2849,14 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  connectors.git.APIAccessDescriptipn
+                  common.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -2865,7 +2865,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.git.APIAuthentication
+                    common.git.APIAuthentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -2890,7 +2890,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="connectors.git.accessToken"
+                              value="personalAccessToken"
                             />
                             <span
                               class="bp3-input-action"
@@ -2938,7 +2938,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                         <label
                           class="bp3-label"
                         >
-                          connectors.git.accessToken
+                          personalAccessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"

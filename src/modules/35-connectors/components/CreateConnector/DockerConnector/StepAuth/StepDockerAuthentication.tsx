@@ -163,7 +163,7 @@ const StepDockerAuthentication: React.FC<
               ></FormInput.RadioGroup>
               <Container className={css.authHeaderRow}>
                 <Text className={css.authTitle} inline>
-                  {getString('connectors.authTitle')}
+                  {getString('authentication')}
                 </Text>
                 <FormInput.Select name="authType" items={authOptions} disabled={false} className={css.authTypeSelect} />
               </Container>

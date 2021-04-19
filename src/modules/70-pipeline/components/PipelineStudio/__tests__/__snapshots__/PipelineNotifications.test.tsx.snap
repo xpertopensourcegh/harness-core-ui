@@ -110,7 +110,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             role="columnheader"
             style="width: 20%;"
           >
-            PIPELINE-NOTIFICATIONS.NAMEOFTHERULE
+            NOTIFICATIONS.NAMEOFTHERULE
           </div>
           <div
             class="cell"
@@ -118,7 +118,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             role="columnheader"
             style="width: 35%;"
           >
-            PIPELINE-NOTIFICATIONS.PIPELINEEVENTS
+            NOTIFICATIONS.PIPELINEEVENTS
           </div>
           <div
             class="cell"
@@ -126,7 +126,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             role="columnheader"
             style="width: 25%;"
           >
-            PIPELINE-NOTIFICATIONS.NOTIFICATIONMETHOD
+            NOTIFICATIONS.NOTIFICATIONMETHOD
           </div>
           <div
             class="cell"

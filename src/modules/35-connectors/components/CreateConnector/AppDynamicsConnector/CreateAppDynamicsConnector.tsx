@@ -68,8 +68,8 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     if (res && res.status === 'SUCCESS') {
       showSuccess(
         isEditMode
-          ? getString('cv.connectors.updatedSuccessfully', payload?.name || '')
-          : getString('cv.connectors.createdSuccessfully', payload?.name || '')
+          ? getString('connectors.updatedSuccessfully', payload?.name || '')
+          : getString('connectors.createdSuccessfully', payload?.name || '')
       )
       if (res.data) {
         setSuccessfullyCreated(true)
@@ -80,7 +80,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
       }
     } else {
       throw new Error(
-        getString(isEditMode ? 'cv.connectors.unableToUpdateConnector' : 'cv.connectors.unableToCreateConnector')
+        getString(isEditMode ? 'connectors.unableToUpdateConnector' : 'connectors.unableToCreateConnector')
       )
     }
     return res.data?.connector
@@ -96,7 +96,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     <StepWizard>
       <ConnectorDetailsStep
         type={Connectors.APP_DYNAMICS}
-        name={getString('cv.connectors.connectorDetails')}
+        name={getString('connectors.connectorDetails')}
         isEditMode={isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mockIdentifierValidate}
@@ -121,7 +121,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         buildPayload={buildAppDynamicsPayload}
       />
       <VerifyOutOfClusterDelegate
-        name={getString('cv.connectors.verifyConnection')}
+        name={getString('connectors.verifyConnection')}
         onClose={props.onClose}
         isStep
         isLastStep
@@ -138,7 +138,7 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
   const authOptions = useMemo(
     () => [
       { label: getString('usernamePassword'), value: AppDynamicsAuthType.USERNAME_PASSWORD },
-      { label: getString('cv.connectors.appD.apiClient'), value: AppDynamicsAuthType.API_CLIENT_TOKEN }
+      { label: getString('connectors.appD.apiClient'), value: AppDynamicsAuthType.API_CLIENT_TOKEN }
     ],
     []
   )
@@ -146,8 +146,8 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
   const fieldProps =
     authTypeValue === AppDynamicsAuthType.API_CLIENT_TOKEN
       ? [
-          { name: 'clientId', label: getString('cv.connectors.appD.clientId'), key: 'clientId' },
-          { name: 'clientSecretRef', label: getString('cv.connectors.appD.clientSecret'), key: 'clientSecretRef' }
+          { name: 'clientId', label: getString('connectors.appD.clientId'), key: 'clientId' },
+          { name: 'clientSecretRef', label: getString('connectors.appD.clientSecret'), key: 'clientSecretRef' }
         ]
       : [
           { name: 'username', label: getString('username'), key: 'username' },
@@ -255,7 +255,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
         ...initialValues
       }}
       validationSchema={Yup.object().shape({
-        url: Yup.string().trim().required(getString('cv.connectors.appD.validation.controllerURL')),
+        url: Yup.string().trim().required(getString('connectors.appD.validation.controllerURL')),
         accountName: Yup.string().trim().required(getString('validation.accountName')),
         authType: Yup.string().trim(),
         username: Yup.string()
@@ -274,13 +274,13 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
           .nullable()
           .when('authType', {
             is: AppDynamicsAuthType.API_CLIENT_TOKEN,
-            then: Yup.string().required(getString('cv.connectors.appD.validation.clientId'))
+            then: Yup.string().required(getString('connectors.appD.validation.clientId'))
           }),
         clientSecretRef: Yup.string()
           .nullable()
           .when('authType', {
             is: AppDynamicsAuthType.API_CLIENT_TOKEN,
-            then: Yup.string().required(getString('cv.connectors.appD.validation.clientSecret'))
+            then: Yup.string().required(getString('connectors.appD.validation.clientSecret'))
           })
       })}
       onSubmit={handleSubmit}
@@ -288,9 +288,9 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
       {formikProps => (
         <FormikForm className={styles.connectionForm}>
           <Layout.Vertical spacing="large" className={styles.appDContainer}>
-            <Text font="medium">{getString('cv.connectors.appD.connectionDetailsHeader')}</Text>
-            <FormInput.Text label={getString('cv.connectors.appD.controllerURL')} name="url" />
-            <FormInput.Text label={getString('cv.connectors.appD.accountName')} name="accountName" />
+            <Text font="medium">{getString('connectors.appD.connectionDetailsHeader')}</Text>
+            <FormInput.Text label={getString('connectors.appD.controllerURL')} name="url" />
+            <FormInput.Text label={getString('connectors.appD.accountName')} name="accountName" />
             <UsernamePasswordAndApiClientOption
               authTypeValue={formikProps.values.authType}
               onAuthTypeChange={updatedAuth => {
@@ -314,7 +314,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
             <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-            <Button type="submit" intent="primary" text={getString('cv.connectors.connectAndSave')} />
+            <Button type="submit" intent="primary" text={getString('connectors.connectAndSave')} />
           </Layout.Horizontal>
         </FormikForm>
       )}

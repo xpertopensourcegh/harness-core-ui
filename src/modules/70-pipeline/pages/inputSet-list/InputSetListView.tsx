@@ -239,7 +239,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         disableSortBy: true
       },
       {
-        Header: getString('cf.environments.createdBy').toUpperCase(),
+        Header: getString('createdBy').toUpperCase(),
         accessor: 'createdBy',
         width: '10%',
         disableSortBy: true

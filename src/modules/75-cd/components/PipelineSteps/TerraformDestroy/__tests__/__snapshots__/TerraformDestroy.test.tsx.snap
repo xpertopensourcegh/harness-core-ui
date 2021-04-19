@@ -809,7 +809,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"
@@ -1640,7 +1640,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"
@@ -3445,7 +3445,7 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"
@@ -4276,7 +4276,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"

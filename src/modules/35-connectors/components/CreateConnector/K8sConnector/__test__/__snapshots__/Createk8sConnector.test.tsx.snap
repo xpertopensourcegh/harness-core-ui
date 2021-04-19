@@ -570,7 +570,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -1115,7 +1115,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -1941,7 +1941,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -2766,7 +2766,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -3343,7 +3343,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"

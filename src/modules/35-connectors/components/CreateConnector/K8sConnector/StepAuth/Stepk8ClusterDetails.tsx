@@ -352,7 +352,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
 
                   <Container className={css.authHeaderRow}>
                     <Text className={css.authTitle} inline>
-                      {getString('connectors.authTitle')}
+                      {getString('authentication')}
                     </Text>
                     <FormInput.Select
                       name="authType"

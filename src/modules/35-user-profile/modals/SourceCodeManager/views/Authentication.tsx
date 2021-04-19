@@ -34,7 +34,7 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
         {formikProps.values.authType === AuthTypes.USERNAME_TOKEN ? (
           <>
             <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
-            <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
+            <SecretInput name="accessToken" label={getString('personalAccessToken')} />
           </>
         ) : null}
         {formikProps.values.authType === AuthTypes.SSH_KEY ? (

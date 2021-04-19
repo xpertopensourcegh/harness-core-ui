@@ -20,7 +20,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          cv.connectors.connectorDetails
+          connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -71,7 +71,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          cv.connectors.verifyConnection
+          connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -332,7 +332,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          cv.connectors.connectorDetails
+          connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -383,7 +383,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          cv.connectors.verifyConnection
+          connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -401,7 +401,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-medium"
             >
-              cv.connectors.appD.connectionDetailsHeader
+              connectors.appD.connectionDetailsHeader
             </p>
             <div
               class="bp3-form-group"
@@ -411,7 +411,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="url"
               >
-                cv.connectors.appD.controllerURL
+                connectors.appD.controllerURL
                  
                 <span
                   class="bp3-text-muted"
@@ -441,7 +441,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="accountName"
               >
-                cv.connectors.appD.accountName
+                connectors.appD.accountName
                  
                 <span
                   class="bp3-text-muted"
@@ -605,7 +605,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
               <span
                 class="bp3-button-text"
               >
-                cv.connectors.connectAndSave
+                connectors.connectAndSave
               </span>
             </button>
           </div>
@@ -654,7 +654,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          cv.connectors.connectorDetails
+          connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -705,7 +705,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          cv.connectors.verifyConnection
+          connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -723,7 +723,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-medium"
             >
-              cv.connectors.appD.connectionDetailsHeader
+              connectors.appD.connectionDetailsHeader
             </p>
             <div
               class="bp3-form-group"
@@ -733,7 +733,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="url"
               >
-                cv.connectors.appD.controllerURL
+                connectors.appD.controllerURL
                  
                 <span
                   class="bp3-text-muted"
@@ -763,7 +763,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="accountName"
               >
-                cv.connectors.appD.accountName
+                connectors.appD.accountName
                  
                 <span
                   class="bp3-text-muted"
@@ -942,7 +942,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
               <span
                 class="bp3-button-text"
               >
-                cv.connectors.connectAndSave
+                connectors.connectAndSave
               </span>
             </button>
           </div>

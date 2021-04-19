@@ -2,7 +2,6 @@ createNewConnector: Create New Connector
 confirmDeleteTitle: Delete Connector
 confirmDelete: Are you sure you want to delete the Connector
 testInProgress: Test in progress
-label: Connectors
 artifactRepository: ' Artifact {{ $.repository }}'
 artifactRepoType: 'Artifact {{$.repositoryType}}'
 specifyArtifactRepoType: 'Specify Artifact {{ $.repositoryType }}'
@@ -12,7 +11,6 @@ selectConnectorLabel: Select Artifact Repository Connector
 stepThreeName: 'Test Connection'
 stepFourName: 'Artifact Location'
 name: Connector Name
-authTitle: '{{ $.authentication }}'
 updating: Updating connector
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
@@ -25,6 +23,10 @@ hashicorpVaultDetails: 'HashiCorp Vault Overview'
 appDynamicsDetails: 'AppDynamics Connector Details'
 splunkConnectorDetails: 'Splunk Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
+connectorDetailsHeader: '{{type}} Connector Details'
+addConnectorDetails: Add {{type}} Verification Provider
+unableToCreateConnector: Unable to create connector
+unableToUpdateConnector: Unable to update connector
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'
@@ -150,32 +152,6 @@ GCS:
   name: GCS
   fullName: Google Cloud Storage
 S3: S3
-git:
-  branchName: 'Branch name'
-  urlType: 'URL Type'
-  connectionType: 'Connection Type'
-  gitAccountUrl: 'Git Account URL'
-  gitHubAccountUrl: 'GitHub Account URL'
-  gitLabAccountUrl: 'GitLab Account URL'
-  bitbucketAccountUrl: 'Bitbucket Account URL'
-  gitRepoUrl: 'Git Repository URL'
-  gitHubRepoUrl: 'GitHub Repository URL'
-  gitLabRepoUrl: 'GitLab Repository URL'
-  bitbucketRepoUrl: 'Bitbucket Repository URL'
-  gitHubUrlPlaceholder: 'https://www.github.com/account/'
-  gitHubUrlPlaceholderSSH: 'git@github.com:account/'
-  gitLabUrlPlaceholder: 'https://www.gitlab.com/account/'
-  gitLabUrlPlaceholderSSH: 'git@gitlab.com:account/'
-  bitbucketUrlPlaceholder: 'https://www.bitbucket.com/account/'
-  bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
-  accessToken: 'Personal Access Token'
-  enableAPIAccess: 'Enable API access'
-  APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
-  APIAuthentication: 'API Authentication'
-  gitHubApp: 'GitHub App'
-  installationId: 'GitHub Installation ID'
-  applicationId: 'GitHub Application ID'
-  privateKey: 'GitHub Private Key'
 docker:
   dockerRegistryURL: 'Docker Registry URL'
   dockerProvideType: 'Provider Type'
@@ -200,3 +176,58 @@ aws:
     crossAccountRoleArn: 'Role ARN is required'
 awsCodeCommit:
   repoUrl: 'AWS CodeCommit Repository URL'
+appD:
+  connectionDetailsHeader: AppDynamics Connection Details
+  apiClient: API Client
+  clientId: Client Id
+  clientSecret: Client Secret
+  controllerURL: Controller URL
+  accountName: Account Name
+  validation:
+    controllerURL: Controller URL is a required field
+    clientId: Client Id is a required field
+    clientSecret: Client Secret is a required field
+newRelic:
+  subTitle: To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
+  urlFieldLabel: New Relic URL
+  accountIdFieldLabel: New Relic Account ID
+  encryptedAPIKeyLabel: Encrypted API Key
+  urlValidation: New Relic URL is required.
+  accountIdValidation: New Relic Account ID is required.
+  encryptedKeyValidation: Encrypted API Key is required.
+  accountIdTooltip: For steps to get New Relic Account ID
+  products:
+    fullStackObservability: 'Full Stack Observability: APM'
+cdng:
+  jobName: Job Name
+  deploymentTag: Deployment Tag
+  defineVerificationJob: Define Verification Job
+  configureVerificationJob: Configure Verification Jobs
+  duration: duration
+  baseline: Baseline
+  trafficsplit: Traffic Split
+  continousVerificationStep: Verify Step Details
+  displayName: Display Name
+  createCVJob: Please create a CV Job
+  loadingJobs: Loading jobs...
+  noJobsConfigured: No CV Jobs are configured.
+  selectTheJobNameFirst: Please select the job name first by clicking on Define Verification Job Panel
+  error: Something went wrong , please try again by clicking on CV step again
+  verificationSensitivityLabel:
+    high: High
+    medium: Medium
+    low: Low
+  baselineDefaultLabel:
+    lastSuccess: Last Successful job run
+  jobTypes:
+    test: TEST
+    blueGreen: BLUE_GREEN
+    canary: CANARY
+    health: HEALTH
+connectAndSave: Connect and Save
+connectorDetails: Connector Details
+verifyConnection: Verify connection
+createdSuccessfully: 'Connector {{name}} created successfully'
+updatedSuccessfully: 'Connector {{name}} updated successfully'
+splunk:
+  connectorDetailsHeader: Splunk Connection Details

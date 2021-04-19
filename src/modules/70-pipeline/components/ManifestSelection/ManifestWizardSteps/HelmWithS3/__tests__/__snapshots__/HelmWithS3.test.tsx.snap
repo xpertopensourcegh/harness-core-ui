@@ -68,7 +68,7 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="region"
                 >
-                  pipelineSteps.regionLabel (optional)
+                  regionLabel (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -660,7 +660,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="region"
                 >
-                  pipelineSteps.regionLabel (optional)
+                  regionLabel (optional)
                    
                   <span
                     class="bp3-text-muted"

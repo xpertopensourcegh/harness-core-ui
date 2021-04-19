@@ -54,7 +54,7 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.regionLabel')}
+              {getString('regionLabel')}
               <Button
                 icon="question"
                 minimal

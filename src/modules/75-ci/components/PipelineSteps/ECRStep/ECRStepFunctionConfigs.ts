@@ -91,7 +91,7 @@ export const editViewValidateFieldsConfig = [
   {
     name: 'spec.region',
     type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.regionLabel',
+    label: 'regionLabel',
     isRequired: true
   },
   {
@@ -143,7 +143,7 @@ export const inputSetViewValidateFieldsConfig = [
   {
     name: 'spec.region',
     type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.regionLabel',
+    label: 'regionLabel',
     isRequired: true
   },
   {

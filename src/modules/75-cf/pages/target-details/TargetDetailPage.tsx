@@ -45,7 +45,7 @@ export const TargetDetailPage: React.FC = () => {
     projectIdentifier,
     environmentIdentifier
   })
-  const title = getString('cf.targets.title')
+  const title = getString('pipeline.targets.title')
   const breadcrumbs = [
     {
       title,

@@ -39,7 +39,7 @@ const PurposeList: React.FC = () => {
     module: ModuleName.CD
   }
   const CVNG_OPTIONS: PurposeType = {
-    title: getString('cv.admin.notifications.create.stepThree.verification'),
+    title: getString('common.purpose.cv.verification'),
     icon: 'cv-main',
     description: getString('common.purpose.cv.subtitle'),
     module: ModuleName.CV

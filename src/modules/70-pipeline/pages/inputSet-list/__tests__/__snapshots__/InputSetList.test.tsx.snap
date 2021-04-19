@@ -148,7 +148,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          CF.ENVIRONMENTS.CREATEDBY
+          CREATEDBY
         </div>
         <div
           class="cell"

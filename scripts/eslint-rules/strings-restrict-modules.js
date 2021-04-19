@@ -7,17 +7,15 @@ const layers = getLayers()
 const modulesPath = path.resolve(process.cwd(), 'src/modules')
 
 function checkReferences({ node, restrictedModulesRefs, context }) {
-  const valueType = get(node, 'value.type')
-
-  switch (valueType) {
+  switch (node.type) {
     case 'Literal':
-      const value = get(node, 'value.value') || ''
+      const value = node.value || ''
 
       restrictedModulesRefs.forEach(ref => {
-        if (value.startsWith(ref)) {
+        if (value.startsWith(`${ref}.`)) {
           context.report({
             node,
-            message: 'Using a string from restricted module is not allowed'
+            message: `Using a string ref "${value}" from restricted module is not allowed`
           })
         }
       })
@@ -57,8 +55,8 @@ module.exports = {
           const attrs = get(node, 'openingElement.attributes') || []
           const stringIdAttr = attrs.find(attr => get(attr, 'name.name') === 'stringID')
 
-          if (stringIdAttr) {
-            checkReferences({ node: stringIdAttr, restrictedModulesRefs, context })
+          if (stringIdAttr && stringIdAttr.value) {
+            checkReferences({ node: stringIdAttr.value, restrictedModulesRefs, context })
           }
         }
         return null

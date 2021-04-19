@@ -184,7 +184,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -1011,7 +1011,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group"

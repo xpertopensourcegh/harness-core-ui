@@ -246,7 +246,7 @@ exports[`S3 Step Edit View edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              pipelineSteps.regionLabel
+              regionLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -1202,7 +1202,7 @@ exports[`S3 Step Edit View renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              pipelineSteps.regionLabel
+              regionLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2455,7 +2455,7 @@ exports[`S3 Step Edit View should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              pipelineSteps.regionLabel
+              regionLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3398,7 +3398,7 @@ exports[`S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              pipelineSteps.regionLabel
+              regionLabel
               <span
                 class="bp3-popover-wrapper"
               >

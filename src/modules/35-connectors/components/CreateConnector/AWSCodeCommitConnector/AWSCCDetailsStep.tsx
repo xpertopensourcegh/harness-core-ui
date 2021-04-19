@@ -49,9 +49,9 @@ export default function AWSCCDetailsStep(props: AWSCCDetailsStepProps) {
           </Text>
           <FormInput.RadioGroup
             name="urlType"
-            label={getString('connectors.git.urlType')}
+            label={getString('common.git.urlType')}
             items={[
-              { value: 'Region', label: getString('pipelineSteps.regionLabel') },
+              { value: 'Region', label: getString('regionLabel') },
               { value: 'Repo', label: getString('repository') }
             ]}
             radioGroup={{ inline: true }}

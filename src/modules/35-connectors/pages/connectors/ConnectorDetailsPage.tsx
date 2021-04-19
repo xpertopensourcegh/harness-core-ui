@@ -34,11 +34,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     mock: props.mockData
   })
   const connectorName = data?.data?.connector?.name
-  const titleStrings = [
-    getString('resources'),
-    getString('connectors.label'),
-    ...(connectorName ? [connectorName] : [])
-  ]
+  const titleStrings = [getString('resources'), getString('connectorsLabel'), ...(connectorName ? [connectorName] : [])]
   useDocumentTitle(titleStrings)
 
   const categories: Categories = {
@@ -84,7 +80,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         </Link>
         <span>/</span>
         <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
-          {getString('connectors.label')}
+          {getString('connectorsLabel')}
         </Link>
       </Layout.Horizontal>
     )

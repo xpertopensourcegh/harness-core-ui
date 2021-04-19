@@ -51,7 +51,7 @@ describe('Connectors Page Test', () => {
     const { container, getByText } = setup()
     const newConnectorBtn = getByText('newConnector')
     fireEvent.click(newConnectorBtn)
-    await waitFor(() => queryByText(container, 'connectors.label'))
+    await waitFor(() => queryByText(container, 'connectorsLabel'))
     expect(container).toMatchSnapshot()
   })
 

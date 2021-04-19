@@ -50,7 +50,7 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.regionLabel')}
+              {getString('regionLabel')}
               <Button
                 icon="question"
                 minimal

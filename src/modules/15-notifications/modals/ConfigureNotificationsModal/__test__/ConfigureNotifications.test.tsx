@@ -48,7 +48,7 @@ describe('ConfigureNotifications', () => {
     expect(container).toMatchSnapshot()
 
     act(() => {
-      fireEvent.click(getByText('Test'))
+      fireEvent.click(getByText('test'))
     })
 
     expect(testNotificationMock).toHaveBeenCalledWith({
@@ -128,7 +128,7 @@ describe('ConfigureNotifications', () => {
       }
     ])
 
-    fireEvent.click(getByText('Send'))
+    fireEvent.click(getByText('notifications.buttonSend'))
     await waitFor(() =>
       expect(handleTest).toHaveBeenCalledWith({
         body: 'test body',
@@ -158,7 +158,7 @@ describe('ConfigureNotifications', () => {
     expect(container).toMatchSnapshot()
 
     act(() => {
-      fireEvent.click(getByText('Test'))
+      fireEvent.click(getByText('test'))
     })
 
     expect(testNotificationMock).toHaveBeenCalledWith({

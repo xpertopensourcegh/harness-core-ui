@@ -10,7 +10,6 @@ import { useTestNotificationSetting, SlackSettingDTO } from 'services/platform'
 import { SlackNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useStrings } from 'framework/exports'
-import i18n from '../../ConfigureNotifications.i18n'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface ConfigureSlackNotificationsProps {
@@ -45,7 +44,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
         notificationId: 'asd'
       } as SlackSettingDTO)
       if (resp.status === 'SUCCESS' && resp.data) {
-        showSuccess(getString('pipeline-notifications.slackTestSuccess'))
+        showSuccess(getString('notifications.slackTestSuccess'))
         setTestStatus(TestStatus.SUCCESS)
       } else {
         showError(getString('somethingWentWrong'))
@@ -74,11 +73,11 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
         {props.withoutHeading ? null : (
           <>
             <Icon name="service-slack" size={24} />
-            <Heading className={css.title}>{i18n.titleSlack}</Heading>
+            <Heading className={css.title}>{getString('notifications.titleSlack')}</Heading>
           </>
         )}
-        <Text>{i18n.helpSlack}</Text>
-        <Text>{i18n.infoSlack}</Text>
+        <Text>{getString('notifications.helpSlack')}</Text>
+        <Text>{getString('notifications.infoSlack')}</Text>
 
         <Formik
           onSubmit={handleSubmit}
@@ -104,9 +103,9 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
           {formik => {
             return (
               <FormikForm>
-                <FormInput.Text name={'webhookUrl'} label={i18n.labelWebhookUrl} />
+                <FormInput.Text name={'webhookUrl'} label={getString('notifications.labelWebhookUrl')} />
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
-                  <Button text={i18n.buttonTest} onClick={() => handleTest(formik.values)} />
+                  <Button text={getString('test')} onClick={() => handleTest(formik.values)} />
                   {testStatus === TestStatus.SUCCESS ? (
                     <Icon name="tick" className={cx(css.statusIcon, css.green)} />
                   ) : null}
@@ -116,8 +115,8 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                 </Layout.Horizontal>
                 <FormInput.MultiInput
                   name={'userGroups'}
-                  label={i18n.labelSlackUserGroups}
-                  tagsProps={{ placeholder: getString('pipeline-notifications.userGroupsPlaceholder') }}
+                  label={getString('notifications.labelSlackUserGroups')}
+                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
                 />
 
                 {props.isStep ? (
@@ -132,8 +131,8 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                   </Layout.Horizontal>
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
-                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || i18n.buttonSubmit} />
-                    <Button text={i18n.buttonCancel} onClick={props.hideModal} />
+                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || getString('submit')} />
+                    <Button text={getString('cancel')} onClick={props.hideModal} />
                   </Layout.Horizontal>
                 )}
               </FormikForm>

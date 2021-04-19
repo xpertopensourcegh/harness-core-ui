@@ -29,13 +29,13 @@ export function ContinousVerificationInputSetStep(props: ContinousVerificationPr
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.spec?.duration) === MultiTypeInputType.RUNTIME ? (
-        <FormGroup label={getString('cv.connectors.cdng.duration')}>
+        <FormGroup label={getString('cv.verificationJobs.validation.duration')}>
           <FormInput.Text disabled={readonly} name={`${isEmpty(path) ? '' : `${path}.`}spec.duration`} />
         </FormGroup>
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.spec?.baseline) === MultiTypeInputType.RUNTIME ? (
-        <FormGroup label={getString('cv.connectors.cdng.baseline')}>
+        <FormGroup label={getString('cv.verificationJobs.validation.baseline')}>
           <FormInput.Text disabled={readonly} name={`${isEmpty(path) ? '' : `${path}.`}spec.baseline`} />
         </FormGroup>
       ) : null}

@@ -93,7 +93,7 @@ export function SelectNewRelicConnector(): JSX.Element {
                     products={[
                       {
                         productName: NewRelicProductNames.APM,
-                        productLabel: getString('cv.connectors.newRelic.products.fullStackObservability'),
+                        productLabel: getString('connectors.newRelic.products.fullStackObservability'),
                         icon: { name: 'service-newrelic', size: 35 }
                       }
                     ]}

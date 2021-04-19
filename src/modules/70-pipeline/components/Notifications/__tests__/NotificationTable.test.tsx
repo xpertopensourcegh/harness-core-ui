@@ -90,13 +90,13 @@ describe('Notification Table test', () => {
       await act(async () => {
         //Step 1
         if (form) clickSubmit(form)
-        await waitFor(() => getAllByTextGlobal(document.body, 'pipeline-notifications.selectPipelineEvents')[0])
+        await waitFor(() => getAllByTextGlobal(document.body, 'notifications.selectPipelineEvents')[0])
       })
       form = findDialogContainer()
       await act(async () => {
         //Step 2
         if (form) clickSubmit(form)
-        await waitFor(() => getAllByTextGlobal(document.body, 'pipeline-notifications.notificationMethod')[1])
+        await waitFor(() => getAllByTextGlobal(document.body, 'notifications.notificationMethod')[1])
       })
       form = findDialogContainer()
       await act(async () => {

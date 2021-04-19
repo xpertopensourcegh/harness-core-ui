@@ -741,7 +741,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"
@@ -1498,7 +1498,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"
@@ -2255,7 +2255,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"
@@ -3014,7 +3014,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"

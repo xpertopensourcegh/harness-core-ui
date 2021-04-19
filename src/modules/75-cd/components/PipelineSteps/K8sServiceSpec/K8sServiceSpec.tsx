@@ -506,7 +506,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           : { label: '', value: '' }
                       }
                       items={regions}
-                      label={getString('pipelineSteps.regionLabel')}
+                      label={getString('regionLabel')}
                       name={`${path}.artifacts.primary.spec.region`}
                     />
                   )}
@@ -680,7 +680,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                               : { label: '', value: '' }
                           }
                           items={regions}
-                          label={getString('pipelineSteps.regionLabel')}
+                          label={getString('regionLabel')}
                           name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
                         />
                       )}

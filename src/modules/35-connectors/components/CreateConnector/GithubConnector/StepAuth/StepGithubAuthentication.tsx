@@ -95,7 +95,7 @@ const RenderGithubAuthForm: React.FC<FormikProps<GithubFormInterface>> = props =
             label={getString('username')}
             type={props.values.username ? props.values.username?.type : ValueType.TEXT}
           />
-          <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
+          <SecretInput name="accessToken" label={getString('personalAccessToken')} />
         </>
       )
     default:
@@ -110,18 +110,18 @@ const RenderAPIAccessForm: React.FC<FormikProps<GithubFormInterface>> = props =>
       return (
         <Container>
           <Container className={css.formRow}>
-            <FormInput.Text name="installationId" label={getString('connectors.git.installationId')} />
-            <FormInput.Text name="applicationId" label={getString('connectors.git.applicationId')} />
+            <FormInput.Text name="installationId" label={getString('common.git.installationId')} />
+            <FormInput.Text name="applicationId" label={getString('common.git.applicationId')} />
           </Container>
           <Container className={css.formRow}>
-            <SecretInput name="privateKey" label={getString('connectors.git.privateKey')} />
+            <SecretInput name="privateKey" label={getString('common.git.privateKey')} />
           </Container>
         </Container>
       )
     case GitAPIAuthTypes.TOKEN:
       return (
         <Container width={'52%'}>
-          <SecretInput name="apiAccessToken" label={getString('connectors.git.accessToken')} />
+          <SecretInput name="apiAccessToken" label={getString('personalAccessToken')} />
         </Container>
       )
     default:
@@ -134,11 +134,11 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = f
 
   const apiAuthOptions: Array<SelectOption> = [
     {
-      label: getString('connectors.git.accessToken'),
+      label: getString('personalAccessToken'),
       value: GitAPIAuthTypes.TOKEN
     },
     {
-      label: getString('connectors.git.gitHubApp'),
+      label: getString('common.git.gitHubApp'),
       value: GitAPIAuthTypes.GITHUB_APP
     }
   ]
@@ -146,11 +146,11 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = f
   return (
     <>
       <Text font="small" margin={{ bottom: 'small' }}>
-        {getString('connectors.git.APIAccessDescriptipn')}
+        {getString('common.git.APIAccessDescriptipn')}
       </Text>
       <Container className={css.authHeaderRow} width={'52%'}>
         <Text className={css.authTitle} inline>
-          {getString('connectors.git.APIAuthentication')}
+          {getString('common.git.APIAuthentication')}
         </Text>
         <FormInput.Select name="apiAuthType" items={apiAuthOptions} />
       </Container>
@@ -270,7 +270,7 @@ const StepGithubAuthentication: React.FC<
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
                 <Container width={'52%'}>
                   <Text font={{ weight: 'bold' }} className={css.authTitle}>
-                    {getString('connectors.authTitle')}
+                    {getString('authentication')}
                   </Text>
                   <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
                 </Container>
@@ -278,7 +278,7 @@ const StepGithubAuthentication: React.FC<
                 <Container width={'52%'}>
                   <Container className={css.authHeaderRow}>
                     <Text className={css.authTitle} inline>
-                      {getString('connectors.authTitle')}
+                      {getString('authentication')}
                     </Text>
                     <FormInput.Select name="authType" items={authOptions} disabled={false} />
                   </Container>
@@ -289,7 +289,7 @@ const StepGithubAuthentication: React.FC<
 
               <FormInput.CheckBox
                 name="enableAPIAccess"
-                label={getString('connectors.git.enableAPIAccess')}
+                label={getString('common.git.enableAPIAccess')}
                 padding={{ left: 'xxlarge' }}
               />
               {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}

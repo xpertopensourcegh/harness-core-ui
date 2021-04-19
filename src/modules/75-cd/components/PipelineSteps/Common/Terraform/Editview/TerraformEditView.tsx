@@ -180,14 +180,14 @@ export default function TerraformEditView(
                     />
                     <Accordion.Panel
                       id="step-4"
-                      summary={getString('cf.targets.title')}
+                      summary={getString('pipeline.targets.title')}
                       details={
                         <MultiTypeList
                           name="spec.targets"
                           multiTypeFieldSelectorProps={{
                             label: (
                               <Text style={{ display: 'flex', alignItems: 'center' }}>
-                                {getString('cf.targets.title')}
+                                {getString('pipeline.targets.title')}
                               </Text>
                             )
                           }}

@@ -497,7 +497,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.urlType
+                    common.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -540,7 +540,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.connectionType
+                    common.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -588,7 +588,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       class="bp3-label"
                       for="url"
                     >
-                      connectors.git.gitHubAccountUrl
+                      common.git.gitHubAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -604,7 +604,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="connectors.git.gitHubUrlPlaceholder"
+                          placeholder="common.git.gitHubUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -869,7 +869,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -1103,7 +1103,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1340,7 +1340,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.urlType
+                    common.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1383,7 +1383,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.connectionType
+                    common.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1431,7 +1431,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                       class="bp3-label"
                       for="url"
                     >
-                      connectors.git.gitHubAccountUrl
+                      common.git.gitHubAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -1447,7 +1447,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="connectors.git.gitHubUrlPlaceholderSSH"
+                          placeholder="common.git.gitHubUrlPlaceholderSSH"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -1709,7 +1709,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    connectors.authTitle
+                    authentication
                   </p>
                   <div
                     class="bp3-form-group bp3-intent-danger"
@@ -1792,7 +1792,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2360,7 +2360,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2616,7 +2616,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2875,7 +2875,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -3036,7 +3036,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          connectors.git.accessToken
+                          personalAccessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3132,14 +3132,14 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  connectors.git.APIAccessDescriptipn
+                  common.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -3148,7 +3148,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.git.APIAuthentication
+                    common.git.APIAuthentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -3173,7 +3173,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="connectors.git.accessToken"
+                              value="personalAccessToken"
                             />
                             <span
                               class="bp3-input-action"
@@ -3221,7 +3221,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          connectors.git.accessToken
+                          personalAccessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3555,7 +3555,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -3716,7 +3716,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          connectors.git.accessToken
+                          personalAccessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3812,14 +3812,14 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  connectors.git.APIAccessDescriptipn
+                  common.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -3828,7 +3828,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.git.APIAuthentication
+                    common.git.APIAuthentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -3853,7 +3853,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="connectors.git.accessToken"
+                              value="personalAccessToken"
                             />
                             <span
                               class="bp3-input-action"
@@ -3901,7 +3901,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          connectors.git.accessToken
+                          personalAccessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -4235,7 +4235,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -4396,7 +4396,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                         <label
                           class="bp3-label"
                         >
-                          connectors.git.accessToken
+                          personalAccessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -4492,14 +4492,14 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  connectors.git.APIAccessDescriptipn
+                  common.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -4508,7 +4508,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.git.APIAuthentication
+                    common.git.APIAuthentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -4533,7 +4533,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="connectors.git.gitHubApp"
+                              value="common.git.gitHubApp"
                             />
                             <span
                               class="bp3-input-action"
@@ -4578,7 +4578,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                         class="bp3-label"
                         for="installationId"
                       >
-                        connectors.git.installationId
+                        common.git.installationId
                          
                         <span
                           class="bp3-text-muted"
@@ -4608,7 +4608,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                         class="bp3-label"
                         for="applicationId"
                       >
-                        connectors.git.applicationId
+                        common.git.applicationId
                          
                         <span
                           class="bp3-text-muted"
@@ -4647,7 +4647,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                           <label
                             class="bp3-label"
                           >
-                            connectors.git.privateKey
+                            common.git.privateKey
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"

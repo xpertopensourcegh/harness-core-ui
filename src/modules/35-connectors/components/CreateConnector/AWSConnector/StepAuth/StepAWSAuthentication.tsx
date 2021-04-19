@@ -121,7 +121,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
               {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
                 <Layout.Vertical width={'56%'}>
                   <Text color={Color.BLACK} padding={{ top: 'small', bottom: 'large' }}>
-                    {getString('connectors.authTitle')}
+                    {getString('authentication')}
                   </Text>
                   <TextReference
                     name="accessKey"

@@ -120,7 +120,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                cf.targets.title
+                pipeline.targets.title
               </p>
               <div
                 class="bp3-card bp3-elevation-0 Card--card"

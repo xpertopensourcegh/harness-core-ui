@@ -137,7 +137,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
                 },
                 {
                   accessor: 'region',
-                  Header: getString('pipelineSteps.regionLabel'),
+                  Header: getString('regionLabel'),
                   width: '15%',
                   Cell: TableCell,
                   disableSortBy: true

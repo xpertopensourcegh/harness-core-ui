@@ -38,7 +38,7 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
       {getMultiTypeFromValue(inputSetData?.template?.spec?.targets as string) === MultiTypeInputType.RUNTIME && (
         <List
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.targets`}
-          label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('cf.targets.title')}</Text>}
+          label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

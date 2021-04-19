@@ -297,7 +297,7 @@ const HomePage: React.FC = () => {
         <Layout.Horizontal spacing="medium" style={{ justifyContent: 'inherit', alignItems: 'center', width: '368px' }}>
           <Button
             intent="primary"
-            text={getString('cv.navLinks.dashboard')}
+            text={getString('dashboardLabel')}
             icon="plus"
             style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '110px' }}
             onClick={() => showModal()}

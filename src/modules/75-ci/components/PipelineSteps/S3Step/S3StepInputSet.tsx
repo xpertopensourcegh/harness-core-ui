@@ -48,7 +48,7 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.regionLabel')}
+              {getString('regionLabel')}
               <Button
                 icon="question"
                 minimal

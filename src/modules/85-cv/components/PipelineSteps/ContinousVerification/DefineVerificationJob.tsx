@@ -60,7 +60,7 @@ export default function DefineVerificationJob(props: {
         <div className={cx(stepCss.formGroup)}>
           <FormInput.Select
             name="spec.verificationJobRef"
-            label={getString('cv.connectors.cdng.jobName')}
+            label={getString('connectors.cdng.jobName')}
             items={cvJobNames}
             value={(formValues as ContinousVerificationFormData).spec?.verificationJobRef as SelectOption}
             onChange={el => {
@@ -74,7 +74,7 @@ export default function DefineVerificationJob(props: {
       )}
       {!error && !loading && cvJobNames && cvJobNames.length === 0 && (
         <Layout.Horizontal spacing="xsmall">
-          <Text>{getString('cv.connectors.cdng.noJobsConfigured')}</Text>
+          <Text>{getString('connectors.cdng.noJobsConfigured')}</Text>
           <Link
             to={routes.toCVAdminSetupVerificationJob({
               accountId,
@@ -83,12 +83,12 @@ export default function DefineVerificationJob(props: {
             })}
             target="_blank"
           >
-            {getString('cv.connectors.cdng.createCVJob')}
+            {getString('connectors.cdng.createCVJob')}
           </Link>
         </Layout.Horizontal>
       )}
-      {error && getString('cv.connectors.cdng.error')}
-      {loading && getString('cv.connectors.cdng.loadingJobs')}
+      {error && getString('connectors.cdng.error')}
+      {loading && getString('connectors.cdng.loadingJobs')}
     </>
   )
 }

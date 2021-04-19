@@ -152,7 +152,7 @@ describe('Create Bitbucketconnector Wizard', () => {
       clickSubmit(container)
     })
     // step 2
-    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
+    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -192,7 +192,7 @@ describe('Create Bitbucketconnector Wizard', () => {
       clickSubmit(container)
     })
     // step 2
-    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
+    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector

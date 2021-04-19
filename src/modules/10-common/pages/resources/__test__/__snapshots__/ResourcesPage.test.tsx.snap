@@ -21,7 +21,7 @@ exports[`Resources Page render account scope 1`] = `
           class="tags"
           href="/account/dummy/admin/resources/connectors"
         >
-          connectors.label
+          connectorsLabel
         </a>
         <a
           class="tags"
@@ -61,7 +61,7 @@ exports[`Resources Page render org scope 1`] = `
           class="tags"
           href="/account/dummy/admin/organizations/dummy/resources/connectors"
         >
-          connectors.label
+          connectorsLabel
         </a>
         <a
           class="tags"
@@ -101,7 +101,7 @@ exports[`Resources Page render project scope 1`] = `
           class="tags"
           href="/account/dummy/projects/dummy/orgs/dummy/admin/resources/connectors"
         >
-          connectors.label
+          connectorsLabel
         </a>
         <a
           class="tags"

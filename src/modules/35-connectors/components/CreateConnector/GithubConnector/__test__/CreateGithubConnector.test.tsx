@@ -158,7 +158,7 @@ describe('Create Github connector Wizard', () => {
       clickSubmit(container)
     })
     // step 3
-    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
+    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
@@ -180,7 +180,7 @@ describe('Create Github connector Wizard', () => {
       clickSubmit(container)
     })
     // step 3
-    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
+    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -220,7 +220,7 @@ describe('Create Github connector Wizard', () => {
     })
     expect(container).toMatchSnapshot()
     // step 3
-    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
+    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     await act(async () => {

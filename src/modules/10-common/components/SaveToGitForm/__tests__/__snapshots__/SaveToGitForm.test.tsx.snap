@@ -193,7 +193,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                       class="bp3-label"
                       for="branch"
                     >
-                      connectors.git.branchName
+                      common.git.branchName
                        
                       <span
                         class="bp3-text-muted"
@@ -542,7 +542,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                       class="bp3-label"
                       for="branch"
                     >
-                      connectors.git.branchName
+                      common.git.branchName
                        
                       <span
                         class="bp3-text-muted"

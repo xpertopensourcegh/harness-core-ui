@@ -54,7 +54,7 @@ describe('Create Splunk connector Wizard', () => {
 
     // step 2
     expect(queryByText(container, 'Username')).toBeDefined()
-    fireEvent.click(getByText('cv.connectors.connectAndSave')) // trying to create coonector with step 2 data
+    fireEvent.click(getByText('connectors.connectAndSave')) // trying to create coonector with step 2 data
 
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="url"]')!, {

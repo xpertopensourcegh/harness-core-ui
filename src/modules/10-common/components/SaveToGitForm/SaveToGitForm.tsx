@@ -112,14 +112,14 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     return isNewSelected === isNewContainer ? (
       <Container margin={{ left: 'huge' }}>
         {isNewContainer ? (
-          <FormInput.Text className={css.branchInput} name="branch" label={getString('connectors.git.branchName')} />
+          <FormInput.Text className={css.branchInput} name="branch" label={getString('common.git.branchName')} />
         ) : (
           <FormInput.Select
             name="branch"
             className={css.branchInput}
             items={branchSelectOptions}
             disabled={loadingBranchList}
-            label={getString('connectors.git.branchName')}
+            label={getString('common.git.branchName')}
           />
         )}
         <FormInput.CheckBox

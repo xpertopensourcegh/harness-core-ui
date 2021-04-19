@@ -752,7 +752,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          connectors.git.urlType
+          common.git.urlType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -770,7 +770,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          connectors.git.connectionType
+          common.git.connectionType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"

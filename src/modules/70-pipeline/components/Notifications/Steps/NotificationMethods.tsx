@@ -31,12 +31,12 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
   return (
     <Layout.Vertical spacing="xxlarge" padding="small">
       <Text font="medium" color={Color.BLACK}>
-        {getString('pipeline-notifications.notificationMethod')}
+        {getString('notifications.notificationMethod')}
       </Text>
 
       <Layout.Vertical height={500} width={500} spacing="large">
         <Layout.Vertical spacing="xsmall">
-          <Text>{getString('pipeline-notifications.notificationMethod')}</Text>
+          <Text>{getString('notifications.notificationMethod')}</Text>
           <Select
             items={typeOptions || NotificationTypeSelectOptions}
             value={method}

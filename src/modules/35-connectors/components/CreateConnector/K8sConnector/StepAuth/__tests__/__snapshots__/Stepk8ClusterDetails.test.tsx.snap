@@ -111,7 +111,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                connectors.authTitle
+                authentication
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -530,7 +530,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                connectors.authTitle
+                authentication
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -959,7 +959,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                connectors.authTitle
+                authentication
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -1383,7 +1383,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                connectors.authTitle
+                authentication
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -1829,7 +1829,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                connectors.authTitle
+                authentication
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -2183,7 +2183,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                connectors.authTitle
+                authentication
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -2442,7 +2442,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                connectors.authTitle
+                authentication
               </span>
               <div
                 class="bp3-form-group authTypeSelect"

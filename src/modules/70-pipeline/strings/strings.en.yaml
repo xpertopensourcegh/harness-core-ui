@@ -185,3 +185,5 @@ resourceConstraints:
   infoText: 'You have {{executioncount}} executions in queue that have to complete before your execution begins. Only one execution on a K8s namespace is allowed at a time.'
   currentlyExecuting: ' ( currently executing )'
   yourPipeline: ' ( you execution )'
+targets:
+  title: Targets

@@ -533,7 +533,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.urlType
+                    common.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -576,7 +576,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.connectionType
+                    common.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -624,7 +624,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-label"
                       for="url"
                     >
-                      connectors.git.bitbucketAccountUrl
+                      common.git.bitbucketAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -640,7 +640,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="connectors.git.bitbucketUrlPlaceholder"
+                          placeholder="common.git.bitbucketUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -923,7 +923,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -1157,7 +1157,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1412,7 +1412,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.urlType
+                    common.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1455,7 +1455,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.connectionType
+                    common.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1503,7 +1503,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-label"
                       for="url"
                     >
-                      connectors.git.bitbucketAccountUrl
+                      common.git.bitbucketAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -1519,7 +1519,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="connectors.git.bitbucketPlaceholderSSH"
+                          placeholder="common.git.bitbucketPlaceholderSSH"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -1799,7 +1799,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    connectors.authTitle
+                    authentication
                   </p>
                   <div
                     class="bp3-form-group bp3-intent-danger"
@@ -1882,7 +1882,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2159,7 +2159,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2415,7 +2415,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2692,7 +2692,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.authTitle
+                      authentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2949,14 +2949,14 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.git.enableAPIAccess
+                      common.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  connectors.git.APIAccessDescriptipn
+                  common.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main"
@@ -2968,7 +2968,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      connectors.git.APIAuthentication
+                      common.git.APIAuthentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -3129,7 +3129,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                         <label
                           class="bp3-label"
                         >
-                          connectors.git.accessToken
+                          personalAccessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"

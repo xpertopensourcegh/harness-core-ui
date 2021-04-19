@@ -499,7 +499,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.urlType
+                    common.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -542,7 +542,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    connectors.git.connectionType
+                    common.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -590,7 +590,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                       class="bp3-label"
                       for="url"
                     >
-                      connectors.git.gitAccountUrl
+                      common.git.gitAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -606,7 +606,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="connectors.git.gitHubUrlPlaceholder"
+                          placeholder="common.git.gitHubUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />

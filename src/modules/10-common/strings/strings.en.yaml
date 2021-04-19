@@ -58,6 +58,7 @@ purpose:
     description: CD description placeholder
 
   cv:
+    verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
     description: CV description placeholder
   ci:
@@ -90,6 +91,30 @@ repo_provider:
   awscodecommit: AWS Code Commit
   azureDev: Azure Devops
 git:
+  branchName: 'Branch name'
+  urlType: 'URL Type'
+  connectionType: 'Connection Type'
+  gitAccountUrl: 'Git Account URL'
+  gitHubAccountUrl: 'GitHub Account URL'
+  gitLabAccountUrl: 'GitLab Account URL'
+  bitbucketAccountUrl: 'Bitbucket Account URL'
+  gitRepoUrl: 'Git Repository URL'
+  gitHubRepoUrl: 'GitHub Repository URL'
+  gitLabRepoUrl: 'GitLab Repository URL'
+  bitbucketRepoUrl: 'Bitbucket Repository URL'
+  gitHubUrlPlaceholder: 'https://www.github.com/account/'
+  gitHubUrlPlaceholderSSH: 'git@github.com:account/'
+  gitLabUrlPlaceholder: 'https://www.gitlab.com/account/'
+  gitLabUrlPlaceholderSSH: 'git@gitlab.com:account/'
+  bitbucketUrlPlaceholder: 'https://www.bitbucket.com/account/'
+  bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
+  enableAPIAccess: 'Enable API access'
+  APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
+  APIAuthentication: 'API Authentication'
+  gitHubApp: 'GitHub App'
+  installationId: 'GitHub Installation ID'
+  applicationId: 'GitHub Application ID'
+  privateKey: 'GitHub Private Key'
   saveResourceLabel: 'Save {{resource}} to Git'
   selectRepoLabel: 'Select a repo where you want to save the {{resource}}'
   filePath: File path

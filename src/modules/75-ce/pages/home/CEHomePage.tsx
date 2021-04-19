@@ -11,7 +11,7 @@ const CEHomePage: React.FC = () => {
       title={getString('ce.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('ce.homepage.slogan')}
-      documentText={getString('cf.homepage.learnMore')}
+      documentText={getString('ce.homepage.learnMore')}
     />
   )
 }

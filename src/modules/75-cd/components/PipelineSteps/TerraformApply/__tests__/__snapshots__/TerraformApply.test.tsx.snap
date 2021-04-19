@@ -1066,7 +1066,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <div
               class="Accordion--label"
             >
-              cf.targets.title
+              pipeline.targets.title
             </div>
             <div
               class="Accordion--chevron"

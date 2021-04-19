@@ -81,7 +81,7 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
   return (
     <Layout.Vertical spacing="xxlarge" padding="small">
       <Text font="medium" color={Color.BLACK}>
-        {getString('pipeline-notifications.pipelineEvents')}
+        {getString('notifications.pipelineEvents')}
       </Text>
       <Formik<PipelineEventsFormData>
         initialValues={{ ...initialValues, types }}
@@ -104,7 +104,7 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
           return (
             <Form>
               <Layout.Vertical spacing="medium" className={css.formContent}>
-                <Text margin={{ bottom: 'large' }}>{getString('pipeline-notifications.selectPipelineEvents')} </Text>
+                <Text margin={{ bottom: 'large' }}>{getString('notifications.selectPipelineEvents')} </Text>
                 {pipelineEventItems.map(event => {
                   return (
                     <Layout.Vertical key={event.label}>
@@ -138,7 +138,7 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
                             name={event.value}
                             label={''}
                             multiSelectProps={{
-                              placeholder: getString('pipeline-notifications.selectStagesPlaceholder'),
+                              placeholder: getString('notifications.selectStagesPlaceholder'),
                               allowCreatingNewItems: false
                             }}
                           />

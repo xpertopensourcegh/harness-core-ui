@@ -417,17 +417,17 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
               />
             </svg>
           </span>
-          cv.connectors.connectorDetailsHeader
+          connectors.connectorDetailsHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main heading"
         >
-          cv.connectors.addConnectorDetails
+          connectors.addConnectorDetails
         </p>
         <p
           class="StyledProps--font StyledProps--main subHeading"
         >
-          cv.connectors.newRelic.subTitle
+          connectors.newRelic.subTitle
         </p>
         <form
           class="FormikForm--main form"
@@ -445,7 +445,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                   class="bp3-label"
                   for="url"
                 >
-                  cv.connectors.newRelic.urlFieldLabel
+                  connectors.newRelic.urlFieldLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -514,7 +514,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"
                     >
-                      cv.connectors.newRelic.accountIdFieldLabel
+                      connectors.newRelic.accountIdFieldLabel
                     </span>
                     <span
                       class="bp3-popover-wrapper"
@@ -743,17 +743,17 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
               />
             </svg>
           </span>
-          cv.connectors.connectorDetailsHeader
+          connectors.connectorDetailsHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main heading"
         >
-          cv.connectors.addConnectorDetails
+          connectors.addConnectorDetails
         </p>
         <p
           class="StyledProps--font StyledProps--main subHeading"
         >
-          cv.connectors.newRelic.subTitle
+          connectors.newRelic.subTitle
         </p>
         <form
           class="FormikForm--main form"
@@ -771,7 +771,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                   class="bp3-label"
                   for="url"
                 >
-                  cv.connectors.newRelic.urlFieldLabel
+                  connectors.newRelic.urlFieldLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -840,7 +840,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"
                     >
-                      cv.connectors.newRelic.accountIdFieldLabel
+                      connectors.newRelic.accountIdFieldLabel
                     </span>
                     <span
                       class="bp3-popover-wrapper"
@@ -890,7 +890,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    cv.connectors.newRelic.accountIdValidation
+                    connectors.newRelic.accountIdValidation
                   </div>
                 </div>
               </div>
@@ -918,7 +918,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                     <div
                       class="bp3-form-helper-text"
                     >
-                      cv.connectors.newRelic.encryptedKeyValidation
+                      connectors.newRelic.encryptedKeyValidation
                     </div>
                   </div>
                 </div>

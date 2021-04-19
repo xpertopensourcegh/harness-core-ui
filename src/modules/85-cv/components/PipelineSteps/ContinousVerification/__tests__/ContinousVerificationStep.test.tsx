@@ -163,14 +163,14 @@ describe('Test ContinousVerificationStep Step', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
 
-    fireEvent.click(getByText('cv.connectors.cdng.defineVerificationJob'))
+    fireEvent.click(getByText('connectors.cdng.defineVerificationJob'))
     await waitFor(() => {
-      expect(getByText('cv.connectors.cdng.jobName')).toBeTruthy()
+      expect(getByText('connectors.cdng.jobName')).toBeTruthy()
     })
 
-    fireEvent.click(getByText('cv.connectors.cdng.configureVerificationJob'))
+    fireEvent.click(getByText('connectors.cdng.configureVerificationJob'))
     await waitFor(() => {
-      expect(getByText('cv.connectors.cdng.selectTheJobNameFirst')).toBeTruthy()
+      expect(getByText('connectors.cdng.selectTheJobNameFirst')).toBeTruthy()
     })
   })
 })

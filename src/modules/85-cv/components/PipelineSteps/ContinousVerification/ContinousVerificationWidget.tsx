@@ -106,14 +106,14 @@ export function ContinousVerificationWidget(
               />
               <Accordion.Panel
                 id="step-2"
-                summary={getString('cv.connectors.cdng.defineVerificationJob')}
+                summary={getString('connectors.cdng.defineVerificationJob')}
                 details={
                   <DefineVerificationJob formik={formik} jobContents={jobContents} loading={loading} error={error} />
                 }
               />
               <Accordion.Panel
                 id="step-3"
-                summary={getString('cv.connectors.cdng.configureVerificationJob')}
+                summary={getString('connectors.cdng.configureVerificationJob')}
                 details={<ConfigureVerificationJob formik={formik} jobContents={jobContents} />}
               />
             </Accordion>

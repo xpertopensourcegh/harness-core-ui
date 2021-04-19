@@ -582,7 +582,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -1423,7 +1423,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"

@@ -65,7 +65,6 @@ analysisScreens:
     logs: 'Logs'
 navLinks:
   activities: 'Activities'
-  dashboard: 'Dashboard'
   adminSideNavLinks:
     setup: 'Setup'
     activitySources: 'Change Sources'
@@ -92,7 +91,7 @@ admin:
         heading: Notification Rule Details
         name: Give name to your notification rule
       stepThree:
-        verification: Verification
+        verification: '{{$.common.purpose.cv.verification}}'
         headingOne: Select Condition for Notification
         headingTwo: 'Choose the services and their corresponding conditions you’d like to be notified on.'
         notifyVerification: Notify on completed verifications
@@ -129,6 +128,7 @@ admin:
   verificationJobs:
     newVerificationJob: 'New Verification Job'
     noDataMessage: 'No Verification Jobs to show'
+    cantBeCopied: 'Webhook url cant be copied for default jobs.'
     jobTypes:
       test: Test Verification
       canary: Canary Verification
@@ -136,67 +136,6 @@ admin:
       health: Health Verification
     confirmDeleteTitle: Delete Verification Job
     confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
-    cantBeCopied: 'Webhook url cant be copied for default jobs.'
-connectors:
-  connectorDetailsHeader: '{{type}} Connector Details'
-  addConnectorDetails: Add {{type}} Verification Provider
-  unableToCreateConnector: Unable to create connector
-  unableToUpdateConnector: Unable to update connector
-  connectAndSave: Connect and Save
-  connectorDetails: Connector Details
-  verifyConnection: Verify connection
-  createdSuccessfully: 'Connector {{name}} created successfully'
-  updatedSuccessfully: 'Connector {{name}} updated successfully'
-  appD:
-    connectionDetailsHeader: AppDynamics Connection Details
-    apiClient: API Client
-    clientId: Client Id
-    clientSecret: Client Secret
-    controllerURL: Controller URL
-    accountName: Account Name
-    validation:
-      controllerURL: Controller URL is a required field
-      clientId: Client Id is a required field
-      clientSecret: Client Secret is a required field
-  newRelic:
-    subTitle: To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
-    urlFieldLabel: New Relic URL
-    accountIdFieldLabel: New Relic Account ID
-    encryptedAPIKeyLabel: Encrypted API Key
-    urlValidation: New Relic URL is required.
-    accountIdValidation: New Relic Account ID is required.
-    encryptedKeyValidation: Encrypted API Key is required.
-    accountIdTooltip: For steps to get New Relic Account ID
-    products:
-      fullStackObservability: 'Full Stack Observability: APM'
-  splunk:
-    connectorDetailsHeader: Splunk Connection Details
-  cdng:
-    jobName: Job Name
-    deploymentTag: Deployment Tag
-    defineVerificationJob: Define Verification Job
-    configureVerificationJob: Configure Verification Jobs
-    duration: duration
-    baseline: Baseline
-    trafficsplit: Traffic Split
-    continousVerificationStep: Verify Step Details
-    displayName: Display Name
-    createCVJob: Please create a CV Job
-    loadingJobs: Loading jobs...
-    noJobsConfigured: No CV Jobs are configured.
-    selectTheJobNameFirst: Please select the job name first by clicking on Define Verification Job Panel
-    error: Something went wrong , please try again by clicking on CV step again
-    verificationSensitivityLabel:
-      high: High
-      medium: Medium
-      low: Low
-    baselineDefaultLabel:
-      lastSuccess: Last Successful job run
-    jobTypes:
-      test: TEST
-      blueGreen: BLUE_GREEN
-      canary: CANARY
-      health: HEALTH
 onboarding:
   defaultChangeSource: Default change source that is already created for you
   changeSourceTypes:

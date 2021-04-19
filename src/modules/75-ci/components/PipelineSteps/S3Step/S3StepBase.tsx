@@ -121,7 +121,7 @@ export const S3StepBase = (
                 name="spec.region"
                 label={
                   <Text>
-                    {getString('pipelineSteps.regionLabel')}
+                    {getString('regionLabel')}
                     <Button
                       icon="question"
                       minimal

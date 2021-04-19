@@ -306,7 +306,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                     class="bp3-label"
                     for="branch"
                   >
-                    connectors.git.branchName
+                    common.git.branchName
                      
                     <span
                       class="bp3-text-muted"
@@ -770,7 +770,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     class="bp3-label"
                     for="branch"
                   >
-                    connectors.git.branchName
+                    common.git.branchName
                      
                     <span
                       class="bp3-text-muted"

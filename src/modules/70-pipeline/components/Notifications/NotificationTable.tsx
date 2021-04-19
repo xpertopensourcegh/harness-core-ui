@@ -220,7 +220,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         disabled: isReadonly
       },
       {
-        Header: getString('pipeline-notifications.nameOftheRule').toUpperCase(),
+        Header: getString('notifications.nameOftheRule').toUpperCase(),
         id: 'name',
         accessor: row => row.notificationRules.name,
         width: '20%',
@@ -228,7 +228,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         disableSortBy: true
       },
       {
-        Header: getString('pipeline-notifications.pipelineEvents').toUpperCase(),
+        Header: getString('notifications.pipelineEvents').toUpperCase(),
         id: 'events',
         accessor: row => row.notificationRules.pipelineEvents,
         width: '35%',
@@ -236,7 +236,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         disableSortBy: true
       },
       {
-        Header: getString('pipeline-notifications.notificationMethod').toUpperCase(),
+        Header: getString('notifications.notificationMethod').toUpperCase(),
         id: 'methods',
         accessor: row => row.notificationRules.notificationMethod?.type,
         width: '25%',

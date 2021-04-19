@@ -20,7 +20,7 @@ const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
   return (
     <Layout.Vertical spacing="xxlarge" padding="small">
       <Text font="medium" color={Color.BLACK}>
-        {getString('pipeline-notifications.nameOftheRule')}
+        {getString('notifications.nameOftheRule')}
       </Text>
       <Formik
         initialValues={{ name: '', ...data, ...prevStepData }}
@@ -39,7 +39,7 @@ const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
           return (
             <Form>
               <Container height={400} width={400}>
-                <FormInput.Text name="name" label={getString('pipeline-notifications.notificationName')} />
+                <FormInput.Text name="name" label={getString('notifications.notificationName')} />
               </Container>
               <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('saveAndContinue')} />
             </Form>

@@ -32,7 +32,7 @@ const ResourcesPage: React.FC = ({ children }) => {
                     : routes.toResourcesConnectors({ accountId })
                 }
               >
-                {getString('connectors.label')}
+                {getString('connectorsLabel')}
               </NavLink>
 
               <NavLink

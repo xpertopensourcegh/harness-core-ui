@@ -52,7 +52,7 @@ export default function ConfigureVerificationJob(props: {
 
   const renderConfigOptions = (): JSX.Element => {
     switch (selectedJob?.type) {
-      case getString('cv.connectors.cdng.jobTypes.test'):
+      case getString('cv.admin.verificationJobs.jobTypes.test'):
         return (
           <>
             <div className={cx(stepCss.formGroup)}>
@@ -67,7 +67,7 @@ export default function ConfigureVerificationJob(props: {
             <div className={cx(stepCss.formGroup)}>
               <Duration
                 name={`spec.spec.duration`}
-                label={getString('cv.connectors.cdng.duration')}
+                label={getString('cv.verificationJobs.validation.duration')}
                 expressions={expressions}
                 disabled={isFieldDisabled(specInfo?.duration, selectedJob?.duration)}
                 formik={formik}
@@ -76,7 +76,7 @@ export default function ConfigureVerificationJob(props: {
             <div className={cx(stepCss.formGroup)}>
               <BaselineSelect
                 name={`spec.spec.baseline`}
-                label={getString('cv.connectors.cdng.baseline')}
+                label={getString('cv.verificationJobs.validation.baseline')}
                 expressions={expressions}
                 disabled={isFieldDisabled(specInfo?.baseline, selectedJob?.baselineVerificationJobInstanceId)}
                 formik={formik}
@@ -84,8 +84,8 @@ export default function ConfigureVerificationJob(props: {
             </div>
           </>
         )
-      case getString('cv.connectors.cdng.jobTypes.blueGreen'):
-      case getString('cv.connectors.cdng.jobTypes.canary'):
+      case getString('cv.admin.verificationJobs.jobTypes.blueGreen'):
+      case getString('cv.admin.verificationJobs.jobTypes.canary'):
         return (
           <>
             <div className={cx(stepCss.formGroup)}>
@@ -100,7 +100,7 @@ export default function ConfigureVerificationJob(props: {
             <div className={cx(stepCss.formGroup)}>
               <Duration
                 name={`spec.spec.duration`}
-                label={getString('cv.connectors.cdng.duration')}
+                label={getString('cv.verificationJobs.validation.duration')}
                 expressions={expressions}
                 disabled={isFieldDisabled(specInfo?.duration, selectedJob.duration)}
                 formik={formik}
@@ -109,19 +109,19 @@ export default function ConfigureVerificationJob(props: {
             <div className={cx(stepCss.formGroup)}>
               <TrafficSplit
                 name={`spec.spec.trafficsplit`}
-                label={getString('cv.connectors.cdng.trafficsplit')}
+                label={getString('connectors.cdng.trafficsplit')}
                 disabled={isFieldDisabled(specInfo?.trafficsplit, selectedJob?.trafficSplitPercentage?.toString())}
                 formik={formik}
               />
             </div>
           </>
         )
-      case getString('cv.connectors.cdng.jobTypes.health'):
+      case getString('cv.admin.verificationJobs.jobTypes.health'):
         return (
           <div className={cx(stepCss.formGroup)}>
             <Duration
               name={`spec.spec.duration`}
-              label={getString('cv.connectors.cdng.duration')}
+              label={getString('cv.verificationJobs.validation.duration')}
               expressions={expressions}
               disabled={isFieldDisabled(specInfo?.duration, selectedJob.duration)}
               formik={formik}
@@ -200,7 +200,7 @@ export default function ConfigureVerificationJob(props: {
   }, [])
 
   if (!selectedJobValue) {
-    return <>{getString('cv.connectors.cdng.selectTheJobNameFirst')}</>
+    return <>{getString('connectors.cdng.selectTheJobNameFirst')}</>
   } else {
     return (
       <>
@@ -213,7 +213,7 @@ export default function ConfigureVerificationJob(props: {
         {renderConfigOptions()}
         <div className={cx(stepCss.formGroup)}>
           <FormInput.MultiTextInput
-            label={getString('cv.connectors.cdng.deploymentTag')}
+            label={getString('connectors.cdng.deploymentTag')}
             name="spec.spec.deploymentTag"
             multiTextInputProps={{ expressions }}
           />

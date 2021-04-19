@@ -214,7 +214,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                       }
                     }}
                     isOptional={true}
-                    label={getString('pipelineSteps.regionLabel')}
+                    label={getString('regionLabel')}
                   />
 
                   {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (

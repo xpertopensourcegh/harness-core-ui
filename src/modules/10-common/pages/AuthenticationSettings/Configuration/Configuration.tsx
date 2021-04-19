@@ -29,7 +29,7 @@ const Configuration: React.FC = () => {
         ]}
       />
       <Heading font={{ size: 'medium' }} color={Color.BLACK}>
-        {getString('connectors.authTitle')}: {getString('configuration')}
+        {getString('authentication')}: {getString('configuration')}
       </Heading>
     </Layout.Vertical>
   )

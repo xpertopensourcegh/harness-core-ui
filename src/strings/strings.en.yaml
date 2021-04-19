@@ -23,6 +23,11 @@ signUp:
     terms: 'Terms of Use'
   noAccount: 'No Account?'
 signOut: Sign Out
+connectorsLabel: Connectors
+dashboardLabel: 'Dashboard'
+regionLabel: 'Region'
+createdBy: 'Created by'
+ciCodebase: CI Codebase
 featureFlagsText: Feature Flags
 flag: Flag
 newLabel: New
@@ -108,7 +113,6 @@ executionsText: Executions
 executionHeaderText: Execution History
 runPipelineText: Run
 rollbackLabel: Rollback
-ciCodebase: CI Codebase
 addStage: Add Stage
 templates: Templates
 rollbackSteps: Rollback Steps
@@ -698,7 +702,7 @@ upload: 'Upload'
 remote: 'Remote'
 resourcePage:
   title: RESOURCES
-  connectors: '{{$.connectors.label}}'
+  connectors: '{{$.connectorsLabel}}'
   secrets: '{{$.common.secrets}}'
   delegates: '{{$.delegate.delegates}}'
   templates: '{{$.templates}}'
@@ -980,23 +984,6 @@ execution:
       not_equals: 'If {{ key }} does not equals'
       in: 'If {{ key }} is in'
       not_in: 'If {{ key }} is not in'
-pipeline-notifications:
-  nameOftheRule: Name of the Rule
-  notificationName: Give your notification a name
-  pipelineEvents: Pipeline Events
-  selectPipelineEvents: Select Pipeline Events
-  selectStagesPlaceholder: 'Select stages'
-  notificationMethod: '{{$.notificationMethod}}'
-  emailRecipients: Type emails of your recipients
-  emailUserGroups: Email all members of these user groups
-  emailTestSuccess: Email test is successfully executed
-  slackwebhookUrl: Slack Webhook URL (Optional)
-  slackuserGroups: Notify the Slack Channels associated with these user groups
-  slackTestSuccess: Slack test is successfully executed
-  pagerDutykey: PagerDuty Key (Optional)
-  pagerDutyuserGroups: Notify these user groups
-  pagerDutyTestSuccess: Pager Duty test is successfully executed
-  userGroupsPlaceholder: Type and press enter to add user group
 pre-flight-check:
   preFlightCheckTitle: 'Pre-flight check'
   errorFoundCounter: '{{errorCount}} error found'
@@ -1243,7 +1230,6 @@ pipelineSteps:
   contextInfo: Either a path to a directory containing a Dockerfile, or a url to a git repository
   labelsLabel: 'Labels'
   labelsInfo: Use Labels to add metadata to the Docker image
-  regionLabel: 'Region'
   regionPlaceholder: us-east-1
   regionInfo: AWS Region
   accountLabel: Account ID
@@ -1618,3 +1604,4 @@ characters: 'characters'
 uppercase: 'uppercase'
 lowercase: 'lowercase'
 specialChar: 'special character'
+personalAccessToken: 'Personal Access Token'

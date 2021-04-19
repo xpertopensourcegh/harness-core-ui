@@ -68,8 +68,8 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
     if (res && res.status === 'SUCCESS') {
       showSuccess(
         isEditMode
-          ? getString('cv.connectors.updatedSuccessfully', payload?.name || '')
-          : getString('cv.connectors.createdSuccessfully', payload?.name || '')
+          ? getString('connectors.updatedSuccessfully', payload?.name || '')
+          : getString('connectors.createdSuccessfully', payload?.name || '')
       )
       if (res.data) {
         setSuccessfullyCreated(true)
@@ -81,7 +81,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
       }
     } else {
       throw new Error(
-        getString(isEditMode ? 'cv.connectors.unableToUpdateConnector' : 'cv.connectors.unableToCreateConnector')
+        getString(isEditMode ? 'connectors.unableToUpdateConnector' : 'connectors.unableToCreateConnector')
       )
     }
     return res.data?.connector
@@ -94,7 +94,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
       <StepWizard>
         <ConnectorDetailsStep
           type={Connectors.SPLUNK}
-          name={getString('cv.connectors.connectorDetails')}
+          name={getString('connectors.connectorDetails')}
           setFormData={setFormData}
           formData={formData}
           mock={props.mockIdentifierValidate}
@@ -123,7 +123,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           buildPayload={buildSplunkPayload}
         />
         <VerifyOutOfClusterDelegate
-          name={getString('cv.connectors.verifyConnection')}
+          name={getString('connectors.verifyConnection')}
           url={formData?.url}
           connectorIdentifier={formData?.identifier}
           onClose={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
@@ -190,14 +190,14 @@ export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element 
       {() => (
         <FormikForm className={css.connectionForm}>
           <Layout.Vertical spacing="large" className={css.appDContainer}>
-            <Text font="medium">{getString('cv.connectors.splunk.connectorDetailsHeader')}</Text>
+            <Text font="medium">{getString('connectors.splunk.connectorDetailsHeader')}</Text>
             <FormInput.Text label={getString('UrlLabel')} name="url" />
             <FormInput.Text name="username" label={getString('username')} />
             <SecretInput name="passwordRef" label={getString('password')} />
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
             <Button onClick={() => props.previousStep?.()} text={getString('back')} />
-            <Button type="submit" text={getString('cv.connectors.connectAndSave')} />
+            <Button type="submit" text={getString('connectors.connectAndSave')} />
           </Layout.Horizontal>
         </FormikForm>
       )}

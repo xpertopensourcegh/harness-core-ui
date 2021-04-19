@@ -119,7 +119,7 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
             <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
               {getString('credentials')}
             </Text>
-            <Text margin={{ top: 'medium', bottom: 'medium' }}>{getString('connectors.authTitle')}</Text>
+            <Text margin={{ top: 'medium', bottom: 'medium' }}>{getString('authentication')}</Text>
             <TextReference
               name="accessKey"
               label={getString('connectors.aws.accessKey')}

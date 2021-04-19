@@ -184,7 +184,7 @@ exports[`PurposePage should render module description and continue button when s
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                     >
-                      cv.admin.notifications.create.stepThree.verification
+                      common.purpose.cv.verification
                     </p>
                   </div>
                 </div>

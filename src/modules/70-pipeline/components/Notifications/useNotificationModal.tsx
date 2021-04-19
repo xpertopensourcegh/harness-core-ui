@@ -62,13 +62,13 @@ export const useNotificationModal = ({
           title={isNil(index) ? getString('newNotification') : getString('editNotification')}
         >
           <Overview
-            name={getString('pipeline-notifications.nameOftheRule')}
+            name={getString('notifications.nameOftheRule')}
             data={notificationRules}
             existingNotificationNames={getExistingNotificationNames?.(index)}
           />
-          <PipelineEvents name={getString('pipeline-notifications.pipelineEvents')} stagesOptions={stagesOptions} />
+          <PipelineEvents name={getString('notifications.pipelineEvents')} stagesOptions={stagesOptions} />
           <NotificationMethods
-            name={getString('pipeline-notifications.notificationMethod')}
+            name={getString('notifications.notificationMethod')}
             typeOptions={NotificationTypeSelectOptions}
           />
         </StepWizard>

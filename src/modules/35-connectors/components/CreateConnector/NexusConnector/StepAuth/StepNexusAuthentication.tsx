@@ -143,7 +143,7 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
 
               <Container className={css.authHeaderRow}>
                 <Text className={css.authTitle} inline>
-                  {getString('connectors.authTitle')}
+                  {getString('authentication')}
                 </Text>
                 <FormInput.Select name="authType" items={authOptions} disabled={false} />
               </Container>

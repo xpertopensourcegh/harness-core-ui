@@ -138,7 +138,7 @@ const COAsgSelector: React.FC<COAsgSelectorprops> = props => {
                 },
                 {
                   accessor: 'region',
-                  Header: getString('pipelineSteps.regionLabel'),
+                  Header: getString('regionLabel'),
                   width: '10%',
                   Cell: TableCell,
                   disableSortBy: true

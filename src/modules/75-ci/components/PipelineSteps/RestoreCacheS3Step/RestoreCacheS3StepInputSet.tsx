@@ -53,7 +53,7 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.regionLabel')}
+              {getString('regionLabel')}
               <Button
                 icon="question"
                 minimal

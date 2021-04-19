@@ -606,7 +606,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -1470,7 +1470,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    connectors.authTitle
+                    authentication
                   </span>
                   <div
                     class="bp3-form-group"

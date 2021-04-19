@@ -24,7 +24,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           class="breadCrumb"
           href="/account/dummy/resources/connectors"
         >
-          connectors.label
+          connectorsLabel
         </a>
       </div>
       <div
@@ -466,7 +466,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             class="breadCrumb"
             href="/account/dummy/org/dummyOrg/resources/connectors"
           >
-            connectors.label
+            connectorsLabel
           </a>
         </div>
       </div>

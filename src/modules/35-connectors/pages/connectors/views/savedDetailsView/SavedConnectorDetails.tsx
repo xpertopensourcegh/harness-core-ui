@@ -161,11 +161,11 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
 const getGitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: 'connectors.git.urlType',
+      label: 'common.git.urlType',
       value: connector?.spec?.connectionType
     },
     {
-      label: 'connectors.git.connectionType',
+      label: 'common.git.connectionType',
       value: connector.spec?.type?.toUpperCase?.()
     },
     {
@@ -190,11 +190,11 @@ const getGitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
 const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
-      label: 'connectors.git.urlType',
+      label: 'common.git.urlType',
       value: connector?.spec?.type
     },
     {
-      label: 'connectors.git.connectionType',
+      label: 'common.git.connectionType',
       value: connector?.spec?.authentication?.type?.toUpperCase?.()
     },
     {
@@ -202,7 +202,7 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
       value: connector?.spec?.url
     },
     {
-      label: 'connectors.authTitle',
+      label: 'authentication',
       value: connector?.spec?.authentication?.spec?.type
     },
     {
@@ -216,7 +216,7 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
       value: connector?.spec?.authentication?.spec?.spec?.passwordRef
     },
     {
-      label: 'connectors.git.accessToken',
+      label: 'personalAccessToken',
       value: connector?.spec?.authentication?.spec?.spec?.tokenRef || connector?.spec?.apiAccess?.spec?.tokenRef
     },
     {
@@ -224,15 +224,15 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
       value: connector?.spec?.authentication?.spec?.sshKeyRef
     },
     {
-      label: 'connectors.git.APIAuthentication',
+      label: 'common.git.APIAuthentication',
       value: connector?.spec?.apiAccess?.type
     },
     {
-      label: 'connectors.git.installationId',
+      label: 'common.git.installationId',
       value: connector?.spec?.apiAccess?.spec?.installationId
     },
     {
-      label: 'connectors.git.applicationId',
+      label: 'common.git.applicationId',
       value: connector?.spec?.apiAccess?.spec?.applicationId
     }
   ]

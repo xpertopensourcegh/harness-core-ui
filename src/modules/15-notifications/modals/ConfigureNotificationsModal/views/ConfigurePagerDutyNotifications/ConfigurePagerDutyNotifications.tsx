@@ -12,7 +12,6 @@ import type { PagerDutyNotificationConfiguration } from '@notifications/interfac
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 
-import i18n from '../../ConfigureNotifications.i18n'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface ConfigurePagerDutyNotificationsProps {
@@ -47,7 +46,7 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
         notificationId: 'asd'
       } as PagerDutySettingDTO)
       if (resp.status === 'SUCCESS' && resp.data) {
-        showSuccess(getString('pipeline-notifications.pagerDutyTestSuccess'))
+        showSuccess(getString('notifications.pagerDutyTestSuccess'))
         setTestStatus(TestStatus.SUCCESS)
       } else {
         showError(getString('somethingWentWrong'))
@@ -72,15 +71,15 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
         {props.withoutHeading ? null : (
           <>
             <Icon name="service-pagerduty" size={24} />
-            <Heading className={css.title}>{i18n.titlePagerDuty}</Heading>
+            <Heading className={css.title}>{getString('notifications.titlePagerDuty')}</Heading>
           </>
         )}
-        <Text>{i18n.helpPagerDuty}</Text>
-        <Text>{i18n.infoPagerDuty}</Text>
+        <Text>{getString('notifications.helpPagerDuty')}</Text>
+        <Text>{getString('notifications.infoPagerDuty')}</Text>
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
-            key: Yup.string().trim().required(i18n.validationPDKey)
+            key: Yup.string().trim().required(getString('notifications.validationPDKey'))
           })}
           initialValues={{
             key: '',
@@ -91,9 +90,9 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
           {formik => {
             return (
               <FormikForm>
-                <FormInput.Text name={'key'} label={i18n.labelPDKey} />
+                <FormInput.Text name={'key'} label={getString('notifications.labelPDKey')} />
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
-                  <Button text={i18n.buttonTest} onClick={() => handleTest(formik.values)} />
+                  <Button text={getString('test')} onClick={() => handleTest(formik.values)} />
                   {testStatus === TestStatus.SUCCESS ? (
                     <Icon name="tick" className={cx(css.statusIcon, css.green)} />
                   ) : null}
@@ -103,8 +102,8 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
                 </Layout.Horizontal>
                 <FormInput.MultiInput
                   name={'userGroups'}
-                  label={i18n.labelPDUserGroups}
-                  tagsProps={{ placeholder: getString('pipeline-notifications.userGroupsPlaceholder') }}
+                  label={getString('notifications.labelPDUserGroups')}
+                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
                 />
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
@@ -113,8 +112,8 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
                   </Layout.Horizontal>
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
-                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || i18n.buttonSubmit} />
-                    <Button text={i18n.buttonCancel} onClick={props.hideModal} />
+                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || getString('submit')} />
+                    <Button text={getString('cancel')} onClick={props.hideModal} />
                   </Layout.Horizontal>
                 )}
               </FormikForm>

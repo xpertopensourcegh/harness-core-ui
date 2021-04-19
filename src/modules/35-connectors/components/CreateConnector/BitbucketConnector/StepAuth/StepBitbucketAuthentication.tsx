@@ -94,12 +94,12 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<BitbucketFormInterface>> 
   return (
     <>
       <Text font="small" margin={{ bottom: 'small' }}>
-        {getString('connectors.git.APIAccessDescriptipn')}
+        {getString('common.git.APIAccessDescriptipn')}
       </Text>
       <Container width={'52%'}>
         <Container className={css.authHeaderRow}>
           <Text className={css.authTitle} inline>
-            {getString('connectors.git.APIAuthentication')}
+            {getString('common.git.APIAuthentication')}
           </Text>
           <FormInput.Select name="apiAuthType" items={apiAuthOptions} />
         </Container>
@@ -108,7 +108,7 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<BitbucketFormInterface>> 
           label={getString('username')}
           type={props.values.apiAccessUsername ? props.values.apiAccessUsername?.type : ValueType.TEXT}
         />
-        <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
+        <SecretInput name="accessToken" label={getString('personalAccessToken')} />
       </Container>
     </>
   )
@@ -206,7 +206,7 @@ const StepBitbucketAuthentication: React.FC<
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
                 <Container width={'52%'}>
                   <Text font={{ weight: 'bold' }} className={css.authTitle}>
-                    {getString('connectors.authTitle')}
+                    {getString('authentication')}
                   </Text>
                   <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
                 </Container>
@@ -214,7 +214,7 @@ const StepBitbucketAuthentication: React.FC<
                 <Container width={'52%'}>
                   <Container className={css.authHeaderRow}>
                     <Text className={css.authTitle} inline>
-                      {getString('connectors.authTitle')}
+                      {getString('authentication')}
                     </Text>
                     <FormInput.Select name="authType" items={authOptions} disabled={false} />
                   </Container>
@@ -225,7 +225,7 @@ const StepBitbucketAuthentication: React.FC<
 
               <FormInput.CheckBox
                 name="enableAPIAccess"
-                label={getString('connectors.git.enableAPIAccess')}
+                label={getString('common.git.enableAPIAccess')}
                 padding={{ left: 'xxlarge' }}
               />
               {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}

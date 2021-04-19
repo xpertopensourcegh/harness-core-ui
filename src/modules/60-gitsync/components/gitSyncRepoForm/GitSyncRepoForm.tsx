@@ -235,7 +235,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                     name="branch"
                     disabled={loadingBranchList}
                     items={branchSelectOptions}
-                    label={getString('connectors.git.branchName')}
+                    label={getString('common.git.branchName')}
                   />
                 </Container>
 

@@ -123,7 +123,7 @@ export const ECRStepBase = (
                 name="spec.region"
                 label={
                   <Text margin={{ top: 'small' }}>
-                    {getString('pipelineSteps.regionLabel')}
+                    {getString('regionLabel')}
                     <Button
                       icon="question"
                       minimal

@@ -29,7 +29,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
               originalData={initialValues.spec?.backendConfig?.spec}
               metadataMap={metadataMap}
             />
-            <Text>{getString('cf.targets.title')}</Text>
+            <Text>{getString('pipeline.targets.title')}</Text>
             <VariablesListTable
               data={variablesData.spec?.targets}
               originalData={initialValues.spec?.targets}

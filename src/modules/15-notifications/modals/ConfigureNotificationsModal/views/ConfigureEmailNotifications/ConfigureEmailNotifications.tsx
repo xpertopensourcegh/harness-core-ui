@@ -12,7 +12,6 @@ import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useTestNotificationSetting, EmailSettingDTO } from 'services/platform'
 import { useStrings } from 'framework/exports'
-import i18n from '../../ConfigureNotifications.i18n'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface EmailTestConfigData {
@@ -36,6 +35,7 @@ interface TestEmailConfigProps {
 }
 
 export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
+  const { getString } = useStrings()
   const handleSubmit = (_formData: EmailTestConfigData): void => {
     props.handleTest(_formData)
     // call test api
@@ -46,9 +46,9 @@ export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
       <Formik<EmailTestConfigData>
         onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
-          to: Yup.string().trim().required(i18n.validationTo),
-          subject: Yup.string().trim().required(i18n.validationSubject),
-          body: Yup.string().trim().required(i18n.validationBody)
+          to: Yup.string().trim().required(getString('notifications.validationTo')),
+          subject: Yup.string().trim().required(getString('notifications.validationSubject')),
+          body: Yup.string().trim().required(getString('notifications.validationBody'))
         })}
         initialValues={{
           to: '',
@@ -59,11 +59,11 @@ export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
         {formik => {
           return (
             <FormikForm>
-              <FormInput.Text name={'to'} label={i18n.labelTo} />
-              <FormInput.Text name={'subject'} label={i18n.labelSubject} />
-              <FormInput.Text name={'body'} label={i18n.labelBody} />
+              <FormInput.Text name={'to'} label={getString('notifications.labelTo')} />
+              <FormInput.Text name={'subject'} label={getString('notifications.labelSubject')} />
+              <FormInput.Text name={'body'} label={getString('notifications.labelBody')} />
               <Button
-                text={i18n.buttonSend}
+                text={getString('notifications.buttonSend')}
                 onClick={event => {
                   event.stopPropagation()
                   formik.submitForm()
@@ -104,7 +104,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
         body: testData.body
       } as EmailSettingDTO)
       if (resp.status === 'SUCCESS' && resp.data) {
-        showSuccess(getString('pipeline-notifications.emailTestSuccess'))
+        showSuccess(getString('notifications.emailTestSuccess'))
         setTestStatus(TestStatus.SUCCESS)
       } else {
         showError(getString('somethingWentWrong'))
@@ -134,7 +134,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
   return (
     <div className={css.body}>
       <Layout.Vertical spacing="large">
-        {props.withoutHeading ? null : <Heading className={css.title}>{i18n.titleEmail}</Heading>}
+        {props.withoutHeading ? null : <Heading className={css.title}>{getString('notifications.titleEmail')}</Heading>}
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
@@ -149,16 +149,16 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
           {formik => {
             return (
               <FormikForm>
-                <FormInput.TextArea name={'emailIds'} label={i18n.labelEmailIds} />
+                <FormInput.TextArea name={'emailIds'} label={getString('notifications.emailRecipients')} />
                 <FormInput.MultiInput
                   name={'userGroups'}
-                  label={i18n.labelEmailUserGroups}
-                  tagsProps={{ placeholder: getString('pipeline-notifications.userGroupsPlaceholder') }}
+                  label={getString('notifications.labelEmailUserGroups')}
+                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
                 />
                 <Layout.Horizontal style={{ alignItems: 'center' }}>
                   <Popover isOpen={isOpen} onInteraction={setIsOpen}>
                     <Button
-                      text={loading ? <Spinner size={Spinner.SIZE_SMALL} /> : i18n.buttonTest}
+                      text={loading ? <Spinner size={Spinner.SIZE_SMALL} /> : getString('test')}
                       disabled={loading}
                     />
                     <TestEmailConfig handleTest={handleTest} />
@@ -182,8 +182,8 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
                   </Layout.Horizontal>
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || i18n.buttonSubmit} />
-                    <Button text={i18n.buttonCancel} onClick={props.hideModal} />
+                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || getString('submit')} />
+                    <Button text={getString('cancel')} onClick={props.hideModal} />
                   </Layout.Horizontal>
                 )}
               </FormikForm>

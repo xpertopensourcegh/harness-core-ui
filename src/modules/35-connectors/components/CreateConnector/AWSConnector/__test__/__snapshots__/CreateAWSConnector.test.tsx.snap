@@ -834,7 +834,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-top-small StyledProps--padding-bottom-large"
                   >
-                    connectors.authTitle
+                    authentication
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1585,7 +1585,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-top-small StyledProps--padding-bottom-large"
                   >
-                    connectors.authTitle
+                    authentication
                   </p>
                   <div
                     class="bp3-form-group"

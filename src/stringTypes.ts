@@ -25,14 +25,38 @@ export interface StringsMap {
   'common.editVariable': string
   'common.editVariableType': string
   'common.execute': string
+  'common.git.APIAccessDescriptipn': string
+  'common.git.APIAuthentication': string
+  'common.git.applicationId': string
+  'common.git.bitbucketAccountUrl': string
+  'common.git.bitbucketPlaceholderSSH': string
+  'common.git.bitbucketRepoUrl': string
+  'common.git.bitbucketUrlPlaceholder': string
+  'common.git.branchName': string
   'common.git.branchSelectHeader': string
   'common.git.commitMessage': string
+  'common.git.connectionType': string
+  'common.git.enableAPIAccess': string
   'common.git.existingBranchCommitLabel': string
   'common.git.filePath': string
+  'common.git.gitAccountUrl': string
+  'common.git.gitHubAccountUrl': string
+  'common.git.gitHubApp': string
+  'common.git.gitHubRepoUrl': string
+  'common.git.gitHubUrlPlaceholder': string
+  'common.git.gitHubUrlPlaceholderSSH': string
+  'common.git.gitLabAccountUrl': string
+  'common.git.gitLabRepoUrl': string
+  'common.git.gitLabUrlPlaceholder': string
+  'common.git.gitLabUrlPlaceholderSSH': string
+  'common.git.gitRepoUrl': string
+  'common.git.installationId': string
   'common.git.newBranchCommitLabel': string
+  'common.git.privateKey': string
   'common.git.saveResourceLabel': string
   'common.git.selectRepoLabel': string
   'common.git.startPRLabel': string
+  'common.git.urlType': string
   'common.git.validation.filePath': string
   'common.input': string
   'common.jexlExpression': string
@@ -62,6 +86,7 @@ export interface StringsMap {
   'common.purpose.continuous': string
   'common.purpose.cv.description': string
   'common.purpose.cv.subtitle': string
+  'common.purpose.cv.verification': string
   'common.purpose.moduleSuccess': string
   'common.purpose.selectAModule': string
   'common.purpose.setup': string
@@ -88,7 +113,43 @@ export interface StringsMap {
   'common.userGroups': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
+  'notifications.buttonSend': string
+  'notifications.emailRecipients': string
+  'notifications.emailTestSuccess': string
+  'notifications.helpPagerDuty': string
+  'notifications.helpSlack': string
+  'notifications.infoPagerDuty': string
+  'notifications.infoSlack': string
+  'notifications.labelBody': string
+  'notifications.labelEmailUserGroups': string
+  'notifications.labelPDKey': string
+  'notifications.labelPDUserGroups': string
+  'notifications.labelSlackUserGroups': string
+  'notifications.labelSubject': string
+  'notifications.labelTo': string
+  'notifications.labelWebhookUrl': string
   'notifications.name': string
+  'notifications.nameOftheRule': string
+  'notifications.notificationMethod': string
+  'notifications.notificationName': string
+  'notifications.pagerDutyTestSuccess': string
+  'notifications.pagerDutykey': string
+  'notifications.pagerDutyuserGroups': string
+  'notifications.pipelineEvents': string
+  'notifications.selectPipelineEvents': string
+  'notifications.selectStagesPlaceholder': string
+  'notifications.slackTestSuccess': string
+  'notifications.slackuserGroups': string
+  'notifications.slackwebhookUrl': string
+  'notifications.titleEmail': string
+  'notifications.titlePagerDuty': string
+  'notifications.titleSlack': string
+  'notifications.userGroupsPlaceholder': string
+  'notifications.validationBody': string
+  'notifications.validationPDKey': string
+  'notifications.validationSubject': string
+  'notifications.validationTo': string
+  'notifications.validationWebhook': string
   'rbac.activeUsers': string
   'rbac.addRole': string
   'rbac.addUser': string
@@ -139,11 +200,20 @@ export interface StringsMap {
   'connectors.GCS.fullName': string
   'connectors.GCS.name': string
   'connectors.S3': string
+  'connectors.addConnectorDetails': string
+  'connectors.appD.accountName': string
+  'connectors.appD.apiClient': string
+  'connectors.appD.clientId': string
+  'connectors.appD.clientSecret': string
+  'connectors.appD.connectionDetailsHeader': string
+  'connectors.appD.controllerURL': string
+  'connectors.appD.validation.clientId': string
+  'connectors.appD.validation.clientSecret': string
+  'connectors.appD.validation.controllerURL': string
   'connectors.appDynamicsDetails': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
   'connectors.artifactory.artifactoryServerUrl': string
-  'connectors.authTitle': string
   'connectors.aws.accessKey': string
   'connectors.aws.assumeIAMRole': string
   'connectors.aws.awsAccessKey': string
@@ -156,11 +226,37 @@ export interface StringsMap {
   'connectors.aws.validation.delegateSelector': string
   'connectors.aws.validation.secretKeyRef': string
   'connectors.awsCodeCommit.repoUrl': string
+  'connectors.cdng.baseline': string
+  'connectors.cdng.baselineDefaultLabel.lastSuccess': string
+  'connectors.cdng.configureVerificationJob': string
+  'connectors.cdng.continousVerificationStep': string
+  'connectors.cdng.createCVJob': string
+  'connectors.cdng.defineVerificationJob': string
+  'connectors.cdng.deploymentTag': string
+  'connectors.cdng.displayName': string
+  'connectors.cdng.duration': string
+  'connectors.cdng.error': string
+  'connectors.cdng.jobName': string
+  'connectors.cdng.jobTypes.blueGreen': string
+  'connectors.cdng.jobTypes.canary': string
+  'connectors.cdng.jobTypes.health': string
+  'connectors.cdng.jobTypes.test': string
+  'connectors.cdng.loadingJobs': string
+  'connectors.cdng.noJobsConfigured': string
+  'connectors.cdng.selectTheJobNameFirst': string
+  'connectors.cdng.trafficsplit': string
+  'connectors.cdng.verificationSensitivityLabel.high': string
+  'connectors.cdng.verificationSensitivityLabel.low': string
+  'connectors.cdng.verificationSensitivityLabel.medium': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
+  'connectors.connectAndSave': string
+  'connectors.connectorDetails': string
+  'connectors.connectorDetailsHeader': string
   'connectors.connectorNotFound': string
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
+  'connectors.createdSuccessfully': string
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string
   'connectors.docker.dockerRegistryURL': string
@@ -168,31 +264,6 @@ export interface StringsMap {
   'connectors.docker.other': string
   'connectors.docker.quay': string
   'connectors.gcrConnectorDetails': string
-  'connectors.git.APIAccessDescriptipn': string
-  'connectors.git.APIAuthentication': string
-  'connectors.git.accessToken': string
-  'connectors.git.applicationId': string
-  'connectors.git.bitbucketAccountUrl': string
-  'connectors.git.bitbucketPlaceholderSSH': string
-  'connectors.git.bitbucketRepoUrl': string
-  'connectors.git.bitbucketUrlPlaceholder': string
-  'connectors.git.branchName': string
-  'connectors.git.connectionType': string
-  'connectors.git.enableAPIAccess': string
-  'connectors.git.gitAccountUrl': string
-  'connectors.git.gitHubAccountUrl': string
-  'connectors.git.gitHubApp': string
-  'connectors.git.gitHubRepoUrl': string
-  'connectors.git.gitHubUrlPlaceholder': string
-  'connectors.git.gitHubUrlPlaceholderSSH': string
-  'connectors.git.gitLabAccountUrl': string
-  'connectors.git.gitLabRepoUrl': string
-  'connectors.git.gitLabUrlPlaceholder': string
-  'connectors.git.gitLabUrlPlaceholderSSH': string
-  'connectors.git.gitRepoUrl': string
-  'connectors.git.installationId': string
-  'connectors.git.privateKey': string
-  'connectors.git.urlType': string
   'connectors.hashiCorpVault.appRoleId': string
   'connectors.hashiCorpVault.baseSecretPath': string
   'connectors.hashiCorpVault.default': string
@@ -228,7 +299,6 @@ export interface StringsMap {
   'connectors.k8.placeholder.masterUrl': string
   'connectors.k8.serviceAccountToken': string
   'connectors.k8.skipDefaultValidation': string
-  'connectors.label': string
   'connectors.name': string
   'connectors.name_labels.AWS': string
   'connectors.name_labels.AppDynamics': string
@@ -246,12 +316,22 @@ export interface StringsMap {
   'connectors.name_labels.SecretManager': string
   'connectors.name_labels.Splunk': string
   'connectors.newArtifactRepository': string
+  'connectors.newRelic.accountIdFieldLabel': string
+  'connectors.newRelic.accountIdTooltip': string
+  'connectors.newRelic.accountIdValidation': string
+  'connectors.newRelic.encryptedAPIKeyLabel': string
+  'connectors.newRelic.encryptedKeyValidation': string
+  'connectors.newRelic.products.fullStackObservability': string
+  'connectors.newRelic.subTitle': string
+  'connectors.newRelic.urlFieldLabel': string
+  'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.secretManagerDetails': string
   'connectors.selectConnectorLabel': string
   'connectors.specifyArtifactRepo': string
   'connectors.specifyArtifactRepoType': string
+  'connectors.splunk.connectorDetailsHeader': string
   'connectors.splunkConnectorDetails': string
   'connectors.stepFourName': string
   'connectors.stepThreeName': string
@@ -305,7 +385,11 @@ export interface StringsMap {
   'connectors.title.nexus': string
   'connectors.title.secretManager': string
   'connectors.title.splunk': string
+  'connectors.unableToCreateConnector': string
+  'connectors.unableToUpdateConnector': string
+  'connectors.updatedSuccessfully': string
   'connectors.updating': string
+  'connectors.verifyConnection': string
   'userProfile.addSCM': string
   'userProfile.awsCredentials': string
   'userProfile.basicInformation': string
@@ -527,6 +611,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.targets.title': string
   'cd.allowSimultaneousDeployments': string
   'cd.continuousIntegration': string
   'cd.dashboard.createProject': string
@@ -808,7 +893,6 @@ export interface StringsMap {
   'cf.environments.create.envTypeLabel': string
   'cf.environments.create.nameLabel': string
   'cf.environments.create.title': string
-  'cf.environments.createdBy': string
   'cf.environments.delete.message': string
   'cf.environments.delete.title': string
   'cf.environments.empty': string
@@ -1008,7 +1092,6 @@ export interface StringsMap {
   'cf.targets.noTargetFound': string
   'cf.targets.noneDefined': string
   'cf.targets.targetSegment': string
-  'cf.targets.title': string
   'cf.targets.upload': string
   'cf.targets.uploadHeadline': string
   'cf.targets.uploadHelp': string
@@ -1198,56 +1281,6 @@ export interface StringsMap {
   'cv.changesPage.changeSummary': string
   'cv.changesPage.eventCount': string
   'cv.changesPage.viewKubernetesEvents': string
-  'cv.connectors.addConnectorDetails': string
-  'cv.connectors.appD.accountName': string
-  'cv.connectors.appD.apiClient': string
-  'cv.connectors.appD.clientId': string
-  'cv.connectors.appD.clientSecret': string
-  'cv.connectors.appD.connectionDetailsHeader': string
-  'cv.connectors.appD.controllerURL': string
-  'cv.connectors.appD.validation.clientId': string
-  'cv.connectors.appD.validation.clientSecret': string
-  'cv.connectors.appD.validation.controllerURL': string
-  'cv.connectors.cdng.baseline': string
-  'cv.connectors.cdng.baselineDefaultLabel.lastSuccess': string
-  'cv.connectors.cdng.configureVerificationJob': string
-  'cv.connectors.cdng.continousVerificationStep': string
-  'cv.connectors.cdng.createCVJob': string
-  'cv.connectors.cdng.defineVerificationJob': string
-  'cv.connectors.cdng.deploymentTag': string
-  'cv.connectors.cdng.displayName': string
-  'cv.connectors.cdng.duration': string
-  'cv.connectors.cdng.error': string
-  'cv.connectors.cdng.jobName': string
-  'cv.connectors.cdng.jobTypes.blueGreen': string
-  'cv.connectors.cdng.jobTypes.canary': string
-  'cv.connectors.cdng.jobTypes.health': string
-  'cv.connectors.cdng.jobTypes.test': string
-  'cv.connectors.cdng.loadingJobs': string
-  'cv.connectors.cdng.noJobsConfigured': string
-  'cv.connectors.cdng.selectTheJobNameFirst': string
-  'cv.connectors.cdng.trafficsplit': string
-  'cv.connectors.cdng.verificationSensitivityLabel.high': string
-  'cv.connectors.cdng.verificationSensitivityLabel.low': string
-  'cv.connectors.cdng.verificationSensitivityLabel.medium': string
-  'cv.connectors.connectAndSave': string
-  'cv.connectors.connectorDetails': string
-  'cv.connectors.connectorDetailsHeader': string
-  'cv.connectors.createdSuccessfully': string
-  'cv.connectors.newRelic.accountIdFieldLabel': string
-  'cv.connectors.newRelic.accountIdTooltip': string
-  'cv.connectors.newRelic.accountIdValidation': string
-  'cv.connectors.newRelic.encryptedAPIKeyLabel': string
-  'cv.connectors.newRelic.encryptedKeyValidation': string
-  'cv.connectors.newRelic.products.fullStackObservability': string
-  'cv.connectors.newRelic.subTitle': string
-  'cv.connectors.newRelic.urlFieldLabel': string
-  'cv.connectors.newRelic.urlValidation': string
-  'cv.connectors.splunk.connectorDetailsHeader': string
-  'cv.connectors.unableToCreateConnector': string
-  'cv.connectors.unableToUpdateConnector': string
-  'cv.connectors.updatedSuccessfully': string
-  'cv.connectors.verifyConnection': string
   'cv.continuous': string
   'cv.currentProductionRisk': string
   'cv.dashboard.createProject': string
@@ -1365,7 +1398,6 @@ export interface StringsMap {
   'cv.navLinks.adminSideNavLinks.activitySources': string
   'cv.navLinks.adminSideNavLinks.monitoringSources': string
   'cv.navLinks.adminSideNavLinks.setup': string
-  'cv.navLinks.dashboard': string
   'cv.noAnalysis': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
@@ -2213,6 +2245,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  connectorsLabel: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   consoleView: string
   /**
    * @deprecated migrate this string to module level file
@@ -2281,6 +2317,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  createdBy: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   creationTimestamp: string
   /**
    * @deprecated migrate this string to module level file
@@ -2310,6 +2350,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'customVariables.variableAndType': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  dashboardLabel: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4197,6 +4241,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  personalAccessToken: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   pickProject: string
   /**
    * @deprecated migrate this string to module level file
@@ -4226,70 +4274,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipeline-list.readyToRun': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.emailRecipients': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.emailTestSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.emailUserGroups': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.nameOftheRule': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.notificationMethod': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.notificationName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.pagerDutyTestSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.pagerDutykey': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.pagerDutyuserGroups': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.pipelineEvents': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.selectPipelineEvents': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.selectStagesPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.slackTestSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.slackuserGroups': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.slackwebhookUrl': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-notifications.userGroupsPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5393,10 +5377,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.regionLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.regionPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
@@ -5866,6 +5846,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   refrencedBy: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  regionLabel: string
   /**
    * @deprecated migrate this string to module level file
    */

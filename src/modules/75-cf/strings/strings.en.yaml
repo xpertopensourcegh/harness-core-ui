@@ -198,7 +198,6 @@ featureFlags:
 featureFlagDetail:
   variationCount: '{{ count }} variations'
 targets:
-  title: Targets
   ID: '{{ $.common.ID }}'
   name: name
   targetSegment: Target Segment
@@ -272,7 +271,6 @@ segments:
 environments:
   title: '{{ $.environments }}'
   empty: 'There are currently no environments'
-  createdBy: 'Created by'
   modifiedBy: 'Modified by'
   adminEnvironments: 'Admin: Environments'
   delete:

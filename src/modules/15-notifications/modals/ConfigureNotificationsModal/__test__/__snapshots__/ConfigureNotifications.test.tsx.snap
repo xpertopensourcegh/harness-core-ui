@@ -11,7 +11,7 @@ exports[`ConfigureNotifications Email 1`] = `
       <h1
         class="StyledProps--font StyledProps--font-h1 StyledProps--main title"
       >
-        Setup Email Notifications
+        notifications.titleEmail
       </h1>
       <form
         class="FormikForm--main"
@@ -25,7 +25,7 @@ exports[`ConfigureNotifications Email 1`] = `
               class="bp3-label"
               for="emailIds"
             >
-              Type emails of your recipients
+              notifications.emailRecipients
                
               <span
                 class="bp3-text-muted"
@@ -51,7 +51,7 @@ exports[`ConfigureNotifications Email 1`] = `
               class="bp3-label"
               for="userGroups"
             >
-              Email all members of these user groups
+              notifications.labelEmailUserGroups
                
               <span
                 class="bp3-text-muted"
@@ -69,7 +69,7 @@ exports[`ConfigureNotifications Email 1`] = `
                   <input
                     class="bp3-input-ghost"
                     data-mentions="multi-input-userGroups}"
-                    placeholder="pipeline-notifications.userGroupsPlaceholder"
+                    placeholder="notifications.userGroupsPlaceholder"
                     value=""
                   />
                 </div>
@@ -93,7 +93,7 @@ exports[`ConfigureNotifications Email 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Test
+                    test
                   </span>
                 </button>
               </span>
@@ -109,7 +109,7 @@ exports[`ConfigureNotifications Email 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Submit
+                submit
               </span>
             </button>
             <button
@@ -119,7 +119,7 @@ exports[`ConfigureNotifications Email 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Cancel
+                cancel
               </span>
             </button>
           </div>
@@ -167,17 +167,17 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
       <h1
         class="StyledProps--font StyledProps--font-h1 StyledProps--main title"
       >
-        Setup PagerDuty Notifications
+        notifications.titlePagerDuty
       </h1>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Enter the key for a PagerDuty Account/Service to which Harness can send notifications. You can copy/paste this key from PagerDuty's Configuration &gt; Services &gt; Service Details dialog &gt; Integrations tab.
+        notifications.helpPagerDuty
       </p>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        For more details, see PagerDuty's documentation on Creating Integrations.
+        notifications.infoPagerDuty
       </p>
       <form
         class="FormikForm--main"
@@ -191,7 +191,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               class="bp3-label"
               for="key"
             >
-              PagerDuty Key
+              notifications.labelPDKey
                
               <span
                 class="bp3-text-muted"
@@ -224,7 +224,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Test
+                test
               </span>
             </button>
           </div>
@@ -236,7 +236,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               class="bp3-label"
               for="userGroups"
             >
-              Alternatively, Notify the PagerDuty keys associated with these user groups
+              notifications.labelPDUserGroups
                
               <span
                 class="bp3-text-muted"
@@ -254,7 +254,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
                   <input
                     class="bp3-input-ghost"
                     data-mentions="multi-input-userGroups}"
-                    placeholder="pipeline-notifications.userGroupsPlaceholder"
+                    placeholder="notifications.userGroupsPlaceholder"
                     value=""
                   />
                 </div>
@@ -271,7 +271,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Submit
+                submit
               </span>
             </button>
             <button
@@ -281,7 +281,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Cancel
+                cancel
               </span>
             </button>
           </div>
@@ -342,17 +342,17 @@ exports[`ConfigureNotifications Slack 1`] = `
       <h1
         class="StyledProps--font StyledProps--font-h1 StyledProps--main title"
       >
-        Setup Slack Notifications
+        notifications.titleSlack
       </h1>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        You can receive Harness notifications in your Slack channels. You simply add a Slack Incoming Webhook into a Harness User Groups' Notification Settings.
+        notifications.helpSlack
       </p>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        For more details, see Slack’s doucmentation Getting Started with Incoming Webhooks.
+        notifications.infoSlack
       </p>
       <form
         class="FormikForm--main"
@@ -366,7 +366,7 @@ exports[`ConfigureNotifications Slack 1`] = `
               class="bp3-label"
               for="webhookUrl"
             >
-              Slack Webhook URL
+              notifications.labelWebhookUrl
                
               <span
                 class="bp3-text-muted"
@@ -399,7 +399,7 @@ exports[`ConfigureNotifications Slack 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Test
+                test
               </span>
             </button>
           </div>
@@ -411,7 +411,7 @@ exports[`ConfigureNotifications Slack 1`] = `
               class="bp3-label"
               for="userGroups"
             >
-              Alternatively, Notify the Slack Channels associated with these user groups
+              notifications.labelSlackUserGroups
                
               <span
                 class="bp3-text-muted"
@@ -429,7 +429,7 @@ exports[`ConfigureNotifications Slack 1`] = `
                   <input
                     class="bp3-input-ghost"
                     data-mentions="multi-input-userGroups}"
-                    placeholder="pipeline-notifications.userGroupsPlaceholder"
+                    placeholder="notifications.userGroupsPlaceholder"
                     value=""
                   />
                 </div>
@@ -446,7 +446,7 @@ exports[`ConfigureNotifications Slack 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Submit
+                submit
               </span>
             </button>
             <button
@@ -456,7 +456,7 @@ exports[`ConfigureNotifications Slack 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Cancel
+                cancel
               </span>
             </button>
           </div>
