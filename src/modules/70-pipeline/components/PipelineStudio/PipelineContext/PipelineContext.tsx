@@ -273,6 +273,7 @@ const _softFetchPipeline = async (
   queryParams: GetPipelineQueryParams,
   pipelineId: string,
   originalPipeline: PipelineInfoConfig,
+  pipeline: PipelineInfoConfig,
   pipelineView: PipelineReducerState['pipelineView'],
   selectionState: PipelineReducerState['selectionState']
 ): Promise<void> => {
@@ -284,7 +285,7 @@ const _softFetchPipeline = async (
   )
   if (IdbPipeline) {
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
-    if (data?.pipeline) {
+    if (data?.pipeline && !isEqual(data.pipeline, pipeline)) {
       const isUpdated = !isEqual(originalPipeline, data.pipeline)
       if (!isEmpty(selectionState.selectedStageId) && selectionState.selectedStageId) {
         const stage = _getStageFromPipeline(selectionState.selectedStageId, data.pipeline).stage
@@ -540,6 +541,7 @@ export const PipelineProvider: React.FC<{
       queryParams,
       pipelineIdentifier,
       state.originalPipeline,
+      state.pipeline,
       state.pipelineView,
       state.selectionState
     )

@@ -157,7 +157,7 @@ export const mayBeStripCIProps = (pipeline: StageElementWrapper): boolean => {
     (stage: StageElementWrapper) => (stage as StageElementWrapper).stage.type !== 'CI'
   )
   if (areCIStagesAbsent) {
-    const props = Object.keys(pipeline.properties)
+    const props = Object.keys(pipeline.properties || {})
     // figure out if only properties that are left is related to ci
     const isCIOnly = props.length === 1 && props[0] === 'ci'
     if (isCIOnly) {
