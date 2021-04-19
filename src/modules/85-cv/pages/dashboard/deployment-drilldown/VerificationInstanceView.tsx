@@ -9,6 +9,7 @@ import {
 } from 'services/cv'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { DeploymentProgressAndNodes } from '@cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { NodeData } from '../../services/BlueGreenVerificationChart'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
@@ -39,7 +40,7 @@ export default function VerificationInstanceView({
   const prevProps = useRef<any>({})
   const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
 
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
 
   const {

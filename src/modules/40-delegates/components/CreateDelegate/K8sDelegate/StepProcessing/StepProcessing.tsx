@@ -6,6 +6,7 @@ import { useStrings } from 'framework/exports'
 import { useHeartbeat } from 'services/portal'
 import type { StepK8Data } from '@delegates/DelegateInterface'
 import { POLL_INTERVAL, TIME_OUT } from '@delegates/constants'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import DelegateInstallationError from '../DelegateInstallationError/DelegateInstallationError'
 import DelegateInitialization from '../DelegateInitialization/DelegateInitialization'
 
@@ -14,7 +15,7 @@ import css from '../CreateK8sDelegate.module.scss'
 let counter = 0
 
 const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const [showSuccess, setShowSuccess] = React.useState(false)
   const [showError, setShowError] = React.useState(false)

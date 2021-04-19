@@ -6,6 +6,7 @@ import { getModuleDescription, getModuleIcon, getModulePurpose } from '@projects
 import type { ModuleName } from 'framework/exports'
 import { usePutProject, Project } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './ModuleEnableCard.module.scss'
 
 interface ModuleEnableCardProps {
@@ -15,7 +16,7 @@ interface ModuleEnableCardProps {
 }
 
 const ModuleEnableCard: React.FC<ModuleEnableCardProps> = ({ data, module, refetchProject }) => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
 
   const { mutate: updateProject } = usePutProject({

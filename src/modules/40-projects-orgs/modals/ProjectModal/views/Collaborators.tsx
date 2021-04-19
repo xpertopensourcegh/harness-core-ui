@@ -29,7 +29,7 @@ import { regexEmail } from '@common/utils/StringUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetRoleList } from 'services/rbac'
-
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
@@ -52,7 +52,7 @@ const CustomSelect = Select.ofType<SelectOption>()
 
 const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { projectIdentifier, orgIdentifier, showManage = true } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
 
   const [search, setSearch] = useState<string>()

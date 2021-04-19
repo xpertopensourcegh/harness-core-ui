@@ -11,13 +11,14 @@ import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/Org
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import { useStrings } from 'framework/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import i18n from './OrganizationsPage.i18n'
 import css from './OrganizationsPage.module.scss'
 
 const OrganizationsPage: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const [searchParam, setSearchParam] = useState<string>()
   const history = useHistory()
   const { getString } = useStrings()

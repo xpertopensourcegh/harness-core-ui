@@ -7,6 +7,7 @@ import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { PageSpinner } from '@common/components'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import ProjectForm from './ProjectForm'
 
 interface EditModalData {
@@ -20,7 +21,7 @@ interface EditModalData {
 const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
   const { prevStepData, nextStep, identifier, orgIdentifier, closeModal, onSuccess, isStep } = props
   const [version, setVersion] = useState<string>()
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
   const projectIdentifier = isStep ? prevStepData?.identifier : identifier
   const organizationIdentifier = isStep ? prevStepData?.orgIdentifier : orgIdentifier

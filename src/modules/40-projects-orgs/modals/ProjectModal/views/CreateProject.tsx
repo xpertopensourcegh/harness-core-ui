@@ -8,6 +8,7 @@ import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useQueryParams } from '@common/hooks'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
@@ -17,7 +18,7 @@ interface CreateModalData {
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { nextStep, onSuccess, modules } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { orgId: orgIdentifier } = useQueryParams()
   const { showSuccess } = useToaster()
   const { mutate: createProject, loading: saving } = usePostProject({

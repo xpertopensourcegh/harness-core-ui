@@ -10,6 +10,7 @@ import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useToaster } from '@common/exports'
 import { ModuleName } from 'framework/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
@@ -132,7 +133,7 @@ const getModuleLinks = (
 
 const PurposeList: React.FC<ProjectModalData> = props => {
   const { data: projectData, onSuccess } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { showSuccess, showError } = useToaster()

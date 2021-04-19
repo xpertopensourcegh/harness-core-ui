@@ -5,13 +5,14 @@ import { pick } from 'lodash-es'
 import type { Organization } from 'services/cd-ng'
 import { usePostOrganization } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './StepAboutOrganization.i18n'
 import OrganizationForm from './OrganizationForm'
 import type { OrgModalData } from './StepAboutOrganization'
 
 const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = props => {
   const { nextStep, onSuccess } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
   const { mutate: createOrganization } = usePostOrganization({
     queryParams: {

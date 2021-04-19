@@ -8,6 +8,7 @@ import { ModuleName, useStrings } from 'framework/exports'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 interface ContextMenuProps {
   project: Project
@@ -20,7 +21,7 @@ interface ContextMenuProps {
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
   const history = useHistory()
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
 

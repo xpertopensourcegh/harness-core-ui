@@ -4,6 +4,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useStrings } from 'framework/exports'
 import { Project, useDeleteProject } from 'services/cd-ng'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import i18n from './DeleteProject.i18n'
 interface UseDeleteProjectDialogReturn {
@@ -11,7 +12,7 @@ interface UseDeleteProjectDialogReturn {
 }
 
 const useDeleteProjectDialog = (data: Project, onSuccess: () => void): UseDeleteProjectDialogReturn => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { mutate: deleteProject } = useDeleteProject({
     queryParams: {
       accountIdentifier: accountId,

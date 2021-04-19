@@ -15,6 +15,7 @@ import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useColl
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -29,7 +30,7 @@ const allOrgsSelectOption: SelectOption = {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { orgId } = useQueryParams()
   const { getString } = useStrings()
   useDocumentTitle(getString('projectsText'))

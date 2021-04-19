@@ -6,6 +6,7 @@ import Highcharts from 'highcharts'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { RestResponseSortedSetLogDataByTag, useGetTagCount, useGetTagCountForActivity } from 'services/cv'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
 import { categoryNameToCategoryType } from '../../../CVServicePageUtils'
 import i18n from './LogAnalysisFrequencyChart.i18n'
@@ -136,7 +137,7 @@ export function ActivityLogAnalysisFrequencyChart({
   startTime,
   endTime
 }: ActivityLogAnalysisFrequencyChartProps): React.ReactElement {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { data } = useGetTagCountForActivity({
     activityId,
     queryParams: {

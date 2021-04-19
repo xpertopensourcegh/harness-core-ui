@@ -15,6 +15,7 @@ import CERenderer from '@projects-orgs/components/ModuleRenderer/ce/CERenderer'
 import CFRenderer from '@projects-orgs/components/ModuleRenderer/cf/CFRenderer'
 import useDeleteProjectDialog from '@projects-orgs/pages/projects/DeleteProject'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './ProjectCard.module.scss'
 
 export interface ProjectCardProps {
@@ -36,7 +37,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     harnessManagedOrg
   } = projectAggregateDTO
   const data = projectResponse.project || null
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const history = useHistory()
   const onDeleted = (): void => {

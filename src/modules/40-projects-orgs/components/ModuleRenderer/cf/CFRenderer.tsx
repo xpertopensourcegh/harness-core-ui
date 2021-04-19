@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../ModuleRenderer.module.scss'
 
 interface CFRendererProps {
@@ -13,7 +14,7 @@ interface CFRendererProps {
 const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
 
   return (
     <Container

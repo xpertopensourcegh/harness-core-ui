@@ -6,6 +6,7 @@ import { Organization, useGetOrganization } from 'services/cd-ng'
 import { usePutOrganization } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { PageSpinner } from '@common/components'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import OrganizationForm from './OrganizationForm'
 
 import i18n from './StepAboutOrganization.i18n'
@@ -19,7 +20,7 @@ interface EditModalData {
 
 const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = props => {
   const { prevStepData, nextStep, onSuccess, identifier, isStep } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
   const [version, setVersion] = useState<string>()
   const orgIdentifier = isStep ? prevStepData?.identifier : identifier

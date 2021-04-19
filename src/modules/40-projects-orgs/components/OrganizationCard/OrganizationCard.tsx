@@ -11,6 +11,7 @@ import { useStrings } from 'framework/exports'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
@@ -26,7 +27,7 @@ interface OrganizationCardProps {
 
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const { data: organizationAggregateDTO, isPreview, onClick, editOrg, reloadOrgs, inviteCollab } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
   const {
     organizationResponse: { organization: data, harnessManaged: isHarnessManaged },

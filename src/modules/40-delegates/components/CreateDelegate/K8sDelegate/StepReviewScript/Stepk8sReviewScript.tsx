@@ -7,11 +7,12 @@ import { useToaster } from '@common/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { useGenerateKubernetesYaml } from 'services/portal'
 import type { StepK8Data } from '@delegates/DelegateInterface'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../CreateK8sDelegate.module.scss'
 
 const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
   const { mutate: downloadYaml } = useGenerateKubernetesYaml({ queryParams: { accountId, fileFormat: 'text/plain' } })
   const linkRef = React.useRef<HTMLAnchorElement>(null)

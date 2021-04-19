@@ -3,6 +3,7 @@ import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { Project, ProjectAggregateDTO, ResponsePageProjectAggregateDTO } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
@@ -159,7 +160,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const { data, showEditProject, collaborators, gotoPage, reloadPage } = props
   const history = useHistory()
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
 
   const columns: CustomColumn<ProjectAggregateDTO>[] = useMemo(

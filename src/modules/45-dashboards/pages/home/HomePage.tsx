@@ -27,6 +27,7 @@ import { useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 
 import routes from '@common/RouteDefinitions'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import css from './HomePage.module.scss'
 
@@ -46,7 +47,7 @@ interface DashboardInterface {
 
 const FirstStep = (props: any): JSX.Element => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const [errorMessage, setErrorMessage] = React.useState('')
   const history = useHistory()
   const { mutate: createDashboard, loading } = useMutate({
@@ -184,7 +185,7 @@ const FirstStep = (props: any): JSX.Element => {
 
 const HomePage: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const history = useHistory()
   const [_dashboardList, _setDashboardList] = React.useState<DashboardInterface[]>([])
   const [filteredDashboardList, setFilteredList] = React.useState<DashboardInterface[]>([])

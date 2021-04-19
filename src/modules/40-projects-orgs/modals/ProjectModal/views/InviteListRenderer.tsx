@@ -8,6 +8,7 @@ import { useToaster } from '@common/exports'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useDeleteInvite, useUpdateInvite, Invite } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import css from './Steps.module.scss'
 
@@ -23,7 +24,7 @@ const CustomSelect = Select.ofType<SelectOption>()
 
 const InviteListRenderer: React.FC<InviteListProps> = props => {
   const { user, reload, roles } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const [approved, setApproved] = useState<boolean>(false)
   const { mutate: deleteInvite } = useDeleteInvite({})
