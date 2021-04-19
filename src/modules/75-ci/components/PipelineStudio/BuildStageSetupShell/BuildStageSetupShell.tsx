@@ -52,20 +52,25 @@ export default function BuildStageSetupShell(): JSX.Element {
     state: {
       pipeline,
       originalPipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId = '' },
-        isSplitViewOpen
-      },
-      pipelineView
+      pipelineView: { isSplitViewOpen },
+      pipelineView,
+      selectionState: { selectedStageId = '', selectedStepId }
     },
     stepsFactory,
     getStageFromPipeline,
     updatePipelineView,
     isReadonly,
-    updatePipeline
+    updatePipeline,
+    setSelectedStepId
   } = React.useContext(PipelineContext)
 
   const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
+
+  React.useEffect(() => {
+    if (selectedStepId) {
+      setSelectedTabId(getString('executionText'))
+    }
+  }, [selectedStepId])
 
   React.useEffect(() => {
     // @TODO: add CI Codebase field check if Clone Codebase is checked
@@ -316,6 +321,10 @@ export default function BuildStageSetupShell(): JSX.Element {
                   }
                 })
               }}
+              onSelectStep={(stepId: string) => {
+                setSelectedStepId(stepId)
+              }}
+              selectedStepId={selectedStepId}
             />
           }
         />

@@ -13,7 +13,7 @@ import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
 import { TabTypes } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
-import { addService, addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
+import { addService, addStepOrGroup, generateRandomString, getStepFromId } from '../ExecutionGraph/ExecutionGraphUtil'
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
@@ -36,23 +36,24 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
       pipeline,
-      pipelineView: {
-        drawerData,
-        isDrawerOpened,
-        splitViewData: { selectedStageId, stageType }
-      },
-      pipelineView
+      pipelineView: { drawerData, isDrawerOpened },
+      pipelineView,
+      selectionState: { selectedStageId, selectedStepId }
     },
     isReadonly,
     updatePipeline,
     updateStage,
     updatePipelineView,
     getStageFromPipeline,
-    stepsFactory
+    stepsFactory,
+    setSelectedStepId
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
+
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const domain = selectedStage?.stage?.type
+  const stageType = selectedStage?.stage?.type
+
   let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const { getString } = useStrings()
@@ -94,6 +95,53 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         title = null
     }
   }
+
+  React.useEffect(() => {
+    if (selectedStepId && selectedStage) {
+      let step: ExecutionWrapper | undefined
+      let drawerType = DrawerTypes.StepConfig
+      // 1. search for step in execution
+      const execStep = getStepFromId(selectedStage?.stage?.spec?.execution, selectedStepId, false, false)
+      step = execStep.node
+      if (!step) {
+        drawerType = DrawerTypes.ConfigureService
+        // 2. search for step in serviceDependencies
+        const depStep = selectedStage?.stage?.spec?.serviceDependencies?.find(
+          (item: any) => item.identifier === selectedStepId
+        )
+        step = depStep
+      }
+
+      // 3. if we find step open right drawer
+      if (step) {
+        updatePipelineView({
+          ...pipelineView,
+          isDrawerOpened: true,
+          drawerData: {
+            type: drawerType,
+            data: {
+              stepConfig: {
+                node: step,
+                stepsMap: data?.paletteData?.stepsMap || new Map(),
+                onUpdate: data?.paletteData?.onUpdate,
+                isStepGroup: false,
+                addOrEdit: 'edit',
+                hiddenAdvancedPanels: data?.paletteData?.hiddenAdvancedPanels
+              }
+            }
+          }
+        })
+      } else {
+        updatePipelineView({
+          ...pipelineView,
+          isDrawerOpened: false,
+          drawerData: {
+            type: DrawerTypes.AddStep
+          }
+        })
+      }
+    }
+  }, [selectedStepId, selectedStage])
 
   const updateStepWithinStage = (
     execution: ExecutionElementConfig,
@@ -196,6 +244,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         isDrawerOpened: false,
         drawerData: { type: DrawerTypes.StepConfig }
       })
+      setSelectedStepId(undefined)
     }
   }
 
@@ -279,6 +328,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         }
 
         updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+        setSelectedStepId(undefined)
       }}
       usePortal={true}
       autoFocus={true}
@@ -307,6 +357,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           icon="cross"
           onClick={() => {
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+            setSelectedStepId(undefined)
           }}
         />
       ) : null}

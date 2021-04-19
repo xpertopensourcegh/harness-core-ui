@@ -37,7 +37,9 @@ export const SaveCacheS3StepBase = (
   formikRef: StepFormikFowardRef<SaveCacheS3StepData>
 ): JSX.Element => {
   const {
-    state: { pipelineView },
+    state: {
+      selectionState: { selectedStageId }
+    },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -50,7 +52,7 @@ export const SaveCacheS3StepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
   const archiveFormatOptions = [
     { label: 'tar', value: 'tar' },

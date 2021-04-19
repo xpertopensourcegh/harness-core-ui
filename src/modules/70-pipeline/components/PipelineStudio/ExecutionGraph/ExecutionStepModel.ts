@@ -51,6 +51,8 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
 }
 
 export class ExecutionStepModel extends DiagramModel {
+  protected selectedNodeId?: string | undefined
+
   constructor() {
     super({
       gridSize: 100,
@@ -59,6 +61,10 @@ export class ExecutionStepModel extends DiagramModel {
       gapX: 200,
       gapY: 140
     })
+  }
+
+  setSelectedNodeId(selectedNodeId?: string) {
+    this.selectedNodeId = selectedNodeId
   }
 
   setGridStyle(style: GridStyleInterface): void {
@@ -149,7 +155,8 @@ export class ExecutionStepModel extends DiagramModel {
           isInComplete: isCustomGeneratedString(service.identifier),
           draggable: true,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
-          showPorts: false
+          showPorts: false,
+          selected: this.selectedNodeId === service.identifier
         })
 
         this.addNode(nodeRender)
@@ -209,7 +216,8 @@ export class ExecutionStepModel extends DiagramModel {
               draggable: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
-              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
+              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+              selected: this.selectedNodeId === node.step.identifier
             })
           : nodeType === ExecutionPipelineNodeType.ICON
           ? new IconNodeModel({
@@ -225,7 +233,8 @@ export class ExecutionStepModel extends DiagramModel {
               iconSize: 70,
               iconStyle: {
                 marginBottom: '38px'
-              }
+              },
+              selected: this.selectedNodeId === node.step.identifier
             })
           : new DefaultNodeModel({
               identifier: node.step.identifier,
@@ -236,7 +245,8 @@ export class ExecutionStepModel extends DiagramModel {
               skipCondition: node.step.skipCondition,
               draggable: !isReadonly,
               canDelete: !isReadonly,
-              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
+              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+              selected: this.selectedNodeId === node.step.identifier
             })
 
       this.addNode(nodeRender)

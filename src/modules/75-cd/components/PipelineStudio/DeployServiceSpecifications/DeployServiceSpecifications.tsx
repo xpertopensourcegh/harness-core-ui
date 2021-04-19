@@ -91,9 +91,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const {
     state: {
       pipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     isReadonly,
     getStageFromPipeline,

@@ -26,9 +26,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   const {
     state: {
       pipeline: { stages = [] },
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     stepsFactory,
     isReadonly,

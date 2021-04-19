@@ -14,7 +14,7 @@ import { PipelineStudioView } from '../../PipelineUtils'
 
 const pipelineContext: PipelineContextInterface = {
   updatePipeline: jest.fn(),
-  state: { pipeline, pipelineView: { splitViewData: {} } } as any,
+  state: { pipeline, pipelineView: { splitViewData: {} }, selectionState: {} } as any,
   stepsFactory: factory,
   stagesMap: {},
   isReadonly: false,
@@ -28,7 +28,9 @@ const pipelineContext: PipelineContextInterface = {
   setYamlHandler: jest.fn(),
   runPipeline: jest.fn(),
   updateStage: jest.fn(),
-  pipelineSaved: jest.fn()
+  pipelineSaved: jest.fn(),
+  setSelectedStageId: jest.fn(),
+  setSelectedStepId: jest.fn()
 }
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (

@@ -102,9 +102,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     state: {
       pipeline,
       originalPipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     isReadonly,
     updatePipeline,
@@ -135,6 +133,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
       updatePipeline(pipeline)
     }
+
+    setProvisionerEnabled(false)
   }
 
   const infraSpec = get(stage, 'stage.spec.infrastructure', null)

@@ -40,8 +40,9 @@ export const RestoreCacheGCSStepBase = (
   formikRef: StepFormikFowardRef<RestoreCacheGCSStepData>
 ): JSX.Element => {
   const {
-    state: { pipelineView },
-
+    state: {
+      selectionState: { selectedStageId }
+    },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -54,7 +55,7 @@ export const RestoreCacheGCSStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
   const archiveFormatOptions = [
     { label: 'tar', value: 'tar' },

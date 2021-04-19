@@ -4,7 +4,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { RightDrawer } from '../RightDrawer'
 import { DrawerTypes, PipelineViewData, SplitViewTypes } from '../../PipelineContext/PipelineActions'
 import { PipelineContext } from '../../PipelineContext/PipelineContext'
-import { StageTypes } from '../../Stages/StageTypes'
 import { getDummyPipelineContextValue } from './RightDrawerTestHelper'
 
 jest.mock('framework/exports', () => ({
@@ -34,13 +33,13 @@ describe('Right Drawer tests', () => {
       isSplitViewOpen: false,
       isDrawerOpened: true,
       splitViewData: {
-        selectedStageId: 'ApprovalStageId',
-        type: SplitViewTypes.StageView,
-        stageType: StageTypes.APPROVAL
+        type: SplitViewTypes.StageView
       },
       drawerData: { type: DrawerTypes.SkipCondition }
     }
-    const pipelineContextMockValue = getDummyPipelineContextValue(skipConditionPipelineView)
+    const pipelineContextMockValue = getDummyPipelineContextValue(skipConditionPipelineView, {
+      selectedStageId: 'ApprovalStageId'
+    })
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={pipelineContextMockValue}>
@@ -57,13 +56,13 @@ describe('Right Drawer tests', () => {
       isSplitViewOpen: false,
       isDrawerOpened: true,
       splitViewData: {
-        selectedStageId: 'ApprovalStageId',
-        type: SplitViewTypes.StageView,
-        stageType: StageTypes.APPROVAL
+        type: SplitViewTypes.StageView
       },
       drawerData: { type: DrawerTypes.FailureStrategy }
     }
-    const pipelineContextMockValue = getDummyPipelineContextValue(skipConditionPipelineView)
+    const pipelineContextMockValue = getDummyPipelineContextValue(skipConditionPipelineView, {
+      selectedStageId: 'ApprovalStageId'
+    })
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={pipelineContextMockValue}>

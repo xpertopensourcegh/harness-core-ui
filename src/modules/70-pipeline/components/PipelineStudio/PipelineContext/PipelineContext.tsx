@@ -34,11 +34,13 @@ import {
   initialState,
   PipelineReducer,
   PipelineViewData,
-  DrawerTypes
+  DrawerTypes,
+  SelectionState
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
 import { PipelineStudioView } from '../PipelineUtils'
+import { usePipelineQuestParamState } from '../PipelineQueryParamState/usePipelineQueryParam'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -158,6 +160,8 @@ export interface PipelineContextInterface {
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: PipelineInfoConfig) => void
   updateStage: (stage: StageElementConfig) => Promise<void>
+  setSelectedStageId: (selectedStageId: string | undefined) => void
+  setSelectedStepId: (selectedStepId: string | undefined) => void
 }
 
 interface PipelinePayload {
@@ -269,7 +273,8 @@ const _softFetchPipeline = async (
   queryParams: GetPipelineQueryParams,
   pipelineId: string,
   originalPipeline: PipelineInfoConfig,
-  pipelineView: PipelineReducerState['pipelineView']
+  pipelineView: PipelineReducerState['pipelineView'],
+  selectionState: PipelineReducerState['selectionState']
 ): Promise<void> => {
   const id = getId(
     queryParams.accountIdentifier,
@@ -281,8 +286,8 @@ const _softFetchPipeline = async (
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
     if (data?.pipeline) {
       const isUpdated = !isEqual(originalPipeline, data.pipeline)
-      if (!isEmpty(pipelineView.splitViewData?.selectedStageId) && pipelineView.splitViewData.selectedStageId) {
-        const stage = _getStageFromPipeline(pipelineView.splitViewData.selectedStageId, data.pipeline).stage
+      if (!isEmpty(selectionState.selectedStageId) && selectionState.selectedStageId) {
+        const stage = _getStageFromPipeline(selectionState.selectedStageId, data.pipeline).stage
         if (isNil(stage)) {
           dispatch(
             PipelineContextActions.success({
@@ -422,7 +427,9 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   setYamlHandler: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
   pipelineSaved: () => undefined,
-  deletePipelineCache: () => new Promise<void>(() => undefined)
+  deletePipelineCache: () => new Promise<void>(() => undefined),
+  setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
+  setSelectedStepId: (_selectedStepId: string | undefined) => undefined
 })
 
 export const PipelineProvider: React.FC<{
@@ -436,6 +443,7 @@ export const PipelineProvider: React.FC<{
   const [state, dispatch] = React.useReducer(PipelineReducer, initialState)
   const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   state.pipelineIdentifier = pipelineIdentifier
+
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
 
@@ -471,6 +479,27 @@ export const PipelineProvider: React.FC<{
   const updatePipelineView = React.useCallback((data: PipelineViewData) => {
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
+
+  // stage/step selection
+  const queryParamStateSelection = usePipelineQuestParamState()
+  const setSelectedStageId = (selectedStageId: string | undefined) => {
+    queryParamStateSelection.setPipelineQuestParamState({ stageId: selectedStageId })
+  }
+  const setSelectedStepId = (selectedStepId: string | undefined) => {
+    queryParamStateSelection.setPipelineQuestParamState({ stepId: selectedStepId })
+  }
+
+  const updateSelectionState = React.useCallback((data: SelectionState) => {
+    dispatch(PipelineContextActions.updateSelectionState({ selectionState: data }))
+  }, [])
+
+  React.useEffect(() => {
+    updateSelectionState({
+      selectedStageId: queryParamStateSelection.stageId as string,
+      selectedStepId: queryParamStateSelection.stepId as string
+    })
+  }, [queryParamStateSelection.stepId, queryParamStateSelection.stageId])
+
   const getStageFromPipeline = React.useCallback(
     (stageId: string, pipeline?: PipelineInfoConfig) => {
       const localPipeline = pipeline || state.pipeline
@@ -506,7 +535,14 @@ export const PipelineProvider: React.FC<{
   )
 
   useGlobalEventListener('focus', () => {
-    _softFetchPipeline(dispatch, queryParams, pipelineIdentifier, state.originalPipeline, state.pipelineView)
+    _softFetchPipeline(
+      dispatch,
+      queryParams,
+      pipelineIdentifier,
+      state.originalPipeline,
+      state.pipelineView,
+      state.selectionState
+    )
   })
 
   React.useEffect(() => {
@@ -538,7 +574,9 @@ export const PipelineProvider: React.FC<{
         pipelineSaved,
         deletePipelineCache,
         isReadonly,
-        setYamlHandler
+        setYamlHandler,
+        setSelectedStageId,
+        setSelectedStepId
       }}
     >
       {children}

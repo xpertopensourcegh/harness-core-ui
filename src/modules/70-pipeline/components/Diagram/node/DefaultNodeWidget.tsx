@@ -110,6 +110,12 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
     }
   }, [addClicked])
 
+  React.useEffect(() => {
+    if (options.selected !== props.node.isSelected()) {
+      props.node.setSelected(options.selected)
+    }
+  }, [options.selected])
+
   return (
     <div
       className={css.defaultNode}

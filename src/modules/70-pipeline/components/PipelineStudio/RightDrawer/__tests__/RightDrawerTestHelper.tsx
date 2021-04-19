@@ -1,6 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
-import type { PipelineViewData } from '../../PipelineContext/PipelineActions'
+import type { PipelineViewData, SelectionState } from '../../PipelineContext/PipelineActions'
 import type { PipelineContextInterface } from '../../PipelineContext/PipelineContext'
 import { StageTypes } from '../../Stages/StageTypes'
 
@@ -55,7 +55,7 @@ const stagesMap = {
   }
 }
 
-export const getPipelineContextMock = (pipelineView: PipelineViewData) => ({
+export const getPipelineContextMock = (pipelineView: PipelineViewData, selectionState: SelectionState = {}) => ({
   state: {
     pipeline: {
       name: 'Pipeline',
@@ -98,14 +98,18 @@ export const getPipelineContextMock = (pipelineView: PipelineViewData) => ({
     isDBInitialized: true,
     isUpdated: true,
     isInitialized: true,
-    error: ''
+    error: '',
+    selectionState
   },
   stepsFactory: stepFactory,
   stagesMap
 })
 
-export const getDummyPipelineContextValue = (pipelineView: any): PipelineContextInterface => {
-  const pipelineContextMock = getPipelineContextMock(pipelineView)
+export const getDummyPipelineContextValue = (
+  pipelineView: any,
+  selectionState?: SelectionState
+): PipelineContextInterface => {
+  const pipelineContextMock = getPipelineContextMock(pipelineView, selectionState)
   return {
     ...pipelineContextMock,
     updatePipeline: jest.fn(),

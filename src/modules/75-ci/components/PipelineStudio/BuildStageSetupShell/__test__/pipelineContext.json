@@ -113,9 +113,10 @@
     "pipelineView": {
       "isSplitViewOpen": true,
       "isDrawerOpened": false,
-      "splitViewData": { "selectedStageId": "Deploy", "type": "StageView", "stageType": "Deployment" },
+      "splitViewData": { "type": "StageView" },
       "drawerData": { "type": "AddCommand" }
     },
+    "selectionState": { "selectedStageId": "Deploy" },
     "isLoading": false,
     "isBEPipelineUpdated": false,
     "isDBInitialized": true,

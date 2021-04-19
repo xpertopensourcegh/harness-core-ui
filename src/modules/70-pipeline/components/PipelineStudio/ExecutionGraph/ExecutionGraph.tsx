@@ -122,6 +122,8 @@ export interface ExecutionGraphProp {
   updateStage: (stage: StageElementWrapper) => void
   onAddStep: (event: ExecutionGraphAddStepEvent) => void
   onEditStep: (event: ExecutionGraphEditStepEvent) => void
+  selectedStepId?: string
+  onSelectStep?: (stepId: string) => void
   gridStyle?: GridStyleInterface
   rollBackPropsStyle?: React.CSSProperties
   rollBackBannerStyle?: React.CSSProperties
@@ -141,6 +143,8 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     onAddStep,
     isReadonly,
     onEditStep,
+    onSelectStep,
+    selectedStepId,
     gridStyle = {},
     rollBackPropsStyle = {},
     rollBackBannerStyle = {},
@@ -324,6 +328,8 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             addOrEdit: 'edit',
             stepType: stepState?.stepType
           })
+
+          onSelectStep?.(node.identifier)
         }
       }
     },
@@ -458,6 +464,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   }, [engine])
 
   // renderParallelNodes(model)
+  model.setSelectedNodeId(selectedStepId)
   model.addUpdateGraph(
     state.isRollback ? state.stepsData.rollbackSteps || [] : state.stepsData.steps || [],
     state.states,

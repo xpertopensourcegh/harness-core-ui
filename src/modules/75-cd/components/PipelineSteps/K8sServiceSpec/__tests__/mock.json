@@ -170,9 +170,10 @@
     "pipelineView": {
       "isSplitViewOpen": true,
       "isDrawerOpened": false,
-      "splitViewData": { "selectedStageId": "Servic1", "type": "StageView", "stageType": "Deployment" },
+      "splitViewData": { "type": "StageView" },
       "drawerData": { "type": "AddCommand" }
     },
+    "selectionState": { "selectedStageId": "Servic1" },
     "isLoading": false,
     "isBEPipelineUpdated": false,
     "isDBInitialized": true,

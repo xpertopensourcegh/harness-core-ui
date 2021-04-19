@@ -5,10 +5,10 @@ import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderPr
 import type { Diagram } from '@pipeline/exports'
 import type { DependenciesWrapper, StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
-import type { StageTypes } from '../Stages/StageTypes'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
+  UpdateSelection = 'UpdateSelection',
   Initialize = 'Initialize',
   Fetching = 'Fetching',
   UpdatePipelineView = 'UpdatePipelineView',
@@ -81,12 +81,15 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
 export interface PipelineViewData {
   isSplitViewOpen: boolean
   splitViewData: {
-    selectedStageId?: string
-    stageType?: StageTypes
     type?: SplitViewTypes
   }
   isDrawerOpened: boolean
   drawerData: DrawerData
+}
+
+export interface SelectionState {
+  selectedStageId?: string | undefined
+  selectedStepId?: string | undefined
 }
 
 export interface PipelineReducerState {
@@ -102,6 +105,7 @@ export interface PipelineReducerState {
   isBEPipelineUpdated: boolean
   isUpdated: boolean
   snippets?: YamlSnippetMetaData[]
+  selectionState: SelectionState
 }
 
 export const DefaultPipeline: PipelineInfoConfig = {
@@ -117,6 +121,7 @@ export interface ActionResponse {
   originalPipeline?: PipelineInfoConfig
   isBEPipelineUpdated?: boolean
   pipelineView?: PipelineViewData
+  selectionState?: SelectionState
 }
 
 export interface ActionReturnType {
@@ -143,6 +148,11 @@ const pipelineSavedAction = (response: ActionResponse): ActionReturnType => ({
 const success = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Success, response })
 const error = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Error, response })
 
+const updateSelectionState = (response: ActionResponse): ActionReturnType => ({
+  type: PipelineActions.UpdateSelection,
+  response
+})
+
 export const PipelineContextActions = {
   dbInitialized,
   initialized,
@@ -152,7 +162,8 @@ export const PipelineContextActions = {
   updatePipelineView,
   setYamlHandler,
   success,
-  error
+  error,
+  updateSelectionState
 }
 
 export const initialState: PipelineReducerState = {
@@ -171,7 +182,11 @@ export const initialState: PipelineReducerState = {
   isBEPipelineUpdated: false,
   isDBInitialized: false,
   isUpdated: false,
-  isInitialized: false
+  isInitialized: false,
+  selectionState: {
+    selectedStageId: undefined,
+    selectedStepId: undefined
+  }
 }
 
 export const PipelineReducer = (state = initialState, data: ActionReturnType): PipelineReducerState => {
@@ -222,6 +237,11 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
     case PipelineActions.Success:
     case PipelineActions.Error:
       return { ...state, isLoading: false, ...response }
+    case PipelineActions.UpdateSelection:
+      return {
+        ...state,
+        selectionState: response?.selectionState || state.selectionState
+      }
     default:
       return state
   }

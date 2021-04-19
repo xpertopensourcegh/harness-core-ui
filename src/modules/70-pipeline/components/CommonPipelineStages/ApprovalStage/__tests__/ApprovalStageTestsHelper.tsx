@@ -155,9 +155,10 @@ export const pipelineContextMock = {
     pipelineView: {
       isSplitViewOpen: true,
       isDrawerOpened: false,
-      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'HarnessApproval' },
+      splitViewData: { type: 'StageView' },
       drawerData: { type: 'AddCommand' }
     },
+    selectionState: { selectedStageId: 'ApprovalStep' },
     isLoading: false,
     isBEPipelineUpdated: false,
     isDBInitialized: true,
@@ -209,9 +210,10 @@ export const pipelineContextMockJiraApproval = {
     pipelineView: {
       isSplitViewOpen: true,
       isDrawerOpened: false,
-      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'JiraApproval' },
+      splitViewData: { type: 'StageView' },
       drawerData: { type: 'AddCommand' }
     },
+    selectionState: { selectedStageId: 'ApprovalStep' },
     isLoading: false,
     isBEPipelineUpdated: false,
     isDBInitialized: true,

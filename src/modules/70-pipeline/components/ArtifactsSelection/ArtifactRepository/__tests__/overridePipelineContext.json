@@ -96,30 +96,6 @@
                           "manifests": [
                             {
                               "manifest": {
-                                "identifier": "man1",
-                                "type": "K8sManifest",
-                                "spec": {
-                                  "store": {
-                                    "type": "Git",
-                                    "spec": {
-                                      "connectorRef": "k8",
-                                      "gitFetchType": "Branch",
-                                      "branch": "br",
-                                      "paths": ["none"]
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "overrideSet": {
-                          "identifier": "manor1",
-                          "manifests": [
-                            {
-                              "manifest": {
                                 "identifier": "man2",
                                 "type": "K8sManifest",
                                 "spec": {
@@ -146,7 +122,39 @@
             }
           }
         },
-        { "stage": { "name": "st2", "identifier": "st2", "description": "", "type": "Deployment", "spec": {} } }
+        {
+          "stage": {
+            "name": "st2",
+            "identifier": "st2",
+            "description": "",
+            "type": "Deployment",
+            "spec": {
+              "serviceConfig": {
+                "service": {
+                  "identifier": null,
+                  "name": null,
+                  "description": null
+                },
+                "serviceDefinition": {
+                  "type": "Kubernetes",
+                  "spec": {
+                    "artifacts": { "sidecars": [] },
+                    "manifests": [],
+                    "artifactOverrideSets": [],
+                    "manifestOverrideSets": []
+                  }
+                },
+                "useFromStage": { "stage": "st1" },
+                "stageOverrides": {
+                  "artifacts": { "sidecars": [] },
+                  "manifests": [],
+                  "useArtifactOverrideSets": ["Set1"],
+                  "useManifestOverrideSets": []
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "originalPipeline": {
@@ -297,7 +305,7 @@
                 "stageOverrides": {
                   "artifacts": { "sidecars": [] },
                   "manifests": [],
-                  "useArtifactOverrideSets": [""],
+                  "useArtifactOverrideSets": [],
                   "useManifestOverrideSets": []
                 }
               }

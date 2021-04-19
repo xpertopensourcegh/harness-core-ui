@@ -217,7 +217,7 @@ describe('Approval Stage shell view', () => {
     expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
       isSplitViewOpen: true,
       isDrawerOpened: true,
-      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'HarnessApproval' },
+      splitViewData: { type: 'StageView' },
       drawerData: { type: 'FailureStrategy' }
     })
 
@@ -228,7 +228,7 @@ describe('Approval Stage shell view', () => {
     expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
       isSplitViewOpen: true,
       isDrawerOpened: true,
-      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'HarnessApproval' },
+      splitViewData: { type: 'StageView' },
       drawerData: { type: 'FailureStrategy' }
     })
   })
@@ -291,7 +291,7 @@ describe('Jira Approval Stage shell view', () => {
     expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
       isSplitViewOpen: true,
       isDrawerOpened: true,
-      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'JiraApproval' },
+      splitViewData: { type: 'StageView' },
       drawerData: { type: 'FailureStrategy' }
     })
 
@@ -302,7 +302,7 @@ describe('Jira Approval Stage shell view', () => {
     expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
       isSplitViewOpen: true,
       isDrawerOpened: true,
-      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'JiraApproval' },
+      splitViewData: { type: 'StageView' },
       drawerData: { type: 'FailureStrategy' }
     })
   })

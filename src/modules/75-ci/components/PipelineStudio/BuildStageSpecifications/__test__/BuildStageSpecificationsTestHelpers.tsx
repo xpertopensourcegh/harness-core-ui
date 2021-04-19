@@ -66,9 +66,10 @@ export const pipelineContextMock = {
     pipelineView: {
       isSplitViewOpen: true,
       isDrawerOpened: false,
-      splitViewData: { selectedStageId: 'BuildStage', type: 'StageView', stageType: 'CI' },
+      splitViewData: { type: 'StageView' },
       drawerData: { type: 'AddCommand' }
     },
+    selectionState: { selectedStageId: 'BuildStage' },
     isLoading: false,
     isBEPipelineUpdated: false,
     isDBInitialized: true,

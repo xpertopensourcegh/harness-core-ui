@@ -34,22 +34,27 @@ export default function DeployStageSetupShell(): JSX.Element {
     state: {
       pipeline,
       originalPipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId = '', stageType },
-        isSplitViewOpen
-      },
-      pipelineView
+      pipelineView: { isSplitViewOpen },
+      pipelineView,
+      selectionState: { selectedStageId, selectedStepId }
     },
     stagesMap,
     isReadonly,
     stepsFactory,
     updatePipeline,
     getStageFromPipeline,
-    updatePipelineView
+    updatePipelineView,
+    setSelectedStepId
   } = React.useContext(PipelineContext)
 
   React.useEffect(() => {
-    if (stageNames.indexOf(selectedStageId) !== -1) {
+    if (selectedStepId) {
+      setSelectedTabId(getString('executionText'))
+    }
+  }, [selectedStepId])
+
+  React.useEffect(() => {
+    if (selectedStageId && stageNames.indexOf(selectedStageId) !== -1) {
       setSelectedTabId(selectedStageId)
     }
   }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
@@ -86,9 +91,10 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedTabId === getString('executionText')) {
-      const { stage: data } = getStageFromPipeline(selectedStageId)
+      const { stage: data } = getStageFromPipeline(selectedStageId || '')
       if (data?.stage) {
         if (!data?.stage?.spec?.execution) {
+          const stageType = data?.stage?.type
           const openExecutionStrategy = stageType ? stagesMap[stageType].openExecutionStrategy : true
           // if !data?.stage?.spec?.execution and openExecutionStrategy===true show ExecutionStrategy drawer
           if (openExecutionStrategy) {
@@ -118,8 +124,9 @@ export default function DeployStageSetupShell(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipeline, selectedTabId, selectedStageId])
 
-  const selectedStage = getStageFromPipeline(selectedStageId).stage
-  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
+  const selectedStage = selectedStageId ? getStageFromPipeline(selectedStageId).stage : undefined
+  const originalStage = selectedStageId ? getStageFromPipeline(selectedStageId, originalPipeline).stage : undefined
+
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
@@ -287,6 +294,10 @@ export default function DeployStageSetupShell(): JSX.Element {
                   }
                 })
               }}
+              onSelectStep={(stepId: string) => {
+                setSelectedStepId(stepId)
+              }}
+              selectedStepId={selectedStepId}
             />
           }
         />

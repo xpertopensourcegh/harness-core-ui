@@ -14,16 +14,15 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
     state: {
       pipeline,
       originalPipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId = '' }
-      },
-      pipelineView
+      pipelineView,
+      selectionState: { selectedStageId = '' }
     },
     isReadonly,
     stepsFactory,
     updatePipeline,
     updatePipelineView,
-    getStageFromPipeline
+    getStageFromPipeline,
+    setSelectedStepId
   } = React.useContext(PipelineContext)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
@@ -80,6 +79,9 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
             }
           }
         })
+      }}
+      onSelectStep={(stepId: string) => {
+        setSelectedStepId(stepId)
       }}
     />
   )

@@ -8,6 +8,8 @@ export interface OrgPathProps extends AccountPathProps {
 
 export interface ProjectPathProps extends OrgPathProps {
   projectIdentifier: string
+  stageId?: string
+  stepId?: string
 }
 
 export interface PipelinePathProps extends ProjectPathProps {

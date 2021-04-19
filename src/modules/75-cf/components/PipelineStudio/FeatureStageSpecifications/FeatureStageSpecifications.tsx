@@ -5,9 +5,7 @@ export default function FeatureStageSpecifications(_props: React.PropsWithChildr
   /*const {
     state: {
       pipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId = '' }
     },
     updatePipeline,
     getStageFromPipeline

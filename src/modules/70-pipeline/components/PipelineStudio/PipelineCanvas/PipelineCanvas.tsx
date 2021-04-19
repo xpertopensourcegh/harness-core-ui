@@ -42,7 +42,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     view,
     setView,
     isReadonly,
-    updatePipelineView
+    updatePipelineView,
+    setSelectedStageId
   } = React.useContext(PipelineContext)
 
   const { pipeline, isUpdated, isLoading, isInitialized, originalPipeline, yamlHandler, isBEPipelineUpdated } = state
@@ -224,6 +225,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
       isSplitViewOpen: false,
       drawerData: { type: DrawerTypes.AddStep }
     })
+    setSelectedStageId(undefined)
   }
 
   if (isLoading) {

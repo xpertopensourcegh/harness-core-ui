@@ -44,8 +44,9 @@ export const RunTestsStepBase = (
   formikRef: StepFormikFowardRef<RunTestsStepData>
 ): JSX.Element => {
   const {
-    state: { pipelineView },
-
+    state: {
+      selectionState: { selectedStageId }
+    },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -59,7 +60,7 @@ export const RunTestsStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
   const buildToolOptions = [
     { label: 'Bazel', value: 'bazel' },

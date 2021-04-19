@@ -45,9 +45,7 @@ export default function WorkflowVariables({
   const {
     state: {
       pipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     getStageFromPipeline,
     updatePipeline

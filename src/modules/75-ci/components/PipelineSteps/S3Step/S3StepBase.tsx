@@ -34,8 +34,9 @@ export const S3StepBase = (
   formikRef: StepFormikFowardRef<S3StepData>
 ): JSX.Element => {
   const {
-    state: { pipelineView },
-
+    state: {
+      selectionState: { selectedStageId }
+    },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -48,7 +49,7 @@ export const S3StepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

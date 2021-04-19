@@ -55,9 +55,7 @@ export function ContinousVerificationWidget(
   const validationSchema = defaultCVSchema
   const {
     state: {
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     getStageFromPipeline
   } = React.useContext(PipelineContext)

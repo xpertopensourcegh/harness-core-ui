@@ -29,17 +29,16 @@ export default function FeatureStageSetupShell(): JSX.Element {
     state: {
       pipeline,
       originalPipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId = '' },
-        isSplitViewOpen
-      },
-      pipelineView
+      pipelineView: { isSplitViewOpen },
+      pipelineView,
+      selectionState: { selectedStageId = '' }
     },
     stepsFactory,
     isReadonly,
     updatePipeline,
     getStageFromPipeline,
-    updatePipelineView
+    updatePipelineView,
+    setSelectedStepId
   } = React.useContext(PipelineContext)
 
   //const { getString } = useStrings()
@@ -206,6 +205,9 @@ export default function FeatureStageSetupShell(): JSX.Element {
                     }
                   }
                 })
+              }}
+              onSelectStep={(stepId: string) => {
+                setSelectedStepId(stepId)
               }}
             />
           }

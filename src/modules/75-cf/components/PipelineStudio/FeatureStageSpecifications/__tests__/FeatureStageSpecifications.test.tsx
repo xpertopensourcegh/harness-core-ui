@@ -27,6 +27,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
     },
+    selectionState: {},
     pipelineIdentifier: '',
     isBEPipelineUpdated: false,
     isDBInitialized: true,
@@ -48,7 +49,9 @@ const getPipelineContext = (): PipelineContextInterface => ({
   pipelineSaved: jest.fn(),
   view: 'ui',
   setView: jest.fn(),
-  stepsFactory: factory
+  stepsFactory: factory,
+  setSelectedStageId: jest.fn(),
+  setSelectedStepId: jest.fn()
 })
 
 describe('StepWidget tests', () => {

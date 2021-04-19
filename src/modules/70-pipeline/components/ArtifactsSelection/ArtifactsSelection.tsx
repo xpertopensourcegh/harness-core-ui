@@ -52,9 +52,7 @@ export default function ArtifactsSelection({
   const {
     state: {
       pipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     getStageFromPipeline,
     updatePipeline,

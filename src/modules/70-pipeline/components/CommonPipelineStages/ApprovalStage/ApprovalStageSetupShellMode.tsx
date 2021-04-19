@@ -20,9 +20,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
   const {
     state: {
       pipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId = '' }
-      },
+      selectionState: { selectedStageId = '', selectedStepId },
       pipelineView
     },
     getStageFromPipeline,
@@ -32,6 +30,12 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
   } = React.useContext(PipelineContext)
 
   const { stage: selectedStage = {} } = getStageFromPipeline(selectedStageId) as StageElementWrapper
+
+  React.useEffect(() => {
+    if (selectedStepId) {
+      setSelectedTabId(tabHeadings[1])
+    }
+  }, [selectedStepId])
 
   const ActionButtons = () => {
     return (

@@ -30,6 +30,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   tertiaryIconProps?: Omit<IconProps, 'name'>
   tertiaryIconStyle?: React.CSSProperties
   iconSize?: number
+  selected?: boolean
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {

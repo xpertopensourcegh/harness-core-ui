@@ -7,15 +7,13 @@ import { EditStageView } from '../DeployStage/EditStageView/EditStageView'
 export default function DeployStageSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const {
     state: {
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId = '' }
     },
     updateStage,
     isReadonly,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline(selectedStageId)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChange = React.useCallback(

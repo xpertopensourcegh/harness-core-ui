@@ -36,7 +36,9 @@ export const DockerHubStepBase = (
   formikRef: StepFormikFowardRef<DockerHubStepData>
 ): JSX.Element => {
   const {
-    state: { pipelineView },
+    state: {
+      selectionState: { selectedStageId }
+    },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
@@ -49,7 +51,7 @@ export const DockerHubStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(pipelineView.splitViewData.selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

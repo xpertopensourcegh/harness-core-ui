@@ -51,9 +51,7 @@ export default function OverrideSets({
   const {
     state: {
       pipeline,
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     updatePipeline,
     getStageFromPipeline

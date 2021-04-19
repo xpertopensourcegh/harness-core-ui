@@ -77,9 +77,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
   const [inputSets, setInputSets] = React.useState<{ identifier: string; name: string }[]>([])
   const {
     state: {
-      pipelineView: {
-        splitViewData: { selectedStageId }
-      }
+      selectionState: { selectedStageId }
     },
     getStageFromPipeline
   } = React.useContext(PipelineContext)

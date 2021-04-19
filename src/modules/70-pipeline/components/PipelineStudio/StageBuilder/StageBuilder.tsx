@@ -36,7 +36,6 @@ import {
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
-import type { StageTypes } from '../Stages/StageTypes'
 import css from './StageBuilder.module.scss'
 
 export type StageStateMap = Map<string, StageState>
@@ -122,18 +121,21 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       pipeline,
       pipelineView: {
         isSplitViewOpen,
-        splitViewData: { selectedStageId, type = SplitViewTypes.StageView, stageType }
+        splitViewData: { type = SplitViewTypes.StageView }
       },
       pipelineView,
-      isInitialized
+      isInitialized,
+      selectionState: { selectedStageId }
     },
     isReadonly,
     stagesMap,
     updatePipeline,
     updatePipelineView,
     renderPipelineStage,
-    getStageFromPipeline
+    getStageFromPipeline,
+    setSelectedStageId
   } = React.useContext(PipelineContext)
+
   const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
@@ -242,19 +244,38 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     engine.repaintCanvas()
     updatePipeline(pipeline).then(() => {
       if (openSetupAfterAdd) {
-        updatePipelineView({
+        /*updatePipelineView({
           ...pipelineView,
           isSplitViewOpen: true,
           splitViewData: {
-            selectedStageId: newStage.stage.identifier,
-            type: SplitViewTypes.StageView,
-            stageType: newStage.stage.type
+            type: SplitViewTypes.StageView
           }
-        })
+        })*/
+        setSelectedStageId(newStage.stage.identifier)
         moveStageToFocusDelayed(engine, newStage.stage.identifier, true, false)
       }
     })
   }
+
+  // open split panel if stage is selected stage exist
+  // note: this open split panel when user use direct url
+  React.useEffect(() => {
+    if (selectedStageId && !isSplitViewOpen) {
+      updatePipelineView({
+        ...pipelineView,
+        isSplitViewOpen: true,
+        splitViewData: { type: SplitViewTypes.StageView }
+      })
+    }
+
+    if (!selectedStageId && isSplitViewOpen) {
+      updatePipelineView({
+        ...pipelineView,
+        isSplitViewOpen: false,
+        splitViewData: {}
+      })
+    }
+  }, [selectedStageId, isSplitViewOpen])
 
   React.useEffect(() => {
     if (isInitialized && !isSplitViewOpen) {
@@ -275,11 +296,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
       /* istanbul ignore else */ if (eventTemp.entity) {
         if (eventTemp.entity.getType() === DiagramType.CreateNew) {
-          updatePipelineView({
+          /*updatePipelineView({
             ...pipelineView,
             isSplitViewOpen: false,
             splitViewData: {}
-          })
+          })*/
+          setSelectedStageId(undefined)
           dynamicPopoverHandler?.show(
             `[data-nodeid="${eventTemp.entity.getID()}"]`,
             {
@@ -300,13 +322,14 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 groupSelectedStageId: selectedStageId,
                 isStageView: false,
                 groupStages: parent.parallel,
-                onClickGroupStage: (stageId: string, typeOfStage: StageTypes) => {
+                onClickGroupStage: (stageId: string) => {
                   dynamicPopoverHandler?.hide()
-                  updatePipelineView({
+                  /*updatePipelineView({
                     ...pipelineView,
                     isSplitViewOpen: true,
-                    splitViewData: { selectedStageId: stageId, type: SplitViewTypes.StageView, stageType: typeOfStage }
-                  })
+                    splitViewData: { type: SplitViewTypes.StageView }
+                  })*/
+                  setSelectedStageId(stageId)
                   moveStageToFocusDelayed(engine, stageId, true, false)
                 },
                 stagesMap,
@@ -330,49 +353,47 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                     stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
                     dynamicPopoverHandler.hide()
                     resetDiagram(engine)
-                    updatePipelineView({
+                    /*updatePipelineView({
                       ...pipelineView,
                       isSplitViewOpen: true,
                       splitViewData: {
-                        selectedStageId: identifier,
-                        type: SplitViewTypes.StageView,
-                        stageType: node.stage.type
+                        type: SplitViewTypes.StageView
                       }
-                    })
+                    })*/
+                    setSelectedStageId(identifier)
                   },
                   stagesMap,
                   renderPipelineStage
                 },
                 { useArrows: false, darkMode: false }
               )
-              updatePipelineView({
+              /*updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: false,
                 splitViewData: {}
-              })
+              })*/
+              setSelectedStageId(undefined)
             } else {
-              updatePipelineView({
+              /*updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: true,
                 splitViewData: {
-                  selectedStageId: data?.stage?.identifier,
-                  type: SplitViewTypes.StageView,
-                  stageType: data?.stage?.type || 'Deployment'
+                  type: SplitViewTypes.StageView
                 }
-              })
+              })*/
+              setSelectedStageId(data?.stage?.identifier)
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             }
           } /* istanbul ignore else */ else if (!isSplitViewOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
-              updatePipelineView({
+              /*updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: true,
                 splitViewData: {
-                  selectedStageId: data?.stage?.identifier,
-                  type: SplitViewTypes.StageView,
-                  stageType: data?.stage?.type || 'Deployment'
+                  type: SplitViewTypes.StageView
                 }
-              })
+              })*/
+              setSelectedStageId(data?.stage?.identifier)
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             } else {
               // TODO: check if this is unused code
@@ -386,15 +407,14 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                     stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
                     dynamicPopoverHandler.hide()
                     resetDiagram(engine)
-                    updatePipelineView({
+                    /*updatePipelineView({
                       ...pipelineView,
                       isSplitViewOpen: true,
                       splitViewData: {
-                        selectedStageId: identifier,
-                        type: SplitViewTypes.StageView,
-                        stageType: node.stage.type
+                        type: SplitViewTypes.StageView
                       }
-                    })
+                    })*/
+                    setSelectedStageId(identifier)
                   },
                   stagesMap,
                   renderPipelineStage
@@ -423,6 +443,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         isSplitViewOpen: false,
         splitViewData: {}
       })
+      setSelectedStageId(undefined)
 
       if (eventTemp.entity) {
         dynamicPopoverHandler?.show(
@@ -549,7 +570,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
           dynamicPopoverHandler?.hide()
         }
         if (isSplitViewOpen) {
-          updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
+          //updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
+          setSelectedStageId(undefined)
         }
       }}
     >
@@ -565,18 +587,21 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     </div>
   )
 
+  const selectedStage = getStageFromPipeline(selectedStageId || '')
+  const openSplitView = isSplitViewOpen && !!selectedStage?.stage
+
   return (
     <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
       <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
       <div className={css.canvasWrapper}>
         <SplitPane
-          size={isSplitViewOpen ? splitPaneSize : '100%'}
+          size={openSplitView ? splitPaneSize : '100%'}
           split="horizontal"
           minSize={MinimumSplitPaneSize}
           maxSize={MaximumSplitPaneSize}
           pane2Style={{ overflow: 'hidden' }}
           onChange={handleStageResize}
-          allowResize={isSplitViewOpen}
+          allowResize={openSplitView}
         >
           {StageCanvas}
           <div
@@ -586,8 +611,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
               background: 'white'
             }}
           >
-            {isSplitViewOpen && type === SplitViewTypes.StageView
-              ? renderPipelineStage({ stageType, minimal: false })
+            {openSplitView && type === SplitViewTypes.StageView
+              ? renderPipelineStage({
+                  stageType: selectedStage?.stage?.stage?.type,
+                  minimal: false
+                })
               : null}
           </div>
         </SplitPane>
