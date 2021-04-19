@@ -17,7 +17,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { noop, pick } from 'lodash-es'
+import { noop, pick, debounce } from 'lodash-es'
 import { useToaster, StringUtils } from '@common/exports'
 import { usePostGitSync, GitSyncConfig, getListOfBranchesByConnectorPromise } from 'services/cd-ng'
 
@@ -54,6 +54,7 @@ interface GitSyncFormInterface {
   name: string
   identifier: string
   branch: string
+  rootfolder: string
   gitConnector: ConnectorReferenceFieldProps['selected']
 }
 
@@ -75,6 +76,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
     name: '',
     identifier: '',
     branch: '',
+    rootfolder: '',
     gitConnector: undefined
   }
 
@@ -90,6 +92,31 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
+
+  const debounceFetchBranches = debounce((identifier: string, repoURL: string) => {
+    setLoadingBranchList(true)
+    getListOfBranchesByConnectorPromise({
+      queryParams: {
+        identifier,
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        repoURL
+      }
+    }).then(response => {
+      setLoadingBranchList(false)
+      setBranchSelectOptions(
+        response.data?.length
+          ? response.data.map((branch: string) => {
+              return {
+                label: branch || '',
+                value: branch || ''
+              }
+            })
+          : []
+      )
+    })
+  }, 1000) // Fetching branches after user input of repoUrl
 
   return (
     <Container height={'inherit'} className={css.modalContainer} margin="large">
@@ -198,28 +225,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       setFieldValue('repo', value?.spec?.url)
 
                       if (value?.spec?.type === GitUrlType.REPO) {
-                        setLoadingBranchList(true)
-                        getListOfBranchesByConnectorPromise({
-                          queryParams: {
-                            identifier: value?.identifier,
-                            accountIdentifier: accountId,
-                            orgIdentifier,
-                            projectIdentifier,
-                            repoURL: value?.spec?.url
-                          }
-                        }).then(response => {
-                          setLoadingBranchList(false)
-                          setBranchSelectOptions(
-                            response.data?.length
-                              ? response.data.map((branch: string) => {
-                                  return {
-                                    label: branch || '',
-                                    value: branch || ''
-                                  }
-                                })
-                              : []
-                          )
-                        })
+                        debounceFetchBranches(value?.identifier, value?.spec?.url)
                       }
                     }}
                   />
@@ -230,6 +236,12 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                     disabled={
                       (formValues.gitConnector as ConnectorSelectedValue)?.connector?.spec?.type === GitUrlType.REPO
                     }
+                    onChange={e => {
+                      debounceFetchBranches(
+                        (formValues.gitConnector as ConnectorSelectedValue)?.connector.identifier,
+                        (e.target as HTMLInputElement)?.value
+                      )
+                    }}
                   />
                   <FormInput.Select
                     name="branch"

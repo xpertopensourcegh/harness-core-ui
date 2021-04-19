@@ -84,7 +84,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const [initialValues, setInitialValues] = useState<InitialFormData>(defaultInitialFormData)
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
   let stepDataRef: ConnectorConfigDTO | null = null
-  let connectorPayloadRef: Connector | null = null
+  const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
 
   const afterSuccessHandler = (response: ResponseConnectorResponse): void => {
     props.onConnectorCreated?.(response?.data)
@@ -159,7 +159,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           }
 
           const data = buildPayload(connectorData)
-          connectorPayloadRef = data
+          setConnectorPayloadRef(data)
           stepDataRef = stepData
           if (isGitSyncEnabled) {
             openSaveToGitDialog(props.isEditMode, {
