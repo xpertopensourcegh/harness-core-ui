@@ -6,9 +6,10 @@ import { Page } from '@common/exports'
 import { useAppStore, useStrings } from 'framework/exports'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export const CDDashboardPage: React.FC = () => {
-  const { projectIdentifier, accountId } = useParams()
+  const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { selectedProject: project } = useAppStore()
   const history = useHistory()
   const { getString } = useStrings()

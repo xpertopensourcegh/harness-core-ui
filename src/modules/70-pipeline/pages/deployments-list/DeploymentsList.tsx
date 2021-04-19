@@ -9,10 +9,11 @@ import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/Pip
 
 import routes from '@common/RouteDefinitions'
 import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, accountId, module } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
 
   const { selectedProject } = useAppStore()

@@ -4,6 +4,7 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { CreateConnectorWizard } from './CreateConnectorWizard'
 import css from './CreateConnectorWizard.module.scss'
 
@@ -38,7 +39,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       overflow: 'hidden'
     }
   })
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const handleSuccess = (data?: ConnectorInfoDTO): void => {
     props.onSuccess?.(data)

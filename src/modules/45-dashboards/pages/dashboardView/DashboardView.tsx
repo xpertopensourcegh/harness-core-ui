@@ -8,13 +8,14 @@ import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DashboardView.module.scss'
 
 // import { WizardLibrary } from '../../components/WidgetLibrary/WidgetLibrary'
 const DASHBOARDS_ORIGIN = 'https://dashboards.harness.io'
 const DashboardViewPage: React.FC = () => {
   // const { getString } = useStrings()
-  const { accountId, viewId } = useParams()
+  const { accountId, viewId } = useParams<AccountPathProps & { viewId: string }>()
   const [embedUrl, setEmbedUrl] = React.useState('')
   const [iframeState] = React.useState(0)
   const history = useHistory()

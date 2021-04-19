@@ -38,6 +38,7 @@ import {
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
 
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -116,7 +117,7 @@ const ManifestListView = ({
     style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   let listOfManifests = useMemo(() => {

@@ -3,11 +3,12 @@ import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './CIResourcesPage.i18n'
 import css from './CIResourcesPage.module.scss'
 
 const CIResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, projectIdentifier, accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   return (
     <>
       <Page.Header

@@ -8,13 +8,14 @@ import useCVNotificationsModal from '@cv/components/CVNotifications/useCVNotific
 import { useRetrieveAlert } from 'services/cv'
 
 import { PageSpinner } from '@common/components'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CVNotificationTable from './NotificationTable/CVNotificationTable'
 
 import css from './CVNotificationPage.module.scss'
 
 const CVNotificationPage: React.FC = () => {
   const [page, setPage] = useState(0)
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const { data, loading, error, refetch: reloadAlertList } = useRetrieveAlert({

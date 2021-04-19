@@ -7,6 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { StringUtils } from '@common/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ActivitySourceDetails from '../../ActivitySourceDetails/ActivitySourceDetails'
 
 export interface HarnessCDActivitySourceDetailsProps {
@@ -18,7 +19,9 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
   const { getString } = useStrings()
   const { initialValues } = props
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId, activitySourceId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId, activitySourceId } = useParams<
+    ProjectPathProps & { activitySourceId: string }
+  >()
   return (
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik

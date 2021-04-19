@@ -15,6 +15,7 @@ import {
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
 import { Entities } from '@common/interfaces/GitSyncInterface'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getEntityHeaderText, getTableColumns } from './EntityHelper'
 import EntitiesListing from './EntitiesListing'
 import css from './GitSyncEntityTab.module.scss'
@@ -92,7 +93,7 @@ const EntitiesTypeContainer: React.FC<EntitiesTypeContainerProps> = props => {
 }
 
 const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [repoFileList, setRepoFileList] = useState<GitSyncRepoFiles[]>([])
   const { getString } = useStrings()
 

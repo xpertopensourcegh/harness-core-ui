@@ -21,6 +21,7 @@ import { useStrings } from 'framework/exports'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -34,7 +35,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   initialValues
 }) => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [tagList, setTagList] = React.useState([])
   const [lastImagePath, setLastImagePath] = React.useState('')
 

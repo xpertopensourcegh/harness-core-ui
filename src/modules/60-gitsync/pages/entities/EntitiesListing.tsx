@@ -13,6 +13,7 @@ import {
   GitEntityFilterProperties
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getTableColumns } from './EntityHelper'
 import css from './GitSyncEntityTab.module.scss'
 
@@ -51,7 +52,7 @@ const EntityListView: React.FC<EntityListViewProps> = props => {
 }
 
 const EntitiesListing: React.FC<EntitiesListingProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
 

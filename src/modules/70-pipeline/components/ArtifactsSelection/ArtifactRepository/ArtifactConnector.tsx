@@ -7,6 +7,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
@@ -34,7 +35,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     newConnectorLabel
   } = props
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const primarySchema = Yup.object().shape({

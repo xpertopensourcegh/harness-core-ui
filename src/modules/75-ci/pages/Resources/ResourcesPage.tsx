@@ -3,11 +3,12 @@ import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, accountId, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   return (
     <>
       <Page.Header

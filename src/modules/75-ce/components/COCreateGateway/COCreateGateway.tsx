@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Color, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COProviderSelector from '@ce/components/COProviderSelector/COProviderSelector'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
 import type { GatewayDetails } from './models'
@@ -15,7 +16,7 @@ function getString(val: string | undefined): string {
 }
 
 export const CECODashboardPage: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const gatewayCreationTabs = ['providerSelector', 'gatewayConfig']
   const [currentTab, setCurrentTab] = useState<string | 'providerSelector'>('providerSelector')
   const initialGatewayDetails: GatewayDetails = {

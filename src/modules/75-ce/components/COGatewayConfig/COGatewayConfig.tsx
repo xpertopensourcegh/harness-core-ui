@@ -42,6 +42,7 @@ import {
   useSecurityGroupsOfInstances
 } from 'services/lw'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CORoutingTable from './CORoutingTable'
 import COHealthCheckTable from './COHealthCheckTable'
 import odIcon from './images/ondemandIcon.svg'
@@ -146,7 +147,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.gatewayDetails.routing?.instance?.scale_group
   )
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
   function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
     return (
@@ -626,7 +627,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
               </Card>
               {/* <Layout.Vertical style={{}}> */}
               {/* <Layout.Horizontal spacing="large">
-                  
+
                 </Layout.Horizontal> */}
               <Formik
                 initialValues={{

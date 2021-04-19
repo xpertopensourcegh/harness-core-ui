@@ -3,6 +3,7 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import type { AlertRuleDTO } from 'services/cv'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CreateCVNotification from './CreateCVNotification/CreateCVNotification'
 import css from './useCVNotificationsModal.module.scss'
 
@@ -27,7 +28,7 @@ const modalProps: IDialogProps = {
 }
 
 const useCVNotificationsModal = (props: UseCVNotificationsModalProps): UseCVNotificationsModalReturn => {
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [isEdit, setIsEdit] = useState(false)
   const [notification, setNotification] = useState<AlertRuleDTO | void>()
   const handleSuccess = (): void => {

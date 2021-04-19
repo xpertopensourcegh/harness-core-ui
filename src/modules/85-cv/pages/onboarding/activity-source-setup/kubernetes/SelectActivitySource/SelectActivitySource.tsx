@@ -6,6 +6,7 @@ import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard, CVSelectionCardProps } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import i18n from './SelectActivitySource.i18n'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
@@ -79,7 +80,7 @@ function ActivitySourceConnectorSelection(props: ActivitySourceConnectorSelectio
 export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Element {
   const { onSubmit, data, isEditMode } = props
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}

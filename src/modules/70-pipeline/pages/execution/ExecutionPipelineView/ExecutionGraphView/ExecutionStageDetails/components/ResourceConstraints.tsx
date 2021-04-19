@@ -5,6 +5,7 @@ import { Text } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/exports'
 import type { ResourceConstraintExecutionInfo } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './components.module.scss'
 export interface ResourceConstraintTooltipProps {
   loading: boolean
@@ -27,7 +28,7 @@ const getnoOfExecutionsBeforePipeline = (
   return noOfExecutionsBeforePipeline
 }
 export default function ResourceConstraintTooltip(props: ResourceConstraintTooltipProps): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, accountId, module } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
   const noOfExecutionsBeforePipeline = getnoOfExecutionsBeforePipeline(
     props?.data?.executionList,

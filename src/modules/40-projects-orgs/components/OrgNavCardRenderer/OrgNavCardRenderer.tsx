@@ -4,6 +4,7 @@ import { Card } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './OrgNavCardRenderer.module.scss'
 
 interface OrgNavCardProps {
@@ -14,7 +15,7 @@ interface OrgNavCardProps {
 }
 
 const OrgNavCardRenderer: React.FC = () => {
-  const { orgIdentifier, accountId } = useParams()
+  const { orgIdentifier, accountId } = useParams<OrgPathProps>()
   const history = useHistory()
   const { getString } = useStrings()
 

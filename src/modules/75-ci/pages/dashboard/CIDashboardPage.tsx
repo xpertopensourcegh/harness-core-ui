@@ -4,10 +4,11 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './CIDashboardPage.i18n'
 
 export const CIDashboardPage: React.FC = () => {
-  const { projectIdentifier, accountId } = useParams()
+  const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const history = useHistory()

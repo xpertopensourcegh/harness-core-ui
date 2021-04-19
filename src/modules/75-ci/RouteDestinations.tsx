@@ -115,7 +115,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
 
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
 }
@@ -154,7 +154,7 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier })} />
 }

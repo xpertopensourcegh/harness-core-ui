@@ -5,6 +5,7 @@ import { Page } from '@common/exports'
 import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import NewUserView from './newUser/NewUserView'
 import css from './GitSyncPage.module.scss'
@@ -14,7 +15,7 @@ interface GitSyncPageProps {
 }
 
 export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
   const { getString } = useStrings()
 

@@ -14,12 +14,13 @@ import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
 
 const ProjectDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { updateAppStore } = useAppStore()

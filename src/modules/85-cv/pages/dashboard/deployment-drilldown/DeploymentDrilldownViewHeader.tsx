@@ -3,6 +3,7 @@ import { Container, Icon, IconName, Text } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './DeploymentDrilldownView.i18n'
 import { getIconBySourceType } from '../../admin/setup/SetupUtils'
 import styles from './DeploymentDrilldownView.module.scss'
@@ -15,7 +16,7 @@ export interface DeploymentDrilldownViewHeaderProps {
 }
 
 export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldownViewHeaderProps): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   return (
     <Container className={styles.header} padding="small">
       <Link

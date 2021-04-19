@@ -3,6 +3,7 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import type { GitSyncConfig } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import GitSyncRepoForm from '../components/gitSyncRepoForm/GitSyncRepoForm'
 import css from './useCreateGitSyncModal.module.scss'
 
@@ -36,7 +37,7 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
       overflow: 'hidden'
     }
   })
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const handleSuccess = (data?: GitSyncConfig): void => {
     props.onSuccess?.(data)

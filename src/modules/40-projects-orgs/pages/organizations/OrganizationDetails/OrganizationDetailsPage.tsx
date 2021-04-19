@@ -9,11 +9,12 @@ import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useColl
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useStrings } from 'framework/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
-  const { accountId, orgIdentifier } = useParams()
+  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   const { getString } = useStrings()
   const { data, refetch, loading, error } = useGetOrganizationAggregateDTO({
     identifier: orgIdentifier,

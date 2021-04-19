@@ -13,20 +13,26 @@ import {
   useRouteDetails
 } from 'services/lw'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export const CECOEditGatewayPage: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams<
+    ProjectPathProps & { gatewayIdentifier: string }
+  >()
+
+  /* eslint-disable @typescript-eslint/camelcase */
   const { data, loading } = useRouteDetails({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    service_id: gatewayIdentifier // eslint-disable-line
+    org_id: orgIdentifier,
+    project_id: projectIdentifier,
+    service_id: (gatewayIdentifier as unknown) as number
   })
   const { data: resources, loading: resourcesLoading } = useAllServiceResources({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    service_id: gatewayIdentifier, // eslint-disable-line
+    org_id: orgIdentifier,
+    project_id: projectIdentifier,
+    service_id: (gatewayIdentifier as unknown) as number,
     debounce: 300
   })
+  /* eslint-enable @typescript-eslint/camelcase */
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>()
   useEffect(() => {
     if (loading || resourcesLoading) return

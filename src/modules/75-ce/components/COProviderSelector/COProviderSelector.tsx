@@ -6,6 +6,7 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COGatewayBasics from '../COGatewayBasics/COGatewayBasics'
 import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
 import COHelpSidebar from '../COHelpSidebar/COHelpSidebar'
@@ -42,7 +43,7 @@ function getProvider(name: string): Provider {
 const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   const [selectedCard, setSelectedCard] = useState<Provider>(getProvider(props.gatewayDetails.provider.name))
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   return (
     <>

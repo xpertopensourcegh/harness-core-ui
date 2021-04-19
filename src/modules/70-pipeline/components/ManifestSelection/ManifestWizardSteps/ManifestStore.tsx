@@ -21,6 +21,7 @@ import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
 import {
   getManifestIconByType,
@@ -52,7 +53,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   nextStep,
   newConnectorLabel
 }) => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)

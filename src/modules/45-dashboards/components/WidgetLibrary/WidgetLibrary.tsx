@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Text, Color, Icon, ExpandingSearchInput, Card, Button } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGet, useMutate } from 'restful-react'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './WidgetLibrary.module.scss'
 
 const MODULE_TYPES = {
@@ -11,7 +12,7 @@ const MODULE_TYPES = {
 }
 
 export const WizardLibrary: React.FC<{ onClose: () => void }> = ({ onClose }): JSX.Element => {
-  const { accountId, viewId } = useParams()
+  const { accountId, viewId } = useParams<AccountPathProps & { viewId: string }>()
   const [_library, _setLibrary] = React.useState<{ module: string; title: string; qid: string }[]>([])
   const [library, setLibrary] = React.useState<{ module: string; title: string; qid: string }[]>([])
   const [selectedLook, setSelectedLook] = React.useState('')

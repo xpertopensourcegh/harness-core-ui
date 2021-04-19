@@ -13,6 +13,7 @@ import { useToaster } from '@common/exports'
 import useCVNotificationsModal from '@cv/components/CVNotifications/useCVNotificationsModal'
 import { useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../CVNotificationPage.module.scss'
 interface CVNotificationTableProps {
   data?: PageAlertRuleDTO
@@ -91,7 +92,7 @@ const RenderColumnMenu: Renderer<CellProps<AlertRuleDTO>> = ({ row, column }) =>
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { openNotificationModal } = useCVNotificationsModal({
     onSuccess: () => {
       ;(column as any).reload?.()
@@ -144,7 +145,7 @@ const RenderColumnMenu: Renderer<CellProps<AlertRuleDTO>> = ({ row, column }) =>
 const RenderNotificationSwitch: Renderer<CellProps<AlertRuleDTO>> = ({ row }) => {
   const rowData = row.original
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess, showError } = useToaster()
   const [enableNotification, setEnableNotification] = useState<boolean>(!!rowData.enabled)
 

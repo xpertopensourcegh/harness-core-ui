@@ -5,6 +5,7 @@ import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary }
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
 import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
 import VerificationInstanceView, { TabIdentifier } from './VerificationInstanceView'
@@ -13,7 +14,9 @@ import VerificationStatusCard from './VerificationStatusCard'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export default function DeploymentDrilldownView(): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier } = useParams<
+    ProjectPathProps & { deploymentTag: string; serviceIdentifier: string }
+  >()
   const location = useLocation()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(false)

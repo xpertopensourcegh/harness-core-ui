@@ -21,10 +21,10 @@ import { get } from 'lodash-es'
 import { useListAwsRegions } from 'services/portal'
 import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StringUtils } from '@common/exports'
+
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -71,7 +71,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
     })
   })
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [tagList, setTagList] = React.useState([])
   const [regions, setRegions] = React.useState<SelectOption[]>([])
   const [lastQueryData, setLastQueryData] = React.useState<{ imagePath: string; region: any }>({

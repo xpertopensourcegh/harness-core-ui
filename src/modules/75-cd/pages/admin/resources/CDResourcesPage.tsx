@@ -4,10 +4,11 @@ import { NavLink, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './CDResourcesPage.module.scss'
 
 const CDResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, projectIdentifier, accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   return (
     <>
