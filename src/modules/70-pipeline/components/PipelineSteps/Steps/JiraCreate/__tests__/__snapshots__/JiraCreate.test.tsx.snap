@@ -466,7 +466,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
             class="bp3-popover-target"
           >
             <div
-              class="bp3-input-group bp3-intent-danger"
+              class="bp3-input-group"
             >
               <input
                 autocomplete="off"
@@ -533,7 +533,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
             class="bp3-popover-target"
           >
             <div
-              class="bp3-input-group bp3-intent-danger"
+              class="bp3-input-group"
             >
               <input
                 autocomplete="off"

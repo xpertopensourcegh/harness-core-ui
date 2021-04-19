@@ -1,12 +1,13 @@
 import React from 'react'
 import * as Yup from 'yup'
+import cx from 'classnames'
 import { Formik } from 'formik'
-import { Button, Container, FormikForm, FormInput, Heading, Text } from '@wings-software/uicore'
+import { Button, Card, Container, FormikForm, Text } from '@wings-software/uicore'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
-import { Description } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameIdDescriptionTags } from '@common/components'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
@@ -17,6 +18,7 @@ const getInitialValues = (data?: StageElementWrapper): ApprovalStageMinimalValue
   identifier: data?.stage.identifier,
   name: data?.stage.name,
   description: data?.stage.description,
+  tags: data?.stage.tags,
   approvalType: data?.stage.spec?.approvalType || approvalTypeCardsData[0].value
 })
 
@@ -44,6 +46,7 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
       data.stage.identifier = values.identifier
       data.stage.name = values.name
       data.stage.description = values.description
+      data.stage.tags = values.tags
       data.stage.approvalType = values.approvalType
       onSubmit?.(data, values.identifier)
     }
@@ -77,18 +80,20 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
             >
               {getString('pipelineSteps.build.create.aboutYourStage')}
             </Text>
-            <FormInput.InputWithIdentifier inputLabel={getString('stageNameLabel')} />
-            <Description />
-            <Heading font={{ weight: 'semi-bold' }} level={3}>
-              {getString('approvalStage.approvalTypeHeading')}
-            </Heading>
-            <ApprovalTypeCards formikProps={formikProps} />
+
+            <NameIdDescriptionTags formikProps={formikProps} />
+
+            <Text className={css.approvalTypeHeading}>{getString('approvalStage.approvalTypeHeading')}</Text>
+            <Card className={cx(css.sectionCard, css.shadow)}>
+              <ApprovalTypeCards formikProps={formikProps} />
+            </Card>
             <Button
               type="submit"
               intent="primary"
               text={getString('pipelineSteps.build.create.setupStage')}
               onClick={() => formikProps.submitForm()}
               margin={{ top: 'small' }}
+              className={css.button}
             />
           </FormikForm>
         )}

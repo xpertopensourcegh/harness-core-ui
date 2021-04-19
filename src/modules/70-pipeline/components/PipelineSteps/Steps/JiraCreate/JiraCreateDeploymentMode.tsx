@@ -21,7 +21,11 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
     projectMetaResponse,
     projectsResponse,
     refetchProjects,
-    refetchProjectMetadata
+    refetchProjectMetadata,
+    fetchingProjectMetadata,
+    fetchingProjects,
+    projectMetadataFetchError,
+    projectsFetchError
   } = formContentProps
   const template = inputSetData?.template
   const path = inputSetData?.path
@@ -39,8 +43,10 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
 
-  const connectorRefFixedValue = getGenuineValue(initialValues.spec.connectorRef)
-  const projectKeyFixedValue = initialValues.spec.projectKey
+  const connectorRefFixedValue = getGenuineValue(
+    initialValues.spec.connectorRef || (inputSetData?.allValues?.spec.connectorRef as string)
+  )
+  const projectKeyFixedValue = initialValues.spec.projectKey || inputSetData?.allValues?.spec.projectKey
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -93,6 +99,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${prefix}timeout`}
           disabled={readonly}
+          className={css.deploymentViewMedium}
         />
       ) : null}
 
@@ -122,12 +129,18 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           className={css.deploymentViewMedium}
           label={getString('pipeline.jiraApprovalStep.project')}
           name={`${prefix}spec.projectKey`}
-          placeholder={getString('select')}
           selectProps={{
             // Need this to show the current selection when we switch from yaml to UI view
             defaultSelectedItem: {
               label: initialValues.spec.projectKey?.toString(),
               value: initialValues.spec.projectKey?.toString()
+            },
+            inputProps: {
+              placeholder: fetchingProjects
+                ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
+                : projectsFetchError?.message
+                ? projectsFetchError?.message
+                : getString('select')
             }
           }}
           disabled={readonly}
@@ -140,7 +153,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec.issueType) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec?.issueType) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Select
           items={setIssueTypeOptions(projectMetadata?.issuetypes)}
           className={css.deploymentViewMedium}
@@ -153,6 +166,13 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
             defaultSelectedItem: {
               label: initialValues.spec.issueType?.toString(),
               value: initialValues.spec.issueType?.toString()
+            },
+            inputProps: {
+              placeholder: fetchingProjectMetadata
+                ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+                : projectMetadataFetchError?.message
+                ? projectMetadataFetchError?.message
+                : getString('select')
             }
           }}
           onChange={(opt: SelectOption) => {

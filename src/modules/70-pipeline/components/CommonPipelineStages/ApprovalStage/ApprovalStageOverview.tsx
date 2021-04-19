@@ -19,7 +19,6 @@ import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedStep
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
-import { ApprovalTypeCards } from './ApprovalTypeCards'
 import type { ApprovalStageOverviewProps } from './types'
 import css from './ApprovalStageOverview.module.scss'
 
@@ -54,8 +53,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStageDebounced = useCallback(
     debounce((values: StageElementWrapper): void => {
-      // approvalType is just used in the UI, to populate the default steps for different approval types
-      // For BE, the stage type is always 'Approval' and approval type is defined inside the step
       updateStage({ ...stage?.stage, ...values })
     }, 300),
     [stage?.stage, updateStage]
@@ -66,10 +63,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
       {
         label: 'Stage Overview',
         id: 'stageOverview'
-      },
-      {
-        label: 'Approval Type',
-        id: 'approvalType'
       },
       {
         label: 'Stage Variables',
@@ -97,7 +90,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
               identifier: cloneOriginalData?.stage.identifier,
               name: cloneOriginalData?.stage.name,
               description: cloneOriginalData?.stage.description,
-              approvalType: cloneOriginalData?.stage.approvalType,
               skipCondition: cloneOriginalData?.stage.skipCondition,
               tags: cloneOriginalData?.stage.tags || {}
             }}
@@ -122,8 +114,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                   name: values?.name,
                   identifier: values?.identifier,
                   description: values?.description,
-                  skipCondition: values?.skipCondition,
-                  approvalType: values?.approvalType
+                  skipCondition: values?.skipCondition
                 })
               }
               return errors
@@ -135,8 +126,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                   name: values?.name,
                   identifier: values?.identifier,
                   description: values?.description,
-                  skipCondition: values?.skipCondition,
-                  approvalType: values?.approvalType
+                  skipCondition: values?.skipCondition
                 })
               }
             }}
@@ -157,13 +147,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                       disabled: isReadonly
                     }}
                   />
-                </Card>
-
-                <div className={css.tabHeading} id="approvalType">
-                  {getString('approvalStage.approvalTypeHeading')}
-                </div>
-                <Card className={cx(css.sectionCard, css.shadow, css.approvalCards)}>
-                  <ApprovalTypeCards formikProps={formikProps} isReadonly={isReadonly} />
                 </Card>
               </FormikForm>
             )}

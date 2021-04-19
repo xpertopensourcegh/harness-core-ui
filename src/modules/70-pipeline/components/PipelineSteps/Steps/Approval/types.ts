@@ -49,28 +49,10 @@ export interface APIStateInterface {
   apiStatus: string
 }
 
-export enum AsyncStatus {
-  INIT = 'INIT',
-  FETCHING = 'FETCHING',
-  SUCCESS = 'SUCCESS',
-  FAILURE = 'FAILURE'
-}
-
-export enum EntityType {
-  USER = 'USER',
-  USERGROUP = 'USERGROUP'
-}
-
 export interface HarnessApprovalFormContentProps {
   formik: FormikProps<HarnessApprovalData>
   userGroupsResponse: ResponsePageUserGroupDTO | null
   userGroupsFetchError: GetDataError<Failure | Error> | null
   fetchingUserGroups: boolean
   isNewStep?: boolean
-}
-
-export interface UGMultiSelectProps extends HarnessApprovalDeploymentModeProps {
-  userGroupsResponse: ResponsePageUserGroupDTO | null
-  userGroupsFetchError: GetDataError<Failure | Error> | null
-  fetchingUserGroups: boolean
 }

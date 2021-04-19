@@ -1,7 +1,7 @@
 .approvalStageMinimalWrapper {
   background-color: var(--white) !important;
   display: grid;
-  padding: var(--spacing-xlarge);
+  padding: var(--spacing-xlarge) !important;
   grid-template-columns: 1fr;
   height: 100%;
 }
@@ -51,4 +51,21 @@
   display: flex !important;
   justify-content: center;
   align-items: center;
+}
+
+.approvalTypeHeading {
+  font-size: var(--font-size-medium) !important;
+  color: var(--black-color-3) !important;
+}
+
+.section-card {
+  width: auto;
+  margin: var(--spacing-large) 0;
+  &.shadow {
+    box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
+  }
+}
+
+.button {
+  display: block !important;
 }

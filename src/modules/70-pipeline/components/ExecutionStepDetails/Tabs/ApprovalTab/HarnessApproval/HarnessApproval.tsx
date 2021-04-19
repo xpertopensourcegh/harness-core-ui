@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import { isEmpty } from 'lodash-es'
 import { Button, Color, FormInput, Layout, Text, TextInput } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import cx from 'classnames'
@@ -14,7 +15,7 @@ import {
   ResponseHarnessApprovalInstanceAuthorization,
   ResponseApprovalInstanceResponse
 } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 import { Duration } from '@common/exports'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { DEFAULT_DATE_FORMAT } from '@common/utils/StringUtils'
@@ -51,6 +52,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
     const newState = await submitApproval({ ...data, action: action.current })
     updateState(newState)
   }
+  const { getString } = useStrings()
 
   if (loading || showSpinner) return <Spinner />
 
@@ -100,9 +102,11 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
         </Layout.Vertical>
       )}
       <div className={css.harnessApproval}>
-        <Text>
-          <String stringID="pipeline.approvalStep.approvers" />:
-        </Text>
+        {isEmpty(approvalData.details.approvalActivities) ? null : (
+          <Text>
+            <String stringID="pipeline.approvalStep.approvers" />:
+          </Text>
+        )}
         {(approvalData.details.approvalActivities || []).map((row, i) => (
           <HarnessApprover key={i} approvalActivity={row} />
         ))}
@@ -132,18 +136,22 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
 
               return (
                 <div className={css.inputs}>
-                  <String tagName="div" className={css.heading} stringID="execution.approvals.inputsTitle" />
-                  <div className={cx(css.formRow, css.labels)}>
-                    <String stringID="variableNameLabel" />
-                    <String stringID="configureOptions.defaultValue" />
-                  </div>
-                  {values.approverInputs?.map((row, i) => (
-                    <div className={css.formRow} key={i}>
-                      <TextInput name={`approverInputs[${i}].name`} value={row.name} disabled />
-                      <FormInput.Text name={`approverInputs[${i}].value`} disabled={submitting} />
+                  {isEmpty(values.approverInputs) ? null : (
+                    <div>
+                      <String tagName="div" className={css.heading} stringID="execution.approvals.inputsTitle" />
+                      <div className={cx(css.formRow, css.labels)}>
+                        <String stringID="variableNameLabel" />
+                        <String stringID="configureOptions.defaultValue" />
+                      </div>
+                      {values.approverInputs?.map((row, i) => (
+                        <div className={css.formRow} key={i}>
+                          <TextInput name={`approverInputs[${i}].name`} value={row.name} disabled />
+                          <FormInput.Text name={`approverInputs[${i}].value`} disabled={submitting} />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                  <FormInput.TextArea label="comments" name="comments" disabled={submitting} />
+                  )}
+                  <FormInput.TextArea name="comments" disabled={submitting} label={getString('common.comments')} />
                   <div className={css.actions}>
                     <Button intent="primary" onClick={handleApproveClick} disabled={submitting}>
                       <String stringID="common.approve" />

@@ -13,7 +13,15 @@ import type { JiraUpdateDeploymentModeFormContentInterface, JiraUpdateDeployment
 import css from '../JiraCreate/JiraCreate.module.scss'
 
 const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterface) => {
-  const { inputSetData, onUpdate, initialValues, statusResponse, fetchingStatuses, refetchStatuses } = formContentProps
+  const {
+    inputSetData,
+    onUpdate,
+    initialValues,
+    statusResponse,
+    fetchingStatuses,
+    refetchStatuses,
+    statusFetchError
+  } = formContentProps
   const template = inputSetData?.template
   const path = inputSetData?.path
   const prefix = isEmpty(path) ? '' : `${path}.`
@@ -62,6 +70,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${prefix}timeout`}
           disabled={readonly}
+          className={css.deploymentViewMedium}
         />
       ) : null}
 
@@ -86,7 +95,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec.issueKey) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Text
           label={getString('pipeline.jiraApprovalStep.issueKey')}
           className={css.deploymentViewMedium}
@@ -96,15 +105,10 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec.transitionTo?.status) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec?.transitionTo?.status) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Select
-          items={
-            fetchingStatuses
-              ? [{ label: getString('pipeline.jiraUpdateStep.fetchingStatus'), value: '' }]
-              : statusOptions
-          }
+          items={statusOptions}
           className={css.deploymentViewMedium}
-          placeholder={fetchingStatuses ? getString('pipeline.jiraUpdateStep.fetchingStatus') : getString('status')}
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.transitionTo.status`}
           disabled={readonly}
@@ -113,6 +117,13 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
             defaultSelectedItem: {
               label: initialValues.spec.transitionTo?.status?.toString() || '',
               value: initialValues.spec.transitionTo?.status?.toString() || ''
+            },
+            inputProps: {
+              placeholder: fetchingStatuses
+                ? getString('pipeline.jiraUpdateStep.fetchingStatus')
+                : statusFetchError?.message
+                ? statusFetchError.message
+                : getString('status')
             }
           }}
           onChange={(opt: SelectOption) => {

@@ -21,7 +21,15 @@ import css from './JiraDynamicFieldsSelector.module.scss'
 
 const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
   const { getString } = useStrings()
-  const { connectorRef, refetchProjectMetadata, projectMetaResponse, fetchingProjectMetadata } = props
+  const {
+    connectorRef,
+    refetchProjectMetadata,
+    projectMetaResponse,
+    fetchingProjectMetadata,
+    showProjectDisclaimer,
+    selectedProjectKey: selectedProjectKeyInit,
+    selectedIssueTypeKey: selectedIssueTypeKeyInit
+  } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
@@ -31,8 +39,16 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
     projectIdentifier,
     orgIdentifier
   }
-  const [projectValue, setProjectValue] = useState<JiraProjectSelectOption>()
-  const [issueTypeValue, setIssueTypeValue] = useState<JiraProjectSelectOption>()
+  const [projectValue, setProjectValue] = useState<JiraProjectSelectOption>({
+    key: selectedProjectKeyInit,
+    value: selectedProjectKeyInit,
+    label: selectedProjectKeyInit
+  })
+  const [issueTypeValue, setIssueTypeValue] = useState<JiraProjectSelectOption>({
+    key: selectedIssueTypeKeyInit,
+    value: selectedIssueTypeKeyInit,
+    label: selectedIssueTypeKeyInit
+  })
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
   const [fieldList, setFieldList] = useState<JiraFieldNG[]>([])
 
@@ -80,6 +96,10 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
         <Text className={css.selectLabel}>{getString('pipeline.jiraApprovalStep.project')}</Text>
         <Select
           items={props.projectOptions}
+          defaultSelectedItem={{
+            label: selectedProjectKey,
+            value: selectedProjectKey
+          }}
           onChange={value => {
             setProjectValue(value as JiraProjectSelectOption)
           }}
@@ -100,6 +120,10 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
           inputProps={{
             placeholder: fetchingProjectMetadata ? 'Fetching Issue Types...' : 'Select Issue Type'
           }}
+          defaultSelectedItem={{
+            label: selectedIssueTypeKey,
+            value: selectedIssueTypeKey
+          }}
           onChange={value => {
             setIssueTypeValue(value as JiraProjectSelectOption)
           }}
@@ -111,12 +135,17 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
           <Text>{getString('pipeline.jiraCreateStep.fieldsSelectorPlaceholder')}</Text>
         </div>
       ) : (
-        <JiraFieldSelector
-          fields={fieldList}
-          selectedFields={[]}
-          onCancel={props.onCancel}
-          addSelectedFields={props.addSelectedFields}
-        />
+        <div>
+          {showProjectDisclaimer ? (
+            <Text intent="warning">{getString('pipeline.jiraUpdateStep.projectIssueTypeDisclaimer')}</Text>
+          ) : null}
+          <JiraFieldSelector
+            fields={fieldList}
+            selectedFields={[]}
+            onCancel={props.onCancel}
+            addSelectedFields={fields => props.addSelectedFields(fields, selectedProjectKey, selectedIssueTypeKey)}
+          />
+        </div>
       )}
     </div>
   )

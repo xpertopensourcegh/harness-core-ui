@@ -1,5 +1,6 @@
 import { getMultiTypeFromValue, MultiSelectOption, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import { isEmpty } from 'lodash-es'
 import type { JiraFieldNG } from 'services/cd-ng'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import type { JiraCreateData, JiraCreateFieldType, JiraFieldNGWithValue } from './types'
@@ -81,15 +82,15 @@ export const processFormData = (values: JiraCreateData): JiraCreateData => {
     spec: {
       connectorRef:
         getMultiTypeFromValue(values.spec.connectorRef as SelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec.connectorRef as SelectOption).value?.toString()
+          ? (values.spec.connectorRef as SelectOption)?.value?.toString()
           : values.spec.connectorRef,
       projectKey:
         getMultiTypeFromValue(values.spec.projectKey as JiraProjectSelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec.projectKey as JiraProjectSelectOption).key?.toString()
+          ? (values.spec.projectKey as JiraProjectSelectOption)?.key?.toString()
           : values.spec.projectKey,
       issueType:
         getMultiTypeFromValue(values.spec.issueType as JiraProjectSelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec.issueType as JiraProjectSelectOption).key?.toString()
+          ? (values.spec.issueType as JiraProjectSelectOption)?.key?.toString()
           : values.spec.issueType,
       fields: processFieldsForSubmit(values)
     }
@@ -126,4 +127,36 @@ export const processInitialValues = (values: JiraCreateData): JiraCreateData => 
       fields: omitSummaryDescription(values.spec.fields)
     }
   }
+}
+
+export const getSelectedFieldsToBeAddedInForm = (
+  newFields: JiraFieldNG[],
+  existingFields: JiraFieldNGWithValue[] = [],
+  existingKVFields: JiraCreateFieldType[]
+): JiraFieldNGWithValue[] => {
+  const toReturn: JiraFieldNGWithValue[] = [...existingFields]
+  newFields.forEach(field => {
+    const alreadyPresent = existingFields.find(existing => existing.name === field.name)
+    const alreadyPresentKVField = existingKVFields.find(kv => kv.name === field.name)
+    if (!alreadyPresent && !alreadyPresentKVField) {
+      toReturn.push({ ...field, value: !isEmpty(field.allowedValues) ? [] : '' })
+    }
+  })
+  return toReturn
+}
+
+export const getKVFieldsToBeAddedInForm = (
+  newFields: JiraCreateFieldType[],
+  existingFields: JiraCreateFieldType[] = [],
+  existingSelectedFields: JiraFieldNGWithValue[] = []
+): JiraCreateFieldType[] => {
+  const toReturn: JiraCreateFieldType[] = [...existingFields]
+  newFields.forEach(field => {
+    const alreadyPresent = existingFields.find(existing => existing.name === field.name)
+    const alreadyPresentSelectedField = existingSelectedFields.find(existing => existing.name === field.name)
+    if (!alreadyPresent && !alreadyPresentSelectedField) {
+      toReturn.push(field)
+    }
+  })
+  return toReturn
 }

@@ -572,93 +572,95 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
     <div
       class="inputs"
     >
-      <div
-        class="heading"
-      >
-        execution.approvals.inputsTitle
-      </div>
-      <div
-        class="formRow labels"
-      >
-        <span>
-          variableNameLabel
-        </span>
-        <span>
-          configureOptions.defaultValue
-        </span>
-      </div>
-      <div
-        class="formRow"
-      >
+      <div>
         <div
-          class="TextInput--main"
+          class="heading"
         >
-          <div
-            class="bp3-input-group bp3-disabled"
-          >
-            <input
-              class="bp3-input"
-              disabled=""
-              name="approverInputs[0].name"
-              type="text"
-              value="var1"
-            />
-          </div>
+          execution.approvals.inputsTitle
         </div>
         <div
-          class="bp3-form-group"
+          class="formRow labels"
+        >
+          <span>
+            variableNameLabel
+          </span>
+          <span>
+            configureOptions.defaultValue
+          </span>
+        </div>
+        <div
+          class="formRow"
         >
           <div
-            class="bp3-form-content"
+            class="TextInput--main"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-input-group bp3-disabled"
             >
               <input
-                autocomplete="off"
                 class="bp3-input"
-                name="approverInputs[0].value"
+                disabled=""
+                name="approverInputs[0].name"
                 type="text"
-                value="val10"
+                value="var1"
               />
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        class="formRow"
-      >
-        <div
-          class="TextInput--main"
-        >
           <div
-            class="bp3-input-group bp3-disabled"
+            class="bp3-form-group"
           >
-            <input
-              class="bp3-input"
-              disabled=""
-              name="approverInputs[1].name"
-              type="text"
-              value="var2"
-            />
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="approverInputs[0].value"
+                  type="text"
+                  value="val10"
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div
-          class="bp3-form-group"
+          class="formRow"
         >
           <div
-            class="bp3-form-content"
+            class="TextInput--main"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-input-group bp3-disabled"
             >
               <input
-                autocomplete="off"
                 class="bp3-input"
-                name="approverInputs[1].value"
+                disabled=""
+                name="approverInputs[1].name"
                 type="text"
-                value="val20"
+                value="var2"
               />
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="approverInputs[1].value"
+                  type="text"
+                  value="val20"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -670,7 +672,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
           class="bp3-label"
           for="comments"
         >
-          comments
+          common.comments
            
           <span
             class="bp3-text-muted"

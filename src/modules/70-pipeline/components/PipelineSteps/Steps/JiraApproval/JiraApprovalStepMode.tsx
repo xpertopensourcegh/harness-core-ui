@@ -29,7 +29,13 @@ import {
   JiraFormContentInterface,
   ApprovalRejectionCriteriaType
 } from './types'
-import { getGenuineValue, resetForm, setIssueTypeOptions, processFormData } from './helper'
+import {
+  getGenuineValue,
+  resetForm,
+  setIssueTypeOptions,
+  processFormData,
+  getApprovalRejectionCriteriaForInitialValues
+} from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraApproval.module.scss'
 
@@ -97,9 +103,10 @@ const FormContent = ({
 
   useEffect(() => {
     // If issuetype changes in form, set status and field list
-    if (issueTypeFixedValue) {
+    if (issueTypeFixedValue && projectMetadata) {
       const issueTypeData = projectMetadata?.issuetypes[issueTypeFixedValue]
-      setStatusList(issueTypeData?.statuses || [])
+      const statusListFromType = issueTypeData?.statuses || []
+      setStatusList(statusListFromType)
       const fieldListToSet: JiraFieldNG[] = []
       const fieldKeys = Object.keys(issueTypeData?.fields || {})
       fieldKeys.forEach(keyy => {
@@ -108,6 +115,18 @@ const FormContent = ({
         }
       })
       setFieldList(fieldListToSet)
+      const approvalCriteria = getApprovalRejectionCriteriaForInitialValues(
+        formik.values.spec.approvalCriteria,
+        statusListFromType,
+        fieldListToSet
+      )
+      formik.setFieldValue('spec.approvalCriteria', approvalCriteria)
+      const rejectionCriteria = getApprovalRejectionCriteriaForInitialValues(
+        formik.values.spec.rejectionCriteria,
+        statusListFromType,
+        fieldListToSet
+      )
+      formik.setFieldValue('spec.rejectionCriteria', rejectionCriteria)
     }
   }, [issueTypeFixedValue, projectMetadata])
 
@@ -180,7 +199,6 @@ const FormContent = ({
                 className={css.md}
                 disabled={fetchingProjects}
                 multiTypeInputProps={{
-                  // Keeping it fixed for now as this may change in future, and the support for other value types is already provided
                   allowableTypes: [MultiTypeInputType.FIXED],
                   onChange: _unused => {
                     // Clear dependent fields
@@ -206,7 +224,6 @@ const FormContent = ({
                 className={css.md}
                 disabled={fetchingProjectMetadata}
                 multiTypeInputProps={{
-                  // Keeping it fixed for now as this may change in future, and the support for other value types is already provided
                   allowableTypes: [MultiTypeInputType.FIXED],
                   onChange: _unused => {
                     // Clear dependent fields
@@ -241,7 +258,7 @@ const FormContent = ({
 
         <Accordion.Panel
           id="step-3"
-          summary={getString('pipeline.jiraApprovalStep.rejectionCriteria')}
+          summary={getString('pipeline.jiraApprovalStep.rejectionCriteriaOptional')}
           details={
             <ApprovalRejectionCriteria
               statusList={statusList}
@@ -312,8 +329,6 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
-          projectKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.project')),
-          issueType: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueType')),
           issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
           approvalCriteria: Yup.object().shape({
             spec: Yup.object().when('type', {

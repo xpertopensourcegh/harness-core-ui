@@ -57,7 +57,8 @@ export const Conditions = ({
   isFetchingFields,
   allowedValuesForFields,
   allowedFieldKeys,
-  formikErrors
+  formikErrors,
+  fieldList
 }: ConditionsInterface) => {
   const { getString } = useStrings()
   if (isFetchingFields) {
@@ -94,11 +95,15 @@ export const Conditions = ({
                 </div>
                 {values.spec.conditions?.map((condition: ApprovalRejectionCriteriaCondition, i: number) => (
                   <div className={css.headers} key={i}>
-                    <FormInput.Select
-                      items={allowedFieldKeys}
-                      name={`spec.${mode}.spec.conditions[${i}].key`}
-                      placeholder="Key"
-                    />
+                    {isEmpty(fieldList) ? (
+                      <FormInput.Text name={`spec.${mode}.spec.conditions[${i}].key`} placeholder="Key" />
+                    ) : (
+                      <FormInput.Select
+                        items={allowedFieldKeys}
+                        name={`spec.${mode}.spec.conditions[${i}].key`}
+                        placeholder="Key"
+                      />
+                    )}
                     <FormInput.Select
                       items={allowedValuesForFields[condition.key] ? operatorValues : filterOutMultiOperators()}
                       name={`spec.${mode}.spec.conditions[${i}].operator`}

@@ -1,6 +1,7 @@
 import { getMultiTypeFromValue, MultiSelectOption, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
-import type { JiraFieldAllowedValueNG, JiraIssueTypeNG } from 'services/cd-ng'
+import { isEmpty } from 'lodash-es'
+import type { JiraFieldAllowedValueNG, JiraFieldNG, JiraIssueTypeNG, JiraStatusNG } from 'services/cd-ng'
 import {
   ApprovalRejectionCriteria,
   ApprovalRejectionCriteriaCondition,
@@ -31,13 +32,17 @@ export const getApprovalRejectionCriteriaForSubmit = (
     ...criteria,
     spec: {
       ...criteria.spec,
-      conditions: criteria.spec.conditions?.map((condition: ApprovalRejectionCriteriaCondition) => ({
-        ...condition,
-        value:
-          getMultiTypeFromValue(condition.value) === MultiTypeInputType.FIXED
-            ? getApprovalRejectionConditionValuesForSubmit(condition.value)
-            : condition.value
-      }))
+      conditions: criteria.spec.conditions?.filter((condition: ApprovalRejectionCriteriaCondition) => {
+        if (!isEmpty(condition.key) && !isEmpty(condition.value)) {
+          return {
+            ...condition,
+            value:
+              getMultiTypeFromValue(condition.value) === MultiTypeInputType.FIXED
+                ? getApprovalRejectionConditionValuesForSubmit(condition.value)
+                : condition.value
+          }
+        }
+      })
     }
   }
   if (criteriaToReturn.type === ApprovalRejectionCriteriaType.Jexl) {
@@ -74,15 +79,20 @@ export const processFormData = (values: JiraApprovalData): JiraApprovalData => {
 }
 
 const getInitialApprovalRejectionConditionValues = (
-  condition: ApprovalRejectionCriteriaCondition
+  condition: ApprovalRejectionCriteriaCondition,
+  statusList: JiraStatusNG[] = [],
+  fieldList: JiraFieldNG[] = []
 ): string | SelectOption | MultiSelectOption[] => {
   // The value in YAML is always a string.
   // We'll figure out the component from operator and key
   const { operator, value, key } = condition
-  if ((operator === 'equals' || operator === 'not equals') && key !== 'Status') {
-    // Simple text input, need to revisit this condition
+  const list = key === 'Status' ? statusList : fieldList.find(field => field.name === key)?.allowedValues
+
+  if (isEmpty(list)) {
+    // Simple text input
     return value?.toString()
   }
+
   if ((operator === 'in' || operator === 'not in') && typeof value === 'string') {
     // Multi select
     return value.split(',').map(each => ({
@@ -106,7 +116,9 @@ export const getDefaultCriterias = (): ApprovalRejectionCriteria => ({
 })
 
 export const getApprovalRejectionCriteriaForInitialValues = (
-  criteria: ApprovalRejectionCriteria
+  criteria: ApprovalRejectionCriteria,
+  statusList: JiraStatusNG[] = [],
+  fieldList: JiraFieldNG[] = []
 ): ApprovalRejectionCriteria => {
   // Convert the approval/rejection criteria 'value' field to selectoption, from string/string[]
   if (!criteria) {
@@ -122,7 +134,7 @@ export const getApprovalRejectionCriteriaForInitialValues = (
             operator: condition.operator,
             value:
               getMultiTypeFromValue(condition.value) === MultiTypeInputType.FIXED
-                ? getInitialApprovalRejectionConditionValues(condition)
+                ? getInitialApprovalRejectionConditionValues(condition, statusList, fieldList)
                 : condition.value
           }))
         : []
@@ -241,7 +253,7 @@ export const getGenuineValue = (value: SelectOption | JiraProjectSelectOption | 
   return undefined
 }
 
-export const setAllowedValuesOptions = (allowedValues: JiraFieldAllowedValueNG[]) =>
+export const setAllowedValuesOptions = (allowedValues: JiraFieldAllowedValueNG[]): MultiSelectOption[] =>
   allowedValues.map(allowedValue => ({
     label: allowedValue.value || allowedValue.name || allowedValue.id || '',
     value: allowedValue.value || allowedValue.name || allowedValue.id || ''

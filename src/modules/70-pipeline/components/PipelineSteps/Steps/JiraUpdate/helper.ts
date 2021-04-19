@@ -18,7 +18,10 @@ export const processFieldsForSubmit = (values: JiraUpdateData): JiraCreateFieldT
     toReturn.push({ name, value })
   })
   values.spec.fields?.forEach((kvField: JiraCreateFieldType) => {
-    toReturn.push(kvField)
+    const alreadyPresent = toReturn.find(field => field.name === kvField.name)
+    if (!alreadyPresent) {
+      toReturn.push(kvField)
+    }
   })
   return toReturn
 }
@@ -29,7 +32,7 @@ export const processFormData = (values: JiraUpdateData): JiraUpdateData => {
     spec: {
       connectorRef:
         getMultiTypeFromValue(values.spec.connectorRef as SelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec.connectorRef as SelectOption).value?.toString()
+          ? (values.spec.connectorRef as SelectOption)?.value?.toString()
           : values.spec.connectorRef,
       issueKey: values.spec.issueKey,
       transitionTo: values.spec.transitionTo

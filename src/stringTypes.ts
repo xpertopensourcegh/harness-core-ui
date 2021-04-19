@@ -566,6 +566,7 @@ export interface StringsMap {
   'pipeline.jiraApprovalStep.match': string
   'pipeline.jiraApprovalStep.project': string
   'pipeline.jiraApprovalStep.rejectionCriteria': string
+  'pipeline.jiraApprovalStep.rejectionCriteriaOptional': string
   'pipeline.jiraApprovalStep.validations.approvalCriteriaCondition': string
   'pipeline.jiraApprovalStep.validations.connectorRef': string
   'pipeline.jiraApprovalStep.validations.expression': string
@@ -584,6 +585,7 @@ export interface StringsMap {
   'pipeline.jiraCreateStep.summaryPlaceholder': string
   'pipeline.jiraCreateStep.validations.summary': string
   'pipeline.jiraUpdateStep.fetchingStatus': string
+  'pipeline.jiraUpdateStep.projectIssueTypeDisclaimer': string
   'pipeline.jiraUpdateStep.statusTransitionAccordion': string
   'pipeline.jiraUpdateStep.transitionLabel': string
   'pipeline.jiraUpdateStep.validations.status': string

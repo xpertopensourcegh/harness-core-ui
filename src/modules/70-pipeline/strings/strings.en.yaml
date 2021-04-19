@@ -30,6 +30,7 @@ jiraApprovalStep:
   fetchIssueTypesError: Failed to fetch issue types
   approvalCriteria: Approval Criteria
   rejectionCriteria: Rejection Criteria
+  rejectionCriteriaOptional: Rejection Criteria (Optional)
   jexlExpressionLabelApproval: If the JEXL Expression evaluates to true, approve this step
   jexlExpressionLabelRejection: If the JEXL Expression evaluates to true, reject this step
   jexlExpressionPlaceholder: |
@@ -65,6 +66,9 @@ jiraUpdateStep:
   statusTransitionAccordion: Status and Transition (Optional)
   transitionLabel: Transition Name (Optional)
   fetchingStatus: Fetching status list...
+  projectIssueTypeDisclaimer:
+    Please ensure the values for your project and issuetype matches the values in your issue key. If the
+    values don’t match, there will be an error at runtime.
   validations:
     status: Status is required.
 manifestType:

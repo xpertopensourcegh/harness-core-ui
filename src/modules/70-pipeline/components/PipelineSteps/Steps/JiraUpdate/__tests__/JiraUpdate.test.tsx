@@ -131,9 +131,10 @@ describe('Jira Update tests', () => {
       container,
       getByText,
       queryByPlaceholderText,
-      getByPlaceholderText,
+      queryAllByPlaceholderText,
       queryByDisplayValue,
-      queryByText
+      queryByText,
+      getByTestId
     } = render(
       <TestStepWidget
         initialValues={props.initialValues}
@@ -190,15 +191,19 @@ describe('Jira Update tests', () => {
 
     const dialogContainerPostUpdate = document.body.querySelector('.bp3-portal')
     act(() => {
-      fireEvent.click(getByText('Field'))
+      fireEvent.click(getByTestId('add-fieldList'))
     })
-    fireEvent.change(getByPlaceholderText('keyLabel'), { target: { value: 'issueKey1' } })
-    fireEvent.change(getByPlaceholderText('valueLabel'), { target: { value: 'issueKey1Value' } })
+
+    const key0Input = dialogContainerPostUpdate?.querySelector('input[name="fieldList[0].name"]')
+    const value0Input = dialogContainerPostUpdate?.querySelector('input[name="fieldList[0].value"]')
+    fireEvent.change(key0Input!, { target: { value: 'issueKey1' } })
+    fireEvent.change(value0Input!, { target: { value: 'issueKey1Value' } })
     const addButton = dialogContainerPostUpdate?.querySelector('.bp3-button-text')
     fireEvent.click(addButton!)
 
     expect(queryByDisplayValue('issueKey1')).toBeTruthy()
     expect(queryByDisplayValue('issueKey1Value')).toBeTruthy()
+    expect(queryAllByPlaceholderText('f1').length).toBe(1)
     await act(() => ref.current?.submitForm())
 
     expect(props.onUpdate).toBeCalledWith({

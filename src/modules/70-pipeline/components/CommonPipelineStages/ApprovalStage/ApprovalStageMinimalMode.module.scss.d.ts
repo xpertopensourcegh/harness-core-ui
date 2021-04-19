@@ -8,5 +8,9 @@ declare const styles: {
   readonly grid: string
   readonly squareCardContainer: string
   readonly squareCard: string
+  readonly approvalTypeHeading: string
+  readonly sectionCard: string
+  readonly shadow: string
+  readonly button: string
 }
 export default styles

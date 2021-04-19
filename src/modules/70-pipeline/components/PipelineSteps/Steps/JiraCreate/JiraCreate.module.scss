@@ -25,6 +25,7 @@
 
 .addFieldsModal {
   padding: var(--spacing-large);
+  width: 600px;
 }
 
 .jiraFieldSelectorSection {
@@ -65,4 +66,10 @@
   :global(.bp3-icon-trash) {
     color: var(--grey-400) !important;
   }
+}
+
+.fetching {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-medium) 0;
 }

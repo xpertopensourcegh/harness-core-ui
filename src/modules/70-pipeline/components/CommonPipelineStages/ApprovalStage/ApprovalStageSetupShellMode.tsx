@@ -84,6 +84,9 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
         const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
         selectedStage.stage.failureStrategies = jsonFromYaml.failureStrategies || []
         selectedStage.stage.spec.execution = jsonFromYaml?.spec?.execution
+        // approvalType is just used in the UI, to populate the default steps for different approval types
+        // For BE, the stage type is always 'Approval' and approval type is defined inside the step
+        delete selectedStage.stage.approvalType
         updateStage(selectedStage.stage)
       }
     }

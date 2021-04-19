@@ -102,14 +102,3 @@ export interface JiraFormContentInterface {
   projectMetadataFetchError?: GetDataError<Failure | Error> | null
   isNewStep?: boolean
 }
-
-export interface JiraDeploymentModeFormContentInterface extends JiraApprovalDeploymentModeProps {
-  refetchProjects: (props: UseGetJiraProjectsProps) => {}
-  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => {}
-  fetchingProjects: boolean
-  fetchingProjectMetadata: boolean
-  projectsResponse: ResponseListJiraProjectBasicNG | null
-  projectMetaResponse: ResponseJiraIssueCreateMetadataNG | null
-  projectsFetchError?: GetDataError<Failure | Error> | null
-  projectMetadataFetchError?: GetDataError<Failure | Error> | null
-}

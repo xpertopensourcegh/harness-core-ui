@@ -44,7 +44,14 @@ import {
   JiraCreateFieldType,
   JiraFieldNGWithValue
 } from './types'
-import { resetForm, getInitialValueForSelectedField, getKVFields, processFormData } from './helper'
+import {
+  resetForm,
+  getInitialValueForSelectedField,
+  getKVFields,
+  processFormData,
+  getKVFieldsToBeAddedInForm,
+  getSelectedFieldsToBeAddedInForm
+} from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraCreate.module.scss'
 
@@ -183,21 +190,32 @@ const FormContent = ({
       >
         <JiraDynamicFieldsSelector
           connectorRef={connectorRefFixedValue || ''}
+          selectedProjectKey={projectKeyFixedValue || ''}
+          selectedIssueTypeKey={issueTypeFixedValue || ''}
           projectOptions={projectOptions}
           addSelectedFields={(fieldsToBeAdded: JiraFieldNG[]) => {
-            formik.setFieldValue('spec.selectedFields', fieldsToBeAdded)
+            formik.setFieldValue(
+              'spec.selectedFields',
+              getSelectedFieldsToBeAddedInForm(
+                fieldsToBeAdded,
+                formik.values.spec.selectedFields,
+                formik.values.spec.fields
+              )
+            )
             hideDynamicFieldsModal()
           }}
           provideFieldList={(fields: JiraCreateFieldType[]) => {
-            formik.setFieldValue('spec.fields', fields)
-            formik.setFieldValue('spec.selectedFields', [])
+            formik.setFieldValue(
+              'spec.fields',
+              getKVFieldsToBeAddedInForm(fields, formik.values.spec.fields, formik.values.spec.selectedFields)
+            )
             hideDynamicFieldsModal()
           }}
           onCancel={hideDynamicFieldsModal}
         />
       </Dialog>
     )
-  }, [projectOptions, connectorRefFixedValue])
+  }, [projectOptions, connectorRefFixedValue, formik.values.spec.selectedFields, formik.values.spec.fields])
 
   const setFieldOptions = () => {
     if (
@@ -333,59 +351,66 @@ const FormContent = ({
                 placeholder={getString('pipeline.enterDescription')}
               />
 
-              {formik.values.spec.selectedFields?.map((selectedField: JiraFieldNG, index: number) => {
-                if (
-                  selectedField.schema.type === 'string' ||
-                  selectedField.schema.type === 'date' ||
-                  selectedField.schema.type === 'datetime' ||
-                  selectedField.schema.type === 'number'
-                ) {
-                  return (
-                    <FormInput.MultiTextInput
-                      label={selectedField.name}
-                      name={`spec.selectedFields[${index}].value`}
-                      placeholder={selectedField.name}
-                      className={css.md}
-                      multiTextInputProps={{
-                        expressions
-                      }}
-                    />
-                  )
-                } else if (
-                  selectedField.allowedValues &&
-                  selectedField.schema.type === 'option' &&
-                  selectedField.schema.array
-                ) {
-                  return (
-                    <FormInput.MultiSelectTypeInput
-                      selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-                      label={selectedField.name}
-                      name={`spec.selectedFields[${index}].value`}
-                      placeholder={selectedField.name}
-                      className={cx(css.multiSelect, css.md)}
-                      multiSelectTypeInputProps={{
-                        expressions
-                      }}
-                    />
-                  )
-                } else if (selectedField.allowedValues && selectedField.schema.type === 'option') {
-                  return (
-                    <FormInput.MultiTypeInput
-                      selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-                      label={selectedField.name}
-                      name={`spec.selectedFields[${index}].value`}
-                      placeholder={selectedField.name}
-                      className={cx(css.multiSelect, css.md)}
-                      multiTypeInputProps={{ expressions }}
-                    />
-                  )
-                }
-              })}
+              {fetchingProjectMetadata ? (
+                <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>
+              ) : null}
 
-              {!isEmpty(formik.values.spec.fields) && isEmpty(formik.values.spec.selectedFields) ? (
+              {!fetchingProjectMetadata &&
+                formik.values.spec.selectedFields?.map((selectedField: JiraFieldNG, index: number) => {
+                  if (
+                    selectedField.schema.type === 'string' ||
+                    selectedField.schema.type === 'date' ||
+                    selectedField.schema.type === 'datetime' ||
+                    selectedField.schema.type === 'number'
+                  ) {
+                    return (
+                      <FormInput.MultiTextInput
+                        label={selectedField.name}
+                        name={`spec.selectedFields[${index}].value`}
+                        placeholder={selectedField.name}
+                        className={css.md}
+                        multiTextInputProps={{
+                          expressions
+                        }}
+                      />
+                    )
+                  } else if (
+                    selectedField.allowedValues &&
+                    selectedField.schema.type === 'option' &&
+                    selectedField.schema.array
+                  ) {
+                    return (
+                      <FormInput.MultiSelectTypeInput
+                        selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
+                        label={selectedField.name}
+                        name={`spec.selectedFields[${index}].value`}
+                        placeholder={selectedField.name}
+                        className={cx(css.multiSelect, css.md)}
+                        multiSelectTypeInputProps={{
+                          expressions
+                        }}
+                      />
+                    )
+                  } else if (selectedField.allowedValues && selectedField.schema.type === 'option') {
+                    return (
+                      <FormInput.MultiTypeInput
+                        selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
+                        label={selectedField.name}
+                        name={`spec.selectedFields[${index}].value`}
+                        placeholder={selectedField.name}
+                        className={cx(css.multiSelect, css.md)}
+                        multiTypeInputProps={{ expressions }}
+                      />
+                    )
+                  }
+                })}
+
+              {!fetchingProjectMetadata &&
+              !isEmpty(formik.values.spec.fields) &&
+              isEmpty(formik.values.spec.selectedFields) ? (
                 <FieldArray
                   name="spec.fields"
-                  render={({ push, remove }) => {
+                  render={({ remove }) => {
                     return (
                       <div>
                         <div className={css.headerRow}>
@@ -412,15 +437,6 @@ const FormContent = ({
                             />
                           </div>
                         ))}
-                        <Button
-                          icon="plus"
-                          minimal
-                          intent="primary"
-                          data-testid="add-fieldList"
-                          onClick={() => push({ name: '', value: '' })}
-                        >
-                          Add
-                        </Button>
                       </div>
                     )
                   }}

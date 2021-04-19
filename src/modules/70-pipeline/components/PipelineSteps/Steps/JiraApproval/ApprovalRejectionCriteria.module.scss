@@ -11,12 +11,13 @@
 
 .selectedTab {
   border-bottom: 4px solid var(--blue-500);
+  font-weight: 500;
 }
 
 .alignConditions {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-large) !important;
+  margin: var(--spacing-xxlarge) 0 !important;
 
   span {
     color: var(--black) !important;

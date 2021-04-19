@@ -12,5 +12,6 @@ declare const styles: {
   readonly multiSelect: string
   readonly headerRow: string
   readonly label: string
+  readonly fetching: string
 }
 export default styles

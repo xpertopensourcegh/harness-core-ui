@@ -1,4 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
+import type { tagsType } from '@common/utils/types'
 import type { StageElementWrapper } from 'services/cd-ng'
 
 export enum ApprovalType {
@@ -17,6 +18,7 @@ export interface ApprovalStageMinimalValues {
   identifier: string
   name: string
   description?: string
+  tags?: tagsType
   approvalType: ApprovalType
 }
 

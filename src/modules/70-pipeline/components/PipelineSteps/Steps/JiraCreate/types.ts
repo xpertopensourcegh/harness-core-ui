@@ -74,10 +74,13 @@ export interface JiraFieldSelectorProps {
 
 export interface JiraDynamicFieldsSelectorInterface {
   connectorRef: string
+  selectedProjectKey: string
+  selectedIssueTypeKey: string
   projectOptions: JiraProjectSelectOption[]
-  addSelectedFields: (fields: JiraFieldNG[]) => void
+  addSelectedFields: (fields: JiraFieldNG[], selectedProjectKey: string, selectedIssueTypeKey: string) => void
   provideFieldList: (fields: JiraCreateFieldType[]) => void
   onCancel: () => void
+  showProjectDisclaimer?: boolean
 }
 
 export interface JiraDynamicFieldsSelectorContentInterface extends JiraDynamicFieldsSelectorInterface {

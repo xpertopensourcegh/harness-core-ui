@@ -15,7 +15,7 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
         userGroups:
           getMultiTypeFromValue(data.spec.approvers.userGroups as string) === MultiTypeInputType.RUNTIME
             ? data.spec.approvers.userGroups
-            : (data.spec.approvers.userGroups as MultiSelectOption[]).map(ug => ug.value?.toString()),
+            : (data.spec.approvers.userGroups as MultiSelectOption[])?.map(ug => ug.value?.toString()),
         minimumCount:
           getMultiTypeFromValue(data.spec.approvers.minimumCount as string) === MultiTypeInputType.RUNTIME
             ? data.spec.approvers.minimumCount
@@ -25,7 +25,7 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
         getMultiTypeFromValue(data.spec.approverInputs as string) === MultiTypeInputType.RUNTIME
           ? data.spec.approverInputs
           : Array.isArray(data.spec.approverInputs)
-          ? (data.spec.approverInputs as ApproverInputsSubmitCallInterface[]).map(
+          ? (data.spec.approverInputs as ApproverInputsSubmitCallInterface[])?.map(
               (input: ApproverInputsSubmitCallInterface) =>
                 ({
                   name: input.name,
@@ -39,26 +39,25 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
 }
 
 // Converting API call data for formik values, to populate while editing the step
-export const processForInitialValues = (data: HarnessApprovalData, isDeploymentView = false): HarnessApprovalData => {
+export const processForInitialValues = (data: HarnessApprovalData): HarnessApprovalData => {
   const toReturn: HarnessApprovalData = {
     ...data,
     spec: {
       ...data.spec,
       approvers: {
-        ...data.spec.approvers,
-        userGroups: isDeploymentView ? [] : data.spec.approvers.userGroups,
+        ...data.spec?.approvers,
         minimumCount:
-          getMultiTypeFromValue(data.spec.approvers.minimumCount as string) === MultiTypeInputType.RUNTIME
-            ? data.spec.approvers.minimumCount
-            : data.spec.approvers.minimumCount
-            ? Number(data.spec.approvers.minimumCount)
+          getMultiTypeFromValue(data.spec?.approvers?.minimumCount as string) === MultiTypeInputType.RUNTIME
+            ? data.spec?.approvers?.minimumCount
+            : data.spec?.approvers?.minimumCount
+            ? Number(data.spec?.approvers?.minimumCount)
             : 1
       },
       approverInputs:
-        getMultiTypeFromValue(data.spec.approverInputs as string) === MultiTypeInputType.RUNTIME
-          ? data.spec.approverInputs
-          : Array.isArray(data.spec.approverInputs)
-          ? (data.spec.approverInputs as ApproverInputsSubmitCallInterface[]).map(
+        getMultiTypeFromValue(data.spec?.approverInputs as string) === MultiTypeInputType.RUNTIME
+          ? data.spec?.approverInputs
+          : Array.isArray(data.spec?.approverInputs)
+          ? (data.spec?.approverInputs as ApproverInputsSubmitCallInterface[]).map(
               (input: ApproverInputsSubmitCallInterface) =>
                 ({
                   name: input.name,

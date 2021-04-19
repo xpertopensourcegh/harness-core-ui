@@ -28,6 +28,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { getGenuineValue, setAllowedValuesOptions } from '../JiraApproval/helper'
 import type { JiraCreateFieldType } from '../JiraCreate/types'
+import { getKVFieldsToBeAddedInForm, getSelectedFieldsToBeAddedInForm } from '../JiraCreate/helper'
 import { JiraDynamicFieldsSelector } from '../JiraCreate/JiraDynamicFieldsSelector'
 import type { JiraUpdateFormContentInterface, JiraUpdateData, JiraUpdateStepModeProps } from './types'
 import { processFormData } from './helper'
@@ -57,6 +58,8 @@ const FormContent = ({
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
+  const [selectedProjectKey, setSelectedProjectKey] = useState<string>('')
+  const [selectedIssueTypeKey, setSelectedIssueTypeKey] = useState<string>('')
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -101,7 +104,7 @@ const FormContent = ({
     options =
       statusResponseList.map((status: JiraStatusNG) => ({
         label: status.name || '',
-        value: status.id || ''
+        value: status.name || ''
       })) || []
 
     setStatusOptions(options)
@@ -117,21 +120,35 @@ const FormContent = ({
       >
         <JiraDynamicFieldsSelector
           connectorRef={connectorRefFixedValue || ''}
+          selectedProjectKey={selectedProjectKey}
+          selectedIssueTypeKey={selectedIssueTypeKey}
           projectOptions={projectOptions}
-          addSelectedFields={(fieldsToBeAdded: JiraFieldNG[]) => {
-            formik.setFieldValue('spec.selectedFields', fieldsToBeAdded)
+          addSelectedFields={(fieldsToBeAdded: JiraFieldNG[], selectedProjectKeyInForm, selectedIssueTypeKeyInForm) => {
+            setSelectedProjectKey(selectedProjectKeyInForm)
+            setSelectedIssueTypeKey(selectedIssueTypeKeyInForm)
+            formik.setFieldValue(
+              'spec.selectedFields',
+              getSelectedFieldsToBeAddedInForm(
+                fieldsToBeAdded,
+                formik.values.spec.selectedFields,
+                formik.values.spec.fields
+              )
+            )
             hideDynamicFieldsModal()
           }}
           provideFieldList={(fields: JiraCreateFieldType[]) => {
-            formik.setFieldValue('spec.fields', fields)
-            formik.setFieldValue('spec.selectedFields', [])
+            formik.setFieldValue(
+              'spec.fields',
+              getKVFieldsToBeAddedInForm(fields, formik.values.spec.fields, formik.values.spec.selectedFields)
+            )
             hideDynamicFieldsModal()
           }}
           onCancel={hideDynamicFieldsModal}
+          showProjectDisclaimer={true}
         />
       </Dialog>
     )
-  }, [projectOptions, connectorRefFixedValue])
+  }, [projectOptions, connectorRefFixedValue, formik.values.spec.selectedFields, formik.values.spec.fields])
 
   const AddFieldsButton = () => (
     <Text
@@ -264,10 +281,10 @@ const FormContent = ({
                 }
               })}
 
-              {!isEmpty(formik.values.spec.fields) && isEmpty(formik.values.spec.selectedFields) ? (
+              {!isEmpty(formik.values.spec.fields) ? (
                 <FieldArray
                   name="spec.fields"
-                  render={({ push, remove }) => {
+                  render={({ remove }) => {
                     return (
                       <div>
                         <div className={css.headerRow}>
@@ -294,15 +311,6 @@ const FormContent = ({
                             />
                           </div>
                         ))}
-                        <Button
-                          icon="plus"
-                          minimal
-                          intent="primary"
-                          data-testid="add-fieldList"
-                          onClick={() => push({ name: '', value: '' })}
-                        >
-                          Add
-                        </Button>
                       </div>
                     )
                   }}

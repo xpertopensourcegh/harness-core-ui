@@ -57,28 +57,6 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     }
 
     if (
-      typeof template?.spec?.projectKey === 'string' &&
-      getMultiTypeFromValue(template?.spec?.projectKey) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.projectKey)
-    ) {
-      errors.spec = {
-        ...errors.spec,
-        projectKey: getString?.('pipeline.jiraApprovalStep.validations.project')
-      }
-    }
-
-    if (
-      typeof template?.spec?.issueType === 'string' &&
-      getMultiTypeFromValue(template?.spec?.issueType) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.issueType)
-    ) {
-      errors.spec = {
-        ...errors.spec,
-        issueType: getString?.('pipeline.jiraApprovalStep.validations.issueType')
-      }
-    }
-
-    if (
       typeof template?.spec?.issueKey === 'string' &&
       getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.issueKey)
