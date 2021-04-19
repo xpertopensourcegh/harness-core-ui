@@ -216,7 +216,8 @@
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.0.0",
     "webpack-dev-middleware": "^3.7.2",
-    "webpack-virtual-modules": "^0.4.2"
+    "webpack-virtual-modules": "^0.4.2",
+    "create-react-context": "^0.3.0"
   },
   "engines": {
     "node": ">=14.16.0"
