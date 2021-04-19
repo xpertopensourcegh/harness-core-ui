@@ -8,7 +8,8 @@ import {
   ModalErrorHandlerBinding,
   Text,
   SelectOption,
-  FormInput
+  FormInput,
+  ModalErrorHandler
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -31,12 +32,16 @@ export interface RoleOption extends SelectOption {
   assignmentIdentifier?: string
 }
 
-export interface Assignment {
-  role: RoleOption
-  resourceGroup: SelectOption
+export interface ResourceGroupOption extends SelectOption {
+  assignmentIdentifier?: string
 }
 
-interface UserRoleAssignmentValues {
+export interface Assignment {
+  role: RoleOption
+  resourceGroup: ResourceGroupOption
+}
+
+export interface UserRoleAssignmentValues {
   user: string
   assignments: Assignment[]
 }
@@ -46,7 +51,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
-  const [modalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const { mutate: createRoleAssignment, loading: saving } = useCreateRoleAssignments({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
@@ -78,11 +83,13 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
         role: {
           label: roleAssignment.roleName,
           value: roleAssignment.roleIdentifier,
-          managed: roleAssignment.managedRole
+          managed: roleAssignment.managedRole,
+          assignmentIdentifier: roleAssignment.identifier
         },
         resourceGroup: {
           label: roleAssignment.resourceGroupName || '',
-          value: roleAssignment.resourceGroupIdentifier || ''
+          value: roleAssignment.resourceGroupIdentifier || '',
+          assignmentIdentifier: roleAssignment.identifier
         }
       }
     }) || []
@@ -120,10 +127,13 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
       }),
       inviteType: InviteType.ADMIN_INITIATED
     }
+
     try {
-      await sendInvitation(dataToSubmit)
-      showSuccess(getString('rbac.usersPage.invitationSuccess'))
-      onSubmit?.()
+      const response = await sendInvitation(dataToSubmit)
+      if (response.data?.[0] === 'USER_INVITED_SUCCESSFULLY') {
+        showSuccess(getString('rbac.usersPage.invitationSuccess'))
+        onSubmit?.()
+      } else modalErrorHandler?.showDanger(response.data?.[0] || getString('rbac.usersPage.invitationError'))
     } catch (e) {
       /* istanbul ignore next */
       modalErrorHandler?.showDanger(e.data.message)
@@ -153,9 +163,10 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
             isInvite ? handleInvitation(values) : handleRoleAssignment(values, user?.uuid || values.user)
           }}
         >
-          {() => {
+          {formik => {
             return (
               <Form>
+                <ModalErrorHandler bind={setModalErrorHandler} />
                 <FormInput.Select
                   name="user"
                   label={getString('rbac.usersPage.forUser')}
@@ -163,7 +174,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                   selectProps={{ allowCreatingNewItems: true }}
                   disabled={!isInvite}
                 />
-                <RoleAssignmentForm noRoleAssignmentsText={getString('rbac.usersPage.noDataText')} />
+                <RoleAssignmentForm noRoleAssignmentsText={getString('rbac.usersPage.noDataText')} formik={formik} />
                 <Layout.Horizontal>
                   <Button intent="primary" text={getString('save')} type="submit" disabled={saving || sending} />
                 </Layout.Horizontal>

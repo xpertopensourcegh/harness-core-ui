@@ -21,6 +21,11 @@ userGroupPage:
   successMessage: User Group '{{name}}' deleted successfully
   noUserGroups: No User Groups
   noDataText: You have no User Groups. Click on the button below to create a new one.
+userGroupForm:
+  createSuccess: User Group '{{name}}' created successfully
+roleAssignment:
+  deleteSuccess: Role Assignment deleted successfully
+  deleteFailure: This Role Assignment could not be deleted
 usersPage:
   search: Search by Name or Email
   roleBinding: Role Binding (Role - Resource Group)
@@ -33,8 +38,9 @@ usersPage:
   validation:
     resourceGroup: Resource Group is Required
     role: Role is Required
-  roleAssignSuccess: Role assigned succesfully
+  roleAssignSuccess: Role Assignments updated succesfully
   invitationSuccess: Invitation sent succesfully
+  invitationError: Could not Invite this user
   deleteConfirmation: Are you sure you want to delete the User '{{name}}'?
   deleteTitle: Delete User
   deleteSuccessMessage: User '{{name}}' deleted successfully

@@ -188,7 +188,10 @@ export interface StringsMap {
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.runtimeAccess': string
   'rbac.permissionLabels.view': string
+  'rbac.roleAssignment.deleteFailure': string
+  'rbac.roleAssignment.deleteSuccess': string
   'rbac.roleBinding': string
+  'rbac.userGroupForm.createSuccess': string
   'rbac.userGroupPage.confirmDelete': string
   'rbac.userGroupPage.confirmDeleteTitle': string
   'rbac.userGroupPage.newUserGroup': string
@@ -202,6 +205,7 @@ export interface StringsMap {
   'rbac.usersPage.deleteSuccessMessage': string
   'rbac.usersPage.deleteTitle': string
   'rbac.usersPage.forUser': string
+  'rbac.usersPage.invitationError': string
   'rbac.usersPage.invitationSuccess': string
   'rbac.usersPage.noDataDescription': string
   'rbac.usersPage.noDataText': string

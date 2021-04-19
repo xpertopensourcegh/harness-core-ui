@@ -7,7 +7,8 @@ import {
   Layout,
   ModalErrorHandlerBinding,
   Text,
-  FormInput
+  FormInput,
+  ModalErrorHandler
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -25,7 +26,7 @@ interface UserGroupRoleAssignmentData {
   onSubmit?: () => void
 }
 
-interface UserGroupRoleAssignmentValues {
+export interface UserGroupRoleAssignmentValues {
   name?: string
   assignments: Assignment[]
 }
@@ -35,7 +36,7 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
-  const [modalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const { mutate: createRoleAssignment, loading: saving } = useCreateRoleAssignments({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
@@ -47,11 +48,13 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
         role: {
           label: roleAssignment.roleName,
           value: roleAssignment.roleIdentifier,
-          managed: roleAssignment.managedRole
+          managed: roleAssignment.managedRole,
+          assignmentIdentifier: roleAssignment.identifier
         },
         resourceGroup: {
           label: roleAssignment.resourceGroupName || '',
-          value: roleAssignment.resourceGroupIdentifier || ''
+          value: roleAssignment.resourceGroupIdentifier || '',
+          assignmentIdentifier: roleAssignment.identifier
         }
       }
     }) || []
@@ -98,11 +101,15 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
             handleRoleAssignment(values)
           }}
         >
-          {() => {
+          {formik => {
             return (
               <Form>
+                <ModalErrorHandler bind={setModalErrorHandler} />
                 <FormInput.Text name="name" disabled={true} label={getString('common.userGroup')} />
-                <RoleAssignmentForm noRoleAssignmentsText={getString('rbac.userGroupPage.noRoleAssignmentsText')} />
+                <RoleAssignmentForm
+                  noRoleAssignmentsText={getString('rbac.userGroupPage.noRoleAssignmentsText')}
+                  formik={formik}
+                />
                 <Layout.Horizontal>
                   <Button intent="primary" text={getString('save')} type="submit" disabled={saving} />
                 </Layout.Horizontal>
