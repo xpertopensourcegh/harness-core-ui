@@ -9,6 +9,7 @@ import { useStrings } from 'framework/exports'
 import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
 import css from './UserListView.module.scss'
 
@@ -114,7 +115,7 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
 
 const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, reload }) => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
 
   const { data, loading, error, refetch } = useMutateAsGet(useGetPendingUsersAggregated, {

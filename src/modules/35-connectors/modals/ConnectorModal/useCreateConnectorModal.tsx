@@ -5,6 +5,7 @@ import { useParams } from 'react-router'
 import { CreateConnectorWizard } from '@connectors/components/CreateConnectorWizard/CreateConnectorWizard'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 
 export interface UseCreateConnectorModalProps {
@@ -16,7 +17,7 @@ export interface UseCreateConnectorModalReturn {
   openConnectorModal: (
     isEditMode: boolean,
     type: ConnectorInfoDTO['type'],
-    connectorInfo: ConnectorInfoDTO | void,
+    connectorInfo?: ConnectorInfoDTO,
     modalProps?: IDialogProps
   ) => void
   hideConnectorModal: () => void
@@ -25,7 +26,7 @@ export interface UseCreateConnectorModalReturn {
 const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreateConnectorModalReturn => {
   const [isEditMode, setIsEditMode] = useState(false)
   const [type, setType] = useState(Connectors.KUBERNETES_CLUSTER)
-  const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO | void>()
+  const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO | undefined>()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
@@ -37,7 +38,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       overflow: 'hidden'
     }
   })
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const handleSuccess = (data?: ConnectorRequestBody): void => {
     props.onSuccess?.(data)
@@ -48,8 +49,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       <Dialog {...modalProps}>
         <CreateConnectorWizard
           accountId={accountId}
-          orgIdentifier={connectorInfo ? connectorInfo?.orgIdentifier : orgIdentifier} //For create take scope from url else from entities
-          projectIdentifier={connectorInfo ? connectorInfo?.projectIdentifier : projectIdentifier}
+          orgIdentifier={connectorInfo?.orgIdentifier || orgIdentifier} //For create take scope from url else from entities
+          projectIdentifier={connectorInfo?.projectIdentifier || projectIdentifier}
           type={type}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
@@ -81,8 +82,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
     openConnectorModal: (
       isEditing: boolean,
       connectorType: ConnectorInfoDTO['type'],
-      connectorDetails: ConnectorInfoDTO | void,
-      _modalProps?: IDialogProps | undefined
+      connectorDetails?: ConnectorInfoDTO,
+      _modalProps?: IDialogProps
     ) => {
       setConnectorInfo(connectorDetails)
       setIsEditMode(isEditing)

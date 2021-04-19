@@ -13,6 +13,7 @@ import {
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { VaultConfigFormData } from './VaultConfigForm'
 
 const accessTypeOptions: IOptionProps[] = [
@@ -50,7 +51,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
   isEditing,
   accessType
 }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
   const { getString } = useStrings()
   const [secretEngineOptions, setSecretEngineOptions] = useState<SelectOption[]>([])

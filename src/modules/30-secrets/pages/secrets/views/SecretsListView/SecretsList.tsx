@@ -17,6 +17,7 @@ import { useVerifyModal } from '@secrets/modals/CreateSSHCredModal/useVerifyModa
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
@@ -103,7 +104,7 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
 
 const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, column }) => {
   const data = row.original.secret
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess, showError } = useToaster()
   const [menuOpen, setMenuOpen] = useState(false)
   const { mutate: deleteSecret } = useDeleteSecretV2({

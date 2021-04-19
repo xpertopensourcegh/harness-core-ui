@@ -12,7 +12,7 @@ import { useStrings } from 'framework/exports'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { Module } from '@common/interfaces/RouteInterfaces'
+import type { Module, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import SecretsList from './views/SecretsListView/SecretsList'
@@ -26,7 +26,7 @@ interface SecretsPageProps {
 }
 
 const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const history = useHistory()
   const { getString } = useStrings()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()

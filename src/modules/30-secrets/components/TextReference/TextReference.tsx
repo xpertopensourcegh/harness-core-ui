@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { getSecretV2Promise } from 'services/cd-ng'
 import css from './TextReference.module.scss'
@@ -39,7 +40,7 @@ const errorCheck = (name: string, formik?: FormikContext<any>) =>
 
 const TextReference: React.FC<FormikTextReference> = props => {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
 
   const { formik, name } = props

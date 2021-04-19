@@ -28,6 +28,7 @@ import type { DelegateProfile } from '@delegates/DelegateInterface'
 import { useToaster } from '@common/exports'
 import { AddDescriptionWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { DelegateYaml, StepK8Data } from '@delegates/DelegateInterface'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { DelegateSize } from '@delegates/constants'
 import css from './DelegateSetupStep.module.scss'
@@ -88,7 +89,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
         sesssionIdentifier: ''
       }
 
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
 
   const { mutate: createKubernetesYaml } = useValidateKubernetesYaml({ queryParams: { accountId } })

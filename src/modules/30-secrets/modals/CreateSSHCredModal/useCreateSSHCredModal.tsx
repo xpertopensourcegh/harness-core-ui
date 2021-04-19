@@ -13,6 +13,7 @@ import type {
   SSHKeySpecDTO
 } from 'services/cd-ng'
 import { getSecretReferencesforSSH } from '@secrets/utils/SSHAuthUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CreateSSHCredWizard, { SSHCredSharedObj } from './CreateSSHCredWizard'
 import css from './useCreateSSHCredModal.module.scss'
 
@@ -31,7 +32,7 @@ export enum Views {
 }
 
 const useCreateSSHCredModal = (props: UseCreateSSHCredModalProps): UseCreateSSHCredModalReturn => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [view, setView] = useState(Views.CREATE)
   const [sshData, setSSHData] = useState<SSHCredSharedObj>()
 

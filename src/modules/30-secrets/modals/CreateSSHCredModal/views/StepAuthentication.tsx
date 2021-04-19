@@ -20,6 +20,7 @@ import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/C
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
 import { buildAuthConfig } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 
@@ -75,7 +76,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   previousStep,
   onSuccess
 }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [saving, setSaving] = useState(false)
   const { showSuccess } = useToaster()
   const { mutate: createSecret } = usePostSecret({

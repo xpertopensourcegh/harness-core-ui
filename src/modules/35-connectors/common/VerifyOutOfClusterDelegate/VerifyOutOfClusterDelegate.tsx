@@ -13,6 +13,7 @@ import {
   removeErrorCode,
   DelegateTypes
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface RenderUrlInfo {
@@ -125,7 +126,7 @@ const VerifyOutOfClusterDelegate: React.FC<
   StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
 > = props => {
   const { prevStepData, nextStep, isLastStep = false } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const [viewDetails, setViewDetails] = useState<boolean>(false)
   const [testConnectionResponse, setTestConnectionResponse] = useState<ResponseConnectorValidationResult>()

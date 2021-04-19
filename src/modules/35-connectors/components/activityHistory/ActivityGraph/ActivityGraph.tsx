@@ -15,6 +15,7 @@ import {
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ActivityGraphDataType } from '../ActivityHistory/ActivityHistory'
 
 interface ActivityGraphProps {
@@ -30,7 +31,7 @@ interface ActivityGraphProps {
 }
 
 const ActivityGraph: React.FC<ActivityGraphProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { data: activitySummary, refetch: refetchActivitySummary, loading } = useGetActivitiesSummary({
     queryParams: {

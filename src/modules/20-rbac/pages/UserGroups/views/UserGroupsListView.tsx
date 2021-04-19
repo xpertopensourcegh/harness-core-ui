@@ -16,6 +16,7 @@ import { useStrings } from 'framework/exports'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 // import routes from '@common/RouteDefinitions'
 import css from './UserGroupsListView.module.scss'
 
@@ -81,7 +82,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { mutate: deleteUserGroup } = useDeleteUserGroup({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })

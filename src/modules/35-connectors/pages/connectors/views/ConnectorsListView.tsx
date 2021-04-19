@@ -28,6 +28,7 @@ import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErr
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
@@ -196,7 +197,7 @@ export const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = (
 }
 const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [testing, setTesting] = useState(false)
   const [lastTestedAt, setLastTestedAt] = useState<number>()
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(data.status?.status)
@@ -360,7 +361,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const isHarnessManaged = data.harnessManaged
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { mutate: deleteConnector } = useDeleteConnector({
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }

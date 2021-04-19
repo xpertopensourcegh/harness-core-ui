@@ -6,6 +6,7 @@ import { useInitialization } from 'services/portal'
 import type { StepK8Data } from '@delegates/DelegateInterface'
 
 import { POLL_INTERVAL, TIME_OUT } from '@delegates/constants'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import css from '../CreateK8sDelegate.module.scss'
 let counter = 0
@@ -18,7 +19,7 @@ interface DelegateInitProps {
 }
 
 const DelegateInitialization: React.FC<StepProps<StepK8Data> & DelegateInitProps> = props => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { data: initData, loading: initLoading, refetch: verifyInitialization } = useInitialization({
     queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier },

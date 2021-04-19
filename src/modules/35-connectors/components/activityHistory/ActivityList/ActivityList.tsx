@@ -12,6 +12,7 @@ import type { ResponsePageActivity, Activity, ResponseConnectivityCheckSummary }
 
 import { Page } from '@common/exports'
 import { ActivityStatus, ActivityType } from '@connectors/constants'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../ActivityHistory/ActivityHistory.module.scss'
 
 interface ActivityListProps {
@@ -106,7 +107,7 @@ const RenderColumnStatus: Renderer<CellProps<AllActivity>> = ({ row }) => {
 }
 
 const ActivityList: React.FC<ActivityListProps> = props => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const columns: Column<Activity>[] = useMemo(
     () => [

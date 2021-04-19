@@ -32,6 +32,7 @@ import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'
@@ -56,7 +57,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { getString } = useStrings()
   const { onSuccess } = props
   const propsSecret = props.secret
-  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const secretTypeFromProps = props.type

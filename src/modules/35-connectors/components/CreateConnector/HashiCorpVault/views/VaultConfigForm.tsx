@@ -23,6 +23,7 @@ import {
   VaultMetadataRequestSpecDTO
 } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import VaultConnectorFormFields from './VaultConnectorFormFields'
 import type { CreateHashiCorpVaultProps, StepSecretManagerProps } from '../CreateHashiCorpVault'
 
@@ -49,7 +50,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
   isEditMode,
   onSuccess
 }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()

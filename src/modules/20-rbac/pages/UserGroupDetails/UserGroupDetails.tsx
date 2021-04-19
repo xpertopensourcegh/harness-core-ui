@@ -11,11 +11,14 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module, userGroupIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier, module, userGroupIdentifier } = useParams<
+    PipelineType<ProjectPathProps & { userGroupIdentifier: string }>
+  >()
 
   const { data, loading, error, refetch } = useGetUserGroup({
     identifier: userGroupIdentifier,

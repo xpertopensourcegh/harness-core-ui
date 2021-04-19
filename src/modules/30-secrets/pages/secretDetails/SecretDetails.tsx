@@ -29,6 +29,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
+import type { ProjectPathProps, SecretsPathProps } from '@common/interfaces/RouteInterfaces'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ViewSecretDetails from './views/ViewSecretDetails'
@@ -64,7 +65,7 @@ const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): strin
 }
 
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams<ProjectPathProps & SecretsPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [edit, setEdit] = useState<boolean>()

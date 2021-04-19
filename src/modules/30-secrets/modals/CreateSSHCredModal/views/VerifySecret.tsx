@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SSHKeyValidationMetadata, useValidateSecret, ResponseSecretValidationResultDTO } from 'services/cd-ng'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
-
 import type { UseGetMockData } from '@common/utils/testUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+
 import i18n from '../CreateSSHCredModal.i18n'
 
 interface VerifySecretProps {
@@ -35,7 +36,7 @@ const VerifySecret: React.FC<VerifySecretProps> = ({
   mockDelegateStatus,
   mockValidateSecret
 }) => {
-  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const {
     data: delegateStatus,

@@ -7,6 +7,7 @@ import { Page } from '@common/exports'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ActiveUserListView from './views/ActiveUsersListView'
 import PendingUserListView from './views/PendingUsersListView'
 import css from './UsersPage.module.scss'
@@ -17,7 +18,7 @@ enum Views {
 
 const UsersPage: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const [searchParam, setSearchParam] = useState<string>()
   const { view } = useQueryParams()
   const [reload, setReload] = useState<boolean>()

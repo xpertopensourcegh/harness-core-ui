@@ -14,8 +14,9 @@ import {
   ResponseConnectivityCheckSummary
 } from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { UseGetMockData } from '@common/utils/testUtils'
+
 import ActivityList from '../ActivityList/ActivityList'
 import ActivityGraph from '../ActivityGraph/ActivityGraph'
 
@@ -45,7 +46,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
   const [dateRange, setDateRange] = useState<DateRange>([startOfDay(today()), endOfDay(today())])
   const [isDateRangePickerOpen, setIsDateRangePickerOpen] = useState<boolean>(false)
   const [dataFormat, setDataFormat] = useState<GetActivitiesSummaryQueryParams['timeGroupType']>('HOUR')
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const closeDateRangePicker = useCallback(() => setIsDateRangePickerOpen(false), [])
   const { data: activityList, loading, refetch: refetchActivities } = useListActivities({

@@ -23,6 +23,7 @@ import {
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { useStrings } from 'framework/exports'
 import css from '../CreateGcrConnector.module.scss'
@@ -47,7 +48,7 @@ interface GCPFormInterface {
 }
 const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
 
   const defaultInitialFormData: GCPFormInterface = {

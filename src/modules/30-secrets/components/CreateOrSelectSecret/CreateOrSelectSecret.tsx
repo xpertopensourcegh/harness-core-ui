@@ -8,6 +8,7 @@ import SecretReference from '@secrets/components/SecretReference/SecretReference
 import { getReference } from '@secrets/utils/SSHAuthUtils'
 import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import i18n from './CreateOrSelectSecret.i18n'
 import css from './CreateOrSelectSecret.module.scss'
@@ -27,7 +28,7 @@ export interface CreateOrSelectSecretProps {
 }
 
 const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuccess, secretsListMockData }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   return (
     <section className={css.main}>
       <Tabs id={'CreateOrSelect'}>

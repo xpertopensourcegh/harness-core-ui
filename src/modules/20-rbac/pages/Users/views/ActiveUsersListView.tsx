@@ -17,6 +17,7 @@ import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useMutateAsGet } from '@common/hooks'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -73,7 +74,7 @@ const RenderColumnEmail: Renderer<CellProps<UserAggregate>> = ({ row }) => {
 
 const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) => {
   const data = row.original.user
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
@@ -138,7 +139,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
 
 const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, openRoleAssignmentModal }) => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
 
   const { data, loading, error, refetch } = useMutateAsGet(useGetActiveUsersAggregated, {
