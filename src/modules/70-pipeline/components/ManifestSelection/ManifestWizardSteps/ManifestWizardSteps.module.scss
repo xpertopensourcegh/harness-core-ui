@@ -131,12 +131,13 @@
 }
 .tooltip {
   > * {
-    width: 50%;
+    width: 60%;
+    margin-top: 8px !important;
   }
 }
 
 .tooltipContent {
-  width: 200px;
+  width: 300px;
 }
 .repoName {
   margin-bottom: 0 !important;

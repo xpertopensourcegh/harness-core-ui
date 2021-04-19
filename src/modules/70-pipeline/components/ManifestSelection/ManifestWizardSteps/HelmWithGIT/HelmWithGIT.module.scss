@@ -50,6 +50,14 @@
   }
 }
 
+.skipversionTooltip {
+  > * {
+    width: 60%;
+    margin-left: var(--spacing-medium);
+    margin-top: 8px !important;
+  }
+}
+
 .tooltipContent {
-  width: 250px;
+  width: 300px;
 }

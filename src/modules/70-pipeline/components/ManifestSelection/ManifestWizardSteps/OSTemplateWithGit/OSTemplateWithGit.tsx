@@ -23,11 +23,14 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { OpenShiftTemplateGITDataType } from '../../ManifestInterface'
 import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
@@ -66,10 +69,22 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-            ? initialValues?.spec?.store.spec.repoName
-            : ''
+        const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+        if (connectorScope === Scope.ACCOUNT) {
+          if (
+            initialValues?.spec?.store.spec?.connectorRef ===
+            `account.${prevStepData?.connectorRef?.connector?.identifier}`
+          ) {
+            repoName = initialValues?.spec?.store.spec.repoName
+          } else {
+            repoName = ''
+          }
+        } else {
+          repoName =
+            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+              ? initialValues?.spec?.store.spec.repoName
+              : ''
+        }
       }
       return repoName
     }
@@ -305,7 +320,11 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal width={'90%'} flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+                    <Layout.Horizontal
+                      width={'90%'}
+                      height={120}
+                      flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
+                    >
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
@@ -313,13 +332,13 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                         className={cx(templateCss.checkbox, templateCss.halfWidth)}
                       />
                       <Tooltip
-                        position="top"
+                        position="bottom"
                         content={
-                          <div className={css.tooltipContent}>
+                          <div className={helmcss.tooltipContent}>
                             {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
                           </div>
                         }
-                        className={css.tooltip}
+                        className={helmcss.skipversionTooltip}
                       >
                         <Icon name="info-sign" color={Color.BLUE_450} size={16} />
                       </Tooltip>

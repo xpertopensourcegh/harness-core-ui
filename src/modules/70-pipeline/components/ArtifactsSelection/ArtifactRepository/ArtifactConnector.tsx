@@ -1,5 +1,13 @@
 import React from 'react'
-import { Formik, getMultiTypeFromValue, Layout, MultiTypeInputType, Button, StepProps } from '@wings-software/uicore'
+import {
+  Text,
+  Formik,
+  getMultiTypeFromValue,
+  Layout,
+  MultiTypeInputType,
+  Button,
+  StepProps
+} from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -64,7 +72,11 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
               <div className={css.connectorContainer}>
                 <FormMultiTypeConnectorField
                   name="connectorId"
-                  label={`${getString('select')} ${connectorType} ${getString('connector')}`}
+                  label={
+                    <Text style={{ marginBottom: 8 }}>{`${getString('select')} ${connectorType} ${getString(
+                      'connector'
+                    )}`}</Text>
+                  }
                   placeholder={getString('select')}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}

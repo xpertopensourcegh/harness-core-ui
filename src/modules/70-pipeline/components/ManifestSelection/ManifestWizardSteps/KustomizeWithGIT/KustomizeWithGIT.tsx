@@ -23,6 +23,8 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { KustomizeWithGITDataType } from '../../ManifestInterface'
 import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
@@ -66,10 +68,22 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-            ? initialValues?.spec?.store.spec.repoName
-            : ''
+        const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+        if (connectorScope === Scope.ACCOUNT) {
+          if (
+            initialValues?.spec?.store.spec?.connectorRef ===
+            `account.${prevStepData?.connectorRef?.connector?.identifier}`
+          ) {
+            repoName = initialValues?.spec?.store.spec.repoName
+          } else {
+            repoName = ''
+          }
+        } else {
+          repoName =
+            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+              ? initialValues?.spec?.store.spec.repoName
+              : ''
+        }
       }
       return repoName
     }
@@ -353,7 +367,11 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+                    <Layout.Horizontal
+                      width={'90%'}
+                      height={120}
+                      flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
+                    >
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
@@ -361,13 +379,13 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                         className={cx(helmcss.checkbox, helmcss.halfWidth)}
                       />
                       <Tooltip
-                        position="top"
+                        position="bottom"
                         content={
                           <div className={helmcss.tooltipContent}>
                             {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
                           </div>
                         }
-                        className={helmcss.tooltip}
+                        className={helmcss.skipversionTooltip}
                       >
                         <Icon name="info-sign" color={Color.BLUE_450} size={16} />
                       </Tooltip>

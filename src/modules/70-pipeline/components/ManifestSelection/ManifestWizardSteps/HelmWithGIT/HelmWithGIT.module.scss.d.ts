@@ -13,6 +13,7 @@ declare const styles: {
   readonly repoName: string
   readonly checkbox: string
   readonly tooltip: string
+  readonly skipversionTooltip: string
   readonly tooltipContent: string
 }
 export default styles
