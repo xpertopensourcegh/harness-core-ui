@@ -1,0 +1,25 @@
+.dialog {
+  border-radius: 4px;
+  min-width: max-content;
+}
+
+.cardRow {
+  display: flex;
+}
+
+.card {
+  display: flex !important;
+  justify-content: center;
+  box-shadow: var(--card-box-shadow);
+  margin: var(--spacing-small);
+  width: 90px;
+  height: 80px;
+}
+
+.authorizationCard {
+  width: 100%;
+}
+
+.copyToClipboardIcon {
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { Radio, Container, Accordion, Color, Card, Text, Button, Popover, IconName } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
+import { useSAMLProvider } from '@common/modals/SAMLProvider/useSAMLProvider'
 import configCss from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
 import css from '@common/pages/AuthenticationSettings/Configuration/SAMLProvider/SAMLProvider.module.scss'
 
@@ -37,30 +38,25 @@ const Toolbar: React.FC<Toolbar> = ({ name, icon, authorizationEnabled, groupAtt
       <Text icon={icon} color={Color.GREY_800} font={{ weight: 'bold' }} width="20%">
         {name}
       </Text>
-      <Text color={Color.GREY_800} width={authorizationEnabled ? '50%' : '80%'}>
+      <Text color={Color.GREY_800} width="80%">
         {authorizationEnabled ? (
           <span>
-            {getString('authenticationSettings.authorizationEnabledFor')}{' '}
+            {getString('common.authSettings.authorizationEnabledFor')}{' '}
             <Text font={{ weight: 'semi-bold' }} color={Color.GREY_800} inline>
               {groupAttributeName}
             </Text>
           </span>
         ) : (
-          getString('authenticationSettings.authorizationNotEnabled')
+          getString('common.authSettings.authorizationNotEnabled')
         )}
       </Text>
-      {authorizationEnabled && (
-        <Text intent="success" icon="dot" color={Color.GREY_800} iconProps={{ size: 22 }} width="30%">
-          {getString('connected')}
-        </Text>
-      )}
       <Button minimal intent="primary" className={css.testButton}>
         {getString('test')}
       </Button>
       <Popover
         interactionKind="hover"
         position="left-top"
-        content={<Container padding="small">{getString('authenticationSettings.options')}</Container>}
+        content={<Container padding="small">{getString('common.options')}</Container>}
       >
         <Button minimal icon="Options" />
       </Popover>
@@ -70,6 +66,7 @@ const Toolbar: React.FC<Toolbar> = ({ name, icon, authorizationEnabled, groupAtt
 
 const SAMLProvider: React.FC = () => {
   const { getString } = useStrings()
+  const { openSAMlProvider } = useSAMLProvider()
 
   const AddSAMLButton = (): React.ReactElement => {
     return (
@@ -81,8 +78,9 @@ const SAMLProvider: React.FC = () => {
         className={css.button}
         icon="small-plus"
         iconProps={{ size: 20 }}
+        onClick={() => openSAMlProvider()}
       >
-        {getString('authenticationSettings.SAMLProvider')}
+        {getString('common.authSettings.SAMLProvider')}
       </Button>
     )
   }
@@ -90,7 +88,7 @@ const SAMLProvider: React.FC = () => {
   const summary = (
     <Container margin={{ left: 'xlarge' }}>
       <Radio font={{ weight: 'bold', size: 'normal' }} color={Color.GREY_900}>
-        {samlProviders.length ? getString('authenticationSettings.loginViaSAML') : <AddSAMLButton />}
+        {samlProviders.length ? getString('common.authSettings.loginViaSAML') : <AddSAMLButton />}
       </Radio>
     </Container>
   )
@@ -114,7 +112,7 @@ const SAMLProvider: React.FC = () => {
         panelClassName={configCss.shadow}
         detailsClassName={configCss.details}
       >
-        <Accordion.Panel id="saml-provider-panel" summary={summary} details={details} />
+        <Accordion.Panel id="saml-providers" summary={summary} details={details} />
       </Accordion>
     </Container>
   )

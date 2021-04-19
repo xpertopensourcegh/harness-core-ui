@@ -37,6 +37,8 @@ datePickerShortcuts:
 validation:
   nameIsRequired: Name is required
   valueIsRequired: Value is required
+  fileIsRequired: File is required
+  groupAttributeIsRequired: Group Attribute is required
 specify: Specify
 role: Role
 projectViewer: Project Viewer
@@ -125,3 +127,28 @@ git:
   startPRLabel: Start a pull request
   validation:
     filePath: '{{$.common.git.filePath}} is required'
+other: Other
+options: Options
+samlProvider:
+  addSAMLProvider: Add SAML Provider
+  editSAMLProvider: Edit SAML Provider
+  selectSAMLProvider: Select a SAML Provider
+  enterSAMLEndPoint: Enter this SAML Endpoint URL as your Harness Azure application's ACS URL.
+  uploadIdentityProvider: Upload the Identity Provider metadata XML downloaded from your Okta app
+  chooseFile: Choose a file...
+  enableAuthorization: Enable Authorization
+  groupAttributeName: Group Attribute Name
+  friendlyReminder: Friendly Reminder
+  friendlyReminderDescription: Email addresses are how Harness identifies Users. Always ensure that the email addresses of your registered Harness Users match the SAML provider users you want to authenticate and authorize.
+  enablingAuthorization: Enabling Authorization
+  enablingAuthorizationDescription: To set up SAML authorization in Harness, you link a Harness User Group to a user group in Okta. When a user from Okta logs into Harness, they are automatically added to the linked Harness User Group, and inherit all the RBAC settings for that User Group.
+  testingSSO: Testing SSO
+  testingSSODescription: A new browser tab will prompt you to log into your SAML provider when you test. Ensure that you have at least two corresponding user accounts when setting up and testing SAML SSO in Harness. This allows you to set up the account with a Harness Administrator account and test it with a Harness user account.
+  azure: Azure
+  okta: Okta
+  oneLogin: OneLogin
+authSettings:
+  authorizationEnabledFor: 'Authorization enabled for:'
+  authorizationNotEnabled: Authorization not enabled
+  SAMLProvider: SAML Provider
+  loginViaSAML: Login via SAML

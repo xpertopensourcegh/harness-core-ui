@@ -653,11 +653,6 @@ hours: hours
 authenticationSettings:
   accountOrOAuthLogin: Login via a Harness Account or Public OAuth Providers
   usePublicOAuth: Use Public OAuth Providers
-  loginViaSAML: Login via SAML
-  authorizationEnabledFor: 'Authorization enabled for:'
-  authorizationNotEnabled: Authorization not enabled
-  options: Options
-  SAMLProvider: SAML Provider
   allowUsersWIthEmails: 'Only allow users with the following email domains:'
   useHarnessUsernameAndPassword: Use Harness username and password
   enforcePasswordStrength: Enforce password strength
@@ -685,6 +680,7 @@ authenticationSettings:
   selectUserGroup: Select User Group(s)
   allowLoginFromTheseDomains: Allow login from these domains
   domainNameRequired: At least one domain name is required
+
 gitFetchTypes:
   fromBranch: 'Latest from Branch'
   fromCommit: 'Specific Commit ID'
@@ -698,7 +694,7 @@ projectSelector:
   placeholder: 'Start typing to search'
 script: 'Script'
 inline: 'Inline'
-upload: 'Upload'
+upload: Upload
 remote: 'Remote'
 resourcePage:
   title: RESOURCES

@@ -10,6 +10,10 @@ export interface StringsMap {
   'common.accessKey': string
   'common.addVariable': string
   'common.approve': string
+  'common.authSettings.SAMLProvider': string
+  'common.authSettings.authorizationEnabledFor': string
+  'common.authSettings.authorizationNotEnabled': string
+  'common.authSettings.loginViaSAML': string
   'common.changePlan': string
   'common.cluster': string
   'common.comments': string
@@ -64,7 +68,9 @@ export interface StringsMap {
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.namespace': string
+  'common.options': string
   'common.orgViewer': string
+  'common.other': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
@@ -104,6 +110,23 @@ export interface StringsMap {
   'common.repo_provider.githubLabel': string
   'common.repo_provider.gitlabLabel': string
   'common.role': string
+  'common.samlProvider.addSAMLProvider': string
+  'common.samlProvider.azure': string
+  'common.samlProvider.chooseFile': string
+  'common.samlProvider.editSAMLProvider': string
+  'common.samlProvider.enableAuthorization': string
+  'common.samlProvider.enablingAuthorization': string
+  'common.samlProvider.enablingAuthorizationDescription': string
+  'common.samlProvider.enterSAMLEndPoint': string
+  'common.samlProvider.friendlyReminder': string
+  'common.samlProvider.friendlyReminderDescription': string
+  'common.samlProvider.groupAttributeName': string
+  'common.samlProvider.okta': string
+  'common.samlProvider.oneLogin': string
+  'common.samlProvider.selectSAMLProvider': string
+  'common.samlProvider.testingSSO': string
+  'common.samlProvider.testingSSODescription': string
+  'common.samlProvider.uploadIdentityProvider': string
   'common.secretKey': string
   'common.secrets': string
   'common.selectStrategy': string
@@ -111,6 +134,8 @@ export interface StringsMap {
   'common.trialInProgress': string
   'common.userGroup': string
   'common.userGroups': string
+  'common.validation.fileIsRequired': string
+  'common.validation.groupAttributeIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
   'notifications.buttonSend': string
@@ -1805,10 +1830,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'authenticationSettings.SAMLProvider': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'authenticationSettings.accountOrOAuthLogin': string
   /**
    * @deprecated migrate this string to module level file
@@ -1822,14 +1843,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'authenticationSettings.atLeast8Chars': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.authorizationEnabledFor': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.authorizationNotEnabled': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -1889,10 +1902,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'authenticationSettings.loginViaSAML': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'authenticationSettings.minLength': string
   /**
    * @deprecated migrate this string to module level file
@@ -1902,10 +1911,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'authenticationSettings.notifyUsersWhenTheyLocked': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.options': string
   /**
    * @deprecated migrate this string to module level file
    */
