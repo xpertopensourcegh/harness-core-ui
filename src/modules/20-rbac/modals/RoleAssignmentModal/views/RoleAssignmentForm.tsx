@@ -3,6 +3,7 @@ import { Container, Layout, Text, FieldArray, Select, SelectOption } from '@wing
 import { useParams } from 'react-router-dom'
 import { useGetRoleList } from 'services/rbac'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetResourceGroupList } from 'services/platform'
 import type { RoleOption } from './UserRoleAssigment'
 import css from './RoleAssignmentForm.module.scss'
@@ -17,7 +18,7 @@ interface RoleAssignmentFormProps {
 }
 
 const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmentsText }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const { data: roleList } = useGetRoleList({

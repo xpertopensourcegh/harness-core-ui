@@ -16,6 +16,7 @@ import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { Role, useCreateRole, useUpdateRole } from 'services/rbac'
 import { useStrings } from 'framework/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '@rbac/modals/RoleModal/useRoleModal.module.scss'
 
 interface RoleModalData {
@@ -26,7 +27,7 @@ interface RoleModalData {
 
 const RoleForm: React.FC<RoleModalData> = props => {
   const { data: roleData, onSubmit, isEdit } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()

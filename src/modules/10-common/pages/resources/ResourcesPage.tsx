@@ -6,11 +6,12 @@ import { useStrings } from 'framework/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { CDNG_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
   const { getString } = useStrings()
 

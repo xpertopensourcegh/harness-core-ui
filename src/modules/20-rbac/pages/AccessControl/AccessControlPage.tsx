@@ -5,10 +5,11 @@ import { Container, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './AccessControlPage.module.scss'
 
 const AccessControlPage: React.FC = ({ children }) => {
-  const { accountId, orgIdentifier, projectIdentifier, module } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
   return (
     <>

@@ -9,6 +9,7 @@ import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import pointerImage from './pointer.svg'
 import css from './ProjectSelector.module.scss'
@@ -21,7 +22,7 @@ export interface ProjectSelectorProps {
 const ProjectSelect = Select.ofType<Project>()
 
 export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, moduleFilter }) => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { selectedProject, updateAppStore } = useAppStore()
   const { getString } = useStrings()
   const history = useHistory()

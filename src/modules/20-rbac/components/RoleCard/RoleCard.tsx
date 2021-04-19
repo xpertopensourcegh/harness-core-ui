@@ -8,6 +8,7 @@ import routes from '@common/RouteDefinitions'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { getRoleIcon } from '@rbac/utils/RoleData'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './RoleCard.module.scss'
 
 interface RoleCardProps {
@@ -18,7 +19,7 @@ interface RoleCardProps {
 
 const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal }) => {
   const { role, harnessManaged } = data
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()

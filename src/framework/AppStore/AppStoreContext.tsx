@@ -5,6 +5,7 @@ import { fromPairs } from 'lodash-es'
 import { Project, useGetProject, useGetUserInfo, UserInfo, isGitSyncEnabledPromise } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export type FeatureFlagMap = Record<string, boolean>
 
@@ -37,7 +38,7 @@ export function useAppStore(): AppStoreContextProps {
 }
 
 export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
     featureFlags: {},
     currentUserInfo: {},

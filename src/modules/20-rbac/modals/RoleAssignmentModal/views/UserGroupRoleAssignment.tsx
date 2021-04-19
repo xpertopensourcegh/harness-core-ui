@@ -15,6 +15,7 @@ import { useToaster } from '@common/components'
 import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/exports'
 import type { RoleBinding, UserGroupDTO } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RoleAssignmentForm from './RoleAssignmentForm'
 import type { Assignment } from './UserRoleAssigment'
 
@@ -31,7 +32,7 @@ interface UserGroupRoleAssignmentValues {
 
 const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => {
   const { userGroup, roleBindings, onSubmit } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [modalErrorHandler] = useState<ModalErrorHandlerBinding>()

@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 interface GenericErrorPageQueryParams {
   code: string
@@ -13,7 +14,7 @@ interface GenericErrorPageQueryParams {
 type ErrorProps = GenericErrorPageQueryParams
 
 const Error: React.FC<ErrorProps> = ({ code, message }) => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
 
   switch (code) {

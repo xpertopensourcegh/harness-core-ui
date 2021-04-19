@@ -16,6 +16,7 @@ import { useToaster } from '@common/components'
 import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/exports'
 import { UserSearchDTO, useGetUsers, useSendInvite, CreateInvite, RoleBinding } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -42,7 +43,7 @@ interface UserRoleAssignmentValues {
 
 const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const { user, roleBindings, onSubmit, isInvite } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [modalErrorHandler] = useState<ModalErrorHandlerBinding>()

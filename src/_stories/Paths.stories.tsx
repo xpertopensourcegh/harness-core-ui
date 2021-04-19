@@ -12,7 +12,7 @@ export interface PathParamProps {
 }
 
 function PathParams(): React.ReactElement {
-  const params = useParams()
+  const params = useParams<Record<string, string>>()
 
   return (
     <div>

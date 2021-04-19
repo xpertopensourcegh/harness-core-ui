@@ -16,6 +16,7 @@ import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import { ModuleName, useStrings, String, StringsMap } from 'framework/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PurposePage.module.scss'
 
 interface PurposeType {
@@ -26,7 +27,7 @@ interface PurposeType {
 }
 
 const PurposeList: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
 

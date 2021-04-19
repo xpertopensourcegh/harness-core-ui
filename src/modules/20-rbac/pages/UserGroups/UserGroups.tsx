@@ -9,9 +9,10 @@ import { useGetUserGroupAggregateList } from 'services/cd-ng'
 import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal'
 import UserGroupsListView from '@rbac/pages/UserGroups/views/UserGroupsListView'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 const UserGroupsPage: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
   const [searchTerm, setsearchTerm] = useState<string>()

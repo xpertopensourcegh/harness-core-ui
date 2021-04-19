@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { GitSyncConfig, useListGitSync } from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface GitSyncStoreProps {
   readonly gitSyncRepos: GitSyncConfig[]
@@ -24,7 +25,7 @@ export const useGitSyncStore = (): GitSyncStoreProps => {
 }
 
 export const GitSyncStoreProvider: React.FC = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   //Note: right now we support git-sync only at project level
   const { data: dataAllGitSync, loading: loadingRepos, refetch } = useListGitSync({

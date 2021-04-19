@@ -10,6 +10,7 @@ import { useTestNotificationSetting, SlackSettingDTO } from 'services/platform'
 import { SlackNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useStrings } from 'framework/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface ConfigureSlackNotificationsProps {
@@ -28,7 +29,7 @@ interface SlackNotificationData {
 }
 
 const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = props => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})

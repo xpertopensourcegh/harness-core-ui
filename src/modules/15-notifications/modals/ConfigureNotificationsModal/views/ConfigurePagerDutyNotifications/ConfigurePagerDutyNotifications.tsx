@@ -11,6 +11,7 @@ import { useTestNotificationSetting, PagerDutySettingDTO } from 'services/platfo
 import type { PagerDutyNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import css from '../../ConfigureNotificationsModal.module.scss'
 
@@ -30,7 +31,7 @@ interface PagerDutyNotificationData {
 }
 
 const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsProps> = props => {
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})

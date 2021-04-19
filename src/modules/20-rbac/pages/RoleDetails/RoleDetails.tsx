@@ -24,10 +24,13 @@ import { getPermissionMap } from '@rbac/pages/RoleDetails/utils'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { getRoleIcon } from '@rbac/utils/RoleData'
+import type { PipelineType, RolePathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module } = useParams<
+    PipelineType<ProjectPathProps & RolePathProps>
+  >()
   const [resource, setResource] = useState<ResourceType>()
   const [resourceCategoryMap, setResourceCategoryMap] = useState<
     Map<ResourceType | ResourceCategory, ResourceType[] | undefined>

@@ -12,6 +12,7 @@ import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useTestNotificationSetting, EmailSettingDTO } from 'services/platform'
 import { useStrings } from 'framework/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface EmailTestConfigData {
@@ -84,7 +85,7 @@ interface EmailNotificationData {
 
 const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = props => {
   const [isOpen, setIsOpen] = useState(false)
-  const { accountId } = useParams()
+  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { showSuccess, showError } = useToaster()

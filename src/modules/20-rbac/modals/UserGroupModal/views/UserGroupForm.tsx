@@ -21,6 +21,7 @@ import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/exports'
 import { UserGroupDTO, usePostUserGroup, useGetUsers } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
 interface RoleModalData {
@@ -31,7 +32,7 @@ interface RoleModalData {
 
 const UserGroupForm: React.FC<RoleModalData> = props => {
   const { data: userGroupData, onSubmit, isEdit } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [search, setSearch] = useState<string>()

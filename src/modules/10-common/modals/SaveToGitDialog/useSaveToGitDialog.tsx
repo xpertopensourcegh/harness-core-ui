@@ -8,6 +8,7 @@ import SaveToGitForm, {
   SaveToGitFormInterface
 } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './useSaveToGitDialog.module.scss'
 
 export interface UseSaveToGitDialogProps {
@@ -36,7 +37,7 @@ const useSaveToGitDialog = (props: UseSaveToGitDialogProps): UseSaveToGitDialogR
       overflow: 'hidden'
     }
   })
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const handleSuccess = (data: SaveToGitFormInterface): void => {
     props.onSuccess?.(data)

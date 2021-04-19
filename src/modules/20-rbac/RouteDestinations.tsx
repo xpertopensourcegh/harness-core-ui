@@ -24,6 +24,7 @@ import { ResourceCategory } from '@rbac/interfaces/ResourceType'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import RbacFactory from '@rbac/factories/RbacFactory'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -42,7 +43,7 @@ RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
-  const { accountId, orgIdentifier } = useParams()
+  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   return <Redirect to={routes.toUsers({ accountId, orgIdentifier })} />
 }
 

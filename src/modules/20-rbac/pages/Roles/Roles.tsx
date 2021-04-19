@@ -7,11 +7,12 @@ import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Role, RoleResponse, useGetRoleList } from 'services/rbac'
 import RoleCard from '@rbac/components/RoleCard/RoleCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useRoleModal } from '@rbac/modals/RoleModal/useRoleModal'
 import css from './Roles.module.scss'
 
 const Roles: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
   const [searchTerm, setSearchTerm] = useState<string>()
