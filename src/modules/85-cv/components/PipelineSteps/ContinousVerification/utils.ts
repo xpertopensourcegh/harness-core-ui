@@ -1,4 +1,4 @@
-import { getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE, SelectOption } from '@wings-software/uicore'
 import { isEmpty, isNil, omitBy, set } from 'lodash-es'
 import { yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
@@ -121,7 +121,8 @@ export function getSpecFormData(specInfo: spec | undefined): spec {
  * @param options
  */
 export function setFieldData(validspec: spec | undefined, field: string, fieldOptions: SelectOption[]): void {
-  if (validspec && validspec[field]) {
+  //finding the complete option if the field is fixed input
+  if (validspec && validspec[field] && validspec[field] !== RUNTIME_INPUT_VALUE) {
     validspec[field] = fieldOptions.find((el: SelectOption) => el.value === (validspec && validspec[field]))
   }
 }

@@ -45,7 +45,7 @@ export default function ConfigureVerificationJob(props: {
 
   const renderConfigOptions = (): JSX.Element => {
     switch (selectedJob?.type) {
-      case getString('cv.admin.verificationJobs.jobTypes.test'):
+      case 'TEST':
         return (
           <>
             <div className={cx(stepCss.formGroup)}>
@@ -53,32 +53,32 @@ export default function ConfigureVerificationJob(props: {
                 label={getString('sensitivity')}
                 name={`spec.spec.sensitivity`}
                 expressions={expressions}
-                disabled={isFieldDisabled(specInfo?.sensitivity, selectedJob?.sensitivity)}
+                isSimpleDropdown={isFieldDisabled(specInfo?.sensitivity, selectedJob?.sensitivity)}
                 formik={formik}
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
               <Duration
                 name={`spec.spec.duration`}
-                label={getString('cv.verificationJobs.validation.duration')}
+                label={getString('duration')}
                 expressions={expressions}
-                disabled={isFieldDisabled(specInfo?.duration, selectedJob?.duration)}
+                isSimpleDropdown={isFieldDisabled(specInfo?.duration, selectedJob?.duration)}
                 formik={formik}
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
               <BaselineSelect
                 name={`spec.spec.baseline`}
-                label={getString('cv.verificationJobs.validation.baseline')}
+                label={getString('connectors.cdng.baseline')}
                 expressions={expressions}
-                disabled={isFieldDisabled(specInfo?.baseline, selectedJob?.baselineVerificationJobInstanceId)}
+                isSimpleDropdown={isFieldDisabled(specInfo?.baseline, selectedJob?.baselineVerificationJobInstanceId)}
                 formik={formik}
               />
             </div>
           </>
         )
-      case getString('cv.admin.verificationJobs.jobTypes.blueGreen'):
-      case getString('cv.admin.verificationJobs.jobTypes.canary'):
+      case 'BLUE_GREEN':
+      case 'CANARY':
         return (
           <>
             <div className={cx(stepCss.formGroup)}>
@@ -86,16 +86,16 @@ export default function ConfigureVerificationJob(props: {
                 label={getString('sensitivity')}
                 name={`spec.spec.sensitivity`}
                 expressions={expressions}
-                disabled={isFieldDisabled(specInfo?.sensitivity, selectedJob?.sensitivity)}
+                isSimpleDropdown={isFieldDisabled(specInfo?.sensitivity, selectedJob?.sensitivity)}
                 formik={formik}
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
               <Duration
                 name={`spec.spec.duration`}
-                label={getString('cv.verificationJobs.validation.duration')}
+                label={getString('duration')}
                 expressions={expressions}
-                disabled={isFieldDisabled(specInfo?.duration, selectedJob.duration)}
+                isSimpleDropdown={isFieldDisabled(specInfo?.duration, selectedJob.duration)}
                 formik={formik}
               />
             </div>
@@ -103,20 +103,23 @@ export default function ConfigureVerificationJob(props: {
               <TrafficSplit
                 name={`spec.spec.trafficsplit`}
                 label={getString('connectors.cdng.trafficsplit')}
-                disabled={isFieldDisabled(specInfo?.trafficsplit, selectedJob?.trafficSplitPercentage?.toString())}
+                isSimpleDropdown={isFieldDisabled(
+                  specInfo?.trafficsplit,
+                  selectedJob?.trafficSplitPercentage?.toString()
+                )}
                 formik={formik}
               />
             </div>
           </>
         )
-      case getString('cv.admin.verificationJobs.jobTypes.health'):
+      case 'HEALTH':
         return (
           <div className={cx(stepCss.formGroup)}>
             <Duration
               name={`spec.spec.duration`}
-              label={getString('cv.verificationJobs.validation.duration')}
+              label={getString('duration')}
               expressions={expressions}
-              disabled={isFieldDisabled(specInfo?.duration, selectedJob.duration)}
+              isSimpleDropdown={isFieldDisabled(specInfo?.duration, selectedJob.duration)}
               formik={formik}
             />
           </div>

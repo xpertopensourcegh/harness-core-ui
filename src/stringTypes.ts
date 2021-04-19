@@ -260,7 +260,6 @@ export interface StringsMap {
   'connectors.cdng.defineVerificationJob': string
   'connectors.cdng.deploymentTag': string
   'connectors.cdng.displayName': string
-  'connectors.cdng.duration': string
   'connectors.cdng.error': string
   'connectors.cdng.jobName': string
   'connectors.cdng.jobTypes.blueGreen': string

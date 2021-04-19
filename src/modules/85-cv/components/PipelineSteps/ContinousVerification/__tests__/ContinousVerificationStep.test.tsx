@@ -27,24 +27,6 @@ const jobsData = {
       trafficSplitPercentage: 5,
       type: 'BLUE_GREEN',
       defaultJob: false
-    },
-    {
-      identifier: 'test1_Built-in_health_verification',
-      jobName: 'Built-in health verification',
-      serviceIdentifier: '<+input>',
-      serviceName: null,
-      envIdentifier: '<+input>',
-      envName: null,
-      projectIdentifier: 'test1',
-      orgIdentifier: 'default',
-      activitySourceIdentifier: null,
-      dataSources: ['APP_DYNAMICS', 'SPLUNK', 'STACKDRIVER', 'KUBERNETES', 'NEW_RELIC'],
-      monitoringSources: ['ALL'],
-      verificationJobUrl:
-        '/cv/api/verification-job?accountId=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=test1&identifier=test1_Built-in_health_verification',
-      duration: '15m',
-      type: 'HEALTH',
-      defaultJob: true
     }
   ]
 }
@@ -66,7 +48,7 @@ describe('Test ContinousVerificationStep Step', () => {
     jest.clearAllMocks()
   })
 
-  test('should render edit view as new step', () => {
+  test('should render editView when a new step is added', () => {
     const { container } = render(
       <TestStepWidget initialValues={{}} type={StepType.Verify} stepViewType={StepViewType.Edit} />
     )
@@ -74,7 +56,7 @@ describe('Test ContinousVerificationStep Step', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should render edit view as edit step', () => {
+  test('should render editView when current step is being edited', () => {
     const initialValues = {
       type: 'ContinousVerification',
       identifier: 'ContinousVerification',
@@ -100,7 +82,7 @@ describe('Test ContinousVerificationStep Step', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('renders input sets', () => {
+  test('renders inputSetView', () => {
     const onUpdate = jest.fn()
     const initialValues = {
       type: 'ContinousVerification',
@@ -131,6 +113,19 @@ describe('Test ContinousVerificationStep Step', () => {
       />
     )
 
+    expect(container).toMatchSnapshot()
+  })
+
+  test('renders empty inputSetView', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{}}
+        template={{}}
+        type={StepType.Verify}
+        stepViewType={StepViewType.InputSet}
+        path=""
+      />
+    )
     expect(container).toMatchSnapshot()
   })
 

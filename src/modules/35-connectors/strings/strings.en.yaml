@@ -203,7 +203,6 @@ cdng:
   deploymentTag: Deployment Tag
   defineVerificationJob: Define Verification Job
   configureVerificationJob: Configure Verification Jobs
-  duration: duration
   baseline: Baseline
   trafficsplit: Traffic Split
   continousVerificationStep: Verify Step Details

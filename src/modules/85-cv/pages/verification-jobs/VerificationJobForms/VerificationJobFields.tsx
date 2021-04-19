@@ -31,6 +31,7 @@ interface BaseFieldProps {
   disabled?: boolean
   formik?: FormikProps<ContinousVerificationData>
   expressions?: string[]
+  isSimpleDropdown?: boolean
 }
 
 function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconProps {
@@ -89,14 +90,13 @@ export const DefaultBaselineOptions: SelectOption[] = [
 ]
 
 export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
-  const { zIndex, label, name, expressions, disabled, formik } = props
+  const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 10 }), [zIndex]) as CSSProperties
-  if (!disabled) {
+  if (!isSimpleDropdown) {
     return (
       <FormInput.MultiTypeInput
         name={name ? name : 'sensitivity'}
         style={style}
-        disabled={disabled}
         label={label ? label : i18n.fieldLabels.sensitivity}
         selectItems={VerificationSensitivityOptions}
         multiTypeInputProps={
@@ -163,14 +163,13 @@ export function Duration(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { zIndex, label, name, expressions, disabled, formik } = props
+  const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 8 }), [zIndex]) as CSSProperties
-  if (!disabled) {
+  if (!isSimpleDropdown) {
     return (
       <FormInput.MultiTypeInput
         name={name ? name : 'duration'}
         style={style}
-        disabled={disabled}
         label={label ? label : i18n.fieldLabels.duration}
         selectItems={selectProps.items}
         multiTypeInputProps={
@@ -236,9 +235,9 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { zIndex, label, name, expressions, disabled, formik } = props
+  const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 6 }), [zIndex]) as CSSProperties
-  if (!disabled) {
+  if (!isSimpleDropdown) {
     return (
       <FormInput.MultiTypeInput
         name={name ? name : 'trafficSplit'}
@@ -316,14 +315,13 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
     }
   }, [data])
 
-  const { zIndex, label, name, expressions, disabled, formik } = props
+  const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 5 }), [zIndex]) as CSSProperties
-  if (!disabled) {
+  if (!isSimpleDropdown) {
     return (
       <FormInput.MultiTypeInput
         name={name ? name : 'baseline'}
         style={style}
-        disabled={disabled}
         label={label ? label : i18n.fieldLabels.baseline}
         selectItems={baselineOption}
         multiTypeInputProps={
