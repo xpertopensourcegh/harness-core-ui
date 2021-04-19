@@ -527,20 +527,20 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       class="tab"
                     >
                       <span
-                        class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-red500"
-                        icon="warning-sign"
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
                       >
                         <svg
-                          data-icon="warning-sign"
+                          data-icon="tick-circle"
                           height="14"
                           viewBox="0 0 16 16"
                           width="14"
                         >
                           <desc>
-                            warning-sign
+                            tick-circle
                           </desc>
                           <path
-                            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
                             fill-rule="evenodd"
                           />
                         </svg>
@@ -867,20 +867,9 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   <div
                                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                   >
-                                    <span
-                                      class="bp3-popover-wrapper"
-                                    >
-                                      <span
-                                        class="bp3-popover-target"
-                                      >
-                                        <p
-                                          class="StyledProps--font StyledProps--main label"
-                                          tabindex="0"
-                                        >
-                                          tesa1
-                                        </p>
-                                      </span>
-                                    </span>
+                                    <p
+                                      class="StyledProps--font StyledProps--main label"
+                                    />
                                     <div
                                       class="rightStatus"
                                     >
@@ -1689,20 +1678,9 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   <div
                                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                   >
-                                    <span
-                                      class="bp3-popover-wrapper"
-                                    >
-                                      <span
-                                        class="bp3-popover-target"
-                                      >
-                                        <p
-                                          class="StyledProps--font StyledProps--main label"
-                                          tabindex="0"
-                                        >
-                                          repo-github
-                                        </p>
-                                      </span>
-                                    </span>
+                                    <p
+                                      class="StyledProps--font StyledProps--main label"
+                                    />
                                     <div
                                       class="rightStatus"
                                     >
@@ -1770,25 +1748,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           >
                             plusAdd
                           </p>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
-                          >
-                            repositoryUrlLabel
-                          </p>
-                          <div
-                            class="TextInput--main"
-                          >
-                            <div
-                              class="bp3-input-group bp3-disabled"
-                            >
-                              <input
-                                class="bp3-input"
-                                disabled=""
-                                type="text"
-                                value="https://github.com"
-                              />
-                            </div>
-                          </div>
                         </section>
                         <div
                           class="bp3-form-group"

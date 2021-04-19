@@ -149,6 +149,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     | {
         triggerType: NGTriggerSource['type']
         pipeline?: string
+        originalPipeline?: NgPipeline
         identifier?: string
         connectorRef?: { identifier?: string; scope?: string }
       }
@@ -254,14 +255,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
     }
   }, [triggerIdentifier, triggerResponse])
-
-  // enable later
-  // useEffect(() => {
-  //   const onEditoriginalPipeline = (pipelineResponse?.data?.ngPipeline as any)?.pipeline
-  //   if (originalPipeline) {
-  //     setOnEditInitialValues({ ...onEditInitialValues, originalPipeline: onEditoriginalPipeline })
-  //   }
-  // }, [pipelineResponse])
 
   const returnToTriggersPage = (): void => {
     history.push(
@@ -626,6 +619,28 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   useEffect(() => {
     setInitialValues(Object.assign((triggerTypeOnNew && getInitialValues(triggerTypeOnNew)) || {}, onEditInitialValues))
   }, [onEditInitialValues, currentPipeline])
+
+  useEffect(() => {
+    const yamlPipeline = pipelineResponse?.data?.yamlPipeline
+
+    if (
+      yamlPipeline &&
+      ((initialValues && !initialValues.originalPipeline) ||
+        (onEditInitialValues?.identifier && !onEditInitialValues.originalPipeline))
+    ) {
+      try {
+        const newOriginalPipeline = parse(yamlPipeline)?.pipeline
+        if (onEditInitialValues?.identifier) {
+          setOnEditInitialValues({ ...onEditInitialValues, originalPipeline: newOriginalPipeline })
+        } else {
+          setInitialValues({ ...initialValues, originalPipeline: newOriginalPipeline })
+        }
+      } catch (e) {
+        // set error
+        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+      }
+    }
+  }, [pipelineResponse?.data?.yamlPipeline, onEditInitialValues?.identifier, initialValues])
 
   const handleModeSwitch = (view: SelectedView, yamlHandler?: YamlBuilderHandlerBinding): void => {
     if (view === SelectedView.VISUAL) {

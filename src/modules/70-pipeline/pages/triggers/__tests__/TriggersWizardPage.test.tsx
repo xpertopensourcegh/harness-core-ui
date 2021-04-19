@@ -154,6 +154,17 @@ describe('TriggersWizardPage Triggers tests', () => {
     })
 
     test('OnEdit Render - Schedule ', async () => {
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
